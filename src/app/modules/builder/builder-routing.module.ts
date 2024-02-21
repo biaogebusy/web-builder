@@ -5,6 +5,7 @@ import { PreviewComponent } from './preview/preview.component';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
 import { BuilderSampleComponent } from './sidebar/builder-sample/builder-sample.component';
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
+import { PageListComponent } from './sidebar/page-list/page-list.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'samples',
         component: BuilderSampleComponent,
+      },
+      {
+        path: 'page-list',
+        component: PageListComponent,
       },
       {
         path: 'settings',

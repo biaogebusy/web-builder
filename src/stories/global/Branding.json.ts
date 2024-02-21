@@ -60,7 +60,7 @@ export const defaultHeader: IHeader = {
       href: '/home',
     },
     {
-      label: 'Wbe Builder',
+      label: 'Web Builder',
       classes: 'bold',
       href: '/builder',
     },

@@ -53,6 +53,11 @@
     }
   }
 
+  .page-list {
+    background-color: mat-color($background, background);
+    @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+  }
+
   .cards {
     .group {
       &:hover {
