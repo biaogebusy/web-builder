@@ -170,7 +170,7 @@ export class ComponentService {
       )
     );
 
-    ['article', 'advert', 'question', 'report', 'relate'].forEach((type) =>
+    ['article', 'question', 'report', 'relate'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/node/node.module').then((m) => m.NodeModule)
       )
