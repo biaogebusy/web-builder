@@ -4,14 +4,14 @@
       <ng-container *ngSwitchCase="'raised'">
         <button [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-raised-button
           *ngIf="!content.href;else link" [color]="content.color">
-          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
           <span contentedit="label" [innerHTML]="content.label|safeHtml"></span>
         </button>
         <ng-template #link>
           <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-raised-button
             (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
             [color]="content?.color">
-            <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+            <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
             <span contentedit="label" [innerHTML]="content.label|safeHtml"></span>
           </a>
         </ng-template>
@@ -19,14 +19,14 @@
       <ng-container *ngSwitchCase="'stroked'">
         <button [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-stroked-button
           *ngIf="!content.href;else link" [color]="content.color">
-          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
           <span contentedit="label" [innerHTML]="content.label|safeHtml"></span>
         </button>
         <ng-template #link>
           <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-stroked-button
             (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
             [color]="content?.color">
-            <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+            <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
             <span contentedit="label" [innerHTML]="content.label|safeHtml"></span>
           </a>
         </ng-template>
@@ -34,13 +34,13 @@
       <ng-container *ngSwitchCase="'flat'">
         <button [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-flat-button
           *ngIf="!content.href;else link" [color]="content.color">
-          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
           <span contentedit="label" [innerHTML]="content.label|safeHtml"></span></button>
         <ng-template #link>
           <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-flat-button
             (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
             [color]="content?.color">
-            <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+            <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
             <span contentedit="label" [innerHTML]="content.label|safeHtml"></span>
           </a>
         </ng-template>
@@ -48,38 +48,38 @@
       <ng-container *ngSwitchCase="'icon'">
         <button *ngIf="!content.href;else link" [ngClass]="content.classes || ''" [disabled]="content.disabled"
           mat-icon-button [color]="content.color">
-          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
         </button>
         <ng-template #link>
           <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-icon-button
             (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
             [color]="content?.color">
-            <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+            <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
           </a>
         </ng-template>
       </ng-container>
       <ng-container *ngSwitchCase="'fab'">
-        <button *ngIf="content.icon" [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-fab
-          [color]="content.color">
+        <button *ngIf="content.icon && content.icon.svg" [ngClass]="content.classes || ''" [disabled]="content.disabled"
+          mat-fab [color]="content.color">
           <app-icon [content]="content.icon"></app-icon>
         </button>
       </ng-container>
       <ng-container *ngSwitchCase="'mini-fab'">
-        <button *ngIf="content.icon" [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-mini-fab
-          [color]="content.color">
+        <button *ngIf="content.icon && content.icon.svg" [ngClass]="content.classes || ''" [disabled]="content.disabled"
+          mat-mini-fab [color]="content.color">
           <app-icon [content]="content.icon"></app-icon>
         </button>
       </ng-container>
       <ng-container *ngSwitchDefault>
         <button [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-button
           *ngIf="!content.href;else link" [color]="content.color">
-          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
           <span contentedit="label" [innerHTML]="content.label|safeHtml"></span>
         </button>
         <ng-template #link>
           <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-button (click)="onNav($event, content)"
             [href]="content.href" [target]="content?.target || ''" [color]="content?.color">
-            <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+            <app-icon *ngIf="content.icon && content.icon.svg" [content]="content.icon"></app-icon>
             <span contentedit="label" [innerHTML]="content.label|safeHtml"></span>
           </a>
         </ng-template>
