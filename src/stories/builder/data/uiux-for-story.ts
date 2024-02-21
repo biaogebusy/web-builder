@@ -24,15 +24,6 @@ export const uiux: IUiux[] = [
     elements: components,
   },
   {
-    label: '示例页面',
-    icon: {
-      svg: 'lightbulb-on-30',
-      inline: true,
-    },
-    type: 'sample',
-    elements: samples,
-  },
-  {
     label: '系统页面',
     icon: {
       svg: 'tune-variant',
