@@ -71,7 +71,7 @@ export class FeatureBoxComponent implements OnInit {
   }
 
   getHoverIcon(): void {
-    if (!this.content.hoverIcon) {
+    if (this.content.hoverIcon === undefined) {
       this.isHoverIcon = true;
       return;
     }
@@ -80,6 +80,7 @@ export class FeatureBoxComponent implements OnInit {
     } else {
       this.isHoverIcon = false;
     }
+
     this.cd.detectChanges();
   }
 
