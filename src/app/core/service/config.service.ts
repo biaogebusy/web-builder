@@ -42,7 +42,7 @@ export class ConfigService {
         if (this.coreConfig?.clarity?.id) {
           clarityService.init(this.coreConfig.clarity.id);
         }
-        if (this.coreConfig?.tour.enable) {
+        if (this.coreConfig?.tour?.enable) {
           tourService.init(this.coreConfig.tour);
         }
       }

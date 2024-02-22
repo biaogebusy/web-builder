@@ -218,6 +218,12 @@
       color: mat-color($primary);
     }
   }
+
+  .has-icon {
+    .mat-icon {
+      color: mat-color($primary);
+    }
+  }
   .header-inverse {
     .header {
       background-color: mat-color($primary);

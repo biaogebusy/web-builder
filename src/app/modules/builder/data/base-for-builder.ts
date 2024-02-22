@@ -693,7 +693,7 @@ export const base = [
           actions: [
             {
               type: 'btn-generater',
-              label: '体验生成页面',
+              label: '生成页面',
               color: 'primary',
               mode: 'raised',
             },
