@@ -4,6 +4,28 @@
   border-radius: 4px;
   .form {
     padding: 10px;
+    ::ng-deep {
+      .mat-form-field-wrapper {
+        border-radius: 30px;
+        padding: 4px 6px;
+        .mat-form-field-flex {
+          margin-top: 0;
+        }
+        .mat-form-field-underline {
+          display: none;
+        }
+        .mat-form-field-outline {
+          display: none;
+        }
+        .mat-form-field-infix {
+          border-top: 0;
+          padding: 10px 0;
+        }
+        .mat-form-field-outline {
+          margin-top: 0;
+        }
+      }
+    }
   }
   app-title {
     margin: 0 10px;

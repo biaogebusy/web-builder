@@ -55,6 +55,9 @@
     @include mat-elevation(3, mat-color($foreground, divider), 0.4);
     .form {
       background-color: mat-color($background, card);
+      .mat-form-field-wrapper {
+        border: 1px solid mat-color($foreground, divider);
+      }
     }
     .mat-list {
       @include scrollbar(mat-color($primary));
