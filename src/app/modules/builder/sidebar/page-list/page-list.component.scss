@@ -2,4 +2,29 @@
   position: relative;
   margin: 10px;
   border-radius: 4px;
+  .form {
+    padding: 10px;
+  }
+  app-title {
+    margin: 0 10px;
+  }
+  .mat-list {
+    height: 510px;
+    overflow: auto;
+    .mat-list-item {
+      .mat-line {
+        font-size: 15px;
+      }
+      .meta {
+        font-size: 14px;
+        opacity: 0.5;
+      }
+      ::ng-deep {
+        .mat-button-base {
+          font-size: 12px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
 }

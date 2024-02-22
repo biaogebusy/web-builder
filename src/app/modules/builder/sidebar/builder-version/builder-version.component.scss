@@ -12,6 +12,9 @@
         padding: 0;
       }
     }
+    .mat-line {
+      font-size: 15px;
+    }
     .title {
       border-bottom: 1px solid transparent;
       &:focus-visible {
@@ -20,6 +23,10 @@
       &:hover {
         cursor: text;
       }
+    }
+    .time {
+      font-size: 14px;
+      opacity: 0.5;
     }
     .delete {
       position: absolute;

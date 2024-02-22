@@ -1,12 +1,18 @@
-<div class="page-list" *ngIf="content$ | async as content">
+<div class="page-list">
+  <app-title [content]="{label:'管理列表',style:'style-v4',classes:'mat-display-1 bold'}"></app-title>
+  <div class="form">
+    <app-formly [fields]="fields" [form]="form" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
+  </div>
   <mat-list>
-    <mat-list-item matRipple *ngFor="let page of content; index as i">
-      <app-icon mat-list-icon [content]="{svg:'file-outline'}"></app-icon>
-      <div class="title" mat-line>
-        {{page.title}}
-      </div>
-      <div class="time" mat-line> {{page.changed | date:'yyyy-MM-dd HH:mm:ss'}} </div>
-    </mat-list-item>
+    <ng-container *ngIf="content$ | async as content">
+      <mat-list-item (click)="loadPage(page)" matRipple *ngFor="let page of content; index as i">
+        <div class="title" mat-line>
+          <a [href]="page.href" target="_blank">{{page.title}}</a>
+        </div>
+        <div class="meta" mat-line>{{page.user}} {{page.changed | date:'yyyy/MM/dd HH:mm'}} </div>
+        <app-btn [content]="{label:'编辑','mode':'stroked','color':'primary'}"></app-btn>
+      </mat-list-item>
+    </ng-container>
   </mat-list>
   <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
 </div>

@@ -13,7 +13,7 @@
             <mat-icon mat-list-icon color="primary" *ngIf="version.current"> radio_button_checked </mat-icon>
             <div class="title" (blur)="onUpdateTitle($event,i)" (click)="onClickTitle($event)" mat-line
               contenteditable="true">{{version.title}}</div>
-            <div class="time" mat-line> {{version.time | date:'yyyy-MM-dd HH:mm:ss'}} </div>
+            <div class="time" mat-line> {{version.time | date:'yyyy/MM/dd HH:mm:ss'}} </div>
             <app-btn *ngIf="i > 0" (click)="onDelete(i)" class="delete" [matTooltip]="'删除'"
               [content]="{mode:'icon',color:'warn',icon:{svg:'trash-can-outline'}}"></app-btn>
           </mat-list-item>
