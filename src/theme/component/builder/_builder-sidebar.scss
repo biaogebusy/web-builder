@@ -38,9 +38,6 @@
       .mat-icon:not(.mat-primary) {
         color: mat-color($foreground, text, 0.5);
       }
-      .time {
-        color: mat-color($foreground, text, 0.5);
-      }
       .title {
         &:focus-visible {
           color: mat-color($primary);
@@ -50,6 +47,29 @@
     }
     .mat-expansion-panel-body {
       @include scrollbar(mat-color($primary));
+    }
+  }
+
+  .page-list {
+    background-color: mat-color($background, background);
+    @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+    .form {
+      background-color: mat-color($background, card);
+      .mat-form-field-wrapper {
+        border: 1px solid mat-color($foreground, divider);
+      }
+    }
+    .mat-list {
+      @include scrollbar(mat-color($primary));
+      .mat-list-item {
+        border-bottom: 1px solid mat-color($foreground, divider);
+        a {
+          color: mat-color($foreground, text, 0.75);
+          &:hover {
+            color: mat-color($primary);
+          }
+        }
+      }
     }
   }
 

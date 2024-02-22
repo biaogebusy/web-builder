@@ -1,0 +1,54 @@
+.page-list {
+  position: relative;
+  margin: 10px;
+  border-radius: 4px;
+  .form {
+    padding: 10px;
+    ::ng-deep {
+      .mat-form-field-wrapper {
+        border-radius: 30px;
+        padding: 4px 6px;
+        .mat-form-field-flex {
+          margin-top: 0;
+        }
+        .mat-form-field-underline {
+          display: none;
+        }
+        .mat-form-field-outline {
+          display: none;
+        }
+        .mat-form-field-infix {
+          border-top: 0;
+          padding: 6px 0;
+          font-size: 14px;
+          line-height: 1;
+        }
+        .mat-form-field-outline {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+  app-title {
+    margin: 0 10px;
+  }
+  .mat-list {
+    height: 510px;
+    overflow: auto;
+    .mat-list-item {
+      .mat-line {
+        font-size: 15px;
+      }
+      .meta {
+        font-size: 14px;
+        opacity: 0.5;
+      }
+      ::ng-deep {
+        .mat-button-base {
+          font-size: 12px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+}

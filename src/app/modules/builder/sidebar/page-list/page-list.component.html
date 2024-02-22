@@ -1,0 +1,19 @@
+<div class="page-list">
+  <app-title [content]="{label:'管理列表',style:'style-v4',classes:'mat-display-1 bold'}"></app-title>
+  <div class="form">
+    <app-formly [fields]="fields" [form]="form" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
+  </div>
+  <mat-list>
+    <ng-container *ngIf="content$ | async as content">
+      <mat-list-item *ngFor="let page of content; index as i">
+        <div class="title" mat-line>
+          <a [href]="page.href" target="_blank">{{page.title}}</a>
+        </div>
+        <div class="meta" mat-line>{{page.user}} {{page.changed | date:'yyyy/MM/dd HH:mm'}} </div>
+        <div class="meta" mat-line>{{page.href}}</div>
+        <app-btn (click)="loadPage(page)" [content]="{label:'编辑','mode':'stroked','color':'primary'}"></app-btn>
+      </mat-list-item>
+    </ng-container>
+  </mat-list>
+  <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
+</div>
