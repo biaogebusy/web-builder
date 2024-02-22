@@ -5,13 +5,13 @@
   </div>
   <mat-list>
     <ng-container *ngIf="content$ | async as content">
-      <mat-list-item (click)="loadPage(page)" matRipple *ngFor="let page of content; index as i">
+      <mat-list-item *ngFor="let page of content; index as i">
         <div class="title" mat-line>
           <a [href]="page.href" target="_blank">{{page.title}}</a>
         </div>
         <div class="meta" mat-line>{{page.user}} {{page.changed | date:'yyyy/MM/dd HH:mm'}} </div>
         <div class="meta" mat-line>{{page.href}}</div>
-        <app-btn [content]="{label:'编辑','mode':'stroked','color':'primary'}"></app-btn>
+        <app-btn (click)="loadPage(page)" [content]="{label:'编辑','mode':'stroked','color':'primary'}"></app-btn>
       </mat-list-item>
     </ng-container>
   </mat-list>

@@ -114,11 +114,14 @@ export class PageListComponent implements OnInit, OnDestroy {
   }
 
   loadPage(item: any): void {
+    this.util.openSnackbar('正在加载页面', 'ok');
+    this.builder.loading$.next(true);
     this.nodeService
       .fetch('landingPage', `content=${item.href}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((page: IPage) => {
         console.log(page);
+        this.builder.loading$.next(false);
         if (page.body.length) {
           this.builder.loadNewPage(page);
         } else {
