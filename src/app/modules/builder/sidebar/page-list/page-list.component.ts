@@ -75,7 +75,7 @@ export class PageListComponent implements OnInit, OnDestroy {
   getContent(apiParams: DrupalJsonApiParams): void {
     const params = apiParams.getQueryString();
 
-    this.content$ = this.nodeService.fetch('/node/landing_page', params).pipe(
+    this.content$ = this.nodeService.fetch('node/landing_page', params).pipe(
       takeUntil(this.destroy$),
       map((res) => {
         console.log(res);
