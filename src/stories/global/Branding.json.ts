@@ -427,7 +427,7 @@ const footerMobileMenu = [
       {
         label: 'JSONAPI',
         icon: 'arrow_right',
-        href: 'https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi',
+        href: 'https://jsonapi.org/format/',
         target: '_blank',
       },
     ],
