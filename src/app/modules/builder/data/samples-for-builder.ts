@@ -8,194 +8,113 @@ export const samples = {
         svg: 'numeric-1',
       },
       page: {
-        title: '首页 v1',
-        body: [
+        title: '信使 UI 低代码开源前端框架  | XINSHI信使',
+        meta: [
           {
-            spacer: 'none',
-            type: 'hero-1v1',
-            classes: 'text-light text-center',
-            bg: {
-              classes: '',
-            },
-            sliders: {
-              params: {
-                slidesPerView: 1,
-                spaceBetween: 0,
-                pagination: false,
-                observer: true,
-                observeParents: true,
-              },
-              classes: '',
-              elements: [
-                {
-                  type: 'text',
-                  spacer: 'xl',
-                  title: {
-                    label: '组件驱动开发',
-                    style: 'style-v1',
-                    classes: 'mat-display-2 bold',
-                  },
-                  classes: 'xy-center',
-                  bg: {
-                    classes: 'bg-center overlay overlay-80',
-                    img: {
-                      src: '/assets/images/16-9/business-14.jpeg',
-                      mobile: '/assets/images/mobile/mobile-03.jpg',
-                    },
-                  },
-                  body: '<p style="font-size:18px">Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"</p>',
-                  actionsAlign: 'center center',
-                  actions: [
-                    {
-                      type: 'btn',
-                      mode: 'raised',
-                      color: 'primary',
-                      href: '#',
-                      label: '立刻体验',
-                    },
-                  ],
-                },
-                {
-                  type: 'text',
-                  title: {
-                    label: '组件展示和测试',
-                    style: 'style-v1',
-                    classes: 'mat-display-2 bold',
-                  },
-                  spacer: 'xl',
-                  classes: 'xy-center text-light',
-                  bg: {
-                    classes: 'bg-shadow  overlay overlay-80',
-                    img: {
-                      src: '/assets/images/16-9/business-15.jpeg',
-                      mobile: '/assets/images/mobile/mobile-04.jpg',
-                    },
-                  },
-                  body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。',
-                  actionsAlign: 'center center',
-                  actions: [
-                    {
-                      type: 'btn',
-                      mode: 'raised',
-                      color: 'primary',
-                      href: '#',
-                      label: '立刻体验',
-                    },
-                  ],
-                },
-                {
-                  type: 'text',
-                  title: {
-                    label: '文档化',
-                    style: 'style-v1',
-                    classes: 'mat-display-2 bold',
-                  },
-                  spacer: 'xl',
-                  classes: 'xy-center text-light',
-                  bg: {
-                    classes: 'bg-shadow  overlay overlay-80',
-                    img: {
-                      src: '/assets/images/16-9/business-15.jpeg',
-                      mobile: '/assets/images/mobile/mobile-04.jpg',
-                    },
-                  },
-                  body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。',
-                  actionsAlign: 'center center',
-                  actions: [
-                    {
-                      type: 'btn',
-                      mode: 'raised',
-                      color: 'primary',
-                      href: '#',
-                      label: '立刻体验',
-                    },
-                  ],
-                },
-              ],
-            },
+            name: 'description',
+            content:
+              '信使 UI 是基于 Material 的 Angular 低代码前端框架,丰富的组件库可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的Web 页面。',
           },
           {
-            type: 'showcase-1v1',
-            classes: 'features-absolute',
-            spacer: 'lg',
+            name: 'keywords',
+            content: '信使UI,低代码,Drupal',
+          },
+        ],
+        body: [
+          {
+            type: 'showcase-3v9',
             bg: {
-              classes: 'bg-shadow bg-fill-width',
+              classes: 'bg-fill-width',
+              img: {
+                classes: 'object-fit',
+                src: '/assets/images/bg/bg-01.png',
+              },
             },
-            row: 4,
-            elements: [
+            spacer: 'lg',
+            order: {
+              left: 1,
+              right: 0,
+            },
+            left: [
               {
-                icon: {
-                  svg: 'palette-advanced',
-                },
-                style: 'style-v9',
-                title: {
-                  href: '/?path=/story/guide--page',
-                  label: '丰富的组件库',
-                },
-                content: '常用的组件库，和三十多个基组件',
-                more: {
-                  href: '/?path=/story/builder--default',
-                  label: '更多',
-                },
+                type: 'img',
+                src: '/assets/images/illustration/13.png',
+                classes: 'mover',
+                hostClasses: 'position-relative img-bg-shape',
+                actions: [
+                  {
+                    type: 'btn-video',
+                    color: 'default',
+                    dialog: {
+                      width: '900',
+                      height: '800',
+                    },
+                    video: {
+                      type: 'player',
+                      options: {
+                        controls: true,
+                        aspectRatio: '16:9',
+                        poster: '/assets/storybook/assets/builder.png',
+                        sources: [
+                          {
+                            src: '/assets/video/layout-builder-hero-demo.mp4',
+                            'type:': 'video/mp4',
+                          },
+                        ],
+                      },
+                    },
+                  },
+                ],
               },
+            ],
+            right: [
               {
-                icon: {
-                  svg: 'palette',
-                },
-                style: 'style-v9',
+                type: 'text',
+                spacer: 'sm',
                 title: {
-                  href: '/?path=/story/themeconfig--page',
-                  label: '支持多主题',
+                  label:
+                    '欢迎使用 <strong class="text-primary"></strong> <br>快速构建页面',
+                  style: 'style-v4',
+                  classes: 'mat-display-3 bold',
+                  typed: {
+                    enable: true,
+                    strings: [{ label: '信使 UI' }, { label: 'Web builder' }],
+                    config: {
+                      typeSpeed: 120,
+                      loop: true,
+                    },
+                  },
                 },
-                content: '内置多个主题，Material 色彩生成，支持暗黑主题',
-                more: {
-                  href: '/?path=/story/themeconfig--page',
-                  label: '更多',
-                },
-              },
-              {
-                icon: {
-                  svg: 'format-list-text',
-                },
-                style: 'style-v9',
-                title: {
-                  href: '/?path=/story/flexlayout--page',
-                  label: '示例页',
-                },
-                content: '十多个经典示例页，展示组件的灵活性',
-                more: {
-                  href: '/?path=/story/builder--default',
-                  label: '更多',
-                },
-              },
-              {
-                icon: {
-                  svg: 'microsoft-visual-studio-code',
-                },
-                style: 'style-v9',
-                title: {
-                  href: '/?path=/story/home-v1--page',
-                  label: 'Web Builder',
-                },
-                content: '从组件库中通过拖拽快速构建页面',
-                more: {
-                  href: '/?path=/story/builder--default',
-                  label: '更多',
-                },
+                body: '从左侧选择组件拖动到想要的位置：<ul class="list-done"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class="text-primary">1176468251</span></p><p style="display:flex"><video  muted  autoplay loop width="120px" src="/assets/video/drag-drop.mp4"></video></p>',
+                actions: [
+                  {
+                    type: 'btn',
+                    color: 'primary',
+                    mode: 'raised',
+                    href: '/builder',
+                    label: '立即体验',
+                  },
+                  {
+                    type: 'btn',
+                    color: 'primary',
+                    mode: 'stroked',
+                    label: ' 关注作者',
+                    href: 'https://www.zhihu.com/people/biaogebusy',
+                    target: '_blank',
+                    icon: {
+                      inline: true,
+                      svg: 'zhihu',
+                    },
+                  },
+                  {
+                    type: 'github-star',
+                  },
+                ],
               },
             ],
           },
           {
             type: 'showcase-3v2',
-            text: {
-              title: {
-                label:
-                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
-                style: 'style-v1',
-                classes: 'mat-display-2 bold',
-              },
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
-            },
             classes: '',
             bg: {
               classes: 'bg-fill-width',
@@ -215,18 +134,23 @@ export const samples = {
                   type: 'text',
                   spacer: 'sm',
                   title: {
-                    label: '组件驱动开发',
+                    label: '开源框架',
                     style: 'style-v4',
                     classes: 'mat-display-2',
                   },
-                  body: '<strong class="text-primary">Storybook</strong> 采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class="list-done">\r\n\t<li>为每个UI组件创建"stories"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n',
+                  body: '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
                   actions: [
                     {
                       type: 'btn',
                       color: 'primary',
                       mode: 'raised',
-                      href: '#',
-                      label: '马上体验',
+                      label: ' Github',
+                      href: 'https://github.com/biaogebusy/xinshi-ui',
+                      target: '_blank',
+                      icon: {
+                        inline: true,
+                        svg: 'github',
+                      },
                     },
                   ],
                 },
@@ -250,7 +174,7 @@ export const samples = {
                       type: 'btn',
                       color: 'primary',
                       mode: 'raised',
-                      href: '#',
+                      href: '/builder',
                       label: '马上体验',
                     },
                   ],
@@ -275,7 +199,7 @@ export const samples = {
                       type: 'btn',
                       color: 'primary',
                       mode: 'raised',
-                      href: '#',
+                      href: '/builder',
                       label: '马上体验',
                     },
                   ],
@@ -284,949 +208,71 @@ export const samples = {
             ],
           },
           {
-            type: 'showcase-4v1',
-            spacer: 'lg',
-            text: {
-              title: {
-                label: '平台实时数据',
-                style: 'style-v1',
-              },
-            },
+            type: 'showcase-1v1',
             bg: {
-              classes: 'bg-fill-width bg-shadow',
+              classes: 'bg-shadow bg-fill-width',
             },
-            classes: '',
-            params: {
-              apiBak: 'api/v1/xxx',
-            },
-            elements: [
-              {
-                icon: {
-                  name: 'fingerprint',
-                },
-                digit: {
-                  value: 623,
-                  label: '+',
-                },
-                title: '日访问人数',
-              },
-              {
-                icon: {
-                  name: 'verified_user',
-                },
-                digit: {
-                  value: 339,
-                  label: '+',
-                },
-                title: '日打开次数',
-              },
-              {
-                icon: {
-                  name: 'android',
-                },
-                digit: {
-                  value: 70,
-                  label: '人',
-                },
-                title: '日新增人数',
-              },
-              {
-                icon: {
-                  name: 'mail',
-                },
-                digit: {
-                  value: 6400,
-                  label: '万',
-                },
-                title: '累计用户数',
-              },
-            ],
-          },
-          {
-            type: 'carousel-2v1',
             title: {
-              label: '用户是如何评价 Storybook',
+              label: '使用人员',
               style: 'style-v1',
+              classes: 'mat-display-1',
             },
-            bg: {
-              classes: 'bg-fill-width overlay overlay-80',
-              img: {
-                src: '/assets/images/bg/bg-03.jpeg',
-                hostClasses: 'bg-center',
-              },
-            },
-            classes: '',
-            sliders: {
-              params: {
-                slidesPerView: 1,
-                pagination: false,
-                autoplay: {
-                  delay: 5000,
-                },
-                breakpoints: {
-                  '600': {
-                    slidesPerView: 1,
-                    spaceBetween: 0,
-                  },
-                  '960': {
-                    slidesPerView: 1,
-                    spaceBetween: 0,
-                  },
-                },
-              },
-              classes: 'p-bottom',
-              elements: [
-                {
-                  type: 'testimonial',
-                  style: 'style-v2',
-                  title: 'Johnson',
-                  subTitle: 'FrontEnd',
-                  img: {
-                    src: '/assets/images/avatar/01.jpeg',
-                    alt: '',
-                  },
-                  body: 'Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。',
-                },
-                {
-                  type: 'testimonial',
-                  style: 'style-v2',
-                  title: 'Will',
-                  subTitle: 'FrontEnd',
-                  img: {
-                    src: '/assets/images/avatar/02.jpeg',
-                    alt: '',
-                  },
-                  body: 'Storybook是我们团队的救星！它使我们能够独立地开发、测试和文档化组件，大大提高了我们的工作效率。非常好用！',
-                },
-                {
-                  type: 'testimonial',
-                  style: 'style-v2',
-                  title: 'Ammy',
-                  subTitle: 'Backend',
-                  img: {
-                    src: '/assets/images/avatar/03.jpeg',
-                    alt: '',
-                  },
-                  body: '使用Storybook后，我们的组件开发变得更加高效和可靠。它帮助我们定义多个使用场景，清晰地展示组件在各种情景下的表现。我们团队对它赞不绝口！ ',
-                },
-                {
-                  type: 'testimonial',
-                  style: 'style-v2',
-                  title: 'Alen',
-                  subTitle: 'FrontEnd',
-                  img: {
-                    src: '/assets/images/avatar/04.jpeg',
-                    alt: '',
-                  },
-                  body: 'Storybook为我们的团队带来了极大的协作效益。它提供了一个集中查看和交流的平台，团队成员可以轻松共享和讨论组件。无疑是一个必备工具！ ',
-                },
-              ],
-            },
-          },
-          {
-            type: 'showcase-2v1',
-            text: {
-              title: {
-                label: 'Drupal 优秀案例',
-                style: 'style-v1',
-                classes: 'mat-display-2 bold',
-              },
-              body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
-            },
-            bg: {
-              classes: '',
-            },
-            classes: '',
-            row: 5,
+            row: '4',
             elements: [
               {
-                type: 'card',
-                subTitle: '2024-02-19',
-                avatar: {
-                  src: '/assets/images/avatar/01.jpeg',
-                  alt: '',
+                img: {
+                  src: '/assets/images/svg/Asset187.svg',
+                  alt: 'browser',
                 },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      hoverIcon: true,
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto1.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                    {
-                      type: 'feature-box',
-                      hoverIcon: false,
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto2.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '哈佛大学',
-                },
-              },
-              {
-                type: 'card',
-                subTitle: '2024-02-19',
-                avatar: {
-                  src: '/assets/images/avatar/02.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      hoverIcon: false,
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto9.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '斯坦福大学',
-                },
-              },
-              {
-                type: 'card',
-                subTitle: '2024-02-19',
-                avatar: {
-                  src: '/assets/images/avatar/03.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      hoverIcon: false,
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto3.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '牛津大学',
-                },
-              },
-              {
-                type: 'card',
-                subTitle: '2024-02-19',
-                avatar: {
-                  src: '/assets/images/avatar/04.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      hoverIcon: false,
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto4.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '麻省理工学院',
-                },
-              },
-              {
-                type: 'card',
-                subTitle: '2024-02-19',
-                avatar: {
-                  src: '/assets/images/avatar/05.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      hoverIcon: false,
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto5.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '加州大学伯克利分校',
-                },
-              },
-              {
-                type: 'card',
-                subTitle: '2024-02-19',
-                avatar: {
-                  src: '/assets/images/avatar/06.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      hoverIcon: false,
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto6.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '爱丁堡大学',
-                },
-              },
-              {
-                type: 'card',
-                subTitle: '2024-02-19',
-                avatar: {
-                  src: '/assets/images/avatar/01.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      hoverIcon: false,
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto7.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '多伦多大学',
-                },
-              },
-              {
-                type: 'card',
-                subTitle: '2024-02-19',
-                avatar: {
-                  src: '/assets/images/avatar/02.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      hoverIcon: false,
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto8.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '墨尔本大学',
-                },
-              },
-            ],
-          },
-          {
-            type: 'video-bg',
-            source: {
-              src: '/assets/video/storybook.mp4',
-              type: 'video/mp4',
-            },
-            bg: {
-              classes: 'bg-fill-width overlay overlay-80',
-            },
-            classes: '',
-            elements: [
-              {
-                type: 'showcase-1v3',
+                style: 'style-v3 use-image',
                 title: {
-                  label: 'Storybook 是什么？',
-                  style: 'style-v1',
-                  classes: 'mat-display-1',
+                  href: '#',
+                  label: '前端开发',
                 },
-                classes: 'text-light',
-                elements: [
-                  {
-                    type: 'text',
-                    spacer: 'none',
-                    style: {
-                      margin: '0 auto',
-                      'text-align': 'center',
-                      width: '600px',
-                    },
-                    body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文，Storybook是一个用于开发和展示UI组件的工具。',
-                    actionsAlign: 'center center',
-                    actions: [
-                      {
-                        label: '了解更多',
-                        type: 'btn',
-                        href: '#',
-                        mode: 'raised',
-                        color: 'primary',
-                      },
-                      {
-                        label: '回到官网',
-                        type: 'btn',
-                        href: '#',
-                        icon: {
-                          inline: true,
-                          svg: 'home',
-                        },
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            type: 'showcase-3v6',
-            id: '',
-            title: {
-              type: 'text',
-              spacer: 'sm',
-              title: {
-                label: '为所有开发者、所有应用场景而设计',
-                style: 'style-v1',
-              },
-              classes: 'text-center',
-              body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
-            },
-            bg: {
-              classes: 'bg-light bg-fill-width',
-            },
-            classes: '',
-            row: 4,
-            elements: [
-              {
-                img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
-                },
-                css3: true,
-                title: '响应式设计',
+                content: '在Storybook中开发测试维护组件',
               },
               {
                 img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
+                  src: '/assets/images/svg/Asset189.svg',
+                  alt: 'browser',
                 },
-                css3: true,
-                title: '支持 SSR 服务端渲染',
+                style: 'style-v3 use-image',
+                title: {
+                  href: '#',
+                  label: '产品经理',
+                },
+                content: '快速构建和预览页面',
               },
               {
                 img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
+                  src: '/assets/images/svg/Asset190.svg',
+                  alt: 'browser',
                 },
-                css3: true,
-                title: '支持多主题、暗黑模式',
+                style: 'style-v3 use-image',
+                title: {
+                  href: '#',
+                  label: '运维人员',
+                },
+                content: '构建页面和测试UI',
               },
               {
                 img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
+                  src: '/assets/images/svg/Asset192.svg',
+                  alt: 'browser',
                 },
-                css3: true,
-                title: 'MDI 6000多个icons',
-              },
-              {
-                img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
+                style: 'style-v3 use-image',
+                title: {
+                  href: '#',
+                  label: '市场营销人员',
                 },
-                css3: true,
-                title: 'Storybook 全覆盖测试',
-              },
-              {
-                img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
-                },
-                css3: true,
-                title: '动态组件动态表单',
-              },
-            ],
-          },
-          {
-            type: 'shuffle',
-            title: {
-              label: 'Vue 开发',
-              style: 'style-v1',
-            },
-            bg: {
-              classes: '',
-            },
-            classes: '',
-            filter: [
-              {
-                label: '全部',
-                value: 'all',
-                selected: true,
-              },
-              {
-                label: '设计',
-                value: 'design',
-              },
-              {
-                label: 'CMS',
-                value: 'cms',
-              },
-              {
-                label: '框架',
-                value: 'frontEnd',
-              },
-            ],
-            row: 4,
-            elements: [
-              {
-                type: 'card',
-                category: 'design',
-                subTitle: '2022/12/08',
-                avatar: {
-                  src: '/assets/images/avatar/01.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto1.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '初学者构建用户界面的指南',
-                },
-              },
-              {
-                type: 'card',
-                category: 'design',
-                subTitle: '2022/11/23',
-                avatar: {
-                  src: '/assets/images/avatar/02.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto2.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '5个理由说明为什么Vue.js是你下个项目的最佳选择',
-                },
-              },
-              {
-                type: 'card',
-                category: 'cms,design',
-                subTitle: '2022/10/15',
-                avatar: {
-                  src: '/assets/images/avatar/03.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto3.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: 'Vuex：在Vue.js应用中管理状态',
-                },
-              },
-              {
-                type: 'card',
-                category: 'frontEnd,drupal',
-                subTitle: '2022/09/05',
-                avatar: {
-                  src: '/assets/images/avatar/04.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto4.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: 'Vue Router：使用Vue.js构建单页应用程序',
-                },
-              },
-              {
-                type: 'card',
-                category: 'design,cms',
-                subTitle: '2022/08/20',
-                avatar: {
-                  src: '/assets/images/avatar/05.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto5.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: 'Vue.js组件：最佳实践和技巧',
-                },
-              },
-              {
-                type: 'card',
-                category: 'cms',
-                subTitle: '2022/07/10',
-                avatar: {
-                  src: '/assets/images/avatar/06.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto6.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '使用TypeScript与Vue.js：完整指南',
-                },
-              },
-              {
-                type: 'card',
-                category: 'design,frontEnd',
-                subTitle: '2022/06/05',
-                avatar: {
-                  src: '/assets/images/avatar/01.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto7.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: 'Vue.js性能优化技巧',
-                },
-              },
-              {
-                type: 'card',
-                category: 'drupal,frontEnd',
-                subTitle: '2022/05/15',
-                avatar: {
-                  src: '/assets/images/avatar/02.jpeg',
-                  alt: '',
-                },
-                carousel: {
-                  params: {
-                    slidesPerView: 1,
-                    navigation: false,
-                    autoplay: {
-                      delay: 5000,
-                    },
-                    breakpoints: null,
-                  },
-                  elements: [
-                    {
-                      type: 'feature-box',
-                      fullIcon: 'fullscreen',
-                      openIcon: 'open_in_new',
-                      link: '#',
-                      ratios: 'media-4-3',
-                      img: {
-                        classes: 'object-fit',
-                        src: '/assets/images/cases/porto8.jpg',
-                        alt: 'lazyload',
-                      },
-                    },
-                  ],
-                },
-                link: {
-                  href: '/node/1',
-                  label: '将Vue.js与Node.js后端集成',
-                },
+                content: '给客户演示数字创新能力',
               },
             ],
           },
           {
             type: 'text',
+            spacer: 'md',
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -1236,15 +282,15 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn-generater',
-                label: '生成页面',
-                color: 'primary',
+                type: 'btn',
                 mode: 'raised',
+                color: 'primary',
+                href: '/builder',
+                label: '开始体验',
               },
               {
                 type: 'btn',
@@ -1742,7 +788,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 623,
+                  value: 980,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1752,7 +798,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 339,
+                  value: 159,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1762,7 +808,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 70,
+                  value: 236,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1772,7 +818,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 6400,
+                  value: 4679,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -1938,6 +984,16 @@ export const samples = {
                 pagination: false,
                 observer: true,
                 observeParents: true,
+                breakpoints: {
+                  '600': {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                  },
+                  '960': {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                  },
+                },
               },
               classes: '',
               elements: [
@@ -2009,7 +1065,7 @@ export const samples = {
                   bg: {
                     classes: 'bg-shadow  overlay overlay-80',
                     img: {
-                      src: '/assets/images/16-9/business-15.jpeg',
+                      src: '/assets/images/hero/182.jpg',
                       mobile: '/assets/images/mobile/mobile-04.jpg',
                     },
                   },
@@ -5705,7 +4761,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 23,
+                  value: 42,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5715,7 +4771,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 14032,
+                  value: 28797,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5725,7 +4781,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 4165,
+                  value: 2467,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5735,7 +4791,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 542,
+                  value: 815,
                   label: '个',
                 },
                 title: '成功故事',
@@ -6019,7 +5075,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 23,
+                  value: 42,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -6029,7 +5085,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 14032,
+                  value: 28797,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -6039,7 +5095,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 4165,
+                  value: 2467,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -6049,7 +5105,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 542,
+                  value: 815,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7972,7 +7028,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 23,
+                  value: 42,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -7982,7 +7038,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 14032,
+                  value: 28797,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7992,7 +7048,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 4165,
+                  value: 2467,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -8002,7 +7058,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 542,
+                  value: 815,
                   label: '个',
                 },
                 title: '成功故事',
