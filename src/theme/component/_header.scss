@@ -12,9 +12,6 @@
   $primary-contrast: mat-color($primary, default-contrast);
   $second: mat-color($foreground, "secondary-text");
   $bg-card-color: mat-color($background, card);
-  .app-name {
-    color: mat-color($primary);
-  }
 
   .header-top {
     background-color: mat-color($background, status-bar, 0.75);

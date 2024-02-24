@@ -78,7 +78,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             step: 0.1,
           },
           expressionProperties: {
-            'templateOptions.label': '"不透明度: " + model.opacity + "px"',
+            'templateOptions.label': '"不透明度: " + model.opacity',
           },
         },
         {
