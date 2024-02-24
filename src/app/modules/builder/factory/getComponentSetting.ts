@@ -153,8 +153,19 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             },
             {
               type: 'input',
+              key: 'classes',
+              className: 'width-100',
+              defaultValue: content.classes || '',
+              templateOptions: {
+                label: 'Classes',
+                description: '添加class类',
+              },
+            },
+            {
+              type: 'input',
               key: 'id',
               className: 'width-100',
+              defaultValue: content.id || '',
               templateOptions: {
                 label: 'ID',
                 description: '一般用于页面锚点定位',

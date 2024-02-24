@@ -1,5 +1,4 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-
 export function getSwiper(widget: any): FormlyFieldConfig[] {
   return [
     {
@@ -45,7 +44,7 @@ export function getSwiper(widget: any): FormlyFieldConfig[] {
                       type: 'slider',
                       className: 'width-40',
                       defaultValue:
-                        widget.params?.breakpoints[600]?.slidesPerView,
+                        widget.params?.breakpoints?.[600]?.slidesPerView,
                       templateOptions: {
                         min: 1,
                         max: 10,
@@ -62,7 +61,7 @@ export function getSwiper(widget: any): FormlyFieldConfig[] {
                       type: 'slider',
                       className: 'width-40',
                       defaultValue:
-                        widget.params?.breakpoints[600]?.spaceBetween || 0,
+                        widget.params?.breakpoints?.[600]?.spaceBetween || 0,
                       templateOptions: {
                         min: 1,
                         max: 100,
@@ -87,7 +86,7 @@ export function getSwiper(widget: any): FormlyFieldConfig[] {
                       type: 'slider',
                       className: 'width-40',
                       defaultValue:
-                        widget.params.breakpoints[960].slidesPerView,
+                        widget.params.breakpoints?.[960].slidesPerView,
                       templateOptions: {
                         min: 1,
                         max: 10,
@@ -104,7 +103,7 @@ export function getSwiper(widget: any): FormlyFieldConfig[] {
                       type: 'slider',
                       className: 'width-40',
                       defaultValue:
-                        widget.params?.breakpoints[960]?.spaceBetween || 0,
+                        widget.params?.breakpoints?.[960]?.spaceBetween || 0,
                       templateOptions: {
                         min: 1,
                         max: 100,
