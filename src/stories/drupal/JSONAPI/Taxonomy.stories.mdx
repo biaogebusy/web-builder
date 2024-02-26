@@ -1,0 +1,33 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="Drupal/相关文档/JSONAPI/分类"
+  id="jsonapi-taxonomy"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## 获取文章分类列表
+
+```
+/jsonapi/taxonomy_term/article_category
+```
+
+## 过滤
+
+查询名称为“最新动态”的分类项
+
+```
+/jsonapi/taxonomy_term/article_category?filter[name]=最新动态
+```
+
+## 获取单个分类
+
+```
+/jsonapi/taxonomy_term/category_article/[id]
+```
