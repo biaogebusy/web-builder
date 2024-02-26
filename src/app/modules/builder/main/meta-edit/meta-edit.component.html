@@ -1,55 +1,22 @@
 <div class="meta-edit" *ngIf="content">
   <app-title [content]="{label:content.data.tag,style:'style-v5'}"></app-title>
-  <div class="img-section" *ngIf="content.mode === 'img'">
+  <div class="img-section">
     <app-formly *ngIf="content.fields" [fields]="content.fields" [model]="model"
       (modelChange)="onModelChange($event)"></app-formly>
-    <div class="meta m-top-sm" fxLayout="row" fxLayoutAlign="start center">
-      <img src="{{content.data.src}}" alt="">
-      <div class="content" fxLayout="column">
-        <div class="title">{{content.data.fileName}}</div>
-        <div class="desc">{{content.data.alt}}</div>
+    <ng-container *ngIf="content.mode === 'img'">
+      <div class="meta m-top-sm" fxLayout="row" fxLayoutAlign="start center">
+        <img src="{{content.data.src}}" alt="">
+        <div class="content" fxLayout="column">
+          <div class="title">{{content.data.fileName}}</div>
+          <div class="desc">{{content.data.alt}}</div>
+        </div>
       </div>
-    </div>
-    <app-btn class="action" (click)="openMedias()" [content]="{label:'更新图片',color:'primary',mode:'raised'}"></app-btn>
+      <app-btn class="action" (click)="openMedias()" [content]="{label:'更新图片',color:'primary',mode:'raised'}"></app-btn>
+    </ng-container>
   </div>
-  <div class="text-section" *ngIf="content.mode === 'text'">
-    <div class="gui-ui m-top-sm">
-      <mat-accordion>
-        <mat-expansion-panel [expanded]="true">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              富文本
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-list>
-            <quill-editor #quill (onEditorCreated)="editorCreated($event)" [modules]="modules"
-              [ngModel]="content.data.innerHTML" (onContentChanged)="contentChanged($event)"
-              [styles]="{height:'180px'}">
-            </quill-editor>
-          </mat-list>
-        </mat-expansion-panel>
-        <mat-expansion-panel [expanded]="false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              样式
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-list>
-            <div #guiStyle></div>
-          </mat-list>
-        </mat-expansion-panel>
-        <mat-expansion-panel [expanded]="false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              尺寸
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-list>
-            <div #guiSize></div>
-          </mat-list>
-        </mat-expansion-panel>
-      </mat-accordion>
-      <div class="actions m-y-md" fxLayoutAlign="center center">
+  <div class="text-section">
+    <div class="m-top-sm">
+      <div class="actions" fxLayoutAlign="center center">
         <app-btn (click)="onClear()" [content]="{label:'清空',color:'primary',icon:{svg:'format-clear'}}"></app-btn>
       </div>
     </div>
