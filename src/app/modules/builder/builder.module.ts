@@ -41,6 +41,7 @@ import { colorTest } from './data/theme-preview-for-builder';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 import { PageListComponent } from './sidebar/page-list/page-list.component';
+import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
 
 const components = [
   BuilderComponent,
@@ -69,6 +70,7 @@ const components = [
     BuilderUiuxComponent,
     BuilderSettingsComponent,
     PageListComponent,
+    BuilderSidebarComponent,
   ],
   imports: [
     ShareModule,

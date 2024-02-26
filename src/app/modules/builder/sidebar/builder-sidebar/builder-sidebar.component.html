@@ -1,0 +1,38 @@
+<div class="builder-sidebar">
+  <a routerLink="/" class="logo" *ngIf="branding$|async as branding">
+    <app-logo [content]="branding.header.logo"></app-logo>
+  </a>
+  <mat-divider></mat-divider>
+  <div class="menu">
+    <div class="item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="'页面编辑'"
+      routerLink="./">
+      <app-icon [content]="{svg:'pencil'}"></app-icon>
+    </div>
+    <div class="item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="'页面列表'"
+      routerLink="./page-list">
+      <app-icon [content]="{svg:'format-list-bulleted'}"></app-icon>
+    </div>
+    <div class="item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="'构建示例'"
+      routerLink="./samples">
+      <app-icon [content]="{svg:'lightbulb-on-30'}"></app-icon>
+    </div>
+    <div class="item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" [matTooltip]="'站点配置'"
+      routerLink="./settings">
+      <app-icon [content]="{svg:'cog'}"></app-icon>
+    </div>
+  </div>
+  <div class="bottom">
+    <ng-container *ngIf="branding$|async as branding">
+      <app-btn fxHide.xs="true" [matTooltip]="'媒体库'" (click)="onSelectAssets()"
+        [content]="{label:'', mode: 'icon' ,icon:{svg:'image-search-outline' } }"></app-btn>
+      <app-btn fxHide.xs="true" [matTooltip]="(builder.showBranding$|async)?'隐藏页头页尾' : '显示页头页尾'"
+        (click)="onShowBranding()"
+        [content]="{label:'', color:(builder.showBranding$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:(builder.showBranding$|async)?'page-layout-header-footer' : 'page-layout-body' } }"></app-btn>
+      <app-btn *ngIf="builder.builderThemeMode|async as mode" [matTooltip]="mode === 'light'?'切换暗黑风格' : '切换浅色风格'"
+        (click)="onToggleBuilderTheme(mode)"
+        [content]="{label:'', mode: 'icon' ,icon:{svg:mode ==='light' ? 'white-balance-sunny' : 'moon-waning-crescent' } }"></app-btn>
+      <mat-divider></mat-divider>
+      <app-user-menu *ngIf="branding.header?.params?.userInfo" [content]="branding.header.userMenu"></app-user-menu>
+    </ng-container>
+  </div>
+</div>
