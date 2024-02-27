@@ -3,6 +3,7 @@ import { getLayoutAlign } from './getBlockSetting';
 import { getSwiper } from './getSwiper';
 import { getTitleField } from './getTitleField';
 import { getText } from './getText';
+import { FormGroup } from '@angular/forms';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
@@ -171,6 +172,65 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                 description: '一般用于页面锚点定位',
               },
             },
+            {
+              key: 'bg',
+              className: 'm-top-sm',
+              fieldGroup: [
+                {
+                  key: 'img',
+                  fieldGroup: [
+                    {
+                      key: 'src',
+                      type: 'img-picker',
+                      defaultValue: content?.bg?.img?.src || '',
+                      templateOptions: {
+                        label: '更新背景图',
+                      },
+                      hooks: {
+                        onInit: (formGroup: any) => {
+                          const { form } = formGroup;
+                          form.valueChanges.subscribe((value: any) => {
+                            const srcArr = value.src.split(/\/|(?=\.\w+$)/);
+                            form
+                              .get('alt')
+                              .patchValue(srcArr[srcArr.length - 2], {
+                                onlySelf: true,
+                                emitEvent: true,
+                              });
+                          });
+                        },
+                      },
+                    },
+                    {
+                      key: 'classes',
+                      type: 'input',
+                      defaultValue: content?.bg?.img?.classes || 'object-fit',
+                      templateOptions: {
+                        label: 'Class',
+                      },
+                      hideExpression: '!model.src',
+                    },
+                    {
+                      key: 'alt',
+                      type: 'input',
+                      defaultValue: content?.bg?.img?.alt || '',
+                      templateOptions: {
+                        label: 'alt',
+                      },
+                    },
+                  ],
+                },
+                {
+                  key: 'classes',
+                  type: 'input',
+                  defaultValue: content?.bg?.classes || 'bg-fill-width',
+                  templateOptions: {
+                    label: 'Bg Class',
+                  },
+                  hideExpression: '!model.src',
+                },
+              ],
+            },
           ],
         },
       ],
@@ -180,8 +240,11 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           form.valueChanges.subscribe((value: any) => {
             const { component } = value;
             model.bg = {
-              classes: component.bgClasses,
-              overlay: component.overlay,
+              ...model.bg,
+              ...{
+                classes: component.bgClasses,
+                overlay: component.overlay,
+              },
             };
           });
         },
