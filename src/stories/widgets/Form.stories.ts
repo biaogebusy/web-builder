@@ -45,6 +45,7 @@ const Template: Story = (args) => ({
   },
 });
 const form = new FormGroup({});
+const options: any = {};
 const model: any = {};
 
 export const Default = Template.bind({});
@@ -189,6 +190,7 @@ Default.args = {
   type: 'formly',
   form,
   model,
+  options,
   fields: base,
 };
 
@@ -297,6 +299,7 @@ Group.args = {
   type: 'formly',
   form,
   model,
+  options,
   fields: group,
 };
 
@@ -437,6 +440,7 @@ HideExpression.args = {
   type: 'formly',
   form,
   model,
+  options,
   fields: hide,
 };
 
@@ -467,6 +471,7 @@ ExpressionProperties.args = {
   type: 'formly',
   form,
   model,
+  options,
   fields: expression,
 };
 
@@ -518,6 +523,7 @@ Style.args = {
   type: 'formly',
   form,
   model,
+  options,
   fields: style,
 };
 
@@ -574,6 +580,7 @@ Responsive.args = {
   type: 'formly',
   form,
   model,
+  options,
   fields: responsive,
 };
 
@@ -626,6 +633,7 @@ Pattern.args = {
   type: 'formly',
   form,
   model,
+  options,
   fields: use,
 };
 
@@ -753,5 +761,31 @@ ModelOption.args = {
   type: 'formly',
   form,
   model,
+  options,
   fields: modelOptionFields,
+};
+
+export const ImgPicker = Template.bind({});
+ImgPicker.storyName = '图片选择器';
+ImgPicker.args = {
+  type: 'formly',
+  form,
+  model,
+  options,
+  fields: [
+    {
+      className: 'display-flex',
+      fieldGroup: [
+        {
+          key: 'src',
+          type: 'img-picker',
+          className: 'width-40',
+          defaultValue: '/assets/images/avatar/01.jpeg',
+          templateOptions: {
+            label: '图片选择',
+          },
+        },
+      ],
+    },
+  ],
 };

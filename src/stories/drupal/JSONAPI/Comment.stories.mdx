@@ -15,7 +15,7 @@ import { Meta } from "@storybook/addon-docs";
 ## 使用 Drupal JSONAPI 添加评论
 
 ```
-POST {{apiUrl}}/api/v1/comment/comment
+POST /jsonapi/comment/comment
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
@@ -54,7 +54,7 @@ X-CSRF-Token: {{csrfToken}}
 ## 回复评论
 
 ```
-POST {{apiUrl}}/api/v1/comment/comment
+POST /jsonapi/comment/comment
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
@@ -99,7 +99,7 @@ X-CSRF-Token: {{csrfToken}}
 ## 更新评论
 
 ```
-PATCH {{apiUrl}}/api/v1/comment/answer/92e32979-ebbd-494c-aabe-6a1f9a6b505d
+PATCH /jsonapi/comment/answer/92e32979-ebbd-494c-aabe-6a1f9a6b505d
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
@@ -142,26 +142,26 @@ X-CSRF-Token: {{csrfToken}}
 ![questionList](/assets/storybook/assets/drupal/question-list.png)
 
 ```
-GET {{apiUrl}}/api/v1/node/question?fields[node--question]=title,changed,path,drupal_internal__nid,answer,uid&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri&jsonapi_include=1
+GET /jsonapi/node/question?fields[node--question]=title,changed,path,drupal_internal__nid,answer,uid&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri&jsonapi_include=1
 ```
 
 ![questionNode](/assets/storybook/assets/drupal/question-node.png)
 获取具体用户对问答的评论，以判断是否有回答:
 
 ```
-GET {{apiUrl}}/api/v1/comment/answer?filter[uid.id]=d5fb03cb-abca-43ba-baa5-a162a576e67a&filter[entity_id.id]=18dac740-1d11-43c0-a431-d2b9e402fe6b&sort=-created&page[limit]=1
+GET /jsonapi/comment/answer?filter[uid.id]=d5fb03cb-abca-43ba-baa5-a162a576e67a&filter[entity_id.id]=18dac740-1d11-43c0-a431-d2b9e402fe6b&sort=-created&page[limit]=1
 ```
 
 获取具体的问答的所有评论：
 
 ```
-GET {{apiUrl}}/api/v1/comment/comment?filter[entity_id.id]=deef4a32-fcb3-48aa-8e4e-0a6bd0302f05&include=uid,uid.user_picture,pid&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1&timeStamp=1&[limit]=10
+GET /jsonapi/comment/comment?filter[entity_id.id]=deef4a32-fcb3-48aa-8e4e-0a6bd0302f05&include=uid,uid.user_picture,pid&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1&timeStamp=1&[limit]=10
 ```
 
 获取具体评论的子评论：
 
 ```
-GET {{apiUrl}}/api/v1/comment/answer?filter[pid.id]=b3765d39-6397-4e96-96c0-00e73972bbab&include=uid,uid.user_picture,pid&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1
+GET /jsonapi/comment/answer?filter[pid.id]=b3765d39-6397-4e96-96c0-00e73972bbab&include=uid,uid.user_picture,pid&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1
 ```
 
 ## 自定义获取评论

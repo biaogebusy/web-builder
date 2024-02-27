@@ -376,6 +376,7 @@ const card1v1: IShowcase2v1 = {
       style: 'style-v1',
       classes: 'mat-display-0 bold',
     },
+    classes: 'text-center',
     body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
   },
   elements: [
