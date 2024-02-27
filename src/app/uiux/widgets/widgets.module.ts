@@ -123,6 +123,7 @@ import { SwitchThemeComponent } from './switch-theme/switch-theme.component';
 import { GithubStarComponent } from './github-star/github-star.component';
 import { RepeatTypeComponent } from './form/formly-type/repeat.type';
 import { TabsTypeComponent } from './form/formly-type/tabs/tabs.component';
+import { ImgPickerComponent } from './form/formly-type/img-picker/img-picker.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -207,6 +208,7 @@ const components = [
   FormlyComponent,
   RepeatTypeComponent,
   TabsTypeComponent,
+  ImgPickerComponent,
   PlayerComponent,
   BtnVideoComponent,
   AccordionComponent,
@@ -257,6 +259,7 @@ const components = [
         },
         { name: 'repeat', component: RepeatTypeComponent },
         { name: 'tabs', component: TabsTypeComponent },
+        { name: 'img-picker', component: ImgPickerComponent },
       ],
       validationMessages: [
         { name: 'required', message: '该字段必填' },
