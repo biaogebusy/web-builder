@@ -1,0 +1,69 @@
+.builder-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 70px;
+  height: 100%;
+  flex: 0 0 70px;
+  .mat-divider {
+    width: 100%;
+  }
+  .menu,
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .logo {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    height: 55px;
+    box-sizing: border-box;
+    ::ng-deep {
+      img {
+        max-height: 30px;
+        filter: grayscale(100%) brightness(100) sepia(100%);
+      }
+    }
+  }
+  .menu {
+    justify-content: start;
+    flex: 1 1 auto;
+    margin: 10px 0;
+    .item {
+      position: relative;
+      padding: 14px 0;
+      margin: 4px 0;
+      line-height: 0;
+      width: 100%;
+      text-align: center;
+      .custom-icon {
+        position: relative;
+        z-index: 1;
+      }
+      &.active,
+      &:hover,
+      &:focus {
+        &::after {
+          content: "";
+          position: absolute;
+          z-index: 0;
+          left: 50%;
+          top: 50%;
+          width: 40px;
+          height: 40px;
+          transform: translate(-50%, -50%);
+          border-radius: 10px;
+        }
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .bottom {
+    justify-content: center;
+    padding: 20px 0;
+    gap: 10px;
+  }
+}
