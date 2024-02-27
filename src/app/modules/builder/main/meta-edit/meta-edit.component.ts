@@ -5,7 +5,6 @@ import {
   Component,
   ElementRef,
   Input,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -15,8 +14,6 @@ import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { get, set } from 'lodash-es';
 import { QuillModule } from 'ngx-quill';
-import { takeUntil } from 'rxjs/operators';
-import * as dat from 'dat.gui';
 import type { IMetaEdit } from '@core/interface/IBuilder';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -27,18 +24,19 @@ import { Subject } from 'rxjs';
   styleUrls: ['./meta-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MetaEditComponent implements OnInit, AfterViewInit {
   form = new FormGroup({});
   model: any = {};
   @Input() content: IMetaEdit;
   @ViewChild('guiStyle', { static: false }) guiStyle: ElementRef;
   @ViewChild('guiSize', { static: false }) guiSize: ElementRef;
-  styleGuiUI: any;
   sizeGuiUI: any;
   styleFolder: any;
   sizeFolder: any;
   viewHTML: any;
+  guiHTML: any;
   editor: any;
+  //TODO: will remove
   modules: QuillModule = {
     toolbar: [
       [
@@ -65,7 +63,6 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       ['clean'],
     ],
   };
-  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private dialog: MatDialog,
     private builder: BuilderState,
@@ -73,155 +70,65 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.builder.selectedMedia$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(({ img }) => {
-        const { src } = img;
-        this.dialog.closeAll();
-        this.content.data = img;
-        set(this.builder.currentPage.body, this.content.path, src);
-        this.content.ele.setAttribute('src', src);
-        setTimeout(() => {
-          this.builder.saveLocalVersions();
-        }, 600);
-        this.cd.detectChanges();
-      });
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    if (this.content.mode === 'img') {
-      return;
-    }
-    const currentValue = get(this.builder.currentPage.body, this.content.path);
-    const isSpanWrapper = this.isHTMLWrapper(currentValue);
-    const div = document.createElement('div');
-    const p = document.createElement('p');
-    div.appendChild(p);
+    this.initTextView();
+  }
 
-    if (isSpanWrapper) {
-      p.outerHTML = currentValue;
-    } else {
-      p.innerHTML = currentValue;
-    }
-
-    const guiHTML = div.querySelector('p');
-    if (this.content.ele.querySelector('p')) {
-      this.viewHTML = this.content.ele.querySelector('p');
-    } else {
-      const text = this.content.ele.innerHTML;
+  initTextView(): void {
+    if (this.content.mode === 'text') {
+      const currentValue = get(
+        this.builder.currentPage.body,
+        this.content.path
+      );
+      const isSpanWrapper = this.isHTMLWrapper(currentValue);
+      const div = document.createElement('div');
       const p = document.createElement('p');
-      p.innerHTML = text;
-      p.style.display = 'inline-block';
+      div.appendChild(p);
+
+      if (isSpanWrapper) {
+        p.outerHTML = currentValue;
+      } else {
+        p.innerHTML = currentValue;
+      }
+
+      this.guiHTML = div.querySelector('p');
+      if (this.content.ele.querySelector('p')) {
+        this.viewHTML = this.content.ele.querySelector('p');
+      } else {
+        const text = this.content.ele.innerHTML;
+        const p = document.createElement('p');
+        p.innerHTML = text;
+        p.style.display = 'inline-block';
+        p.style.marginBottom = '0px';
+        this.content.ele.innerHTML = p.outerHTML;
+        this.viewHTML = this.content.ele.querySelector('p');
+      }
+      if (!this.guiHTML) {
+        return;
+      }
+      this.guiHTML.style.display = 'inline-block';
       p.style.marginBottom = '0px';
-      this.content.ele.innerHTML = p.outerHTML;
-      this.viewHTML = this.content.ele.querySelector('p');
     }
-    if (!guiHTML) {
-      return;
-    }
-    guiHTML.style.display = 'inline-block';
-    p.style.marginBottom = '0px';
-    this.initGuiStyle(guiHTML, this.viewHTML);
-    this.initGuiSize(guiHTML, this.viewHTML);
-  }
-
-  initGuiStyle(guiHTML: HTMLSpanElement, viewHTML: HTMLSpanElement): void {
-    // 创建 dat.GUI 实例
-    this.styleGuiUI = new dat.GUI();
-
-    const styleParams = {
-      颜色: guiHTML.style.color || '#222',
-      背景色: guiHTML.style.backgroundColor || '#fff',
-      透明度: parseFloat(guiHTML.style.opacity) || 1,
-      字号: parseFloat(guiHTML.style.fontSize) || 16,
-      旋转: 0,
-    };
-
-    this.styleFolder = this.styleGuiUI.addFolder('样式');
-    this.styleFolder.open();
-    this.styleFolder.addColor(styleParams, '颜色').onChange((value: any) => {
-      viewHTML.style.color = value;
-      guiHTML.style.color = value;
-      this.setGuiSpan(guiHTML);
-    });
-    this.styleFolder.addColor(styleParams, '背景色').onChange((value: any) => {
-      viewHTML.style.backgroundColor = value;
-      guiHTML.style.backgroundColor = value;
-      this.setGuiSpan(guiHTML);
-    });
-    this.styleFolder
-      .add(styleParams, '透明度', 0, 1, 0.1)
-      .onChange((value: any) => {
-        viewHTML.style.opacity = value;
-        guiHTML.style.opacity = value;
-        this.setGuiSpan(guiHTML);
-      });
-    this.styleFolder
-      .add(styleParams, '字号', 10, 60, 1)
-      .onChange((value: any) => {
-        viewHTML.style.fontSize = `${value}px`;
-        guiHTML.style.fontSize = `${value}px`;
-        this.setGuiSpan(guiHTML);
-      });
-    this.styleFolder
-      .add(styleParams, '旋转', 0, 360, 1)
-      .onChange((value: any) => {
-        viewHTML.style.transform = `rotate(${value}deg)`;
-        guiHTML.style.transform = `rotate(${value}deg)`;
-        this.setGuiSpan(guiHTML);
-      });
-
-    this.guiStyle.nativeElement.appendChild(this.styleGuiUI.domElement);
-  }
-
-  initGuiSize(guiHTML: HTMLSpanElement, viewHTML: HTMLSpanElement): void {
-    this.sizeGuiUI = new dat.GUI();
-    const sizeParams = {
-      宽度: guiHTML.style.width || 'auto',
-      高度: guiHTML.style.height || 'auto',
-      行高: guiHTML.style.lineHeight || '1.5',
-      字间距: guiHTML.style.letterSpacing || '0',
-    };
-    this.sizeFolder = this.sizeGuiUI.addFolder('尺寸');
-    this.sizeFolder.open();
-    this.sizeFolder.add(sizeParams, '宽度').onChange((value: any) => {
-      viewHTML.style.width = value;
-      guiHTML.style.width = value;
-      this.setGuiSpan(guiHTML);
-    });
-    this.sizeFolder.add(sizeParams, '高度').onChange((value: any) => {
-      viewHTML.style.height = value;
-      guiHTML.style.height = value;
-      this.setGuiSpan(guiHTML);
-    });
-    this.sizeFolder.add(sizeParams, '行高').onChange((value: any) => {
-      viewHTML.style.lineHeight = value;
-      guiHTML.style.lineHeight = value;
-      this.setGuiSpan(guiHTML);
-    });
-    this.sizeFolder.add(sizeParams, '字间距').onChange((value: any) => {
-      viewHTML.style.letterSpacing = value;
-      guiHTML.style.letterSpacing = value;
-      this.setGuiSpan(guiHTML);
-    });
-
-    this.guiSize.nativeElement.appendChild(this.sizeGuiUI.domElement);
-  }
-
-  setGuiSpan(guiHTML: any): void {
-    set(this.builder.currentPage.body, this.content.path, guiHTML.outerHTML);
-    this.builder.saveLocalVersions();
-    this.cd.detectChanges();
   }
 
   onClear(): void {
-    this.viewHTML.removeAttribute('style');
-    set(
-      this.builder.currentPage.body,
-      this.content.path,
-      this.viewHTML.outerHTML
-    );
+    if (this.content.mode === 'text') {
+      this.viewHTML.removeAttribute('style');
+      set(
+        this.builder.currentPage.body,
+        this.content.path,
+        this.viewHTML.outerHTML
+      );
+    }
+
+    if (this.content.mode === 'img') {
+      const src = this.content.path;
+      const imgPath = src.substring(0, src.lastIndexOf('.'));
+      this.content.ele.removeAttribute('style');
+      set(this.builder.currentPage.body, `${imgPath}.style`, {});
+    }
     this.builder.saveLocalVersions();
     this.cd.detectChanges();
   }
@@ -264,58 +171,78 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onModelChange(value: any) {
-    if (this.content.mode === 'img') {
-      const src = this.content.path;
-      const { style } = value;
-      const imgPath = src.substring(0, src.lastIndexOf('.'));
-      for (let key of Object.keys(style)) {
-        switch (key) {
-          case 'width':
-            const width = style.width === 0 ? 'auto' : style.width + 'px';
-            style[key] = width;
-            this.content.ele.style.width = width;
-            break;
-          case 'height':
-            const height = style.height === 0 ? 'auto' : style.height + 'px';
-            style[key] = height;
-            this.content.ele.style.height = height;
-            break;
-          case 'maxWidth':
-            const maxWidth =
-              style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
-            style[key] = maxWidth;
-            this.content.ele.style.maxWidth = maxWidth;
-            break;
-          case 'maxHeight':
-            const maxHeight =
-              style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
-            style[key] = maxHeight;
-            this.content.ele.style.maxHeight = maxHeight;
-            break;
-          case 'borderRadius':
-            const borderRadius =
-              style.borderRadius === 0 ? 0 : style.borderRadius + 'px';
-            style[key] = borderRadius;
-            this.content.ele.style.borderRadius = borderRadius;
-            break;
-          default:
-            this.content.ele.style[key] = style[key];
-            break;
-        }
+    console.log(value);
+    const path = this.content.path;
+    const { style, src } = value;
+    for (let key of Object.keys(style)) {
+      switch (key) {
+        case 'fontSize':
+          const fontSize =
+            style.fontSize === 0 ? 'auto' : style.fontSize + 'px';
+          this.setStyle('fontSize', fontSize, value);
+          break;
+        case 'width':
+          const width = style.width === 0 ? 'auto' : style.width + 'px';
+          style[key] = width;
+          this.setStyle('width', width, value);
+          break;
+        case 'height':
+          const height = style.height === 0 ? 'auto' : style.height + 'px';
+          style[key] = height;
+          this.setStyle('height', height, value);
+          break;
+        case 'maxWidth':
+          const maxWidth =
+            style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
+          style[key] = maxWidth;
+          this.setStyle('maxWidth', maxWidth, value);
+          break;
+        case 'maxHeight':
+          const maxHeight =
+            style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
+          style[key] = maxHeight;
+          this.setStyle('maxHeight', maxHeight, value);
+          break;
+        case 'borderRadius':
+          const borderRadius =
+            style.borderRadius === 0 ? 0 : style.borderRadius + 'px';
+          style[key] = borderRadius;
+          this.setStyle('borderRadius', borderRadius, value);
+          break;
+        default:
+          this.setStyle(key, style[key], value);
+          break;
       }
-      set(this.builder.currentPage.body, `${imgPath}.style`, style);
-      this.builder.saveLocalVersions();
-      setTimeout(() => {
-        this.cd.detectChanges();
-      }, 600);
     }
+    if (this.content.mode === 'img') {
+      const imgPath = path.substring(0, path.lastIndexOf('.'));
+      set(this.builder.currentPage.body, `${imgPath}.style`, style);
+      set(this.builder.currentPage.body, `${imgPath}.src`, src);
+    }
+
+    if (this.content.mode === 'text') {
+      set(
+        this.builder.currentPage.body,
+        this.content.path,
+        this.guiHTML.outerHTML
+      );
+    }
+
+    this.builder.saveLocalVersions();
+    setTimeout(() => {
+      this.cd.detectChanges();
+    }, 600);
   }
 
-  ngOnDestroy(): void {
-    if (this.styleGuiUI) {
-      this.styleGuiUI.removeFolder(this.styleFolder);
+  setStyle(key: string, value: any, formValue: any): void {
+    const { style, src } = formValue;
+    if (this.content.mode === 'img') {
+      style[key] = value;
+      this.content.ele.style[key] = value;
+      this.content.ele.src = src;
+    } else {
+      this.viewHTML.style[key] = value;
+      this.guiHTML.style[key] = value;
     }
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

@@ -1,21 +1,9 @@
 <div class="layout-setting">
   <app-title *ngIf="content.title" [content]="content.title"></app-title>
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
-  <div class="bg-img-section m-y-md" *ngIf="content.level !== 'widget'">
-    <div class="box" fxLayout="row" fxLayoutAlign="start center" *ngIf="content.content?.bg?.img">
-      <img src="{{content.content.bg.img.src}}" alt="">
-      <div class="box-content">
-        <div class="title">{{content.content.bg.img.alt}}</div>
-      </div>
-    </div>
-    <div class="actions m-y-md" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <app-btn class="action" (click)="openMedias()"
-        [content]="{label:'更新背景图',color:'primary',mode:'raised'}"></app-btn>
-      <app-btn (click)="onDeleteBgImg()" [content]="{label:'删除背景图',color:'primary', mode: 'stroked' }"></app-btn>
-    </div>
-  </div>
 
-  <div class="actions m-y-md" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="content.level !== 'layout'">
-    <app-btn (click)="showCode()" [content]="{label:'编辑 JSON',color:'primary', mode: 'stroked' }"></app-btn>
+  <div class="actions m-y-md" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <app-btn *ngIf="content.level !== 'layout'" (click)="showCode()"
+      [content]="{label:'编辑 JSON',color:'primary', mode: 'stroked' }"></app-btn>
   </div>
 </div>

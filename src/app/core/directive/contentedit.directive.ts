@@ -8,6 +8,7 @@ import {
 import { IMetaEdit } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { getInlineImg } from '@modules/builder/factory/getInlinImg';
+import { getInlineText } from '@modules/builder/factory/getInlineText';
 import { set } from 'lodash-es';
 @Directive({
   selector: '[contentedit]',
@@ -21,7 +22,6 @@ export class ContenteditDirective implements AfterViewInit {
       ele.contentEditable = 'false';
 
       const path = this.generatePath(ele);
-      console.log(`path:${path}`);
       set(this.builder.currentPage.body, path, ele.innerHTML);
       this.builder.saveLocalVersions();
     }
@@ -60,6 +60,7 @@ export class ContenteditDirective implements AfterViewInit {
           mode: 'text',
           path: this.generatePath(ele),
           ele,
+          fields: getInlineText(ele),
           data: {
             innerHTML: ele.innerHTML,
             tag: ele.tagName,

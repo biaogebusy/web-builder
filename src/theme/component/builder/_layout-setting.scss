@@ -6,11 +6,6 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
   .layout-setting {
-    .bg-img-section {
-      .box {
-        background-color: mat-color($primary, 0.2);
-      }
-    }
     .layout-setting {
       .layout-preview {
         border: 1px solid mat-color($foreground, divider);
