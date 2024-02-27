@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
@@ -10,13 +9,11 @@ import {
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
-import { IManageMedia } from '@core/interface/manage/IManage';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { defaultsDeep, isNumber } from 'lodash-es';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-layout-setting',
@@ -33,68 +30,10 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef,
     private el: ElementRef
   ) {}
 
-  ngOnInit(): void {
-    this.builder.selectedMedia$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(({ img, value }) => {
-        const { src, fileName } = img;
-        const { level } = value;
-        const bgImg = {
-          bg: {
-            classes: 'bg-fill-width',
-            img: {
-              src,
-              alt: fileName,
-              classes: 'object-fit',
-            },
-          },
-        };
-        // show the img
-        this.content.content = defaultsDeep(bgImg, this.content.content);
-        this.dialog.closeAll();
-
-        // emit value to dynamic component
-        if (level === 'block') {
-          this.builder.builderLayoutSetting$.next({
-            value: this.content.content,
-            pageIndex: this.content.pageIndex,
-            uuid: this.content.uuid,
-          });
-        }
-
-        if (level === 'layout') {
-          this.builder.builderLayoutSetting$.next({
-            value: this.content.content,
-            i: this.content.i,
-            uuid: this.content.uuid,
-          });
-        }
-        this.cd.detectChanges();
-      });
-  }
-
-  onDeleteBgImg(): void {
-    this.content.content.bg = {
-      classes: 'bg-fill-width',
-    };
-    this.cd.detectChanges();
-    this.builder.builderLayoutSetting$.next({
-      value: defaultsDeep(
-        {
-          bg: {
-            classes: 'bg-fill-width',
-          },
-        },
-        this.content.content
-      ),
-      index: this.content.index,
-      uuid: this.content.uuid,
-    });
-  }
+  ngOnInit(): void {}
 
   onModelChange(value: any) {
     const { flex } = value;
@@ -123,26 +62,6 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
       box.style.alignContent = vertical;
       box.style.flexDirection = direction;
     }
-  }
-
-  openMedias(): void {
-    const manageMedia: IManageMedia = {
-      type: 'manage-media',
-      uuid: this.content.uuid,
-      pageIndex: this.content.pageIndex,
-      i: this.content.i,
-      index: this.content.index,
-      level: this.content.level,
-    };
-    this.dialog.open(DialogComponent, {
-      width: '100%',
-      data: {
-        title: '媒体库',
-        inputData: {
-          content: manageMedia,
-        },
-      },
-    });
   }
 
   showCode(): void {

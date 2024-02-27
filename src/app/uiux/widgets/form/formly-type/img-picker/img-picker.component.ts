@@ -43,6 +43,10 @@ export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
     });
   }
 
+  remove(): void {
+    this.formControl.patchValue('');
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

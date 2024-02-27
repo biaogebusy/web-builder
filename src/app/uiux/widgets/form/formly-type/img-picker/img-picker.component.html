@@ -1,11 +1,14 @@
 <div class="img-picker">
-  <div class="meta m-top-sm" fxLayout="row" fxLayoutAlign="start center">
+  <div class="meta m-top-sm" fxLayout="row" fxLayoutAlign="start center" *ngIf="formControl.value">
     <img src="{{formControl.value}}" alt="">
     <div class="content" fxLayout="column">
       <div class="title">{{field.templateOptions?.fileName}}</div>
       <div class="desc">{{field.templateOptions?.alt}}</div>
     </div>
   </div>
-  <app-btn class="action" (click)="openMedias()"
-    [content]="{label:to.label,color:to.color||'primary',mode:to.mode||'raised'}"></app-btn>
+  <div class="actions m-y-sm" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <app-btn (click)="remove()" [content]="{label:'删除',color:'primary', mode: 'stroked' }"></app-btn>
+    <app-btn (click)="openMedias()"
+      [content]="{label:to.label,color:to.color||'primary',mode:to.mode||'raised'}"></app-btn>
+  </div>
 </div>

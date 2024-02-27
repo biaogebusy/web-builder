@@ -201,6 +201,63 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
       ],
     },
   ];
+  let bgImg: FormlyFieldConfig = {
+    key: 'bg',
+    className: 'm-top-sm',
+    fieldGroup: [
+      {
+        key: 'img',
+        fieldGroup: [
+          {
+            key: 'src',
+            type: 'img-picker',
+            defaultValue: layout?.bg?.img?.src || '',
+            templateOptions: {
+              label: '更新背景图',
+            },
+            hooks: {
+              onInit: (formGroup: any) => {
+                const { form } = formGroup;
+                form.valueChanges.subscribe((value: any) => {
+                  const srcArr = value.src.split(/\/|(?=\.\w+$)/);
+                  form.get('alt').patchValue(srcArr[srcArr.length - 2], {
+                    onlySelf: true,
+                    emitEvent: true,
+                  });
+                });
+              },
+            },
+          },
+          {
+            key: 'classes',
+            type: 'input',
+            defaultValue: layout?.bg?.img?.classes || 'object-fit',
+            templateOptions: {
+              label: 'Class',
+            },
+            hideExpression: '!model.src',
+          },
+          {
+            key: 'alt',
+            type: 'input',
+            defaultValue: layout?.bg?.img?.alt || '',
+            templateOptions: {
+              label: 'alt',
+            },
+          },
+        ],
+      },
+      {
+        key: 'classes',
+        type: 'input',
+        defaultValue: layout?.bg?.classes || 'bg-fill-width',
+        templateOptions: {
+          label: 'Bg Class',
+        },
+        hideExpression: '!model.src',
+      },
+    ],
+  };
   let styles: FormlyFieldConfig[] = [
     {
       className: 'width-100',
@@ -390,7 +447,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           templateOptions: {
             label: '基础配置',
           },
-          fieldGroup: [...responsive, ...flexLayout],
+          fieldGroup: [...responsive, ...flexLayout, bgImg],
         },
         {
           templateOptions: {
