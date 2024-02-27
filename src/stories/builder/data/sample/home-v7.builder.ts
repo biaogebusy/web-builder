@@ -34,6 +34,7 @@ export const home_v7 = {
       },
       subTitle: {
         spacer: 'none',
+        classes: 'text-center',
         body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
       },
       bg: {

@@ -22,7 +22,6 @@ export class ContenteditDirective implements AfterViewInit {
       ele.contentEditable = 'false';
 
       const path = this.generatePath(ele);
-      console.log(`path:${path}`);
       set(this.builder.currentPage.body, path, ele.innerHTML);
       this.builder.saveLocalVersions();
     }
