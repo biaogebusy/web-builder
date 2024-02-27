@@ -1,24 +1,8 @@
 <div class="meta-edit" *ngIf="content">
   <app-title [content]="{label:content.data.tag,style:'style-v5'}"></app-title>
-  <div class="img-section">
-    <app-formly *ngIf="content.fields" [fields]="content.fields" [model]="model"
-      (modelChange)="onModelChange($event)"></app-formly>
-    <ng-container *ngIf="content.mode === 'img'">
-      <div class="meta m-top-sm" fxLayout="row" fxLayoutAlign="start center">
-        <img src="{{content.data.src}}" alt="">
-        <div class="content" fxLayout="column">
-          <div class="title">{{content.data.fileName}}</div>
-          <div class="desc">{{content.data.alt}}</div>
-        </div>
-      </div>
-      <app-btn class="action" (click)="openMedias()" [content]="{label:'更新图片',color:'primary',mode:'raised'}"></app-btn>
-    </ng-container>
-  </div>
-  <div class="text-section">
-    <div class="m-top-sm">
-      <div class="actions" fxLayoutAlign="center center">
-        <app-btn (click)="onClear()" [content]="{label:'清空',color:'primary',icon:{svg:'format-clear'}}"></app-btn>
-      </div>
-    </div>
+  <app-formly *ngIf="content.fields" [fields]="content.fields" [model]="model"
+    (modelChange)="onModelChange($event)"></app-formly>
+  <div class="actions m-top-sm" fxLayoutAlign="center center">
+    <app-btn (click)="onClear()" [content]="{label:'清空',color:'primary',icon:{svg:'format-clear'}}"></app-btn>
   </div>
 </div>

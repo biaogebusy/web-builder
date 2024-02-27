@@ -150,5 +150,15 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
         },
       ],
     },
+    {
+      type: 'img-picker',
+      key: 'src',
+      defaultValue: ele.src,
+      templateOptions: {
+        label: '更新图片',
+        fileName: ele.getAttribute('src').split('/').pop(),
+        alt: ele.getAttribute('alt'),
+      },
+    },
   ];
 }

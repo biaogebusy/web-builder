@@ -5,7 +5,6 @@ import {
   Component,
   ElementRef,
   Input,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -15,7 +14,6 @@ import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { get, set } from 'lodash-es';
 import { QuillModule } from 'ngx-quill';
-import { takeUntil } from 'rxjs/operators';
 import type { IMetaEdit } from '@core/interface/IBuilder';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -26,7 +24,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./meta-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MetaEditComponent implements OnInit, AfterViewInit {
   form = new FormGroup({});
   model: any = {};
   @Input() content: IMetaEdit;
@@ -38,6 +36,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
   viewHTML: any;
   guiHTML: any;
   editor: any;
+  //TODO: will remove
   modules: QuillModule = {
     toolbar: [
       [
@@ -64,7 +63,6 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       ['clean'],
     ],
   };
-  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private dialog: MatDialog,
     private builder: BuilderState,
@@ -72,25 +70,12 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.builder.selectedMedia$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(({ img }) => {
-        const { src } = img;
-        this.dialog.closeAll();
-        this.content.data = img;
-        set(this.builder.currentPage.body, this.content.path, src);
-        this.content.ele.setAttribute('src', src);
-        setTimeout(() => {
-          this.builder.saveLocalVersions();
-        }, 600);
-        this.cd.detectChanges();
-      });
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initTextView();
   }
+
   initTextView(): void {
     if (this.content.mode === 'text') {
       const currentValue = get(
@@ -186,51 +171,53 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onModelChange(value: any) {
-    const src = this.content.path;
-    const { style } = value;
+    console.log(value);
+    const path = this.content.path;
+    const { style, src } = value;
     for (let key of Object.keys(style)) {
       switch (key) {
         case 'fontSize':
           const fontSize =
             style.fontSize === 0 ? 'auto' : style.fontSize + 'px';
-          this.setStyle('fontSize', fontSize, style);
+          this.setStyle('fontSize', fontSize, value);
           break;
         case 'width':
           const width = style.width === 0 ? 'auto' : style.width + 'px';
           style[key] = width;
-          this.setStyle('width', width, style);
+          this.setStyle('width', width, value);
           break;
         case 'height':
           const height = style.height === 0 ? 'auto' : style.height + 'px';
           style[key] = height;
-          this.setStyle('height', height, style);
+          this.setStyle('height', height, value);
           break;
         case 'maxWidth':
           const maxWidth =
             style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
           style[key] = maxWidth;
-          this.setStyle('maxWidth', maxWidth, style);
+          this.setStyle('maxWidth', maxWidth, value);
           break;
         case 'maxHeight':
           const maxHeight =
             style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
           style[key] = maxHeight;
-          this.setStyle('maxHeight', maxHeight, style);
+          this.setStyle('maxHeight', maxHeight, value);
           break;
         case 'borderRadius':
           const borderRadius =
             style.borderRadius === 0 ? 0 : style.borderRadius + 'px';
           style[key] = borderRadius;
-          this.setStyle('borderRadius', borderRadius, style);
+          this.setStyle('borderRadius', borderRadius, value);
           break;
         default:
-          this.setStyle(key, style[key], style);
+          this.setStyle(key, style[key], value);
           break;
       }
     }
     if (this.content.mode === 'img') {
-      const imgPath = src.substring(0, src.lastIndexOf('.'));
+      const imgPath = path.substring(0, path.lastIndexOf('.'));
       set(this.builder.currentPage.body, `${imgPath}.style`, style);
+      set(this.builder.currentPage.body, `${imgPath}.src`, src);
     }
 
     if (this.content.mode === 'text') {
@@ -247,18 +234,15 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 600);
   }
 
-  setStyle(key: string, value: any, style: any): void {
+  setStyle(key: string, value: any, formValue: any): void {
+    const { style, src } = formValue;
     if (this.content.mode === 'img') {
       style[key] = value;
       this.content.ele.style[key] = value;
+      this.content.ele.src = src;
     } else {
       this.viewHTML.style[key] = value;
       this.guiHTML.style[key] = value;
     }
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

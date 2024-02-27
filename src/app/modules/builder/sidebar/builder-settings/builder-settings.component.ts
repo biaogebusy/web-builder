@@ -5,8 +5,8 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { ICoreConfig } from '@core/interface/IAppConfig';
-import { IBranding } from '@core/interface/branding/IBranding';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { IBranding } from '@core/interface/branding/IBranding';
 import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG } from '@core/token/token-providers';
