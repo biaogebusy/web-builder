@@ -1,7 +1,7 @@
 {
   "name": "xinshi",
   "version": "4.2.4",
-  "homepage": "https://biaogebusy.github.io/web-builder",
+  "homepage": "https://github.com/biaogebusy/web-builder",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
