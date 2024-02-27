@@ -1,46 +1,20 @@
-name: Build app and deploy to ECS
-
+name: Build
 on:
   push:
-    branches: [master]
-
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
-  build:
+  sonarcloud:
+    name: SonarCloud
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./
     steps:
-      - name: work around permission issue
-        run: git config --global --add safe.directory *
-
-      - name: Checkout
-        uses: actions/checkout@v3.0.1
-
-      - name: use Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
         with:
-          node-version: "14"
-
-      - name: Cache verify
-        run: npm cache verify
-
-      - name: NPM Install
-        run: npm ci over npm
-
-      - name: NPM Install Angular
-        run: npm install -g @angular/cli > /dev/null
-
-      - name: NPM build all App Production
-        run: npm run build:xinshi
-
-      - name: Deploy to Server
-        uses: AEnterprise/rsync-deploy@v1.0.2
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
         env:
-          DEPLOY_KEY: ${{ secrets.KEY }}
-          ARGS: -avz --delete
-          SERVER_PORT: "22"
-          FOLDER: "dist/xinshi"
-          SERVER_IP: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: "/sdc/www/app/dist/"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
