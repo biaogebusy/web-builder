@@ -6,8 +6,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -26,7 +28,8 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
   constructor(
     public builder: BuilderState,
     private storage: LocalStorageService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -59,56 +62,18 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
   }
 
   onNewPage(): void {
-    const newPage: IPage = {
-      title: '新页面',
-      current: true,
-      time: new Date(),
-      body: [
-        {
-          type: 'layout-builder',
-          spacer: 'md',
-          fullWidth: false,
-          bg: {
-            classes: 'bg-fill-width',
+    this.dialog.open(DialogComponent, {
+      width: '1200px',
+      data: {
+        title: '新增页面',
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'builder-template',
           },
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
-          elements: [
-            {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 6,
-                lg: 6,
-              },
-              direction: 'column',
-              layoutAlign: 'start start',
-              elements: [],
-            },
-            {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 6,
-                lg: 6,
-              },
-              direction: 'column',
-              layoutAlign: 'start start',
-              elements: [],
-            },
-          ],
         },
-      ],
-    };
-
-    this.builder.loadNewPage(newPage);
+      },
+    });
   }
 
   onVersion(page: IPage, index: number): void {

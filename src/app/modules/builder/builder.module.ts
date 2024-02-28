@@ -42,6 +42,7 @@ import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.compon
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 import { PageListComponent } from './sidebar/page-list/page-list.component';
 import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
+import { BuilderTemplateComponent } from './main/builder-template/builder-template.component';
 
 const components = [
   BuilderComponent,
@@ -52,6 +53,7 @@ const components = [
   LayoutBuilderComponent,
   WidgetPickerComponent,
   LayoutSettingComponent,
+  BuilderTemplateComponent,
 ];
 
 @NgModule({

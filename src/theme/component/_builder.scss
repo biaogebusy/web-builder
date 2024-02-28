@@ -207,4 +207,16 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       }
     }
   }
+
+  .builder-template {
+    .card {
+      border: 1px solid mat-color($foreground, divider);
+      background-color: mat-color($background, card);
+      transition: all 0.1s ease-in;
+      @include mat-elevation(4, mat-color($foreground, divider), 0.4);
+      &:hover {
+        border-color: mat-color($primary);
+      }
+    }
+  }
 }
