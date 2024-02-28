@@ -8,19 +8,19 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import type { ILayoutBlock, IPopupSelect } from '@core/interface/IBuilder';
+import type { ILayoutBlock, IWidgetPicker } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { WIDGETS } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
 @Component({
-  selector: 'app-popup-select',
-  templateUrl: './popup-select.component.html',
-  styleUrls: ['./popup-select.component.scss'],
+  selector: 'app-widget-picker',
+  templateUrl: './widget-picker.component.html',
+  styleUrls: ['./widget-picker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PopupSelectComponent implements OnInit {
-  @Input() content: IPopupSelect;
+export class WidgetPickerComponent implements OnInit {
+  @Input() content: IWidgetPicker;
   @ViewChild('popup', { static: false }) popup: ElementRef;
   public widget$: Subject<any> = new Subject();
   constructor(

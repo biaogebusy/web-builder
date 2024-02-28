@@ -94,7 +94,7 @@ export interface ILayoutSetting {
   level: 'block' | 'layout' | 'widget';
 }
 
-export interface IPopupSelect {
+export interface IWidgetPicker {
   type: 'string';
   row: 'down' | 'next';
   i: number;
