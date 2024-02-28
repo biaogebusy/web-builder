@@ -1,0 +1,14 @@
+<div class="builder-template" *ngIf="content.length" fxLayout="row wrap" fxLayoutGap="20px">
+  <div class="item m-bottom-sm" fxFlex="0 0 calc(100% / 3 - 20px)" *ngFor="let item of content">
+    <div class="card" (click)="onNewPage(item.page)" matRipple>
+      <div class="card-header">
+        <div class="title">{{item.title}}</div>
+        <div class="sub-title">{{item.subTitle}}</div>
+      </div>
+      <app-img [content]="{src:item.img}"></app-img>
+      <div class="action">
+        <app-btn [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'plus'}}"></app-btn>
+      </div>
+    </div>
+  </div>
+</div>

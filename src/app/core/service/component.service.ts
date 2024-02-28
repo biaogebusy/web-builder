@@ -256,10 +256,11 @@ export class ComponentService {
 
     [
       'layout-builder',
+      'builder-template',
       'builder-generater',
       'btn-generater',
       'meta-edit',
-      'popup-select',
+      'widget-picker',
       'layout-setting',
     ].forEach((type) =>
       this.setModule(type, () =>

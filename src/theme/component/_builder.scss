@@ -188,7 +188,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     }
   }
 
-  .popup-select {
+  .widget-picker {
     .popup {
       @include mat-elevation(2, mat-color($background, hover), 0.4);
       background-color: mat-color($background, card);
@@ -204,6 +204,18 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
         &:hover {
           background-color: mat-color($primary, 0.1);
         }
+      }
+    }
+  }
+
+  .builder-template {
+    .card {
+      border: 1px solid mat-color($foreground, divider);
+      background-color: mat-color($background, card);
+      transition: all 0.1s ease-in;
+      @include mat-elevation(4, mat-color($foreground, divider), 0.4);
+      &:hover {
+        border-color: mat-color($primary);
       }
     }
   }
