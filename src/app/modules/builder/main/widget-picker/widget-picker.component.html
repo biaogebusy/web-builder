@@ -1,4 +1,4 @@
-<div class="popup-select">
+<div class="widget-picker">
   <div class="box" *ngIf="widgets$ | async as widgets" fxLayout="row wrap">
     <div class="item" #item (mouseenter)="onHover(widget, item)" (click)="onSelect(widget)" matRipple fxFlex.lt-sm="33%"
       fxFlex.gt-xs="0 0 calc(100% / 7)" *ngFor="let widget of widgets">

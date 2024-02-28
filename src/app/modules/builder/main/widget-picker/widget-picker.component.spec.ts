@@ -1,16 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopupSelectComponent } from './popup-select.component';
+import { PopupSelectComponent } from './widget-picker.component';
 
-describe('PopupSelectComponent', () => {
+describe('WidgetPickerComponent', () => {
   let component: PopupSelectComponent;
   let fixture: ComponentFixture<PopupSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PopupSelectComponent ]
-    })
-    .compileComponents();
+      declarations: [PopupSelectComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
