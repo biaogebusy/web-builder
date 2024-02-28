@@ -188,7 +188,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     }
   }
 
-  .popup-select {
+  .widget-picker {
     .popup {
       @include mat-elevation(2, mat-color($background, hover), 0.4);
       background-color: mat-color($background, card);

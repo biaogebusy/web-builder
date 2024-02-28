@@ -107,3 +107,23 @@ Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
 ```
+
+## 送审
+
+```
+PATCH /jsonapi/node/article/{{article_uuid}}
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token:获取的x-csrf-token
+
+{
+    "data": {
+        "type": "node--article",
+        "id": "{{ article_uuid }}",//创建文章返回的UUID
+        "attributes": {
+            "moderation_state": "need_approve"
+        }
+    }
+}
+
+```

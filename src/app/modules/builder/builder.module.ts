@@ -32,7 +32,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { MetaEditComponent } from './main/meta-edit/meta-edit.component';
 import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
 import { QuillModule } from 'ngx-quill';
-import { PopupSelectComponent } from './main/popup-select/popup-select.component';
+import { WidgetPickerComponent } from './main/widget-picker/widget-picker.component';
 import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-setting.component';
 import { widgets } from './data/widgets-for-builder';
 import { of } from 'rxjs';
@@ -50,7 +50,7 @@ const components = [
   BtnGeneraterComponent,
   MetaEditComponent,
   LayoutBuilderComponent,
-  PopupSelectComponent,
+  WidgetPickerComponent,
   LayoutSettingComponent,
 ];
 

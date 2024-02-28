@@ -95,7 +95,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         disableCloseButton: true,
         inputData: {
           content: {
-            type: 'popup-select',
+            type: 'widget-picker',
             row,
             i,
             index,
