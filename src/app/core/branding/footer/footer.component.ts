@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { ScreenState } from '../../state/screen/ScreenState';
-import { BRANDING, ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
+import { BRANDING, IS_BUILDER_MODE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 @Component({
@@ -25,8 +25,8 @@ export class FooterComponent implements OnInit, OnDestroy {
   constructor(
     public screen: ScreenState,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(ENABLE_BUILDER_TOOLBAR)
-    public enabelBuilderToolbar$: Observable<boolean>
+    @Inject(IS_BUILDER_MODE)
+    public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {}

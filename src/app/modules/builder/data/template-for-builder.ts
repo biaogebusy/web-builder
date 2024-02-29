@@ -350,16 +350,28 @@ export const templates: any[] = [
               },
             },
           },
-          title: '关于我们',
+          title: '联系我们',
           breadcrumb: [],
         },
         {
-          type: 'layout-builder',
-          spacer: 'md',
           fullWidth: false,
+          spacer: 'xs',
+          bgClasses: 'bg-fill-width',
+          overlay: '',
+          classes: '',
+          id: '',
           bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
             classes: 'bg-fill-width',
+            overlay: '',
           },
+          direction: 'row',
+          horizontal: 'center',
+          vertical: 'center',
           layoutAlign: 'center center',
           gap: {
             xs: 8,
@@ -367,6 +379,7 @@ export const templates: any[] = [
             md: 32,
             lg: 48,
           },
+          type: 'layout-builder',
           elements: [
             {
               row: {
@@ -422,13 +435,50 @@ export const templates: any[] = [
           ],
         },
         {
+          spacer: 'xs',
+          bgClasses: 'bg- bg-fill-width',
+          overlay: '',
+          classes: '',
+          id: '',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            classes: 'bg- bg-fill-width',
+            overlay: '',
+          },
+          type: 'location',
+          style: {
+            height: '500px',
+          },
+          city: '南宁市',
+          params: {
+            zoomEnable: false,
+            draggable: false,
+          },
+          elements: [{}],
+        },
+        {
+          spacer: 'xl',
+          bgClasses: 'bg-fill-width',
+          overlay: '',
+          classes: '',
+          id: '',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            classes: 'bg-fill-width',
+            overlay: '',
+            icon: 'wave',
+          },
           type: 'contact-us',
           params: {
             webform_id: 'contact',
-          },
-          bg: {
-            classes: 'bg-fill-width',
-            icon: 'wave',
           },
           action: {
             label: '提交',
@@ -526,96 +576,235 @@ export const templates: any[] = [
       time: new Date(),
       body: [
         {
-          type: 'layout-builder',
-          spacer: 'md',
-          fullWidth: false,
-          bg: {
+          type: 'banner-simple',
+          style: 'normal',
+          bannerBg: {
             classes: 'bg-fill-width',
+            img: {
+              hostClasses: 'bg-center',
+              src: '/assets/images/16-9/nature-05.jpg',
+              alt: 'beach-01.jpg',
+              style: {
+                width: 'auto',
+                height: 'auto',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                opacity: 1,
+                borderRadius: 0,
+                objectFit: 'initial',
+              },
+            },
           },
-          layoutAlign: 'center center',
+          title: '快速问答',
+          breadcrumb: [],
+        },
+        {
+          fullWidth: false,
+          spacer: 'md',
+          bgClasses: 'bg-shadow bg-fill-width',
+          overlay: '',
+          classes: '',
+          id: '',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            classes: 'bg-shadow bg-fill-width',
+            overlay: '',
+          },
+          direction: 'row wrap',
+          horizontal: 'center',
+          vertical: 'stretch',
+          layoutAlign: 'center stretch',
           gap: {
-            xs: 8,
+            xs: 0,
             sm: 16,
             md: 32,
             lg: 48,
           },
+          type: 'layout-builder',
           elements: [
             {
-              classes: '',
               row: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
-                lg: 6,
+                lg: 7,
               },
               direction: 'column',
-              layoutAlign: 'start start',
-              elements: [],
+              horizontal: 'center',
+              vertical: 'center',
+              layoutAlign: 'center center',
+              bg: {
+                img: {
+                  src: '',
+                  classes: 'object-fit',
+                  alt: '',
+                },
+                classes: 'bg-fill-width',
+              },
+              style: {
+                backgroundColor: 'initial',
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
+              classes: '',
+              elements: [
+                {
+                  type: 'panel',
+                  elements: [
+                    {
+                      title: '组件驱动开发',
+                      icon: 'person',
+                      params: {
+                        expanded: true,
+                      },
+                      elements: [
+                        {
+                          type: 'text',
+                          spacer: 'none',
+                          body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
+                        },
+                      ],
+                    },
+                    {
+                      title: '组件展示和测试',
+                      icon: 'faviores',
+                      elements: [
+                        {
+                          type: 'text',
+                          spacer: 'none',
+                          body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
+                        },
+                      ],
+                    },
+                    {
+                      title: '文档化',
+                      icon: 'faviores',
+                      elements: [
+                        {
+                          type: 'text',
+                          spacer: 'none',
+                          body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
+                        },
+                      ],
+                    },
+                    {
+                      title: '插件和工具生态系统',
+                      icon: 'faviores',
+                      elements: [
+                        {
+                          type: 'text',
+                          spacer: 'none',
+                          body: 'Storybook拥有丰富的插件和工具生态系统，可以扩展其功能。这些插件可以用于模拟数据、测试组件的不同状态和交互，并生成自动化测试报告。这样，开发人员可以根据自己的需求定制和扩展Storybook。',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
             },
             {
-              classes: '',
               row: {
                 xs: 12,
                 sm: 12,
-                md: 6,
-                lg: 6,
+                md: 12,
+                lg: 5,
               },
               direction: 'column',
-              layoutAlign: 'start start',
-              elements: [],
+              horizontal: 'center',
+              vertical: 'center',
+              layoutAlign: 'center center',
+              bg: {
+                img: {
+                  src: '',
+                  classes: 'object-fit',
+                  alt: '',
+                },
+                classes: 'bg-fill-width',
+              },
+              style: {
+                paddingTop: '30px',
+                paddingRight: '30px',
+                paddingBottom: '30px',
+                paddingLeft: '30px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
+              classes: '',
+              elements: [
+                {
+                  type: 'img',
+                  hostClasses: 'text-center',
+                  classes: '',
+                  src: 'http://localhost:4200/assets/images/illustration/01.png',
+                  alt: 'alt',
+                  style: {
+                    width: 'auto',
+                    height: 'auto',
+                    maxWidth: '100%',
+                    maxHeight: '300px',
+                    opacity: '1',
+                    borderRadius: 0,
+                    objectFit: 'initial',
+                  },
+                },
+              ],
             },
           ],
         },
-      ],
-    },
-  },
-  {
-    title: '团队介绍',
-    subTitle: '介绍您的团队',
-    img: '/assets/images/template/team.svg',
-    page: {
-      title: '团队介绍',
-      current: true,
-      time: new Date(),
-      body: [
         {
-          type: 'layout-builder',
-          spacer: 'md',
-          fullWidth: false,
+          spacer: 'xl',
+          bgClasses: 'bg- bg-fill-width',
+          overlay: '',
+          classes: 'text-center',
+          id: '',
           bg: {
-            classes: 'bg-fill-width',
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            classes: 'bg- bg-fill-width',
+            overlay: '',
           },
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
+          type: 'text',
+          title: {
+            label:
+              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+            style: 'style-v1',
+            classes: 'mat-display-2 bold',
           },
-          elements: [
+          body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
+          actionsAlign: 'center center',
+          actions: [
             {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 6,
-                lg: 6,
-              },
-              direction: 'column',
-              layoutAlign: 'start start',
-              elements: [],
+              type: 'btn-generater',
+              label: '生成页面',
+              color: 'primary',
+              mode: 'raised',
             },
             {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 6,
-                lg: 6,
+              type: 'btn',
+              color: 'primary',
+              mode: 'stroked',
+              label: '演示视频',
+              href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+              target: '_blank',
+              icon: {
+                inline: true,
+                svg: 'play-circle-outline',
               },
-              direction: 'column',
-              layoutAlign: 'start start',
-              elements: [],
             },
           ],
         },

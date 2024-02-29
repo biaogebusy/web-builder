@@ -24,10 +24,12 @@
         <app-btn fxHide.xs="true" [matTooltip]="(builder.previewListDrawer$|async)?'展开组件导航' : '收起组件导航'"
           (click)="toggleNavigate()"
           [content]="{label:'', color:(builder.previewListDrawer$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
-        <app-btn fxHide.xs="true" [matTooltip]="builder.showRightDrawer?'禁用右边栏' : '显示右边栏'" (click)="showRightDrawer()"
-          [content]="{label:'', color:builder.showRightDrawer?'primary' : 'warn', mode: 'icon' ,icon:{svg:'dock-right' } }"></app-btn>
-
-        <app-btn-generater [content]="{label:'快速生成',color:'primary', mode: 'raised' }"></app-btn-generater>
+        <app-btn-generater matTooltip="快速生成页面"
+          [content]="{label:'',color:'primary', mode: 'icon',icon:{svg:'lightning-bolt'} }"></app-btn-generater>
+        <app-btn matTooltip="新建页面" (click)="onNewPage()"
+          [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'pencil-plus','inline':true}}"></app-btn>
+        <app-btn (click)="onSubmit()"
+          [content]="{label:'发布页面',color:'primary',mode:'raised',icon:{svg:'navigation-variant'}}"></app-btn>
         <app-builder-menu></app-builder-menu>
       </div>
     </div>

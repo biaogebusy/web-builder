@@ -493,39 +493,10 @@
         },
         "spacer": "lg",
         "order": {
-          "left": 1,
-          "right": 0
+          "left": 0,
+          "right": 1
         },
         "left": [
-          {
-            "type": "img",
-            "src": "/assets/images/illustration/13.png",
-            "classes": "mover",
-            "hostClasses": "position-relative img-bg-shape",
-            "actions": [
-              {
-                "type": "btn-video",
-                "color": "default",
-                "classes": "play-video",
-                "video": {
-                  "type": "player",
-                  "options": {
-                    "controls": true,
-                    "aspectRatio": "16:9",
-                    "poster": "/assets/storybook/assets/builder.png",
-                    "sources": [
-                      {
-                        "src": "/assets/video/layout-builder-hero-demo.mp4",
-                        "type:": "video/mp4"
-                      }
-                    ]
-                  }
-                }
-              }
-            ]
-          }
-        ],
-        "right": [
           {
             "type": "text",
             "spacer": "sm",
@@ -537,10 +508,16 @@
             "body": "从左侧选择组件拖动到编辑区：<ul class=\"list-done\"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\" /><video  muted  autoplay loop width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
             "actions": [
               {
-                "type": "btn-generater",
-                "label": "生成页面",
+                "type": "btn",
                 "color": "primary",
-                "mode": "raised"
+                "mode": "stroked",
+                "label": " 关注作者",
+                "href": "https://www.zhihu.com/people/biaogebusy",
+                "target": "_blank",
+                "icon": {
+                  "inline": true,
+                  "svg": "zhihu"
+                }
               },
               {
                 "type": "link",
@@ -568,6 +545,35 @@
                 "disableToolbar": true,
                 "content": {
                   "type": "github-star"
+                }
+              }
+            ]
+          }
+        ],
+        "right": [
+          {
+            "type": "img",
+            "src": "/assets/images/illustration/13.png",
+            "classes": "mover",
+            "hostClasses": "position-relative img-bg-shape",
+            "actions": [
+              {
+                "type": "btn-video",
+                "color": "default",
+                "classes": "play-video",
+                "video": {
+                  "type": "player",
+                  "options": {
+                    "controls": true,
+                    "aspectRatio": "16:9",
+                    "poster": "/assets/storybook/assets/builder.png",
+                    "sources": [
+                      {
+                        "src": "/assets/video/layout-builder-hero-demo.mp4",
+                        "type:": "video/mp4"
+                      }
+                    ]
+                  }
                 }
               }
             ]

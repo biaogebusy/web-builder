@@ -9,8 +9,6 @@ import {
 } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import type { IPage } from '@core/interface/IAppConfig';
-import type { IUser } from '@core/interface/IUser';
-import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
@@ -18,7 +16,6 @@ import {
   BUILDER_CURRENT_PAGE,
   COLOR_TEST,
   DEBUG_ANIMATE,
-  USER,
 } from '@core/token/token-providers';
 import { Subject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -37,9 +34,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private builder: BuilderState,
     private util: UtilitiesService,
     private cd: ChangeDetectorRef,
-    private builderService: BuilderService,
     @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
-    @Inject(USER) private user: IUser,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
     @Inject(COLOR_TEST) private colorTestPage: IPage
   ) {}
@@ -72,19 +67,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       ],
     });
-  }
-
-  onSubmit(): void {
-    if (!this.user) {
-      this.util.openSnackbar('请登录后提交！', 'ok');
-    }
-    this.util.openSnackbar('正在提交！', 'ok');
-    this.builderService
-      .createLandingPage(this.builder.currentPage)
-      .subscribe((res) => {
-        this.builder.updateVersion(this.page);
-        this.util.openSnackbar('提交成功！', 'ok');
-      });
   }
 
   get canShow(): boolean {
