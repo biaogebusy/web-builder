@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  Input,
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +11,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-builder-sidebar',
@@ -18,6 +20,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSidebarComponent implements OnInit {
+  @Input() builderRightDrawer: MatDrawer;
   showBranding: boolean = false;
 
   constructor(
@@ -46,6 +49,13 @@ export class BuilderSidebarComponent implements OnInit {
         },
       },
     });
+  }
+
+  showRightDrawer(): void {
+    this.builder.showRightDrawer = !this.builder.showRightDrawer;
+    if (!this.builder.showRightDrawer) {
+      this.builderRightDrawer.close();
+    }
   }
 
   onToggleBuilderTheme(mode: 'light' | 'dark'): void {
