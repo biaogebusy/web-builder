@@ -20,9 +20,11 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, IS_BUILDER_MODE } from '@core/token/token-providers';
-import { defaultsDeep, isNumber } from 'lodash-es';
+import { isNumber } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export interface dynamicInputs {
   content?: any;
@@ -54,7 +56,9 @@ export class DynamicComponentComponent
     private ele: ElementRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
-  ) {}
+  ) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   ngOnInit(): void {
     this.builder.builderLayoutSetting$
@@ -121,7 +125,35 @@ export class DynamicComponentComponent
       this.component.instance.uuid = Date.now().toString();
     }
     this.container.insert(this.component.hostView);
+    this.initAnimate();
     this.component.changeDetectorRef.markForCheck();
+  }
+
+  initAnimate(): void {
+    let gsapConfig;
+    if (!this.inputs.type && this.inputs.content) {
+      if (this.inputs?.content?.animate) {
+        gsapConfig = this.inputs.content.animate;
+      }
+    } else {
+      gsapConfig = this.inputs.animate;
+    }
+    if (gsapConfig) {
+      const ele = this.ele.nativeElement.lastElementChild;
+      ele.style.display = 'block';
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: this.ele.nativeElement,
+          start: 'top 85%',
+          end: 'bottom 30%',
+          scroller: this.getScroller(),
+          toggleActions: 'play none none none',
+        },
+      });
+      tl.from(ele, {
+        ...gsapConfig,
+      });
+    }
   }
 
   onFilterChange(state: boolean): void {
@@ -131,6 +163,15 @@ export class DynamicComponentComponent
       coponentEle.style.filter = 'blur(8px)';
     } else {
       coponentEle.style.filter = '';
+    }
+  }
+
+  getScroller(): HTMLElement | Window {
+    const scroller = document.getElementById('builder-list');
+    if (scroller) {
+      return scroller;
+    } else {
+      return window;
     }
   }
 
