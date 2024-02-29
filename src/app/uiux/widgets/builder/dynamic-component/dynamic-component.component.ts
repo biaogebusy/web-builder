@@ -19,10 +19,7 @@ import {
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { BuilderState } from '@core/state/BuilderState';
-import {
-  CORE_CONFIG,
-  ENABLE_BUILDER_TOOLBAR,
-} from '@core/token/token-providers';
+import { CORE_CONFIG, IS_BUILDER_MODE } from '@core/token/token-providers';
 import { defaultsDeep, isNumber } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -56,7 +53,7 @@ export class DynamicComponentComponent
     private cd: ChangeDetectorRef,
     private ele: ElementRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(ENABLE_BUILDER_TOOLBAR) public enable_toolbar$: Observable<boolean>
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
@@ -81,7 +78,7 @@ export class DynamicComponentComponent
   }
 
   ngAfterContentInit(): void {
-    this.enable_toolbar$.pipe(takeUntil(this.destroy$)).subscribe((state) => {
+    this.isBuilderMode$.pipe(takeUntil(this.destroy$)).subscribe((state) => {
       if (!this.inputs?.showToolbar) {
         this.activeToolbarClass = false;
         return;

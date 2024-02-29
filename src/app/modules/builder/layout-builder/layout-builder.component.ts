@@ -10,7 +10,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutBuilder, ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
-import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
+import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { defaultsDeep, isNumber } from 'lodash-es';
@@ -47,7 +47,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
     private builder: BuilderState,
-    @Inject(ENABLE_BUILDER_TOOLBAR) public enable_toolbar$: Observable<boolean>
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {

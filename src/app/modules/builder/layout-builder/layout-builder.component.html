@@ -13,7 +13,7 @@
         fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
         fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
         [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
-        <ng-container *ngIf="enable_toolbar$ | async">
+        <ng-container *ngIf="isBuilderMode$ | async">
           <div class="block-menu">
             <app-icon class="toggle" matTooltip="当前栏配置" [content]="{svg:'dots-horizontal',inline:true}"></app-icon>
             <div class="block-toolbar">
@@ -39,7 +39,7 @@
         <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
         <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign" [ngStyle]="layout.style">
           <div class="item" *ngFor="let item of layout.elements;index as index">
-            <div class="actions" *ngIf="enable_toolbar$ | async">
+            <div class="actions" *ngIf="isBuilderMode$ | async">
               <app-btn matTooltip="上移" *ngIf="index > 0 && index < layout.elements.length"
                 (click)="onUpDown('up',i,index)"
                 [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>
@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div class="layout-preview" *ngIf="enable_toolbar$ | async">
+    <div class="layout-preview" *ngIf="isBuilderMode$ | async">
       <ng-container *ngIf="showGrid">
         <div class="col-item" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12]">
           <div class="span">{{item}}</div>

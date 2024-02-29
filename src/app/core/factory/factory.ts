@@ -77,25 +77,23 @@ export function builderCurrentPageFactory(
   return currentPage$;
 }
 
-export function enableBuilderToolbarFactory(
-  router: Router
-): Observable<boolean> {
-  const enableToolbar$ = new BehaviorSubject<boolean>(false);
+export function isBuilderModeFactory(router: Router): Observable<boolean> {
+  const isBuilderMode$ = new BehaviorSubject<boolean>(false);
   if (router.url.includes(BUILDERPATH)) {
-    enableToolbar$.next(true);
+    isBuilderMode$.next(true);
   } else {
-    enableToolbar$.next(false);
+    isBuilderMode$.next(false);
   }
   router.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
       if (router.url.includes(BUILDERPATH)) {
-        enableToolbar$.next(true);
+        isBuilderMode$.next(true);
       } else {
-        enableToolbar$.next(false);
+        isBuilderMode$.next(false);
       }
     }
   });
-  return enableToolbar$;
+  return isBuilderMode$;
 }
 
 export function debugAnimateFactory(

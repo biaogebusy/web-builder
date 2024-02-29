@@ -20,7 +20,7 @@ import {
   BUILDER_FULL_SCREEN,
   CORE_CONFIG,
   DEBUG_ANIMATE,
-  ENABLE_BUILDER_TOOLBAR,
+  IS_BUILDER_MODE,
   MANAGE_SIDEBAR_STATE,
   MEDIA_ASSETS,
   NOTIFY_CONTENT,
@@ -36,7 +36,7 @@ import {
   builderFullScreenFactory,
   coreConfigFactory,
   debugAnimateFactory,
-  enableBuilderToolbarFactory,
+  isBuilderModeFactory,
   manageSidebarStateFactory,
   mediaAssetsFactory,
   notifyFactory,
@@ -135,8 +135,8 @@ import { ContentState } from '@core/state/ContentState';
       ],
     },
     {
-      provide: ENABLE_BUILDER_TOOLBAR,
-      useFactory: enableBuilderToolbarFactory,
+      provide: IS_BUILDER_MODE,
+      useFactory: isBuilderModeFactory,
       deps: [Router],
     },
     {
