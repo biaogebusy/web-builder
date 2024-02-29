@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-export function getSwiper(widget: any): FormlyFieldConfig[] {
-  return [
+export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
+  const fields = [
     {
       key: 'swiper',
       type: 'tabs',
@@ -276,4 +276,10 @@ export function getSwiper(widget: any): FormlyFieldConfig[] {
       ],
     },
   ];
+
+  if (options) {
+    fields[0].fieldGroup.push(...options);
+  }
+
+  return fields;
 }
