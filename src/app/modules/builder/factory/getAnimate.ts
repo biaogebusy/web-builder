@@ -54,6 +54,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   min: -500,
                   max: 500,
                   step: 10,
+                  thumbLabel: true,
                 },
                 expressionProperties: {
                   'templateOptions.label': '"X轴: " + model.x + " px"',
@@ -67,6 +68,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   min: -500,
                   max: 500,
                   step: 10,
+                  thumbLabel: true,
                 },
                 expressionProperties: {
                   'templateOptions.label': '"Y轴: " + model.y + " px"',
@@ -75,11 +77,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
               {
                 key: 'rotation',
                 type: 'slider',
-                defaultValue: content?.animate?.from?.rotation || 'none',
+                defaultValue: content?.animate?.from?.rotation || 0,
                 templateOptions: {
                   min: -360,
                   max: 360,
                   step: 1,
+                  thumbLabel: true,
                 },
                 expressionProperties: {
                   'templateOptions.label': '"旋转: " + model.rotation',
@@ -88,11 +91,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
               {
                 key: 'scale',
                 type: 'slider',
-                defaultValue: content?.animate?.from?.scale || 'none',
+                defaultValue: content?.animate?.from?.scale || 1,
                 templateOptions: {
                   min: 0,
                   max: 2,
                   step: 0.1,
+                  thumbLabel: true,
                 },
                 expressionProperties: {
                   'templateOptions.label': '"缩放: " + model.scale',
@@ -106,6 +110,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   min: 0,
                   max: 1,
                   step: 0.1,
+                  thumbLabel: true,
                 },
                 expressionProperties: {
                   'templateOptions.label': '"不透明度: " + model.opacity',
@@ -190,6 +195,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   min: 0,
                   max: 6,
                   step: 0.1,
+                  thumbLabel: true,
                 },
                 expressionProperties: {
                   'templateOptions.label': '"延迟: " + model.delay + "秒"',
@@ -203,6 +209,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   min: 1,
                   max: 6,
                   step: 0.1,
+                  thumbLabel: true,
                 },
                 expressionProperties: {
                   'templateOptions.label':

@@ -13,7 +13,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
       fieldGroup: [
         {
           templateOptions: {
-            label: '通用配置',
+            label: '通用',
           },
           fieldGroup: [
             {
@@ -233,7 +233,6 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             },
           ],
         },
-        getAnimate(content),
       ],
       hooks: {
         onInit: (formGroup: any) => {
@@ -257,7 +256,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
     const flexConfig: FormlyFieldConfig[] = [
       {
         templateOptions: {
-          label: '布局配置',
+          label: '布局',
         },
         fieldGroup: [
           {
@@ -535,5 +534,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
 
     fields[0].fieldGroup?.push(swiperConfig);
   }
+
+  fields[0].fieldGroup?.push(getAnimate(content));
   return fields;
 }
