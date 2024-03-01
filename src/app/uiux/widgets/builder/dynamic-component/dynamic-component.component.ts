@@ -139,20 +139,26 @@ export class DynamicComponentComponent
       gsapConfig = this.inputs.animate;
     }
     if (gsapConfig) {
+      const { trigger, from } = gsapConfig;
       const ele = this.ele.nativeElement.lastElementChild;
       ele.style.display = 'block';
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: this.ele.nativeElement,
-          start: 'top 85%',
-          end: 'bottom 30%',
+          start: trigger?.start || 'top 85%',
+          end: trigger?.end || 'bottom 30%',
+          markers: trigger?.markers,
+          scrub: trigger?.scrub,
           scroller: this.getScroller(),
           toggleActions: 'play none none none',
         },
       });
-      tl.from(ele, {
-        ...gsapConfig,
-      });
+      if (from) {
+        // 从一个状态到当前状态
+        tl.from(ele, {
+          ...from,
+        });
+      }
     }
   }
 

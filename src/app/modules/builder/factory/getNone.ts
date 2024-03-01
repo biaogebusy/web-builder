@@ -5,11 +5,10 @@ export function getNone(widget: any, options?: any[]): FormlyFieldConfig[] {
     {
       key: 'none',
       type: 'tabs',
-
       fieldGroup: [
         {
           templateOptions: {
-            label: 'None',
+            label: '配置',
           },
           fieldGroup: [
             {

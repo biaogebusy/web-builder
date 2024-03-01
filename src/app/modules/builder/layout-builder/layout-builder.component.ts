@@ -172,7 +172,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         fields = getIcon(widget, [animateConfig]);
         break;
       default:
-        (fields = getNone(widget)), [animateConfig];
+        fields = getNone(widget, [animateConfig]);
     }
 
     if (fields.length > 0) {
