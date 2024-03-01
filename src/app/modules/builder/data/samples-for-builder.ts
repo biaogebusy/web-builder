@@ -796,7 +796,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 169,
+                  value: 946,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -806,7 +806,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 436,
+                  value: 121,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -816,7 +816,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 199,
+                  value: 166,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -826,7 +826,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 4657,
+                  value: 7620,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -4773,7 +4773,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 58,
+                  value: 45,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -4783,7 +4783,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 33112,
+                  value: 38532,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -4793,7 +4793,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3327,
+                  value: 3891,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -4803,7 +4803,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 801,
+                  value: 891,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5087,7 +5087,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 58,
+                  value: 45,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5097,7 +5097,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 33112,
+                  value: 38532,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5107,7 +5107,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3327,
+                  value: 3891,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5117,7 +5117,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 801,
+                  value: 891,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7040,7 +7040,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 58,
+                  value: 45,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -7050,7 +7050,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 33112,
+                  value: 38532,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7060,7 +7060,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3327,
+                  value: 3891,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -7070,7 +7070,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 801,
+                  value: 891,
                   label: '个',
                 },
                 title: '成功故事',

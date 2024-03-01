@@ -347,9 +347,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 8630, 7402, 6488],
-          ['第二季度', 4236, 9170, 3201],
-          ['第三季度', 3000, 9405, 6373],
+          ['第一季度', 5576, 8192, 9323],
+          ['第二季度', 4318, 6868, 7908],
+          ['第三季度', 3542, 3997, 7694],
         ],
       },
       xAxis: {
@@ -417,9 +417,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 8630, 7402, 6488],
-          ['第二季度', 4236, 9170, 3201],
-          ['第三季度', 3000, 9405, 6373],
+          ['第一季度', 5576, 8192, 9323],
+          ['第二季度', 4318, 6868, 7908],
+          ['第三季度', 3542, 3997, 7694],
         ],
       },
       xAxis: {
@@ -493,9 +493,9 @@ export const widgets = [
       dataset: {
         source: [
           ['预算', '费用'],
-          ['大额红包总金额', 583],
-          ['小额红包总金额', 921],
-          ['提成总额', 303],
+          ['大额红包总金额', 755],
+          ['小额红包总金额', 764],
+          ['提成总额', 900],
         ],
       },
       series: [
@@ -513,6 +513,64 @@ export const widgets = [
               shadowColor: 'rgba(0, 0, 0, 0.5)',
             },
           },
+        },
+      ],
+    },
+  },
+  {
+    label: '面板',
+    icon: {
+      svg: 'format-line-weight',
+    },
+    content: {
+      type: 'panel',
+      elements: [
+        {
+          title: '组件驱动开发',
+          icon: 'person',
+          params: {
+            expanded: true,
+          },
+          elements: [
+            {
+              type: 'text',
+              spacer: 'none',
+              body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
+            },
+          ],
+        },
+        {
+          title: '组件展示和测试',
+          icon: 'faviores',
+          elements: [
+            {
+              type: 'text',
+              spacer: 'none',
+              body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
+            },
+          ],
+        },
+        {
+          title: '文档化',
+          icon: 'faviores',
+          elements: [
+            {
+              type: 'text',
+              spacer: 'none',
+              body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
+            },
+          ],
+        },
+        {
+          title: '插件和工具生态系统',
+          icon: 'faviores',
+          elements: [
+            {
+              type: 'text',
+              spacer: 'none',
+              body: 'Storybook拥有丰富的插件和工具生态系统，可以扩展其功能。这些插件可以用于模拟数据、测试组件的不同状态和交互，并生成自动化测试报告。这样，开发人员可以根据自己的需求定制和扩展Storybook。',
+            },
+          ],
         },
       ],
     },
@@ -549,25 +607,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 3975,
+          tatol: 3447,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 2257,
+          tatol: 3335,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 1370,
+          tatol: 7070,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 6152,
+          tatol: 4810,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -862,7 +920,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-02-27',
+          changed: '2024-03-01',
         },
         {
           link: {
@@ -873,29 +931,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-02-27',
+          changed: '2024-03-01',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-02-27',
+            href: '2024-03-01',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-02-27',
+          changed: '2024-03-01',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-02-27',
+            href: '2024-03-01',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-02-27',
+          changed: '2024-03-01',
         },
       ],
     },
@@ -915,7 +973,7 @@ export const widgets = [
         },
         alt: 'logo',
       },
-      meta: '2024-02',
+      meta: '2024-03',
       title: '前端开发工程师',
       subTitle: 'Davyin',
       content:

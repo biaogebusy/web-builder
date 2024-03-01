@@ -22,8 +22,8 @@ import {
 } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import type { IPage } from '@core/interface/IAppConfig';
-import { IBranding } from '@core/interface/branding/IBranding';
-import { IUser } from '@core/interface/IUser';
+import type { IBranding } from '@core/interface/branding/IBranding';
+import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
 import { MatDialog } from '@angular/material/dialog';
