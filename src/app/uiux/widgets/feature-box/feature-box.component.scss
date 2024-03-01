@@ -190,12 +190,12 @@ img {
     text-align: center;
     display: block;
     box-sizing: border-box;
-    left: 0;
-    right: 0;
-    width: calc(100% + 32px);
-    margin: 0 -16px 0 -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    border-radius: 12px;
+    width: auto;
     opacity: 0;
-    transform: translateY(100px);
     @include transition(all, 0.4s, ease);
   }
   &:hover {
@@ -207,7 +207,7 @@ img {
       .title {
         opacity: 1;
         z-index: 10;
-        transform: translateY(0px);
+        bottom: 2px;
         @include transition(all, 0.4s, ease);
       }
     }

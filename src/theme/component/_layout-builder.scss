@@ -17,10 +17,10 @@
             z-index: 10;
           }
           .block-toolbar {
-            background-color: mat-color($background, tooltip, 0.5);
+            background-color: mat-color($foreground, elevation, 0.7);
             @include mat-elevation(2, mat-color($background, tooltip), 0.25);
             .mat-button-base {
-              color: mat-color($primary, default-contrast);
+              color: mat-color($primary, default-contrast, 0.8);
             }
           }
           > .placeholder {
@@ -34,14 +34,15 @@
                 outline: 1px solid mat-color($primary);
               }
               > .actions {
-                background-color: mat-color($background, tooltip, 0.5);
+                background-color: mat-color($foreground, elevation, 0.7);
+
                 @include mat-elevation(
                   2,
                   mat-color($background, tooltip),
                   0.25
                 );
                 .mat-button-base {
-                  color: mat-color($primary, default-contrast);
+                  color: mat-color($primary, default-contrast, 0.8);
                 }
               }
             }
