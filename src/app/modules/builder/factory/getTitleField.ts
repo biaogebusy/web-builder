@@ -80,7 +80,7 @@ export function getTitleField(
         },
         {
           templateOptions: {
-            label: '打字效果',
+            label: '特效',
           },
           fieldGroup: [
             {

@@ -42,7 +42,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                     {
                       key: 'slidesPerView',
                       type: 'slider',
-                      className: 'width-40',
+                      className: 'width-50',
                       defaultValue:
                         widget.params?.breakpoints?.[600]?.slidesPerView,
                       templateOptions: {
@@ -59,7 +59,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                     {
                       key: 'spaceBetween',
                       type: 'slider',
-                      className: 'width-40',
+                      className: 'width-50',
                       defaultValue:
                         widget.params?.breakpoints?.[600]?.spaceBetween || 0,
                       templateOptions: {
@@ -84,7 +84,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                     {
                       key: 'slidesPerView',
                       type: 'slider',
-                      className: 'width-40',
+                      className: 'width-50',
                       defaultValue:
                         widget.params.breakpoints?.[960].slidesPerView,
                       templateOptions: {
@@ -101,7 +101,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                     {
                       key: 'spaceBetween',
                       type: 'slider',
-                      className: 'width-40',
+                      className: 'width-50',
                       defaultValue:
                         widget.params?.breakpoints?.[960]?.spaceBetween || 0,
                       templateOptions: {
