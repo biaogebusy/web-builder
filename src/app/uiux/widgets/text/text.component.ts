@@ -8,7 +8,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import type { IBtn } from '@core/interface/widgets/IBtn';
 import type { IText } from '@core/interface/widgets/IText';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG, DEBUG_ANIMATE } from '@core/token/token-providers';
