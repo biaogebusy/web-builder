@@ -29,6 +29,11 @@ import * as shapeStory from '@stories/widgets/Shape.stories';
 import * as BoxStories from '@stories/base/Box.stories';
 import * as spacerStory from '@stories/theme/Spacer.stories';
 import * as contactStory from '@stories/drupal/form/ContactUs.stories';
+import * as panelStory from '@stories/widgets/Panel.stories';
+
+export const {
+  Default: { args: panel },
+} = panelStory;
 
 export const {
   Horizontal: { args: stepper },
@@ -235,6 +240,11 @@ export const widgets: any[] = [
       svg: 'chart-pie',
     },
     ...chartPie,
+  },
+  {
+    label: '面板',
+    icon: { svg: 'format-line-weight' },
+    ...panel,
   },
   {
     label: '表格',

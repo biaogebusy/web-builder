@@ -10,7 +10,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutBuilder, ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
-import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
+import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { defaultsDeep, isNumber } from 'lodash-es';
@@ -30,6 +30,7 @@ import { getContact } from '../factory/getContact';
 import { getText } from '../factory/getText';
 import { getImg } from '../factory/getImg';
 import { getIcon } from '../factory/getIcon';
+import { getAnimate } from '../factory/getAnimate';
 
 @Component({
   selector: 'app-layout-builder',
@@ -47,7 +48,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
     private builder: BuilderState,
-    @Inject(ENABLE_BUILDER_TOOLBAR) public enable_toolbar$: Observable<boolean>
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
@@ -135,42 +136,43 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
   onWidgetSetting(i: number, index: number, widget: any): void {
     this.uuid = Date.now().toString();
     let fields: FormlyFieldConfig[] = [];
+    const animateConfig = getAnimate(widget);
     switch (widget.type) {
       case 'title':
-        fields = getTitleField(widget);
+        fields = getTitleField(widget, [animateConfig]);
         break;
       case 'btn-video':
-        fields = getBtnVideo(widget);
+        fields = getBtnVideo(widget, [animateConfig]);
         break;
       case 'swiper':
-        fields = getSwiper(widget);
+        fields = getSwiper(widget, [animateConfig]);
         break;
       case 'link':
-        fields = getLink(widget);
+        fields = getLink(widget, [animateConfig]);
         break;
       case 'btn':
-        fields = getBtn(widget);
+        fields = getBtn(widget, [animateConfig]);
         break;
       case 'spacer':
         fields = getSpacer(widget);
         break;
       case 'chart':
-        fields = getChart(widget);
+        fields = getChart(widget, [animateConfig]);
         break;
       case 'contact-us':
-        fields = getContact(widget);
+        fields = getContact(widget, [animateConfig]);
         break;
       case 'text':
-        fields = getText(widget);
+        fields = getText(widget, [animateConfig]);
         break;
       case 'img':
-        fields = getImg(widget);
+        fields = getImg(widget, [animateConfig]);
         break;
       case 'icon':
-        fields = getIcon(widget);
+        fields = getIcon(widget, [animateConfig]);
         break;
       default:
-        fields = getNone(widget);
+        fields = getNone(widget, [animateConfig]);
     }
 
     if (fields.length > 0) {
@@ -190,10 +192,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       pageIndex: this.pageIndex,
       index,
       uuid: this.uuid,
-      title: {
-        label: widget.type,
-        style: 'style-v5',
-      },
       fields,
       content: widget,
       level: 'widget',

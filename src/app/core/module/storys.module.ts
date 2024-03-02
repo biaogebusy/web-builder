@@ -27,7 +27,7 @@ import {
   BUILDER_FULL_SCREEN,
   DEBUG_ANIMATE,
   MANAGE_SIDEBAR_STATE,
-  ENABLE_BUILDER_TOOLBAR,
+  IS_BUILDER_MODE,
   MEDIA_ASSETS,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
@@ -158,7 +158,7 @@ export class StorysModule {
           ],
         },
         {
-          provide: ENABLE_BUILDER_TOOLBAR,
+          provide: IS_BUILDER_MODE,
           useValue: of(false),
         },
         {

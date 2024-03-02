@@ -3,7 +3,7 @@ import { getLayoutAlign } from './getBlockSetting';
 import { getSwiper } from './getSwiper';
 import { getTitleField } from './getTitleField';
 import { getText } from './getText';
-import { FormGroup } from '@angular/forms';
+import { getAnimate } from './getAnimate';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
@@ -13,7 +13,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
       fieldGroup: [
         {
           templateOptions: {
-            label: '通用配置',
+            label: '通用',
           },
           fieldGroup: [
             {
@@ -256,7 +256,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
     const flexConfig: FormlyFieldConfig[] = [
       {
         templateOptions: {
-          label: '布局配置',
+          label: '布局',
         },
         fieldGroup: [
           {
@@ -534,5 +534,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
 
     fields[0].fieldGroup?.push(swiperConfig);
   }
+
+  fields[0].fieldGroup?.push(getAnimate(content));
   return fields;
 }

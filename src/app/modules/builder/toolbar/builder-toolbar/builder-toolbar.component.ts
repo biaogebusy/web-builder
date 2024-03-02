@@ -18,11 +18,16 @@ import {
   BRANDING,
   BUILDER_CURRENT_PAGE,
   BUILDER_FULL_SCREEN,
+  USER,
 } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
-import { MatDialog } from '@angular/material/dialog';
 import type { IPage } from '@core/interface/IAppConfig';
-import { IBranding } from '@core/interface/branding/IBranding';
+import type { IBranding } from '@core/interface/branding/IBranding';
+import type { IUser } from '@core/interface/IUser';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { BuilderService } from '@core/service/builder.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -34,6 +39,7 @@ export class BuilderToolbarComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() builderRightDrawer: MatDrawer;
+  page: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
   showNavigate: boolean = false;
 
@@ -42,12 +48,20 @@ export class BuilderToolbarComponent
     public builder: BuilderState,
     private screenState: ScreenState,
     private screenService: ScreenService,
+    private util: UtilitiesService,
+    private builderService: BuilderService,
+    private dialog: MatDialog,
+    @Inject(USER) private user: IUser,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentPage$.subscribe((page) => {
+      this.page = page;
+    });
+  }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -73,6 +87,21 @@ export class BuilderToolbarComponent
     }
   }
 
+  onNewPage(): void {
+    this.dialog.open(DialogComponent, {
+      width: '1200px',
+      data: {
+        title: '新增页面',
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'builder-template',
+          },
+        },
+      },
+    });
+  }
+
   onFullScreen(event: MatSlideToggleChange): void {
     this.storage.store('builderFullScreen', event.checked);
     this.builder.fullScreen$.next(event.checked);
@@ -83,11 +112,17 @@ export class BuilderToolbarComponent
     this.builder.previewListDrawer$.next(this.showNavigate);
   }
 
-  showRightDrawer(): void {
-    this.builder.showRightDrawer = !this.builder.showRightDrawer;
-    if (!this.builder.showRightDrawer) {
-      this.builderRightDrawer.close();
+  onSubmit(): void {
+    if (!this.user) {
+      this.util.openSnackbar('请登录后提交！', 'ok');
     }
+    this.util.openSnackbar('正在提交！', 'ok');
+    this.builderService
+      .createLandingPage(this.builder.currentPage)
+      .subscribe((res) => {
+        this.builder.updateVersion(this.page);
+        this.util.openSnackbar('提交成功！', 'ok');
+      });
   }
 
   ngOnDestroy(): void {

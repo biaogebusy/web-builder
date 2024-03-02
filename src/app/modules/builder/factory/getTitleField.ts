@@ -1,7 +1,10 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getTitleField(widget: any): FormlyFieldConfig[] {
-  return [
+export function getTitleField(
+  widget: any,
+  options?: any[]
+): FormlyFieldConfig[] {
+  const fields = [
     {
       key: 'title',
       type: 'tabs',
@@ -77,7 +80,7 @@ export function getTitleField(widget: any): FormlyFieldConfig[] {
         },
         {
           templateOptions: {
-            label: '打字效果',
+            label: '特效',
           },
           fieldGroup: [
             {
@@ -111,6 +114,7 @@ export function getTitleField(widget: any): FormlyFieldConfig[] {
                         min: 10,
                         max: 1000,
                         step: 2,
+                        thumbLabel: true,
                       },
                       expressionProperties: {
                         'templateOptions.label': '"速度: " + model.typeSpeed',
@@ -150,4 +154,10 @@ export function getTitleField(widget: any): FormlyFieldConfig[] {
       ],
     },
   ];
+
+  if (options) {
+    fields[0].fieldGroup.push(...options);
+  }
+
+  return fields;
 }

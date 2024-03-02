@@ -11,7 +11,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
-import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
+import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { Observable } from 'rxjs';
 
@@ -39,12 +39,12 @@ export class ComponentToolbarComponent implements OnInit {
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
-    @Inject(ENABLE_BUILDER_TOOLBAR)
-    public enabelBuilderToolbar$: Observable<boolean>
+    @Inject(IS_BUILDER_MODE)
+    public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
-    this.enabelBuilderToolbar$.subscribe((state) => {
+    this.isBuilderMode$.subscribe((state) => {
       this.enableBuilderToolbar = state;
     });
   }
