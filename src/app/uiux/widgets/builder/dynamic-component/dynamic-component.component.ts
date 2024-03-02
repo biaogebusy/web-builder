@@ -23,8 +23,7 @@ import { CORE_CONFIG, IS_BUILDER_MODE } from '@core/token/token-providers';
 import { isNumber } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScreenService } from '@core/service/screen.service';
 
 export interface dynamicInputs {
   content?: any;
@@ -54,25 +53,26 @@ export class DynamicComponentComponent
     public builder: BuilderState,
     private cd: ChangeDetectorRef,
     private ele: ElementRef,
+    private screenService: ScreenService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
-  ) {
-    gsap.registerPlugin(ScrollTrigger);
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.builder.builderLayoutSetting$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
-        const { value, uuid, pageIndex } = data;
-        if (this.uuid === uuid) {
-          this.inputs = value;
-          this.loadComponent();
-          if (isNumber(pageIndex)) {
-            this.builder.updateComponent(pageIndex, this.inputs);
+    if (this.screenService.isPlatformBrowser()) {
+      this.builder.builderLayoutSetting$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data) => {
+          const { value, uuid, pageIndex } = data;
+          if (this.uuid === uuid) {
+            this.inputs = value;
+            this.loadComponent();
+            if (isNumber(pageIndex)) {
+              this.builder.updateComponent(pageIndex, this.inputs);
+            }
           }
-        }
-      });
+        });
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -142,7 +142,7 @@ export class DynamicComponentComponent
       const { trigger, from } = gsapConfig;
       const ele = this.ele.nativeElement.lastElementChild;
       ele.style.display = 'block';
-      const tl = gsap.timeline({
+      const tl = window.gsap.timeline({
         scrollTrigger: {
           trigger: this.ele.nativeElement,
           start: trigger?.start || 'top 85%',

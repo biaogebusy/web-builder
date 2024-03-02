@@ -8,7 +8,8 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { Subject } from 'rxjs';
 import { ClarityService } from './clarity.service';
 import { TourService } from './tour.service';
-
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 @Injectable({
   providedIn: 'root',
 })
@@ -45,6 +46,8 @@ export class ConfigService {
         if (this.coreConfig?.tour?.enable) {
           tourService.init(this.coreConfig.tour);
         }
+        window.gsap = gsap;
+        window.gsap.registerPlugin(ScrollTrigger);
       }
     }
   }

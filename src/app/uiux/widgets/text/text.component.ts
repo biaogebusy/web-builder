@@ -14,8 +14,6 @@ import { CORE_CONFIG, DEBUG_ANIMATE } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ContentState } from '@core/state/ContentState';
 import { BuilderState } from '@core/state/BuilderState';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Observable } from 'rxjs';
 import { BaseComponent } from '@uiux/base/base.widget';
 
@@ -50,7 +48,6 @@ export class TextComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      gsap.registerPlugin(ScrollTrigger);
       this.contentState.drawerOpened$.subscribe((state) => {
         this.disableAnimate = state;
       });
@@ -81,7 +78,7 @@ export class TextComponent
     const bg: Element = this.bg?.nativeElement;
     // https://greensock.com/st-demos/
     // https://greensock.com/docs/v3/Plugins/ScrollTrigger
-    const tl = gsap.timeline({
+    const tl = window.gsap.timeline({
       scrollTrigger: {
         trigger: this.ele.nativeElement,
         start: 'top 85%', // [触发元素开始的地方,视口开始的位置],
