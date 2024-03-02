@@ -1,4 +1,4 @@
-<ng-container *ngIf="!(enabelBuilderToolbar$|async)">
+<ng-container *ngIf="!(isBuilderMode$|async)">
   <div class="footer" *ngIf="branding$ | async as branding">
     <app-light *ngIf="branding.footer?.params?.mode === 'light' " [content]="branding.footer"></app-light>
     <app-inverse *ngIf="branding.footer?.params?.mode === 'inverse' " [content]="branding.footer">

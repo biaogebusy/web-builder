@@ -12,7 +12,7 @@ import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
 import { DOCUMENT } from '@angular/common';
 import { ContentState } from '@core/state/ContentState';
-import { BRANDING, ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
+import { BRANDING, IS_BUILDER_MODE } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { takeUntil } from 'rxjs/operators';
@@ -37,8 +37,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     public contentState: ContentState,
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(ENABLE_BUILDER_TOOLBAR)
-    public enabelBuilderToolbar$: Observable<boolean>
+    @Inject(IS_BUILDER_MODE)
+    public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {

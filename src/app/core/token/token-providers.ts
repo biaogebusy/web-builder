@@ -39,8 +39,8 @@ export const BUILDER_SAMPLE_PAGE = new InjectionToken<IBuilderSamplePage>(
   'Builder sample page'
 );
 export const UIUX = new InjectionToken<IUiux[]>('builder uiux data');
-export const ENABLE_BUILDER_TOOLBAR = new InjectionToken<Observable<boolean>>(
-  'enable builder toolbar'
+export const IS_BUILDER_MODE = new InjectionToken<Observable<boolean>>(
+  'is builder mode'
 );
 
 export const WIDGETS = new InjectionToken<any[]>(
