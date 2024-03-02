@@ -4,7 +4,6 @@ import {
   showcase4v1_img,
 } from '@stories/builder/data/combs/showcase.builder';
 import { carousel1v2 } from '@stories/builder/data/combs/carousel.builder';
-import { list2v1 } from '@stories/builder/data/system/drupal.builder';
 export const home_v9 = {
   title: '首页 v9',
   configBak: {
@@ -28,6 +27,5 @@ export const home_v9 = {
     { ...showcase2v2_default?.content },
     { ...showcase4v1_img?.content, bg: { classes: 'bg-fill-width bg-shadow' } },
     { ...carousel1v2?.content },
-    { ...list2v1?.content },
   ],
 };

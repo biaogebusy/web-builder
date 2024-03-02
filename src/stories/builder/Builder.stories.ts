@@ -11,7 +11,7 @@ import { samples } from './data/sample/samples-for-story';
 import { systems } from './data/system/system-fot-story';
 import {
   BUILDER_SAMPLE_PAGE,
-  ENABLE_BUILDER_TOOLBAR,
+  IS_BUILDER_MODE,
   UIUX,
 } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-story';
@@ -44,7 +44,7 @@ export default {
           useValue: samples,
         },
         {
-          provide: ENABLE_BUILDER_TOOLBAR,
+          provide: IS_BUILDER_MODE,
           useValue: of(true),
         },
       ],
