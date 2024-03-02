@@ -28,6 +28,8 @@
       <app-btn fxHide.xs="true" [matTooltip]="(builder.showBranding$|async)?'隐藏页头页尾' : '显示页头页尾'"
         (click)="onShowBranding()"
         [content]="{label:'', color:(builder.showBranding$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:(builder.showBranding$|async)?'page-layout-header-footer' : 'page-layout-body' } }"></app-btn>
+      <app-btn fxHide.xs="true" [matTooltip]="builder.showRightDrawer?'禁用右边栏' : '显示右边栏'" (click)="showRightDrawer()"
+        [content]="{label:'', color:builder.showRightDrawer?undefined : 'warn', mode: 'icon' ,icon:{svg:'dock-right' } }"></app-btn>
       <app-btn *ngIf="builder.builderThemeMode|async as mode" [matTooltip]="mode === 'light'?'切换暗黑风格' : '切换浅色风格'"
         (click)="onToggleBuilderTheme(mode)"
         [content]="{label:'', mode: 'icon' ,icon:{svg:mode ==='light' ? 'white-balance-sunny' : 'moon-waning-crescent' } }"></app-btn>

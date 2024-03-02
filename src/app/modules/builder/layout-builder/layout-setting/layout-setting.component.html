@@ -1,5 +1,4 @@
 <div class="layout-setting">
-  <app-title *ngIf="content.title" [content]="content.title"></app-title>
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
 
   <div class="actions m-y-md" fxLayoutAlign="center center" fxLayoutGap="10px">

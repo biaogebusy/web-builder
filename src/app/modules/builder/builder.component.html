@@ -1,5 +1,5 @@
 <div class="builder-wrapper" [ngClass]="{'dark':(builder.builderThemeMode|async) ==='dark'}">
-  <app-builder-sidebar></app-builder-sidebar>
+  <app-builder-sidebar [builderRightDrawer]="builderRightDrawer"></app-builder-sidebar>
   <div class="builder" [ngClass]="{'has-sidebar':!(builderFullScreen$|async)}">
     <app-builder-toolbar [builderRightDrawer]="builderRightDrawer"></app-builder-toolbar>
     <mat-drawer-container class="builder-main">
