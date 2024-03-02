@@ -58,10 +58,10 @@
   }
   .component-toolbar {
     .actions {
-      background-color: mat-color($background, tooltip, 0.5);
+      background-color: mat-color($foreground, elevation, 0.7);
       @include mat-elevation(2, mat-color($background, tooltip), 0.25);
       .mat-button-base {
-        color: mat-color($primary, default-contrast);
+        color: mat-color($primary, default-contrast, 0.8);
       }
     }
   }

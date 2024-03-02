@@ -109,8 +109,8 @@
 
   .feature-float {
     .title {
-      background-color: mat-color($background, "app-bar", 0.7);
-      color: mat-color($foreground, text, 0.6);
+      background-color: mat-color($foreground, elevation, 0.7);
+      color: mat-color($primary, default-contrast, 0.8);
     }
     .btns {
       .btn {

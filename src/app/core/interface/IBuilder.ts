@@ -84,7 +84,6 @@ export interface ILayoutBlock {
 
 export interface ILayoutSetting {
   type: 'layout-setting';
-  title?: ITitle;
   fields: FormlyFieldConfig[];
   i?: number;
   index?: number;
