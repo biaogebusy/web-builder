@@ -256,7 +256,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'start',
                     type: 'input',
                     className: 'width-40',
-                    defaultValue: content?.animate?.trigger?.start || 'top 85%',
+                    defaultValue: content?.animate?.trigger?.start || 'top 90%',
                     templateOptions: {
                       label: '触发开始位置',
                     },
@@ -265,8 +265,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'end',
                     type: 'input',
                     className: 'width-40',
-                    defaultValue:
-                      content?.animate?.trigger?.end || 'bottom 30%',
+                    defaultValue: content?.animate?.trigger?.end || 'top 40%',
                     templateOptions: {
                       label: '触发结束位置',
                     },
