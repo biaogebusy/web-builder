@@ -113,15 +113,6 @@ export const systems: any[] = [
         ...calendar,
       },
       {
-        label: '用户登录',
-        icon: {
-          svg: 'login',
-        },
-        content: {
-          type: 'login',
-        },
-      },
-      {
         label: '位置',
         icon: {
           svg: 'map-marker-outline',

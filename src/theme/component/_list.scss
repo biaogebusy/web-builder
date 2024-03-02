@@ -22,10 +22,4 @@
       @include mat-elevation(4, mat-color($foreground, text), 0.1);
     }
   }
-
-  .list-2v1 {
-    .item {
-      border-bottom: 1px solid mat-color($foreground, divider);
-    }
-  }
 }

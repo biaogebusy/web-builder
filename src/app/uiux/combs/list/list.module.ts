@@ -13,7 +13,6 @@ import { SearchModule } from '../search/search.module';
 import { TreeListComponent } from './tree-list/tree-list.component';
 import { DynamicCardList1v1Component } from './dynamic-card-list1v1/dynamic-card-list1v1.component';
 import { BaseModule } from '@uiux/base/base.module';
-import { List2v1Component } from './list2v1/list2v1.component';
 
 const components = [
   ListComponent,
@@ -25,7 +24,6 @@ const components = [
   TaxonomyThinListComponent,
   ListThinComponent,
   TreeListComponent,
-  List2v1Component,
 ];
 
 @NgModule({
