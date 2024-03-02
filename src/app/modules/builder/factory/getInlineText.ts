@@ -54,6 +54,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             min: 10,
             max: 100,
             step: 1,
+            thumbLabel: true,
           },
           expressionProperties: {
             'templateOptions.label': '"大小: " + model.fontSize + "px"',
