@@ -130,34 +130,36 @@ export class DynamicComponentComponent
   }
 
   initAnimate(): void {
-    let gsapConfig;
-    if (!this.inputs.type && this.inputs.content) {
-      if (this.inputs?.content?.animate) {
-        gsapConfig = this.inputs.content.animate;
+    if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
+      let gsapConfig;
+      if (!this.inputs.type && this.inputs.content) {
+        if (this.inputs?.content?.animate) {
+          gsapConfig = this.inputs.content.animate;
+        }
+      } else {
+        gsapConfig = this.inputs.animate;
       }
-    } else {
-      gsapConfig = this.inputs.animate;
-    }
-    if (gsapConfig) {
-      const { trigger, from } = gsapConfig;
-      const ele = this.ele.nativeElement.lastElementChild;
-      ele.style.display = 'block';
-      const tl = window.gsap.timeline({
-        scrollTrigger: {
-          trigger: this.ele.nativeElement,
-          start: trigger?.start || 'top 85%',
-          end: trigger?.end || 'bottom 30%',
-          markers: trigger?.markers,
-          scrub: trigger?.scrub,
-          scroller: this.getScroller(),
-          toggleActions: 'play none none none',
-        },
-      });
-      if (from) {
-        // 从一个状态到当前状态
-        tl.from(ele, {
-          ...from,
+      if (gsapConfig) {
+        const { trigger, from } = gsapConfig;
+        const ele = this.ele.nativeElement.lastElementChild;
+        ele.style.display = 'block';
+        const tl = window.gsap.timeline({
+          scrollTrigger: {
+            trigger: this.ele.nativeElement,
+            start: trigger?.start || 'top 85%',
+            end: trigger?.end || 'bottom 30%',
+            markers: trigger?.markers,
+            scrub: trigger?.scrub,
+            scroller: this.getScroller(),
+            toggleActions: `${trigger.onEnter} ${trigger.onLeave} ${trigger.onEnterBack} ${trigger.onLeaveBack}`,
+          },
         });
+        if (from) {
+          // 从一个状态到当前状态
+          tl.from(ele, {
+            ...from,
+          });
+        }
       }
     }
   }
