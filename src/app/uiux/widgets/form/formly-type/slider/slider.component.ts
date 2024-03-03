@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSlider } from '@angular/material/slider';
-import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
+import { FieldTypeConfig } from '@ngx-formly/core';
+import { FieldType } from '@ngx-formly/material/form-field';
 
 @Component({
-  selector: 'app-slider',
+  selector: 'formly-field-mat-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss'],
 })
 export class SliderComponent
   extends FieldType<FieldTypeConfig>
-  implements OnInit
+  implements OnInit, AfterViewInit
 {
   @ViewChild(MatSlider) slider!: MatSlider;
-  value: any;
   defaultOptions = {
     templateOptions: {
       hideFieldUnderline: true,
@@ -21,11 +21,18 @@ export class SliderComponent
     },
   };
 
+  constructor() {
+    super();
+  }
+
   ngOnInit(): void {
-    this.value = this.field.defaultValue;
+    this.formControl.valueChanges.subscribe((value) => {
+      this.formControl.patchValue(value, { emitEvent: false });
+    });
   }
 
   onContainerClick(event: MouseEvent): void {
     this.slider.focus();
+    this.onContainerClick(event);
   }
 }
