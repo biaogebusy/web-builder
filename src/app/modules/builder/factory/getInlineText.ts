@@ -55,7 +55,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             max: 100,
             step: 1,
             label: 'Size',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {
@@ -68,7 +68,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             max: 2000,
             step: 2,
             label: 'Width',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {
@@ -81,7 +81,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             max: 2000,
             step: 2,
             label: 'Height',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {
@@ -94,7 +94,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             max: 2000,
             step: 2,
             label: 'Max Width',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {
@@ -107,7 +107,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             max: 2000,
             step: 2,
             label: 'Max Height',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {
@@ -120,7 +120,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             max: 1,
             step: 0.1,
             label: 'Opacity',
-            suffix: 'px',
+            unit: 'px',
           },
         },
       ],

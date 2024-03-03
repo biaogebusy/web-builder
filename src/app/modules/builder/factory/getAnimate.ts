@@ -59,7 +59,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                       min: -500,
                       max: 500,
                       step: 10,
-                      suffix: 'px',
+                      unit: 'px',
                     },
                   },
                   {
@@ -72,7 +72,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                       min: -500,
                       max: 500,
                       step: 10,
-                      suffix: 'px',
+                      unit: 'px',
                     },
                   },
                 ],
@@ -90,7 +90,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                       min: -360,
                       max: 360,
                       step: 1,
-                      suffix: '度',
+                      unit: '度',
                     },
                   },
                   {
@@ -132,7 +132,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                       min: 0,
                       max: 6,
                       step: 0.1,
-                      suffix: 's',
+                      unit: 's',
                     },
                   },
                   {
@@ -145,7 +145,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                       min: 1,
                       max: 6,
                       step: 0.1,
-                      suffix: 's',
+                      unit: 's',
                     },
                   },
                   {

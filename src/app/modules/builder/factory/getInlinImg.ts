@@ -15,7 +15,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             max: 2000,
             step: 2,
             label: '宽度',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {
@@ -28,7 +28,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             max: 2000,
             step: 2,
             label: '高度',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {
@@ -41,7 +41,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             max: 2000,
             step: 2,
             label: '最大宽度',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {
@@ -54,7 +54,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             max: 2000,
             step: 2,
             label: '最大高度',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {
@@ -81,7 +81,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             max: 500,
             step: 2,
             label: '圆角',
-            suffix: 'px',
+            unit: 'px',
           },
         },
         {

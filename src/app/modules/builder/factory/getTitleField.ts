@@ -114,7 +114,7 @@ export function getTitleField(
                         min: 10,
                         max: 1000,
                         step: 2,
-                        suffix: 'ms',
+                        unit: 'ms',
                       },
                     },
                   ],

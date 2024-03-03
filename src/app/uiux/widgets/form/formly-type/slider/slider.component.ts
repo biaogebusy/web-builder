@@ -10,9 +10,10 @@ import { FieldType } from '@ngx-formly/material/form-field';
 })
 export class SliderComponent
   extends FieldType<FieldTypeConfig>
-  implements OnInit, AfterViewInit
+  implements OnInit
 {
   @ViewChild(MatSlider) slider!: MatSlider;
+
   defaultOptions = {
     templateOptions: {
       hideFieldUnderline: true,

@@ -16,7 +16,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 min: 1,
                 max: 12,
                 label: '移动端',
-                suffix: '栏',
+                unit: '栏',
               },
             },
             {
@@ -28,7 +28,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 min: 1,
                 max: 12,
                 label: '平板电脑',
-                suffix: '栏',
+                unit: '栏',
               },
             },
             {
@@ -40,7 +40,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 min: 1,
                 max: 12,
                 label: '桌面电脑',
-                suffix: '栏',
+                unit: '栏',
               },
             },
             {
@@ -52,7 +52,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 min: 1,
                 max: 12,
                 label: '超大桌面',
-                suffix: '栏',
+                unit: '栏',
               },
             },
           ],
@@ -288,7 +288,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 max: 100,
                 step: 5,
                 label: 'Padding Top',
-                suffix: 'px',
+                unit: 'px',
               },
             },
             {
@@ -301,7 +301,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 max: 100,
                 step: 5,
                 label: 'Padding Right',
-                suffix: 'px',
+                unit: 'px',
               },
             },
             {
@@ -315,7 +315,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 max: 100,
                 step: 5,
                 label: 'Padding Bottom',
-                suffix: 'px',
+                unit: 'px',
               },
             },
             {
@@ -328,7 +328,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 max: 100,
                 step: 5,
                 label: 'Padding Left',
-                suffix: 'px',
+                unit: 'px',
               },
             },
             {
@@ -345,7 +345,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 max: 100,
                 step: 5,
                 label: 'Margin Top',
-                suffix: 'px',
+                unit: 'px',
               },
             },
             {
@@ -358,7 +358,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 max: 100,
                 step: 5,
                 label: 'Margin Right',
-                suffix: 'px',
+                unit: 'px',
               },
             },
             {
@@ -371,7 +371,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 max: 100,
                 step: 5,
                 label: 'Margin Bottom',
-                suffix: 'px',
+                unit: 'px',
               },
             },
             {
@@ -384,7 +384,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 max: 100,
                 step: 5,
                 label: 'Margin Left',
-                suffix: 'px',
+                unit: 'px',
               },
             },
           ],

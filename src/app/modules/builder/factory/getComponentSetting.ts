@@ -384,7 +384,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                   max: 80,
                   step: 2,
                   label: '移动端间距',
-                  suffix: 'px',
+                  unit: 'px',
                 },
               },
               {
@@ -396,7 +396,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                   max: 80,
                   step: 2,
                   label: '平板端间距',
-                  suffix: 'px',
+                  unit: 'px',
                 },
               },
               {
@@ -408,7 +408,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                   max: 80,
                   step: 2,
                   label: '桌面端间距',
-                  suffix: 'px',
+                  unit: 'px',
                 },
               },
               {
@@ -420,7 +420,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                   max: 80,
                   step: 2,
                   label: '超大桌面间距',
-                  suffix: 'px',
+                  unit: 'px',
                 },
               },
             ],
