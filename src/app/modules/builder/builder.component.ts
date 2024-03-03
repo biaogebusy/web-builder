@@ -17,7 +17,6 @@ import {
   BUILDER_FULL_SCREEN,
   BUILDER_SAMPLE_PAGE,
   CORE_CONFIG,
-  UIUX,
 } from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -25,7 +24,6 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DOCUMENT } from '@angular/common';
-import { IBranding } from '@core/interface/branding/IBranding';
 
 @Component({
   selector: 'app-builder',

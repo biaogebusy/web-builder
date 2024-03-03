@@ -16,7 +16,6 @@ import { get, set } from 'lodash-es';
 import { QuillModule } from 'ngx-quill';
 import type { IMetaEdit } from '@core/interface/IBuilder';
 import { FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-meta-edit',

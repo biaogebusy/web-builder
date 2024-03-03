@@ -1,18 +1,12 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Inject,
   Input,
   OnInit,
 } from '@angular/core';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IBuilderComponent } from '@core/interface/IBuilder';
-import type { IBranding } from '@core/interface/branding/IBranding';
-import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-builder-panel',
