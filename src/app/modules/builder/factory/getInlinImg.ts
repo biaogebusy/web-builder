@@ -14,10 +14,8 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             min: 0,
             max: 2000,
             step: 2,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"宽度: " + model.width + "px"',
+            label: '宽度',
+            unit: 'px',
           },
         },
         {
@@ -29,10 +27,8 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             min: 0,
             max: 2000,
             step: 2,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"高度: " + model.height + "px"',
+            label: '高度',
+            unit: 'px',
           },
         },
         {
@@ -44,10 +40,8 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             min: 0,
             max: 2000,
             step: 2,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"最大宽度: " + model.maxWidth + "px"',
+            label: '最大宽度',
+            unit: 'px',
           },
         },
         {
@@ -56,14 +50,11 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
           className: 'width-100',
           defaultValue: parseFloat(ele.style.maxHeight.replace('px', '')) || 0,
           templateOptions: {
-            label: '最大高度',
             min: 0,
             max: 2000,
             step: 2,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"最大高度: " + model.maxHeight + "px"',
+            label: '最大高度',
+            unit: 'px',
           },
         },
         {
@@ -76,9 +67,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             max: 1,
             thumbLabel: true,
             step: 0.1,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"不透明度: " + model.opacity',
+            label: '不透明度',
           },
         },
         {
@@ -91,10 +80,8 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             min: 0,
             max: 500,
             step: 2,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"圆角: " + model.borderRadius + "px"',
+            label: '圆角',
+            unit: 'px',
           },
         },
         {
@@ -105,6 +92,10 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
           templateOptions: {
             label: '填充方式',
             options: [
+              {
+                label: 'initial',
+                value: 'initial',
+              },
               {
                 label: 'contain',
                 value: 'contain',
@@ -128,10 +119,6 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               {
                 label: 'inherit',
                 value: 'inherit',
-              },
-              {
-                label: 'initial',
-                value: 'initial',
               },
               {
                 label: 'revert',
