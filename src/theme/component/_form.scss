@@ -38,4 +38,13 @@
       color: mat-color($primary, default-contrast);
     }
   }
+
+  formly-form {
+    .slider {
+      .value {
+        background-color: mat-color($background, card);
+        border: 1px solid mat-color($foreground, divider);
+      }
+    }
+  }
 }

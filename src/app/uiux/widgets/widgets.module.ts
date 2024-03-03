@@ -124,6 +124,7 @@ import { GithubStarComponent } from './github-star/github-star.component';
 import { RepeatTypeComponent } from './form/formly-type/repeat.type';
 import { TabsTypeComponent } from './form/formly-type/tabs/tabs.component';
 import { ImgPickerComponent } from './form/formly-type/img-picker/img-picker.component';
+import { SliderComponent } from './form/formly-type/slider/slider.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -219,6 +220,7 @@ const components = [
   BuilderMenuComponent,
   GotopComponent,
   GithubStarComponent,
+  SliderComponent,
 ];
 
 @NgModule({
@@ -260,6 +262,11 @@ const components = [
         { name: 'repeat', component: RepeatTypeComponent },
         { name: 'tabs', component: TabsTypeComponent },
         { name: 'img-picker', component: ImgPickerComponent },
+        {
+          name: 'slider',
+          component: SliderComponent,
+          wrappers: ['form-field'],
+        },
       ],
       validationMessages: [
         { name: 'required', message: '该字段必填' },

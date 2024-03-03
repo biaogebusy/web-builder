@@ -42,37 +42,30 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                     {
                       key: 'slidesPerView',
                       type: 'slider',
-                      className: 'width-50',
+                      className: 'width-100',
                       defaultValue:
                         widget.params?.breakpoints?.[600]?.slidesPerView,
                       templateOptions: {
                         min: 1,
                         max: 10,
                         step: 0.2,
-                        thumbLabel: true,
-                      },
-                      expressionProperties: {
-                        'templateOptions.label':
-                          '"移动端显示: " + model.slidesPerView',
+                        label: '移动端',
                       },
                     },
                     {
                       key: 'spaceBetween',
                       type: 'slider',
-                      className: 'width-50',
+                      className: 'width-100',
                       defaultValue:
                         widget.params?.breakpoints?.[600]?.spaceBetween || 0,
                       templateOptions: {
                         min: 1,
                         max: 100,
                         step: 1,
-                        thumbLabel: true,
+                        label: '间隔',
+                        suffix: 'px',
                       },
                       hideExpression: 'model.slidesPerView <= 1',
-                      expressionProperties: {
-                        'templateOptions.label':
-                          '"间隔: " + model.spaceBetween + "px"',
-                      },
                     },
                   ],
                 },
@@ -84,37 +77,30 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                     {
                       key: 'slidesPerView',
                       type: 'slider',
-                      className: 'width-50',
+                      className: 'width-100',
                       defaultValue:
                         widget.params.breakpoints?.[960].slidesPerView,
                       templateOptions: {
                         min: 1,
                         max: 10,
                         step: 0.2,
-                        thumbLabel: true,
-                      },
-                      expressionProperties: {
-                        'templateOptions.label':
-                          '"电脑端显示: " + model.slidesPerView',
+                        label: '电脑端显示',
                       },
                     },
                     {
                       key: 'spaceBetween',
                       type: 'slider',
-                      className: 'width-50',
+                      className: 'width-100',
                       defaultValue:
                         widget.params?.breakpoints?.[960]?.spaceBetween || 0,
                       templateOptions: {
                         min: 1,
                         max: 100,
                         step: 1,
-                        thumbLabel: true,
+                        label: '间隔',
+                        suffix: 'px',
                       },
                       hideExpression: 'model.slidesPerView <= 1',
-                      expressionProperties: {
-                        'templateOptions.label':
-                          '"间隔: " + model.spaceBetween + "px"',
-                      },
                     },
                   ],
                 },
@@ -157,14 +143,11 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               className: 'width-100',
               defaultValue: widget.params.speed || 300,
               templateOptions: {
-                description: '',
                 min: 0,
                 max: 10000,
                 step: 100,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"转场时长: " + model.speed + " 毫秒"',
+                label: '转场',
+                suffix: 'ms',
               },
             },
           ],

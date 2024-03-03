@@ -52,31 +52,27 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'x',
                     type: 'slider',
-                    className: 'width-50',
+                    className: 'width-100',
                     defaultValue: content?.animate?.from?.x || 0,
                     templateOptions: {
+                      label: 'X轴',
                       min: -500,
                       max: 500,
                       step: 10,
-                      thumbLabel: true,
-                    },
-                    expressionProperties: {
-                      'templateOptions.label': '"X轴: " + model.x + " px"',
+                      suffix: 'px',
                     },
                   },
                   {
                     key: 'y',
                     type: 'slider',
-                    className: 'width-50',
+                    className: 'width-100',
                     defaultValue: content?.animate?.from?.y || 0,
                     templateOptions: {
+                      label: 'Y轴',
                       min: -500,
                       max: 500,
                       step: 10,
-                      thumbLabel: true,
-                    },
-                    expressionProperties: {
-                      'templateOptions.label': '"Y轴: " + model.y + " px"',
+                      suffix: 'px',
                     },
                   },
                 ],
@@ -87,31 +83,26 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'rotation',
                     type: 'slider',
-                    className: 'width-50',
+                    className: 'width-100',
                     defaultValue: content?.animate?.from?.rotation || 0,
                     templateOptions: {
+                      label: '旋转',
                       min: -360,
                       max: 360,
                       step: 1,
-                      thumbLabel: true,
-                    },
-                    expressionProperties: {
-                      'templateOptions.label': '"旋转: " + model.rotation',
+                      suffix: '度',
                     },
                   },
                   {
                     key: 'scale',
                     type: 'slider',
-                    className: 'width-50',
+                    className: 'width-100',
                     defaultValue: content?.animate?.from?.scale || 1,
                     templateOptions: {
+                      label: '缩放',
                       min: 0,
                       max: 2,
                       step: 0.1,
-                      thumbLabel: true,
-                    },
-                    expressionProperties: {
-                      'templateOptions.label': '"缩放: " + model.scale',
                     },
                   },
                 ],
@@ -122,31 +113,26 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'opacity',
                     type: 'slider',
-                    className: 'width-50',
+                    className: 'width-100',
                     defaultValue: content?.animate?.from?.opacity || 1,
                     templateOptions: {
+                      label: '不透明度',
                       min: 0,
                       max: 1,
                       step: 0.1,
-                      thumbLabel: true,
-                    },
-                    expressionProperties: {
-                      'templateOptions.label': '"不透明度: " + model.opacity',
                     },
                   },
                   {
                     key: 'delay',
                     type: 'slider',
-                    className: 'width-50',
+                    className: 'width-100',
                     defaultValue: content?.animate?.from?.delay || 0,
                     templateOptions: {
+                      label: '延迟',
                       min: 0,
                       max: 6,
                       step: 0.1,
-                      thumbLabel: true,
-                    },
-                    expressionProperties: {
-                      'templateOptions.label': '"延迟: " + model.delay + "秒"',
+                      suffix: 's',
                     },
                   },
                   {
@@ -155,14 +141,11 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     className: 'width-100',
                     defaultValue: content?.animate?.from?.duration || 1,
                     templateOptions: {
+                      label: '时长',
                       min: 1,
                       max: 6,
                       step: 0.1,
-                      thumbLabel: true,
-                    },
-                    expressionProperties: {
-                      'templateOptions.label':
-                        '"动画时长: " + model.duration + "秒"',
+                      suffix: 's',
                     },
                   },
                   {
@@ -171,7 +154,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'select',
                     className: 'width-100',
                     templateOptions: {
-                      label: '动画缓动曲线',
+                      label: '缓动曲线',
                       options: [
                         { label: 'none', value: 'none' },
                         { label: 'power1.out', value: 'power1.out' },

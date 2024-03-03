@@ -383,10 +383,8 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                   min: 0,
                   max: 80,
                   step: 2,
-                  thumbLabel: true,
-                },
-                expressionProperties: {
-                  'templateOptions.label': '"移动端间距: " + model.xs + "px"',
+                  label: '移动端间距',
+                  suffix: 'px',
                 },
               },
               {
@@ -397,10 +395,8 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                   min: 0,
                   max: 80,
                   step: 2,
-                  thumbLabel: true,
-                },
-                expressionProperties: {
-                  'templateOptions.label': '"平板电脑间距: " + model.sm + "px"',
+                  label: '平板端间距',
+                  suffix: 'px',
                 },
               },
               {
@@ -411,10 +407,8 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                   min: 0,
                   max: 80,
                   step: 2,
-                  thumbLabel: true,
-                },
-                expressionProperties: {
-                  'templateOptions.label': '"桌面电脑间距: " + model.md + "px"',
+                  label: '桌面端间距',
+                  suffix: 'px',
                 },
               },
               {
@@ -425,10 +419,8 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                   min: 0,
                   max: 80,
                   step: 2,
-                  thumbLabel: true,
-                },
-                expressionProperties: {
-                  'templateOptions.label': '"超大桌面间距: " + model.lg + "px"',
+                  label: '超大桌面间距',
+                  suffix: 'px',
                 },
               },
             ],

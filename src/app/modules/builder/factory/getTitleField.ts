@@ -114,10 +114,7 @@ export function getTitleField(
                         min: 10,
                         max: 1000,
                         step: 2,
-                        thumbLabel: true,
-                      },
-                      expressionProperties: {
-                        'templateOptions.label': '"速度: " + model.typeSpeed',
+                        suffix: 'ms',
                       },
                     },
                   ],

@@ -54,10 +54,8 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             min: 10,
             max: 100,
             step: 1,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"大小: " + model.fontSize + "px"',
+            label: 'Size',
+            suffix: 'px',
           },
         },
         {
@@ -69,10 +67,8 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             min: 0,
             max: 2000,
             step: 2,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"宽度: " + model.width + "px"',
+            label: 'Width',
+            suffix: 'px',
           },
         },
         {
@@ -84,10 +80,8 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             min: 0,
             max: 2000,
             step: 2,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"高度: " + model.height + "px"',
+            label: 'Height',
+            suffix: 'px',
           },
         },
         {
@@ -99,10 +93,8 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             min: 0,
             max: 2000,
             step: 2,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"最大宽度: " + model.maxWidth + "px"',
+            label: 'Max Width',
+            suffix: 'px',
           },
         },
         {
@@ -111,14 +103,11 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
           className: 'width-100',
           defaultValue: parseFloat(view.style.maxHeight.replace('px', '')) || 0,
           templateOptions: {
-            label: '最大高度',
             min: 0,
             max: 2000,
             step: 2,
-            thumbLabel: true,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"最大高度: " + model.maxHeight + "px"',
+            label: 'Max Height',
+            suffix: 'px',
           },
         },
         {
@@ -129,11 +118,9 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
           templateOptions: {
             min: 0,
             max: 1,
-            thumbLabel: true,
             step: 0.1,
-          },
-          expressionProperties: {
-            'templateOptions.label': '"不透明度: " + model.opacity',
+            label: 'Opacity',
+            suffix: 'px',
           },
         },
       ],
