@@ -7,12 +7,12 @@
       [fxLayoutGap.xs]="content.gap?.xs+'px'" [fxLayoutGap.sm]="content.gap?.sm+'px'"
       [fxLayoutGap.md]="content.gap?.md+'px'" [fxLayoutGap.lg]="content.gap?.lg+'px'"
       [fxLayoutGap.gt-lg]="content.gap?.lg+'px'">
-      <div class="layout" fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}} - {{content.gap?.xs+'px'||'0px'}})"
+      <div class="layout" *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i"
+        [ngClass]="layout.classes" fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}} - {{content.gap?.xs+'px'||'0px'}})"
         fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}} - {{content.gap?.sm+'px'||'0px'}})"
         fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}} - {{content.gap?.md+'px'||'0px'}})"
         fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
-        fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
-        [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
+        fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})">
         <ng-container *ngIf="isBuilderMode$ | async">
           <div class="block-menu">
             <app-icon class="toggle" matTooltip="当前栏配置" [content]="{svg:'dots-horizontal',inline:true}"></app-icon>
