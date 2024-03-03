@@ -8,8 +8,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
@@ -44,7 +42,6 @@ export class Showcase1v1Component
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      gsap.registerPlugin(ScrollTrigger);
       this.contentState.drawerOpened$.subscribe((state) => {
         this.disableAnimate = state;
       });
@@ -67,7 +64,7 @@ export class Showcase1v1Component
   showAnimate(debug?: any): void {
     const title: Element = this.title?.nativeElement;
     const boxs = this.el.nativeElement.querySelectorAll('.box');
-    let tl = gsap.timeline({
+    let tl = window.gsap.timeline({
       scrollTrigger: {
         trigger: this.el.nativeElement,
         scroller: this.getScroller(),
