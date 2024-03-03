@@ -8,12 +8,9 @@ import {
   OnInit,
 } from '@angular/core';
 import type { IShowcase3v2 } from '@core/interface/combs/IShowcase';
-import type { IText } from '@core/interface/widgets/IText';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ContentState } from '@core/state/ContentState';
 import { BuilderState } from '@core/state/BuilderState';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -42,7 +39,6 @@ export class Showcase3v2Component
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      gsap.registerPlugin(ScrollTrigger);
       this.contentState.drawerOpened$.subscribe((state) => {
         this.disableAnimate = state;
       });
@@ -65,7 +61,7 @@ export class Showcase3v2Component
   showAnimate(debug?: any): void {
     const items = this.el.nativeElement.querySelectorAll('.item');
     Array.from(items).forEach((item: any, index: number) => {
-      let tl = gsap.timeline({
+      let tl = window.gsap.timeline({
         scrollTrigger: {
           trigger: item,
           start: 'top 80%', // [触发元素开始的地方,视口开始的位置],

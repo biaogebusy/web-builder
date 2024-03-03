@@ -1,0 +1,10 @@
+<div class="slider" fxLayout fxLayoutAlign="center center">
+  <mat-slider [formlyAttributes]="field" [formControl]="formControl" [id]="id" [style.width]="'100%'"
+    [tabIndex]="to.tabIndex" [color]="to.color" [min]="to.min" [max]="to.max" [step]="to.step"
+    [thumbLabel]="to.thumbLabel">
+  </mat-slider>
+  <div class="value">
+    <input matInput [formlyAttributes]="field" [formControl]="formControl">
+    <span class="suffix">{{to.unit||''}}</span>
+  </div>
+</div>

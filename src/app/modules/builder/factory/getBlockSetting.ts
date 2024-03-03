@@ -15,10 +15,8 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               templateOptions: {
                 min: 1,
                 max: 12,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"移动端: " + model.xs + " 栏"',
+                label: '移动端',
+                unit: '栏',
               },
             },
             {
@@ -29,10 +27,8 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               templateOptions: {
                 min: 1,
                 max: 12,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"平板电脑: " + model.sm + " 栏"',
+                label: '平板电脑',
+                unit: '栏',
               },
             },
             {
@@ -43,10 +39,8 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               templateOptions: {
                 min: 1,
                 max: 12,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"桌面电脑: " + model.md + " 栏"',
+                label: '桌面电脑',
+                unit: '栏',
               },
             },
             {
@@ -57,10 +51,8 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               templateOptions: {
                 min: 1,
                 max: 12,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"超大桌面: " + model.lg + " 栏"',
+                label: '超大桌面',
+                unit: '栏',
               },
             },
           ],
@@ -292,13 +284,11 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               className: 'width-100',
               defaultValue: layout?.style?.paddingTop?.replace('px', '') || 0,
               templateOptions: {
-                min: 5,
+                min: 0,
                 max: 100,
                 step: 5,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"Padding top: " + model.paddingTop',
+                label: 'Padding Top',
+                unit: 'px',
               },
             },
             {
@@ -307,14 +297,11 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               className: 'width-100',
               defaultValue: layout?.style?.paddingRight?.replace('px', '') || 0,
               templateOptions: {
-                min: 5,
+                min: 0,
                 max: 100,
                 step: 5,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label':
-                  '"Padding right: " + model.paddingRight',
+                label: 'Padding Right',
+                unit: 'px',
               },
             },
             {
@@ -324,14 +311,11 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               defaultValue:
                 layout?.style?.paddingBottom?.replace('px', '') || 0,
               templateOptions: {
-                min: 5,
+                min: 0,
                 max: 100,
                 step: 5,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label':
-                  '"Padding bottom: " + model.paddingBottom',
+                label: 'Padding Bottom',
+                unit: 'px',
               },
             },
             {
@@ -340,13 +324,11 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               className: 'width-100',
               defaultValue: layout?.style?.paddingLeft?.replace('px', '') || 0,
               templateOptions: {
-                min: 5,
+                min: 0,
                 max: 100,
                 step: 5,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"Padding left: " + model.paddingLeft',
+                label: 'Padding Left',
+                unit: 'px',
               },
             },
             {
@@ -362,10 +344,8 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 min: -200,
                 max: 100,
                 step: 5,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"Margin top: " + model.marginTop',
+                label: 'Margin Top',
+                unit: 'px',
               },
             },
             {
@@ -377,10 +357,8 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 min: -200,
                 max: 100,
                 step: 5,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"Margin right: " + model.marginRight',
+                label: 'Margin Right',
+                unit: 'px',
               },
             },
             {
@@ -392,11 +370,8 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 min: -200,
                 max: 100,
                 step: 5,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label':
-                  '"Margin bottom: " + model.marginBottom',
+                label: 'Margin Bottom',
+                unit: 'px',
               },
             },
             {
@@ -408,10 +383,8 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 min: -200,
                 max: 100,
                 step: 5,
-                thumbLabel: true,
-              },
-              expressionProperties: {
-                'templateOptions.label': '"Margin left: " + model.marginLeft',
+                label: 'Margin Left',
+                unit: 'px',
               },
             },
           ],
