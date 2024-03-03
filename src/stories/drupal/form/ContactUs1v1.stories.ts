@@ -40,7 +40,7 @@ const content: IContactUs1v1 = {
       style: 'style-v1',
       classes: 'mat-display-1',
     },
-    classes: 'text-light',
+    classes: 'text-light text-center',
     body: '如果您有任何需要帮助，请联系我们！',
   },
   classes: 'text-center',
