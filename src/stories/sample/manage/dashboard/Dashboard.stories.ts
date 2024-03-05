@@ -4,7 +4,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BlockModule } from '@uiux/combs/block/block.module';
+import { BlockModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { MatSidenavModule } from '@angular/material/sidenav';

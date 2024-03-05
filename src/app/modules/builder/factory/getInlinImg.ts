@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { includes } from 'lodash-es';
 
 export function getInlineImg(ele: any): FormlyFieldConfig[] {
   return [
@@ -8,7 +9,9 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
         {
           type: 'slider',
           key: 'width',
-          defaultValue: parseFloat(ele.style.width.replace('px')) || 0,
+          defaultValue: ele.style.width.includes('auto')
+            ? 0
+            : parseFloat(ele.style.width.replace('px')) || 0,
           className: 'width-100',
           templateOptions: {
             min: 0,
@@ -17,12 +20,17 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             label: '宽度',
             unit: 'px',
           },
+          expressionProperties: {
+            'templateOptions.unit': "model.width === 0 ? 'auto':'px'",
+          },
         },
         {
           type: 'slider',
           key: 'height',
           className: 'width-100',
-          defaultValue: parseFloat(ele.style.height.replace('px', '')) || 0,
+          defaultValue: ele.style.height.includes('auto')
+            ? 0
+            : parseFloat(ele.style.height.replace('px')) || 0,
           templateOptions: {
             min: 0,
             max: 2000,
@@ -30,31 +38,8 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             label: '高度',
             unit: 'px',
           },
-        },
-        {
-          type: 'slider',
-          key: 'maxWidth',
-          className: 'width-100',
-          defaultValue: parseFloat(ele.style.maxWidth.replace('px', '')) || 0,
-          templateOptions: {
-            min: 0,
-            max: 2000,
-            step: 2,
-            label: '最大宽度',
-            unit: 'px',
-          },
-        },
-        {
-          type: 'slider',
-          key: 'maxHeight',
-          className: 'width-100',
-          defaultValue: parseFloat(ele.style.maxHeight.replace('px', '')) || 0,
-          templateOptions: {
-            min: 0,
-            max: 2000,
-            step: 2,
-            label: '最大高度',
-            unit: 'px',
+          expressionProperties: {
+            'templateOptions.unit': "model.height === 0 ? 'auto':'px'",
           },
         },
         {
@@ -82,6 +67,33 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             step: 2,
             label: '圆角',
             unit: 'px',
+          },
+        },
+        {
+          type: 'select',
+          key: 'boxShadow',
+          className: 'width-100',
+          defaultValue: ele.style.boxShadow || 'none',
+          templateOptions: {
+            label: '阴影',
+            options: [
+              {
+                label: '无',
+                value: 'none',
+              },
+              {
+                label: '小',
+                value: 'rgba(0, 0, 0, 0.1) 0 2px 4px',
+              },
+              {
+                label: '中',
+                value: 'rgba(0, 0, 0, 0.1) 0 4px 8px',
+              },
+              {
+                label: '大',
+                value: 'rgba(0, 0, 0, 0.1) 0 6px 12px',
+              },
+            ],
           },
         },
         {

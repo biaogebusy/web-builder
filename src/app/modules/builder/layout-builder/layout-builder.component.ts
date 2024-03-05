@@ -16,7 +16,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { defaultsDeep, isNumber } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { takeUntil } from 'rxjs/operators';
+import { delay, takeUntil } from 'rxjs/operators';
 import { getTitleField } from '../factory/getTitleField';
 import { getBtnVideo } from '../factory/getBtnVideo';
 import { getSwiper } from '../factory/getSwiper';
@@ -53,7 +53,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.builder.builderLayoutSetting$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$), delay(200))
       .subscribe((data) => {
         const { i, index, value, uuid } = data;
         if (uuid === this.uuid) {

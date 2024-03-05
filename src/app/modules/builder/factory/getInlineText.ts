@@ -47,21 +47,47 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
         {
           key: 'fontSize',
           type: 'slider',
-          defaultValue: parseFloat(view.style.fontSize.replace('px', '')) || 0,
+          defaultValue: view.style.fontSize.includes('inherit')
+            ? 0
+            : parseFloat(view.style.fontSize.replace('px')) || 0,
           className: 'width-100',
           templateOptions: {
             type: 'number',
-            min: 10,
+            min: 0,
             max: 100,
             step: 1,
             label: 'Size',
             unit: 'px',
           },
+          expressionProperties: {
+            'templateOptions.unit': "model.fontSize === 0 ? 'inherit':'px'",
+          },
+        },
+        {
+          key: 'lineHeight',
+          type: 'slider',
+          defaultValue: view.style.lineHeight.includes('normal')
+            ? 0
+            : view.style.lineHeight,
+          className: 'width-100',
+          templateOptions: {
+            type: 'number',
+            min: 0,
+            max: 2,
+            step: 0.1,
+            label: '行高',
+            unit: '',
+          },
+          expressionProperties: {
+            'templateOptions.unit': "model.lineHeight === 0 ? 'normal':''",
+          },
         },
         {
           type: 'slider',
           key: 'width',
-          defaultValue: parseFloat(view.style.width.replace('px', '')) || 0,
+          defaultValue: view.style.width.includes('auto')
+            ? 0
+            : parseFloat(view.style.width.replace('px')) || 0,
           className: 'width-100',
           templateOptions: {
             min: 0,
@@ -70,12 +96,17 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             label: 'Width',
             unit: 'px',
           },
+          expressionProperties: {
+            'templateOptions.unit': "model.width === 0 ? 'auto':'px'",
+          },
         },
         {
           type: 'slider',
           key: 'height',
           className: 'width-100',
-          defaultValue: parseFloat(view.style.height.replace('px', '')) || 0,
+          defaultValue: view.style.height.includes('auto')
+            ? 0
+            : parseFloat(view.style.height.replace('px')) || 0,
           templateOptions: {
             min: 0,
             max: 2000,
@@ -83,31 +114,8 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             label: 'Height',
             unit: 'px',
           },
-        },
-        {
-          type: 'slider',
-          key: 'maxWidth',
-          className: 'width-100',
-          defaultValue: parseFloat(view.style.maxWidth.replace('px', '')) || 0,
-          templateOptions: {
-            min: 0,
-            max: 2000,
-            step: 2,
-            label: 'Max Width',
-            unit: 'px',
-          },
-        },
-        {
-          type: 'slider',
-          key: 'maxHeight',
-          className: 'width-100',
-          defaultValue: parseFloat(view.style.maxHeight.replace('px', '')) || 0,
-          templateOptions: {
-            min: 0,
-            max: 2000,
-            step: 2,
-            label: 'Max Height',
-            unit: 'px',
+          expressionProperties: {
+            'templateOptions.unit': "model.height === 0 ? 'auto':'px'",
           },
         },
         {

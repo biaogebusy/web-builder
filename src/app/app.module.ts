@@ -29,7 +29,7 @@ import {
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { API_URL, THEME } from '@core/token/token-providers';
-import { BlockModule } from '@uiux/combs/block/block.module';
+import { RenderModule } from '@modules/render/render.module';
 import {
   apiUrlFactory,
   brandingFactory,
@@ -68,7 +68,7 @@ import { ContentState } from '@core/state/ContentState';
     MatSidenavModule,
     NgxWebstorageModule.forRoot(),
     Angulartics2Module.forRoot(),
-    BlockModule,
+    RenderModule,
     BrandingModule,
     LoadingBarHttpClientModule,
     LoadingBarModule,

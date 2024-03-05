@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { ManageGuard } from '@core/guards/manage.guard';
-import { BlockComponent } from '@uiux/combs/block/block/block.component';
+import { BlockComponent } from '@modules/render/block/block.component';
 
 const routes: Routes = [
   {
