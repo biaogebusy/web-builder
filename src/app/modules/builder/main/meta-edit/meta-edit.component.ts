@@ -177,8 +177,15 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
       switch (key) {
         case 'fontSize':
           const fontSize =
-            style.fontSize === 0 ? 'auto' : style.fontSize + 'px';
+            style.fontSize === 0 ? 'inherit' : style.fontSize + 'px';
+          style[key] = fontSize;
           this.setStyle('fontSize', fontSize, value);
+          break;
+        case 'lineHeight':
+          const lineHeight =
+            style.lineHeight === 0 ? 'normal' : style.lineHeight;
+          style[key] = lineHeight;
+          this.setStyle('lineHeight', lineHeight, value);
           break;
         case 'width':
           const width = style.width === 0 ? 'auto' : style.width + 'px';
