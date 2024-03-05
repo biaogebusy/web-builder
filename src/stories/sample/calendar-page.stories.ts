@@ -4,8 +4,8 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BlockComponent } from '@uiux/combs/block/block/block.component';
-import { BlockModule } from '@uiux/combs/block/block.module';
+import { BlockComponent } from '@modules/render/block/block.component';
+import { BlockModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';

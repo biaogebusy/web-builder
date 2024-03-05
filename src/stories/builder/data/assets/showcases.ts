@@ -152,13 +152,6 @@ export const images_showcases = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/showcase/looking.jpeg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/showcase/pattern-01.png',
     },
   },

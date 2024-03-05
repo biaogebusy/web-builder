@@ -19,20 +19,6 @@ export const images_others = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/badge.scene.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/button.scene.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/default.png',
     },
   },
@@ -48,28 +34,7 @@ export const images_others = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/form-field.scene.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/grid-list.scene.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/map.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/menu.scene.png',
     },
   },
   {
