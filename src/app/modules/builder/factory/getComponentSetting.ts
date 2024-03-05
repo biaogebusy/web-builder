@@ -44,6 +44,10 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                 label: '上下间距',
                 options: [
                   {
+                    label: '无',
+                    value: 'none',
+                  },
+                  {
                     label: '超小',
                     value: 'xs',
                   },
