@@ -16,7 +16,6 @@ import { TabModule } from './tab/tab.module';
 import { NodeModule } from './node/node.module';
 import { CalendarModule } from './calendar/calendar.module';
 import { CalculatorModule } from './calculator/calculator.module';
-import { BlockModule } from './block/block.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { FormModule } from './form/form.module';
 
@@ -37,7 +36,6 @@ const modules = [
   NodeModule,
   CalendarModule,
   CalculatorModule,
-  BlockModule,
   DashboardModule,
   FormModule,
 ];

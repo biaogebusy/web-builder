@@ -9,7 +9,7 @@ import { ContentState } from '@core/state/ContentState';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { BuilderModule } from '../../../modules/builder/builder.module';
+import { BuilderModule } from '../builder/builder.module';
 
 @NgModule({
   declarations: [BlockComponent],
@@ -29,4 +29,4 @@ import { BuilderModule } from '../../../modules/builder/builder.module';
   ],
   exports: [BlockComponent],
 })
-export class BlockModule {}
+export class RenderModule {}
