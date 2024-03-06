@@ -72,9 +72,6 @@ const content = of({
         label: 'Basic',
         style: 'style-v4',
       },
-      animate: {
-        disable: true,
-      },
       actions: [
         {
           type: 'btn',
@@ -138,9 +135,6 @@ const content = of({
       title: {
         label: 'Raised',
         style: 'style-v4',
-      },
-      animate: {
-        disable: true,
       },
       actions: [
         {
@@ -214,9 +208,6 @@ const content = of({
         label: 'Stroked',
         style: 'style-v4',
       },
-      animate: {
-        disable: true,
-      },
       actions: [
         {
           type: 'btn',
@@ -288,9 +279,6 @@ const content = of({
       title: {
         label: 'Flat',
         style: 'style-v4',
-      },
-      animate: {
-        disable: true,
       },
       actions: [
         {
@@ -371,9 +359,6 @@ const content = of({
         label: 'Icon',
         style: 'style-v4',
       },
-      animate: {
-        disable: true,
-      },
       actions: [
         {
           type: 'btn',
@@ -408,9 +393,6 @@ const content = of({
       title: {
         label: 'Other',
         style: 'style-v4',
-      },
-      animate: {
-        disable: true,
       },
       actions: [
         {

@@ -18,10 +18,6 @@ export interface IText {
     elements: any[];
   };
   actions?: any[];
-  animate?: {
-    disable: boolean;
-    scrub: boolean;
-  };
 }
 
 export interface ITextHero {

@@ -219,10 +219,6 @@ const animate: ITextHero = {
       style: 'style-v4',
       classes: 'mat-display-1 bold',
     },
-    animate: {
-      disable: false,
-      scrub: true,
-    },
     spacer: 'md',
     style: {
       width: '25%',
