@@ -1,6 +1,6 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BlockModule } from '@modules/render/render.module';
+import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { BuilderComponent } from 'src/app/modules/builder/builder.component';
@@ -28,7 +28,7 @@ export default {
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
       imports: [
-        BlockModule,
+        RenderModule,
         StorysModule.forRoot(),
         BrandingModule,
         BuilderModule,
