@@ -18,8 +18,8 @@ import { random } from 'lodash-es';
 import { environment } from 'src/environments/environment';
 import { IThemePreview } from '@core/interface/combs/IThemePreview';
 export default {
-  title: '主题/主题预览',
-  id: 'theme-preview',
+  title: '主题/色彩检查',
+  id: 'color-preview',
   component: ThemePreviewComponent,
   decorators: [
     moduleMetadata({

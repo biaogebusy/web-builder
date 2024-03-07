@@ -12,14 +12,14 @@ import { Meta } from "@storybook/addon-docs";
   }}
 />
 
-## 快速指南
-
-## 安装 npm install
+## 安装本地环境
 
 1. 代码下载或者 clone 项目到本地：`git clone git@github.com:biaogebusy/web-builder.git`
-2. 因为当前 angular 版本为 v11 请使用 npm install 安装，严格安装 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
+2. 进入到项目根目录：`npm install`
 
-## 本地开发
+> 注意：因为当前 angular 版本为 v11 请使用 npm install 安装，严格安装 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
+
+## 启动开发环境
 
 `npm start`
 
@@ -117,7 +117,7 @@ loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
   }
 ```
 
-Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.com/?path=/docs/base-config--page)
+Base 的基础配置可查阅[全局配置](?path=/docs/api-config--page)
 
 ## 为生产环境打包
 
