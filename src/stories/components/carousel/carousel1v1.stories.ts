@@ -487,9 +487,6 @@ FullScreen.args = {
               style: 'style-v1',
               classes: 'mat-display-2 bold',
             },
-            animate: {
-              disable: true,
-            },
             body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
           },
           elements: [
@@ -824,9 +821,6 @@ FullScreen.args = {
         {
           type: 'text',
           spacer: 'md',
-          animate: {
-            disable: true,
-          },
           body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul>',
           title: {
             label:

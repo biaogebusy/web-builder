@@ -276,15 +276,3 @@ const list: IText = {
 List.args = {
   content: list,
 };
-
-export const DisableAnimate = Template.bind({});
-DisableAnimate.storyName = '禁用动画';
-const disableAnimate: IText = {
-  ...List.args.content,
-  animate: {
-    disable: true,
-  },
-};
-DisableAnimate.args = {
-  content: disableAnimate,
-};

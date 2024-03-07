@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BlockComponent } from '@modules/render/block/block.component';
-import { BlockModule } from '@modules/render/render.module';
+import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
@@ -21,7 +21,7 @@ export default {
     moduleMetadata({
       entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [],
-      imports: [StorysModule.forRoot(), BlockModule, BrandingModule],
+      imports: [StorysModule.forRoot(), RenderModule, BrandingModule],
       providers: [
         {
           provide: BRANDING,
@@ -71,9 +71,6 @@ const content = of({
       title: {
         label: 'Basic',
         style: 'style-v4',
-      },
-      animate: {
-        disable: true,
       },
       actions: [
         {
@@ -138,9 +135,6 @@ const content = of({
       title: {
         label: 'Raised',
         style: 'style-v4',
-      },
-      animate: {
-        disable: true,
       },
       actions: [
         {
@@ -214,9 +208,6 @@ const content = of({
         label: 'Stroked',
         style: 'style-v4',
       },
-      animate: {
-        disable: true,
-      },
       actions: [
         {
           type: 'btn',
@@ -288,9 +279,6 @@ const content = of({
       title: {
         label: 'Flat',
         style: 'style-v4',
-      },
-      animate: {
-        disable: true,
       },
       actions: [
         {
@@ -371,9 +359,6 @@ const content = of({
         label: 'Icon',
         style: 'style-v4',
       },
-      animate: {
-        disable: true,
-      },
       actions: [
         {
           type: 'btn',
@@ -408,9 +393,6 @@ const content = of({
       title: {
         label: 'Other',
         style: 'style-v4',
-      },
-      animate: {
-        disable: true,
       },
       actions: [
         {

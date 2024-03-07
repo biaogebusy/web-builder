@@ -6,7 +6,6 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { screen, userEvent } from '@storybook/testing-library';
 import { LocalStorageService } from 'ngx-webstorage';
-import { BlockModule } from '@modules/render/render.module';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 import { LoginComponent } from '@modules/user/login/login.component';
@@ -26,12 +25,7 @@ export default {
     moduleMetadata({
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [
-        UserModule,
-        StorysModule.forRoot(),
-        BlockModule,
-        BrandingModule,
-      ],
+      imports: [UserModule, StorysModule.forRoot(), BrandingModule],
       providers: [
         {
           provide: USER,
