@@ -505,7 +505,7 @@
               "style": "style-v4",
               "classes": "mat-display-2 bold"
             },
-            "body": "从左侧选择组件拖动到编辑区：<ul class=\"list-done\"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\" /><video  muted  autoplay loop width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
+            "body": "从左侧选择组件拖动到编辑区：<ul class=\"list-done\"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\"><video muted=\"\" autoplay=\"\" loop=\"\" width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
             "actions": [
               {
                 "type": "btn",
@@ -581,13 +581,142 @@
         ]
       },
       {
-        "type": "showcase-1v4",
-        "spacer": "lg",
-        "bg": {
-          "classes": "bg-shadow bg-fill-width"
-        },
-        "row": 3,
+        "spacer": "md",
+        "bgClasses": "bg-shadow bg-fill-width",
+        "overlay": "",
         "classes": "",
+        "id": "",
+        "bg": {
+          "img": {
+            "src": "",
+            "classes": "object-fit",
+            "alt": ""
+          },
+          "classes": "bg-shadow bg-fill-width",
+          "overlay": ""
+        },
+        "animate": {
+          "from": {
+            "x": 0,
+            "y": "100",
+            "rotation": 0,
+            "scale": 1,
+            "opacity": 0,
+            "delay": 0,
+            "duration": 1,
+            "ease": "none"
+          },
+          "trigger": {
+            "onEnter": "play",
+            "onLeave": "none",
+            "onEnterBack": "none",
+            "onLeaveBack": "none",
+            "start": "top 90%",
+            "end": "top 40%"
+          }
+        },
+        "type": "showcase-1v1",
+        "row": 4,
+        "elements": [
+          {
+            "icon": {
+              "svg": "palette"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://ui.zhaobg.com/?path=/docs/start-guide--page",
+              "label": "开发快速指南"
+            },
+            "content": "初始化本地环境快速指南",
+            "more": {
+              "href": "https://ui.zhaobg.com/?path=/docs/start-guide--page",
+              "label": "查看"
+            }
+          },
+          {
+            "icon": {
+              "svg": "palette-advanced"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://ui.zhaobg.com/?path=/docs/develop-newcomponent--page",
+              "label": "开发新组件"
+            },
+            "content": "开发组件的完整流程文档",
+            "more": {
+              "href": "https://ui.zhaobg.com/?path=/docs/develop-newcomponent--page",
+              "label": "查看"
+            }
+          },
+          {
+            "icon": {
+              "svg": "format-list-text"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://ui.zhaobg.com/?path=/docs/create-theme--page",
+              "label": "组件主题"
+            },
+            "content": "开发组件主题指南，变量说明",
+            "more": {
+              "href": "https://ui.zhaobg.com/?path=/docs/create-theme--page",
+              "label": "查看"
+            }
+          },
+          {
+            "icon": {
+              "svg": "microsoft-visual-studio-code"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://www.zhihu.com/column/c_1698460157728731137",
+              "label": "Web Builder Blog"
+            },
+            "content": "关于web builder的文章合集",
+            "more": {
+              "href": "https://www.zhihu.com/column/c_1698460157728731137",
+              "label": "查看"
+            }
+          }
+        ]
+      },
+      {
+        "spacer": "lg",
+        "bgClasses": "bg- bg-fill-width",
+        "overlay": "",
+        "classes": "",
+        "id": "",
+        "bg": {
+          "img": {
+            "src": "",
+            "classes": "object-fit",
+            "alt": ""
+          },
+          "classes": "bg- bg-fill-width",
+          "overlay": ""
+        },
+        "animate": {
+          "from": {
+            "x": 0,
+            "y": "100",
+            "rotation": 0,
+            "scale": 1,
+            "opacity": 0,
+            "delay": 0,
+            "duration": 1,
+            "ease": "none"
+          },
+          "trigger": {
+            "onEnter": "play",
+            "onLeave": "none",
+            "onEnterBack": "none",
+            "onLeaveBack": "none",
+            "start": "top 90%",
+            "end": "top 40%"
+          }
+        },
+        "type": "showcase-1v4",
+        "row": 3,
         "text": {
           "title": {
             "label": "页面是如何创建的",
