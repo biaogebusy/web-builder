@@ -169,9 +169,6 @@ export const widgets: any[] = [
     content: {
       type: 'text',
       spacer: 'none',
-      animate: {
-        disable: true,
-      },
       body: '信使UI是基于 Material 的 Angular 前端框架，丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
     },
   },

@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BlockComponent } from '@modules/render/block/block.component';
-import { BlockModule } from '@modules/render/render.module';
+import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
@@ -21,7 +21,7 @@ export default {
     moduleMetadata({
       entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [],
-      imports: [StorysModule.forRoot(), BlockModule, BrandingModule],
+      imports: [StorysModule.forRoot(), RenderModule, BrandingModule],
       providers: [
         {
           provide: BRANDING,

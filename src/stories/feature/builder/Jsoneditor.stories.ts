@@ -4,7 +4,6 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BlockModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
@@ -21,12 +20,7 @@ export default {
     moduleMetadata({
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [
-        BlockModule,
-        StorysModule.forRoot(),
-        BrandingModule,
-        CalculatorModule,
-      ],
+      imports: [StorysModule.forRoot(), BrandingModule, CalculatorModule],
       providers: [
         {
           provide: BRANDING,

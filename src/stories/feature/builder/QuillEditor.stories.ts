@@ -4,7 +4,6 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BlockModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { QuillModule } from 'ngx-quill';
 export default {
@@ -14,7 +13,7 @@ export default {
     moduleMetadata({
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [BlockModule, StorysModule.forRoot(), QuillModule.forRoot()],
+      imports: [StorysModule.forRoot(), QuillModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) => `

@@ -52,13 +52,12 @@ export class BuilderShowcaseComponent implements OnInit {
   }
 
   insert(widget: any): void {
-    console.log(widget);
     this.builder.pushComponent(widget);
     setTimeout(() => {
       const length = this.builder.currentPage.body.length;
       this.screenService.scrollToAnchor(`item-${length - 1}`);
       this.builder.cancelFixedShowcase();
       this.onClose();
-    }, 500);
+    }, 200);
   }
 }

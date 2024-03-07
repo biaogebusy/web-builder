@@ -365,9 +365,6 @@ const componey: IProfile1v1 = {
           elements: [
             {
               type: 'text',
-              animate: {
-                disable: true,
-              },
               spacer: 'none',
               body: '<p>动态组件</p>',
             },
@@ -378,9 +375,6 @@ const componey: IProfile1v1 = {
           elements: [
             {
               type: 'text',
-              animate: {
-                disable: true,
-              },
               spacer: 'none',
               body: '<p>动态组件</p>',
             },
@@ -391,9 +385,6 @@ const componey: IProfile1v1 = {
           elements: [
             {
               type: 'text',
-              animate: {
-                disable: true,
-              },
               spacer: 'none',
               body: '<p>动态组件</p>',
             },
