@@ -324,7 +324,7 @@ export const templates: any[] = [
   {
     title: '联系我们',
     subTitle: '关于我们的信息，允许访客联系',
-    img: '/assets/images/template/contact.svg',
+    img: '/assets/images/template/team.svg',
     page: {
       title: '联系我们',
       current: true,
