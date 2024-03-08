@@ -303,12 +303,16 @@
         "intro": "欢迎来到信使 Web builder!"
       },
       {
+        "element": ".builder-sidebar",
+        "intro": "主要边栏，切换功能页面，查看列表、示例页、页头页脚配置等"
+      },
+      {
         "element": ".mat-tab-labels",
-        "intro": "切换选项、预览组件、查看配置或者加载示例。"
+        "intro": "切换选项、预览基础组件、复合组件和系统组件，可拖动进去编辑区"
       },
       {
         "element": ".mat-tab-body-wrapper",
-        "intro": "鼠标经过可预览组件，点击可固定预览，方便查看预览组件的JSON，快捷键s可收起边栏。"
+        "intro": "鼠标经过可预览组件，点击可固定预览，方便查看预览组件的JSON。"
       },
       {
         "element": ".builder-version",
@@ -316,19 +320,19 @@
       },
       {
         "element": ".preview-content",
-        "intro": "页面编辑区，从边栏选择组件拖拽到这里，目前组件只支持上下拖拽。"
+        "intro": "页面编辑区，从边栏选择组件拖拽到这里，点击文本或者工具栏编辑组件相关信息。"
       },
       {
-        "element": ".switch-preview",
-        "intro": "切换设备，查看响应式预览。"
+        "element": ".builder-toolbar .middle",
+        "intro": "切换响应式预览，切换不同的主题。"
       },
       {
         "element": "#toolbar-right",
-        "intro": "切换界面风格、选择媒体、生成页面等主要操作功能。"
+        "intro": "切换界面风格、新建页面或者生成页面等主要操作功能。"
       },
       {
         "element": ".play-video",
-        "intro": "如何使用有疑惑，可以查看演示视频！"
+        "intro": "如何使用有疑惑，可以查看演示视频。"
       }
     ]
   },
@@ -670,9 +674,9 @@
             "style": "style-v9",
             "title": {
               "href": "https://www.zhihu.com/column/c_1698460157728731137",
-              "label": "Web Builder Blog"
+              "label": "Blog"
             },
-            "content": "关于web builder的文章合集",
+            "content": "关于 Web builder 的文章",
             "more": {
               "href": "https://www.zhihu.com/column/c_1698460157728731137",
               "label": "查看"
@@ -721,7 +725,7 @@
           "title": {
             "label": "页面是如何创建的",
             "style": "style-v1",
-            "classes": "mat-display-2 bold"
+            "classes": "mat-display-1 bold"
           }
         },
         "elements": [
