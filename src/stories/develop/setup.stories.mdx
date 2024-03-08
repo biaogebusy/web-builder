@@ -1,7 +1,7 @@
 import { Meta } from "@storybook/addon-docs";
 
 <Meta
-  title="开发/App初始化及页面渲染"
+  title="开发/页面渲染流程"
   id="setup"
   parameters={{
     viewMode: "docs",
@@ -116,7 +116,8 @@ import { Meta } from "@storybook/addon-docs";
 export class AppModule {}
 ```
 
-读取全局
+读取全局配置信息
+`/api/v1/config?content=/core/base`
 
 ```ts
 loadConfig(coreConfig: object): any {
@@ -143,6 +144,8 @@ loadConfig(coreConfig: object): any {
   }
 ```
 
+<img src="assets/storybook/assets/base.png" />
+
 如果是本地环境，则返回 `base.json` 本地数据。
 此时，应用依赖的各项 Token 已经注入。
 
@@ -158,7 +161,8 @@ loadConfig(coreConfig: object): any {
     }
 ```
 
-读取 Branding
+读取 Branding 页头页脚
+`/api/v1/config?content=/core/branding`
 
 ```ts
  loadBranding(): Observable<IBranding> {
@@ -176,7 +180,9 @@ loadConfig(coreConfig: object): any {
   }
 ```
 
-如果是本地环境，则使用本地配置`localBranding`
+<img src="assets/storybook/assets/branding.png" />
+
+如果是本地环境，则使用本地配置 `localBranding`
 
 ## 根据当前页面 url 获取当前页面的组件数据
 

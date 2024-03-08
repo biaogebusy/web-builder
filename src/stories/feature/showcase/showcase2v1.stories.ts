@@ -41,6 +41,7 @@ const content: IShowcase2v1 = {
       style: 'style-v1',
       classes: 'mat-display-2 bold',
     },
+    classes: 'text-center',
     body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
   },
   bg: { classes: '' },

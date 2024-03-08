@@ -1,7 +1,3 @@
-import {
-  IBuilderComponent,
-  IBuilderComponentElement,
-} from '@core/interface/IBuilder';
 import * as hero1v1Story from '@stories/feature/hero/hero1v1.stories';
 import * as hero1v2Story from '@stories/feature/hero/hero1v2.stories';
 import * as hero1v3Story from '@stories/feature/hero/hero1v3.stories';
@@ -30,7 +26,6 @@ export const {
   YCenter: { args: yCenter, storyName: yCenterName },
   YCenterXCustom: { args: yCenterXCustom, storyName: yCenterXCustomName },
   XYCustom: { args: xyCustom, storyName: xyCustomName },
-  Animate: { args: animate, storyName: animateName },
 } = hero2v1Story;
 
 export const {
@@ -85,10 +80,6 @@ export const hero = [
       {
         label: 'XY自定义',
         ...xyCustom,
-      },
-      {
-        label: animateName,
-        ...animate,
       },
       {
         label: '2v2',

@@ -251,9 +251,10 @@ export const Primary = Template.bind({});
 Primary.storyName = 'Primary';
 const primary: IShowcase1v1 = {
   type: 'showcase-1v1',
-  title: { label: 'Drupal 已经超越了传统的 Web概念', style: 'style-v1' },
+  title: { label: 'Drupal 已经超越了传统的 CMS 概念', style: 'style-v1' },
   subTitle: {
     spacer: 'none',
+    classes: 'text-center',
     body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
   },
   bg: { classes: 'bg-shadow bg-fill-width' },
