@@ -747,7 +747,7 @@ export const templates: any[] = [
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: 'http://localhost:4200/assets/images/illustration/01.png',
+                  src: '/assets/images/illustration/01.png',
                   alt: 'alt',
                   style: {
                     width: 'auto',
