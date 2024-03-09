@@ -28,6 +28,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LoginComponent } from '@modules/user/login/login.component';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -115,6 +116,12 @@ export class BuilderToolbarComponent
   onSubmit(): void {
     if (!this.user) {
       this.util.openSnackbar('请登录后提交！', 'ok');
+      const dialogRef = this.dialog.open(LoginComponent);
+      dialogRef.afterClosed().subscribe(() => {
+        // TODO: refresh page
+        console.log(this.user);
+      });
+      return;
     }
     this.util.openSnackbar('正在提交！', 'ok');
     this.builderService
