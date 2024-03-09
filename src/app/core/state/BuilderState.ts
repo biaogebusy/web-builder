@@ -83,7 +83,7 @@ export class BuilderState {
       title: content.type,
       card: {
         type: 'card-1v1',
-        components: [content],
+        components: [{ ...content, animate: false }],
       },
     });
     this.fixedChange$.next(true);
