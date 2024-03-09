@@ -32,7 +32,7 @@ export const widgets = [
       type: 'img',
       hostClasses: 'text-center',
       classes: '',
-      src: '/assets/images/cases/porto3.jpg',
+      src: '/assets/images/illustration/08.png',
       alt: 'alt',
     },
   },
@@ -43,9 +43,9 @@ export const widgets = [
     },
     content: {
       type: 'link',
-      label: '链接',
+      label: '更多',
       classes: '',
-      href: '/manage',
+      href: '/',
     },
   },
   {
@@ -88,6 +88,7 @@ export const widgets = [
     icon: {
       svg: 'view-array-outline',
     },
+    preview: '/assets/images/builder/widgets/swiper.png',
     content: {
       type: 'swiper',
       params: {
@@ -203,6 +204,7 @@ export const widgets = [
     icon: {
       svg: 'account-box-outline',
     },
+    preview: '/assets/images/builder/widgets/contact.png',
     content: {
       type: 'contact-us',
       params: {
@@ -301,6 +303,7 @@ export const widgets = [
     icon: {
       svg: 'chart-bar',
     },
+    preview: '/assets/images/builder/widgets/bar.png',
     data: {
       toggle: [
         {
@@ -344,9 +347,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 6140, 7082, 7387],
-          ['第二季度', 3697, 3697, 9622],
-          ['第三季度', 9679, 7907, 8055],
+          ['第一季度', 6858, 4444, 8266],
+          ['第二季度', 3594, 6070, 9598],
+          ['第三季度', 9370, 9545, 9564],
         ],
       },
       xAxis: {
@@ -371,6 +374,7 @@ export const widgets = [
     icon: {
       svg: 'chart-line',
     },
+    preview: '/assets/images/builder/widgets/line.png',
     data: {
       toggle: [
         {
@@ -414,9 +418,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 6140, 7082, 7387],
-          ['第二季度', 3697, 3697, 9622],
-          ['第三季度', 9679, 7907, 8055],
+          ['第一季度', 6858, 4444, 8266],
+          ['第二季度', 3594, 6070, 9598],
+          ['第三季度', 9370, 9545, 9564],
         ],
       },
       xAxis: {
@@ -441,6 +445,7 @@ export const widgets = [
     icon: {
       svg: 'chart-pie',
     },
+    preview: '/assets/images/builder/widgets/pie.png',
     data: {
       toggle: [
         {
@@ -490,9 +495,9 @@ export const widgets = [
       dataset: {
         source: [
           ['预算', '费用'],
-          ['大额红包总金额', 741],
-          ['小额红包总金额', 696],
-          ['提成总额', 787],
+          ['大额红包总金额', 365],
+          ['小额红包总金额', 723],
+          ['提成总额', 960],
         ],
       },
       series: [
@@ -577,6 +582,7 @@ export const widgets = [
     icon: {
       svg: 'table',
     },
+    preview: '/assets/images/builder/widgets/table.png',
     content: {
       type: 'dynamic-table',
       header: [
@@ -604,25 +610,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 4701,
+          tatol: 9686,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 9961,
+          tatol: 7762,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 2336,
+          tatol: 6305,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 8509,
+          tatol: 2824,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -660,20 +666,6 @@ export const widgets = [
     },
   },
   {
-    label: '背景',
-    icon: {
-      svg: 'format-color-fill',
-    },
-    content: {
-      type: 'bg-img',
-      classes: 'bg-fill-width overlay overlay-80',
-      img: {
-        src: '/assets/images/bg/bg-03.jpeg',
-        classes: 'object-fit',
-      },
-    },
-  },
-  {
     label: 'Box',
     icon: {
       svg: 'box',
@@ -698,6 +690,7 @@ export const widgets = [
     icon: {
       svg: 'card-outline',
     },
+    preview: '/assets/images/builder/widgets/card.png',
     content: {
       type: 'card',
       title: '高性能',
@@ -718,10 +711,11 @@ export const widgets = [
     },
   },
   {
-    label: 'v1',
+    label: '卡片1v1',
     icon: {
       svg: 'numeric-1',
     },
+    preview: '/assets/images/builder/widgets/card-1v1.png',
     content: {
       type: 'card-1v1',
       link: {
@@ -745,10 +739,11 @@ export const widgets = [
     },
   },
   {
-    label: 'v2',
+    label: '卡片2v2',
     icon: {
       svg: 'numeric-2',
     },
+    preview: '/assets/images/builder/widgets/card-1v2.png',
     content: {
       type: 'card-1v2',
       link: {
@@ -771,7 +766,7 @@ export const widgets = [
     },
   },
   {
-    label: '1v4',
+    label: '卡片1v4',
     icon: {
       svg: 'numeric-4',
     },
@@ -788,7 +783,7 @@ export const widgets = [
     },
   },
   {
-    label: '1v5',
+    label: '卡片1v5',
     icon: {
       svg: 'numeric-5',
     },
@@ -810,7 +805,7 @@ export const widgets = [
     },
   },
   {
-    label: '1v6',
+    label: '卡片1v6',
     icon: {
       svg: 'numeric-6',
     },
@@ -995,30 +990,6 @@ export const widgets = [
     },
   },
   {
-    label: '进度条',
-    icon: {
-      svg: 'progress-helper',
-    },
-    content: {
-      type: 'progress-bar',
-      color: 'primary',
-      mode: 'determinate',
-      value: 40,
-    },
-  },
-  {
-    label: 'Iframe',
-    icon: {
-      svg: 'application-array-outline',
-    },
-    content: {
-      type: 'iframe',
-      url: '?path=/story/spacer--default',
-      width: '800',
-      height: '800',
-    },
-  },
-  {
     label: 'Lightbox',
     icon: {
       svg: 'view-carousel-outline',
@@ -1043,15 +1014,6 @@ export const widgets = [
           thumb: '',
         },
       ],
-    },
-  },
-  {
-    label: '形状',
-    icon: {
-      svg: 'cosine-wave',
-    },
-    content: {
-      type: 'shape',
     },
   },
 ];

@@ -60,7 +60,7 @@ export class WidgetPickerComponent implements OnInit {
 
   onHover(widget: any, ele: any): void {
     if (this.popup?.nativeElement) {
-      this.widget$.next(widget.content);
+      this.widget$.next(widget);
       createPopper(ele, this.popup.nativeElement, {
         placement: 'top',
         strategy: 'fixed',

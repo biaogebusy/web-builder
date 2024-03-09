@@ -11,7 +11,12 @@
   <div class="popup" #popup>
     <ng-container *ngIf="widget$ | async as widget">
       <div class="hover-show">
-        <app-dynamic-component [inputs]="widget"></app-dynamic-component>
+        <ng-container *ngIf="widget.preview;else comp">
+          <img [src]="widget.preview" alt="">
+        </ng-container>
+        <ng-template #comp>
+          <app-dynamic-component [inputs]="widget.content"></app-dynamic-component>
+        </ng-template>
       </div>
     </ng-container>
   </div>
