@@ -7,7 +7,7 @@
       [fxLayoutGap.xs]="content.gap?.xs+'px'" [fxLayoutGap.sm]="content.gap?.sm+'px'"
       [fxLayoutGap.md]="content.gap?.md+'px'" [fxLayoutGap.lg]="content.gap?.lg+'px'"
       [fxLayoutGap.gt-lg]="content.gap?.lg+'px'">
-      <div class="layout layout-{{i}}" *ngFor="let layout of content.elements;index as i"
+      <div class="layout layout-{{i}}" [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i"
         [attr.data-path]="'elements.'+i" [ngClass]="layout.classes"
         fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}} - {{content.gap?.xs+'px'||'0px'}})"
         fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}} - {{content.gap?.sm+'px'||'0px'}})"

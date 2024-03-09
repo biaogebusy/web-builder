@@ -303,6 +303,15 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
       fieldGroup: [
         bgImg,
         {
+          type: 'input',
+          key: 'classes',
+          className: 'width-100',
+          defaultValue: layout?.classes || '',
+          templateOptions: {
+            label: 'Classes',
+          },
+        },
+        {
           key: 'style',
           className: 'width-100',
           fieldGroupClassName: 'display-flex flex-wrap width-100',
@@ -447,7 +456,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
       fieldGroup: [
         {
           templateOptions: {
-            label: '基础配置',
+            label: '基础',
           },
           fieldGroup: [...responsive, ...flexLayout],
         },
