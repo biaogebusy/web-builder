@@ -60,7 +60,7 @@ const content: IHero1v2 = {
           href: '#',
           mode: 'raised',
           label: '查看更多',
-          classes: 'round-btn',
+          pill: true,
         },
       },
       {
@@ -79,7 +79,7 @@ const content: IHero1v2 = {
           href: '#',
           mode: 'raised',
           label: '查看更多',
-          classes: 'round-btn',
+          pill: true,
         },
       },
       {
@@ -98,7 +98,7 @@ const content: IHero1v2 = {
           href: '#',
           mode: 'raised',
           label: '查看更多',
-          classes: 'round-btn',
+          pill: true,
         },
       },
       {
@@ -117,7 +117,7 @@ const content: IHero1v2 = {
           href: '#',
           mode: 'raised',
           label: '查看更多',
-          classes: 'round-btn',
+          pill: true,
         },
       },
     ],
