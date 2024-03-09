@@ -7,8 +7,9 @@
       [fxLayoutGap.xs]="content.gap?.xs+'px'" [fxLayoutGap.sm]="content.gap?.sm+'px'"
       [fxLayoutGap.md]="content.gap?.md+'px'" [fxLayoutGap.lg]="content.gap?.lg+'px'"
       [fxLayoutGap.gt-lg]="content.gap?.lg+'px'">
-      <div class="layout" *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i"
-        [ngClass]="layout.classes" fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}} - {{content.gap?.xs+'px'||'0px'}})"
+      <div class="layout layout-{{i}}" *ngFor="let layout of content.elements;index as i"
+        [attr.data-path]="'elements.'+i" [ngClass]="layout.classes"
+        fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}} - {{content.gap?.xs+'px'||'0px'}})"
         fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}} - {{content.gap?.sm+'px'||'0px'}})"
         fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}} - {{content.gap?.md+'px'||'0px'}})"
         fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
@@ -27,7 +28,7 @@
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'close',inline:true } }"></app-btn>
               <app-btn matTooltip="显示网格" (click)="onShowGrid()"
                 [content]="{label:'',color:showGrid?'warn' : 'primary', mode: 'icon',icon:{svg:'eye',inline:true } }"></app-btn>
-              <app-btn matTooltip="更多设置" (click)="onLayoutSettings(i,layout)"
+              <app-btn matTooltip="当前栏配置" (click)="onLayoutSettings(i,layout)"
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'responsive',inline:true } }"></app-btn>
             </div>
           </div>
@@ -36,25 +37,28 @@
               [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
           </div>
         </ng-container>
-        <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
-        <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign" [ngStyle]="layout.style">
-          <div class="item" *ngFor="let item of layout.elements;index as index">
-            <div class="actions" *ngIf="isBuilderMode$ | async">
-              <app-btn matTooltip="上移" *ngIf="index > 0 && index < layout.elements.length"
-                (click)="onUpDown('up',i,index)"
-                [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>
-              <app-btn matTooltip="下移" *ngIf="index > -1 && index < layout.elements.length -1"
-                (click)="onUpDown('down',i,index)"
-                [content]="{label:'',color:'primary',mode: 'icon',icon:{svg:'arrow-collapse-down',inline:true } }"></app-btn>
-              <app-btn matTooltip="插入组件" (click)="addBlock('down',i,content,index)"
-                [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'plus' } }"></app-btn>
-              <app-btn matTooltip="删除" (click)="onDeleteCol(i,index)"
-                [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'close',inline:true } }"></app-btn>
-              <app-btn matTooltip="组件配置" (click)="onWidgetSetting(i,index,item)"
-                [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'tune-vertical',inline:true } }"></app-btn>
+        <div class="for-animate">
+          <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
+          <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign"
+            [ngStyle]="layout.style">
+            <div class="item" *ngFor="let item of layout.elements;index as index">
+              <div class="actions" *ngIf="isBuilderMode$ | async">
+                <app-btn matTooltip="上移" *ngIf="index > 0 && index < layout.elements.length"
+                  (click)="onUpDown('up',i,index)"
+                  [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>
+                <app-btn matTooltip="下移" *ngIf="index > -1 && index < layout.elements.length -1"
+                  (click)="onUpDown('down',i,index)"
+                  [content]="{label:'',color:'primary',mode: 'icon',icon:{svg:'arrow-collapse-down',inline:true } }"></app-btn>
+                <app-btn matTooltip="插入组件" (click)="addBlock('down',i,content,index)"
+                  [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'plus' } }"></app-btn>
+                <app-btn matTooltip="删除" (click)="onDeleteCol(i,index)"
+                  [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'close',inline:true } }"></app-btn>
+                <app-btn matTooltip="{{item.type}}组件配置" (click)="onWidgetSetting(i,index,item)"
+                  [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'tune-vertical',inline:true } }"></app-btn>
+              </div>
+              <app-dynamic-component [attr.data-path]="'elements.'+index" [inputs]="item">
+              </app-dynamic-component>
             </div>
-            <app-dynamic-component [attr.data-path]="'elements.'+index" [inputs]="item">
-            </app-dynamic-component>
           </div>
         </div>
       </div>

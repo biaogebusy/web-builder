@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { getAnimate } from './getAnimate';
 
 export function getBlockSetting(layout: any): FormlyFieldConfig[] {
   let responsive: FormlyFieldConfig[] = [
@@ -428,6 +429,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           },
           fieldGroup: [...styles],
         },
+        getAnimate(layout),
       ],
     },
   ];
