@@ -28,7 +28,7 @@
               color: mat-color($primary);
             }
           }
-          > .block {
+          .block {
             > .item {
               &:hover {
                 outline: 1px solid mat-color($primary);

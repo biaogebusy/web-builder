@@ -27,8 +27,12 @@
   .breadcrumb {
     ul {
       li {
+        color: mat-color($foreground, text, 0.75);
         a {
-          color: #fff;
+          color: mat-color($foreground, text, 0.75);
+          &:hover {
+            color: mat-color($primary);
+          }
         }
       }
     }

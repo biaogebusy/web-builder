@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BlockComponent } from '@modules/render/block/block.component';
-import { BlockModule } from '@modules/render/render.module';
+import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
@@ -23,7 +23,7 @@ export default {
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
       imports: [
-        BlockModule,
+        RenderModule,
         StorysModule.forRoot(),
         CalendarModule,
         BrandingModule,

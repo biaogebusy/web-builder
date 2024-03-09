@@ -80,15 +80,6 @@ const content: IProfile1v1 = {
           svg: 'arrow_right',
           inline: true,
         },
-        label: '公众号',
-        content: 'Drupal 自习室',
-      },
-      {
-        icon: {
-          color: 'warn',
-          svg: 'arrow_right',
-          inline: true,
-        },
         label: '邮箱',
         content: 'biaogebusy@example.com',
       },
@@ -99,7 +90,16 @@ const content: IProfile1v1 = {
           inline: true,
         },
         label: '地址',
-        content: '南宁',
+        content: '广西南宁',
+      },
+      {
+        icon: {
+          color: 'warn',
+          svg: 'arrow_right',
+          inline: true,
+        },
+        label: '公众号',
+        content: 'Drupal 自习室',
       },
     ],
   },
@@ -365,9 +365,6 @@ const componey: IProfile1v1 = {
           elements: [
             {
               type: 'text',
-              animate: {
-                disable: true,
-              },
               spacer: 'none',
               body: '<p>动态组件</p>',
             },
@@ -378,9 +375,6 @@ const componey: IProfile1v1 = {
           elements: [
             {
               type: 'text',
-              animate: {
-                disable: true,
-              },
               spacer: 'none',
               body: '<p>动态组件</p>',
             },
@@ -391,9 +385,6 @@ const componey: IProfile1v1 = {
           elements: [
             {
               type: 'text',
-              animate: {
-                disable: true,
-              },
               spacer: 'none',
               body: '<p>动态组件</p>',
             },

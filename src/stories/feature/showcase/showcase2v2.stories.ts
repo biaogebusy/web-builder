@@ -39,6 +39,7 @@ const content: IShowcase2v2 = {
       style: 'style-v1',
       classes: 'mat-display-2 bold',
     },
+    classes: 'text-center',
     body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
   },
   row: 4,

@@ -194,8 +194,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       background-color: mat-color($background, card);
       border: 1px solid mat-color($foreground, divider);
       .hover-show {
-        app-spacer {
-          background-color: mat-color($primary, 0.1);
+        > app-dynamic-component {
+          > app-spacer {
+            background-color: mat-color($primary, 0.5);
+          }
         }
       }
     }

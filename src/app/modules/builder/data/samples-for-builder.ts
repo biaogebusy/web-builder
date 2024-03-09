@@ -796,7 +796,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 683,
+                  value: 783,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -806,7 +806,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 160,
+                  value: 396,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -816,7 +816,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 119,
+                  value: 232,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -826,7 +826,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 9920,
+                  value: 6164,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -4773,7 +4773,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 54,
+                  value: 25,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -4783,7 +4783,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 39616,
+                  value: 43385,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -4793,7 +4793,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2983,
+                  value: 2564,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -4803,7 +4803,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 544,
+                  value: 995,
                   label: '个',
                 },
                 title: '成功故事',
@@ -4920,6 +4920,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-2 bold',
               },
+              classes: 'text-center',
               body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
             },
             row: 4,
@@ -5087,7 +5088,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 54,
+                  value: 25,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5097,7 +5098,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 39616,
+                  value: 43385,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5107,7 +5108,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2983,
+                  value: 2564,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5117,7 +5118,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 544,
+                  value: 995,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5364,11 +5365,12 @@ export const samples = {
           {
             type: 'showcase-1v1',
             title: {
-              label: 'Drupal 已经超越了传统的 Web概念',
+              label: 'Drupal 已经超越了传统的 CMS 概念',
               style: 'style-v1',
             },
             subTitle: {
               spacer: 'none',
+              classes: 'text-center',
               body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
             },
             bg: {
@@ -5812,7 +5814,7 @@ export const samples = {
                     href: '#',
                     mode: 'raised',
                     label: '查看更多',
-                    classes: 'round-btn',
+                    pill: true,
                   },
                 },
                 {
@@ -5831,7 +5833,7 @@ export const samples = {
                     href: '#',
                     mode: 'raised',
                     label: '查看更多',
-                    classes: 'round-btn',
+                    pill: true,
                   },
                 },
                 {
@@ -5850,7 +5852,7 @@ export const samples = {
                     href: '#',
                     mode: 'raised',
                     label: '查看更多',
-                    classes: 'round-btn',
+                    pill: true,
                   },
                 },
                 {
@@ -5869,7 +5871,7 @@ export const samples = {
                     href: '#',
                     mode: 'raised',
                     label: '查看更多',
-                    classes: 'round-btn',
+                    pill: true,
                   },
                 },
               ],
@@ -6214,6 +6216,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-2 bold',
               },
+              classes: 'text-center',
               body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
             },
             elements: [
@@ -6290,6 +6293,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-2 bold',
               },
+              classes: 'text-center',
               body: '<p class="text-center">这次艺术设计之旅不仅仅是一次观赏和欣赏的体验，更是一个与艺术创造亲密接触的机会。参与者们通过参观展览、讲座和工作坊，自己动手创作和表达，发掘了自己内在的艺术潜能和表达能力。</p>',
             },
             elements: [
@@ -6628,11 +6632,12 @@ export const samples = {
           {
             type: 'showcase-1v1',
             title: {
-              label: 'Drupal 已经超越了传统的 Web概念',
+              label: 'Drupal 已经超越了传统的 CMS 概念',
               style: 'style-v1',
             },
             subTitle: {
               spacer: 'none',
+              classes: 'text-center',
               body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
             },
             bg: {
@@ -6922,7 +6927,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 54,
+                  value: 25,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -6932,7 +6937,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 39616,
+                  value: 43385,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -6942,7 +6947,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2983,
+                  value: 2564,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -6952,7 +6957,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 544,
+                  value: 995,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7025,6 +7030,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-2 bold',
               },
+              classes: 'text-center',
               body: '<p class="text-center">我们为您提供了一系列多样化的会员等级和相应的专属服务，旨在打造个性化的艺术设计体验。无论您是刚起步的爱好者还是专业设计师，我们的会员计划将满足您不同层次和需求。</p>',
             },
             elements: [
@@ -7558,9 +7564,6 @@ export const samples = {
                       style: 'style-v1',
                       classes: 'mat-display-2 bold',
                     },
-                    animate: {
-                      disable: true,
-                    },
                     body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
                   },
                   elements: [
@@ -7900,9 +7903,6 @@ export const samples = {
                 {
                   type: 'text',
                   spacer: 'md',
-                  animate: {
-                    disable: true,
-                  },
                   body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul>',
                   title: {
                     label:

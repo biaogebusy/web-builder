@@ -36,8 +36,9 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   onModelChange(value: any) {
-    const { flex } = value;
-    this.renderLayoutPreview(flex);
+    const { block } = value;
+
+    this.renderLayoutPreview(block);
     let content: any = {};
     Object.keys(value).forEach((config) => {
       if (config) {
@@ -53,10 +54,10 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     });
   }
 
-  renderLayoutPreview(flex: any): void {
+  renderLayoutPreview(block: any): void {
     const box = this.el.nativeElement.querySelector('.wrapper');
-    if (flex && box) {
-      const { direction, horizontal, vertical } = flex;
+    if (block && box) {
+      const { direction, horizontal, vertical } = block;
       box.style.justifyContent = horizontal;
       box.style.alignItems = vertical;
       box.style.alignContent = vertical;

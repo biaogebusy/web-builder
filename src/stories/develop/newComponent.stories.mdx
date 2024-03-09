@@ -1,0 +1,205 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="开发/新增组件"
+  id="develop/newComponent"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## 新增组件流程
+
+1.  在该组件所属的 uiux 模块中新建组件；
+2.  注册组件到动态组件服务中；
+3.  在 storybook 中开发组件；
+4.  导入组件到 web builder 供用户选择使用；
+
+## 新建组件
+
+没有对应模块则放入 other 模块或者新建模块。
+
+1. 以新建一个`card-sample`卡片基组件为例，因为该卡片组件是基组件，则新建在`src/app/uiux/widgets/card/card-sample`，执行新建命令：
+
+```bash
+ng g c uiux/widgets/card/card-sample
+
+CREATE src/app/uiux/widgets/card/card-sample/card-sample.component.scss (0 bytes)
+CREATE src/app/uiux/widgets/card/card-sample/card-sample.component.html (26 bytes)
+CREATE src/app/uiux/widgets/card/card-sample/card-sample.component.spec.ts (655 bytes)
+CREATE src/app/uiux/widgets/card/card-sample/card-sample.component.ts (295 bytes)
+UPDATE src/app/uiux/widgets/widgets.module.ts (12113 bytes)
+```
+
+需要注意的是，组件必须有一个@Input 输入属性 content，所有的组件都要遵循，否则动态组件无法输入数据。
+
+```ts
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from "@angular/core";
+
+@Component({
+  selector: "app-card-sample",
+  templateUrl: "./card-sample.component.html",
+  styleUrls: ["./card-sample.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class CardSampleComponent implements OnInit {
+  @Input() content: any;
+  constructor() {}
+
+  ngOnInit(): void {}
+}
+```
+
+2. 更新 `widgets.module.ts` 模块
+   命令会自动把组件添加到 `declarations` 中，移出放入 `components` 数组中，统一导入导出
+
+```ts
+ import { TabsTypeComponent } from './form/formly-type/tabs/tabs.component';
+ import { ImgPickerComponent } from './form/formly-type/img-picker/img-picker.component';
+ import { SliderComponent } from './form/formly-type/slider/slider.component';
++import { CardSampleComponent } from './card/card-sample/card-sample.component';
+
+
+const components = [
+   GotopComponent,
+   GithubStarComponent,
+   SliderComponent,
++  CardSampleComponent,
+ ];
+```
+
+3. 注册组件到 `component.service.ts` 动态组件中
+   `src/app/core/service/component.service.ts`在这个文件中，只有在对应的模块注册组件，才能够动态加载组件
+
+```
+ [
+      'card-1v1',
+      'card-1v2',
+      'card-1v4',
+      'card-1v5',
+      'card-1v6',
+  +   'card-sample',
+    ].forEach((type) =>
+      this.setModule(type, () =>
+        import('@uiux/widgets/widgets.module').then((m) => m.WidgetsModule)
+      )
+    );
+```
+
+## 在 storybook 中开发组件
+
+在 storybook 中开发测试预览组件不是必须的，当然你也可以按传统的开发组件，但是作为大型的组件库，应该对所有的组件进行预览测试和文档化。
+
+1. `npm run storybook` 启动 storybook 环境；
+2. 在对应的目录找到一个 card 组件复制新建，例如`src/stories/widgets/card/Card.stories.ts`=》`src/stories/widgets/card/CardSample.stories.ts`
+
+```ts
+import { moduleMetadata, Meta } from "@storybook/angular";
+import { Story } from "@storybook/angular/types-6-0";
+import { StorysModule } from "@core/module/storys.module";
+import { CardSampleComponent } from "@uiux/widgets/card/card-sample/card-sample.component";
+export default {
+  title: "基础组件/卡片/卡片sample",
+  id: "card-sample",
+  component: CardSampleComponent,
+  decorators: [
+    moduleMetadata({
+      declarations: [],
+      entryComponents: [...StorysModule.forEntryComponents()],
+      imports: [StorysModule.forRoot()],
+    }),
+  ],
+} as Meta;
+
+const Template: Story = (args) => ({
+  props: {
+    ...args,
+  },
+});
+export const Default = Template.bind({});
+Default.storyName = "sample";
+
+Default.args = {
+  content: {},
+};
+```
+
+title 定义了组件在 storybook 左侧菜单位置，在 story Default 中，content 就是你在组件里面定义的 Input 属性：
+
+```js
+Default.args = {
+  content: {},
+};
+```
+
+<img src="assets/storybook/assets/card-sample.png" />
+
+修改你的 story 输入数据：
+
+```js
+Default.args = {
+  content: {
+    type: "card-sample",
+    title: "信使 Web builder",
+    subTitle:
+      "信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。",
+  },
+};
+```
+
+编辑开发组件，建议以组件名称为 class 父元素，在 theme 中需要使用到。
+
+```html
+<div class="card-sample">
+  <div class="title">{{content.title}}</div>
+  <div class="subTitle">{{content.subTitle}}</div>
+</div>
+```
+
+> 需要注意：所有组件要遵循 Theme 颜色和组件样式分开写，不能把颜色相关的样式写在组件 scss 文件中，应该在对应的 theme 文件中编写，该卡片例子对应在：`src/theme/component/mat/_card.scss`，如果没有对应的则新建，并导入到`src/theme/component/_component.scss`中即可。
+
+```css
+/** src/app/uiux/widgets/card/card-sample/card-sample.component.scss **/
+.card-sample {
+  padding: 20px;
+  .title {
+    font-weight: bold;
+    font-size: 30px;
+  }
+}
+```
+
+组件主题的相关规范和变量可查看 [主题/组件颜色](?path=/docs/create-theme--page)
+
+```css
+/** src/theme/component/mat/_card.scss **/
++  .card-sample {
++    border: 1px solid mat-color($primary);
++  }
+```
+
+## 新增组件到 web builder
+
+因为所有的组件数据都在 storybook 中建立的，随着项目需求的变更，随时更新 story 测试数据，那 web builder 的数据也应该同步更新，那数据流动的方向是：storybook => web builder
+
+在`src/stories/builder/data`目录中维护了需要导入到 web builder 的数据，如下图所示：
+
+- 注册左侧边栏组件：`src/stories/builder/data/uiux-for-story.ts`
+- 注册 layout builder 基组件：`src/stories/builder/data/widgets-for-story.ts`
+
+  <img src="assets/storybook/assets/export.png" />
+  当你新增组件或者每次更新数据时，在storybook环境下，浏览器开发者面板会打印出对应的数据，复制到`src/app/modules/builder/data`对应的文件即可更新。
+  <img src="assets/storybook/assets/copyData.png" />
+
+## 总结
+
+以上就是完整的新增组件或者更新组件数据的开发更新流程，包括了注册动态组件、开发维护预览组件、导入组件到 web builder，你应该遵循以上的步骤流程，UI 库始终能够在 storybook 中维护预览的，当你项目足够大，组件足够多，一个组件又有各种状态的时候，会带来很大的便利，文档会持续完善，有问题及时群里沟通交流。

@@ -207,10 +207,24 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                     },
                     {
                       key: 'classes',
-                      type: 'input',
+                      type: 'select',
                       defaultValue: content?.bg?.img?.classes || 'object-fit',
                       templateOptions: {
-                        label: 'Class',
+                        label: '背景填充方式',
+                        options: [
+                          {
+                            label: '按比例铺满 cover',
+                            value: 'object-cover',
+                          },
+                          {
+                            label: '按比例完整显示 contain',
+                            value: 'object-contain',
+                          },
+                          {
+                            label: '拉伸铺满 fill',
+                            value: 'object-fill',
+                          },
+                        ],
                       },
                       hideExpression: '!model.src',
                     },

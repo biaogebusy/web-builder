@@ -7,7 +7,6 @@ import * as chartLineStory from '@stories/widgets/chart/ChartLine.stories';
 import * as chartPieStory from '@stories/widgets/chart/ChartPie.stories';
 import * as btnStory from '@stories/base/Btn.stories';
 import * as linkStory from '@stories/base/Link.stories';
-import * as bgImg from '@stories/base/BgImg.stories';
 import * as iconStory from '@stories/base/Icon.stories';
 import * as formStory from '@stories/widgets/Form.stories';
 import * as imgStory from '@stories/base/Img.stories';
@@ -88,10 +87,6 @@ export const {
 } = btnStory;
 
 export const {
-  Opacity: { args: bg },
-} = bgImg;
-
-export const {
   Default: { args: mediaList },
 } = mediaListStory;
 
@@ -169,9 +164,6 @@ export const widgets: any[] = [
     content: {
       type: 'text',
       spacer: 'none',
-      animate: {
-        disable: true,
-      },
       body: '信使UI是基于 Material 的 Angular 前端框架，丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
     },
   },
@@ -211,6 +203,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'view-array-outline',
     },
+    preview: '/assets/images/builder/widgets/swiper.png',
     ...swiper,
   },
   {
@@ -218,6 +211,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'account-box-outline',
     },
+    preview: '/assets/images/builder/widgets/contact.png',
     ...contact,
   },
   {
@@ -225,6 +219,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'chart-bar',
     },
+    preview: '/assets/images/builder/widgets/bar.png',
     ...chartBar,
   },
   {
@@ -232,6 +227,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'chart-line',
     },
+    preview: '/assets/images/builder/widgets/line.png',
     ...chartLine,
   },
   {
@@ -239,6 +235,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'chart-pie',
     },
+    preview: '/assets/images/builder/widgets/pie.png',
     ...chartPie,
   },
   {
@@ -249,17 +246,13 @@ export const widgets: any[] = [
   {
     label: '表格',
     icon: { svg: 'table' },
+    preview: '/assets/images/builder/widgets/table.png',
     ...dynamicTable,
   },
   {
     label: '播放按钮',
     icon: { svg: 'play-circle-outline' },
     ...btnVideo,
-  },
-  {
-    label: '背景',
-    icon: { svg: 'format-color-fill' },
-    ...bg,
   },
   {
     label: 'Box',
@@ -269,34 +262,37 @@ export const widgets: any[] = [
   {
     label: '卡片',
     icon: { svg: 'card-outline' },
+    preview: '/assets/images/builder/widgets/card.png',
     ...cardBase,
   },
   {
-    label: 'v1',
+    label: '卡片1v1',
     icon: {
       svg: 'numeric-1',
     },
+    preview: '/assets/images/builder/widgets/card-1v1.png',
     ...v1,
   },
   {
-    label: 'v2',
+    label: '卡片2v2',
     icon: {
       svg: 'numeric-2',
     },
+    preview: '/assets/images/builder/widgets/card-1v2.png',
     ...v2,
   },
   {
-    label: '1v4',
+    label: '卡片1v4',
     icon: { svg: 'numeric-4' },
     ...v4,
   },
   {
-    label: '1v5',
+    label: '卡片1v5',
     icon: { svg: 'numeric-5' },
     ...v5,
   },
   {
-    label: '1v6',
+    label: '卡片1v6',
     icon: { svg: 'numeric-6' },
     ...v6,
   },
@@ -328,29 +324,10 @@ export const widgets: any[] = [
     ...testimonial,
   },
   {
-    label: '进度条',
-    icon: { svg: 'progress-helper' },
-    ...progressbar,
-  },
-  {
-    label: 'Iframe',
-    icon: {
-      svg: 'application-array-outline',
-    },
-    ...iframe,
-  },
-  {
     label: 'Lightbox',
     icon: {
       svg: 'view-carousel-outline',
     },
     ...lightbox,
-  },
-  {
-    label: '形状',
-    icon: {
-      svg: 'cosine-wave',
-    },
-    ...shape,
   },
 ];

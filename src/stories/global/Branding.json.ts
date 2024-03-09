@@ -473,9 +473,6 @@ const fixBar = [
     content: {
       spacer: 'none',
       body: '<p><img height="120" src="/assets/images/wechat.jpg" />',
-      animate: {
-        disable: true,
-      },
     },
   },
 ];

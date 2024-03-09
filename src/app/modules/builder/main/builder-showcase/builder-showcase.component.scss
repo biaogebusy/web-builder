@@ -39,6 +39,11 @@
       .actions {
         display: none !important;
       }
+      .layout {
+        .placeholder {
+          pointer-events: none;
+        }
+      }
     }
   }
   .showcase-footer {

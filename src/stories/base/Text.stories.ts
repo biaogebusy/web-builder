@@ -40,7 +40,7 @@ Base.storyName = '基础文本';
 const base: IText = {
   type: 'text',
   spacer: 'md',
-  body: '信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。选择组件拖动到想要的位置：<ul class="list-done"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class="text-primary">1176468251</span></p><p style="display:flex"><img width="120px" src="/assets/icons/large-left-arrow.svg" /><video  muted  autoplay loop width="120px" src="/assets/video/drag-drop.mp4"></video></p>',
+  body: '从左侧选择组件拖动到编辑区：<ul class="list-done"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class="text-primary">1176468251</span></p><p style="display:flex"><img width="120px" src="/assets/icons/large-left-arrow.svg"><video muted="" autoplay="" loop="" width="120px" src="/assets/video/drag-drop.mp4"></video></p>',
 };
 Base.args = {
   content: base,
@@ -275,16 +275,4 @@ const list: IText = {
 };
 List.args = {
   content: list,
-};
-
-export const DisableAnimate = Template.bind({});
-DisableAnimate.storyName = '禁用动画';
-const disableAnimate: IText = {
-  ...List.args.content,
-  animate: {
-    disable: true,
-  },
-};
-DisableAnimate.args = {
-  content: disableAnimate,
 };

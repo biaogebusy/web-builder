@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BlockComponent } from '@modules/render/block/block.component';
-import { BlockModule } from '@modules/render/render.module';
+import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { BRANDING } from '@core/token/token-providers';
@@ -24,7 +24,7 @@ export default {
       entryComponents: [...StorysModule.forEntryComponents()],
       imports: [
         MatSidenavModule,
-        BlockModule,
+        RenderModule,
         NodeModule,
         BrandingModule,
         StorysModule.forRoot(),

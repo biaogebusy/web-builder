@@ -413,8 +413,8 @@ const workTime: IReport = {
           defaultValue: 5,
           className: 'display-block m-bottom-sm m-right-sm',
           templateOptions: {
-            label: '选择律师',
-            description: '请选择律师',
+            label: '选择项目经理',
+            description: '选择项目经理',
             options: [
               {
                 label: '张三',
@@ -555,53 +555,52 @@ const workTime: IReport = {
         ],
         elements: [
           {
-            title: '关于考试费用的调整问题',
+            title: '软件开发与定制服务合同',
             month: '4月',
             worktime: '0.50',
           },
           {
-            title: '3-借用人员的大协议-（2015版标准版)-(清稿)--法修-0512.docx',
+            title: '数据分析与挖掘合同',
             month: '5月',
             worktime: '1.00',
           },
           {
-            title: 'SIFDC-Miltenyi Biotec技术转让合同5.15.xls',
+            title: '网站建设与维护合同',
             month: '5月',
             worktime: '1.00',
           },
           {
-            title:
-              '3-借用人员的大协议-（2015版标准版)-(清稿)--法修-【器审分中心】【药审分中心】',
+            title: '营销策略与推广合同',
             month: '5月',
             worktime: '2.00',
           },
           {
-            title: '疫情期间物资保障二个合同',
+            title: 'IT咨询与支持服务合同',
             month: '5月',
             worktime: '2.00',
           },
           {
-            title: '人才公寓-给高科公司的定稿打包合同+单签合同+框架协议',
+            title: '软件许可与授权合同',
             month: '5月',
             worktime: '1.50',
           },
           {
-            title: '商业地产项目法律咨询',
+            title: '安全性评估与加固合同',
             month: '6月',
             worktime: '1.00',
           },
           {
-            title: '上海药审中心2021年度法律合规审查',
+            title: '数据隐私与保护合同',
             month: '6月',
             worktime: '0.00',
           },
           {
-            title: '企业邮箱服务框架合同-国器审分-上海星橙',
+            title: '网络安全与防御合同',
             month: '6月',
             worktime: '3.00',
           },
           {
-            title: '长三角分中心VS国润--抗原试剂--产品单次合同20220321.pdf',
+            title: '人工智能技术应用与集成合同',
             month: '6月',
             worktime: '0.50',
           },
@@ -798,186 +797,4 @@ SingleMode.args = {
   form: new FormGroup({}),
   model: {},
   content: singleMode,
-};
-
-export const FromApi = Template.bind({});
-const api: IReport = {
-  type: 'report',
-  header: {
-    text: {
-      spaver: 'none',
-      title: {
-        label: '福利投票统计',
-        style: 'style-v4',
-        classes: 'mat-display-1 m-bottom-0',
-      },
-    },
-    metaBak: [
-      {
-        label: '回收量',
-        value: 622,
-      },
-      {
-        label: '浏览量',
-        value: 964,
-      },
-      {
-        label: '回收率',
-        value: '64%',
-      },
-    ],
-  },
-  form: [
-    {
-      key: 'filter',
-      className: '',
-      fieldGroupClassName: 'display-flex flex-wrap',
-      fieldGroup: [
-        {
-          type: 'mat-select',
-          key: 'lawyer',
-          defaultValue: 5,
-          className: 'display-block m-bottom-sm m-right-sm',
-          templateOptions: {
-            label: '选择客户',
-            description: '请选择客户',
-            options: [
-              {
-                label: '张三',
-                value: 26,
-              },
-              {
-                label: '李四',
-                value: 6,
-              },
-            ],
-          },
-        },
-        {
-          type: 'mat-select',
-          key: 'position',
-          defaultValue: 5,
-          className: 'display-block m-bottom-sm m-right-sm',
-          templateOptions: {
-            label: '年份',
-            description: '请选择年份',
-            options: [
-              {
-                label: '2023',
-                value: 2023,
-              },
-              {
-                label: '2022',
-                value: 2022,
-              },
-              {
-                label: '2021',
-                value: 2021,
-              },
-              {
-                label: '2020',
-                value: 2020,
-              },
-            ],
-          },
-        },
-      ],
-    },
-  ],
-  row: 2,
-  params: {
-    apiBak: '/api/v3/node/vote/report',
-  },
-  datasetIndex: 1,
-  customDataset: [
-    {
-      transform: {
-        type: 'sort',
-        config: {
-          dimension: 'total',
-          order: 'asc',
-        },
-      },
-    },
-  ],
-  box: [
-    {
-      data: {
-        toggle: [
-          {
-            label: '饼图',
-            icon: {
-              name: 'pie_chart',
-              inline: true,
-            },
-            value: 'pie',
-          },
-          {
-            label: '柱状图',
-            icon: {
-              name: 'equalizer',
-              inline: true,
-            },
-            value: 'bar',
-          },
-          {
-            label: '折线图',
-            icon: {
-              name: 'show_chart',
-              inline: true,
-            },
-            value: 'line',
-          },
-        ],
-      },
-      content: {
-        type: 'chart',
-        tooltip: {
-          trigger: 'axis',
-        },
-        xAxis: {
-          type: 'category',
-          axisLabel: {
-            interval: 0,
-            rotate: 30,
-          },
-        },
-        yAxis: {
-          type: 'value',
-        },
-        series: [
-          {
-            type: 'bar',
-            label: {
-              position: 'top',
-              show: true,
-            },
-            datasetIndex: 0,
-          },
-        ],
-      },
-    },
-    {
-      content: {
-        type: 'dynamic-table',
-        header: [
-          {
-            label: '想要礼品',
-            key: 'name',
-          },
-          {
-            label: '想要人数',
-            key: 'total',
-          },
-          {
-            label: '占比',
-            key: 'percent',
-          },
-        ],
-      },
-    },
-  ],
-};
-FromApi.args = {
-  content: api,
 };

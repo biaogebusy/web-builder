@@ -153,7 +153,7 @@ export const components: any[] = [
                       href: '#',
                       mode: 'raised',
                       label: '查看更多',
-                      classes: 'round-btn',
+                      pill: true,
                     },
                   },
                   {
@@ -172,7 +172,7 @@ export const components: any[] = [
                       href: '#',
                       mode: 'raised',
                       label: '查看更多',
-                      classes: 'round-btn',
+                      pill: true,
                     },
                   },
                   {
@@ -191,7 +191,7 @@ export const components: any[] = [
                       href: '#',
                       mode: 'raised',
                       label: '查看更多',
-                      classes: 'round-btn',
+                      pill: true,
                     },
                   },
                   {
@@ -210,7 +210,7 @@ export const components: any[] = [
                       href: '#',
                       mode: 'raised',
                       label: '查看更多',
-                      classes: 'round-btn',
+                      pill: true,
                     },
                   },
                 ],
@@ -583,43 +583,6 @@ export const components: any[] = [
                     label: '了解更多',
                   },
                 ],
-              },
-            },
-          },
-          {
-            label: '动画',
-            content: {
-              type: 'hero-2v1',
-              theme: '',
-              params: {
-                height: '940px',
-              },
-              text: {
-                title: {
-                  label:
-                    '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
-                  style: 'style-v4',
-                  classes: 'mat-display-1 bold',
-                },
-                animate: {
-                  disable: false,
-                  scrub: true,
-                },
-                spacer: 'md',
-                style: {
-                  width: '25%',
-                  left: '40%',
-                },
-                classes: 'xy-center',
-                bg: {
-                  classes: 'bg-shadow bg-fill-width',
-                  img: {
-                    src: '/assets/images/products/TS97-Computer_08.jpg?itok=LdOsboTY',
-                    mobile:
-                      '/assets/images/products/TS97-Phone_08.jpg?itok=VZueJbig',
-                  },
-                },
-                body: '<p style="text-align:justify"><span style="font-size:18px;">开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。</span></p>\r\n',
               },
             },
           },
@@ -1076,11 +1039,12 @@ export const components: any[] = [
             content: {
               type: 'showcase-1v1',
               title: {
-                label: 'Drupal 已经超越了传统的 Web概念',
+                label: 'Drupal 已经超越了传统的 CMS 概念',
                 style: 'style-v1',
               },
               subTitle: {
                 spacer: 'none',
+                classes: 'text-center',
                 body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
               },
               bg: {
@@ -1378,6 +1342,7 @@ export const components: any[] = [
               },
               subTitle: {
                 spacer: 'none',
+                classes: 'text-center',
                 body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p><br>',
               },
               bg: {
@@ -1759,6 +1724,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 bold',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
               },
               elements: [
@@ -1838,6 +1804,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 bold',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">我们为您提供了一系列多样化的会员等级和相应的专属服务，旨在打造个性化的艺术设计体验。无论您是刚起步的爱好者还是专业设计师，我们的会员计划将满足您不同层次和需求。</p>',
               },
               elements: [
@@ -1949,6 +1916,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 bold',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">这次艺术设计之旅不仅仅是一次观赏和欣赏的体验，更是一个与艺术创造亲密接触的机会。参与者们通过参观展览、讲座和工作坊，自己动手创作和表达，发掘了自己内在的艺术潜能和表达能力。</p>',
               },
               elements: [
@@ -2063,6 +2031,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 bold',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
               },
               bg: {
@@ -2073,7 +2042,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-03-02',
+                  subTitle: '2024-03-09',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2123,7 +2092,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-02',
+                  subTitle: '2024-03-09',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2160,7 +2129,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-02',
+                  subTitle: '2024-03-09',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2197,7 +2166,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-02',
+                  subTitle: '2024-03-09',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2234,7 +2203,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-02',
+                  subTitle: '2024-03-09',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2271,7 +2240,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-02',
+                  subTitle: '2024-03-09',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2308,7 +2277,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-02',
+                  subTitle: '2024-03-09',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2345,7 +2314,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-02',
+                  subTitle: '2024-03-09',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2500,6 +2469,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 bold',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
               },
               row: 4,
@@ -2964,6 +2934,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 bold',
                 },
+                classes: 'text-center',
                 body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
               },
               classes: '',
@@ -3547,6 +3518,7 @@ export const components: any[] = [
                   label: '为什么你将会喜欢这个前端框架？',
                   style: 'style-v1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',
               },
               bg: {
@@ -4000,6 +3972,7 @@ export const components: any[] = [
                   label: '为什么你将会喜欢这个前端框架？',
                   style: 'style-v1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',
               },
               bg: {
@@ -4139,13 +4112,37 @@ export const components: any[] = [
                 {
                   type: 'text',
                   spacer: 'md',
-                  body: '信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。选择组件拖动到想要的位置：<ul class="list-done"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class="text-primary">1176468251</span></p><p style="display:flex"><img width="120px" src="/assets/icons/large-left-arrow.svg" /><video  muted  autoplay loop width="120px" src="/assets/video/drag-drop.mp4"></video></p>',
+                  body: '从左侧选择组件拖动到编辑区：<ul class="list-done"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class="text-primary">1176468251</span></p><p style="display:flex"><img width="120px" src="/assets/icons/large-left-arrow.svg"><video muted="" autoplay="" loop="" width="120px" src="/assets/video/drag-drop.mp4"></video></p>',
                   title: {
                     label:
                       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                     style: 'style-v4',
                     classes: 'mat-display-2 bold',
                   },
+                  bg: {
+                    classes: '',
+                  },
+                  actionsAlign: 'start center',
+                  actions: [
+                    {
+                      type: 'btn-generater',
+                      label: '生成页面',
+                      color: 'primary',
+                      mode: 'raised',
+                    },
+                    {
+                      type: 'btn',
+                      color: 'primary',
+                      mode: 'stroked',
+                      label: '演示视频',
+                      href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                      target: '_blank',
+                      icon: {
+                        inline: true,
+                        svg: 'play-circle-outline',
+                      },
+                    },
+                  ],
                 },
               ],
             },
@@ -4380,7 +4377,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 683,
+                    value: 602,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4390,7 +4387,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 160,
+                    value: 222,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4400,7 +4397,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 119,
+                    value: 251,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4410,7 +4407,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 9920,
+                    value: 7129,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4441,7 +4438,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 54,
+                    value: 36,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4451,7 +4448,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 39616,
+                    value: 10456,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4461,7 +4458,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 2983,
+                    value: 3953,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4471,7 +4468,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 544,
+                    value: 941,
                     label: '个',
                   },
                   title: '成功故事',
@@ -5296,9 +5293,6 @@ export const components: any[] = [
                         style: 'style-v1',
                         classes: 'mat-display-2 bold',
                       },
-                      animate: {
-                        disable: true,
-                      },
                       body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
                     },
                     elements: [
@@ -5638,9 +5632,6 @@ export const components: any[] = [
                   {
                     type: 'text',
                     spacer: 'md',
-                    animate: {
-                      disable: true,
-                    },
                     body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul>',
                     title: {
                       label:

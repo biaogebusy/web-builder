@@ -114,7 +114,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'opacity',
                     type: 'slider',
                     className: 'width-100',
-                    defaultValue: content?.animate?.from?.opacity || 1,
+                    defaultValue: content?.animate?.from?.opacity,
                     templateOptions: {
                       label: '不透明度',
                       min: 0,

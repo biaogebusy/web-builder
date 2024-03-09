@@ -73,16 +73,16 @@ BtnDisabled.args = {
   content: disabled,
 };
 
-export const Round = Template.bind({});
+export const Pill = Template.bind({});
 const round: IBtn = {
   type: 'btn',
   label: 'Round',
   color: 'primary',
   mode: 'raised',
-  classes: 'round-btn',
+  pill: true,
 };
 
-Round.args = {
+Pill.args = {
   content: round,
 };
 

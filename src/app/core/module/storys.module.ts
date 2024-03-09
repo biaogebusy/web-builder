@@ -70,6 +70,7 @@ export function sleep(ms: number): Promise<any> {
   imports: [
     ShareModule,
     WidgetsModule,
+    BuilderModule,
     CombsModule,
     HttpClientModule,
     NgxWebstorageModule.forRoot(),

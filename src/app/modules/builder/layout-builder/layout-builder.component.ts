@@ -1,14 +1,20 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   Inject,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import type { ILayoutBuilder, ILayoutSetting } from '@core/interface/IBuilder';
+import type {
+  ILayoutBlock,
+  ILayoutBuilder,
+  ILayoutSetting,
+} from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
@@ -31,6 +37,7 @@ import { getText } from '../factory/getText';
 import { getImg } from '../factory/getImg';
 import { getIcon } from '../factory/getIcon';
 import { getAnimate } from '../factory/getAnimate';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-layout-builder',
@@ -38,7 +45,9 @@ import { getAnimate } from '../factory/getAnimate';
   styleUrls: ['./layout-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutBuilderComponent implements OnInit, OnDestroy {
+export class LayoutBuilderComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input() content: ILayoutBuilder;
   @Input() pageIndex: number;
   @Input() uuid: string;
@@ -48,6 +57,8 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
     private builder: BuilderState,
+    private util: UtilitiesService,
+    private ele: ElementRef,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
@@ -58,14 +69,17 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         const { i, index, value, uuid } = data;
         if (uuid === this.uuid) {
           const { elements } = this.content;
+          // is widget
           if (this.isLayoutWidget(i, index) && isNumber(i) && isNumber(index)) {
             elements[i].elements[index] = value;
           }
+          // is layout
           if (i !== undefined && i >= 0 && index === undefined) {
             elements[i] = value;
           }
           this.builder.updateComponent(this.pageIndex, this.content);
           this.cd.detectChanges();
+          this.initAnimate();
         }
       });
 
@@ -82,6 +96,24 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           this.cd.detectChanges();
         }
       });
+  }
+
+  ngAfterViewInit(): void {
+    this.initAnimate();
+  }
+
+  initAnimate(): void {
+    this.content.elements.map((item: ILayoutBlock, index) => {
+      if (item.animate) {
+        this.util.initAnimate(
+          item,
+          this.ele.nativeElement.querySelectorAll(
+            `.layout-${index} .for-animate`
+          )[0],
+          this.ele.nativeElement
+        );
+      }
+    });
   }
 
   isLayoutWidget(i: number | undefined, index: number | undefined): boolean {
