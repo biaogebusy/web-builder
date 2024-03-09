@@ -8,7 +8,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { Showcase3v9Component } from '@uiux/combs/showcase/showcase3v9/showcase3v9.component';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IShowcase3v9 } from '@core/interface/combs/IShowcase';
-import { Title } from '@stories/base/Text.stories';
+import { Actions } from '@stories/base/Text.stories';
 
 export default {
   title: '特色组件/图文 Showcase/3v9',
@@ -73,7 +73,7 @@ const content: IShowcase3v9 = {
   ],
   right: [
     {
-      ...Title.args?.content,
+      ...Actions.args?.content,
     },
   ],
 };

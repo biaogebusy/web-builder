@@ -34,9 +34,9 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 const content: ILink = {
   type: 'link',
-  label: '链接',
+  label: '更多',
   classes: '',
-  href: '/manage',
+  href: '/',
 };
 Default.args = {
   content,

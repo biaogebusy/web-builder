@@ -1,4 +1,4 @@
-import * as notfoundStory from '@stories/sample/feedback/404.stories';
+import * as notfoundStory from '@stories/sample/system/404.stories';
 import * as searchStory from '@stories/components/search/search.stories';
 import * as dashboardStory from '@stories/sample/manage/dashboard/Dashboard.stories';
 import * as calendarStory from '@stories/drupal/Full-calendar.stories';

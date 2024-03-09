@@ -37,7 +37,7 @@ const content: IImg = {
   type: 'img',
   hostClasses: 'text-center',
   classes: '',
-  src: '/assets/images/cases/porto3.jpg',
+  src: '/assets/images/illustration/08.png',
   alt: 'alt',
 };
 Default.args = {

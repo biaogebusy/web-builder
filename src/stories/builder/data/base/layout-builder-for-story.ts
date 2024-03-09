@@ -46,7 +46,6 @@ export const layoutBuilder: any[] = [
       },
       elements: [
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 6,
@@ -54,10 +53,56 @@ export const layoutBuilder: any[] = [
             lg: 7,
           },
           direction: 'column',
+          horizontal: 'center',
+          vertical: 'flex-start',
           layoutAlign: 'center start',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: '100',
+              rotation: 0,
+              scale: 1,
+              opacity: 0,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          classes: '',
           elements: [
             {
-              ...title?.content,
+              type: 'title',
+              label:
+                '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+              style: 'style-v4',
+              classes: 'mat-display-2 bold',
             },
             {
               type: 'text',
@@ -80,7 +125,12 @@ export const layoutBuilder: any[] = [
               body: '信使是一个灵活可扩展性高的前端Anuglar框架，动态组件可以使得组件之间变得更加灵活，但是依赖循环也变得复杂。',
             },
             {
-              ...btn?.content,
+              type: 'btn',
+              href: '/node/1',
+              target: '_blank',
+              label: '了解更多',
+              mode: 'raised',
+              color: 'primary',
             },
           ],
         },
@@ -96,11 +146,32 @@ export const layoutBuilder: any[] = [
           layoutAlign: 'center stretch',
           elements: [
             {
-              type: 'img',
-              hostClasses: 'text-center',
               classes: '',
-              src: '/assets/images/illustration/11.png',
               alt: 'alt',
+              hostClasses: 'text-center',
+              animate: {
+                from: {
+                  x: '100',
+                  y: 0,
+                  rotation: 0,
+                  scale: 0.8,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                  scrub: false,
+                },
+              },
+              type: 'img',
+              src: '/assets/images/illustration/11.png',
               style: {
                 'max-width': '60%',
               },
@@ -116,13 +187,24 @@ export const layoutBuilder: any[] = [
       svg: 'image-text',
     },
     content: {
-      type: 'layout-builder',
-      spacer: 'md',
       fullWidth: false,
+      spacer: 'md',
+      bgClasses: 'bg-fill-width',
+      overlay: '',
+      classes: '',
+      id: '',
       bg: {
+        img: {
+          src: '',
+          classes: 'object-fit',
+          alt: '',
+        },
         classes: 'bg-fill-width',
         overlay: '',
       },
+      direction: 'row wrap',
+      horizontal: 'center',
+      vertical: 'stretch',
       layoutAlign: 'center stretch',
       gap: {
         xs: 0,
@@ -130,28 +212,84 @@ export const layoutBuilder: any[] = [
         md: 32,
         lg: 48,
       },
+      animate: {
+        from: {
+          x: 0,
+          y: '100',
+          rotation: 0,
+          scale: 1,
+          opacity: 0,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
+      },
+      type: 'layout-builder',
       elements: [
         {
-          style: {
-            backgroundColor: '#f0f0f0',
-            paddingTop: '30px',
-            paddingRight: '30px',
-            paddingBottom: '30px',
-            paddingLeft: '30px',
-          },
           row: {
             xs: 12,
             sm: 12,
             md: 12,
             lg: 6,
           },
-          classes: '',
           direction: 'column',
+          horizontal: 'center',
+          vertical: 'center',
           layoutAlign: 'center center',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: 'overflow-hidden',
+          style: {
+            paddingTop: '30px',
+            paddingRight: '30px',
+            paddingBottom: '30px',
+            paddingLeft: '30px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+            backgroundColor: '#f0f0f0',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: '0',
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           elements: [
             {
               style: 'none',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
               typed: {
                 enable: false,
                 config: {
@@ -162,6 +300,25 @@ export const layoutBuilder: any[] = [
                     label: 'web builder',
                   },
                 ],
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
               },
               type: 'title',
               label: '自由搭配，玩出新意',
@@ -173,35 +330,90 @@ export const layoutBuilder: any[] = [
               href: '/',
             },
             {
-              type: 'img',
-              hostClasses: 'text-center',
               classes: '',
-              src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
               alt: 'alt',
+              hostClasses: 'text-center',
+              animate: {
+                from: {
+                  x: -500,
+                  y: 0,
+                  rotation: 0,
+                  scale: 0,
+                  opacity: 0,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                  scrub: true,
+                },
+              },
+              type: 'img',
+              src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
             },
           ],
         },
         {
-          style: {
-            backgroundColor: '#f0f0f0',
-            paddingTop: '30px',
-            paddingRight: '30px',
-            paddingBottom: '30px',
-            paddingLeft: '30px',
-          },
           row: {
             xs: 12,
             sm: 12,
             md: 12,
             lg: 6,
           },
-          classes: '',
           direction: 'column',
+          horizontal: 'center',
+          vertical: 'center',
           layoutAlign: 'center center',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: 'overflow-hidden',
+          style: {
+            paddingTop: '30px',
+            paddingRight: '30px',
+            paddingBottom: '30px',
+            paddingLeft: '30px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+            backgroundColor: '#f0f0f0',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           elements: [
             {
               style: 'none',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
               typed: {
                 enable: false,
                 config: {
@@ -213,6 +425,25 @@ export const layoutBuilder: any[] = [
                   },
                 ],
               },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
               type: 'title',
               label: '款款亮眼，爱不释手',
             },
@@ -223,20 +454,36 @@ export const layoutBuilder: any[] = [
               href: '/',
             },
             {
-              type: 'img',
-              hostClasses: 'text-center',
               classes: '',
-              src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
               alt: 'alt',
+              hostClasses: 'text-center',
+              animate: {
+                from: {
+                  x: '500',
+                  y: 0,
+                  rotation: 0,
+                  scale: 0,
+                  opacity: 0,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                  scrub: true,
+                },
+              },
+              type: 'img',
+              src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
             },
           ],
         },
       ],
-      bgClasses: 'bg-fill-width',
-      overlay: '',
-      direction: 'row wrap',
-      horizontal: 'center',
-      vertical: 'stretch',
     },
   },
   {
@@ -265,7 +512,6 @@ export const layoutBuilder: any[] = [
       },
       elements: [
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 4,
@@ -273,20 +519,67 @@ export const layoutBuilder: any[] = [
             lg: 4,
           },
           direction: 'row',
+          horizontal: 'center',
+          vertical: 'stretch',
           layoutAlign: 'center stretch',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: '100',
+              rotation: 0,
+              scale: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+              opacity: 0,
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           elements: [
             {
               type: 'box',
-              img: { src: '/assets/images/svg/Asset187.svg', alt: 'browser' },
+              img: {
+                src: '/assets/images/svg/Asset187.svg',
+                alt: 'browser',
+              },
               style: 'style-v3 use-image',
-              title: { href: '#', label: '高性能' },
+              title: {
+                href: '#',
+                label: '高性能',
+              },
               content:
                 '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
             },
           ],
         },
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 4,
@@ -294,20 +587,67 @@ export const layoutBuilder: any[] = [
             lg: 4,
           },
           direction: 'row',
+          horizontal: 'center',
+          vertical: 'stretch',
           layoutAlign: 'center stretch',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: '100',
+              rotation: 0,
+              scale: 1,
+              delay: '0.6',
+              duration: 1,
+              ease: 'none',
+              opacity: 0,
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           elements: [
             {
               type: 'box',
-              img: { src: '/assets/images/svg/Asset189.svg', alt: 'browser' },
+              img: {
+                src: '/assets/images/svg/Asset189.svg',
+                alt: 'browser',
+              },
               style: 'style-v3 use-image primary',
-              title: { href: '#', label: '易用的编辑器' },
+              title: {
+                href: '#',
+                label: '易用的编辑器',
+              },
               content:
                 '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
             },
           ],
         },
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 4,
@@ -315,13 +655,61 @@ export const layoutBuilder: any[] = [
             lg: 4,
           },
           direction: 'row',
+          horizontal: 'center',
+          vertical: 'stretch',
           layoutAlign: 'center stretch',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: '100',
+              rotation: 0,
+              scale: 1,
+              delay: '1',
+              duration: 1,
+              ease: 'none',
+              opacity: '0',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           elements: [
             {
               type: 'box',
-              img: { src: '/assets/images/svg/Asset190.svg', alt: 'browser' },
+              img: {
+                src: '/assets/images/svg/Asset190.svg',
+                alt: 'browser',
+              },
               style: 'style-v3 use-image',
-              title: { href: '#', label: '多语言' },
+              title: {
+                href: '#',
+                label: '多语言',
+              },
               content:
                 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
             },
@@ -356,7 +744,6 @@ export const layoutBuilder: any[] = [
       },
       elements: [
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 6,
@@ -364,7 +751,49 @@ export const layoutBuilder: any[] = [
             lg: 3,
           },
           direction: 'row',
+          horizontal: 'center',
+          vertical: 'stretch',
           layoutAlign: 'center stretch',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: '100',
+              rotation: 0,
+              scale: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+              opacity: '0',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           elements: [
             {
               title: {
@@ -391,7 +820,6 @@ export const layoutBuilder: any[] = [
           ],
         },
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 6,
@@ -399,7 +827,50 @@ export const layoutBuilder: any[] = [
             lg: 3,
           },
           direction: 'row',
+          horizontal: 'center',
+          vertical: 'stretch',
           layoutAlign: 'center stretch',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: '200',
+              rotation: 0,
+              scale: 1,
+              delay: '0.6',
+              duration: 1,
+              ease: 'none',
+              opacity: '0',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+              scrub: true,
+            },
+          },
           elements: [
             {
               title: {
@@ -427,7 +898,6 @@ export const layoutBuilder: any[] = [
           ],
         },
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 6,
@@ -435,7 +905,49 @@ export const layoutBuilder: any[] = [
             lg: 3,
           },
           direction: 'row',
+          horizontal: 'center',
+          vertical: 'stretch',
           layoutAlign: 'center stretch',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: '100',
+              rotation: 0,
+              scale: 1,
+              opacity: '0',
+              delay: '0.6',
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           elements: [
             {
               title: {
@@ -462,7 +974,6 @@ export const layoutBuilder: any[] = [
           ],
         },
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 6,
@@ -470,7 +981,49 @@ export const layoutBuilder: any[] = [
             lg: 3,
           },
           direction: 'row',
+          horizontal: 'center',
+          vertical: 'stretch',
           layoutAlign: 'center stretch',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: '100',
+              rotation: 0,
+              scale: 1,
+              opacity: '0',
+              delay: '1.2',
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           elements: [
             {
               title: {
