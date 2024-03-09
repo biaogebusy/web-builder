@@ -285,3 +285,9 @@ export interface ICommerce {
   payNode: string;
   dialog: IText;
 }
+
+export interface IDynamicInputs {
+  content?: any;
+  type?: string;
+  [key: string]: any;
+}
