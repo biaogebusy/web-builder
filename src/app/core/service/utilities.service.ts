@@ -121,7 +121,7 @@ export class UtilitiesService {
             trigger: triggerEle,
             start: trigger?.start || 'top 85%',
             end: trigger?.end || 'bottom 30%',
-            markers: true || trigger?.markers,
+            markers: trigger?.markers,
             scrub: trigger?.scrub,
             scroller: this.getScroller(),
             toggleActions: `${trigger.onEnter || 'paly'} ${

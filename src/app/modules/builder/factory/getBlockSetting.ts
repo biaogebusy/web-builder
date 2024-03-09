@@ -223,13 +223,28 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           },
           {
             key: 'classes',
-            type: 'input',
+            type: 'select',
             defaultValue: layout?.bg?.img?.classes || 'object-fit',
             templateOptions: {
-              label: 'Class',
+              label: '背景填充方式',
+              options: [
+                {
+                  label: '按比例铺满 cover',
+                  value: 'object-cover',
+                },
+                {
+                  label: '按比例完整显示 contain',
+                  value: 'object-contain',
+                },
+                {
+                  label: '拉伸铺满 fill',
+                  value: 'object-fill',
+                },
+              ],
             },
             hideExpression: '!model.src',
           },
+
           {
             key: 'alt',
             type: 'input',
@@ -239,6 +254,37 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
             },
           },
         ],
+      },
+      {
+        type: 'select',
+        key: 'overlay',
+        className: 'width-100',
+        defaultValue: layout?.bg?.overlay || '',
+        templateOptions: {
+          label: '蒙版不透明度',
+          options: [
+            {
+              label: '无',
+              value: ' ',
+            },
+            {
+              label: '0.8',
+              value: 'overlay overlay-80',
+            },
+            {
+              label: '0.6',
+              value: 'overlay overlay-60',
+            },
+            {
+              label: '0.4',
+              value: 'overlay overlay-40',
+            },
+            {
+              label: '0.2',
+              value: 'overlay overlay-20',
+            },
+          ],
+        },
       },
       {
         key: 'classes',
@@ -255,30 +301,12 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
     {
       className: 'width-100',
       fieldGroup: [
+        bgImg,
         {
           key: 'style',
           className: 'width-100',
           fieldGroupClassName: 'display-flex flex-wrap width-100',
           fieldGroup: [
-            {
-              key: 'backgroundColor',
-              className: 'width-100',
-              type: 'input',
-              defaultValue: layout?.style?.backgroundColor || 'initial',
-              templateOptions: {
-                type: 'color',
-                label: '背景色',
-              },
-              modelOptions: {
-                debounce: {
-                  default: 500,
-                },
-              },
-            },
-            {
-              template: `<div class="p-y-xs bg-shadow m-bottom-sm"></div>`,
-              className: 'width-100',
-            },
             {
               type: 'slider',
               key: 'paddingTop',
@@ -421,7 +449,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           templateOptions: {
             label: '基础配置',
           },
-          fieldGroup: [...responsive, ...flexLayout, bgImg],
+          fieldGroup: [...responsive, ...flexLayout],
         },
         {
           templateOptions: {
