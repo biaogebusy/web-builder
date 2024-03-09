@@ -4,7 +4,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
+import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
 
 @Injectable({
   providedIn: 'root',
@@ -124,10 +124,10 @@ export class UtilitiesService {
             markers: trigger?.markers,
             scrub: trigger?.scrub,
             scroller: this.getScroller(),
-            toggleActions: `${trigger.onEnter || 'paly'} ${
-              trigger.onLeave || 'none'
-            } ${trigger.onEnterBack || 'none'} ${
-              trigger.onLeaveBack || 'none'
+            toggleActions: `${trigger?.onEnter || 'paly'} ${
+              trigger?.onLeave || 'none'
+            } ${trigger?.onEnterBack || 'none'} ${
+              trigger?.onLeaveBack || 'none'
             }`,
           },
         });

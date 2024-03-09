@@ -68,7 +68,7 @@ export class WidgetPickerComponent implements OnInit {
           {
             name: 'offset',
             options: {
-              offset: [0, 20],
+              offset: [0, 30],
             },
           },
         ],

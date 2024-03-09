@@ -20,9 +20,6 @@ export const widgets = [
     content: {
       type: 'text',
       spacer: 'none',
-      animate: {
-        disable: true,
-      },
       body: '信使UI是基于 Material 的 Angular 前端框架，丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
     },
   },
@@ -347,9 +344,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 8312, 7963, 8525],
-          ['第二季度', 9962, 6120, 8449],
-          ['第三季度', 9028, 4354, 8031],
+          ['第一季度', 6140, 7082, 7387],
+          ['第二季度', 3697, 3697, 9622],
+          ['第三季度', 9679, 7907, 8055],
         ],
       },
       xAxis: {
@@ -417,9 +414,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 8312, 7963, 8525],
-          ['第二季度', 9962, 6120, 8449],
-          ['第三季度', 9028, 4354, 8031],
+          ['第一季度', 6140, 7082, 7387],
+          ['第二季度', 3697, 3697, 9622],
+          ['第三季度', 9679, 7907, 8055],
         ],
       },
       xAxis: {
@@ -493,9 +490,9 @@ export const widgets = [
       dataset: {
         source: [
           ['预算', '费用'],
-          ['大额红包总金额', 522],
+          ['大额红包总金额', 741],
           ['小额红包总金额', 696],
-          ['提成总额', 726],
+          ['提成总额', 787],
         ],
       },
       series: [
@@ -607,25 +604,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 2095,
+          tatol: 4701,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 5393,
+          tatol: 9961,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 2474,
+          tatol: 2336,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 9799,
+          tatol: 8509,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -920,7 +917,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-03-02',
+          changed: '2024-03-09',
         },
         {
           link: {
@@ -931,29 +928,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-03-02',
+          changed: '2024-03-09',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-03-02',
+            href: '2024-03-09',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-03-02',
+          changed: '2024-03-09',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-03-02',
+            href: '2024-03-09',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-03-02',
+          changed: '2024-03-09',
         },
       ],
     },
