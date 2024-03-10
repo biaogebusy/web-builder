@@ -1,14 +1,16 @@
 <div class="card-1v1" [ngClass]="content.classes">
-  <app-feature-box *ngIf="content.feature" [content]="content.feature"></app-feature-box>
+  <app-feature-box [attr.data-path]="'feature'" *ngIf="content.feature" [content]="content.feature"></app-feature-box>
   <div class="components" *ngIf="content.components">
-    <app-dynamic-component *ngFor="let item of content.components" [inputs]="item"></app-dynamic-component>
+    <app-dynamic-component [attr.data-path]="'components.'+i" *ngFor="let item of content.components;index as i"
+      [inputs]="item"></app-dynamic-component>
   </div>
   <div class="card-body p-y-sm p-x-sm">
     <div class="title mat-h2 two-line" *ngIf="content.link">
-      <app-link [content]="content.link"></app-link>
+      <app-link [attr.data-path]="'link'" [content]="content.link"></app-link>
     </div>
     <div class="post-meta" fxLayoutAlign="space-between center" *ngIf="content.moreLabel">
-      <a *ngIf="content.link" [href]="content.link.href" class="text-muted readmore">{{content.moreLabel}}
+      <a *ngIf="content.link" [href]="content.link.href" class="text-muted readmore">
+        <span contentedit="moreLabel">{{content.moreLabel}}</span>
         <mat-icon inline="true">navigate_next</mat-icon>
       </a>
     </div>

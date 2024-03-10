@@ -16,7 +16,7 @@
     </ng-template>
     <div class="feature-inner-ling">
       <div class="media" [ngClass]="box.ratios || 'media-4-3'">
-        <app-img *ngIf="box.img" [content]="box.img"></app-img>
+        <app-img [attr.data-path]="'img'" *ngIf="box.img" [content]="box.img"></app-img>
       </div>
       <div class="title one-line p-x-xs" *ngIf="content?.mode === 'float' || type !== 'picture'">{{title}}</div>
     </div>

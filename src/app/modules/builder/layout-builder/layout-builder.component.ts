@@ -203,6 +203,9 @@ export class LayoutBuilderComponent
       case 'icon':
         fields = getIcon(widget, [animateConfig]);
         break;
+      case 'layout-builder':
+        fields = getBlockSetting(widget);
+        break;
       default:
         fields = getNone(widget, [animateConfig]);
     }
