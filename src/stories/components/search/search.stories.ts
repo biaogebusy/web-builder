@@ -54,12 +54,6 @@ const content: ISearch = {
         classes: 'mat-display-1  text-light',
       },
       spacer: 'xl',
-      'style-': {
-        width: '50%',
-        left: '0%',
-        top: '5%',
-      },
-      body: '<p class="text-center text-light">这里有你想要的答案。</p>',
     },
     input: {
       placeholder: '请输入你的关键词',

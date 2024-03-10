@@ -958,13 +958,58 @@ export const sections = [
           },
           elements: [
             {
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+              },
+              horizontal: 'center',
+              vertical: 'center',
+              layoutAlign: 'center center',
+              bg: {
+                img: {
+                  src: '',
+                  classes: 'object-fit',
+                  alt: '',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              direction: 'row wrap',
               type: 'layout-builder',
               spacer: 'md',
               fullWidth: false,
-              bg: {
-                classes: 'bg-fill-width',
-              },
-              layoutAlign: 'center center',
               gap: {
                 xs: 8,
                 sm: 16,
@@ -973,15 +1018,55 @@ export const sections = [
               },
               elements: [
                 {
-                  classes: '',
                   row: {
                     xs: 12,
-                    sm: 12,
+                    sm: 6,
                     md: 6,
                     lg: 6,
                   },
                   direction: 'column',
+                  horizontal: 'flex-start',
+                  vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  bg: {
+                    img: {
+                      src: '',
+                      classes: 'object-fit',
+                      alt: '',
+                    },
+                    overlay: '',
+                    classes: 'bg-fill-width',
+                  },
+                  classes: '',
+                  style: {
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
+                  animate: {
+                    from: {
+                      x: 0,
+                      y: 0,
+                      rotation: 0,
+                      scale: 1,
+                      delay: 0,
+                      duration: 1,
+                      ease: 'none',
+                    },
+                    trigger: {
+                      onEnter: 'play',
+                      onLeave: 'none',
+                      onEnterBack: 'none',
+                      onLeaveBack: 'none',
+                      start: 'top 90%',
+                      end: 'top 40%',
+                    },
+                  },
                   elements: [
                     {
                       type: 'card-1v1',
@@ -1074,7 +1159,7 @@ export const sections = [
                 {
                   row: {
                     xs: 12,
-                    sm: 12,
+                    sm: 6,
                     md: 6,
                     lg: 6,
                   },
