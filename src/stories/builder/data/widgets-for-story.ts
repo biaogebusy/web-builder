@@ -142,6 +142,15 @@ export const {
 
 export const {
   Primary: { args: box },
+  StyleV1: { args: boxV1 },
+  StyleV2: { args: boxV2 },
+  StyleV3: { args: boxV3 },
+  StyleV4: { args: boxV4 },
+  StyleV5: { args: boxV5 },
+  StyleV6: { args: boxV6 },
+  StyleV7: { args: boxV7 },
+  StyleV9: { args: boxV9 },
+  StyleV10: { args: boxV10 },
 } = BoxStories;
 
 export const {
@@ -153,6 +162,53 @@ export const {
 } = contactStory;
 
 export const widgets: any[] = [
+  {
+    label: 'Layout',
+    icon: {
+      svg: 'view-dashboard-outline',
+    },
+    content: {
+      type: 'layout-builder',
+      spacer: 'md',
+      fullWidth: false,
+      bg: {
+        classes: 'bg-fill-width',
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
+      elements: [
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 6,
+            lg: 6,
+          },
+          direction: 'column',
+          layoutAlign: 'start start',
+          elements: [],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 6,
+            lg: 6,
+          },
+          direction: 'column',
+          layoutAlign: 'start start',
+          elements: [],
+        },
+      ],
+    },
+  },
   {
     label: '标题',
     icon: { svg: 'format-header-2' },
@@ -258,6 +314,56 @@ export const widgets: any[] = [
     label: 'Box',
     icon: { svg: 'box' },
     ...box,
+  },
+  {
+    label: 'Box v1',
+    icon: { svg: 'box' },
+    ...boxV1,
+  },
+  {
+    label: 'Box v2',
+    icon: { svg: 'box' },
+    ...boxV2,
+  },
+  {
+    label: 'Box v3',
+    icon: { svg: 'box' },
+    ...boxV3,
+  },
+  {
+    label: 'Box v4',
+    icon: { svg: 'box' },
+    ...boxV4,
+  },
+  {
+    label: 'Box v5',
+    icon: { svg: 'box' },
+    ...boxV5,
+  },
+  {
+    label: 'Box v6',
+    icon: { svg: 'box' },
+    ...boxV6,
+  },
+  {
+    label: 'Box v7',
+    icon: { svg: 'box' },
+    ...boxV7,
+  },
+  {
+    label: 'Box v9',
+    icon: { svg: 'box' },
+    ...boxV9,
+  },
+  {
+    label: 'Box v10',
+    icon: { svg: 'box' },
+    ...box,
+  },
+  {
+    label: 'Box',
+    icon: { svg: 'box' },
+    ...boxV10,
   },
   {
     label: '卡片',

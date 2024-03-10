@@ -12,6 +12,16 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
           },
           fieldGroup: [
             {
+              key: 'src',
+              type: 'img-picker',
+              defaultValue: widget.src || '',
+              templateOptions: {
+                label: '更新图片',
+                fileName: widget.src.split('/').pop(),
+                alt: widget.alt || '',
+              },
+            },
+            {
               key: 'classes',
               type: 'input',
               defaultValue: widget.classes,
