@@ -154,6 +154,53 @@ export const {
 
 export const widgets: any[] = [
   {
+    label: 'Layout',
+    icon: {
+      svg: 'image',
+    },
+    content: {
+      type: 'layout-builder',
+      spacer: 'md',
+      fullWidth: false,
+      bg: {
+        classes: 'bg-fill-width',
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
+      elements: [
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 6,
+            lg: 6,
+          },
+          direction: 'column',
+          layoutAlign: 'start start',
+          elements: [],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 6,
+            lg: 6,
+          },
+          direction: 'column',
+          layoutAlign: 'start start',
+          elements: [],
+        },
+      ],
+    },
+  },
+  {
     label: '标题',
     icon: { svg: 'format-header-2' },
     ...title,
