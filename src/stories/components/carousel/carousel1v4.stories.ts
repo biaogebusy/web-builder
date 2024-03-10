@@ -51,7 +51,7 @@ const content: ICarouselBase = {
       spaceBetween: 0,
       navigation: false,
       pagination: false,
-      effect: 'fade',
+      effect: 'slide',
       breakpoints: {
         600: {
           slidesPerView: 1,
