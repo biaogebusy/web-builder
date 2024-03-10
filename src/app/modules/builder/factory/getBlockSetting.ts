@@ -12,7 +12,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               type: 'slider',
               key: 'xs',
               className: 'width-100',
-              defaultValue: layout.row.xs,
+              defaultValue: layout?.row?.xs || 12,
               templateOptions: {
                 min: 1,
                 max: 12,
@@ -24,7 +24,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               type: 'slider',
               key: 'sm',
               className: 'width-100',
-              defaultValue: layout.row.sm,
+              defaultValue: layout?.row?.sm || 12,
               templateOptions: {
                 min: 1,
                 max: 12,
@@ -36,7 +36,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               type: 'slider',
               key: 'md',
               className: 'width-100',
-              defaultValue: layout.row.md,
+              defaultValue: layout?.row?.md || 12,
               templateOptions: {
                 min: 1,
                 max: 12,
@@ -48,7 +48,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               type: 'slider',
               key: 'lg',
               className: 'width-100',
-              defaultValue: layout.row.lg,
+              defaultValue: layout?.row?.lg || 12,
               templateOptions: {
                 min: 1,
                 max: 12,

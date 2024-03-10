@@ -281,21 +281,21 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             type: 'select',
             key: 'direction',
             className: 'width-100',
-            defaultValue: content.direction || 'row',
+            defaultValue: content.direction || 'row wrap',
             templateOptions: {
               label: '组件布局方向',
               options: [
                 {
-                  label: 'Column',
-                  value: 'column',
+                  label: 'Row Wrap',
+                  value: 'row wrap',
                 },
                 {
                   label: 'Row',
                   value: 'row',
                 },
                 {
-                  label: 'Row Wrap',
-                  value: 'row wrap',
+                  label: 'Column',
+                  value: 'column',
                 },
               ],
             },

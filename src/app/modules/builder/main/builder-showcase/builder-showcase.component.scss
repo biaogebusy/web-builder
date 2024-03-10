@@ -16,32 +16,37 @@
   padding-bottom: 60px;
   border-radius: 4px;
   overflow: hidden;
-  ::ng-deep {
-    .card-1v1 {
-      transform: none !important;
-      max-height: 75vh;
-      overflow: auto;
-      .title {
-        margin-bottom: 0;
+  > app-card-1v1 {
+    ::ng-deep {
+      > .card-1v1 {
+        transform: none !important;
+        max-height: 75vh;
+        overflow: auto;
+        > .components {
+          padding: 0;
+        }
+        .title {
+          margin-bottom: 0;
+        }
+        > .card-body {
+          display: none;
+        }
       }
-      > .card-body {
-        display: none;
+      .component-toolbar {
+        + app-spacer {
+          display: block;
+        }
       }
-    }
-    .component-toolbar {
-      + app-spacer {
-        display: block;
-      }
-    }
-    .layout-builder {
-      .block-toolbar,
-      .block-menu,
-      .actions {
-        display: none !important;
-      }
-      .layout {
-        .placeholder {
-          pointer-events: none;
+      .layout-builder {
+        .block-toolbar,
+        .block-menu,
+        .actions {
+          display: none !important;
+        }
+        .layout {
+          .placeholder {
+            pointer-events: none;
+          }
         }
       }
     }
