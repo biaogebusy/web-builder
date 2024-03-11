@@ -15,12 +15,21 @@ import { isArray } from 'lodash-es';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent implements OnInit {
+  // https://xieziyu.github.io/ngx-echarts/
   @Input() content: EChartsOption;
+  theme: any;
   @Input() data: any;
   @Input() style: any;
   constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.theme = Object.assign(
+      {
+        color: ['#2E9BFF', '#987BE9', '#FAA16F', '#9DD094', '#FF6461'],
+      },
+      this.data.theme
+    );
+  }
 
   onChange(chart: any): void {
     if (isArray(this.content.series)) {
