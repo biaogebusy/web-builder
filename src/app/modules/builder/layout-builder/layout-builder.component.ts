@@ -79,7 +79,11 @@ export class LayoutBuilderComponent
           }
           this.builder.updateComponent(this.pageIndex, this.content);
           this.cd.detectChanges();
-          this.initAnimate();
+
+          // layout animate
+          if (i !== undefined && i >= 0 && index === undefined) {
+            this.layoutAnimate();
+          }
         }
       });
 
@@ -99,19 +103,16 @@ export class LayoutBuilderComponent
   }
 
   ngAfterViewInit(): void {
-    this.initAnimate();
+    this.layoutAnimate();
   }
 
-  initAnimate(): void {
+  layoutAnimate(): void {
     this.content.elements.map((item: ILayoutBlock, index) => {
       if (item.animate) {
-        this.util.initAnimate(
-          item,
-          this.ele.nativeElement.querySelectorAll(
-            `.layout-${index} .for-animate`
-          )[0],
-          this.ele.nativeElement
-        );
+        const animateEle = this.ele.nativeElement.querySelectorAll(
+          `.layout-${index} .for-animate`
+        )[0];
+        this.util.initAnimate(item, animateEle, this.ele.nativeElement);
       }
     });
   }
