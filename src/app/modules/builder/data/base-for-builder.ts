@@ -3325,7 +3325,7 @@ export const base = [
         },
       },
       {
-        label: '面板',
+        label: '折叠面板',
         icon: {
           svg: 'format-line-weight',
         },
