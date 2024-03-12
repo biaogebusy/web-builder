@@ -1664,10 +1664,10 @@ export const sections = [
                       style: 'style-v3 use-image',
                       title: {
                         href: '#',
-                        label: '高性能',
+                        label: '易用的编辑器',
                       },
                       content:
-                        '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                        '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
                     },
                   ],
                 },
@@ -1731,10 +1731,10 @@ export const sections = [
                       style: 'style-v3 use-image',
                       title: {
                         href: '#',
-                        label: '高性能',
+                        label: '多语言',
                       },
                       content:
-                        '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                        'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
                     },
                   ],
                 },
