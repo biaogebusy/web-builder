@@ -1,7 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import type {
+  ICoreConfig,
+  IPage,
+  IPageForJSONAPI,
+} from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import type { IUser } from '@core/interface/IUser';
@@ -28,8 +32,20 @@ export class BuilderService extends ApiService {
     const { csrf_token } = this.user;
     return this.http.post(
       `${this.apiUrl}${create}`,
-      page,
+      this.formatPage(page),
       this.optionsWithCookieAndToken(csrf_token)
     );
+  }
+
+  formatPage(page: IPage): IPageForJSONAPI {
+    page.body = page.body.map((item) => {
+      return {
+        type: 'json',
+        attributes: {
+          body: item,
+        },
+      };
+    });
+    return page;
   }
 }

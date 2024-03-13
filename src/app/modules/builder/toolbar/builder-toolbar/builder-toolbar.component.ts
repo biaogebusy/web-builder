@@ -127,8 +127,11 @@ export class BuilderToolbarComponent
     this.builderService
       .createLandingPage(this.builder.currentPage)
       .subscribe((res) => {
-        this.builder.updateVersion(this.page);
-        this.util.openSnackbar('提交成功！', 'ok');
+        const { status, message } = res;
+        if (status) {
+          this.builder.updateVersion(this.page);
+          this.util.openSnackbar(message, 'ok');
+        }
       });
   }
 

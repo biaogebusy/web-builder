@@ -78,7 +78,6 @@ export class PageListComponent implements OnInit, OnDestroy {
     this.content$ = this.nodeService.fetch('node/landing_page', params).pipe(
       takeUntil(this.destroy$),
       map((res) => {
-        console.log(res);
         return this.getLists(res);
       })
     );
@@ -103,6 +102,7 @@ export class PageListComponent implements OnInit, OnDestroy {
         title: attributes.title,
         changed: attributes.changed,
         id: item.id,
+        nid: attributes.drupal_internal__nid,
         user: included.find(
           (user: any) => user.id === item.relationships.uid.data.id
         ).attributes.display_name,
@@ -114,16 +114,21 @@ export class PageListComponent implements OnInit, OnDestroy {
   }
 
   loadPage(item: any): void {
-    this.util.openSnackbar('正在加载页面', 'ok');
+    this.util.openSnackbar(`正在加载${item.title}`, 'ok');
     this.builder.loading$.next(true);
     this.nodeService
-      .fetch('landingPage', `content=${item.href}`)
+      .fetch(`/api/v3/landingPage/json/${item.nid}`, 'noCache=1')
       .pipe(takeUntil(this.destroy$))
       .subscribe((page: IPage) => {
-        console.log(page);
         this.builder.loading$.next(false);
         if (page.body.length) {
-          this.builder.loadNewPage(page);
+          const landingPage = {
+            title: item.title,
+            body: page.body.map((item) => {
+              return item.attributes.body;
+            }),
+          };
+          this.builder.loadNewPage(landingPage);
         } else {
           this.util.openSnackbar('当前内容为空，请添加组件', 'ok');
           this.builder.loadNewPage({

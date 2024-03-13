@@ -309,15 +309,20 @@ export const layoutBuilder: any[] = [
               href: '/',
             },
             {
+              src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
               classes: '',
               alt: 'alt',
+              style: {
+                aspectRatio: 'auto',
+                objectFit: 'initial',
+              },
               hostClasses: 'text-center',
               animate: {
                 from: {
-                  x: -500,
+                  x: '0',
                   y: 0,
                   rotation: 0,
-                  scale: 0,
+                  scale: 1,
                   opacity: 0,
                   delay: 0,
                   duration: 1,
@@ -334,7 +339,6 @@ export const layoutBuilder: any[] = [
                 },
               },
               type: 'img',
-              src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
             },
           ],
         },
@@ -433,15 +437,20 @@ export const layoutBuilder: any[] = [
               href: '/',
             },
             {
+              src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
               classes: '',
               alt: 'alt',
+              style: {
+                aspectRatio: 'auto',
+                objectFit: 'initial',
+              },
               hostClasses: 'text-center',
               animate: {
                 from: {
-                  x: '500',
+                  x: '0',
                   y: 0,
                   rotation: 0,
-                  scale: 0,
+                  scale: 1,
                   opacity: 0,
                   delay: 0,
                   duration: 1,
@@ -458,7 +467,6 @@ export const layoutBuilder: any[] = [
                 },
               },
               type: 'img',
-              src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
             },
           ],
         },

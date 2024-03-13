@@ -280,6 +280,19 @@ export interface IPage {
   current?: boolean;
 }
 
+export interface IPageForJSONAPI {
+  title: string;
+  meta?: any[];
+  body: IBlockJSONAPI[];
+}
+
+export interface IBlockJSONAPI {
+  type: 'json';
+  attributes: {
+    body: object;
+  };
+}
+
 export interface ICommerce {
   vip: string;
   payNode: string;
