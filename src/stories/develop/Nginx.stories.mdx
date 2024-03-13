@@ -1,7 +1,7 @@
 import { Meta } from "@storybook/addon-docs";
 
 <Meta
-  title="开发/Nginx 配置"
+  title="开发/Nginx配置"
   id="nginx"
   parameters={{
     viewMode: "docs",
@@ -259,3 +259,11 @@ cors.config:
 ```
 
 添加 `http://localhost:4200`可以本地调用线上环境调式，正式生产时去掉。
+
+## Drupal 伪静态相关配置
+
+```
+if (!-e $request_filename) {
+  rewrite ^ /index.php?$query_string last;
+}
+```
