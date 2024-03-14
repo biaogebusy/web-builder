@@ -113,7 +113,7 @@ export class BuilderToolbarComponent
     this.builder.previewListDrawer$.next(this.showNavigate);
   }
 
-  onSubmit(): void {
+  onSubmit(page: IPage): void {
     if (!this.user) {
       this.util.openSnackbar('请登录后提交！', 'ok');
       const dialogRef = this.dialog.open(LoginComponent);
@@ -124,15 +124,27 @@ export class BuilderToolbarComponent
       return;
     }
     this.util.openSnackbar('正在提交！', 'ok');
-    this.builderService
-      .createLandingPage(this.builder.currentPage)
-      .subscribe((res) => {
-        const { status, message } = res;
-        if (status) {
-          this.builder.updateVersion(this.page);
-          this.util.openSnackbar(message, 'ok');
-        }
-      });
+    if (page.uuid && page.id) {
+      // update page
+      this.builderService
+        .updateLandingPage(this.builder.currentPage)
+        .subscribe((res) => {
+          const { status, message } = res;
+          if (status) {
+            this.util.openSnackbar(message, 'ok');
+          }
+        });
+    } else {
+      // new page
+      this.builderService
+        .createLandingPage(this.builder.currentPage)
+        .subscribe((res) => {
+          const { status, message } = res;
+          if (status) {
+            this.util.openSnackbar(message, 'ok');
+          }
+        });
+    }
   }
 
   ngOnDestroy(): void {

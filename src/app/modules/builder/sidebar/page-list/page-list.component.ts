@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IPage } from '@core/interface/IAppConfig';
+import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -42,7 +43,8 @@ export class PageListComponent implements OnInit, OnDestroy {
     private nodeService: NodeService,
     private cd: ChangeDetectorRef,
     private builder: BuilderState,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private buiderService: BuilderService
   ) {}
 
   ngOnInit(): void {
@@ -122,13 +124,7 @@ export class PageListComponent implements OnInit, OnDestroy {
       .subscribe((page: IPage) => {
         this.builder.loading$.next(false);
         if (page.body.length) {
-          const landingPage = {
-            title: item.title,
-            body: page.body.map((item) => {
-              return item.attributes.body;
-            }),
-          };
-          this.builder.loadNewPage(landingPage);
+          this.builder.loadNewPage(this.buiderService.formatToExtraData(page));
         } else {
           this.util.openSnackbar('当前内容为空，请添加组件', 'ok');
           this.builder.loadNewPage({

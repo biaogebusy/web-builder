@@ -478,7 +478,8 @@
   "builder": {
     "enable": true,
     "api": {
-      "create": "/api/v3/landingPage/builder"
+      "create": "/api/v3/landingPage/builder",
+      "update": "/api/v3/landingPage/update"
     },
     "params": {
       "reqRoles": [

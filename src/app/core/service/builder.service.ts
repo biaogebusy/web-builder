@@ -37,6 +37,20 @@ export class BuilderService extends ApiService {
     );
   }
 
+  updateLandingPage(page: IPage): Observable<any> {
+    const {
+      builder: {
+        api: { update },
+      },
+    } = this.coreConfig;
+    const { csrf_token } = this.user;
+    return this.http.patch(
+      `${this.apiUrl}${update}`,
+      this.formatPage(page),
+      this.optionsWithCookieAndToken(csrf_token)
+    );
+  }
+
   formatPage(page: IPage): IPageForJSONAPI {
     page.body = page.body.map((item) => {
       return {
@@ -47,5 +61,38 @@ export class BuilderService extends ApiService {
       };
     });
     return page;
+  }
+
+  coverExtraData(page: IPage): any {
+    page.body = page.body.map((item) => {
+      const { uuid, id, type } = item.extra;
+      return {
+        uuid,
+        id,
+        type,
+        attributes: {
+          body: item,
+        },
+      };
+    });
+  }
+
+  formatToExtraData(page: IPage): IPage {
+    return {
+      title: page.title,
+      status: page.status,
+      uuid: page.uuid,
+      id: page.id,
+      body: page.body.map((item) => {
+        return {
+          extra: {
+            uuid: item.uuid,
+            id: item.id,
+            type: item.type,
+          },
+          ...item.attributes.body,
+        };
+      }),
+    };
   }
 }
