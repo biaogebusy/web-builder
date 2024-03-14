@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -47,6 +48,22 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     });
     this.builder.builderLayoutSetting$.next({
       value: content,
+      i: this.content.i,
+      index: this.content.index,
+      pageIndex: this.content.pageIndex,
+      uuid: this.content.uuid,
+    });
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.content.content.elements,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    this.builder.builderLayoutSetting$.next({
+      value: this.content.content,
       i: this.content.i,
       index: this.content.index,
       pageIndex: this.content.pageIndex,
