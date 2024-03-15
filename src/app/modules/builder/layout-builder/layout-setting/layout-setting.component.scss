@@ -126,6 +126,9 @@
     .title {
       font-size: 14px;
     }
+    .delete {
+      cursor: pointer;
+    }
     &:hover {
       opacity: 1;
     }

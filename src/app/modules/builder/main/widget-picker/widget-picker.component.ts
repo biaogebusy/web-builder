@@ -25,8 +25,8 @@ export class WidgetPickerComponent implements OnInit {
   public widget$: Subject<any> = new Subject();
   constructor(
     private builder: BuilderState,
-    @Inject(WIDGETS) public widgets$: Observable<any[]>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(WIDGETS) public widgets$: Observable<any[]>
   ) {}
 
   ngOnInit(): void {}
