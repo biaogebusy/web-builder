@@ -75,7 +75,6 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   }
 
   onAddLoopElement(content: any): void {
-    console.log(content);
     // 有layout builder，有普通的组件
     this.dialog.open(DialogComponent, {
       width: '700px',
@@ -87,6 +86,7 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
             type: 'widget-picker',
             pageIndex: this.content.pageIndex,
             content,
+            level: 'block',
           },
         },
       },
