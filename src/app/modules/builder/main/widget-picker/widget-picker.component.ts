@@ -32,11 +32,11 @@ export class WidgetPickerComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelect(widget: any): void {
-    console.log('widget-picker:', this.content);
-    const { row, i, index, pageIndex, content, level } = this.content;
+    const { row, i, index, pageIndex, content, level, uuid } = this.content;
     if (content.type === 'layout-builder') {
       if (row === 'down') {
         content.elements[i].elements.splice(index + 1, 0, widget.content);
+        this.builder.updateComponent(pageIndex, content);
       }
 
       if (row === 'next') {
@@ -45,6 +45,7 @@ export class WidgetPickerComponent implements OnInit {
           0,
           this.copyLayoutLastChild(content.elements, widget.content)
         );
+        this.builder.updateComponent(pageIndex, content);
       }
 
       if (level === 'block') {
@@ -53,14 +54,23 @@ export class WidgetPickerComponent implements OnInit {
           0,
           this.copyLayoutLastChild(content.elements, widget.content)
         );
+        this.builder.builderLayoutSetting$.next({
+          value: content,
+          uuid,
+          pageIndex,
+        });
       }
     } else {
       if (level === 'block' && content.elements) {
         content.elements.splice(content.elements.length, 0, widget.content);
+        this.builder.builderLayoutSetting$.next({
+          value: content,
+          uuid,
+          pageIndex,
+        });
       }
     }
 
-    this.builder.updateComponent(pageIndex, content);
     this.dialog.closeAll();
   }
 

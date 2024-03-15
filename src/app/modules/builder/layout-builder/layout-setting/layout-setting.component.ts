@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
@@ -31,7 +32,8 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
-    private el: ElementRef
+    private el: ElementRef,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {}
@@ -87,9 +89,14 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
             pageIndex: this.content.pageIndex,
             content,
             level: 'block',
+            uuid: this.content.uuid,
           },
         },
       },
+    });
+
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.cd.detectChanges();
     });
   }
 

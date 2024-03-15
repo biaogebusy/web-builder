@@ -48,6 +48,7 @@ const content: IShowcase1v1 = {
   row: 4,
   elements: [
     {
+      type: 'box',
       icon: {
         svg: 'palette-advanced',
       },
@@ -63,6 +64,7 @@ const content: IShowcase1v1 = {
       },
     },
     {
+      type: 'box',
       icon: {
         svg: 'palette',
       },
@@ -78,6 +80,7 @@ const content: IShowcase1v1 = {
       },
     },
     {
+      type: 'box',
       icon: {
         svg: 'format-list-text',
       },
@@ -93,6 +96,7 @@ const content: IShowcase1v1 = {
       },
     },
     {
+      type: 'box',
       icon: {
         svg: 'microsoft-visual-studio-code',
       },
@@ -262,6 +266,7 @@ const primary: IShowcase1v1 = {
   classes: '',
   elements: [
     {
+      type: 'box',
       img: { src: '/assets/images/svg/Asset187.svg', alt: 'browser' },
       style: 'style-v3 use-image',
       title: { href: '#', label: '高性能' },
@@ -269,12 +274,14 @@ const primary: IShowcase1v1 = {
         '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
     },
     {
+      type: 'box',
       img: { src: '/assets/images/svg/Asset189.svg', alt: 'browser' },
       style: 'style-v3 use-image primary',
       title: { href: '#', label: '易用的编辑器' },
       content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
     },
     {
+      type: 'box',
       img: { src: '/assets/images/svg/Asset190.svg', alt: 'browser' },
       style: 'style-v3 use-image',
       title: { href: '#', label: '多语言' },
@@ -393,6 +400,7 @@ const image: IShowcase1v1 = {
   classes: '',
   elements: [
     {
+      type: 'box',
       img: {
         src: '/assets/images/svg/user.svg',
         alt: 'browser',
@@ -410,6 +418,7 @@ const image: IShowcase1v1 = {
       },
     },
     {
+      type: 'box',
       img: {
         src: '/assets/images/svg/calendar.svg',
         alt: 'browser',
@@ -426,6 +435,7 @@ const image: IShowcase1v1 = {
       },
     },
     {
+      type: 'box',
       img: {
         src: '/assets/images/svg/sand-clock.svg',
         alt: 'browser',
@@ -442,6 +452,7 @@ const image: IShowcase1v1 = {
       },
     },
     {
+      type: 'box',
       img: {
         src: '/assets/images/svg/health.svg',
         alt: 'browser',
