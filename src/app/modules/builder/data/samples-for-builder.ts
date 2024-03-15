@@ -442,6 +442,7 @@ export const samples = {
             style: 'style-v3',
             elements: [
               {
+                type: 'box',
                 icon: {
                   name: 'verified_user',
                 },
@@ -457,6 +458,7 @@ export const samples = {
                 },
               },
               {
+                type: 'box',
                 icon: {
                   name: 'fingerprint',
                 },
@@ -472,6 +474,7 @@ export const samples = {
                 },
               },
               {
+                type: 'box',
                 icon: {
                   name: 'favorite',
                 },
@@ -487,6 +490,7 @@ export const samples = {
                 },
               },
               {
+                type: 'box',
                 icon: {
                   name: 'android',
                 },
@@ -796,7 +800,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 296,
+                  value: 332,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -806,7 +810,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 470,
+                  value: 437,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -816,7 +820,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 113,
+                  value: 14,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -826,7 +830,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 3149,
+                  value: 9596,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -1609,6 +1613,7 @@ export const samples = {
             classes: '',
             elements: [
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/user.svg',
                   alt: 'browser',
@@ -1626,6 +1631,7 @@ export const samples = {
                 },
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/calendar.svg',
                   alt: 'browser',
@@ -1643,6 +1649,7 @@ export const samples = {
                 },
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/sand-clock.svg',
                   alt: 'browser',
@@ -1660,6 +1667,7 @@ export const samples = {
                 },
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/health.svg',
                   alt: 'browser',
@@ -4773,7 +4781,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 51,
+                  value: 39,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -4783,7 +4791,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 42128,
+                  value: 38928,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -4793,7 +4801,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3313,
+                  value: 2492,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -4803,7 +4811,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 669,
+                  value: 631,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5088,7 +5096,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 51,
+                  value: 39,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5098,7 +5106,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 42128,
+                  value: 38928,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5108,7 +5116,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3313,
+                  value: 2492,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5118,7 +5126,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 669,
+                  value: 631,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5380,6 +5388,7 @@ export const samples = {
             classes: '',
             elements: [
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/Asset187.svg',
                   alt: 'browser',
@@ -5393,6 +5402,7 @@ export const samples = {
                   '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/Asset189.svg',
                   alt: 'browser',
@@ -5406,6 +5416,7 @@ export const samples = {
                   '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/Asset190.svg',
                   alt: 'browser',
@@ -6647,6 +6658,7 @@ export const samples = {
             classes: '',
             elements: [
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/Asset187.svg',
                   alt: 'browser',
@@ -6660,6 +6672,7 @@ export const samples = {
                   '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/Asset189.svg',
                   alt: 'browser',
@@ -6673,6 +6686,7 @@ export const samples = {
                   '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/Asset190.svg',
                   alt: 'browser',
@@ -6927,7 +6941,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 51,
+                  value: 39,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -6937,7 +6951,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 42128,
+                  value: 38928,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -6947,7 +6961,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3313,
+                  value: 2492,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -6957,7 +6971,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 669,
+                  value: 631,
                   label: '个',
                 },
                 title: '成功故事',

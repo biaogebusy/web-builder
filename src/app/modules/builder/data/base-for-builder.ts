@@ -313,15 +313,20 @@ export const base = [
                   href: '/',
                 },
                 {
+                  src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
                   classes: '',
                   alt: 'alt',
+                  style: {
+                    aspectRatio: 'auto',
+                    objectFit: 'initial',
+                  },
                   hostClasses: 'text-center',
                   animate: {
                     from: {
-                      x: -500,
+                      x: '0',
                       y: 0,
                       rotation: 0,
-                      scale: 0,
+                      scale: 1,
                       opacity: 0,
                       delay: 0,
                       duration: 1,
@@ -338,7 +343,6 @@ export const base = [
                     },
                   },
                   type: 'img',
-                  src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
                 },
               ],
             },
@@ -437,15 +441,20 @@ export const base = [
                   href: '/',
                 },
                 {
+                  src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
                   classes: '',
                   alt: 'alt',
+                  style: {
+                    aspectRatio: 'auto',
+                    objectFit: 'initial',
+                  },
                   hostClasses: 'text-center',
                   animate: {
                     from: {
-                      x: '500',
+                      x: '0',
                       y: 0,
                       rotation: 0,
-                      scale: 0,
+                      scale: 1,
                       opacity: 0,
                       delay: 0,
                       duration: 1,
@@ -462,7 +471,6 @@ export const base = [
                     },
                   },
                   type: 'img',
-                  src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
                 },
               ],
             },
@@ -2753,10 +2761,10 @@ export const base = [
                           style: 'style-v3 use-image',
                           title: {
                             href: '#',
-                            label: '高性能',
+                            label: '易用的编辑器',
                           },
                           content:
-                            '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                            '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
                         },
                       ],
                     },
@@ -2820,10 +2828,10 @@ export const base = [
                           style: 'style-v3 use-image',
                           title: {
                             href: '#',
-                            label: '高性能',
+                            label: '多语言',
                           },
                           content:
-                            '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                            'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
                         },
                       ],
                     },
@@ -3325,64 +3333,6 @@ export const base = [
         },
       },
       {
-        label: '折叠面板',
-        icon: {
-          svg: 'format-line-weight',
-        },
-        content: {
-          type: 'panel',
-          elements: [
-            {
-              title: '组件驱动开发',
-              icon: 'person',
-              params: {
-                expanded: true,
-              },
-              elements: [
-                {
-                  type: 'text',
-                  spacer: 'none',
-                  body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
-                },
-              ],
-            },
-            {
-              title: '组件展示和测试',
-              icon: 'faviores',
-              elements: [
-                {
-                  type: 'text',
-                  spacer: 'none',
-                  body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
-                },
-              ],
-            },
-            {
-              title: '文档化',
-              icon: 'faviores',
-              elements: [
-                {
-                  type: 'text',
-                  spacer: 'none',
-                  body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
-                },
-              ],
-            },
-            {
-              title: '插件和工具生态系统',
-              icon: 'faviores',
-              elements: [
-                {
-                  type: 'text',
-                  spacer: 'none',
-                  body: 'Storybook拥有丰富的插件和工具生态系统，可以扩展其功能。这些插件可以用于模拟数据、测试组件的不同状态和交互，并生成自动化测试报告。这样，开发人员可以根据自己的需求定制和扩展Storybook。',
-                },
-              ],
-            },
-          ],
-        },
-      },
-      {
         label: '幻灯片',
         icon: {
           svg: 'view-array-outline',
@@ -3586,6 +3536,64 @@ export const base = [
             ],
           },
           shape: true,
+        },
+      },
+      {
+        label: '折叠面板',
+        icon: {
+          svg: 'format-line-weight',
+        },
+        content: {
+          type: 'panel',
+          elements: [
+            {
+              title: '组件驱动开发',
+              icon: 'person',
+              params: {
+                expanded: true,
+              },
+              elements: [
+                {
+                  type: 'text',
+                  spacer: 'none',
+                  body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
+                },
+              ],
+            },
+            {
+              title: '组件展示和测试',
+              icon: 'faviores',
+              elements: [
+                {
+                  type: 'text',
+                  spacer: 'none',
+                  body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
+                },
+              ],
+            },
+            {
+              title: '文档化',
+              icon: 'faviores',
+              elements: [
+                {
+                  type: 'text',
+                  spacer: 'none',
+                  body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
+                },
+              ],
+            },
+            {
+              title: '插件和工具生态系统',
+              icon: 'faviores',
+              elements: [
+                {
+                  type: 'text',
+                  spacer: 'none',
+                  body: 'Storybook拥有丰富的插件和工具生态系统，可以扩展其功能。这些插件可以用于模拟数据、测试组件的不同状态和交互，并生成自动化测试报告。这样，开发人员可以根据自己的需求定制和扩展Storybook。',
+                },
+              ],
+            },
+          ],
         },
       },
       {
