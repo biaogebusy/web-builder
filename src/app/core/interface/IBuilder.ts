@@ -95,13 +95,14 @@ export interface ILayoutSetting {
 }
 
 export interface IWidgetPicker {
-  type: 'string';
+  type: 'widget-picker';
   row: 'down' | 'next';
   i: number;
   index: number;
   pageIndex: number;
   uuid: string;
   content: any;
+  level: 'block' | 'layout' | 'widget';
 }
 
 export interface IMetaEdit {

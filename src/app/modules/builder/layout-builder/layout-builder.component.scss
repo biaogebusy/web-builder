@@ -39,12 +39,12 @@
       position: relative;
       width: 100%;
       height: 100%;
-      .item {
+      > .item {
         position: relative;
         max-width: 100%;
         padding: 10px;
         box-sizing: border-box;
-        .actions {
+        > .actions {
           display: none;
           position: absolute;
           top: auto;
@@ -57,17 +57,16 @@
           border-top-right-radius: 4px;
         }
         &:hover {
-          .actions {
+          > .actions {
             display: block;
           }
         }
       }
     }
-    .block-menu {
+    > .block-menu {
       display: none;
       position: absolute;
       right: 0;
-      width: 70px;
       bottom: 100%;
       z-index: 100;
       .block-toolbar {
@@ -91,10 +90,7 @@
     }
     &:hover {
       outline-offset: 2px;
-      .add-block {
-        display: block;
-      }
-      .block-menu {
+      > .block-menu {
         display: flex;
         justify-content: flex-end;
         align-items: center;
