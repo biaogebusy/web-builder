@@ -5,7 +5,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { ITextHero } from '@core/interface/widgets/IText';
 
 export default {
-  title: '基本元素/英雄区内容',
+  title: '基本元素/首屏内容',
   id: 'text-hero',
   component: TextHeroComponent,
   decorators: [

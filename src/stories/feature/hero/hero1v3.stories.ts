@@ -6,7 +6,7 @@ import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IHero1v3 } from '@core/interface/combs/IHero';
 
 export default {
-  title: '特色组件/英雄区/1v3',
+  title: '特色组件/首屏/1v3',
   id: 'hero-1v3',
   component: Hero1v3Component,
   decorators: [

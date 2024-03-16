@@ -4,7 +4,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { Hero1v4Component } from '@uiux/combs/hero/hero1v4/hero1v4.component';
 import { IHero1v4 } from '@core/interface/combs/IHero';
 export default {
-  title: '特色组件/英雄区/1v4',
+  title: '特色组件/首屏/1v4',
   id: 'hero-1v4',
   component: Hero1v4Component,
   decorators: [

@@ -5,7 +5,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { IHero2v3 } from '@core/interface/combs/IHero';
 
 export default {
-  title: '特色组件/英雄区/2v3',
+  title: '特色组件/首屏/2v3',
   id: 'hero-2v3',
   component: Hero2v3Component,
   decorators: [

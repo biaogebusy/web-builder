@@ -83,13 +83,6 @@ export const common = [
     ...tab,
   },
   {
-    label: '面板',
-    icon: {
-      svg: 'format-line-weight',
-    },
-    ...panel,
-  },
-  {
     label: '幻灯片',
     icon: {
       svg: 'view-array-outline',
@@ -100,6 +93,13 @@ export const common = [
     label: '搜索框',
     icon: { svg: 'magnify' },
     ...action1v1,
+  },
+  {
+    label: '折叠面板',
+    icon: {
+      svg: 'format-line-weight',
+    },
+    ...panel,
   },
   {
     label: '背景视频',
