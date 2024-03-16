@@ -128,7 +128,7 @@ export class BuilderService extends ApiService {
         return {
           type: 'json',
           attributes: {
-            bdoy: item,
+            body: item,
           },
         };
       }
