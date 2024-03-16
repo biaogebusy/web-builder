@@ -280,6 +280,7 @@ export interface IPage {
   uuid?: string;
   id?: string;
   status?: boolean;
+  message?: string;
   current?: boolean;
 }
 

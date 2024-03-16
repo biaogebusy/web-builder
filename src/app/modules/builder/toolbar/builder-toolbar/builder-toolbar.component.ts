@@ -132,6 +132,8 @@ export class BuilderToolbarComponent
           const { status, message } = res;
           if (status) {
             this.util.openSnackbar(message, 'ok');
+          } else {
+            this.util.openSnackbar(message, 'ok');
           }
         });
     } else {

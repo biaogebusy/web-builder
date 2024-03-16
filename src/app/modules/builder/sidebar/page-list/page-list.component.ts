@@ -118,63 +118,7 @@ export class PageListComponent implements OnInit, OnDestroy {
   loadPage(item: any): void {
     this.util.openSnackbar(`正在加载${item.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.nodeService
-      .fetch(`/api/v3/landingPage/json/${item.nid}`, 'noCache=1')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((page: IPage) => {
-        this.builder.loading$.next(false);
-        if (page.body.length) {
-          this.builder.loadNewPage(this.buiderService.formatToExtraData(page));
-        } else {
-          this.util.openSnackbar('当前内容为空，请添加组件', 'ok');
-          this.builder.loadNewPage({
-            ...page,
-            body: [
-              {
-                type: 'layout-builder',
-                spacer: 'md',
-                fullWidth: false,
-                bg: {
-                  classes: 'bg-fill-width',
-                },
-                layoutAlign: 'center center',
-                gap: {
-                  xs: 8,
-                  sm: 16,
-                  md: 32,
-                  lg: 48,
-                },
-                elements: [
-                  {
-                    classes: '',
-                    row: {
-                      xs: 12,
-                      sm: 12,
-                      md: 6,
-                      lg: 6,
-                    },
-                    direction: 'column',
-                    layoutAlign: 'start start',
-                    elements: [],
-                  },
-                  {
-                    classes: '',
-                    row: {
-                      xs: 12,
-                      sm: 12,
-                      md: 6,
-                      lg: 6,
-                    },
-                    direction: 'column',
-                    layoutAlign: 'start start',
-                    elements: [],
-                  },
-                ],
-              },
-            ],
-          });
-        }
-      });
+    this.buiderService.loadPage(item.nid);
   }
 
   ngOnDestroy(): void {
