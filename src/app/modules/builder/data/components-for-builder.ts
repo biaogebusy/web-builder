@@ -736,6 +736,7 @@ export const components: any[] = [
               row: 4,
               elements: [
                 {
+                  type: 'box',
                   icon: {
                     svg: 'palette-advanced',
                   },
@@ -751,6 +752,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     svg: 'palette',
                   },
@@ -766,6 +768,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     svg: 'format-list-text',
                   },
@@ -781,6 +784,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     svg: 'microsoft-visual-studio-code',
                   },
@@ -814,6 +818,7 @@ export const components: any[] = [
               classes: '',
               elements: [
                 {
+                  type: 'box',
                   icon: {
                     svg: 'palette-advanced',
                   },
@@ -829,6 +834,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     svg: 'palette',
                   },
@@ -844,6 +850,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     svg: 'format-list-text',
                   },
@@ -859,6 +866,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     svg: 'microsoft-visual-studio-code',
                   },
@@ -893,6 +901,7 @@ export const components: any[] = [
               classes: '',
               elements: [
                 {
+                  type: 'box',
                   icon: {
                     name: 'verified_user',
                   },
@@ -908,6 +917,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'fingerprint',
                   },
@@ -923,6 +933,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'favorite',
                   },
@@ -938,6 +949,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'android',
                   },
@@ -972,6 +984,7 @@ export const components: any[] = [
               style: 'style-v3',
               elements: [
                 {
+                  type: 'box',
                   icon: {
                     name: 'verified_user',
                   },
@@ -987,6 +1000,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'fingerprint',
                   },
@@ -1002,6 +1016,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'favorite',
                   },
@@ -1017,6 +1032,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'android',
                   },
@@ -1054,6 +1070,7 @@ export const components: any[] = [
               classes: '',
               elements: [
                 {
+                  type: 'box',
                   img: {
                     src: '/assets/images/svg/Asset187.svg',
                     alt: 'browser',
@@ -1067,6 +1084,7 @@ export const components: any[] = [
                     '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
                 },
                 {
+                  type: 'box',
                   img: {
                     src: '/assets/images/svg/Asset189.svg',
                     alt: 'browser',
@@ -1080,6 +1098,7 @@ export const components: any[] = [
                     '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
                 },
                 {
+                  type: 'box',
                   img: {
                     src: '/assets/images/svg/Asset190.svg',
                     alt: 'browser',
@@ -1111,6 +1130,7 @@ export const components: any[] = [
               classes: '',
               elements: [
                 {
+                  type: 'box',
                   icon: {
                     name: 'verified_user',
                   },
@@ -1126,6 +1146,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'fingerprint',
                   },
@@ -1141,6 +1162,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'favorite',
                   },
@@ -1156,6 +1178,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'android',
                   },
@@ -1189,6 +1212,7 @@ export const components: any[] = [
               classes: '',
               elements: [
                 {
+                  type: 'box',
                   icon: {
                     name: 'verified_user',
                   },
@@ -1204,6 +1228,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'fingerprint',
                   },
@@ -1219,6 +1244,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'favorite',
                   },
@@ -1234,6 +1260,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'android',
                   },
@@ -1262,6 +1289,7 @@ export const components: any[] = [
               classes: '',
               elements: [
                 {
+                  type: 'box',
                   img: {
                     src: '/assets/images/svg/user.svg',
                     alt: 'browser',
@@ -1279,6 +1307,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   img: {
                     src: '/assets/images/svg/calendar.svg',
                     alt: 'browser',
@@ -1296,6 +1325,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   img: {
                     src: '/assets/images/svg/sand-clock.svg',
                     alt: 'browser',
@@ -1313,6 +1343,7 @@ export const components: any[] = [
                   },
                 },
                 {
+                  type: 'box',
                   img: {
                     src: '/assets/images/svg/health.svg',
                     alt: 'browser',
@@ -2042,7 +2073,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-03-10',
+                  subTitle: '2024-03-15',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2092,7 +2123,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-10',
+                  subTitle: '2024-03-15',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2129,7 +2160,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-10',
+                  subTitle: '2024-03-15',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2166,7 +2197,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-10',
+                  subTitle: '2024-03-15',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2203,7 +2234,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-10',
+                  subTitle: '2024-03-15',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2240,7 +2271,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-10',
+                  subTitle: '2024-03-15',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2277,7 +2308,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-10',
+                  subTitle: '2024-03-15',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2314,7 +2345,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-10',
+                  subTitle: '2024-03-15',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -4377,7 +4408,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 296,
+                    value: 332,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4387,7 +4418,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 470,
+                    value: 437,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4397,7 +4428,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 113,
+                    value: 14,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4407,7 +4438,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 3149,
+                    value: 9596,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4438,7 +4469,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 51,
+                    value: 39,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4448,7 +4479,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 42128,
+                    value: 38928,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4458,7 +4489,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 3313,
+                    value: 2492,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4468,7 +4499,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 669,
+                    value: 631,
                     label: '个',
                   },
                   title: '成功故事',
