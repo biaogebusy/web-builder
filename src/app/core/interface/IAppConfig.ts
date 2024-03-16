@@ -277,7 +277,24 @@ export interface IPage {
   title: string;
   body: any[];
   time?: Date;
+  uuid?: string;
+  id?: string;
+  status?: boolean;
+  message?: string;
   current?: boolean;
+}
+
+export interface IPageForJSONAPI {
+  title: string;
+  meta?: any[];
+  body: IBlockJSONAPI[];
+}
+
+export interface IBlockJSONAPI {
+  type: 'json';
+  attributes: {
+    body: object;
+  };
 }
 
 export interface ICommerce {

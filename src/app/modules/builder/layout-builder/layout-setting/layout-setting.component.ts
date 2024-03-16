@@ -1,5 +1,7 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
@@ -30,7 +32,8 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
-    private el: ElementRef
+    private el: ElementRef,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {}
@@ -45,12 +48,55 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
         content = defaultsDeep(value[config], this.content.content);
       }
     });
+    this.emitLayoutSetting(content);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.content.content.elements,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    this.emitLayoutSetting(this.content.content);
+  }
+
+  emitLayoutSetting(content: any): void {
     this.builder.builderLayoutSetting$.next({
       value: content,
       i: this.content.i,
       index: this.content.index,
       pageIndex: this.content.pageIndex,
       uuid: this.content.uuid,
+    });
+  }
+
+  onDelete(index: number): void {
+    this.content.content.elements.splice(index, 1);
+    this.emitLayoutSetting(this.content.content);
+  }
+
+  onAddLoopElement(content: any): void {
+    // 有layout builder，有普通的组件
+    this.dialog.open(DialogComponent, {
+      width: '700px',
+      position: { bottom: '20px' },
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'widget-picker',
+            pageIndex: this.content.pageIndex,
+            content,
+            level: 'block',
+            uuid: this.content.uuid,
+          },
+        },
+      },
+    });
+
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.cd.detectChanges();
     });
   }
 

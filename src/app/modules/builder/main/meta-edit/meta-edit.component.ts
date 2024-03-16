@@ -170,7 +170,6 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
   }
 
   onModelChange(value: any) {
-    console.log(value);
     const path = this.content.path;
     const { style, src } = value;
     for (let key of Object.keys(style)) {

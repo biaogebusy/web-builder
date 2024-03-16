@@ -28,8 +28,8 @@
           [content]="{label:'',color:'primary', mode: 'icon',icon:{svg:'lightning-bolt'} }"></app-btn-generater>
         <app-btn matTooltip="新建页面" (click)="onNewPage()"
           [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'pencil-plus','inline':true}}"></app-btn>
-        <app-btn (click)="onSubmit()"
-          [content]="{label:'发布页面',color:'primary',mode:'raised',icon:{svg:'navigation-variant'}}"></app-btn>
+        <app-btn (click)="onSubmit(page)"
+          [content]="{label:page.uuid?'更新页面':'发布页面',color:'primary',mode:'raised',icon:{svg:'navigation-variant'}}"></app-btn>
         <app-builder-menu></app-builder-menu>
       </div>
     </div>

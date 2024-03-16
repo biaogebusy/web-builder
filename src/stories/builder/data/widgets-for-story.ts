@@ -295,7 +295,7 @@ export const widgets: any[] = [
     ...chartPie,
   },
   {
-    label: '面板',
+    label: '折叠面板',
     icon: { svg: 'format-line-weight' },
     ...panel,
   },

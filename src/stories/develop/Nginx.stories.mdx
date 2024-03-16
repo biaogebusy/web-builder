@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/addon-docs";
 
 <Meta
-  title="全局配置/通用/Nginx"
-  id="guide"
+  title="开发/Nginx配置"
+  id="nginx"
   parameters={{
     viewMode: "docs",
     previewTabs: {
@@ -12,7 +12,39 @@ import { Meta } from "@storybook/addon-docs";
   }}
 />
 
-## 前台应用
+## 线上 web 服务
+
+当你打包你的前端应用的时候，会根据环境变量生成包：
+
+```js
+export const environment: IEnvironment = {
+  apiUrl: "https://your.domain.com",
+  production: true,
+  site: "dist",
+  port: 4200,
+  cache: true,
+  ssr: false,
+  drupalProxy: false,
+};
+```
+
+因为项目是支持根据环境变量是否开启 SSR 服务端渲染的，所以我们的架构是 node 应用，打包会生成 dist 文件，里面包含了 server node 的文件，和 browser 客户端文件。
+
+当用户通过域名访问服务器时，ngxin 转发给 node 服务，node 根据环境变量判断是否开启 SSR 服务端渲染，如果开启，那么 node 会将请求转发给服务端，服务端会返回渲染后的 html，如果不开启，则直接返回客户端 index.html 文件。
+在 server.ts 文件中：
+
+```js
+server.get("*", (req, res) => {
+  if (!environment.ssr) {
+    res.sendFile(join(distFolder, "index.html"));
+    return;
+  }
+  res.render(indexHtml, {
+    req,
+    providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }],
+  });
+});
+```
 
 前台应用转发给 NODE 处理。
 
@@ -197,4 +229,41 @@ $settings['reverse_proxy'] = TRUE;
 $settings['reverse_proxy_addresses'] = array($_SERVER['REMOTE_ADDR']);
 
 $settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
+```
+
+另外开启 Drupal 的 cors 允许前台域名跨域请求 api，找到 services.yml 文件：
+
+```yml
+cors.config:
+  enabled: true
+  # Specify allowed headers, like 'x-allowed-header'.
+  allowedHeaders:
+    [
+      "x-csrf-token",
+      "authorization",
+      "content-type",
+      "accept",
+      "origin",
+      "x-requested-with",
+    ]
+  # Specify allowed request methods, specify ['*'] to allow all possible ones.
+  allowedMethods: ["*"]
+  # Configure requests allowed from specific origins.
+  allowedOrigins: ["http://localhost:4200", "https://www.yourdomain.com"]
+  # Sets the Access-Control-Expose-Headers header.
+  exposedHeaders: false
+  # Sets the Access-Control-Max-Age header.
+  maxAge: 1000
+  # Sets the Access-Control-Allow-Credentials header.
+  supportsCredentials: true
+```
+
+添加 `http://localhost:4200`可以本地调用线上环境调式，正式生产时去掉。
+
+## Drupal 伪静态相关配置
+
+```
+if (!-e $request_filename) {
+  rewrite ^ /index.php?$query_string last;
+}
 ```
