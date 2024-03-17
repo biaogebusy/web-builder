@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import type { ILayoutBlock, IWidgetPicker } from '@core/interface/IBuilder';
+import type { IWidgetPicker } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { WIDGETS } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';

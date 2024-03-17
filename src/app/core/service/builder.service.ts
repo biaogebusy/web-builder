@@ -110,6 +110,7 @@ export class BuilderService extends ApiService {
 
   coverExtraData(page: IPage): any {
     const currentPage: IPage = Object.assign({}, page);
+    currentPage.label = page.title;
     currentPage.body = page.body.map((item) => {
       if (item.extra) {
         // 修改已有组件
@@ -138,13 +139,27 @@ export class BuilderService extends ApiService {
 
   formatToExtraData(page: IPage): IPage {
     return {
-      title: page.title,
+      title: this.getTitle(page.title),
       status: page.status,
       uuid: page.uuid,
       id: page.id,
       body: this.initExtraBody(page.body),
     };
   }
+
+  getTitle(title: string): string {
+    // api respone title with site name, need remove;
+    let index = title.indexOf('|');
+    let pageTitle = '';
+    if (index !== -1) {
+      pageTitle = title.substring(0, index).trim();
+    } else {
+      pageTitle = title;
+    }
+
+    return pageTitle;
+  }
+
   initExtraBody(body: any[]): any[] {
     let components = [];
     if (body.length) {
