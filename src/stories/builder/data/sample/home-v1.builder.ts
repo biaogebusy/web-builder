@@ -211,6 +211,7 @@ export const home_v1 = {
       row: '4',
       elements: [
         {
+          type: 'box',
           img: {
             src: '/assets/images/svg/Asset187.svg',
             alt: 'browser',
@@ -223,6 +224,7 @@ export const home_v1 = {
           content: '在Storybook中开发测试维护组件',
         },
         {
+          type: 'box',
           img: {
             src: '/assets/images/svg/Asset189.svg',
             alt: 'browser',
@@ -235,6 +237,7 @@ export const home_v1 = {
           content: '快速构建和预览页面',
         },
         {
+          type: 'box',
           img: {
             src: '/assets/images/svg/Asset190.svg',
             alt: 'browser',
@@ -247,6 +250,7 @@ export const home_v1 = {
           content: '构建页面和测试UI',
         },
         {
+          type: 'box',
           img: {
             src: '/assets/images/svg/Asset192.svg',
             alt: 'browser',
