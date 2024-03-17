@@ -9,7 +9,7 @@
         <div mat-line class="title" *ngIf="widget.title|isString">{{widget?.title}} </div>
         <app-icon class="delete" (click)="onDelete(i)" [content]="{svg:'delete',color:'warn'}"></app-icon>
       </mat-list-item>
-      <div class="actions m-y-sm" fxLayoutAlign="center center">
+      <div class="actions m-y-sm" fxLayoutAlign="center center" *ngIf="content.content.elements[0].type | isString">
         <app-btn (click)="onAddLoopElement(content.content)"
           [content]="{label:'新增',icon:{svg:'plus'},color:'primary'}"></app-btn>
       </div>
