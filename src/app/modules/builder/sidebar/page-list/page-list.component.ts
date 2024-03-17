@@ -28,6 +28,7 @@ export class PageListComponent implements OnInit, OnDestroy {
   links: any;
   form = new FormGroup({});
   model: any = {};
+  loading: boolean = false;
   fields: FormlyFieldConfig[] = [
     {
       key: 'title',
@@ -54,13 +55,13 @@ export class PageListComponent implements OnInit, OnDestroy {
     apiParams
       .addPageLimit(10)
       .addInclude(['uid'])
-      .addSort('created', 'DESC')
+      .addSort('changed', 'DESC')
       .addFilter('status', '1');
     this.getContent(apiParams);
   }
 
   onModelChange(value: any): void {
-    console.log(value);
+    this.loading = true;
     const { title } = value;
     const apiParams = new DrupalJsonApiParams();
     apiParams.addCustomParam({ noCache: true });
@@ -68,7 +69,7 @@ export class PageListComponent implements OnInit, OnDestroy {
     apiParams
       .addPageLimit(10)
       .addInclude(['uid'])
-      .addSort('created', 'DESC')
+      .addSort('changed', 'DESC')
       .addFilter('status', '1')
       .addFilter('title', title, 'CONTAINS');
     this.getContent(apiParams);
@@ -80,6 +81,7 @@ export class PageListComponent implements OnInit, OnDestroy {
     this.content$ = this.nodeService.fetch('node/landing_page', params).pipe(
       takeUntil(this.destroy$),
       map((res) => {
+        this.loading = false;
         return this.getLists(res);
       })
     );
@@ -119,6 +121,10 @@ export class PageListComponent implements OnInit, OnDestroy {
     this.util.openSnackbar(`正在加载${item.title}`, 'ok');
     this.builder.loading$.next(true);
     this.buiderService.loadPage(item.nid);
+  }
+
+  onReload(): void {
+    this.onModelChange({ title: '' });
   }
 
   ngOnDestroy(): void {

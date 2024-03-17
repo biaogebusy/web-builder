@@ -1,9 +1,14 @@
 <div class="page-list">
+  <div class="reload">
+    <app-btn *ngIf="!loading" (click)="onReload()"
+      [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'reload'}}"></app-btn>
+  </div>
   <app-title [content]="{label:'管理列表',style:'style-v4',classes:'mat-display-1 bold'}"></app-title>
   <div class="form">
     <app-formly [fields]="fields" [form]="form" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
   </div>
   <mat-list>
+    <mat-spinner *ngIf="loading" diameter="50" color="primary"></mat-spinner>
     <ng-container *ngIf="content$ | async as content">
       <mat-list-item *ngFor="let page of content; index as i">
         <div class="title" mat-line>

@@ -275,6 +275,7 @@ export interface IPage {
   meta?: any[];
   config?: any;
   title: string;
+  label?: string;
   body: any[];
   time?: Date;
   uuid?: string;
