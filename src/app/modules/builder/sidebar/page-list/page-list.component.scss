@@ -2,6 +2,13 @@
   position: relative;
   margin: 10px;
   border-radius: 4px;
+  .reload {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
   .form {
     padding: 10px;
     ::ng-deep {
@@ -33,8 +40,15 @@
     margin: 0 10px;
   }
   .mat-list {
+    position: relative;
     height: 510px;
     overflow: auto;
+    .mat-spinner {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
     .mat-list-item {
       .mat-line {
         font-size: 15px;

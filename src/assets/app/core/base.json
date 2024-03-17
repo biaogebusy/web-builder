@@ -624,6 +624,7 @@
         "row": 4,
         "elements": [
           {
+            "type": "box",
             "icon": {
               "svg": "palette"
             },
@@ -639,6 +640,7 @@
             }
           },
           {
+            "type": "box",
             "icon": {
               "svg": "palette-advanced"
             },
@@ -654,6 +656,7 @@
             }
           },
           {
+            "type": "box",
             "icon": {
               "svg": "format-list-text"
             },
@@ -669,6 +672,7 @@
             }
           },
           {
+            "type": "box",
             "icon": {
               "svg": "microsoft-visual-studio-code"
             },

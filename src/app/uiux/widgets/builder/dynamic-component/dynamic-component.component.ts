@@ -41,6 +41,7 @@ export class DynamicComponentComponent
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
   uuid: string;
+  showToolbar: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
@@ -57,6 +58,8 @@ export class DynamicComponentComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.showToolbar =
+        !!this.coreConfig.builder?.enable && this.inputs?.showToolbar;
       this.builder.builderLayoutSetting$
         .pipe(takeUntil(this.destroy$))
         .subscribe((data) => {
@@ -94,10 +97,6 @@ export class DynamicComponentComponent
 
   onUuid(uuid: string): void {
     this.uuid = uuid;
-  }
-
-  get showToolbar(): boolean {
-    return !!this.coreConfig.builder?.enable && this.inputs?.showToolbar;
   }
 
   async loadComponent(): Promise<void> {

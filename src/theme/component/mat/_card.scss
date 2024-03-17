@@ -117,7 +117,7 @@
   }
 
   .card-1v5 {
-    @include mat-elevation(3, mat-color($foreground, divider), 0.3);
+    @include mat-elevation(4, mat-color($foreground, divider), 0.4);
     background-color: mat-color($background, card);
     .more {
       color: mat-color($primary);

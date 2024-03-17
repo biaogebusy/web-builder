@@ -27,7 +27,7 @@ export class ChartComponent implements OnInit {
       {
         color: ['#2E9BFF', '#987BE9', '#FAA16F', '#9DD094', '#FF6461'],
       },
-      this.data.theme
+      this.data?.theme
     );
   }
 
