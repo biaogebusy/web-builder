@@ -84,6 +84,7 @@ export const templates: any[] = [
                 left: '0%',
                 top: '5%',
               },
+              classes: 'text-center',
               body: '<p class="text-center text-light">这里有你想要的答案。</p>',
             },
             input: {

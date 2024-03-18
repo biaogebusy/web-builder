@@ -214,6 +214,7 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
           style[key] = borderRadius;
           this.setStyle('borderRadius', borderRadius, value);
           break;
+
         default:
           this.setStyle(key, style[key], value);
           break;
