@@ -85,7 +85,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                 },
                 {
                   type: 'text',
@@ -1158,7 +1158,7 @@ export const base = [
               elements: [
                 {
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -1329,7 +1329,7 @@ export const base = [
               elements: [
                 {
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -1473,7 +1473,7 @@ export const base = [
                 },
                 {
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -1591,7 +1591,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v1',
-                  classes: 'mat-display-3 bold',
+                  classes: 'mat-display-1 bold',
                 },
               ],
             },
@@ -1783,7 +1783,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                 },
                 {
                   type: 'text',
@@ -2442,7 +2442,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                 },
                 {
                   type: 'text',
@@ -2567,7 +2567,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                 },
                 {
                   type: 'text',
@@ -2928,7 +2928,7 @@ export const base = [
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
             style: 'style-v1',
-            classes: 'mat-display-2 bold',
+            classes: 'mat-display-1 bold',
           },
           bg: {
             classes: 'bg- bg-fill-width',

@@ -75,10 +75,17 @@ export const samples = {
                   label:
                     '欢迎使用 <strong class="text-primary"></strong> <br>快速构建页面',
                   style: 'style-v4',
-                  classes: 'mat-display-3 bold',
+                  classes: 'mat-display-1 bold',
                   typed: {
                     enable: true,
-                    strings: [{ label: '信使 UI' }, { label: 'Web builder' }],
+                    strings: [
+                      {
+                        label: '信使 UI',
+                      },
+                      {
+                        label: 'Web builder',
+                      },
+                    ],
                     config: {
                       typeSpeed: 120,
                       loop: true,
@@ -136,7 +143,7 @@ export const samples = {
                   title: {
                     label: '开源框架',
                     style: 'style-v4',
-                    classes: 'mat-display-2',
+                    classes: 'mat-display-1',
                   },
                   body: '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
                   actions: [
@@ -166,7 +173,7 @@ export const samples = {
                   title: {
                     label: '组件展示和测试',
                     style: 'style-v4',
-                    classes: 'mat-display-2',
+                    classes: 'mat-display-1',
                   },
                   body: '<strong class="text-primary">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
                   actions: [
@@ -191,7 +198,7 @@ export const samples = {
                   title: {
                     label: '文档化',
                     style: 'style-v4',
-                    classes: 'mat-display-2',
+                    classes: 'mat-display-1',
                   },
                   body: '<strong class="text-primary">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class="list-done">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n',
                   actions: [
@@ -281,7 +288,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -797,7 +804,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 332,
+                  value: 301,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -807,7 +814,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 437,
+                  value: 371,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -817,7 +824,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 14,
+                  value: 128,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -827,7 +834,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 9596,
+                  value: 8017,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -1299,7 +1306,7 @@ export const samples = {
                 title: {
                   label: '使用信使构建你们的项目',
                   style: 'style-v4',
-                  classes: 'mat-display-2',
+                  classes: 'mat-display-1',
                 },
                 body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
               },
@@ -1497,7 +1504,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -2261,7 +2268,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -2335,7 +2342,7 @@ export const samples = {
                   title: {
                     label: '前端面试全家桶',
                     style: 'style-v1',
-                    classes: 'mat-display-2',
+                    classes: 'mat-display-1',
                   },
                   classes: 'xy-center',
                   style: {
@@ -2363,7 +2370,7 @@ export const samples = {
                   title: {
                     label: 'Java 亿级项目架构设计的落地和应用',
                     style: 'style-v1',
-                    classes: 'mat-display-2',
+                    classes: 'mat-display-1',
                   },
                   classes: 'xy-center',
                   style: {
@@ -2391,7 +2398,7 @@ export const samples = {
                   title: {
                     label: '产品经理电商系统实践',
                     style: 'style-v1',
-                    classes: 'mat-display-2',
+                    classes: 'mat-display-1',
                   },
                   classes: 'xy-center',
                   style: {
@@ -2905,7 +2912,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -3730,7 +3737,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -4218,7 +4225,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -4778,7 +4785,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 39,
+                  value: 52,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -4788,7 +4795,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 38928,
+                  value: 32653,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -4798,7 +4805,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2492,
+                  value: 3923,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -4808,7 +4815,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 631,
+                  value: 912,
                   label: '个',
                 },
                 title: '成功故事',
@@ -4824,7 +4831,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -5093,7 +5100,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 39,
+                  value: 52,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5103,7 +5110,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 38928,
+                  value: 32653,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5113,7 +5120,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2492,
+                  value: 3923,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5123,7 +5130,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 631,
+                  value: 912,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5575,7 +5582,7 @@ export const samples = {
                 title: {
                   label: '组件展示和测试',
                   style: 'style-v4',
-                  classes: 'mat-display-2',
+                  classes: 'mat-display-1',
                 },
                 body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
                 actions: [
@@ -5614,7 +5621,7 @@ export const samples = {
                 title: {
                   label: '文档化',
                   style: 'style-v4',
-                  classes: 'mat-display-2',
+                  classes: 'mat-display-1',
                 },
                 body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class="list-done">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n',
                 actions: [
@@ -5737,7 +5744,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -6406,7 +6413,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -6938,7 +6945,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 39,
+                  value: 52,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -6948,7 +6955,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 38928,
+                  value: 32653,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -6958,7 +6965,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2492,
+                  value: 3923,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -6968,7 +6975,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 631,
+                  value: 912,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7367,7 +7374,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-display-1 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',

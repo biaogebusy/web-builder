@@ -54,7 +54,7 @@ const title: IText = {
     label:
       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v4',
-    classes: 'mat-display-2 bold',
+    classes: 'mat-display-1 bold',
   },
 };
 Title.args = {
