@@ -1,7 +1,7 @@
 import { Meta } from "@storybook/addon-docs";
 
 <Meta
-  title="开发/Nginx配置"
+  title="开发/Nginx 配置"
   id="nginx"
   parameters={{
     viewMode: "docs",
@@ -221,44 +221,6 @@ location ^~ /wechat/{
       proxy_buffering on;
     }
 ```
-
-需要注意的是，Drupal 需要配置 settings.php 来启用 proxy:
-
-```php
-$settings['reverse_proxy'] = TRUE;
-$settings['reverse_proxy_addresses'] = array($_SERVER['REMOTE_ADDR']);
-
-$settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
-```
-
-另外开启 Drupal 的 cors 允许前台域名跨域请求 api，找到 services.yml 文件：
-
-```yml
-cors.config:
-  enabled: true
-  # Specify allowed headers, like 'x-allowed-header'.
-  allowedHeaders:
-    [
-      "x-csrf-token",
-      "authorization",
-      "content-type",
-      "accept",
-      "origin",
-      "x-requested-with",
-    ]
-  # Specify allowed request methods, specify ['*'] to allow all possible ones.
-  allowedMethods: ["*"]
-  # Configure requests allowed from specific origins.
-  allowedOrigins: ["http://localhost:4200", "https://www.yourdomain.com"]
-  # Sets the Access-Control-Expose-Headers header.
-  exposedHeaders: false
-  # Sets the Access-Control-Max-Age header.
-  maxAge: 1000
-  # Sets the Access-Control-Allow-Credentials header.
-  supportsCredentials: true
-```
-
-添加 `http://localhost:4200`可以本地调用线上环境调式，正式生产时去掉。
 
 ## Drupal 伪静态相关配置
 
