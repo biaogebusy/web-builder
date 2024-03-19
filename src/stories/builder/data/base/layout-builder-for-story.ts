@@ -233,7 +233,7 @@ export const layoutBuilder: any[] = [
             overlay: '',
             classes: 'bg-fill-width',
           },
-          classes: 'overflow-hidden',
+          classes: '',
           style: {
             paddingTop: '30px',
             paddingRight: '30px',
@@ -362,7 +362,7 @@ export const layoutBuilder: any[] = [
             overlay: '',
             classes: 'bg-fill-width',
           },
-          classes: 'overflow-hidden',
+          classes: '',
           style: {
             paddingTop: '30px',
             paddingRight: '30px',

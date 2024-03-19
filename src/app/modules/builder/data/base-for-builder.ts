@@ -237,7 +237,7 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'overflow-hidden',
+              classes: '',
               style: {
                 paddingTop: '30px',
                 paddingRight: '30px',
@@ -366,7 +366,7 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'overflow-hidden',
+              classes: '',
               style: {
                 paddingTop: '30px',
                 paddingRight: '30px',
