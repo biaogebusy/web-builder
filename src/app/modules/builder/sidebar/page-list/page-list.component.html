@@ -14,7 +14,7 @@
         <div class="title" mat-line>
           <a [href]="page.href" target="_blank">{{page.title}}</a>
         </div>
-        <div class="meta" mat-line>{{page.user}} {{page.changed | date:'yyyy/MM/dd HH:mm'}} </div>
+        <div class="meta" mat-line>{{page.user|shorten: 6: '...'}} {{page.changed | date:'yyyy/MM/dd HH:mm'}} </div>
         <div class="meta" mat-line>{{page.href}}</div>
         <app-btn (click)="loadPage(page)" [content]="{label:'编辑','mode':'stroked','color':'primary'}"></app-btn>
       </mat-list-item>

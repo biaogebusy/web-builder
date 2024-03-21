@@ -1,6 +1,6 @@
 <div class="layout-setting">
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
-  <div class="loop-elements" *ngIf="content?.content?.elements">
+  <div class="loop-elements" *ngIf="content?.content?.elements?.length">
     <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
       <div mat-subheader>子项</div>
       <mat-list-item *ngFor="let widget of content.content.elements;index as i" cdkDrag>
@@ -9,7 +9,7 @@
         <div mat-line class="title" *ngIf="widget.title|isString">{{widget?.title}} </div>
         <app-icon class="delete" (click)="onDelete(i)" [content]="{svg:'delete',color:'warn'}"></app-icon>
       </mat-list-item>
-      <div class="actions m-y-sm" fxLayoutAlign="center center" *ngIf="content.content.elements[0].type | isString">
+      <div class="actions m-y-sm" fxLayoutAlign="center center" *ngIf="content.content.elements[0]?.type | isString">
         <app-btn (click)="onAddLoopElement(content.content)"
           [content]="{label:'新增',icon:{svg:'plus'},color:'primary'}"></app-btn>
       </div>
