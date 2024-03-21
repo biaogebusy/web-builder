@@ -93,10 +93,7 @@ export class LayoutBuilderComponent
         const { isLayoutWidget, i, index, data } = value;
         if (isLayoutWidget) {
           const { elements } = this.content;
-          elements[i].elements[index] = defaultsDeep(
-            data,
-            elements[i].elements[index]
-          );
+          elements[i].elements[index] = data;
           this.cd.detectChanges();
         }
       });

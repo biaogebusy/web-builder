@@ -16,7 +16,8 @@
         fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})">
         <ng-container *ngIf="isBuilderMode$ | async">
           <div class="block-menu">
-            <app-icon class="toggle" matTooltip="当前栏配置" [content]="{svg:'dots-horizontal',inline:true}"></app-icon>
+            <app-btn class="toggle" matTooltip="当前栏配置"
+              [content]="{label:'',mode:'icon',icon:{svg:'tune-vertical-variant',inline:true}}"></app-btn>
             <div class="block-toolbar">
               <app-btn matTooltip="左移" *ngIf="i > 0 && i < content.elements.length" (click)="onMoveCol(i,'left')"
                 [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'chevron-left',inline:true } }"></app-btn>

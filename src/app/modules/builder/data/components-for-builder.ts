@@ -2073,7 +2073,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-03-15',
+                  subTitle: '2024-03-18',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2123,7 +2123,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-15',
+                  subTitle: '2024-03-18',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2160,7 +2160,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-15',
+                  subTitle: '2024-03-18',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2197,7 +2197,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-15',
+                  subTitle: '2024-03-18',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2234,7 +2234,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-15',
+                  subTitle: '2024-03-18',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2271,7 +2271,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-15',
+                  subTitle: '2024-03-18',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2308,7 +2308,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-15',
+                  subTitle: '2024-03-18',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2345,7 +2345,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-03-15',
+                  subTitle: '2024-03-18',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -4148,7 +4148,7 @@ export const components: any[] = [
                     label:
                       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                     style: 'style-v4',
-                    classes: 'mat-display-2 bold',
+                    classes: 'mat-display-1 bold',
                   },
                   bg: {
                     classes: '',
@@ -4408,7 +4408,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 332,
+                    value: 301,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4418,7 +4418,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 437,
+                    value: 371,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4428,7 +4428,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 14,
+                    value: 128,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4438,7 +4438,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 9596,
+                    value: 8017,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4469,7 +4469,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 39,
+                    value: 52,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4479,7 +4479,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 38928,
+                    value: 32653,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4489,7 +4489,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 2492,
+                    value: 3923,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4499,7 +4499,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 631,
+                    value: 912,
                     label: '个',
                   },
                   title: '成功故事',

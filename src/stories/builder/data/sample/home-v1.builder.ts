@@ -66,7 +66,7 @@ export const home_v1 = {
             label:
               '欢迎使用 <strong class="text-primary"></strong> <br>快速构建页面',
             style: 'style-v4',
-            classes: 'mat-display-3 bold',
+            classes: 'mat-display-1 bold',
             typed: {
               enable: true,
               strings: [{ label: '信使 UI' }, { label: 'Web builder' }],
@@ -127,7 +127,7 @@ export const home_v1 = {
             title: {
               label: '开源框架',
               style: 'style-v4',
-              classes: 'mat-display-2',
+              classes: 'mat-display-1',
             },
             body: '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
             actions: [
@@ -157,7 +157,7 @@ export const home_v1 = {
             title: {
               label: '组件展示和测试',
               style: 'style-v4',
-              classes: 'mat-display-2',
+              classes: 'mat-display-1',
             },
             body: '<strong class="text-primary">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
             actions: [
@@ -182,7 +182,7 @@ export const home_v1 = {
             title: {
               label: '文档化',
               style: 'style-v4',
-              classes: 'mat-display-2',
+              classes: 'mat-display-1',
             },
             body: '<strong class="text-primary">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class="list-done">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n',
             actions: [
@@ -272,7 +272,7 @@ export const home_v1 = {
         label:
           '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
-        classes: 'mat-display-2 bold',
+        classes: 'mat-display-1 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',

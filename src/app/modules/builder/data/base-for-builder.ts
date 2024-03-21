@@ -85,7 +85,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                 },
                 {
                   type: 'text',
@@ -237,7 +237,7 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'overflow-hidden',
+              classes: '',
               style: {
                 paddingTop: '30px',
                 paddingRight: '30px',
@@ -366,7 +366,7 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'overflow-hidden',
+              classes: '',
               style: {
                 paddingTop: '30px',
                 paddingRight: '30px',
@@ -1158,7 +1158,7 @@ export const base = [
               elements: [
                 {
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -1329,7 +1329,7 @@ export const base = [
               elements: [
                 {
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -1473,7 +1473,7 @@ export const base = [
                 },
                 {
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -1591,7 +1591,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v1',
-                  classes: 'mat-display-3 bold',
+                  classes: 'mat-display-1 bold',
                 },
               ],
             },
@@ -1671,7 +1671,16 @@ export const base = [
                     },
                   },
                   type: 'img',
-                  src: '/assets/images/illustration/08.png',
+                  src: '/assets/images/builder/builder-01.png',
+                  style: {
+                    width: 'auto',
+                    height: '650px',
+                    opacity: 0.9,
+                    borderRadius: '14px',
+                    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px',
+                    aspectRatio: 'auto',
+                    objectFit: 'contain',
+                  },
                 },
               ],
             },
@@ -1783,7 +1792,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                 },
                 {
                   type: 'text',
@@ -2442,7 +2451,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                 },
                 {
                   type: 'text',
@@ -2567,7 +2576,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                 },
                 {
                   type: 'text',
@@ -2928,7 +2937,7 @@ export const base = [
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
             style: 'style-v1',
-            classes: 'mat-display-2 bold',
+            classes: 'mat-display-1 bold',
           },
           bg: {
             classes: 'bg- bg-fill-width',
