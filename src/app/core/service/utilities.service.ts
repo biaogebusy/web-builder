@@ -114,28 +114,30 @@ export class UtilitiesService {
         gsapConfig = inputs.animate;
       }
       if (gsapConfig) {
-        const { trigger, from } = gsapConfig;
-        animateEle.style.display = 'block';
-        const tl = window.gsap.timeline({
-          scrollTrigger: {
-            trigger: triggerEle,
-            start: trigger?.start || 'top 85%',
-            end: trigger?.end || 'bottom 30%',
-            markers: trigger?.markers,
-            scrub: trigger?.scrub,
-            scroller: this.getScroller(),
-            toggleActions: `${trigger?.onEnter || 'paly'} ${
-              trigger?.onLeave || 'none'
-            } ${trigger?.onEnterBack || 'none'} ${
-              trigger?.onLeaveBack || 'none'
-            }`,
-          },
-        });
-        if (from) {
-          // 从一个状态到当前状态
-          tl.from(animateEle, {
-            ...from,
+        const { enable, trigger, from } = gsapConfig;
+        if (enable) {
+          animateEle.style.display = 'block';
+          const tl = window.gsap.timeline({
+            scrollTrigger: {
+              trigger: triggerEle,
+              start: trigger?.start || 'top 85%',
+              end: trigger?.end || 'bottom 30%',
+              markers: trigger?.markers,
+              scrub: trigger?.scrub,
+              scroller: this.getScroller(),
+              toggleActions: `${trigger?.onEnter || 'paly'} ${
+                trigger?.onLeave || 'none'
+              } ${trigger?.onEnterBack || 'none'} ${
+                trigger?.onLeaveBack || 'none'
+              }`,
+            },
           });
+          if (from) {
+            // 从一个状态到当前状态
+            tl.from(animateEle, {
+              ...from,
+            });
+          }
         }
       }
     }
