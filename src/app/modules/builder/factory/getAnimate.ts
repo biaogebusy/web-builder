@@ -44,6 +44,14 @@ export function getAnimate(content: any): FormlyFieldConfig {
         key: 'animate',
         fieldGroup: [
           {
+            key: 'enable',
+            type: 'toggle',
+            defaultValue: content?.animate?.enable,
+            templateOptions: {
+              label: '开启动画',
+            },
+          },
+          {
             key: 'from',
             fieldGroup: [
               {

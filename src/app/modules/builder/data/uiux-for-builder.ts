@@ -1,6 +1,5 @@
 import { IUiux } from '@core/interface/IBuilder';
 import { system } from './system-for-builder';
-import { samples } from './samples-for-builder';
 import { base } from './base-for-builder';
 import { components } from './components-for-builder';
 
