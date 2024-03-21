@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { isUndefined } from 'lodash-es';
 
 export function getAnimate(content: any): FormlyFieldConfig {
   const actionsOptions = [
@@ -122,7 +123,9 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'opacity',
                     type: 'slider',
                     className: 'width-100',
-                    defaultValue: content?.animate?.from?.opacity,
+                    defaultValue: isUndefined(content?.animate?.from?.opacity)
+                      ? 1
+                      : content?.animate?.from?.opacity,
                     templateOptions: {
                       label: '不透明度',
                       min: 0,
@@ -150,7 +153,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     defaultValue: content?.animate?.from?.duration || 1,
                     templateOptions: {
                       label: '时长',
-                      min: 1,
+                      min: 0.1,
                       max: 6,
                       step: 0.1,
                       unit: 's',
