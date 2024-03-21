@@ -43,7 +43,7 @@ export const home_v5 = {
             title: {
               label: '前端面试全家桶',
               style: 'style-v1',
-              classes: 'mat-display-2',
+              classes: 'mat-display-1',
             },
             classes: 'xy-center',
             style: {
@@ -71,7 +71,7 @@ export const home_v5 = {
             title: {
               label: 'Java 亿级项目架构设计的落地和应用',
               style: 'style-v1',
-              classes: 'mat-display-2',
+              classes: 'mat-display-1',
             },
             classes: 'xy-center',
             style: {
@@ -99,7 +99,7 @@ export const home_v5 = {
             title: {
               label: '产品经理电商系统实践',
               style: 'style-v1',
-              classes: 'mat-display-2',
+              classes: 'mat-display-1',
             },
             classes: 'xy-center',
             style: {

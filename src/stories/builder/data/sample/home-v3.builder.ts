@@ -120,7 +120,7 @@ export const home_v3 = {
           title: {
             label: '使用信使构建你们的项目',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-display-1',
           },
           body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
         },

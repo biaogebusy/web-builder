@@ -47,6 +47,13 @@ export const images_bg = [
     ...featureBox,
     img: {
       classes: 'object-fit',
+      src: '/assets/images/bg/bg-05.svg',
+    },
+  },
+  {
+    ...featureBox,
+    img: {
+      classes: 'object-fit',
       src: '/assets/images/bg/bg-hero.svg',
     },
   },
