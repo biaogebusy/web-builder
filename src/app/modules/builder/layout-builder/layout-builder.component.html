@@ -42,7 +42,7 @@
           <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
           <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign"
             [ngStyle]="layout.style">
-            <div class="item" *ngFor="let item of layout.elements;index as index">
+            <div class="item item-{{item.type}}" *ngFor="let item of layout.elements;index as index">
               <div class="actions" *ngIf="isBuilderMode$ | async">
                 <app-btn matTooltip="上移" *ngIf="index > 0 && index < layout.elements.length"
                   (click)="onUpDown('up',i,index)"
