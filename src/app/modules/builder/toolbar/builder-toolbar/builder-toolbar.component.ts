@@ -59,7 +59,7 @@ export class BuilderToolbarComponent
   ) {}
 
   ngOnInit(): void {
-    this.currentPage$.subscribe((page) => {
+    this.currentPage$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
       this.page = page;
     });
   }
@@ -117,10 +117,13 @@ export class BuilderToolbarComponent
     if (!this.user) {
       this.util.openSnackbar('请登录后提交！', 'ok');
       const dialogRef = this.dialog.open(LoginComponent);
-      dialogRef.afterClosed().subscribe(() => {
-        // TODO: refresh page
-        console.log(this.user);
-      });
+      dialogRef
+        .afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          // TODO: refresh page
+          console.log(this.user);
+        });
       return;
     }
     this.util.openSnackbar('正在提交！', 'ok');
@@ -128,6 +131,7 @@ export class BuilderToolbarComponent
       // update page
       this.builderService
         .updateLandingPage(this.builder.currentPage)
+        .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           const { status, message } = res;
           if (status) {
@@ -140,6 +144,7 @@ export class BuilderToolbarComponent
       // new page
       this.builderService
         .createLandingPage(this.builder.currentPage)
+        .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           const { status, message } = res;
           if (status) {

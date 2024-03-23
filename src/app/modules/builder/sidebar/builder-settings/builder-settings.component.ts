@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -11,6 +12,8 @@ import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { settings } from '@modules/builder/data/settings-for-builder';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-settings',
@@ -18,9 +21,12 @@ import { settings } from '@modules/builder/data/settings-for-builder';
   styleUrls: ['./builder-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderSettingsComponent implements OnInit, AfterViewInit {
+export class BuilderSettingsComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   content = settings;
   branding: IBranding;
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private builder: BuilderState,
     private contentService: ContentService,
@@ -30,9 +36,12 @@ export class BuilderSettingsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.contentService.loadBranding().subscribe((res) => {
-      this.branding = res;
-    });
+    this.contentService
+      .loadBranding()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.branding = res;
+      });
   }
   onAfterExpand(): void {
     this.builder.cancelFixedShowcase();
@@ -66,5 +75,12 @@ export class BuilderSettingsComponent implements OnInit, AfterViewInit {
         },
       ],
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
   }
 }
