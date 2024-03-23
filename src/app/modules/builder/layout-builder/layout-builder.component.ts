@@ -38,6 +38,7 @@ import { getImg } from '../factory/getImg';
 import { getIcon } from '../factory/getIcon';
 import { getAnimate } from '../factory/getAnimate';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { getDivider } from '../factory/getDivider';
 
 @Component({
   selector: 'app-layout-builder',
@@ -203,6 +204,9 @@ export class LayoutBuilderComponent
         break;
       case 'layout-builder':
         fields = getBlockSetting(widget);
+        break;
+      case 'divider':
+        fields = getDivider(widget);
         break;
       default:
         fields = getNone(widget, [animateConfig]);
