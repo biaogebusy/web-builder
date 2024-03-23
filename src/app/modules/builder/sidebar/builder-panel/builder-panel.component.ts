@@ -3,10 +3,13 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import type { IBuilderComponent } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-panel',
@@ -14,12 +17,13 @@ import { BuilderState } from '@core/state/BuilderState';
   styleUrls: ['./builder-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderPanelComponent implements OnInit {
+export class BuilderPanelComponent implements OnInit, OnDestroy {
   @Input() content: IBuilderComponent[];
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(public builder: BuilderState, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.builder.fixedChange$.subscribe(() => {
+    this.builder.fixedChange$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.cd.detectChanges();
     });
   }
@@ -72,5 +76,12 @@ export class BuilderPanelComponent implements OnInit {
 
   onAfterExpand(): void {
     this.builder.cancelFixedShowcase();
+  }
+
+  ngOnDestroy(): void {
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
   }
 }

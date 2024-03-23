@@ -54,7 +54,7 @@ export class PageListComponent implements OnInit, OnDestroy {
 
     apiParams
       .addPageLimit(10)
-      .addInclude(['uid'])
+      .addInclude(['uid', 'revision_uid'])
       .addSort('changed', 'DESC')
       .addFilter('status', '1');
     this.getContent(apiParams);
@@ -68,7 +68,7 @@ export class PageListComponent implements OnInit, OnDestroy {
 
     apiParams
       .addPageLimit(10)
-      .addInclude(['uid'])
+      .addInclude(['uid', 'revision_uid'])
       .addSort('changed', 'DESC')
       .addFilter('status', '1')
       .addFilter('title', title, 'CONTAINS');
