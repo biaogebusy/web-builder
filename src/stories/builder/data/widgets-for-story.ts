@@ -243,9 +243,18 @@ export const widgets: any[] = [
   {
     label: '间距',
     icon: {
-      svg: 'border-horizontal',
+      svg: 'minus-thick',
     },
     ...spacer,
+  },
+  {
+    label: '分割线',
+    icon: {
+      svg: 'border-horizontal',
+    },
+    content: {
+      type: 'divider',
+    },
   },
   {
     label: '图标',

@@ -1,5 +1,5 @@
 export const samples = {
-  label: '构建示例',
+  label: '示例库',
   elements: [
     {
       label: '经典布局',

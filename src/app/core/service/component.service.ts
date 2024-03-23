@@ -33,6 +33,7 @@ export class ComponentService {
       'share',
       'player',
       'swiper',
+      'divider',
       'spacer',
       'iframe',
       'bg-img',

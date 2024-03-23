@@ -54,7 +54,7 @@ export class PageListComponent implements OnInit, OnDestroy {
 
     apiParams
       .addPageLimit(10)
-      .addInclude(['uid'])
+      .addInclude(['uid', 'revision_uid'])
       .addSort('changed', 'DESC')
       .addFilter('status', '1');
     this.getContent(apiParams);
@@ -68,7 +68,7 @@ export class PageListComponent implements OnInit, OnDestroy {
 
     apiParams
       .addPageLimit(10)
-      .addInclude(['uid'])
+      .addInclude(['uid', 'revision_uid'])
       .addSort('changed', 'DESC')
       .addFilter('status', '1')
       .addFilter('title', title, 'CONTAINS');
@@ -108,7 +108,7 @@ export class PageListComponent implements OnInit, OnDestroy {
         id: item.id,
         nid: attributes.drupal_internal__nid,
         user: included.find(
-          (user: any) => user.id === item.relationships.uid.data.id
+          (user: any) => user.id === item.relationships.revision_uid.data.id
         ).attributes.display_name,
         href: attributes.path.alias
           ? attributes.path.alias
