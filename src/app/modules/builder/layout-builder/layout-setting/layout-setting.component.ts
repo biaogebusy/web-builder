@@ -71,6 +71,11 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     });
   }
 
+  onCopy(content: any, i: number): void {
+    this.content.content.elements.splice(i, 0, content);
+    this.emitLayoutSetting(this.content.content);
+  }
+
   onDelete(index: number): void {
     this.content.content.elements.splice(index, 1);
     this.emitLayoutSetting(this.content.content);
