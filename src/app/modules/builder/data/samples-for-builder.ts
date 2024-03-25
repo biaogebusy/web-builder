@@ -1209,6 +1209,7 @@ export const samples = {
             row: '4',
             elements: [
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/user.svg',
                   alt: 'browser',
@@ -1226,6 +1227,7 @@ export const samples = {
                 },
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/calendar.svg',
                   alt: 'browser',
@@ -1243,6 +1245,7 @@ export const samples = {
                 },
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/sand-clock.svg',
                   alt: 'browser',
@@ -1260,6 +1263,7 @@ export const samples = {
                 },
               },
               {
+                type: 'box',
                 img: {
                   src: '/assets/images/svg/health.svg',
                   alt: 'browser',
@@ -1306,7 +1310,7 @@ export const samples = {
                 title: {
                   label: '使用信使构建你们的项目',
                   style: 'style-v4',
-                  classes: 'mat-display-1',
+                  classes: 'mat-display-2',
                 },
                 body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
               },
@@ -1504,7 +1508,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-1 bold',
+              classes: 'mat-display-2 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -2342,7 +2346,7 @@ export const samples = {
                   title: {
                     label: '前端面试全家桶',
                     style: 'style-v1',
-                    classes: 'mat-display-1',
+                    classes: 'mat-display-2',
                   },
                   classes: 'xy-center',
                   style: {
@@ -2370,7 +2374,7 @@ export const samples = {
                   title: {
                     label: 'Java 亿级项目架构设计的落地和应用',
                     style: 'style-v1',
-                    classes: 'mat-display-1',
+                    classes: 'mat-display-2',
                   },
                   classes: 'xy-center',
                   style: {
@@ -2398,7 +2402,7 @@ export const samples = {
                   title: {
                     label: '产品经理电商系统实践',
                     style: 'style-v1',
-                    classes: 'mat-display-1',
+                    classes: 'mat-display-2',
                   },
                   classes: 'xy-center',
                   style: {
@@ -2609,17 +2613,17 @@ export const samples = {
                 type: 'text',
                 spacer: 'sm',
                 title: {
-                  label: 'Storybook 是什么？',
+                  label: '全天候学习支持',
                   style: 'style-v4',
                   classes: 'mat-display-2',
                 },
-                body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。',
+                body: '这里是您开启编程世界大门的理想起点。我们倾力打造了一系列适合各阶段学员的在线编程课程，无论您是初学者还是资深开发者，都将在这里找到适合自己的学习路径。',
               },
               {
                 type: 'panel',
                 elements: [
                   {
-                    title: '组件驱动开发',
+                    title: '精选实战课程',
                     icon: 'person',
                     params: {
                       expanded: true,
@@ -2628,29 +2632,29 @@ export const samples = {
                       {
                         type: 'text',
                         spacer: 'none',
-                        body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
+                        body: '我们的课程涵盖了Python、Java、C++、JavaScript等多种主流编程语言，同时紧跟AI、大数据、云计算等热门领域，确保课程内容与时俱进，贴近真实开发场景。',
                       },
                     ],
                   },
                   {
-                    title: '组件展示和测试',
+                    title: '个性化学习计划',
                     icon: 'faviores',
                     elements: [
                       {
                         type: 'text',
                         spacer: 'none',
-                        body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
+                        body: '根据每位学员的基础和目标，智能推荐适合的学习路线图，并设有难度分级，逐步引导您从基础知识到高级应用，步步为营，扎实提升编程技能。',
                       },
                     ],
                   },
                   {
-                    title: '文档化',
+                    title: '名师直播授课',
                     icon: 'faviores',
                     elements: [
                       {
                         type: 'text',
                         spacer: 'none',
-                        body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
+                        body: '    ○ 来自国内外顶级IT企业的技术大牛亲自授课，面对面互动答疑，确保理论与实践相结合，帮助学员快速理解和掌握编程要点。',
                       },
                     ],
                   },
@@ -2912,7 +2916,7 @@ export const samples = {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
               style: 'style-v1',
-              classes: 'mat-display-1 bold',
+              classes: 'mat-display-2 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
@@ -2975,36 +2979,19 @@ export const samples = {
             classes: '',
             text: {
               title: {
-                label:
-                  '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
+                label: '领先医疗科技，塑造健康未来，您的智能医疗解决方案伙伴',
                 classes: 'mat-display-2 bold',
                 style: 'style-v4',
               },
               classes: 'text-light',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong >Storybook</strong> 页面时添加组件到预览页面。',
+              body: '我们是一家致力于运用前沿医疗科技，以提升人类健康水平为使命的创新型公司。通过融合尖端科技与人性化关怀，我们提供全方位、高质量的医疗服务解决方案，旨在革新医疗体验，普惠大众健康。',
               actions: [
                 {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
                   href: '#',
-                  label: '立刻体验',
-                  target: '_blank',
-                },
-                {
-                  type: 'btn',
-                  mode: 'raised',
-                  color: 'primary',
-                  href: '#',
-                  label: 'Demo',
-                  target: '_blank',
-                },
-                {
-                  type: 'btn',
-                  mode: 'raised',
-                  color: 'primary',
-                  href: '#',
-                  label: '下载',
+                  label: '立刻咨询',
                   target: '_blank',
                 },
                 {
@@ -3088,7 +3075,7 @@ export const samples = {
                 type: 'text',
                 spacer: 'sm',
                 title: {
-                  label: '使用信使构建你们的项目',
+                  label: '特色服务',
                   style: 'style-v4',
                   classes: 'mat-display-2',
                 },
@@ -3105,14 +3092,14 @@ export const samples = {
                 elements: [
                   {
                     type: 'card',
-                    title: '高性能',
+                    title: '个性化医疗解决方案',
                     subTitle: 'High Performance',
                     avatar: {
                       src: '/assets/images/avatar/01.jpeg',
                       alt: '',
                     },
                     classes: 'card-no-shadow',
-                    body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                    body: '根据不同医疗机构及患者群体的具体需求，我们提供深度定制的综合医疗服务方案。',
                   },
                   {
                     type: 'card',
@@ -3120,10 +3107,10 @@ export const samples = {
                       src: '/assets/images/avatar/02.jpeg',
                       alt: '',
                     },
-                    title: '易用的编辑器',
+                    title: '持续的技术支持与培训',
                     subTitle: 'Simplicity for Editors',
                     classes: 'card-no-shadow',
-                    body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+                    body: '我们不仅提供优质产品，更注重用户使用体验和技术能力提升。通过定期的专业培训课程和全天候在线技术支持，确保合作伙伴能够充分利用我们的智能医疗解决方案，实现技术优势向临床价值的有效转化。',
                   },
                   {
                     type: 'card',
@@ -3131,32 +3118,10 @@ export const samples = {
                       src: '/assets/images/avatar/03.jpeg',
                       alt: '',
                     },
-                    title: '多语言',
+                    title: '严格的品质保障体系',
                     subTitle: 'Leader in Multilingual',
                     classes: 'card-no-shadow',
-                    body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；',
-                  },
-                  {
-                    type: 'card',
-                    avatar: {
-                      src: '/assets/images/avatar/04.jpeg',
-                      alt: '',
-                    },
-                    title: '更有弹性',
-                    subTitle: 'Flexibility',
-                    classes: 'card-no-shadow',
-                    body: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
-                  },
-                  {
-                    type: 'card',
-                    avatar: {
-                      src: '/assets/images/avatar/05.jpeg',
-                      alt: '',
-                    },
-                    title: '安全性',
-                    subTitle: 'Rigorous Security',
-                    classes: 'card-no-shadow',
-                    body: '为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；',
+                    body: '产品和服务均遵循国际医疗质量标准，建立严格的质量管理体系，并通过权威机构认证。我们承诺，对每一个细节严谨把控，为每一位用户提供值得信赖的医疗安全保障。',
                   },
                 ],
               },
@@ -3188,17 +3153,17 @@ export const samples = {
                 type: 'text',
                 spacer: 'sm',
                 title: {
-                  label: 'Storybook 是什么？',
+                  label: '关于我们',
                   style: 'style-v4',
                   classes: 'mat-display-2',
                 },
-                body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。',
+                body: '作为医疗科技行业的翘楚，自成立以来，始终坚持以创新驱动发展，依托强大的科研实力和卓越的专业团队，不断推出涵盖预防、诊断、治疗和康复等全链条环节的医疗科技产品和服务。我们的目标是利用科技力量打破地域、时间限制，让更多人享受到高效便捷且富有温度的医疗服务。',
               },
               {
                 type: 'panel',
                 elements: [
                   {
-                    title: '组件驱动开发',
+                    title: '智能医疗设备',
                     icon: 'person',
                     params: {
                       expanded: true,
@@ -3207,29 +3172,29 @@ export const samples = {
                       {
                         type: 'text',
                         spacer: 'none',
-                        body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
+                        body: '我们提供的先进医疗设备，如智能化检测仪器、远程诊疗系统等，以精准、快速、安全的特点，助力医疗机构提升诊疗效率和服务质量。',
                       },
                     ],
                   },
                   {
-                    title: '组件展示和测试',
+                    title: '数字化健康管理',
                     icon: 'faviores',
                     elements: [
                       {
                         type: 'text',
                         spacer: 'none',
-                        body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
+                        body: '依托AI与大数据技术，我们为您提供个性化的健康管理方案，包括疾病风险评估、生活习惯改善建议及在线健康咨询服务，使健康管理更加科学化、精细化。',
                       },
                     ],
                   },
                   {
-                    title: '文档化',
+                    title: '云端医疗平台',
                     icon: 'faviores',
                     elements: [
                       {
                         type: 'text',
                         spacer: 'none',
-                        body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
+                        body: '构建覆盖线上线下一体化的医疗服务体系，实现医生与患者间的无缝沟通，无论何时何地，都能获得及时、专业的医疗支持。',
                       },
                     ],
                   },
@@ -3246,19 +3211,19 @@ export const samples = {
             classes: '',
             text: {
               title: {
-                label: '最新课程',
+                label: '成功案例',
                 style: 'style-v1',
                 classes: 'mat-display-0 bold',
               },
               classes: 'text-center',
-              body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
+              body: '<p class="text-center">已在全球范围内助力众多医疗机构成功实现了数字化转型，其中不乏多个标杆性项目。</p>',
             },
             elements: [
               {
                 type: 'card-1v1',
                 link: {
                   href: '#',
-                  label: '自主搭建5个精品脚手架，助力前端研发全流程提效',
+                  label: '深度市场洞察与策划',
                 },
                 user: '表歌',
                 time: '2022/09/27',
@@ -3279,7 +3244,7 @@ export const samples = {
                 type: 'card-1v1',
                 link: {
                   href: '#',
-                  label: '2022全新 Node.js+Express+Koa2 开发Web Server博客',
+                  label: '整合营销传播',
                 },
                 user: '表歌',
                 time: '2022/09/27',
@@ -3300,7 +3265,7 @@ export const samples = {
                 type: 'card-1v1',
                 link: {
                   href: '#',
-                  label: '国家级认证-软考高级，一站式通关课程，全力备战2022',
+                  label: '定制化培训体系',
                 },
                 user: '表歌',
                 time: '2022/09/27',
@@ -3321,7 +3286,7 @@ export const samples = {
                 type: 'card-1v1',
                 link: {
                   href: '#',
-                  label: '基于 Vue3 ，打造前台+中台通用提效解决方案',
+                  label: '灵活的合作模式',
                 },
                 user: '表歌',
                 time: '2022/09/27',
@@ -3343,7 +3308,7 @@ export const samples = {
           {
             type: 'carousel-1v2',
             title: {
-              label: '近期作品',
+              label: '近期案例',
               style: 'style-v5',
             },
             classes: '',
@@ -3494,196 +3459,10 @@ export const samples = {
             },
           },
           {
-            id: 'xxx',
-            type: 'action-1v1',
-            spacer: 'xl',
-            bg: {
-              classes: 'bg-shadow bg-fill-width',
-            },
-            classes: '',
-            text: {
-              title: {
-                label: '如何才能帮助到您？',
-                style: 'none',
-                classes: 'mat-display-1',
-              },
-              classes: '',
-              spacer: 'none',
-              body: '<p>这里有你想要的答案，请根据以下筛选条件选择进行搜索。</p>',
-              actions: [
-                {
-                  type: 'search-action',
-                  button: {
-                    label: '搜索',
-                    color: 'primary',
-                  },
-                  form: [
-                    {
-                      type: 'select',
-                      key: 'skill',
-                      label: '技能',
-                      options: [
-                        {
-                          label: '无',
-                          value: '',
-                        },
-                        {
-                          label: 'Angular',
-                          value: 'angular',
-                        },
-                        {
-                          label: 'React',
-                          value: 'react',
-                        },
-                        {
-                          label: 'Vue',
-                          value: 'vue',
-                        },
-                      ],
-                    },
-                    {
-                      type: 'select',
-                      key: 'cms',
-                      label: 'CMS',
-                      options: [
-                        {
-                          label: '无',
-                          value: '',
-                        },
-                        {
-                          label: 'Drupal',
-                          value: 'drupal',
-                        },
-                        {
-                          label: 'WP',
-                          value: 'wp',
-                        },
-                        {
-                          label: 'Joomla',
-                          value: 'joomla',
-                        },
-                      ],
-                    },
-                    {
-                      type: 'input',
-                      key: 'keys',
-                      placeholder: '请输入关键词搜索',
-                      controlType: 'search',
-                      label: '关键词',
-                      appearance: 'legacy',
-                    },
-                  ],
-                },
-              ],
-            },
-            shape: true,
-          },
-          {
-            type: 'carousel-2v2',
-            id: '',
-            spacer: 'xl',
-            bg: {
-              classes: 'bg-fill-width bg-',
-            },
-            classes: '',
-            sliders: {
-              params: {
-                slidesPerView: 1.2,
-                pagination: false,
-                autoplay: {
-                  delay: 5000,
-                },
-                breakpoints: {
-                  '600': {
-                    slidesPerView: 3,
-                    spaceBetween: 20,
-                  },
-                  '960': {
-                    slidesPerView: 5,
-                    spaceBetween: 20,
-                  },
-                },
-              },
-              classes: '',
-              elements: [
-                {
-                  type: 'img',
-                  src: '/assets/images/logo/amazon.svg',
-                  href: '#',
-                  alt: '',
-                  style: {
-                    width: 'auto',
-                    height: '40px',
-                  },
-                },
-                {
-                  type: 'img',
-                  src: '/assets/images/logo/google.svg',
-                  href: '#',
-                  alt: '',
-                  style: {
-                    width: 'auto',
-                    height: '40px',
-                  },
-                },
-                {
-                  type: 'img',
-                  src: '/assets/images/logo/lenovo.svg',
-                  href: '#',
-                  alt: '',
-                  style: {
-                    width: 'auto',
-                    height: '40px',
-                  },
-                },
-                {
-                  type: 'img',
-                  src: '/assets/images/logo/paypal.svg',
-                  href: '#',
-                  alt: '',
-                  style: {
-                    width: 'auto',
-                    height: '40px',
-                  },
-                },
-                {
-                  type: 'img',
-                  src: '/assets/images/logo/shopify.svg',
-                  href: '#',
-                  alt: '',
-                  style: {
-                    width: 'auto',
-                    height: '40px',
-                  },
-                },
-                {
-                  type: 'img',
-                  src: '/assets/images/logo/spotify.svg',
-                  href: '#',
-                  alt: '',
-                  style: {
-                    width: 'auto',
-                    height: '40px',
-                  },
-                },
-                {
-                  type: 'img',
-                  src: '/assets/images/logo/logo10.png',
-                  href: '#',
-                  alt: '',
-                  style: {
-                    width: 'auto',
-                    height: '40px',
-                  },
-                },
-              ],
-            },
-          },
-          {
             type: 'showcase-1v3',
             text: {
               title: {
-                label: 'Storybook 是什么？',
+                label: '社会责任与愿景',
                 style: 'style-v1',
                 classes: 'mat-display-1',
               },
@@ -3704,9 +3483,9 @@ export const samples = {
                 style: {
                   margin: '0 auto',
                   'text-align': 'center',
-                  width: '600px',
+                  width: '800px',
                 },
-                body: 'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。',
+                body: '作为行业内的领军企业，始终秉承“科技以人为本，创新引领健康”的理念，积极履行社会责任，投身于公益医疗项目和公共卫生能力建设。我们坚信，只有不断探索前沿医疗科技，才能更好地应对未来全球健康挑战，让高品质医疗服务触手可及，普惠全民。',
                 actionsAlign: 'center center',
                 actions: [
                   {
@@ -3734,35 +3513,22 @@ export const samples = {
           {
             type: 'text',
             title: {
-              label:
-                '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+              label: '合作与承诺',
               style: 'style-v1',
-              classes: 'mat-display-1 bold',
+              classes: 'mat-display-2 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
             },
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
+            body: '携手共创医疗科技新纪元。我们诚挚邀请各医疗机构、研究机构以及关心健康的各界朋友展开深度合作，共同书写智慧医疗的新篇章。让我们一起，用科技的力量照亮健康之路！',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
                 type: 'btn-generater',
-                label: '生成页面',
+                label: '立即预约',
                 color: 'primary',
                 mode: 'raised',
-              },
-              {
-                type: 'btn',
-                color: 'primary',
-                mode: 'stroked',
-                label: '演示视频',
-                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
-                target: '_blank',
-                icon: {
-                  inline: true,
-                  svg: 'play-circle-outline',
-                },
               },
             ],
           },
@@ -6095,11 +5861,12 @@ export const samples = {
             body: {
               type: 'text',
               title: {
-                label: '开源项目使用 Github actions 自动化',
+                label:
+                  '<p><span data-type="text">艺术点亮生活，为您打造独一无二的艺术之旅</span></p>',
                 style: 'style-v4',
                 classes: 'mat-display-1',
               },
-              body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
+              body: '<p><span data-type="text">在喧嚣的城市中寻找心灵的绿洲，[您的工作室名称]艺术工作室欢迎您！我们专注于为每一位热爱生活的您，提供个性化、高品质的艺术创作空间和课程服务。从零基础绘画课程到高端私人定制艺术品，让您在挥洒色彩间感受生活的美好。</span></p>',
               actions: [
                 {
                   type: 'btn',
@@ -6217,28 +5984,56 @@ export const samples = {
             },
           },
           {
-            type: 'showcase-1v4',
             spacer: 'lg',
-            bg: {
-              classes: 'bg- bg-fill-width',
-            },
-            row: 3,
+            bgClasses: 'bg- bg-fill-width',
+            overlay: '',
             classes: '',
+            id: '',
+            bg: {
+              img: {
+                src: '/assets/images/bg/bg-05.svg',
+                classes: 'object-fit',
+                alt: 'bg-05',
+              },
+              classes: 'bg- bg-fill-width',
+              overlay: '',
+            },
+            animate: {
+              from: {
+                x: 0,
+                y: 0,
+                rotation: 0,
+                scale: 1,
+                opacity: 1,
+                delay: 0,
+                duration: 1,
+                ease: 'none',
+              },
+              trigger: {
+                onEnter: 'play',
+                onLeave: 'none',
+                onEnterBack: 'none',
+                onLeaveBack: 'none',
+                start: 'top 90%',
+                end: 'top 40%',
+              },
+            },
+            type: 'showcase-1v4',
+            row: 3,
             text: {
               title: {
-                label:
-                  '使用 <strong class="text-primary">Storybook</strong> 开发组件',
+                label: '特色服务',
                 style: 'style-v1',
                 classes: 'mat-display-2 bold',
               },
               classes: 'text-center',
-              body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
+              body: '<p class="text-center">沉浸式体验，专业定制，共享艺术的魅力与温度</p>',
             },
             elements: [
               {
                 type: 'card-1v5',
-                title: '初始化 ',
-                body: '使用 Npm 安装初始化 Storybook，在配置文件中定义组件库的入口和存放的目录。',
+                title: '专业艺术课程',
+                body: '揭开艺术的神秘面纱，我们的专家团队一对一指导，让您轻松掌握绘画技巧，享受艺术创作的乐趣。',
                 more: {
                   href: '/node/1',
                   target: '_blank',
@@ -6253,8 +6048,8 @@ export const samples = {
               },
               {
                 type: 'card-1v5',
-                title: '创建和编写组件Story',
-                body: '在组件库中创建stories，导入要展示的组件，使用装饰器添加样式、数据和事件。',
+                title: '定制艺术作品',
+                body: '无论您是企盼家居装饰的艺术画作，还是希望赠予亲友的独特礼品，[您的工作室名称]都能根据您的需求，为您量身定制专属的艺术品。',
                 more: {
                   href: '/node/1',
                   target: '_blank',
@@ -6269,8 +6064,8 @@ export const samples = {
               },
               {
                 type: 'card-1v5',
-                title: '启动',
-                body: '在浏览器中打开预览页面，查看和交互组件的各个示例和文档。',
+                title: '艺术活动策划',
+                body: '提供丰富多样的艺术沙龙、工作坊等活动策划，搭建艺术交流平台，让灵感碰撞，让艺术在生活中绽放。',
                 more: {
                   href: '/node/1',
                   target: '_blank',
@@ -6295,13 +6090,42 @@ export const samples = {
             ],
           },
           {
-            type: 'showcase-1v4',
             spacer: 'lg',
-            bg: {
-              classes: 'bg- bg-fill-width',
-            },
-            row: 2,
+            bgClasses: 'bg- bg-fill-width',
+            overlay: '',
             classes: '',
+            id: '',
+            bg: {
+              img: {
+                src: '',
+                classes: 'object-cover',
+                alt: 'bg-05',
+              },
+              classes: 'bg- bg-fill-width',
+              overlay: '',
+            },
+            animate: {
+              from: {
+                x: 0,
+                y: 0,
+                rotation: 0,
+                scale: 1,
+                opacity: 1,
+                delay: 0,
+                duration: 1,
+                ease: 'none',
+              },
+              trigger: {
+                onEnter: 'play',
+                onLeave: 'none',
+                onEnterBack: 'none',
+                onLeaveBack: 'none',
+                start: 'top 90%',
+                end: 'top 40%',
+              },
+            },
+            type: 'showcase-1v4',
+            row: 2,
             text: {
               title: {
                 label: '艺术设计之旅：探索创意与美学的奇妙世界',
@@ -6410,35 +6234,22 @@ export const samples = {
           {
             type: 'text',
             title: {
-              label:
-                '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+              label: '为您打造独一无二的艺术之旅',
               style: 'style-v1',
-              classes: 'mat-display-1 bold',
+              classes: 'mat-display-2 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
             },
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
+            body: '艺术无界，创意无限。现在就加入吧，让我们共同探索艺术的无限可能，用艺术诠释生活之美！点击预约按钮，开启您的艺术探索之旅吧！',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
                 type: 'btn-generater',
-                label: '生成页面',
+                label: '立即联系',
                 color: 'primary',
                 mode: 'raised',
-              },
-              {
-                type: 'btn',
-                color: 'primary',
-                mode: 'stroked',
-                label: '演示视频',
-                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
-                target: '_blank',
-                icon: {
-                  inline: true,
-                  svg: 'play-circle-outline',
-                },
               },
             ],
           },
@@ -6477,54 +6288,20 @@ export const samples = {
             text: {
               title: {
                 label:
-                  '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
+                  '<p style="display: inline-block; margin-bottom: 0px;">为您的业务提供强大的运营方案</p>',
                 classes: 'mat-display-2 bold',
                 style: 'style-v4',
               },
               classes: 'text-light',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong >Storybook</strong> 页面时添加组件到预览页面。',
+              body: '您的产品是独一无二的，而我们的目标是让更多的人了解它们、爱上它们，并成为您的忠实粉丝。我们是一家专注于产品宣传运营方案的公司，致力于帮助您实现品牌的价值最大化。',
               actions: [
                 {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
                   href: '#',
-                  label: '立刻体验',
+                  label: '立刻咨询',
                   target: '_blank',
-                },
-                {
-                  type: 'btn',
-                  mode: 'raised',
-                  color: 'primary',
-                  href: '#',
-                  label: 'Demo',
-                  target: '_blank',
-                },
-                {
-                  type: 'btn',
-                  mode: 'raised',
-                  color: 'primary',
-                  href: '#',
-                  label: '下载',
-                  target: '_blank',
-                },
-                {
-                  type: 'btn-video',
-                  color: 'primary',
-                  video: {
-                    type: 'player',
-                    options: {
-                      controls: true,
-                      aspectRatio: '16:9',
-                      poster: '/assets/video/poster01.png',
-                      sources: [
-                        {
-                          src: '/assets/video/storybook.mp4',
-                          type: 'video/mp4',
-                        },
-                      ],
-                    },
-                  },
                 },
               ],
             },
@@ -6532,7 +6309,16 @@ export const samples = {
               {
                 type: 'img',
                 hostClasses: 'img-bg-shape',
-                src: '/assets/images/hero/hero-component.svg',
+                src: '/assets/images/illustration/02.png',
+                style: {
+                  width: 'auto',
+                  height: 'auto',
+                  opacity: 1,
+                  borderRadius: 0,
+                  boxShadow: 'none',
+                  aspectRatio: 'auto',
+                  objectFit: 'initial',
+                },
               },
             ],
             bg: {
@@ -6647,13 +6433,14 @@ export const samples = {
           {
             type: 'showcase-1v1',
             title: {
-              label: 'Drupal 已经超越了传统的 CMS 概念',
-              style: 'style-v1',
+              label:
+                '<p style="display: inline-block; margin-bottom: 0px;">我们的服务</p>',
+              style: 'style-v2',
             },
             subTitle: {
               spacer: 'none',
               classes: 'text-center',
-              body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
+              body: '无论您是刚刚起步还是已经拥有一定市场份额，我们都能为您提供最佳的宣传解决方案。立即与我们联系，让我们一起开启成功之旅！',
             },
             bg: {
               classes: 'bg-shadow bg-fill-width',
@@ -6670,10 +6457,10 @@ export const samples = {
                 style: 'style-v3 use-image',
                 title: {
                   href: '#',
-                  label: '高性能',
+                  label: '定制化宣传方案',
                 },
                 content:
-                  '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                  '我们根据您的产品特点和目标受众，为您量身打造个性化的宣传方案，确保每一份计划都能为您的产品增添光彩。',
               },
               {
                 type: 'box',
@@ -6684,10 +6471,10 @@ export const samples = {
                 style: 'style-v3 use-image primary',
                 title: {
                   href: '#',
-                  label: '易用的编辑器',
+                  label: '多渠道推广',
                 },
                 content:
-                  '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+                  '无论是社交媒体、线上广告还是线下宣传，我们都拥有丰富的经验和资源，可以帮助您在各个渠道上进行有针对性的推广，吸引更多潜在客户。',
               },
               {
                 type: 'box',
@@ -6698,10 +6485,10 @@ export const samples = {
                 style: 'style-v3 use-image',
                 title: {
                   href: '#',
-                  label: '多语言',
+                  label: '内容创意设计',
                 },
                 content:
-                  'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+                  '我们的创意团队将为您量身打造引人入胜的宣传内容，从文字到视觉设计，每一个细节都精心雕琢，让您的品牌故事更加生动有趣。 ',
               },
             ],
           },
@@ -6751,7 +6538,7 @@ export const samples = {
                 type: 'text',
                 spacer: 'sm',
                 title: {
-                  label: '使用信使构建你们的项目',
+                  label: '为何选择我们？',
                   style: 'style-v4',
                   classes: 'mat-display-2',
                 },
@@ -6768,14 +6555,14 @@ export const samples = {
                 elements: [
                   {
                     type: 'card',
-                    title: '高性能',
+                    title: '专业团队',
                     subTitle: 'High Performance',
                     avatar: {
                       src: '/assets/images/avatar/01.jpeg',
                       alt: '',
                     },
                     classes: 'card-no-shadow',
-                    body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                    body: '我们拥有经验丰富的专业团队，可以为您提供一流的服务和支持。',
                   },
                   {
                     type: 'card',
@@ -6783,10 +6570,10 @@ export const samples = {
                       src: '/assets/images/avatar/02.jpeg',
                       alt: '',
                     },
-                    title: '易用的编辑器',
+                    title: '创意无限',
                     subTitle: 'Simplicity for Editors',
                     classes: 'card-no-shadow',
-                    body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+                    body: '我们热爱创意，不断追求创新，为您带来充满惊喜的宣传方案。',
                   },
                   {
                     type: 'card',
@@ -6794,147 +6581,26 @@ export const samples = {
                       src: '/assets/images/avatar/03.jpeg',
                       alt: '',
                     },
-                    title: '多语言',
+                    title: '成本效益',
                     subTitle: 'Leader in Multilingual',
                     classes: 'card-no-shadow',
-                    body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；',
-                  },
-                  {
-                    type: 'card',
-                    avatar: {
-                      src: '/assets/images/avatar/04.jpeg',
-                      alt: '',
-                    },
-                    title: '更有弹性',
-                    subTitle: 'Flexibility',
-                    classes: 'card-no-shadow',
-                    body: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
-                  },
-                  {
-                    type: 'card',
-                    avatar: {
-                      src: '/assets/images/avatar/05.jpeg',
-                      alt: '',
-                    },
-                    title: '安全性',
-                    subTitle: 'Rigorous Security',
-                    classes: 'card-no-shadow',
-                    body: '为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；',
+                    body: '我们的服务不仅高效，而且价格合理，让您享受到最大的成本效益。',
                   },
                 ],
               },
             ],
           },
           {
-            type: 'showcase-3v6',
-            id: '',
-            title: {
-              type: 'text',
-              spacer: 'sm',
-              title: {
-                label: '为所有开发者、所有应用场景而设计',
-                style: 'style-v1',
-              },
-              classes: 'text-center',
-              body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
-            },
-            bg: {
-              classes: 'bg-shadow bg-fill-width',
-            },
-            classes: '',
-            row: '3',
-            elements: [
-              {
-                img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
-                },
-                css3: true,
-                title: '响应式设计',
-              },
-              {
-                img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
-                },
-                css3: true,
-                title: '支持 SSR 服务端渲染',
-              },
-              {
-                img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
-                },
-                css3: true,
-                title: '支持多主题、暗黑模式',
-              },
-              {
-                img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
-                },
-                css3: true,
-                title: 'MDI 6000多个icons',
-              },
-              {
-                img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
-                },
-                css3: true,
-                title: 'Storybook 全覆盖测试',
-              },
-              {
-                img: {
-                  src: '/assets/images/logo/codepen.svg',
-                  style: {
-                    width: '45px',
-                    height: '45px',
-                  },
-                  alt: 'logo',
-                },
-                css3: true,
-                title: '动态组件动态表单',
-              },
-            ],
-            action: {
-              label: '查看更多',
-              href: '#',
-              style: 'style-v1',
-              icon: 'open_in_new',
-            },
-          },
-          {
             type: 'showcase-4v1',
             spacer: 'lg',
             text: {
               title: {
-                label: 'Storybook 是如何流行于前端开发测试的',
+                label: '让您的产品引领潮流，我们助您一臂之力',
                 style: 'style-v1',
                 classes: 'mat-display-1',
               },
               classes: 'text-center',
-              body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
+              body: '<p class="text-center">赋予品牌力量，精准定位市场 —— 专业定制化市场宣传解决方案</p>',
             },
             paramsBak: {
               api: 'api/v1/tab/order_process_statistics',
@@ -6945,59 +6611,86 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 52,
-                  label: 'M',
+                  value: 20,
+                  label: '%',
                 },
-                title: 'Github Start',
+                title: '营收增长',
               },
               {
                 img: {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 32653,
+                  value: 5000,
                   label: '+',
                 },
-                title: 'NPM 周下载量',
+                title: '全球企业',
               },
               {
                 img: {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3923,
-                  label: 'K',
+                  value: 150,
+                  label: '项',
                 },
-                title: '社区活跃',
+                title: '专利技术',
               },
               {
                 img: {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 912,
-                  label: '个',
+                  value: 1000,
+                  label: '万',
                 },
-                title: '成功故事',
+                title: '环保公益事业',
               },
             ],
           },
           {
+            spacer: 'md',
+            bgClasses: 'bg-fill-width overlay overlay-80',
+            overlay: ' ',
+            classes: 'text-light',
+            id: '',
+            bg: {
+              img: {
+                src: '/assets/images/showcase/6.jpg',
+                classes: 'object-contain',
+                alt: '6',
+                hostClasses: 'bg-center',
+              },
+              classes: 'bg-fill-width overlay overlay-80',
+              overlay: ' ',
+            },
+            animate: {
+              from: {
+                x: 0,
+                y: 0,
+                rotation: 0,
+                scale: 1,
+                opacity: 1,
+                delay: 0,
+                duration: 1,
+                ease: 'none',
+              },
+              trigger: {
+                onEnter: 'play',
+                onLeave: 'none',
+                onEnterBack: 'none',
+                onLeaveBack: 'none',
+                start: 'top 90%',
+                end: 'top 40%',
+              },
+            },
             type: 'showcase-1v3',
             text: {
               title: {
-                label: 'Storybook 是什么？',
+                label:
+                  '<p style="display: inline-block; margin-bottom: 0px;">市场领导力</p>',
                 style: 'style-v1',
                 classes: 'mat-display-1',
-              },
-            },
-            classes: 'text-light',
-            bg: {
-              classes: 'bg-fill-width overlay overlay-80',
-              img: {
-                hostClasses: 'bg-center',
-                src: '/assets/images/showcase/8.jpg',
-                alt: 'page title',
               },
             },
             elements: [
@@ -7009,7 +6702,7 @@ export const samples = {
                   'text-align': 'center',
                   width: '600px',
                 },
-                body: 'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。',
+                body: '作为行业领导者，我们公司凭借卓越的产品质量、创新的技术研发以及优质的客户服务，在市场中稳居主导地位，持续引领行业发展。',
                 actionsAlign: 'center center',
                 actions: [
                   {
@@ -7144,126 +6837,6 @@ export const samples = {
             ],
           },
           {
-            id: '',
-            type: 'showcase-3v9',
-            spacer: 'xl',
-            bg: {
-              classes: 'bg-fill-width',
-              img: {
-                src: '/assets/images/bg/bg-02.png',
-              },
-            },
-            order: {
-              left: 1,
-              right: 0,
-            },
-            left: [
-              {
-                type: 'img',
-                src: '/assets/images/illustration/13.png',
-                hostClasses: 'position-relative',
-                actions: [
-                  {
-                    color: 'primary',
-                    type: 'btn-video',
-                    video: {
-                      type: 'player',
-                      options: {
-                        controls: true,
-                        aspectRatio: '16:9',
-                        poster: '/assets/video/poster01.png',
-                        sources: [
-                          {
-                            src: '/assets/video/storybook.mp4',
-                            type: 'video/mp4',
-                          },
-                        ],
-                      },
-                    },
-                  },
-                ],
-              },
-            ],
-            right: [
-              {
-                type: 'text',
-                spacer: 'sm',
-                title: {
-                  label: '使用信使构建你们的项目',
-                  style: 'style-v4',
-                  classes: 'mat-display-2',
-                },
-                body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
-              },
-              {
-                type: 'swiper',
-                params: {
-                  slidesPerView: 1,
-                  spaceBetween: 20,
-                  navigation: false,
-                },
-                classes: 'p-bottom',
-                elements: [
-                  {
-                    type: 'card',
-                    title: '高性能',
-                    subTitle: 'High Performance',
-                    avatar: {
-                      src: '/assets/images/avatar/01.jpeg',
-                      alt: '',
-                    },
-                    classes: 'card-no-shadow',
-                    body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
-                  },
-                  {
-                    type: 'card',
-                    avatar: {
-                      src: '/assets/images/avatar/02.jpeg',
-                      alt: '',
-                    },
-                    title: '易用的编辑器',
-                    subTitle: 'Simplicity for Editors',
-                    classes: 'card-no-shadow',
-                    body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
-                  },
-                  {
-                    type: 'card',
-                    avatar: {
-                      src: '/assets/images/avatar/03.jpeg',
-                      alt: '',
-                    },
-                    title: '多语言',
-                    subTitle: 'Leader in Multilingual',
-                    classes: 'card-no-shadow',
-                    body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；',
-                  },
-                  {
-                    type: 'card',
-                    avatar: {
-                      src: '/assets/images/avatar/04.jpeg',
-                      alt: '',
-                    },
-                    title: '更有弹性',
-                    subTitle: 'Flexibility',
-                    classes: 'card-no-shadow',
-                    body: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
-                  },
-                  {
-                    type: 'card',
-                    avatar: {
-                      src: '/assets/images/avatar/05.jpeg',
-                      alt: '',
-                    },
-                    title: '安全性',
-                    subTitle: 'Rigorous Security',
-                    classes: 'card-no-shadow',
-                    body: '为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；',
-                  },
-                ],
-              },
-            ],
-          },
-          {
             type: 'carousel-1v3',
             spacer: 'lg',
             text: {
@@ -7275,7 +6848,7 @@ export const samples = {
                 classes: 'mat-display-1',
               },
               classes: 'text-center',
-              body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
+              body: '在我们的客户眼中，我们不仅是一家提供服务的公司，更是他们成功路上的坚实支撑和伙伴。让我们为您的品牌增添成功的见证！',
             },
             classes: '',
             bg: {
@@ -7307,8 +6880,8 @@ export const samples = {
                   },
                   star: 4,
                   title: '- 张明',
-                  subTitle: '前端开发',
-                  body: 'Storybook是我们团队的救星！它使我们能够独立地开发、测试和文档化组件，大大提高了我们的工作效率。非常好用！',
+                  subTitle: 'CEO',
+                  body: '合作是一次愉快的经历！他们的团队专业且富有创意，为我们的产品制定了一系列精准有效的宣传方案，帮助我们快速扩大了市场份额。',
                 },
                 {
                   type: 'card-1v4',
@@ -7318,8 +6891,8 @@ export const samples = {
                   },
                   star: 5,
                   title: '- 王丽',
-                  subTitle: '前端开发',
-                  body: '使用Storybook后，我们的组件开发变得更加高效和可靠。它帮助我们定义多个使用场景，清晰地展示组件在各种情景下的表现。我们团队对它赞不绝口！',
+                  subTitle: '市场经理',
+                  body: '他们不仅提供了优质的服务，还通过数据分析为我们提供了宝贵的反馈，让我们的宣传活动更加精准和有效。',
                 },
                 {
                   type: 'card-1v4',
@@ -7329,41 +6902,8 @@ export const samples = {
                   },
                   star: 5,
                   title: '- 李军',
-                  subTitle: '前端开发',
-                  body: 'Storybook为我们的团队带来了极大的协作效益。它提供了一个集中查看和交流的平台，团队成员可以轻松共享和讨论组件。无疑是一个必备工具！',
-                },
-                {
-                  type: 'card-1v4',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/avatar/04.jpeg',
-                  },
-                  star: 4,
-                  title: '- 张燕',
-                  subTitle: '前端开发',
-                  body: '我们喜欢Storybook的文档化功能。它帮助我们详细记录和展示每个组件的使用方法和属性，使其他团队成员更容易理解和使用。真的很赞！',
-                },
-                {
-                  type: 'card-1v4',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/avatar/05.jpeg',
-                  },
-                  star: 5,
-                  title: '- 王刚',
-                  subTitle: '前端开发',
-                  body: 'Storybook让我们的前端开发更加流畅。它与我们的主应用程序分离，使我们能够更好地进行单独测试和调试。我们强烈推荐它给其他团队！',
-                },
-                {
-                  type: 'card-1v4',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/avatar/06.jpeg',
-                  },
-                  star: 5,
-                  title: '- 李丽',
-                  subTitle: '前端开发',
-                  body: 'Storybook是一个强大而灵活的工具，适用于各种项目和团队规模。我们发现它易于上手，并且它的插件生态系统给我们带来了很多扩展功能的选择。非常棒的工具！',
+                  subTitle: '初创企业创始人',
+                  body: '团队总是能够超越我们的期望，他们的创意和执行力让我们的产品在市场上脱颖而出，为我们赢得了众多忠实客户。',
                 },
               ],
             },
@@ -7371,35 +6911,22 @@ export const samples = {
           {
             type: 'text',
             title: {
-              label:
-                '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+              label: '立即与我们联系，让您的产品故事闪耀全球！',
               style: 'style-v1',
-              classes: 'mat-display-1 bold',
+              classes: 'mat-display-2 bold',
             },
             bg: {
               classes: 'bg- bg-fill-width',
             },
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
+            body: '无论您是刚刚起步还是已经拥有一定市场份额，我们都能为您提供最佳的宣传解决方案。立即与我们联系，让我们一起开启成功之旅！',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
                 type: 'btn-generater',
-                label: '生成页面',
+                label: '立即联系',
                 color: 'primary',
                 mode: 'raised',
-              },
-              {
-                type: 'btn',
-                color: 'primary',
-                mode: 'stroked',
-                label: '演示视频',
-                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
-                target: '_blank',
-                icon: {
-                  inline: true,
-                  svg: 'play-circle-outline',
-                },
               },
             ],
           },
