@@ -11,7 +11,8 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
-import { home_v7 } from '@stories/builder/data/sample/home-v7.builder';
+import { home_v7 } from '@modules/builder/data/samples/home_v7';
+
 export default {
   title: '示例页面/首页示例/07 Sass 服务',
   id: 'home-v7',

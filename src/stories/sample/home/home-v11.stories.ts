@@ -11,7 +11,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
-import { home_v11 } from '@stories/builder/data/sample/home-v11.builder';
+import { home_v11 } from '@modules/builder/data/samples/home_v11';
 
 export default {
   title: '示例页面/首页示例/11 客户故事',
