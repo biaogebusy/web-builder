@@ -9,9 +9,9 @@
       <app-text [attr.data-path]="'subTitle'" *ngIf="content.subTitle" [content]="content.subTitle"></app-text>
       <div class="m-top" fxLayout.lt-md="column" fxLayout.gt-sm="row wrap" fxLayoutGap.lt-md="6rem"
         fxLayoutAlign.gt-sm="center start" fxLayoutAlign.lt-md="center center">
-        <app-box [attr.data-path]="'elements.'+i" class="box p-x-sm p-y-sm" [content]="item"
+        <app-dynamic-component [attr.data-path]="'elements.'+i" class="box p-x-sm p-y-sm" [inputs]="item"
           *ngFor="let item of content.elements;index as i" fxFlex.lt-md="100%"
-          [fxFlex.gt-sm]="row(content.row, '0rem')"></app-box>
+          [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>
       </div>
     </div>
   </div>

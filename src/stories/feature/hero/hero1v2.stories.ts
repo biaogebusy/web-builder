@@ -6,7 +6,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { IHero1v2 } from '@core/interface/combs/IHero';
 
 export default {
-  title: '特色组件/英雄区/1v2',
+  title: '特色组件/首屏/1v2',
   id: 'hero-1v2',
   component: Hero1v2Component,
   decorators: [
@@ -60,7 +60,7 @@ const content: IHero1v2 = {
           href: '#',
           mode: 'raised',
           label: '查看更多',
-          classes: 'round-btn',
+          pill: true,
         },
       },
       {
@@ -79,7 +79,7 @@ const content: IHero1v2 = {
           href: '#',
           mode: 'raised',
           label: '查看更多',
-          classes: 'round-btn',
+          pill: true,
         },
       },
       {
@@ -98,7 +98,7 @@ const content: IHero1v2 = {
           href: '#',
           mode: 'raised',
           label: '查看更多',
-          classes: 'round-btn',
+          pill: true,
         },
       },
       {
@@ -117,7 +117,7 @@ const content: IHero1v2 = {
           href: '#',
           mode: 'raised',
           label: '查看更多',
-          classes: 'round-btn',
+          pill: true,
         },
       },
     ],

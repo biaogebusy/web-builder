@@ -321,18 +321,6 @@ Video.args = {
   },
 };
 
-export const {
-  Default: { args: carousel1v1 },
-} = c1v1Story;
-export const {
-  Default: { args: carousel2v1 },
-} = c2v1Story;
-export const {
-  Default: { args: hero1v1 },
-} = hero1v1Story;
-export const {
-  Default: { args: hero1v2 },
-} = hero1v2Story;
 export const FullScreen = Template.bind({});
 FullScreen.storyName = '满屏';
 FullScreen.args = {

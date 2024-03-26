@@ -2,6 +2,9 @@ import { DOCUMENT, formatDate } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { ScreenService } from './screen.service';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +13,9 @@ export class UtilitiesService {
   constructor(
     private clipboard: Clipboard,
     private snackbar: MatSnackBar,
-    @Inject(DOCUMENT) private document: Document
+    private screenService: ScreenService,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   getIndexTitle(title: string): string {
@@ -92,5 +97,58 @@ export class UtilitiesService {
 
   copy(content: any): void {
     this.clipboard.copy(content);
+  }
+
+  initAnimate(
+    inputs: IDynamicInputs,
+    animateEle: HTMLElement,
+    triggerEle: HTMLElement
+  ): void {
+    if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
+      let gsapConfig;
+      if (!inputs.type && inputs.content) {
+        if (inputs?.content?.animate) {
+          gsapConfig = inputs.content.animate;
+        }
+      } else {
+        gsapConfig = inputs.animate;
+      }
+      if (gsapConfig) {
+        const { enable, trigger, from } = gsapConfig;
+        if (enable) {
+          animateEle.style.display = 'block';
+          const tl = window.gsap.timeline({
+            scrollTrigger: {
+              trigger: triggerEle,
+              start: trigger?.start || 'top 85%',
+              end: trigger?.end || 'bottom 30%',
+              markers: trigger?.markers,
+              scrub: trigger?.scrub,
+              scroller: this.getScroller(),
+              toggleActions: `${trigger?.onEnter || 'paly'} ${
+                trigger?.onLeave || 'none'
+              } ${trigger?.onEnterBack || 'none'} ${
+                trigger?.onLeaveBack || 'none'
+              }`,
+            },
+          });
+          if (from) {
+            // 从一个状态到当前状态
+            tl.from(animateEle, {
+              ...from,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  getScroller(): HTMLElement | Window {
+    const scroller = document.getElementById('builder-list');
+    if (scroller) {
+      return scroller;
+    } else {
+      return window;
+    }
   }
 }

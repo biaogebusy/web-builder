@@ -275,13 +275,37 @@ export interface IPage {
   meta?: any[];
   config?: any;
   title: string;
+  label?: string;
   body: any[];
   time?: Date;
+  uuid?: string;
+  id?: string;
+  status?: boolean;
+  message?: string;
   current?: boolean;
+}
+
+export interface IPageForJSONAPI {
+  title: string;
+  meta?: any[];
+  body: IBlockJSONAPI[];
+}
+
+export interface IBlockJSONAPI {
+  type: 'json';
+  attributes: {
+    body: object;
+  };
 }
 
 export interface ICommerce {
   vip: string;
   payNode: string;
   dialog: IText;
+}
+
+export interface IDynamicInputs {
+  content?: any;
+  type?: string;
+  [key: string]: any;
 }

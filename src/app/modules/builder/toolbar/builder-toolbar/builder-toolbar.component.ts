@@ -28,6 +28,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LoginComponent } from '@modules/user/login/login.component';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -58,7 +59,7 @@ export class BuilderToolbarComponent
   ) {}
 
   ngOnInit(): void {
-    this.currentPage$.subscribe((page) => {
+    this.currentPage$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
       this.page = page;
     });
   }
@@ -112,17 +113,45 @@ export class BuilderToolbarComponent
     this.builder.previewListDrawer$.next(this.showNavigate);
   }
 
-  onSubmit(): void {
+  onSubmit(page: IPage): void {
     if (!this.user) {
       this.util.openSnackbar('请登录后提交！', 'ok');
+      const dialogRef = this.dialog.open(LoginComponent);
+      dialogRef
+        .afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          // TODO: refresh page
+          console.log(this.user);
+        });
+      return;
     }
     this.util.openSnackbar('正在提交！', 'ok');
-    this.builderService
-      .createLandingPage(this.builder.currentPage)
-      .subscribe((res) => {
-        this.builder.updateVersion(this.page);
-        this.util.openSnackbar('提交成功！', 'ok');
-      });
+    if (page.uuid && page.id) {
+      // update page
+      this.builderService
+        .updateLandingPage(this.builder.currentPage)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res) => {
+          const { status, message } = res;
+          if (status) {
+            this.util.openSnackbar(message, 'ok');
+          } else {
+            this.util.openSnackbar(message, 'ok');
+          }
+        });
+    } else {
+      // new page
+      this.builderService
+        .createLandingPage(this.builder.currentPage)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res) => {
+          const { status, message } = res;
+          if (status) {
+            this.util.openSnackbar(message, 'ok');
+          }
+        });
+    }
   }
 
   ngOnDestroy(): void {

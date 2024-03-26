@@ -1,7 +1,7 @@
 .layout-builder {
   .layout {
     position: relative;
-    .block-toolbar,
+    .block-menu,
     .actions {
       ::ng-deep {
         .mat-icon-button {
@@ -39,12 +39,16 @@
       position: relative;
       width: 100%;
       height: 100%;
-      .item {
+      > .item {
         position: relative;
         max-width: 100%;
         padding: 10px;
         box-sizing: border-box;
-        .actions {
+        &.item-divider,
+        &.item-layout-builder {
+          width: 100%;
+        }
+        > .actions {
           display: none;
           position: absolute;
           top: auto;
@@ -57,33 +61,31 @@
           border-top-right-radius: 4px;
         }
         &:hover {
-          .actions {
+          > .actions {
             display: block;
           }
         }
       }
     }
-    .block-menu {
+    > .block-menu {
       display: none;
       position: absolute;
-      right: 0;
-      width: 70px;
-      bottom: 100%;
+      right: -2px;
+      top: -2px;
       z-index: 100;
+      .toggle {
+        border-bottom-left-radius: 4px;
+      }
       .block-toolbar {
         display: none;
         position: absolute;
         border-radius: 4px 4px 0 0;
         z-index: 10;
         white-space: nowrap;
-        right: 30;
         top: auto;
-        bottom: 0;
+        bottom: calc(100% - 0px);
       }
       &:hover {
-        .toggle {
-          display: none;
-        }
         .block-toolbar {
           display: block;
         }
@@ -91,10 +93,7 @@
     }
     &:hover {
       outline-offset: 2px;
-      .add-block {
-        display: block;
-      }
-      .block-menu {
+      > .block-menu {
         display: flex;
         justify-content: flex-end;
         align-items: center;

@@ -84,6 +84,7 @@ export const templates: any[] = [
                 left: '0%',
                 top: '5%',
               },
+              classes: 'text-center',
               body: '<p class="text-center text-light">这里有你想要的答案。</p>',
             },
             input: {
@@ -324,7 +325,7 @@ export const templates: any[] = [
   {
     title: '联系我们',
     subTitle: '关于我们的信息，允许访客联系',
-    img: '/assets/images/template/contact.svg',
+    img: '/assets/images/template/team.svg',
     page: {
       title: '联系我们',
       current: true,
@@ -747,7 +748,7 @@ export const templates: any[] = [
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: 'http://localhost:4200/assets/images/illustration/01.png',
+                  src: '/assets/images/illustration/01.png',
                   alt: 'alt',
                   style: {
                     width: 'auto',

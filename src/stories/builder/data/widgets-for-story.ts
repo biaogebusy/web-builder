@@ -7,7 +7,6 @@ import * as chartLineStory from '@stories/widgets/chart/ChartLine.stories';
 import * as chartPieStory from '@stories/widgets/chart/ChartPie.stories';
 import * as btnStory from '@stories/base/Btn.stories';
 import * as linkStory from '@stories/base/Link.stories';
-import * as bgImg from '@stories/base/BgImg.stories';
 import * as iconStory from '@stories/base/Icon.stories';
 import * as formStory from '@stories/widgets/Form.stories';
 import * as imgStory from '@stories/base/Img.stories';
@@ -88,10 +87,6 @@ export const {
 } = btnStory;
 
 export const {
-  Opacity: { args: bg },
-} = bgImg;
-
-export const {
   Default: { args: mediaList },
 } = mediaListStory;
 
@@ -147,6 +142,15 @@ export const {
 
 export const {
   Primary: { args: box },
+  StyleV1: { args: boxV1 },
+  StyleV2: { args: boxV2 },
+  StyleV3: { args: boxV3 },
+  StyleV4: { args: boxV4 },
+  StyleV5: { args: boxV5 },
+  StyleV6: { args: boxV6 },
+  StyleV7: { args: boxV7 },
+  StyleV9: { args: boxV9 },
+  StyleV10: { args: boxV10 },
 } = BoxStories;
 
 export const {
@@ -158,6 +162,53 @@ export const {
 } = contactStory;
 
 export const widgets: any[] = [
+  {
+    label: 'Layout',
+    icon: {
+      svg: 'view-dashboard-outline',
+    },
+    content: {
+      type: 'layout-builder',
+      spacer: 'md',
+      fullWidth: false,
+      bg: {
+        classes: 'bg-fill-width',
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
+      elements: [
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 6,
+            lg: 6,
+          },
+          direction: 'column',
+          layoutAlign: 'start start',
+          elements: [],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 6,
+            lg: 6,
+          },
+          direction: 'column',
+          layoutAlign: 'start start',
+          elements: [],
+        },
+      ],
+    },
+  },
   {
     label: '标题',
     icon: { svg: 'format-header-2' },
@@ -192,9 +243,18 @@ export const widgets: any[] = [
   {
     label: '间距',
     icon: {
-      svg: 'border-horizontal',
+      svg: 'minus-thick',
     },
     ...spacer,
+  },
+  {
+    label: '分割线',
+    icon: {
+      svg: 'border-horizontal',
+    },
+    content: {
+      type: 'divider',
+    },
   },
   {
     label: '图标',
@@ -208,6 +268,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'view-array-outline',
     },
+    preview: '/assets/images/builder/widgets/swiper.png',
     ...swiper,
   },
   {
@@ -215,6 +276,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'account-box-outline',
     },
+    preview: '/assets/images/builder/widgets/contact.png',
     ...contact,
   },
   {
@@ -222,6 +284,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'chart-bar',
     },
+    preview: '/assets/images/builder/widgets/bar.png',
     ...chartBar,
   },
   {
@@ -229,6 +292,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'chart-line',
     },
+    preview: '/assets/images/builder/widgets/line.png',
     ...chartLine,
   },
   {
@@ -236,16 +300,18 @@ export const widgets: any[] = [
     icon: {
       svg: 'chart-pie',
     },
+    preview: '/assets/images/builder/widgets/pie.png',
     ...chartPie,
   },
   {
-    label: '面板',
+    label: '折叠面板',
     icon: { svg: 'format-line-weight' },
     ...panel,
   },
   {
     label: '表格',
     icon: { svg: 'table' },
+    preview: '/assets/images/builder/widgets/table.png',
     ...dynamicTable,
   },
   {
@@ -254,46 +320,94 @@ export const widgets: any[] = [
     ...btnVideo,
   },
   {
-    label: '背景',
-    icon: { svg: 'format-color-fill' },
-    ...bg,
-  },
-  {
     label: 'Box',
     icon: { svg: 'box' },
     ...box,
   },
   {
+    label: 'Box v1',
+    icon: { svg: 'box' },
+    ...boxV1,
+  },
+  {
+    label: 'Box v2',
+    icon: { svg: 'box' },
+    ...boxV2,
+  },
+  {
+    label: 'Box v3',
+    icon: { svg: 'box' },
+    ...boxV3,
+  },
+  {
+    label: 'Box v4',
+    icon: { svg: 'box' },
+    ...boxV4,
+  },
+  {
+    label: 'Box v5',
+    icon: { svg: 'box' },
+    ...boxV5,
+  },
+  {
+    label: 'Box v6',
+    icon: { svg: 'box' },
+    ...boxV6,
+  },
+  {
+    label: 'Box v7',
+    icon: { svg: 'box' },
+    ...boxV7,
+  },
+  {
+    label: 'Box v9',
+    icon: { svg: 'box' },
+    ...boxV9,
+  },
+  {
+    label: 'Box v10',
+    icon: { svg: 'box' },
+    ...box,
+  },
+  {
+    label: 'Box',
+    icon: { svg: 'box' },
+    ...boxV10,
+  },
+  {
     label: '卡片',
     icon: { svg: 'card-outline' },
+    preview: '/assets/images/builder/widgets/card.png',
     ...cardBase,
   },
   {
-    label: 'v1',
+    label: '卡片1v1',
     icon: {
       svg: 'numeric-1',
     },
+    preview: '/assets/images/builder/widgets/card-1v1.png',
     ...v1,
   },
   {
-    label: 'v2',
+    label: '卡片2v2',
     icon: {
       svg: 'numeric-2',
     },
+    preview: '/assets/images/builder/widgets/card-1v2.png',
     ...v2,
   },
   {
-    label: '1v4',
+    label: '卡片1v4',
     icon: { svg: 'numeric-4' },
     ...v4,
   },
   {
-    label: '1v5',
+    label: '卡片1v5',
     icon: { svg: 'numeric-5' },
     ...v5,
   },
   {
-    label: '1v6',
+    label: '卡片1v6',
     icon: { svg: 'numeric-6' },
     ...v6,
   },
@@ -325,29 +439,10 @@ export const widgets: any[] = [
     ...testimonial,
   },
   {
-    label: '进度条',
-    icon: { svg: 'progress-helper' },
-    ...progressbar,
-  },
-  {
-    label: 'Iframe',
-    icon: {
-      svg: 'application-array-outline',
-    },
-    ...iframe,
-  },
-  {
     label: 'Lightbox',
     icon: {
       svg: 'view-carousel-outline',
     },
     ...lightbox,
-  },
-  {
-    label: '形状',
-    icon: {
-      svg: 'cosine-wave',
-    },
-    ...shape,
   },
 ];

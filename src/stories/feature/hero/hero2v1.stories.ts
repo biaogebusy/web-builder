@@ -6,7 +6,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { ITextHero } from '@core/interface/widgets/IText';
 
 export default {
-  title: '特色组件/英雄区/2v1',
+  title: '特色组件/首屏/2v1',
   id: 'hero-2v1',
   component: Hero2v1Component,
   decorators: [
@@ -202,39 +202,4 @@ const xyCustom: ITextHero = {
 };
 XYCustom.args = {
   content: xyCustom,
-};
-
-export const Animate = Template.bind({});
-Animate.storyName = '动画';
-const animate: ITextHero = {
-  type: 'hero-2v1',
-  theme: '',
-  params: {
-    height: '940px',
-  },
-  text: {
-    title: {
-      label:
-        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
-      style: 'style-v4',
-      classes: 'mat-display-1 bold',
-    },
-    spacer: 'md',
-    style: {
-      width: '25%',
-      left: '40%',
-    },
-    classes: 'xy-center',
-    bg: {
-      classes: 'bg-shadow bg-fill-width',
-      img: {
-        src: '/assets/images/products/TS97-Computer_08.jpg?itok=LdOsboTY',
-        mobile: '/assets/images/products/TS97-Phone_08.jpg?itok=VZueJbig',
-      },
-    },
-    body: '<p style="text-align:justify"><span style="font-size:18px;">开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。</span></p>\r\n',
-  },
-};
-Animate.args = {
-  content: animate,
 };

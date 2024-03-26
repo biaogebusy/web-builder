@@ -18,7 +18,7 @@ import { of } from 'rxjs';
 import { notify } from '@core/module/data/notify';
 
 export default {
-  title: '示例页面/登录页',
+  title: '示例页面/系统页面/注册登录',
   id: 'login',
   component: LoginComponent,
   decorators: [

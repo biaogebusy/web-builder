@@ -61,6 +61,8 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
   }
 
   onNewPage(): void {
+    this.builder.fixedShowcase = false;
+    this.builder.showcase$.next(false);
     this.dialog.open(DialogComponent, {
       width: '1200px',
       data: {

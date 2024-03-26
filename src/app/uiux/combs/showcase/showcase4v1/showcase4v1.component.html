@@ -14,8 +14,9 @@
           <div class="stats-count">
             <app-number-animate [attr.data-path]="'elements.'+i+'.digit'" [content]="item.digit"></app-number-animate>
           </div>
-          <div class="stats-title" [contentedit]="'elements.'+i+'.title'" *ngIf="item.title">{{item.title}}</div>
-          <div class="stats-desc" [contentedit]="'elements.'+i+'.desc'" *ngIf="item.desc">{{item.desc}}</div>
+          <div class="stats-title" [contentedit]="'elements.'+i+'.title'" *ngIf="item.title" [innerHTML]="item.title">
+          </div>
+          <div class="stats-desc" [contentedit]="'elements.'+i+'.desc'" *ngIf="item.desc" [innerHTML]="item.desc"></div>
         </div>
       </div>
     </div>

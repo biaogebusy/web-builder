@@ -27,5 +27,17 @@
     .section-group {
       background-color: mat-color($primary, 0.1);
     }
+
+    .loop-elements {
+      .mat-list-item {
+        background-color: mat-color($primary, 0.2);
+        .mat-list-icon {
+          color: mat-color($foreground, text, 0.4);
+        }
+        &:hover {
+          background-color: mat-color($primary, 0.4);
+        }
+      }
+    }
   }
 }

@@ -148,6 +148,15 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
                 label: 'Class',
               },
             },
+            {
+              key: 'pill',
+              type: 'toggle',
+              className: 'width-100',
+              defaultValue: widget.pill || false,
+              templateOptions: {
+                label: '胶囊样式',
+              },
+            },
           ],
         },
       ],

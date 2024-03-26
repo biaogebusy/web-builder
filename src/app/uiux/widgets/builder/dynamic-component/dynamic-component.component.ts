@@ -16,7 +16,7 @@ import {
   ViewContainerRef,
   ViewRef,
 } from '@angular/core';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, IS_BUILDER_MODE } from '@core/token/token-providers';
@@ -24,12 +24,8 @@ import { isNumber } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 
-export interface dynamicInputs {
-  content?: any;
-  type?: string;
-  [key: string]: any;
-}
 @Component({
   selector: 'app-dynamic-component',
   templateUrl: './dynamic-component.component.html',
@@ -38,13 +34,14 @@ export interface dynamicInputs {
 export class DynamicComponentComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy, AfterContentInit
 {
-  @Input() inputs: dynamicInputs;
+  @Input() inputs: IDynamicInputs;
   @Input() index: number;
   @Input() isPreview: boolean;
   @HostBinding('class.active-toolbar') activeToolbarClass: boolean;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
   uuid: string;
+  showToolbar: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
@@ -54,12 +51,15 @@ export class DynamicComponentComponent
     private cd: ChangeDetectorRef,
     private ele: ElementRef,
     private screenService: ScreenService,
+    private util: UtilitiesService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.showToolbar =
+        !!this.coreConfig.builder?.enable && this.inputs?.showToolbar;
       this.builder.builderLayoutSetting$
         .pipe(takeUntil(this.destroy$))
         .subscribe((data) => {
@@ -99,10 +99,6 @@ export class DynamicComponentComponent
     this.uuid = uuid;
   }
 
-  get showToolbar(): boolean {
-    return !!this.coreConfig.builder?.enable && this.inputs?.showToolbar;
-  }
-
   async loadComponent(): Promise<void> {
     const type = this.inputs.type ? this.inputs.type : this.inputs.content.type;
     this.container.clear();
@@ -125,43 +121,12 @@ export class DynamicComponentComponent
       this.component.instance.uuid = Date.now().toString();
     }
     this.container.insert(this.component.hostView);
-    this.initAnimate();
+    this.util.initAnimate(
+      this.inputs,
+      this.ele.nativeElement.lastElementChild,
+      this.ele.nativeElement
+    );
     this.component.changeDetectorRef.markForCheck();
-  }
-
-  initAnimate(): void {
-    if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
-      let gsapConfig;
-      if (!this.inputs.type && this.inputs.content) {
-        if (this.inputs?.content?.animate) {
-          gsapConfig = this.inputs.content.animate;
-        }
-      } else {
-        gsapConfig = this.inputs.animate;
-      }
-      if (gsapConfig) {
-        const { trigger, from } = gsapConfig;
-        const ele = this.ele.nativeElement.lastElementChild;
-        ele.style.display = 'block';
-        const tl = window.gsap.timeline({
-          scrollTrigger: {
-            trigger: this.ele.nativeElement,
-            start: trigger?.start || 'top 85%',
-            end: trigger?.end || 'bottom 30%',
-            markers: trigger?.markers,
-            scrub: trigger?.scrub,
-            scroller: this.getScroller(),
-            toggleActions: `${trigger.onEnter} ${trigger.onLeave} ${trigger.onEnterBack} ${trigger.onLeaveBack}`,
-          },
-        });
-        if (from) {
-          // 从一个状态到当前状态
-          tl.from(ele, {
-            ...from,
-          });
-        }
-      }
-    }
   }
 
   onFilterChange(state: boolean): void {
@@ -171,15 +136,6 @@ export class DynamicComponentComponent
       coponentEle.style.filter = 'blur(8px)';
     } else {
       coponentEle.style.filter = '';
-    }
-  }
-
-  getScroller(): HTMLElement | Window {
-    const scroller = document.getElementById('builder-list');
-    if (scroller) {
-      return scroller;
-    } else {
-      return window;
     }
   }
 

@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/addon-docs";
 
 <Meta
-  title="开发/快速指南"
-  id="start-guide"
+  title="开发/本地环境"
+  id="dev-setup"
   parameters={{
     viewMode: "docs",
     previewTabs: {
@@ -12,14 +12,14 @@ import { Meta } from "@storybook/addon-docs";
   }}
 />
 
-## 快速指南
-
-## 安装 npm install
+## 安装本地环境
 
 1. 代码下载或者 clone 项目到本地：`git clone git@github.com:biaogebusy/web-builder.git`
-2. 因为当前 angular 版本为 v11 请使用 npm install 安装，严格安装 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
+2. 进入到项目根目录：`npm install`
 
-## 本地开发
+> 注意：因为当前 angular 版本为 v11 请使用 npm install 安装，严格安装 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
+
+## 启动开发环境
 
 `npm start`
 
@@ -46,10 +46,6 @@ export const environment: IEnvironment = {
 - ssr: 是否使用 SSR 服务端渲染方式；
 - drupalProxy: 对应后端为 drupal，统一使用 Drupal 来登录登出；
 
-## 路由守卫配置
-
-默认会读取 `/api/v1/config` 的全局配置信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true;`；
-
 ## 配置代理
 
 如果你的应用需要调用后台接口，可以配置代理访问，配置文件`config/proxy.config.js`，本地开发时，会根据对应的 api url 前缀进行代理转发，根据实际情况进行配置；
@@ -66,58 +62,6 @@ const PROXY_CONFIG = [
 
 module.exports = PROXY_CONFIG;
 ```
-
-## 页面数据加载逻辑
-
-页面在浏览器打开访问时，应用会订阅 url 的变化，根据`url`进行接口的数据读取，根据接口返回的数据渲染页面组件，本地环境和生产环境返回做了判断：
-
-```js
-export function pageContentFactory(
-  activateRoute: ActivatedRoute,
-  contentService: ContentService,
-  contentState: ContentState
-): Observable<IPage | object | boolean> {
-  const $pageContent =
-    (new BehaviorSubject() < IPage) | object | (boolean > false);
-  activateRoute.url.subscribe(async (url) => {
-    const page = await contentService.loadPageContent().toPromise();
-    $pageContent.next(page);
-    contentState.pageConfig$.next(page.config);
-  });
-  return $pageContent;
-}
-```
-
-```js
-loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
-    if (environment.production) {
-      const landingPath = '/api/v1/landingPage?content=';
-      const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
-      return this.http.get<any>(pageUrlParams).pipe(
-        tap((page) => {
-          this.updatePage(page);
-          this.logContent(pageUrl);
-        }),
-        catchError(() => {
-          return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
-        })
-      );
-    } else {
-      const sample = pageUrl.split('/')[1];
-      const samplePage = samples.elements.filter(
-        (item) => item.id === sample
-      )[0];
-      if (samplePage) {
-        this.updatePage(samplePage.page);
-        return of(samplePage.page);
-      } else {
-        return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-      }
-    }
-  }
-```
-
-Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.com/?path=/docs/base-config--page)
 
 ## 为生产环境打包
 

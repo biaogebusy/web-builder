@@ -2,6 +2,7 @@
   <ul fxLayout="row">
     <li *ngFor="let link of content">
       <app-link [content]="link"></app-link>
+      <app-icon [content]="{svg:'chevron-right'}"></app-icon>
     </li>
   </ul>
 </div>
