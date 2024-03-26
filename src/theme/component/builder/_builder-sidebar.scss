@@ -51,6 +51,7 @@
   }
 
   .page-list {
+    color: mat-color($foreground, text, 0.75);
     background-color: mat-color($background, background);
     @include mat-elevation(3, mat-color($foreground, divider), 0.4);
     .form {
@@ -63,6 +64,7 @@
       @include scrollbar(mat-color($primary));
       .mat-list-item {
         border-bottom: 1px solid mat-color($foreground, divider);
+        color: mat-color($foreground, text, 0.75);
         a {
           color: mat-color($foreground, text, 0.75);
           &:hover {
