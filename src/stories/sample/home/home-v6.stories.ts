@@ -11,7 +11,8 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
-import { home_v6 } from '@stories/builder/data/sample/home-v6.builder';
+import { home_v6 } from '@modules/builder/data/samples/home_v6';
+
 export default {
   title: '示例页面/首页示例/06 医疗科技',
   id: 'home-v6',
