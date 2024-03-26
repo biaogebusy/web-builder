@@ -1,6 +1,5 @@
 import { IUiux } from '@core/interface/IBuilder';
 import { components } from './combs/export-for-story';
-import { samples } from './sample/samples-for-story';
 import { systems } from './system/system-fot-story';
 import { base } from './base/export-for-story';
 

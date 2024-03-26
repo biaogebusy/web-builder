@@ -11,7 +11,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
 import { BRANDING } from '@core/token/token-providers';
-import { home_v10 } from '@stories/builder/data/sample/home-v10.builder';
+import { home_v10 } from '@modules/builder/data/samples/home_v10';
 
 export default {
   title: '示例页面/首页示例/10 App 应用',

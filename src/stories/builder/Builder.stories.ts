@@ -7,13 +7,8 @@ import { BuilderComponent } from 'src/app/modules/builder/builder.component';
 import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { components } from './data/combs/export-for-story';
 import { environment } from 'src/environments/environment';
-import { samples } from './data/sample/samples-for-story';
 import { systems } from './data/system/system-fot-story';
-import {
-  BUILDER_SAMPLE_PAGE,
-  IS_BUILDER_MODE,
-  UIUX,
-} from '@core/token/token-providers';
+import { IS_BUILDER_MODE, UIUX } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-story';
 import { of } from 'rxjs';
 import { ManageModule } from '@modules/manage/manage.module';
@@ -40,10 +35,6 @@ export default {
           useValue: uiux,
         },
         {
-          provide: BUILDER_SAMPLE_PAGE,
-          useValue: samples,
-        },
-        {
           provide: IS_BUILDER_MODE,
           useValue: of(true),
         },
@@ -66,6 +57,5 @@ if (!environment.production) {
   console.log('base:', base);
   console.log('comps:', components);
   console.log('widgets:', widgets);
-  console.log('sample:', samples);
   console.log('system:', systems);
 }

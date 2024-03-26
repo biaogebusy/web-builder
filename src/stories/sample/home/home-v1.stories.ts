@@ -11,7 +11,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
 import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
-import { home_v1 } from '@stories/builder/data/sample/home-v1.builder';
+import { home_v1 } from '@modules/builder/data/samples/home_v1';
 
 export default {
   title: '示例页面/首页示例/01 经典布局',
