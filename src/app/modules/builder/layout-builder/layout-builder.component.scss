@@ -85,19 +85,6 @@
         top: auto;
         bottom: calc(100% - 0px);
       }
-      &:hover {
-        .block-toolbar {
-          display: block;
-        }
-      }
-    }
-    &:hover {
-      outline-offset: 2px;
-      > .block-menu {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-      }
     }
   }
   position: relative;
@@ -136,6 +123,21 @@
     padding-top: 30px;
     .layout {
       padding: 0;
+      > .block-menu {
+        &:hover {
+          .block-toolbar {
+            display: block;
+          }
+        }
+      }
+      &:hover {
+        outline-offset: 2px;
+        > .block-menu {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        }
+      }
     }
   }
 }
