@@ -16,6 +16,9 @@ export const layoutBuilder: any[] = [
           classes: 'object-fit',
         },
       },
+      direction: 'row wrap',
+      horizontal: 'center',
+      vertical: 'center',
       layoutAlign: 'center center',
       gap: {
         xs: 8,
@@ -216,8 +219,8 @@ export const layoutBuilder: any[] = [
         {
           row: {
             xs: 12,
-            sm: 12,
-            md: 12,
+            sm: 6,
+            md: 6,
             lg: 6,
           },
           direction: 'column',
@@ -345,8 +348,8 @@ export const layoutBuilder: any[] = [
         {
           row: {
             xs: 12,
-            sm: 12,
-            md: 12,
+            sm: 6,
+            md: 6,
             lg: 6,
           },
           direction: 'column',
@@ -490,6 +493,9 @@ export const layoutBuilder: any[] = [
           classes: 'object-fit',
         },
       },
+      direction: 'row wrap',
+      horizontal: 'center',
+      vertical: 'center',
       layoutAlign: 'center center',
       gap: {
         xs: 8,
@@ -1111,6 +1117,9 @@ export const layoutBuilder: any[] = [
       bg: {
         classes: 'bg-fill-width',
       },
+      direction: 'row wrap',
+      horizontal: 'center',
+      vertical: 'center',
       layoutAlign: 'center center',
       gap: {
         xs: 8,
