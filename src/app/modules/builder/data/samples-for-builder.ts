@@ -121,7 +121,7 @@ export const samples = {
       page: home_v13,
     },
     {
-      label: '满屏',
+      label: '生活家居',
       id: 'home-v14',
       icon: {
         svg: 'roman-numeral-4',

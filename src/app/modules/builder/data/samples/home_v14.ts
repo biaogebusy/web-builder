@@ -1,533 +1,1524 @@
 export const home_v14 = {
-  title: '首页 v14',
-  configBak: {
-    headerMode: {
-      transparent: true,
-      style: 'light',
-    },
-  },
-  meta: [
-    {
-      name: 'description',
-      content: '',
-    },
-    {
-      name: 'keywords',
-      content: '',
-    },
-  ],
+  title: '生活家居',
+  current: true,
   body: [
     {
-      type: 'carousel-1v1',
-      spacer: 'none',
-      disableContainer: true,
-      bg: {
-        classes: '',
+      type: 'text',
+      title: {
+        label: '新旅居人士',
+        style: 'style-v1',
+        classes: 'mat-display-1 bold',
       },
-      sliders: {
-        classes: 'full-screen',
-        params: {
-          direction: 'vertical',
-          slidesPerView: 1,
-          speed: 600,
-          mousewheel: true,
-          effect: 'slide',
-          pagination: {
-            clickable: true,
-          },
-          navigation: true,
-          autoplay: false,
-          breakpoints: {
-            '600': {
-              slidesPerView: 1,
-              spaceBetween: 0,
-            },
-            '960': {
-              slidesPerView: 1,
-              spaceBetween: 0,
-            },
-          },
+      bg: {
+        classes: 'bg- bg-fill-width',
+      },
+      body: '<p style="display: inline-block; margin-bottom: 0px;">我们提供了最新的系列</p>',
+      classes: 'text-center',
+      actionsAlign: 'center center',
+    },
+    {
+      fullWidth: false,
+      spacer: 'md',
+      bgClasses: 'bg-fill-width',
+      overlay: '',
+      classes: '',
+      id: '',
+      bg: {
+        img: {
+          src: '',
+          classes: 'object-fit',
+          alt: '',
         },
-        elements: [
-          {
-            sliderClasses: 'slider-center',
-            spacer: 'none',
-            type: 'hero-1v1',
-            classes: 'text-light text-center',
-            bg: {
-              classes: '',
+        classes: 'bg-fill-width',
+        overlay: '',
+      },
+      direction: 'row wrap',
+      horizontal: 'center',
+      vertical: 'center',
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: '20',
+        lg: '20',
+      },
+      animate: {
+        from: {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
+      },
+      type: 'layout-builder',
+      elements: [
+        {
+          row: {
+            xs: 12,
+            sm: '4',
+            md: '4',
+            lg: '4',
+          },
+          direction: 'column',
+          horizontal: 'flex-start',
+          vertical: 'flex-start',
+          layoutAlign: 'start start',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
             },
-            sliders: {
-              params: {
-                slidesPerView: 1,
-                spaceBetween: 0,
-                pagination: false,
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'img',
+              hostClasses: 'text-center',
+              classes: '',
+              src: '/assets/images/furniture/01.png',
+              alt: 'alt',
+              style: {
+                width: 'auto',
+                height: 'auto',
+                opacity: '1',
+                borderRadius: 0,
+                boxShadow: 'none',
+                aspectRatio: 'auto',
+                objectFit: 'initial',
+              },
+            },
+            {
+              style: 'none',
+              classes: 'mat-display-2 bold',
+              typed: {
+                enable: false,
+                config: {
+                  typeSpeed: 120,
+                },
+                strings: [
+                  {
+                    label: 'web builder',
+                  },
+                ],
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              type: 'title',
+              label: 'Stockholm',
+            },
+            {
+              type: 'text',
+              spacer: 'none',
+              body: '<p style="display: inline-block; margin-bottom: 0px; font-size: 26px; width: auto; height: auto; opacity: 1; line-height: normal; color: rgb(125, 125, 125);">$ 49.00 USD</p>',
+            },
+            {
+              color: 'primary',
+              label: '加入购物车<br>',
+              mode: 'raised',
+              href: '/node/1',
+              target: '_blank',
+              icon: {
+                svg: '',
               },
               classes: '',
+              pill: true,
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              type: 'btn',
+            },
+          ],
+        },
+        {
+          row: {
+            xs: 12,
+            sm: '4',
+            md: '4',
+            lg: '4',
+          },
+          direction: 'column',
+          horizontal: 'flex-start',
+          vertical: 'flex-start',
+          layoutAlign: 'start start',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'img',
+              hostClasses: 'text-center',
+              classes: '',
+              src: '/assets/images/furniture/02.png',
+              alt: 'alt',
+              style: {
+                width: 'auto',
+                height: 'auto',
+                opacity: 1,
+                borderRadius: 0,
+                boxShadow: 'none',
+                aspectRatio: 'auto',
+                objectFit: 'initial',
+              },
+            },
+            {
+              style: 'none',
+              classes: 'mat-display-2 bold',
+              typed: {
+                enable: false,
+                config: {
+                  typeSpeed: 120,
+                },
+                strings: [
+                  {
+                    label: 'web builder',
+                  },
+                ],
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              type: 'title',
+              label: 'Oxyd',
+            },
+            {
+              type: 'text',
+              spacer: 'none',
+              body: '<p style="display: inline-block; margin-bottom: 0px; font-size: 26px; width: auto; height: auto; opacity: 1; line-height: normal; color: rgb(125, 125, 125);">$ 49.00 USD</p>',
+            },
+            {
+              color: 'primary',
+              label: '加入购物车<br>',
+              mode: 'raised',
+              href: '/node/1',
+              target: '_blank',
+              icon: {
+                svg: '',
+              },
+              classes: '',
+              pill: true,
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              type: 'btn',
+            },
+          ],
+        },
+        {
+          row: {
+            xs: 12,
+            sm: '4',
+            md: '4',
+            lg: '4',
+          },
+          direction: 'column',
+          horizontal: 'flex-start',
+          vertical: 'flex-start',
+          layoutAlign: 'start start',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'img',
+              hostClasses: 'text-center',
+              classes: '',
+              src: '/assets/images/furniture/03.png',
+              alt: 'alt',
+              style: {
+                width: 'auto',
+                height: 'auto',
+                opacity: '1',
+                borderRadius: 0,
+                boxShadow: 'none',
+                aspectRatio: 'auto',
+                objectFit: 'initial',
+              },
+            },
+            {
+              style: 'none',
+              classes: 'mat-display-2 bold',
+              typed: {
+                enable: false,
+                config: {
+                  typeSpeed: 120,
+                },
+                strings: [
+                  {
+                    label: 'web builder',
+                  },
+                ],
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              type: 'title',
+              label:
+                '<p style="display: inline-block; margin-bottom: 0px;">Danderyd</p>',
+            },
+            {
+              type: 'text',
+              spacer: 'none',
+              body: '<p style="display: inline-block; margin-bottom: 0px; font-size: 26px; width: auto; height: auto; opacity: 1; line-height: normal; color: rgb(125, 125, 125);">$ 49.00 USD</p>',
+            },
+            {
+              color: 'primary',
+              label: '加入购物车<br>',
+              mode: 'raised',
+              href: '/node/1',
+              target: '_blank',
+              icon: {
+                svg: '',
+              },
+              classes: '',
+              pill: true,
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              type: 'btn',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'layout-builder',
+      spacer: 'md',
+      fullWidth: false,
+      bg: {
+        classes: 'bg-fill-width',
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
+      elements: [
+        {
+          row: {
+            xs: 12,
+            sm: 12,
+            md: '12',
+            lg: '12',
+          },
+          direction: 'column',
+          horizontal: 'center',
+          vertical: 'center',
+          layoutAlign: 'center center',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'btn',
+              href: '/node/1',
+              target: '_blank',
+              label:
+                '<p style="display: inline-block; margin-bottom: 0px;">浏览所有<br></p>',
+              mode: 'raised',
+              color: 'primary',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      fullWidth: false,
+      spacer: 'md',
+      bgClasses: 'bg-shadow bg-fill-width',
+      overlay: '',
+      classes: '',
+      id: '',
+      bg: {
+        img: {
+          src: '',
+          classes: 'object-fit',
+          alt: '',
+        },
+        classes: 'bg-shadow bg-fill-width',
+        overlay: '',
+      },
+      direction: 'column',
+      horizontal: 'center',
+      vertical: 'center',
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
+      animate: {
+        from: {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
+      },
+      type: 'layout-builder',
+      elements: [
+        {
+          row: {
+            xs: 12,
+            sm: 12,
+            md: '12',
+            lg: '12',
+          },
+          direction: 'column',
+          horizontal: 'center',
+          vertical: 'center',
+          layoutAlign: 'center center',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              style: 'none',
+              classes: 'mat-display-2 bold',
+              typed: {
+                enable: false,
+                config: {
+                  typeSpeed: 120,
+                },
+                strings: [
+                  {
+                    label: 'web builder',
+                  },
+                ],
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              type: 'title',
+              label:
+                '<p style="display: inline-block; margin-bottom: 0px;">Decorate by room&nbsp;</p>',
+            },
+            {
+              type: 'text',
+              spacer: 'none',
+              body: '<p style="display: inline-block; margin-bottom: 0px;">Decorate your facorite room with you products</p>',
+            },
+          ],
+        },
+        {
+          row: {
+            xs: 12,
+            sm: 12,
+            md: '12',
+            lg: '12',
+          },
+          direction: 'column',
+          horizontal: 'center',
+          vertical: 'center',
+          layoutAlign: 'center center',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'layout-builder',
+              spacer: 'md',
+              fullWidth: false,
+              bg: {
+                classes: 'bg-fill-width',
+              },
+              layoutAlign: 'center center',
+              gap: {
+                xs: 8,
+                sm: 16,
+                md: 32,
+                lg: 48,
+              },
               elements: [
                 {
-                  type: 'text',
-                  spacer: 'xl',
-                  title: {
-                    label: '组件驱动开发',
-                    style: 'style-v1',
-                    classes: 'mat-display-2 bold',
+                  classes: '',
+                  row: {
+                    xs: 12,
+                    sm: 12,
+                    md: 6,
+                    lg: 6,
                   },
-                  classes: 'xy-center',
-                  bg: {
-                    classes: 'bg-center overlay overlay-80',
-                    img: {
-                      src: '/assets/images/16-9/business-14.jpeg',
-                      mobile: '/assets/images/mobile/mobile-03.jpg',
-                    },
-                  },
-                  body: '<p style="font-size:18px">Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"</p>',
-                  actionsAlign: 'center center',
-                  actions: [
+                  direction: 'column',
+                  layoutAlign: 'start start',
+                  elements: [
                     {
-                      type: 'btn',
-                      mode: 'raised',
-                      color: 'primary',
-                      href: '#',
-                      label: '立刻体验',
+                      type: 'img',
+                      hostClasses: 'text-center',
+                      classes: '',
+                      src: '/assets/images/furniture/04.png',
+                      alt: 'alt',
+                      style: {
+                        width: 'auto',
+                        height: 'auto',
+                        opacity: 1,
+                        borderRadius: 0,
+                        boxShadow: 'none',
+                        aspectRatio: 'auto',
+                        objectFit: 'initial',
+                      },
                     },
                   ],
                 },
                 {
-                  type: 'text',
-                  title: {
-                    label: '组件展示和测试',
-                    style: 'style-v1',
-                    classes: 'mat-display-2 bold',
+                  classes: '',
+                  row: {
+                    xs: 12,
+                    sm: 12,
+                    md: 6,
+                    lg: 6,
                   },
-                  spacer: 'xl',
-                  classes: 'xy-center text-light',
-                  bg: {
-                    classes: 'bg-shadow  overlay overlay-80',
-                    img: {
-                      src: '/assets/images/16-9/business-15.jpeg',
-                      mobile: '/assets/images/mobile/mobile-04.jpg',
+                  direction: 'column',
+                  layoutAlign: 'start start',
+                  elements: [
+                    {
+                      type: 'title',
+                      label: 'Living Room set<br>',
+                      style: 'style-v4',
+                      classes: 'mat-display-2 bold',
                     },
-                  },
-                  body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。',
-                  actionsAlign: 'center center',
-                  actions: [
+                    {
+                      type: 'text',
+                      spacer: 'none',
+                      body: '<p style="display: inline-block; margin-bottom: 0px;">The room you spend the most time relaxing is yourliving room.Combine modern style with comfort tomake your living room more comfortable.</p>',
+                    },
                     {
                       type: 'btn',
+                      href: '/node/1',
+                      target: '_blank',
+                      label: '了解更多',
                       mode: 'raised',
                       color: 'primary',
-                      href: '#',
-                      label: '立刻体验',
-                    },
-                  ],
-                },
-                {
-                  type: 'text',
-                  title: {
-                    label: '文档化',
-                    style: 'style-v1',
-                    classes: 'mat-display-2 bold',
-                  },
-                  spacer: 'xl',
-                  classes: 'xy-center text-light',
-                  bg: {
-                    classes: 'bg-shadow  overlay overlay-80',
-                    img: {
-                      src: '/assets/images/16-9/business-15.jpeg',
-                      mobile: '/assets/images/mobile/mobile-04.jpg',
-                    },
-                  },
-                  body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。',
-                  actionsAlign: 'center center',
-                  actions: [
-                    {
-                      type: 'btn',
-                      mode: 'raised',
-                      color: 'primary',
-                      href: '#',
-                      label: '立刻体验',
                     },
                   ],
                 },
               ],
             },
+          ],
+        },
+        {
+          row: {
+            xs: 12,
+            sm: 12,
+            md: '12',
+            lg: '12',
           },
-          {
-            sliderClasses: 'slider-center',
-            type: 'showcase-1v4',
-            spacer: 'lg',
-            bg: {
-              classes: 'bg- bg-fill-width',
-            },
-            row: 3,
-            classes: '',
-            text: {
-              title: {
-                label:
-                  '使用 <strong class="text-primary">Storybook</strong> 开发组件',
-                style: 'style-v1',
-                classes: 'mat-display-2 bold',
-              },
-              body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
-            },
-            elements: [
-              {
-                type: 'card-1v5',
-                title: '初始化 ',
-                body: '使用 Npm 安装初始化 Storybook，在配置文件中定义组件库的入口和存放的目录。',
-                more: {
-                  href: '/node/1',
-                  target: '_blank',
-                  label: '查看详情',
-                },
-                footer: {
-                  label: 'Step 01.',
-                  icon: {
-                    svg: 'chevron-double-right',
-                  },
-                },
-              },
-              {
-                type: 'card-1v5',
-                title: '创建和编写组件Story',
-                body: '在组件库中创建stories，导入要展示的组件，使用装饰器添加样式、数据和事件。',
-                more: {
-                  href: '/node/1',
-                  target: '_blank',
-                  label: '查看详情',
-                },
-                footer: {
-                  label: 'Step 02.',
-                  icon: {
-                    svg: 'chevron-double-right',
-                  },
-                },
-              },
-              {
-                type: 'card-1v5',
-                title: '启动',
-                body: '在浏览器中打开预览页面，查看和交互组件的各个示例和文档。',
-                more: {
-                  href: '/node/1',
-                  target: '_blank',
-                  label: '查看详情',
-                },
-                footer: {
-                  label: 'Step 03.',
-                  icon: {
-                    svg: 'check-all',
-                  },
-                },
-              },
-            ],
-            actions: [
-              {
-                type: 'btn',
-                mode: 'raised',
-                color: 'primary',
-                href: '#',
-                label: '开始',
-              },
-            ],
-          },
-          {
-            sliderClasses: 'slider-center',
-            type: 'showcase-3v4',
-            title: {
-              label: '为什么你将会喜欢这个前端框架？',
-              style: 'style-v1',
-            },
-            bg: {
-              classes: 'bg-light bg-fill-width',
-            },
-            classes: '',
+          direction: 'column',
+          horizontal: 'center',
+          vertical: 'center',
+          layoutAlign: 'center center',
+          bg: {
             img: {
-              src: '/assets/images/1-1/business-02.png',
-              alt: 'OUR FEATURES',
+              src: '',
+              classes: 'object-fit',
+              alt: '',
             },
-            elements: [
-              {
-                type: 'box',
-                style: 'style-v7',
-                icon: {
-                  name: 'verified_user',
-                },
-                title: {
-                  href: '/',
-                  label: '组件编辑',
-                },
-                content: '通过简单的管理界面对复杂的可视化编辑',
-                more: {
-                  href: '#',
-                  label: '更多',
-                },
-              },
-              {
-                type: 'box',
-                style: 'style-v7',
-                icon: {
-                  name: 'fingerprint',
-                },
-                title: {
-                  href: '/',
-                  label: '多语言',
-                },
-                content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                more: {
-                  href: '#',
-                  label: '更多',
-                },
-              },
-              {
-                type: 'box',
-                style: 'style-v7',
-                icon: {
-                  name: 'favorite',
-                },
-                title: {
-                  href: '/',
-                  label: '高性能',
-                },
-                content:
-                  '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                more: {
-                  href: '#',
-                  label: '更多',
-                },
-              },
-              {
-                type: 'box',
-                style: 'style-v7',
-                icon: {
-                  name: 'android',
-                },
-                title: {
-                  href: '/',
-                  label: '易用的编辑器',
-                },
-                content:
-                  '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                more: {
-                  href: '#',
-                  label: '更多',
-                },
-              },
-            ],
+            overlay: '',
+            classes: 'bg-fill-width',
           },
-          {
-            sliderClasses: 'slider-center',
-            type: 'showcase-3v5',
-            id: '',
-            bg: {
-              classes: 'bg-shadow bg-fill-width',
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
             },
-            classes: '',
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'layout-builder',
+              spacer: 'md',
+              fullWidth: false,
+              bg: {
+                classes: 'bg-fill-width',
+              },
+              layoutAlign: 'center center',
+              gap: {
+                xs: 8,
+                sm: 16,
+                md: 32,
+                lg: 48,
+              },
+              elements: [
+                {
+                  classes: '',
+                  row: {
+                    xs: 12,
+                    sm: 12,
+                    md: 6,
+                    lg: 6,
+                  },
+                  direction: 'column',
+                  layoutAlign: 'start start',
+                  elements: [
+                    {
+                      type: 'title',
+                      label:
+                        '<p style="display: inline-block; margin-bottom: 0px;">Bedroom Set<br></p>',
+                      style: 'style-v4',
+                      classes: 'mat-display-2 bold',
+                    },
+                    {
+                      type: 'text',
+                      spacer: 'none',
+                      body: '<p style="display: inline-block; margin-bottom: 0px;">The room you spend the most time resting is yourbedroom.Combine modern style with comfort tomake your bedroom more comfortable.</p>',
+                    },
+                    {
+                      type: 'btn',
+                      href: '/node/1',
+                      target: '_blank',
+                      label: '了解更多',
+                      mode: 'raised',
+                      color: 'primary',
+                    },
+                  ],
+                },
+                {
+                  classes: '',
+                  row: {
+                    xs: 12,
+                    sm: 12,
+                    md: 6,
+                    lg: 6,
+                  },
+                  direction: 'column',
+                  layoutAlign: 'start start',
+                  elements: [
+                    {
+                      type: 'img',
+                      hostClasses: 'text-center',
+                      classes: '',
+                      src: '/assets/images/furniture/05.png',
+                      alt: 'alt',
+                      style: {
+                        width: 'auto',
+                        height: 'auto',
+                        opacity: '1',
+                        borderRadius: 0,
+                        boxShadow: 'none',
+                        aspectRatio: 'auto',
+                        objectFit: 'initial',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          row: {
+            xs: 12,
+            sm: 12,
+            md: '12',
+            lg: '12',
+          },
+          direction: 'column',
+          horizontal: 'center',
+          vertical: 'center',
+          layoutAlign: 'center center',
+          bg: {
             img: {
-              src: '/assets/images/illustration/27.png',
-              alt: 'OUR FEATURES',
+              src: '',
+              classes: 'object-fit',
+              alt: '',
             },
-            elements: [
-              {
-                type: 'box',
-                style: 'style-v8',
-                icon: {
-                  name: 'verified_user',
-                },
-                title: {
-                  href: '/',
-                  label: '组件编辑',
-                },
-                content: '通过简单的管理界面对复杂的可视化编辑',
-                more: {},
-              },
-              {
-                type: 'box',
-                style: 'style-v8',
-                icon: {
-                  name: 'favorite',
-                },
-                title: {
-                  href: '/',
-                  label: '多语言',
-                },
-                content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                more: {},
-              },
-              {
-                type: 'box',
-                style: 'style-v8',
-                icon: {
-                  name: 'android',
-                },
-                title: {
-                  href: '/',
-                  label: '高性能',
-                },
-                content:
-                  '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                more: {},
-              },
-              {
-                type: 'box',
-                style: 'style-v8',
-                icon: {
-                  name: 'devices',
-                },
-                title: {
-                  href: '/',
-                  label: '易用的编辑器',
-                },
-                content:
-                  '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                more: {},
-              },
-              {
-                icon: {
-                  name: 'border_all',
-                },
-                style: 'style-v8',
-                title: {
-                  href: '#',
-                  label: '更有弹性',
-                },
-                content:
-                  '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
-              },
-              {
-                icon: {
-                  name: 'functions',
-                },
-                style: 'style-v8',
-                title: {
-                  href: '#',
-                  label: '安全性',
-                },
-                content:
-                  '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
-              },
-            ],
+            overlay: '',
+            classes: 'bg-fill-width',
           },
-          {
-            sliderClasses: 'slider-center',
-            type: 'showcase-3v7',
-            bg: {
-              classes: 'bg-shadow bg-fill-width',
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
             },
-            classes: '',
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'layout-builder',
+              spacer: 'md',
+              fullWidth: false,
+              bg: {
+                classes: 'bg-fill-width',
+              },
+              layoutAlign: 'center center',
+              gap: {
+                xs: 8,
+                sm: 16,
+                md: 32,
+                lg: 48,
+              },
+              elements: [
+                {
+                  classes: '',
+                  row: {
+                    xs: 12,
+                    sm: 12,
+                    md: 6,
+                    lg: 6,
+                  },
+                  direction: 'column',
+                  layoutAlign: 'start start',
+                  elements: [
+                    {
+                      type: 'img',
+                      hostClasses: 'text-center',
+                      classes: '',
+                      src: '/assets/images/furniture/06.png',
+                      alt: 'alt',
+                      style: {
+                        width: 'auto',
+                        height: 'auto',
+                        opacity: '1',
+                        borderRadius: 0,
+                        boxShadow: 'none',
+                        aspectRatio: 'auto',
+                        objectFit: 'initial',
+                      },
+                    },
+                  ],
+                },
+                {
+                  classes: '',
+                  row: {
+                    xs: 12,
+                    sm: 12,
+                    md: 6,
+                    lg: 6,
+                  },
+                  direction: 'column',
+                  layoutAlign: 'start start',
+                  elements: [
+                    {
+                      type: 'title',
+                      label:
+                        '<p style="display: inline-block; margin-bottom: 0px;">Kitchen Set<br></p>',
+                      style: 'style-v4',
+                      classes: 'mat-display-2 bold',
+                    },
+                    {
+                      type: 'text',
+                      spacer: 'none',
+                      body: '<div>The room you spend the most time cooking is yourkitchen.Combine modern style with convenience tomake your kitchen more comfortable.</div>',
+                    },
+                    {
+                      type: 'btn',
+                      href: '/node/1',
+                      target: '_blank',
+                      label: '了解更多',
+                      mode: 'raised',
+                      color: 'primary',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'text',
+      title: {
+        label: 'Shop by Category',
+        style: 'style-v1',
+        classes: 'mat-display-1 bold',
+      },
+      bg: {
+        classes: 'bg- bg-fill-width',
+      },
+      body: 'Find for your favorite products based on the categories',
+      classes: 'text-center',
+    },
+    {
+      fullWidth: false,
+      spacer: 'md',
+      bgClasses: 'bg-fill-width',
+      overlay: '',
+      classes: '',
+      id: '',
+      bg: {
+        img: {
+          src: '',
+          classes: 'object-fit',
+          alt: '',
+        },
+        classes: 'bg-fill-width',
+        overlay: '',
+      },
+      direction: 'row wrap',
+      horizontal: 'center',
+      vertical: 'center',
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
+      animate: {
+        from: {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
+      },
+      type: 'layout-builder',
+      elements: [
+        {
+          row: {
+            xs: 12,
+            sm: '4',
+            md: '4',
+            lg: '4',
+          },
+          direction: 'column',
+          horizontal: 'flex-start',
+          vertical: 'flex-start',
+          layoutAlign: 'start start',
+          bg: {
             img: {
-              src: '/assets/images/illustration/27.png',
-              alt: 'OUR FEATURES',
+              src: '',
+              classes: 'object-fit',
+              alt: '',
             },
-            left: [
-              {
-                type: 'box',
-                style: 'style-v10',
-                icon: {
-                  name: 'verified_user',
-                },
-                title: {
-                  href: '/',
-                  label: '组件编辑',
-                },
-                content: '通过简单的管理界面对复杂的可视化编辑',
-                more: {},
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'img',
+              hostClasses: 'text-center',
+              classes: '',
+              src: '/assets/images/furniture/08.png',
+              alt: 'alt',
+              style: {
+                width: 'auto',
+                height: 'auto',
+                opacity: '1',
+                borderRadius: 0,
+                boxShadow: 'none',
+                aspectRatio: 'auto',
+                objectFit: 'initial',
               },
-              {
-                type: 'box',
-                style: 'style-v10',
-                icon: {
-                  name: 'favorite',
-                },
-                title: {
-                  href: '/',
-                  label: '多语言',
-                },
-                content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                more: {},
+            },
+          ],
+        },
+        {
+          row: {
+            xs: 12,
+            sm: '4',
+            md: '4',
+            lg: '4',
+          },
+          direction: 'column',
+          horizontal: 'flex-start',
+          vertical: 'flex-start',
+          layoutAlign: 'start start',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'img',
+              hostClasses: 'text-center',
+              classes: '',
+              src: '/assets/images/furniture/08.png',
+              alt: 'alt',
+              style: {
+                width: 'auto',
+                height: 'auto',
+                opacity: '1',
+                borderRadius: 0,
+                boxShadow: 'none',
+                aspectRatio: 'auto',
+                objectFit: 'initial',
               },
-              {
-                type: 'box',
-                style: 'style-v10',
-                icon: {
-                  name: 'android',
-                },
-                title: {
-                  href: '/',
-                  label: '高性能',
-                },
-                content:
-                  '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                more: {},
+            },
+          ],
+        },
+        {
+          row: {
+            xs: 12,
+            sm: '4',
+            md: '4',
+            lg: '4',
+          },
+          direction: 'column',
+          horizontal: 'flex-start',
+          vertical: 'flex-start',
+          layoutAlign: 'start start',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          elements: [
+            {
+              type: 'img',
+              hostClasses: 'text-center',
+              classes: '',
+              src: '/assets/images/furniture/08.png',
+              alt: 'alt',
+              style: {
+                width: 'auto',
+                height: 'auto',
+                opacity: '1',
+                borderRadius: 0,
+                boxShadow: 'none',
+                aspectRatio: 'auto',
+                objectFit: 'initial',
               },
-            ],
-            right: [
-              {
-                type: 'box',
-                style: 'style-v8',
-                icon: {
-                  name: 'devices',
-                },
-                title: {
-                  href: '/',
-                  label: '易用的编辑器',
-                },
-                content:
-                  '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                more: {},
+            },
+          ],
+        },
+      ],
+    },
+    {
+      spacer: 'lg',
+      type: 'carousel-1v1',
+      title: {
+        label: '我们的博客',
+        icon: 'email',
+        style: 'style-v2',
+        classes: 'mat-display-1',
+      },
+      classes: '',
+      bg: {
+        classes: 'bg-white bg-fill-width',
+      },
+      sliders: {
+        type: 'swiper',
+        params: {
+          navigation: false,
+          breakpoints: {
+            '600': {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            '960': {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+          },
+        },
+        classes: '',
+        elements: [
+          {
+            type: 'card',
+            title: '高性能',
+            subTitle: 'High Performance',
+            classes: 'card-no-shadow',
+            body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+            feature: {
+              fullIcon: 'fullscreen',
+              openIcon: 'open_in_new',
+              link: '#',
+              ratios: 'media-4-3',
+              img: {
+                classes: 'object-fit',
+                src: '/assets/images/cases/porto1.jpg',
+                alt: 'alt',
               },
-              {
-                icon: {
-                  name: 'border_all',
-                },
-                style: 'style-v8',
-                title: {
-                  href: '#',
-                  label: '更有弹性',
-                },
-                content:
-                  '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
+            },
+            img: {
+              style: {
+                width: 'auto',
+                height: 'auto',
+                opacity: 1,
+                borderRadius: 0,
+                boxShadow: 'none',
+                aspectRatio: 'auto',
+                objectFit: 'initial',
               },
-              {
-                icon: {
-                  name: 'functions',
-                },
-                style: 'style-v8',
-                title: {
-                  href: '#',
-                  label: '安全性',
-                },
-                content:
-                  '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
-              },
-            ],
+              src: '/assets/images/furniture/10.png',
+            },
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul>',
-            title: {
-              label:
-                '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
-              style: 'style-v1',
-              classes: 'mat-display-2 bold',
-            },
-            bg: {
-              classes: 'bg- bg-fill-width',
-            },
-            actionsAlign: 'center center',
-            actions: [
-              {
-                type: 'btn',
-                mode: 'raised',
-                color: 'primary',
-                href: '#',
-                label: '开始',
+            type: 'card',
+            feature: {
+              fullIcon: 'fullscreen',
+              openIcon: 'open_in_new',
+              link: '#',
+              ratios: 'media-4-3',
+              img: {
+                classes: 'object-fit',
+                src: '/assets/images/cases/porto7.jpg',
+                alt: 'alt',
               },
-              {
-                type: 'closeDialog',
-                label: 'Ok',
+            },
+            title: '易用的编辑器',
+            subTitle: 'Simplicity for Editors',
+            classes: 'card-no-shadow',
+            body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+            img: {
+              style: {
+                width: 'auto',
+                height: 'auto',
+                opacity: 1,
+                borderRadius: 0,
+                boxShadow: 'none',
+                aspectRatio: 'auto',
+                objectFit: 'initial',
               },
-            ],
+              src: '/assets/images/furniture/11.png',
+            },
+          },
+          {
+            type: 'card',
+            feature: {
+              fullIcon: 'fullscreen',
+              openIcon: 'open_in_new',
+              link: '#',
+              ratios: 'media-4-3',
+              img: {
+                classes: 'object-fit',
+                src: '/assets/images/cases/porto2.jpg',
+                alt: 'alt',
+              },
+            },
+            title: '多语言',
+            subTitle: 'Leader in Multilingual',
+            classes: 'card-no-shadow',
+            body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；',
+            img: {
+              style: {
+                width: 'auto',
+                height: 'auto',
+                opacity: 1,
+                borderRadius: 0,
+                boxShadow: 'none',
+                aspectRatio: 'auto',
+                objectFit: 'initial',
+              },
+              src: '/assets/images/furniture/12.png',
+            },
           },
         ],
       },
