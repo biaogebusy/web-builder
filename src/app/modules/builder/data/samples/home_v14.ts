@@ -197,14 +197,14 @@ export const home_v14 = {
     {
       type: 'text',
       title: {
-        label: '新旅居人士',
+        label: 'New Arrivals',
         style: 'style-v1',
         classes: 'mat-display-1 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',
       },
-      body: '<p style="display: inline-block; margin-bottom: 0px;">我们提供了最新的系列</p>',
+      body: '<p style="display: inline-block; margin-bottom: 0px;">Look at the latest collection that we offer</p>',
       classes: 'text-center',
       actionsAlign: 'center center',
     },
@@ -777,9 +777,9 @@ export const home_v14 = {
     {
       fullWidth: false,
       spacer: 'md',
-      bgClasses: 'bg-shadow bg-fill-width',
+      bgClasses: 'bg-grey-800 bg-fill-width',
       overlay: '',
-      classes: '',
+      classes: 'text-light',
       id: '',
       bg: {
         img: {
@@ -787,7 +787,7 @@ export const home_v14 = {
           classes: 'object-fit',
           alt: '',
         },
-        classes: 'bg-shadow bg-fill-width',
+        classes: 'bg-grey-800 bg-fill-width',
         overlay: '',
       },
       direction: 'column',
@@ -1653,10 +1653,9 @@ export const home_v14 = {
         elements: [
           {
             type: 'card',
-            title: '高性能',
-            subTitle: 'High Performance',
+            title: '5 ways to make your bedroom cozy',
+            subTitle: 'Augus1 28.2023',
             classes: 'card-no-shadow',
-            body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
             feature: {
               fullIcon: 'fullscreen',
               openIcon: 'open_in_new',
@@ -1712,10 +1711,9 @@ export const home_v14 = {
                 },
               },
             },
-            title: '易用的编辑器',
-            subTitle: 'Simplicity for Editors',
+            title: 'Useful items to decorate your home',
+            subTitle: 'July 15, 2023',
             classes: 'card-no-shadow',
-            body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
             img: {
               style: {
                 width: 'auto',
@@ -1751,10 +1749,9 @@ export const home_v14 = {
                 },
               },
             },
-            title: '多语言',
-            subTitle: 'Leader in Multilingual',
+            title: 'Interview with interior designer John Doe',
+            subTitle: 'October 30, 2023',
             classes: 'card-no-shadow',
-            body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；',
             img: {
               style: {
                 width: 'auto',
