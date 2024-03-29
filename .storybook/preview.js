@@ -21,6 +21,7 @@ export const parameters = {
           "本地环境",
           "页面渲染流程",
           "开发组件",
+          "新建主题",
           "组件主题",
           "Drupal 配置",
           "Nginx 配置",
