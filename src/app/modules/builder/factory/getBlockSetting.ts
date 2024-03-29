@@ -1,5 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getAnimate } from './getAnimate';
+import { getBgClasses, getOverlay } from './getCommon';
 
 export function getBlockSetting(layout: any): FormlyFieldConfig[] {
   let responsive: FormlyFieldConfig[] = [
@@ -244,7 +245,6 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
             },
             hideExpression: '!model.src',
           },
-
           {
             key: 'alt',
             type: 'input',
@@ -262,38 +262,17 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
         defaultValue: layout?.bg?.overlay || '',
         templateOptions: {
           label: '蒙版不透明度',
-          options: [
-            {
-              label: '无',
-              value: ' ',
-            },
-            {
-              label: '0.8',
-              value: 'overlay overlay-80',
-            },
-            {
-              label: '0.6',
-              value: 'overlay overlay-60',
-            },
-            {
-              label: '0.4',
-              value: 'overlay overlay-40',
-            },
-            {
-              label: '0.2',
-              value: 'overlay overlay-20',
-            },
-          ],
+          options: getOverlay,
         },
       },
       {
         key: 'classes',
-        type: 'input',
+        type: 'select',
         defaultValue: layout?.bg?.classes || 'bg-fill-width',
         templateOptions: {
-          label: 'Bg Class',
+          label: '预设背景色',
+          options: getBgClasses,
         },
-        hideExpression: '!model.src',
       },
     ],
   };
@@ -308,7 +287,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           className: 'width-100',
           defaultValue: layout?.classes || '',
           templateOptions: {
-            label: 'Classes',
+            label: '自定义Classes',
           },
         },
         {

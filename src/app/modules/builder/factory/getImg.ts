@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { getAspectRatio, getObjectFix } from './getCommon';
 
 export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
   const fields = [
@@ -47,44 +48,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
                   defaultValue: widget?.style?.aspectRatio || 'auto',
                   templateOptions: {
                     label: '宽高比',
-                    options: [
-                      {
-                        label: 'auto',
-                        value: 'auto',
-                      },
-                      {
-                        label: '1:1',
-                        value: '1 / 1',
-                      },
-                      {
-                        label: '1:2',
-                        value: '1 / 2',
-                      },
-                      {
-                        label: '2:1',
-                        value: '2 / 1',
-                      },
-                      {
-                        label: '2:3',
-                        value: '2 / 3',
-                      },
-                      {
-                        label: '3:2',
-                        value: '3 / 2',
-                      },
-                      {
-                        label: '4:3',
-                        value: '4 / 3',
-                      },
-                      {
-                        label: '9:16',
-                        value: '9 / 16',
-                      },
-                      {
-                        label: '16:9',
-                        value: '16 / 9',
-                      },
-                    ],
+                    options: getAspectRatio,
                   },
                 },
                 {
@@ -94,48 +58,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
                   defaultValue: widget?.style?.objectFit || 'initial',
                   templateOptions: {
                     label: '填充方式',
-                    options: [
-                      {
-                        label: 'initial',
-                        value: 'initial',
-                      },
-                      {
-                        label: 'contain',
-                        value: 'contain',
-                      },
-                      {
-                        label: 'cover',
-                        value: 'cover',
-                      },
-                      {
-                        label: 'fill',
-                        value: 'fill',
-                      },
-                      {
-                        label: 'none',
-                        value: 'none',
-                      },
-                      {
-                        label: 'scale-down',
-                        value: 'scale-down',
-                      },
-                      {
-                        label: 'inherit',
-                        value: 'inherit',
-                      },
-                      {
-                        label: 'revert',
-                        value: 'revert',
-                      },
-                      {
-                        label: 'revert-layer',
-                        value: 'revert-layer',
-                      },
-                      {
-                        label: 'unset',
-                        value: 'unset',
-                      },
-                    ],
+                    options: getObjectFix,
                   },
                 },
               ],
