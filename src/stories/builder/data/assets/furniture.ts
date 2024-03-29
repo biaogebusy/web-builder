@@ -12,6 +12,13 @@ export const furniture = [
     ...featureBox,
     img: {
       classes: 'object-contain',
+      src: '/assets/images/furniture/spacejoy.jpg',
+    },
+  },
+  {
+    ...featureBox,
+    img: {
+      classes: 'object-contain',
       src: '/assets/images/furniture/01.png',
     },
   },

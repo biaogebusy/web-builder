@@ -1,4 +1,4 @@
-<div class="layout-builder position-relative" *ngIf="content">
+<div class="layout-builder position-relative" *ngIf="content" [ngClass]="content.classes">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>

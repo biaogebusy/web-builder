@@ -68,13 +68,6 @@ export const images_showcases = [
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/showcase/bg2.jpeg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-contain',
       src: '/assets/images/showcase/blog1-large.jpeg',
     },
   },
