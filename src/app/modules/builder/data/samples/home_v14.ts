@@ -4,7 +4,7 @@ export const home_v14 = {
   body: [
     {
       fullWidth: false,
-      spacer: 'md',
+      spacer: 'xl',
       bgClasses: 'bg-fill-width',
       overlay: 'overlay overlay-40',
       classes: 'text-light',
@@ -84,10 +84,10 @@ export const home_v14 = {
           animate: {
             from: {
               x: 0,
-              y: 0,
+              y: '100',
               rotation: 0,
               scale: 1,
-              opacity: 1,
+              opacity: 0,
               delay: 0,
               duration: 1,
               ease: 'none',
@@ -100,6 +100,7 @@ export const home_v14 = {
               start: 'top 90%',
               end: 'top 40%',
             },
+            enable: true,
           },
           elements: [
             {
@@ -113,7 +114,7 @@ export const home_v14 = {
             },
             {
               style: 'none',
-              classes: 'mat-display-4 bold',
+              classes: 'mat-display-4 bold text-left',
               typed: {
                 enable: false,
                 config: {
@@ -195,17 +196,48 @@ export const home_v14 = {
       ],
     },
     {
+      spacer: 'md',
+      bgClasses: 'bg- bg-fill-width',
+      overlay: '',
+      classes: 'text-center',
+      id: '',
+      bg: {
+        img: {
+          src: '',
+          classes: 'object-fit',
+          alt: '',
+        },
+        classes: 'bg- bg-fill-width',
+        overlay: '',
+      },
+      animate: {
+        from: {
+          x: 0,
+          y: '100',
+          rotation: 0,
+          scale: 1,
+          opacity: 0,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
+        enable: true,
+      },
       type: 'text',
       title: {
         label: 'New Arrivals',
         style: 'style-v1',
         classes: 'mat-display-1 bold',
       },
-      bg: {
-        classes: 'bg- bg-fill-width',
-      },
       body: '<p style="display: inline-block; margin-bottom: 0px;">Look at the latest collection that we offer</p>',
-      classes: 'text-center',
       actionsAlign: 'center center',
     },
     {
@@ -290,10 +322,10 @@ export const home_v14 = {
           animate: {
             from: {
               x: 0,
-              y: 0,
+              y: '100',
               rotation: 0,
               scale: 1,
-              opacity: 1,
+              opacity: 0,
               delay: 0,
               duration: 1,
               ease: 'none',
@@ -306,6 +338,7 @@ export const home_v14 = {
               start: 'top 90%',
               end: 'top 40%',
             },
+            enable: true,
           },
           elements: [
             {
@@ -435,11 +468,11 @@ export const home_v14 = {
           animate: {
             from: {
               x: 0,
-              y: 0,
+              y: '100',
               rotation: 0,
               scale: 1,
-              opacity: 1,
-              delay: 0,
+              opacity: 0,
+              delay: '0.5',
               duration: 1,
               ease: 'none',
             },
@@ -451,6 +484,7 @@ export const home_v14 = {
               start: 'top 90%',
               end: 'top 40%',
             },
+            enable: true,
           },
           elements: [
             {
@@ -580,11 +614,11 @@ export const home_v14 = {
           animate: {
             from: {
               x: 0,
-              y: 0,
+              y: '100',
               rotation: 0,
               scale: 1,
-              opacity: 1,
-              delay: 0,
+              opacity: 0,
+              delay: '1',
               duration: 1,
               ease: 'none',
             },
@@ -596,6 +630,7 @@ export const home_v14 = {
               start: 'top 90%',
               end: 'top 40%',
             },
+            enable: true,
           },
           elements: [
             {
@@ -972,13 +1007,60 @@ export const home_v14 = {
           },
           elements: [
             {
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+              },
+              direction: 'row wrap',
+              horizontal: 'center',
+              vertical: 'center',
+              layoutAlign: 'center center',
+              bg: {
+                img: {
+                  src: '',
+                  classes: 'object-fit',
+                  alt: '',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+                enable: true,
+              },
               type: 'layout-builder',
               spacer: 'md',
               fullWidth: false,
-              bg: {
-                classes: 'bg-fill-width',
-              },
-              layoutAlign: 'center center',
               gap: {
                 xs: 8,
                 sm: 16,
@@ -987,15 +1069,58 @@ export const home_v14 = {
               },
               elements: [
                 {
-                  classes: '',
                   row: {
                     xs: 12,
-                    sm: 12,
+                    sm: 6,
                     md: 6,
                     lg: 6,
                   },
                   direction: 'column',
+                  horizontal: 'flex-start',
+                  vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  bg: {
+                    img: {
+                      src: '',
+                      classes: 'object-fit',
+                      alt: '',
+                    },
+                    overlay: '',
+                    classes: 'bg-fill-width',
+                  },
+                  classes: '',
+                  style: {
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
+                  animate: {
+                    from: {
+                      x: -120,
+                      y: 0,
+                      rotation: 0,
+                      scale: 1,
+                      opacity: 0,
+                      delay: 0,
+                      duration: 1,
+                      ease: 'none',
+                    },
+                    trigger: {
+                      onEnter: 'play',
+                      onLeave: 'none',
+                      onEnterBack: 'none',
+                      onLeaveBack: 'none',
+                      start: 'top 90%',
+                      end: 'top 40%',
+                      scrub: true,
+                    },
+                    enable: true,
+                  },
                   elements: [
                     {
                       type: 'img',
@@ -1016,15 +1141,56 @@ export const home_v14 = {
                   ],
                 },
                 {
-                  classes: '',
                   row: {
                     xs: 12,
-                    sm: 12,
+                    sm: 6,
                     md: 6,
                     lg: 6,
                   },
                   direction: 'column',
+                  horizontal: 'flex-start',
+                  vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  bg: {
+                    img: {
+                      src: '',
+                      classes: 'object-fit',
+                      alt: '',
+                    },
+                    overlay: '',
+                    classes: 'bg-fill-width',
+                  },
+                  classes: '',
+                  style: {
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
+                  animate: {
+                    from: {
+                      x: 0,
+                      y: 0,
+                      rotation: 0,
+                      scale: 1,
+                      opacity: 1,
+                      delay: 0,
+                      duration: 1,
+                      ease: 'none',
+                    },
+                    trigger: {
+                      onEnter: 'play',
+                      onLeave: 'none',
+                      onEnterBack: 'none',
+                      onLeaveBack: 'none',
+                      start: 'top 90%',
+                      end: 'top 40%',
+                    },
+                  },
                   elements: [
                     {
                       type: 'title',
@@ -1104,13 +1270,59 @@ export const home_v14 = {
           },
           elements: [
             {
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+              },
+              horizontal: 'center',
+              vertical: 'center',
+              layoutAlign: 'center center',
+              bg: {
+                img: {
+                  src: '',
+                  classes: 'object-fit',
+                  alt: '',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              direction: 'row wrap',
               type: 'layout-builder',
               spacer: 'md',
               fullWidth: false,
-              bg: {
-                classes: 'bg-fill-width',
-              },
-              layoutAlign: 'center center',
               gap: {
                 xs: 8,
                 sm: 16,
@@ -1119,15 +1331,56 @@ export const home_v14 = {
               },
               elements: [
                 {
-                  classes: '',
                   row: {
                     xs: 12,
-                    sm: 12,
+                    sm: 6,
                     md: 6,
                     lg: 6,
                   },
                   direction: 'column',
+                  horizontal: 'flex-start',
+                  vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  bg: {
+                    img: {
+                      src: '',
+                      classes: 'object-fit',
+                      alt: '',
+                    },
+                    overlay: '',
+                    classes: 'bg-fill-width',
+                  },
+                  classes: '',
+                  style: {
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
+                  animate: {
+                    from: {
+                      x: 0,
+                      y: 0,
+                      rotation: 0,
+                      scale: 1,
+                      opacity: 1,
+                      delay: 0,
+                      duration: 1,
+                      ease: 'none',
+                    },
+                    trigger: {
+                      onEnter: 'play',
+                      onLeave: 'none',
+                      onEnterBack: 'none',
+                      onLeaveBack: 'none',
+                      start: 'top 90%',
+                      end: 'top 40%',
+                    },
+                  },
                   elements: [
                     {
                       type: 'title',
@@ -1152,15 +1405,58 @@ export const home_v14 = {
                   ],
                 },
                 {
-                  classes: '',
                   row: {
                     xs: 12,
-                    sm: 12,
+                    sm: 6,
                     md: 6,
                     lg: 6,
                   },
                   direction: 'column',
+                  horizontal: 'flex-start',
+                  vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  bg: {
+                    img: {
+                      src: '',
+                      classes: 'object-fit',
+                      alt: '',
+                    },
+                    overlay: '',
+                    classes: 'bg-fill-width',
+                  },
+                  classes: '',
+                  style: {
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
+                  animate: {
+                    enable: true,
+                    from: {
+                      x: '120',
+                      y: 0,
+                      rotation: 0,
+                      scale: 1,
+                      opacity: 0,
+                      delay: 0,
+                      duration: 1,
+                      ease: 'none',
+                    },
+                    trigger: {
+                      onEnter: 'play',
+                      onLeave: 'none',
+                      onEnterBack: 'none',
+                      onLeaveBack: 'none',
+                      start: 'top 90%',
+                      end: 'top 40%',
+                      scrub: true,
+                    },
+                  },
                   elements: [
                     {
                       type: 'img',
@@ -1237,13 +1533,59 @@ export const home_v14 = {
           },
           elements: [
             {
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+              },
+              horizontal: 'center',
+              vertical: 'center',
+              layoutAlign: 'center center',
+              bg: {
+                img: {
+                  src: '',
+                  classes: 'object-fit',
+                  alt: '',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              direction: 'row wrap',
               type: 'layout-builder',
               spacer: 'md',
               fullWidth: false,
-              bg: {
-                classes: 'bg-fill-width',
-              },
-              layoutAlign: 'center center',
               gap: {
                 xs: 8,
                 sm: 16,
@@ -1252,15 +1594,58 @@ export const home_v14 = {
               },
               elements: [
                 {
-                  classes: '',
                   row: {
                     xs: 12,
-                    sm: 12,
+                    sm: 6,
                     md: 6,
                     lg: 6,
                   },
                   direction: 'column',
+                  horizontal: 'flex-start',
+                  vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  bg: {
+                    img: {
+                      src: '',
+                      classes: 'object-fit',
+                      alt: '',
+                    },
+                    overlay: '',
+                    classes: 'bg-fill-width',
+                  },
+                  classes: '',
+                  style: {
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
+                  animate: {
+                    from: {
+                      x: '-120',
+                      y: 0,
+                      rotation: 0,
+                      scale: 1,
+                      opacity: 0,
+                      delay: 0,
+                      duration: 1,
+                      ease: 'none',
+                    },
+                    trigger: {
+                      onEnter: 'play',
+                      onLeave: 'none',
+                      onEnterBack: 'none',
+                      onLeaveBack: 'none',
+                      start: 'top 90%',
+                      end: 'top 40%',
+                      scrub: true,
+                    },
+                    enable: true,
+                  },
                   elements: [
                     {
                       type: 'img',
@@ -1281,15 +1666,56 @@ export const home_v14 = {
                   ],
                 },
                 {
-                  classes: '',
                   row: {
                     xs: 12,
-                    sm: 12,
+                    sm: 6,
                     md: 6,
                     lg: 6,
                   },
                   direction: 'column',
+                  horizontal: 'flex-start',
+                  vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  bg: {
+                    img: {
+                      src: '',
+                      classes: 'object-fit',
+                      alt: '',
+                    },
+                    overlay: '',
+                    classes: 'bg-fill-width',
+                  },
+                  classes: '',
+                  style: {
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
+                  animate: {
+                    from: {
+                      x: 0,
+                      y: 0,
+                      rotation: 0,
+                      scale: 1,
+                      opacity: 1,
+                      delay: 0,
+                      duration: 1,
+                      ease: 'none',
+                    },
+                    trigger: {
+                      onEnter: 'play',
+                      onLeave: 'none',
+                      onEnterBack: 'none',
+                      onLeaveBack: 'none',
+                      start: 'top 90%',
+                      end: 'top 40%',
+                    },
+                  },
                   elements: [
                     {
                       type: 'title',
@@ -1320,17 +1746,48 @@ export const home_v14 = {
       ],
     },
     {
+      spacer: 'md',
+      bgClasses: 'bg- bg-fill-width',
+      overlay: '',
+      classes: 'text-center',
+      id: '',
+      bg: {
+        img: {
+          src: '',
+          classes: 'object-fit',
+          alt: '',
+        },
+        classes: 'bg- bg-fill-width',
+        overlay: '',
+      },
+      animate: {
+        from: {
+          x: 0,
+          y: '100',
+          rotation: 0,
+          scale: 1,
+          opacity: 0,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
+        enable: true,
+      },
       type: 'text',
       title: {
         label: 'Shop by Category',
         style: 'style-v1',
         classes: 'mat-display-1 bold',
       },
-      bg: {
-        classes: 'bg- bg-fill-width',
-      },
       body: 'Find for your favorite products based on the categories',
-      classes: 'text-center',
     },
     {
       fullWidth: false,
@@ -1361,10 +1818,10 @@ export const home_v14 = {
       animate: {
         from: {
           x: 0,
-          y: 0,
+          y: '100',
           rotation: 0,
           scale: 1,
-          opacity: 1,
+          opacity: 0,
           delay: 0,
           duration: 1,
           ease: 'none',
@@ -1377,6 +1834,7 @@ export const home_v14 = {
           start: 'top 90%',
           end: 'top 40%',
         },
+        enable: true,
       },
       type: 'layout-builder',
       elements: [
@@ -1593,6 +2051,7 @@ export const home_v14 = {
       ],
     },
     {
+      fullWidth: false,
       spacer: 'lg',
       bgClasses: 'bg-white bg-fill-width',
       overlay: '',
@@ -1621,7 +2080,7 @@ export const home_v14 = {
             },
           ],
         },
-        label: '我们的博客',
+        label: 'Our blogs',
         icon: 'email',
       },
       sliders: {
@@ -1770,10 +2229,10 @@ export const home_v14 = {
       animate: {
         from: {
           x: 0,
-          y: 0,
+          y: '100',
           rotation: 0,
           scale: 1,
-          opacity: 1,
+          opacity: 0,
           delay: 0,
           duration: 1,
           ease: 'none',
@@ -1786,11 +2245,10 @@ export const home_v14 = {
           start: 'top 90%',
           end: 'top 40%',
         },
+        enable: true,
       },
-
-      fullWidth: false,
       type: 'carousel-1v1',
     },
   ],
-  time: '2024-03-29T02:08:41.528Z',
+  time: '2024-03-29T08:09:26.922Z',
 };

@@ -11,10 +11,10 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
 import { BRANDING } from '@core/token/token-providers';
-import { home_v13 } from '@modules/builder/data/samples/home_v13';
+import { home_v14 } from '@modules/builder/data/samples/home_v14';
 
 export default {
-  title: '示例页面/首页示例/14 满屏',
+  title: '示例页面/首页示例/14 生活家居',
   id: 'home-v14',
   component: BlockComponent,
   decorators: [
@@ -55,7 +55,7 @@ const Template: Story = (args) => ({
 export const Page = Template.bind({});
 // Raname Story
 Page.storyName = '预览';
-const content = of(home_v13);
+const content = of(home_v14);
 Page.args = {
   pageContent$: content,
 };

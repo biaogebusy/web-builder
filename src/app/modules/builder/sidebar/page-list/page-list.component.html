@@ -12,11 +12,11 @@
     <ng-container *ngIf="content$ | async as content">
       <mat-list-item *ngFor="let page of content; index as i">
         <div class="title" mat-line>
-          <a [href]="page.href" target="_blank">{{page.title}}</a>
+          <a href="{{page.href}}?preview=true" target="_blank">{{page.title}}</a>
         </div>
         <div class="meta" mat-line>{{page.user|shorten: 6: '...'}} {{page.changed | date:'yyyy/MM/dd HH:mm'}} </div>
         <div class="meta" mat-line>
-          <a href="{{page.href}}" target="_blank">{{page.href}}</a>
+          <a href="{{page.href}}?preview=true" target="_blank">{{page.href}}</a>
         </div>
         <app-btn (click)="loadPage(page)" [content]="{label:'编辑','mode':'stroked','color':'primary'}"></app-btn>
       </mat-list-item>
