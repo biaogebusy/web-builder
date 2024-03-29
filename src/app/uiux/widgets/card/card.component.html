@@ -18,11 +18,12 @@
         [content]="content.carousel">
       </app-swiper>
       <ng-template #feature>
-        <app-feature-box [content]="content.carousel.elements[0]"></app-feature-box>
+        <app-feature-box [attr.data-path]="'carousel.elements.0'"
+          [content]="content.carousel.elements[0]"></app-feature-box>
       </ng-template>
     </ng-container>
     <ng-container *ngIf="!content.carousel && content.feature">
-      <app-feature-box [content]="content.feature"></app-feature-box>
+      <app-feature-box [attr.data-path]="'feature'" [content]="content.feature"></app-feature-box>
     </ng-container>
   </div>
   <mat-card-content>

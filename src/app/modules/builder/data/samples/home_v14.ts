@@ -1402,21 +1402,39 @@ export const home_v14 = {
     },
     {
       spacer: 'lg',
-      type: 'carousel-1v1',
+      bgClasses: 'bg-white bg-fill-width',
+      overlay: '',
+      classes: '',
+      id: '',
+      bg: {
+        img: {
+          src: '',
+          classes: 'object-fit',
+          alt: '',
+        },
+        classes: 'bg-white bg-fill-width',
+        overlay: '',
+      },
       title: {
-        label: '我们的博客',
-        icon: 'email',
         style: 'style-v2',
         classes: 'mat-display-1',
-      },
-      classes: '',
-      bg: {
-        classes: 'bg-white bg-fill-width',
+        typed: {
+          enable: false,
+          config: {
+            typeSpeed: 120,
+          },
+          strings: [
+            {
+              label: 'web builder',
+            },
+          ],
+        },
+        label: '我们的博客',
+        icon: 'email',
       },
       sliders: {
-        type: 'swiper',
         params: {
-          navigation: false,
+          direction: 'horizontal',
           breakpoints: {
             '600': {
               slidesPerView: 3,
@@ -1427,7 +1445,18 @@ export const home_v14 = {
               spaceBetween: 50,
             },
           },
+          effect: 'slide',
+          speed: 300,
+          pagination: {
+            paginationEnable: false,
+          },
+          navigation: false,
+          centeredSlides: false,
+          loop: false,
+          autoplay: false,
+          mousewheel: false,
         },
+        type: 'swiper',
         classes: '',
         elements: [
           {
@@ -1443,8 +1472,17 @@ export const home_v14 = {
               ratios: 'media-4-3',
               img: {
                 classes: 'object-fit',
-                src: '/assets/images/cases/porto1.jpg',
+                src: '/assets/images/furniture/10.png',
                 alt: 'alt',
+                style: {
+                  width: 'auto',
+                  height: 'auto',
+                  opacity: 1,
+                  borderRadius: 0,
+                  boxShadow: 'none',
+                  aspectRatio: 'auto',
+                  objectFit: 'initial',
+                },
               },
             },
             img: {
@@ -1469,8 +1507,17 @@ export const home_v14 = {
               ratios: 'media-4-3',
               img: {
                 classes: 'object-fit',
-                src: '/assets/images/cases/porto7.jpg',
+                src: '/assets/images/furniture/11.png',
                 alt: 'alt',
+                style: {
+                  width: 'auto',
+                  height: 'auto',
+                  opacity: 1,
+                  borderRadius: 0,
+                  boxShadow: 'none',
+                  aspectRatio: 'auto',
+                  objectFit: 'initial',
+                },
               },
             },
             title: '易用的编辑器',
@@ -1499,8 +1546,17 @@ export const home_v14 = {
               ratios: 'media-4-3',
               img: {
                 classes: 'object-fit',
-                src: '/assets/images/cases/porto2.jpg',
+                src: '/assets/images/furniture/12.png',
                 alt: 'alt',
+                style: {
+                  width: 'auto',
+                  height: 'auto',
+                  opacity: 1,
+                  borderRadius: 0,
+                  boxShadow: 'none',
+                  aspectRatio: 'auto',
+                  objectFit: 'initial',
+                },
               },
             },
             title: '多语言',
@@ -1522,6 +1578,30 @@ export const home_v14 = {
           },
         ],
       },
+      animate: {
+        from: {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
+      },
+
+      fullWidth: false,
+      type: 'carousel-1v1',
     },
   ],
+  time: '2024-03-29T02:08:41.528Z',
 };
