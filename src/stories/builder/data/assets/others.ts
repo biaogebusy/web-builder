@@ -11,14 +11,14 @@ export const images_others = [
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/404.svg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/default.png',
     },
   },
@@ -26,28 +26,28 @@ export const images_others = [
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/favicon.png',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/map.png',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/qrcode-official.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/wechat.jpg',
     },
   },
