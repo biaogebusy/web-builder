@@ -7,82 +7,96 @@ const featureBox = {
   mode: 'float',
   hoverIcon: true,
 };
-export const images_mobiles = [
+export const furniture = [
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/follower-01.jpg',
+      src: '/assets/images/furniture/spacejoy.jpg',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/follower-02.jpg',
+      src: '/assets/images/furniture/01.png',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/follower-03.jpg',
+      src: '/assets/images/furniture/02.png',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/follower-04.jpg',
+      src: '/assets/images/furniture/03.png',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/follower-05.jpg',
+      src: '/assets/images/furniture/04.png',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/follower-06.jpg',
+      src: '/assets/images/furniture/05.png',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/follower-07.jpg',
+      src: '/assets/images/furniture/06.png',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/mobile-01.jpg',
+      src: '/assets/images/furniture/07.png',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/mobile-02.jpg',
+      src: '/assets/images/furniture/08.png',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/mobile-03.jpg',
+      src: '/assets/images/furniture/09.png',
     },
   },
   {
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/mobile/mobile-04.jpg',
+      src: '/assets/images/furniture/10.png',
+    },
+  },
+  {
+    ...featureBox,
+    img: {
+      classes: 'object-contain',
+      src: '/assets/images/furniture/11.png',
+    },
+  },
+  {
+    ...featureBox,
+    img: {
+      classes: 'object-contain',
+      src: '/assets/images/furniture/12.png',
     },
   },
 ];

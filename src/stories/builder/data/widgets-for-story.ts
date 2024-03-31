@@ -167,6 +167,7 @@ export const widgets: any[] = [
     icon: {
       svg: 'view-dashboard-outline',
     },
+    preview: '/assets/images/builder/widgets/layout-builder.jpeg',
     content: {
       type: 'layout-builder',
       spacer: 'md',

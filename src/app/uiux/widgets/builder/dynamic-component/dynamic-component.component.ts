@@ -118,7 +118,6 @@ export class DynamicComponentComponent
         this.component.instance['content'] = this.inputs;
       }
       this.component.instance.pageIndex = this.index;
-      this.component.instance.uuid = Date.now().toString();
     }
     this.container.insert(this.component.hostView);
     this.util.initAnimate(

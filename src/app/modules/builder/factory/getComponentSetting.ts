@@ -4,6 +4,7 @@ import { getSwiper } from './getSwiper';
 import { getTitleField } from './getTitleField';
 import { getText } from './getText';
 import { getAnimate } from './getAnimate';
+import { getBgClasses, getOverlay } from './getCommon';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
@@ -77,52 +78,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               defaultValue: content?.bg?.classes || 'bg- bg-fill-width',
               templateOptions: {
                 label: '预设背景色',
-                options: [
-                  {
-                    label: '无',
-                    value: 'bg- bg-fill-width',
-                  },
-                  {
-                    label: '品牌色',
-                    value: 'bg-primary bg-fill-width',
-                  },
-                  {
-                    label: '灰色',
-                    value: 'bg-shadow bg-fill-width',
-                  },
-                  {
-                    label: '蓝色',
-                    value: 'bg-blue bg-fill-width',
-                  },
-                  {
-                    label: '绿色',
-                    value: 'bg-green bg-fill-width',
-                  },
-                  {
-                    label: '黄色',
-                    value: 'bg-yellow bg-fill-width',
-                  },
-                  {
-                    label: '红色',
-                    value: 'bg-red bg-fill-width',
-                  },
-                  {
-                    label: '警告色',
-                    value: 'bg-warn bg-fill-width',
-                  },
-                  {
-                    label: '粉色',
-                    value: 'bg-pink bg-fill-width',
-                  },
-                  {
-                    label: '橙色',
-                    value: 'bg-orange bg-fill-width',
-                  },
-                  {
-                    label: '紫色',
-                    value: 'bg-purple bg-fill-width',
-                  },
-                ],
+                options: getBgClasses,
               },
             },
             {
@@ -132,28 +88,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               defaultValue: content?.bg?.overlay || '',
               templateOptions: {
                 label: '蒙版不透明度',
-                options: [
-                  {
-                    label: '无',
-                    value: ' ',
-                  },
-                  {
-                    label: '0.8',
-                    value: 'overlay overlay-80',
-                  },
-                  {
-                    label: '0.6',
-                    value: 'overlay overlay-60',
-                  },
-                  {
-                    label: '0.4',
-                    value: 'overlay overlay-40',
-                  },
-                  {
-                    label: '0.2',
-                    value: 'overlay overlay-20',
-                  },
-                ],
+                options: getOverlay,
               },
             },
             {

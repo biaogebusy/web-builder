@@ -11,21 +11,21 @@ export const images_products = [
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: 'assets/images/products/huawei-watch-gt4-ios-android-compatible.webp',
     },
   },

@@ -6,7 +6,6 @@ import { Showcase1v3Component } from './showcase1v3/showcase1v3.component';
 import { Showcase2v1Component } from './showcase2v1/showcase2v1.component';
 import { Showcase2v2Component } from './showcase2v2/showcase2v2.component';
 import { Showcase2v4Component } from './showcase2v4/showcase2v4.component';
-import { Showcase3v1Component } from './showcase3v1/showcase3v1.component';
 import { Showcase3v2Component } from './showcase3v2/showcase3v2.component';
 import { Showcase3v3Component } from './showcase3v3/showcase3v3.component';
 import { Showcase3v4Component } from './showcase3v4/showcase3v4.component';
@@ -29,7 +28,6 @@ const components = [
   Showcase2v4Component,
   Showcase2v5Component,
   Showcase2v6Component,
-  Showcase3v1Component,
   Showcase3v2Component,
   Showcase3v3Component,
   Showcase3v4Component,

@@ -36,7 +36,9 @@ export class WidgetPickerComponent implements OnInit {
     if (content.type === 'layout-builder') {
       if (row === 'down') {
         content.elements[i].elements.splice(index + 1, 0, widget.content);
-        this.builder.updateComponent(pageIndex, content);
+        if (pageIndex) {
+          this.builder.updateComponent(pageIndex, content);
+        }
       }
 
       if (row === 'next') {
@@ -45,7 +47,9 @@ export class WidgetPickerComponent implements OnInit {
           0,
           this.copyLayoutLastChild(content.elements, widget.content)
         );
-        this.builder.updateComponent(pageIndex, content);
+        if (pageIndex) {
+          this.builder.updateComponent(pageIndex, content);
+        }
       }
 
       if (level === 'block') {

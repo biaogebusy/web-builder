@@ -11,70 +11,70 @@ export const images_cases = [
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto1.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto2.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto3.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto4.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto5.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto6.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto7.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto8.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto9.jpg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/cases/porto10.jpg',
     },
   },

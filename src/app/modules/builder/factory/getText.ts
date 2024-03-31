@@ -29,6 +29,15 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
                 rows: 10,
               },
             },
+            {
+              key: 'classes',
+              type: 'input',
+              className: 'width-100',
+              defaultValue: widget.classes,
+              templateOptions: {
+                label: '自定义Class',
+              },
+            },
           ],
         },
       ],

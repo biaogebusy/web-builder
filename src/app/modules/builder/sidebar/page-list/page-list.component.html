@@ -3,7 +3,7 @@
     <app-btn *ngIf="!loading" (click)="onReload()"
       [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'reload'}}"></app-btn>
   </div>
-  <app-title [content]="{label:'管理列表',style:'style-v4',classes:'mat-display-1 bold'}"></app-title>
+  <app-title [content]="{label:'管理列表',style:'style-v4',classes:'p-y-xs m-bottom-x bold'}"></app-title>
   <div class="form">
     <app-formly [fields]="fields" [form]="form" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
   </div>
@@ -12,10 +12,12 @@
     <ng-container *ngIf="content$ | async as content">
       <mat-list-item *ngFor="let page of content; index as i">
         <div class="title" mat-line>
-          <a [href]="page.href" target="_blank">{{page.title}}</a>
+          <a href="{{page.href}}?preview=true" target="_blank">{{page.title}}</a>
         </div>
         <div class="meta" mat-line>{{page.user|shorten: 6: '...'}} {{page.changed | date:'yyyy/MM/dd HH:mm'}} </div>
-        <div class="meta" mat-line>{{page.href}}</div>
+        <div class="meta" mat-line>
+          <a href="{{page.href}}?preview=true" target="_blank">{{page.href}}</a>
+        </div>
         <app-btn (click)="loadPage(page)" [content]="{label:'编辑','mode':'stroked','color':'primary'}"></app-btn>
       </mat-list-item>
     </ng-container>

@@ -7,7 +7,6 @@ import * as s2v2Story from '@stories/feature/showcase/showcase2v2.stories';
 import * as s2v4Story from '@stories/feature/showcase/showcase2v4.stories';
 import * as s2v5Story from '@stories/feature/showcase/showcase2v5.stories';
 import * as s2v6Story from '@stories/feature/showcase/showcase2v6.stories';
-import * as s3v1Story from '@stories/feature/showcase/showcase3v1.stories';
 import * as s3v2Story from '@stories/feature/showcase/showcase3v2.stories';
 import * as s3v3Story from '@stories/feature/showcase/showcase3v3.stories';
 import * as s3v4Story from '@stories/feature/showcase/showcase3v4.stories';
@@ -63,10 +62,6 @@ export const {
 export const {
   Default: { args: showcase2v6_default },
 } = s2v6Story;
-
-export const {
-  Default: { args: showcase3v1_default },
-} = s3v1Story;
 
 export const {
   Default: { args: showcase3v2_default },
@@ -210,10 +205,6 @@ export const showcase = [
   {
     label: 'V3',
     child: [
-      {
-        label: '3v1',
-        ...showcase3v1_default,
-      },
       {
         label: '3v2',
         ...showcase3v2_default,

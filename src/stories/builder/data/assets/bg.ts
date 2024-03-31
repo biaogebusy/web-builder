@@ -11,63 +11,63 @@ export const images_bg = [
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/bg/bg-01.png',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/bg/bg-02.png',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/bg/bg-03.jpeg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/bg/bg-03.svg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/bg/bg-04.png',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/bg/bg-05.svg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/bg/bg-hero.svg',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/bg/bg.png',
     },
   },
   {
     ...featureBox,
     img: {
-      classes: 'object-fit',
+      classes: 'object-contain',
       src: '/assets/images/bg/home-shape.png',
     },
   },
