@@ -6,6 +6,7 @@ import {
   Input,
 } from '@angular/core';
 import { IMetaEdit } from '@core/interface/IBuilder';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { getInlineImg } from '@modules/builder/factory/getInlinImg';
 import { getInlineText } from '@modules/builder/factory/getInlineText';
@@ -14,7 +15,11 @@ import { set } from 'lodash-es';
   selector: '[contentedit]',
 })
 export class ContenteditDirective implements AfterViewInit {
-  constructor(private el: ElementRef, private builder: BuilderState) {}
+  constructor(
+    private el: ElementRef,
+    private builder: BuilderState,
+    private util: UtilitiesService
+  ) {}
 
   @HostListener('blur') onBlur(event: Event) {
     const ele = this.el.nativeElement;
@@ -94,19 +99,6 @@ export class ContenteditDirective implements AfterViewInit {
   }
 
   generatePath(contenteditableElement: any): string {
-    let path = contenteditableElement.getAttribute('data-path');
-    let element = contenteditableElement;
-    while (
-      element &&
-      element.parentNode &&
-      !element.parentNode.classList.contains('component-item')
-    ) {
-      const dataPath = element.parentNode.getAttribute('data-path');
-      if (dataPath) {
-        path = `${dataPath}.${path}`;
-      }
-      element = element.parentNode;
-    }
-    return path;
+    return this.util.generatePath(contenteditableElement);
   }
 }

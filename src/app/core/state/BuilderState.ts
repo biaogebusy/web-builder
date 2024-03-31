@@ -11,7 +11,7 @@ import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { map } from 'lodash-es';
+import { map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
@@ -175,6 +175,12 @@ export class BuilderState {
   updateComponent(index: number, content: any): void {
     const { body } = this.currentPage;
     body[index] = content;
+    this.updatePage();
+  }
+
+  updatePageContentByPath(path: string, content: any): void {
+    const { body } = this.currentPage;
+    set(body, path, content);
     this.updatePage();
   }
 
