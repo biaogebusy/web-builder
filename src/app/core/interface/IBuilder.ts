@@ -86,12 +86,11 @@ export interface ILayoutBlock {
 export interface ILayoutSetting {
   type: 'layout-setting';
   fields: FormlyFieldConfig[];
-  i?: number;
-  index?: number;
   pageIndex?: number;
   uuid: string;
   content?: any;
   level: 'block' | 'layout' | 'widget';
+  path?: string;
 }
 
 export interface IWidgetPicker {

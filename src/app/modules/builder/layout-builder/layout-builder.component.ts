@@ -19,7 +19,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { defaultsDeep, isNumber } from 'lodash-es';
+import { isNumber } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { delay, takeUntil } from 'rxjs/operators';
@@ -39,6 +39,7 @@ import { getIcon } from '../factory/getIcon';
 import { getAnimate } from '../factory/getAnimate';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { getDivider } from '../factory/getDivider';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-layout-builder',
@@ -60,44 +61,39 @@ export class LayoutBuilderComponent
     private builder: BuilderState,
     private util: UtilitiesService,
     private ele: ElementRef,
+    private screenService: ScreenService,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
-    this.builder.builderLayoutSetting$
-      .pipe(takeUntil(this.destroy$), delay(200))
-      .subscribe((data) => {
-        const { i, index, value, uuid } = data;
-        if (uuid === this.uuid) {
-          const { elements } = this.content;
-          // is widget
-          if (this.isLayoutWidget(i, index) && isNumber(i) && isNumber(index)) {
-            elements[i].elements[index] = value;
-          }
-          // is layout
-          if (i !== undefined && i >= 0 && index === undefined) {
-            elements[i] = value;
-          }
-          this.builder.updateComponent(this.pageIndex, this.content);
-          this.cd.detectChanges();
+    if (this.screenService.isPlatformBrowser()) {
+      this.builder.builderLayoutSetting$
+        .pipe(takeUntil(this.destroy$), delay(200))
+        .subscribe((data) => {
+          const { value, uuid, path } = data;
+          if (uuid === this.uuid) {
+            this.builder.updatePageContentByPath(path, value);
+            if (this.pageIndex) {
+              // TODO:是否使用 updatePageContentByPath
+              this.builder.updateComponent(this.pageIndex, this.content);
+            }
+            this.cd.detectChanges();
 
-          // layout animate
-          if (i !== undefined && i >= 0 && index === undefined) {
+            // layout animate
             this.layoutAnimate();
           }
-        }
-      });
+        });
 
-    this.builder.jsoneditorContent$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((value) => {
-        const { isLayoutWidget, i, index, data } = value;
-        if (isLayoutWidget) {
-          const { elements } = this.content;
-          elements[i].elements[index] = data;
-          this.cd.detectChanges();
-        }
-      });
+      this.builder.jsoneditorContent$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((value) => {
+          const { isLayoutWidget, data, path } = value;
+          if (isLayoutWidget) {
+            this.builder.updatePageContentByPath(path, data);
+            this.cd.detectChanges();
+          }
+        });
+    }
   }
 
   ngAfterViewInit(): void {
@@ -113,10 +109,6 @@ export class LayoutBuilderComponent
         this.util.initAnimate(item, animateEle, this.ele.nativeElement);
       }
     });
-  }
-
-  isLayoutWidget(i: number | undefined, index: number | undefined): boolean {
-    return i !== undefined && i >= 0 && index !== undefined && index >= 0;
   }
 
   addBlock(row: string, i: number, content: any, index?: number): void {
@@ -144,15 +136,15 @@ export class LayoutBuilderComponent
     });
   }
 
-  onLayoutSettings(i: number, layout: any): void {
+  onLayoutSettings(layout: any, event: any): void {
     this.uuid = Date.now().toString();
     const layoutSetting: ILayoutSetting = {
       type: 'layout-setting',
-      i,
       fields: getBlockSetting(layout),
       uuid: this.uuid,
       level: 'layout',
       content: layout,
+      path: this.util.generatePath(event.target),
     };
     this.builder.builderRightContent$.next({
       mode: 'push',
@@ -164,8 +156,9 @@ export class LayoutBuilderComponent
     });
   }
 
-  onWidgetSetting(i: number, index: number, widget: any): void {
+  onWidgetSetting(widget: any, event: any): void {
     this.uuid = Date.now().toString();
+    const path = this.util.generatePath(event.target);
     let fields: FormlyFieldConfig[] = [];
     const animateConfig = getAnimate(widget);
     switch (widget.type) {
@@ -213,21 +206,19 @@ export class LayoutBuilderComponent
     }
 
     if (fields.length > 0) {
-      this.showWidgetSetting(i, index, widget, fields);
+      this.showWidgetSetting(widget, fields, path);
     }
   }
 
   showWidgetSetting(
-    i: number,
-    index: number,
     widget: any,
-    fields: FormlyFieldConfig[]
+    fields: FormlyFieldConfig[],
+    path: string
   ): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
-      i,
       pageIndex: this.pageIndex,
-      index,
+      path,
       uuid: this.uuid,
       fields,
       content: widget,

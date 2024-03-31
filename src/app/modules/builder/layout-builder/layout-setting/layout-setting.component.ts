@@ -14,7 +14,7 @@ import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { defaultsDeep, isNumber } from 'lodash-es';
+import { defaultsDeep, get, isNumber } from 'lodash-es';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -64,11 +64,15 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   emitLayoutSetting(content: any): void {
     this.builder.builderLayoutSetting$.next({
       value: content,
-      i: this.content.i,
-      index: this.content.index,
       pageIndex: this.content.pageIndex,
       uuid: this.content.uuid,
+      path: this.content.path,
     });
+  }
+
+  onCopy(content: any, i: number): void {
+    this.content.content.elements.splice(i, 0, content);
+    this.emitLayoutSetting(this.content.content);
   }
 
   onDelete(index: number): void {
@@ -112,15 +116,15 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   }
 
   showCode(): void {
-    const { i, index, pageIndex } = this.content;
+    const { pageIndex, path } = this.content;
     // builder list 一级组件
-    if (!this.isLayoutWidget(i, pageIndex)) {
-      if (isNumber(this.content.pageIndex)) {
+    if (pageIndex !== undefined) {
+      if (isNumber(pageIndex)) {
         const json: IJsoneditor = {
           type: 'jsoneditor',
-          index: this.content.pageIndex,
+          pageIndex,
           isPreview: true,
-          data: this.builder.currentPage.body[this.content.pageIndex],
+          data: this.builder.currentPage.body[pageIndex],
         };
         this.dialog.open(DialogComponent, {
           width: '1000px',
@@ -133,32 +137,23 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
       }
     }
 
-    // layout builder widget
-    if (this.isLayoutWidget(i, index)) {
-      if (
-        isNumber(pageIndex) &&
-        isNumber(i) &&
-        isNumber(this.content.index) &&
-        isNumber(index)
-      ) {
-        const json: IJsoneditor = {
-          type: 'jsoneditor',
-          i,
-          index: this.content.index,
-          isLayoutWidget: true,
-          data: this.builder.currentPage.body[pageIndex].elements[i].elements[
-            index
-          ],
-        };
-        this.dialog.open(DialogComponent, {
-          width: '1000px',
-          data: {
-            inputData: {
-              content: json,
-            },
+    // layout builder level
+    if (path) {
+      const json: IJsoneditor = {
+        type: 'jsoneditor',
+        pageIndex: undefined,
+        isLayoutWidget: true,
+        path,
+        data: get(this.builder.currentPage.body, path),
+      };
+      this.dialog.open(DialogComponent, {
+        width: '1000px',
+        data: {
+          inputData: {
+            content: json,
           },
-        });
-      }
+        },
+      });
     }
   }
 

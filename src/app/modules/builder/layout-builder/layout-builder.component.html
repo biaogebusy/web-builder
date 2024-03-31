@@ -1,4 +1,4 @@
-<div class="layout-builder position-relative" *ngIf="content">
+<div class="layout-builder position-relative" *ngIf="content" [ngClass]="content.classes">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
@@ -29,7 +29,7 @@
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'close',inline:true } }"></app-btn>
               <app-btn matTooltip="显示网格" (click)="onShowGrid()"
                 [content]="{label:'',color:showGrid?'warn' : 'primary', mode: 'icon',icon:{svg:'eye',inline:true } }"></app-btn>
-              <app-btn matTooltip="当前栏配置" (click)="onLayoutSettings(i,layout)"
+              <app-btn matTooltip="当前栏配置" (click)="onLayoutSettings(layout,$event)"
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'responsive',inline:true } }"></app-btn>
             </div>
           </div>
@@ -42,7 +42,8 @@
           <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
           <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign"
             [ngStyle]="layout.style">
-            <div class="item item-{{item.type}}" *ngFor="let item of layout.elements;index as index">
+            <div class="item item-{{item.type}}" [attr.data-path]="'elements.'+index"
+              *ngFor="let item of layout.elements;index as index">
               <div class="actions" *ngIf="isBuilderMode$ | async">
                 <app-btn matTooltip="上移" *ngIf="index > 0 && index < layout.elements.length"
                   (click)="onUpDown('up',i,index)"
@@ -54,10 +55,10 @@
                   [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'plus' } }"></app-btn>
                 <app-btn matTooltip="删除" (click)="onDeleteCol(i,index)"
                   [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'close',inline:true } }"></app-btn>
-                <app-btn matTooltip="{{item.type}}组件配置" (click)="onWidgetSetting(i,index,item)"
+                <app-btn matTooltip="{{item.type}}组件配置" (click)="onWidgetSetting(item,$event)"
                   [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'tune-vertical',inline:true } }"></app-btn>
               </div>
-              <app-dynamic-component [attr.data-path]="'elements.'+index" [inputs]="item">
+              <app-dynamic-component [inputs]="item">
               </app-dynamic-component>
             </div>
           </div>

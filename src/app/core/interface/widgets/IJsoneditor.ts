@@ -3,10 +3,10 @@ export interface IJsoneditor {
   data: any;
   isPreview?: boolean;
   isLayoutWidget?: boolean;
-  i?: number;
-  index: number;
+  pageIndex: number | undefined;
   actions?: any[];
   actionsAlign?: string;
   isPage?: boolean;
   tooltip?: string;
+  path?: string;
 }

@@ -126,11 +126,31 @@
     .title {
       font-size: 14px;
     }
-    .delete {
-      cursor: pointer;
+    .actions {
+      display: none;
+    }
+
+    ::ng-deep {
+      .mat-icon-button {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        opacity: 0.6;
+        .custom.mat-icon {
+          width: 16px !important;
+          height: 16px !important;
+          line-height: 16px !important;
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
     &:hover {
       opacity: 1;
+      .actions {
+        display: block;
+      }
     }
   }
 }
