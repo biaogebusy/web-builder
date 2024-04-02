@@ -33,7 +33,8 @@
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'responsive',inline:true } }"></app-btn>
             </div>
           </div>
-          <div class="placeholder" fxFill fxLayoutAlign="center center" *ngIf="layout.elements.length === 0">
+          <div class="placeholder" [attr.data-path]="'elements.'+i" fxFill fxLayoutAlign="center center"
+            *ngIf="layout.elements.length === 0">
             <app-btn matTooltip="插入组件" (click)="addBlock('widget',i,content,$event)"
               [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
           </div>
