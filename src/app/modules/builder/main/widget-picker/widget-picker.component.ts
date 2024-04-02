@@ -32,25 +32,39 @@ export class WidgetPickerComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelect(widget: any): void {
-    const { row, i, index, pageIndex, content, level, uuid } = this.content;
-    if (content.type === 'layout-builder') {
-      if (row === 'down') {
-        content.elements[i].elements.splice(index + 1, 0, widget.content);
-        if (pageIndex) {
-          this.builder.updateComponent(pageIndex, content);
-        }
-      }
+    const { addType, path, row, i, index, pageIndex, content, level, uuid } =
+      this.content;
+    if (addType === 'widget') {
+      this.builder.updatePageContentByPath(path, widget.content, 'widget');
+    }
 
-      if (row === 'next') {
-        content.elements.splice(
-          i + 1,
-          0,
-          this.copyLayoutLastChild(content.elements, widget.content)
-        );
-        if (pageIndex) {
-          this.builder.updateComponent(pageIndex, content);
-        }
-      }
+    if (addType === 'layout') {
+      this.builder.updatePageContentByPath(
+        path,
+        this.copyLayoutLastChild(content.elements, widget.content),
+        'layout'
+      );
+    }
+
+    // TODO: fix
+    if (content.type === 'layout-builder') {
+      // if (row === 'down') {
+      //   content.elements[i].elements.splice(index + 1, 0, widget.content);
+      //   if (pageIndex) {
+      //     this.builder.updateComponent(pageIndex, content);
+      //   }
+      // }
+
+      // if (row === 'next') {
+      //   content.elements.splice(
+      //     i + 1,
+      //     0,
+      //     this.copyLayoutLastChild(content.elements, widget.content)
+      //   );
+      //   if (pageIndex) {
+      //     this.builder.updateComponent(pageIndex, content);
+      //   }
+      // }
 
       if (level === 'block') {
         content.elements.splice(

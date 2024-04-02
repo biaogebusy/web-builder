@@ -111,7 +111,14 @@ export class LayoutBuilderComponent
     });
   }
 
-  addBlock(row: string, i: number, content: any, index?: number): void {
+  addBlock(
+    addType: string,
+    i: number,
+    content: any,
+    event: any,
+    index?: number
+  ): void {
+    console.log('path:', this.util.generatePath(event.target));
     this.dialog.open(DialogComponent, {
       width: '700px',
       position: { bottom: '20px' },
@@ -120,7 +127,8 @@ export class LayoutBuilderComponent
         inputData: {
           content: {
             type: 'widget-picker',
-            row,
+            addType,
+            path: this.util.generatePath(event.target),
             i,
             index,
             pageIndex: this.pageIndex,
