@@ -65,6 +65,24 @@ module.exports = PROXY_CONFIG;
 
 ## 为生产环境打包
 
+根据实际情况确认好你的生产环境变量：
+
+```
+// src/environments/environment.prod.ts
+
+export const environment: IEnvironment = {
+  apiUrl: 'https://youdomain.com',
+  production: true,
+  site: 'dist',
+  port: 4200,
+  cache: true,
+  ssr: false,
+  drupalProxy: false,
+};
+
+```
+
+然后打包，发布到正式环境：
 `npm run build:ssr`
 
 ## 运行 Storybook

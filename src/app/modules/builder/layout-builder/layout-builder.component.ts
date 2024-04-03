@@ -19,7 +19,6 @@ import { BuilderState } from '@core/state/BuilderState';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { isNumber } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { delay, takeUntil } from 'rxjs/operators';
@@ -72,7 +71,9 @@ export class LayoutBuilderComponent
         .subscribe((data) => {
           const { value, uuid, path } = data;
           if (uuid === this.uuid) {
-            this.builder.updatePageContentByPath(path, value);
+            if (path) {
+              this.builder.updatePageContentByPath(path, value);
+            }
             if (this.pageIndex) {
               // TODO:是否使用 updatePageContentByPath
               this.builder.updateComponent(this.pageIndex, this.content);
@@ -111,7 +112,8 @@ export class LayoutBuilderComponent
     });
   }
 
-  addBlock(row: string, i: number, content: any, index?: number): void {
+  addBlock(addType: string, content: any, event: any): void {
+    console.log('path:', this.util.generatePath(event.target));
     this.dialog.open(DialogComponent, {
       width: '700px',
       position: { bottom: '20px' },
@@ -120,9 +122,8 @@ export class LayoutBuilderComponent
         inputData: {
           content: {
             type: 'widget-picker',
-            row,
-            i,
-            index,
+            addType,
+            path: this.util.generatePath(event.target),
             pageIndex: this.pageIndex,
             uuid: this.uuid,
             content,
