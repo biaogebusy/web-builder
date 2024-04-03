@@ -2,6 +2,7 @@
 .builder-list {
   height: 100%;
   overflow-x: hidden !important;
+  scroll-behavior: smooth;
   .sidebar-drawer {
     width: 180px;
   }
