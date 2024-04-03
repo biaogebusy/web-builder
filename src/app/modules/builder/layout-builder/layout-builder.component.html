@@ -23,7 +23,7 @@
                 [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'chevron-left',inline:true } }"></app-btn>
               <app-btn matTooltip="右移" *ngIf="i > -1 && i < content.elements.length -1" (click)="onMoveCol(i,'right')"
                 [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'chevron-right',inline:true } }"></app-btn>
-              <app-btn matTooltip="插入一栏" (click)="addBlock('layout',i,content,$event)"
+              <app-btn matTooltip="插入一栏" (click)="addBlock('layout',content,$event)"
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'plus' } }"></app-btn>
               <app-btn matTooltip="移除当前栏" (click)="onDeleteRow(i)"
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'close',inline:true } }"></app-btn>
@@ -35,7 +35,7 @@
           </div>
           <div class="placeholder" [attr.data-path]="'elements.'+i" fxFill fxLayoutAlign="center center"
             *ngIf="layout.elements.length === 0">
-            <app-btn matTooltip="插入组件" (click)="addBlock('widget',i,content,$event)"
+            <app-btn matTooltip="插入组件" (click)="addBlock('widget',content,$event)"
               [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
           </div>
         </ng-container>
@@ -52,7 +52,7 @@
                 <app-btn matTooltip="下移" *ngIf="index > -1 && index < layout.elements.length -1"
                   (click)="onUpDown('down',i,index)"
                   [content]="{label:'',color:'primary',mode: 'icon',icon:{svg:'arrow-collapse-down',inline:true } }"></app-btn>
-                <app-btn matTooltip="插入组件" (click)="addBlock('widget',i,content,$event,index)"
+                <app-btn matTooltip="插入组件" (click)="addBlock('widget',content,$event)"
                   [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'plus' } }"></app-btn>
                 <app-btn matTooltip="删除" (click)="onDeleteCol(i,index)"
                   [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'close',inline:true } }"></app-btn>

@@ -95,11 +95,8 @@ export interface ILayoutSetting {
 
 export interface IWidgetPicker {
   type: 'widget-picker';
-  row: 'down' | 'next';
   addType: 'widget' | 'layout';
   path: string;
-  i: number;
-  index: number;
   pageIndex: number;
   uuid: string;
   content: any;
