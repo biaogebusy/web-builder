@@ -81,12 +81,12 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
         this.builder.currentPage.body,
         this.content.path
       );
-      const isSpanWrapper = this.isHTMLWrapper(currentValue);
+      const isHtmlWrapper = this.isHTMLWrapper(currentValue);
       const div = document.createElement('div');
       const p = document.createElement('p');
       div.appendChild(p);
 
-      if (isSpanWrapper) {
+      if (isHtmlWrapper) {
         p.outerHTML = currentValue;
       } else {
         p.innerHTML = currentValue;
@@ -133,7 +133,7 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
   }
 
   isHTMLWrapper(str: string): boolean {
-    var pattern = /^<p[\s\S]*<\/p>$/;
+    var pattern = /^<([a-zA-Z][\w:-]*)(?:\s[^<>]*?)?>[\s\S]*?<\/\1>$/;
     return pattern.test(str);
   }
 
