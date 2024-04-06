@@ -147,7 +147,7 @@ export const home_v14 = {
                 },
               },
               type: 'title',
-              label: '<div>MODERN FURNITURE</div>',
+              label: 'MODERN FURNITURE',
             },
             {
               type: 'text',
@@ -1727,7 +1727,7 @@ export const home_v14 = {
                     {
                       type: 'text',
                       spacer: 'none',
-                      body: '<div>The room you spend the most time cooking is yourkitchen.Combine modern style with convenience tomake your kitchen more comfortable.</div>',
+                      body: 'The room you spend the most time cooking is yourkitchen.Combine modern style with convenience tomake your kitchen more comfortable.',
                     },
                     {
                       type: 'btn',

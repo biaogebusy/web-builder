@@ -6,7 +6,6 @@ import {
   OnInit,
 } from '@angular/core';
 import type { IShowcase1v3 } from '@core/interface/combs/IShowcase';
-import type { IText } from '@core/interface/widgets/IText';
 
 @Component({
   selector: 'app-showcase-1v3',

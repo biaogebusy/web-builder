@@ -9,7 +9,7 @@ $dark-accent: mat-palette($mat-teal, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-@mixin theme($background, $foreground, $primary) {
+@mixin theme($background, $foreground, $primary, $warn) {
   background-color: mat-color($background, card);
 
   .builder-sidebar {
@@ -71,7 +71,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     > .mat-drawer-container {
       background-color: transparent;
       .builder-list {
-        @include builder-list($background, $foreground, $primary);
+        @include builder-list($background, $foreground, $primary, $warn);
       }
     }
     .mat-drawer-content {
@@ -143,10 +143,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     $key: primary,
   );
   .builder-wrapper {
-    @include theme($background, $foreground, $primary);
+    @include theme($background, $foreground, $primary, $warn);
 
     &.dark {
-      @include theme($darkBg, $darkFore, $darkPrimary);
+      @include theme($darkBg, $darkFore, $darkPrimary, $warn);
       .builder-list,
       #builder-list {
         background-color: #fafafa !important;

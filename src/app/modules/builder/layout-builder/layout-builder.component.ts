@@ -53,7 +53,6 @@ export class LayoutBuilderComponent
   @Input() pageIndex: number;
   @Input() uuid: string;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  showGrid: boolean = false;
   constructor(
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
@@ -276,10 +275,6 @@ export class LayoutBuilderComponent
     elements.splice(index, 1);
     this.builder.updateComponent(this.pageIndex, this.content);
     this.cd.detectChanges();
-  }
-
-  onShowGrid(): void {
-    this.showGrid = !this.showGrid;
   }
 
   ngOnDestroy(): void {

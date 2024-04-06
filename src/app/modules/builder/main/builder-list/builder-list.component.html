@@ -48,6 +48,11 @@
           <app-gotop></app-gotop>
         </div>
       </ng-container>
+      <div class="layout-preview" *ngIf="builder.showGrid$ | async">
+        <div class="col-item" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12]">
+          <div class="span">{{item}}</div>
+        </div>
+      </div>
     </div>
     <div class="iframe-wrapper" *ngIf="builder.switchPreivew$|async">
       <app-iframe class="preview-iframe" [content]="{url:'/builder/preview'}"></app-iframe>

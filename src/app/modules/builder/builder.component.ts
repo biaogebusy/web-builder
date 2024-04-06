@@ -12,7 +12,6 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { BuilderState } from '@core/state/BuilderState';
 import type { IBuilderSamplePage } from '@core/interface/IBuilder';
 import {
-  BRANDING,
   BUILDER_CURRENT_PAGE,
   BUILDER_FULL_SCREEN,
   BUILDER_SAMPLE_PAGE,

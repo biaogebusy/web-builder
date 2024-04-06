@@ -18,12 +18,15 @@
     #builder-list {
       flex: 1 1 auto;
       overflow: auto;
-      padding: 1px;
+      padding-bottom: 150px;
     }
   }
   ::ng-deep {
     .component-item {
       position: relative;
+      &:hover {
+        outline-offset: -2px;
+      }
     }
   }
 
@@ -121,5 +124,26 @@
     top: 50%;
     z-index: 10;
     transform: translate(-50%, -50%);
+  }
+
+  .layout-preview {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 10;
+    pointer-events: none;
+    .col-item {
+      width: calc(1 / 12 * 100%);
+      height: 100%;
+      .span {
+        opacity: 1;
+        text-align: center;
+        padding: 30px 6px 0 6px;
+      }
+    }
   }
 }

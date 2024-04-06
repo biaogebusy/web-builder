@@ -23,7 +23,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./layout-setting.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutSettingComponent implements OnInit, OnDestroy {
+export class LayoutSettingComponent implements OnDestroy {
   @Input() content: ILayoutSetting;
   form = new FormGroup({});
   model: any = {};
@@ -35,8 +35,6 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     private el: ElementRef,
     private cd: ChangeDetectorRef
   ) {}
-
-  ngOnInit(): void {}
 
   onModelChange(value: any) {
     const { block } = value;

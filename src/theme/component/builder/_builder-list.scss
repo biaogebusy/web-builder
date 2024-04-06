@@ -1,4 +1,4 @@
-@mixin builder-list($background, $foreground, $primary) {
+@mixin builder-list($background, $foreground, $primary, $warn) {
   background-color: mat-color($background, card);
   .sidebar-drawer {
     border-right: 1px solid mat-color($foreground, divider);
@@ -27,6 +27,14 @@
   .wrapper {
     #builder-list {
       @include scrollbar(mat-color($primary));
+      .layout-preview {
+        .col-item {
+          background-color: mat-color($warn, 0.2);
+          .span {
+            color: mat-color($foreground, disabled);
+          }
+        }
+      }
     }
   }
   .preview {
