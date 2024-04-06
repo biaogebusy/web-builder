@@ -27,8 +27,6 @@
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'plus' } }"></app-btn>
               <app-btn matTooltip="移除当前栏" (click)="onDeleteRow(i)"
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'close',inline:true } }"></app-btn>
-              <app-btn matTooltip="显示网格" (click)="onShowGrid()"
-                [content]="{label:'',color:showGrid?'warn' : 'primary', mode: 'icon',icon:{svg:'eye',inline:true } }"></app-btn>
               <app-btn matTooltip="当前栏配置" (click)="onLayoutSettings(layout,$event)"
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'responsive',inline:true } }"></app-btn>
             </div>
@@ -65,13 +63,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="layout-preview" *ngIf="isBuilderMode$ | async">
-      <ng-container *ngIf="showGrid">
-        <div class="col-item" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12]">
-          <div class="span">{{item}}</div>
-        </div>
-      </ng-container>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

@@ -11,7 +11,7 @@ import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { get, invoke, map, set } from 'lodash-es';
+import { get, map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
@@ -36,6 +36,7 @@ export class BuilderState {
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
+  public showGrid$ = new Subject<boolean>();
   public selectedMedia$ = new Subject<{
     img: IMediaSelect;
     value: IManageMedia;

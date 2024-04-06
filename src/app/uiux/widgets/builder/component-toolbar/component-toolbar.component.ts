@@ -35,6 +35,7 @@ export class ComponentToolbarComponent implements OnInit {
   dialogRef: any;
   enableBuilderToolbar: boolean;
   showHierarchy: boolean = false;
+  showGrid: boolean = false;
 
   constructor(
     private builder: BuilderState,
@@ -86,6 +87,11 @@ export class ComponentToolbarComponent implements OnInit {
   onHierarchy(): void {
     this.showHierarchy = !this.showHierarchy;
     this.filterChange.emit(this.showHierarchy);
+  }
+
+  onShowGrid(): void {
+    this.showGrid = !this.showGrid;
+    this.builder.showGrid$.next(this.showGrid);
   }
 
   onDelete(index: number): void {

@@ -1,5 +1,4 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { includes } from 'lodash-es';
 import { getAspectRatio, getObjectFix } from './getCommon';
 
 export function getInlineImg(ele: any): FormlyFieldConfig[] {
