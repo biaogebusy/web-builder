@@ -32,6 +32,41 @@ export class ContenteditDirective implements AfterViewInit {
     }
   }
 
+  /**
+   *
+   * @param event
+   * 清除剪切板格式
+   */
+  @HostListener('paste', ['$event']) onPaste(event: ClipboardEvent): void {
+    event.preventDefault();
+    const clipboardData = event.clipboardData;
+    if (clipboardData) {
+      const plainText = clipboardData.getData('text/plain');
+
+      const targetElement = event.target;
+
+      // 保存当前选区（光标位置）
+      const selection = window.getSelection();
+      if (!selection) {
+        console.warn('No selection found');
+        return;
+      }
+      const range = selection.getRangeAt(0);
+
+      // 清除选区，准备插入纯文本
+      range.deleteContents();
+
+      // 创建新的文本节点并插入到Range中
+      const textNode = document.createTextNode(plainText);
+      range.insertNode(textNode);
+
+      // 恢复选区，确保光标位置正确
+      range.selectNodeContents(textNode);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  }
+
   @HostListener('click', ['$event']) onClick(event: Event): void {
     const ele = this.el.nativeElement;
     if (ele.closest('.component-item')) {

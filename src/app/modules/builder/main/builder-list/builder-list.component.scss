@@ -18,12 +18,15 @@
     #builder-list {
       flex: 1 1 auto;
       overflow: auto;
-      padding: 1px;
+      padding-bottom: 150px;
     }
   }
   ::ng-deep {
     .component-item {
       position: relative;
+      &:hover {
+        outline-offset: -2px;
+      }
     }
   }
 
