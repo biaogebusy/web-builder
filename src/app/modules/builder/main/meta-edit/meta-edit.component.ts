@@ -133,7 +133,7 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
   }
 
   isHTMLWrapper(str: string): boolean {
-    var pattern = /^<([a-zA-Z][\w:-]*)(?:\s[^<>]*?)?>[\s\S]*?<\/\1>$/;
+    const pattern = /^<([a-zA-Z][\w:-]*)(?:\s[^<>]*?)?>[\s\S]*?<\/\1>$/;
     return pattern.test(str);
   }
 

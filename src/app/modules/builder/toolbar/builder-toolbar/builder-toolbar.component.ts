@@ -133,12 +133,8 @@ export class BuilderToolbarComponent
         .updateLandingPage(this.builder.currentPage)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
-          const { status, message } = res;
-          if (status) {
-            this.util.openSnackbar(message, 'ok');
-          } else {
-            this.util.openSnackbar(message, 'ok');
-          }
+          const { message } = res;
+          this.util.openSnackbar(message, 'ok');
         });
     } else {
       // new page

@@ -12,7 +12,7 @@ import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
-import { takeUntil, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -96,7 +96,7 @@ export class BuilderService extends ApiService {
   }
 
   formatPage(page: IPage): IPageForJSONAPI {
-    const currentPage: IPage = Object.assign({}, page);
+    const currentPage: IPage = { ...page };
     currentPage.body = page.body.map((item) => {
       return {
         type: 'json',
@@ -109,7 +109,7 @@ export class BuilderService extends ApiService {
   }
 
   coverExtraData(page: IPage): any {
-    const currentPage: IPage = Object.assign({}, page);
+    const currentPage: IPage = { ...page };
     currentPage.label = page.title;
     currentPage.body = page.body.map((item) => {
       if (item.extra) {

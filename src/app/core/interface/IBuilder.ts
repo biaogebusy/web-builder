@@ -2,7 +2,6 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { ICombsBase } from './combs/ICombsBase';
 import { ICard1v1 } from './widgets/ICard';
 import { IIcon } from './widgets/IIcon';
-import { ITitle } from './widgets/ITitle';
 import { IBgImg } from './widgets/IBgImg';
 
 export interface IBuilderComponent {
