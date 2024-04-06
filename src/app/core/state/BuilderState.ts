@@ -179,11 +179,17 @@ export class BuilderState {
     this.updatePage();
   }
 
-  updatePageContentByPath(path: string, content: any, addType?: string): void {
+  updatePageContentByPath(
+    path: string,
+    content: any,
+    addType?: 'add' | 'move'
+  ): void {
     const { body } = this.currentPage;
     if (!addType) {
       set(body, path, content);
-    } else {
+    }
+
+    if (addType === 'add') {
       const lastDotIndex = path.lastIndexOf('.');
       const before = path.slice(0, lastDotIndex);
       const index = path.slice(lastDotIndex + 1);
@@ -192,6 +198,10 @@ export class BuilderState {
         targetArray.splice(Number(index) + 1, 0, content);
         set(body, before, targetArray);
       }
+    }
+
+    if (addType === 'move') {
+      set(body, path, content);
     }
     this.updatePage();
   }

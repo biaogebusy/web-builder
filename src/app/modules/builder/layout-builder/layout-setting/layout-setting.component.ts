@@ -50,13 +50,28 @@ export class LayoutSettingComponent implements OnDestroy {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
-      this.content.content.elements,
-      event.previousIndex,
-      event.currentIndex
-    );
+    const { pageIndex, path, level, content } = this.content;
+    // component toolbar
+    if (pageIndex !== undefined && level === 'block') {
+      moveItemInArray(
+        this.content.content.elements,
+        event.previousIndex,
+        event.currentIndex
+      );
 
-    this.emitLayoutSetting(this.content.content);
+      this.emitLayoutSetting(this.content.content);
+    }
+
+    // layout builder
+    if (path && (level === 'layout' || level === 'widget')) {
+      moveItemInArray(
+        this.content.content.elements,
+        event.previousIndex,
+        event.currentIndex
+      );
+      // TODO: layout no change
+      this.builder.updatePageContentByPath(path, content, 'move');
+    }
   }
 
   emitLayoutSetting(content: any): void {

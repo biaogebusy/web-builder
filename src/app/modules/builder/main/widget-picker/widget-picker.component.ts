@@ -34,14 +34,14 @@ export class WidgetPickerComponent implements OnInit {
   onSelect(widget: any): void {
     const { addType, path, pageIndex, content, level, uuid } = this.content;
     if (addType === 'widget') {
-      this.builder.updatePageContentByPath(path, widget.content, 'widget');
+      this.builder.updatePageContentByPath(path, widget.content, 'add');
     }
 
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
         this.copyLayoutLastChild(content.elements, widget.content),
-        'layout'
+        'add'
       );
     }
 
