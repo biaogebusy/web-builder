@@ -11,11 +11,9 @@
 }
 
 .shape > svg {
-  -webkit-transform: scale(2);
   transform: scale(2);
   width: 100%;
   height: auto;
-  -webkit-transform-origin: top center;
   transform-origin: top center;
 }
 .brand {

@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -44,7 +43,6 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-layout-builder',
   templateUrl: './layout-builder.component.html',
   styleUrls: ['./layout-builder.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutBuilderComponent
   implements OnInit, AfterViewInit, OnDestroy
@@ -112,7 +110,6 @@ export class LayoutBuilderComponent
   }
 
   addBlock(addType: string, content: any, event: any): void {
-    console.log('path:', this.util.generatePath(event.target));
     this.dialog.open(DialogComponent, {
       width: '700px',
       position: { bottom: '20px' },

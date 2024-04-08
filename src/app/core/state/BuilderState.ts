@@ -11,7 +11,7 @@ import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { get, map, set } from 'lodash-es';
+import { cloneDeep, get, map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
@@ -179,11 +179,17 @@ export class BuilderState {
     this.updatePage();
   }
 
-  updatePageContentByPath(path: string, content: any, addType?: string): void {
+  updatePageContentByPath(
+    path: string,
+    content: any,
+    addType?: 'add' | 'move'
+  ): void {
     const { body } = this.currentPage;
     if (!addType) {
       set(body, path, content);
-    } else {
+    }
+
+    if (addType === 'add') {
       const lastDotIndex = path.lastIndexOf('.');
       const before = path.slice(0, lastDotIndex);
       const index = path.slice(lastDotIndex + 1);
@@ -192,6 +198,10 @@ export class BuilderState {
         targetArray.splice(Number(index) + 1, 0, content);
         set(body, before, targetArray);
       }
+    }
+
+    if (addType === 'move') {
+      set(body, path, content);
     }
     this.updatePage();
   }
@@ -217,10 +227,9 @@ export class BuilderState {
   transferComponet(event: CdkDragDrop<string[]>): void {
     const { body } = this.currentPage;
     // base 和 component的数据结构不同，需要做判断
-    const component = event.item.data.type
-      ? event.item.data
-      : event.item.data.content;
-    body.splice(event.currentIndex, 0, component);
+    const { data } = event.item;
+    const component = data.type ? data : data.content;
+    body.splice(event.currentIndex, 0, cloneDeep(component));
     this.updatePage(event.currentIndex);
   }
 
