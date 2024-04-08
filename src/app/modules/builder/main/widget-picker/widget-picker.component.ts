@@ -34,14 +34,14 @@ export class WidgetPickerComponent implements OnInit {
   onSelect(widget: any): void {
     const { addType, path, pageIndex, content, level, uuid } = this.content;
     if (addType === 'widget') {
-      this.builder.updatePageContentByPath(path, widget.content, 'widget');
+      this.builder.updatePageContentByPath(path, { ...widget.content }, 'add');
     }
 
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
-        this.copyLayoutLastChild(content.elements, widget.content),
-        'layout'
+        this.copyLayoutLastChild(content.elements, { ...widget.content }),
+        'add'
       );
     }
 
@@ -51,7 +51,7 @@ export class WidgetPickerComponent implements OnInit {
         content.elements.splice(
           content.elements.length,
           0,
-          this.copyLayoutLastChild(content.elements, widget.content)
+          this.copyLayoutLastChild(content.elements, { ...widget.content })
         );
         this.builder.builderLayoutSetting$.next({
           value: content,
@@ -62,7 +62,9 @@ export class WidgetPickerComponent implements OnInit {
     } else {
       // loop element for elements
       if (level === 'block' && content.elements) {
-        content.elements.splice(content.elements.length, 0, widget.content);
+        content.elements.splice(content.elements.length, 0, {
+          ...widget.content,
+        });
         this.builder.builderLayoutSetting$.next({
           value: content,
           uuid,
