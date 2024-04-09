@@ -38,6 +38,8 @@ import { getAnimate } from '../factory/getAnimate';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { getDivider } from '../factory/getDivider';
 import { ScreenService } from '@core/service/screen.service';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-layout-builder',
@@ -231,16 +233,25 @@ export class LayoutBuilderComponent
     });
   }
 
-  onMoveCol(i: number, direction: string): void {
-    const { elements } = this.content;
+  onMoveCol(
+    direction: 'left' | 'right',
+    lists: any[],
+    event: any,
+    index: number
+  ): void {
+    const elements = cloneDeep(lists);
+    const path = this.util.generatePath(event.target);
+    const lastDotIndex = path.lastIndexOf('.');
+    const arrayPath = path.slice(0, lastDotIndex);
+
     if (direction === 'left') {
-      [elements[i - 1], elements[i]] = [elements[i], elements[i - 1]];
+      moveItemInArray(elements, index, index - 1);
     }
+
     if (direction === 'right') {
-      [elements[i], elements[i + 1]] = [elements[i + 1], elements[i]];
+      moveItemInArray(elements, index, index + 1);
     }
-    this.builder.updateComponent(this.pageIndex, this.content);
-    this.cd.detectChanges();
+    this.builder.updatePageContentByPath(arrayPath, elements);
   }
 
   onUpDown(direction: string, i: number, index: number): void {

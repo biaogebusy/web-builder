@@ -179,11 +179,7 @@ export class BuilderState {
     this.updatePage();
   }
 
-  updatePageContentByPath(
-    path: string,
-    content: any,
-    addType?: 'add' | 'move'
-  ): void {
+  updatePageContentByPath(path: string, content: any, addType?: 'add'): void {
     const { body } = this.currentPage;
     if (!addType) {
       set(body, path, content);
@@ -200,9 +196,6 @@ export class BuilderState {
       }
     }
 
-    if (addType === 'move') {
-      set(body, path, content);
-    }
     this.updatePage();
   }
 
@@ -240,7 +233,12 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  onComponentSetting(content: any, pageIndex: number, uuid: string): void {
+  onComponentSetting(
+    content: any,
+    pageIndex: number,
+    uuid: string,
+    path: string
+  ): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
       fields: getComponentSetting(content),
@@ -248,6 +246,7 @@ export class BuilderState {
       pageIndex,
       content,
       level: 'block',
+      path,
     };
     this.builderRightContent$.next({
       mode: 'over',

@@ -37,8 +37,8 @@ export class LayoutSettingComponent implements OnDestroy {
   ) {}
 
   onModelChange(value: any) {
+    const { path } = this.content;
     const { block } = value;
-
     this.renderLayoutPreview(block);
     let content: any = {};
     Object.keys(value).forEach((config) => {
@@ -46,51 +46,35 @@ export class LayoutSettingComponent implements OnDestroy {
         content = defaultsDeep(value[config], this.content.content);
       }
     });
-    this.emitLayoutSetting(content);
+    if (path) {
+      this.builder.updatePageContentByPath(path, content);
+    }
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const { pageIndex, path, level, content } = this.content;
-    // component toolbar
-    if (pageIndex !== undefined && level === 'block') {
-      moveItemInArray(
-        this.content.content.elements,
-        event.previousIndex,
-        event.currentIndex
-      );
-
-      this.emitLayoutSetting(this.content.content);
-    }
-
-    // layout builder
-    if (path && (level === 'layout' || level === 'widget')) {
-      moveItemInArray(
-        this.content.content.elements,
-        event.previousIndex,
-        event.currentIndex
-      );
-      // TODO: layout no change
-      this.builder.updatePageContentByPath(path, content, 'move');
+    const { path, content } = this.content;
+    moveItemInArray(
+      this.content.content.elements,
+      event.previousIndex,
+      event.currentIndex
+    );
+    if (path) {
+      this.builder.updatePageContentByPath(path, content);
     }
   }
 
-  emitLayoutSetting(content: any): void {
-    this.builder.builderLayoutSetting$.next({
-      value: content,
-      pageIndex: this.content.pageIndex,
-      uuid: this.content.uuid,
-      path: this.content.path,
-    });
+  onCopy(elements: any[], index: number): void {
+    const lists = [...elements];
+    const path = this.content.path;
+    lists.splice(index, 0, elements[index]);
+    this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
-  onCopy(content: any, i: number): void {
-    this.content.content.elements.splice(i, 0, content);
-    this.emitLayoutSetting(this.content.content);
-  }
-
-  onDelete(index: number): void {
-    this.content.content.elements.splice(index, 1);
-    this.emitLayoutSetting(this.content.content);
+  onDelete(elements: any[], index: number): void {
+    const lists = [...elements];
+    const path = this.content.path;
+    lists.splice(index, 1);
+    this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
   onAddLoopElement(content: any): void {

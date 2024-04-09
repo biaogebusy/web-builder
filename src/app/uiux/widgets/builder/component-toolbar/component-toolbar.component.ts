@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -41,7 +42,8 @@ export class ComponentToolbarComponent implements OnInit {
     private builder: BuilderState,
     private dialog: MatDialog,
     @Inject(IS_BUILDER_MODE)
-    public isBuilderMode$: Observable<boolean>
+    public isBuilderMode$: Observable<boolean>,
+    private util: UtilitiesService
   ) {}
 
   ngOnInit(): void {
@@ -58,8 +60,9 @@ export class ComponentToolbarComponent implements OnInit {
     this.builder.upDownComponent(index, direction);
   }
 
-  onSetting(content: any, pageIndex: number): void {
+  onSetting(content: any, pageIndex: number, event: any): void {
     const { type } = content;
+    const path = this.util.generatePath(event.target);
     const component = type ? content : content.content;
     const uuid = Date.now().toString();
     this.uuidChange.emit(uuid);
@@ -80,7 +83,7 @@ export class ComponentToolbarComponent implements OnInit {
         },
       });
     } else {
-      this.builder.onComponentSetting(component, pageIndex, uuid);
+      this.builder.onComponentSetting(component, pageIndex, uuid, path);
     }
   }
 

@@ -19,7 +19,7 @@
     <div class="item" (click)="onDelete(index)" *ngIf="isPreview" [matTooltip]="'移除'" matTooltipPosition="above">
       <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'delete',inline:true } }"></app-btn>
     </div>
-    <div class="item" (click)="onSetting(content, index)" *ngIf="!isStory" [matTooltip]="'编辑组件通用配置'"
+    <div class="item" (click)="onSetting(content, index,$event)" *ngIf="!isStory" [matTooltip]="'编辑组件通用配置'"
       matTooltipPosition="above">
       <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'tune-vertical',inline:true } }"></app-btn>
     </div>

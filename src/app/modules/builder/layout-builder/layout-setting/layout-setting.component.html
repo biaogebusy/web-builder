@@ -8,8 +8,10 @@
         <div mat-line>{{i+1}}.{{widget?.type}}</div>
         <div mat-line class="title" *ngIf="widget.title|isString">{{widget?.title}} </div>
         <div class="actions">
-          <app-btn (click)="onDelete(i)" [content]="{label:'',mode:'icon',icon:{svg:'delete'}}"></app-btn>
-          <app-btn (click)="onCopy(widget,i)" [content]="{label:'',mode:'icon',icon:{svg:'content-copy'}}"></app-btn>
+          <app-btn (click)="onDelete(content.content.elements,i)"
+            [content]="{label:'',mode:'icon',icon:{svg:'delete'}}"></app-btn>
+          <app-btn (click)="onCopy(content.content.elements,i)"
+            [content]="{label:'',mode:'icon',icon:{svg:'content-copy'}}"></app-btn>
         </div>
       </mat-list-item>
       <div class="actions m-y-sm" fxLayoutAlign="center center" *ngIf="content.content.elements[0]?.type | isString">
