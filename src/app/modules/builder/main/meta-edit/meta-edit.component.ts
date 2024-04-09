@@ -174,28 +174,6 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
     const { style, src } = value;
     for (let key of Object.keys(style)) {
       switch (key) {
-        case 'fontSize':
-          const fontSize =
-            style.fontSize === 0 ? 'inherit' : style.fontSize + 'px';
-          style[key] = fontSize;
-          this.setStyle('fontSize', fontSize, value);
-          break;
-        case 'lineHeight':
-          const lineHeight =
-            style.lineHeight === 0 ? 'normal' : style.lineHeight;
-          style[key] = lineHeight;
-          this.setStyle('lineHeight', lineHeight, value);
-          break;
-        case 'width':
-          const width = style.width === 0 ? 'auto' : style.width + 'px';
-          style[key] = width;
-          this.setStyle('width', width, value);
-          break;
-        case 'height':
-          const height = style.height === 0 ? 'auto' : style.height + 'px';
-          style[key] = height;
-          this.setStyle('height', height, value);
-          break;
         case 'maxWidth':
           const maxWidth =
             style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
