@@ -11,7 +11,6 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { getInlineImg } from '@modules/builder/factory/getInlinImg';
 import { getInlineText } from '@modules/builder/factory/getInlineText';
-import { set } from 'lodash-es';
 @Directive({
   selector: '[contentedit]',
 })
@@ -29,8 +28,8 @@ export class ContenteditDirective implements AfterViewInit {
       ele.contentEditable = 'false';
 
       const path = this.generatePath(ele);
-      set(this.builder.currentPage.body, path, ele.innerHTML);
-      this.builder.saveLocalVersions();
+      this.builder.updatePageContentByPath(path, ele.innerHTML);
+      this.openMetaPanel(ele);
     }
   }
 
@@ -100,30 +99,34 @@ export class ContenteditDirective implements AfterViewInit {
           });
         } else {
           ele.contentEditable = 'true';
-          const meta: IMetaEdit = {
-            type: 'meta-edit',
-            mode: 'text',
-            path: this.generatePath(ele),
-            ele,
-            fields: getInlineText(ele),
-            data: {
-              innerHTML: ele.innerHTML,
-              tag: ele.tagName,
-            },
-          };
-          this.builder.builderRightContent$.next({
-            mode: 'push',
-            hasBackdrop: false,
-            style: {
-              width: '300px',
-              'max-width': 'calc(100vw - 50px)',
-            },
-            elements: [meta],
-          });
+          this.openMetaPanel(ele);
         }
         event.preventDefault();
         event.stopPropagation();
       }
+    });
+  }
+
+  openMetaPanel(ele: any): void {
+    const meta: IMetaEdit = {
+      type: 'meta-edit',
+      mode: 'text',
+      path: this.generatePath(ele),
+      ele,
+      fields: getInlineText(ele),
+      data: {
+        innerHTML: ele.innerHTML,
+        tag: ele.tagName,
+      },
+    };
+    this.builder.builderRightContent$.next({
+      mode: 'push',
+      hasBackdrop: false,
+      style: {
+        width: '300px',
+        'max-width': 'calc(100vw - 50px)',
+      },
+      elements: [meta],
     });
   }
 

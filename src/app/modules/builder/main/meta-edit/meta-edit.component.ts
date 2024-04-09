@@ -12,7 +12,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { NodeService } from '@core/service/node.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { get, set } from 'lodash-es';
 import { QuillModule } from 'ngx-quill';
 import type { IMetaEdit } from '@core/interface/IBuilder';
 import { FormGroup } from '@angular/forms';
@@ -77,10 +76,7 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
 
   initTextView(): void {
     if (this.content.mode === 'text') {
-      const currentValue = get(
-        this.builder.currentPage.body,
-        this.content.path
-      );
+      const currentValue = this.content.data.innerHTML;
       const isHtmlWrapper = this.isHTMLWrapper(currentValue);
       const div = document.createElement('div');
       const p = document.createElement('p');
@@ -115,8 +111,7 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
   onClear(): void {
     if (this.content.mode === 'text') {
       this.viewHTML.removeAttribute('style');
-      set(
-        this.builder.currentPage.body,
+      this.builder.updatePageContentByPath(
         this.content.path,
         this.viewHTML.outerHTML
       );
@@ -126,10 +121,8 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
       const src = this.content.path;
       const imgPath = src.substring(0, src.lastIndexOf('.'));
       this.content.ele.removeAttribute('style');
-      set(this.builder.currentPage.body, `${imgPath}.style`, {});
+      this.builder.updatePageContentByPath(`${imgPath}.style`, {});
     }
-    this.builder.saveLocalVersions();
-    this.cd.detectChanges();
   }
 
   isHTMLWrapper(str: string): boolean {
@@ -161,11 +154,8 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
   }
 
   contentChanged(event: any): void {
-    set(this.builder.currentPage.body, this.content.path, event.html);
+    this.builder.updatePageContentByPath(this.content.path, event.html);
     this.content.ele.innerHTML = event.html;
-    setTimeout(() => {
-      this.builder.saveLocalVersions();
-    }, 600);
     this.cd.detectChanges();
   }
 
@@ -174,28 +164,6 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
     const { style, src } = value;
     for (let key of Object.keys(style)) {
       switch (key) {
-        case 'fontSize':
-          const fontSize =
-            style.fontSize === 0 ? 'inherit' : style.fontSize + 'px';
-          style[key] = fontSize;
-          this.setStyle('fontSize', fontSize, value);
-          break;
-        case 'lineHeight':
-          const lineHeight =
-            style.lineHeight === 0 ? 'normal' : style.lineHeight;
-          style[key] = lineHeight;
-          this.setStyle('lineHeight', lineHeight, value);
-          break;
-        case 'width':
-          const width = style.width === 0 ? 'auto' : style.width + 'px';
-          style[key] = width;
-          this.setStyle('width', width, value);
-          break;
-        case 'height':
-          const height = style.height === 0 ? 'auto' : style.height + 'px';
-          style[key] = height;
-          this.setStyle('height', height, value);
-          break;
         case 'maxWidth':
           const maxWidth =
             style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
@@ -208,13 +176,6 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
           style[key] = maxHeight;
           this.setStyle('maxHeight', maxHeight, value);
           break;
-        case 'borderRadius':
-          const borderRadius =
-            style.borderRadius === 0 ? 0 : style.borderRadius + 'px';
-          style[key] = borderRadius;
-          this.setStyle('borderRadius', borderRadius, value);
-          break;
-
         default:
           this.setStyle(key, style[key], value);
           break;
@@ -222,16 +183,12 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
     }
     if (this.content.mode === 'img') {
       const imgPath = path.substring(0, path.lastIndexOf('.'));
-      set(this.builder.currentPage.body, `${imgPath}.style`, style);
-      set(this.builder.currentPage.body, `${imgPath}.src`, src);
+      this.builder.updatePageContentByPath(`${imgPath}.style`, style);
+      this.builder.updatePageContentByPath(`${imgPath}.src`, src);
     }
 
     if (this.content.mode === 'text') {
-      set(
-        this.builder.currentPage.body,
-        this.content.path,
-        this.guiHTML.outerHTML
-      );
+      this.builder.updatePageContentByPath(path, this.guiHTML.outerHTML);
     }
 
     this.builder.saveLocalVersions();

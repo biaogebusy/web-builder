@@ -137,6 +137,7 @@ export class LoginComponent implements OnInit {
         leftTime: 60,
         format: 'ss',
       };
+      this.cd.detectChanges();
     });
   }
 }
