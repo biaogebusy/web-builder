@@ -37,7 +37,6 @@ import { getIcon } from '../factory/getIcon';
 import { getAnimate } from '../factory/getAnimate';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { getDivider } from '../factory/getDivider';
-import { ScreenService } from '@core/service/screen.service';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { cloneDeep } from 'lodash-es';
 
@@ -59,23 +58,10 @@ export class LayoutBuilderComponent
     private builder: BuilderState,
     private util: UtilitiesService,
     private ele: ElementRef,
-    private screenService: ScreenService,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
-  ngOnInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.builder.jsoneditorContent$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((value) => {
-          const { isLayoutWidget, data, path } = value;
-          if (isLayoutWidget) {
-            this.builder.updatePageContentByPath(path, data);
-            this.cd.detectChanges();
-          }
-        });
-    }
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.layoutAnimate();

@@ -45,7 +45,6 @@ export class BuilderState {
   >();
 
   public loading$ = new BehaviorSubject<boolean>(true);
-  public jsoneditorContent$ = new Subject<any>();
   public showBranding$ = new Subject<boolean>();
 
   private page: IPage = {

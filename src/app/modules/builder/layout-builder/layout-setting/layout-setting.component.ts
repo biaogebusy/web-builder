@@ -112,32 +112,11 @@ export class LayoutSettingComponent implements OnDestroy {
 
   showCode(): void {
     const { pageIndex, path } = this.content;
-    // builder list 一级组件
-    if (pageIndex !== undefined) {
-      if (isNumber(pageIndex)) {
-        const json: IJsoneditor = {
-          type: 'jsoneditor',
-          pageIndex,
-          isPreview: true,
-          data: this.builder.currentPage.body[pageIndex],
-        };
-        this.dialog.open(DialogComponent, {
-          width: '1000px',
-          data: {
-            inputData: {
-              content: json,
-            },
-          },
-        });
-      }
-    }
 
     // layout builder level
     if (path) {
       const json: IJsoneditor = {
         type: 'jsoneditor',
-        pageIndex: undefined,
-        isLayoutWidget: true,
         path,
         data: get(this.builder.currentPage.body, path),
       };
@@ -150,10 +129,6 @@ export class LayoutSettingComponent implements OnDestroy {
         },
       });
     }
-  }
-
-  isLayoutWidget(i: number | undefined, index: number | undefined): boolean {
-    return i !== undefined && i >= 0 && index !== undefined && index >= 0;
   }
 
   ngOnDestroy(): void {
