@@ -6,7 +6,6 @@ import {
   ElementRef,
   Input,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -77,8 +76,9 @@ export class LayoutSettingComponent implements OnDestroy {
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
-  onAddLoopElement(content: any): void {
+  onWidgetPicker(): void {
     // 有layout builder，有普通的组件
+    const { content, path } = this.content;
     this.dialog.open(DialogComponent, {
       width: '700px',
       position: { bottom: '20px' },
@@ -87,10 +87,8 @@ export class LayoutSettingComponent implements OnDestroy {
         inputData: {
           content: {
             type: 'widget-picker',
-            pageIndex: this.content.pageIndex,
             content,
-            level: 'block',
-            uuid: this.content.uuid,
+            path,
           },
         },
       },

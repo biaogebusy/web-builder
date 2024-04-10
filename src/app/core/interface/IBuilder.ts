@@ -86,9 +86,7 @@ export interface ILayoutSetting {
   type: 'layout-setting';
   fields: FormlyFieldConfig[];
   pageIndex?: number;
-  uuid: string;
   content?: any;
-  level: 'block' | 'layout' | 'widget';
   path?: string;
 }
 
@@ -96,10 +94,7 @@ export interface IWidgetPicker {
   type: 'widget-picker';
   addType: 'widget' | 'layout';
   path: string;
-  pageIndex: number;
-  uuid: string;
   content: any;
-  level: 'block' | 'layout' | 'widget';
 }
 
 export interface IMetaEdit {

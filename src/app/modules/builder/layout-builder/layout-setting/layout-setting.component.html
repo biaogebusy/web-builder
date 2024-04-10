@@ -15,13 +15,11 @@
         </div>
       </mat-list-item>
       <div class="actions m-y-sm" fxLayoutAlign="center center" *ngIf="content.content.elements[0]?.type | isString">
-        <app-btn (click)="onAddLoopElement(content.content)"
-          [content]="{label:'新增',icon:{svg:'plus'},color:'primary'}"></app-btn>
+        <app-btn (click)="onWidgetPicker()" [content]="{label:'新增',icon:{svg:'plus'},color:'primary'}"></app-btn>
       </div>
     </mat-list>
   </div>
   <div class="actions m-y-md" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <app-btn *ngIf="content.level !== 'layout'" (click)="showCode()"
-      [content]="{label:'编辑 JSON',color:'primary', mode: 'stroked' }"></app-btn>
+    <app-btn (click)="showCode()" [content]="{label:'编辑 JSON',color:'primary', mode: 'stroked' }"></app-btn>
   </div>
 </div>

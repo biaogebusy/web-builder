@@ -60,18 +60,6 @@ export class DynamicComponentComponent
     if (this.screenService.isPlatformBrowser()) {
       this.showToolbar =
         !!this.coreConfig.builder?.enable && this.inputs?.showToolbar;
-      this.builder.builderLayoutSetting$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((data) => {
-          const { value, uuid, pageIndex } = data;
-          if (this.uuid === uuid) {
-            this.inputs = value;
-            this.loadComponent();
-            if (isNumber(pageIndex)) {
-              this.builder.updateComponent(pageIndex, this.inputs);
-            }
-          }
-        });
     }
   }
 

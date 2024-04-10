@@ -65,25 +65,6 @@ export class LayoutBuilderComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.builder.builderLayoutSetting$
-        .pipe(takeUntil(this.destroy$), delay(200))
-        .subscribe((data) => {
-          const { value, uuid, path } = data;
-          if (uuid === this.uuid) {
-            if (path) {
-              this.builder.updatePageContentByPath(path, value);
-            }
-            if (this.pageIndex) {
-              // TODO:是否使用 updatePageContentByPath
-              this.builder.updateComponent(this.pageIndex, this.content);
-            }
-            this.cd.detectChanges();
-
-            // layout animate
-            this.layoutAnimate();
-          }
-        });
-
       this.builder.jsoneditorContent$
         .pipe(takeUntil(this.destroy$))
         .subscribe((value) => {
@@ -140,8 +121,6 @@ export class LayoutBuilderComponent
     const layoutSetting: ILayoutSetting = {
       type: 'layout-setting',
       fields: getBlockSetting(layout),
-      uuid: this.uuid,
-      level: 'layout',
       content: layout,
       path: this.util.generatePath(event.target),
     };
@@ -218,10 +197,8 @@ export class LayoutBuilderComponent
       type: 'layout-setting',
       pageIndex: this.pageIndex,
       path,
-      uuid: this.uuid,
       fields,
       content: widget,
-      level: 'widget',
     };
     this.builder.builderRightContent$.next({
       mode: 'over',

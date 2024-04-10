@@ -30,7 +30,6 @@ export class BuilderState {
   public builderRightContent$ = new Subject<IBuilderDynamicContent>();
   public showRightDrawer: boolean = true;
   public builderPopupSelect$ = new Subject<any>();
-  public builderLayoutSetting$ = new Subject<any>();
   public closeBuilderRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
@@ -242,10 +241,8 @@ export class BuilderState {
     const data: ILayoutSetting = {
       type: 'layout-setting',
       fields: getComponentSetting(content),
-      uuid,
       pageIndex,
       content,
-      level: 'block',
       path,
     };
     this.builderRightContent$.next({
