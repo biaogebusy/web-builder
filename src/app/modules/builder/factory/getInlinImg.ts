@@ -108,7 +108,9 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
       key: 'src',
       defaultValue: ele.src,
       templateOptions: {
-        label: '更新图片',
+        updateLabel: '更新背景图',
+        addLabel: '设置背景图',
+        deleteLabel: '删除',
         fileName: ele.getAttribute('src').split('/').pop(),
         alt: ele.getAttribute('alt'),
       },

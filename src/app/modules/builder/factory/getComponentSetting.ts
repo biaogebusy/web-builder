@@ -22,14 +22,15 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           templateOptions: {
             label: '通用',
           },
+          fieldGroupClassName: 'display-flex flex-wrap',
           fieldGroup: [
             {
               type: 'select',
               key: 'fullWidth',
-              className: 'width-100',
+              className: 'width-50 m-right-sm',
               defaultValue: content.fullWidth,
               templateOptions: {
-                label: '组件全屏宽',
+                label: '全屏宽',
                 options: [
                   {
                     label: '全屏',
@@ -46,7 +47,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               type: 'select',
               key: 'spacer',
               defaultValue: content.spacer || 'md',
-              className: 'width-100',
+              className: 'width-40',
               templateOptions: {
                 label: '上下间距',
                 options: [
@@ -80,27 +81,27 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'select',
               key: 'bgClasses',
-              className: 'width-100',
+              className: 'width-50 m-right-sm',
               defaultValue: content?.bg?.classes || 'bg- bg-fill-width',
               templateOptions: {
-                label: '预设背景色',
+                label: '背景色',
                 options: getBgClasses,
               },
             },
             {
               type: 'select',
               key: 'overlay',
-              className: 'width-100',
+              className: 'width-40',
               defaultValue: content?.bg?.overlay || '',
               templateOptions: {
-                label: '蒙版不透明度',
+                label: '蒙版',
                 options: getOverlay,
               },
             },
             {
               type: 'input',
               key: 'classes',
-              className: 'width-100',
+              className: 'width-50 m-right-sm',
               defaultValue: content.classes || '',
               templateOptions: {
                 label: 'Classes',
@@ -110,7 +111,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'id',
-              className: 'width-100',
+              className: 'width-40',
               defaultValue: content.id || '',
               templateOptions: {
                 label: 'ID',
@@ -129,7 +130,9 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                       type: 'img-picker',
                       defaultValue: content?.bg?.img?.src || '',
                       templateOptions: {
-                        label: '更新背景图',
+                        updateLabel: '更新背景图',
+                        addLabel: '设置背景图',
+                        deleteLabel: '删除',
                       },
                       hooks: {
                         onInit: (formGroup: any) => {

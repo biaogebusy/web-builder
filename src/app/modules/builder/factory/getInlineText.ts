@@ -55,6 +55,33 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               },
             },
             {
+              key: 'textAlign',
+              type: 'select',
+              defaultValue: view.style.textAlign || 'start',
+              className: 'width-30 m-right-xs',
+              templateOptions: {
+                label: '对齐',
+                options: [
+                  {
+                    label: '左',
+                    value: 'start',
+                  },
+                  {
+                    label: '中',
+                    value: 'center',
+                  },
+                  {
+                    label: '右',
+                    value: 'end',
+                  },
+                  {
+                    label: '两端对齐',
+                    value: 'justify',
+                  },
+                ],
+              },
+            },
+            {
               key: 'lineHeight',
               type: 'input',
               defaultValue: view.style.lineHeight || 'normal',
