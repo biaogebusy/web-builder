@@ -189,3 +189,72 @@ export const getObjectFix = [
     value: 'unset',
   },
 ];
+
+export const getDirectionOption = [
+  {
+    label: 'Row Wrap',
+    value: 'row wrap',
+  },
+  {
+    label: 'Row',
+    value: 'row',
+  },
+  {
+    label: 'Column',
+    value: 'column',
+  },
+];
+
+export const getHorizontalOption = [
+  {
+    label: 'None',
+    value: 'flex-start',
+  },
+  {
+    label: 'start',
+    value: 'flex-start',
+  },
+  {
+    label: 'center',
+    value: 'center',
+  },
+  {
+    label: 'end',
+    value: 'flex-end',
+  },
+  {
+    label: 'space-around',
+    value: 'space-around',
+  },
+  {
+    label: 'space-between',
+    value: 'space-between',
+  },
+  {
+    label: 'space-evenly',
+    value: 'space-evenly',
+  },
+];
+
+export const getVerticalOption = [
+  {
+    label: 'None',
+    value: 'stretch',
+  },
+  {
+    label: 'start',
+    value: 'flex-start',
+  },
+  {
+    label: 'center',
+    value: 'center',
+  },
+  {
+    label: 'end',
+    value: 'flex-end',
+  },
+  {
+    label: 'stretch',
+    value: 'stretch',
+  },
+];

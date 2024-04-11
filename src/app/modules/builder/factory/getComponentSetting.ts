@@ -4,7 +4,13 @@ import { getSwiper } from './getSwiper';
 import { getTitleField } from './getTitleField';
 import { getText } from './getText';
 import { getAnimate } from './getAnimate';
-import { getBgClasses, getOverlay } from './getCommon';
+import {
+  getBgClasses,
+  getDirectionOption,
+  getHorizontalOption,
+  getOverlay,
+  getVerticalOption,
+} from './getCommon';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
@@ -219,20 +225,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             defaultValue: content.direction || 'row wrap',
             templateOptions: {
               label: '组件布局方向',
-              options: [
-                {
-                  label: 'Row Wrap',
-                  value: 'row wrap',
-                },
-                {
-                  label: 'Row',
-                  value: 'row',
-                },
-                {
-                  label: 'Column',
-                  value: 'column',
-                },
-              ],
+              options: getDirectionOption,
             },
           },
           {
@@ -242,36 +235,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             defaultValue: getLayoutAlign(0, content.layoutAlign),
             templateOptions: {
               label: '水平对齐',
-              options: [
-                {
-                  label: 'None',
-                  value: 'flex-start',
-                },
-                {
-                  label: 'start',
-                  value: 'flex-start',
-                },
-                {
-                  label: 'center',
-                  value: 'center',
-                },
-                {
-                  label: 'end',
-                  value: 'flex-end',
-                },
-                {
-                  label: 'space-around',
-                  value: 'space-around',
-                },
-                {
-                  label: 'space-between',
-                  value: 'space-between',
-                },
-                {
-                  label: 'space-evenly',
-                  value: 'space-evenly',
-                },
-              ],
+              options: getHorizontalOption,
             },
           },
           {
@@ -281,28 +245,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             defaultValue: getLayoutAlign(1, content.layoutAlign),
             templateOptions: {
               label: '垂直对齐',
-              options: [
-                {
-                  label: 'None',
-                  value: 'stretch',
-                },
-                {
-                  label: 'start',
-                  value: 'flex-start',
-                },
-                {
-                  label: 'center',
-                  value: 'center',
-                },
-                {
-                  label: 'end',
-                  value: 'flex-end',
-                },
-                {
-                  label: 'stretch',
-                  value: 'stretch',
-                },
-              ],
+              options: getVerticalOption,
             },
           },
           {

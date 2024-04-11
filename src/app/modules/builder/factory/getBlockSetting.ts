@@ -1,6 +1,12 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getAnimate } from './getAnimate';
-import { getBgClasses, getOverlay } from './getCommon';
+import {
+  getBgClasses,
+  getDirectionOption,
+  getHorizontalOption,
+  getOverlay,
+  getVerticalOption,
+} from './getCommon';
 
 export function getBlockSetting(layout: any): FormlyFieldConfig[] {
   let responsive: FormlyFieldConfig[] = [
@@ -86,20 +92,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           defaultValue: layout.direction,
           templateOptions: {
             label: '当前列布局方向',
-            options: [
-              {
-                label: 'Column',
-                value: 'column',
-              },
-              {
-                label: 'Row',
-                value: 'row',
-              },
-              {
-                label: 'Row Wrap',
-                value: 'row wrap',
-              },
-            ],
+            options: getDirectionOption,
           },
         },
         {
@@ -109,36 +102,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           defaultValue: getLayoutAlign(0, layout.layoutAlign),
           templateOptions: {
             label: '水平对齐',
-            options: [
-              {
-                label: 'None',
-                value: 'flex-start',
-              },
-              {
-                label: 'start',
-                value: 'flex-start',
-              },
-              {
-                label: 'center',
-                value: 'center',
-              },
-              {
-                label: 'end',
-                value: 'flex-end',
-              },
-              {
-                label: 'space-around',
-                value: 'space-around',
-              },
-              {
-                label: 'space-between',
-                value: 'space-between',
-              },
-              {
-                label: 'space-evenly',
-                value: 'space-evenly',
-              },
-            ],
+            options: getHorizontalOption,
           },
         },
         {
@@ -148,28 +112,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           defaultValue: getLayoutAlign(1, layout.layoutAlign),
           templateOptions: {
             label: '垂直对齐',
-            options: [
-              {
-                label: 'None',
-                value: 'stretch',
-              },
-              {
-                label: 'start',
-                value: 'flex-start',
-              },
-              {
-                label: 'center',
-                value: 'center',
-              },
-              {
-                label: 'end',
-                value: 'flex-end',
-              },
-              {
-                label: 'stretch',
-                value: 'stretch',
-              },
-            ],
+            options: getVerticalOption,
           },
         },
         {
@@ -207,7 +150,9 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
             type: 'img-picker',
             defaultValue: layout?.bg?.img?.src || '',
             templateOptions: {
-              label: '更新背景图',
+              updateLabel: '更新背景图',
+              addLabel: '设置背景图',
+              deleteLabel: '删除',
             },
             hooks: {
               onInit: (formGroup: any) => {
