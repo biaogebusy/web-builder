@@ -7,13 +7,13 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
       key: 'style',
       fieldGroup: [
         {
-          fieldGroupClassName: 'display-flex flex-wrap',
+          fieldGroupClassName: 'section-group',
           fieldGroup: [
             {
               type: 'input',
               key: 'width',
               defaultValue: ele.style.width || 'auto',
-              className: 'width-40 m-right-sm',
+              className: 'width-40',
               templateOptions: {
                 label: 'W',
               },
@@ -27,15 +27,10 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
                 label: 'H',
               },
             },
-          ],
-        },
-        {
-          fieldGroupClassName: 'display-flex flex-wrap',
-          fieldGroup: [
             {
               type: 'input',
               key: 'opacity',
-              className: 'width-40 m-right-sm',
+              className: 'width-40',
               defaultValue: ele.style.opacity || 1,
               templateOptions: {
                 label: 'Opacity',
