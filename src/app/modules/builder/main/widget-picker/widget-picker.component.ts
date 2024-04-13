@@ -32,9 +32,13 @@ export class WidgetPickerComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelect(widget: any): void {
-    const { addType, path, pageIndex, content, level, uuid } = this.content;
+    const { addType, path, content } = this.content;
+
+    // add widget from layout builder toolbar
     if (addType === 'widget') {
       this.builder.updatePageContentByPath(path, { ...widget.content }, 'add');
+      this.dialog.closeAll();
+      return;
     }
 
     if (addType === 'layout') {
@@ -43,36 +47,14 @@ export class WidgetPickerComponent implements OnInit {
         this.copyLayoutLastChild(content.elements, { ...widget.content }),
         'add'
       );
+      this.dialog.closeAll();
+      return;
     }
 
-    // loop element for layout builder
-    if (content.type === 'layout-builder') {
-      if (level === 'block') {
-        content.elements.splice(
-          content.elements.length,
-          0,
-          this.copyLayoutLastChild(content.elements, { ...widget.content })
-        );
-        this.builder.builderLayoutSetting$.next({
-          value: content,
-          uuid,
-          pageIndex,
-        });
-      }
-    } else {
-      // loop element for elements
-      if (level === 'block' && content.elements) {
-        content.elements.splice(content.elements.length, 0, {
-          ...widget.content,
-        });
-        this.builder.builderLayoutSetting$.next({
-          value: content,
-          uuid,
-          pageIndex,
-        });
-      }
-    }
-
+    // add widget from loop element of layout builder top level
+    const lists = [...content.elements];
+    lists.splice(lists.length, 0, { ...widget.content });
+    this.builder.updatePageContentByPath(`${path}.elements`, lists);
     this.dialog.closeAll();
   }
 
