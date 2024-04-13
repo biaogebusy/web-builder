@@ -1,5 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { getLayoutAlign } from './getBlockSetting';
+import { getLayoutAlign } from './getLayoutSetting';
 import { getSwiper } from './getSwiper';
 import { getTitleField } from './getTitleField';
 import { getText } from './getText';
@@ -7,6 +7,7 @@ import { getAnimate } from './getAnimate';
 import {
   getBgClasses,
   getDirectionOption,
+  getGapsGroup,
   getHorizontalOption,
   getOverlay,
   getVerticalOption,
@@ -273,56 +274,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           },
           {
             key: 'gap',
-            fieldGroup: [
-              {
-                key: 'xs',
-                type: 'slider',
-                defaultValue: content.gap?.xs || 0,
-                templateOptions: {
-                  min: 0,
-                  max: 80,
-                  step: 2,
-                  label: '移动端间距',
-                  unit: 'px',
-                },
-              },
-              {
-                key: 'sm',
-                type: 'slider',
-                defaultValue: content.gap?.sm || 0,
-                templateOptions: {
-                  min: 0,
-                  max: 80,
-                  step: 2,
-                  label: '平板端间距',
-                  unit: 'px',
-                },
-              },
-              {
-                key: 'md',
-                type: 'slider',
-                defaultValue: content.gap?.md || 0,
-                templateOptions: {
-                  min: 0,
-                  max: 80,
-                  step: 2,
-                  label: '桌面端间距',
-                  unit: 'px',
-                },
-              },
-              {
-                key: 'lg',
-                type: 'slider',
-                defaultValue: content.gap?.lg || 0,
-                templateOptions: {
-                  min: 0,
-                  max: 80,
-                  step: 2,
-                  label: '超大桌面间距',
-                  unit: 'px',
-                },
-              },
-            ],
+            fieldGroup: getGapsGroup(content),
           },
         ],
       },

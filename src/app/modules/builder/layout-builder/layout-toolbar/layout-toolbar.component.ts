@@ -9,7 +9,7 @@ import { ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { getBlockSetting } from '@modules/builder/factory/getBlockSetting';
+import { getLayoutSetting } from '@modules/builder/factory/getLayoutSetting';
 import { cloneDeep } from 'lodash-es';
 import { Subject } from 'rxjs';
 
@@ -67,7 +67,7 @@ export class LayoutToolbarComponent implements OnInit {
   onLayoutSettings(layout: any, event: any): void {
     const layoutSetting: ILayoutSetting = {
       type: 'layout-setting',
-      fields: getBlockSetting(layout),
+      fields: getLayoutSetting(layout),
       content: layout,
       path: this.util.generatePath(event.target),
     };

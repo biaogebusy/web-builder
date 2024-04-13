@@ -3,12 +3,13 @@ import { getAnimate } from './getAnimate';
 import {
   getBgClasses,
   getDirectionOption,
+  getGapsGroup,
   getHorizontalOption,
   getOverlay,
   getVerticalOption,
 } from './getCommon';
 
-export function getBlockSetting(layout: any): FormlyFieldConfig[] {
+export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
   let responsive: FormlyFieldConfig[] = [
     {
       fieldGroup: [
@@ -139,6 +140,10 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               });
             },
           },
+        },
+        {
+          key: 'gap',
+          fieldGroup: getGapsGroup(layout),
         },
       ],
     },

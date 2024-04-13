@@ -9,7 +9,7 @@ import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { getAnimate } from '@modules/builder/factory/getAnimate';
-import { getBlockSetting } from '@modules/builder/factory/getBlockSetting';
+import { getLayoutSetting } from '@modules/builder/factory/getLayoutSetting';
 import { getBtn } from '@modules/builder/factory/getBtn';
 import { getBtnVideo } from '@modules/builder/factory/getBtnVideo';
 import { getChart } from '@modules/builder/factory/getChart';
@@ -111,7 +111,7 @@ export class BlockToolbarComponent implements OnInit {
         fields = getIcon(widget, [animateConfig]);
         break;
       case 'layout-builder':
-        fields = getBlockSetting(widget);
+        fields = getLayoutSetting(widget);
         break;
       case 'divider':
         fields = getDivider(widget);

@@ -1,3 +1,5 @@
+import { FormlyFieldConfig } from '@ngx-formly/core';
+
 export const getBgClasses = [
   {
     label: '无',
@@ -258,3 +260,56 @@ export const getVerticalOption = [
     value: 'stretch',
   },
 ];
+
+export function getGapsGroup(content: any): FormlyFieldConfig[] {
+  return [
+    {
+      key: 'xs',
+      type: 'slider',
+      defaultValue: content.gap?.xs || 0,
+      templateOptions: {
+        min: 0,
+        max: 80,
+        step: 2,
+        label: '移动端间距',
+        unit: 'px',
+      },
+    },
+    {
+      key: 'sm',
+      type: 'slider',
+      defaultValue: content.gap?.sm || 0,
+      templateOptions: {
+        min: 0,
+        max: 80,
+        step: 2,
+        label: '平板端间距',
+        unit: 'px',
+      },
+    },
+    {
+      key: 'md',
+      type: 'slider',
+      defaultValue: content.gap?.md || 0,
+      templateOptions: {
+        min: 0,
+        max: 80,
+        step: 2,
+        label: '桌面端间距',
+        unit: 'px',
+      },
+    },
+    {
+      key: 'lg',
+      type: 'slider',
+      defaultValue: content.gap?.lg || 0,
+      templateOptions: {
+        min: 0,
+        max: 80,
+        step: 2,
+        label: '超大桌面间距',
+        unit: 'px',
+      },
+    },
+  ];
+}
