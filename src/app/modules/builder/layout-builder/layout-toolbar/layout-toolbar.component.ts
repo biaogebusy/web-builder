@@ -5,15 +5,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ILayoutSetting } from '@core/interface/IBuilder';
+import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { getBlockSetting } from '@modules/builder/factory/getBlockSetting';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { cloneDeep } from 'lodash-es';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-layout-toolbar',
@@ -30,7 +28,7 @@ export class LayoutToolbarComponent implements OnInit {
   constructor(
     private util: UtilitiesService,
     private builder: BuilderState,
-    private dialog: MatDialog
+    private builderService: BuilderService
   ) {}
 
   ngOnInit(): void {}
@@ -57,32 +55,13 @@ export class LayoutToolbarComponent implements OnInit {
   }
 
   addBlock(addType: string, content: any, event: any): void {
-    this.dialog.open(DialogComponent, {
-      width: '700px',
-      position: { bottom: '20px' },
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'widget-picker',
-            addType,
-            path: this.util.generatePath(event.target),
-            content,
-          },
-        },
-      },
-    });
-
-    // this.dialog.afterAllClosed.pipe(takeUntil(this.destroy$)).subscribe(() => {
-    //   this.cd.detectChanges();
-    // });
+    this.builderService.addBlock(addType, content, event);
   }
 
   onDeleteRow(index: number): void {
     const { elements } = this.content;
     elements.splice(index, 1);
     this.builder.updateComponent(this.pageIndex, this.content);
-    // this.cd.detectChanges();
   }
 
   onLayoutSettings(layout: any, event: any): void {

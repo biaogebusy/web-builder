@@ -39,7 +39,7 @@
               &:hover {
                 outline: 1px solid mat-color($primary);
               }
-              > .actions {
+              > app-block-toolbar {
                 background-color: mat-color($foreground, elevation, 0.7);
 
                 @include mat-elevation(

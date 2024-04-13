@@ -3,20 +3,7 @@
 
   .layout {
     position: relative;
-    .actions {
-      ::ng-deep {
-        .mat-icon-button {
-          width: 30px;
-          height: 30px;
-          line-height: 30px;
-          .custom.mat-icon {
-            width: 16px !important;
-            height: 16px !important;
-            line-height: 16px !important;
-          }
-        }
-      }
-    }
+
     ::ng-deep {
       .container,
       .container-fluid {
@@ -37,7 +24,7 @@
         &.item-layout-builder {
           width: 100%;
         }
-        > .actions {
+        > app-block-toolbar {
           display: none;
           position: absolute;
           top: auto;
@@ -50,7 +37,7 @@
           border-top-right-radius: 4px;
         }
         &:hover {
-          > .actions {
+          > app-block-toolbar {
             display: block;
           }
         }
