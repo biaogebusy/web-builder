@@ -1,0 +1,18 @@
+<div class="layout-toolbar">
+  <app-btn class="toggle" matTooltip="当前栏配置"
+    [content]="{label:'',mode:'icon',icon:{svg:'tune-vertical-variant',inline:true}}"></app-btn>
+  <div class="block-toolbar">
+    <app-btn matTooltip="左移" *ngIf="i > 0 && i < content.elements.length"
+      (click)="onMoveCol('left',content.elements,$event,i)"
+      [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'chevron-left',inline:true } }"></app-btn>
+    <app-btn matTooltip="右移" *ngIf="i > -1 && i < content.elements.length -1"
+      (click)="onMoveCol('right',content.elements,$event,i)"
+      [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'chevron-right',inline:true } }"></app-btn>
+    <app-btn matTooltip="插入一栏" (click)="addBlock('layout',content,$event)"
+      [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'plus' } }"></app-btn>
+    <app-btn matTooltip="移除当前栏" (click)="onDeleteRow(i)"
+      [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'close',inline:true } }"></app-btn>
+    <app-btn matTooltip="当前栏配置" (click)="onLayoutSettings(layout,$event)"
+      [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'responsive',inline:true } }"></app-btn>
+  </div>
+</div>

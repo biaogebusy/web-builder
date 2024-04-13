@@ -1,7 +1,8 @@
 .layout-builder {
+  position: relative;
+
   .layout {
     position: relative;
-    .block-menu,
     .actions {
       ::ng-deep {
         .mat-icon-button {
@@ -22,19 +23,7 @@
         padding: 0;
       }
     }
-    .placeholder {
-      opacity: 0.5;
-      &:hover {
-        opacity: 1;
-      }
-      ::ng-deep {
-        .custom.mat-icon {
-          width: 40px !important;
-          height: 40px !important;
-          line-height: 16px !important;
-        }
-      }
-    }
+
     .block {
       position: relative;
       width: 100%;
@@ -67,26 +56,28 @@
         }
       }
     }
-    > .block-menu {
+    > app-layout-toolbar {
       display: none;
       position: absolute;
       right: -2px;
       top: -2px;
       z-index: 100;
-      .toggle {
-        border-bottom-left-radius: 4px;
+    }
+    .placeholder {
+      opacity: 0.5;
+      padding: 40px;
+      &:hover {
+        opacity: 1;
       }
-      .block-toolbar {
-        display: none;
-        position: absolute;
-        border-radius: 0 0 0 4px;
-        z-index: 10;
-        white-space: nowrap;
-        top: 0;
+      ::ng-deep {
+        .custom.mat-icon {
+          width: 40px !important;
+          height: 40px !important;
+          line-height: 16px !important;
+        }
       }
     }
   }
-  position: relative;
 }
 
 :host-context(.builder-list) {
@@ -94,22 +85,10 @@
     padding-top: 30px;
     .layout {
       padding: 0;
-      > .block-menu {
-        &:hover {
-          .toggle {
-            display: none;
-          }
-          .block-toolbar {
-            display: block;
-          }
-        }
-      }
       &:hover {
         outline-offset: 2px;
-        > .block-menu {
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
+        > app-layout-toolbar {
+          display: block;
         }
       }
     }

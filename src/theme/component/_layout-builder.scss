@@ -16,7 +16,7 @@
             outline: 1px dashed mat-color($primary);
             z-index: 10;
           }
-          .block-menu {
+          .layout-toolbar {
             .toggle {
               background-color: mat-color($foreground, elevation, 0.7);
               color: mat-color($primary, default-contrast, 0.8);
@@ -29,7 +29,7 @@
               }
             }
           }
-          > .placeholder {
+          .placeholder {
             &:hover {
               color: mat-color($primary);
             }

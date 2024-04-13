@@ -89,35 +89,15 @@ export class LayoutBuilderComponent
             type: 'widget-picker',
             addType,
             path: this.util.generatePath(event.target),
-            pageIndex: this.pageIndex,
-            uuid: this.uuid,
             content,
           },
         },
       },
     });
 
-    this.dialog.afterAllClosed.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.cd.detectChanges();
-    });
-  }
-
-  onLayoutSettings(layout: any, event: any): void {
-    this.uuid = Date.now().toString();
-    const layoutSetting: ILayoutSetting = {
-      type: 'layout-setting',
-      fields: getBlockSetting(layout),
-      content: layout,
-      path: this.util.generatePath(event.target),
-    };
-    this.builder.builderRightContent$.next({
-      mode: 'push',
-      hasBackdrop: false,
-      style: {
-        width: '260px',
-      },
-      elements: [layoutSetting],
-    });
+    // this.dialog.afterAllClosed.pipe(takeUntil(this.destroy$)).subscribe(() => {
+    //   this.cd.detectChanges();
+    // });
   }
 
   onWidgetSetting(widget: any, event: any): void {
@@ -237,13 +217,6 @@ export class LayoutBuilderComponent
   onDeleteCol(i: number, index: number): void {
     const { elements } = this.content;
     elements[i].elements.splice(index, 1);
-    this.builder.updateComponent(this.pageIndex, this.content);
-    this.cd.detectChanges();
-  }
-
-  onDeleteRow(index: number): void {
-    const { elements } = this.content;
-    elements.splice(index, 1);
     this.builder.updateComponent(this.pageIndex, this.content);
     this.cd.detectChanges();
   }
