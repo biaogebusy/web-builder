@@ -15,22 +15,8 @@
         fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
         fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})">
         <ng-container *ngIf="isBuilderMode$ | async">
-          <div class="block-menu">
-            <app-btn class="toggle" matTooltip="当前栏配置"
-              [content]="{label:'',mode:'icon',icon:{svg:'tune-vertical-variant',inline:true}}"></app-btn>
-            <div class="block-toolbar">
-              <app-btn matTooltip="左移" *ngIf="i > 0 && i < content.elements.length" (click)="onMoveCol(i,'left')"
-                [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'chevron-left',inline:true } }"></app-btn>
-              <app-btn matTooltip="右移" *ngIf="i > -1 && i < content.elements.length -1" (click)="onMoveCol(i,'right')"
-                [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'chevron-right',inline:true } }"></app-btn>
-              <app-btn matTooltip="插入一栏" (click)="addBlock('layout',content,$event)"
-                [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'plus' } }"></app-btn>
-              <app-btn matTooltip="移除当前栏" (click)="onDeleteRow(i)"
-                [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'close',inline:true } }"></app-btn>
-              <app-btn matTooltip="当前栏配置" (click)="onLayoutSettings(layout,$event)"
-                [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'responsive',inline:true } }"></app-btn>
-            </div>
-          </div>
+          <app-layout-toolbar [content]="content" [i]="i" [layout]="layout"
+            [pageIndex]="pageIndex"></app-layout-toolbar>
           <div class="placeholder" [attr.data-path]="'elements.'+i" fxFill fxLayoutAlign="center center"
             *ngIf="layout.elements.length === 0">
             <app-btn matTooltip="插入组件" (click)="addBlock('widget',content,$event)"
@@ -38,27 +24,14 @@
           </div>
         </ng-container>
         <div class="for-animate">
-          <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
           <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign"
             [ngStyle]="layout.style">
+            <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
             <div class="item item-{{item.type}}" [attr.data-path]="'elements.'+index"
               *ngFor="let item of layout.elements;index as index">
-              <div class="actions" *ngIf="isBuilderMode$ | async">
-                <app-btn matTooltip="上移" *ngIf="index > 0 && index < layout.elements.length"
-                  (click)="onUpDown('up',i,index)"
-                  [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>
-                <app-btn matTooltip="下移" *ngIf="index > -1 && index < layout.elements.length -1"
-                  (click)="onUpDown('down',i,index)"
-                  [content]="{label:'',color:'primary',mode: 'icon',icon:{svg:'arrow-collapse-down',inline:true } }"></app-btn>
-                <app-btn matTooltip="插入组件" (click)="addBlock('widget',content,$event)"
-                  [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'plus' } }"></app-btn>
-                <app-btn matTooltip="删除" (click)="onDeleteCol(i,index)"
-                  [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'close',inline:true } }"></app-btn>
-                <app-btn matTooltip="{{item.type}}组件配置" (click)="onWidgetSetting(item,$event)"
-                  [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'tune-vertical',inline:true } }"></app-btn>
-              </div>
-              <app-dynamic-component [inputs]="item">
-              </app-dynamic-component>
+              <app-block-toolbar [layout]="layout" [item]="item" [index]="index" [i]="i" [content]="content"
+                [pageIndex]="pageIndex" *ngIf="isBuilderMode$ | async"></app-block-toolbar>
+              <app-dynamic-component [inputs]="item"></app-dynamic-component>
             </div>
           </div>
         </div>

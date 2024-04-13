@@ -17,7 +17,9 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'img-picker',
               defaultValue: widget.src || '',
               templateOptions: {
-                label: '更新图片',
+                updateLabel: '更新背景图',
+                addLabel: '设置背景图',
+                deleteLabel: '删除',
                 fileName: widget.src.split('/').pop(),
                 alt: widget.alt || '',
               },

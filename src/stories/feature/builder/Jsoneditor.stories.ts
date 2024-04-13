@@ -56,8 +56,6 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 const content: IJsoneditor = {
   type: 'jsoneditor',
-  isPreview: true,
-  index: 0,
   data: {
     spacer: 'none',
     type: 'hero-1v1',

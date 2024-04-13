@@ -13,6 +13,8 @@ import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
 import { tap } from 'rxjs/operators';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +25,7 @@ export class BuilderService extends ApiService {
     private util: UtilitiesService,
     private builder: BuilderState,
     private nodeService: NodeService,
+    private dialog: MatDialog,
     @Inject(API_URL) public apiBaseUrl: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user: IUser
@@ -158,6 +161,24 @@ export class BuilderService extends ApiService {
     }
 
     return pageTitle;
+  }
+
+  addBlock(addType: string, content: any, event: any): void {
+    this.dialog.open(DialogComponent, {
+      width: '700px',
+      position: { bottom: '20px' },
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'widget-picker',
+            addType,
+            path: this.util.generatePath(event.target),
+            content,
+          },
+        },
+      },
+    });
   }
 
   initExtraBody(body: any[]): any[] {

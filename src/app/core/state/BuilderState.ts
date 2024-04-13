@@ -30,7 +30,6 @@ export class BuilderState {
   public builderRightContent$ = new Subject<IBuilderDynamicContent>();
   public showRightDrawer: boolean = true;
   public builderPopupSelect$ = new Subject<any>();
-  public builderLayoutSetting$ = new Subject<any>();
   public closeBuilderRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
@@ -46,7 +45,6 @@ export class BuilderState {
   >();
 
   public loading$ = new BehaviorSubject<boolean>(true);
-  public jsoneditorContent$ = new Subject<any>();
   public showBranding$ = new Subject<boolean>();
 
   private page: IPage = {
@@ -179,11 +177,7 @@ export class BuilderState {
     this.updatePage();
   }
 
-  updatePageContentByPath(
-    path: string,
-    content: any,
-    addType?: 'add' | 'move'
-  ): void {
+  updatePageContentByPath(path: string, content: any, addType?: 'add'): void {
     const { body } = this.currentPage;
     if (!addType) {
       set(body, path, content);
@@ -200,9 +194,6 @@ export class BuilderState {
       }
     }
 
-    if (addType === 'move') {
-      set(body, path, content);
-    }
     this.updatePage();
   }
 
@@ -240,14 +231,18 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  onComponentSetting(content: any, pageIndex: number, uuid: string): void {
+  onComponentSetting(
+    content: any,
+    pageIndex: number,
+    uuid: string,
+    path: string
+  ): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
       fields: getComponentSetting(content),
-      uuid,
       pageIndex,
       content,
-      level: 'block',
+      path,
     };
     this.builderRightContent$.next({
       mode: 'over',

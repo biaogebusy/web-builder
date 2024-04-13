@@ -24,10 +24,6 @@
       @include mat-elevation(3, mat-color($background, tooltip), 0.4);
     }
 
-    .section-group {
-      background-color: mat-color($primary, 0.1);
-    }
-
     .loop-elements {
       .mat-list-item {
         background-color: mat-color($primary, 0.2);

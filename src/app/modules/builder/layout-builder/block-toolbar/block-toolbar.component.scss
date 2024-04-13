@@ -1,0 +1,14 @@
+.block-toolbar {
+  ::ng-deep {
+    .mat-icon-button {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      .custom.mat-icon {
+        width: 16px !important;
+        height: 16px !important;
+        line-height: 16px !important;
+      }
+    }
+  }
+}

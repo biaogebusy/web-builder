@@ -10,7 +10,7 @@
     </div>
     <div class="post-meta" fxLayoutAlign="space-between center" *ngIf="content.moreLabel">
       <a *ngIf="content.link" [href]="content.link.href" class="text-muted readmore">
-        <span contentedit="moreLabel">{{content.moreLabel}}</span>
+        <span contentedit="moreLabel" [innerHTML]="content.moreLabel|safeHtml"></span>
         <mat-icon inline="true">navigate_next</mat-icon>
       </a>
     </div>

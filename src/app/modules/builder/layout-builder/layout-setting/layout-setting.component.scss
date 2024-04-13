@@ -13,6 +13,10 @@
         }
       }
     }
+    input.mat-input-element,
+    .mat-form-field {
+      font-size: 15px;
+    }
     .layout-setting {
       .layout-preview {
         height: auto;
@@ -88,14 +92,7 @@
         }
       }
     }
-    .section-group {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      padding: 10px;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
+
     .mat-form-field-infix {
       width: auto;
       .mat-slider-horizontal {

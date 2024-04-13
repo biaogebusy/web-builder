@@ -6,6 +6,12 @@ formly-form {
         height: 19px;
       }
     }
+    .section-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
   }
 
   &.form-field-width-auto {
