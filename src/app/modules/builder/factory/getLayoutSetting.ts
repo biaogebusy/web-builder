@@ -1,60 +1,72 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getAnimate } from './getAnimate';
-import { getBgClasses, getOverlay } from './getCommon';
+import {
+  getBgClasses,
+  getDirectionOption,
+  getGapsGroup,
+  getHorizontalOption,
+  getOverlay,
+  getVerticalOption,
+} from './getCommon';
 
-export function getBlockSetting(layout: any): FormlyFieldConfig[] {
+export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
   let responsive: FormlyFieldConfig[] = [
     {
       fieldGroup: [
         {
+          template: `<div class="small p-y-xs m-bottom-xs">栏数</div>`,
+          className: 'width-100',
+        },
+        {
           key: 'row',
+          fieldGroupClassName: 'section-group',
           fieldGroup: [
             {
-              type: 'slider',
+              type: 'input',
               key: 'xs',
-              className: 'width-100',
+              className: 'width-40',
               defaultValue: layout?.row?.xs || 12,
               templateOptions: {
                 min: 1,
                 max: 12,
-                label: '移动端',
-                unit: '栏',
+                label: 'xs',
+                type: 'number',
               },
             },
             {
-              type: 'slider',
+              type: 'input',
               key: 'sm',
-              className: 'width-100',
+              className: 'width-40',
               defaultValue: layout?.row?.sm || 12,
               templateOptions: {
                 min: 1,
                 max: 12,
-                label: '平板电脑',
-                unit: '栏',
+                label: 'sm',
+                type: 'number',
               },
             },
             {
-              type: 'slider',
+              type: 'input',
               key: 'md',
-              className: 'width-100',
+              className: 'width-40',
               defaultValue: layout?.row?.md || 12,
               templateOptions: {
                 min: 1,
                 max: 12,
-                label: '桌面电脑',
-                unit: '栏',
+                label: 'md',
+                type: 'number',
               },
             },
             {
-              type: 'slider',
+              type: 'input',
               key: 'lg',
-              className: 'width-100',
+              className: 'width-40',
               defaultValue: layout?.row?.lg || 12,
               templateOptions: {
                 min: 1,
                 max: 12,
-                label: '超大桌面',
-                unit: '栏',
+                label: 'lg',
+                type: 'number',
               },
             },
           ],
@@ -86,20 +98,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           defaultValue: layout.direction,
           templateOptions: {
             label: '当前列布局方向',
-            options: [
-              {
-                label: 'Column',
-                value: 'column',
-              },
-              {
-                label: 'Row',
-                value: 'row',
-              },
-              {
-                label: 'Row Wrap',
-                value: 'row wrap',
-              },
-            ],
+            options: getDirectionOption,
           },
         },
         {
@@ -109,36 +108,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           defaultValue: getLayoutAlign(0, layout.layoutAlign),
           templateOptions: {
             label: '水平对齐',
-            options: [
-              {
-                label: 'None',
-                value: 'flex-start',
-              },
-              {
-                label: 'start',
-                value: 'flex-start',
-              },
-              {
-                label: 'center',
-                value: 'center',
-              },
-              {
-                label: 'end',
-                value: 'flex-end',
-              },
-              {
-                label: 'space-around',
-                value: 'space-around',
-              },
-              {
-                label: 'space-between',
-                value: 'space-between',
-              },
-              {
-                label: 'space-evenly',
-                value: 'space-evenly',
-              },
-            ],
+            options: getHorizontalOption,
           },
         },
         {
@@ -148,28 +118,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           defaultValue: getLayoutAlign(1, layout.layoutAlign),
           templateOptions: {
             label: '垂直对齐',
-            options: [
-              {
-                label: 'None',
-                value: 'stretch',
-              },
-              {
-                label: 'start',
-                value: 'flex-start',
-              },
-              {
-                label: 'center',
-                value: 'center',
-              },
-              {
-                label: 'end',
-                value: 'flex-end',
-              },
-              {
-                label: 'stretch',
-                value: 'stretch',
-              },
-            ],
+            options: getVerticalOption,
           },
         },
         {
@@ -192,6 +141,10 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
             },
           },
         },
+        {
+          key: 'gap',
+          fieldGroup: getGapsGroup(layout),
+        },
       ],
     },
   ];
@@ -207,7 +160,9 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
             type: 'img-picker',
             defaultValue: layout?.bg?.img?.src || '',
             templateOptions: {
-              label: '更新背景图',
+              updateLabel: '更新背景图',
+              addLabel: '设置背景图',
+              deleteLabel: '删除',
             },
             hooks: {
               onInit: (formGroup: any) => {
@@ -221,6 +176,15 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 });
               },
             },
+          },
+          {
+            key: 'alt',
+            type: 'input',
+            defaultValue: layout?.bg?.img?.alt || '',
+            templateOptions: {
+              label: 'alt',
+            },
+            hideExpression: '!model.src',
           },
           {
             key: 'classes',
@@ -244,14 +208,6 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
               ],
             },
             hideExpression: '!model.src',
-          },
-          {
-            key: 'alt',
-            type: 'input',
-            defaultValue: layout?.bg?.img?.alt || '',
-            templateOptions: {
-              label: 'alt',
-            },
           },
         ],
       },
@@ -296,136 +252,107 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
           fieldGroupClassName: 'display-flex flex-wrap width-100',
           fieldGroup: [
             {
-              type: 'slider',
-              key: 'paddingTop',
+              type: 'input',
+              key: 'borderRadius',
               className: 'width-100',
-              defaultValue: layout?.style?.paddingTop?.replace('px', '') || 0,
+              defaultValue: layout?.style?.borderRadius || 'none',
               templateOptions: {
-                min: 0,
-                max: 100,
-                step: 5,
-                label: 'Padding Top',
-                unit: 'px',
+                label: '圆角',
               },
             },
             {
-              type: 'slider',
-              key: 'paddingRight',
-              className: 'width-100',
-              defaultValue: layout?.style?.paddingRight?.replace('px', '') || 0,
-              templateOptions: {
-                min: 0,
-                max: 100,
-                step: 5,
-                label: 'Padding Right',
-                unit: 'px',
-              },
-            },
-            {
-              type: 'slider',
-              key: 'paddingBottom',
-              className: 'width-100',
-              defaultValue:
-                layout?.style?.paddingBottom?.replace('px', '') || 0,
-              templateOptions: {
-                min: 0,
-                max: 100,
-                step: 5,
-                label: 'Padding Bottom',
-                unit: 'px',
-              },
-            },
-            {
-              type: 'slider',
-              key: 'paddingLeft',
-              className: 'width-100',
-              defaultValue: layout?.style?.paddingLeft?.replace('px', '') || 0,
-              templateOptions: {
-                min: 0,
-                max: 100,
-                step: 5,
-                label: 'Padding Left',
-                unit: 'px',
-              },
-            },
-            {
-              template: `<div class="p-y-xs bg-shadow m-bottom-sm"></div>`,
+              template: `<div class="small p-y-xs m-bottom-xs">Padding</div>`,
               className: 'width-100',
             },
             {
-              type: 'slider',
-              key: 'marginTop',
-              className: 'width-100',
-              defaultValue: layout?.style?.marginTop?.replace('px', '') || 0,
-              templateOptions: {
-                min: -200,
-                max: 100,
-                step: 5,
-                label: 'Margin Top',
-                unit: 'px',
-              },
+              fieldGroupClassName: 'section-group',
+              fieldGroup: [
+                {
+                  type: 'input',
+                  key: 'paddingTop',
+                  className: 'width-40 m-right-sm',
+                  defaultValue: layout?.style?.paddingTop,
+                  templateOptions: {
+                    label: 'Top',
+                  },
+                },
+                {
+                  type: 'input',
+                  key: 'paddingRight',
+                  className: 'width-40',
+                  defaultValue: layout?.style?.paddingRight,
+                  templateOptions: {
+                    label: 'Right',
+                  },
+                },
+                {
+                  type: 'input',
+                  key: 'paddingBottom',
+                  className: 'width-40 m-right-sm',
+                  defaultValue: layout?.style?.paddingBottom,
+                  templateOptions: {
+                    label: 'Bottom',
+                  },
+                },
+                {
+                  type: 'input',
+                  key: 'paddingLeft',
+                  className: 'width-40',
+                  defaultValue: layout?.style?.paddingLeft,
+                  templateOptions: {
+                    label: 'Left',
+                  },
+                },
+              ],
             },
             {
-              type: 'slider',
-              key: 'marginRight',
+              template: `<div class="small p-y-xs m-bottom-xs">Margin</div>`,
               className: 'width-100',
-              defaultValue: layout?.style?.marginRight?.replace('px', '') || 0,
-              templateOptions: {
-                min: -200,
-                max: 100,
-                step: 5,
-                label: 'Margin Right',
-                unit: 'px',
-              },
             },
             {
-              type: 'slider',
-              key: 'marginBottom',
-              className: 'width-100',
-              defaultValue: layout?.style?.marginBottom?.replace('px', '') || 0,
-              templateOptions: {
-                min: -200,
-                max: 100,
-                step: 5,
-                label: 'Margin Bottom',
-                unit: 'px',
-              },
-            },
-            {
-              type: 'slider',
-              key: 'marginLeft',
-              className: 'width-100',
-              defaultValue: layout?.style?.marginLeft?.replace('px', '') || 0,
-              templateOptions: {
-                min: -200,
-                max: 100,
-                step: 5,
-                label: 'Margin Left',
-                unit: 'px',
-              },
+              fieldGroupClassName: 'section-group',
+              fieldGroup: [
+                {
+                  type: 'input',
+                  key: 'marginTop',
+                  className: 'width-40 m-right-sm',
+                  defaultValue: layout?.style?.marginTop,
+                  templateOptions: {
+                    label: 'Top',
+                  },
+                },
+                {
+                  type: 'input',
+                  key: 'marginRight',
+                  className: 'width-40',
+                  defaultValue: layout?.style?.marginRight,
+                  templateOptions: {
+                    label: 'Right',
+                  },
+                },
+                {
+                  type: 'input',
+                  key: 'marginBottom',
+                  className: 'width-40 m-right-sm',
+                  defaultValue: layout?.style?.marginBottom,
+                  templateOptions: {
+                    label: 'Bottom',
+                  },
+                },
+                {
+                  type: 'input',
+                  key: 'marginLeft',
+                  className: 'width-40',
+                  defaultValue: layout?.style?.marginLeft,
+                  templateOptions: {
+                    label: 'Left',
+                  },
+                },
+              ],
             },
           ],
         },
       ],
-      hooks: {
-        onInit: (formGroup: any) => {
-          const { form, model } = formGroup;
-          form.valueChanges.subscribe((value: any) => {
-            const { style } = value;
-            model.style = {
-              ...model.style,
-              paddingTop: style['paddingTop'] + 'px',
-              paddingRight: style['paddingRight'] + 'px',
-              paddingBottom: style['paddingBottom'] + 'px',
-              paddingLeft: style['paddingLeft'] + 'px',
-              marginTop: style['marginTop'] + 'px',
-              marginRight: style['marginRight'] + 'px',
-              marginBottom: style['marginBottom'] + 'px',
-              marginLeft: style['marginLeft'] + 'px',
-            };
-          });
-        },
-      },
     },
   ];
   let fields: FormlyFieldConfig[] = [

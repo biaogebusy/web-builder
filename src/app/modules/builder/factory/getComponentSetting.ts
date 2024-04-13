@@ -1,10 +1,17 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { getLayoutAlign } from './getBlockSetting';
+import { getLayoutAlign } from './getLayoutSetting';
 import { getSwiper } from './getSwiper';
 import { getTitleField } from './getTitleField';
 import { getText } from './getText';
 import { getAnimate } from './getAnimate';
-import { getBgClasses, getOverlay } from './getCommon';
+import {
+  getBgClasses,
+  getDirectionOption,
+  getGapsGroup,
+  getHorizontalOption,
+  getOverlay,
+  getVerticalOption,
+} from './getCommon';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
@@ -16,14 +23,15 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           templateOptions: {
             label: '通用',
           },
+          fieldGroupClassName: 'display-flex flex-wrap',
           fieldGroup: [
             {
               type: 'select',
               key: 'fullWidth',
-              className: 'width-100',
+              className: 'width-50 m-right-sm',
               defaultValue: content.fullWidth,
               templateOptions: {
-                label: '组件全屏宽',
+                label: '全屏宽',
                 options: [
                   {
                     label: '全屏',
@@ -40,7 +48,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               type: 'select',
               key: 'spacer',
               defaultValue: content.spacer || 'md',
-              className: 'width-100',
+              className: 'width-40',
               templateOptions: {
                 label: '上下间距',
                 options: [
@@ -74,27 +82,27 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'select',
               key: 'bgClasses',
-              className: 'width-100',
+              className: 'width-50 m-right-sm',
               defaultValue: content?.bg?.classes || 'bg- bg-fill-width',
               templateOptions: {
-                label: '预设背景色',
+                label: '背景色',
                 options: getBgClasses,
               },
             },
             {
               type: 'select',
               key: 'overlay',
-              className: 'width-100',
+              className: 'width-40',
               defaultValue: content?.bg?.overlay || '',
               templateOptions: {
-                label: '蒙版不透明度',
+                label: '蒙版',
                 options: getOverlay,
               },
             },
             {
               type: 'input',
               key: 'classes',
-              className: 'width-100',
+              className: 'width-50 m-right-sm',
               defaultValue: content.classes || '',
               templateOptions: {
                 label: 'Classes',
@@ -104,7 +112,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'id',
-              className: 'width-100',
+              className: 'width-40',
               defaultValue: content.id || '',
               templateOptions: {
                 label: 'ID',
@@ -123,7 +131,9 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                       type: 'img-picker',
                       defaultValue: content?.bg?.img?.src || '',
                       templateOptions: {
-                        label: '更新背景图',
+                        updateLabel: '更新背景图',
+                        addLabel: '设置背景图',
+                        deleteLabel: '删除',
                       },
                       hooks: {
                         onInit: (formGroup: any) => {
@@ -219,20 +229,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             defaultValue: content.direction || 'row wrap',
             templateOptions: {
               label: '组件布局方向',
-              options: [
-                {
-                  label: 'Row Wrap',
-                  value: 'row wrap',
-                },
-                {
-                  label: 'Row',
-                  value: 'row',
-                },
-                {
-                  label: 'Column',
-                  value: 'column',
-                },
-              ],
+              options: getDirectionOption,
             },
           },
           {
@@ -242,36 +239,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             defaultValue: getLayoutAlign(0, content.layoutAlign),
             templateOptions: {
               label: '水平对齐',
-              options: [
-                {
-                  label: 'None',
-                  value: 'flex-start',
-                },
-                {
-                  label: 'start',
-                  value: 'flex-start',
-                },
-                {
-                  label: 'center',
-                  value: 'center',
-                },
-                {
-                  label: 'end',
-                  value: 'flex-end',
-                },
-                {
-                  label: 'space-around',
-                  value: 'space-around',
-                },
-                {
-                  label: 'space-between',
-                  value: 'space-between',
-                },
-                {
-                  label: 'space-evenly',
-                  value: 'space-evenly',
-                },
-              ],
+              options: getHorizontalOption,
             },
           },
           {
@@ -281,28 +249,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             defaultValue: getLayoutAlign(1, content.layoutAlign),
             templateOptions: {
               label: '垂直对齐',
-              options: [
-                {
-                  label: 'None',
-                  value: 'stretch',
-                },
-                {
-                  label: 'start',
-                  value: 'flex-start',
-                },
-                {
-                  label: 'center',
-                  value: 'center',
-                },
-                {
-                  label: 'end',
-                  value: 'flex-end',
-                },
-                {
-                  label: 'stretch',
-                  value: 'stretch',
-                },
-              ],
+              options: getVerticalOption,
             },
           },
           {
@@ -327,56 +274,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           },
           {
             key: 'gap',
-            fieldGroup: [
-              {
-                key: 'xs',
-                type: 'slider',
-                defaultValue: content.gap?.xs || 0,
-                templateOptions: {
-                  min: 0,
-                  max: 80,
-                  step: 2,
-                  label: '移动端间距',
-                  unit: 'px',
-                },
-              },
-              {
-                key: 'sm',
-                type: 'slider',
-                defaultValue: content.gap?.sm || 0,
-                templateOptions: {
-                  min: 0,
-                  max: 80,
-                  step: 2,
-                  label: '平板端间距',
-                  unit: 'px',
-                },
-              },
-              {
-                key: 'md',
-                type: 'slider',
-                defaultValue: content.gap?.md || 0,
-                templateOptions: {
-                  min: 0,
-                  max: 80,
-                  step: 2,
-                  label: '桌面端间距',
-                  unit: 'px',
-                },
-              },
-              {
-                key: 'lg',
-                type: 'slider',
-                defaultValue: content.gap?.lg || 0,
-                templateOptions: {
-                  min: 0,
-                  max: 80,
-                  step: 2,
-                  label: '超大桌面间距',
-                  unit: 'px',
-                },
-              },
-            ],
+            fieldGroup: getGapsGroup(content),
           },
         ],
       },

@@ -1,3 +1,5 @@
+import { FormlyFieldConfig } from '@ngx-formly/core';
+
 export const getBgClasses = [
   {
     label: '无',
@@ -189,3 +191,125 @@ export const getObjectFix = [
     value: 'unset',
   },
 ];
+
+export const getDirectionOption = [
+  {
+    label: 'Row Wrap',
+    value: 'row wrap',
+  },
+  {
+    label: 'Row',
+    value: 'row',
+  },
+  {
+    label: 'Column',
+    value: 'column',
+  },
+];
+
+export const getHorizontalOption = [
+  {
+    label: 'None',
+    value: 'flex-start',
+  },
+  {
+    label: 'start',
+    value: 'flex-start',
+  },
+  {
+    label: 'center',
+    value: 'center',
+  },
+  {
+    label: 'end',
+    value: 'flex-end',
+  },
+  {
+    label: 'space-around',
+    value: 'space-around',
+  },
+  {
+    label: 'space-between',
+    value: 'space-between',
+  },
+  {
+    label: 'space-evenly',
+    value: 'space-evenly',
+  },
+];
+
+export const getVerticalOption = [
+  {
+    label: 'None',
+    value: 'stretch',
+  },
+  {
+    label: 'start',
+    value: 'flex-start',
+  },
+  {
+    label: 'center',
+    value: 'center',
+  },
+  {
+    label: 'end',
+    value: 'flex-end',
+  },
+  {
+    label: 'stretch',
+    value: 'stretch',
+  },
+];
+
+export function getGapsGroup(content: any): FormlyFieldConfig[] {
+  return [
+    {
+      key: 'xs',
+      type: 'slider',
+      defaultValue: content.gap?.xs || 0,
+      templateOptions: {
+        min: 0,
+        max: 80,
+        step: 2,
+        label: '移动端间距',
+        unit: 'px',
+      },
+    },
+    {
+      key: 'sm',
+      type: 'slider',
+      defaultValue: content.gap?.sm || 0,
+      templateOptions: {
+        min: 0,
+        max: 80,
+        step: 2,
+        label: '平板端间距',
+        unit: 'px',
+      },
+    },
+    {
+      key: 'md',
+      type: 'slider',
+      defaultValue: content.gap?.md || 0,
+      templateOptions: {
+        min: 0,
+        max: 80,
+        step: 2,
+        label: '桌面端间距',
+        unit: 'px',
+      },
+    },
+    {
+      key: 'lg',
+      type: 'slider',
+      defaultValue: content.gap?.lg || 0,
+      templateOptions: {
+        min: 0,
+        max: 80,
+        step: 2,
+        label: '超大桌面间距',
+        unit: 'px',
+      },
+    },
+  ];
+}

@@ -7,67 +7,47 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
       key: 'style',
       fieldGroup: [
         {
-          type: 'slider',
-          key: 'width',
-          defaultValue: ele.style.width.includes('auto')
-            ? 0
-            : parseFloat(ele.style.width.replace('px')) || 0,
-          className: 'width-100',
-          templateOptions: {
-            min: 0,
-            max: 2000,
-            step: 2,
-            label: '宽度',
-            unit: 'px',
-          },
-          expressionProperties: {
-            'templateOptions.unit': "model.width === 0 ? 'auto':'px'",
-          },
-        },
-        {
-          type: 'slider',
-          key: 'height',
-          className: 'width-100',
-          defaultValue: ele.style.height.includes('auto')
-            ? 0
-            : parseFloat(ele.style.height.replace('px')) || 0,
-          templateOptions: {
-            min: 0,
-            max: 2000,
-            step: 2,
-            label: '高度',
-            unit: 'px',
-          },
-          expressionProperties: {
-            'templateOptions.unit': "model.height === 0 ? 'auto':'px'",
-          },
-        },
-        {
-          type: 'slider',
-          key: 'opacity',
-          className: 'width-100',
-          defaultValue: ele.style.opacity || 1,
-          templateOptions: {
-            min: 0,
-            max: 1,
-            thumbLabel: true,
-            step: 0.1,
-            label: '不透明度',
-          },
-        },
-        {
-          type: 'slider',
-          key: 'borderRadius',
-          className: 'width-100',
-          defaultValue:
-            parseFloat(ele.style.borderRadius.replace('px', '')) || 0,
-          templateOptions: {
-            min: 0,
-            max: 500,
-            step: 2,
-            label: '圆角',
-            unit: 'px',
-          },
+          fieldGroupClassName: 'section-group',
+          fieldGroup: [
+            {
+              type: 'input',
+              key: 'width',
+              defaultValue: ele.style.width || 'auto',
+              className: 'width-40',
+              templateOptions: {
+                label: 'W',
+              },
+            },
+            {
+              type: 'input',
+              key: 'height',
+              className: 'width-40',
+              defaultValue: ele.style.height || 'auto',
+              templateOptions: {
+                label: 'H',
+              },
+            },
+            {
+              type: 'input',
+              key: 'opacity',
+              className: 'width-40',
+              defaultValue: ele.style.opacity || 1,
+              templateOptions: {
+                label: 'Opacity',
+                type: 'number',
+                step: 0.1,
+              },
+            },
+            {
+              type: 'input',
+              key: 'borderRadius',
+              className: 'width-40',
+              defaultValue: ele.style.borderRadius || 0,
+              templateOptions: {
+                label: '圆角',
+              },
+            },
+          ],
         },
         {
           type: 'select',
@@ -123,7 +103,9 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
       key: 'src',
       defaultValue: ele.src,
       templateOptions: {
-        label: '更新图片',
+        updateLabel: '更新背景图',
+        addLabel: '设置背景图',
+        deleteLabel: '删除',
         fileName: ele.getAttribute('src').split('/').pop(),
         alt: ele.getAttribute('alt'),
       },
