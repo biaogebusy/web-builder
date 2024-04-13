@@ -44,6 +44,9 @@
       .value {
         background-color: mat-color($background, card);
         border: 1px solid mat-color($foreground, divider);
+        &:hover {
+          border-color: mat-color($primary);
+        }
       }
     }
   }
