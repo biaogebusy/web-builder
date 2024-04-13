@@ -1,6 +1,6 @@
 {
   "name": "xinshi",
-  "version": "4.2.4",
+  "version": "4.2.5",
   "homepage": "https://github.com/biaogebusy/web-builder",
   "scripts": {
     "ng": "ng",
@@ -83,7 +83,6 @@
     "social-share.js": "^1.0.16",
     "swiper": "^6.5.0",
     "typed.js": "^2.1.0",
-    "url-search-params-polyfill": "^8.1.1",
     "video.js": "^7.20.3",
     "zone.js": "~0.11.4"
   },
