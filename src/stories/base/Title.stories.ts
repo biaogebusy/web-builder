@@ -28,10 +28,9 @@ export const TitleV1 = Template.bind({});
 TitleV1.storyName = 'Style V1';
 const v1: ITitle = {
   type: 'title',
-  label:
-    '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+  label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
   style: 'style-v4',
-  classes: 'mat-display-2 bold',
+  classes: 'mat-display-1 bold',
 };
 TitleV1.args = {
   content: v1,

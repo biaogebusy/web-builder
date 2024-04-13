@@ -782,7 +782,9 @@ ImgPicker.args = {
           className: 'width-40',
           defaultValue: '/assets/images/avatar/01.jpeg',
           templateOptions: {
-            label: '图片选择',
+            updateLabel: '更新背景图',
+            addLabel: '设置背景图',
+            deleteLabel: '删除',
           },
         },
       ],
