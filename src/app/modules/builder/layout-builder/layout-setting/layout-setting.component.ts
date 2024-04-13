@@ -6,7 +6,6 @@ import {
   ElementRef,
   Input,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -37,8 +36,8 @@ export class LayoutSettingComponent implements OnDestroy {
   ) {}
 
   onModelChange(value: any) {
+    const { path } = this.content;
     const { block } = value;
-
     this.renderLayoutPreview(block);
     let content: any = {};
     Object.keys(value).forEach((config) => {
@@ -46,55 +45,40 @@ export class LayoutSettingComponent implements OnDestroy {
         content = defaultsDeep(value[config], this.content.content);
       }
     });
-    this.emitLayoutSetting(content);
+    if (path) {
+      this.builder.updatePageContentByPath(path, content);
+    }
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const { pageIndex, path, level, content } = this.content;
-    // component toolbar
-    if (pageIndex !== undefined && level === 'block') {
-      moveItemInArray(
-        this.content.content.elements,
-        event.previousIndex,
-        event.currentIndex
-      );
-
-      this.emitLayoutSetting(this.content.content);
-    }
-
-    // layout builder
-    if (path && (level === 'layout' || level === 'widget')) {
-      moveItemInArray(
-        this.content.content.elements,
-        event.previousIndex,
-        event.currentIndex
-      );
-      // TODO: layout no change
-      this.builder.updatePageContentByPath(path, content, 'move');
+    const { path, content } = this.content;
+    moveItemInArray(
+      this.content.content.elements,
+      event.previousIndex,
+      event.currentIndex
+    );
+    if (path) {
+      this.builder.updatePageContentByPath(path, content);
     }
   }
 
-  emitLayoutSetting(content: any): void {
-    this.builder.builderLayoutSetting$.next({
-      value: content,
-      pageIndex: this.content.pageIndex,
-      uuid: this.content.uuid,
-      path: this.content.path,
-    });
+  onCopy(elements: any[], index: number): void {
+    const lists = [...elements];
+    const path = this.content.path;
+    lists.splice(index, 0, elements[index]);
+    this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
-  onCopy(content: any, i: number): void {
-    this.content.content.elements.splice(i, 0, content);
-    this.emitLayoutSetting(this.content.content);
+  onDelete(elements: any[], index: number): void {
+    const lists = [...elements];
+    const path = this.content.path;
+    lists.splice(index, 1);
+    this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
-  onDelete(index: number): void {
-    this.content.content.elements.splice(index, 1);
-    this.emitLayoutSetting(this.content.content);
-  }
-
-  onAddLoopElement(content: any): void {
+  onWidgetPicker(): void {
     // 有layout builder，有普通的组件
+    const { content, path } = this.content;
     this.dialog.open(DialogComponent, {
       width: '700px',
       position: { bottom: '20px' },
@@ -103,10 +87,8 @@ export class LayoutSettingComponent implements OnDestroy {
         inputData: {
           content: {
             type: 'widget-picker',
-            pageIndex: this.content.pageIndex,
             content,
-            level: 'block',
-            uuid: this.content.uuid,
+            path,
           },
         },
       },
@@ -130,32 +112,11 @@ export class LayoutSettingComponent implements OnDestroy {
 
   showCode(): void {
     const { pageIndex, path } = this.content;
-    // builder list 一级组件
-    if (pageIndex !== undefined) {
-      if (isNumber(pageIndex)) {
-        const json: IJsoneditor = {
-          type: 'jsoneditor',
-          pageIndex,
-          isPreview: true,
-          data: this.builder.currentPage.body[pageIndex],
-        };
-        this.dialog.open(DialogComponent, {
-          width: '1000px',
-          data: {
-            inputData: {
-              content: json,
-            },
-          },
-        });
-      }
-    }
 
     // layout builder level
     if (path) {
       const json: IJsoneditor = {
         type: 'jsoneditor',
-        pageIndex: undefined,
-        isLayoutWidget: true,
         path,
         data: get(this.builder.currentPage.body, path),
       };
@@ -168,10 +129,6 @@ export class LayoutSettingComponent implements OnDestroy {
         },
       });
     }
-  }
-
-  isLayoutWidget(i: number | undefined, index: number | undefined): boolean {
-    return i !== undefined && i >= 0 && index !== undefined && index >= 0;
   }
 
   ngOnDestroy(): void {

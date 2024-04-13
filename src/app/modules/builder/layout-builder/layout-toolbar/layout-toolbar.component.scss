@@ -1,0 +1,37 @@
+.layout-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  ::ng-deep {
+    .mat-icon-button {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      .custom.mat-icon {
+        width: 16px !important;
+        height: 16px !important;
+        line-height: 16px !important;
+      }
+    }
+  }
+  .toggle {
+    display: block;
+    border-bottom-left-radius: 4px;
+  }
+  .block-toolbar {
+    display: none;
+    position: absolute;
+    border-radius: 0 0 0 4px;
+    z-index: 10;
+    white-space: nowrap;
+    top: 0;
+  }
+  &:hover {
+    .toggle {
+      display: none;
+    }
+    .block-toolbar {
+      display: block;
+    }
+  }
+}
