@@ -116,7 +116,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               defaultValue: content.id || '',
               templateOptions: {
                 label: 'ID',
-                description: '一般用于页面锚点定位',
+                description: 'HTMl ID',
               },
             },
             {
