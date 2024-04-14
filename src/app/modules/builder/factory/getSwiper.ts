@@ -50,6 +50,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                         max: 10,
                         step: 0.2,
                         label: '移动端',
+                        unit: 'px',
                       },
                     },
                     {
@@ -85,6 +86,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                         max: 10,
                         step: 0.2,
                         label: '电脑端显示',
+                        unit: 'px',
                       },
                     },
                     {
