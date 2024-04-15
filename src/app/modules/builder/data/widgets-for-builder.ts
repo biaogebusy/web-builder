@@ -404,9 +404,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 4288, 7094, 8874],
-          ['第二季度', 7872, 9449, 7633],
-          ['第三季度', 3746, 3773, 9692],
+          ['第一季度', 3212, 5862, 4079],
+          ['第二季度', 4585, 9649, 6819],
+          ['第三季度', 7418, 8562, 8221],
         ],
       },
       xAxis: {
@@ -475,9 +475,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 4288, 7094, 8874],
-          ['第二季度', 7872, 9449, 7633],
-          ['第三季度', 3746, 3773, 9692],
+          ['第一季度', 3212, 5862, 4079],
+          ['第二季度', 4585, 9649, 6819],
+          ['第三季度', 7418, 8562, 8221],
         ],
       },
       xAxis: {
@@ -552,9 +552,9 @@ export const widgets = [
       dataset: {
         source: [
           ['预算', '费用'],
-          ['大额红包总金额', 341],
-          ['小额红包总金额', 832],
-          ['提成总额', 402],
+          ['大额红包总金额', 582],
+          ['小额红包总金额', 747],
+          ['提成总额', 834],
         ],
       },
       series: [
@@ -667,25 +667,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 6760,
+          tatol: 8279,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 4199,
+          tatol: 3176,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 3545,
+          tatol: 8427,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 6630,
+          tatol: 3452,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -1187,7 +1187,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-04-10',
+          changed: '2024-04-14',
         },
         {
           link: {
@@ -1198,29 +1198,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-04-10',
+          changed: '2024-04-14',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-04-10',
+            href: '2024-04-14',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-04-10',
+          changed: '2024-04-14',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-04-10',
+            href: '2024-04-14',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-04-10',
+          changed: '2024-04-14',
         },
       ],
     },
