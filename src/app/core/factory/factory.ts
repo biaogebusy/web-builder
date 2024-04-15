@@ -79,14 +79,17 @@ export function builderCurrentPageFactory(
 
 export function isBuilderModeFactory(router: Router): Observable<boolean> {
   const isBuilderMode$ = new BehaviorSubject<boolean>(false);
-  if (router.url.includes(BUILDERPATH)) {
+  if (router.url.includes(BUILDERPATH) && router.url !== '/builder/preview') {
     isBuilderMode$.next(true);
   } else {
     isBuilderMode$.next(false);
   }
   router.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
-      if (router.url.includes(BUILDERPATH)) {
+      if (
+        router.url.includes(BUILDERPATH) &&
+        router.url !== '/builder/preview'
+      ) {
         isBuilderMode$.next(true);
       } else {
         isBuilderMode$.next(false);
