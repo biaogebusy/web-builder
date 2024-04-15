@@ -38,6 +38,7 @@
             > .item {
               &:hover {
                 outline: 1px solid mat-color($primary);
+                z-index: 10;
               }
               > app-block-toolbar {
                 background-color: mat-color($foreground, elevation, 0.7);

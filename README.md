@@ -16,7 +16,7 @@
 <p align="center">
   <a href="https://www.zhaobg.com/builder">Web Builder </a>
   ·
-  <a href="https://ui.zhaobg.com"> UI Storybook </a>
+  <a href="https://ui.builder.design"> UI Storybook </a>
   ·
   <a href="https://www.zhihu.com/people/biaogebusy"> 知乎 </a>
    ·
@@ -200,7 +200,7 @@ loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
   }
 ```
 
-Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.com/?path=/docs/base-config--page)
+Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.builder.design/?path=/docs/base-config--page)
 
 ## 为生产环境打包
 
@@ -210,7 +210,7 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.c
 
 `npm run storybook`
 
-更多开发移步[开发指南](https://ui.zhaobg.com/?path=/docs/guide--page)
+更多开发移步[开发指南](https://ui.builder.design/?path=/docs/guide--page)
 
 ## 预览
 

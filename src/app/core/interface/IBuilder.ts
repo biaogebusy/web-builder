@@ -58,6 +58,7 @@ export interface IBuilderShowcase {
 
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
+  style: any;
   direction: 'column' | 'row' | 'row wrap';
   layoutAlign: string;
   gap?: {
@@ -78,8 +79,14 @@ export interface ILayoutBlock {
   animate?: any;
   bg?: IBgImg;
   elements: any[];
-  direction: string;
+  direction: 'column' | 'row' | 'row wrap';
   layoutAlign: string;
+  gap?: {
+    xs?: number;
+    sm?: number;
+    md?: number;
+    lg?: number;
+  };
 }
 
 export interface ILayoutSetting {

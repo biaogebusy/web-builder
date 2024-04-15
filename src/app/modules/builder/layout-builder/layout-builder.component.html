@@ -1,4 +1,4 @@
-<div class="layout-builder position-relative" *ngIf="content" [ngClass]="content.classes">
+<div class="layout-builder position-relative" *ngIf="content" [ngClass]="content.classes" [ngStyle]="content.style">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
@@ -25,7 +25,9 @@
         </ng-container>
         <div class="for-animate">
           <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign"
-            [ngStyle]="layout.style">
+            [fxLayoutGap.xs]="layout.gap?.xs+'px'" [fxLayoutGap.sm]="layout.gap?.sm+'px'"
+            [fxLayoutGap.md]="layout.gap?.md+'px'" [fxLayoutGap.lg]="layout.gap?.lg+'px'"
+            [fxLayoutGap.gt-lg]="layout.gap?.lg+'px'" [ngStyle]="layout.style">
             <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
             <div class="item item-{{item.type}}" [attr.data-path]="'elements.'+index"
               *ngFor="let item of layout.elements;index as index">

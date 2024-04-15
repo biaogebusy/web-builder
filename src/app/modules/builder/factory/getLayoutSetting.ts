@@ -261,7 +261,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               },
             },
             {
-              template: `<div class="small p-y-xs m-bottom-xs">Padding</div>`,
+              template: `<div class="small p-y-xs m-bottom-xs">Spacing</div>`,
               className: 'width-100',
             },
             {
@@ -269,83 +269,20 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               fieldGroup: [
                 {
                   type: 'input',
-                  key: 'paddingTop',
+                  key: 'padding',
                   className: 'width-40 m-right-sm',
-                  defaultValue: layout?.style?.paddingTop,
+                  defaultValue: layout?.style?.padding,
                   templateOptions: {
-                    label: 'Top',
+                    label: 'Padding',
                   },
                 },
                 {
                   type: 'input',
-                  key: 'paddingRight',
+                  key: 'margin',
                   className: 'width-40',
-                  defaultValue: layout?.style?.paddingRight,
+                  defaultValue: layout?.style?.margin,
                   templateOptions: {
-                    label: 'Right',
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'paddingBottom',
-                  className: 'width-40 m-right-sm',
-                  defaultValue: layout?.style?.paddingBottom,
-                  templateOptions: {
-                    label: 'Bottom',
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'paddingLeft',
-                  className: 'width-40',
-                  defaultValue: layout?.style?.paddingLeft,
-                  templateOptions: {
-                    label: 'Left',
-                  },
-                },
-              ],
-            },
-            {
-              template: `<div class="small p-y-xs m-bottom-xs">Margin</div>`,
-              className: 'width-100',
-            },
-            {
-              fieldGroupClassName: 'section-group',
-              fieldGroup: [
-                {
-                  type: 'input',
-                  key: 'marginTop',
-                  className: 'width-40 m-right-sm',
-                  defaultValue: layout?.style?.marginTop,
-                  templateOptions: {
-                    label: 'Top',
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'marginRight',
-                  className: 'width-40',
-                  defaultValue: layout?.style?.marginRight,
-                  templateOptions: {
-                    label: 'Right',
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'marginBottom',
-                  className: 'width-40 m-right-sm',
-                  defaultValue: layout?.style?.marginBottom,
-                  templateOptions: {
-                    label: 'Bottom',
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'marginLeft',
-                  className: 'width-40',
-                  defaultValue: layout?.style?.marginLeft,
-                  templateOptions: {
-                    label: 'Left',
+                    label: 'Margin',
                   },
                 },
               ],
