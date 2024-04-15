@@ -43,7 +43,7 @@ export class Showcase2v1Component
                 title: 'Demo',
                 time: '2022-10-27',
                 src: '/assets/images/16-9/business-02.jpg',
-                link: 'https://www.zhaobg.com',
+                link: 'https://builder.design',
                 user: 'Johnson',
               },
             ]);

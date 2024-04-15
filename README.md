@@ -9,12 +9,12 @@
 </p>
 
 <p align="center">
-  <a href="https://www.zhaobg.com"><strong>https://www.zhaobg.com</strong></a>
+  <a href="https://builder.design"><strong>https://builder.design</strong></a>
   <br>
 </p>
 
 <p align="center">
-  <a href="https://www.zhaobg.com/builder">Web Builder </a>
+  <a href="https://builder.design/builder">Web Builder </a>
   ·
   <a href="https://ui.builder.design"> UI Storybook </a>
   ·
