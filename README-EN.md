@@ -16,7 +16,7 @@
 <p align="center">
   <a href="https://www.zhaobg.com/builder">Web Builder</a>
   ·
-  <a href="https://ui.zhaobg.com">UI Storybook</a>
+  <a href="https://ui.builder.design">UI Storybook</a>
   ·
   <a href="https://www.zhihu.com/people/biaogebusy">知乎</a>
     ·
@@ -78,7 +78,7 @@ This open-source project is very suitable for beginners to learn or advance thei
 
 ## Development Guide
 
-For more details, please refer to the[Development Guide](https://ui.zhaobg.com/?path=/docs/guide--page)
+For more details, please refer to the[Development Guide](https://ui.builder.design/?path=/docs/guide--page)
 
 ## Development Environment Setup
 
@@ -169,7 +169,7 @@ loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
   }
 ```
 
-For base configuration, refer to [Xinshi Messenger Storybook Global Configuration](https://ui.zhaobg.com/?path=/docs/base-config--page)
+For base configuration, refer to [Xinshi Messenger Storybook Global Configuration](https://ui.builder.design/?path=/docs/base-config--page)
 
 ## Build for Production
 
