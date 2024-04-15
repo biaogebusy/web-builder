@@ -762,12 +762,12 @@
             },
             "style": "style-v9",
             "title": {
-              "href": "https://ui.zhaobg.com/?path=/docs/start-guide--page",
+              "href": "https://ui.builder.design/?path=/docs/start-guide--page",
               "label": "开发快速指南"
             },
             "content": "初始化本地环境快速指南",
             "more": {
-              "href": "https://ui.zhaobg.com/?path=/docs/start-guide--page",
+              "href": "https://ui.builder.design/?path=/docs/start-guide--page",
               "label": "查看"
             }
           },
@@ -778,12 +778,12 @@
             },
             "style": "style-v9",
             "title": {
-              "href": "https://ui.zhaobg.com/?path=/docs/develop-newcomponent--page",
+              "href": "https://ui.builder.design/?path=/docs/develop-newcomponent--page",
               "label": "开发新组件"
             },
             "content": "开发组件的完整流程文档",
             "more": {
-              "href": "https://ui.zhaobg.com/?path=/docs/develop-newcomponent--page",
+              "href": "https://ui.builder.design/?path=/docs/develop-newcomponent--page",
               "label": "查看"
             }
           },
@@ -794,12 +794,12 @@
             },
             "style": "style-v9",
             "title": {
-              "href": "https://ui.zhaobg.com/?path=/docs/create-theme--page",
+              "href": "https://ui.builder.design/?path=/docs/create-theme--page",
               "label": "组件主题"
             },
             "content": "开发组件主题指南，变量说明",
             "more": {
-              "href": "https://ui.zhaobg.com/?path=/docs/create-theme--page",
+              "href": "https://ui.builder.design/?path=/docs/create-theme--page",
               "label": "查看"
             }
           },
