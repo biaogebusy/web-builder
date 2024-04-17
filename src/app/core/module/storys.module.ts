@@ -51,7 +51,10 @@ import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
 import { notify } from './data/notify';
 import { BuilderState } from '@core/state/BuilderState';
-import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
+import {
+  defaultHeader,
+  footerInverse,
+} from '@modules/builder/data/Branding.json';
 import { DOCUMENT } from '@angular/common';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';

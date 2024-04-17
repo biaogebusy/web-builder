@@ -34,10 +34,10 @@ export class ViewListComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: IViewList;
-  form = new FormGroup({
+  @Input() form = new FormGroup({
     page: new FormControl(),
   });
-  model: any = {};
+  @Input() model: any = {};
   searchEntry: any;
   table: any;
   loading: boolean;
@@ -194,7 +194,9 @@ export class ViewListComponent
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    if (this.destroy$) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
   }
 }

@@ -18,7 +18,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
 import { ManageService } from '@core/service/manage.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
-import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
+import { mediaAssets } from '@modules/builder/data/mediaAssets';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
