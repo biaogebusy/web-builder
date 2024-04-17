@@ -13,7 +13,7 @@ import { of } from 'rxjs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import * as relateStory from '@stories/sample/node/Relate.stories';
-import { manageHeader } from '@stories/global/Branding.json';
+import { manageHeader } from '@modules/builder/data/Branding.json';
 export default {
   title: '示例页面/中台管理/管理边栏',
   id: 'manage-sidebar',

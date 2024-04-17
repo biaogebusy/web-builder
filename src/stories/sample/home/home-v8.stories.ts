@@ -10,7 +10,10 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
-import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
+import {
+  defaultHeader,
+  footerInverse,
+} from '@modules/builder/data/Branding.json';
 import { home_v8 } from '@modules/builder/data/samples/home_v8';
 
 export default {

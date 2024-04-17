@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { IFooter, IHeader } from '../../app/core/interface/branding/IBranding';
+import { IHeader, IFooter } from '@core/interface/branding/IBranding';
 export const defaultHeader: IHeader = {
   params: {
     themeSwitch: true,

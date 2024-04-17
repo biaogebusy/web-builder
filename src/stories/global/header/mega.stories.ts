@@ -9,7 +9,7 @@ import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
-import { footerInverse, megaHeader } from '../Branding.json';
+import { footerInverse, megaHeader } from '@modules/builder/data/Branding.json';
 import { sleep, StorysModule } from '@core/module/storys.module';
 
 export default {

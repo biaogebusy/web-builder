@@ -9,8 +9,11 @@ import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
-import { footerInverse, HoverHeader } from '../Branding.json';
-import { sleep, StorysModule } from '@core/module/storys.module';
+import {
+  footerInverse,
+  HoverHeader,
+} from '@modules/builder/data/Branding.json';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '全局配置/页头/Hover',

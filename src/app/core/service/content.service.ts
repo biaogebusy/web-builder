@@ -12,7 +12,10 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import type { IBranding } from '@core/interface/branding/IBranding';
-import { footerInverse, manageHeader } from '@stories/global/Branding.json';
+import {
+  footerInverse,
+  manageHeader,
+} from '@modules/builder/data/Branding.json';
 import { samples } from '@modules/builder/data/samples-for-builder';
 @Injectable({
   providedIn: 'root',

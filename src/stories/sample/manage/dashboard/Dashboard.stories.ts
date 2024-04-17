@@ -14,7 +14,7 @@ import * as calendarStory from '@stories/widgets/Calendar.stories';
 import { random } from 'lodash-es';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { manageHeader } from '@stories/global/Branding.json';
+import { manageHeader } from '@modules/builder/data/Branding.json';
 import { IDashboard } from '@core/interface/combs/IDashboard';
 const calendar: any = calendarStory.Default.args;
 

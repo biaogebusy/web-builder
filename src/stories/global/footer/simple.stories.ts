@@ -6,7 +6,10 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { defaultHeader, footerSimple } from '../Branding.json';
+import {
+  defaultHeader,
+  footerSimple,
+} from '@modules/builder/data/Branding.json';
 import { StorysModule } from '@core/module/storys.module';
 import { FooterComponent } from '@core/branding/footer/footer.component';
 import { BrandingModule } from '@core/branding/branding.module';
