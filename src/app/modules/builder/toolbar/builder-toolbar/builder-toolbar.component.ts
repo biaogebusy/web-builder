@@ -12,8 +12,8 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subject, of } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
 import {
   BRANDING,
   BUILDER_CURRENT_PAGE,
@@ -29,6 +29,7 @@ import { BuilderService } from '@core/service/builder.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoginComponent } from '@modules/user/login/login.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -52,6 +53,7 @@ export class BuilderToolbarComponent
     private util: UtilitiesService,
     private builderService: BuilderService,
     private dialog: MatDialog,
+    private router: Router,
     @Inject(USER) private user: IUser,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
@@ -114,40 +116,66 @@ export class BuilderToolbarComponent
   }
 
   onSubmit(page: IPage): void {
-    if (!this.user) {
-      this.util.openSnackbar('请登录后提交！', 'ok');
-      const dialogRef = this.dialog.open(LoginComponent);
-      dialogRef
-        .afterClosed()
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(() => {
-          // TODO: refresh page
-          console.log(this.user);
-        });
-      return;
-    }
-    this.util.openSnackbar('正在提交！', 'ok');
     if (page.uuid && page.id) {
+      if (!this.user) {
+        this.openLogin();
+        return;
+      }
       // update page
+      this.util.openSnackbar('正在更新！', 'ok');
       this.builderService
         .updateLandingPage(this.builder.currentPage)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((res) => {
-          const { message } = res;
-          this.util.openSnackbar(message, 'ok');
-        });
-    } else {
-      // new page
-      this.builderService
-        .createLandingPage(this.builder.currentPage)
-        .pipe(takeUntil(this.destroy$))
+        .pipe(
+          takeUntil(this.destroy$),
+          catchError(() => {
+            this.builder.loading$.next(false);
+            return of({ status: false });
+          })
+        )
         .subscribe((res) => {
           const { status, message } = res;
           if (status) {
             this.util.openSnackbar(message, 'ok');
+          } else {
+            this.util.openSnackbar('更新失败！', 'ok');
           }
         });
+    } else {
+      if (page.body.length === 0) {
+        this.onNewPage();
+      } else {
+        // submit new page
+        if (!this.user) {
+          this.openLogin();
+          return;
+        }
+        this.builderService
+          .createLandingPage(this.builder.currentPage)
+          .pipe(
+            takeUntil(this.destroy$),
+            catchError(() => {
+              this.builder.loading$.next(false);
+              return of({ status: false });
+            })
+          )
+          .subscribe((res) => {
+            const { status, message } = res;
+            if (status) {
+              this.util.openSnackbar(message, 'ok');
+            } else {
+              this.util.openSnackbar('新建失败！', 'ok');
+            }
+          });
+      }
     }
+  }
+
+  openLogin(): void {
+    const queryParams = {
+      returnUrl: 'builder',
+    };
+    this.router.navigate([], { queryParams });
+    this.dialog.open(LoginComponent);
   }
 
   ngOnDestroy(): void {

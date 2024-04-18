@@ -18,6 +18,8 @@ import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import { environment } from 'src/environments/environment';
+import { LoginComponent } from '@modules/user/login/login.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-menu',
@@ -38,6 +40,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private cd: ChangeDetectorRef,
     public userService: UserService,
+    private router: Router,
     @Inject(USER) public user: IUser
   ) {
     this.currentUser = user;
@@ -69,6 +72,15 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.userService.logout(this.user.logout_token);
+  }
+
+  onLogin(): void {
+    const { pathname } = window.location;
+    const queryParams = {
+      returnUrl: pathname,
+    };
+    this.router.navigate([], { queryParams });
+    this.dialog.open(LoginComponent);
   }
 
   openDialog(dialog: any): void {
