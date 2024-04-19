@@ -20,6 +20,7 @@ export class IconService {
       );
     } else {
       // mdi
+      // https://pictogrammers.com/docs/library/mdi/getting-started/angular/
       const mdiPath = '/assets/mdi.svg';
       this.ir.addSvgIconSet(this.ds.bypassSecurityTrustResourceUrl(mdiPath));
 
