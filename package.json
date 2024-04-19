@@ -110,21 +110,21 @@
     "@storybook/manager-webpack4": "6.5.16",
     "@storybook/test-runner": "^0.9.4",
     "@storybook/testing-library": "^0.0.13",
-    "@types/compression": "^1.7.2",
-    "@types/crypto-js": "^4.0.2",
-    "@types/express": "^4.17.0",
+    "@types/compression": "^1.7.5",
+    "@types/crypto-js": "^4.2.2",
+    "@types/express": "^4.17.21",
     "@types/express-serve-static-core": "4.17.21",
-    "@types/file-saver": "^2.0.3",
-    "@types/intro.js": "^5.1.3",
+    "@types/file-saver": "^2.0.7",
+    "@types/intro.js": "^5.1.5",
     "@types/jasmine": "~3.6.0",
-    "@types/lodash-es": "^4.17.4",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^12.11.1",
-    "@types/packery": "^1.4.32",
+    "@types/packery": "^1.4.37",
     "@types/quill": "^1.3.0",
     "@types/video.js": "^7.3.58",
     "babel-loader": "^8.3.0",
     "body-parser": "^1.20.2",
-    "bufferutil": "^4.0.5",
+    "bufferutil": "^4.0.8",
     "codelyzer": "^6.0.0",
     "express": "^4.19.2",
     "express-rate-limit": "^6.11.2",
@@ -151,7 +151,7 @@
     "ws": "^8.4.0"
   },
   "optionalDependencies": {
-    "fsevents": "^2.3.2"
+    "fsevents": "^2.3.3"
   },
   "browserslist": [
     "> 0.5%",
