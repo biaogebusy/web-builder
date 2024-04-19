@@ -58,7 +58,7 @@
     "core-js": "^3.24.1",
     "crypto-js": "^4.1.1",
     "drupal-jsonapi-params": "^2.2.0",
-    "echarts": "^5.0.2",
+    "echarts": "^5.5.0",
     "file-saver": "^2.0.5",
     "gsap": "^3.12.5",
     "hammerjs": "^2.0.8",
