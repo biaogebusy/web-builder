@@ -60,7 +60,7 @@
     "drupal-jsonapi-params": "^2.2.0",
     "echarts": "^5.0.2",
     "file-saver": "^2.0.5",
-    "gsap": "^3.11.3",
+    "gsap": "^3.12.5",
     "hammerjs": "^2.0.8",
     "highlight.js": "^11.0.0",
     "html2canvas": "^1.4.1",
