@@ -43,7 +43,7 @@ export class BuilderToolbarComponent
   @Input() builderRightDrawer: MatDrawer;
   page: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  showNavigate: boolean = false;
+  showNavigate = false;
 
   constructor(
     private storage: LocalStorageService,
