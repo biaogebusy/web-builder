@@ -1,4 +1,12 @@
 .block-toolbar {
+  .title {
+    border-radius: 12px;
+    line-height: 8px;
+    padding: 5px 6px;
+    margin: 0 4px;
+    font-size: 12px;
+    text-transform: capitalize;
+  }
   ::ng-deep {
     .mat-icon-button {
       width: 30px;

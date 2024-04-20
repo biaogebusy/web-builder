@@ -33,10 +33,10 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 })
 export class BlockToolbarComponent implements OnInit {
   @Input() layout: any;
-  @Input() item: any;
+  @Input() block: any;
   @Input() index: number;
   @Input() i: number;
-  @Input() content: any;
+  @Input() lbContent: any;
   @Input() pageIndex: number;
   constructor(
     private builder: BuilderState,
@@ -47,7 +47,7 @@ export class BlockToolbarComponent implements OnInit {
   ngOnInit(): void {}
 
   onUpDown(direction: string, i: number, index: number): void {
-    const { elements } = this.content;
+    const { elements } = this.lbContent;
     if (direction === 'up') {
       [elements[i].elements[index - 1], elements[i].elements[index]] = [
         elements[i].elements[index],
@@ -59,7 +59,7 @@ export class BlockToolbarComponent implements OnInit {
         elements[i].elements[index],
       ];
     }
-    this.builder.updateComponent(this.pageIndex, this.content);
+    this.builder.updateComponent(this.pageIndex, this.lbContent);
   }
 
   addBlock(addType: string, content: any, event: any): void {
@@ -67,9 +67,9 @@ export class BlockToolbarComponent implements OnInit {
   }
 
   deleteBlock(i: number, index: number): void {
-    const { elements } = this.content;
+    const { elements } = this.lbContent;
     elements[i].elements.splice(index, 1);
-    this.builder.updateComponent(this.pageIndex, this.content);
+    this.builder.updateComponent(this.pageIndex, this.lbContent);
   }
 
   onWidgetSetting(widget: any, event: any): void {

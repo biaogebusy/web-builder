@@ -34,7 +34,7 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
   viewHTML: any;
   guiHTML: any;
   editor: any;
-  //TODO: will remove
+  // TODO: will remove
   modules: QuillModule = {
     toolbar: [
       [
@@ -93,11 +93,11 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
         this.viewHTML = this.content.ele.querySelector('p');
       } else {
         const text = this.content.ele.innerHTML;
-        const p = document.createElement('p');
-        p.innerHTML = text;
-        p.style.display = 'inline-block';
-        p.style.marginBottom = '0px';
-        this.content.ele.innerHTML = p.outerHTML;
+        const pEle = document.createElement('p');
+        pEle.innerHTML = text;
+        pEle.style.display = 'inline-block';
+        pEle.style.marginBottom = '0px';
+        this.content.ele.innerHTML = pEle.outerHTML;
         this.viewHTML = this.content.ele.querySelector('p');
       }
       if (!this.guiHTML) {
@@ -145,7 +145,7 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
     });
   }
 
-  editorCreated(quill: any) {
+  editorCreated(quill: any): void {
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler(
       'image',
@@ -159,10 +159,10 @@ export class MetaEditComponent implements OnInit, AfterViewInit {
     this.cd.detectChanges();
   }
 
-  onModelChange(value: any) {
+  onModelChange(value: any): void {
     const path = this.content.path;
     const { style, src } = value;
-    for (let key of Object.keys(style)) {
+    for (const key of Object.keys(style)) {
       switch (key) {
         case 'maxWidth':
           const maxWidth =
