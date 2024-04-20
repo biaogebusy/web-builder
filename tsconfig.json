@@ -31,9 +31,7 @@
       "@modules/": ["./src/app/modules"],
       "@modules/*": ["./src/app/modules/*"],
       "@assets/": ["./src/assets"],
-      "@assets/*": ["./src/assets/*"],
-      "@stories/": ["./src/stories"],
-      "@stories/*": ["./src/stories/*"]
+      "@assets/*": ["./src/assets/*"]
     }
   },
   "angularCompilerOptions": {
