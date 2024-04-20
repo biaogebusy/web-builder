@@ -13,7 +13,7 @@ import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { defaultsDeep, get, isNumber } from 'lodash-es';
+import { cloneDeep, defaultsDeep, get } from 'lodash-es';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -35,7 +35,7 @@ export class LayoutSettingComponent implements OnDestroy {
     private cd: ChangeDetectorRef
   ) {}
 
-  onModelChange(value: any) {
+  onModelChange(value: any): void {
     const { path } = this.content;
     const { block } = value;
     this.renderLayoutPreview(block);
@@ -50,7 +50,7 @@ export class LayoutSettingComponent implements OnDestroy {
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>): void {
     const { path, content } = this.content;
     moveItemInArray(
       this.content.content.elements,
@@ -65,7 +65,7 @@ export class LayoutSettingComponent implements OnDestroy {
   onCopy(elements: any[], index: number): void {
     const lists = [...elements];
     const path = this.content.path;
-    lists.splice(index, 0, elements[index]);
+    lists.splice(index, 0, cloneDeep(lists[index]));
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
