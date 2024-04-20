@@ -69,7 +69,7 @@
       background-color: mat-color($foreground, elevation, 0.7);
       @include mat-elevation(2, mat-color($background, tooltip), 0.25);
       .mat-button-base {
-        color: mat-color($primary, default-contrast, 0.8);
+        color: rgba(255, 255, 255, 0.8);
       }
     }
   }
