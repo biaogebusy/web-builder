@@ -13,6 +13,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { getInlineImg } from '@modules/builder/factory/getInlinImg';
 import { getInlineText } from '@modules/builder/factory/getInlineText';
 @Directive({
+  // tslint:disable-next-line:directive-selector
   selector: '[contentedit]',
 })
 export class ContenteditDirective implements AfterViewInit, OnInit {
@@ -30,7 +31,11 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
 
   @HostListener('blur', ['$event']) onBlur(event: any): void {
     const { currentTarget } = event;
-    if (this.componentItem && currentTarget) {
+    if (
+      this.componentItem &&
+      currentTarget &&
+      currentTarget.contentEditable === 'true'
+    ) {
       currentTarget.contentEditable = 'false';
       const path = this.generatePath(currentTarget);
       this.builder.updatePageContentByPath(path, currentTarget.innerHTML);
