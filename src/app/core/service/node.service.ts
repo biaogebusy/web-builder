@@ -455,7 +455,7 @@ export class NodeService extends ApiService {
       });
   }
 
-  imageHandler(editor: any) {
+  imageHandler(editor: any): void {
     if (!this.user.authenticated) {
       this.util.openSnackbar('请登录后上传图片！', 'ok');
       return;
@@ -471,7 +471,7 @@ export class NodeService extends ApiService {
       Imageinput.addEventListener('change', () => {
         const file = Imageinput.files[0];
         if (file) {
-          let reader = new FileReader();
+          const reader = new FileReader();
           reader.onload = (e: any) => {
             const data = e.target.result;
             this.uploadImage(file.name, data, this.user.csrf_token).subscribe(

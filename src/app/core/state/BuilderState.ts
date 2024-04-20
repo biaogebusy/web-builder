@@ -28,7 +28,7 @@ export class BuilderState {
   public previewListDrawer$ = new Subject<boolean>();
   public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public builderRightContent$ = new Subject<IBuilderDynamicContent>();
-  public showRightDrawer: boolean = true;
+  public showRightDrawer = true;
   public builderPopupSelect$ = new Subject<any>();
   public closeBuilderRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
@@ -141,7 +141,7 @@ export class BuilderState {
     this.storage.store(this.versionKey, Object.assign([], this.version));
   }
 
-  upDownComponent(index: number, direction: string) {
+  upDownComponent(index: number, direction: string): void {
     const { body } = this.currentPage;
     if (direction === 'up') {
       [body[index - 1], body[index]] = [body[index], body[index - 1]];
