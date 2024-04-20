@@ -20,7 +20,7 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutToolbarComponent implements OnInit {
-  @Input() content: any;
+  @Input() lbContent: any;
   @Input() i: number;
   @Input() layout: any;
   @Input() pageIndex: number;
@@ -59,9 +59,9 @@ export class LayoutToolbarComponent implements OnInit {
   }
 
   onDeleteRow(index: number): void {
-    const { elements } = this.content;
+    const { elements } = this.lbContent;
     elements.splice(index, 1);
-    this.builder.updateComponent(this.pageIndex, this.content);
+    this.builder.updateComponent(this.pageIndex, this.lbContent);
   }
 
   onLayoutSettings(layout: any, event: any): void {

@@ -15,7 +15,7 @@
         fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
         fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})">
         <ng-container *ngIf="isBuilderMode$ | async">
-          <app-layout-toolbar [content]="content" [i]="i" [layout]="layout"
+          <app-layout-toolbar [lbContent]="content" [i]="i" [layout]="layout"
             [pageIndex]="pageIndex"></app-layout-toolbar>
           <div class="placeholder" [attr.data-path]="'elements.'+i" fxFill fxLayoutAlign="center center"
             *ngIf="layout.elements.length === 0">
@@ -31,7 +31,7 @@
             <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
             <div class="item item-{{item.type}}" [attr.data-path]="'elements.'+index"
               *ngFor="let item of layout.elements;index as index">
-              <app-block-toolbar [layout]="layout" [item]="item" [index]="index" [i]="i" [content]="content"
+              <app-block-toolbar [layout]="layout" [block]="item" [index]="index" [i]="i" [lbContent]="content"
                 [pageIndex]="pageIndex" *ngIf="isBuilderMode$ | async"></app-block-toolbar>
               <app-dynamic-component [inputs]="item"></app-dynamic-component>
             </div>
