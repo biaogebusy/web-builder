@@ -1,6 +1,6 @@
 <div class="user">
   <ng-container *ngIf="!currentUser.authenticated">
-    <button aria-label="user login" color="primary" [routerLink]="userService.userLink" mat-mini-fab mat-button>
+    <button aria-label="user login" color="primary" (click)="onLogin()" mat-mini-fab mat-button>
       <mat-icon>person</mat-icon>
     </button>
   </ng-container>

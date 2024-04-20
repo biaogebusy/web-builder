@@ -48,8 +48,13 @@
                   mat-color($background, tooltip),
                   0.25
                 );
-                .mat-button-base {
+
+                .mat-button-base,
+                .title {
                   color: mat-color($primary, default-contrast, 0.8);
+                }
+                .title {
+                  background: rgb(0 0 0 / 40%);
                 }
               }
             }

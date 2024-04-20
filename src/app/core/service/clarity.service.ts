@@ -9,7 +9,8 @@ export class ClarityService {
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   init(id: string): void {
-    if (environment.production) {
+    const { host } = window.location;
+    if (environment.production && !host.includes('localhost')) {
       this.clarity(window, this.document, 'clarity', 'script', id);
     }
   }

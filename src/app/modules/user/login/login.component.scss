@@ -4,8 +4,14 @@
   max-height: 500px;
   min-height: calc(100vh - 76px);
 
-  ::ng-deep .mat-tab-label {
-    min-width: auto !important;
+  ::ng-deep {
+    .mat-tab-label {
+      min-width: auto !important;
+    }
+    .layout-toolbar,
+    .block-toolbar {
+      display: none !important;
+    }
   }
 }
 

@@ -5,6 +5,7 @@ import {
   HostListener,
   Input,
   NgZone,
+  OnInit,
 } from '@angular/core';
 import { IMetaEdit } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -12,9 +13,11 @@ import { BuilderState } from '@core/state/BuilderState';
 import { getInlineImg } from '@modules/builder/factory/getInlinImg';
 import { getInlineText } from '@modules/builder/factory/getInlineText';
 @Directive({
+  // tslint:disable-next-line:directive-selector
   selector: '[contentedit]',
 })
-export class ContenteditDirective implements AfterViewInit {
+export class ContenteditDirective implements AfterViewInit, OnInit {
+  private componentItem: Element | null = null;
   constructor(
     private el: ElementRef,
     private builder: BuilderState,
@@ -22,14 +25,21 @@ export class ContenteditDirective implements AfterViewInit {
     private zone: NgZone
   ) {}
 
-  @HostListener('blur') onBlur(event: Event) {
-    const ele = this.el.nativeElement;
-    if (ele.closest('.component-item')) {
-      ele.contentEditable = 'false';
+  ngOnInit(): void {
+    this.componentItem = this.el.nativeElement.closest('.component-item');
+  }
 
-      const path = this.generatePath(ele);
-      this.builder.updatePageContentByPath(path, ele.innerHTML);
-      this.openMetaPanel(ele);
+  @HostListener('blur', ['$event']) onBlur(event: any): void {
+    const { currentTarget } = event;
+    if (
+      this.componentItem &&
+      currentTarget &&
+      currentTarget.contentEditable === 'true'
+    ) {
+      currentTarget.contentEditable = 'false';
+      const path = this.generatePath(currentTarget);
+      this.builder.updatePageContentByPath(path, currentTarget.innerHTML);
+      this.openMetaPanel(currentTarget, path);
     }
   }
 
@@ -70,22 +80,23 @@ export class ContenteditDirective implements AfterViewInit {
     });
   }
 
-  @HostListener('click', ['$event']) onClick(event: Event): void {
+  @HostListener('click', ['$event']) onClick(event: any): void {
     this.zone.runOutsideAngular(() => {
-      const ele = this.el.nativeElement;
-      if (ele.closest('.component-item')) {
-        if (ele.tagName === 'IMG') {
+      const { currentTarget } = event;
+      const path = this.generatePath(currentTarget);
+      if (this.componentItem && currentTarget) {
+        if (currentTarget.tagName === 'IMG') {
           const meta: IMetaEdit = {
             type: 'meta-edit',
             mode: 'img',
-            path: this.generatePath(ele),
+            path,
             ele: event.target,
-            fields: getInlineImg(ele),
+            fields: getInlineImg(currentTarget),
             data: {
-              src: ele.getAttribute('src'),
-              fileName: ele.getAttribute('src').split('/').pop(),
-              alt: ele.getAttribute('alt'),
-              tag: ele.tagName,
+              src: currentTarget.getAttribute('src'),
+              fileName: currentTarget.getAttribute('src').split('/').pop(),
+              alt: currentTarget.getAttribute('alt'),
+              tag: currentTarget.tagName,
             },
           };
           this.builder.builderRightContent$.next({
@@ -98,8 +109,8 @@ export class ContenteditDirective implements AfterViewInit {
             elements: [meta],
           });
         } else {
-          ele.contentEditable = 'true';
-          this.openMetaPanel(ele);
+          currentTarget.contentEditable = 'true';
+          this.openMetaPanel(currentTarget, path);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -107,11 +118,11 @@ export class ContenteditDirective implements AfterViewInit {
     });
   }
 
-  openMetaPanel(ele: any): void {
+  openMetaPanel(ele: any, path: string): void {
     const meta: IMetaEdit = {
       type: 'meta-edit',
       mode: 'text',
-      path: this.generatePath(ele),
+      path,
       ele,
       fields: getInlineText(ele),
       data: {
@@ -137,7 +148,7 @@ export class ContenteditDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const ele = this.el.nativeElement;
-    if (ele.closest('.component-item')) {
+    if (this.componentItem) {
       ele.contentEditable = 'false';
     }
   }

@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-function rgbToHex(rgb: string) {
+function rgbToHex(rgb: string): string {
   const match = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
   if (match) {
     return (
