@@ -6,13 +6,14 @@
     <div class="showcase-inner teaser" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxLayoutGap.lt-md="0"
       fxLayoutGap.gt-xs="3rem">
       <ng-container *ngIf="content.feature">
-        <app-feature-box fxFlex.lt-md="100" fxFlex.gt-sm="40" [content]="content.feature" *ngIf="isShow">
+        <app-feature-box [attr.data-path]="'feature'" fxFlex.lt-md="100" fxFlex.gt-sm="40" [content]="content.feature"
+          *ngIf="isShow">
         </app-feature-box>
       </ng-container>
       <div [ngClass]="isShow ? 'm-left-sm' : ''" fxFlex.lt-md="100"
         fxFlex.gt-sm="{{content.showImage && content.feature?'60':'100'}}">
         <h2 class="title">
-          <app-link [content]="content.title"></app-link>
+          <app-link [attr.data-path]="'title'" [content]="content.title"></app-link>
         </h2>
         <ul class="post-meta-info" fxLayout fxLayoutAlign="start start">
           <li *ngIf="content.date" fxLayoutAlign="center center">
@@ -31,7 +32,7 @@
         <div class="shortdesc" [innerHTML]="content.body |stripTags|trim|shorten:150:'...'">
         </div>
         <div class="m-top-sm" *ngIf="content.details">
-          <app-btn [content]="content.details"></app-btn>
+          <app-btn [attr.data-path]="'details'" [content]="content.details"></app-btn>
         </div>
       </div>
     </div>
