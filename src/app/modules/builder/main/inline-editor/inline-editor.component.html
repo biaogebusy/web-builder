@@ -1,4 +1,4 @@
-<div class="meta-edit" *ngIf="content">
+<div class="inline-editor" *ngIf="content">
   <app-title [content]="{label:content.data.tag,style:'style-v5'}"></app-title>
   <app-formly *ngIf="content.fields" [fields]="content.fields" [model]="model"
     (modelChange)="onModelChange($event)"></app-formly>
