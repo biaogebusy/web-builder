@@ -20,4 +20,8 @@
       </div>
     </ng-container>
   </div>
+  <div class="help" [matTooltip]="help.tooltip" *ngIf="help">
+    <app-btn
+      [content]="{label:'',mode:'icon',color:undefined,href:help.link,target:'_blank',icon:{svg:'help-circle'}}"></app-btn>
+  </div>
 </div>
