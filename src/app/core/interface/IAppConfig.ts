@@ -52,6 +52,12 @@ export interface ICoreConfig {
     api: {
       [key: string]: string;
     };
+    widgetPicker: {
+      help: {
+        tooltip: string;
+        link: string;
+      };
+    };
     generater: FormlyFieldConfig[];
     empty: any;
   };
