@@ -1,4 +1,4 @@
-<ng-container *ngIf="core_config?.github?.enable">
+<ng-container *ngIf="coreConfig?.github?.enable">
   <div class="github-star" *ngIf="repo$ | async as repo" fxLayoutAlign="center center">
     <a class="item" [href]="repo.html_url" target="_blank" fxFlex="" fxLayoutAlign="center center" fxLayoutGap="0.4rem">
       <app-icon [content]="{svg:'github',inline:true }"></app-icon>

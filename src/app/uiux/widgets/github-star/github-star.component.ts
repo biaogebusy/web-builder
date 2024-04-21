@@ -15,12 +15,12 @@ export class GithubStarComponent implements OnInit {
 
   constructor(
     private contentService: ContentService,
-    @Inject(CORE_CONFIG) public core_config: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
-    if (this.core_config.github) {
-      const { owner, repo, token, enable } = this.core_config.github;
+    if (this.coreConfig.github && environment.production) {
+      const { owner, repo, token, enable } = this.coreConfig.github;
       if (enable) {
         this.repo$ = this.contentService.getRepository(owner, repo, token);
       }
