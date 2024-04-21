@@ -29,7 +29,7 @@ import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.com
 import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
 import { builderCurrentPageFactory } from '@core/factory/factory';
 import { LocalStorageService } from 'ngx-webstorage';
-import { MetaEditComponent } from './main/meta-edit/meta-edit.component';
+import { InlineEditComponent } from './main/inline-editor/inline-editor.component';
 import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
 import { QuillModule } from 'ngx-quill';
 import { WidgetPickerComponent } from './main/widget-picker/widget-picker.component';
@@ -52,7 +52,7 @@ const components = [
   BuilderListComponent,
   BuilderGeneraterComponent,
   BtnGeneraterComponent,
-  MetaEditComponent,
+  InlineEditComponent,
   LayoutBuilderComponent,
   WidgetPickerComponent,
   LayoutSettingComponent,
@@ -71,7 +71,7 @@ const components = [
     PreviewListComponent,
     PreviewComponent,
     BuilderVersionComponent,
-    MetaEditComponent,
+    InlineEditComponent,
     BuilderUiuxComponent,
     BuilderSettingsComponent,
     PageListComponent,

@@ -258,7 +258,7 @@ export class ComponentService {
       'builder-template',
       'builder-generater',
       'btn-generater',
-      'meta-edit',
+      'inline-editor',
       'widget-picker',
       'layout-setting',
     ].forEach((type) =>
