@@ -83,11 +83,11 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
   @HostListener('click', ['$event']) onClick(event: any): void {
     this.zone.runOutsideAngular(() => {
       const { currentTarget } = event;
-      const path = this.generatePath(currentTarget);
       if (this.componentItem && currentTarget) {
+        const path = this.generatePath(currentTarget);
         if (currentTarget.tagName === 'IMG') {
           const meta: IMetaEdit = {
-            type: 'meta-edit',
+            type: 'inline-editor',
             mode: 'img',
             path,
             ele: event.target,
@@ -120,7 +120,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
 
   openMetaPanel(ele: any, path: string): void {
     const meta: IMetaEdit = {
-      type: 'meta-edit',
+      type: 'inline-editor',
       mode: 'text',
       path,
       ele,

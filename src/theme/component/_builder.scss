@@ -2,7 +2,7 @@
 @import "../mixins/amixin";
 @import "./builder/builder-sidebar";
 @import "./builder/builder-list";
-@import "./builder/builder-meta-edit";
+@import "./builder/builder-inline-edit";
 
 $dark-primary: mat-palette($mat-gray, 300, 50, 500);
 $dark-accent: mat-palette($mat-teal, A200, A100, A400);
@@ -76,7 +76,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     }
     .mat-drawer-content {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
-      @include meta-edit($background, $foreground, $primary);
+      @include inline-edit($background, $foreground, $primary);
       @include scrollbar(mat-color($primary));
 
       .backdrop {

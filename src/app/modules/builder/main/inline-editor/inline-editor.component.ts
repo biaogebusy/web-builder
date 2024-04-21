@@ -17,12 +17,12 @@ import type { IMetaEdit } from '@core/interface/IBuilder';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-meta-edit',
-  templateUrl: './meta-edit.component.html',
-  styleUrls: ['./meta-edit.component.scss'],
+  selector: 'app-inline-editor',
+  templateUrl: './inline-editor.component.html',
+  styleUrls: ['./inline-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MetaEditComponent implements OnInit, AfterViewInit {
+export class InlineEditComponent implements OnInit, AfterViewInit {
   form = new FormGroup({});
   model: any = {};
   @Input() content: IMetaEdit;

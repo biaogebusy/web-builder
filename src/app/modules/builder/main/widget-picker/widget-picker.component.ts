@@ -10,9 +10,10 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import type { IWidgetPicker } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
-import { WIDGETS } from '@core/token/token-providers';
+import { CORE_CONFIG, WIDGETS } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
+import { ICoreConfig } from '@core/interface/IAppConfig';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
@@ -23,13 +24,17 @@ export class WidgetPickerComponent implements OnInit {
   @Input() content: IWidgetPicker;
   @ViewChild('popup', { static: false }) popup: ElementRef;
   public widget$: Subject<any> = new Subject();
+  help: any;
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
-    @Inject(WIDGETS) public widgets$: Observable<any[]>
+    @Inject(WIDGETS) public widgets$: Observable<any[]>,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.help = this.coreConfig?.builder?.widgetPicker?.help;
+  }
 
   onSelect(widget: any): void {
     const { addType, path, content } = this.content;

@@ -618,6 +618,12 @@
         "administrator"
       ]
     },
+    "widgetPicker": {
+      "help": {
+        "tooltip": "如何新增组件到这里？",
+        "link": "https://ui.builder.design/?path=/docs/develop-newcomponent--page"
+      }
+    },
     "empty": [
       {
         "type": "showcase-3v9",
