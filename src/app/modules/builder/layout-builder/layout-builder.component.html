@@ -4,9 +4,9 @@
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
     <div class="inner layout-inner" id="layout" [fxLayout]="content.direction" [fxLayoutAlign]="content.layoutAlign"
-      [fxLayoutGap.xs]="content.gap?.xs+'px'" [fxLayoutGap.sm]="content.gap?.sm+'px'"
-      [fxLayoutGap.md]="content.gap?.md+'px'" [fxLayoutGap.lg]="content.gap?.lg+'px'"
-      [fxLayoutGap.gt-lg]="content.gap?.lg+'px'">
+      [ngStyle.xs]="{gap:content.gap?.xs+'px'}" [ngStyle.sm]="{gap:content.gap?.sm+'px'}"
+      [ngStyle.md]="{gap:content.gap?.md+'px'}" [ngStyle.lg]="{gap:content.gap?.lg+'px'}"
+      [ngStyle.gt-lg]="{gap:content.gap?.lg+'px'}">
       <div class="layout layout-{{i}}" [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i"
         [attr.data-path]="'elements.'+i" [ngClass]="layout.classes"
         fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}} - {{content.gap?.xs+'px'||'0px'}})"
@@ -25,9 +25,9 @@
         </ng-container>
         <div class="for-animate">
           <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign"
-            [fxLayoutGap.xs]="layout.gap?.xs+'px'" [fxLayoutGap.sm]="layout.gap?.sm+'px'"
-            [fxLayoutGap.md]="layout.gap?.md+'px'" [fxLayoutGap.lg]="layout.gap?.lg+'px'"
-            [fxLayoutGap.gt-lg]="layout.gap?.lg+'px'" [ngStyle]="layout.style">
+            [ngStyle.xs]="{gap:layout.gap?.xs+'px'}" [ngStyle.sm]="{gap:layout.gap?.sm+'px'}"
+            [ngStyle.md]="{gap:layout.gap?.md+'px'}" [ngStyle.lg]="{gap:layout.gap?.lg+'px'}"
+            [ngStyle.gt-lg]="{gap:layout.gap?.lg+'px'}" [ngStyle]="layout.style">
             <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
             <div class="item item-{{item.type}}" [attr.data-path]="'elements.'+index"
               *ngFor="let item of layout.elements;index as index">

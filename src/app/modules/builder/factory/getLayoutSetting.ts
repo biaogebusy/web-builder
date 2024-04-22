@@ -10,7 +10,7 @@ import {
 } from './getCommon';
 
 export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
-  let responsive: FormlyFieldConfig[] = [
+  const responsive: FormlyFieldConfig[] = [
     {
       fieldGroup: [
         {
@@ -74,7 +74,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       ],
     },
   ];
-  let flexLayout: FormlyFieldConfig[] = [
+  const flexLayout: FormlyFieldConfig[] = [
     {
       className: 'layout-setting width-100',
       fieldGroupClassName: 'display-flex flex-wrap width-100',
@@ -99,6 +99,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           templateOptions: {
             label: '当前列布局方向',
             options: getDirectionOption,
+            required: true,
           },
         },
         {
@@ -148,7 +149,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       ],
     },
   ];
-  let bgImg: FormlyFieldConfig = {
+  const bgImg: FormlyFieldConfig = {
     key: 'bg',
     className: 'm-top-sm',
     fieldGroup: [
@@ -232,7 +233,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       },
     ],
   };
-  let styles: FormlyFieldConfig[] = [
+  const styles: FormlyFieldConfig[] = [
     {
       className: 'width-100',
       fieldGroup: [
@@ -292,7 +293,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       ],
     },
   ];
-  let fields: FormlyFieldConfig[] = [
+  const fields: FormlyFieldConfig[] = [
     {
       type: 'tabs',
       key: 'block',

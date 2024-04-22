@@ -230,6 +230,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             templateOptions: {
               label: '组件布局方向',
               options: getDirectionOption,
+              required: true,
             },
           },
           {
