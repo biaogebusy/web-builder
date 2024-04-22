@@ -490,12 +490,15 @@
           "templateOptions": {
             "label": "切换资源库",
             "description": "静态资源/后台媒体库"
+          },
+          "expressionProperties": {
+            "templateOptions.description": "model.fromStatic?'静态资源':'后台媒体库'"
           }
         },
         {
           "type": "input",
           "key": "key",
-          "className": "display-block m-bottom-sm",
+          "className": "m-bottom-sm",
           "templateOptions": {
             "type": "string",
             "appearance": "legacy",
@@ -506,7 +509,7 @@
           "type": "select",
           "key": "type",
           "defaultValue": "/api/v1/media/image",
-          "className": "display-block m-bottom-sm",
+          "className": "m-bottom-sm",
           "templateOptions": {
             "label": "选择资源类型",
             "options": [
@@ -533,7 +536,7 @@
           "type": "select",
           "key": "limit",
           "defaultValue": 20,
-          "className": "display-block m-bottom-sm",
+          "className": "m-bottom-sm",
           "templateOptions": {
             "label": "每页显示个数",
             "options": [
@@ -564,7 +567,7 @@
           "type": "select",
           "key": "filter",
           "defaultValue": 1,
-          "className": "display-block m-bottom-sm",
+          "className": "m-bottom-sm",
           "templateOptions": {
             "label": "发布状态",
             "options": [
@@ -587,7 +590,7 @@
               "type": "select",
               "key": "direction",
               "defaultValue": "DESC",
-              "className": "display-block m-bottom-sm",
+              "className": "m-bottom-sm",
               "templateOptions": {
                 "label": "排序",
                 "options": [
