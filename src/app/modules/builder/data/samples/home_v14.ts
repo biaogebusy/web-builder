@@ -61,17 +61,24 @@ export const home_v14 = {
           horizontal: 'flex-start',
           vertical: 'flex-start',
           layoutAlign: 'start start',
+          gap: {
+            xs: '8',
+            sm: '16',
+            md: '16',
+            lg: '16',
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -82,6 +89,7 @@ export const home_v14 = {
             marginLeft: '0px',
           },
           animate: {
+            enable: true,
             from: {
               x: 0,
               y: '100',
@@ -100,7 +108,6 @@ export const home_v14 = {
               start: 'top 90%',
               end: 'top 40%',
             },
-            enable: true,
           },
           elements: [
             {
@@ -147,7 +154,7 @@ export const home_v14 = {
                 },
               },
               type: 'title',
-              label: 'MODERN FURNITURE',
+              label: '<div>MODERN FURNITURE</div>',
             },
             {
               type: 'text',
@@ -299,17 +306,24 @@ export const home_v14 = {
           horizontal: 'flex-start',
           vertical: 'flex-start',
           layoutAlign: 'start start',
+          gap: {
+            xs: '16',
+            sm: '16',
+            md: '16',
+            lg: '16',
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -320,6 +334,7 @@ export const home_v14 = {
             marginLeft: '0px',
           },
           animate: {
+            enable: true,
             from: {
               x: 0,
               y: '100',
@@ -338,7 +353,6 @@ export const home_v14 = {
               start: 'top 90%',
               end: 'top 40%',
             },
-            enable: true,
           },
           elements: [
             {
@@ -445,17 +459,24 @@ export const home_v14 = {
           horizontal: 'flex-start',
           vertical: 'flex-start',
           layoutAlign: 'start start',
+          gap: {
+            xs: '16',
+            sm: '16',
+            md: '16',
+            lg: '16',
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -466,6 +487,7 @@ export const home_v14 = {
             marginLeft: '0px',
           },
           animate: {
+            enable: true,
             from: {
               x: 0,
               y: '100',
@@ -484,7 +506,6 @@ export const home_v14 = {
               start: 'top 90%',
               end: 'top 40%',
             },
-            enable: true,
           },
           elements: [
             {
@@ -591,17 +612,24 @@ export const home_v14 = {
           horizontal: 'flex-start',
           vertical: 'flex-start',
           layoutAlign: 'start start',
+          gap: {
+            xs: '16',
+            sm: '16',
+            md: '16',
+            lg: '16',
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -612,6 +640,7 @@ export const home_v14 = {
             marginLeft: '0px',
           },
           animate: {
+            enable: true,
             from: {
               x: 0,
               y: '100',
@@ -630,7 +659,6 @@ export const home_v14 = {
               start: 'top 90%',
               end: 'top 40%',
             },
-            enable: true,
           },
           elements: [
             {
@@ -1151,17 +1179,24 @@ export const home_v14 = {
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  gap: {
+                    xs: '16',
+                    sm: '16',
+                    md: '16',
+                    lg: '16',
+                  },
                   bg: {
                     img: {
                       src: '',
-                      classes: 'object-fit',
                       alt: '',
+                      classes: 'object-fit',
                     },
                     overlay: '',
                     classes: 'bg-fill-width',
                   },
                   classes: '',
                   style: {
+                    borderRadius: 'none',
                     paddingTop: '0px',
                     paddingRight: '0px',
                     paddingBottom: '0px',
@@ -1341,17 +1376,24 @@ export const home_v14 = {
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  gap: {
+                    xs: '16',
+                    sm: '16',
+                    md: '16',
+                    lg: '16',
+                  },
                   bg: {
                     img: {
                       src: '',
-                      classes: 'object-fit',
                       alt: '',
+                      classes: 'object-fit',
                     },
                     overlay: '',
                     classes: 'bg-fill-width',
                   },
                   classes: '',
                   style: {
+                    borderRadius: 'none',
                     paddingTop: '0px',
                     paddingRight: '0px',
                     paddingBottom: '0px',
@@ -1676,17 +1718,24 @@ export const home_v14 = {
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
                   layoutAlign: 'start start',
+                  gap: {
+                    xs: '16',
+                    sm: '16',
+                    md: '16',
+                    lg: '16',
+                  },
                   bg: {
                     img: {
                       src: '',
-                      classes: 'object-fit',
                       alt: '',
+                      classes: 'object-fit',
                     },
                     overlay: '',
                     classes: 'bg-fill-width',
                   },
                   classes: '',
                   style: {
+                    borderRadius: 'none',
                     paddingTop: '0px',
                     paddingRight: '0px',
                     paddingBottom: '0px',
@@ -1727,7 +1776,7 @@ export const home_v14 = {
                     {
                       type: 'text',
                       spacer: 'none',
-                      body: 'The room you spend the most time cooking is yourkitchen.Combine modern style with convenience tomake your kitchen more comfortable.',
+                      body: '<div>The room you spend the most time cooking is yourkitchen.Combine modern style with convenience tomake your kitchen more comfortable.</div>',
                     },
                     {
                       type: 'btn',
@@ -2087,11 +2136,11 @@ export const home_v14 = {
         params: {
           direction: 'horizontal',
           breakpoints: {
-            '600': {
+            600: {
               slidesPerView: 3,
               spaceBetween: 20,
             },
-            '960': {
+            960: {
               slidesPerView: 3,
               spaceBetween: 50,
             },
