@@ -1,15 +1,15 @@
 <div class="sample" *ngIf="content">
-  <mat-accordion>
-    <mat-expansion-panel expanded="true">
+  <mat-accordion multi>
+    <mat-expansion-panel *ngFor="let item of content;index as i" [expanded]="i === 0">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{content.label}} ({{content.elements.length}})
+          {{item.label}} ({{item.elements.length}})
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
         <div class="cards" fxLayout="row wrap">
           <div class="item" [matTooltip]="item.page.title" (click)="onSample(item.page)"
-            *ngFor="let item of content.elements" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)">
+            *ngFor="let item of item.elements" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)">
             <div class="inner" fxLayout="column" fxLayoutAlign="center center">
               <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
               <div class="title">{{item.label}}</div>

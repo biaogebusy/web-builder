@@ -90,7 +90,7 @@ Comment.storyName = '带评论';
 const comment: IBaseNode = {
   ...Default.args.content,
   params: {
-    require_rule: ['authenticated'],
+    require_rule: [],
     comment: {
       type: 'comment--comment',
       attributes: {
