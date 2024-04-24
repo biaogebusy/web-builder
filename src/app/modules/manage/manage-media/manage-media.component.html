@@ -8,10 +8,6 @@
         <app-formly *ngIf="coreConfig.manageMedia.sidebar.form" [classes]="'form-field-width-auto'" [form]="form"
           [fields]="coreConfig.manageMedia.sidebar.form" [model]="model">
         </app-formly>
-
-        <div class="actions m-top-sm" fxFlex="100" fxLayoutAlign="center center">
-          <app-btn (click)="onSearch(model)" [content]="coreConfig.manageMedia.sidebar.action"></app-btn>
-        </div>
       </div>
     </mat-drawer>
     <mat-drawer-content>
