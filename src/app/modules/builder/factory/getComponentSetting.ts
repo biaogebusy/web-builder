@@ -116,7 +116,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               defaultValue: content.id || '',
               templateOptions: {
                 label: 'ID',
-                description: 'HTMl ID',
+                description: 'HTML ID',
               },
             },
             {
