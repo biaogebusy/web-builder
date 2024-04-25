@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '../../../state/screen/ScreenState';
 
@@ -13,9 +8,7 @@ import { ScreenState } from '../../../state/screen/ScreenState';
   styleUrls: ['./light.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LightComponent implements OnInit {
+export class LightComponent {
   @Input() content: any;
   constructor(public screen: ScreenState, public utilities: UtilitiesService) {}
-
-  ngOnInit(): void {}
 }
