@@ -8,11 +8,6 @@ export interface IManageAssets {
 
 export interface IManageMedia {
   type: 'manage-media';
-  uuid: string;
-  pageIndex?: number;
-  i?: number;
-  index: number | undefined;
-  level: 'block' | 'layout' | 'widget';
 }
 
 export interface IMediaSelect {

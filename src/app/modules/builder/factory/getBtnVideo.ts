@@ -5,7 +5,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
     {
       key: 'btnVideo',
       type: 'tabs',
-      fieldsGroup: [
+      fieldGroup: [
         {
           templateOptions: {
             label: '播放按钮',
@@ -115,7 +115,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
     },
   ];
   if (options) {
-    fields[0].fieldsGroup.push(...options);
+    fields[0].fieldGroup.push(...options);
   }
 
   return fields;
