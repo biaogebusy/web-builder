@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "../mixins/base-color";
 @import "../component/component";
 $green-color: (
@@ -19,30 +19,30 @@ $green-color: (
   A700: #008463,
   contrast: (
     //
-    50: $dark-primary-text,
-    100: $dark-primary-text,
-    200: $dark-primary-text,
-    300: $light-primary-text,
-    400: $light-primary-text,
-    500: $light-primary-text,
-    600: $light-primary-text,
-    700: $light-primary-text,
-    800: $light-primary-text,
-    900: $light-primary-text,
-    A100: $dark-primary-text,
-    A200: $light-primary-text,
-    A400: $light-primary-text,
-    A700: $light-primary-text
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: white,
+    A400: white,
+    A700: white
   )
 );
 
-$green-primary: mat-palette($green-color);
-$green-accent: mat-palette($green-color, A200, A100, A400);
-$green-warn: mat-palette($mat-red, A200, A100, A400);
-$green-theme: mat-light-theme($green-primary, $green-accent, $green-warn);
+$green-primary: mat.define-palette($green-color);
+$green-accent: mat.define-palette($green-color, A200, A100, A400);
+$green-warn: mat.define-palette(mat.$red-palette, A200, A100, A400);
+$green-theme: mat.define-light-theme($green-primary, $green-accent, $green-warn);
 
 .green-theme {
-  @include angular-material-theme($green-theme);
+  @include mat.all-component-themes($green-theme);
   @include base-colors($green-theme);
   @include component-theme($green-theme);
 }

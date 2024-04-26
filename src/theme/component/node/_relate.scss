@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin relate-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -8,33 +8,33 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-color: mat-color($foreground, text, 0.75);
+  $text-color: mat.get-color-from-palette($foreground, text, 0.75);
 
   .node-summary {
-    @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+    @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.6);
     .left {
-      background-color: mat-color($primary, 0.08);
+      background-color: mat.get-color-from-palette($primary, 0.08);
     }
     .summary-item {
       .list {
-        border-top: 1px solid mat-color($foreground, divider);
+        border-top: 1px solid mat.get-color-from-palette($foreground, divider);
         .item {
           .label {
-            color: mat-color($foreground, base, 0.4);
+            color: mat.get-color-from-palette($foreground, base, 0.4);
           }
         }
         .mat-header-cell {
-          color: mat-color($foreground, base, 0.4);
+          color: mat.get-color-from-palette($foreground, base, 0.4);
         }
       }
     }
   }
 
   .relate-showcase {
-    @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+    @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.6);
     .meta {
       .label {
-        color: mat-color($foreground, base, 0.4);
+        color: mat.get-color-from-palette($foreground, base, 0.4);
       }
     }
   }

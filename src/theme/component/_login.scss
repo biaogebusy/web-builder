@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin login-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -10,16 +10,16 @@
 
   .login-wrapper {
     background-color: map-get($background, card);
-    border: 1px solid mat-color($foreground, divider, 0.06);
-    @include mat-elevation(4, mat-color($foreground, text), 0.3);
+    border: 1px solid mat.get-color-from-palette($foreground, divider, 0.06);
+    @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.3);
 
     .login-second {
-      background-color: mat-color($background, background);
+      background-color: mat.get-color-from-palette($background, background);
     }
 
     .error {
-      background-color: mat-color($warn);
-      color: mat-color($warn, "500-contrast");
+      background-color: mat.get-color-from-palette($warn);
+      color: mat.get-color-from-palette($warn, "500-contrast");
     }
   }
 

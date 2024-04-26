@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin form-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -8,44 +8,44 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: mat-color($foreground, text, 0.75);
+  $text-base: mat.get-color-from-palette($foreground, text, 0.75);
 
   .checkbox {
     .badge {
-      background-color: mat-color($primary, 0.1);
-      color: mat-color($primary);
+      background-color: mat.get-color-from-palette($primary, 0.1);
+      color: mat.get-color-from-palette($primary);
     }
   }
 
   .img-picker {
     .meta {
-      background-color: mat-color($primary, 0.2);
+      background-color: mat.get-color-from-palette($primary, 0.2);
     }
   }
 
   .contact-us-1v1 {
     &:after {
-      background-color: mat-color($primary);
+      background-color: mat.get-color-from-palette($primary);
     }
     .box {
-      @include mat-elevation(4, mat-color($foreground, text), 0.5);
-      background-color: mat-color($background, card);
+      @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.5);
+      background-color: mat.get-color-from-palette($background, card);
     }
     .form {
-      background-color: mat-color($background, card);
+      background-color: mat.get-color-from-palette($background, card);
     }
     .content {
-      color: mat-color($primary, default-contrast);
+      color: mat.get-color-from-palette($primary, default-contrast);
     }
   }
 
   formly-form {
     .slider {
       .value {
-        background-color: mat-color($background, card);
-        border: 1px solid mat-color($foreground, divider);
+        background-color: mat.get-color-from-palette($background, card);
+        border: 1px solid mat.get-color-from-palette($foreground, divider);
         &:hover {
-          border-color: mat-color($primary);
+          border-color: mat.get-color-from-palette($primary);
         }
       }
     }

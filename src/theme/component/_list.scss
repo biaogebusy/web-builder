@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "../mixins/amixin";
 
 @mixin list-color($config-or-theme) {
@@ -11,15 +11,15 @@
 
   .taxonomy-thin-list {
     .thin-sidebar {
-      background-color: mat-color($background, card);
-      @include mat-elevation(4, mat-color($foreground, text), 0.1);
-      @include scrollbar(mat-color($foreground, divider, 0.2));
+      background-color: mat.get-color-from-palette($background, card);
+      @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.1);
+      @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
     }
   }
   .list-thin {
     .item {
-      background-color: mat-color($background, card);
-      @include mat-elevation(4, mat-color($foreground, text), 0.1);
+      background-color: mat.get-color-from-palette($background, card);
+      @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.1);
     }
   }
 }

@@ -1,15 +1,15 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "./blue-config";
 @import "../mixins/base-color";
 @import "../component/component";
 
-$dark-primary: mat-palette($blue-color, 400, 50, 500);
-$dark-accent: mat-palette($mat-teal, A200, A100, A400);
-$dark-warn: mat-palette($mat-deep-orange);
-$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+$dark-primary: mat.define-palette($blue-color, 400, 50, 500);
+$dark-accent: mat.define-palette(mat.$teal-palette, A200, A100, A400);
+$dark-warn: mat.define-palette(mat.$deep-orange-palette);
+$dark-theme: mat.define-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 .dark-theme {
-  @include angular-material-theme($dark-theme);
+  @include mat.all-component-themes($dark-theme);
   @include base-colors($dark-theme);
   @include component-theme($dark-theme);
 }

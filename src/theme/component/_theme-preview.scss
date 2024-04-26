@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin theme-preview-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -8,16 +8,16 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: mat-color($foreground, text, 0.75);
+  $text-base: mat.get-color-from-palette($foreground, text, 0.75);
   .theme-preview {
     .bg-colors {
       .box {
-        @include mat-elevation(4, mat-color($foreground, divider, 0.45));
+        @include mat.elevation(4, mat.get-color-from-palette($foreground, divider, 0.45));
       }
     }
     .row {
       .item {
-        @include mat-elevation(4, mat-color($foreground, divider, 0.45));
+        @include mat.elevation(4, mat.get-color-from-palette($foreground, divider, 0.45));
       }
     }
   }

@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin dropdown-menu-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -8,11 +8,11 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-color: mat-color($foreground, text, 0.75);
+  $text-color: mat.get-color-from-palette($foreground, text, 0.75);
   .mat-accordion {
     .mat-expansion-panel-header,
     .mat-list {
-      border-color: mat-color($foreground, divider) !important;
+      border-color: mat.get-color-from-palette($foreground, divider) !important;
     }
     .mat-expansion-panel-header-title {
       color: $text-color;
@@ -21,7 +21,7 @@
       a {
         color: $text-color;
         &.active {
-          color: mat-color($primary);
+          color: mat.get-color-from-palette($primary);
         }
       }
     }
@@ -32,29 +32,29 @@
       a {
         color: $text-color;
         &.active {
-          color: mat-color($primary);
+          color: mat.get-color-from-palette($primary);
         }
       }
     }
   }
 
   .notify-menu {
-    @include scrollbar(mat-color($foreground, divider, 0.2));
+    @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
 
     .mat-menu-content {
       .mat-list-item {
         &:hover {
-          background-color: mat-color($background, background);
+          background-color: mat.get-color-from-palette($background, background);
         }
         .mat-line:nth-child(n + 2) {
-          color: mat-color($foreground, text, 0.5);
+          color: mat.get-color-from-palette($foreground, text, 0.5);
         }
       }
       .mat-line {
         a {
           color: $text-color;
           &:hover {
-            color: mat-color($primary);
+            color: mat.get-color-from-palette($primary);
           }
         }
       }

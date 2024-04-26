@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin carousel-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -11,7 +11,7 @@
   $light: map-get($background, card);
   .carousel-1-v2 {
     .actions {
-      color: mat-color($primary);
+      color: mat.get-color-from-palette($primary);
     }
   }
   .carousel-2-v1 {
@@ -22,7 +22,7 @@
           background: $light;
         }
         .mat-icon {
-          background: mat-color($primary);
+          background: mat.get-color-from-palette($primary);
           color: $light;
         }
       }
@@ -56,23 +56,23 @@
   }
   .carousel-2-v2 {
     &.bg-primary {
-      background-color: mat-color($primary);
+      background-color: mat.get-color-from-palette($primary);
       .swiper-container {
         .swiper-button-prev,
         .swiper-button-next {
-          color: mat-color($primary, default-contrast);
+          color: mat.get-color-from-palette($primary, default-contrast);
         }
       }
     }
   }
   .swiper-container {
     .swiper-pagination-bullet-active {
-      background-color: mat-color($primary);
+      background-color: mat.get-color-from-palette($primary);
     }
     .swiper-button-next,
     .swiper-button-prev {
-      color: mat-color($primary, default-contrast);
-      background-color: mat-color($primary, 0.5);
+      color: mat.get-color-from-palette($primary, default-contrast);
+      background-color: mat.get-color-from-palette($primary, 0.5);
       border-radius: 50%;
       padding: 6px;
     }
@@ -87,7 +87,7 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        border: 2px solid mat-color($foreground, elevation, 0.4);
+        border: 2px solid mat.get-color-from-palette($foreground, elevation, 0.4);
         border-radius: 50%;
         transform: translate(-50%, -50%);
       }

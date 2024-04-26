@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin map-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -13,52 +13,52 @@
   }
 
   .mark-card {
-    background-color: mat-color($background, card);
+    background-color: mat.get-color-from-palette($background, card);
     box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
 
     .arrow {
       &.top {
         &:after {
-          border-top-color: mat-color($background, card) !important;
+          border-top-color: mat.get-color-from-palette($background, card) !important;
         }
       }
     }
     &.reverse {
-      background-color: mat-color($primary);
-      color: mat-color($primary, default-contrast);
+      background-color: mat.get-color-from-palette($primary);
+      color: mat.get-color-from-palette($primary, default-contrast);
       box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
       .media {
-        background-color: mat-color($primary, default-contrast, 0.5);
+        background-color: mat.get-color-from-palette($primary, default-contrast, 0.5);
         img {
-          background-color: mat-color($background, card);
+          background-color: mat.get-color-from-palette($background, card);
         }
       }
 
       .sub-title,
       .meta {
-        color: mat-color($primary, default-contrast, 0.75);
+        color: mat.get-color-from-palette($primary, default-contrast, 0.75);
       }
       .arrow {
         &.top {
           &:after {
-            border-top-color: mat-color($primary) !important;
+            border-top-color: mat.get-color-from-palette($primary) !important;
           }
         }
       }
     }
   }
   .mark {
-    background-color: mat-color($primary, 0.07);
+    background-color: mat.get-color-from-palette($primary, 0.07);
     // animation: breathe 3s linear infinite;
 
     &:after {
-      background-color: mat-color($primary);
+      background-color: mat.get-color-from-palette($primary);
     }
   }
 
   @keyframes breathe {
     0% {
-      box-shadow: 0 0 0 10px mat-color($primary, 0.2);
+      box-shadow: 0 0 0 10px mat.get-color-from-palette($primary, 0.2);
     }
   }
 }

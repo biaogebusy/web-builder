@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin title-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -10,7 +10,7 @@
 
   .title {
     .typed-cursor {
-      color: mat-color($primary);
+      color: mat.get-color-from-palette($primary);
     }
     &.style-v1,
     &.style-v2,
@@ -18,36 +18,36 @@
     &.style-v4,
     &.style-v5 {
       .line-style {
-        background: mat-color($foreground, divider);
+        background: mat.get-color-from-palette($foreground, divider);
         &:before {
-          background: mat-color($primary);
+          background: mat.get-color-from-palette($primary);
         }
         .mat-icon {
-          background: mat-color($primary, default-contrast);
-          color: mat-color($primary);
+          background: mat.get-color-from-palette($primary, default-contrast);
+          color: mat.get-color-from-palette($primary);
         }
       }
     }
     &.style-v1 {
       .line-style {
         span {
-          background: mat-color($background, card);
-          border: 1px solid mat-color($primary);
+          background: mat.get-color-from-palette($background, card);
+          border: 1px solid mat.get-color-from-palette($primary);
         }
       }
     }
     &.style-v4 {
       .line-style {
         span {
-          background: mat-color($background, card);
-          border: 1px solid mat-color($primary);
+          background: mat.get-color-from-palette($background, card);
+          border: 1px solid mat.get-color-from-palette($primary);
         }
       }
     }
     &.banner-title {
       .title-header {
-        background-color: mat-color($primary);
-        color: mat-color($primary, default-contrast);
+        background-color: mat.get-color-from-palette($primary);
+        color: mat.get-color-from-palette($primary, default-contrast);
       }
     }
   }

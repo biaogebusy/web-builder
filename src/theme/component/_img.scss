@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin img-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -24,8 +24,8 @@
   }
   .img-bg-shape {
     &:after {
-      background-color: mat-color($primary);
-      box-shadow: 0 0 40px mat-color($primary);
+      background-color: mat.get-color-from-palette($primary);
+      box-shadow: 0 0 40px mat.get-color-from-palette($primary);
     }
   }
 }

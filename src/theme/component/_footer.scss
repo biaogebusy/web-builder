@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin inverse($primary, $bg, $text, $contrast, $form) {
   background: $bg;
@@ -41,7 +41,7 @@
   }
   .mat-form-field-appearance-fill {
     .mat-form-field-label {
-      color: mat-color($primary, default-contrast, 0.5);
+      color: mat.get-color-from-palette($primary, default-contrast, 0.5);
     }
     .mat-form-field-flex {
       background-color: $form;
@@ -60,7 +60,7 @@
         border-color: $contrast;
         background-color: #eee;
         .mat-icon {
-          color: mat-color($primary);
+          color: mat.get-color-from-palette($primary);
         }
       }
     }
@@ -90,34 +90,34 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: mat-color($foreground, text, 0.75);
+  $text-base: mat.get-color-from-palette($foreground, text, 0.75);
 
   $inverse-bg: #282828;
   $inverse-text: #9e9e9e;
   $inverse-text-contrast: #fff;
   $inverse-form: #4c4c4c;
 
-  $inverse-bg-light: mat-color($background, status-bar, 0.6);
+  $inverse-bg-light: mat.get-color-from-palette($background, status-bar, 0.6);
   $inverse-text-light: $text-base;
-  $inverse-text-contrast-light: mat-color($foreground, text, 0.6);
-  $inverse-form-light: mat-color($foreground, text, 0.1);
+  $inverse-text-contrast-light: mat.get-color-from-palette($foreground, text, 0.6);
+  $inverse-form-light: mat.get-color-from-palette($foreground, text, 0.1);
   .footer {
     .footer-light {
-      background-color: mat-color($background, card);
+      background-color: mat.get-color-from-palette($background, card);
 
       a {
         color: $text-base;
 
         &:hover,
         &:focus {
-          color: mat-color($primary);
+          color: mat.get-color-from-palette($primary);
         }
       }
 
       .footer-bottom {
         position: relative;
-        color: mat-color($foreground, text, 0.6);
-        background-color: mat-color($background, background);
+        color: mat.get-color-from-palette($foreground, text, 0.6);
+        background-color: mat.get-color-from-palette($background, background);
         z-index: 10;
       }
 
@@ -127,7 +127,7 @@
         span {
           &:hover {
             cursor: pointer;
-            color: mat-color($primary);
+            color: mat.get-color-from-palette($primary);
           }
         }
       }
@@ -180,34 +180,34 @@
     }
 
     .fix-bar {
-      background-color: mat-color($primary, 0.92);
+      background-color: mat.get-color-from-palette($primary, 0.92);
       .item,
       .item a {
-        color: mat-color($primary, default-contrast);
+        color: mat.get-color-from-palette($primary, default-contrast);
       }
       .item {
-        border-bottom: 1px solid mat-color($foreground, divider);
+        border-bottom: 1px solid mat.get-color-from-palette($foreground, divider);
         &:hover,
         &:focus {
-          background-color: mat-color($primary);
+          background-color: mat.get-color-from-palette($primary);
         }
         &:last-child {
           border-bottom: 0;
         }
         .fix-bar-popup {
-          color: mat-color($foreground, text, 0.75);
+          color: mat.get-color-from-palette($foreground, text, 0.75);
           .fix-bar-popup-content {
-            background-color: mat-color($background, card);
+            background-color: mat.get-color-from-palette($background, card);
           }
         }
       }
     }
   }
   #go-to-top {
-    background: mat-color($accent);
-    color: mat-color($accent, default-contrast);
+    background: mat.get-color-from-palette($accent);
+    color: mat.get-color-from-palette($accent, default-contrast);
     &:hover {
-      background: mat-color($accent, text, 0.7);
+      background: mat.get-color-from-palette($accent, text, 0.7);
       transition: all 0.2s ease-in;
     }
   }
