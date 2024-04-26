@@ -2,7 +2,11 @@
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,ts,mdx}"],
+  mode: "jit",
+  purge: {
+    enabled: true,
+    content: ["./src/**/*.{html,ts,mdx}"],
+  },
   theme: {
     screens: {
       sm: { min: "60px", max: "959px" },

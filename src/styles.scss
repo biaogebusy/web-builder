@@ -1,8 +1,7 @@
 // https://tailwindcss.com/docs/functions-and-directives
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@tailwind variants;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 /* You can add global styles to this file, and also import other style files */
 @import "./theme/mixins/reset";
 @import "./theme/main.scss";
