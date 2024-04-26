@@ -18,8 +18,7 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div fxFlex="0 1 100" class="position-relative">${story}</div>`
+      (story) => `<div fxFlex="0 1 100" class="relative">${story}</div>`
     ),
   ],
 } as Meta;

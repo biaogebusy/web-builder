@@ -1,9 +1,9 @@
-<div class="video-bg position-relative" *ngIf="content">
+<div class="video-bg relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-bg [content]="content.bg"></app-bg>
   <app-player *ngIf="video" [content]="video"></app-player>
-  <div class="inner position-relative" ngClass.gt-sm="xy-center" ngClass.lt-md="y-center">
+  <div class="inner relative" ngClass.gt-sm="xy-center" ngClass.lt-md="y-center">
     <div class="wrapper">
       <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of content.elements;index as i"
         [inputs]="item"></app-dynamic-component>

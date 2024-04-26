@@ -20,8 +20,7 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="position-relative" style="z-index:1">${story}</div>`
+      (story) => `<div class="relative" style="z-index:1">${story}</div>`
     ),
   ],
 } as Meta;

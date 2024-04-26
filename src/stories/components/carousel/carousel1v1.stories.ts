@@ -211,7 +211,7 @@ Video.args = {
         {
           type: 'img',
           src: '/assets/images/16-9/business-02.jpg',
-          hostClasses: 'position-relative text-center',
+          hostClasses: 'relative text-center',
           classes: 'width-100 height-100',
           actions: [
             {
@@ -237,7 +237,7 @@ Video.args = {
         {
           type: 'img',
           src: '/assets/images/16-9/business-03.jpg',
-          hostClasses: 'position-relative text-center',
+          hostClasses: 'relative text-center',
           classes: 'width-100 height-100',
           actions: [
             {
@@ -263,7 +263,7 @@ Video.args = {
         {
           type: 'img',
           src: '/assets/images/16-9/business-06.jpg',
-          hostClasses: 'position-relative text-center',
+          hostClasses: 'relative text-center',
           classes: 'width-100 height-100',
           actions: [
             {
@@ -289,7 +289,7 @@ Video.args = {
         {
           type: 'img',
           src: '/assets/images/16-9/business-08.jpg',
-          hostClasses: 'position-relative text-center',
+          hostClasses: 'relative text-center',
           classes: 'width-100 height-100',
           actions: [
             {

@@ -19,7 +19,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget shape-inner position-relative p-y-lg m-top-lg bg-primary">
+        `<div class="widget shape-inner relative p-y-lg m-top-lg bg-primary">
          ${story}
          </div>
         `

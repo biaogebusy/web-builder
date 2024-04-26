@@ -52,7 +52,7 @@ const content: IShowcase3v9 = {
       type: 'img',
       src: '/assets/images/illustration/13.png',
       classes: 'mover',
-      hostClasses: 'position-relative img-bg-shape',
+      hostClasses: 'relative img-bg-shape',
       actions: [
         {
           type: 'btn-video',
@@ -190,7 +190,7 @@ Video.args = {
       {
         type: 'img',
         src: '/assets/images/illustration/13.png',
-        hostClasses: 'position-relative',
+        hostClasses: 'relative',
         actions: [
           {
             color: 'default',

@@ -19,8 +19,7 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div style="width:40%" class="widget position-relative">${story}</div>`
+      (story) => `<div style="width:40%" class="widget relative">${story}</div>`
     ),
   ],
 } as Meta;

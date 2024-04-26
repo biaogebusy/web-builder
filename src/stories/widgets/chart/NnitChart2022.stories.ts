@@ -19,7 +19,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
   parameters: {

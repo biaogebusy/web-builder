@@ -1,4 +1,4 @@
-<div *ngIf="content" class="text-hero position-relative" [ngStyle.gt-sm]="content.params" [ngClass]="content.theme">
+<div *ngIf="content" class="text-hero relative" [ngStyle.gt-sm]="content.params" [ngClass]="content.theme">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>

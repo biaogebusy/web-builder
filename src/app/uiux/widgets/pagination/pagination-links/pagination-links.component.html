@@ -1,4 +1,4 @@
-<div class="pagination-simple position-relative" *ngIf="links">
+<div class="pagination-simple relative" *ngIf="links">
   <div class="inner" fxFlex="100" fxLayoutAlign="center center">
     <button [disabled]="!links.prev" (click)="loadPage(links.prev.href)" mat-icon-button matTooltip="上一页"
       matTooltipPosition="above">

@@ -1,8 +1,8 @@
-<div class="search-header position-relative bg-shadow p-y-xl" *ngIf="content">
+<div class="search-header relative bg-shadow p-y-xl" *ngIf="content">
   <app-bg [content]="content.bg" *ngIf="content.bg">
     <app-img [attr.data-path]="'bg.img'" [content]="content.bg.img"></app-img>
   </app-bg>
-  <div class="container position-relative">
+  <div class="container relative">
     <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
     <app-spacer [size]="'sm'"></app-spacer>
     <div class="width-100">

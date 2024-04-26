@@ -1,8 +1,8 @@
-<div class="showcase-3-v2 position-relative" *ngIf="content">
+<div class="showcase-3-v2 relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <div class="{{content.fullWidth?'position-relative':'container position-relative'}}">
+  <div class="{{content.fullWidth?'relative':'container relative'}}">
     <div class="title" fxLayoutAlign="center center">
       <app-text [attr.data-path]="'text'" fxFlex.lt-md="100" fxFlex.gt-sm="50" [content]="content.text"
         *ngIf="content.text"></app-text>

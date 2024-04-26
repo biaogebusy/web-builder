@@ -20,7 +20,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div fxFlex="33.33" class="widget position-relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div fxFlex="33.33" class="widget relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
 } as Meta;

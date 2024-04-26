@@ -188,7 +188,7 @@ const content: ICarouselBase = {
             left: '40%',
             top: '10%',
           },
-          classes: 'position-absolute',
+          classes: 'absolute',
           bg: {
             classes: 'bg-shadow overlay overlay-80',
             img: {

@@ -1,4 +1,4 @@
-<div class="position-relative" *ngIf="content">
+<div class="relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-title [content]="content.title" *ngIf="content.title"></app-title>

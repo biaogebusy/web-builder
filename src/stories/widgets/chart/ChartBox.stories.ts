@@ -19,7 +19,7 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="position-relative p-x p-y" >${story}</div>`
+      (story) => `<div class="relative p-x p-y" >${story}</div>`
     ),
   ],
 } as Meta;

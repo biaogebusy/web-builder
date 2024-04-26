@@ -20,8 +20,7 @@ export default {
       providers: [],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div fxFlex="255px" class="widget position-relative">${story}</div>`
+      (story) => `<div fxFlex="255px" class="widget relative">${story}</div>`
     ),
   ],
 } as Meta;

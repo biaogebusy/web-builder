@@ -146,7 +146,7 @@ export const home_v10 = {
         {
           type: 'img',
           src: '/assets/images/illustration/13.png',
-          hostClasses: 'position-relative',
+          hostClasses: 'relative',
           actions: [
             {
               color: 'primary',

@@ -33,7 +33,7 @@ export const Default = Template.bind({});
 Default.decorators = [
   componentWrapperDecorator(
     (story) =>
-      `<div class="position-relative p-top-xl m-top-xl" style="z-index:1">
+      `<div class="relative p-top-xl m-top-xl" style="z-index:1">
         ${story}
         </div>`
   ),

@@ -21,7 +21,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget position-relative" fxFlex="300px" style="height:300px">${story}</div>`
+        `<div class="widget relative" fxFlex="300px" style="height:300px">${story}</div>`
     ),
   ],
 } as Meta;
@@ -118,7 +118,7 @@ const videoPrimary: IImg = {
   type: 'img',
   src: '/assets/images/showcase/7.jpg',
   alt: '',
-  hostClasses: 'position-relative',
+  hostClasses: 'relative',
   actions: [
     {
       ...btnVideo,

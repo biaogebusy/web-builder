@@ -1,5 +1,5 @@
 <ng-container *ngIf="content">
-  <div class="logo" *ngIf="content?.img; else name" fxLayout fxLayoutAlign="start end">
+  <div class="logo flex justify-start items-end" *ngIf="content?.img; else name">
     <app-img [content]="content.img"></app-img>
   </div>
   <ng-template #name>

@@ -10,8 +10,8 @@
         </button>
       </div>
     </div>
-    <div class="box details p-x-sm p-y-sm position-relative" fxLayout="row wrap" fxLayoutAlign="space-between start">
-      <div class="loading-inner position-absolute" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
+    <div class="box details p-x-sm p-y-sm relative" fxLayout="row wrap" fxLayoutAlign="space-between start">
+      <div class="loading-inner absolute" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
         <mat-spinner diameter="50"></mat-spinner>
       </div>
       <ng-container *ngIf="box$|async as box">

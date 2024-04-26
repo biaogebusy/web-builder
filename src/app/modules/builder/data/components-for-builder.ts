@@ -564,7 +564,7 @@ export const components: any[] = [
                   left: '40%',
                   top: '10%',
                 },
-                classes: 'position-absolute',
+                classes: 'absolute',
                 bg: {
                   classes: 'bg-shadow overlay overlay-80',
                   img: {
@@ -4077,7 +4077,7 @@ export const components: any[] = [
                   type: 'img',
                   src: '/assets/images/illustration/13.png',
                   classes: 'mover',
-                  hostClasses: 'position-relative img-bg-shape',
+                  hostClasses: 'relative img-bg-shape',
                   actions: [
                     {
                       type: 'btn-video',
@@ -4233,7 +4233,7 @@ export const components: any[] = [
                 {
                   type: 'img',
                   src: '/assets/images/illustration/13.png',
-                  hostClasses: 'position-relative',
+                  hostClasses: 'relative',
                   actions: [
                     {
                       color: 'primary',
@@ -4777,7 +4777,7 @@ export const components: any[] = [
                   {
                     type: 'img',
                     src: '/assets/images/16-9/business-02.jpg',
-                    hostClasses: 'position-relative text-center',
+                    hostClasses: 'relative text-center',
                     classes: 'width-100 height-100',
                     actions: [
                       {
@@ -4803,7 +4803,7 @@ export const components: any[] = [
                   {
                     type: 'img',
                     src: '/assets/images/16-9/business-03.jpg',
-                    hostClasses: 'position-relative text-center',
+                    hostClasses: 'relative text-center',
                     classes: 'width-100 height-100',
                     actions: [
                       {
@@ -4829,7 +4829,7 @@ export const components: any[] = [
                   {
                     type: 'img',
                     src: '/assets/images/16-9/business-06.jpg',
-                    hostClasses: 'position-relative text-center',
+                    hostClasses: 'relative text-center',
                     classes: 'width-100 height-100',
                     actions: [
                       {
@@ -4855,7 +4855,7 @@ export const components: any[] = [
                   {
                     type: 'img',
                     src: '/assets/images/16-9/business-08.jpg',
-                    hostClasses: 'position-relative text-center',
+                    hostClasses: 'relative text-center',
                     classes: 'width-100 height-100',
                     actions: [
                       {
@@ -5106,7 +5106,7 @@ export const components: any[] = [
                         left: '40%',
                         top: '10%',
                       },
-                      classes: 'position-absolute',
+                      classes: 'absolute',
                       bg: {
                         classes: 'bg-shadow overlay overlay-80',
                         img: {

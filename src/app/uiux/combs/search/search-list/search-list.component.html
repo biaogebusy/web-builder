@@ -9,8 +9,7 @@
     <mat-divider></mat-divider>
     <div class="list p-y-sm p-x-sm m-y-sm" fxLayout.xs="column" fxLayout.gt-xs="row"
       *ngFor="let item of content | paginate: pager; trackBy: trackByFn">
-      <div *ngIf="item?.img?.src" class="object-left position-relative m-right-sm" fxFlex.xs="100"
-        fxFlex.gt-xs="0 0 30">
+      <div *ngIf="item?.img?.src" class="object-left relative m-right-sm" fxFlex.xs="100" fxFlex.gt-xs="0 0 30">
         <app-img [content]="item.img"></app-img>
       </div>
       <div class="content width-100">
