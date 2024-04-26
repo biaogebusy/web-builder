@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 
 @mixin article-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -38,7 +38,11 @@
     }
     .comment-list {
       background-color: mat.get-color-from-palette($background, card);
-      @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.6);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($foreground, divider),
+        0.6
+      );
       .empty {
         .mat-icon {
           font-size: 60px;
@@ -55,7 +59,8 @@
   .menu-list {
     .list {
       .item {
-        border-bottom: 1px dotted mat.get-color-from-palette($foreground, divider);
+        border-bottom: 1px dotted
+          mat.get-color-from-palette($foreground, divider);
         .num-posts {
           color: $text-color;
         }

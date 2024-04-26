@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 
 @mixin hero-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -18,7 +18,11 @@
   .hero-2-v2 {
     .box {
       background-color: $bg-card-color;
-      @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.2);
+      @include mat.elevation(
+        4,
+        mat.get-color-from-palette($foreground, text),
+        0.2
+      );
       .content {
         color: mat.get-color-from-palette($foreground, text, 0.5);
       }
@@ -30,9 +34,17 @@
     color: mat.get-color-from-palette($primary, default-contrast);
     .card {
       background-color: $bg-card-color;
-      @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.2);
+      @include mat.elevation(
+        4,
+        mat.get-color-from-palette($foreground, text),
+        0.2
+      );
       .card-media {
-        @include mat.elevation(5, mat.get-color-from-palette($foreground, text), 0.3);
+        @include mat.elevation(
+          5,
+          mat.get-color-from-palette($foreground, text),
+          0.3
+        );
       }
     }
   }

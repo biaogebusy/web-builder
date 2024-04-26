@@ -2,7 +2,7 @@
 @import "../../mixins/amixin";
 
 @mixin report-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -14,7 +14,11 @@
     background-color: mat.get-color-from-palette($primary, 0.07);
     .box {
       background-color: mat.get-color-from-palette($background, card);
-      @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.4);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($foreground, divider),
+        0.4
+      );
       .item {
         @include scrollbar(mat.get-color-from-palette($primary));
         &:nth-child(2) {
@@ -23,7 +27,11 @@
       }
     }
     .dynamic-table {
-      @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.4);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($foreground, divider),
+        0.4
+      );
     }
   }
 }

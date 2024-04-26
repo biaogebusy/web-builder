@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 
 @mixin user-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -29,12 +29,20 @@
   .user-center {
     .profile {
       background-color: mat.get-color-from-palette($background, card);
-      @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.3);
+      @include mat.elevation(
+        4,
+        mat.get-color-from-palette($foreground, text),
+        0.3
+      );
     }
     .main {
       .box {
         background-color: mat.get-color-from-palette($background, card);
-        @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.3);
+        @include mat.elevation(
+          4,
+          mat.get-color-from-palette($foreground, text),
+          0.3
+        );
       }
     }
   }

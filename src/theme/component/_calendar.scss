@@ -11,7 +11,7 @@
   }
 }
 @mixin calendar-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -75,7 +75,10 @@
         &:not(:disabled):active,
         &:not(:disabled).fc-button-active:focus,
         &:not(:disabled):active:focus {
-          background-color: mat.get-color-from-palette($primary, default-contrast);
+          background-color: mat.get-color-from-palette(
+            $primary,
+            default-contrast
+          );
           color: mat.get-color-from-palette($primary);
         }
       }

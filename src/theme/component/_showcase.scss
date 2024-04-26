@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 
 @mixin showcase-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -29,7 +29,8 @@
   .showcase-2v2 {
     .mat-card-content {
       .mat-card-title {
-        border-bottom: 1px solid mat.get-color-from-palette($foreground, divider, 0.1);
+        border-bottom: 1px solid
+          mat.get-color-from-palette($foreground, divider, 0.1);
       }
     }
   }
@@ -49,7 +50,8 @@
         color: mat.get-color-from-palette($foreground, text);
       }
       &.teaser {
-        border-bottom: 1px dotted mat.get-color-from-palette($foreground, divider);
+        border-bottom: 1px dotted
+          mat.get-color-from-palette($foreground, divider);
         .title {
           a {
             color: mat.get-color-from-palette($foreground, text, 0.75);
@@ -59,7 +61,8 @@
           }
         }
         .post-meta-info {
-          border-bottom: 1px dotted mat.get-color-from-palette($foreground, divider);
+          border-bottom: 1px dotted
+            mat.get-color-from-palette($foreground, divider);
         }
       }
     }

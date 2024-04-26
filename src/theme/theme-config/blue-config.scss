@@ -40,7 +40,15 @@ $blue-color: (
 $blue-primary: mat.define-palette($blue-color, 400);
 $blue-accent: mat.define-palette($blue-color, A400);
 $blue-warn: mat.define-palette(mat.$red-palette, A200, A100, A400);
-$blue-theme: mat.define-light-theme($blue-primary, $blue-accent, $blue-warn);
+$blue-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $blue-primary,
+      accent: $blue-accent,
+      warn: $blue-warn,
+    ),
+  )
+);
 
 .blue-theme {
   @include mat.all-component-themes($blue-theme);

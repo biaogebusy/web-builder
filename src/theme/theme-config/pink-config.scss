@@ -39,7 +39,15 @@ $pink-color: (
 $pink-primary: mat.define-palette(mat.$pink-palette, 500);
 $pink-accent: mat.define-palette(mat.$pink-palette, A400);
 $pink-warn: mat.define-palette(mat.$green-palette, 800);
-$pink-theme: mat.define-light-theme($pink-primary, $pink-accent, $pink-warn);
+$pink-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $pink-primary,
+      accent: $pink-accent,
+      warn: $pink-warn,
+    ),
+  )
+);
 
 .pink-theme {
   @include mat.all-component-themes($pink-theme);

@@ -3,7 +3,7 @@
 @import "../../theme/mixins/amixin";
 
 @mixin widgets-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -184,7 +184,11 @@
     @media #{$gt-sm} {
       form {
         background-color: mat.get-color-from-palette($background, card);
-        @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.2);
+        @include mat.elevation(
+          4,
+          mat.get-color-from-palette($foreground, text),
+          0.2
+        );
         border: 1px solid mat.get-color-from-palette($foreground, divider, 0.1);
         &:hover,
         &:focus {
@@ -231,11 +235,19 @@
     .sidebar {
       > .inner {
         background-color: mat.get-color-from-palette($background, card);
-        @include mat.elevation(4, mat.get-color-from-palette($foreground, divider), 0.5);
+        @include mat.elevation(
+          4,
+          mat.get-color-from-palette($foreground, divider),
+          0.5
+        );
       }
     }
     .view {
-      @include mat.elevation(6, mat.get-color-from-palette($foreground, divider), 0.25);
+      @include mat.elevation(
+        6,
+        mat.get-color-from-palette($foreground, divider),
+        0.25
+      );
     }
   }
 
@@ -290,7 +302,11 @@
 
   .chart {
     border: 1px solid mat.get-color-from-palette($foreground, divider);
-    @include mat.elevation(2, mat.get-color-from-palette($foreground, divider), 0.07);
+    @include mat.elevation(
+      2,
+      mat.get-color-from-palette($foreground, divider),
+      0.07
+    );
   }
 
   .tab {

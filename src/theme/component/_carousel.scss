@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 
 @mixin carousel-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -87,7 +87,8 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        border: 2px solid mat.get-color-from-palette($foreground, elevation, 0.4);
+        border: 2px solid
+          mat.get-color-from-palette($foreground, elevation, 0.4);
         border-radius: 50%;
         transform: translate(-50%, -50%);
       }

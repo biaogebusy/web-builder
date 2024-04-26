@@ -2,7 +2,7 @@
 @import "../mixins/amixin";
 
 @mixin manage-sidebar-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -48,7 +48,11 @@
           &:hover {
             a {
               &:after {
-                background-color: mat.get-color-from-palette($foreground, text, 0.05);
+                background-color: mat.get-color-from-palette(
+                  $foreground,
+                  text,
+                  0.05
+                );
               }
             }
           }
@@ -58,16 +62,26 @@
         .item {
           &.active,
           &:hover {
-            background-color: mat.get-color-from-palette($foreground, text, 0.05);
+            background-color: mat.get-color-from-palette(
+              $foreground,
+              text,
+              0.05
+            );
           }
           &.active {
             &::before {
-              background-color: mat.get-color-from-palette($primary, default-contrast);
+              background-color: mat.get-color-from-palette(
+                $primary,
+                default-contrast
+              );
             }
           }
           app-hover-menu {
             background-color: mat.get-color-from-palette($background, card);
-            @include mat.elevation(3, mat.get-color-from-palette($foreground, divider, 0.7));
+            @include mat.elevation(
+              3,
+              mat.get-color-from-palette($foreground, divider, 0.7)
+            );
             .top {
               &.not-link {
                 color: mat.get-color-from-palette($foreground, text, 0.75);
@@ -79,12 +93,17 @@
             }
             .hover-menu {
               background-color: mat.get-color-from-palette($background, card);
-              @include scrollbar(mat.get-color-from-palette($foreground, divider));
+              @include scrollbar(
+                mat.get-color-from-palette($foreground, divider)
+              );
               .sub-menu {
                 .mat-button {
                   &:hover {
                     &::before {
-                      background-color: mat.get-color-from-palette($primary, 0.1);
+                      background-color: mat.get-color-from-palette(
+                        $primary,
+                        0.1
+                      );
                     }
                     a {
                       color: mat.get-color-from-palette($primary);
@@ -92,8 +111,12 @@
                   }
                 }
                 .child {
-                  background-color: mat.get-color-from-palette($background, card);
-                  border-left: 1px solid mat.get-color-from-palette($foreground, divider);
+                  background-color: mat.get-color-from-palette(
+                    $background,
+                    card
+                  );
+                  border-left: 1px solid
+                    mat.get-color-from-palette($foreground, divider);
                   border-right: 1px solid rgba(0, 0, 0, 0.075);
                   box-shadow: 7px 0 16px rgba(0, 0, 0, 0.075),
                     -12px 0 0 0 mat.get-color-from-palette($background, card);
@@ -137,12 +160,20 @@
       .toggle {
         .wrapper {
           .mat-icon {
-            @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.3);
+            @include mat.elevation(
+              4,
+              mat.get-color-from-palette($foreground, text),
+              0.3
+            );
             transition: all 0.1s ease;
           }
           &:hover {
             .mat-icon {
-              background-color: mat.get-color-from-palette($foreground, base, 0.85);
+              background-color: mat.get-color-from-palette(
+                $foreground,
+                base,
+                0.85
+              );
               color: mat.get-color-from-palette($primary, 50);
             }
           }
@@ -177,7 +208,11 @@
       .manage-footer {
         .toggle {
           .wrapper {
-            @include mat.elevation(4, mat.get-color-from-palette($primary), 0.3);
+            @include mat.elevation(
+              4,
+              mat.get-color-from-palette($primary),
+              0.3
+            );
           }
         }
       }

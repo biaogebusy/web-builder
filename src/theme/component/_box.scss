@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 
 @mixin box-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -275,7 +275,8 @@
         }
       }
       &:hover {
-        box-shadow: 0 10px 25px mat.get-color-from-palette($foreground, divider, 0.1);
+        box-shadow: 0 10px 25px
+          mat.get-color-from-palette($foreground, divider, 0.1);
         .box-icon {
           .mat-icon {
             color: #fff;

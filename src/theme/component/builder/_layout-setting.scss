@@ -1,6 +1,6 @@
 @use '~@angular/material' as mat;
 @mixin layout-setting($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -12,7 +12,11 @@
         border: 1px solid mat.get-color-from-palette($foreground, divider);
         .wrapper {
           .block {
-            @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.4);
+            @include mat.elevation(
+              3,
+              mat.get-color-from-palette($foreground, divider),
+              0.4
+            );
             color: mat.get-color-from-palette($primary, default-contrast);
           }
         }
@@ -22,7 +26,11 @@
     .none-description {
       background-color: mat.get-color-from-palette($warn, 0.1);
       border-left: 4px solid mat.get-color-from-palette($warn);
-      @include mat.elevation(3, mat.get-color-from-palette($background, tooltip), 0.4);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($background, tooltip),
+        0.4
+      );
     }
 
     .loop-elements {

@@ -83,7 +83,7 @@
 }
 
 @mixin footer-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -99,7 +99,11 @@
 
   $inverse-bg-light: mat.get-color-from-palette($background, status-bar, 0.6);
   $inverse-text-light: $text-base;
-  $inverse-text-contrast-light: mat.get-color-from-palette($foreground, text, 0.6);
+  $inverse-text-contrast-light: mat.get-color-from-palette(
+    $foreground,
+    text,
+    0.6
+  );
   $inverse-form-light: mat.get-color-from-palette($foreground, text, 0.1);
   .footer {
     .footer-light {
@@ -186,7 +190,8 @@
         color: mat.get-color-from-palette($primary, default-contrast);
       }
       .item {
-        border-bottom: 1px solid mat.get-color-from-palette($foreground, divider);
+        border-bottom: 1px solid
+          mat.get-color-from-palette($foreground, divider);
         &:hover,
         &:focus {
           background-color: mat.get-color-from-palette($primary);

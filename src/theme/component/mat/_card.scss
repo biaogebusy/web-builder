@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 
 @mixin card-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -14,7 +14,11 @@
     background-color: $bg-color;
     &:hover {
       cursor: pointer;
-      background-color: mat.get-color-from-palette($background, background, 0.85);
+      background-color: mat.get-color-from-palette(
+        $background,
+        background,
+        0.85
+      );
     }
     .meta {
       .badge {
@@ -41,7 +45,11 @@
   }
 
   .card-1v1 {
-    @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.3);
+    @include mat.elevation(
+      4,
+      mat.get-color-from-palette($foreground, text),
+      0.3
+    );
     background-color: $bg-color;
     a {
       color: $text-color;
@@ -99,7 +107,11 @@
   .card-1-v4 {
     .left {
       img {
-        @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.3);
+        @include mat.elevation(
+          4,
+          mat.get-color-from-palette($foreground, text),
+          0.3
+        );
       }
     }
     .mat-icon {
@@ -110,14 +122,22 @@
     }
 
     .inner {
-      @include mat.elevation(4, mat.get-color-from-palette($foreground, text), 0.3);
+      @include mat.elevation(
+        4,
+        mat.get-color-from-palette($foreground, text),
+        0.3
+      );
       color: mat.get-color-from-palette($foreground, text, 0.5);
       background-color: mat.get-color-from-palette($background, card);
     }
   }
 
   .card-1v5 {
-    @include mat.elevation(4, mat.get-color-from-palette($foreground, divider), 0.4);
+    @include mat.elevation(
+      4,
+      mat.get-color-from-palette($foreground, divider),
+      0.4
+    );
     background-color: mat.get-color-from-palette($background, card);
     .more {
       color: mat.get-color-from-palette($primary);
@@ -128,13 +148,25 @@
   }
 
   .card-1v6 {
-    @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.3);
+    @include mat.elevation(
+      3,
+      mat.get-color-from-palette($foreground, divider),
+      0.3
+    );
     background-color: mat.get-color-from-palette($primary, 0.07);
-    border-bottom: 3px solid mat.get-color-from-palette($foreground, divider, 0.2);
+    border-bottom: 3px solid
+      mat.get-color-from-palette($foreground, divider, 0.2);
     &:hover {
       border-color: mat.get-color-from-palette($primary);
-      background-color: mat.get-color-from-palette($background, card) !important;
-      @include mat.elevation(5, mat.get-color-from-palette($foreground, divider), 0.7);
+      background-color: mat.get-color-from-palette(
+        $background,
+        card
+      ) !important;
+      @include mat.elevation(
+        5,
+        mat.get-color-from-palette($foreground, divider),
+        0.7
+      );
       .title {
         color: mat.get-color-from-palette($primary);
       }

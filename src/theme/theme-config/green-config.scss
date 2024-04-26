@@ -39,7 +39,15 @@ $green-color: (
 $green-primary: mat.define-palette($green-color);
 $green-accent: mat.define-palette($green-color, A200, A100, A400);
 $green-warn: mat.define-palette(mat.$red-palette, A200, A100, A400);
-$green-theme: mat.define-light-theme($green-primary, $green-accent, $green-warn);
+$green-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $green-primary,
+      accent: $green-accent,
+      warn: $green-warn,
+    ),
+  )
+);
 
 .green-theme {
   @include mat.all-component-themes($green-theme);

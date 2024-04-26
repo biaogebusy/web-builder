@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 
 @mixin relate-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -11,7 +11,11 @@
   $text-color: mat.get-color-from-palette($foreground, text, 0.75);
 
   .node-summary {
-    @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.6);
+    @include mat.elevation(
+      3,
+      mat.get-color-from-palette($foreground, divider),
+      0.6
+    );
     .left {
       background-color: mat.get-color-from-palette($primary, 0.08);
     }
@@ -31,7 +35,11 @@
   }
 
   .relate-showcase {
-    @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.6);
+    @include mat.elevation(
+      3,
+      mat.get-color-from-palette($foreground, divider),
+      0.6
+    );
     .meta {
       .label {
         color: mat.get-color-from-palette($foreground, base, 0.4);
