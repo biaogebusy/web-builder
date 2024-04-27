@@ -1,5 +1,5 @@
-<div class="wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100%">
-  <div class="actions" fxLayout="row">
+<div class="wrapper flex justify-between items-center">
+  <div class="actions flex">
     <div *ngIf="index >0 && isPreview" class="item" (click)="onUpdown(index,'up')" [matTooltip]="'上移'"
       matTooltipPosition="above">
       <app-btn
