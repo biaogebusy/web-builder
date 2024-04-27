@@ -34,7 +34,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private builder: BuilderState, private cd: ChangeDetectorRef) {
     this.editorOptions = new JsonEditorOptions();
-    this.editorOptions.mode = 'code'; //set only one mode
+    this.editorOptions.mode = 'code'; // set only one mode
     this.editorOptions.enableTransform = false;
     this.editorOptions.enableSort = false;
   }
