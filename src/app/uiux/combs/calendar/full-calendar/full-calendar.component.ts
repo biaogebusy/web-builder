@@ -18,7 +18,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 import { EMPTY, Subject } from 'rxjs';
-import { CalendarOptions, DatesSetArg, ViewApi } from '@fullcalendar/core';
+import { CalendarOptions, DatesSetArg, ViewApi } from '@fullcalendar/angular';
 import { CalendarState } from '@core/state/CalendarState';
 import { formatDate } from '@angular/common';
 import { RouteService } from '@core/service/route.service';
@@ -161,7 +161,7 @@ export class FullCalendarComponent
   }
 
   initEvents(): void {
-    this.options.eventClick = (info) => {
+    this.options.eventClick = (info: any) => {
       if (this.content.calendar?.drawer) {
         this.contentState.drawerOpened$.next(true);
         this.contentState.drawerLoading$.next(true);

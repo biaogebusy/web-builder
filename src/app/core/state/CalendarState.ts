@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions } from '@fullcalendar/angular';
 import { Subject } from 'rxjs';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
 @Injectable({
   providedIn: 'root',
 })
@@ -35,7 +32,6 @@ export class CalendarState {
       day: '日',
       list: '列表',
     },
-    plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
   };
   constructor() {}
 
