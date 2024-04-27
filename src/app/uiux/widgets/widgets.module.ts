@@ -126,14 +126,12 @@ import { TabsTypeComponent } from './form/formly-type/tabs/tabs.component';
 import { ImgPickerComponent } from './form/formly-type/img-picker/img-picker.component';
 import { SliderComponent } from './form/formly-type/slider/slider.component';
 import { DividerComponent } from './divider/divider.component';
-
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   dayGridPlugin,
   timeGridPlugin,
   listPlugin,
 ]);
-
 const components = [
   BgComponent,
   ImgComponent,

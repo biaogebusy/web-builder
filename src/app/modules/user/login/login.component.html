@@ -1,12 +1,12 @@
 <div class="login-container" fxLayoutAlign="center center">
-  <div class="login-wrapper m-x position-relative" fxLayout>
-    <div *ngIf="!screenState.eq('xs')" class="login-second position-relative p-x-sm p-y-sm" fxFlex.xs="100"
-      fxFlex.gt-xs="50" fxLayoutAlign="center center">
+  <div class="login-wrapper m-x relative" fxLayout>
+    <div *ngIf="!screenState.eq('xs')" class="login-second relative p-x-sm p-y-sm" fxFlex.xs="100" fxFlex.gt-xs="50"
+      fxLayoutAlign="center center">
       <app-dynamic-component *ngIf="coreConfig.login.left" [inputs]="coreConfig.login.left">
       </app-dynamic-component>
     </div>
-    <div class="login-form position-relative" [class.is-login]="currentUser.authenticated" fxFlex.xs="100"
-      fxFlex.gt-xs="50" fxLayout="column" fxLayoutAlign="center center">
+    <div class="login-form relative" [class.is-login]="currentUser.authenticated" fxFlex.xs="100" fxFlex.gt-xs="50"
+      fxLayout="column" fxLayoutAlign="center center">
       <div class="width-100 form-scroll" *ngIf="!loading">
         <ng-container *ngIf="!currentUser.authenticated">
           <div *ngIf="error" class="error p-y-xs p-x-xs m-bottom-xs">{{error}}
@@ -78,6 +78,6 @@
       </div>
       <mat-spinner diameter="50" color="accent" *ngIf="loading"></mat-spinner>
     </div>
-    <div class="mark-bg position-absolute"></div>
+    <div class="mark-bg absolute"></div>
   </div>
 </div>

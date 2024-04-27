@@ -17,7 +17,7 @@ import { samples } from '@modules/builder/data/samples-for-builder';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSampleComponent implements OnInit {
-  @Input() content: IBuilderSamplePage;
+  @Input() content: IBuilderSamplePage[];
   constructor(private builder: BuilderState, private util: UtilitiesService) {}
 
   ngOnInit(): void {
@@ -25,7 +25,7 @@ export class BuilderSampleComponent implements OnInit {
   }
 
   onSample(page: IPage): void {
-    this.util.openSnackbar(`正在载入${page.title} 示例...`, 'ok');
+    this.util.openSnackbar(`正在载入 ${page.title} 示例...`, 'ok');
     this.builder.loadNewPage(page);
   }
 }

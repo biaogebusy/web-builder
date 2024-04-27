@@ -1,10 +1,10 @@
 <ng-container *ngIf="content">
-  <div class="logo" *ngIf="content?.img; else name" fxLayout fxLayoutAlign="start end">
+  <div class="logo flex justify-start items-end" *ngIf="content?.img; else name">
     <app-img [content]="content.img"></app-img>
   </div>
   <ng-template #name>
     <a class="site-name mat-h2" [routerLink]="content.href" [innerHTML]="content?.label|safeHtml"></a>
   </ng-template>
-  <span *ngIf="content.version" class="p-left-xs version">v{{version}}</span>
+  <span *ngIf="content.version" class="p-left-xs version">v4.3.5</span>
 
 </ng-container>

@@ -17,6 +17,7 @@ import {
   manageHeader,
 } from '@modules/builder/data/Branding.json';
 import { samples } from '@modules/builder/data/samples-for-builder';
+import { IBuilderSamplePage, ISample } from '@core/interface/IBuilder';
 @Injectable({
   providedIn: 'root',
 })
@@ -71,9 +72,9 @@ export class ContentService {
       );
     } else {
       const sample = pageUrl.split('/')[1];
-      const samplePage = samples.elements.filter(
-        (item) => item.id === sample
-      )[0];
+      const samplePage = samples
+        .map((item: any) => item.elements)
+        .find((page: any) => page.id === sample);
       if (samplePage) {
         this.updatePage(samplePage.page);
         return of(samplePage.page);

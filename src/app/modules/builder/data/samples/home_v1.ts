@@ -31,7 +31,7 @@ export const home_v1 = {
           type: 'img',
           src: '/assets/images/illustration/13.png',
           classes: 'mover',
-          hostClasses: 'position-relative img-bg-shape',
+          hostClasses: 'relative img-bg-shape',
           actions: [
             {
               type: 'btn-video',

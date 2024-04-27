@@ -1,13 +1,12 @@
 <ng-container *ngIf="branding$|async as branding">
   <header *ngIf="show" class="header">
     <div class="container">
-      <div class="header-container" fxLayout="row"
-        fxLayoutAlign="{{branding.header.logo?'space-between center':'end center'}}">
+      <div
+        class="header-container flex flex-row {{branding.header.logo?'justify-between items-center':'justify-end items-center'}}">
         <div class="header-left one-line" *ngIf="branding.header?.logo">
           <app-logo [content]="branding.header.logo"></app-logo>
         </div>
-        <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap.lt-lg="1rem"
-          fxLayoutGap.gt-md="2rem">
+        <div class="header-right flex flex-row justify-center items-center gap-3 md:gap-5">
           <div class="menu-inner" *ngIf="branding.header?.mainMenu">
             <div class="main-menu" fxLayout="row">
               <div class="item" *ngFor="let menu of branding.header.mainMenu;trackBy:trackByFn">

@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "./breakpoint";
 
 $color-theme: (
@@ -8,9 +8,9 @@ $color-theme: (
     bg: #dff0d8,
   ),
   shadow: (
-    text: mat-color($mat-grey, 700),
-    border: mat-color($mat-grey, 400),
-    bg: mat-color($mat-grey, 100),
+    text: mat.get-color-from-palette(mat.$grey-palette, 700),
+    border: mat.get-color-from-palette(mat.$grey-palette, 400),
+    bg: mat.get-color-from-palette(mat.$grey-palette, 100),
   ),
   light: (
     text: #fff,
@@ -24,16 +24,16 @@ $font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
 
 // custom typography
 // https://material.angular.io/guide/typography
-$custom-typography: mat-typography-config(
+$custom-typography: mat.define-typography-config(
   $font-family: $font-family,
-  $display-4: mat-typography-level(60px, 1.25, 600, $font-family: $font-family),
-  $display-3: mat-typography-level(48px, 1.25, 600, $font-family: $font-family),
-  $display-2: mat-typography-level(40px, 1.25, 600, $font-family: $font-family),
-  $display-1: mat-typography-level(30px, 1.5, 600, $font-family: $font-family),
-  $headline: mat-typography-level(25px, 1.618, 600, $font-family: $font-family),
-  $title: mat-typography-level(20px, 1.618, 500, $font-family: $font-family),
-  $body-1: mat-typography-level(16px, 1.618, 400),
-  $body-2: mat-typography-level(14px, 1.618, 500),
+  $display-4: mat.define-typography-level(60px, 1.25, 600, $font-family: $font-family),
+  $display-3: mat.define-typography-level(48px, 1.25, 600, $font-family: $font-family),
+  $display-2: mat.define-typography-level(40px, 1.25, 600, $font-family: $font-family),
+  $display-1: mat.define-typography-level(30px, 1.5, 600, $font-family: $font-family),
+  $headline: mat.define-typography-level(25px, 1.618, 600, $font-family: $font-family),
+  $title: mat.define-typography-level(20px, 1.618, 500, $font-family: $font-family),
+  $body-1: mat.define-typography-level(16px, 1.618, 400),
+  $body-2: mat.define-typography-level(14px, 1.618, 500),
 );
 
 $spacer: 4rem;

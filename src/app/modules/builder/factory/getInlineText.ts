@@ -25,7 +25,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
       key: 'style',
       fieldGroup: [
         {
-          fieldGroupClassName: 'display-flex flex-wrap',
+          fieldGroupClassName: 'flex flex-wrap',
           fieldGroup: [
             {
               key: 'fontSize',
@@ -105,7 +105,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
           ],
         },
         {
-          fieldGroupClassName: 'display-flex flex-wrap',
+          fieldGroupClassName: 'flex flex-wrap',
           fieldGroup: [
             {
               key: 'color',

@@ -23,12 +23,12 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           templateOptions: {
             label: '通用',
           },
-          fieldGroupClassName: 'display-flex flex-wrap',
+          fieldGroupClassName: 'flex flex-wrap',
           fieldGroup: [
             {
               type: 'select',
               key: 'fullWidth',
-              className: 'width-50 m-right-sm',
+              className: 'w-1/2 mr-5',
               defaultValue: content.fullWidth,
               templateOptions: {
                 label: '全屏宽',
@@ -48,7 +48,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               type: 'select',
               key: 'spacer',
               defaultValue: content.spacer || 'md',
-              className: 'width-40',
+              className: 'w-2/5',
               templateOptions: {
                 label: '上下间距',
                 options: [
@@ -82,7 +82,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'select',
               key: 'bgClasses',
-              className: 'width-50 m-right-sm',
+              className: 'w-1/2 mr-5',
               defaultValue: content?.bg?.classes || 'bg- bg-fill-width',
               templateOptions: {
                 label: '背景色',
@@ -92,7 +92,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'select',
               key: 'overlay',
-              className: 'width-40',
+              className: 'w-2/5',
               defaultValue: content?.bg?.overlay || '',
               templateOptions: {
                 label: '蒙版',
@@ -102,7 +102,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'classes',
-              className: 'width-50 m-right-sm',
+              className: 'w-1/2 mr-5',
               defaultValue: content.classes || '',
               templateOptions: {
                 label: 'Classes',
@@ -112,11 +112,11 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'id',
-              className: 'width-40',
+              className: 'w-2/5',
               defaultValue: content.id || '',
               templateOptions: {
                 label: 'ID',
-                description: 'HTMl ID',
+                description: 'HTML ID',
               },
             },
             {
@@ -230,6 +230,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             templateOptions: {
               label: '组件布局方向',
               options: getDirectionOption,
+              required: true,
             },
           },
           {
@@ -255,7 +256,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           {
             type: 'input',
             key: 'layoutAlign',
-            className: 'width-100 display-none',
+            className: 'width-100 hidden',
             defaultValue: content.layoutAlign || 'center center',
             templateOptions: {
               label: '布局对齐',

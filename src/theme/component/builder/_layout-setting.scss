@@ -1,5 +1,6 @@
+@use '~@angular/material' as mat;
 @mixin layout-setting($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -8,30 +9,38 @@
   .layout-setting {
     .layout-setting {
       .layout-preview {
-        border: 1px solid mat-color($foreground, divider);
+        border: 1px solid mat.get-color-from-palette($foreground, divider);
         .wrapper {
           .block {
-            @include mat-elevation(3, mat-color($foreground, divider), 0.4);
-            color: mat-color($primary, default-contrast);
+            @include mat.elevation(
+              3,
+              mat.get-color-from-palette($foreground, divider),
+              0.4
+            );
+            color: mat.get-color-from-palette($primary, default-contrast);
           }
         }
       }
     }
 
     .none-description {
-      background-color: mat-color($warn, 0.1);
-      border-left: 4px solid mat-color($warn);
-      @include mat-elevation(3, mat-color($background, tooltip), 0.4);
+      background-color: mat.get-color-from-palette($warn, 0.1);
+      border-left: 4px solid mat.get-color-from-palette($warn);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($background, tooltip),
+        0.4
+      );
     }
 
     .loop-elements {
       .mat-list-item {
-        background-color: mat-color($primary, 0.2);
+        background-color: mat.get-color-from-palette($primary, 0.2);
         .mat-list-icon {
-          color: mat-color($foreground, text, 0.4);
+          color: mat.get-color-from-palette($foreground, text, 0.4);
         }
         &:hover {
-          background-color: mat-color($primary, 0.4);
+          background-color: mat.get-color-from-palette($primary, 0.4);
         }
       }
     }

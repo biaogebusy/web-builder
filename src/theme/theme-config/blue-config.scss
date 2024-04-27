@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "../mixins/base-color";
 @import "../component/component";
 $blue-color: (
@@ -19,31 +19,39 @@ $blue-color: (
   A700: #002fe3,
   contrast: (
     //
-    50: $dark-primary-text,
-    100: $dark-primary-text,
-    200: $dark-primary-text,
-    300: $light-primary-text,
-    400: $light-primary-text,
-    500: $light-primary-text,
-    600: $light-primary-text,
-    700: $light-primary-text,
-    800: $light-primary-text,
-    900: $light-primary-text,
-    A100: $dark-primary-text,
-    A200: $light-primary-text,
-    A400: $light-primary-text,
-    A700: $light-primary-text
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: white,
+    A400: white,
+    A700: white
   )
 );
 
 // user material mat blue
-$blue-primary: mat-palette($blue-color, 400);
-$blue-accent: mat-palette($blue-color, A400);
-$blue-warn: mat-palette($mat-red, A200, A100, A400);
-$blue-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);
+$blue-primary: mat.define-palette($blue-color, 400);
+$blue-accent: mat.define-palette($blue-color, A400);
+$blue-warn: mat.define-palette(mat.$red-palette, A200, A100, A400);
+$blue-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $blue-primary,
+      accent: $blue-accent,
+      warn: $blue-warn,
+    ),
+  )
+);
 
 .blue-theme {
-  @include angular-material-theme($blue-theme);
+  @include mat.all-component-themes($blue-theme);
   @include base-colors($blue-theme);
   @include component-theme($blue-theme);
 }

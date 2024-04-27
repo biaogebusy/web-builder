@@ -1,7 +1,7 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin question-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -9,26 +9,38 @@
   $warn: map-get($config, warn);
 
   .question {
-    background-color: mat-color($background, card);
-    @include mat-elevation(3, mat-color($foreground, divider), 0.3);
+    background-color: mat.get-color-from-palette($background, card);
+    @include mat.elevation(
+      3,
+      mat.get-color-from-palette($foreground, divider),
+      0.3
+    );
   }
   .comment {
-    background-color: mat-color($background, background);
+    background-color: mat.get-color-from-palette($background, background);
     .comment-form {
-      @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($foreground, divider),
+        0.6
+      );
     }
     .comment-list {
-      background-color: mat-color($background, card);
-      @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+      background-color: mat.get-color-from-palette($background, card);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($foreground, divider),
+        0.6
+      );
       .empty {
         .mat-icon {
           font-size: 60px;
-          color: mat-color($primary, 200);
+          color: mat.get-color-from-palette($primary, 200);
         }
       }
       .comment-box {
         .time {
-          color: mat-color($foreground, text, 0.4);
+          color: mat.get-color-from-palette($foreground, text, 0.4);
         }
       }
     }

@@ -20,7 +20,6 @@ import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, IS_BUILDER_MODE } from '@core/token/token-providers';
-import { isNumber } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';

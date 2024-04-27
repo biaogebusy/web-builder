@@ -1,10 +1,10 @@
-<div class="showcase-1-v1 position-relative" *ngIf="content">
+<div class="showcase-1-v1 relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}">
     <div [ngClass]="content.classes">
-      <app-title [attr.data-path]="'title'" class="display-block" #title *ngIf="content.title"
+      <app-title [attr.data-path]="'title'" class="block" #title *ngIf="content.title"
         [content]="content.title"></app-title>
       <app-text [attr.data-path]="'subTitle'" *ngIf="content.subTitle" [content]="content.subTitle"></app-text>
       <div class="m-top" fxLayout.lt-md="column" fxLayout.gt-sm="row wrap" fxLayoutGap.lt-md="6rem"

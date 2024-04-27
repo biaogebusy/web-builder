@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "../mixins/base-color";
 @import "../component/component";
 $pink-color: (
@@ -19,30 +19,38 @@ $pink-color: (
   A700: #0098e0,
   contrast: (
     //
-    50: $dark-primary-text,
-    100: $dark-primary-text,
-    200: $dark-primary-text,
-    300: $light-primary-text,
-    400: $light-primary-text,
-    500: $light-primary-text,
-    600: $light-primary-text,
-    700: $light-primary-text,
-    800: $light-primary-text,
-    900: $light-primary-text,
-    A100: $dark-primary-text,
-    A200: $light-primary-text,
-    A400: $light-primary-text,
-    A700: $light-primary-text
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: white,
+    A400: white,
+    A700: white
   )
 );
 
-$pink-primary: mat-palette($mat-pink, 500);
-$pink-accent: mat-palette($mat-pink, A400);
-$pink-warn: mat-palette($mat-green, 800);
-$pink-theme: mat-light-theme($pink-primary, $pink-accent, $pink-warn);
+$pink-primary: mat.define-palette(mat.$pink-palette, 500);
+$pink-accent: mat.define-palette(mat.$pink-palette, A400);
+$pink-warn: mat.define-palette(mat.$green-palette, 800);
+$pink-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $pink-primary,
+      accent: $pink-accent,
+      warn: $pink-warn,
+    ),
+  )
+);
 
 .pink-theme {
-  @include angular-material-theme($pink-theme);
+  @include mat.all-component-themes($pink-theme);
   @include base-colors($pink-theme);
   @include component-theme($pink-theme);
 }

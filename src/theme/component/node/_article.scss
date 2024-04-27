@@ -1,14 +1,14 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin article-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-color: mat-color($foreground, text, 0.75);
+  $text-color: mat.get-color-from-palette($foreground, text, 0.75);
   .article {
     .article-meta {
       color: $text-color;
@@ -16,38 +16,42 @@
     .article-body {
       pre {
         code {
-          background-color: mat-color($background);
+          background-color: mat.get-color-from-palette($background);
         }
       }
     }
     .shadow {
       background: linear-gradient(
         0deg,
-        mat-color($background, card),
+        mat.get-color-from-palette($background, card),
         transparent
       );
     }
     .line {
-      border: 1px dashed mat-color($warn);
+      border: 1px dashed mat.get-color-from-palette($warn);
       border-radius: 4px;
       &:hover {
         a {
-          color: mat-color($primary);
+          color: mat.get-color-from-palette($primary);
         }
       }
     }
     .comment-list {
-      background-color: mat-color($background, card);
-      @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+      background-color: mat.get-color-from-palette($background, card);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($foreground, divider),
+        0.6
+      );
       .empty {
         .mat-icon {
           font-size: 60px;
-          color: mat-color($primary, 200);
+          color: mat.get-color-from-palette($primary, 200);
         }
       }
       .comment-box {
         .time {
-          color: mat-color($foreground, text, 0.4);
+          color: mat.get-color-from-palette($foreground, text, 0.4);
         }
       }
     }
@@ -55,23 +59,24 @@
   .menu-list {
     .list {
       .item {
-        border-bottom: 1px dotted mat-color($foreground, divider);
+        border-bottom: 1px dotted
+          mat.get-color-from-palette($foreground, divider);
         .num-posts {
           color: $text-color;
         }
         a {
-          color: mat-color($foreground, text, 0.6);
+          color: mat.get-color-from-palette($foreground, text, 0.6);
           &.active {
-            color: mat-color($primary);
+            color: mat.get-color-from-palette($primary);
           }
           &:hover {
-            color: mat-color($primary);
+            color: mat.get-color-from-palette($primary);
           }
         }
       }
     }
     .action {
-      color: mat-color($primary);
+      color: mat.get-color-from-palette($primary);
     }
   }
   .recent-posts {
@@ -79,17 +84,17 @@
       .item {
         .post-img {
           &:before {
-            background-color: mat-color($primary);
+            background-color: mat.get-color-from-palette($primary);
           }
           .mat-icon {
-            color: mat-color($primary, default-contrast);
+            color: mat.get-color-from-palette($primary, default-contrast);
           }
         }
         .blog-title {
           a {
             color: $text-color;
             &:hover {
-              color: mat-color($primary);
+              color: mat.get-color-from-palette($primary);
             }
           }
         }

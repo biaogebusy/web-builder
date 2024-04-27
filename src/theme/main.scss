@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "./variable/variable";
 @import "./mixins/base-color";
 @import "./base/base";
@@ -6,7 +6,7 @@
 
 @include reset-styles();
 // override typography
-@include mat-core($custom-typography);
+@include mat.core($custom-typography);
 
 @include branding(map-get($color-theme, shadow), "shadow");
 @include branding(map-get($color-theme, light), "light");

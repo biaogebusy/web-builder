@@ -1,7 +1,7 @@
 <div class="search-action m-y-sm" *ngIf="content">
-  <form [formGroup]="form" class="position-relative" (ngSubmit)="onSubmit()">
-    <div class="form-group" fxLayoutAlign.lt-md="center center" fxLayoutAlign.gt-sm="start center"
-      fxLayoutGap.gt-sm="2rem" fxLayout.lt-md="column" fxLayout.gt-sm="row" *ngIf="content.form">
+  <form [formGroup]="form" class="relative" (ngSubmit)="onSubmit()">
+    <div class="form-group flex flex-col justify-center md:justify-start md:items-center md:gap-5 md:flex-row"
+      *ngIf="content.form">
       <app-dynamic-form-control class="control" *ngFor="let item of content.form" [control]="item" [form]="form">
       </app-dynamic-form-control>
     </div>

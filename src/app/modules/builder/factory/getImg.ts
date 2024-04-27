@@ -1,5 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getAspectRatio, getObjectFix } from './getCommon';
+import { includes } from 'lodash';
 
 export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
   const fields = [
@@ -17,8 +18,8 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'img-picker',
               defaultValue: widget.src || '',
               templateOptions: {
-                updateLabel: '更新背景图',
-                addLabel: '设置背景图',
+                updateLabel: '更新图片',
+                addLabel: '设置图片',
                 deleteLabel: '删除',
                 fileName: widget.src.split('/').pop(),
                 alt: widget.alt || '',
@@ -30,6 +31,14 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               defaultValue: widget.classes,
               templateOptions: {
                 label: 'class',
+              },
+            },
+            {
+              key: 'hostClasses',
+              type: 'input',
+              defaultValue: widget.hostClasses,
+              templateOptions: {
+                label: 'Wrapper Class',
               },
             },
             {
@@ -66,15 +75,61 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               ],
             },
             {
-              key: 'hostClasses',
-              type: 'input',
-              defaultValue: widget.hostClasses,
+              key: 'isLink',
+              type: 'toggle',
               templateOptions: {
-                label: '宿主Class',
+                label: '是否链接',
               },
+            },
+            {
+              key: 'href',
+              defaultValue: widget.href,
+              type: 'input',
+              templateOptions: {
+                label: '链接',
+              },
+              hideExpression: '!model.isLink',
+            },
+            {
+              key: 'target',
+              defaultValue: widget.target,
+              type: 'select',
+              templateOptions: {
+                label: 'target',
+                options: [
+                  {
+                    label: '新页面',
+                    value: '_blank',
+                  },
+                  {
+                    label: '当前页面',
+                    value: '_self',
+                  },
+                ],
+              },
+              hideExpression: '!model.isLink',
             },
           ],
         },
+        // {
+        //   templateOptions: {
+        //     label: '移动端',
+        //   },
+        //   fieldGroup: [
+        //     {
+        //       key: 'mobile',
+        //       type: 'img-picker',
+        //       defaultValue: widget.mobile || '',
+        //       templateOptions: {
+        //         updateLabel: '更新移动端图片',
+        //         addLabel: '设置移动端图片',
+        //         deleteLabel: '删除',
+        //         fileName: widget.mobile ? widget.mobile.split('/').pop() : '',
+        //         alt: widget.alt || '',
+        //       },
+        //     },
+        //   ],
+        // },
       ],
     },
   ];

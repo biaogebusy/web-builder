@@ -1,22 +1,22 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "../../theme/variable/breakpoint";
 @import "../../theme/mixins/amixin";
 
 @mixin widgets-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $bg-color: mat-color($background, background);
-  $divider-color: mat-color($foreground, divider);
+  $bg-color: mat.get-color-from-palette($background, background);
+  $divider-color: mat.get-color-from-palette($foreground, divider);
   .wave-wrapper {
     background: linear-gradient(
       -74deg,
-      mat-color($primary, 50) 0%,
-      mat-color($primary, 100) 100%
+      mat.get-color-from-palette($primary, 50) 0%,
+      mat.get-color-from-palette($primary, 100) 100%
     );
 
     .wave {
@@ -27,11 +27,11 @@
   .breadcrumb {
     ul {
       li {
-        color: mat-color($foreground, text, 0.75);
+        color: mat.get-color-from-palette($foreground, text, 0.75);
         a {
-          color: mat-color($foreground, text, 0.75);
+          color: mat.get-color-from-palette($foreground, text, 0.75);
           &:hover {
-            color: mat-color($primary);
+            color: mat.get-color-from-palette($primary);
           }
         }
       }
@@ -47,13 +47,13 @@
       }
       .testimonial-detail {
         .info {
-          color: mat-color($foreground, secondary-text);
+          color: mat.get-color-from-palette($foreground, secondary-text);
         }
         .sub-title {
-          color: mat-color($primary);
+          color: mat.get-color-from-palette($primary);
         }
         .desc {
-          color: mat-color($foreground, secondary-text);
+          color: mat.get-color-from-palette($foreground, secondary-text);
         }
       }
     }
@@ -62,9 +62,9 @@
   .line-year {
     border-top: solid 1.5px $divider-color;
     &:before {
-      background: mat-color($primary);
-      border: 1px solid mat-color($primary);
-      box-shadow: 0 0px 1px 5px mat-color($primary, 0.3);
+      background: mat.get-color-from-palette($primary);
+      border: 1px solid mat.get-color-from-palette($primary);
+      box-shadow: 0 0px 1px 5px mat.get-color-from-palette($primary, 0.3);
     }
   }
 
@@ -86,19 +86,19 @@
     .btns {
       > a {
         background: $bg-color;
-        color: mat-color($primary);
+        color: mat.get-color-from-palette($primary);
         &.icon-link {
           background: rgba(0, 0, 0, 0.8);
-          color: mat-color($primary, default-contrast);
+          color: mat.get-color-from-palette($primary, default-contrast);
         }
       }
     }
     .feature-inner-ling {
       .media {
-        background-color: mat-color($background, background);
+        background-color: mat.get-color-from-palette($background, background);
       }
       .title {
-        color: mat-color($primary, default-contrast);
+        color: mat.get-color-from-palette($primary, default-contrast);
       }
       &:before {
         box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
@@ -106,44 +106,44 @@
         -webkit-box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
       }
       &:after {
-        background: mat-color($primary);
+        background: mat.get-color-from-palette($primary);
       }
     }
   }
 
   .feature-float {
     .title {
-      background-color: mat-color($foreground, elevation, 0.7);
-      color: mat-color($primary, default-contrast, 0.8);
+      background-color: mat.get-color-from-palette($foreground, elevation, 0.7);
+      color: mat.get-color-from-palette($primary, default-contrast, 0.8);
     }
     .btns {
       .btn {
         transition: all 0.3s;
       }
       .btn-full {
-        color: mat-color($primary);
-        border: 1px solid mat-color($primary, 0.4);
-        background-color: mat-color($primary, 0.2);
-        @include mat-elevation(3, mat-color($primary), 0.5);
+        color: mat.get-color-from-palette($primary);
+        border: 1px solid mat.get-color-from-palette($primary, 0.4);
+        background-color: mat.get-color-from-palette($primary, 0.2);
+        @include mat.elevation(3, mat.get-color-from-palette($primary), 0.5);
         &:hover {
-          background-color: mat-color($primary);
-          color: mat-color($primary, default-contrast);
+          background-color: mat.get-color-from-palette($primary);
+          color: mat.get-color-from-palette($primary, default-contrast);
         }
       }
       .btn-open {
-        color: mat-color($warn);
-        border: 1px solid mat-color($warn, 0.4);
-        background-color: mat-color($warn, 0.2);
-        @include mat-elevation(3, mat-color($warn), 0.5);
+        color: mat.get-color-from-palette($warn);
+        border: 1px solid mat.get-color-from-palette($warn, 0.4);
+        background-color: mat.get-color-from-palette($warn, 0.2);
+        @include mat.elevation(3, mat.get-color-from-palette($warn), 0.5);
         &:hover {
-          background-color: mat-color($warn);
-          color: mat-color($primary, default-contrast);
+          background-color: mat.get-color-from-palette($warn);
+          color: mat.get-color-from-palette($primary, default-contrast);
         }
       }
     }
     .media {
       img {
-        background-color: mat-color($background, "app-bar");
+        background-color: mat.get-color-from-palette($background, "app-bar");
       }
     }
   }
@@ -156,8 +156,8 @@
 
   .pagination {
     button.current {
-      background-color: mat-color($primary) !important;
-      color: mat-color($primary, default-contrast) !important;
+      background-color: mat.get-color-from-palette($primary) !important;
+      color: mat.get-color-from-palette($primary, default-contrast) !important;
       border-radius: 4px;
     }
   }
@@ -165,8 +165,8 @@
   .list-done {
     li {
       &:before {
-        color: mat-color($primary);
-        background-color: mat-color($primary, text, 0.6);
+        color: mat.get-color-from-palette($primary);
+        background-color: mat.get-color-from-palette($primary, text, 0.6);
       }
     }
   }
@@ -174,8 +174,8 @@
   .list-clear {
     li {
       &:before {
-        color: mat-color($warn, text);
-        background-color: mat-color($warn, 0.25);
+        color: mat.get-color-from-palette($warn, text);
+        background-color: mat.get-color-from-palette($warn, 0.25);
       }
     }
   }
@@ -183,148 +183,164 @@
   .search-action {
     @media #{$gt-sm} {
       form {
-        background-color: mat-color($background, card);
-        @include mat-elevation(4, mat-color($foreground, text), 0.2);
-        border: 1px solid mat-color($foreground, divider, 0.1);
+        background-color: mat.get-color-from-palette($background, card);
+        @include mat.elevation(
+          4,
+          mat.get-color-from-palette($foreground, text),
+          0.2
+        );
+        border: 1px solid mat.get-color-from-palette($foreground, divider, 0.1);
         &:hover,
         &:focus {
-          @include mat-elevation(4, mat-color($primary), 0.5);
-          border: 1px solid mat-color($primary, 0.1);
+          @include mat.elevation(4, mat.get-color-from-palette($primary), 0.5);
+          border: 1px solid mat.get-color-from-palette($primary, 0.1);
         }
       }
     }
   }
 
   .tree-inner {
-    background-color: mat-color($background, card);
+    background-color: mat.get-color-from-palette($background, card);
     border: 1px solid $divider-color;
     .node-content-wrapper-active,
     .node-content-wrapper:hover {
-      background-color: mat-color($primary, 100);
+      background-color: mat.get-color-from-palette($primary, 100);
     }
   }
 
   .tree {
-    @include scrollbar(mat-color($foreground, divider, 0.2));
+    @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
   }
 
   .media-meta {
     border-bottom: 1px solid $divider-color;
     .top,
     .middle {
-      color: mat-color($foreground, text, 0.3);
+      color: mat.get-color-from-palette($foreground, text, 0.3);
     }
   }
 
   quill-editor {
-    background-color: mat-color($background, background);
+    background-color: mat.get-color-from-palette($background, background);
     .ql-toolbar,
     .ql-container {
-      border-color: mat-color($foreground, divider);
+      border-color: mat.get-color-from-palette($foreground, divider);
     }
     .ql-container {
-      background-color: mat-color($background, card);
+      background-color: mat.get-color-from-palette($background, card);
     }
   }
 
   .view-list {
     .sidebar {
       > .inner {
-        background-color: mat-color($background, card);
-        @include mat-elevation(4, mat-color($foreground, divider), 0.5);
+        background-color: mat.get-color-from-palette($background, card);
+        @include mat.elevation(
+          4,
+          mat.get-color-from-palette($foreground, divider),
+          0.5
+        );
       }
     }
     .view {
-      @include mat-elevation(6, mat-color($foreground, divider), 0.25);
+      @include mat.elevation(
+        6,
+        mat.get-color-from-palette($foreground, divider),
+        0.25
+      );
     }
   }
 
   .dynamic-table {
-    background-color: mat-color($background, card);
+    background-color: mat.get-color-from-palette($background, card);
     .mat-header-cell {
-      color: mat-color($foreground, text);
+      color: mat.get-color-from-palette($foreground, text);
     }
     tbody {
       > tr {
         &:hover {
-          background-color: mat-color($background, background);
+          background-color: mat.get-color-from-palette($background, background);
         }
       }
       td {
         .marker {
-          color: mat-color($warn);
+          color: mat.get-color-from-palette($warn);
         }
       }
     }
   }
 
   .border-primary {
-    border: 1px solid mat-color($primary) !important;
-    background-color: mat-color($background, card);
+    border: 1px solid mat.get-color-from-palette($primary) !important;
+    background-color: mat.get-color-from-palette($background, card);
   }
 
   .border-warn {
-    border: 1px solid mat-color($warn) !important;
-    background-color: mat-color($background, card);
+    border: 1px solid mat.get-color-from-palette($warn) !important;
+    background-color: mat.get-color-from-palette($background, card);
   }
 
   .border-accent {
-    border: 1px solid mat-color($accent) !important;
-    background-color: mat-color($background, card);
+    border: 1px solid mat.get-color-from-palette($accent) !important;
+    background-color: mat.get-color-from-palette($background, card);
   }
 
   .inline-lightbox {
     .inline {
-      color: mat-color($primary);
+      color: mat.get-color-from-palette($primary);
     }
   }
 
   .panel {
     .mat-expanded .mat-expansion-panel-header-title {
       .badge {
-        color: mat-color($primary, default-contrast);
-        background-color: mat-color($primary, 400, 0.85);
+        color: mat.get-color-from-palette($primary, default-contrast);
+        background-color: mat.get-color-from-palette($primary, 400, 0.85);
       }
     }
   }
 
   .chart {
-    border: 1px solid mat-color($foreground, divider);
-    @include mat-elevation(2, mat-color($foreground, divider), 0.07);
+    border: 1px solid mat.get-color-from-palette($foreground, divider);
+    @include mat.elevation(
+      2,
+      mat.get-color-from-palette($foreground, divider),
+      0.07
+    );
   }
 
   .tab {
     &.pills {
       .mat-tab-labels {
-        background-color: mat-color($primary, 0.06);
+        background-color: mat.get-color-from-palette($primary, 0.06);
       }
       .mat-tab-label-active {
-        background-color: mat-color($primary);
-        color: mat-color($primary, default-contrast);
+        background-color: mat.get-color-from-palette($primary);
+        color: mat.get-color-from-palette($primary, default-contrast);
         opacity: 1;
       }
     }
   }
 
   .github-star {
-    background-color: mat-color($background, card);
-    border: 1px solid mat-color($foreground, divider);
+    background-color: mat.get-color-from-palette($background, card);
+    border: 1px solid mat.get-color-from-palette($foreground, divider);
     a {
-      color: mat-color($foreground, text, 0.75);
+      color: mat.get-color-from-palette($foreground, text, 0.75);
     }
     .right {
-      border-left: 1px solid mat-color($foreground, divider);
+      border-left: 1px solid mat.get-color-from-palette($foreground, divider);
     }
   }
   .mat-stroked-button:not(.mat-button-disabled) {
-    border-color: mat-color($primary);
+    border-color: mat.get-color-from-palette($primary);
   }
 
   .jsoneditor {
-    border-color: mat-color($primary);
+    border-color: mat.get-color-from-palette($primary);
     .jsoneditor-menu {
-      background-color: mat-color($primary);
-      border-bottom-color: mat-color($primary);
+      background-color: mat.get-color-from-palette($primary);
+      border-bottom-color: mat.get-color-from-palette($primary);
     }
   }
 }

@@ -1,29 +1,37 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "../../mixins/amixin";
 
 @mixin report-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-color: mat-color($foreground, text, 0.75);
+  $text-color: mat.get-color-from-palette($foreground, text, 0.75);
   .report {
-    background-color: mat-color($primary, 0.07);
+    background-color: mat.get-color-from-palette($primary, 0.07);
     .box {
-      background-color: mat-color($background, card);
-      @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+      background-color: mat.get-color-from-palette($background, card);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($foreground, divider),
+        0.4
+      );
       .item {
-        @include scrollbar(mat-color($primary));
+        @include scrollbar(mat.get-color-from-palette($primary));
         &:nth-child(2) {
-          border: 10px solid mat-color($primary, 0.1);
+          border: 10px solid mat.get-color-from-palette($primary, 0.1);
         }
       }
     }
     .dynamic-table {
-      @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+      @include mat.elevation(
+        3,
+        mat.get-color-from-palette($foreground, divider),
+        0.4
+      );
     }
   }
 }

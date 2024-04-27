@@ -1,25 +1,29 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin card-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-  $text-color: mat-color($foreground, text, 0.75);
-  $bg-color: mat-color($background, card);
+  $text-color: mat.get-color-from-palette($foreground, text, 0.75);
+  $bg-color: mat.get-color-from-palette($background, card);
   .mat-card {
     color: inherit;
     background-color: $bg-color;
     &:hover {
       cursor: pointer;
-      background-color: mat-color($background, background, 0.85);
+      background-color: mat.get-color-from-palette(
+        $background,
+        background,
+        0.85
+      );
     }
     .meta {
       .badge {
-        background-color: mat-color($primary, 400, 0.8);
-        color: mat-color($primary, default-contrast);
+        background-color: mat.get-color-from-palette($primary, 400, 0.8);
+        color: mat.get-color-from-palette($primary, default-contrast);
       }
     }
   }
@@ -27,7 +31,7 @@
     a {
       color: $text-color;
       &:hover {
-        color: mat-color($primary);
+        color: mat.get-color-from-palette($primary);
       }
     }
   }
@@ -37,20 +41,24 @@
 
   .mat-card-subtitle,
   .card-body {
-    color: mat-color($foreground, text, 0.6);
+    color: mat.get-color-from-palette($foreground, text, 0.6);
   }
 
   .card-1v1 {
-    @include mat-elevation(4, mat-color($foreground, text), 0.3);
+    @include mat.elevation(
+      4,
+      mat.get-color-from-palette($foreground, text),
+      0.3
+    );
     background-color: $bg-color;
     a {
       color: $text-color;
       &:hover {
-        color: mat-color($primary);
+        color: mat.get-color-from-palette($primary);
       }
       &.mat-primary {
         &:hover {
-          color: mat-color($primary, default-contrast);
+          color: mat.get-color-from-palette($primary, default-contrast);
         }
       }
     }
@@ -60,19 +68,19 @@
   }
 
   .card-1-v2 {
-    color: mat-color($primary, default-contrast);
+    color: mat.get-color-from-palette($primary, default-contrast);
     a {
-      color: mat-color($primary, default-contrast);
+      color: mat.get-color-from-palette($primary, default-contrast);
     }
   }
 
   .card-1-v3 {
     .viewport {
-      @include scrollbar(mat-color($foreground, divider, 0.2));
+      @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
     }
     .item {
-      @include mat-elevation(4, #000, 0.35);
-      background-color: mat-color($background, card, 0.85);
+      @include mat.elevation(4, #000, 0.35);
+      background-color: mat.get-color-from-palette($background, card, 0.85);
 
       .media {
         img {
@@ -83,7 +91,7 @@
     .selected {
       &:after,
       &:before {
-        background: mat-color($primary);
+        background: mat.get-color-from-palette($primary);
       }
     }
   }
@@ -99,28 +107,40 @@
   .card-1-v4 {
     .left {
       img {
-        @include mat-elevation(4, mat-color($foreground, text), 0.3);
+        @include mat.elevation(
+          4,
+          mat.get-color-from-palette($foreground, text),
+          0.3
+        );
       }
     }
     .mat-icon {
-      color: mat-color($warn, text);
+      color: mat.get-color-from-palette($warn, text);
     }
     .title {
-      color: mat-color($foreground, text, 0.75);
+      color: mat.get-color-from-palette($foreground, text, 0.75);
     }
 
     .inner {
-      @include mat-elevation(4, mat-color($foreground, text), 0.3);
-      color: mat-color($foreground, text, 0.5);
-      background-color: mat-color($background, card);
+      @include mat.elevation(
+        4,
+        mat.get-color-from-palette($foreground, text),
+        0.3
+      );
+      color: mat.get-color-from-palette($foreground, text, 0.5);
+      background-color: mat.get-color-from-palette($background, card);
     }
   }
 
   .card-1v5 {
-    @include mat-elevation(4, mat-color($foreground, divider), 0.4);
-    background-color: mat-color($background, card);
+    @include mat.elevation(
+      4,
+      mat.get-color-from-palette($foreground, divider),
+      0.4
+    );
+    background-color: mat.get-color-from-palette($background, card);
     .more {
-      color: mat-color($primary);
+      color: mat.get-color-from-palette($primary);
       .mat-icon {
         color: inherit;
       }
@@ -128,15 +148,27 @@
   }
 
   .card-1v6 {
-    @include mat-elevation(3, mat-color($foreground, divider), 0.3);
-    background-color: mat-color($primary, 0.07);
-    border-bottom: 3px solid mat-color($foreground, divider, 0.2);
+    @include mat.elevation(
+      3,
+      mat.get-color-from-palette($foreground, divider),
+      0.3
+    );
+    background-color: mat.get-color-from-palette($primary, 0.07);
+    border-bottom: 3px solid
+      mat.get-color-from-palette($foreground, divider, 0.2);
     &:hover {
-      border-color: mat-color($primary);
-      background-color: mat-color($background, card) !important;
-      @include mat-elevation(5, mat-color($foreground, divider), 0.7);
+      border-color: mat.get-color-from-palette($primary);
+      background-color: mat.get-color-from-palette(
+        $background,
+        card
+      ) !important;
+      @include mat.elevation(
+        5,
+        mat.get-color-from-palette($foreground, divider),
+        0.7
+      );
       .title {
-        color: mat-color($primary);
+        color: mat.get-color-from-palette($primary);
       }
     }
   }

@@ -1,7 +1,7 @@
-<div class="banner-simple position-relative" [ngClass]="content.style" *ngIf="content">
+<div class="banner-simple relative" [ngClass]="content.style" *ngIf="content">
   <app-bg-img [attr.data-path]="'bannerBg'" *ngIf="content.bannerBg" [content]="content.bannerBg"></app-bg-img>
   <div class="container">
-    <div class="banner-inner position-relative" fxLayout.lt-md="column" fxLayout.gt-sm="row"
+    <div class="banner-inner relative" fxLayout.lt-md="column" fxLayout.gt-sm="row"
       fxLayoutAlign.gt-sm="space-between center" fxLayoutAlign.lt-md="start start">
       <div class="title" fxLayout="column">
         <h2 class="page-title" contentedit="title" *ngIf="content.title" [innerHTML]="content.title|safeHtml"></h2>

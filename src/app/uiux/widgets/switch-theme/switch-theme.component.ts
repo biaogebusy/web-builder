@@ -30,9 +30,9 @@ export class SwitchThemeComponent implements OnInit {
   }
 
   onSwitchTheme(theme: string): void {
-    let themeService = this.injector.get(ThemeService);
-    let configService = this.injector.get(ConfigService);
-    let storage = this.injector.get(LocalStorageService);
+    const themeService = this.injector.get(ThemeService);
+    const configService = this.injector.get(ConfigService);
+    const storage = this.injector.get(LocalStorageService);
     configService.switchChange$.next(theme);
     storage.store(THEMKEY, theme);
     this.currentTheme = theme;

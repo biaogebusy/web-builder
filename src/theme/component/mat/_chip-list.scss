@@ -1,6 +1,6 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @mixin chip-list-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -12,7 +12,7 @@
   }
   .mat-chip {
     a {
-      color: mat-color($primary, default-contrast);
+      color: mat.get-color-from-palette($primary, default-contrast);
     }
   }
 }
