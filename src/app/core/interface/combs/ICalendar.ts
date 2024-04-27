@@ -1,4 +1,4 @@
-import { CalendarOptions } from '@fullcalendar/angular';
+import { CalendarOptions } from '@fullcalendar/core';
 import { ICombsBase } from './ICombsBase';
 
 export interface IFullCalendar extends ICombsBase {
