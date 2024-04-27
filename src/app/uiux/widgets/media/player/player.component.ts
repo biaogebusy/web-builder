@@ -19,9 +19,10 @@ import videojs from 'video.js';
 export class PlayerComponent implements OnInit, OnDestroy {
   @ViewChild('target', { static: true }) target: ElementRef;
   // See options: https://videojs.com/guides/options
+  // https://videojs.com/guides/angular/
   @Input() content: IPlayer;
 
-  player: videojs.Player;
+  player: any;
 
   constructor(private elementRef: ElementRef) {}
 

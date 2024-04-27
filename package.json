@@ -90,7 +90,7 @@
     "social-share.js": "^1.0.16",
     "swiper": "^6.5.0",
     "typed.js": "^2.1.0",
-    "video.js": "^7.20.3",
+    "video.js": "^8.10.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
