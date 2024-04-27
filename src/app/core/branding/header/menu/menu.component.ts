@@ -10,7 +10,6 @@ import { Event, NavigationStart, Router } from '@angular/router';
 import type { IBranding, IHeader } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BRANDING, CORE_CONFIG } from '@core/token/token-providers';
-import { version } from '../../../../../../package.json';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
 @Component({
@@ -51,9 +50,5 @@ export class MenuComponent implements OnInit {
 
   trackByFn(index: number, item: any): number {
     return index;
-  }
-
-  get version(): string {
-    return version;
   }
 }

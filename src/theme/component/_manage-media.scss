@@ -1,7 +1,7 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin manage-media-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -12,11 +12,11 @@
     .masonry-item {
       .selected {
         &:after {
-          border: 3px solid mat-color($primary);
+          border: 3px solid mat.get-color-from-palette($primary);
         }
       }
       .actions {
-        color: mat-color($warn);
+        color: mat.get-color-from-palette($warn);
       }
     }
   }

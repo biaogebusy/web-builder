@@ -1,11 +1,11 @@
+@use 'sass:math';
 @import "/src/theme/variable/variable";
-
 :host ::ng-deep {
   .amap-marker-content {
     line-height: 1;
   }
   .mark-card {
-    padding: $spacer / 4;
+    padding: math.div($spacer, 4);
     display: flex;
     flex-direction: row;
     justify-content: space-between;

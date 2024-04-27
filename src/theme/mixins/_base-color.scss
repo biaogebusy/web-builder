@@ -1,5 +1,5 @@
+@use '~@angular/material' as mat;
 @import "./amixin";
-@import "~@angular/material/theming";
 @mixin branding($colors, $suffix) {
   .text-#{$suffix} {
     color: map-get($colors, text) !important;
@@ -15,67 +15,67 @@
 }
 
 @mixin base-colors($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
 
-  $contrast: mat-color($primary, default-contrast);
+  $contrast: mat.get-color-from-palette($primary, default-contrast);
 
   .loading {
-    background-color: mat-color($primary);
+    background-color: mat.get-color-from-palette($primary);
   }
 
   a {
-    color: mat-color($accent);
+    color: mat.get-color-from-palette($accent);
 
     &:hover,
     &:focus,
     &.active {
-      color: mat-color($accent);
+      color: mat.get-color-from-palette($accent);
     }
   }
 
   blockquote {
-    color: mat-color($foreground, text, 0.45);
-    border-left: 3px solid mat-color($foreground, divider);
+    color: mat.get-color-from-palette($foreground, text, 0.45);
+    border-left: 3px solid mat.get-color-from-palette($foreground, divider);
   }
 
   body,
   .mat-drawer-container {
-    color: mat-color($foreground, text, 0.75);
-    background-color: mat-color($background, background);
+    color: mat.get-color-from-palette($foreground, text, 0.75);
+    background-color: mat.get-color-from-palette($background, background);
     .mat-drawer-inner-container {
-      @include scrollbar(mat-color($primary));
+      @include scrollbar(mat.get-color-from-palette($primary));
     }
   }
 
   .text-primary {
-    color: mat-color($primary);
+    color: mat.get-color-from-palette($primary);
   }
 
   .text-accent {
-    color: mat-color($accent);
+    color: mat.get-color-from-palette($accent);
   }
 
   .text-warn {
-    color: mat-color($warn);
+    color: mat.get-color-from-palette($warn);
   }
 
   .bg-primary {
-    background-color: mat-color($primary);
+    background-color: mat.get-color-from-palette($primary);
     color: $contrast;
   }
 
   .bg-accent {
-    background-color: mat-color($accent);
+    background-color: mat.get-color-from-palette($accent);
     color: $contrast;
   }
 
   .bg-warn {
-    background-color: mat-color($warn);
+    background-color: mat.get-color-from-palette($warn);
     color: $contrast;
   }
 
@@ -194,44 +194,44 @@
   }
 
   .bg-grey-50 {
-    background-color: map-get($mat-grey, 50);
-    color: mat-contrast($mat-grey, 50);
+    background-color: map-get(mat.$grey-palette, 50);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 50);
   }
   .bg-grey-100 {
-    background-color: map-get($mat-grey, 100);
-    color: mat-contrast($mat-grey, 100);
+    background-color: map-get(mat.$grey-palette, 100);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 100);
   }
   .bg-grey-200 {
-    background-color: map-get($mat-grey, 200);
-    color: mat-contrast($mat-grey, 200);
+    background-color: map-get(mat.$grey-palette, 200);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 200);
   }
   .bg-grey-300 {
-    background-color: map-get($mat-grey, 300);
-    color: mat-contrast($mat-grey, 300);
+    background-color: map-get(mat.$grey-palette, 300);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 300);
   }
   .bg-grey-400 {
-    background-color: map-get($mat-grey, 400);
-    color: mat-contrast($mat-grey, 400);
+    background-color: map-get(mat.$grey-palette, 400);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 400);
   }
   .bg-grey-500 {
-    background-color: map-get($mat-grey, 500);
-    color: mat-contrast($mat-grey, 500);
+    background-color: map-get(mat.$grey-palette, 500);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 500);
   }
   .bg-grey-600 {
-    background-color: map-get($mat-grey, 600);
-    color: mat-contrast($mat-grey, 600);
+    background-color: map-get(mat.$grey-palette, 600);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 600);
   }
   .bg-grey-700 {
-    background-color: map-get($mat-grey, 700);
-    color: mat-contrast($mat-grey, 700);
+    background-color: map-get(mat.$grey-palette, 700);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 700);
   }
   .bg-grey-800 {
-    background-color: map-get($mat-grey, 800);
-    color: mat-contrast($mat-grey, 800);
+    background-color: map-get(mat.$grey-palette, 800);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 800);
   }
   .bg-grey-900 {
-    background-color: map-get($mat-grey, 900);
-    color: mat-contrast($mat-grey, 900);
+    background-color: map-get(mat.$grey-palette, 900);
+    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 900);
   }
 
   .text-grey {
@@ -239,11 +239,11 @@
   }
 
   .ngx-bar {
-    background-color: mat-color($primary) !important;
+    background-color: mat.get-color-from-palette($primary) !important;
   }
 
   hr {
-    background: mat-color($foreground, divider);
+    background: mat.get-color-from-palette($foreground, divider);
   }
 }
 

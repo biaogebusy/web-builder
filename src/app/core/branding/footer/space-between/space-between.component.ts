@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-space-between',
@@ -11,9 +6,6 @@ import {
   styleUrls: ['./space-between.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpaceBetweenComponent implements OnInit {
+export class SpaceBetweenComponent {
   @Input() content: any;
-  constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -1,25 +1,25 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin user-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: mat-color($foreground, text, 0.75);
+  $text-base: mat.get-color-from-palette($foreground, text, 0.75);
   .user {
     .user-menu {
       .item {
         a {
-          border: 1px solid mat-color($foreground, divider);
-          color: mat-color($foreground, text);
+          border: 1px solid mat.get-color-from-palette($foreground, divider);
+          color: mat.get-color-from-palette($foreground, text);
           transition: all 0.5s ease;
           &.active,
           &:hover {
-            background-color: mat-color($primary);
-            color: mat-color($primary, default-contrast);
+            background-color: mat.get-color-from-palette($primary);
+            color: mat.get-color-from-palette($primary, default-contrast);
           }
         }
       }
@@ -28,13 +28,21 @@
 
   .user-center {
     .profile {
-      background-color: mat-color($background, card);
-      @include mat-elevation(4, mat-color($foreground, text), 0.3);
+      background-color: mat.get-color-from-palette($background, card);
+      @include mat.elevation(
+        4,
+        mat.get-color-from-palette($foreground, text),
+        0.3
+      );
     }
     .main {
       .box {
-        background-color: mat-color($background, card);
-        @include mat-elevation(4, mat-color($foreground, text), 0.3);
+        background-color: mat.get-color-from-palette($background, card);
+        @include mat.elevation(
+          4,
+          mat.get-color-from-palette($foreground, text),
+          0.3
+        );
       }
     }
   }

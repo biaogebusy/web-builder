@@ -1,3 +1,7 @@
+// https://tailwindcss.com/docs/functions-and-directives
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 /* You can add global styles to this file, and also import other style files */
 @import "./theme/mixins/reset";
 @import "./theme/main.scss";
@@ -9,7 +13,7 @@
 @import "~highlight.js/scss/atom-one-dark.scss";
 
 html {
-  font-size: 10px;
+  font-size: 16px;
   scroll-behavior: smooth;
 }
 

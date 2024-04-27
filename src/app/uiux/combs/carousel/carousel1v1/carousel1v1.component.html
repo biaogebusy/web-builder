@@ -1,4 +1,4 @@
-<div class="carousel-1-v1 position-relative" [ngClass]="content.classes" *ngIf="content">
+<div class="carousel-1-v1 relative" [ngClass]="content.classes" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>

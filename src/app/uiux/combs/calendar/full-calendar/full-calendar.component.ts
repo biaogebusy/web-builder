@@ -161,7 +161,7 @@ export class FullCalendarComponent
   }
 
   initEvents(): void {
-    this.options.eventClick = (info) => {
+    this.options.eventClick = (info: any) => {
       if (this.content.calendar?.drawer) {
         this.contentState.drawerOpened$.next(true);
         this.contentState.drawerLoading$.next(true);

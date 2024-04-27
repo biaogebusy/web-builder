@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { API_URL, USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
-import { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import { IManageAssets } from '@core/interface/manage/IManage';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 

@@ -1,7 +1,7 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin dynamic-list-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -12,14 +12,14 @@
     .item {
       .title {
         a {
-          color: mat-color($foreground, text);
+          color: mat.get-color-from-palette($foreground, text);
           &:hover {
-            color: mat-color($primary);
+            color: mat.get-color-from-palette($primary);
           }
         }
       }
       .text-lighter {
-        color: mat-color($foreground, text, 0.7);
+        color: mat.get-color-from-palette($foreground, text, 0.7);
       }
     }
   }

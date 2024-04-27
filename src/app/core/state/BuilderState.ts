@@ -135,7 +135,7 @@ export class BuilderState {
 
   setCurrentPage(page: IPage): void {
     const currentIndex = this.version.findIndex(
-      (page) => page.current === true
+      (item: IPage) => item.current === true
     );
     this.version[currentIndex] = page;
     this.storage.store(this.versionKey, Object.assign([], this.version));
@@ -267,7 +267,7 @@ export class BuilderState {
     id: string,
     count: number
   ) => {
-    let elements = data.find((item) => item.id === id)?.elements || [];
+    const elements = data.find((item) => item.id === id)?.elements || [];
     // 如果元素中包含 content.child，则将其元素也添加到结果中
     const result = elements.reduce((acc: any[], element: any) => {
       if (typeof element === 'object' && element.child) {
@@ -299,14 +299,14 @@ export class BuilderState {
     if (!isDebugAnimate) {
       // hidden marker
       map(markers, (marker) => {
-        marker.classList.remove('display-block');
-        marker.classList.add('display-none');
+        marker.classList.remove('block');
+        marker.classList.add('hidden');
       });
     } else {
       if (markers.length) {
         map(markers, (marker) => {
-          marker.classList.add('display-block');
-          marker.classList.remove('display-none');
+          marker.classList.add('block');
+          marker.classList.remove('hidden');
         });
       }
     }

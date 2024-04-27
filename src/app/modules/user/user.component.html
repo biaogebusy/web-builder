@@ -1,10 +1,10 @@
 <div class="user">
-  <div class="profile-banner position-relative">
+  <div class="profile-banner relative">
     <app-bg *ngIf="currentUser?.bannerBg" [content]="currentUser.bannerBg">
       <app-img [content]="currentUser.bannerBg.img"></app-img>
     </app-bg>
   </div>
-  <div class="profile-1v1 position-relative p-y">
+  <div class="profile-1v1 relative p-y">
     <div class="container">
       <div class="profile" fxLayoutAlign="space-between start" fxLayout="row wrap">
         <div class="left" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">

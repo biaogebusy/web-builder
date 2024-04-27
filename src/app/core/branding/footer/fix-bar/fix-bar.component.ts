@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-fix-bar',
@@ -11,9 +6,6 @@ import {
   styleUrls: ['./fix-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FixBarComponent implements OnInit {
+export class FixBarComponent {
   @Input() content: any[] | undefined;
-  constructor() {}
-
-  ngOnInit(): void {}
 }

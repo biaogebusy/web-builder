@@ -1,7 +1,7 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin view-map-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -10,22 +10,22 @@
 
   .view-map {
     .sidebar {
-      background-color: mat-color($background, card);
-      @include mat-elevation(4, #000, 0.35);
+      background-color: mat.get-color-from-palette($background, card);
+      @include mat.elevation(4, #000, 0.35);
     }
     .mat-expansion-panel-header:not(.mat-expanded) {
-      background-color: mat-color($foreground, text, 0.1);
+      background-color: mat.get-color-from-palette($foreground, text, 0.1);
     }
     .tools {
-      background-color: mat-color($background, card);
-      @include mat-elevation(4, #000, 0.35);
+      background-color: mat.get-color-from-palette($background, card);
+      @include mat.elevation(4, #000, 0.35);
     }
     .viewport {
       border-right: 1px solid rgb(97 97 97 / 8%);
-      @include scrollbar(mat-color($foreground, divider, 0.2));
+      @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
       .list {
-        @include mat-elevation(4, #000, 0.35);
-        background-color: mat-color($background, card, 0.85);
+        @include mat.elevation(4, #000, 0.35);
+        background-color: mat.get-color-from-palette($background, card, 0.85);
         .media {
           img {
             box-shadow: 0 4px 10px 1px rgb(0 0 0 / 7%);
@@ -33,14 +33,14 @@
         }
         .badge {
           li {
-            color: mat-color($primary, default-contrast);
-            background-color: mat-color($primary);
+            color: mat.get-color-from-palette($primary, default-contrast);
+            background-color: mat.get-color-from-palette($primary);
           }
         }
         &.selected {
           &:after,
           &:before {
-            background: mat-color($primary);
+            background: mat.get-color-from-palette($primary);
           }
         }
       }

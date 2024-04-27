@@ -9,8 +9,7 @@ import {
 } from '@angular/core';
 import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
-import { Subject } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, Subject } from 'rxjs';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
 

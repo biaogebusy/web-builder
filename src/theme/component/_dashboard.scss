@@ -1,28 +1,33 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 @mixin dashboard-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
+  $config: mat.get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: mat-color($foreground, text, 0.75);
-  $text-primary: mat-color($primary);
-  $bg-card-color: mat-color($background, card);
+  $text-base: mat.get-color-from-palette($foreground, text, 0.75);
+  $text-primary: mat.get-color-from-palette($primary);
+  $bg-card-color: mat.get-color-from-palette($background, card);
   .dashboard {
-    background-color: mat-color($background, background);
+    background-color: mat.get-color-from-palette($background, background);
     .box {
       .dashboard-box {
-        background-color: mat-color($background, background);
-        border: 1px solid mat-color($foreground, divider, 0.07);
-        @include mat-elevation(3, mat-color($background, tooltip), 0.4);
+        background-color: mat.get-color-from-palette($background, background);
+        border: 1px solid mat.get-color-from-palette($foreground, divider, 0.07);
+        @include mat.elevation(
+          3,
+          mat.get-color-from-palette($background, tooltip),
+          0.4
+        );
         .box-header {
-          border-bottom: 1px solid mat-color($foreground, divider);
+          border-bottom: 1px solid
+            mat.get-color-from-palette($foreground, divider);
           .filter {
             .mat-icon {
-              color: mat-color($foreground, text, 0.5);
+              color: mat.get-color-from-palette($foreground, text, 0.5);
             }
           }
         }

@@ -1,9 +1,7 @@
 import {
   Component,
   Inject,
-  OnInit,
   ViewChild,
-  OnDestroy,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
@@ -17,7 +15,7 @@ import type { IBranding } from '@core/interface/branding/IBranding';
   styleUrls: ['./footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FooterComponent implements OnInit, OnDestroy {
+export class FooterComponent {
   panelOpenState = false;
 
   @ViewChild(MatAccordion) accordion: MatAccordion;
@@ -28,8 +26,4 @@ export class FooterComponent implements OnInit, OnDestroy {
     @Inject(IS_BUILDER_MODE)
     public isBuilderMode$: Observable<boolean>
   ) {}
-
-  ngOnInit(): void {}
-
-  ngOnDestroy(): void {}
 }

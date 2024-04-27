@@ -61,7 +61,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'x',
                     type: 'input',
-                    className: 'width-40 m-right-sm',
+                    className: 'w-2/5 mr-5',
                     defaultValue: content?.animate?.from?.x || 0,
                     templateOptions: {
                       label: 'X',
@@ -74,7 +74,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'y',
                     type: 'input',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     defaultValue: content?.animate?.from?.y || 0,
                     templateOptions: {
                       label: 'Y',
@@ -92,7 +92,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'rotation',
                     type: 'input',
-                    className: 'width-40 m-right-sm',
+                    className: 'w-2/5 mr-5',
                     defaultValue: content?.animate?.from?.rotation || 0,
                     templateOptions: {
                       label: '旋转',
@@ -105,7 +105,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'scale',
                     type: 'input',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     defaultValue: content?.animate?.from?.scale || 1,
                     templateOptions: {
                       label: '缩放',
@@ -123,7 +123,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'opacity',
                     type: 'input',
-                    className: 'width-40 m-right-sm',
+                    className: 'w-2/5 mr-5',
                     defaultValue: isUndefined(content?.animate?.from?.opacity)
                       ? 1
                       : content?.animate?.from?.opacity,
@@ -138,7 +138,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'delay',
                     type: 'input',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     defaultValue: content?.animate?.from?.delay || 0,
                     templateOptions: {
                       label: '延迟',
@@ -151,7 +151,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'duration',
                     type: 'input',
-                    className: 'width-40 m-right-sm',
+                    className: 'w-2/5 mr-5',
                     defaultValue: content?.animate?.from?.duration || 1,
                     templateOptions: {
                       label: '时长',
@@ -165,7 +165,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'ease',
                     defaultValue: content?.animate?.from?.ease || 'none',
                     type: 'select',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     templateOptions: {
                       label: '缓动曲线',
                       options: [
@@ -204,7 +204,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'onEnter',
                     type: 'select',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     defaultValue: content?.animate?.trigger?.onEnter || 'play',
                     templateOptions: {
                       label: '元素进入视线',
@@ -214,7 +214,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'onLeave',
                     type: 'select',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     defaultValue: content?.animate?.trigger?.onLeave || 'none',
                     templateOptions: {
                       label: '元素离开视线',
@@ -224,7 +224,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'onEnterBack',
                     type: 'select',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     defaultValue:
                       content?.animate?.trigger?.onEnterBack || 'none',
                     templateOptions: {
@@ -235,7 +235,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'onLeaveBack',
                     type: 'select',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     defaultValue:
                       content?.animate?.trigger?.onLeaveBack || 'none',
                     templateOptions: {
@@ -251,7 +251,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'start',
                     type: 'input',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     defaultValue: content?.animate?.trigger?.start || 'top 90%',
                     templateOptions: {
                       label: '触发开始位置',
@@ -260,7 +260,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'end',
                     type: 'input',
-                    className: 'width-40',
+                    className: 'w-2/5',
                     defaultValue: content?.animate?.trigger?.end || 'top 40%',
                     templateOptions: {
                       label: '触发结束位置',

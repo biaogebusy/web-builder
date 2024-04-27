@@ -13,7 +13,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'width',
               defaultValue: ele.style.width || 'auto',
-              className: 'width-40',
+              className: 'w-2/5',
               templateOptions: {
                 label: 'W',
               },
@@ -21,7 +21,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'height',
-              className: 'width-40',
+              className: 'w-2/5',
               defaultValue: ele.style.height || 'auto',
               templateOptions: {
                 label: 'H',
@@ -30,7 +30,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'opacity',
-              className: 'width-40',
+              className: 'w-2/5',
               defaultValue: ele.style.opacity || 1,
               templateOptions: {
                 label: 'Opacity',
@@ -41,7 +41,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'borderRadius',
-              className: 'width-40',
+              className: 'w-2/5',
               defaultValue: ele.style.borderRadius || 0,
               templateOptions: {
                 label: '圆角',
@@ -103,8 +103,8 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
       key: 'src',
       defaultValue: ele.src,
       templateOptions: {
-        updateLabel: '更新背景图',
-        addLabel: '设置背景图',
+        updateLabel: '更新图片',
+        addLabel: '设置图片',
         deleteLabel: '删除',
         fileName: ele.getAttribute('src').split('/').pop(),
         alt: ele.getAttribute('alt'),
