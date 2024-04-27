@@ -90,7 +90,7 @@ const oreder: IDashboard = {
           type: 'mat-select',
           key: 'position',
           defaultValue: 2023,
-          className: 'display-block',
+          className: 'block',
           templateOptions: {
             label: '年份',
             description: '请选择年份',
@@ -610,7 +610,7 @@ const advert: IDashboard = {
           type: 'mat-select',
           key: 'position',
           defaultValue: 2023,
-          className: 'display-block',
+          className: 'block',
           templateOptions: {
             label: '年份',
             description: '请选择年份',

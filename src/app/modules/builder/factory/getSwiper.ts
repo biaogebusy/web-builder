@@ -177,7 +177,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                 {
                   key: 'type',
                   type: 'select',
-                  className: 'width-40',
+                  className: 'w-2/5',
                   templateOptions: {
                     label: '类型',
                     options: [
@@ -201,7 +201,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'clickable',
                   type: 'toggle',
                   templateOptions: {
-                    className: 'width-40',
+                    className: 'w-2/5',
                     label: '可点击',
                   },
                   expressionProperties: {

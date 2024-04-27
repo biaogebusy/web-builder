@@ -4,9 +4,9 @@
     <app-dynamic-component [inputs]="{content:item}" *ngFor="let item of content.left"></app-dynamic-component>
   </div>
   <div class="middle" fxFlex.lt-md="100" fxFlex.gt-sm="35">
-    <app-summary-item class="display-block p-x-sm p-y-sm" [content]="content.middle"></app-summary-item>
+    <app-summary-item class="block p-x-sm p-y-sm" [content]="content.middle"></app-summary-item>
   </div>
   <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="35">
-    <app-summary-item class="display-block p-x-sm p-y-sm" [content]="content.right"></app-summary-item>
+    <app-summary-item class="block p-x-sm p-y-sm" [content]="content.right"></app-summary-item>
   </div>
 </div>

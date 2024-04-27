@@ -52,7 +52,7 @@ const content: ILottery = {
     {
       key: 'max',
       className: 'm-bottom-sm',
-      fieldGroupClassName: 'display-flex flex-wrap',
+      fieldGroupClassName: 'flex flex-wrap',
       fieldGroup: [
         {
           type: 'input',
@@ -100,7 +100,7 @@ const content: ILottery = {
     {
       key: 'min',
       className: 'm-bottom-sm m-top-sm',
-      fieldGroupClassName: 'display-flex flex-wrap',
+      fieldGroupClassName: 'flex flex-wrap',
       fieldGroup: [
         {
           type: 'input',
@@ -197,7 +197,7 @@ const content: ILottery = {
     },
     {
       key: 'promote',
-      fieldGroupClassName: 'display-flex flex-wrap',
+      fieldGroupClassName: 'flex flex-wrap',
       fieldGroup: [
         {
           type: 'select',

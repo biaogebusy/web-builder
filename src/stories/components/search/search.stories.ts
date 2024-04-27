@@ -67,7 +67,7 @@ const content: ISearch = {
     {
       key: 'keys',
       type: 'input',
-      className: 'display-block',
+      className: 'block',
       templateOptions: {
         label: '关键词',
         appearance: 'legacy',
@@ -77,7 +77,7 @@ const content: ISearch = {
     {
       type: 'select',
       key: 'skill',
-      className: 'display-block',
+      className: 'block',
       templateOptions: {
         label: '技能',
         options: [
@@ -103,7 +103,7 @@ const content: ISearch = {
     {
       type: 'select',
       key: 'cms',
-      className: 'display-block',
+      className: 'block',
       templateOptions: {
         label: 'CMS',
         options: [
@@ -129,7 +129,7 @@ const content: ISearch = {
     {
       type: 'checkbox',
       key: 'article',
-      className: 'display-block',
+      className: 'block',
       templateOptions: {
         label: '文章',
       },
@@ -137,7 +137,7 @@ const content: ISearch = {
     {
       type: 'checkbox',
       key: 'blog',
-      className: 'display-block',
+      className: 'block',
       templateOptions: {
         label: '博客',
       },

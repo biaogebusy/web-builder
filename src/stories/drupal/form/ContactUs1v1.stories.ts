@@ -54,12 +54,12 @@ const content: IContactUs1v1 = {
     {
       key: 'form',
       className: 'm-bottom-sm',
-      fieldGroupClassName: 'display-flex flex-wrap',
+      fieldGroupClassName: 'flex flex-wrap',
       fieldGroup: [
         {
           type: 'input',
           key: 'name',
-          className: 'width-40 m-right-sm',
+          className: 'w-2/5 m-right-sm',
           templateOptions: {
             label: '姓名',
             required: true,
@@ -68,7 +68,7 @@ const content: IContactUs1v1 = {
         {
           type: 'input',
           key: 'email',
-          className: 'width-40 m-right-sm',
+          className: 'w-2/5 m-right-sm',
           templateOptions: {
             label: '邮箱',
             required: true,
@@ -77,7 +77,7 @@ const content: IContactUs1v1 = {
         {
           type: 'input',
           key: 'subject',
-          className: 'width-40 m-right-sm',
+          className: 'w-2/5 m-right-sm',
           templateOptions: {
             label: '主题',
             required: true,

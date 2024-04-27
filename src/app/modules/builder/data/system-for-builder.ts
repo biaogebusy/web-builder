@@ -56,7 +56,7 @@ export const system: any[] = [
                   type: 'mat-select',
                   key: 'position',
                   defaultValue: 2023,
-                  className: 'display-block',
+                  className: 'block',
                   templateOptions: {
                     label: '年份',
                     description: '请选择年份',
@@ -700,7 +700,7 @@ export const system: any[] = [
                   type: 'mat-select',
                   key: 'position',
                   defaultValue: 2023,
-                  className: 'display-block',
+                  className: 'block',
                   templateOptions: {
                     label: '年份',
                     description: '请选择年份',
@@ -2190,7 +2190,7 @@ export const system: any[] = [
             {
               key: 'keys',
               type: 'input',
-              className: 'display-block',
+              className: 'block',
               templateOptions: {
                 label: '关键词',
                 appearance: 'legacy',
@@ -2200,7 +2200,7 @@ export const system: any[] = [
             {
               type: 'select',
               key: 'skill',
-              className: 'display-block',
+              className: 'block',
               templateOptions: {
                 label: '技能',
                 options: [
@@ -2226,7 +2226,7 @@ export const system: any[] = [
             {
               type: 'select',
               key: 'cms',
-              className: 'display-block',
+              className: 'block',
               templateOptions: {
                 label: 'CMS',
                 options: [
@@ -2252,7 +2252,7 @@ export const system: any[] = [
             {
               type: 'checkbox',
               key: 'article',
-              className: 'display-block',
+              className: 'block',
               templateOptions: {
                 label: '文章',
               },
@@ -2260,7 +2260,7 @@ export const system: any[] = [
             {
               type: 'checkbox',
               key: 'blog',
-              className: 'display-block',
+              className: 'block',
               templateOptions: {
                 label: '博客',
               },
@@ -3378,12 +3378,12 @@ export const system: any[] = [
             {
               key: 'form',
               className: 'm-bottom-sm',
-              fieldGroupClassName: 'display-flex flex-wrap',
+              fieldGroupClassName: 'flex flex-wrap',
               fieldGroup: [
                 {
                   type: 'input',
                   key: 'name',
-                  className: 'width-40 m-right-sm',
+                  className: 'w-2/5 m-right-sm',
                   templateOptions: {
                     label: '姓名',
                     required: true,
@@ -3392,7 +3392,7 @@ export const system: any[] = [
                 {
                   type: 'input',
                   key: 'email',
-                  className: 'width-40 m-right-sm',
+                  className: 'w-2/5 m-right-sm',
                   templateOptions: {
                     label: '邮箱',
                     required: true,
@@ -3401,7 +3401,7 @@ export const system: any[] = [
                 {
                   type: 'input',
                   key: 'subject',
-                  className: 'width-40 m-right-sm',
+                  className: 'w-2/5 m-right-sm',
                   templateOptions: {
                     label: '主题',
                     required: true,
@@ -4455,7 +4455,7 @@ export const system: any[] = [
             {
               key: 'circle',
               className: 'width-100',
-              fieldGroupClassName: 'display-flex flex-wrap width-100',
+              fieldGroupClassName: 'flex flex-wrap width-100',
               fieldGroup: [
                 {
                   type: 'input',

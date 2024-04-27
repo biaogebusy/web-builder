@@ -84,7 +84,7 @@ Default.args = {
     header,
     form: [
       {
-        fieldGroupClassName: 'display-flex flex-wrap',
+        fieldGroupClassName: 'flex flex-wrap',
         fieldGroup: [
           {
             type: 'input',
@@ -132,7 +132,7 @@ Default.args = {
           {
             type: 'input',
             key: 'page',
-            className: 'display-none',
+            className: 'hidden',
             templateOptions: {
               label: '页码',
             },

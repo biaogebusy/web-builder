@@ -17,7 +17,7 @@ $dark-theme: mat.define-dark-theme(
 );
 
 .dark-theme {
-  @include mat.all-component-themes($dark-theme);
+  @include mat.all-component-colors($dark-theme);
   @include base-colors($dark-theme);
   @include component-theme($dark-theme);
 }

@@ -68,13 +68,13 @@ const content: IReport = {
     {
       key: 'filter',
       className: '',
-      fieldGroupClassName: 'display-flex flex-wrap',
+      fieldGroupClassName: 'flex flex-wrap',
       fieldGroup: [
         {
           type: 'mat-select',
           key: 'position',
           defaultValue: 5,
-          className: 'display-block m-bottom-sm m-right-sm',
+          className: 'block m-bottom-sm m-right-sm',
           templateOptions: {
             label: '位置距离',
             description: '请选择位置距离',
@@ -126,7 +126,7 @@ const content: IReport = {
           type: 'mat-select',
           key: 'shop',
           defaultValue: 5,
-          className: 'display-block m-bottom-sm m-right-sm',
+          className: 'block m-bottom-sm m-right-sm',
           templateOptions: {
             label: '指定门店',
             description: '请选择门店',
@@ -405,13 +405,13 @@ const workTime: IReport = {
     {
       key: 'filter',
       className: '',
-      fieldGroupClassName: 'display-flex flex-wrap',
+      fieldGroupClassName: 'flex flex-wrap',
       fieldGroup: [
         {
           type: 'mat-select',
           key: 'lawyer',
           defaultValue: 5,
-          className: 'display-block m-bottom-sm m-right-sm',
+          className: 'block m-bottom-sm m-right-sm',
           templateOptions: {
             label: '选择项目经理',
             description: '选择项目经理',
@@ -431,7 +431,7 @@ const workTime: IReport = {
           type: 'mat-select',
           key: 'year',
           defaultValue: 5,
-          className: 'display-block m-bottom-sm m-right-sm',
+          className: 'block m-bottom-sm m-right-sm',
           templateOptions: {
             label: '年份',
             description: '请选择年份',
@@ -632,13 +632,13 @@ const singleMode: IReport = {
     {
       key: 'filter',
       className: '',
-      fieldGroupClassName: 'display-flex flex-wrap',
+      fieldGroupClassName: 'flex flex-wrap',
       fieldGroup: [
         {
           type: 'mat-select',
           key: 'lawyer',
           defaultValue: 5,
-          className: 'display-block m-bottom-sm m-right-sm',
+          className: 'block m-bottom-sm m-right-sm',
           templateOptions: {
             label: '选择客户',
             description: '请选择客户',
@@ -658,7 +658,7 @@ const singleMode: IReport = {
           type: 'mat-select',
           key: 'position',
           defaultValue: 5,
-          className: 'display-block m-bottom-sm m-right-sm',
+          className: 'block m-bottom-sm m-right-sm',
           templateOptions: {
             label: '年份',
             description: '请选择年份',

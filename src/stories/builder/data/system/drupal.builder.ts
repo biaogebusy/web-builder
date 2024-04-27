@@ -195,7 +195,7 @@ export const drupal = [
       ],
       form: [
         {
-          fieldGroupClassName: 'display-flex flex-wrap',
+          fieldGroupClassName: 'flex flex-wrap',
           fieldGroup: [
             {
               type: 'input',
@@ -207,7 +207,7 @@ export const drupal = [
             {
               type: 'input',
               key: 'page',
-              className: 'display-none',
+              className: 'hidden',
               templateOptions: {
                 label: '页码',
               },

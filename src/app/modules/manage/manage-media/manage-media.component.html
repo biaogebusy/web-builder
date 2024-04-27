@@ -24,8 +24,8 @@
                   (click)="onDelete(item.id,assets.type)"
                   [content]="{label:'', mode: 'icon' ,icon:{svg:'delete' } }"></app-btn>
               </div>
-              <app-dynamic-component [ngClass]="{selected:isSelected(item)}" (click)="onSelect(item)"
-                class="display-block" [inputs]="{content:item}"></app-dynamic-component>
+              <app-dynamic-component [ngClass]="{selected:isSelected(item)}" (click)="onSelect(item)" class="block"
+                [inputs]="{content:item}"></app-dynamic-component>
             </div>
           </div>
           <ng-template #empty>

@@ -17,7 +17,7 @@
         <ng-container *ngIf="isBuilderMode$ | async">
           <app-layout-toolbar [lbContent]="content" [i]="i" [layout]="layout"
             [pageIndex]="pageIndex"></app-layout-toolbar>
-          <div class="placeholder" [attr.data-path]="'elements.'+i" fxFill fxLayoutAlign="center center"
+          <div class="placeholder flex justify-center items-center" [attr.data-path]="'elements.'+i"
             *ngIf="layout.elements.length === 0">
             <app-btn matTooltip="插入组件" (click)="addBlock('widget',content,$event)"
               [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>

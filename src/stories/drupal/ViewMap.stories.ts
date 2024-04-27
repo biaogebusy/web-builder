@@ -242,7 +242,7 @@ Circle.args = {
       {
         key: 'circle',
         className: 'width-100',
-        fieldGroupClassName: 'display-flex flex-wrap width-100',
+        fieldGroupClassName: 'flex flex-wrap width-100',
         fieldGroup: [
           {
             type: 'input',

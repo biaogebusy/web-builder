@@ -24,7 +24,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'xs',
-              className: 'width-40',
+              className: 'w-2/5',
               defaultValue: layout?.row?.xs || 12,
               templateOptions: {
                 min: 1,
@@ -36,7 +36,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'sm',
-              className: 'width-40',
+              className: 'w-2/5',
               defaultValue: layout?.row?.sm || 12,
               templateOptions: {
                 min: 1,
@@ -48,7 +48,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'md',
-              className: 'width-40',
+              className: 'w-2/5',
               defaultValue: layout?.row?.md || 12,
               templateOptions: {
                 min: 1,
@@ -60,7 +60,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'lg',
-              className: 'width-40',
+              className: 'w-2/5',
               defaultValue: layout?.row?.lg || 12,
               templateOptions: {
                 min: 1,
@@ -77,7 +77,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
   const flexLayout: FormlyFieldConfig[] = [
     {
       className: 'layout-setting width-100',
-      fieldGroupClassName: 'display-flex flex-wrap width-100',
+      fieldGroupClassName: 'flex flex-wrap width-100',
       fieldGroup: [
         {
           className: 'width-100 m-bottom-md',
@@ -125,7 +125,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         {
           type: 'input',
           key: 'layoutAlign',
-          className: 'width-100 display-none',
+          className: 'width-100 hidden',
           defaultValue: layout.layoutAlign || 'center center',
           templateOptions: {
             label: '布局对齐',
@@ -250,7 +250,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         {
           key: 'style',
           className: 'width-100',
-          fieldGroupClassName: 'display-flex flex-wrap width-100',
+          fieldGroupClassName: 'flex flex-wrap width-100',
           fieldGroup: [
             {
               type: 'input',
@@ -271,7 +271,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
                 {
                   type: 'input',
                   key: 'padding',
-                  className: 'width-40 m-right-sm',
+                  className: 'w-2/5 mr-5',
                   defaultValue: layout?.style?.padding,
                   templateOptions: {
                     label: 'Padding',
@@ -280,7 +280,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
                 {
                   type: 'input',
                   key: 'margin',
-                  className: 'width-40',
+                  className: 'w-2/5',
                   defaultValue: layout?.style?.margin,
                   templateOptions: {
                     label: 'Margin',

@@ -55,7 +55,7 @@ const base: FormlyFieldConfig[] = [
     type: 'input',
     key: 'total',
     defaultValue: 300,
-    className: 'display-block m-bottom-sm',
+    className: 'block m-bottom-sm',
     templateOptions: {
       label: '大额红包总金额',
       type: 'number',
@@ -78,7 +78,7 @@ const base: FormlyFieldConfig[] = [
   {
     key: 'Textarea',
     type: 'textarea',
-    className: 'display-block m-bottom-sm',
+    className: 'block m-bottom-sm',
     templateOptions: {
       label: '文本域',
       placeholder: 'Placeholder',
@@ -89,7 +89,7 @@ const base: FormlyFieldConfig[] = [
   {
     key: 'Checkbox',
     type: 'checkbox',
-    className: 'display-block m-bottom-sm',
+    className: 'block m-bottom-sm',
     templateOptions: {
       label: '接受协议',
       description: '为了更好的服务，网站将收集用户的Cookies信息。',
@@ -105,7 +105,7 @@ const base: FormlyFieldConfig[] = [
   {
     key: 'Radio',
     type: 'radio',
-    className: 'display-block m-bottom-sm',
+    className: 'block m-bottom-sm',
     templateOptions: {
       label: '单选框',
       placeholder: 'Placeholder',
@@ -123,7 +123,7 @@ const base: FormlyFieldConfig[] = [
     type: 'select',
     key: 'type',
     defaultValue: 'fixed',
-    className: 'display-block m-bottom-sm',
+    className: 'block m-bottom-sm',
     templateOptions: {
       label: '下拉单选',
       description: '固定金额或者按比例',
@@ -142,7 +142,7 @@ const base: FormlyFieldConfig[] = [
   {
     type: 'mat-select',
     key: 'customer',
-    className: 'display-block m-bottom-sm',
+    className: 'block m-bottom-sm',
     templateOptions: {
       multiple: true,
       search: true,
@@ -164,7 +164,7 @@ const base: FormlyFieldConfig[] = [
       value: '',
       placeholder: '请选择日期',
     },
-    className: 'display-block m-bottom-sm',
+    className: 'block m-bottom-sm',
     fieldGroup: [
       {
         type: 'input',
@@ -179,7 +179,7 @@ const base: FormlyFieldConfig[] = [
   {
     key: 'isPromote',
     type: 'toggle',
-    className: 'display-block m-bottom',
+    className: 'block m-bottom',
     templateOptions: {
       label: '开关',
       description: '超过推广次数则推广结束',
@@ -200,7 +200,7 @@ const group: FormlyFieldConfig[] = [
   {
     key: 'max',
     className: 'm-bottom-sm',
-    fieldGroupClassName: 'display-flex flex-wrap',
+    fieldGroupClassName: 'flex flex-wrap',
     fieldGroup: [
       {
         type: 'input',
@@ -249,7 +249,7 @@ const group: FormlyFieldConfig[] = [
   {
     key: 'min',
     className: 'm-bottom-sm',
-    fieldGroupClassName: 'display-flex flex-wrap',
+    fieldGroupClassName: 'flex flex-wrap',
     fieldGroup: [
       {
         type: 'input',
@@ -308,7 +308,7 @@ HideExpression.storyName = '条件隐藏';
 const hide: FormlyFieldConfig[] = [
   {
     key: 'promote',
-    fieldGroupClassName: 'display-flex flex-wrap',
+    fieldGroupClassName: 'flex flex-wrap',
     fieldGroup: [
       {
         type: 'select',
@@ -774,12 +774,12 @@ ImgPicker.args = {
   options,
   fields: [
     {
-      className: 'display-flex',
+      className: 'flex',
       fieldGroup: [
         {
           key: 'src',
           type: 'img-picker',
-          className: 'width-40',
+          className: 'w-2/5',
           defaultValue: '/assets/images/avatar/01.jpeg',
           templateOptions: {
             updateLabel: '更新背景图',

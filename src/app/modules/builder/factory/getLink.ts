@@ -44,7 +44,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'rel',
               type: 'input',
-              className: 'width-100 display-none',
+              className: 'width-100 hidden',
               defaultValue: widget.rel || '',
               templateOptions: {
                 type: 'text',

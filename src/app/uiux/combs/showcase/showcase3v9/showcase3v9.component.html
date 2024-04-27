@@ -12,7 +12,7 @@
       </div>
       <div class="right" [fxFlexOrder]="content.order.right" fxFlex.lt-md="100%" fxFlex.gt-sm="42%" fxLayout="row wrap"
         fxLayoutAlign="center center">
-        <app-dynamic-component [attr.data-path]="'right.'+i" class="display-block p-x-sm width-100"
+        <app-dynamic-component [attr.data-path]="'right.'+i" class="block p-x-sm width-100"
           *ngFor="let item of content.right;index as i" [inputs]="{content:item}">
         </app-dynamic-component>
       </div>

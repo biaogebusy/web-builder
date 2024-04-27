@@ -936,7 +936,7 @@
         "type": "select",
         "key": "hero",
         "defaultValue": 1,
-        "className": "display-block m-bottom-sm",
+        "className": "block m-bottom-sm",
         "templateOptions": {
           "label": "选择首屏个数",
           "description": "页面菜单下的第一个首屏组件",
@@ -972,7 +972,7 @@
         "type": "select",
         "key": "showcase",
         "defaultValue": 3,
-        "className": "display-block m-bottom-sm",
+        "className": "block m-bottom-sm",
         "templateOptions": {
           "label": "选择 Showcase 个数",
           "description": "一般一个页面会有多个 Showcase 组件",
@@ -1024,7 +1024,7 @@
         "type": "select",
         "key": "carousel",
         "defaultValue": 1,
-        "className": "display-block m-bottom-sm",
+        "className": "block m-bottom-sm",
         "templateOptions": {
           "label": "选择幻灯片个数",
           "description": "幻灯片不宜太多，生成后可重排",
@@ -1060,7 +1060,7 @@
         "type": "select",
         "key": "masonry",
         "defaultValue": 0,
-        "className": "display-block m-bottom-sm",
+        "className": "block m-bottom-sm",
         "templateOptions": {
           "label": "选择瀑布流组件个数",
           "description": "瀑布流组件一般只需要一个",

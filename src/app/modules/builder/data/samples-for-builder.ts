@@ -566,7 +566,7 @@ export const samples = [
               ],
               form: [
                 {
-                  fieldGroupClassName: 'display-flex flex-wrap',
+                  fieldGroupClassName: 'flex flex-wrap',
                   fieldGroup: [
                     {
                       type: 'input',
@@ -578,7 +578,7 @@ export const samples = [
                     {
                       type: 'input',
                       key: 'page',
-                      className: 'display-none',
+                      className: 'hidden',
                       templateOptions: {
                         label: '页码',
                       },
