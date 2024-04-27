@@ -8,6 +8,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import type { IPlayer } from '@core/interface/widgets/IPlayer';
+import { ScreenService } from '@core/service/screen.service';
 import videojs from 'video.js';
 
 @Component({
@@ -24,10 +25,15 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   player: any;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(
+    private elementRef: ElementRef,
+    private screenSerivce: ScreenService
+  ) {}
 
   ngOnInit(): void {
-    this.player = videojs(this.target.nativeElement, this.content.options);
+    if (this.screenSerivce.isPlatformBrowser()) {
+      this.player = videojs(this.target.nativeElement, this.content.options);
+    }
   }
 
   ngOnDestroy(): void {

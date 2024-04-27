@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { Subject } from 'rxjs';
@@ -32,11 +33,17 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   valueChange$: Subject<any> = new Subject<any>();
 
-  constructor(private builder: BuilderState, private cd: ChangeDetectorRef) {
-    this.editorOptions = new JsonEditorOptions();
-    this.editorOptions.mode = 'code'; // set only one mode
-    this.editorOptions.enableTransform = false;
-    this.editorOptions.enableSort = false;
+  constructor(
+    private builder: BuilderState,
+    private cd: ChangeDetectorRef,
+    private screenService: ScreenService
+  ) {
+    if (this.screenService.isPlatformBrowser()) {
+      this.editorOptions = new JsonEditorOptions();
+      this.editorOptions.mode = 'code'; // set only one mode
+      this.editorOptions.enableTransform = false;
+      this.editorOptions.enableSort = false;
+    }
   }
   ngOnInit(): void {
     this.data = this.content.data;
