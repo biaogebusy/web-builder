@@ -61,7 +61,7 @@
 
 ## 技术选型
 
-- 前端：Angular + Material + FlexLayout
+- 前端：Angular + Material + FlexLayout(将慢慢废弃) + TailwindCss
 - 动态表单：ngx-formly
 - web 动画：gsap
 - 图表：Echarts
@@ -94,6 +94,13 @@
 | 内容区组件导航      | 边栏可通过导航查看组件，可上下拖动排序                                                                                                                                                                                                                                                             |
 | 页面预览            | 调转到新窗口查看真实的页面                                                                                                                                                                                                                                                                         |
 | 响应式预览          | 可切换不同设备尺寸查看页面响应式排版                                                                                                                                                                                                                                                               |
+
+## 对应版本
+
+| Web builder | Angular |
+| :---------- | :------ |
+| v5          | v12     |
+| <=v4        | v11     |
 
 ## 开发指南
 
