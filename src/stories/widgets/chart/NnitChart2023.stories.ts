@@ -599,7 +599,7 @@ ITChart06.args = {
     ],
     series: [
       {
-        name: '2022',
+        name: '2023',
         type: 'pie',
         radius: '50%',
         label: {
