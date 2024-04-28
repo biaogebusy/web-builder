@@ -14,7 +14,7 @@
         [alt]="content.alt || ''" />
     </a>
   </ng-template>
-  <div class="actions" *ngIf="content.actions" fxLayoutAlign="center center" fxLayoutGap="1rem">
+  <div class="actions flex justify-center items-center gap-3" *ngIf="content.actions">
     <app-dynamic-component [inputs]="{content: action,disableToolbar:true}"
       *ngFor="let action of content.actions"></app-dynamic-component>
   </div>
