@@ -11,7 +11,7 @@
           *ngFor="let item of content.elements;index as i" fxFlex.xs="100%" fxFlex.sm="50%"
           [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>
       </div>
-      <div class="actions m-top p-bottom-xs" *ngIf="content.actions" fxLayoutAlign="center center">
+      <div class="actions m-top pb-[10px]" *ngIf="content.actions" fxLayoutAlign="center center">
         <ng-container *ngFor="let action of content.actions;index as i">
           <app-dynamic-component [attr.data-path]="'actions.'+i" [inputs]="action"></app-dynamic-component>
         </ng-container>
