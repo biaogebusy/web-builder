@@ -19,7 +19,7 @@
           {{item.count}} 个人回答
         </button>
       </div>
-      <mat-divider *ngIf="!isLast" class="my-5"></mat-divider>
+      <mat-divider *ngIf="!isLast" class="!my-5"></mat-divider>
     </div>
     <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
   </div>
