@@ -9,9 +9,9 @@ module.exports = {
     "@storybook/addon-postcss",
   ],
   framework: "@storybook/angular",
-  // core: {
-  //   builder: "@storybook/builder-webpack5",
-  // },
+  core: {
+    builder: "@storybook/builder-webpack5",
+  },
   features: {
     interactionsDebugger: true,
   },
