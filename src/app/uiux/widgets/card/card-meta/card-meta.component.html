@@ -3,7 +3,7 @@
     <span fxFlex="0 0 auto" class="bold m-right-xs" *ngIf="meta.label">{{meta.label}}: </span>
     <!-- params -->
     <div class="right width-100" fxLayoutAlign="start end" *ngIf="meta?.params">
-      <span *ngIf="meta.value | isString" class="{{meta?.params?.line || 'two'}}-line p-right-xs"
+      <span *ngIf="meta.value | isString" class="{{meta?.params?.line || 'two'}}-line pr-[10px]"
         [innerHTML]="meta.value | stripTags | shorten:meta.params?.shorten||200"></span>
       <!-- dialog -->
       <ng-container *ngIf="meta?.params?.dialog">

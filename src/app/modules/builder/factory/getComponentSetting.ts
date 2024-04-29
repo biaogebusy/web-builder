@@ -121,7 +121,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             },
             {
               key: 'bg',
-              className: 'm-top-sm',
+              className: 'w-full mt-3',
               fieldGroup: [
                 {
                   key: 'img',

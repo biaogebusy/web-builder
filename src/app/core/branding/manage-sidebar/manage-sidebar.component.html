@@ -8,7 +8,7 @@
             <img [src]="user.picture || coreConfig.defaultAvatar" alt="">
           </a>
           <ng-container *ngIf="drawer.opened">
-            <div class="name bold p-top-xs">
+            <div class="name bold pt-[10px]">
               <a class="one-line" [routerLink]="userService.userPage">{{user.display_name}}</a>
             </div>
             <div class="email one-line" *ngIf="user.mail">

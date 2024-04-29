@@ -1,11 +1,11 @@
-<div class="contact-us positive-relative" *ngIf="content">
+<div class="contact-us relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [content]="content.bg" *ngIf="content.bg">
   </app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}">
-    <form fxLayout="row wrap" fxFlex="100" (ngSubmit)="onSubmit()" fxLayoutAlign="center center" [formGroup]="form">
-      <div class="inner" fxFlex="0 0 100" fxLayoutAlign="center center" fxLayout="row wrap">
+    <form class="flex flex-wrap justify-center items-center" [formGroup]="form">
+      <div class="inner flex flex-wrap justify-center items-center">
         <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
           <div class="p-x-sm">
             <app-box [attr.data-path]="'contact.'+i" *ngFor="let item of content.contact;index as i"

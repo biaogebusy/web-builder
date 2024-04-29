@@ -4,7 +4,7 @@
   </div>
   <json-editor [matTooltip]="content.tooltip||''" [options]="editorOptions" [data]="data"
     (change)="onChange($event)"></json-editor>
-  <div #actions class="actions m-top p-bottom-xs" *ngIf="content.actions"
+  <div #actions class="actions m-top pb-[10px]" *ngIf="content.actions"
     fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
     <ng-container *ngFor="let action of content.actions">
       <ng-container [ngSwitch]="action.type">

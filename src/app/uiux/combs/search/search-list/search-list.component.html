@@ -18,8 +18,8 @@
         </h2>
         <div class="content" *ngIf="item.body"
           [innerHTML]="item.body | stripTags:'strong':'a':'em' | shorten: 150: '...'|safeHtml "></div>
-        <div class="bottom m-y-sm" fxLayoutAlign="space-between center">
-          <div fxLayoutGap="1rem" fxLayout fxLayoutAlign="start center">
+        <div class="flex justify-between items-center my-3 bottom">
+          <div class="flex justify-start items-center gap-3">
             <div>{{item.user | ucfirst}}</div>
             <div>{{item?.type}}</div>
             <div [innerHTML]="item?.category|safeHtml" *ngIf="item.category"></div>
@@ -35,7 +35,7 @@
     </div>
     <app-pagination *ngIf="content?.length > 0;else empty" (pageChange)="onPageChange($event)"></app-pagination>
     <ng-template #empty>
-      <div class="text-center p-y-xl">
+      <div class="text-center py-10">
         <p>没有数据。</p>
       </div>
     </ng-template>

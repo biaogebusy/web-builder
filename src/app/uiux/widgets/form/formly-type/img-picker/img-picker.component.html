@@ -1,12 +1,12 @@
 <div class="img-picker">
-  <div class="meta m-top-sm" fxLayout="row" fxLayoutAlign="start center" *ngIf="formControl.value">
+  <div class="meta mt-3 flex flex-row justify-start items-center" *ngIf="formControl.value">
     <img src="{{formControl.value}}" alt="">
-    <div class="content" fxLayout="column">
+    <div class="content flex flex-col">
       <div class="title">{{field.templateOptions?.fileName}}</div>
       <div class="desc">{{field.templateOptions?.alt}}</div>
     </div>
   </div>
-  <div class="actions m-y-sm" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <div class="actions my-3 flex justify-center items-center gap-3">
     <app-btn *ngIf="formControl.value" (click)="remove()"
       [content]="{label:to.deleteLabel,color:'primary', mode: 'stroked' }"></app-btn>
     <app-btn (click)="openMedias()"

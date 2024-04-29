@@ -9,8 +9,7 @@
         [innerHTML]="content.suffix|safeHtml"></div>
     </div>
     <div [contentedit]="'body'" class="content m-bottom-sm" [innerHTML]="content.body|safeHtml"></div>
-    <div class="actions" *ngIf="content.actions" fxLayoutGap="1rem"
-      fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
+    <div class="actions gap-3" *ngIf="content.actions" fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
       <app-dynamic-component [attr.data-path]="'actions.'+i" [inputs]="{content: action}"
         *ngFor="let action of content.actions;index as i"></app-dynamic-component>
     </div>
