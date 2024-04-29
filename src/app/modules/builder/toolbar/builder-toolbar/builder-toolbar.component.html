@@ -12,13 +12,11 @@
         <div class="page-title" contenteditable="true" (blur)="onTitle($event)">{{page.title}}</div>
         <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
       </div>
-      <div class="middle text-primary" fxHide.lt-sm="true" fxFlex.lt-md="auto" fxFlex.gt-sm="33%"
-        fxLayoutAlign="center center" fxLayout="row">
+      <div class="middle text-primary justify-center items-center hidden md:flex">
         <app-switch-preview></app-switch-preview>
         <app-switch-theme></app-switch-theme>
       </div>
-      <div id="toolbar-right" class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center"
-        fxLayoutGap="0.5rem">
+      <div id="toolbar-right" class="right gap-1 flex justify-center items-center">
         <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)"
           [matTooltip]="(builderFullScreen$|async) ? '显示边栏' : '切换全宽'"></mat-slide-toggle>
         <app-btn fxHide.xs="true" [matTooltip]="(builder.previewListDrawer$|async)?'展开组件导航' : '收起组件导航'"

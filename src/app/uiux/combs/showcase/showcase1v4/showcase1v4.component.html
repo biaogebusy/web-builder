@@ -5,8 +5,7 @@
   <div class="{{content.fullWidth?'':'container'}}">
     <div [ngClass]="content.classes">
       <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
-      <div fxLayout="row wrap" fxLayoutGap.xs="0rem" fxLayoutAlign.gt-sm="center start"
-        fxLayoutAlign.lt-md="center center">
+      <div class="flex flex-row flex-wrap justify-center items-center md:items-start">
         <app-dynamic-component [attr.data-path]="'elements.'+i" class="box p-x-sm p-y-sm" [inputs]="item"
           *ngFor="let item of content.elements;index as i" fxFlex.xs="100%" fxFlex.sm="50%"
           [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>

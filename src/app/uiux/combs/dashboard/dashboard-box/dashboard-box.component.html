@@ -3,7 +3,7 @@
     <div class="mat-h3 bold m-bottom-0" *ngIf="content.title">
       {{content.title.label}}
     </div>
-    <div class="filter" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+    <div class="filter flex justify-center items-center gap-4">
       <app-formly *ngIf="content.form" [form]="form" [model]="model" [fields]="content.form"
         (modelChange)="onModelChange($event)"></app-formly>
       <app-icon *ngIf="content?.params?.api" (click)="reload()" [content]="{svg:'reload'}"></app-icon>
