@@ -1,6 +1,6 @@
-<div class="media-meta p-y" *ngIf="content" fxLayout="row wrap">
-  <div class="meta" *ngIf="showGtsm" fxLayout="column" fxLayoutGap="1rem" fxLayoutAlign="center center"
-    fxFlex.lt-md="100" fxFlex.gt-sm="0 0 10">
+<div class="media-meta py-5 flex flex-row flex-wrap" *ngIf="content">
+  <div class="meta flex flex-col gap-3 justify-center items-center" *ngIf="showGtsm" fxFlex.lt-md="100"
+    fxFlex.gt-sm="0 0 10">
     <div class="top">{{content.date| date:'d'}}</div>
     <div class="middle">
       {{content.date| date:'y-M'}}
