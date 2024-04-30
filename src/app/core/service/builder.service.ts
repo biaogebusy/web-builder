@@ -165,7 +165,7 @@ export class BuilderService extends ApiService {
 
   addBlock(addType: string, content: any, event: any): void {
     this.dialog.open(DialogComponent, {
-      width: '700px',
+      width: '800px',
       position: { bottom: '20px' },
       data: {
         disableCloseButton: true,

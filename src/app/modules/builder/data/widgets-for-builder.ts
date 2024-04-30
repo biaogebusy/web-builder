@@ -4,7 +4,7 @@ export const widgets = [
     icon: {
       svg: 'view-dashboard-outline',
     },
-    preview: '/assets/images/builder/widgets/layout-builder.jpeg',
+    preview: '/assets/images/builder/widgets/layout.png',
     content: {
       type: 'layout-builder',
       spacer: 'md',
