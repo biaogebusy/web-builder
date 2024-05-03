@@ -4,7 +4,7 @@
   </button>
 
   <mat-menu #menu="matMenu">
-    <button aria-label="switch lang item" *ngFor="let lang of langs" mat-menu-item>
+    <button (click)="onSwitchLanguage(lang)" aria-label="switch lang item" *ngFor="let lang of langs" mat-menu-item>
       <mat-icon *ngIf="currentLang.value !== lang.value">radio_button_unchecked</mat-icon>
       <mat-icon color="primary" *ngIf="currentLang.value === lang.value">radio_button_checked</mat-icon>
       <span>{{lang.label}}</span>

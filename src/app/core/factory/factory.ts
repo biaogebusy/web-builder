@@ -263,22 +263,29 @@ export function coreConfigFactory(
   coreConfig: object,
   lang: ILanguage
 ): any {
-  console.log(lang);
   return () => contentService.loadConfig(coreConfig, lang);
 }
 
-export function langFactory(): ILanguage | undefined {
+export function langFactory(router: Router): ILanguage | undefined {
   const { multiLang, langs } = environment;
+
   if (!multiLang) {
     return undefined;
   }
-
   if (multiLang && langs) {
-    const defLang = langs.find((item) => item.default);
-    if (!defLang) {
-      return undefined;
+    const { pathname } = window.location;
+    const lang = pathname.split('/')[1];
+    const currentLang = langs.find((item) => item.value === lang);
+    if (currentLang) {
+      return currentLang;
+    } else {
+      // default language
+      const defLang = langs.find((item) => item.default);
+      if (!defLang) {
+        return undefined;
+      }
+      return defLang;
     }
-    return defLang;
   }
 
   return undefined;

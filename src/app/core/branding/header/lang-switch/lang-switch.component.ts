@@ -27,4 +27,21 @@ export class LangSwitchComponent implements OnInit {
   ngOnInit(): void {
     this.currentLang = this.lang;
   }
+
+  onSwitchLanguage(lang: ILanguage): void {
+    this.currentLang = lang;
+    const { origin, pathname } = window.location;
+    const url = this.removeLangPrefix(pathname);
+    window.open(`${origin}${lang.prefix}${url}`, '_self');
+  }
+
+  removeLangPrefix(urlPath: string): string {
+    const pathParts = urlPath.split('/');
+    if (pathParts.length === 2) {
+      return `/${pathParts[1]}`;
+    } else {
+      const remainingPath = pathParts.slice(2).join('/');
+      return remainingPath;
+    }
+  }
 }

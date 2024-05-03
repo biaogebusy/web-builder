@@ -27,6 +27,11 @@ const routes: Routes = [
       import('./modules/builder/builder.module').then((m) => m.BuilderModule),
   },
   {
+    path: 'en/builder',
+    loadChildren: () =>
+      import('./modules/builder/builder.module').then((m) => m.BuilderModule),
+  },
+  {
     path: '**',
     component: BlockComponent,
     canActivate: [AuthGuard],

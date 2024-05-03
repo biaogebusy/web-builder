@@ -279,7 +279,7 @@ export class ComponentService {
     );
   }
 
-  setModule(type: string, loadModule: () => Promise<any>) {
+  setModule(type: string, loadModule: () => Promise<any>): void {
     this.moduleLists[type] = loadModule;
   }
 

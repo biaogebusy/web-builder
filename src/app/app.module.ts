@@ -101,6 +101,7 @@ import { ContentState } from '@core/state/ContentState';
     {
       provide: LANG,
       useFactory: langFactory,
+      deps: [Router],
     },
     {
       provide: API_URL,
