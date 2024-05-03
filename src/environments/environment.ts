@@ -11,6 +11,20 @@ export const environment: IEnvironment = {
   cache: false,
   ssr: false,
   drupalProxy: false,
+  multiLang: true,
+  langs: [
+    {
+      label: '中文',
+      value: 'zh',
+      prefix: '/',
+      default: true,
+    },
+    {
+      label: 'EN',
+      value: 'en',
+      prefix: '/en',
+    },
+  ],
 };
 
 /*

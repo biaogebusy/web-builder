@@ -24,6 +24,7 @@
           <app-notify class="has-icon" *ngIf="coreConfig.notify?.enable"></app-notify>
           <app-switch-theme class="has-icon" *ngIf="branding.header?.params?.themeSwitch"></app-switch-theme>
           <app-user-menu *ngIf="branding.header?.params?.userInfo" [content]="branding.header.userMenu"></app-user-menu>
+          <app-lang-switch></app-lang-switch>
         </div>
       </div>
     </div>

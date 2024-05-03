@@ -1,0 +1,1085 @@
+{
+  "defaultTheme": "blue-theme",
+  "theme": [
+    {
+      "name": "Blue Theme",
+      "style": "blue-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Pink Theme",
+      "style": "pink-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Green Theme",
+      "style": "green-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Dark Theme",
+      "style": "dark-theme",
+      "svgIcon": "dark_mode"
+    }
+  ],
+  "login": {
+    "loginRedirect": "/",
+    "left": {
+      "type": "layout-builder",
+      "spacer": "md",
+      "fullWidth": false,
+      "bg": {
+        "classes": "bg-fill-width"
+      },
+      "layoutAlign": "center center",
+      "gap": {
+        "xs": 0,
+        "sm": 0,
+        "md": 0,
+        "lg": 0
+      },
+      "elements": [
+        {
+          "row": {
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12
+          },
+          "direction": "column",
+          "horizontal": "flex-start",
+          "vertical": "flex-start",
+          "layoutAlign": "start start",
+          "bg": {
+            "img": {
+              "src": "",
+              "classes": "object-contain",
+              "alt": "bg-05"
+            },
+            "overlay": " ",
+            "classes": "bg-fill-width"
+          },
+          "classes": "",
+          "style": {
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "marginTop": "0px",
+            "marginRight": "0px",
+            "marginBottom": "0px",
+            "marginLeft": "0px"
+          },
+          "animate": {
+            "from": {
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scale": 1,
+              "opacity": 1,
+              "delay": 0,
+              "duration": 1,
+              "ease": "none"
+            },
+            "trigger": {
+              "onEnter": "play",
+              "onLeave": "none",
+              "onEnterBack": "none",
+              "onLeaveBack": "none",
+              "start": "top 90%",
+              "end": "top 40%"
+            }
+          },
+          "elements": [
+            {
+              "src": "/assets/images/logo/logo-blue.png",
+              "classes": "",
+              "alt": "alt",
+              "style": {
+                "aspectRatio": "auto",
+                "objectFit": "initial",
+                "width": "100px",
+                "height": "auto",
+                "opacity": 1,
+                "borderRadius": 0,
+                "boxShadow": "none"
+              },
+              "hostClasses": "text-center",
+              "animate": {
+                "from": {
+                  "x": 0,
+                  "y": "50",
+                  "rotation": 0,
+                  "scale": 1,
+                  "opacity": 0,
+                  "delay": 0,
+                  "duration": 1,
+                  "ease": "none"
+                },
+                "trigger": {
+                  "onEnter": "play",
+                  "onLeave": "none",
+                  "onEnterBack": "none",
+                  "onLeaveBack": "none",
+                  "start": "top 90%",
+                  "end": "top 40%"
+                },
+                "enable": true
+              },
+              "type": "img"
+            },
+            {
+              "spacer": "xs",
+              "body": "为您的企业构建现代化的响应式无代码网站：<ul class=\"list-done\"><li>从模板开始，根据需要进行自定义；</li><li>自定义主题色、字体创建品牌网站；</li><li>可视化编辑组件数据，所见即所得；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p>",
+              "animate": {
+                "from": {
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scale": 1,
+                  "opacity": 1,
+                  "delay": 0,
+                  "duration": 1,
+                  "ease": "none"
+                },
+                "trigger": {
+                  "onEnter": "play",
+                  "onLeave": "none",
+                  "onEnterBack": "none",
+                  "onLeaveBack": "none",
+                  "start": "top 90%",
+                  "end": "top 40%"
+                }
+              },
+              "type": "text",
+              "title": {
+                "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
+                "style": "style-v4",
+                "classes": "mat-display-1 bold"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "phoneLogin": {
+      "enable": true,
+      "tabLabel": "手机登录",
+      "leftTime": 59,
+      "submitLabel": "注册/登录",
+      "error": "请输入正确的手机号码"
+    },
+    "pswLogin": {
+      "enable": true,
+      "tabLabel": "密码登录",
+      "submitLabel": "登录"
+    }
+  },
+  "defaultLogo": "/assets/images/logo/logo.png",
+  "defaultAvatar": "/assets/images/avatar/01.jpeg",
+  "defaultThumb": "/assets/images/default.png",
+  "amap": {
+    "key": "33877188af64f0213ff4fa259b1c14b8",
+    "version": "1.4.15",
+    "plugins": [
+      "AMap.Geocoder"
+    ],
+    "city": "0771",
+    "zoom": 18,
+    "center": [
+      108.32067,
+      22.817424
+    ],
+    "mapStyle": {
+      "light": "amap://styles/1421728e809147de8bfac4fd1abd2fb3",
+      "dark": "amap://styles/50fcdf3719b8cd479cd3017044e49c22"
+    },
+    "features": [
+      "bg",
+      "road",
+      "point"
+    ]
+  },
+  "apiUrl": {
+    "loginPath": "/user/login",
+    "logoutPath": "/user/logout",
+    "userIdGetPath": "/api/v1",
+    "nodeGetPath": "/api/v1/node",
+    "commentGetPath": "/api/v1/comment",
+    "taxonomyGetPath": "/api/v1/taxonomy_term",
+    "flaggingGetPath": "/api/v1/flagging",
+    "userGetPath": "/api/v1/user/user",
+    "searchBak": {
+      "customer_staff": "/api/v1/customer-content",
+      "handler": "/api/v1/handler-content"
+    }
+  },
+  "github": {
+    "enable": true,
+    "owner": "biaogebusy",
+    "repo": "xinshi-ui",
+    "token": ""
+  },
+  "loading": true,
+  "loadingBar": true,
+  "article": {
+    "fontSize": {
+      "enable": true,
+      "form": [
+        {
+          "label": "字体大小",
+          "key": "font",
+          "value": 16,
+          "type": "input",
+          "placeholder": "Ex. 12",
+          "controlType": "number",
+          "appearance": "legacy",
+          "errorMes": "最小: 10px",
+          "tooltip": "通过键盘上下键可快速更改大小",
+          "matTooltipPosition": "above",
+          "suffix": "px"
+        }
+      ]
+    },
+    "login": {
+      "label": "登录"
+    },
+    "comment": {
+      "enable": true
+    }
+  },
+  "editor": {
+    "modules": {
+      "toolbar": [
+        [
+          {
+            "header": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              false
+            ]
+          }
+        ],
+        [
+          "bold",
+          "italic",
+          "underline",
+          "strike"
+        ],
+        [
+          "clean"
+        ],
+        [
+          {
+            "background": []
+          },
+          {
+            "color": []
+          }
+        ],
+        [
+          {
+            "align": []
+          }
+        ],
+        [
+          {
+            "list": "ordered"
+          },
+          {
+            "list": "bullet"
+          }
+        ],
+        [
+          {
+            "indent": "-1"
+          },
+          {
+            "indent": "+1"
+          }
+        ],
+        [
+          "link",
+          "image"
+        ],
+        [
+          "blockquote",
+          "code-block"
+        ]
+      ]
+    }
+  },
+  "actions": {
+    "flag": {
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "enable": true
+    },
+    "share": {
+      "button": {
+        "icon": "share",
+        "label": "分享"
+      },
+      "enable": true
+    },
+    "download": {
+      "label": "下载",
+      "icon": {
+        "name": "file_download",
+        "inline": true
+      },
+      "enable": true
+    }
+  },
+  "dialog": {
+    "forceDialogBak": {
+      "params": {
+        "width": "500px",
+        "path": "home",
+        "first": true
+      },
+      "text": {
+        "title": {
+          "label": "WARNING",
+          "style": "style-v1"
+        },
+        "spacer": "none",
+        "body": "尊敬的访问者，欢迎来到我们的网站。为了保护您的健康和工作效率，我们建议您每天只在我们的网站上浏览一个小时。这样可以避免长时间的屏幕时间对您的眼睛和身体造成不必要的负担。同时，也可以让您更加专注地浏览我们的内容，获得更好的体验和收获。感谢您的理解和支持！ ",
+        "actions": [
+          {
+            "type": "closeDialog",
+            "label": "好的",
+            "color": "primary"
+          },
+          {
+            "type": "link",
+            "label": "离开",
+            "href": "http://www.google.com",
+            "color": "warn"
+          }
+        ],
+        "actionsAlign": "center center"
+      }
+    }
+  },
+  "user": {
+    "banner": "/assets/images/16-9/business-14.jpeg"
+  },
+  "googleAnalyticsBak": {
+    "id": "G-N7PGP9ND57"
+  },
+  "clarity": {
+    "id": "j9gy21q9e9"
+  },
+  "guard": {
+    "authGuard": false,
+    "defaultDrupalLoginPage": "/user/login",
+    "defaultFrontLoginPage": "/me/login"
+  },
+  "access": {
+    "check": false
+  },
+  "notify": {
+    "enable": true,
+    "params": {
+      "interval": 10000,
+      "dateFormat": "YYYY-MM-dd"
+    },
+    "api": [
+      {
+        "get": "/api/v2/unread-message",
+        "action": "/api/v1/flagging/message_unread",
+        "reqRoles": [
+          "lawyer",
+          "assistant_lawyer"
+        ],
+        "icon": "clipboard-text-clock",
+        "color": "primary"
+      },
+      {
+        "get": "/api/v1/filter/handler",
+        "action": "/api/v3/private/read",
+        "reqRoles": [
+          "lawyer",
+          "assistant_lawyer"
+        ],
+        "icon": "chart-line",
+        "color": "warn"
+      }
+    ]
+  },
+  "log": {
+    "content": {
+      "enabel": true,
+      "api": "/api/v3/message/content/content"
+    }
+  },
+  "animate": true,
+  "tour": {
+    "enable": true,
+    "path": "/builder",
+    "delay": 2000,
+    "dontShowAgain": true,
+    "dontShowAgainLabel": "不再显示此引导",
+    "nextLabel": "继续",
+    "prevLabel": "返回",
+    "doneLabel": "完成",
+    "steps": [
+      {
+        "intro": "欢迎来到信使 Web builder!"
+      },
+      {
+        "element": ".builder-sidebar",
+        "intro": "主要边栏，切换功能页面，查看列表、示例页、页头页脚配置等"
+      },
+      {
+        "element": ".mat-tab-labels",
+        "intro": "切换选项、预览基础组件、复合组件和系统组件，可拖动进去编辑区"
+      },
+      {
+        "element": ".mat-tab-body-wrapper",
+        "intro": "鼠标经过可预览组件，点击可固定预览，方便查看预览组件的JSON。"
+      },
+      {
+        "element": ".builder-version",
+        "intro": "清空、提交、加载示例等覆盖当前页面的操作会生成历史版本。"
+      },
+      {
+        "element": ".preview-content",
+        "intro": "页面编辑区，从边栏选择组件拖拽到这里，点击文本或者工具栏编辑组件相关信息。"
+      },
+      {
+        "element": ".builder-toolbar .middle",
+        "intro": "切换响应式预览，切换不同的主题。"
+      },
+      {
+        "element": "#toolbar-right",
+        "intro": "切换界面风格、新建页面或者生成页面等主要操作功能。"
+      },
+      {
+        "element": ".play-video",
+        "intro": "如何使用有疑惑，可以查看演示视频。"
+      }
+    ]
+  },
+  "manageMedia": {
+    "row": 5,
+    "sidebar": {
+      "title": {
+        "label": "搜索",
+        "style": "style-v4",
+        "classes": ""
+      },
+      "action": {
+        "color": "primary",
+        "mode": "raised",
+        "label": "确定"
+      },
+      "form": [
+        {
+          "type": "toggle",
+          "key": "fromStatic",
+          "className": "static-item",
+          "defaultValue": true,
+          "templateOptions": {
+            "label": "切换资源库",
+            "description": "静态资源/后台媒体库"
+          },
+          "expressionProperties": {
+            "templateOptions.description": "model.fromStatic?'静态资源':'后台媒体库'"
+          }
+        },
+        {
+          "type": "input",
+          "key": "key",
+          "className": "m-bottom-sm",
+          "templateOptions": {
+            "type": "string",
+            "appearance": "legacy",
+            "label": "请输入关键词"
+          }
+        },
+        {
+          "type": "select",
+          "key": "type",
+          "defaultValue": "/api/v1/media/image",
+          "className": "m-bottom-sm",
+          "templateOptions": {
+            "label": "选择资源类型",
+            "options": [
+              {
+                "label": "所有文件",
+                "value": "/api/v1/file/file"
+              },
+              {
+                "label": "图片库",
+                "value": "/api/v1/media/image"
+              },
+              {
+                "label": "文档库",
+                "value": "/api/v1/media/document"
+              },
+              {
+                "label": "视频库",
+                "value": "/api/v1/media/video"
+              }
+            ]
+          }
+        },
+        {
+          "type": "select",
+          "key": "limit",
+          "defaultValue": 20,
+          "className": "m-bottom-sm",
+          "templateOptions": {
+            "label": "每页显示个数",
+            "options": [
+              {
+                "label": "10",
+                "value": 10
+              },
+              {
+                "label": "20",
+                "value": 20
+              },
+              {
+                "label": "30",
+                "value": 30
+              },
+              {
+                "label": "40",
+                "value": 40
+              },
+              {
+                "label": "50",
+                "value": 50
+              }
+            ]
+          }
+        },
+        {
+          "type": "select",
+          "key": "filter",
+          "defaultValue": 1,
+          "className": "m-bottom-sm",
+          "templateOptions": {
+            "label": "发布状态",
+            "options": [
+              {
+                "label": "已发布",
+                "value": 1
+              },
+              {
+                "label": "未发布",
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "sort",
+          "className": "width-100",
+          "fieldGroup": [
+            {
+              "type": "select",
+              "key": "direction",
+              "defaultValue": "DESC",
+              "className": "m-bottom-sm",
+              "templateOptions": {
+                "label": "排序",
+                "options": [
+                  {
+                    "label": "最新发布的",
+                    "value": "DESC"
+                  },
+                  {
+                    "label": "最旧发布的",
+                    "value": "ASC"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "builder": {
+    "enable": true,
+    "api": {
+      "create": "/api/v3/landingPage/builder",
+      "update": "/api/v3/landingPage/update"
+    },
+    "params": {
+      "reqRoles": [
+        "administrator"
+      ]
+    },
+    "widgetPicker": {
+      "help": {
+        "tooltip": "如何新增组件到这里？",
+        "link": "https://ui.builder.design/?path=/docs/develop-newcomponent--page"
+      }
+    },
+    "empty": [
+      {
+        "type": "showcase-3v9",
+        "bg": {
+          "classes": "bg-fill-width",
+          "img": {
+            "classes": "object-fit",
+            "src": "/assets/images/bg/bg-01.png"
+          }
+        },
+        "spacer": "lg",
+        "order": {
+          "left": 0,
+          "right": 1
+        },
+        "left": [
+          {
+            "type": "text",
+            "spacer": "sm",
+            "title": {
+              "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
+              "style": "style-v4",
+              "classes": "mat-display-1 bold"
+            },
+            "body": "为您的企业构建现代化的响应式无代码网站：<ul class=\"list-done\"><li>从模板开始，根据需要进行自定义；</li><li>自定义主题色、字体创建品牌网站；</li><li>可视化编辑组件图文数据，所见即所得；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\"><video muted=\"\" autoplay=\"\" loop=\"\" width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
+            "actions": [
+              {
+                "type": "btn",
+                "color": "primary",
+                "mode": "stroked",
+                "label": " 关注作者",
+                "href": "https://www.zhihu.com/people/biaogebusy",
+                "target": "_blank",
+                "icon": {
+                  "inline": true,
+                  "svg": "zhihu"
+                }
+              },
+              {
+                "type": "link",
+                "label": "演示视频",
+                "dialog": {
+                  "data": [
+                    {
+                      "type": "player",
+                      "options": {
+                        "controls": true,
+                        "aspectRatio": "16:9",
+                        "poster": "/assets/storybook/assets/builder.png",
+                        "sources": [
+                          {
+                            "src": "/assets/video/layout-builder-hero-demo.mp4",
+                            "type:": "video/mp4"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "disableToolbar": true,
+                "content": {
+                  "type": "github-star"
+                }
+              }
+            ]
+          }
+        ],
+        "right": [
+          {
+            "type": "img",
+            "src": "/assets/images/illustration/13.png",
+            "classes": "mover",
+            "hostClasses": "relative img-bg-shape",
+            "actions": [
+              {
+                "type": "btn-video",
+                "color": "default",
+                "classes": "play-video",
+                "video": {
+                  "type": "player",
+                  "options": {
+                    "controls": true,
+                    "aspectRatio": "16:9",
+                    "poster": "/assets/storybook/assets/builder.png",
+                    "sources": [
+                      {
+                        "src": "/assets/video/layout-builder-hero-demo.mp4",
+                        "type:": "video/mp4"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "spacer": "md",
+        "bgClasses": "bg-shadow bg-fill-width",
+        "overlay": "",
+        "classes": "",
+        "id": "",
+        "bg": {
+          "img": {
+            "src": "",
+            "classes": "object-fit",
+            "alt": ""
+          },
+          "classes": "bg-shadow bg-fill-width",
+          "overlay": ""
+        },
+        "animate": {
+          "from": {
+            "x": 0,
+            "y": "100",
+            "rotation": 0,
+            "scale": 1,
+            "opacity": 0,
+            "delay": 0,
+            "duration": 1,
+            "ease": "none"
+          },
+          "trigger": {
+            "onEnter": "play",
+            "onLeave": "none",
+            "onEnterBack": "none",
+            "onLeaveBack": "none",
+            "start": "top 90%",
+            "end": "top 40%"
+          }
+        },
+        "type": "showcase-1v1",
+        "row": 4,
+        "elements": [
+          {
+            "type": "box",
+            "icon": {
+              "svg": "palette"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://ui.builder.design/?path=/docs/start-guide--page",
+              "label": "开发快速指南"
+            },
+            "content": "初始化本地环境快速指南",
+            "more": {
+              "href": "https://ui.builder.design/?path=/docs/start-guide--page",
+              "label": "查看"
+            }
+          },
+          {
+            "type": "box",
+            "icon": {
+              "svg": "palette-advanced"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://ui.builder.design/?path=/docs/develop-newcomponent--page",
+              "label": "开发新组件"
+            },
+            "content": "开发组件的完整流程文档",
+            "more": {
+              "href": "https://ui.builder.design/?path=/docs/develop-newcomponent--page",
+              "label": "查看"
+            }
+          },
+          {
+            "type": "box",
+            "icon": {
+              "svg": "format-list-text"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://ui.builder.design/?path=/docs/create-theme--page",
+              "label": "组件主题"
+            },
+            "content": "开发组件主题指南，变量说明",
+            "more": {
+              "href": "https://ui.builder.design/?path=/docs/create-theme--page",
+              "label": "查看"
+            }
+          },
+          {
+            "type": "box",
+            "icon": {
+              "svg": "microsoft-visual-studio-code"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://www.zhihu.com/column/c_1698460157728731137",
+              "label": "Blog"
+            },
+            "content": "关于 Web builder 的文章",
+            "more": {
+              "href": "https://www.zhihu.com/column/c_1698460157728731137",
+              "label": "查看"
+            }
+          }
+        ]
+      },
+      {
+        "spacer": "lg",
+        "bgClasses": "bg- bg-fill-width",
+        "overlay": "",
+        "classes": "",
+        "id": "",
+        "bg": {
+          "img": {
+            "src": "",
+            "classes": "object-fit",
+            "alt": ""
+          },
+          "classes": "bg- bg-fill-width",
+          "overlay": ""
+        },
+        "animate": {
+          "from": {
+            "x": 0,
+            "y": "100",
+            "rotation": 0,
+            "scale": 1,
+            "opacity": 0,
+            "delay": 0,
+            "duration": 1,
+            "ease": "none"
+          },
+          "trigger": {
+            "onEnter": "play",
+            "onLeave": "none",
+            "onEnterBack": "none",
+            "onLeaveBack": "none",
+            "start": "top 90%",
+            "end": "top 40%"
+          }
+        },
+        "type": "showcase-1v4",
+        "row": 3,
+        "text": {
+          "title": {
+            "label": "页面是如何创建的",
+            "style": "style-v1",
+            "classes": "mat-display-1 bold"
+          }
+        },
+        "elements": [
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "拖拽组件",
+              "body": "从左侧边栏拖动组件到编辑区构建页面，或者直接修改示例页",
+              "footer": {
+                "label": "Step 01.",
+                "icon": {
+                  "svg": "chevron-double-right"
+                }
+              }
+            }
+          },
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "更新组件",
+              "body": "编辑组件数据，点击文字或者图片修改，或者通过JSON修改数据",
+              "footer": {
+                "label": "Step 02.",
+                "icon": {
+                  "svg": "chevron-double-right"
+                }
+              }
+            }
+          },
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "发布页面",
+              "body": "提交页面到后台，或者复制JSON到后台自定义更新",
+              "footer": {
+                "label": "Step 03.",
+                "icon": {
+                  "svg": "check-all"
+                }
+              }
+            }
+          }
+        ],
+        "actions": [
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "btn-generater",
+              "label": "生成页面",
+              "color": "primary",
+              "mode": "raised"
+            }
+          }
+        ]
+      }
+    ],
+    "generater": [
+      {
+        "type": "select",
+        "key": "hero",
+        "defaultValue": 1,
+        "className": "block m-bottom-sm",
+        "templateOptions": {
+          "label": "选择首屏个数",
+          "description": "页面菜单下的第一个首屏组件",
+          "options": [
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "6",
+              "value": 6
+            }
+          ]
+        }
+      },
+      {
+        "type": "select",
+        "key": "showcase",
+        "defaultValue": 3,
+        "className": "block m-bottom-sm",
+        "templateOptions": {
+          "label": "选择 Showcase 个数",
+          "description": "一般一个页面会有多个 Showcase 组件",
+          "options": [
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "6",
+              "value": 6
+            },
+            {
+              "label": "7",
+              "value": 7
+            },
+            {
+              "label": "8",
+              "value": 8
+            },
+            {
+              "label": "9",
+              "value": 9
+            },
+            {
+              "label": "10",
+              "value": 10
+            }
+          ]
+        }
+      },
+      {
+        "type": "select",
+        "key": "carousel",
+        "defaultValue": 1,
+        "className": "block m-bottom-sm",
+        "templateOptions": {
+          "label": "选择幻灯片个数",
+          "description": "幻灯片不宜太多，生成后可重排",
+          "options": [
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "6",
+              "value": 6
+            }
+          ]
+        }
+      },
+      {
+        "type": "select",
+        "key": "masonry",
+        "defaultValue": 0,
+        "className": "block m-bottom-sm",
+        "templateOptions": {
+          "label": "选择瀑布流组件个数",
+          "description": "瀑布流组件一般只需要一个",
+          "options": [
+            {
+              "label": "0",
+              "value": 0
+            },
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
