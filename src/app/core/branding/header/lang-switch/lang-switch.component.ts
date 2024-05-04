@@ -37,11 +37,16 @@ export class LangSwitchComponent implements OnInit {
 
   removeLangPrefix(urlPath: string): string {
     const pathParts = urlPath.split('/');
-    if (pathParts.length === 2) {
-      return `/${pathParts[1]}`;
-    } else {
+    // check if the path is like /en/some/path
+    const isLangPage = this.langs?.find((lang) =>
+      urlPath.startsWith(`/${lang.value}`)
+    );
+
+    if (isLangPage) {
       const remainingPath = pathParts.slice(2).join('/');
       return remainingPath;
+    } else {
+      return urlPath;
     }
   }
 }
