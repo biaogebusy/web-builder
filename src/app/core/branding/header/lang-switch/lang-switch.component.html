@@ -1,0 +1,13 @@
+<div class="lang-switch" *ngIf="multiLang">
+  <button aria-label="switch language" mat-icon-button [mat-menu-trigger-for]="menu">
+    <app-icon [content]="{svg:'translate',inline:true}"></app-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button (click)="onSwitchLanguage(lang)" aria-label="switch lang item" *ngFor="let lang of langs" mat-menu-item>
+      <mat-icon *ngIf="currentLang.value !== lang.value">radio_button_unchecked</mat-icon>
+      <mat-icon color="primary" *ngIf="currentLang.value === lang.value">radio_button_checked</mat-icon>
+      <span>{{lang.label}}</span>
+    </button>
+  </mat-menu>
+</div>

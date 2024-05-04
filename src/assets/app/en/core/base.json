@@ -1,0 +1,1085 @@
+{
+  "defaultTheme": "blue-theme",
+  "theme": [
+    {
+      "name": "Blue Theme",
+      "style": "blue-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Pink Theme",
+      "style": "pink-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Green Theme",
+      "style": "green-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Dark Theme",
+      "style": "dark-theme",
+      "svgIcon": "dark_mode"
+    }
+  ],
+  "login": {
+    "loginRedirect": "/",
+    "left": {
+      "type": "layout-builder",
+      "spacer": "md",
+      "fullWidth": false,
+      "bg": {
+        "classes": "bg-fill-width"
+      },
+      "layoutAlign": "center center",
+      "gap": {
+        "xs": 0,
+        "sm": 0,
+        "md": 0,
+        "lg": 0
+      },
+      "elements": [
+        {
+          "row": {
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12
+          },
+          "direction": "column",
+          "horizontal": "flex-start",
+          "vertical": "flex-start",
+          "layoutAlign": "start start",
+          "bg": {
+            "img": {
+              "src": "",
+              "classes": "object-contain",
+              "alt": "bg-05"
+            },
+            "overlay": " ",
+            "classes": "bg-fill-width"
+          },
+          "classes": "",
+          "style": {
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "marginTop": "0px",
+            "marginRight": "0px",
+            "marginBottom": "0px",
+            "marginLeft": "0px"
+          },
+          "animate": {
+            "from": {
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scale": 1,
+              "opacity": 1,
+              "delay": 0,
+              "duration": 1,
+              "ease": "none"
+            },
+            "trigger": {
+              "onEnter": "play",
+              "onLeave": "none",
+              "onEnterBack": "none",
+              "onLeaveBack": "none",
+              "start": "top 90%",
+              "end": "top 40%"
+            }
+          },
+          "elements": [
+            {
+              "src": "/assets/images/logo/logo-blue.png",
+              "classes": "",
+              "alt": "alt",
+              "style": {
+                "aspectRatio": "auto",
+                "objectFit": "initial",
+                "width": "100px",
+                "height": "auto",
+                "opacity": 1,
+                "borderRadius": 0,
+                "boxShadow": "none"
+              },
+              "hostClasses": "text-center",
+              "animate": {
+                "from": {
+                  "x": 0,
+                  "y": "50",
+                  "rotation": 0,
+                  "scale": 1,
+                  "opacity": 0,
+                  "delay": 0,
+                  "duration": 1,
+                  "ease": "none"
+                },
+                "trigger": {
+                  "onEnter": "play",
+                  "onLeave": "none",
+                  "onEnterBack": "none",
+                  "onLeaveBack": "none",
+                  "start": "top 90%",
+                  "end": "top 40%"
+                },
+                "enable": true
+              },
+              "type": "img"
+            },
+            {
+              "spacer": "xs",
+              "body": "为您的企业构建现代化的响应式无代码网站：<ul class=\"list-done\"><li>从模板开始，根据需要进行自定义；</li><li>自定义主题色、字体创建品牌网站；</li><li>可视化编辑组件数据，所见即所得；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p>",
+              "animate": {
+                "from": {
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scale": 1,
+                  "opacity": 1,
+                  "delay": 0,
+                  "duration": 1,
+                  "ease": "none"
+                },
+                "trigger": {
+                  "onEnter": "play",
+                  "onLeave": "none",
+                  "onEnterBack": "none",
+                  "onLeaveBack": "none",
+                  "start": "top 90%",
+                  "end": "top 40%"
+                }
+              },
+              "type": "text",
+              "title": {
+                "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
+                "style": "style-v4",
+                "classes": "mat-display-1 bold"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "phoneLogin": {
+      "enable": true,
+      "tabLabel": "手机登录",
+      "leftTime": 59,
+      "submitLabel": "注册/登录",
+      "error": "请输入正确的手机号码"
+    },
+    "pswLogin": {
+      "enable": true,
+      "tabLabel": "密码登录",
+      "submitLabel": "登录"
+    }
+  },
+  "defaultLogo": "/assets/images/logo/logo.png",
+  "defaultAvatar": "/assets/images/avatar/01.jpeg",
+  "defaultThumb": "/assets/images/default.png",
+  "amap": {
+    "key": "33877188af64f0213ff4fa259b1c14b8",
+    "version": "1.4.15",
+    "plugins": [
+      "AMap.Geocoder"
+    ],
+    "city": "0771",
+    "zoom": 18,
+    "center": [
+      108.32067,
+      22.817424
+    ],
+    "mapStyle": {
+      "light": "amap://styles/1421728e809147de8bfac4fd1abd2fb3",
+      "dark": "amap://styles/50fcdf3719b8cd479cd3017044e49c22"
+    },
+    "features": [
+      "bg",
+      "road",
+      "point"
+    ]
+  },
+  "apiUrl": {
+    "loginPath": "/user/login",
+    "logoutPath": "/user/logout",
+    "userIdGetPath": "/api/v1",
+    "nodeGetPath": "/api/v1/node",
+    "commentGetPath": "/api/v1/comment",
+    "taxonomyGetPath": "/api/v1/taxonomy_term",
+    "flaggingGetPath": "/api/v1/flagging",
+    "userGetPath": "/api/v1/user/user",
+    "searchBak": {
+      "customer_staff": "/api/v1/customer-content",
+      "handler": "/api/v1/handler-content"
+    }
+  },
+  "github": {
+    "enable": true,
+    "owner": "biaogebusy",
+    "repo": "xinshi-ui",
+    "token": ""
+  },
+  "loading": true,
+  "loadingBar": true,
+  "article": {
+    "fontSize": {
+      "enable": true,
+      "form": [
+        {
+          "label": "字体大小",
+          "key": "font",
+          "value": 16,
+          "type": "input",
+          "placeholder": "Ex. 12",
+          "controlType": "number",
+          "appearance": "legacy",
+          "errorMes": "最小: 10px",
+          "tooltip": "通过键盘上下键可快速更改大小",
+          "matTooltipPosition": "above",
+          "suffix": "px"
+        }
+      ]
+    },
+    "login": {
+      "label": "登录"
+    },
+    "comment": {
+      "enable": true
+    }
+  },
+  "editor": {
+    "modules": {
+      "toolbar": [
+        [
+          {
+            "header": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              false
+            ]
+          }
+        ],
+        [
+          "bold",
+          "italic",
+          "underline",
+          "strike"
+        ],
+        [
+          "clean"
+        ],
+        [
+          {
+            "background": []
+          },
+          {
+            "color": []
+          }
+        ],
+        [
+          {
+            "align": []
+          }
+        ],
+        [
+          {
+            "list": "ordered"
+          },
+          {
+            "list": "bullet"
+          }
+        ],
+        [
+          {
+            "indent": "-1"
+          },
+          {
+            "indent": "+1"
+          }
+        ],
+        [
+          "link",
+          "image"
+        ],
+        [
+          "blockquote",
+          "code-block"
+        ]
+      ]
+    }
+  },
+  "actions": {
+    "flag": {
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "enable": true
+    },
+    "share": {
+      "button": {
+        "icon": "share",
+        "label": "分享"
+      },
+      "enable": true
+    },
+    "download": {
+      "label": "下载",
+      "icon": {
+        "name": "file_download",
+        "inline": true
+      },
+      "enable": true
+    }
+  },
+  "dialog": {
+    "forceDialogBak": {
+      "params": {
+        "width": "500px",
+        "path": "home",
+        "first": true
+      },
+      "text": {
+        "title": {
+          "label": "WARNING",
+          "style": "style-v1"
+        },
+        "spacer": "none",
+        "body": "尊敬的访问者，欢迎来到我们的网站。为了保护您的健康和工作效率，我们建议您每天只在我们的网站上浏览一个小时。这样可以避免长时间的屏幕时间对您的眼睛和身体造成不必要的负担。同时，也可以让您更加专注地浏览我们的内容，获得更好的体验和收获。感谢您的理解和支持！ ",
+        "actions": [
+          {
+            "type": "closeDialog",
+            "label": "好的",
+            "color": "primary"
+          },
+          {
+            "type": "link",
+            "label": "离开",
+            "href": "http://www.google.com",
+            "color": "warn"
+          }
+        ],
+        "actionsAlign": "center center"
+      }
+    }
+  },
+  "user": {
+    "banner": "/assets/images/16-9/business-14.jpeg"
+  },
+  "googleAnalyticsBak": {
+    "id": "G-N7PGP9ND57"
+  },
+  "clarity": {
+    "id": "j9gy21q9e9"
+  },
+  "guard": {
+    "authGuard": false,
+    "defaultDrupalLoginPage": "/user/login",
+    "defaultFrontLoginPage": "/me/login"
+  },
+  "access": {
+    "check": false
+  },
+  "notify": {
+    "enable": true,
+    "params": {
+      "interval": 10000,
+      "dateFormat": "YYYY-MM-dd"
+    },
+    "api": [
+      {
+        "get": "/api/v2/unread-message",
+        "action": "/api/v1/flagging/message_unread",
+        "reqRoles": [
+          "lawyer",
+          "assistant_lawyer"
+        ],
+        "icon": "clipboard-text-clock",
+        "color": "primary"
+      },
+      {
+        "get": "/api/v1/filter/handler",
+        "action": "/api/v3/private/read",
+        "reqRoles": [
+          "lawyer",
+          "assistant_lawyer"
+        ],
+        "icon": "chart-line",
+        "color": "warn"
+      }
+    ]
+  },
+  "log": {
+    "content": {
+      "enabel": true,
+      "api": "/api/v3/message/content/content"
+    }
+  },
+  "animate": true,
+  "tour": {
+    "enable": true,
+    "path": "/builder",
+    "delay": 2000,
+    "dontShowAgain": true,
+    "dontShowAgainLabel": "Don't show this again",
+    "nextLabel": "Next",
+    "prevLabel": "Back",
+    "doneLabel": "Done",
+    "steps": [
+      {
+        "intro": "Welcome to experience Web builder!"
+      },
+      {
+        "element": ".builder-sidebar",
+        "intro": "Main sidebar, switch function pages, view lists, sample pages, header and footer configurations, etc"
+      },
+      {
+        "element": ".mat-tab-labels",
+        "intro": "Switch options, preview basic components, composite components, and system components, which can be dragged into the editing area"
+      },
+      {
+        "element": ".mat-tab-body-wrapper",
+        "intro": "Mouse over the preview component, click to fix the preview, making it convenient to view the JSON of the preview component"
+      },
+      {
+        "element": ".builder-version",
+        "intro": "Operations such as clearing, submitting, and loading examples that overwrite the current page will generate historical versions."
+      },
+      {
+        "element": ".preview-content",
+        "intro": "In the page editing area, select the component from the sidebar and drag it here. Click on the text or toolbar to edit component related information."
+      },
+      {
+        "element": ".builder-toolbar .middle",
+        "intro": "Switch between responsive previews and different themes."
+      },
+      {
+        "element": "#toolbar-right",
+        "intro": "The main operational functions include switching interface styles, creating new pages, or generating pages."
+      },
+      {
+        "element": ".play-video",
+        "intro": "If you have any doubts about how to use it, you can check the demonstration video."
+      }
+    ]
+  },
+  "manageMedia": {
+    "row": 5,
+    "sidebar": {
+      "title": {
+        "label": "Search",
+        "style": "style-v4",
+        "classes": ""
+      },
+      "action": {
+        "color": "primary",
+        "mode": "raised",
+        "label": "Search"
+      },
+      "form": [
+        {
+          "type": "toggle",
+          "key": "fromStatic",
+          "className": "static-item",
+          "defaultValue": true,
+          "templateOptions": {
+            "label": "Switch libraries",
+            "description": "Static medias/backend media library"
+          },
+          "expressionProperties": {
+            "templateOptions.description": "model.fromStatic?'Static medias':'backend media library'"
+          }
+        },
+        {
+          "type": "input",
+          "key": "key",
+          "className": "m-bottom-sm",
+          "templateOptions": {
+            "type": "string",
+            "appearance": "legacy",
+            "label": "please input keyword"
+          }
+        },
+        {
+          "type": "select",
+          "key": "type",
+          "defaultValue": "/api/v1/media/image",
+          "className": "m-bottom-sm",
+          "templateOptions": {
+            "label": "Select libraries type",
+            "options": [
+              {
+                "label": "All",
+                "value": "/api/v1/file/file"
+              },
+              {
+                "label": "Images",
+                "value": "/api/v1/media/image"
+              },
+              {
+                "label": "Documents",
+                "value": "/api/v1/media/document"
+              },
+              {
+                "label": "Videos",
+                "value": "/api/v1/media/video"
+              }
+            ]
+          }
+        },
+        {
+          "type": "select",
+          "key": "limit",
+          "defaultValue": 20,
+          "className": "m-bottom-sm",
+          "templateOptions": {
+            "label": "Number of per page",
+            "options": [
+              {
+                "label": "10",
+                "value": 10
+              },
+              {
+                "label": "20",
+                "value": 20
+              },
+              {
+                "label": "30",
+                "value": 30
+              },
+              {
+                "label": "40",
+                "value": 40
+              },
+              {
+                "label": "50",
+                "value": 50
+              }
+            ]
+          }
+        },
+        {
+          "type": "select",
+          "key": "filter",
+          "defaultValue": 1,
+          "className": "m-bottom-sm",
+          "templateOptions": {
+            "label": "Status",
+            "options": [
+              {
+                "label": "Published",
+                "value": 1
+              },
+              {
+                "label": "Unpublished",
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "sort",
+          "className": "width-100",
+          "fieldGroup": [
+            {
+              "type": "select",
+              "key": "direction",
+              "defaultValue": "DESC",
+              "className": "m-bottom-sm",
+              "templateOptions": {
+                "label": "Sort",
+                "options": [
+                  {
+                    "label": "The latest",
+                    "value": "DESC"
+                  },
+                  {
+                    "label": "The oldest",
+                    "value": "ASC"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "builder": {
+    "enable": true,
+    "api": {
+      "create": "/api/v3/landingPage/builder",
+      "update": "/api/v3/landingPage/update"
+    },
+    "params": {
+      "reqRoles": [
+        "administrator"
+      ]
+    },
+    "widgetPicker": {
+      "help": {
+        "tooltip": "How to add components here?",
+        "link": "https://ui.builder.design/?path=/docs/develop-newcomponent--page"
+      }
+    },
+    "empty": [
+      {
+        "type": "showcase-3v9",
+        "bg": {
+          "classes": "bg-fill-width",
+          "img": {
+            "classes": "object-fit",
+            "src": "/assets/images/bg/bg-01.png"
+          }
+        },
+        "spacer": "lg",
+        "order": {
+          "left": 1,
+          "right": 0
+        },
+        "left": [
+          {
+            "type": "img",
+            "src": "/assets/images/illustration/13.png",
+            "classes": "mover",
+            "hostClasses": "position-relative img-bg-shape",
+            "actions": [
+              {
+                "type": "btn-video",
+                "color": "default",
+                "dialog": {
+                  "width": "900px"
+                },
+                "video": {
+                  "type": "player",
+                  "options": {
+                    "controls": true,
+                    "aspectRatio": "16:9",
+                    "poster": "/assets/storybook/assets/builder.png",
+                    "sources": [
+                      {
+                        "src": "/assets/video/layout-builder-hero-demo.mp4",
+                        "type:": "video/mp4",
+                        "type": "video/mp4"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "right": [
+          {
+            "type": "text",
+            "spacer": "sm",
+            "title": {
+              "label": "Free trial <strong class=\"text-primary\">Web builder </strong> <br>to quickly build pages",
+              "style": "style-v4",
+              "classes": "mat-display-3 bold",
+              "typed": {
+                "enable": true,
+                "strings": [
+                  {
+                    "label": "Xinshi UI"
+                  },
+                  {
+                    "label": "Web builder"
+                  }
+                ],
+                "config": {
+                  "typeSpeed": 120,
+                  "loop": true
+                }
+              }
+            },
+            "body": "Building a modern, responsive, and low code for your company website：<ul class=\"list-done\"><li>Start from the template, customize as needed;</li><li>Customize theme colors and fonts to create brand websites;</li><li>Visual editing component graphic and textual data, WYSIWYG;</li></ul><p>Welcome to join the QQ communication group to explore more possibilities and digital innovation experiences together：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\"><video muted=\"\" autoplay=\"\" loop=\"\" width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
+            "actions": [
+              {
+                "type": "btn",
+                "color": "primary",
+                "mode": "raised",
+                "href": "/en/builder",
+                "label": "Start now"
+              },
+              {
+                "type": "btn",
+                "color": "primary",
+                "mode": "stroked",
+                "label": "Follow",
+                "href": "https://www.zhihu.com/people/biaogebusy",
+                "target": "_blank",
+                "icon": {
+                  "inline": true,
+                  "svg": "zhihu"
+                }
+              },
+              {
+                "type": "github-star"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "spacer": "md",
+        "bgClasses": "bg-shadow bg-fill-width",
+        "overlay": "",
+        "classes": "",
+        "id": "",
+        "bg": {
+          "img": {
+            "src": "",
+            "classes": "object-fit",
+            "alt": ""
+          },
+          "classes": "bg-shadow bg-fill-width",
+          "overlay": ""
+        },
+        "animate": {
+          "from": {
+            "x": 0,
+            "y": "100",
+            "rotation": 0,
+            "scale": 1,
+            "opacity": 0,
+            "delay": 0,
+            "duration": 1,
+            "ease": "none"
+          },
+          "trigger": {
+            "onEnter": "play",
+            "onLeave": "none",
+            "onEnterBack": "none",
+            "onLeaveBack": "none",
+            "start": "top 90%",
+            "end": "top 40%"
+          }
+        },
+        "type": "showcase-1v1",
+        "row": 4,
+        "elements": [
+          {
+            "type": "box",
+            "icon": {
+              "svg": "palette"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://ui.builder.design/?path=/docs/start-guide--page",
+              "label": "Development Quick Guide"
+            },
+            "content": "Quick Guide to Initializing Local Environment",
+            "more": {
+              "href": "https://ui.builder.design/?path=/docs/start-guide--page",
+              "label": "More"
+            }
+          },
+          {
+            "type": "box",
+            "icon": {
+              "svg": "palette-advanced"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://ui.builder.design/?path=/docs/develop-newcomponent--page",
+              "label": "Developing new components"
+            },
+            "content": "A complete process document for developing components",
+            "more": {
+              "href": "https://ui.builder.design/?path=/docs/develop-newcomponent--page",
+              "label": "More"
+            }
+          },
+          {
+            "type": "box",
+            "icon": {
+              "svg": "format-list-text"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://ui.builder.design/?path=/docs/create-theme--page",
+              "label": "Component Theme"
+            },
+            "content": "Development Component Theme Guide, Variable Description",
+            "more": {
+              "href": "https://ui.builder.design/?path=/docs/create-theme--page",
+              "label": "More"
+            }
+          },
+          {
+            "type": "box",
+            "icon": {
+              "svg": "microsoft-visual-studio-code"
+            },
+            "style": "style-v9",
+            "title": {
+              "href": "https://www.zhihu.com/column/c_1698460157728731137",
+              "label": "Blog"
+            },
+            "content": "Web builder blog",
+            "more": {
+              "href": "https://www.zhihu.com/column/c_1698460157728731137",
+              "label": "More"
+            }
+          }
+        ]
+      },
+      {
+        "spacer": "lg",
+        "bgClasses": "bg- bg-fill-width",
+        "overlay": "",
+        "classes": "",
+        "id": "",
+        "bg": {
+          "img": {
+            "src": "",
+            "classes": "object-fit",
+            "alt": ""
+          },
+          "classes": "bg- bg-fill-width",
+          "overlay": ""
+        },
+        "animate": {
+          "from": {
+            "x": 0,
+            "y": "100",
+            "rotation": 0,
+            "scale": 1,
+            "opacity": 0,
+            "delay": 0,
+            "duration": 1,
+            "ease": "none"
+          },
+          "trigger": {
+            "onEnter": "play",
+            "onLeave": "none",
+            "onEnterBack": "none",
+            "onLeaveBack": "none",
+            "start": "top 90%",
+            "end": "top 40%"
+          }
+        },
+        "type": "showcase-1v4",
+        "row": 3,
+        "text": {
+          "title": {
+            "label": "How was the page created",
+            "style": "style-v1",
+            "classes": "mat-display-1 bold"
+          }
+        },
+        "elements": [
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "Dragging components",
+              "body": "Drag the component from the left sidebar to the editing area to build the page, or directly modify the sample page",
+              "footer": {
+                "label": "Step 01.",
+                "icon": {
+                  "svg": "chevron-double-right"
+                }
+              }
+            }
+          },
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "Update components",
+              "body": "Edit component data, click on text or image to modify, or modify data through JSON",
+              "footer": {
+                "label": "Step 02.",
+                "icon": {
+                  "svg": "chevron-double-right"
+                }
+              }
+            }
+          },
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "Publish Page",
+              "body": "Submit the page to the backend, or copy JSON to the backend for custom updates",
+              "footer": {
+                "label": "Step 03.",
+                "icon": {
+                  "svg": "check-all"
+                }
+              }
+            }
+          }
+        ],
+        "actions": [
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "btn-generater",
+              "label": "Generate Page",
+              "color": "primary",
+              "mode": "raised"
+            }
+          }
+        ]
+      }
+    ],
+    "generater": [
+      {
+        "type": "select",
+        "key": "hero",
+        "defaultValue": 1,
+        "className": "block m-bottom-sm",
+        "templateOptions": {
+          "label": "Select the number of Heros",
+          "description": "The first screen component under the page menu",
+          "options": [
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "6",
+              "value": 6
+            }
+          ]
+        }
+      },
+      {
+        "type": "select",
+        "key": "showcase",
+        "defaultValue": 3,
+        "className": "block m-bottom-sm",
+        "templateOptions": {
+          "label": "Select the number of Showcases",
+          "description": "Usually, a page will have multiple Showcase components",
+          "options": [
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "6",
+              "value": 6
+            },
+            {
+              "label": "7",
+              "value": 7
+            },
+            {
+              "label": "8",
+              "value": 8
+            },
+            {
+              "label": "9",
+              "value": 9
+            },
+            {
+              "label": "10",
+              "value": 10
+            }
+          ]
+        }
+      },
+      {
+        "type": "select",
+        "key": "carousel",
+        "defaultValue": 1,
+        "className": "block m-bottom-sm",
+        "templateOptions": {
+          "label": "Select the number of slides",
+          "description": "There should not be too many slides",
+          "options": [
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "6",
+              "value": 6
+            }
+          ]
+        }
+      },
+      {
+        "type": "select",
+        "key": "masonry",
+        "defaultValue": 0,
+        "className": "block m-bottom-sm",
+        "templateOptions": {
+          "label": "Select the number of waterfall",
+          "description": "The waterfall flow component usually only requires one",
+          "options": [
+            {
+              "label": "0",
+              "value": 0
+            },
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

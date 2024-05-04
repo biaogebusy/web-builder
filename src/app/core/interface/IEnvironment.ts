@@ -6,4 +6,13 @@ export interface IEnvironment {
   cache: boolean;
   ssr: boolean;
   drupalProxy?: boolean;
+  multiLang?: boolean;
+  langs?: ILanguage[];
+}
+
+export interface ILanguage {
+  label: string;
+  value: string;
+  default?: boolean;
+  prefix: string;
 }
