@@ -189,4 +189,5 @@ export interface ILogo {
   version: boolean;
   href: string;
   img?: IImg;
+  invert?: string;
 }

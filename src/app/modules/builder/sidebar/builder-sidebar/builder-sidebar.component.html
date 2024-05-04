@@ -1,6 +1,6 @@
 <div class="builder-sidebar">
-  <a routerLink="/" class="logo" *ngIf="branding$|async as branding">
-    <app-logo [content]="branding.header.logo"></app-logo>
+  <a [routerLink]="branding.header.logo?.href" class="logo" *ngIf="branding$|async as branding">
+    <app-logo [content]="branding.header.logo" [isInvert]="true"></app-logo>
   </a>
   <mat-divider></mat-divider>
   <div class="menu">
