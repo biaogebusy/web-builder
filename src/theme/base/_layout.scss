@@ -121,6 +121,10 @@ img {
   vertical-align: middle;
 }
 
+.relative {
+  z-index: 0;
+}
+
 .clearfix {
   &:before,
   &:after {
