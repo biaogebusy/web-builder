@@ -1,22 +1,13 @@
 .slider {
-  gap: 8px;
   .mat-slider {
     min-width: auto;
     flex: 1 1 auto;
   }
   .value {
     flex: 0 0 60px;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
     font-size: 14px;
-    border-radius: 4px;
     height: 26px;
-    box-sizing: border-box;
     line-height: 1;
     padding: 0px 2px;
-    opacity: 0.7;
-    white-space: nowrap;
   }
 }
