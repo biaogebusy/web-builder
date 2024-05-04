@@ -1,18 +1,9 @@
 @import "/src/theme/variable/variable";
 @import "/src/theme//mixins/amixin";
 .card-1-v3 {
-  .viewport {
-    // default height, can custom parent
-    height: 500px;
-    overflow: auto;
-  }
   .item {
-    border-radius: 10px;
     cursor: pointer;
-    margin-bottom: 2rem;
-    .title {
-      font-size: 1.6rem;
-    }
+
     .label {
       word-break: keep-all;
     }

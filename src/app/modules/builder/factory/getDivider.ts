@@ -14,7 +14,7 @@ export function getDivider(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'inset',
               type: 'toggle',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget?.inset,
               templateOptions: {
                 label: '缩进',

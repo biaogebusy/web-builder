@@ -584,7 +584,7 @@
         },
         {
           "key": "sort",
-          "className": "width-100",
+          "className": "w-full",
           "fieldGroup": [
             {
               "type": "select",

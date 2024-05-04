@@ -86,7 +86,7 @@ const content: IContactUs1v1 = {
         {
           type: 'textarea',
           key: 'message',
-          className: 'width-100',
+          className: 'w-full',
           templateOptions: {
             label: '内容',
             rows: 8,

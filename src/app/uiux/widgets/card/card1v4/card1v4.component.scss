@@ -3,6 +3,7 @@
     position: relative;
     width: 65px;
     height: 65px;
+    flex: 0 0 65px;
     ::ng-deep {
       img {
         max-width: none;
@@ -22,8 +23,6 @@
   }
 
   .inner {
-    position: relative;
-    border-radius: 6px;
     &:before {
       content: "";
       position: absolute;

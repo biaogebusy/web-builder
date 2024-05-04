@@ -5,7 +5,7 @@ import { FieldArrayType } from '@ngx-formly/core';
   selector: 'formly-repeat',
   template: `
     <div *ngFor="let field of field.fieldGroup; let i = index" class="row">
-      <formly-field class="width-100" [field]="field"></formly-field>
+      <formly-field class="w-full" [field]="field"></formly-field>
       <div fxLayoutAlign="center center">
         <app-btn
           (click)="remove(i)"

@@ -1,5 +1,5 @@
 <div class="calendar relative">
-  <div class="loading-inner" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
+  <div class="loading-inner absolute top-0 left-0" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
     <mat-spinner diameter="50" color="accent"></mat-spinner>
   </div>
   <full-calendar #calendar [options]="options"></full-calendar>

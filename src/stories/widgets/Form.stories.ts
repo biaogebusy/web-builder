@@ -72,7 +72,7 @@ const base: FormlyFieldConfig[] = [
     },
   },
   {
-    className: 'width-100 m-bottom-md',
+    className: 'w-full m-bottom-md',
     template: '<div><strong>地址:</strong></div>',
   },
   {
@@ -533,7 +533,7 @@ const responsive: FormlyFieldConfig[] = [
   {
     type: 'slider',
     key: 'xs',
-    className: 'width-100',
+    className: 'w-full',
     templateOptions: {
       label: '移动端',
       min: 1,
@@ -544,7 +544,7 @@ const responsive: FormlyFieldConfig[] = [
   {
     type: 'slider',
     key: 'sm',
-    className: 'width-100',
+    className: 'w-full',
     templateOptions: {
       label: '平板电脑',
       min: 1,
@@ -555,7 +555,7 @@ const responsive: FormlyFieldConfig[] = [
   {
     type: 'slider',
     key: 'md',
-    className: 'width-100',
+    className: 'w-full',
     templateOptions: {
       label: '桌面电脑',
       min: 1,
@@ -566,7 +566,7 @@ const responsive: FormlyFieldConfig[] = [
   {
     type: 'slider',
     key: 'lg',
-    className: 'width-100',
+    className: 'w-full',
     templateOptions: {
       label: '超大桌面',
       min: 1,

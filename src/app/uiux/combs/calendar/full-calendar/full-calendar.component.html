@@ -9,7 +9,7 @@
         </app-dynamic-component>
       </div>
       <div class="main p-x-sm p-y-sm" [fxFlex.gt-sm]="content.sidebar ? '75' : '100'" fxFlex.lt-md="100">
-        <div class="calendar width-100">
+        <div class="calendar w-full">
           <app-calendar *ngIf="visiable" [content]="content.calendar.options" [loading]="loading" [options]="options">
           </app-calendar>
         </div>

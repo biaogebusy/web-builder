@@ -1,10 +1,12 @@
-<div class="card-1-v2 relative" ngClass.lt-md="p-bottom p-x" ngClass.gt-sm="p-bottom-lg p-x-lg" *ngIf="content">
+<div class="card-1-v2 relative pb-5 px-5 md:pb-16 md:px-16" *ngIf="content">
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <div class="card-content">
-    <app-img [attr.data-path]="'img'" class="media" [content]="content.img" *ngIf="content.img"></app-img>
+  <div class="card-content relative z-10">
+    <app-img [attr.data-path]="'img'" class="media -top-5 overflow-hidden" [content]="content.img"
+      *ngIf="content.img"></app-img>
     <div class="card-bottom m-top-xs">
       <p contentedit="subTitle" [innerHTML]="content.subTitle|safeHtml" *ngIf="content.subTitle"></p>
-      <app-link [attr.data-path]="'link'" class="title" [content]="content.link" *ngIf="content.link"></app-link>
+      <app-link [attr.data-path]="'link'" class="title text-base" [content]="content.link"
+        *ngIf="content.link"></app-link>
     </div>
   </div>
 </div>

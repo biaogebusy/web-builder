@@ -2,7 +2,7 @@
   <ng-container [ngSwitch]="content.mode">
 
     <!-- autocomplete -->
-    <mat-form-field *ngSwitchCase="'autocomplete'" class="width-100" [formGroup]="form"
+    <mat-form-field *ngSwitchCase="'autocomplete'" class="w-full" [formGroup]="form"
       [appearance]="content.appearance || 'fill'">
       <mat-label>{{content.label}}</mat-label>
       <mat-icon matSuffix>{{content.icon}}</mat-icon>
@@ -24,7 +24,7 @@
     </mat-form-field>
 
     <!-- default input -->
-    <mat-form-field *ngSwitchDefault class="width-100" [formGroup]="form" [appearance]="content.appearance || 'fill'">
+    <mat-form-field *ngSwitchDefault class="w-full" [formGroup]="form" [appearance]="content.appearance || 'fill'">
       <mat-label>{{content.label}}</mat-label>
       <mat-icon matSuffix>{{content.icon}}</mat-icon>
       <input #input matInput type="{{content.controlType || 'text'}}" formControlName="{{content.key}}"

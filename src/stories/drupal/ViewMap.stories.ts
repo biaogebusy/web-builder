@@ -233,7 +233,7 @@ Circle.args = {
       {
         key: 'enableCircle',
         type: 'toggle',
-        className: 'width-100',
+        className: 'w-full',
         templateOptions: {
           label: '开启范围圈',
           description: '开启后点击地图获取经纬度',
@@ -241,8 +241,8 @@ Circle.args = {
       },
       {
         key: 'circle',
-        className: 'width-100',
-        fieldGroupClassName: 'flex flex-wrap width-100',
+        className: 'w-full',
+        fieldGroupClassName: 'flex flex-wrap w-full',
         fieldGroup: [
           {
             type: 'input',

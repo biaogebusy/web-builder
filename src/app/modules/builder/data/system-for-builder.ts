@@ -3410,7 +3410,7 @@ export const system: any[] = [
                 {
                   type: 'textarea',
                   key: 'message',
-                  className: 'width-100',
+                  className: 'w-full',
                   templateOptions: {
                     label: '内容',
                     rows: 8,
@@ -4446,7 +4446,7 @@ export const system: any[] = [
             {
               key: 'enableCircle',
               type: 'toggle',
-              className: 'width-100',
+              className: 'w-full',
               templateOptions: {
                 label: '开启范围圈',
                 description: '开启后点击地图获取经纬度',
@@ -4454,8 +4454,8 @@ export const system: any[] = [
             },
             {
               key: 'circle',
-              className: 'width-100',
-              fieldGroupClassName: 'flex flex-wrap width-100',
+              className: 'w-full',
+              fieldGroupClassName: 'flex flex-wrap w-full',
               fieldGroup: [
                 {
                   type: 'input',

@@ -189,7 +189,7 @@ const content: ILottery = {
     {
       key: 'isPromote',
       type: 'toggle',
-      className: 'width-100 m-bottom',
+      className: 'w-full m-bottom',
       templateOptions: {
         label: '开启推广提成',
         description: '超过推广次数则推广结束',

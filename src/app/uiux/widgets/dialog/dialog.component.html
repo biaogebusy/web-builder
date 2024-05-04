@@ -1,4 +1,4 @@
-<div class="dialog">
+<div class="dialog relative">
   <h2 mat-dialog-title *ngIf="data.title">{{data.title}}</h2>
   <mat-dialog-content>
     <ng-container *ngIf="data.inputData | isArray; else one">
@@ -8,7 +8,7 @@
       <app-dynamic-component [inputs]="{content:data.inputData.content}"></app-dynamic-component>
     </ng-template>
   </mat-dialog-content>
-  <div mat-dialog-actions fxLayoutAlign="center center" *ngIf="!data.disableCloseButton">
+  <div class="flex justify-center items-center" mat-dialog-actions *ngIf="!data.disableCloseButton">
     <button mat-raised-button color="primary" [mat-dialog-close]="true">关闭</button>
   </div>
 </div>

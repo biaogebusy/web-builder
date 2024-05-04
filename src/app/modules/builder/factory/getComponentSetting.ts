@@ -225,7 +225,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           {
             type: 'select',
             key: 'direction',
-            className: 'width-100',
+            className: 'w-full',
             defaultValue: content.direction || 'row wrap',
             templateOptions: {
               label: '组件布局方向',
@@ -236,7 +236,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           {
             type: 'select',
             key: 'horizontal',
-            className: 'width-100',
+            className: 'w-full',
             defaultValue: getLayoutAlign(0, content.layoutAlign),
             templateOptions: {
               label: '水平对齐',
@@ -246,7 +246,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           {
             type: 'select',
             key: 'vertical',
-            className: 'width-100',
+            className: 'w-full',
             defaultValue: getLayoutAlign(1, content.layoutAlign),
             templateOptions: {
               label: '垂直对齐',
@@ -256,7 +256,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           {
             type: 'input',
             key: 'layoutAlign',
-            className: 'width-100 hidden',
+            className: 'w-full hidden',
             defaultValue: content.layoutAlign || 'center center',
             templateOptions: {
               label: '布局对齐',

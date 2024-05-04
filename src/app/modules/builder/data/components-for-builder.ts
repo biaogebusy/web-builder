@@ -4778,7 +4778,7 @@ export const components: any[] = [
                     type: 'img',
                     src: '/assets/images/16-9/business-02.jpg',
                     hostClasses: 'relative text-center',
-                    classes: 'width-100 height-100',
+                    classes: 'w-full h-full',
                     actions: [
                       {
                         color: 'primary',
@@ -4804,7 +4804,7 @@ export const components: any[] = [
                     type: 'img',
                     src: '/assets/images/16-9/business-03.jpg',
                     hostClasses: 'relative text-center',
-                    classes: 'width-100 height-100',
+                    classes: 'w-full h-full',
                     actions: [
                       {
                         color: 'primary',
@@ -4830,7 +4830,7 @@ export const components: any[] = [
                     type: 'img',
                     src: '/assets/images/16-9/business-06.jpg',
                     hostClasses: 'relative text-center',
-                    classes: 'width-100 height-100',
+                    classes: 'w-full h-full',
                     actions: [
                       {
                         color: 'primary',
@@ -4856,7 +4856,7 @@ export const components: any[] = [
                     type: 'img',
                     src: '/assets/images/16-9/business-08.jpg',
                     hostClasses: 'relative text-center',
-                    classes: 'width-100 height-100',
+                    classes: 'w-full h-full',
                     actions: [
                       {
                         color: 'primary',

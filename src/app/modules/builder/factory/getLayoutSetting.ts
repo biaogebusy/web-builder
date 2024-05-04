@@ -15,7 +15,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       fieldGroup: [
         {
           template: `<div class="small p-y-xs m-bottom-xs">栏数</div>`,
-          className: 'width-100',
+          className: 'w-full',
         },
         {
           key: 'row',
@@ -76,11 +76,11 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
   ];
   const flexLayout: FormlyFieldConfig[] = [
     {
-      className: 'layout-setting width-100',
-      fieldGroupClassName: 'flex flex-wrap width-100',
+      className: 'layout-setting w-full',
+      fieldGroupClassName: 'flex flex-wrap w-full',
       fieldGroup: [
         {
-          className: 'width-100 m-bottom-md',
+          className: 'w-full m-bottom-md',
           template: `<div class="layout-preview"><div class="wrapper ${
             layout.direction
           } horizontal-${getLayoutAlign(
@@ -94,7 +94,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         {
           type: 'select',
           key: 'direction',
-          className: 'width-100',
+          className: 'w-full',
           defaultValue: layout.direction,
           templateOptions: {
             label: '当前列布局方向',
@@ -105,7 +105,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         {
           type: 'select',
           key: 'horizontal',
-          className: 'width-100',
+          className: 'w-full',
           defaultValue: getLayoutAlign(0, layout.layoutAlign),
           templateOptions: {
             label: '水平对齐',
@@ -115,7 +115,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         {
           type: 'select',
           key: 'vertical',
-          className: 'width-100',
+          className: 'w-full',
           defaultValue: getLayoutAlign(1, layout.layoutAlign),
           templateOptions: {
             label: '垂直对齐',
@@ -125,7 +125,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         {
           type: 'input',
           key: 'layoutAlign',
-          className: 'width-100 hidden',
+          className: 'w-full hidden',
           defaultValue: layout.layoutAlign || 'center center',
           templateOptions: {
             label: '布局对齐',
@@ -215,7 +215,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       {
         type: 'select',
         key: 'overlay',
-        className: 'width-100',
+        className: 'w-full',
         defaultValue: layout?.bg?.overlay || '',
         templateOptions: {
           label: '蒙版不透明度',
@@ -235,13 +235,13 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
   };
   const styles: FormlyFieldConfig[] = [
     {
-      className: 'width-100',
+      className: 'w-full',
       fieldGroup: [
         bgImg,
         {
           type: 'input',
           key: 'classes',
-          className: 'width-100',
+          className: 'w-full',
           defaultValue: layout?.classes || '',
           templateOptions: {
             label: '自定义Classes',
@@ -249,13 +249,13 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         },
         {
           key: 'style',
-          className: 'width-100',
-          fieldGroupClassName: 'flex flex-wrap width-100',
+          className: 'w-full',
+          fieldGroupClassName: 'flex flex-wrap w-full',
           fieldGroup: [
             {
               type: 'input',
               key: 'borderRadius',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: layout?.style?.borderRadius || 'none',
               templateOptions: {
                 label: '圆角',
@@ -263,7 +263,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             },
             {
               template: `<div class="small p-y-xs m-bottom-xs">Spacing</div>`,
-              className: 'width-100',
+              className: 'w-full',
             },
             {
               fieldGroupClassName: 'section-group',
