@@ -426,45 +426,45 @@
     "path": "/builder",
     "delay": 2000,
     "dontShowAgain": true,
-    "dontShowAgainLabel": "不再显示此引导",
-    "nextLabel": "继续",
-    "prevLabel": "返回",
-    "doneLabel": "完成",
+    "dontShowAgainLabel": "Don't show this again",
+    "nextLabel": "Next",
+    "prevLabel": "Back",
+    "doneLabel": "Done",
     "steps": [
       {
-        "intro": "欢迎来到信使 Web builder!"
+        "intro": "Welcome to experience Web builder!"
       },
       {
         "element": ".builder-sidebar",
-        "intro": "主要边栏，切换功能页面，查看列表、示例页、页头页脚配置等"
+        "intro": "Main sidebar, switch function pages, view lists, sample pages, header and footer configurations, etc"
       },
       {
         "element": ".mat-tab-labels",
-        "intro": "切换选项、预览基础组件、复合组件和系统组件，可拖动进去编辑区"
+        "intro": "Switch options, preview basic components, composite components, and system components, which can be dragged into the editing area"
       },
       {
         "element": ".mat-tab-body-wrapper",
-        "intro": "鼠标经过可预览组件，点击可固定预览，方便查看预览组件的JSON。"
+        "intro": "Mouse over the preview component, click to fix the preview, making it convenient to view the JSON of the preview component"
       },
       {
         "element": ".builder-version",
-        "intro": "清空、提交、加载示例等覆盖当前页面的操作会生成历史版本。"
+        "intro": "Operations such as clearing, submitting, and loading examples that overwrite the current page will generate historical versions."
       },
       {
         "element": ".preview-content",
-        "intro": "页面编辑区，从边栏选择组件拖拽到这里，点击文本或者工具栏编辑组件相关信息。"
+        "intro": "In the page editing area, select the component from the sidebar and drag it here. Click on the text or toolbar to edit component related information."
       },
       {
         "element": ".builder-toolbar .middle",
-        "intro": "切换响应式预览，切换不同的主题。"
+        "intro": "Switch between responsive previews and different themes."
       },
       {
         "element": "#toolbar-right",
-        "intro": "切换界面风格、新建页面或者生成页面等主要操作功能。"
+        "intro": "The main operational functions include switching interface styles, creating new pages, or generating pages."
       },
       {
         "element": ".play-video",
-        "intro": "如何使用有疑惑，可以查看演示视频。"
+        "intro": "If you have any doubts about how to use it, you can check the demonstration video."
       }
     ]
   },
@@ -472,14 +472,14 @@
     "row": 5,
     "sidebar": {
       "title": {
-        "label": "搜索",
+        "label": "Search",
         "style": "style-v4",
         "classes": ""
       },
       "action": {
         "color": "primary",
         "mode": "raised",
-        "label": "确定"
+        "label": "Search"
       },
       "form": [
         {
@@ -488,11 +488,11 @@
           "className": "static-item",
           "defaultValue": true,
           "templateOptions": {
-            "label": "切换资源库",
-            "description": "静态资源/后台媒体库"
+            "label": "Switch libraries",
+            "description": "Static medias/backend media library"
           },
           "expressionProperties": {
-            "templateOptions.description": "model.fromStatic?'静态资源':'后台媒体库'"
+            "templateOptions.description": "model.fromStatic?'Static medias':'backend media library'"
           }
         },
         {
@@ -502,7 +502,7 @@
           "templateOptions": {
             "type": "string",
             "appearance": "legacy",
-            "label": "请输入关键词"
+            "label": "please input keyword"
           }
         },
         {
@@ -511,22 +511,22 @@
           "defaultValue": "/api/v1/media/image",
           "className": "m-bottom-sm",
           "templateOptions": {
-            "label": "选择资源类型",
+            "label": "Select libraries type",
             "options": [
               {
-                "label": "所有文件",
+                "label": "All",
                 "value": "/api/v1/file/file"
               },
               {
-                "label": "图片库",
+                "label": "Images",
                 "value": "/api/v1/media/image"
               },
               {
-                "label": "文档库",
+                "label": "Documents",
                 "value": "/api/v1/media/document"
               },
               {
-                "label": "视频库",
+                "label": "Videos",
                 "value": "/api/v1/media/video"
               }
             ]
@@ -538,7 +538,7 @@
           "defaultValue": 20,
           "className": "m-bottom-sm",
           "templateOptions": {
-            "label": "每页显示个数",
+            "label": "Number of per page",
             "options": [
               {
                 "label": "10",
@@ -569,14 +569,14 @@
           "defaultValue": 1,
           "className": "m-bottom-sm",
           "templateOptions": {
-            "label": "发布状态",
+            "label": "Status",
             "options": [
               {
-                "label": "已发布",
+                "label": "Published",
                 "value": 1
               },
               {
-                "label": "未发布",
+                "label": "Unpublished",
                 "value": 0
               }
             ]
@@ -592,14 +592,14 @@
               "defaultValue": "DESC",
               "className": "m-bottom-sm",
               "templateOptions": {
-                "label": "排序",
+                "label": "Sort",
                 "options": [
                   {
-                    "label": "最新发布的",
+                    "label": "The latest",
                     "value": "DESC"
                   },
                   {
-                    "label": "最旧发布的",
+                    "label": "The oldest",
                     "value": "ASC"
                   }
                 ]
@@ -623,7 +623,7 @@
     },
     "widgetPicker": {
       "help": {
-        "tooltip": "如何新增组件到这里？",
+        "tooltip": "How to add components here?",
         "link": "https://ui.builder.design/?path=/docs/develop-newcomponent--page"
       }
     },
@@ -639,74 +639,22 @@
         },
         "spacer": "lg",
         "order": {
-          "left": 0,
-          "right": 1
+          "left": 1,
+          "right": 0
         },
         "left": [
-          {
-            "type": "text",
-            "spacer": "sm",
-            "title": {
-              "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
-              "style": "style-v4",
-              "classes": "mat-display-1 bold"
-            },
-            "body": "为您的企业构建现代化的响应式无代码网站：<ul class=\"list-done\"><li>从模板开始，根据需要进行自定义；</li><li>自定义主题色、字体创建品牌网站；</li><li>可视化编辑组件图文数据，所见即所得；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\"><video muted=\"\" autoplay=\"\" loop=\"\" width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
-            "actions": [
-              {
-                "type": "btn",
-                "color": "primary",
-                "mode": "stroked",
-                "label": " 关注作者",
-                "href": "https://www.zhihu.com/people/biaogebusy",
-                "target": "_blank",
-                "icon": {
-                  "inline": true,
-                  "svg": "zhihu"
-                }
-              },
-              {
-                "type": "link",
-                "label": "演示视频",
-                "dialog": {
-                  "data": [
-                    {
-                      "type": "player",
-                      "options": {
-                        "controls": true,
-                        "aspectRatio": "16:9",
-                        "poster": "/assets/storybook/assets/builder.png",
-                        "sources": [
-                          {
-                            "src": "/assets/video/layout-builder-hero-demo.mp4",
-                            "type:": "video/mp4"
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "disableToolbar": true,
-                "content": {
-                  "type": "github-star"
-                }
-              }
-            ]
-          }
-        ],
-        "right": [
           {
             "type": "img",
             "src": "/assets/images/illustration/13.png",
             "classes": "mover",
-            "hostClasses": "relative img-bg-shape",
+            "hostClasses": "position-relative img-bg-shape",
             "actions": [
               {
                 "type": "btn-video",
                 "color": "default",
-                "classes": "play-video",
+                "dialog": {
+                  "width": "900px"
+                },
                 "video": {
                   "type": "player",
                   "options": {
@@ -716,11 +664,63 @@
                     "sources": [
                       {
                         "src": "/assets/video/layout-builder-hero-demo.mp4",
-                        "type:": "video/mp4"
+                        "type:": "video/mp4",
+                        "type": "video/mp4"
                       }
                     ]
                   }
                 }
+              }
+            ]
+          }
+        ],
+        "right": [
+          {
+            "type": "text",
+            "spacer": "sm",
+            "title": {
+              "label": "Free trial <strong class=\"text-primary\">Web builder </strong> <br>to quickly build pages",
+              "style": "style-v4",
+              "classes": "mat-display-3 bold",
+              "typed": {
+                "enable": true,
+                "strings": [
+                  {
+                    "label": "Xinshi UI"
+                  },
+                  {
+                    "label": "Web builder"
+                  }
+                ],
+                "config": {
+                  "typeSpeed": 120,
+                  "loop": true
+                }
+              }
+            },
+            "body": "Building a modern, responsive, and low code for your company website：<ul class=\"list-done\"><li>Start from the template, customize as needed;</li><li>Customize theme colors and fonts to create brand websites;</li><li>Visual editing component graphic and textual data, WYSIWYG;</li></ul><p>Welcome to join the QQ communication group to explore more possibilities and digital innovation experiences together：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\"><video muted=\"\" autoplay=\"\" loop=\"\" width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
+            "actions": [
+              {
+                "type": "btn",
+                "color": "primary",
+                "mode": "raised",
+                "href": "/en/builder",
+                "label": "Start now"
+              },
+              {
+                "type": "btn",
+                "color": "primary",
+                "mode": "stroked",
+                "label": "Follow",
+                "href": "https://www.zhihu.com/people/biaogebusy",
+                "target": "_blank",
+                "icon": {
+                  "inline": true,
+                  "svg": "zhihu"
+                }
+              },
+              {
+                "type": "github-star"
               }
             ]
           }
@@ -772,12 +772,12 @@
             "style": "style-v9",
             "title": {
               "href": "https://ui.builder.design/?path=/docs/start-guide--page",
-              "label": "开发快速指南"
+              "label": "Development Quick Guide"
             },
-            "content": "初始化本地环境快速指南",
+            "content": "Quick Guide to Initializing Local Environment",
             "more": {
               "href": "https://ui.builder.design/?path=/docs/start-guide--page",
-              "label": "查看"
+              "label": "More"
             }
           },
           {
@@ -788,12 +788,12 @@
             "style": "style-v9",
             "title": {
               "href": "https://ui.builder.design/?path=/docs/develop-newcomponent--page",
-              "label": "开发新组件"
+              "label": "Developing new components"
             },
-            "content": "开发组件的完整流程文档",
+            "content": "A complete process document for developing components",
             "more": {
               "href": "https://ui.builder.design/?path=/docs/develop-newcomponent--page",
-              "label": "查看"
+              "label": "More"
             }
           },
           {
@@ -804,12 +804,12 @@
             "style": "style-v9",
             "title": {
               "href": "https://ui.builder.design/?path=/docs/create-theme--page",
-              "label": "组件主题"
+              "label": "Component Theme"
             },
-            "content": "开发组件主题指南，变量说明",
+            "content": "Development Component Theme Guide, Variable Description",
             "more": {
               "href": "https://ui.builder.design/?path=/docs/create-theme--page",
-              "label": "查看"
+              "label": "More"
             }
           },
           {
@@ -822,10 +822,10 @@
               "href": "https://www.zhihu.com/column/c_1698460157728731137",
               "label": "Blog"
             },
-            "content": "关于 Web builder 的文章",
+            "content": "Web builder blog",
             "more": {
               "href": "https://www.zhihu.com/column/c_1698460157728731137",
-              "label": "查看"
+              "label": "More"
             }
           }
         ]
@@ -869,7 +869,7 @@
         "row": 3,
         "text": {
           "title": {
-            "label": "页面是如何创建的",
+            "label": "How was the page created",
             "style": "style-v1",
             "classes": "mat-display-1 bold"
           }
@@ -879,8 +879,8 @@
             "disableToolbar": true,
             "content": {
               "type": "card-1v5",
-              "title": "拖拽组件",
-              "body": "从左侧边栏拖动组件到编辑区构建页面，或者直接修改示例页",
+              "title": "Dragging components",
+              "body": "Drag the component from the left sidebar to the editing area to build the page, or directly modify the sample page",
               "footer": {
                 "label": "Step 01.",
                 "icon": {
@@ -893,8 +893,8 @@
             "disableToolbar": true,
             "content": {
               "type": "card-1v5",
-              "title": "更新组件",
-              "body": "编辑组件数据，点击文字或者图片修改，或者通过JSON修改数据",
+              "title": "Update components",
+              "body": "Edit component data, click on text or image to modify, or modify data through JSON",
               "footer": {
                 "label": "Step 02.",
                 "icon": {
@@ -907,8 +907,8 @@
             "disableToolbar": true,
             "content": {
               "type": "card-1v5",
-              "title": "发布页面",
-              "body": "提交页面到后台，或者复制JSON到后台自定义更新",
+              "title": "Publish Page",
+              "body": "Submit the page to the backend, or copy JSON to the backend for custom updates",
               "footer": {
                 "label": "Step 03.",
                 "icon": {
@@ -923,7 +923,7 @@
             "disableToolbar": true,
             "content": {
               "type": "btn-generater",
-              "label": "生成页面",
+              "label": "Generate Page",
               "color": "primary",
               "mode": "raised"
             }
@@ -938,8 +938,8 @@
         "defaultValue": 1,
         "className": "block m-bottom-sm",
         "templateOptions": {
-          "label": "选择首屏个数",
-          "description": "页面菜单下的第一个首屏组件",
+          "label": "Select the number of Heros",
+          "description": "The first screen component under the page menu",
           "options": [
             {
               "label": "1",
@@ -974,8 +974,8 @@
         "defaultValue": 3,
         "className": "block m-bottom-sm",
         "templateOptions": {
-          "label": "选择 Showcase 个数",
-          "description": "一般一个页面会有多个 Showcase 组件",
+          "label": "Select the number of Showcases",
+          "description": "Usually, a page will have multiple Showcase components",
           "options": [
             {
               "label": "1",
@@ -1026,8 +1026,8 @@
         "defaultValue": 1,
         "className": "block m-bottom-sm",
         "templateOptions": {
-          "label": "选择幻灯片个数",
-          "description": "幻灯片不宜太多，生成后可重排",
+          "label": "Select the number of slides",
+          "description": "There should not be too many slides",
           "options": [
             {
               "label": "1",
@@ -1062,8 +1062,8 @@
         "defaultValue": 0,
         "className": "block m-bottom-sm",
         "templateOptions": {
-          "label": "选择瀑布流组件个数",
-          "description": "瀑布流组件一般只需要一个",
+          "label": "Select the number of waterfall",
+          "description": "The waterfall flow component usually only requires one",
           "options": [
             {
               "label": "0",
