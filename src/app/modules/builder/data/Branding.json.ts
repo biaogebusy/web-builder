@@ -15,6 +15,7 @@ export const defaultHeader: IHeader = {
       src: '/assets/images/logo/logo-blue.png',
       alt: '信使 logo',
     },
+    invert: '/assets/images/logo/logo-white.png',
   },
   top: {
     banner: {
@@ -160,13 +161,14 @@ export const enDefaultHeader: IHeader = {
     menuHoverOpen: false,
   },
   logo: {
-    label: 'xinshi',
+    label: 'Web builder',
     version: false,
-    href: '/',
+    href: '/en/home',
     img: {
       src: '/assets/images/logo/logo-blue.png',
       alt: 'xinshi logo',
     },
+    invert: '/assets/images/logo/logo-white.png',
   },
   top: {
     banner: {
