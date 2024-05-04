@@ -8,7 +8,7 @@
       [ngStyle.md]="{gap:content.gap?.md+'px'}" [ngStyle.lg]="{gap:content.gap?.lg+'px'}"
       [ngStyle.gt-lg]="{gap:content.gap?.lg+'px'}">
       <div class="layout layout-{{i}}" [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i"
-        [attr.data-path]="'elements.'+i" [ngClass]="layout.classes"
+        [attr.data-path]="'elements.'+i" [ngStyle]="layout.style"
         fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}} - {{content.gap?.xs+'px'||'0px'}})"
         fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}} - {{content.gap?.sm+'px'||'0px'}})"
         fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}} - {{content.gap?.md+'px'||'0px'}})"
@@ -27,7 +27,7 @@
           <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign"
             [ngStyle.xs]="{gap:layout.gap?.xs+'px'}" [ngStyle.sm]="{gap:layout.gap?.sm+'px'}"
             [ngStyle.md]="{gap:layout.gap?.md+'px'}" [ngStyle.lg]="{gap:layout.gap?.lg+'px'}"
-            [ngStyle.gt-lg]="{gap:layout.gap?.lg+'px'}" [ngStyle]="layout.style">
+            [ngStyle.gt-lg]="{gap:layout.gap?.lg+'px'}">
             <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
             <div class="item item-{{item.type}}" [attr.data-path]="'elements.'+index"
               *ngFor="let item of layout.elements;index as index">

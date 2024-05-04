@@ -19,6 +19,7 @@ import { NodeService } from '@core/service/node.service';
 import { ManageService } from '@core/service/manage.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
 import { mediaAssets } from '@modules/builder/data/mediaAssets';
+import { ILanguage } from '@core/interface/IEnvironment';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -69,9 +70,9 @@ export function builderCurrentPageFactory(
   currentPage$.next(currentPage);
 
   storage.observe(versionKey).subscribe((version: IPage[]) => {
-    const currentPage =
+    const current =
       version.find((page: IPage) => page.current === true) || version[0];
-    currentPage$.next(currentPage);
+    currentPage$.next(current);
   });
 
   return currentPage$;
@@ -147,7 +148,7 @@ export function manageSidebarStateFactory(
       ) {
         enableSidebar = false;
         state$.next({
-          enableSidebar: enableSidebar,
+          enableSidebar,
           sidebarOpened: false,
         });
       } else {
@@ -259,9 +260,35 @@ export const apiUrlFactory = () => {
 
 export function coreConfigFactory(
   contentService: ContentService,
-  coreConfig: object
+  coreConfig: object,
+  lang: ILanguage
 ): any {
-  return () => contentService.loadConfig(coreConfig);
+  return () => contentService.loadConfig(coreConfig, lang);
+}
+
+export function langFactory(router: Router): ILanguage | undefined {
+  const { multiLang, langs } = environment;
+
+  if (!multiLang) {
+    return undefined;
+  }
+  if (multiLang && langs) {
+    const { pathname } = window.location;
+    const lang = pathname.split('/')[1];
+    const currentLang = langs.find((item) => item.value === lang);
+    if (currentLang) {
+      return currentLang;
+    } else {
+      // default language
+      const defLang = langs.find((item) => item.default);
+      if (!defLang) {
+        return undefined;
+      }
+      return defLang;
+    }
+  }
+
+  return undefined;
 }
 
 export function themeFactory(
@@ -285,9 +312,10 @@ export function themeFactory(
 }
 
 export function brandingFactory(
-  contentService: ContentService
+  contentService: ContentService,
+  lang: ILanguage
 ): Observable<IBranding | object> {
-  return contentService.loadBranding();
+  return contentService.loadBranding(lang);
 }
 
 export function userFactory(

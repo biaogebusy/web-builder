@@ -7,17 +7,19 @@ import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { isArray } from 'lodash-es';
+import { flattenDeep, isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import {
   footerInverse,
-  manageHeader,
+  defaultHeader,
+  enDefaultHeader,
+  enFooterInverse,
 } from '@modules/builder/data/Branding.json';
 import { samples } from '@modules/builder/data/samples-for-builder';
-import { IBuilderSamplePage, ISample } from '@core/interface/IBuilder';
+import { ILanguage } from '@core/interface/IEnvironment';
 @Injectable({
   providedIn: 'root',
 })
@@ -71,13 +73,15 @@ export class ContentService {
         })
       );
     } else {
-      const sample = pageUrl.split('/')[1];
-      const samplePage = samples
-        .map((item: any) => item.elements)
-        .find((page: any) => page.id === sample);
-      if (samplePage) {
-        this.updatePage(samplePage.page);
-        return of(samplePage.page);
+      const pageId = pageUrl.split('/')[1];
+      const samplePage = samples.map((item: any) => item.elements);
+
+      const currentPage = flattenDeep(samplePage).find(
+        (page: any) => page.id === pageId
+      );
+      if (currentPage) {
+        this.updatePage(currentPage.page);
+        return of(currentPage.page);
       } else {
         return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
       }
@@ -91,24 +95,34 @@ export class ContentService {
     }
   }
 
-  loadBranding(): Observable<IBranding> {
+  loadBranding(lang: ILanguage): Observable<IBranding> {
+    const language = lang ? `${lang.prefix}` : '';
     const localBranding: IBranding = {
-      header: manageHeader,
+      header: defaultHeader,
       footer: footerInverse,
+    };
+
+    const enBranding: IBranding = {
+      header: enDefaultHeader,
+      footer: enFooterInverse,
     };
     if (environment.production) {
       return this.http.get<IBranding>(
-        `${this.apiUrl}/api/v1/config?content=/core/branding`
+        `${this.apiUrl}/api/v1/config?content=${language}/core/branding`
       );
     } else {
+      if (lang?.value === 'en') {
+        return of(enBranding);
+      }
       return of(localBranding);
     }
   }
 
-  loadConfig(coreConfig: object): any {
+  loadConfig(coreConfig: object, lang: ILanguage): any {
+    const language = lang ? `${lang.prefix}` : '';
     const configPath = environment.production
-      ? `${this.apiUrl}/api/v1/config?content=/core/base`
-      : `${this.apiUrl}/assets/app/core/base.json`;
+      ? `${this.apiUrl}/api/v1/config?content=${language}/core/base`
+      : `${this.apiUrl}/assets/app${language}/core/base.json`;
     return this.http
       .get(configPath)
       .pipe(

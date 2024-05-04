@@ -1,6 +1,6 @@
 <ng-container *ngIf="content">
-  <div class="logo flex justify-start items-end" *ngIf="content?.img; else name">
-    <app-img [content]="content.img"></app-img>
+  <div class="logo flex justify-start items-end" *ngIf="img; else name">
+    <app-img [content]="img"></app-img>
   </div>
   <ng-template #name>
     <a class="site-name mat-h2" [routerLink]="content.href" [innerHTML]="content?.label|safeHtml"></a>

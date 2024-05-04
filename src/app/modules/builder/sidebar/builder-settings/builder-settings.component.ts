@@ -7,10 +7,11 @@ import {
   OnInit,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { ILanguage } from '@core/interface/IEnvironment';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { CORE_CONFIG, LANG } from '@core/token/token-providers';
 import { settings } from '@modules/builder/data/settings-for-builder';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -30,14 +31,15 @@ export class BuilderSettingsComponent
   constructor(
     private builder: BuilderState,
     private contentService: ContentService,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(LANG) private lang: ILanguage
   ) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.contentService
-      .loadBranding()
+      .loadBranding(this.lang)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.branding = res;
@@ -47,7 +49,7 @@ export class BuilderSettingsComponent
     this.builder.cancelFixedShowcase();
   }
 
-  onJson(content: any) {
+  onJson(content: any): void {
     const { provide } = content;
     let data = {};
     switch (provide) {

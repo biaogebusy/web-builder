@@ -1,16 +1,16 @@
 <div class="widget-picker">
   <div class="box" *ngIf="widgets$ | async as widgets" fxLayout="row wrap">
     <div class="item" #item (mouseenter)="onHover(widget, item)" (click)="onSelect(widget)" matRipple fxFlex.lt-sm="33%"
-      fxFlex.gt-xs="0 0 calc(100% / 7)" *ngFor="let widget of widgets">
-      <div class="inner" fxLayout="column" fxLayoutAlign="center center">
+      fxFlex.gt-xs="0 0 calc(100% / 10)" *ngFor="let widget of widgets">
+      <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
         <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
         <div class="title" title="{{widget.label}}">{{widget.label}}</div>
       </div>
     </div>
   </div>
-  <div class="popup" #popup>
+  <div class="popup p-4 z-10 w-[560px] h-[400px]" #popup>
     <ng-container *ngIf="widget$ | async as widget">
-      <div class="hover-show">
+      <div class="hover-show w-full h-full flex justify-center items-center relative">
         <ng-container *ngIf="widget.preview;else comp">
           <img [src]="widget.preview" alt="">
         </ng-container>
@@ -20,7 +20,7 @@
       </div>
     </ng-container>
   </div>
-  <div class="help" [matTooltip]="help.tooltip" *ngIf="help">
+  <div class="help absolute" [matTooltip]="help.tooltip" *ngIf="help">
     <app-btn
       [content]="{label:'',mode:'icon',color:undefined,href:help.link,target:'_blank',icon:{svg:'help-circle'}}"></app-btn>
   </div>

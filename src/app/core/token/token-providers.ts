@@ -19,6 +19,7 @@ export const BRANDING = new InjectionToken<IBranding>('branding config');
 export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>(
   'page_content'
 );
+export const LANG = new InjectionToken<string>('current lang');
 export const THEME = new InjectionToken<string>('current theme');
 export const USER = new InjectionToken<IUser>('user');
 export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify>>(

@@ -20,6 +20,7 @@ import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
 import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.component';
+import { LangSwitchComponent } from './header/lang-switch/lang-switch.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.componen
     FixBarPopupComponent,
     HoverMenuComponent,
     ManageSidebarComponent,
+    LangSwitchComponent,
   ],
   imports: [ShareModule, WidgetsModule],
   exports: [
@@ -56,6 +58,7 @@ import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.componen
     InverseComponent,
     SpaceBetweenComponent,
     FixBarComponent,
+    LangSwitchComponent,
   ],
 })
 export class BrandingModule {}

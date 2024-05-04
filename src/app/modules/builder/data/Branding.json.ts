@@ -15,6 +15,7 @@ export const defaultHeader: IHeader = {
       src: '/assets/images/logo/logo-blue.png',
       alt: '信使 logo',
     },
+    invert: '/assets/images/logo/logo-white.png',
   },
   top: {
     banner: {
@@ -147,6 +148,159 @@ export const defaultHeader: IHeader = {
   actions: [
     {
       label: '发布职位',
+      href: '/create-job',
+    },
+  ],
+};
+
+export const enDefaultHeader: IHeader = {
+  params: {
+    themeSwitch: true,
+    userInfo: true,
+    isMegaMenu: false,
+    menuHoverOpen: false,
+  },
+  logo: {
+    label: 'Web builder',
+    version: false,
+    href: '/en/home',
+    img: {
+      src: '/assets/images/logo/logo-blue.png',
+      alt: 'xinshi logo',
+    },
+    invert: '/assets/images/logo/logo-white.png',
+  },
+  top: {
+    banner: {
+      left: [
+        {
+          icon: {
+            svg: 'tooltip-check-outline',
+            inline: true,
+          },
+          label: 'v4.2.4',
+        },
+        {
+          icon: {
+            svg: 'email-outline',
+            inline: true,
+          },
+          label: '349255833@qq.com',
+        },
+      ],
+      right: [
+        {
+          label: 'zhihu',
+          svg: 'zhihu',
+          href: 'https://www.zhihu.com/column/c_1331898788731375616',
+        },
+        {
+          label: '微博',
+          svg: 'weibo',
+          href: 'https://weibo.com/u/1671667514',
+        },
+        {
+          label: 'biaogebusy',
+          svg: 'wechat',
+          href: '#',
+        },
+      ],
+    },
+  },
+  mainMenu: [
+    {
+      label: 'Home',
+      classes: 'bold',
+      href: '/home',
+    },
+    {
+      label: 'Web Builder',
+      classes: 'bold',
+      href: '/builder',
+    },
+    {
+      label: 'Samples',
+      classes: 'bold',
+      tooltip: {
+        message: '使用web builder构建出的示例',
+        position: 'above',
+      },
+      child: [
+        {
+          label: 'Home v1',
+          href: '/home',
+        },
+        {
+          label: 'Home v2',
+          href: '/home-v2',
+        },
+        {
+          label: 'Home v3',
+          href: '/home-v3',
+        },
+        {
+          label: 'Home v4',
+          href: '/home-v4',
+        },
+        {
+          label: 'Home v5',
+          href: '/home-v5',
+        },
+        {
+          label: 'Home v6',
+          href: '/home-v6',
+        },
+        {
+          label: 'Home v7',
+          href: '/home-v7',
+        },
+        {
+          label: 'Home v8',
+          href: '/home-v8',
+        },
+        {
+          label: 'Home v9',
+          href: '/home-v9',
+        },
+        {
+          label: 'Home v10',
+          href: '/home-v10',
+        },
+        {
+          label: 'Home v11',
+          href: '/home-v11',
+        },
+        {
+          label: 'Home v12',
+          href: '/home-v12',
+        },
+        {
+          label: 'Home v13',
+          href: '/home-v13',
+        },
+      ],
+    },
+  ],
+  search: {
+    enable: true,
+    placeholder: 'key word',
+    tooltip: 'Go to search page',
+    link: '/search',
+    type: 'input',
+    key: 'title',
+  },
+  userMenu: [
+    {
+      label: 'questions list',
+      href: '/questions',
+      icon: {
+        name: 'list',
+      },
+    },
+  ],
+  actions: [
+    {
+      label: 'Creat Jobs',
       href: '/create-job',
     },
   ],
@@ -577,6 +731,46 @@ export const footerInverse: IFooter = {
     logo: footerBrandLogo,
     summary:
       '信使 UI 是基于 Material 的 Angular 前端框架， 丰富的组件库可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
+    social: [
+      {
+        label: 'zhihu',
+        icon: {
+          svg: 'zhihu',
+        },
+        href: 'https://www.zhihu.com/people/biaogebusy',
+      },
+      {
+        label: '微博',
+        icon: {
+          svg: 'weibo',
+        },
+        href: 'https://weibo.com/u/1671667514',
+      },
+      {
+        label: 'Github',
+        icon: {
+          svg: 'github',
+        },
+        href: 'https://github.com/biaogebusy/web-builder',
+      },
+    ],
+  },
+  mainMenu: footerMainMenu,
+  mobileMenu: footerMobileMenu,
+  footerNewsletter,
+  footerBottom,
+  fixBar,
+};
+
+export const enFooterInverse: IFooter = {
+  params: {
+    mode: 'inverse',
+    shape: false,
+  },
+  footerBrand: {
+    logo: footerBrandLogo,
+    summary:
+      'Rich component library, complete front-end solution, through Web Builder drag and drop quickly building responsive and multi themes websites.',
     social: [
       {
         label: 'zhihu',

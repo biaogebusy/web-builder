@@ -21,6 +21,7 @@ import {
   CORE_CONFIG,
   DEBUG_ANIMATE,
   IS_BUILDER_MODE,
+  LANG,
   MANAGE_SIDEBAR_STATE,
   MEDIA_ASSETS,
   NOTIFY_CONTENT,
@@ -37,6 +38,7 @@ import {
   coreConfigFactory,
   debugAnimateFactory,
   isBuilderModeFactory,
+  langFactory,
   manageSidebarStateFactory,
   mediaAssetsFactory,
   notifyFactory,
@@ -83,7 +85,7 @@ import { ContentState } from '@core/state/ContentState';
     {
       provide: BRANDING,
       useFactory: brandingFactory,
-      deps: [ContentService],
+      deps: [ContentService, [new Inject(LANG)]],
     },
     {
       provide: THEME,
@@ -93,8 +95,13 @@ import { ContentState } from '@core/state/ContentState';
     {
       provide: APP_INITIALIZER,
       useFactory: coreConfigFactory,
-      deps: [ContentService, [new Inject(CORE_CONFIG)]],
+      deps: [ContentService, [new Inject(CORE_CONFIG)], [new Inject(LANG)]],
       multi: true,
+    },
+    {
+      provide: LANG,
+      useFactory: langFactory,
+      deps: [Router],
     },
     {
       provide: API_URL,
