@@ -55,7 +55,7 @@
     "angulartics2": "^10.0.0",
     "crypto-js": "^4.1.1",
     "dompurify": "^3.1.0",
-    "drupal-jsonapi-params": "^2.2.0",
+    "drupal-jsonapi-params": "^2.3.1",
     "echarts": "^5.0.2",
     "file-saver": "^2.0.5",
     "gsap": "^3.11.3",
