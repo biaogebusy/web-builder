@@ -1,6 +1,6 @@
 <ng-container *ngIf="content">
   <ng-container *ngIf="content.elements.length>0;else empty">
-    <app-media-object class="block m-bottom" [content]="item" *ngFor="let item of content.elements">
+    <app-media-object class="block mb-10" [content]="item" *ngFor="let item of content.elements">
     </app-media-object>
   </ng-container>
   <ng-template #empty>

@@ -1,13 +1,13 @@
 <div class="media-object" [class.box-animate]="content.css3" fxLayout [fxLayoutAlign]="align" *ngIf="content">
-  <div class="media-left m-right-xs text-center">
+  <div class="media-left mr-3 text-center">
     <ng-container *ngIf="content.img">
       <app-img [attr.data-path]="'img'" [content]="content.img" *ngIf="content?.img?.src"></app-img>
     </ng-container>
     <app-icon [content]="content.icon" *ngIf="content.icon"></app-icon>
-    <div contentedit="meta" class="meta m-top-xs" [innerHTML]="content.meta|safeHtml" *ngIf="content.meta"></div>
+    <div contentedit="meta" class="meta mt-3" [innerHTML]="content.meta|safeHtml" *ngIf="content.meta"></div>
   </div>
   <div fxFlex="1 1 0%" class="media-body">
-    <div contentedit="title" class="title line-height-1 bold mat-h3 m-bottom-xs" *ngIf="content.title">{{content.title}}
+    <div contentedit="title" class="title line-height-1 bold mat-h3 mb-3" *ngIf="content.title">{{content.title}}
     </div>
     <app-link [attr.data-path]="'link'" *ngIf="content.link" [content]="content.link"></app-link>
     <div contentedit="subTitle" class="sub-title" *ngIf="content.subTitle">{{content.subTitle}}</div>

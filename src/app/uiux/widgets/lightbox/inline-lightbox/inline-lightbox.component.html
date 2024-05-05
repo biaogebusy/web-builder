@@ -1,5 +1,5 @@
 <div class="inline-lightbox" *ngIf="content">
-  <a class="inline" [ngClass]="isFirst?'' : 'p-x-xs'" (click)="onLightbox(i)" href="javascript:void(0)"
+  <a class="inline" [ngClass]="isFirst?'' : 'px-3'" (click)="onLightbox(i)" href="javascript:void(0)"
     *ngFor="let item of content.label;first as isFirst; index as i">
     <span [innerHTML]="item|safeHtml"></span>
   </a>
