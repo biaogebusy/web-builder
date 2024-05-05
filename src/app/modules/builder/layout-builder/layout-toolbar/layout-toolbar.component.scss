@@ -1,7 +1,4 @@
 .layout-toolbar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   ::ng-deep {
     .mat-icon-button {
       width: 30px;
@@ -15,7 +12,6 @@
     }
   }
   .toggle {
-    display: block;
     border-bottom-left-radius: 4px;
   }
   .block-toolbar {
