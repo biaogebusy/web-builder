@@ -423,7 +423,7 @@
   "animate": true,
   "tour": {
     "enable": true,
-    "path": "/builder",
+    "path": "/en/builder",
     "delay": 2000,
     "dontShowAgain": true,
     "dontShowAgainLabel": "Don't show this again",
