@@ -81,15 +81,9 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       fieldGroup: [
         {
           className: 'w-full m-bottom-md',
-          template: `<div class="layout-preview"><div class="wrapper ${
-            layout.direction
-          } horizontal-${getLayoutAlign(
-            0,
-            layout.layoutAlign
-          )} vertical-${getLayoutAlign(
-            1,
-            layout.layoutAlign
-          )}" layoutpreview><div class="block bg-primary">1</div><div class="block bg-orange">2</div><div class="block bg-green">3</div></div></div>`,
+          template: `<div class="layout-preview">
+          <div class="wrapper flex flex-${layout.direction} gap-6 justify-${layout.horizontal} items-${layout.vertical}"><div class="block bg-primary">1</div><div class="block bg-orange">2</div><div class="block bg-green">3</div></div>
+          </div>`,
         },
         {
           type: 'select',
@@ -106,7 +100,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           type: 'select',
           key: 'horizontal',
           className: 'w-full',
-          defaultValue: getLayoutAlign(0, layout.layoutAlign),
+          defaultValue: layout.horizontal,
           templateOptions: {
             label: '水平对齐',
             options: getHorizontalOption,
@@ -116,30 +110,10 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           type: 'select',
           key: 'vertical',
           className: 'w-full',
-          defaultValue: getLayoutAlign(1, layout.layoutAlign),
+          defaultValue: layout.vertical,
           templateOptions: {
             label: '垂直对齐',
             options: getVerticalOption,
-          },
-        },
-        {
-          type: 'input',
-          key: 'layoutAlign',
-          className: 'w-full hidden',
-          defaultValue: layout.layoutAlign || 'center center',
-          templateOptions: {
-            label: '布局对齐',
-          },
-          hooks: {
-            onInit: (formGroup: any) => {
-              const { form, model } = formGroup;
-              form.valueChanges.subscribe((value: any) => {
-                model.layoutAlign = `${value.horizontal.replace(
-                  'flex-',
-                  ''
-                )} ${value.vertical.replace('flex-', '')}`;
-              });
-            },
           },
         },
         {

@@ -54,7 +54,7 @@
               color: mat.get-color-from-palette($primary);
             }
           }
-          .block {
+          .blocks {
             > .item {
               &:hover {
                 outline: 1px solid mat.get-color-from-palette($primary);

@@ -60,7 +60,9 @@ export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
   style: any;
   direction: 'column' | 'row' | 'row wrap';
-  layoutAlign: string;
+  wrap: 'wrap' | 'wrap-reverse' | 'nowrap';
+  horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+  vertical: 'start' | 'end' | 'center' | 'stretch';
   gap?: {
     xs?: number;
     sm?: number;
@@ -80,7 +82,9 @@ export interface ILayoutBlock {
   bg?: IBgImg;
   elements: any[];
   direction: 'column' | 'row' | 'row wrap';
-  layoutAlign: string;
+  wrap: 'wrap' | 'wrap-reverse' | 'nowrap';
+  horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+  vertical: 'start' | 'end' | 'center' | 'stretch';
   gap?: {
     xs?: number;
     sm?: number;
