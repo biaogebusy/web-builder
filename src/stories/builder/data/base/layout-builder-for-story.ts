@@ -867,7 +867,6 @@ export const layoutBuilder: any[] = [
           end: 'top 40%',
         },
       },
-      layoutAlign: 'center center',
       type: 'layout-builder',
       elements: [
         {
@@ -998,6 +997,7 @@ export const layoutBuilder: any[] = [
             lg: 3,
           },
           direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'stretch',
           gap: {
@@ -1015,7 +1015,8 @@ export const layoutBuilder: any[] = [
             overlay: '',
             classes: 'bg-fill-width',
           },
-          classes: 'p-5',
+          classes: '',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             padding: '20px',
@@ -1048,7 +1049,6 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
-          wrap: 'wrap',
           layoutAlign: 'center stretch',
           elements: [
             {
@@ -1109,7 +1109,8 @@ export const layoutBuilder: any[] = [
             overlay: '',
             classes: 'bg-fill-width',
           },
-          classes: 'p-5',
+          classes: '',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -1183,6 +1184,7 @@ export const layoutBuilder: any[] = [
             lg: 3,
           },
           direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'stretch',
           gap: {
@@ -1200,7 +1202,8 @@ export const layoutBuilder: any[] = [
             overlay: '',
             classes: 'bg-fill-width',
           },
-          classes: 'p-5',
+          classes: '',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -1232,7 +1235,6 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
-          wrap: 'wrap',
           layoutAlign: 'center stretch',
           elements: [
             {

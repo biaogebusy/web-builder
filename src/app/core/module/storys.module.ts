@@ -29,6 +29,7 @@ import {
   MANAGE_SIDEBAR_STATE,
   IS_BUILDER_MODE,
   MEDIA_ASSETS,
+  LANG,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -124,6 +125,14 @@ export class StorysModule {
         {
           provide: THEME,
           useValue: 'blue-theme',
+        },
+        {
+          provide: LANG,
+          useValue: {
+            label: '中文',
+            value: 'zh',
+            prefix: '/',
+          },
         },
         {
           provide: PAGE_CONTENT,

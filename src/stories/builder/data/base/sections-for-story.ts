@@ -911,7 +911,7 @@ export const sections = [
             md: 6,
             lg: 6,
           },
-          direction: 'row',
+          direction: 'col',
           wrap: 'wrap',
           horizontal: 'start',
           vertical: 'stretch',
@@ -931,6 +931,7 @@ export const sections = [
             classes: 'bg-fill-width',
           },
           classes: 'mb-5',
+          blockClasses: '',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -1232,6 +1233,7 @@ export const sections = [
             lg: 3,
           },
           direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'stretch',
           gap: {
@@ -1250,6 +1252,7 @@ export const sections = [
             classes: 'bg-fill-width',
           },
           classes: 'm-bottom-md',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -1281,7 +1284,6 @@ export const sections = [
               end: 'top 40%',
             },
           },
-          wrap: 'wrap',
           elements: [
             {
               title: {
@@ -1333,6 +1335,7 @@ export const sections = [
             classes: 'bg-fill-width',
           },
           classes: 'm-bottom-md',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -1365,6 +1368,7 @@ export const sections = [
               scrub: true,
             },
           },
+          wrap: 'wrap',
           elements: [
             {
               title: {
@@ -1417,6 +1421,7 @@ export const sections = [
             classes: 'bg-fill-width',
           },
           classes: 'm-bottom-md',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -1448,6 +1453,7 @@ export const sections = [
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
           elements: [
             {
               title: {
@@ -1499,6 +1505,7 @@ export const sections = [
             classes: 'bg-fill-width',
           },
           classes: 'm-bottom-md',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -1530,6 +1537,7 @@ export const sections = [
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
           elements: [
             {
               title: {
