@@ -9,27 +9,46 @@ export const base = [
           svg: 'view-week-outline',
         },
         content: {
-          type: 'layout-builder',
-          spacer: 'md',
           fullWidth: false,
+          spacer: 'md',
+          bgClasses: 'bg-fill-width',
+          overlay: '',
+          classes: '',
+          id: '',
           bg: {
-            classes: 'bg-fill-width',
             img: {
               src: '/assets/images/bg/home-shape.png',
-              alt: 'home-shape.png',
               classes: 'object-fit',
+              alt: 'home-shape.png',
             },
+            classes: 'bg-fill-width',
+            overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
           },
+          type: 'layout-builder',
           elements: [
             {
               row: {
@@ -38,15 +57,14 @@ export const base = [
                 md: 6,
                 lg: 7,
               },
-              direction: 'column',
+              direction: 'col',
               horizontal: 'center',
-              vertical: 'flex-start',
-              layoutAlign: 'center start',
+              vertical: 'start',
               gap: {
-                xs: '10',
-                sm: '10',
-                md: '10',
-                lg: '10',
+                xs: '2',
+                sm: '2',
+                md: '2',
+                lg: '2',
               },
               bg: {
                 img: {
@@ -83,6 +101,7 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              layoutAlign: 'center start',
               elements: [
                 {
                   type: 'title',
@@ -122,14 +141,54 @@ export const base = [
               ],
             },
             {
-              classes: '',
               row: {
                 xs: 12,
                 sm: 6,
                 md: 6,
                 lg: 5,
               },
-              direction: 'column',
+              direction: 'col',
+              gap: {
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
+              },
+              bg: {
+                img: {
+                  src: '',
+                  alt: '',
+                  classes: 'object-fit',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                borderRadius: 'none',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              horizontal: 'center',
+              vertical: 'center',
               layoutAlign: 'center stretch',
               elements: [
                 {
@@ -189,16 +248,10 @@ export const base = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'stretch',
-          layoutAlign: 'center stretch',
-          gap: {
-            xs: 0,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
           animate: {
             from: {
               x: 0,
@@ -228,10 +281,10 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
+              direction: 'col',
+              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'center',
-              layoutAlign: 'center center',
               gap: {
                 xs: '10',
                 sm: '10',
@@ -245,12 +298,13 @@ export const base = [
                   classes: 'object-fit',
                 },
                 overlay: '',
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
               classes: '',
+              blockClasses: 'md:mr-5 bg-shadow ',
               style: {
                 borderRadius: 'none',
-                margin: '0 0 20px 0',
+                margin: '',
               },
               animate: {
                 from: {
@@ -272,6 +326,7 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              layoutAlign: 'center center',
               elements: [
                 {
                   style: 'none',
@@ -316,12 +371,17 @@ export const base = [
                   href: '/',
                 },
                 {
-                  src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
+                  src: 'http://localhost:4200/assets/images/products/huawei-watch-gt4-select-strap.webp',
                   classes: '',
                   alt: 'alt',
                   style: {
-                    aspectRatio: 'auto',
-                    objectFit: 'initial',
+                    width: '450px',
+                    height: '300px',
+                    opacity: '1',
+                    borderRadius: '0px',
+                    boxShadow: 'none',
+                    aspectRatio: '1 / 1',
+                    objectFit: 'contain',
                   },
                   hostClasses: 'text-center',
                   animate: {
@@ -356,10 +416,10 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
+              direction: 'col',
+              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'center',
-              layoutAlign: 'center center',
               gap: {
                 xs: '10',
                 sm: '10',
@@ -373,12 +433,13 @@ export const base = [
                   classes: 'object-fit',
                 },
                 overlay: '',
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
               classes: '',
+              blockClasses: 'md:ml-5 bg-shadow',
               style: {
                 borderRadius: 'none',
-                margin: '0 0 20px 0',
+                margin: '',
               },
               animate: {
                 from: {
@@ -400,6 +461,7 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              layoutAlign: 'center center',
               elements: [
                 {
                   style: 'none',
@@ -444,12 +506,17 @@ export const base = [
                   href: '/',
                 },
                 {
-                  src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
+                  src: 'http://localhost:4200/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
                   classes: '',
                   alt: 'alt',
                   style: {
-                    aspectRatio: 'auto',
-                    objectFit: 'initial',
+                    width: '450px',
+                    height: '300px',
+                    opacity: '1',
+                    borderRadius: '0px',
+                    boxShadow: 'none',
+                    aspectRatio: '1 / 1',
+                    objectFit: 'contain',
                   },
                   hostClasses: 'text-center',
                   animate: {
@@ -486,27 +553,47 @@ export const base = [
           svg: 'view-week-outline',
         },
         content: {
-          type: 'layout-builder',
-          spacer: 'md',
           fullWidth: false,
+          spacer: 'md',
+          bgClasses: 'bg-shadow bg-fill-width',
+          overlay: '',
+          classes: '',
+          id: '',
           bg: {
-            classes: 'bg-shadow bg-fill-width',
             img: {
               src: '/assets/images/bg/home-shape.png',
-              alt: 'home-shape.png',
               classes: 'object-fit',
+              alt: 'home-shape.png',
             },
+            classes: 'bg-shadow bg-fill-width',
+            overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
           },
+          type: 'layout-builder',
+          layoutAlign: 'center center',
           elements: [
             {
               row: {
@@ -518,18 +605,24 @@ export const base = [
               direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
+              gap: {
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
+              },
               bg: {
                 img: {
                   src: '',
-                  classes: 'object-fit',
                   alt: '',
+                  classes: 'object-fit',
                 },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
               style: {
+                borderRadius: 'none',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -545,10 +638,10 @@ export const base = [
                   y: '100',
                   rotation: 0,
                   scale: 1,
+                  opacity: 0,
                   delay: 0,
                   duration: 1,
                   ease: 'none',
-                  opacity: 0,
                 },
                 trigger: {
                   onEnter: 'play',
@@ -559,6 +652,8 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
+              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'box',
@@ -586,18 +681,24 @@ export const base = [
               direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
+              gap: {
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
+              },
               bg: {
                 img: {
                   src: '',
-                  classes: 'object-fit',
                   alt: '',
+                  classes: 'object-fit',
                 },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
               style: {
+                borderRadius: 'none',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -613,10 +714,10 @@ export const base = [
                   y: '100',
                   rotation: 0,
                   scale: 1,
+                  opacity: 0,
                   delay: '0.6',
                   duration: 1,
                   ease: 'none',
-                  opacity: 0,
                 },
                 trigger: {
                   onEnter: 'play',
@@ -627,6 +728,8 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
+              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'box',
@@ -654,18 +757,24 @@ export const base = [
               direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
+              gap: {
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
+              },
               bg: {
                 img: {
                   src: '',
-                  classes: 'object-fit',
                   alt: '',
+                  classes: 'object-fit',
                 },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
               style: {
+                borderRadius: 'none',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -681,10 +790,10 @@ export const base = [
                   y: '100',
                   rotation: 0,
                   scale: 1,
+                  opacity: '0',
                   delay: '1',
                   duration: 1,
                   ease: 'none',
-                  opacity: '0',
                 },
                 trigger: {
                   onEnter: 'play',
@@ -695,6 +804,8 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
+              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'box',
@@ -736,16 +847,10 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
           animate: {
             from: {
               x: 0,
@@ -766,6 +871,7 @@ export const base = [
               end: 'top 40%',
             },
           },
+          layoutAlign: 'center center',
           type: 'layout-builder',
           elements: [
             {
@@ -775,10 +881,9 @@ export const base = [
                 md: 3,
                 lg: 3,
               },
-              direction: 'column',
-              horizontal: 'flex-end',
-              vertical: 'flex-end',
-              layoutAlign: 'end end',
+              direction: 'col',
+              horizontal: 'end',
+              vertical: 'end',
               gap: {
                 xs: '10',
                 sm: '10',
@@ -797,8 +902,8 @@ export const base = [
               classes: '',
               style: {
                 borderRadius: 'none',
-                margin: '',
                 padding: '',
+                margin: '',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -828,6 +933,8 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
+              layoutAlign: 'end end',
               elements: [
                 {
                   spacer: 'none',
@@ -897,7 +1004,6 @@ export const base = [
               direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -913,9 +1019,10 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'm-bottom-md',
+              classes: 'p-5',
               style: {
                 borderRadius: 'none',
+                padding: '20px',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -945,6 +1052,8 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
+              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'card-1v1',
@@ -986,9 +1095,9 @@ export const base = [
                 lg: 3,
               },
               direction: 'row',
+              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -1004,7 +1113,7 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'm-bottom-md',
+              classes: 'p-5',
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -1036,6 +1145,7 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'card-1v1',
@@ -1079,7 +1189,6 @@ export const base = [
               direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -1095,7 +1204,7 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'm-bottom-md',
+              classes: 'p-5',
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -1127,6 +1236,8 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
+              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'card-1v1',
@@ -1169,62 +1280,9 @@ export const base = [
           svg: 'border-none-variant',
         },
         content: {
-          type: 'layout-builder',
+          fullWidth: false,
           spacer: 'md',
-          fullWidth: false,
-          bg: {
-            classes: 'bg-fill-width',
-          },
-          direction: 'row wrap',
-          horizontal: 'center',
-          vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
-          elements: [
-            {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 6,
-                lg: 6,
-              },
-              direction: 'column',
-              layoutAlign: 'start start',
-              elements: [],
-            },
-            {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 6,
-                lg: 6,
-              },
-              direction: 'column',
-              layoutAlign: 'start start',
-              elements: [],
-            },
-          ],
-        },
-      },
-    ],
-  },
-  {
-    label: '常用 Section',
-    id: 'section',
-    elements: [
-      {
-        label: '1A',
-        content: {
-          fullWidth: false,
-          spacer: 'xl',
-          bgClasses: 'bg-shadow bg-fill-width',
+          bgClasses: 'bg-fill-width',
           overlay: '',
           classes: '',
           id: '',
@@ -1234,25 +1292,20 @@ export const base = [
               classes: 'object-fit',
               alt: '',
             },
-            classes: 'bg-shadow bg-fill-width',
+            classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
           animate: {
             from: {
               x: 0,
               y: 0,
               rotation: 0,
               scale: 1,
+              opacity: 1,
               delay: 0,
               duration: 1,
               ease: 'none',
@@ -1275,15 +1328,15 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
-              horizontal: 'flex-start',
-              vertical: 'flex-start',
-              layoutAlign: 'start start',
+              direction: 'row',
+              wrap: 'wrap',
+              horizontal: 'start',
+              vertical: 'stretch',
               gap: {
-                xs: '10',
-                sm: '10',
-                md: '10',
-                lg: '10',
+                xs: '4',
+                sm: '4',
+                md: '4',
+                lg: '4',
               },
               bg: {
                 img: {
@@ -1318,6 +1371,165 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              layoutAlign: 'start start',
+              elements: [],
+            },
+            {
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+              },
+              direction: 'row',
+              wrap: 'wrap',
+              horizontal: 'start',
+              vertical: 'stretch',
+              gap: {
+                xs: '4',
+                sm: '4',
+                md: '4',
+                lg: '4',
+              },
+              bg: {
+                img: {
+                  src: '',
+                  alt: '',
+                  classes: 'object-fit',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                borderRadius: 'none',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              layoutAlign: 'start start',
+              elements: [],
+            },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    label: '常用 Section',
+    id: 'section',
+    elements: [
+      {
+        label: '1A',
+        content: {
+          fullWidth: false,
+          spacer: 'xl',
+          bgClasses: 'bg-shadow bg-fill-width',
+          overlay: '',
+          classes: '',
+          id: '',
+          bg: {
+            img: {
+              src: '/assets/images/bg/bg-02.png',
+              classes: 'object-fit',
+              alt: 'bg-02',
+            },
+            classes: 'bg-shadow bg-fill-width',
+            overlay: '',
+          },
+          direction: 'row',
+          wrap: 'wrap',
+          horizontal: 'center',
+          vertical: 'center',
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          type: 'layout-builder',
+          elements: [
+            {
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+              },
+              direction: 'col',
+              horizontal: 'start',
+              vertical: 'stretch',
+              gap: {
+                xs: '4',
+                sm: '4',
+                md: '4',
+                lg: '4',
+              },
+              bg: {
+                img: {
+                  src: '',
+                  alt: '',
+                  classes: 'object-fit',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                borderRadius: 'none',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              wrap: 'wrap',
               elements: [
                 {
                   style: 'style-v4',
@@ -1372,15 +1584,53 @@ export const base = [
               ],
             },
             {
-              classes: '',
               row: {
                 xs: 12,
                 sm: 12,
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
-              layoutAlign: 'start start',
+              direction: 'col',
+              gap: {
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
+              },
+              bg: {
+                img: {
+                  src: '',
+                  alt: '',
+                  classes: 'object-fit',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                borderRadius: 'none',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              wrap: 'wrap',
               elements: [
                 {
                   type: 'spacer',
@@ -1422,29 +1672,24 @@ export const base = [
           id: '',
           bg: {
             img: {
-              src: '',
+              src: '/assets/images/bg/home-shape.png',
               classes: 'object-fit',
-              alt: '',
+              alt: 'home-shape',
             },
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
           animate: {
             from: {
               x: 0,
               y: 0,
               rotation: 0,
               scale: 1,
+              opacity: 1,
               delay: 0,
               duration: 1,
               ease: 'none',
@@ -1461,58 +1706,18 @@ export const base = [
           type: 'layout-builder',
           elements: [
             {
-              classes: '',
               row: {
                 xs: 12,
                 sm: 12,
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
-              layoutAlign: 'start start',
-              elements: [
-                {
-                  type: 'spacer',
-                  size: 'sm',
-                },
-                {
-                  type: 'img',
-                  hostClasses: 'text-center',
-                  classes: '',
-                  src: '/assets/images/illustration/08.png',
-                  alt: 'alt',
-                  style: {
-                    width: 'auto',
-                    height: 'auto',
-                    opacity: 1,
-                    borderRadius: 0,
-                    boxShadow: 'none',
-                    aspectRatio: '2 / 1',
-                    objectFit: 'contain',
-                  },
-                },
-                {
-                  type: 'spacer',
-                  size: 'sm',
-                },
-              ],
-            },
-            {
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 6,
-                lg: 6,
-              },
-              direction: 'column',
-              horizontal: 'flex-start',
-              vertical: 'flex-start',
-              layoutAlign: 'start start',
+              direction: 'col',
               gap: {
-                xs: '10',
-                sm: '10',
-                md: '10',
-                lg: '10',
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
               },
               bg: {
                 img: {
@@ -1547,6 +1752,84 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
+              elements: [
+                {
+                  type: 'spacer',
+                  size: 'sm',
+                },
+                {
+                  type: 'img',
+                  hostClasses: 'text-center',
+                  classes: '',
+                  src: '/assets/images/illustration/08.png',
+                  alt: 'alt',
+                  style: {
+                    width: 'auto',
+                    height: 'auto',
+                    opacity: 1,
+                    borderRadius: 0,
+                    boxShadow: 'none',
+                    aspectRatio: '2 / 1',
+                    objectFit: 'contain',
+                  },
+                },
+                {
+                  type: 'spacer',
+                  size: 'sm',
+                },
+              ],
+            },
+            {
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+              },
+              direction: 'col',
+              horizontal: 'flex-start',
+              vertical: 'flex-start',
+              gap: {
+                xs: '4',
+                sm: '4',
+                md: '4',
+                lg: '4',
+              },
+              bg: {
+                img: {
+                  src: '',
+                  alt: '',
+                  classes: 'object-fit',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                borderRadius: 'none',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              wrap: 'wrap',
               elements: [
                 {
                   style: 'style-v4',
@@ -1621,16 +1904,10 @@ export const base = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'column',
+          direction: 'col',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: '10',
-            sm: '10',
-            md: '10',
-            lg: '10',
-          },
           animate: {
             from: {
               x: 0,
@@ -1660,10 +1937,9 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
+              direction: 'col',
               horizontal: 'center',
               vertical: 'center',
-              layoutAlign: 'center center',
               gap: {
                 xs: '10',
                 sm: '10',
@@ -1711,6 +1987,7 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
               elements: [
                 {
                   type: 'img',
@@ -1767,20 +2044,81 @@ export const base = [
               ],
             },
             {
-              classes: '',
               row: {
                 xs: 12,
                 sm: 12,
-                md: 12,
-                lg: 12,
+                md: 6,
+                lg: 6,
               },
-              direction: 'column',
-              layoutAlign: 'center center',
+              direction: 'col',
+              wrap: 'wrap',
+              gap: {
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
+              },
+              bg: {
+                img: {
+                  src: '',
+                  alt: '',
+                  classes: 'object-fit',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              style: {
+                borderRadius: 'none',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
+              horizontal: 'center',
+              vertical: 'center',
               elements: [
                 {
-                  type: 'text',
                   spacer: 'none',
-                  body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
+                  body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。</p><p class="ql-align-center">基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
+                  animate: {
+                    from: {
+                      x: 0,
+                      y: 0,
+                      rotation: 0,
+                      scale: 1,
+                      opacity: 1,
+                      delay: 0,
+                      duration: 1,
+                      ease: 'none',
+                    },
+                    trigger: {
+                      onEnter: 'play',
+                      onLeave: 'none',
+                      onEnterBack: 'none',
+                      onLeaveBack: 'none',
+                      start: 'top 90%',
+                      end: 'top 40%',
+                    },
+                  },
+                  classes: '',
+                  type: 'text',
                 },
               ],
             },
@@ -1793,7 +2131,6 @@ export const base = [
                 lg: 12,
               },
               direction: 'column',
-              layoutAlign: 'center center',
               elements: [
                 {
                   type: 'btn',
@@ -1826,16 +2163,10 @@ export const base = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'column',
+          direction: 'col',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: '10',
-            sm: '10',
-            md: '10',
-            lg: '20',
-          },
           animate: {
             from: {
               x: 0,
@@ -1867,7 +2198,6 @@ export const base = [
                 lg: 12,
               },
               direction: 'column',
-              layoutAlign: 'center center',
               elements: [
                 {
                   type: 'title',
@@ -1887,12 +2217,11 @@ export const base = [
                 lg: 12,
               },
               direction: 'column',
-              layoutAlign: 'center center',
               elements: [
                 {
                   type: 'text',
                   spacer: 'none',
-                  body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
+                  body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。</p><p class="ql-align-center">基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
                 },
               ],
             },
@@ -1905,7 +2234,6 @@ export const base = [
                 lg: 12,
               },
               direction: 'column',
-              layoutAlign: 'center center',
               elements: [
                 {
                   type: 'btn',
@@ -1926,22 +2254,31 @@ export const base = [
                 lg: 12,
               },
               direction: 'column',
-              layoutAlign: 'center center',
               elements: [
                 {
-                  classes: '',
-                  alt: 'alt',
+                  src: 'http://localhost:4200/assets/images/builder/builder-01.png',
+                  classes: 'mt-5',
                   hostClasses: 'text-center',
+                  alt: 'alt',
+                  style: {
+                    width: '85%',
+                    height: 'auto',
+                    opacity: '0.9',
+                    borderRadius: '14px',
+                    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px',
+                    aspectRatio: 'auto',
+                    objectFit: 'contain',
+                  },
                   animate: {
                     from: {
                       x: 0,
                       y: '300',
                       rotation: 0,
                       scale: '1',
+                      opacity: 0,
                       delay: 0,
                       duration: 1,
                       ease: 'none',
-                      opacity: 0,
                     },
                     trigger: {
                       onEnter: 'play',
@@ -1954,16 +2291,6 @@ export const base = [
                     },
                   },
                   type: 'img',
-                  src: '/assets/images/builder/builder-01.png',
-                  style: {
-                    width: 'auto',
-                    height: '650px',
-                    opacity: 0.9,
-                    borderRadius: '14px',
-                    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px',
-                    aspectRatio: 'auto',
-                    objectFit: 'contain',
-                  },
                 },
               ],
             },
@@ -1988,22 +2315,17 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
-          vertical: 'flex-start',
-          layoutAlign: 'center start',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
+          vertical: 'center',
           animate: {
             from: {
               x: 0,
               y: 0,
               rotation: 0,
               scale: 1,
+              opacity: 1,
               delay: 0,
               duration: 1,
               ease: 'none',
@@ -2026,15 +2348,15 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
-              horizontal: 'flex-start',
-              vertical: 'flex-start',
-              layoutAlign: 'start start',
+              direction: 'row',
+              wrap: 'wrap',
+              horizontal: 'start',
+              vertical: 'stretch',
               gap: {
-                xs: '10',
-                sm: '10',
-                md: '10',
-                lg: '10',
+                xs: '4',
+                sm: '4',
+                md: '4',
+                lg: '4',
               },
               bg: {
                 img: {
@@ -2045,7 +2367,7 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'm-bottom-md',
+              classes: 'mb-5',
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -2101,15 +2423,55 @@ export const base = [
               ],
             },
             {
-              classes: '',
               row: {
                 xs: 12,
                 sm: 12,
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
-              layoutAlign: 'start start',
+              direction: 'col',
+              wrap: 'wrap',
+              horizontal: 'start',
+              vertical: 'start',
+              gap: {
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
+              },
+              bg: {
+                img: {
+                  src: '',
+                  alt: '',
+                  classes: 'object-fit',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: 'overflow-hidden',
+              style: {
+                borderRadius: 'none',
+              },
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
               elements: [
                 {
                   params: {
@@ -2120,8 +2482,8 @@ export const base = [
                         spaceBetween: 20,
                       },
                       '960': {
-                        slidesPerView: '2',
-                        spaceBetween: '10',
+                        slidesPerView: 3,
+                        spaceBetween: 50,
                       },
                     },
                     effect: 'slide',
@@ -2141,6 +2503,7 @@ export const base = [
                       y: 0,
                       rotation: 0,
                       scale: 1,
+                      opacity: 1,
                       delay: 0,
                       duration: 1,
                       ease: 'none',
@@ -2272,16 +2635,10 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: '10',
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
           animate: {
             from: {
               x: 0,
@@ -2314,7 +2671,6 @@ export const base = [
               direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -2362,6 +2718,7 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
               elements: [
                 {
                   title: {
@@ -2397,7 +2754,6 @@ export const base = [
               direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -2482,7 +2838,6 @@ export const base = [
               direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -2565,7 +2920,6 @@ export const base = [
               direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
-              layoutAlign: 'center stretch',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -2659,22 +3013,17 @@ export const base = [
             classes: 'bg- bg-fill-width',
             overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
           animate: {
             from: {
               x: 0,
               y: 0,
               rotation: 0,
               scale: 1,
+              opacity: 1,
               delay: 0,
               duration: 1,
               ease: 'none',
@@ -2697,21 +3046,28 @@ export const base = [
                 md: 6,
                 lg: 7,
               },
-              direction: 'row wrap',
-              horizontal: 'flex-start',
-              vertical: 'flex-start',
-              layoutAlign: 'start start',
+              direction: 'row',
+              wrap: 'wrap',
+              horizontal: 'start',
+              vertical: 'start',
+              gap: {
+                xs: '4',
+                sm: '4',
+                md: '4',
+                lg: '4',
+              },
               bg: {
                 img: {
                   src: '',
-                  classes: 'object-fit',
                   alt: '',
+                  classes: 'object-fit',
                 },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
               style: {
+                borderRadius: 'none',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -2727,6 +3083,7 @@ export const base = [
                   y: 0,
                   rotation: 0,
                   scale: 1,
+                  opacity: 1,
                   delay: 0,
                   duration: 1,
                   ease: 'none',
@@ -2748,20 +3105,28 @@ export const base = [
                     md: 12,
                     lg: 12,
                   },
+                  direction: 'row',
                   horizontal: 'center',
                   vertical: 'center',
-                  layoutAlign: 'center center',
+                  gap: {
+                    xs: 8,
+                    sm: 16,
+                    md: 32,
+                    lg: 48,
+                  },
                   bg: {
                     img: {
                       src: '',
-                      classes: 'object-fit',
                       alt: '',
+                      classes: 'object-fit',
                     },
                     overlay: '',
                     classes: 'bg-fill-width',
                   },
                   classes: '',
+                  blockClasses: '',
                   style: {
+                    borderRadius: 'none',
                     paddingTop: '0px',
                     paddingRight: '0px',
                     paddingBottom: '0px',
@@ -2777,6 +3142,7 @@ export const base = [
                       y: 0,
                       rotation: 0,
                       scale: 1,
+                      opacity: 1,
                       delay: 0,
                       duration: 1,
                       ease: 'none',
@@ -2790,16 +3156,10 @@ export const base = [
                       end: 'top 40%',
                     },
                   },
-                  direction: 'row wrap',
+                  wrap: 'wrap',
                   type: 'layout-builder',
                   spacer: 'md',
                   fullWidth: false,
-                  gap: {
-                    xs: 8,
-                    sm: 16,
-                    md: 32,
-                    lg: 48,
-                  },
                   elements: [
                     {
                       row: {
@@ -2808,15 +3168,15 @@ export const base = [
                         md: 6,
                         lg: 6,
                       },
-                      direction: 'column',
+                      direction: 'row',
+                      wrap: 'wrap',
                       horizontal: 'flex-start',
                       vertical: 'flex-start',
-                      layoutAlign: 'start start',
                       gap: {
-                        xs: '16',
-                        sm: '16',
-                        md: '16',
-                        lg: '32',
+                        xs: '4',
+                        sm: '4',
+                        md: '4',
+                        lg: '4',
                       },
                       bg: {
                         img: {
@@ -2828,6 +3188,7 @@ export const base = [
                         classes: 'bg-fill-width',
                       },
                       classes: '',
+                      blockClasses: 'p-5',
                       style: {
                         borderRadius: 'none',
                         paddingTop: '0px',
@@ -2955,15 +3316,15 @@ export const base = [
                         md: 6,
                         lg: 6,
                       },
-                      direction: 'column',
+                      direction: 'row',
+                      wrap: 'wrap',
                       horizontal: 'flex-start',
                       vertical: 'flex-start',
-                      layoutAlign: 'start start',
                       gap: {
-                        xs: '16',
-                        sm: '16',
-                        md: '16',
-                        lg: '32',
+                        xs: '4',
+                        sm: '4',
+                        md: '4',
+                        lg: '4',
                       },
                       bg: {
                         img: {
@@ -2975,6 +3336,7 @@ export const base = [
                         classes: 'bg-fill-width',
                       },
                       classes: '',
+                      blockClasses: 'p-5',
                       style: {
                         borderRadius: 'none',
                         paddingTop: '0px',
@@ -3096,15 +3458,15 @@ export const base = [
                 md: 6,
                 lg: 5,
               },
-              direction: 'column',
+              direction: 'col',
+              wrap: 'wrap',
               horizontal: 'flex-start',
               vertical: 'flex-start',
-              layoutAlign: 'start start',
               gap: {
-                xs: '10',
-                sm: '10',
-                md: '10',
-                lg: '10',
+                xs: '4',
+                sm: '4',
+                md: '4',
+                lg: '4',
               },
               bg: {
                 img: {
@@ -3116,6 +3478,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: 'p-5',
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -3191,22 +3554,17 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row wrap',
+          direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
-          gap: {
-            xs: 8,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
           animate: {
             from: {
               x: 0,
               y: 0,
               rotation: 0,
               scale: 1,
+              opacity: 1,
               delay: 0,
               duration: 1,
               ease: 'none',
@@ -3229,21 +3587,29 @@ export const base = [
                 md: 6,
                 lg: 8,
               },
-              direction: 'column',
-              horizontal: 'flex-start',
-              vertical: 'flex-start',
-              layoutAlign: 'start start',
+              direction: 'row',
+              wrap: 'wrap',
+              horizontal: 'center',
+              vertical: 'center',
+              gap: {
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
+              },
               bg: {
                 img: {
                   src: '',
-                  classes: 'object-fit',
                   alt: '',
+                  classes: 'object-fit',
                 },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
               style: {
+                borderRadius: 'none',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -3259,6 +3625,7 @@ export const base = [
                   y: 0,
                   rotation: 0,
                   scale: 1,
+                  opacity: 1,
                   delay: 0,
                   duration: 1,
                   ease: 'none',
@@ -3292,20 +3659,28 @@ export const base = [
                     md: 12,
                     lg: 12,
                   },
+                  direction: 'row',
                   horizontal: 'center',
                   vertical: 'center',
-                  layoutAlign: 'center center',
+                  gap: {
+                    xs: 8,
+                    sm: 20,
+                    md: 28,
+                    lg: 48,
+                  },
                   bg: {
                     img: {
                       src: '',
-                      classes: 'object-fit',
                       alt: '',
+                      classes: 'object-fit',
                     },
                     overlay: '',
                     classes: 'bg-fill-width',
                   },
                   classes: '',
+                  blockClasses: '',
                   style: {
+                    borderRadius: 'none',
                     paddingTop: '0px',
                     paddingRight: '0px',
                     paddingBottom: '0px',
@@ -3321,6 +3696,7 @@ export const base = [
                       y: 0,
                       rotation: 0,
                       scale: 1,
+                      opacity: 1,
                       delay: 0,
                       duration: 1,
                       ease: 'none',
@@ -3334,16 +3710,10 @@ export const base = [
                       end: 'top 40%',
                     },
                   },
-                  direction: 'row wrap',
+                  wrap: 'wrap',
                   type: 'layout-builder',
                   spacer: 'md',
                   fullWidth: false,
-                  gap: {
-                    xs: 8,
-                    sm: 16,
-                    md: 32,
-                    lg: 48,
-                  },
                   elements: [
                     {
                       row: {
@@ -3355,7 +3725,6 @@ export const base = [
                       direction: 'column',
                       horizontal: 'flex-start',
                       vertical: 'flex-start',
-                      layoutAlign: 'start start',
                       bg: {
                         img: {
                           src: '',
@@ -3419,21 +3788,22 @@ export const base = [
                         md: 4,
                         lg: 4,
                       },
-                      direction: 'column',
+                      direction: 'row',
                       horizontal: 'center',
                       vertical: 'center',
-                      layoutAlign: 'center center',
                       bg: {
                         img: {
                           src: '',
-                          classes: 'object-fit',
                           alt: '',
+                          classes: 'object-fit',
                         },
                         overlay: '',
                         classes: 'bg-fill-width',
                       },
                       classes: '',
+                      blockClasses: '',
                       style: {
+                        borderRadius: 'none',
                         paddingTop: '0px',
                         paddingRight: '0px',
                         paddingBottom: '0px',
@@ -3449,6 +3819,7 @@ export const base = [
                           y: 0,
                           rotation: 0,
                           scale: 1,
+                          opacity: 1,
                           delay: 0,
                           duration: 1,
                           ease: 'none',
@@ -3462,6 +3833,7 @@ export const base = [
                           end: 'top 40%',
                         },
                       },
+                      wrap: 'wrap',
                       elements: [
                         {
                           type: 'box',
@@ -3489,7 +3861,6 @@ export const base = [
                       direction: 'column',
                       horizontal: 'center',
                       vertical: 'center',
-                      layoutAlign: 'center center',
                       bg: {
                         img: {
                           src: '',
@@ -3557,21 +3928,28 @@ export const base = [
                 md: 6,
                 lg: 4,
               },
-              direction: 'column',
+              direction: 'row',
               horizontal: 'center',
               vertical: 'center',
-              layoutAlign: 'center center',
+              gap: {
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
+              },
               bg: {
                 img: {
                   src: '',
-                  classes: 'object-fit',
                   alt: '',
+                  classes: 'object-fit',
                 },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
               style: {
+                borderRadius: 'none',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -3587,6 +3965,7 @@ export const base = [
                   y: 0,
                   rotation: 0,
                   scale: 1,
+                  opacity: 1,
                   delay: 0,
                   duration: 1,
                   ease: 'none',
@@ -3600,20 +3979,22 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              wrap: 'wrap',
               elements: [
                 {
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: '/assets/images/illustration/11.png',
+                  src: 'http://localhost:4200/assets/images/illustration/11.png',
                   alt: 'alt',
                   style: {
-                    width: 'auto',
+                    width: '85%',
                     height: 'auto',
-                    opacity: 1,
-                    borderRadius: 0,
+                    opacity: '1',
+                    borderRadius: '0px',
                     boxShadow: 'none',
-                    objectFit: 'initial',
+                    aspectRatio: '2 / 3',
+                    objectFit: 'contain',
                   },
                 },
               ],

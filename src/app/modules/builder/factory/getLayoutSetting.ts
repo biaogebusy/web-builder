@@ -7,6 +7,7 @@ import {
   getHorizontalOption,
   getOverlay,
   getVerticalOption,
+  getWrapOption,
 } from './getCommon';
 
 export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
@@ -80,19 +81,24 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       fieldGroupClassName: 'flex flex-wrap w-full',
       fieldGroup: [
         {
-          className: 'w-full m-bottom-md',
-          template: `<div class="layout-preview">
-          <div class="wrapper flex flex-${layout.direction} gap-6 justify-${layout.horizontal} items-${layout.vertical}"><div class="block bg-primary">1</div><div class="block bg-orange">2</div><div class="block bg-green">3</div></div>
-          </div>`,
-        },
-        {
           type: 'select',
           key: 'direction',
           className: 'w-full',
           defaultValue: layout.direction,
           templateOptions: {
-            label: '当前列布局方向',
+            label: '布局方向',
             options: getDirectionOption,
+            required: true,
+          },
+        },
+        {
+          type: 'select',
+          key: 'wrap',
+          className: 'w-full',
+          defaultValue: layout.wrap,
+          templateOptions: {
+            label: '换行',
+            options: getWrapOption,
             required: true,
           },
         },
@@ -218,7 +224,16 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           className: 'w-full',
           defaultValue: layout?.classes || '',
           templateOptions: {
-            label: '自定义Classes',
+            label: 'Layout Class',
+          },
+        },
+        {
+          type: 'input',
+          key: 'blockClasses',
+          className: 'w-full',
+          defaultValue: layout?.blockClasses || '',
+          templateOptions: {
+            label: 'Block Class',
           },
         },
         {
@@ -234,33 +249,6 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               templateOptions: {
                 label: '圆角',
               },
-            },
-            {
-              template: `<div class="small p-y-xs m-bottom-xs">Spacing</div>`,
-              className: 'w-full',
-            },
-            {
-              fieldGroupClassName: 'section-group',
-              fieldGroup: [
-                {
-                  type: 'input',
-                  key: 'padding',
-                  className: 'w-2/5 mr-5',
-                  defaultValue: layout?.style?.padding,
-                  templateOptions: {
-                    label: 'Padding',
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'margin',
-                  className: 'w-2/5',
-                  defaultValue: layout?.style?.margin,
-                  templateOptions: {
-                    label: 'Margin',
-                  },
-                },
-              ],
             },
           ],
         },
@@ -289,19 +277,4 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
     },
   ];
   return fields;
-}
-
-export function getLayoutAlign(index: number, layoutAlign: string): string {
-  if (!layoutAlign) {
-    return 'flex-start';
-  }
-  const align = layoutAlign.split(' ')[index];
-  switch (align) {
-    case 'start':
-      return 'flex-start';
-    case 'end':
-      return 'flex-end';
-    default:
-      return align;
-  }
 }

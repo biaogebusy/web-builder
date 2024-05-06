@@ -36,6 +36,280 @@ export const system: any[] = [
         },
       },
       {
+        label: '文章',
+        icon: {
+          svg: 'translate',
+        },
+        content: {
+          type: 'article',
+          title: '使用 DevTools 对 Angular 前端应用性能分析优化',
+          banner: {
+            img: {
+              src: '../assets/images/16-9/nature-08.jpg',
+            },
+          },
+          meta: [
+            {
+              icon: 'calendar-range',
+              label: '2024/05/06',
+            },
+            {
+              icon: 'tag-outline',
+              label: '前端茶馆',
+            },
+          ],
+          body: '<p>在上一篇文章中，有个知友评论说是要 takeUntil 来管理订阅更加清晰明了，那我们就探探究竟。</p><p>在 Rxjs 中，可以使用 takeUntil 来控制另外一个 Observable 对象数据的产生。使用 takeUntil，上游的数据直接转手给下游，直到takeUntil的参数吐出一个数据或者完结。</p><p>就像一个水龙头开关，一开始是打开的状态，上游的数据一开始直接流到下游，只要 takeUntil 一旦触发吐出数据，水龙头立刻关闭。</p><p>利用这点，可以在订阅时时，在管道中添加 takeUntil，在组件销毁时吐出数据，这样这些订阅就会立刻关闭，也就达到回收内存的作用。</p><p>多理解熟悉 Angular 的内部运行机制，为项目开发带来更好的效益。</p><img src="/assets/images/1-1/business-02.png" /><ul class="list-done"><li>要善于使用 lighthouse 进行检测评分，针对不同问题具体分析；</li><li>多使用 Devtools 分析，查找问题的入口；</li><li>不要在模板中使用函数或者getter，当有大量变更时，会存在很多的性能隐患；</li><p>接下来，会继续针对这个案例继续分析，使项目的 lighthouse 评分更加友好，提供给各位前端开发一些借鉴和交流。</p></ul>',
+          sidebar: [
+            {
+              type: 'media-list',
+              title: '热门文章',
+              elements: [
+                {
+                  link: {
+                    label: '使用 DevTools 对 Angular 前端应用性能分析优化',
+                    href: '/node/417',
+                  },
+                  img: {
+                    src: '../assets/images/showcase/blog1-large.jpeg',
+                    alt: '',
+                  },
+                  changed: '2024-05-06',
+                },
+                {
+                  link: {
+                    label: '使用 takeUntil 操作符管理 Angular 组件的订阅',
+                    href: '/node/415',
+                  },
+                  img: {
+                    src: '../assets/images/showcase/blog2-large.jpeg',
+                    alt: '',
+                  },
+                  changed: '2024-05-06',
+                },
+                {
+                  link: {
+                    label: '你应该了解的 Angular 最佳实践',
+                    href: '2024-05-06',
+                  },
+                  img: {
+                    src: '../assets/images/showcase/blog3-large.jpeg',
+                    alt: '',
+                  },
+                  changed: '2024-05-06',
+                },
+                {
+                  link: {
+                    label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
+                    href: '2024-05-06',
+                  },
+                  img: {
+                    src: '../assets/images/showcase/blog4-large.jpeg',
+                    alt: '',
+                  },
+                  changed: '2024-05-06',
+                },
+              ],
+            },
+            {
+              type: 'menu-list',
+              title: '标签',
+              elements: [
+                {
+                  link: {
+                    href: '#',
+                    label: 'Angular',
+                  },
+                  label: '3',
+                },
+                {
+                  link: {
+                    href: '#',
+                    label: 'Drupal',
+                  },
+                  label: '3',
+                },
+                {
+                  link: {
+                    href: '#',
+                    label: 'Jsonapi',
+                  },
+                  label: '2',
+                },
+              ],
+            },
+          ],
+          params: {
+            require_rule: [],
+            comment: {
+              type: 'comment--comment',
+              attributes: {
+                entity_type: 'node',
+                field_name: 'comment',
+                comment_body: {
+                  format: 'full_html',
+                },
+              },
+              relationships: {
+                comment_type: {
+                  data: {
+                    type: 'comment_type--comment_type',
+                    id: '19c33b19-bfdc-4a26-9c64-af6171b123cb',
+                  },
+                },
+                entity_id: {
+                  data: {
+                    type: 'node--article',
+                    id: '{{entity_uuid}}',
+                  },
+                },
+              },
+            },
+          },
+          editor: {
+            action: {
+              label: '提交',
+            },
+            succes: {
+              label: '成功发布！',
+            },
+          },
+          actions: [
+            {
+              type: 'flag',
+              label: '收藏',
+              icon: {
+                name: 'star',
+                inline: true,
+              },
+              params: {
+                type: 'flagging--favorite',
+                entity_type: 'node',
+                entity_id: '1312',
+                relationships: {
+                  flagged_entity: {
+                    type: 'node--article',
+                    id: 'cb31d69f-a95e-4c91-97d1-1169f82a10a5',
+                  },
+                },
+              },
+            },
+            {
+              type: 'share',
+              button: {
+                icon: 'share',
+                label: '分享',
+              },
+              params: {
+                url: '/',
+              },
+            },
+            {
+              type: 'download',
+              label: '下载',
+              icon: {
+                name: 'file_download',
+                inline: true,
+              },
+              elements: [
+                {
+                  type: 'link',
+                  label: 'Doc',
+                  icon: {
+                    name: 'description',
+                  },
+                  href: '#',
+                },
+                {
+                  type: 'link',
+                  label: 'Pdf',
+                  icon: {
+                    name: 'picture_as_pdf',
+                  },
+                  href: '#',
+                },
+              ],
+            },
+          ],
+          comment: {
+            actions: ['update', 'delete', 'reply', 'quote'],
+            title: true,
+          },
+        },
+        canAccess: true,
+        comments: [
+          {
+            author: {
+              img: {
+                src: '/assets/images/avatar/01.jpeg',
+                style: {
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                },
+                alt: '小南',
+              },
+              align: 'center start',
+              id: 'b5f0ed94-2ebe-40e9-be07-f480efb50994',
+              title: '小南',
+              subTitle: '2024-05-06 14:25:56',
+            },
+            time: '2024-05-06 14:25:56',
+            id: '24213e00-d4b8-4ece-bbea-a588efcc7d8d',
+            content:
+              '<p>设定具体的学习目标：将学习分解为小而可管理的目标，并为每个目标设定明确的时间表和标准。这样，你可以看到自己的进展，并感到满足和激励。寻找灵感和挑战：保持对前端技术的好奇心，主动寻找新的灵感和挑战。参加技术交流会议、阅读相关的博客和文章，或加入社区讨论可以帮助你保持兴趣和动力。关注个人发展：思考自己的职业发展和长期目标，明确你希望在前端领域取得的成就。将学习看作是实现这些目标的关键步骤，这种意识将激励你持续学习和进步。</p>',
+            child: [
+              {
+                author: {
+                  img: {
+                    src: '/assets/images/avatar/02.jpeg',
+                    style: {
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                    },
+                    alt: 'root',
+                  },
+                  align: 'center start',
+                  id: '15765815-07f2-4d7d-8142-cb598f82af2e',
+                  title: 'root',
+                  subTitle: '2024-05-06 14:25:56',
+                },
+                time: '2024-05-06 14:25:56',
+                id: 'bbbe5e9f-9b85-421e-a839-7d50be0eb7ed',
+                content:
+                  '<p><ul class="list-done"><li>探索不同的学习资源：尝试不同的学习资源，如在线教程、视频教程、书籍、实践项目等。不同的学习方法可以帮助你从不同的角度理解和应用前端技术，保持学习的新鲜感。</li><li>参与开源项目和社区：积极参与开源项目和社区，与其他开发者互动和合作。这样你可以学习到新的技术和最佳实践，同时拓展人脉和交流经验，激发学习的热情。</li><li>持续实践和项目驱动：通过实际项目的开发和实践，将学到的知识应用到实际场景中。实践中的挑战和解决方案将帮助你不断提升技能，并加深对前端开发的理解和热爱。</li></ul></p>',
+                child: [],
+                level: 2,
+              },
+            ],
+            level: 1,
+          },
+          {
+            author: {
+              img: {
+                src: '/assets/images/avatar/03.jpeg',
+                style: {
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                },
+                alt: '表歌',
+              },
+              align: 'center start',
+              id: 'd5fb03cb-abca-43ba-baa5-a162a576e67a',
+              title: '表歌',
+              subTitle: '2024-05-06 14:25:56',
+            },
+            time: '2024-05-06 14:25:56',
+            id: '2582f1b8-d91b-4a73-86ac-050fda0b10d1',
+            content:
+              '<p>定期回顾和评估：定期回顾自己的学习进展和成果，对已经学到的知识和技能进行评估。这样可以看到自己的进步，并找出需要改进的领域，保持学习的动力。设定奖励机制：为自己设定奖励机制，当达到一定的学习目标或突破难题时给予自己奖励。这可以是一次小型庆祝、购买一本新书或者做一些自己喜欢的事情，让学习变得有趣和值得期待。寻找学习伙伴：与其他</p>',
+            child: [],
+            level: 1,
+          },
+        ],
+      },
+      {
         label: '面板 v1',
         icon: {
           svg: 'view-dashboard-outline',
@@ -90,17 +364,17 @@ export const system: any[] = [
                   {
                     source: [
                       ['name', '内容'],
-                      ['1月', 28],
-                      ['2月', 35],
-                      ['3月', 12],
-                      ['4月', 29],
-                      ['5月', 37],
-                      ['6月', 70],
-                      ['7月', 83],
-                      ['8月', 39],
-                      ['9月', 92],
-                      ['10月', 19],
-                      ['11月', 16],
+                      ['1月', 49],
+                      ['2月', 69],
+                      ['3月', 46],
+                      ['4月', 97],
+                      ['5月', 92],
+                      ['6月', 45],
+                      ['7月', 69],
+                      ['8月', 76],
+                      ['9月', 80],
+                      ['10月', 76],
+                      ['11月', 19],
                       ['12月', 42],
                     ],
                   },
@@ -158,18 +432,18 @@ export const system: any[] = [
                     {
                       source: [
                         ['name', '文章数'],
-                        ['1月', 46],
-                        ['2月', 86],
-                        ['3月', 12],
-                        ['4月', 66],
-                        ['5月', 86],
-                        ['6月', 100],
-                        ['7月', 16],
-                        ['8月', 67],
-                        ['9月', 15],
-                        ['10月', 78],
-                        ['11月', 68],
-                        ['12月', 48],
+                        ['1月', 82],
+                        ['2月', 85],
+                        ['3月', 23],
+                        ['4月', 58],
+                        ['5月', 14],
+                        ['6月', 34],
+                        ['7月', 20],
+                        ['8月', 88],
+                        ['9月', 51],
+                        ['10月', 81],
+                        ['11月', 23],
+                        ['12月', 88],
                       ],
                     },
                   ],
@@ -222,18 +496,18 @@ export const system: any[] = [
                     {
                       source: [
                         ['name', '审核数'],
-                        ['1月', 77],
-                        ['2月', 64],
-                        ['3月', 59],
-                        ['4月', 78],
-                        ['5月', 74],
-                        ['6月', 90],
-                        ['7月', 98],
-                        ['8月', 96],
-                        ['9月', 18],
-                        ['10月', 26],
-                        ['11月', 68],
-                        ['12月', 92],
+                        ['1月', 26],
+                        ['2月', 88],
+                        ['3月', 65],
+                        ['4月', 39],
+                        ['5月', 69],
+                        ['6月', 57],
+                        ['7月', 52],
+                        ['8月', 85],
+                        ['9月', 62],
+                        ['10月', 35],
+                        ['11月', 41],
+                        ['12月', 98],
                       ],
                     },
                   ],
@@ -286,18 +560,18 @@ export const system: any[] = [
                     {
                       source: [
                         ['name', '用户'],
-                        ['1月', 1],
-                        ['2月', 3],
-                        ['3月', 6],
+                        ['1月', 9],
+                        ['2月', 6],
+                        ['3月', 3],
                         ['4月', 5],
-                        ['5月', 3],
-                        ['6月', 7],
-                        ['7月', 9],
+                        ['5月', 7],
+                        ['6月', 6],
+                        ['7月', 1],
                         ['8月', 1],
-                        ['9月', 7],
-                        ['10月', 4],
-                        ['11月', 3],
-                        ['12月', 4],
+                        ['9月', 3],
+                        ['10月', 7],
+                        ['11月', 4],
+                        ['12月', 7],
                       ],
                     },
                   ],
@@ -350,18 +624,18 @@ export const system: any[] = [
                     {
                       source: [
                         ['name', '用户'],
-                        ['1月', 7],
-                        ['2月', 8],
-                        ['3月', 2],
-                        ['4月', 9],
-                        ['5月', 8],
-                        ['6月', 10],
-                        ['7月', 3],
-                        ['8月', 5],
-                        ['9月', 6],
-                        ['10月', 6],
-                        ['11月', 10],
-                        ['12月', 5],
+                        ['1月', 5],
+                        ['2月', 6],
+                        ['3月', 9],
+                        ['4月', 7],
+                        ['5月', 6],
+                        ['6月', 7],
+                        ['7月', 8],
+                        ['8月', 6],
+                        ['9月', 2],
+                        ['10月', 8],
+                        ['11月', 8],
+                        ['12月', 6],
                       ],
                     },
                   ],
@@ -544,21 +818,21 @@ export const system: any[] = [
                       {
                         title: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
                         event: 'meeting',
-                        start: '2024-04-16T15:07:24.271Z',
+                        start: '2024-05-06T06:28:42.969Z',
                         user: 'Johnson',
                         className: 'bg-primary',
                       },
                       {
                         title: '使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅',
                         event: 'drupal',
-                        start: 1713366444271,
+                        start: 1715581722969,
                         user: 'Johnson',
                         className: 'bg-accent',
                       },
                       {
                         title: '你应该了解的 ANGULAR 最佳实践',
                         event: 'drupal',
-                        start: 1713884844271,
+                        start: 1715840922969,
                         user: 'Johnson',
                         className: 'bg-warn',
                       },
@@ -566,28 +840,28 @@ export const system: any[] = [
                         title:
                           'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
                         event: 'drupal',
-                        start: 1713539244271,
+                        start: 1715322522969,
                         user: 'Johnson',
                         className: 'bg-warn',
                       },
                       {
                         title: 'DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件',
                         event: 'drupal',
-                        start: 1713971244271,
+                        start: 1715668122969,
                         user: 'Johnson',
                         className: 'bg-pink',
                       },
                       {
                         title: 'DRUPAL8 用户登录后自定义重定向',
                         event: 'drupal',
-                        start: 1713452844271,
+                        start: 1715322522969,
                         user: 'Johnson',
                         className: 'bg-orange',
                       },
                       {
                         title: '如何更改 GIT COMMIT 某个历史提交信息',
                         event: 'drupal',
-                        start: 1713884844271,
+                        start: 1715408922969,
                         user: 'Johnson',
                         className: 'bg-yellow',
                       },
@@ -595,28 +869,28 @@ export const system: any[] = [
                         title:
                           '开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器',
                         event: 'drupal',
-                        start: 1713366444271,
+                        start: 1715408922969,
                         user: 'Johnson',
                         className: 'bg-red',
                       },
                       {
                         title: 'DRUPAL JSONAPI 初级入门实践',
                         event: 'drupal',
-                        start: 1714144044271,
+                        start: 1715581722969,
                         user: 'Johnson',
                         className: 'bg-purple',
                       },
                       {
                         title: 'RXJS SWITCHMAP 在 DRUPAL API中的应用',
                         event: 'drupal',
-                        start: 1713625644271,
+                        start: 1715408922969,
                         user: 'Johnson',
                         className: 'bg-indigo',
                       },
                       {
                         title: '五年了，再谈南宁和深圳的差距',
                         event: 'drupal',
-                        start: 1713452844271,
+                        start: 1715063322969,
                         user: 'Johnson',
                         className: 'bg-blue',
                       },
@@ -624,21 +898,21 @@ export const system: any[] = [
                         title:
                           '没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它',
                         event: 'drupal',
-                        start: 1712502444271,
+                        start: 1714199322969,
                         user: 'Johnson',
                         className: 'bg-cyan',
                       },
                       {
                         title: '南宁IT互联网行业薪资福利待遇如何？',
                         event: 'drupal',
-                        start: 1712416044271,
+                        start: 1714804122969,
                         user: 'Johnson',
                         className: 'bg-teal',
                       },
                       {
                         title: '南宁IT互联网公司，有哪些是双休？',
                         event: 'drupal',
-                        start: 1712934444271,
+                        start: 1714285722969,
                         user: 'Johnson',
                         className: 'bg-green',
                       },
@@ -646,14 +920,14 @@ export const system: any[] = [
                         title:
                           'JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器',
                         event: 'drupal',
-                        start: 1712848044271,
+                        start: 1714544922969,
                         user: 'Johnson',
                         className: 'bg-light-green',
                       },
                       {
                         title: 'ANGULAR 有哪几种不同类型的绑定',
                         event: 'drupal',
-                        start: 1712934444271,
+                        start: 1714458522969,
                         user: 'Johnson',
                         className: 'bg-brown',
                       },
@@ -661,7 +935,7 @@ export const system: any[] = [
                         title:
                           'ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别',
                         event: 'drupal',
-                        start: 1712416044271,
+                        start: 1714199322969,
                         user: 'Johnson',
                         className: 'bg-grey',
                       },
@@ -734,18 +1008,18 @@ export const system: any[] = [
                   {
                     source: [
                       ['name', '用户'],
-                      ['1月', 70],
-                      ['2月', 45],
-                      ['3月', 33],
-                      ['4月', 20],
-                      ['5月', 21],
-                      ['6月', 14],
-                      ['7月', 74],
-                      ['8月', 95],
-                      ['9月', 69],
-                      ['10月', 86],
-                      ['11月', 37],
-                      ['12月', 79],
+                      ['1月', 91],
+                      ['2月', 48],
+                      ['3月', 76],
+                      ['4月', 36],
+                      ['5月', 78],
+                      ['6月', 82],
+                      ['7月', 73],
+                      ['8月', 47],
+                      ['9月', 93],
+                      ['10月', 23],
+                      ['11月', 72],
+                      ['12月', 36],
                     ],
                   },
                 ],
@@ -802,18 +1076,18 @@ export const system: any[] = [
                     {
                       source: [
                         ['name', '广告'],
-                        ['1月', 29],
-                        ['2月', 98],
-                        ['3月', 76],
-                        ['4月', 39],
-                        ['5月', 61],
-                        ['6月', 24],
-                        ['7月', 89],
-                        ['8月', 85],
-                        ['9月', 82],
-                        ['10月', 63],
-                        ['11月', 99],
-                        ['12月', 33],
+                        ['1月', 15],
+                        ['2月', 68],
+                        ['3月', 72],
+                        ['4月', 18],
+                        ['5月', 23],
+                        ['6月', 18],
+                        ['7月', 62],
+                        ['8月', 52],
+                        ['9月', 47],
+                        ['10月', 12],
+                        ['11月', 38],
+                        ['12月', 83],
                       ],
                     },
                   ],
@@ -866,18 +1140,18 @@ export const system: any[] = [
                     {
                       source: [
                         ['name', '用户'],
-                        ['1月', 72],
-                        ['2月', 52],
-                        ['3月', 83],
-                        ['4月', 82],
-                        ['5月', 24],
-                        ['6月', 35],
-                        ['7月', 42],
-                        ['8月', 88],
-                        ['9月', 73],
-                        ['10月', 56],
-                        ['11月', 15],
-                        ['12月', 66],
+                        ['1月', 13],
+                        ['2月', 86],
+                        ['3月', 55],
+                        ['4月', 60],
+                        ['5月', 92],
+                        ['6月', 52],
+                        ['7月', 20],
+                        ['8月', 65],
+                        ['9月', 75],
+                        ['10月', 72],
+                        ['11月', 78],
+                        ['12月', 34],
                       ],
                     },
                   ],
@@ -930,18 +1204,18 @@ export const system: any[] = [
                     {
                       source: [
                         ['name', '门店'],
-                        ['1月', 4],
-                        ['2月', 7],
+                        ['1月', 3],
+                        ['2月', 8],
                         ['3月', 9],
-                        ['4月', 8],
-                        ['5月', 6],
-                        ['6月', 2],
-                        ['7月', 4],
-                        ['8月', 3],
-                        ['9月', 8],
-                        ['10月', 6],
-                        ['11月', 9],
-                        ['12月', 1],
+                        ['4月', 7],
+                        ['5月', 4],
+                        ['6月', 3],
+                        ['7月', 5],
+                        ['8月', 10],
+                        ['9月', 4],
+                        ['10月', 5],
+                        ['11月', 2],
+                        ['12月', 10],
                       ],
                     },
                   ],
@@ -994,18 +1268,18 @@ export const system: any[] = [
                     {
                       source: [
                         ['name', '评论'],
-                        ['1月', 11],
-                        ['2月', 50],
-                        ['3月', 44],
-                        ['4月', 92],
+                        ['1月', 78],
+                        ['2月', 69],
+                        ['3月', 67],
+                        ['4月', 34],
                         ['5月', 10],
-                        ['6月', 22],
-                        ['7月', 90],
-                        ['8月', 48],
-                        ['9月', 55],
-                        ['10月', 61],
-                        ['11月', 95],
-                        ['12月', 42],
+                        ['6月', 17],
+                        ['7月', 24],
+                        ['8月', 76],
+                        ['9月', 86],
+                        ['10月', 50],
+                        ['11月', 30],
+                        ['12月', 75],
                       ],
                     },
                   ],
@@ -1047,18 +1321,18 @@ export const system: any[] = [
                   {
                     source: [
                       ['type', '红包', '推广'],
-                      ['1月', 68, 65],
-                      ['2月', 60, 69],
-                      ['3月', 16, 83],
-                      ['4月', 72, 37],
-                      ['5月', 93, 86],
-                      ['6月', 11, 69],
-                      ['7月', 22, 40],
-                      ['8月', 21, 39],
-                      ['9月', 91, 52],
-                      ['10月', 10, 49],
-                      ['11月', 15, 81],
-                      ['12月', 71, 87],
+                      ['1月', 39, 64],
+                      ['2月', 96, 34],
+                      ['3月', 41, 68],
+                      ['4月', 47, 27],
+                      ['5月', 35, 53],
+                      ['6月', 55, 67],
+                      ['7月', 69, 22],
+                      ['8月', 27, 18],
+                      ['9月', 17, 44],
+                      ['10月', 100, 68],
+                      ['11月', 20, 70],
+                      ['12月', 21, 58],
                     ],
                   },
                 ],
@@ -1238,21 +1512,21 @@ export const system: any[] = [
                       {
                         title: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
                         event: 'meeting',
-                        start: '2024-04-16T15:07:24.271Z',
+                        start: '2024-05-06T06:28:42.969Z',
                         user: 'Johnson',
                         className: 'bg-primary',
                       },
                       {
                         title: '使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅',
                         event: 'drupal',
-                        start: 1713366444271,
+                        start: 1715581722969,
                         user: 'Johnson',
                         className: 'bg-accent',
                       },
                       {
                         title: '你应该了解的 ANGULAR 最佳实践',
                         event: 'drupal',
-                        start: 1713884844271,
+                        start: 1715840922969,
                         user: 'Johnson',
                         className: 'bg-warn',
                       },
@@ -1260,28 +1534,28 @@ export const system: any[] = [
                         title:
                           'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
                         event: 'drupal',
-                        start: 1713539244271,
+                        start: 1715322522969,
                         user: 'Johnson',
                         className: 'bg-warn',
                       },
                       {
                         title: 'DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件',
                         event: 'drupal',
-                        start: 1713971244271,
+                        start: 1715668122969,
                         user: 'Johnson',
                         className: 'bg-pink',
                       },
                       {
                         title: 'DRUPAL8 用户登录后自定义重定向',
                         event: 'drupal',
-                        start: 1713452844271,
+                        start: 1715322522969,
                         user: 'Johnson',
                         className: 'bg-orange',
                       },
                       {
                         title: '如何更改 GIT COMMIT 某个历史提交信息',
                         event: 'drupal',
-                        start: 1713884844271,
+                        start: 1715408922969,
                         user: 'Johnson',
                         className: 'bg-yellow',
                       },
@@ -1289,28 +1563,28 @@ export const system: any[] = [
                         title:
                           '开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器',
                         event: 'drupal',
-                        start: 1713366444271,
+                        start: 1715408922969,
                         user: 'Johnson',
                         className: 'bg-red',
                       },
                       {
                         title: 'DRUPAL JSONAPI 初级入门实践',
                         event: 'drupal',
-                        start: 1714144044271,
+                        start: 1715581722969,
                         user: 'Johnson',
                         className: 'bg-purple',
                       },
                       {
                         title: 'RXJS SWITCHMAP 在 DRUPAL API中的应用',
                         event: 'drupal',
-                        start: 1713625644271,
+                        start: 1715408922969,
                         user: 'Johnson',
                         className: 'bg-indigo',
                       },
                       {
                         title: '五年了，再谈南宁和深圳的差距',
                         event: 'drupal',
-                        start: 1713452844271,
+                        start: 1715063322969,
                         user: 'Johnson',
                         className: 'bg-blue',
                       },
@@ -1318,21 +1592,21 @@ export const system: any[] = [
                         title:
                           '没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它',
                         event: 'drupal',
-                        start: 1712502444271,
+                        start: 1714199322969,
                         user: 'Johnson',
                         className: 'bg-cyan',
                       },
                       {
                         title: '南宁IT互联网行业薪资福利待遇如何？',
                         event: 'drupal',
-                        start: 1712416044271,
+                        start: 1714804122969,
                         user: 'Johnson',
                         className: 'bg-teal',
                       },
                       {
                         title: '南宁IT互联网公司，有哪些是双休？',
                         event: 'drupal',
-                        start: 1712934444271,
+                        start: 1714285722969,
                         user: 'Johnson',
                         className: 'bg-green',
                       },
@@ -1340,14 +1614,14 @@ export const system: any[] = [
                         title:
                           'JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器',
                         event: 'drupal',
-                        start: 1712848044271,
+                        start: 1714544922969,
                         user: 'Johnson',
                         className: 'bg-light-green',
                       },
                       {
                         title: 'ANGULAR 有哪几种不同类型的绑定',
                         event: 'drupal',
-                        start: 1712934444271,
+                        start: 1714458522969,
                         user: 'Johnson',
                         className: 'bg-brown',
                       },
@@ -1355,7 +1629,7 @@ export const system: any[] = [
                         title:
                           'ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别',
                         event: 'drupal',
-                        start: 1712416044271,
+                        start: 1714199322969,
                         user: 'Johnson',
                         className: 'bg-grey',
                       },
@@ -1776,7 +2050,7 @@ export const system: any[] = [
                     },
                     alt: 'logo',
                   },
-                  meta: '2024-04',
+                  meta: '2024-05',
                   title: '前端开发工程师',
                   subTitle: 'Davyin',
                   content:
@@ -1791,7 +2065,7 @@ export const system: any[] = [
                     },
                     alt: 'logo',
                   },
-                  meta: '2024-04',
+                  meta: '2024-05',
                   title: '前端架构师',
                   subTitle: '阿里蚂蚁',
                   content:
@@ -3151,49 +3425,49 @@ export const system: any[] = [
                 {
                   title: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
                   event: 'meeting',
-                  start: '2024-04-16T15:07:24.271Z',
+                  start: '2024-05-06T06:28:42.969Z',
                   user: 'Johnson',
                   className: 'bg-primary',
                 },
                 {
                   title: '使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅',
                   event: 'drupal',
-                  start: 1713366444271,
+                  start: 1715581722969,
                   user: 'Johnson',
                   className: 'bg-accent',
                 },
                 {
                   title: '你应该了解的 ANGULAR 最佳实践',
                   event: 'drupal',
-                  start: 1713884844271,
+                  start: 1715840922969,
                   user: 'Johnson',
                   className: 'bg-warn',
                 },
                 {
                   title: 'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
                   event: 'drupal',
-                  start: 1713539244271,
+                  start: 1715322522969,
                   user: 'Johnson',
                   className: 'bg-warn',
                 },
                 {
                   title: 'DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件',
                   event: 'drupal',
-                  start: 1713971244271,
+                  start: 1715668122969,
                   user: 'Johnson',
                   className: 'bg-pink',
                 },
                 {
                   title: 'DRUPAL8 用户登录后自定义重定向',
                   event: 'drupal',
-                  start: 1713452844271,
+                  start: 1715322522969,
                   user: 'Johnson',
                   className: 'bg-orange',
                 },
                 {
                   title: '如何更改 GIT COMMIT 某个历史提交信息',
                   event: 'drupal',
-                  start: 1713884844271,
+                  start: 1715408922969,
                   user: 'Johnson',
                   className: 'bg-yellow',
                 },
@@ -3201,28 +3475,28 @@ export const system: any[] = [
                   title:
                     '开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器',
                   event: 'drupal',
-                  start: 1713366444271,
+                  start: 1715408922969,
                   user: 'Johnson',
                   className: 'bg-red',
                 },
                 {
                   title: 'DRUPAL JSONAPI 初级入门实践',
                   event: 'drupal',
-                  start: 1714144044271,
+                  start: 1715581722969,
                   user: 'Johnson',
                   className: 'bg-purple',
                 },
                 {
                   title: 'RXJS SWITCHMAP 在 DRUPAL API中的应用',
                   event: 'drupal',
-                  start: 1713625644271,
+                  start: 1715408922969,
                   user: 'Johnson',
                   className: 'bg-indigo',
                 },
                 {
                   title: '五年了，再谈南宁和深圳的差距',
                   event: 'drupal',
-                  start: 1713452844271,
+                  start: 1715063322969,
                   user: 'Johnson',
                   className: 'bg-blue',
                 },
@@ -3230,21 +3504,21 @@ export const system: any[] = [
                   title:
                     '没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它',
                   event: 'drupal',
-                  start: 1712502444271,
+                  start: 1714199322969,
                   user: 'Johnson',
                   className: 'bg-cyan',
                 },
                 {
                   title: '南宁IT互联网行业薪资福利待遇如何？',
                   event: 'drupal',
-                  start: 1712416044271,
+                  start: 1714804122969,
                   user: 'Johnson',
                   className: 'bg-teal',
                 },
                 {
                   title: '南宁IT互联网公司，有哪些是双休？',
                   event: 'drupal',
-                  start: 1712934444271,
+                  start: 1714285722969,
                   user: 'Johnson',
                   className: 'bg-green',
                 },
@@ -3252,14 +3526,14 @@ export const system: any[] = [
                   title:
                     'JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器',
                   event: 'drupal',
-                  start: 1712848044271,
+                  start: 1714544922969,
                   user: 'Johnson',
                   className: 'bg-light-green',
                 },
                 {
                   title: 'ANGULAR 有哪几种不同类型的绑定',
                   event: 'drupal',
-                  start: 1712934444271,
+                  start: 1714458522969,
                   user: 'Johnson',
                   className: 'bg-brown',
                 },
@@ -3267,7 +3541,7 @@ export const system: any[] = [
                   title:
                     'ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别',
                   event: 'drupal',
-                  start: 1712416044271,
+                  start: 1714199322969,
                   user: 'Johnson',
                   className: 'bg-grey',
                 },
@@ -3354,6 +3628,129 @@ export const system: any[] = [
     label: 'Drupal',
     id: 'drupal',
     elements: [
+      {
+        label: '问答',
+        content: {
+          type: 'question',
+          title: '作为一个前端开发人员，如何让自己保持学习的热忱并坚持下去？',
+          body: '前端技术不断更迭，日新月异，如何保持学习的心态。',
+          topic: {
+            elements: [
+              {
+                label: '前端',
+              },
+              {
+                label: 'Angular',
+              },
+            ],
+          },
+          params: {
+            comment: {
+              type: 'comment--answer',
+              attributes: {
+                entity_type: 'node',
+                field_name: 'answer',
+              },
+              relationships: {
+                comment_type: {
+                  data: {
+                    type: 'comment_type--comment_type',
+                    id: 'a395ac8e-3c9a-43d5-8ec8-cea74116d5f3',
+                  },
+                },
+                entity_id: {
+                  data: {
+                    type: 'node--question',
+                    id: 'b59a2767-89b8-418d-91fe-6f0e6a5638ec',
+                  },
+                },
+              },
+            },
+          },
+          editor: {
+            action: {
+              label: '发布回答',
+            },
+            succes: {
+              label: '成功发布！',
+            },
+          },
+        },
+        isAsked: false,
+        showEditor: true,
+        comments: [
+          {
+            author: {
+              img: {
+                src: '/assets/images/avatar/01.jpeg',
+                style: {
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                },
+                alt: '小南',
+              },
+              align: 'center start',
+              id: 'b5f0ed94-2ebe-40e9-be07-f480efb50994',
+              title: '小南',
+              subTitle: '2024-05-06 14:25:56',
+            },
+            time: '2024-05-06 14:25:56',
+            id: '24213e00-d4b8-4ece-bbea-a588efcc7d8d',
+            content:
+              '<p>设定具体的学习目标：将学习分解为小而可管理的目标，并为每个目标设定明确的时间表和标准。这样，你可以看到自己的进展，并感到满足和激励。寻找灵感和挑战：保持对前端技术的好奇心，主动寻找新的灵感和挑战。参加技术交流会议、阅读相关的博客和文章，或加入社区讨论可以帮助你保持兴趣和动力。关注个人发展：思考自己的职业发展和长期目标，明确你希望在前端领域取得的成就。将学习看作是实现这些目标的关键步骤，这种意识将激励你持续学习和进步。</p>',
+            child: [
+              {
+                author: {
+                  img: {
+                    src: '/assets/images/avatar/02.jpeg',
+                    style: {
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                    },
+                    alt: 'root',
+                  },
+                  align: 'center start',
+                  id: '15765815-07f2-4d7d-8142-cb598f82af2e',
+                  title: 'root',
+                  subTitle: '2024-05-06 14:25:56',
+                },
+                time: '2024-05-06 14:25:56',
+                id: 'bbbe5e9f-9b85-421e-a839-7d50be0eb7ed',
+                content:
+                  '<p><ul class="list-done"><li>探索不同的学习资源：尝试不同的学习资源，如在线教程、视频教程、书籍、实践项目等。不同的学习方法可以帮助你从不同的角度理解和应用前端技术，保持学习的新鲜感。</li><li>参与开源项目和社区：积极参与开源项目和社区，与其他开发者互动和合作。这样你可以学习到新的技术和最佳实践，同时拓展人脉和交流经验，激发学习的热情。</li><li>持续实践和项目驱动：通过实际项目的开发和实践，将学到的知识应用到实际场景中。实践中的挑战和解决方案将帮助你不断提升技能，并加深对前端开发的理解和热爱。</li></ul></p>',
+                child: [],
+                level: 2,
+              },
+            ],
+            level: 1,
+          },
+          {
+            author: {
+              img: {
+                src: '/assets/images/avatar/03.jpeg',
+                style: {
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                },
+                alt: '表歌',
+              },
+              align: 'center start',
+              id: 'd5fb03cb-abca-43ba-baa5-a162a576e67a',
+              title: '表歌',
+              subTitle: '2024-05-06 14:25:56',
+            },
+            time: '2024-05-06 14:25:56',
+            id: '2582f1b8-d91b-4a73-86ac-050fda0b10d1',
+            content:
+              '<p>定期回顾和评估：定期回顾自己的学习进展和成果，对已经学到的知识和技能进行评估。这样可以看到自己的进步，并找出需要改进的领域，保持学习的动力。设定奖励机制：为自己设定奖励机制，当达到一定的学习目标或突破难题时给予自己奖励。这可以是一次小型庆祝、购买一本新书或者做一些自己喜欢的事情，让学习变得有趣和值得期待。寻找学习伙伴：与其他</p>',
+            child: [],
+            level: 1,
+          },
+        ],
+      },
       {
         label: '联系表单',
         content: {
@@ -3795,7 +4192,7 @@ export const system: any[] = [
                       src: '../assets/images/showcase/blog1-large.jpeg',
                       alt: '',
                     },
-                    changed: '2024-04-16',
+                    changed: '2024-05-06',
                   },
                   {
                     link: {
@@ -3806,30 +4203,30 @@ export const system: any[] = [
                       src: '../assets/images/showcase/blog2-large.jpeg',
                       alt: '',
                     },
-                    changed: '2024-04-16',
+                    changed: '2024-05-06',
                   },
                   {
                     link: {
                       label: '你应该了解的 Angular 最佳实践',
-                      href: '2024-04-16',
+                      href: '2024-05-06',
                     },
                     img: {
                       src: '../assets/images/showcase/blog3-large.jpeg',
                       alt: '',
                     },
-                    changed: '2024-04-16',
+                    changed: '2024-05-06',
                   },
                   {
                     link: {
                       label:
                         'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-                      href: '2024-04-16',
+                      href: '2024-05-06',
                     },
                     img: {
                       src: '../assets/images/showcase/blog4-large.jpeg',
                       alt: '',
                     },
-                    changed: '2024-04-16',
+                    changed: '2024-05-06',
                   },
                 ],
               },
@@ -4114,6 +4511,215 @@ export const system: any[] = [
         },
       },
       {
+        label: '图文列表',
+        content: {
+          type: 'dynamic-media-list',
+          params: {
+            include: 'category,field_tags,media,media.field_media_image',
+            sort: '-changed',
+            type: 'blog',
+          },
+          showImage: true,
+          ratios: 'media-16-9',
+          readMoreLabel: '显示更多',
+          pager: {
+            itemsPerPage: 20,
+          },
+          sidebar: [
+            {
+              type: 'media-list',
+              title: '最新博客',
+              elements: [
+                {
+                  link: {
+                    label: '信使 UI 应用初始化及页面渲染流程',
+                    href: '/node/463',
+                  },
+                  img: {
+                    src: '/sites/default/files/styles/media_3_2_medium/public/2024-03/0.jpg?itok=BwK8Gl1A',
+                    alt: '',
+                  },
+                  changed: '2024/03/08',
+                },
+                {
+                  link: {
+                    label: '信使Web builder 新增自定义组件流程',
+                    href: '/node/462',
+                  },
+                  img: {
+                    src: '/sites/default/files/styles/media_3_2_medium/public/2024-03/173.jpg?itok=Pl96POWi',
+                    alt: '',
+                  },
+                  changed: '2024/03/06',
+                },
+                {
+                  link: {
+                    label: '信使web builder 新增历史版本',
+                    href: '/node/464',
+                  },
+                  img: {
+                    src: '/sites/default/files/styles/media_3_2_medium/public/2024-03/1-5.jpg?itok=Irr343AH',
+                    alt: '',
+                  },
+                  changed: '2024/01/25',
+                },
+                {
+                  link: {
+                    label: 'github 22 端口连接超时报错的解决办法',
+                    href: '/node/461',
+                  },
+                  img: {
+                    src: '/sites/default/files/styles/media_3_2_medium/public/2024-03/374.jpg?itok=moXR5q8F',
+                    alt: '',
+                  },
+                  changed: '2024/01/22',
+                },
+              ],
+            },
+            {
+              type: 'menu-list',
+              title: '分类统计',
+              elements: [
+                {
+                  link: {
+                    href: '/frontend',
+                    label: '前端茶馆',
+                  },
+                  label: '17',
+                },
+                {
+                  link: {
+                    href: '/drupal',
+                    label: 'Drupal 自习室',
+                  },
+                  label: '8',
+                },
+                {
+                  link: {
+                    href: '/taxonomy/term/85',
+                    label: '信使',
+                  },
+                  label: '3',
+                },
+                {
+                  link: {
+                    href: '/taxonomy/term/83',
+                    label: '技术',
+                  },
+                  label: '1',
+                },
+                {
+                  link: {
+                    href: '/ui',
+                    label: 'UI 设计',
+                  },
+                  label: '1',
+                },
+              ],
+            },
+          ],
+        },
+      },
+      {
+        label: '视图列表',
+        content: {
+          type: 'view-list',
+          spacer: 'none',
+          params: {
+            apiType: '/api/v1/content',
+          },
+          header: [
+            {
+              label: '标题',
+              key: 'title',
+            },
+            {
+              label: '分类',
+              key: 'type',
+            },
+            {
+              label: '日期',
+              key: 'created',
+              style: {
+                textAlign: 'center',
+                backgroundColor: 'rgba(0, 255, 51, 0.25)',
+              },
+            },
+            {
+              label: '详情',
+              key: 'body',
+              dialog: {
+                shorten: 20,
+                label: '更多',
+              },
+            },
+            {
+              label: '操作',
+              key: 'actions',
+            },
+          ],
+          form: [
+            {
+              fieldGroupClassName: 'flex flex-wrap',
+              fieldGroup: [
+                {
+                  type: 'input',
+                  key: 'title',
+                  templateOptions: {
+                    label: '标题',
+                  },
+                },
+                {
+                  type: 'input',
+                  key: 'page',
+                  className: 'hidden',
+                  templateOptions: {
+                    label: '页码',
+                  },
+                },
+              ],
+            },
+          ],
+          data: {
+            canShow: true,
+            table: {
+              header: [
+                {
+                  label: '标题',
+                  key: 'title',
+                },
+                {
+                  label: '分类',
+                  key: 'type',
+                },
+                {
+                  label: '日期',
+                  key: 'created',
+                  style: {
+                    textAlign: 'center',
+                    backgroundColor: 'rgba(0, 255, 51, 0.25)',
+                  },
+                },
+                {
+                  label: '详情',
+                  key: 'body',
+                  dialog: {
+                    shorten: 20,
+                    label: '更多',
+                  },
+                },
+                {
+                  label: '操作',
+                  key: 'actions',
+                },
+              ],
+              classes: '',
+              params: {},
+            },
+          },
+        },
+      },
+      {
         label: '树形列表',
         content: {
           type: 'tree-list',
@@ -4177,7 +4783,7 @@ export const system: any[] = [
                   href: '/node/417',
                   target: '_blank',
                 },
-                created: '2024-04-16',
+                created: '2024-05-06',
                 body: '<h4 id="%E4%BD%BF%E7%94%A8-lighthouse-%E8%AF%84%E5%88%86">使用 lighthouse 评分</h4><p>以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分：<br /><img alt="image 0" data-entity-type="file" data-entity-uuid="c397a1f3-b764-4fd2-ab09-98d61f2a4dbd" height="603" src="/sites/default/files/inline-images/image_0.png" width="940" /><br />性能评分勉强及格差强人意，切换到 performance 性能选项卡:<br /><img alt="image 1" data-entity-type="file" data-entity-uuid="17526354-c3f6-45ab-8d28-8100cd1d10e8" height="506" src="/sites/default/files/inline-images/image_1.png" width="951" /><br />记录的同时，可以依次滚动页面到底部，暂停看看分析结果：<br /><img alt="image 2" data-entity-type="file" data-entity-uuid="2349f2bb-d08a-4e5e-a6fa-8ca891b91022" height="422" src="/sites/default/files/inline-images/image_2.png" width="949" /><br />发现一推很深的函数调用，放大具体看看：（记得要用本地开发环境来查看，这样可以方便看未编译版本中具体的组件或者函数）<br /></p>',
                 user: 'Johnson',
                 type: '博客',
@@ -4196,7 +4802,7 @@ export const system: any[] = [
                   href: '/node/414',
                   target: '_blank',
                 },
-                created: '2024-04-16',
+                created: '2024-05-06',
                 body: '<p>遵循最佳实践可以让你的 Angular 应用保持性能优越，使团队的代码风格一致，以下代码摘自南宁IT派官网项目。</p><h3 id="%E6%8A%8A%E9%BB%98%E8%AE%A4%E7%9A%84%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E8%AE%BE%E7%BD%AE%E4%B8%BA-onpush">把默认的变更检测设置为 OnPush</h3><p>Angular 默认变更检测是 Defualt，只要在组件中有任意一个值发生改变或者 Dom中有事件的更新都会触发整个应用自上而下的变更检测，使用&nbsp;<code data-backticks="1">OnPush</code>&nbsp;的方式使大型的应用的性能得到很大的提升。<br />导入 ChangeDetectionStrategy 之后，设置为OnPush</p></p>',
                 user: '表歌',
                 type: '博客',
@@ -4966,7 +5572,7 @@ export const system: any[] = [
                     },
                     alt: 'logo',
                   },
-                  meta: '2024-04',
+                  meta: '2024-05',
                   title: '前端开发工程师',
                   subTitle: 'Davyin',
                   content:

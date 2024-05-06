@@ -175,7 +175,6 @@ export const widgets: any[] = [
       bg: {
         classes: 'bg-fill-width',
       },
-      layoutAlign: 'center center',
       gap: {
         xs: 8,
         sm: 16,
@@ -192,7 +191,6 @@ export const widgets: any[] = [
             lg: 6,
           },
           direction: 'column',
-          layoutAlign: 'start start',
           elements: [],
         },
         {
@@ -204,7 +202,6 @@ export const widgets: any[] = [
             lg: 6,
           },
           direction: 'column',
-          layoutAlign: 'start start',
           elements: [],
         },
       ],

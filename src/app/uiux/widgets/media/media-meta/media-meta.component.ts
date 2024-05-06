@@ -4,7 +4,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { IMediaMeta } from '@core/interface/widgets/IMediaMeta';
+import type { IMediaMeta } from '@core/interface/widgets/IMediaMeta';
 
 @Component({
   selector: 'app-media-meta',

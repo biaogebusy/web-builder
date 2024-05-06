@@ -264,10 +264,6 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               options: getVerticalOption,
             },
           },
-          {
-            key: 'gap',
-            fieldGroup: getGapsGroup(content),
-          },
         ],
       },
     ];

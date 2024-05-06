@@ -5,27 +5,46 @@ export const layoutBuilder: any[] = [
       svg: 'view-week-outline',
     },
     content: {
-      type: 'layout-builder',
-      spacer: 'md',
       fullWidth: false,
+      spacer: 'md',
+      bgClasses: 'bg-fill-width',
+      overlay: '',
+      classes: '',
+      id: '',
       bg: {
-        classes: 'bg-fill-width',
         img: {
           src: '/assets/images/bg/home-shape.png',
-          alt: 'home-shape.png',
           classes: 'object-fit',
+          alt: 'home-shape.png',
         },
+        classes: 'bg-fill-width',
+        overlay: '',
       },
-      direction: 'row wrap',
+      direction: 'row',
+      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
-      layoutAlign: 'center center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
+      animate: {
+        from: {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
       },
+      type: 'layout-builder',
       elements: [
         {
           row: {
@@ -34,15 +53,14 @@ export const layoutBuilder: any[] = [
             md: 6,
             lg: 7,
           },
-          direction: 'column',
+          direction: 'col',
           horizontal: 'center',
-          vertical: 'flex-start',
-          layoutAlign: 'center start',
+          vertical: 'start',
           gap: {
-            xs: '10',
-            sm: '10',
-            md: '10',
-            lg: '10',
+            xs: '2',
+            sm: '2',
+            md: '2',
+            lg: '2',
           },
           bg: {
             img: {
@@ -79,6 +97,7 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          layoutAlign: 'center start',
           elements: [
             {
               type: 'title',
@@ -118,14 +137,54 @@ export const layoutBuilder: any[] = [
           ],
         },
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 6,
             md: 6,
             lg: 5,
           },
-          direction: 'column',
+          direction: 'col',
+          gap: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+          },
+          bg: {
+            img: {
+              src: '',
+              alt: '',
+              classes: 'object-fit',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            borderRadius: 'none',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
+          horizontal: 'center',
+          vertical: 'center',
           layoutAlign: 'center stretch',
           elements: [
             {
@@ -185,16 +244,10 @@ export const layoutBuilder: any[] = [
         classes: 'bg-fill-width',
         overlay: '',
       },
-      direction: 'row wrap',
+      direction: 'row',
+      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'stretch',
-      layoutAlign: 'center stretch',
-      gap: {
-        xs: 0,
-        sm: 16,
-        md: 32,
-        lg: 48,
-      },
       animate: {
         from: {
           x: 0,
@@ -224,10 +277,10 @@ export const layoutBuilder: any[] = [
             md: 6,
             lg: 6,
           },
-          direction: 'column',
+          direction: 'col',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
           gap: {
             xs: '10',
             sm: '10',
@@ -241,12 +294,13 @@ export const layoutBuilder: any[] = [
               classes: 'object-fit',
             },
             overlay: '',
-            classes: 'bg-shadow bg-fill-width',
+            classes: 'bg- bg-fill-width',
           },
           classes: '',
+          blockClasses: 'md:mr-5 bg-shadow ',
           style: {
             borderRadius: 'none',
-            margin: '0 0 20px 0',
+            margin: '',
           },
           animate: {
             from: {
@@ -268,6 +322,7 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          layoutAlign: 'center center',
           elements: [
             {
               style: 'none',
@@ -312,12 +367,17 @@ export const layoutBuilder: any[] = [
               href: '/',
             },
             {
-              src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
+              src: 'http://localhost:4200/assets/images/products/huawei-watch-gt4-select-strap.webp',
               classes: '',
               alt: 'alt',
               style: {
-                aspectRatio: 'auto',
-                objectFit: 'initial',
+                width: '450px',
+                height: '300px',
+                opacity: '1',
+                borderRadius: '0px',
+                boxShadow: 'none',
+                aspectRatio: '1 / 1',
+                objectFit: 'contain',
               },
               hostClasses: 'text-center',
               animate: {
@@ -352,10 +412,10 @@ export const layoutBuilder: any[] = [
             md: 6,
             lg: 6,
           },
-          direction: 'column',
+          direction: 'col',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
           gap: {
             xs: '10',
             sm: '10',
@@ -369,12 +429,13 @@ export const layoutBuilder: any[] = [
               classes: 'object-fit',
             },
             overlay: '',
-            classes: 'bg-shadow bg-fill-width',
+            classes: 'bg- bg-fill-width',
           },
           classes: '',
+          blockClasses: 'md:ml-5 bg-shadow',
           style: {
             borderRadius: 'none',
-            margin: '0 0 20px 0',
+            margin: '',
           },
           animate: {
             from: {
@@ -396,6 +457,7 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          layoutAlign: 'center center',
           elements: [
             {
               style: 'none',
@@ -440,12 +502,17 @@ export const layoutBuilder: any[] = [
               href: '/',
             },
             {
-              src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
+              src: 'http://localhost:4200/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
               classes: '',
               alt: 'alt',
               style: {
-                aspectRatio: 'auto',
-                objectFit: 'initial',
+                width: '450px',
+                height: '300px',
+                opacity: '1',
+                borderRadius: '0px',
+                boxShadow: 'none',
+                aspectRatio: '1 / 1',
+                objectFit: 'contain',
               },
               hostClasses: 'text-center',
               animate: {
@@ -482,27 +549,47 @@ export const layoutBuilder: any[] = [
       svg: 'view-week-outline',
     },
     content: {
-      type: 'layout-builder',
-      spacer: 'md',
       fullWidth: false,
+      spacer: 'md',
+      bgClasses: 'bg-shadow bg-fill-width',
+      overlay: '',
+      classes: '',
+      id: '',
       bg: {
-        classes: 'bg-shadow bg-fill-width',
         img: {
           src: '/assets/images/bg/home-shape.png',
-          alt: 'home-shape.png',
           classes: 'object-fit',
+          alt: 'home-shape.png',
         },
+        classes: 'bg-shadow bg-fill-width',
+        overlay: '',
       },
-      direction: 'row wrap',
+      direction: 'row',
+      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
-      layoutAlign: 'center center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
+      animate: {
+        from: {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
       },
+      type: 'layout-builder',
+      layoutAlign: 'center center',
       elements: [
         {
           row: {
@@ -514,18 +601,24 @@ export const layoutBuilder: any[] = [
           direction: 'row',
           horizontal: 'center',
           vertical: 'stretch',
-          layoutAlign: 'center stretch',
+          gap: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -541,10 +634,10 @@ export const layoutBuilder: any[] = [
               y: '100',
               rotation: 0,
               scale: 1,
+              opacity: 0,
               delay: 0,
               duration: 1,
               ease: 'none',
-              opacity: 0,
             },
             trigger: {
               onEnter: 'play',
@@ -555,6 +648,8 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'center stretch',
           elements: [
             {
               type: 'box',
@@ -582,18 +677,24 @@ export const layoutBuilder: any[] = [
           direction: 'row',
           horizontal: 'center',
           vertical: 'stretch',
-          layoutAlign: 'center stretch',
+          gap: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -609,10 +710,10 @@ export const layoutBuilder: any[] = [
               y: '100',
               rotation: 0,
               scale: 1,
+              opacity: 0,
               delay: '0.6',
               duration: 1,
               ease: 'none',
-              opacity: 0,
             },
             trigger: {
               onEnter: 'play',
@@ -623,6 +724,8 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'center stretch',
           elements: [
             {
               type: 'box',
@@ -650,18 +753,24 @@ export const layoutBuilder: any[] = [
           direction: 'row',
           horizontal: 'center',
           vertical: 'stretch',
-          layoutAlign: 'center stretch',
+          gap: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -677,10 +786,10 @@ export const layoutBuilder: any[] = [
               y: '100',
               rotation: 0,
               scale: 1,
+              opacity: '0',
               delay: '1',
               duration: 1,
               ease: 'none',
-              opacity: '0',
             },
             trigger: {
               onEnter: 'play',
@@ -691,6 +800,8 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'center stretch',
           elements: [
             {
               type: 'box',
@@ -732,16 +843,10 @@ export const layoutBuilder: any[] = [
         classes: 'bg-shadow bg-fill-width',
         overlay: '',
       },
-      direction: 'row wrap',
+      direction: 'row',
+      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
-      layoutAlign: 'center center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
-      },
       animate: {
         from: {
           x: 0,
@@ -762,6 +867,7 @@ export const layoutBuilder: any[] = [
           end: 'top 40%',
         },
       },
+      layoutAlign: 'center center',
       type: 'layout-builder',
       elements: [
         {
@@ -771,10 +877,9 @@ export const layoutBuilder: any[] = [
             md: 3,
             lg: 3,
           },
-          direction: 'column',
-          horizontal: 'flex-end',
-          vertical: 'flex-end',
-          layoutAlign: 'end end',
+          direction: 'col',
+          horizontal: 'end',
+          vertical: 'end',
           gap: {
             xs: '10',
             sm: '10',
@@ -793,8 +898,8 @@ export const layoutBuilder: any[] = [
           classes: '',
           style: {
             borderRadius: 'none',
-            margin: '',
             padding: '',
+            margin: '',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -824,6 +929,8 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'end end',
           elements: [
             {
               spacer: 'none',
@@ -893,7 +1000,6 @@ export const layoutBuilder: any[] = [
           direction: 'row',
           horizontal: 'center',
           vertical: 'stretch',
-          layoutAlign: 'center stretch',
           gap: {
             xs: 0,
             sm: 0,
@@ -909,9 +1015,10 @@ export const layoutBuilder: any[] = [
             overlay: '',
             classes: 'bg-fill-width',
           },
-          classes: 'm-bottom-md',
+          classes: 'p-5',
           style: {
             borderRadius: 'none',
+            padding: '20px',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -941,6 +1048,8 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'center stretch',
           elements: [
             {
               type: 'card-1v1',
@@ -982,9 +1091,9 @@ export const layoutBuilder: any[] = [
             lg: 3,
           },
           direction: 'row',
+          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'stretch',
-          layoutAlign: 'center stretch',
           gap: {
             xs: 0,
             sm: 0,
@@ -1000,7 +1109,7 @@ export const layoutBuilder: any[] = [
             overlay: '',
             classes: 'bg-fill-width',
           },
-          classes: 'm-bottom-md',
+          classes: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -1032,6 +1141,7 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          layoutAlign: 'center stretch',
           elements: [
             {
               type: 'card-1v1',
@@ -1075,7 +1185,6 @@ export const layoutBuilder: any[] = [
           direction: 'row',
           horizontal: 'center',
           vertical: 'stretch',
-          layoutAlign: 'center stretch',
           gap: {
             xs: 0,
             sm: 0,
@@ -1091,7 +1200,7 @@ export const layoutBuilder: any[] = [
             overlay: '',
             classes: 'bg-fill-width',
           },
-          classes: 'm-bottom-md',
+          classes: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -1123,6 +1232,8 @@ export const layoutBuilder: any[] = [
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'center stretch',
           elements: [
             {
               type: 'card-1v1',
@@ -1165,44 +1276,150 @@ export const layoutBuilder: any[] = [
       svg: 'border-none-variant',
     },
     content: {
-      type: 'layout-builder',
-      spacer: 'md',
       fullWidth: false,
+      spacer: 'md',
+      bgClasses: 'bg-fill-width',
+      overlay: '',
+      classes: '',
+      id: '',
       bg: {
+        img: {
+          src: '',
+          classes: 'object-fit',
+          alt: '',
+        },
         classes: 'bg-fill-width',
+        overlay: '',
       },
-      direction: 'row wrap',
+      direction: 'row',
+      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
-      layoutAlign: 'center center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
+      animate: {
+        from: {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+          delay: 0,
+          duration: 1,
+          ease: 'none',
+        },
+        trigger: {
+          onEnter: 'play',
+          onLeave: 'none',
+          onEnterBack: 'none',
+          onLeaveBack: 'none',
+          start: 'top 90%',
+          end: 'top 40%',
+        },
       },
+      type: 'layout-builder',
       elements: [
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 12,
             md: 6,
             lg: 6,
           },
-          direction: 'column',
+          direction: 'row',
+          wrap: 'wrap',
+          horizontal: 'start',
+          vertical: 'stretch',
+          gap: {
+            xs: '4',
+            sm: '4',
+            md: '4',
+            lg: '4',
+          },
+          bg: {
+            img: {
+              src: '',
+              alt: '',
+              classes: 'object-fit',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            borderRadius: 'none',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           layoutAlign: 'start start',
           elements: [],
         },
         {
-          classes: '',
           row: {
             xs: 12,
             sm: 12,
             md: 6,
             lg: 6,
           },
-          direction: 'column',
+          direction: 'row',
+          wrap: 'wrap',
+          horizontal: 'start',
+          vertical: 'stretch',
+          gap: {
+            xs: '4',
+            sm: '4',
+            md: '4',
+            lg: '4',
+          },
+          bg: {
+            img: {
+              src: '',
+              alt: '',
+              classes: 'object-fit',
+            },
+            overlay: '',
+            classes: 'bg-fill-width',
+          },
+          classes: '',
+          style: {
+            borderRadius: 'none',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           layoutAlign: 'start start',
           elements: [],
         },

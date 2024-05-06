@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
   Input,
   OnDestroy,
 } from '@angular/core';
@@ -31,14 +30,11 @@ export class LayoutSettingComponent implements OnDestroy {
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
-    private el: ElementRef,
     private cd: ChangeDetectorRef
   ) {}
 
   onModelChange(value: any): void {
     const { path } = this.content;
-    const { block } = value;
-    this.renderLayoutPreview(block);
     let content: any = {};
     Object.keys(value).forEach((config) => {
       if (config) {
@@ -97,17 +93,6 @@ export class LayoutSettingComponent implements OnDestroy {
     this.dialog.afterAllClosed.subscribe(() => {
       this.cd.detectChanges();
     });
-  }
-
-  renderLayoutPreview(block: any): void {
-    const box = this.el.nativeElement.querySelector('.wrapper');
-    if (block && box) {
-      const { direction, horizontal, vertical } = block;
-      box.style.justifyContent = horizontal;
-      box.style.alignItems = vertical;
-      box.style.alignContent = vertical;
-      box.style.flexDirection = direction;
-    }
   }
 
   showCode(): void {

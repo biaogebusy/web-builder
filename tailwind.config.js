@@ -1,10 +1,9 @@
 // https://tailwindcss.com/docs/content-configuration
-// 定义尺寸前缀数组
 const sizes = ["sm", "md", "lg"];
 
 function getGapClasses() {
   const gapClasses = [];
-  for (let i = 0; i <= 80; i++) {
+  for (let i = 0; i <= 20; i++) {
     gapClasses.push(`gap-${i}`);
     for (const size of sizes) {
       gapClasses.push(`${size}:gap-${i}`);

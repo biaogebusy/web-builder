@@ -292,7 +292,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       defaultValue: content.gap?.xs || 0,
       templateOptions: {
         min: 0,
-        max: 80,
+        max: 20,
         step: 4,
         label: '移动端间距',
       },
@@ -303,7 +303,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       defaultValue: content.gap?.sm || 0,
       templateOptions: {
         min: 0,
-        max: 80,
+        max: 20,
         step: 4,
         label: '平板端间距',
       },
@@ -314,7 +314,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       defaultValue: content.gap?.md || 0,
       templateOptions: {
         min: 0,
-        max: 80,
+        max: 20,
         step: 4,
         label: '桌面端间距',
       },
@@ -325,7 +325,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       defaultValue: content.gap?.lg || 0,
       templateOptions: {
         min: 0,
-        max: 80,
+        max: 20,
         step: 4,
         label: '超大桌面间距',
       },
