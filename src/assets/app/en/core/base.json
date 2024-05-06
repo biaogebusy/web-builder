@@ -215,7 +215,7 @@
     }
   },
   "github": {
-    "enable": true,
+    "enable": false,
     "owner": "biaogebusy",
     "repo": "xinshi-ui",
     "token": ""
