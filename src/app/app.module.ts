@@ -52,7 +52,6 @@ import { UserService } from '@core/service/user.service';
 import { NotifyService } from '@core/service/notify.service';
 import { Router } from '@angular/router';
 import { BuilderState } from '@core/state/BuilderState';
-import { of } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { ManageService } from '@core/service/manage.service';
 import { NodeService } from '@core/service/node.service';
