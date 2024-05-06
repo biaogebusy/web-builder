@@ -367,7 +367,7 @@ export const layoutBuilder: any[] = [
               href: '/',
             },
             {
-              src: 'http://localhost:4200/assets/images/products/huawei-watch-gt4-select-strap.webp',
+              src: '/assets/images/products/huawei-watch-gt4-select-strap.webp',
               classes: '',
               alt: 'alt',
               style: {
@@ -502,7 +502,7 @@ export const layoutBuilder: any[] = [
               href: '/',
             },
             {
-              src: 'http://localhost:4200/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
+              src: '/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
               classes: '',
               alt: 'alt',
               style: {

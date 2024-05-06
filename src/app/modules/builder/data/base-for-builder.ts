@@ -371,7 +371,7 @@ export const base = [
                   href: '/',
                 },
                 {
-                  src: 'http://localhost:4200/assets/images/products/huawei-watch-gt4-select-strap.webp',
+                  src: '/assets/images/products/huawei-watch-gt4-select-strap.webp',
                   classes: '',
                   alt: 'alt',
                   style: {
@@ -506,7 +506,7 @@ export const base = [
                   href: '/',
                 },
                 {
-                  src: 'http://localhost:4200/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
+                  src: '/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
                   classes: '',
                   alt: 'alt',
                   style: {
@@ -2258,7 +2258,7 @@ export const base = [
               direction: 'column',
               elements: [
                 {
-                  src: 'http://localhost:4200/assets/images/builder/builder-01.png',
+                  src: '/assets/images/builder/builder-01.png',
                   classes: 'mt-5',
                   hostClasses: 'text-center',
                   alt: 'alt',
@@ -3995,7 +3995,7 @@ export const base = [
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: 'http://localhost:4200/assets/images/illustration/11.png',
+                  src: '/assets/images/illustration/11.png',
                   alt: 'alt',
                   style: {
                     width: '85%',

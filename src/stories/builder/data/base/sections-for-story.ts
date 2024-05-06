@@ -819,7 +819,7 @@ export const sections = [
           direction: 'column',
           elements: [
             {
-              src: 'http://localhost:4200/assets/images/builder/builder-01.png',
+              src: '/assets/images/builder/builder-01.png',
               classes: 'mt-5',
               hostClasses: 'text-center',
               alt: 'alt',
@@ -2556,7 +2556,7 @@ export const sections = [
               type: 'img',
               hostClasses: 'text-center',
               classes: '',
-              src: 'http://localhost:4200/assets/images/illustration/11.png',
+              src: '/assets/images/illustration/11.png',
               alt: 'alt',
               style: {
                 width: '85%',
