@@ -194,47 +194,66 @@ export const getObjectFix = [
 
 export const getDirectionOption = [
   {
-    label: 'Row Wrap',
-    value: 'row wrap',
-  },
-  {
     label: 'Row',
     value: 'row',
   },
   {
     label: 'Column',
-    value: 'column',
+    value: 'col',
+  },
+  {
+    label: 'Row reverse',
+    value: 'row-reverse',
+  },
+  {
+    label: 'Column reverse',
+    value: 'col-reverse',
+  },
+];
+
+export const getWrapOption = [
+  {
+    label: 'Wrap',
+    value: 'wrap',
+  },
+  {
+    label: 'Wrap reverse',
+    value: 'wrap-reverse',
+  },
+  {
+    label: 'Nowrap',
+    value: 'nowrap',
   },
 ];
 
 export const getHorizontalOption = [
   {
     label: 'None',
-    value: 'flex-start',
+    value: 'start',
   },
   {
     label: 'start',
-    value: 'flex-start',
+    value: 'start',
+  },
+  {
+    label: 'end',
+    value: 'end',
   },
   {
     label: 'center',
     value: 'center',
   },
   {
-    label: 'end',
-    value: 'flex-end',
+    label: 'between',
+    value: 'between',
   },
   {
-    label: 'space-around',
-    value: 'space-around',
+    label: 'around',
+    value: 'around',
   },
   {
-    label: 'space-between',
-    value: 'space-between',
-  },
-  {
-    label: 'space-evenly',
-    value: 'space-evenly',
+    label: 'evenly',
+    value: 'evenly',
   },
 ];
 
@@ -245,15 +264,19 @@ export const getVerticalOption = [
   },
   {
     label: 'start',
-    value: 'flex-start',
+    value: 'start',
+  },
+  {
+    label: 'end',
+    value: 'end',
   },
   {
     label: 'center',
     value: 'center',
   },
   {
-    label: 'end',
-    value: 'flex-end',
+    label: 'baseline',
+    value: 'baseline',
   },
   {
     label: 'stretch',
@@ -269,10 +292,9 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       defaultValue: content.gap?.xs || 0,
       templateOptions: {
         min: 0,
-        max: 80,
-        step: 2,
+        max: 20,
+        step: 4,
         label: '移动端间距',
-        unit: 'px',
       },
     },
     {
@@ -281,10 +303,9 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       defaultValue: content.gap?.sm || 0,
       templateOptions: {
         min: 0,
-        max: 80,
-        step: 2,
+        max: 20,
+        step: 4,
         label: '平板端间距',
-        unit: 'px',
       },
     },
     {
@@ -293,10 +314,9 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       defaultValue: content.gap?.md || 0,
       templateOptions: {
         min: 0,
-        max: 80,
-        step: 2,
+        max: 20,
+        step: 4,
         label: '桌面端间距',
-        unit: 'px',
       },
     },
     {
@@ -305,10 +325,9 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       defaultValue: content.gap?.lg || 0,
       templateOptions: {
         min: 0,
-        max: 80,
-        step: 2,
+        max: 20,
+        step: 4,
         label: '超大桌面间距',
-        unit: 'px',
       },
     },
   ];

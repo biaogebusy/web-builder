@@ -17,7 +17,7 @@ export function getTitleField(
             {
               type: 'select',
               key: 'style',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.style,
               templateOptions: {
                 label: '风格',
@@ -48,7 +48,7 @@ export function getTitleField(
             {
               type: 'select',
               key: 'classes',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.classes,
               templateOptions: {
                 label: '大小',

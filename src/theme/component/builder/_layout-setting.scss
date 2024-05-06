@@ -7,22 +7,6 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
   .layout-setting {
-    .layout-setting {
-      .layout-preview {
-        border: 1px solid mat.get-color-from-palette($foreground, divider);
-        .wrapper {
-          .block {
-            @include mat.elevation(
-              3,
-              mat.get-color-from-palette($foreground, divider),
-              0.4
-            );
-            color: mat.get-color-from-palette($primary, default-contrast);
-          }
-        }
-      }
-    }
-
     .none-description {
       background-color: mat.get-color-from-palette($warn, 0.1);
       border-left: 4px solid mat.get-color-from-palette($warn);

@@ -7,6 +7,7 @@ import {
   getHorizontalOption,
   getOverlay,
   getVerticalOption,
+  getWrapOption,
 } from './getCommon';
 
 export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
@@ -15,7 +16,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       fieldGroup: [
         {
           template: `<div class="small p-y-xs m-bottom-xs">栏数</div>`,
-          className: 'width-100',
+          className: 'w-full',
         },
         {
           key: 'row',
@@ -76,37 +77,36 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
   ];
   const flexLayout: FormlyFieldConfig[] = [
     {
-      className: 'layout-setting width-100',
-      fieldGroupClassName: 'flex flex-wrap width-100',
+      className: 'layout-setting w-full',
+      fieldGroupClassName: 'flex flex-wrap w-full',
       fieldGroup: [
-        {
-          className: 'width-100 m-bottom-md',
-          template: `<div class="layout-preview"><div class="wrapper ${
-            layout.direction
-          } horizontal-${getLayoutAlign(
-            0,
-            layout.layoutAlign
-          )} vertical-${getLayoutAlign(
-            1,
-            layout.layoutAlign
-          )}" layoutpreview><div class="block bg-primary">1</div><div class="block bg-orange">2</div><div class="block bg-green">3</div></div></div>`,
-        },
         {
           type: 'select',
           key: 'direction',
-          className: 'width-100',
+          className: 'w-full',
           defaultValue: layout.direction,
           templateOptions: {
-            label: '当前列布局方向',
+            label: '布局方向',
             options: getDirectionOption,
             required: true,
           },
         },
         {
           type: 'select',
+          key: 'wrap',
+          className: 'w-full',
+          defaultValue: layout.wrap,
+          templateOptions: {
+            label: '换行',
+            options: getWrapOption,
+            required: true,
+          },
+        },
+        {
+          type: 'select',
           key: 'horizontal',
-          className: 'width-100',
-          defaultValue: getLayoutAlign(0, layout.layoutAlign),
+          className: 'w-full',
+          defaultValue: layout.horizontal,
           templateOptions: {
             label: '水平对齐',
             options: getHorizontalOption,
@@ -115,31 +115,11 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         {
           type: 'select',
           key: 'vertical',
-          className: 'width-100',
-          defaultValue: getLayoutAlign(1, layout.layoutAlign),
+          className: 'w-full',
+          defaultValue: layout.vertical,
           templateOptions: {
             label: '垂直对齐',
             options: getVerticalOption,
-          },
-        },
-        {
-          type: 'input',
-          key: 'layoutAlign',
-          className: 'width-100 hidden',
-          defaultValue: layout.layoutAlign || 'center center',
-          templateOptions: {
-            label: '布局对齐',
-          },
-          hooks: {
-            onInit: (formGroup: any) => {
-              const { form, model } = formGroup;
-              form.valueChanges.subscribe((value: any) => {
-                model.layoutAlign = `${value.horizontal.replace(
-                  'flex-',
-                  ''
-                )} ${value.vertical.replace('flex-', '')}`;
-              });
-            },
           },
         },
         {
@@ -215,7 +195,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       {
         type: 'select',
         key: 'overlay',
-        className: 'width-100',
+        className: 'w-full',
         defaultValue: layout?.bg?.overlay || '',
         templateOptions: {
           label: '蒙版不透明度',
@@ -235,58 +215,40 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
   };
   const styles: FormlyFieldConfig[] = [
     {
-      className: 'width-100',
+      className: 'w-full',
       fieldGroup: [
         bgImg,
         {
           type: 'input',
           key: 'classes',
-          className: 'width-100',
+          className: 'w-full',
           defaultValue: layout?.classes || '',
           templateOptions: {
-            label: '自定义Classes',
+            label: 'Layout Class',
+          },
+        },
+        {
+          type: 'input',
+          key: 'blockClasses',
+          className: 'w-full',
+          defaultValue: layout?.blockClasses || '',
+          templateOptions: {
+            label: 'Block Class',
           },
         },
         {
           key: 'style',
-          className: 'width-100',
-          fieldGroupClassName: 'flex flex-wrap width-100',
+          className: 'w-full',
+          fieldGroupClassName: 'flex flex-wrap w-full',
           fieldGroup: [
             {
               type: 'input',
               key: 'borderRadius',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: layout?.style?.borderRadius || 'none',
               templateOptions: {
                 label: '圆角',
               },
-            },
-            {
-              template: `<div class="small p-y-xs m-bottom-xs">Spacing</div>`,
-              className: 'width-100',
-            },
-            {
-              fieldGroupClassName: 'section-group',
-              fieldGroup: [
-                {
-                  type: 'input',
-                  key: 'padding',
-                  className: 'w-2/5 mr-5',
-                  defaultValue: layout?.style?.padding,
-                  templateOptions: {
-                    label: 'Padding',
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'margin',
-                  className: 'w-2/5',
-                  defaultValue: layout?.style?.margin,
-                  templateOptions: {
-                    label: 'Margin',
-                  },
-                },
-              ],
             },
           ],
         },
@@ -315,19 +277,4 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
     },
   ];
   return fields;
-}
-
-export function getLayoutAlign(index: number, layoutAlign: string): string {
-  if (!layoutAlign) {
-    return 'flex-start';
-  }
-  const align = layoutAlign.split(' ')[index];
-  switch (align) {
-    case 'start':
-      return 'flex-start';
-    case 'end':
-      return 'flex-end';
-    default:
-      return align;
-  }
 }

@@ -15,14 +15,14 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'spacer',
               type: 'select',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.spacer,
               templateOptions: spacerOption,
             },
             {
               key: 'body',
               type: 'textarea',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.body,
               templateOptions: {
                 label: '文本',
@@ -32,7 +32,7 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'classes',
               type: 'input',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.classes,
               templateOptions: {
                 label: '自定义Class',

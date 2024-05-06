@@ -1,5 +1,4 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { getLayoutAlign } from './getLayoutSetting';
 import { getSwiper } from './getSwiper';
 import { getTitleField } from './getTitleField';
 import { getText } from './getText';
@@ -11,6 +10,7 @@ import {
   getHorizontalOption,
   getOverlay,
   getVerticalOption,
+  getWrapOption,
 } from './getCommon';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
@@ -225,19 +225,30 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           {
             type: 'select',
             key: 'direction',
-            className: 'width-100',
-            defaultValue: content.direction || 'row wrap',
+            className: 'w-full',
+            defaultValue: content.direction || 'row',
             templateOptions: {
-              label: '组件布局方向',
+              label: '布局方向',
               options: getDirectionOption,
               required: true,
             },
           },
           {
             type: 'select',
+            key: 'wrap',
+            className: 'w-full',
+            defaultValue: content.wrap || 'wrap',
+            templateOptions: {
+              label: '换行',
+              options: getWrapOption,
+              required: true,
+            },
+          },
+          {
+            type: 'select',
             key: 'horizontal',
-            className: 'width-100',
-            defaultValue: getLayoutAlign(0, content.layoutAlign),
+            className: 'w-full',
+            defaultValue: content.horizontal,
             templateOptions: {
               label: '水平对齐',
               options: getHorizontalOption,
@@ -246,36 +257,12 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           {
             type: 'select',
             key: 'vertical',
-            className: 'width-100',
-            defaultValue: getLayoutAlign(1, content.layoutAlign),
+            className: 'w-full',
+            defaultValue: content.vertical,
             templateOptions: {
               label: '垂直对齐',
               options: getVerticalOption,
             },
-          },
-          {
-            type: 'input',
-            key: 'layoutAlign',
-            className: 'width-100 hidden',
-            defaultValue: content.layoutAlign || 'center center',
-            templateOptions: {
-              label: '布局对齐',
-            },
-            hooks: {
-              onInit: (formGroup: any) => {
-                const { form, model } = formGroup;
-                form.valueChanges.subscribe((value: any) => {
-                  model.layoutAlign = `${value.horizontal.replace(
-                    'flex-',
-                    ''
-                  )} ${value.vertical.replace('flex-', '')}`;
-                });
-              },
-            },
-          },
-          {
-            key: 'gap',
-            fieldGroup: getGapsGroup(content),
           },
         ],
       },

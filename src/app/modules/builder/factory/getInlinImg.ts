@@ -52,7 +52,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
         {
           type: 'select',
           key: 'boxShadow',
-          className: 'width-100',
+          className: 'w-full',
           defaultValue: ele.style.boxShadow || 'none',
           templateOptions: {
             label: '阴影',
@@ -79,7 +79,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
         {
           type: 'select',
           key: 'aspectRatio',
-          className: 'width-100',
+          className: 'w-full',
           defaultValue: ele.style.aspectRatio || 'auto',
           templateOptions: {
             label: '宽高比',
@@ -89,7 +89,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
         {
           type: 'select',
           key: 'objectFit',
-          className: 'width-100',
+          className: 'w-full',
           defaultValue: ele.style.objectFit || 'initial',
           templateOptions: {
             label: '填充方式',

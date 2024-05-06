@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { ILanguage } from '@core/interface/IEnvironment';
+import type { ILanguage } from '@core/interface/IEnvironment';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';

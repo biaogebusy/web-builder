@@ -14,7 +14,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'color',
               type: 'select',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.color || null,
               templateOptions: {
                 label: '颜色',
@@ -41,7 +41,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'label',
               type: 'input',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.label || '',
               templateOptions: {
                 type: 'text',
@@ -52,7 +52,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'mode',
               type: 'select',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.mode || 'basic',
               templateOptions: {
                 label: '类型',
@@ -91,7 +91,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'href',
               type: 'input',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.href || '/',
               templateOptions: {
                 type: 'text',
@@ -101,7 +101,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'target',
               type: 'select',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.target || '_blank',
               templateOptions: {
                 label: '打开方式',
@@ -120,12 +120,12 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
             },
             {
               key: 'icon',
-              className: 'width-100',
+              className: 'w-full',
               fieldGroup: [
                 {
                   key: 'svg',
                   type: 'input',
-                  className: 'width-100',
+                  className: 'w-full',
                   defaultValue: widget?.icon?.svg || '',
                   templateOptions: {
                     label: '图标',
@@ -141,7 +141,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'classes',
               type: 'input',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.classes || '',
               templateOptions: {
                 type: 'text',
@@ -151,7 +151,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'pill',
               type: 'toggle',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.pill || false,
               templateOptions: {
                 label: '胶囊样式',

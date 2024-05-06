@@ -3,36 +3,30 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
-    <div class="inner layout-inner" id="layout" [fxLayout]="content.direction" [fxLayoutAlign]="content.layoutAlign"
-      [ngStyle.xs]="{gap:content.gap?.xs+'px'}" [ngStyle.sm]="{gap:content.gap?.sm+'px'}"
-      [ngStyle.md]="{gap:content.gap?.md+'px'}" [ngStyle.lg]="{gap:content.gap?.lg+'px'}"
-      [ngStyle.gt-lg]="{gap:content.gap?.lg+'px'}">
-      <div class="layout layout-{{i}}" [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i"
-        [attr.data-path]="'elements.'+i" [ngStyle]="layout.style"
-        fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}} - {{content.gap?.xs+'px'||'0px'}})"
-        fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}} - {{content.gap?.sm+'px'||'0px'}})"
-        fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}} - {{content.gap?.md+'px'||'0px'}})"
-        fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
-        fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})">
+    <div id="layout"
+      class="inner layout-inner flex flex-{{content.direction}} flex-{{content.wrap}} justify-{{content.horizontal}} items-{{content.vertical}}">
+      <div [ngClass]="layout.classes"
+        class="layout relative layout-{{i}} flex-{{layout.row.xs}}/12 sm:flex-{{layout.row.sm}}/12 md:flex-{{layout.row.md}}/12 lg:flex-{{layout.row.lg}}/12"
+        *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
         <ng-container *ngIf="isBuilderMode$ | async">
-          <app-layout-toolbar [lbContent]="content" [i]="i" [layout]="layout"
+          <app-layout-toolbar class="hidden absolute z-50" [lbContent]="content" [i]="i" [layout]="layout"
             [pageIndex]="pageIndex"></app-layout-toolbar>
-          <div class="placeholder flex justify-center items-center" [attr.data-path]="'elements.'+i"
-            *ngIf="layout.elements.length === 0">
+          <div class="placeholder opacity-50 hover:opacity-100 p-10 flex justify-center items-center"
+            [attr.data-path]="'elements.'+i" *ngIf="layout.elements.length === 0">
             <app-btn matTooltip="插入组件" (click)="addBlock('widget',content,$event)"
               [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
           </div>
         </ng-container>
         <div class="for-animate">
-          <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign"
-            [ngStyle.xs]="{gap:layout.gap?.xs+'px'}" [ngStyle.sm]="{gap:layout.gap?.sm+'px'}"
-            [ngStyle.md]="{gap:layout.gap?.md+'px'}" [ngStyle.lg]="{gap:layout.gap?.lg+'px'}"
-            [ngStyle.gt-lg]="{gap:layout.gap?.lg+'px'}">
+          <div [ngClass]="layout.blockClasses"
+            class="blocks box-border relative w-full h-full flex flex-{{layout.direction}} flex-{{layout.wrap}} justify-{{layout.horizontal}} items-{{layout.vertical}} gap-{{layout.gap?.xs||'none'}} sm:gap-{{layout.gap?.sm||'none'}} md:gap-{{layout.gap?.md||'none'}} lg:gap-{{layout.gap?.lg||'none'}}">
             <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
-            <div class="item item-{{item.type}}" [attr.data-path]="'elements.'+index"
+            <div class="item relative box-border item-{{item.type}}" [attr.data-path]="'elements.'+index"
               *ngFor="let item of layout.elements;index as index">
-              <app-block-toolbar [layout]="layout" [block]="item" [index]="index" [i]="i" [lbContent]="content"
-                [pageIndex]="pageIndex" *ngIf="isBuilderMode$ | async"></app-block-toolbar>
+              <app-block-toolbar
+                class="absolute top-auto left-[50%] bottom-full z-10 whitespace-nowrap rounded-tl-[4px] rounded-tr-[4px] -translate-x-1/2 hidden"
+                [layout]="layout" [block]="item" [index]="index" [i]="i" [lbContent]="content" [pageIndex]="pageIndex"
+                *ngIf="isBuilderMode$ | async"></app-block-toolbar>
               <app-dynamic-component [inputs]="item"></app-dynamic-component>
             </div>
           </div>

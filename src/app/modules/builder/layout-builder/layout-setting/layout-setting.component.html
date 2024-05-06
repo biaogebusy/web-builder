@@ -1,4 +1,4 @@
-<div class="layout-setting">
+<div class="layout-setting p-5">
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
   <div class="loop-elements" *ngIf="content?.content?.elements?.length">
     <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
@@ -14,7 +14,7 @@
             [content]="{label:'',mode:'icon',icon:{svg:'content-copy'}}"></app-btn>
         </div>
       </mat-list-item>
-      <div class="actions m-y-sm" fxLayoutAlign="center center" *ngIf="content.content.elements[0]?.type | isString">
+      <div class="actions my-5" fxLayoutAlign="center center" *ngIf="content.content.elements[0]?.type | isString">
         <app-btn (click)="onWidgetPicker()" [content]="{label:'新增',icon:{svg:'plus'},color:'primary'}"></app-btn>
       </div>
     </mat-list>
