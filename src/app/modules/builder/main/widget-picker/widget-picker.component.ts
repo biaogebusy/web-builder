@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IWidgetPicker } from '@core/interface/IBuilder';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, WIDGETS } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
-import { ICoreConfig } from '@core/interface/IAppConfig';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',

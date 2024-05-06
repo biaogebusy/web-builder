@@ -13,7 +13,7 @@ export function getContact(widget: any, options?: any[]): FormlyFieldConfig[] {
           fieldGroup: [
             {
               key: 'params',
-              fieldGroupClassName: 'width-100',
+              fieldGroupClassName: 'w-full',
               fieldGroup: [
                 {
                   key: 'webform_id',
@@ -28,7 +28,7 @@ export function getContact(widget: any, options?: any[]): FormlyFieldConfig[] {
             },
             {
               key: 'action',
-              fieldGroupClassName: 'width-100',
+              fieldGroupClassName: 'w-full',
               fieldGroup: [
                 {
                   key: 'label',

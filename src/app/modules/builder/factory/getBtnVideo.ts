@@ -14,7 +14,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               type: 'select',
               key: 'color',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.color,
               templateOptions: {
                 label: '颜色',
@@ -47,7 +47,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
                     {
                       type: 'select',
                       key: 'aspectRatio',
-                      className: 'width-100',
+                      className: 'w-full',
                       defaultValue: widget.video.options.aspectRatio,
                       templateOptions: {
                         label: '播放比例',
@@ -77,7 +77,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
                     {
                       key: 'poster',
                       type: 'input',
-                      className: 'width-100',
+                      className: 'w-full',
                       defaultValue: widget.video.options.poster,
                       templateOptions: {
                         label: '视频封面',
@@ -87,7 +87,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
                       key: 'sources',
                       type: 'repeat',
                       defaultValue: widget.video.options.sources,
-                      className: 'width-100',
+                      className: 'w-full',
                       templateOptions: {
                         addText: '新增',
                       },
@@ -96,7 +96,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
                           {
                             key: 'src',
                             type: 'input',
-                            className: 'width-100',
+                            className: 'w-full',
                             defaultValue: widget.video.options.sources[0].src,
                             templateOptions: {
                               label: '视频地址',

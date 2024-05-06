@@ -6,6 +6,7 @@ import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
 import { IThemePreview } from '@core/interface/combs/IThemePreview';
+import { ILanguage } from '@core/interface/IEnvironment';
 
 export interface IManageSidebarState {
   enableSidebar: boolean;
@@ -19,7 +20,7 @@ export const BRANDING = new InjectionToken<IBranding>('branding config');
 export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>(
   'page_content'
 );
-export const LANG = new InjectionToken<string>('current lang');
+export const LANG = new InjectionToken<ILanguage>('current lang');
 export const THEME = new InjectionToken<string>('current theme');
 export const USER = new InjectionToken<IUser>('user');
 export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify>>(

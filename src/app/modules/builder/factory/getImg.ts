@@ -55,7 +55,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
                 {
                   type: 'select',
                   key: 'aspectRatio',
-                  className: 'width-100',
+                  className: 'w-full',
                   defaultValue: widget?.style?.aspectRatio || 'auto',
                   templateOptions: {
                     label: '宽高比',
@@ -65,7 +65,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
                 {
                   type: 'select',
                   key: 'objectFit',
-                  className: 'width-100',
+                  className: 'w-full',
                   defaultValue: widget?.style?.objectFit || 'initial',
                   templateOptions: {
                     label: '填充方式',

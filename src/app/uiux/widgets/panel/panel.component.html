@@ -3,7 +3,7 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <div class="container">
-    <div class="actions m-y-xs" fxLayout="row" fxLayoutAlign="end center" *ngIf="content?.params?.enableActions">
+    <div class="actions flex justify-end items-center my-3" *ngIf="content?.params?.enableActions">
       <button mat-button *ngIf="!isAll"
         (click)="accordion.openAll(); isAll =!isAll">{{content.params?.actions?.openAll||'全部展开'}}</button>
       <button mat-button *ngIf="isAll"

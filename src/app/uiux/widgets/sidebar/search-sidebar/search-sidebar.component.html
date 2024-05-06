@@ -1,6 +1,6 @@
-<div class="search-sidebar m-y" *ngIf="content">
-  <div class="sidebar-header">
-    <div class="key m-y-xs m-x-xs" fxFlex="0 1 100">
+<div class="search-sidebar my-10 sticky top-[40px]" *ngIf="content">
+  <div class="sidebar-header flex justify-between items-center">
+    <div class="key m-3">
       <mat-chip-list>
         <mat-chip *ngIf="form.controls['title']?.value" color="primary" selected>{{form.controls['title'].value}}
         </mat-chip>
@@ -8,7 +8,7 @@
         </mat-chip>
       </mat-chip-list>
     </div>
-    <div class="item m-y-xs m-x-xs" fxFlex="0 1 100" fxLayoutAlign="end center">
+    <div class="item m-3">
       <button mat-button (click)="clear()">
         <mat-icon>clear</mat-icon>{{label?.clear||'清空'}}
       </button>

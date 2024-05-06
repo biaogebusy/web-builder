@@ -2,12 +2,8 @@
 @import "../../../../../theme/variable/breakpoint";
 
 .card-content {
-  position: relative;
-  z-index: 10;
   .media {
     box-shadow: 0 3px 4px 0 rgb(0 0 0 / 50%);
-    overflow: hidden;
-    top: -20px;
 
     ::ng-deep {
       img {
@@ -26,7 +22,6 @@
     }
   }
   .title {
-    font-size: 16px;
     ::ng-deep a {
       @include line-clamp(2);
       &:hover {

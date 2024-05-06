@@ -14,7 +14,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'label',
               type: 'textarea',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.label || '',
               templateOptions: {
                 rows: 1,
@@ -24,7 +24,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'href',
               type: 'input',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.href || '/',
               templateOptions: {
                 type: 'text',
@@ -34,7 +34,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'classes',
               type: 'input',
-              className: 'width-100',
+              className: 'w-full',
               defaultValue: widget.classes || '',
               templateOptions: {
                 type: 'text',
@@ -44,7 +44,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'rel',
               type: 'input',
-              className: 'width-100 hidden',
+              className: 'w-full hidden',
               defaultValue: widget.rel || '',
               templateOptions: {
                 type: 'text',
@@ -54,7 +54,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'toggle',
               key: 'isRel',
               defaultValue: widget.rel || false,
-              className: 'width-100',
+              className: 'w-full',
               templateOptions: {
                 label: '在侧边栏加载链接页面',
                 description: '请发布后测试，点击加载链接的页面到侧边栏显示',

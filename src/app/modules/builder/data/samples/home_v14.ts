@@ -18,16 +18,10 @@ export const home_v14 = {
         classes: 'bg-fill-width',
         overlay: 'overlay overlay-40',
       },
-      direction: 'row wrap',
+      direction: 'row',
+      wrap: 'wrap',
       horizontal: 'flex-start',
       vertical: 'center',
-      layoutAlign: 'start center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
-      },
       animate: {
         from: {
           x: 0,
@@ -48,6 +42,13 @@ export const home_v14 = {
           end: 'top 40%',
         },
       },
+      layoutAlign: 'start center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
       type: 'layout-builder',
       elements: [
         {
@@ -57,15 +58,14 @@ export const home_v14 = {
             md: 6,
             lg: 6,
           },
-          direction: 'column',
+          direction: 'col',
           horizontal: 'flex-start',
           vertical: 'flex-start',
-          layoutAlign: 'start start',
           gap: {
-            xs: '8',
-            sm: '16',
-            md: '16',
-            lg: '16',
+            xs: '4',
+            sm: '4',
+            md: '4',
+            lg: '4',
           },
           bg: {
             img: {
@@ -77,6 +77,7 @@ export const home_v14 = {
             classes: 'bg-fill-width',
           },
           classes: '',
+          blockClasses: '',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -109,6 +110,7 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
+          layoutAlign: 'start start',
           elements: [
             {
               size: 'xl',
@@ -263,16 +265,10 @@ export const home_v14 = {
         classes: 'bg-fill-width',
         overlay: '',
       },
-      direction: 'row wrap',
+      direction: 'row',
+      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
-      layoutAlign: 'center center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: '20',
-        lg: '20',
-      },
       animate: {
         from: {
           x: 0,
@@ -293,6 +289,13 @@ export const home_v14 = {
           end: 'top 40%',
         },
       },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: '20',
+        lg: '20',
+      },
       type: 'layout-builder',
       elements: [
         {
@@ -302,15 +305,14 @@ export const home_v14 = {
             md: '4',
             lg: '4',
           },
-          direction: 'column',
+          direction: 'col',
           horizontal: 'flex-start',
           vertical: 'flex-start',
-          layoutAlign: 'start start',
           gap: {
-            xs: '16',
-            sm: '16',
-            md: '16',
-            lg: '16',
+            xs: '4',
+            sm: '4',
+            md: '4',
+            lg: '4',
           },
           bg: {
             img: {
@@ -322,6 +324,7 @@ export const home_v14 = {
             classes: 'bg-fill-width',
           },
           classes: '',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -354,6 +357,8 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'start start',
           elements: [
             {
               type: 'img',
@@ -455,15 +460,14 @@ export const home_v14 = {
             md: '4',
             lg: '4',
           },
-          direction: 'column',
+          direction: 'col',
           horizontal: 'flex-start',
           vertical: 'flex-start',
-          layoutAlign: 'start start',
           gap: {
-            xs: '16',
-            sm: '16',
-            md: '16',
-            lg: '16',
+            xs: '4',
+            sm: '4',
+            md: '4',
+            lg: '4',
           },
           bg: {
             img: {
@@ -475,6 +479,7 @@ export const home_v14 = {
             classes: 'bg-fill-width',
           },
           classes: '',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -507,6 +512,8 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'start start',
           elements: [
             {
               type: 'img',
@@ -608,15 +615,14 @@ export const home_v14 = {
             md: '4',
             lg: '4',
           },
-          direction: 'column',
+          direction: 'col',
           horizontal: 'flex-start',
           vertical: 'flex-start',
-          layoutAlign: 'start start',
           gap: {
-            xs: '16',
-            sm: '16',
-            md: '16',
-            lg: '16',
+            xs: '4',
+            sm: '4',
+            md: '4',
+            lg: '4',
           },
           bg: {
             img: {
@@ -628,6 +634,7 @@ export const home_v14 = {
             classes: 'bg-fill-width',
           },
           classes: '',
+          blockClasses: 'p-5',
           style: {
             borderRadius: 'none',
             paddingTop: '0px',
@@ -660,6 +667,8 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'start start',
           elements: [
             {
               type: 'img',
@@ -853,16 +862,10 @@ export const home_v14 = {
         classes: 'bg-grey-800 bg-fill-width',
         overlay: '',
       },
-      direction: 'column',
+      direction: 'col',
+      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
-      layoutAlign: 'center center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
-      },
       animate: {
         from: {
           x: 0,
@@ -883,6 +886,13 @@ export const home_v14 = {
           end: 'top 40%',
         },
       },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
       type: 'layout-builder',
       elements: [
         {
@@ -892,21 +902,28 @@ export const home_v14 = {
             md: '12',
             lg: '12',
           },
-          direction: 'column',
+          direction: 'col',
           horizontal: 'center',
           vertical: 'center',
-          layoutAlign: 'center center',
+          gap: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
-          classes: '',
+          classes: 'text-center',
+          blockClasses: '',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -936,6 +953,8 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'center center',
           elements: [
             {
               style: 'none',
@@ -1041,21 +1060,28 @@ export const home_v14 = {
                 md: 12,
                 lg: 12,
               },
-              direction: 'row wrap',
+              direction: 'row',
               horizontal: 'center',
               vertical: 'center',
-              layoutAlign: 'center center',
+              gap: {
+                xs: 8,
+                sm: 16,
+                md: 32,
+                lg: 48,
+              },
               bg: {
                 img: {
                   src: '',
-                  classes: 'object-fit',
                   alt: '',
+                  classes: 'object-fit',
                 },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
               style: {
+                borderRadius: 'none',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -1066,6 +1092,7 @@ export const home_v14 = {
                 marginLeft: '0px',
               },
               animate: {
+                enable: true,
                 from: {
                   x: 0,
                   y: 0,
@@ -1084,17 +1111,12 @@ export const home_v14 = {
                   start: 'top 90%',
                   end: 'top 40%',
                 },
-                enable: true,
               },
+              wrap: 'wrap',
+              layoutAlign: 'center center',
               type: 'layout-builder',
               spacer: 'md',
               fullWidth: false,
-              gap: {
-                xs: 8,
-                sm: 16,
-                md: 32,
-                lg: 48,
-              },
               elements: [
                 {
                   row: {
@@ -1103,21 +1125,28 @@ export const home_v14 = {
                     md: 6,
                     lg: 6,
                   },
-                  direction: 'column',
+                  direction: 'col',
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
-                  layoutAlign: 'start start',
+                  gap: {
+                    xs: 0,
+                    sm: 0,
+                    md: 0,
+                    lg: 0,
+                  },
                   bg: {
                     img: {
                       src: '',
-                      classes: 'object-fit',
                       alt: '',
+                      classes: 'object-fit',
                     },
                     overlay: '',
                     classes: 'bg-fill-width',
                   },
                   classes: '',
+                  blockClasses: '',
                   style: {
+                    borderRadius: 'none',
                     paddingTop: '0px',
                     paddingRight: '0px',
                     paddingBottom: '0px',
@@ -1128,6 +1157,7 @@ export const home_v14 = {
                     marginLeft: '0px',
                   },
                   animate: {
+                    enable: true,
                     from: {
                       x: -120,
                       y: 0,
@@ -1147,8 +1177,8 @@ export const home_v14 = {
                       end: 'top 40%',
                       scrub: true,
                     },
-                    enable: true,
                   },
+                  layoutAlign: 'start start',
                   elements: [
                     {
                       type: 'img',
@@ -1175,15 +1205,14 @@ export const home_v14 = {
                     md: 6,
                     lg: 6,
                   },
-                  direction: 'column',
+                  direction: 'col',
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
-                  layoutAlign: 'start start',
                   gap: {
-                    xs: '16',
-                    sm: '16',
-                    md: '16',
-                    lg: '16',
+                    xs: '5',
+                    sm: '5',
+                    md: '5',
+                    lg: '5',
                   },
                   bg: {
                     img: {
@@ -1195,6 +1224,7 @@ export const home_v14 = {
                     classes: 'bg-fill-width',
                   },
                   classes: '',
+                  blockClasses: 'p-5',
                   style: {
                     borderRadius: 'none',
                     paddingTop: '0px',
@@ -1226,6 +1256,8 @@ export const home_v14 = {
                       end: 'top 40%',
                     },
                   },
+                  wrap: 'wrap',
+                  layoutAlign: 'start start',
                   elements: [
                     {
                       type: 'title',
@@ -1311,20 +1343,28 @@ export const home_v14 = {
                 md: 12,
                 lg: 12,
               },
+              direction: 'row',
               horizontal: 'center',
               vertical: 'center',
-              layoutAlign: 'center center',
+              gap: {
+                xs: 8,
+                sm: 16,
+                md: 32,
+                lg: 48,
+              },
               bg: {
                 img: {
                   src: '',
-                  classes: 'object-fit',
                   alt: '',
+                  classes: 'object-fit',
                 },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
               style: {
+                borderRadius: 'none',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -1354,16 +1394,11 @@ export const home_v14 = {
                   end: 'top 40%',
                 },
               },
-              direction: 'row wrap',
+              wrap: 'wrap',
+              layoutAlign: 'center center',
               type: 'layout-builder',
               spacer: 'md',
               fullWidth: false,
-              gap: {
-                xs: 8,
-                sm: 16,
-                md: 32,
-                lg: 48,
-              },
               elements: [
                 {
                   row: {
@@ -1372,15 +1407,14 @@ export const home_v14 = {
                     md: 6,
                     lg: 6,
                   },
-                  direction: 'column',
+                  direction: 'col',
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
-                  layoutAlign: 'start start',
                   gap: {
-                    xs: '16',
-                    sm: '16',
-                    md: '16',
-                    lg: '16',
+                    xs: '5',
+                    sm: '5',
+                    md: '5',
+                    lg: '5',
                   },
                   bg: {
                     img: {
@@ -1392,6 +1426,7 @@ export const home_v14 = {
                     classes: 'bg-fill-width',
                   },
                   classes: '',
+                  blockClasses: '',
                   style: {
                     borderRadius: 'none',
                     paddingTop: '0px',
@@ -1423,6 +1458,8 @@ export const home_v14 = {
                       end: 'top 40%',
                     },
                   },
+                  wrap: 'wrap',
+                  layoutAlign: 'start start',
                   elements: [
                     {
                       type: 'title',
@@ -1581,20 +1618,28 @@ export const home_v14 = {
                 md: 12,
                 lg: 12,
               },
+              direction: 'row',
               horizontal: 'center',
               vertical: 'center',
-              layoutAlign: 'center center',
+              gap: {
+                xs: 8,
+                sm: 16,
+                md: 32,
+                lg: 48,
+              },
               bg: {
                 img: {
                   src: '',
-                  classes: 'object-fit',
                   alt: '',
+                  classes: 'object-fit',
                 },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
               style: {
+                borderRadius: 'none',
                 paddingTop: '0px',
                 paddingRight: '0px',
                 paddingBottom: '0px',
@@ -1624,16 +1669,11 @@ export const home_v14 = {
                   end: 'top 40%',
                 },
               },
-              direction: 'row wrap',
+              wrap: 'wrap',
+              layoutAlign: 'center center',
               type: 'layout-builder',
               spacer: 'md',
               fullWidth: false,
-              gap: {
-                xs: 8,
-                sm: 16,
-                md: 32,
-                lg: 48,
-              },
               elements: [
                 {
                   row: {
@@ -1642,21 +1682,28 @@ export const home_v14 = {
                     md: 6,
                     lg: 6,
                   },
-                  direction: 'column',
+                  direction: 'col',
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
-                  layoutAlign: 'start start',
+                  gap: {
+                    xs: 0,
+                    sm: 0,
+                    md: 0,
+                    lg: 0,
+                  },
                   bg: {
                     img: {
                       src: '',
-                      classes: 'object-fit',
                       alt: '',
+                      classes: 'object-fit',
                     },
                     overlay: '',
                     classes: 'bg-fill-width',
                   },
                   classes: '',
+                  blockClasses: '',
                   style: {
+                    borderRadius: 'none',
                     paddingTop: '0px',
                     paddingRight: '0px',
                     paddingBottom: '0px',
@@ -1667,6 +1714,7 @@ export const home_v14 = {
                     marginLeft: '0px',
                   },
                   animate: {
+                    enable: true,
                     from: {
                       x: '-120',
                       y: 0,
@@ -1686,8 +1734,9 @@ export const home_v14 = {
                       end: 'top 40%',
                       scrub: true,
                     },
-                    enable: true,
                   },
+                  wrap: 'wrap',
+                  layoutAlign: 'start start',
                   elements: [
                     {
                       type: 'img',
@@ -1714,15 +1763,14 @@ export const home_v14 = {
                     md: 6,
                     lg: 6,
                   },
-                  direction: 'column',
+                  direction: 'col',
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
-                  layoutAlign: 'start start',
                   gap: {
-                    xs: '16',
-                    sm: '16',
-                    md: '16',
-                    lg: '16',
+                    xs: '5',
+                    sm: '5',
+                    md: '5',
+                    lg: '5',
                   },
                   bg: {
                     img: {
@@ -1734,6 +1782,7 @@ export const home_v14 = {
                     classes: 'bg-fill-width',
                   },
                   classes: '',
+                  blockClasses: 'p-5',
                   style: {
                     borderRadius: 'none',
                     paddingTop: '0px',
@@ -1765,6 +1814,8 @@ export const home_v14 = {
                       end: 'top 40%',
                     },
                   },
+                  wrap: 'wrap',
+                  layoutAlign: 'start start',
                   elements: [
                     {
                       type: 'title',
@@ -1854,17 +1905,12 @@ export const home_v14 = {
         classes: 'bg-fill-width',
         overlay: '',
       },
-      direction: 'row wrap',
+      direction: 'row',
+      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
-      layoutAlign: 'center center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
-      },
       animate: {
+        enable: true,
         from: {
           x: 0,
           y: '100',
@@ -1883,7 +1929,13 @@ export const home_v14 = {
           start: 'top 90%',
           end: 'top 40%',
         },
-        enable: true,
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
       },
       type: 'layout-builder',
       elements: [
@@ -1894,21 +1946,28 @@ export const home_v14 = {
             md: '4',
             lg: '4',
           },
-          direction: 'column',
+          direction: 'row',
           horizontal: 'flex-start',
           vertical: 'flex-start',
-          layoutAlign: 'start start',
+          gap: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
+          blockClasses: 'p-5',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -1938,6 +1997,8 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'start start',
           elements: [
             {
               type: 'img',
@@ -1964,21 +2025,28 @@ export const home_v14 = {
             md: '4',
             lg: '4',
           },
-          direction: 'column',
+          direction: 'row',
           horizontal: 'flex-start',
           vertical: 'flex-start',
-          layoutAlign: 'start start',
+          gap: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
+          blockClasses: 'p-5',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -2008,6 +2076,8 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'start start',
           elements: [
             {
               type: 'img',
@@ -2034,21 +2104,28 @@ export const home_v14 = {
             md: '4',
             lg: '4',
           },
-          direction: 'column',
+          direction: 'row',
           horizontal: 'flex-start',
           vertical: 'flex-start',
-          layoutAlign: 'start start',
+          gap: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+          },
           bg: {
             img: {
               src: '',
-              classes: 'object-fit',
               alt: '',
+              classes: 'object-fit',
             },
             overlay: '',
             classes: 'bg-fill-width',
           },
           classes: '',
+          blockClasses: 'p-5',
           style: {
+            borderRadius: 'none',
             paddingTop: '0px',
             paddingRight: '0px',
             paddingBottom: '0px',
@@ -2078,6 +2155,8 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
+          wrap: 'wrap',
+          layoutAlign: 'start start',
           elements: [
             {
               type: 'img',
@@ -2136,11 +2215,11 @@ export const home_v14 = {
         params: {
           direction: 'horizontal',
           breakpoints: {
-            600: {
+            '600': {
               slidesPerView: 3,
               spaceBetween: 20,
             },
-            960: {
+            '960': {
               slidesPerView: 3,
               spaceBetween: 50,
             },

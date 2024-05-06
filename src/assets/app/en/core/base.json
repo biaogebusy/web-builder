@@ -215,7 +215,7 @@
     }
   },
   "github": {
-    "enable": true,
+    "enable": false,
     "owner": "biaogebusy",
     "repo": "xinshi-ui",
     "token": ""
@@ -423,7 +423,7 @@
   "animate": true,
   "tour": {
     "enable": true,
-    "path": "/builder",
+    "path": "/en/builder",
     "delay": 2000,
     "dontShowAgain": true,
     "dontShowAgainLabel": "Don't show this again",
@@ -584,7 +584,7 @@
         },
         {
           "key": "sort",
-          "className": "width-100",
+          "className": "w-full",
           "fieldGroup": [
             {
               "type": "select",

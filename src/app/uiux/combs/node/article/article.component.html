@@ -22,7 +22,7 @@
               </div>
               <div class="shadow"></div>
             </div>
-            <div *ngIf="!user.authenticated" class="auth line p-y-sm p-x-sm width-100 text-center"
+            <div *ngIf="!user.authenticated" class="auth line p-y-sm p-x-sm w-full text-center"
               fxLayoutAlign="center center">
               <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label|safeHtml"></a>
             </div>

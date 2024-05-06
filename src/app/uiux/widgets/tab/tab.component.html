@@ -7,7 +7,7 @@
       <mat-tab-group [attr.data-path]="'elements'" [selectedIndex]="selectedIndex" *ngSwitchCase="'center'"
         mat-align-tabs="center" [ngClass]="content.classes">
         <mat-tab *ngFor="let item of content.elements;index as i" label="{{item.label}}">
-          <div [attr.data-path]="i" class="{{content.fullWidth?'p-y-sm':'p-y-sm p-x-sm'}}">
+          <div [attr.data-path]="i" class="{{content.fullWidth?'py-5':'p-5'}}">
             <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
             <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of item.elements;index as i"
               [inputs]="{content:item}"></app-dynamic-component>
@@ -17,7 +17,7 @@
       <mat-tab-group [attr.data-path]="'elements'" [selectedIndex]="selectedIndex" *ngSwitchCase="'end'"
         mat-align-tabs="end" [ngClass]="content.classes">
         <mat-tab *ngFor="let item of content.elements;index as i" label="{{item.label}}">
-          <div [attr.data-path]="i" class="{{content.fullWidth?'p-y-sm':'p-y-sm p-x-sm'}}">
+          <div [attr.data-path]="i" class="{{content.fullWidth?'py-5':'p-5'}}">
             <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
             <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of item.elements;index as i"
               [inputs]="{content:item}"></app-dynamic-component>
@@ -27,7 +27,7 @@
       <mat-tab-group [attr.data-path]="'elements'" [selectedIndex]="selectedIndex" *ngSwitchDefault
         mat-align-tabs="start" [ngClass]="content.classes">
         <mat-tab *ngFor="let item of content.elements;index as i" label="{{item.label}}">
-          <div [attr.data-path]="i" class="{{content.fullWidth?'p-y-sm':'p-y-sm p-x-sm'}}">
+          <div [attr.data-path]="i" class="{{content.fullWidth?'py-5':'p-5'}}">
             <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
             <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of item.elements;index as i"
               [inputs]="{content:item}"></app-dynamic-component>

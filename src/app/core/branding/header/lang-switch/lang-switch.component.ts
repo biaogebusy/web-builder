@@ -4,8 +4,8 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { ICoreConfig } from '@core/interface/IAppConfig';
-import { ILanguage } from '@core/interface/IEnvironment';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ILanguage } from '@core/interface/IEnvironment';
 import { CORE_CONFIG, LANG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 

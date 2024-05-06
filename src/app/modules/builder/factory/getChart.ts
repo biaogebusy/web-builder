@@ -13,7 +13,7 @@ export function getChart(widget: any, options?: any[]): FormlyFieldConfig[] {
           fieldGroup: [
             {
               key: 'title',
-              fieldGroupClassName: 'width-100',
+              fieldGroupClassName: 'w-full',
               fieldGroup: [
                 {
                   key: 'text',

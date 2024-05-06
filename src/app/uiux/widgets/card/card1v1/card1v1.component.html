@@ -1,4 +1,5 @@
-<div class="card-1v1" [ngClass]="content.classes">
+<div class="card-1v1 relative rounded-md overflow-hidden top-0 hover:-top-3 transition-all ease-in duration-300"
+  [ngClass]="content.classes">
   <app-feature-box [attr.data-path]="'feature'" *ngIf="content.feature" [content]="content.feature"></app-feature-box>
   <div class="components" *ngIf="content.components">
     <app-dynamic-component [attr.data-path]="'components.'+i" *ngFor="let item of content.components;index as i"
@@ -15,7 +16,7 @@
       </a>
     </div>
   </div>
-  <div class="author" fxLayout="column">
+  <div class="author absolute z-10 opacity-0 top-[5%] left-[5%] transition-all duration-300 ease-in" fxLayout="column">
     <small class="user" *ngIf="content.user">
       <mat-icon inline="true">person</mat-icon> {{content.user}}
     </small>

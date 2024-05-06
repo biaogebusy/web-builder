@@ -1,13 +1,13 @@
-<div class="user-card relative p-y-sm">
-  <div class="inner" fxLayout="column" fxLayoutAlign="center start">
-    <app-media-object class="width-100" [content]="profile"></app-media-object>
-    <app-user-card-count *ngIf="count" class="width-100 m-y-sm" [content]="count"></app-user-card-count>
-    <div class="time m-top-xs" *ngIf="user?.login">
+<div class="user-card relative py-5">
+  <div class="inner flex flex-col justify-center items-start">
+    <app-media-object class="w-full" [content]="profile"></app-media-object>
+    <app-user-card-count *ngIf="count" class="w-full my-5" [content]="count"></app-user-card-count>
+    <div class="time text-xs mt-3" *ngIf="user?.login">
       您上次登录时间：{{user.login | date:"YYYY-MM-dd hh:mm"}}
     </div>
-    <app-dynamic-component class="width-100 m-top-sm" [inputs]="item"
+    <app-dynamic-component class="w-full mt-5" [inputs]="item"
       *ngFor="let item of content.content"></app-dynamic-component>
-    <div class="menus" *ngIf="content.menu">
+    <div class="menus absolute" *ngIf="content.menu">
       <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>

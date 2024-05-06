@@ -1,4 +1,4 @@
-<mat-form-field [appearance]="content.appearance || 'legacy'" class="width-100" [formGroup]="form" *ngIf="form">
+<mat-form-field [appearance]="content.appearance || 'legacy'" class="w-full" [formGroup]="form" *ngIf="form">
   <mat-label>{{content.label}}</mat-label>
   <!-- 单选不开启搜索 -->
   <mat-select disableOptionCentering="true" panelClass="custom-select" *ngIf="!content.multiple && !content.search"

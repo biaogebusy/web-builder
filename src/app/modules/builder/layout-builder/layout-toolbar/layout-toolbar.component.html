@@ -1,5 +1,5 @@
-<div class="layout-toolbar">
-  <app-btn class="toggle" matTooltip="当前栏配置"
+<div class="layout-toolbar flex justify-end items-center">
+  <app-btn class="toggle block" matTooltip="当前栏配置"
     [content]="{label:'',mode:'icon',icon:{svg:'tune-vertical-variant',inline:true}}"></app-btn>
   <div class="block-toolbar">
     <app-btn matTooltip="左移" *ngIf="i > 0 && i < lbContent.elements.length"
