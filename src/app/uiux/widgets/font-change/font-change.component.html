@@ -1,3 +1,3 @@
-<form *ngIf="content && content.enable" class="fontSize" [formGroup]="form" fxLayoutAlign="end center">
+<form *ngIf="content && content.enable" class="fontSize flex justify-end items-center" [formGroup]="form">
   <app-dynamic-form-control [form]="form" [control]="content.form[0]"></app-dynamic-form-control>
 </form>

@@ -1,17 +1,3 @@
 app-icon {
   display: inherit;
 }
-
-.card-1v5 {
-  border-radius: 6px;
-  transition: all 0.5s ease;
-  &:hover {
-    transform: translateY(-10px);
-  }
-  .content {
-    opacity: 0.7;
-  }
-  .footer {
-    opacity: 0.1;
-  }
-}

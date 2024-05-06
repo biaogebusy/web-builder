@@ -1,6 +1,6 @@
 <!-- range -->
 <ng-container *ngIf="content?.range">
-  <mat-form-field class="width-100" [appearance]="content.appearance || 'fill'" *ngIf="content" [formGroup]="form">
+  <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" *ngIf="content" [formGroup]="form">
     <mat-label *ngIf="content.label">{{content.label}}</mat-label>
     <mat-date-range-input [rangePicker]="pickerRange">
       <input matStartDate formControlName="start" [placeholder]="content.templateOptions?.placeholder?.start || '开始'">
@@ -14,7 +14,7 @@
 
 <!-- key -->
 <ng-container *ngIf="!content?.range && content?.key && !content.inline">
-  <mat-form-field class="width-100" [appearance]="content.appearance || 'fill'" *ngIf="content" [formGroup]="form">
+  <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" *ngIf="content" [formGroup]="form">
     <mat-label *ngIf="content.label">{{content.label}}</mat-label>
     <input matInput formControlName="{{content.key}}" [matDatepicker]="datepicker"
       [placeholder]="content?.placeholder || ''">

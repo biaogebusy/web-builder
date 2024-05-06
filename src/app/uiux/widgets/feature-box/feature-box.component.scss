@@ -1,8 +1,4 @@
 @import "/src/theme/mixins/amixin";
-.feature-box {
-  position: relative;
-  overflow: hidden;
-}
 .feature-cover {
   &:before {
     content: "";
@@ -49,9 +45,6 @@
     }
   }
   .btns {
-    position: absolute;
-    display: flex;
-    z-index: 10;
     .mat-icon {
       line-height: 40px;
     }

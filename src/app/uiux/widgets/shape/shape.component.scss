@@ -1,9 +1,5 @@
 .shape {
-  position: absolute;
-  pointer-events: none;
-  right: 0;
   bottom: -2px;
-  left: 0;
   ::ng-deep {
     svg {
       transform: scale(2);

@@ -6,16 +6,16 @@
       <app-title [attr.data-path]="'title'" #title [content]="content.title" *ngIf="content.title"></app-title>
       <div #body class="text-body" contentedit="body" [innerHTML]="content.body | safeHtml" *ngIf="content.body">
       </div>
-      <ul #list class="lists m-y-sm" [class.list-done]="content.lists?.params?.icon" *ngIf="content.lists?.elements"
-        fxLayout="column">
-        <li *ngFor="let list of content.lists?.elements" fxLayout="row" fxLayoutAlign="start center">
+      <ul #list class="lists my-5 flex flex-col" [class.list-done]="content.lists?.params?.icon"
+        *ngIf="content.lists?.elements">
+        <li class="flex justify-start items-center" *ngFor="let list of content.lists?.elements">
           <span [innerHTML]="list.label" *ngIf="!list.href;else link"></span>
           <ng-template #link>
             <app-link [content]="list"></app-link>
           </ng-template>
         </li>
       </ul>
-      <div [attr.data-path]="'actions'" #actions class="actions m-top p-bottom-xs" *ngIf="content.actions"
+      <div [attr.data-path]="'actions'" #actions class="actions mt-10 pb-3" *ngIf="content.actions"
         fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
         <ng-container *ngFor="let action of content.actions; index as i">
           <ng-container [ngSwitch]="action.type">

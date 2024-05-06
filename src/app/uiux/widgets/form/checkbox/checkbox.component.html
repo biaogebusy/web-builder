@@ -1,6 +1,6 @@
 <section [formGroup]="form">
-  <mat-checkbox class="width-100 checkbox m-bottom-xs" formControlName="{{content.key}}" [(ngModel)]="content.value">
-    <div class="width-100" fxLayout="row" fxLayoutAlign="space-between center" [innerHTML]="content.label|safeHtml">
+  <mat-checkbox class="w-full checkbox mb-3" formControlName="{{content.key}}" [(ngModel)]="content.value">
+    <div class="w-full flex justify-between items-center" [innerHTML]="content.label|safeHtml">
     </div>
   </mat-checkbox>
 </section>

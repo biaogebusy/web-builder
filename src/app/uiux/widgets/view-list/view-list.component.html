@@ -1,8 +1,8 @@
-<div class="view-list" *ngIf="content && canShow">
+<div class="view-list relative" *ngIf="content && canShow">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <div [ngClass]="containerClass" fxLayout="row wrap">
+  <div class="flex flex-wrap" [ngClass]="containerClass">
     <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
     <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
       fxLayout.lt-md="column" fxLayoutAlign="space-between center">
@@ -10,7 +10,7 @@
         <app-formly [form]="form" [fields]="content.form" [model]="model" (modelChange)="onModelChange($event)">
         </app-formly>
       </div>
-      <div class="actions" fxLayoutGap="1rem" fxLayoutAlign="center center">
+      <div class="actions flex justify-center items-center gap-3">
         <app-btn (click)="onExport()" [content]="content.params.export.btn"
           *ngIf="content?.params?.export?.enable && content.params?.export?.position === 'top'">
         </app-btn>
@@ -24,7 +24,7 @@
       <ngx-skeleton-loader *ngIf="loading" count="10" appearance="line"></ngx-skeleton-loader>
       <app-dynamic-table [content]="table" *ngIf="table && !loading">
       </app-dynamic-table>
-      <div class="actions m-y p-x" fxLayoutAlign="end center">
+      <div class="actions m-y p-x flex justify-end items-center">
         <app-btn (click)="onExport()" [content]="content.params.export.btn"
           *ngIf="content?.params?.export?.enable && content.params?.export?.position !== 'top'">
         </app-btn>

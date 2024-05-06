@@ -1,5 +1,5 @@
-<div class="chart-box p-x-sm p-y-sm" fxLayout="row" fxLayoutAlign="center end" *ngIf="data$|async as data">
-  <div class="width-100" fxLayout="column" fxLayoutAlign="center start">
+<div class="chart-box p-5 flex justify-center items-end" *ngIf="data$|async as data">
+  <div class="w-full flex flex-col justify-center items-start">
     <div class="title mat-h3 one-line">
       {{data.label}}
     </div>
@@ -7,5 +7,5 @@
       {{data.count}}
     </div>
   </div>
-  <app-chart class="width-100" [content]="data.chart" [style]="style"></app-chart>
+  <app-chart class="w-full" [content]="data.chart" [style]="style"></app-chart>
 </div>

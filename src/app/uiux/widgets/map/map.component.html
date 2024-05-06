@@ -1,5 +1,5 @@
 <ng-container *ngIf="content">
-  <div class="loading-inner" fxFlexFill fxLayoutAlign="center center" *ngIf="mapLoading">
+  <div class="loading-inner flex justify-center items-center w-full h-full" *ngIf="mapLoading">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
   <div id="map" fxFill (click)="onMarkLink($event)"></div>
