@@ -1,4 +1,4 @@
-<div class="height-100" *ngIf="branding$ | async as branding" [ngClass]="branding.header?.sidebar?.classes">
+<div class="h-full" *ngIf="branding$ | async as branding" [ngClass]="branding.header?.sidebar?.classes">
   <div class="manage-sidebar {{drawer.opened?'opened':'expanded'}}" *reqRolesIf="branding.header?.sidebar">
     <div class="manage-brand p-y-sm p-x-sm" *ngIf="branding.header?.sidebar as sidebar">
       <app-logo *ngIf="!sidebar?.params.showUser; else profile" [content]="sidebar.logo"></app-logo>
