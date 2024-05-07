@@ -1,10 +1,10 @@
 <div class="layout-builder relative" *ngIf="content" [ngClass]="content.classes" [ngStyle]="content.style">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
     <div id="layout"
-      class="inner layout-inner flex flex-{{content.direction}} flex-{{content.wrap}} justify-{{content.horizontal}} items-{{content.vertical}}">
+      class="layout-inner {{content.wrapplerClass}} flex flex-{{content.direction}} flex-{{content.wrap}} justify-{{content.horizontal}} items-{{content.vertical}}  gap-{{content.gap?.xs||'none'}} sm:gap-{{content.gap?.sm||'none'}} md:gap-{{content.gap?.md||'none'}} lg:gap-{{content.gap?.lg||'none'}}">
       <div [ngClass]="layout.classes"
         class="layout relative layout-{{i}} flex-{{layout.row.xs}}/12 sm:flex-{{layout.row.sm}}/12 md:flex-{{layout.row.md}}/12 lg:flex-{{layout.row.lg}}/12"
         *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
@@ -34,5 +34,5 @@
       </div>
     </div>
   </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

@@ -3,6 +3,7 @@ import { getAnimate } from './getAnimate';
 import {
   getBgClasses,
   getDirectionOption,
+  getFlexLayoutConfig,
   getGapsGroup,
   getHorizontalOption,
   getOverlay,
@@ -79,54 +80,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
     {
       className: 'layout-setting w-full',
       fieldGroupClassName: 'flex flex-wrap w-full',
-      fieldGroup: [
-        {
-          type: 'select',
-          key: 'direction',
-          className: 'w-full',
-          defaultValue: layout.direction,
-          templateOptions: {
-            label: '布局方向',
-            options: getDirectionOption,
-            required: true,
-          },
-        },
-        {
-          type: 'select',
-          key: 'wrap',
-          className: 'w-full',
-          defaultValue: layout.wrap,
-          templateOptions: {
-            label: '换行',
-            options: getWrapOption,
-            required: true,
-          },
-        },
-        {
-          type: 'select',
-          key: 'horizontal',
-          className: 'w-full',
-          defaultValue: layout.horizontal,
-          templateOptions: {
-            label: '水平对齐',
-            options: getHorizontalOption,
-          },
-        },
-        {
-          type: 'select',
-          key: 'vertical',
-          className: 'w-full',
-          defaultValue: layout.vertical,
-          templateOptions: {
-            label: '垂直对齐',
-            options: getVerticalOption,
-          },
-        },
-        {
-          key: 'gap',
-          fieldGroup: getGapsGroup(layout),
-        },
-      ],
+      fieldGroup: [...getFlexLayoutConfig(layout)],
     },
   ];
   const bgImg: FormlyFieldConfig = {
@@ -235,22 +189,6 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           templateOptions: {
             label: 'Block Class',
           },
-        },
-        {
-          key: 'style',
-          className: 'w-full',
-          fieldGroupClassName: 'flex flex-wrap w-full',
-          fieldGroup: [
-            {
-              type: 'input',
-              key: 'borderRadius',
-              className: 'w-full',
-              defaultValue: layout?.style?.borderRadius || 'none',
-              templateOptions: {
-                label: '圆角',
-              },
-            },
-          ],
         },
       ],
     },

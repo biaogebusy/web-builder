@@ -101,7 +101,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              layoutAlign: 'center start',
               elements: [
                 {
                   type: 'title',
@@ -189,7 +188,6 @@ export const base = [
               },
               horizontal: 'center',
               vertical: 'center',
-              layoutAlign: 'center stretch',
               elements: [
                 {
                   classes: '',
@@ -252,6 +250,10 @@ export const base = [
           wrap: 'wrap',
           horizontal: 'center',
           vertical: 'stretch',
+          wrapperClasses: 'md:flex-nowrap',
+          gap: {
+            xs: '5',
+          },
           animate: {
             from: {
               x: 0,
@@ -301,7 +303,7 @@ export const base = [
                 classes: 'bg- bg-fill-width',
               },
               classes: '',
-              blockClasses: 'md:mr-5 bg-shadow ',
+              blockClasses: 'bg-shadow ',
               style: {
                 borderRadius: 'none',
                 margin: '',
@@ -326,7 +328,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              layoutAlign: 'center center',
               elements: [
                 {
                   style: 'none',
@@ -436,7 +437,7 @@ export const base = [
                 classes: 'bg- bg-fill-width',
               },
               classes: '',
-              blockClasses: 'md:ml-5 bg-shadow',
+              blockClasses: 'bg-shadow',
               style: {
                 borderRadius: 'none',
                 margin: '',
@@ -461,7 +462,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              layoutAlign: 'center center',
               elements: [
                 {
                   style: 'none',
@@ -593,7 +593,6 @@ export const base = [
             },
           },
           type: 'layout-builder',
-          layoutAlign: 'center center',
           elements: [
             {
               row: {
@@ -653,7 +652,6 @@ export const base = [
                 },
               },
               wrap: 'wrap',
-              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'box',
@@ -729,7 +727,6 @@ export const base = [
                 },
               },
               wrap: 'wrap',
-              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'box',
@@ -755,8 +752,9 @@ export const base = [
                 lg: 4,
               },
               direction: 'row',
+              wrap: 'wrap',
               horizontal: 'center',
-              vertical: 'stretch',
+              vertical: 'center',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -773,17 +771,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
-              style: {
-                borderRadius: 'none',
-                paddingTop: '0px',
-                paddingRight: '0px',
-                paddingBottom: '0px',
-                paddingLeft: '0px',
-                marginTop: '0px',
-                marginRight: '0px',
-                marginBottom: '0px',
-                marginLeft: '0px',
-              },
+              blockClasses: '',
               animate: {
                 from: {
                   x: 0,
@@ -804,8 +792,17 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
-              layoutAlign: 'center stretch',
+              style: {
+                borderRadius: 'none',
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
               elements: [
                 {
                   type: 'box',
@@ -933,7 +930,6 @@ export const base = [
                 },
               },
               wrap: 'wrap',
-              layoutAlign: 'end end',
               elements: [
                 {
                   spacer: 'none',
@@ -1053,7 +1049,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'card-1v1',
@@ -1146,7 +1141,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'card-1v1',
@@ -1239,7 +1233,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              layoutAlign: 'center stretch',
               elements: [
                 {
                   type: 'card-1v1',
@@ -1685,6 +1678,10 @@ export const base = [
           wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
+          wrapperClasses: 'md:flex-nowrap',
+          gap: {
+            xs: '5',
+          },
           animate: {
             from: {
               x: 0,
@@ -1889,7 +1886,7 @@ export const base = [
         },
       },
       {
-        label: '3A',
+        label: '2A',
         content: {
           fullWidth: false,
           spacer: 'md',
@@ -2098,7 +2095,8 @@ export const base = [
               elements: [
                 {
                   spacer: 'none',
-                  body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。</p><p class="ql-align-center">基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
+                  classes: 'md:max-w-3/4 mx-auto',
+                  body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
                   animate: {
                     from: {
                       x: 0,
@@ -2119,7 +2117,6 @@ export const base = [
                       end: 'top 40%',
                     },
                   },
-                  classes: '',
                   type: 'text',
                 },
               ],
@@ -2148,7 +2145,7 @@ export const base = [
         },
       },
       {
-        label: '3B',
+        label: '2B',
         content: {
           fullWidth: false,
           spacer: 'md',
@@ -2223,7 +2220,8 @@ export const base = [
                 {
                   type: 'text',
                   spacer: 'none',
-                  body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。</p><p class="ql-align-center">基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
+                  classes: 'md:max-w-3/4 mx-auto',
+                  body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
                 },
               ],
             },
@@ -2300,7 +2298,7 @@ export const base = [
         },
       },
       {
-        label: '4A',
+        label: '3A',
         content: {
           fullWidth: false,
           spacer: 'md',
@@ -2321,6 +2319,11 @@ export const base = [
           wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
+          wrapperClasses: 'md:flex-nowrap',
+          gap: {
+            xs: 0,
+            sm: 4,
+          },
           animate: {
             from: {
               x: 0,
@@ -2452,9 +2455,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: 'overflow-hidden',
-              style: {
-                borderRadius: 'none',
-              },
+              blockClasses: '',
               animate: {
                 from: {
                   x: 0,
@@ -2475,6 +2476,9 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              style: {
+                borderRadius: 'none',
+              },
               elements: [
                 {
                   params: {
@@ -2486,7 +2490,7 @@ export const base = [
                       },
                       '960': {
                         slidesPerView: 3,
-                        spaceBetween: 50,
+                        spaceBetween: '20',
                       },
                     },
                     effect: 'slide',
@@ -2621,7 +2625,7 @@ export const base = [
         },
       },
       {
-        label: '4B',
+        label: '3B',
         content: {
           fullWidth: false,
           spacer: 'md',
@@ -2642,6 +2646,10 @@ export const base = [
           wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
+          wrapperClasses: 'md:flex-nowrap',
+          gap: {
+            xs: 0,
+          },
           animate: {
             from: {
               x: 0,
@@ -2690,19 +2698,8 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'm-bottom-md',
-              blockClasses: 'p-5',
-              style: {
-                borderRadius: 'none',
-                paddingTop: '0px',
-                paddingRight: '0px',
-                paddingBottom: '0px',
-                paddingLeft: '0px',
-                marginTop: '0px',
-                marginRight: '0px',
-                marginBottom: '0px',
-                marginLeft: '0px',
-              },
+              classes: 'mb-5',
+              blockClasses: '',
               animate: {
                 from: {
                   x: 0,
@@ -2722,6 +2719,17 @@ export const base = [
                   start: 'top 90%',
                   end: 'top 40%',
                 },
+              },
+              style: {
+                borderRadius: 'none',
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
               },
               elements: [
                 {
@@ -2756,6 +2764,7 @@ export const base = [
                 lg: 3,
               },
               direction: 'row',
+              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -2773,19 +2782,8 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'm-bottom-md',
-              blockClasses: 'p-5',
-              style: {
-                borderRadius: 'none',
-                paddingTop: '0px',
-                paddingRight: '0px',
-                paddingBottom: '0px',
-                paddingLeft: '0px',
-                marginTop: '0px',
-                marginRight: '0px',
-                marginBottom: '0px',
-                marginLeft: '0px',
-              },
+              classes: 'mb-5',
+              blockClasses: '',
               animate: {
                 from: {
                   x: 0,
@@ -2807,7 +2805,17 @@ export const base = [
                   scrub: true,
                 },
               },
-              wrap: 'wrap',
+              style: {
+                borderRadius: 'none',
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
               elements: [
                 {
                   title: {
@@ -2842,6 +2850,7 @@ export const base = [
                 lg: 3,
               },
               direction: 'row',
+              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -2859,19 +2868,8 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'm-bottom-md',
-              blockClasses: 'p-5',
-              style: {
-                borderRadius: 'none',
-                paddingTop: '0px',
-                paddingRight: '0px',
-                paddingBottom: '0px',
-                paddingLeft: '0px',
-                marginTop: '0px',
-                marginRight: '0px',
-                marginBottom: '0px',
-                marginLeft: '0px',
-              },
+              classes: 'mb-5',
+              blockClasses: '',
               animate: {
                 from: {
                   x: 0,
@@ -2892,7 +2890,17 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
+              style: {
+                borderRadius: 'none',
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
               elements: [
                 {
                   title: {
@@ -2926,6 +2934,7 @@ export const base = [
                 lg: 3,
               },
               direction: 'row',
+              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -2943,19 +2952,8 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: 'm-bottom-md',
-              blockClasses: 'p-5',
-              style: {
-                borderRadius: 'none',
-                paddingTop: '0px',
-                paddingRight: '0px',
-                paddingBottom: '0px',
-                paddingLeft: '0px',
-                marginTop: '0px',
-                marginRight: '0px',
-                marginBottom: '0px',
-                marginLeft: '0px',
-              },
+              classes: 'mb-5',
+              blockClasses: '',
               animate: {
                 from: {
                   x: 0,
@@ -2976,7 +2974,17 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
+              style: {
+                borderRadius: 'none',
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
               elements: [
                 {
                   title: {
@@ -3006,7 +3014,7 @@ export const base = [
         },
       },
       {
-        label: '5A',
+        label: '4A',
         content: {
           fullWidth: false,
           spacer: 'md',
@@ -3076,17 +3084,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
-              style: {
-                borderRadius: 'none',
-                paddingTop: '0px',
-                paddingRight: '0px',
-                paddingBottom: '0px',
-                paddingLeft: '0px',
-                marginTop: '0px',
-                marginRight: '0px',
-                marginBottom: '0px',
-                marginLeft: '0px',
-              },
+              blockClasses: '',
               animate: {
                 from: {
                   x: 0,
@@ -3107,6 +3105,17 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              style: {
+                borderRadius: 'none',
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
               elements: [
                 {
                   row: {
@@ -3116,13 +3125,14 @@ export const base = [
                     lg: 12,
                   },
                   direction: 'row',
+                  wrap: 'wrap',
                   horizontal: 'center',
                   vertical: 'center',
                   gap: {
-                    xs: 8,
-                    sm: 16,
-                    md: 32,
-                    lg: 48,
+                    xs: 0,
+                    sm: 0,
+                    md: 0,
+                    lg: 0,
                   },
                   bg: {
                     img: {
@@ -3135,17 +3145,6 @@ export const base = [
                   },
                   classes: '',
                   blockClasses: '',
-                  style: {
-                    borderRadius: 'none',
-                    paddingTop: '0px',
-                    paddingRight: '0px',
-                    paddingBottom: '0px',
-                    paddingLeft: '0px',
-                    marginTop: '0px',
-                    marginRight: '0px',
-                    marginBottom: '0px',
-                    marginLeft: '0px',
-                  },
                   animate: {
                     from: {
                       x: 0,
@@ -3166,7 +3165,17 @@ export const base = [
                       end: 'top 40%',
                     },
                   },
-                  wrap: 'wrap',
+                  style: {
+                    borderRadius: 'none',
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
                   type: 'layout-builder',
                   spacer: 'md',
                   fullWidth: false,
@@ -3178,15 +3187,15 @@ export const base = [
                         md: 6,
                         lg: 6,
                       },
-                      direction: 'row',
+                      direction: 'col',
                       wrap: 'wrap',
-                      horizontal: 'flex-start',
-                      vertical: 'flex-start',
+                      horizontal: 'start',
+                      vertical: 'stretch',
                       gap: {
-                        xs: '4',
-                        sm: '4',
-                        md: '4',
-                        lg: '4',
+                        xs: '5',
+                        sm: 5,
+                        md: 5,
+                        lg: 5,
                       },
                       bg: {
                         img: {
@@ -3199,17 +3208,6 @@ export const base = [
                       },
                       classes: '',
                       blockClasses: 'p-5',
-                      style: {
-                        borderRadius: 'none',
-                        paddingTop: '0px',
-                        paddingRight: '0px',
-                        paddingBottom: '0px',
-                        paddingLeft: '0px',
-                        marginTop: '0px',
-                        marginRight: '0px',
-                        marginBottom: '0px',
-                        marginLeft: '0px',
-                      },
                       animate: {
                         from: {
                           x: 0,
@@ -3229,6 +3227,17 @@ export const base = [
                           start: 'top 90%',
                           end: 'top 40%',
                         },
+                      },
+                      style: {
+                        borderRadius: 'none',
+                        paddingTop: '0px',
+                        paddingRight: '0px',
+                        paddingBottom: '0px',
+                        paddingLeft: '0px',
+                        marginTop: '0px',
+                        marginRight: '0px',
+                        marginBottom: '0px',
+                        marginLeft: '0px',
                       },
                       elements: [
                         {
@@ -3326,15 +3335,15 @@ export const base = [
                         md: 6,
                         lg: 6,
                       },
-                      direction: 'row',
+                      direction: 'col',
                       wrap: 'wrap',
-                      horizontal: 'flex-start',
-                      vertical: 'flex-start',
+                      horizontal: 'start',
+                      vertical: 'stretch',
                       gap: {
-                        xs: '4',
-                        sm: '4',
-                        md: '4',
-                        lg: '4',
+                        xs: 5,
+                        sm: 5,
+                        md: 5,
+                        lg: 11,
                       },
                       bg: {
                         img: {
@@ -3347,17 +3356,6 @@ export const base = [
                       },
                       classes: '',
                       blockClasses: 'p-5',
-                      style: {
-                        borderRadius: 'none',
-                        paddingTop: '0px',
-                        paddingRight: '0px',
-                        paddingBottom: '0px',
-                        paddingLeft: '0px',
-                        marginTop: '0px',
-                        marginRight: '0px',
-                        marginBottom: '0px',
-                        marginLeft: '0px',
-                      },
                       animate: {
                         from: {
                           x: 0,
@@ -3377,6 +3375,17 @@ export const base = [
                           start: 'top 90%',
                           end: 'top 40%',
                         },
+                      },
+                      style: {
+                        borderRadius: 'none',
+                        paddingTop: '0px',
+                        paddingRight: '0px',
+                        paddingBottom: '0px',
+                        paddingLeft: '0px',
+                        marginTop: '0px',
+                        marginRight: '0px',
+                        marginBottom: '0px',
+                        marginLeft: '0px',
                       },
                       elements: [
                         {
@@ -3547,7 +3556,7 @@ export const base = [
         },
       },
       {
-        label: '6A',
+        label: '5A',
         content: {
           fullWidth: false,
           spacer: 'md',
@@ -3616,19 +3625,8 @@ export const base = [
                 overlay: '',
                 classes: 'bg-fill-width',
               },
-              classes: '',
+              classes: 'text-center',
               blockClasses: '',
-              style: {
-                borderRadius: 'none',
-                paddingTop: '0px',
-                paddingRight: '0px',
-                paddingBottom: '0px',
-                paddingLeft: '0px',
-                marginTop: '0px',
-                marginRight: '0px',
-                marginBottom: '0px',
-                marginLeft: '0px',
-              },
               animate: {
                 from: {
                   x: 0,
@@ -3649,6 +3647,17 @@ export const base = [
                   end: 'top 40%',
                 },
               },
+              style: {
+                borderRadius: 'none',
+                paddingTop: '0px',
+                paddingRight: '0px',
+                paddingBottom: '0px',
+                paddingLeft: '0px',
+                marginTop: '0px',
+                marginRight: '0px',
+                marginBottom: '0px',
+                marginLeft: '0px',
+              },
               elements: [
                 {
                   type: 'title',
@@ -3663,20 +3672,42 @@ export const base = [
                   body: '信使UI是基于 Material 的 Angular 前端框架，丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
                 },
                 {
+                  direction: 'row',
+                  wrap: 'wrap',
+                  horizontal: 'center',
+                  vertical: 'center',
+                  gap: {
+                    xs: '4',
+                    sm: '4',
+                    md: '4',
+                    lg: '4',
+                  },
+                  wrapplerClass: 'sm:flex-nowrap',
+                  animate: {
+                    from: {
+                      x: 0,
+                      y: 0,
+                      rotation: 0,
+                      scale: 1,
+                      opacity: 1,
+                      delay: 0,
+                      duration: 1,
+                      ease: 'none',
+                    },
+                    trigger: {
+                      onEnter: 'play',
+                      onLeave: 'none',
+                      onEnterBack: 'none',
+                      onLeaveBack: 'none',
+                      start: 'top 90%',
+                      end: 'top 40%',
+                    },
+                  },
                   row: {
                     xs: 12,
                     sm: 12,
                     md: 12,
                     lg: 12,
-                  },
-                  direction: 'row',
-                  horizontal: 'center',
-                  vertical: 'center',
-                  gap: {
-                    xs: 8,
-                    sm: 20,
-                    md: 28,
-                    lg: 48,
                   },
                   bg: {
                     img: {
@@ -3700,27 +3731,6 @@ export const base = [
                     marginBottom: '0px',
                     marginLeft: '0px',
                   },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
-                  wrap: 'wrap',
                   type: 'layout-builder',
                   spacer: 'md',
                   fullWidth: false,

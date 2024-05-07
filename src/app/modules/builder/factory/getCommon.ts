@@ -289,46 +289,97 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
     {
       key: 'xs',
       type: 'slider',
-      defaultValue: content.gap?.xs || 0,
+      defaultValue: content.gap?.xs,
       templateOptions: {
         min: 0,
         max: 20,
-        step: 4,
+        step: 1,
         label: '移动端间距',
       },
     },
     {
       key: 'sm',
       type: 'slider',
-      defaultValue: content.gap?.sm || 0,
+      defaultValue: content.gap?.sm,
       templateOptions: {
         min: 0,
         max: 20,
-        step: 4,
+        step: 1,
         label: '平板端间距',
       },
     },
     {
       key: 'md',
       type: 'slider',
-      defaultValue: content.gap?.md || 0,
+      defaultValue: content.gap?.md,
       templateOptions: {
         min: 0,
         max: 20,
-        step: 4,
+        step: 1,
         label: '桌面端间距',
       },
     },
     {
       key: 'lg',
       type: 'slider',
-      defaultValue: content.gap?.lg || 0,
+      defaultValue: content.gap?.lg,
       templateOptions: {
         min: 0,
         max: 20,
-        step: 4,
+        step: 1,
         label: '超大桌面间距',
       },
+    },
+  ];
+}
+
+export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
+  return [
+    {
+      type: 'select',
+      key: 'direction',
+      className: 'w-full',
+      defaultValue: content.direction || 'row',
+      templateOptions: {
+        label: '布局方向',
+        options: getDirectionOption,
+        required: true,
+      },
+    },
+    {
+      type: 'select',
+      key: 'wrap',
+      className: 'w-full',
+      defaultValue: content.wrap || 'wrap',
+      templateOptions: {
+        label: '换行',
+        options: getWrapOption,
+        required: true,
+      },
+    },
+    {
+      type: 'select',
+      key: 'horizontal',
+      className: 'w-full',
+      defaultValue: content.horizontal,
+      templateOptions: {
+        label: '水平对齐',
+        options: getHorizontalOption,
+      },
+    },
+    {
+      type: 'select',
+      key: 'vertical',
+      className: 'w-full',
+      defaultValue: content.vertical,
+      templateOptions: {
+        label: '垂直对齐',
+        options: getVerticalOption,
+      },
+    },
+    {
+      key: 'gap',
+      fieldGroup: getGapsGroup(content),
     },
   ];
 }
