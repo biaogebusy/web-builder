@@ -20,12 +20,10 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+      (story) => `<div class="relative p-10 z-10">${story}</div>`
     ),
   ],
   parameters: {
-    viewMode: 'canvas',
     layout: 'fullscreen',
   },
 } as Meta;
@@ -205,7 +203,7 @@ const video: IText = {
   ...Title.args.content,
   spacer: 'lg',
   bg: {
-    classes: 'bg-shadow bg-fill-width',
+    classes: 'bg-fill-width',
   },
   actionsAlign: 'center center',
   actions: [
@@ -262,7 +260,7 @@ const list: IText = {
       },
     ],
   },
-  actionsAlign: 'center center',
+  actionsAlign: 'start center',
   actions: [
     {
       type: 'btn',
@@ -275,4 +273,44 @@ const list: IText = {
 };
 List.args = {
   content: list,
+};
+
+export const MaxWidth = Template.bind({});
+MaxWidth.storyName = '最大宽度';
+MaxWidth.args = {
+  content: {
+    type: 'text',
+    title: {
+      label:
+        '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+      style: 'style-v1',
+      classes: 'mat-display-1 bold',
+    },
+    bg: {
+      classes: 'bg- bg-fill-width',
+    },
+    body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
+    classes: 'text-center md:max-w-3/4 mx-auto',
+    actionsAlign: 'center center',
+    actions: [
+      {
+        type: 'btn-generater',
+        label: '生成页面',
+        color: 'primary',
+        mode: 'raised',
+      },
+      {
+        type: 'btn',
+        color: 'primary',
+        mode: 'stroked',
+        label: '演示视频',
+        href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+        target: '_blank',
+        icon: {
+          inline: true,
+          svg: 'play-circle-outline',
+        },
+      },
+    ],
+  },
 };
