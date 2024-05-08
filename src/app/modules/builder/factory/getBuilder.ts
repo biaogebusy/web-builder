@@ -14,9 +14,9 @@ export function getBuilder(widget: any, options?: any[]): FormlyFieldConfig[] {
             ...getFlexLayoutConfig(widget),
             {
               type: 'input',
-              key: 'wrapplerClass',
+              key: 'wrapperClass',
               className: 'w-full',
-              defaultValue: widget.wrapplerClass || '',
+              defaultValue: widget.wrapperClass || '',
               templateOptions: {
                 label: 'Wrapper Classes',
               },

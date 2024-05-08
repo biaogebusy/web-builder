@@ -279,10 +279,10 @@ TwoCol.args = {
     wrap: 'wrap',
     horizontal: 'center',
     vertical: 'stretch',
-    wrapperClasses: 'md:flex-nowrap',
     gap: {
       xs: '5',
     },
+    wrapperClass: 'sm:flex-nowrap',
     animate: {
       from: {
         x: 0,
@@ -1550,7 +1550,7 @@ Section1B.args = {
     wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
-    wrapperClasses: 'md:flex-nowrap',
+    wrapperClass: 'md:flex-nowrap',
     gap: {
       xs: '5',
     },
@@ -2200,7 +2200,7 @@ Section3A.args = {
     wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
-    wrapperClasses: 'md:flex-nowrap',
+    wrapperClass: 'md:flex-nowrap',
     gap: {
       xs: 0,
       sm: 4,
@@ -2530,7 +2530,7 @@ Section3B.args = {
     wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
-    wrapperClasses: 'md:flex-nowrap',
+    wrapperClass: 'md:flex-nowrap',
     gap: {
       xs: 0,
     },
@@ -3572,7 +3572,7 @@ Section5A.args = {
               md: '4',
               lg: '4',
             },
-            wrapplerClass: 'sm:flex-nowrap',
+            wrapperClass: 'sm:flex-nowrap',
             animate: {
               from: {
                 x: 0,

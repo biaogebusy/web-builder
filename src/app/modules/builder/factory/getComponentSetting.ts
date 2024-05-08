@@ -226,9 +226,9 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           ...getFlexLayoutConfig(content),
           {
             type: 'input',
-            key: 'wrapplerClass',
+            key: 'wrapperClass',
             className: 'w-full',
-            defaultValue: content.wrapplerClass || '',
+            defaultValue: content.wrapperClass || '',
             templateOptions: {
               label: 'Wrapper Classes',
             },

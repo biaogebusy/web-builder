@@ -250,10 +250,10 @@ export const base = [
           wrap: 'wrap',
           horizontal: 'center',
           vertical: 'stretch',
-          wrapperClasses: 'md:flex-nowrap',
           gap: {
             xs: '5',
           },
+          wrapperClass: 'sm:flex-nowrap',
           animate: {
             from: {
               x: 0,
@@ -1678,7 +1678,7 @@ export const base = [
           wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          wrapperClasses: 'md:flex-nowrap',
+          wrapperClass: 'md:flex-nowrap',
           gap: {
             xs: '5',
           },
@@ -2319,7 +2319,7 @@ export const base = [
           wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          wrapperClasses: 'md:flex-nowrap',
+          wrapperClass: 'md:flex-nowrap',
           gap: {
             xs: 0,
             sm: 4,
@@ -2646,7 +2646,7 @@ export const base = [
           wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
-          wrapperClasses: 'md:flex-nowrap',
+          wrapperClass: 'md:flex-nowrap',
           gap: {
             xs: 0,
           },
@@ -3682,7 +3682,7 @@ export const base = [
                     md: '4',
                     lg: '4',
                   },
-                  wrapplerClass: 'sm:flex-nowrap',
+                  wrapperClass: 'sm:flex-nowrap',
                   animate: {
                     from: {
                       x: 0,

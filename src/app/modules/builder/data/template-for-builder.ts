@@ -285,18 +285,48 @@ export const templates: any[] = [
           ],
         },
         {
+          spacer: 'md',
+          bgClasses: 'bg- bg-fill-width',
+          overlay: '',
+          classes: 'text-center md:max-w-3/4 mx-auto',
+          id: '',
+          bg: {
+            img: {
+              src: '',
+              classes: 'object-fit',
+              alt: '',
+            },
+            classes: 'bg- bg-fill-width',
+            overlay: '',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
+          },
           type: 'text',
           title: {
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
             style: 'style-v1',
-            classes: 'mat-display-2 bold',
-          },
-          bg: {
-            classes: 'bg- bg-fill-width',
+            classes: 'mat-display-1 bold',
           },
           body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
-          classes: 'text-center',
           actionsAlign: 'center center',
           actions: [
             {
@@ -416,7 +446,7 @@ export const templates: any[] = [
               elements: [
                 {
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-display-1 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -768,7 +798,7 @@ export const templates: any[] = [
           spacer: 'xl',
           bgClasses: 'bg- bg-fill-width',
           overlay: '',
-          classes: 'text-center',
+          classes: 'text-center md:max-w-3/4 mx-auto',
           id: '',
           bg: {
             img: {
@@ -778,6 +808,26 @@ export const templates: any[] = [
             },
             classes: 'bg- bg-fill-width',
             overlay: '',
+          },
+          animate: {
+            from: {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              opacity: 1,
+              delay: 0,
+              duration: 1,
+              ease: 'none',
+            },
+            trigger: {
+              onEnter: 'play',
+              onLeave: 'none',
+              onEnterBack: 'none',
+              onLeaveBack: 'none',
+              start: 'top 90%',
+              end: 'top 40%',
+            },
           },
           type: 'text',
           title: {
