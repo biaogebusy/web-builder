@@ -2,7 +2,7 @@ export const templates: any[] = [
   {
     title: '空白页面',
     subTitle: '从一个空白页面开始搭建',
-    img: '/assets/images/template/blank.svg',
+    img: '/assets/images/builder/template/blank.png',
     page: {
       title: '空白页面',
       current: true,
@@ -55,7 +55,7 @@ export const templates: any[] = [
   {
     title: '搜索页面',
     subTitle: '全站搜索',
-    img: '/assets/images/template/website-post.svg',
+    img: '/assets/images/builder/template/search.png',
     page: {
       title: '搜索页面',
       current: true,
@@ -182,7 +182,7 @@ export const templates: any[] = [
   {
     title: '关于我们',
     subTitle: '介绍您的业务',
-    img: '/assets/images/template/about.svg',
+    img: '/assets/images/builder/template/about.png',
     page: {
       title: '关于我们',
       current: true,
@@ -355,7 +355,7 @@ export const templates: any[] = [
   {
     title: '联系我们',
     subTitle: '关于我们的信息，允许访客联系',
-    img: '/assets/images/template/team.svg',
+    img: '/assets/images/builder/template/contact.png',
     page: {
       title: '联系我们',
       current: true,
@@ -600,7 +600,7 @@ export const templates: any[] = [
   {
     title: 'FAQ',
     subTitle: '快速问答页面',
-    img: '/assets/images/template/faq.svg',
+    img: '/assets/images/builder/template/faq.png',
     page: {
       title: 'FAQ',
       current: true,
@@ -865,7 +865,7 @@ export const templates: any[] = [
   {
     title: '服务介绍',
     subTitle: '介绍您的服务',
-    img: '/assets/images/template/services.svg',
+    img: '/assets/images/builder/template/service.png',
     page: {
       title: '服务介绍',
       current: true,

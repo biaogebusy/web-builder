@@ -5,7 +5,7 @@
         <div class="title">{{item.title}}</div>
         <div class="sub-title">{{item.subTitle}}</div>
       </div>
-      <app-img [content]="{src:item.img}"></app-img>
+      <app-img class="block rounded-xl overflow-hidden" [content]="{src:item.img}"></app-img>
       <div class="action">
         <app-btn [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'plus'}}"></app-btn>
       </div>
