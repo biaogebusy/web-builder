@@ -3,16 +3,7 @@ import { getSwiper } from './getSwiper';
 import { getTitleField } from './getTitleField';
 import { getText } from './getText';
 import { getAnimate } from './getAnimate';
-import {
-  getBgClasses,
-  getDirectionOption,
-  getFlexLayoutConfig,
-  getGapsGroup,
-  getHorizontalOption,
-  getOverlay,
-  getVerticalOption,
-  getWrapOption,
-} from './getCommon';
+import { getBgClasses, getFlexLayoutConfig, getOverlay } from './getCommon';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
