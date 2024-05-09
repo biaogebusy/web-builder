@@ -345,6 +345,9 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
         options: getDirectionOption,
         required: true,
       },
+      validation: {
+        show: true,
+      },
     },
     {
       type: 'select',

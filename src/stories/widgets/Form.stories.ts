@@ -24,7 +24,7 @@ export default {
       (story) => `
       ${story}
       <mat-divider></mat-divider>
-      <p class="widget p-y-sm p-x-sm bg-shadow">
+      <p class="widget m-5 bg-shadow">
       {{model|json}}
       </p>
     `
@@ -65,6 +65,7 @@ const base: FormlyFieldConfig[] = [
       description: '最小10元，最大10000元',
     },
     validation: {
+      show: true,
       messages: {
         min: '不能设置小于 10',
         max: '不能设置大于 10000',
