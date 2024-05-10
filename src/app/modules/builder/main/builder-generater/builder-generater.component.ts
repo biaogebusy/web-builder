@@ -43,6 +43,7 @@ export class BuilderGeneraterComponent implements OnInit {
       'showcase',
       value.showcase
     );
+    const layout = this.builder.getRandomElements(items, 'layout', 1);
     const carousel = this.builder.getRandomElements(
       items,
       'carousel',
@@ -53,7 +54,11 @@ export class BuilderGeneraterComponent implements OnInit {
       'masonry',
       value.masonry
     );
-    const shuffleShowcaseCarousel = shuffle([...showcases, ...carousel]);
+    const shuffleShowcaseCarousel = shuffle([
+      ...layout,
+      ...showcases,
+      ...carousel,
+    ]);
     let action = [];
     let text = items
       .filter((item) => item.id === 'base')[0]
