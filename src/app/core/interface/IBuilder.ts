@@ -63,6 +63,7 @@ export interface ILayoutBuilder extends ICombsBase {
   wrap: 'wrap' | 'wrap-reverse' | 'nowrap';
   horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
   vertical: 'start' | 'end' | 'center' | 'stretch';
+  wrapperClass: any;
   gap?: {
     xs?: number;
     sm?: number;

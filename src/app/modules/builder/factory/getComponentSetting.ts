@@ -3,15 +3,7 @@ import { getSwiper } from './getSwiper';
 import { getTitleField } from './getTitleField';
 import { getText } from './getText';
 import { getAnimate } from './getAnimate';
-import {
-  getBgClasses,
-  getDirectionOption,
-  getGapsGroup,
-  getHorizontalOption,
-  getOverlay,
-  getVerticalOption,
-  getWrapOption,
-} from './getCommon';
+import { getBgClasses, getFlexLayoutConfig, getOverlay } from './getCommon';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
@@ -106,7 +98,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               defaultValue: content.classes || '',
               templateOptions: {
                 label: 'Classes',
-                description: '添加class类',
+                description: '组件 class',
               },
             },
             {
@@ -222,46 +214,14 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           label: '布局',
         },
         fieldGroup: [
+          ...getFlexLayoutConfig(content),
           {
-            type: 'select',
-            key: 'direction',
+            type: 'input',
+            key: 'wrapperClass',
             className: 'w-full',
-            defaultValue: content.direction || 'row',
+            defaultValue: content.wrapperClass || '',
             templateOptions: {
-              label: '布局方向',
-              options: getDirectionOption,
-              required: true,
-            },
-          },
-          {
-            type: 'select',
-            key: 'wrap',
-            className: 'w-full',
-            defaultValue: content.wrap || 'wrap',
-            templateOptions: {
-              label: '换行',
-              options: getWrapOption,
-              required: true,
-            },
-          },
-          {
-            type: 'select',
-            key: 'horizontal',
-            className: 'w-full',
-            defaultValue: content.horizontal,
-            templateOptions: {
-              label: '水平对齐',
-              options: getHorizontalOption,
-            },
-          },
-          {
-            type: 'select',
-            key: 'vertical',
-            className: 'w-full',
-            defaultValue: content.vertical,
-            templateOptions: {
-              label: '垂直对齐',
-              options: getVerticalOption,
+              label: 'Wrapper Classes',
             },
           },
         ],

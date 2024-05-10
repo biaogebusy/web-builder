@@ -54,7 +54,9 @@ export class LayoutBuilderComponent
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
   }
 }
