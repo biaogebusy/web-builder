@@ -31,7 +31,6 @@
       "bg": {
         "classes": "bg-fill-width"
       },
-      "layoutAlign": "center center",
       "gap": {
         "xs": 0,
         "sm": 0,
@@ -46,50 +45,24 @@
             "md": 12,
             "lg": 12
           },
-          "direction": "column",
-          "horizontal": "flex-start",
-          "vertical": "flex-start",
-          "layoutAlign": "start start",
+          "direction": "col",
+          "wrap": "wrap",
+          "horizontal": "start",
+          "vertical": "start",
+          "gap": {
+            "xs": "5"
+          },
           "bg": {
             "img": {
               "src": "",
-              "classes": "object-contain",
-              "alt": "bg-05"
+              "alt": "bg-05",
+              "classes": "object-contain"
             },
             "overlay": " ",
             "classes": "bg-fill-width"
           },
           "classes": "",
-          "style": {
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "marginTop": "0px",
-            "marginRight": "0px",
-            "marginBottom": "0px",
-            "marginLeft": "0px"
-          },
-          "animate": {
-            "from": {
-              "x": 0,
-              "y": 0,
-              "rotation": 0,
-              "scale": 1,
-              "opacity": 1,
-              "delay": 0,
-              "duration": 1,
-              "ease": "none"
-            },
-            "trigger": {
-              "onEnter": "play",
-              "onLeave": "none",
-              "onEnterBack": "none",
-              "onLeaveBack": "none",
-              "start": "top 90%",
-              "end": "top 40%"
-            }
-          },
+          "blockClasses": "",
           "elements": [
             {
               "src": "/assets/images/logo/logo-blue.png",
@@ -129,8 +102,25 @@
               "type": "img"
             },
             {
-              "spacer": "xs",
-              "body": "为您的企业构建现代化的响应式无代码网站：<ul class=\"list-done\"><li>从模板开始，根据需要进行自定义；</li><li>自定义主题色、字体创建品牌网站；</li><li>可视化编辑组件数据，所见即所得；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p>",
+              "style": "none",
+              "classes": "",
+              "typed": {
+                "enable": false,
+                "config": {
+                  "typeSpeed": 120
+                },
+                "strings": [
+                  {
+                    "label": "web builder"
+                  }
+                ]
+              },
+              "type": "title",
+              "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面"
+            },
+            {
+              "spacer": "none",
+              "body": "为您的企业构建现代化的响应式网站：<ul class=\"list-done\"><li>从模板开始，根据需要进行自定义；</li><li>自定义主题色、字体创建品牌网站；</li><li>可视化编辑组件数据，所见即所得；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p>",
               "animate": {
                 "from": {
                   "x": 0,
@@ -151,12 +141,7 @@
                   "end": "top 40%"
                 }
               },
-              "type": "text",
-              "title": {
-                "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
-                "style": "style-v4",
-                "classes": "mat-display-1 bold"
-              }
+              "type": "text"
             }
           ]
         }
