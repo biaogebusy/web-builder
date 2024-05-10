@@ -20,8 +20,15 @@ export const home_v14 = {
       },
       direction: 'row',
       wrap: 'wrap',
-      horizontal: 'flex-start',
+      horizontal: 'start',
       vertical: 'center',
+      gap: {
+        xs: 0,
+        sm: 0,
+        md: 0,
+        lg: 0,
+      },
+      wrapperClass: '',
       animate: {
         from: {
           x: 0,
@@ -43,12 +50,6 @@ export const home_v14 = {
         },
       },
       layoutAlign: 'start center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
-      },
       type: 'layout-builder',
       elements: [
         {
@@ -269,6 +270,13 @@ export const home_v14 = {
       wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
+      gap: {
+        xs: '4',
+        sm: '5',
+        md: '5',
+        lg: '5',
+      },
+      wrapperClass: 'sm:flex-nowrap',
       animate: {
         from: {
           x: 0,
@@ -290,12 +298,6 @@ export const home_v14 = {
         },
       },
       layoutAlign: 'center center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: '20',
-        lg: '20',
-      },
       type: 'layout-builder',
       elements: [
         {
@@ -1054,20 +1056,43 @@ export const home_v14 = {
           },
           elements: [
             {
+              direction: 'row',
+              wrap: 'wrap',
+              horizontal: 'center',
+              vertical: 'center',
+              gap: {
+                xs: '4',
+                sm: '4',
+                md: '5',
+                lg: '5',
+              },
+              wrapperClass: 'sm:flex-nowrap',
+              animate: {
+                enable: true,
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
               row: {
                 xs: 12,
                 sm: 12,
                 md: 12,
                 lg: 12,
-              },
-              direction: 'row',
-              horizontal: 'center',
-              vertical: 'center',
-              gap: {
-                xs: 8,
-                sm: 16,
-                md: 32,
-                lg: 48,
               },
               bg: {
                 img: {
@@ -1091,28 +1116,6 @@ export const home_v14 = {
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                enable: true,
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
-              wrap: 'wrap',
               layoutAlign: 'center center',
               type: 'layout-builder',
               spacer: 'md',
@@ -1206,6 +1209,7 @@ export const home_v14 = {
                     lg: 6,
                   },
                   direction: 'col',
+                  wrap: 'wrap',
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
                   gap: {
@@ -1224,18 +1228,7 @@ export const home_v14 = {
                     classes: 'bg-fill-width',
                   },
                   classes: '',
-                  blockClasses: 'p-5',
-                  style: {
-                    borderRadius: 'none',
-                    paddingTop: '0px',
-                    paddingRight: '0px',
-                    paddingBottom: '0px',
-                    paddingLeft: '0px',
-                    marginTop: '0px',
-                    marginRight: '0px',
-                    marginBottom: '0px',
-                    marginLeft: '0px',
-                  },
+                  blockClasses: '',
                   animate: {
                     from: {
                       x: 0,
@@ -1256,7 +1249,17 @@ export const home_v14 = {
                       end: 'top 40%',
                     },
                   },
-                  wrap: 'wrap',
+                  style: {
+                    borderRadius: 'none',
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
                   layoutAlign: 'start start',
                   elements: [
                     {
@@ -1337,20 +1340,42 @@ export const home_v14 = {
           },
           elements: [
             {
+              direction: 'row',
+              wrap: 'wrap',
+              horizontal: 'center',
+              vertical: 'center',
+              gap: {
+                xs: '4',
+                sm: '4',
+                md: '4',
+                lg: '4',
+              },
+              wrapperClass: 'sm:flex-nowrap',
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
               row: {
                 xs: 12,
                 sm: 12,
                 md: 12,
                 lg: 12,
-              },
-              direction: 'row',
-              horizontal: 'center',
-              vertical: 'center',
-              gap: {
-                xs: 8,
-                sm: 16,
-                md: 32,
-                lg: 48,
               },
               bg: {
                 img: {
@@ -1374,27 +1399,6 @@ export const home_v14 = {
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
-              wrap: 'wrap',
               layoutAlign: 'center center',
               type: 'layout-builder',
               spacer: 'md',
@@ -1612,20 +1616,42 @@ export const home_v14 = {
           },
           elements: [
             {
+              direction: 'row',
+              wrap: 'wrap',
+              horizontal: 'center',
+              vertical: 'center',
+              gap: {
+                xs: '4',
+                sm: '5',
+                md: '5',
+                lg: '5',
+              },
+              wrapperClass: 'sm:flex-nowrap',
+              animate: {
+                from: {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  scale: 1,
+                  opacity: 1,
+                  delay: 0,
+                  duration: 1,
+                  ease: 'none',
+                },
+                trigger: {
+                  onEnter: 'play',
+                  onLeave: 'none',
+                  onEnterBack: 'none',
+                  onLeaveBack: 'none',
+                  start: 'top 90%',
+                  end: 'top 40%',
+                },
+              },
               row: {
                 xs: 12,
                 sm: 12,
                 md: 12,
                 lg: 12,
-              },
-              direction: 'row',
-              horizontal: 'center',
-              vertical: 'center',
-              gap: {
-                xs: 8,
-                sm: 16,
-                md: 32,
-                lg: 48,
               },
               bg: {
                 img: {
@@ -1649,27 +1675,6 @@ export const home_v14 = {
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
-              wrap: 'wrap',
               layoutAlign: 'center center',
               type: 'layout-builder',
               spacer: 'md',
@@ -1764,6 +1769,7 @@ export const home_v14 = {
                     lg: 6,
                   },
                   direction: 'col',
+                  wrap: 'wrap',
                   horizontal: 'flex-start',
                   vertical: 'flex-start',
                   gap: {
@@ -1782,18 +1788,7 @@ export const home_v14 = {
                     classes: 'bg-fill-width',
                   },
                   classes: '',
-                  blockClasses: 'p-5',
-                  style: {
-                    borderRadius: 'none',
-                    paddingTop: '0px',
-                    paddingRight: '0px',
-                    paddingBottom: '0px',
-                    paddingLeft: '0px',
-                    marginTop: '0px',
-                    marginRight: '0px',
-                    marginBottom: '0px',
-                    marginLeft: '0px',
-                  },
+                  blockClasses: '',
                   animate: {
                     from: {
                       x: 0,
@@ -1814,7 +1809,17 @@ export const home_v14 = {
                       end: 'top 40%',
                     },
                   },
-                  wrap: 'wrap',
+                  style: {
+                    borderRadius: 'none',
+                    paddingTop: '0px',
+                    paddingRight: '0px',
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    marginTop: '0px',
+                    marginRight: '0px',
+                    marginBottom: '0px',
+                    marginLeft: '0px',
+                  },
                   layoutAlign: 'start start',
                   elements: [
                     {
@@ -1909,6 +1914,13 @@ export const home_v14 = {
       wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
+      gap: {
+        xs: '4',
+        sm: '4',
+        md: '5',
+        lg: '5',
+      },
+      wrapperClass: 'sm:flex-nowrap',
       animate: {
         enable: true,
         from: {
@@ -1931,12 +1943,6 @@ export const home_v14 = {
         },
       },
       layoutAlign: 'center center',
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
-      },
       type: 'layout-builder',
       elements: [
         {
@@ -1947,6 +1953,7 @@ export const home_v14 = {
             lg: '4',
           },
           direction: 'row',
+          wrap: 'wrap',
           horizontal: 'flex-start',
           vertical: 'flex-start',
           gap: {
@@ -1965,18 +1972,7 @@ export const home_v14 = {
             classes: 'bg-fill-width',
           },
           classes: '',
-          blockClasses: 'p-5',
-          style: {
-            borderRadius: 'none',
-            paddingTop: '0px',
-            paddingRight: '0px',
-            paddingBottom: '0px',
-            paddingLeft: '0px',
-            marginTop: '0px',
-            marginRight: '0px',
-            marginBottom: '0px',
-            marginLeft: '0px',
-          },
+          blockClasses: '',
           animate: {
             from: {
               x: 0,
@@ -1997,7 +1993,17 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
-          wrap: 'wrap',
+          style: {
+            borderRadius: 'none',
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
           layoutAlign: 'start start',
           elements: [
             {
@@ -2026,6 +2032,7 @@ export const home_v14 = {
             lg: '4',
           },
           direction: 'row',
+          wrap: 'wrap',
           horizontal: 'flex-start',
           vertical: 'flex-start',
           gap: {
@@ -2044,18 +2051,7 @@ export const home_v14 = {
             classes: 'bg-fill-width',
           },
           classes: '',
-          blockClasses: 'p-5',
-          style: {
-            borderRadius: 'none',
-            paddingTop: '0px',
-            paddingRight: '0px',
-            paddingBottom: '0px',
-            paddingLeft: '0px',
-            marginTop: '0px',
-            marginRight: '0px',
-            marginBottom: '0px',
-            marginLeft: '0px',
-          },
+          blockClasses: '',
           animate: {
             from: {
               x: 0,
@@ -2076,7 +2072,17 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
-          wrap: 'wrap',
+          style: {
+            borderRadius: 'none',
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
           layoutAlign: 'start start',
           elements: [
             {
@@ -2105,6 +2111,7 @@ export const home_v14 = {
             lg: '4',
           },
           direction: 'row',
+          wrap: 'wrap',
           horizontal: 'flex-start',
           vertical: 'flex-start',
           gap: {
@@ -2123,18 +2130,7 @@ export const home_v14 = {
             classes: 'bg-fill-width',
           },
           classes: '',
-          blockClasses: 'p-5',
-          style: {
-            borderRadius: 'none',
-            paddingTop: '0px',
-            paddingRight: '0px',
-            paddingBottom: '0px',
-            paddingLeft: '0px',
-            marginTop: '0px',
-            marginRight: '0px',
-            marginBottom: '0px',
-            marginLeft: '0px',
-          },
+          blockClasses: '',
           animate: {
             from: {
               x: 0,
@@ -2155,7 +2151,17 @@ export const home_v14 = {
               end: 'top 40%',
             },
           },
-          wrap: 'wrap',
+          style: {
+            borderRadius: 'none',
+            paddingTop: '0px',
+            paddingRight: '0px',
+            paddingBottom: '0px',
+            paddingLeft: '0px',
+            marginTop: '0px',
+            marginRight: '0px',
+            marginBottom: '0px',
+            marginLeft: '0px',
+          },
           layoutAlign: 'start start',
           elements: [
             {

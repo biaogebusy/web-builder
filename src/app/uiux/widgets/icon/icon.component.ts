@@ -19,7 +19,7 @@ export class IconComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    if (this.content.svg) {
+    if (this.content?.svg) {
       this.hostClass = true;
     }
   }

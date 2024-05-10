@@ -24,6 +24,7 @@ import { getSwiper } from '@modules/builder/factory/getSwiper';
 import { getText } from '@modules/builder/factory/getText';
 import { getTitleField } from '@modules/builder/factory/getTitleField';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { getBuilder } from '@modules/builder/factory/getBuilder';
 
 @Component({
   selector: 'app-block-toolbar',
@@ -111,7 +112,7 @@ export class BlockToolbarComponent implements OnInit {
         fields = getIcon(widget, [animateConfig]);
         break;
       case 'layout-builder':
-        fields = getLayoutSetting(widget);
+        fields = getBuilder(widget, [animateConfig]);
         break;
       case 'divider':
         fields = getDivider(widget);
