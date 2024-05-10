@@ -4,9 +4,9 @@
     <h2 class="title bold" [contentedit]="'title.label'" [ngClass]="content.title.classes"
       [innerHTML]="content.title.label|safeHtml"></h2>
     <div class="meta bold flex">
-      <div [contentedit]="'prefix'" class="mat-display-1 mb-0" [innerHTML]="content.prefix|safeHtml"></div>
-      <div [contentedit]="'number'" class="mat-display-3 mb-0" [innerHTML]="content.number|safeHtml"></div>
-      <div [contentedit]="'suffix'" class="flex items-end mat-display-1 mb-0" [innerHTML]="content.suffix|safeHtml">
+      <div [contentedit]="'prefix'" class="mat-display-1 !mb-0" [innerHTML]="content.prefix|safeHtml"></div>
+      <div [contentedit]="'number'" class="mat-display-3 !mb-0" [innerHTML]="content.number|safeHtml"></div>
+      <div [contentedit]="'suffix'" class="flex items-end mat-display-1 !mb-0" [innerHTML]="content.suffix|safeHtml">
       </div>
     </div>
     <div [contentedit]="'body'" class="content" [innerHTML]="content.body|safeHtml"></div>
