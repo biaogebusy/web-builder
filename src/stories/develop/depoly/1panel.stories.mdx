@@ -1,0 +1,46 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="开发/部署/1panel"
+  id="1panel"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+# 部署 Angular 到 1panel
+
+## 本地打包
+
+使用命令`npm run build:ssr` 打包应用，打包成功后会生成`dist`目录，把`dist`目录和根目录的`package.json` 上传到 1panel。
+
+## 在 1panel 中新建 node 运行环境
+
+<img
+  src="/assets/storybook/assets/1panel-node.png"
+  alt="1panel-node"
+  width="85%"
+/>
+
+如上图所示：
+
+1. 源码目录是你自己创建的应用目录，其中包含了上传的 dist 目录和 package.json 文件。
+2. 启动命令选择 package.json 中的 server:ssr；
+3. 端口根据你的 environment.prod.ts 配置来设置；
+
+## 创建反向代理
+
+此时应用还不能通过外部域名访问，需要绑定域名并反向代理到 node 应用，
+
+<img
+  src="/assets/storybook/assets/1panel-proxy.png"
+  alt="1panel-node"
+  width="85%"
+/>
+
+1. 填写绑定的域名；
+2. 代理地址填写 node 的应用地址及端口；
