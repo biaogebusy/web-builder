@@ -69,10 +69,11 @@ location / {
 ## 新增 Drupal 反向代理
 
 当访问例如 drupal 的 api 或者 sites 文件时，则反向代理到 Drupal 的域名，完整如下：
+http://127.0.0.1:8080 这个是 Drupal 的内网地址；
 
 ```
 location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([^/]+)/([^/]+)/edit|autocomplete|media-library|history|quickedit|webform_rest|session|contextual|themes|shs-term-data|modules|libraries|core|api|user|admin|manage|system|print|export|sites/([^/]+)/files) {
-    proxy_pass https://admin.auooa.com;
+    proxy_pass http://127.0.0.1:8080;
     proxy_redirect off;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
