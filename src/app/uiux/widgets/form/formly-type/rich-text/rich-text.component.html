@@ -4,11 +4,15 @@
     [cdkTextareaAutosize]="to.autosize" [cdkAutosizeMinRows]="to.autosizeMinRows"
     [cdkAutosizeMaxRows]="to.autosizeMaxRows" [class.cdk-textarea-autosize]="to.autosize">
       </textarea>
-  <app-btn (click)="openRichText()" class="absolute right-0 bottom-1"
-    [content]="{icon:{svg:'pencil'},mode:'icon',color:'primary'}"></app-btn>
+  <app-btn matTooltip="富文本编辑" (click)="openRichText()" class="absolute right-0 bottom-1"
+    [content]="{icon:{svg:'pencil'},mode:'mini-fab',color:'primary'}"></app-btn>
 </mat-form-field>
-<div class="popup" #popup>
-  <quill-editor (onEditorCreated)="editorCreated($event)" [ngModel]="formControl.value" [modules]="modules"
-    [styles]="{height:'500px'}">
+<div class="popup rounded-lg hidden flex-col justify-center items-center gap-5 p-5 bg-white shadow-2xl" #popup>
+  <quill-editor (onEditorCreated)="editorCreated($event)" [(ngModel)]="value" [modules]="modules"
+    [styles]="{height:'100%'}">
   </quill-editor>
+  <div class="flex justify-center items-center gap-5">
+    <app-btn (click)="onCancel()" [content]="{'label':'取消'}"></app-btn>
+    <app-btn (click)="onClose()" [content]="{'label':'保存','mode':'raised','color':'primary'}"></app-btn>
+  </div>
 </div>

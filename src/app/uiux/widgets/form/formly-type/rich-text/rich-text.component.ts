@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MAT_INPUT_VALUE_ACCESSOR, MatInput } from '@angular/material/input';
 import { NodeService } from '@core/service/node.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 import { FormlyFieldTextArea } from '@ngx-formly/material/textarea';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { createPopper } from '@popperjs/core';
 import { QuillModule } from 'ngx-quill';
 
 @Component({
@@ -20,6 +19,9 @@ export class RichTextComponent
   implements OnInit
 {
   @ViewChild(MatInput, { static: true }) formFieldControl!: MatInput;
+  @ViewChild('popup', { static: false }) popup: ElementRef;
+  value: any;
+  popper: any;
   modules: QuillModule = {
     toolbar: [
       [
@@ -46,28 +48,46 @@ export class RichTextComponent
       ['clean'],
     ],
   };
-  constructor(private dialog: MatDialog, private nodeService: NodeService) {
+  constructor(private nodeService: NodeService, private ele: ElementRef) {
     super();
   }
   ngOnInit(): void {}
 
   openRichText(): void {
     console.log(this.formControl);
-    this.dialog.open(DialogComponent, {
-      width: '700px',
-      data: {
-        inputData: {
-          type: '',
-        },
-      },
-    });
+    this.value = this.formControl.value;
+    this.popper = createPopper(
+      this.ele.nativeElement,
+      this.popup.nativeElement,
+      {
+        placement: 'auto',
+        strategy: 'fixed',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offfset: [80, 80],
+            },
+          },
+        ],
+      }
+    );
   }
 
-  editorCreated(quill: any) {
+  editorCreated(quill: any): void {
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler(
       'image',
       this.nodeService.imageHandler.bind(this.nodeService, quill)
     );
+  }
+
+  onClose(): void {
+    this.formControl.setValue(this.value);
+    this.popper.destroy();
+  }
+
+  onCancel(): void {
+    this.popper.destroy();
   }
 }

@@ -14,7 +14,7 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
           fieldGroup: [
             {
               key: 'body',
-              type: 'textarea',
+              type: 'rich-text',
               className: 'w-full',
               defaultValue: widget.body,
               templateOptions: {

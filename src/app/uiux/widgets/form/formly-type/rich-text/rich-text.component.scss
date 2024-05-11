@@ -1,0 +1,18 @@
+.popup {
+  width: 750px;
+  height: 500px;
+  z-index: 100;
+  quill-editor {
+    width: 100%;
+    height: calc(100% - 60px);
+    ::ng-deep {
+      .ql-container {
+        height: calc(100% - 48px) !important;
+        font-size: inherit;
+      }
+    }
+  }
+  &[data-popper-placement] {
+    display: flex;
+  }
+}

@@ -792,3 +792,27 @@ ImgPicker.args = {
     },
   ],
 };
+
+export const RichText = Template.bind({});
+RichText.storyName = '富文本';
+RichText.args = {
+  type: 'formly',
+  form,
+  model,
+  options,
+  fields: [
+    {
+      fieldGroupClassName: 'flex',
+      fieldGroup: [
+        {
+          key: 'text',
+          type: 'rich-text',
+          templateOptions: {
+            label: '富文本',
+            rows: 10,
+          },
+        },
+      ],
+    },
+  ],
+};
