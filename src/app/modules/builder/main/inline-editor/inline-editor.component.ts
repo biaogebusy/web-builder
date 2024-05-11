@@ -12,7 +12,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { NodeService } from '@core/service/node.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { QuillModule } from 'ngx-quill';
 import type { IMetaEdit } from '@core/interface/IBuilder';
 import { FormGroup } from '@angular/forms';
 
@@ -34,33 +33,7 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   viewHTML: any;
   guiHTML: any;
   editor: any;
-  // TODO: will remove
-  modules: QuillModule = {
-    toolbar: [
-      [
-        {
-          header: [1, 2, 3, 4, 5, 6, false],
-        },
-      ],
-      ['bold', 'italic'],
-      [
-        {
-          align: [],
-        },
-      ],
-      [
-        {
-          list: 'ordered',
-        },
-        {
-          list: 'bullet',
-        },
-      ],
-      ['link', 'image'],
-      ['blockquote'],
-      ['clean'],
-    ],
-  };
+
   constructor(
     private dialog: MatDialog,
     private builder: BuilderState,

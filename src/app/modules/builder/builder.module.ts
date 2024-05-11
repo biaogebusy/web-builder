@@ -31,7 +31,6 @@ import { builderCurrentPageFactory } from '@core/factory/factory';
 import { LocalStorageService } from 'ngx-webstorage';
 import { InlineEditComponent } from './main/inline-editor/inline-editor.component';
 import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
-import { QuillModule } from 'ngx-quill';
 import { WidgetPickerComponent } from './main/widget-picker/widget-picker.component';
 import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-setting.component';
 import { widgets } from './data/widgets-for-builder';
@@ -87,7 +86,6 @@ const components = [
     DragDropModule,
     CountdownModule,
     BuilderRoutingModule,
-    QuillModule.forRoot(),
   ],
   providers: [
     {

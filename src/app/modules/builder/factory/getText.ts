@@ -13,13 +13,6 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
           },
           fieldGroup: [
             {
-              key: 'spacer',
-              type: 'select',
-              className: 'w-full',
-              defaultValue: widget.spacer,
-              templateOptions: spacerOption,
-            },
-            {
               key: 'body',
               type: 'textarea',
               className: 'w-full',
@@ -28,6 +21,13 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
                 label: '文本',
                 rows: 10,
               },
+            },
+            {
+              key: 'spacer',
+              type: 'select',
+              className: 'w-full',
+              defaultValue: widget.spacer,
+              templateOptions: spacerOption,
             },
             {
               key: 'classes',
