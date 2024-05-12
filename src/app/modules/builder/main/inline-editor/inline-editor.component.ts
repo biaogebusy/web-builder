@@ -9,7 +9,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NodeService } from '@core/service/node.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { IMetaEdit } from '@core/interface/IBuilder';
@@ -37,7 +36,6 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private builder: BuilderState,
-    private nodeService: NodeService,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -116,14 +114,6 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
         },
       },
     });
-  }
-
-  editorCreated(quill: any): void {
-    const toolbar = quill.getModule('toolbar');
-    toolbar.addHandler(
-      'image',
-      this.nodeService.imageHandler.bind(this.nodeService, quill)
-    );
   }
 
   contentChanged(event: any): void {

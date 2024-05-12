@@ -213,7 +213,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  editorCreated(quill: any) {
+  editorCreated(quill: any): void {
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler(
       'image',
