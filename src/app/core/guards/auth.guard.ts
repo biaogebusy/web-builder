@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { UserService } from '@core/service/user.service';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { NodeService } from '@core/service/node.service';
 import { IUser } from '@core/interface/IUser';
@@ -52,7 +52,7 @@ export class AuthGuard implements CanActivate {
                     }
                     return true;
                   } else {
-                    this.userService.logouLocalUser();
+                    this.userService.logoutLocalUser();
                     if (environment?.drupalProxy) {
                       window.location.href =
                         guardConfig.defaultDrupalLoginPage || '/user/login';
@@ -81,8 +81,20 @@ export class AuthGuard implements CanActivate {
                   }
                 })
               );
+            } else {
+              if (this.user) {
+                // user logged check state
+                this.userService.getLoginState().pipe(
+                  tap((status) => {
+                    console.log('user state:', status);
+                    if (!status) {
+                      this.userService.logoutLocalUser();
+                    }
+                  })
+                );
+              }
+              return of(true);
             }
-            return of(true);
           })
         );
     } else {

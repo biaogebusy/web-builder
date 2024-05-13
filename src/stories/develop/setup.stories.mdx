@@ -391,7 +391,7 @@ export class AuthGuard implements CanActivate {
                     }
                     return true;
                   } else {
-                    this.userService.logouLocalUser();
+                    this.userService.logoutLocalUser();
                     if (environment?.drupalProxy) {
                       window.location.href =
                         guardConfig.defaultDrupalLoginPage || "/user/login";

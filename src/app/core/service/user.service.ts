@@ -144,7 +144,7 @@ export class UserService extends ApiService {
     this.storage.clear(this.localUserKey);
   }
 
-  logouLocalUser(): void {
+  logoutLocalUser(): void {
     this.userSub$.next(false);
     this.storage.clear(this.localUserKey);
   }
