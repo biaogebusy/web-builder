@@ -82,7 +82,13 @@ export class RichTextComponent
     );
   }
 
-  onClose(): void {
+  onContentChanged(event: any): void {
+    console.log(event);
+    const { html } = event;
+    this.value = html;
+  }
+
+  onSave(): void {
     this.formControl.setValue(this.value);
     this.popper.destroy();
   }
