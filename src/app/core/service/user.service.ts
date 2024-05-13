@@ -36,7 +36,7 @@ export class UserService extends ApiService {
         Accept: 'application/vnd.api+json',
         'Content-type': 'application/vnd.api+json',
       }),
-      withCredentials: true,
+      withCredentials: false,
     };
 
     return this.http
