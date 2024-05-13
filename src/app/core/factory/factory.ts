@@ -325,8 +325,12 @@ export function userFactory(
 ): IUser | boolean {
   const key = userService.localUserKey;
   if (storage.retrieve(key)) {
-    const user = JSON.parse(cryptoJS.decrypt(storage.retrieve(key)));
-    return user;
+    const user: IUser = JSON.parse(cryptoJS.decrypt(storage.retrieve(key)));
+    if (user.authenticated) {
+      return user;
+    } else {
+      return false;
+    }
   }
 
   // if user info change will reload window
