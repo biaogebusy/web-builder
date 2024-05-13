@@ -379,6 +379,7 @@
   },
   "guard": {
     "authGuard": false,
+    "checkUserState": true,
     "defaultDrupalLoginPage": "/user/login",
     "defaultFrontLoginPage": "/me/login"
   },
