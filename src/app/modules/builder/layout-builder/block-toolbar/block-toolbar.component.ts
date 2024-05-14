@@ -67,6 +67,11 @@ export class BlockToolbarComponent implements OnInit {
     this.builderSerivce.addBlock(addType, content, event);
   }
 
+  onCopy(widget: any): any {
+    this.util.openSnackbar(`已复制${widget.type}的JSON`);
+    this.util.copy(JSON.stringify(widget));
+  }
+
   deleteBlock(i: number, index: number): void {
     const { elements } = this.lbContent;
     elements[i].elements.splice(index, 1);

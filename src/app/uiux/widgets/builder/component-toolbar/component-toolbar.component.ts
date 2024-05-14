@@ -31,12 +31,10 @@ export class ComponentToolbarComponent implements OnInit {
   @Input() isStory: boolean;
   @Input() index: number;
   @Output() uuidChange: EventEmitter<string> = new EventEmitter();
-  @Output() filterChange: EventEmitter<boolean> = new EventEmitter();
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
   enableBuilderToolbar: boolean;
-  showHierarchy: boolean = false;
-  showGrid: boolean = false;
+  showGrid = false;
 
   constructor(
     private builder: BuilderState,
@@ -58,6 +56,14 @@ export class ComponentToolbarComponent implements OnInit {
 
   onUpdown(index: number, direction: string): void {
     this.builder.upDownComponent(index, direction);
+  }
+
+  onCopy(): void {
+    const content = this.content.type ? this.content : this.content.content;
+    if (content) {
+      this.util.copy(JSON.stringify(content));
+      this.util.openSnackbar(`已复制${content.type}JSON`);
+    }
   }
 
   onSetting(content: any, pageIndex: number, event: any): void {
@@ -85,11 +91,6 @@ export class ComponentToolbarComponent implements OnInit {
     } else {
       this.builder.onComponentSetting(component, pageIndex, uuid, path);
     }
-  }
-
-  onHierarchy(): void {
-    this.showHierarchy = !this.showHierarchy;
-    this.filterChange.emit(this.showHierarchy);
   }
 
   onShowGrid(): void {
