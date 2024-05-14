@@ -64,7 +64,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.builder.builderRightContent$
       .pipe(takeUntil(this.destroy$))
       .subscribe((content) => {
-        if (content && this.builder.showRightDrawer) {
+        if (content) {
           setTimeout(() => {
             this.builderRightDrawer.open();
           }, 100);

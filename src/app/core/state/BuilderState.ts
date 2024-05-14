@@ -28,7 +28,6 @@ export class BuilderState {
   public previewListDrawer$ = new Subject<boolean>();
   public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public builderRightContent$ = new Subject<IBuilderDynamicContent>();
-  public showRightDrawer = true;
   public builderPopupSelect$ = new Subject<any>();
   public closeBuilderRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();

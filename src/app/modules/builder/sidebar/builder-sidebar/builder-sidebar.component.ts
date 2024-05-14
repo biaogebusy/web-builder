@@ -21,7 +21,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class BuilderSidebarComponent implements OnInit {
   @Input() builderRightDrawer: MatDrawer;
-  showBranding: boolean = false;
+  showBranding = false;
 
   constructor(
     public builder: BuilderState,
@@ -49,13 +49,6 @@ export class BuilderSidebarComponent implements OnInit {
         },
       },
     });
-  }
-
-  showRightDrawer(): void {
-    this.builder.showRightDrawer = !this.builder.showRightDrawer;
-    if (!this.builder.showRightDrawer) {
-      this.builderRightDrawer.close();
-    }
   }
 
   onToggleBuilderTheme(mode: 'light' | 'dark'): void {
