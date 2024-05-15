@@ -19,21 +19,15 @@
   .login-container {
     max-height: none;
     min-height: auto;
-    padding: 4rem 0;
   }
 }
 
 .login-wrapper {
-  max-width: 800px;
+  max-width: 750px;
   max-height: 600px;
-  border-radius: 10px;
 
   .login-form {
-    padding: 2rem;
-    z-index: 2;
-    overflow: hidden;
     .form-scroll {
-      // top: 500px;
       position: relative;
     }
     &.is-login {
@@ -51,9 +45,7 @@
 
   @media #{$gt-xs} {
     .login-form {
-      padding: 6rem 4rem;
-      min-width: 400px;
-      min-height: 400px;
+      padding: 40px;
     }
 
     border-radius: 20px;
@@ -62,7 +54,6 @@
 }
 
 .login-second {
-  position: relative;
   min-width: 300px;
 
   img {
@@ -77,10 +68,6 @@
 input.example-right-align::-webkit-outer-spin-button,
 input.example-right-align::-webkit-inner-spin-button {
   display: none;
-}
-
-input.example-right-align {
-  -moz-appearance: textfield;
 }
 
 .error {

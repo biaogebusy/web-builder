@@ -9,7 +9,6 @@ import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { getAnimate } from '@modules/builder/factory/getAnimate';
-import { getLayoutSetting } from '@modules/builder/factory/getLayoutSetting';
 import { getBtn } from '@modules/builder/factory/getBtn';
 import { getBtnVideo } from '@modules/builder/factory/getBtnVideo';
 import { getChart } from '@modules/builder/factory/getChart';
@@ -25,6 +24,7 @@ import { getText } from '@modules/builder/factory/getText';
 import { getTitleField } from '@modules/builder/factory/getTitleField';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getBuilder } from '@modules/builder/factory/getBuilder';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-block-toolbar',
@@ -42,7 +42,8 @@ export class BlockToolbarComponent implements OnInit {
   constructor(
     private builder: BuilderState,
     private builderSerivce: BuilderService,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private storage: LocalStorageService
   ) {}
 
   ngOnInit(): void {}
@@ -65,6 +66,12 @@ export class BlockToolbarComponent implements OnInit {
 
   addBlock(addType: string, content: any, event: any): void {
     this.builderSerivce.addBlock(addType, content, event);
+  }
+
+  onCopy(widget: any): any {
+    this.util.openSnackbar(`已复制${widget.type}的JSON`);
+    this.util.copy(JSON.stringify(widget));
+    this.storage.store(this.builder.COPYKEY, widget);
   }
 
   deleteBlock(i: number, index: number): void {

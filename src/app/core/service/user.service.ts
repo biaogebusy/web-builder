@@ -36,7 +36,7 @@ export class UserService extends ApiService {
         Accept: 'application/vnd.api+json',
         'Content-type': 'application/vnd.api+json',
       }),
-      withCredentials: true,
+      withCredentials: false,
     };
 
     return this.http
@@ -144,7 +144,7 @@ export class UserService extends ApiService {
     this.storage.clear(this.localUserKey);
   }
 
-  logouLocalUser(): void {
+  logoutLocalUser(): void {
     this.userSub$.next(false);
     this.storage.clear(this.localUserKey);
   }

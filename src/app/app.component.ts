@@ -25,7 +25,6 @@ import { ThemeService } from '@core/service/theme.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  authenticated: boolean;
   mobileMenuOpened: boolean;
   sidebarOpened: boolean;
   enableSidebar = false;

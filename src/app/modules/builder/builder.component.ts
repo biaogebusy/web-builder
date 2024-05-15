@@ -30,8 +30,6 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./builder.component.scss'],
 })
 export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
-  @LocalStorage('version')
-  version: IPage[];
   @ViewChild('builderRightDrawer', { static: false })
   builderRightDrawer: MatDrawer;
   @LocalStorage('builderFullScreen')
@@ -64,7 +62,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.builder.builderRightContent$
       .pipe(takeUntil(this.destroy$))
       .subscribe((content) => {
-        if (content && this.builder.showRightDrawer) {
+        if (content) {
           setTimeout(() => {
             this.builderRightDrawer.open();
           }, 100);

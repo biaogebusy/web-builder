@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -14,20 +15,26 @@ import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, WIDGETS } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
+import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
   styleUrls: ['./widget-picker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WidgetPickerComponent implements OnInit {
+export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @Input() content: IWidgetPicker;
   @ViewChild('popup', { static: false }) popup: ElementRef;
   public widget$: Subject<any> = new Subject();
   help: any;
+
+  @LocalStorage('bc')
+  public bcData: any;
+
   constructor(
-    private builder: BuilderState,
+    public builder: BuilderState,
     private dialog: MatDialog,
+    private storage: LocalStorageService,
     @Inject(WIDGETS) public widgets$: Observable<any[]>,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
@@ -36,12 +43,19 @@ export class WidgetPickerComponent implements OnInit {
     this.help = this.coreConfig?.builder?.widgetPicker?.help;
   }
 
+  ngAfterViewInit(): void {}
+
+  onPasteData(): void {
+    this.onSelect(this.bcData);
+    this.storage.clear(this.builder.COPYKEY);
+  }
+
   onSelect(widget: any): void {
     const { addType, path, content } = this.content;
 
     // add widget from layout builder toolbar
     if (addType === 'widget') {
-      this.builder.updatePageContentByPath(path, { ...widget.content }, 'add');
+      this.builder.updatePageContentByPath(path, widget, 'add');
       this.dialog.closeAll();
       return;
     }
@@ -49,7 +63,7 @@ export class WidgetPickerComponent implements OnInit {
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
-        this.copyLayoutLastChild(content.elements, { ...widget.content }),
+        this.copyLayoutLastChild(content.elements, widget),
         'add'
       );
       this.dialog.closeAll();
@@ -58,7 +72,7 @@ export class WidgetPickerComponent implements OnInit {
 
     // add widget from loop element of layout builder top level
     const lists = [...content.elements];
-    lists.splice(lists.length, 0, { ...widget.content });
+    lists.splice(lists.length, 0, widget);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
     this.dialog.closeAll();
   }

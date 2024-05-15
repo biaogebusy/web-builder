@@ -115,16 +115,6 @@ export class DynamicComponentComponent
     this.component.changeDetectorRef.markForCheck();
   }
 
-  onFilterChange(state: boolean): void {
-    const { children } = this.ele.nativeElement;
-    const coponentEle = children[children.length - 1];
-    if (state) {
-      coponentEle.style.filter = 'blur(8px)';
-    } else {
-      coponentEle.style.filter = '';
-    }
-  }
-
   ngOnDestroy(): void {
     this.container.clear();
     if (this.cd && !(this.cd as ViewRef).destroyed) {

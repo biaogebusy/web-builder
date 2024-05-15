@@ -65,6 +65,15 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
     this.contentState.mediaAssetsFormChange$.next(value);
   }
 
+  get flexBasisStyle(): string {
+    const { manageMedia } = this.coreConfig;
+
+    if (manageMedia && manageMedia.row) {
+      return `0 0 calc(100% / ${this.coreConfig.manageMedia.row})`;
+    }
+    return '0 0 auto';
+  }
+
   onDelete(id: string, type?: string): void {
     if (type) {
       this.loading = true;
