@@ -63,6 +63,7 @@ export class ComponentToolbarComponent implements OnInit {
   onCopy(): void {
     const content = this.content.type ? this.content : this.content.content;
     if (content) {
+      delete content.extra;
       this.util.copy(JSON.stringify(content));
       this.util.openSnackbar(`已复制${content.type}JSON`);
       this.storage.store(this.builder.COPYKEY, content);
