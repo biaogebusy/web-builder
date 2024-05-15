@@ -126,6 +126,8 @@ import { TabsTypeComponent } from './form/formly-type/tabs/tabs.component';
 import { ImgPickerComponent } from './form/formly-type/img-picker/img-picker.component';
 import { SliderComponent } from './form/formly-type/slider/slider.component';
 import { DividerComponent } from './divider/divider.component';
+import { RichTextComponent } from './form/formly-type/rich-text/rich-text.component';
+import { QuillModule } from 'ngx-quill';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   dayGridPlugin,
@@ -207,6 +209,7 @@ const components = [
   StepperComponent,
   FormlyComponent,
   RepeatTypeComponent,
+  RichTextComponent,
   TabsTypeComponent,
   ImgPickerComponent,
   PlayerComponent,
@@ -246,11 +249,16 @@ const components = [
     SwiperModule,
     MatSortModule,
     ClipboardModule,
+    QuillModule.forRoot(),
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
     FormlyModule.forRoot({
       types: [
+        {
+          name: 'rich-text',
+          component: RichTextComponent,
+        },
         {
           name: 'mat-select',
           component: MatSelectComponent,
