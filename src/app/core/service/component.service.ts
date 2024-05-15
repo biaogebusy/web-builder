@@ -256,6 +256,7 @@ export class ComponentService {
     [
       'layout-builder',
       'builder-template',
+      'custom-template',
       'builder-generater',
       'btn-generater',
       'inline-editor',

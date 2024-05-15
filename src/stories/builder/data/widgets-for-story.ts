@@ -29,6 +29,7 @@ import * as BoxStories from '@stories/base/Box.stories';
 import * as spacerStory from '@stories/theme/Spacer.stories';
 import * as contactStory from '@stories/drupal/form/ContactUs.stories';
 import * as panelStory from '@stories/widgets/Panel.stories';
+import { Default as CustomTeplate } from '@stories/builder/CustomTemplate.stories';
 
 export const {
   Default: { args: panel },
@@ -206,6 +207,13 @@ export const widgets: any[] = [
         },
       ],
     },
+  },
+  {
+    label: '自定义',
+    icon: {
+      svg: 'code-json',
+    },
+    content: CustomTeplate.args?.content,
   },
   {
     label: '标题',

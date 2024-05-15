@@ -118,3 +118,9 @@ export interface IMetaEdit {
   mode: 'img' | 'text';
   fields?: FormlyFieldConfig[];
 }
+
+export interface ICustomTemplate {
+  type: string;
+  html: string;
+  data: any;
+}

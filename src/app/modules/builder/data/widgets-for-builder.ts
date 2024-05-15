@@ -45,6 +45,22 @@ export const widgets = [
     },
   },
   {
+    label: '自定义',
+    icon: {
+      svg: 'code-json',
+    },
+    content: {
+      type: 'custom-template',
+      data: {
+        title: 'web builder',
+        subTitle: '是一款通过拖拽组件构建页面的低代码',
+        content:
+          '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
+      },
+      html: '<div class="text-center md:text-left md:flex bg-shadow rounded-xl p-8 md:p-0 m-5 mx-auto overflow-hidden">\n          <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto" src="/assets/images/avatar/05.jpeg" alt="" width="384" height="512">\n          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">\n             <p class="text-lg font-medium">\n                “{{content}}”\n              </p>\n            <div class="font-medium">\n              <div class="text-primary text-xl">\n                {{title}}\n              </div>\n              <div class="opacity-75">\n                {{subTitle}}\n              </div>\n            </div>\n          </div>\n        </div>',
+    },
+  },
+  {
     label: '标题',
     icon: {
       svg: 'format-header-2',
@@ -401,9 +417,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 4213, 9821, 6683],
-          ['第二季度', 8401, 4020, 9415],
-          ['第三季度', 7707, 4150, 9722],
+          ['第一季度', 7018, 8696, 5212],
+          ['第二季度', 5430, 5847, 5714],
+          ['第三季度', 7661, 7886, 8550],
         ],
       },
       xAxis: {
@@ -472,9 +488,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 4213, 9821, 6683],
-          ['第二季度', 8401, 4020, 9415],
-          ['第三季度', 7707, 4150, 9722],
+          ['第一季度', 7018, 8696, 5212],
+          ['第二季度', 5430, 5847, 5714],
+          ['第三季度', 7661, 7886, 8550],
         ],
       },
       xAxis: {
@@ -549,9 +565,9 @@ export const widgets = [
       dataset: {
         source: [
           ['预算', '费用'],
-          ['大额红包总金额', 720],
-          ['小额红包总金额', 711],
-          ['提成总额', 921],
+          ['大额红包总金额', 770],
+          ['小额红包总金额', 847],
+          ['提成总额', 411],
         ],
       },
       series: [
@@ -664,25 +680,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 8652,
+          tatol: 3243,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 3765,
+          tatol: 2315,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 6877,
+          tatol: 6926,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 4676,
+          tatol: 4388,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -1184,7 +1200,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-08',
+          changed: '2024-05-15',
         },
         {
           link: {
@@ -1195,29 +1211,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-08',
+          changed: '2024-05-15',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-05-08',
+            href: '2024-05-15',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-08',
+          changed: '2024-05-15',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-05-08',
+            href: '2024-05-15',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-08',
+          changed: '2024-05-15',
         },
       ],
     },
