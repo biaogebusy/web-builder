@@ -45,6 +45,7 @@ export class BuilderState {
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public showBranding$ = new Subject<boolean>();
+  public COPYKEY = 'bc';
 
   private page: IPage = {
     title: '着陆页',

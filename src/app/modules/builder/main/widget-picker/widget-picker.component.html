@@ -1,13 +1,13 @@
 <div class="widget-picker">
   <div class="box flex flex-wrap" *ngIf="widgets$ | async as widgets">
-    <div class="item flex-4/12 md:flex-2/12" (click)="onCopyData()">
+    <div *ngIf="bcData" class="item" (click)="onPasteData()">
       <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700">
         <app-icon [content]="{svg:'content-paste'}"></app-icon>
-        <div class="title">粘贴复制的组件</div>
+        <div class="title">粘贴组件</div>
       </div>
     </div>
-    <div class="item flex-4/12 md:flex-2/12" #item (mouseenter)="onHover(widget, item)"
-      (click)="onSelect(widget.content)" matRipple *ngFor="let widget of widgets">
+    <div class="item" #item (mouseenter)="onHover(widget, item)" (click)="onSelect(widget.content)" matRipple
+      *ngFor="let widget of widgets">
       <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
         <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
         <div class="title" title="{{widget.label}}">{{widget.label}}</div>

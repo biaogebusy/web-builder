@@ -14,6 +14,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -39,13 +40,14 @@ export class ComponentToolbarComponent implements OnInit {
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
+    private storage: LocalStorageService,
+    private util: UtilitiesService,
     @Inject(IS_BUILDER_MODE)
-    public isBuilderMode$: Observable<boolean>,
-    private util: UtilitiesService
+    public isBDMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
-    this.isBuilderMode$.subscribe((state) => {
+    this.isBDMode$.subscribe((state) => {
       this.enableBuilderToolbar = state;
     });
   }
@@ -63,6 +65,7 @@ export class ComponentToolbarComponent implements OnInit {
     if (content) {
       this.util.copy(JSON.stringify(content));
       this.util.openSnackbar(`已复制${content.type}JSON`);
+      this.storage.store(this.builder.COPYKEY, content);
     }
   }
 

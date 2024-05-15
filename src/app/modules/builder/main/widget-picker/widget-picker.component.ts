@@ -15,6 +15,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, WIDGETS } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
+import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
@@ -26,9 +27,14 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @ViewChild('popup', { static: false }) popup: ElementRef;
   public widget$: Subject<any> = new Subject();
   help: any;
+
+  @LocalStorage('bc')
+  public bcData: any;
+
   constructor(
-    private builder: BuilderState,
+    public builder: BuilderState,
     private dialog: MatDialog,
+    private storage: LocalStorageService,
     @Inject(WIDGETS) public widgets$: Observable<any[]>,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
@@ -39,10 +45,9 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {}
 
-  onCopyData(): void {
-    navigator.clipboard.readText().then((data) => {
-      this.onSelect(JSON.parse(data));
-    });
+  onPasteData(): void {
+    this.onSelect(this.bcData);
+    this.storage.clear(this.builder.COPYKEY);
   }
 
   onSelect(widget: any): void {

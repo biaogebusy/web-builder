@@ -30,8 +30,6 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./builder.component.scss'],
 })
 export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
-  @LocalStorage('version')
-  version: IPage[];
   @ViewChild('builderRightDrawer', { static: false })
   builderRightDrawer: MatDrawer;
   @LocalStorage('builderFullScreen')
