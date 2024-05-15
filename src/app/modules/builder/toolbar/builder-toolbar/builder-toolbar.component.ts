@@ -145,7 +145,7 @@ export class BuilderToolbarComponent
         this.onNewPage();
       } else {
         // submit new page
-        if (!this.user) {
+        if (!this.user.authenticated) {
           this.openLogin();
           return;
         }
