@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { UserService } from '@core/service/user.service';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { NodeService } from '@core/service/node.service';
 import { IUser } from '@core/interface/IUser';
@@ -39,8 +39,13 @@ export class AuthGuard implements CanActivate {
         .fetch(`/api/v1/config`, 'content=/core/base')
         .pipe(
           switchMap((config: ICoreConfig) => {
-            const guardConfig = config.guard;
-            if (state.url.startsWith('/my') || guardConfig?.authGuard) {
+            const {
+              authGuard,
+              defaultDrupalLoginPage,
+              defaultFrontLoginPage,
+              checkUserState,
+            } = config.guard;
+            if (state.url.startsWith('/my') || authGuard) {
               return this.userService.getLoginState().pipe(
                 map((status) => {
                   // console.log('userState:', status);
@@ -52,14 +57,14 @@ export class AuthGuard implements CanActivate {
                     }
                     return true;
                   } else {
-                    this.userService.logouLocalUser();
+                    this.userService.logoutLocalUser();
                     if (environment?.drupalProxy) {
                       window.location.href =
-                        guardConfig.defaultDrupalLoginPage || '/user/login';
+                        defaultDrupalLoginPage || '/user/login';
                       return false;
                     } else {
                       this.router.navigate(
-                        [guardConfig.defaultFrontLoginPage || '/me/login'],
+                        [defaultFrontLoginPage || '/me/login'],
                         {
                           queryParams: { returnUrl: state.url },
                         }
@@ -71,18 +76,35 @@ export class AuthGuard implements CanActivate {
                 catchError(() => {
                   if (environment?.drupalProxy) {
                     window.location.href =
-                      guardConfig.defaultDrupalLoginPage || '/user/login';
+                      defaultDrupalLoginPage || '/user/login';
                     return of(false);
                   } else {
                     this.router.navigate([
-                      guardConfig.defaultFrontLoginPage || '/me/login',
+                      defaultFrontLoginPage || '/me/login',
                     ]);
                     return of(false);
                   }
                 })
               );
+            } else {
+              if (checkUserState) {
+                // user logged check state
+                this.userService
+                  .getLoginState()
+                  .pipe(
+                    tap((status) => {
+                      if (!status) {
+                        this.userService.logoutLocalUser();
+                      }
+                      if (status && !this.user) {
+                        this.userService.updateUserBySession();
+                      }
+                    })
+                  )
+                  .subscribe();
+              }
+              return of(true);
             }
-            return of(true);
           })
         );
     } else {

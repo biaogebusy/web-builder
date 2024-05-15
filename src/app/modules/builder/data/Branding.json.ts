@@ -25,7 +25,7 @@ export const defaultHeader: IHeader = {
             svg: 'tooltip-check-outline',
             inline: true,
           },
-          label: 'v4.2.4',
+          label: 'v5.0.0',
         },
         {
           icon: {
@@ -178,7 +178,7 @@ export const enDefaultHeader: IHeader = {
             svg: 'tooltip-check-outline',
             inline: true,
           },
-          label: 'v4.2.4',
+          label: 'v5.0.0',
         },
         {
           icon: {

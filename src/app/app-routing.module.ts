@@ -23,11 +23,13 @@ const routes: Routes = [
   },
   {
     path: 'builder',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/builder/builder.module').then((m) => m.BuilderModule),
   },
   {
     path: 'en/builder',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/builder/builder.module').then((m) => m.BuilderModule),
   },

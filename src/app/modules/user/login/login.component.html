@@ -1,20 +1,21 @@
-<div class="login-container" fxLayoutAlign="center center">
-  <div class="login-wrapper m-x relative" fxLayout>
-    <div *ngIf="!screenState.eq('xs')" class="login-second relative p-x-sm p-y-sm" fxFlex.xs="100" fxFlex.gt-xs="50"
-      fxLayoutAlign="center center">
+<div class="login-container flex justify-center items-center">
+  <div class="login-wrapper relative flex justify-center items-center rounded-xl">
+    <div
+      class="hidden sm:flex justify-center items-center login-second relative p-5 flex-12/12 sm:flex-6/12 box-border">
       <app-dynamic-component *ngIf="coreConfig.login.left" [inputs]="coreConfig.login.left">
       </app-dynamic-component>
     </div>
-    <div class="login-form relative" [class.is-login]="currentUser.authenticated" fxFlex.xs="100" fxFlex.gt-xs="50"
-      fxLayout="column" fxLayoutAlign="center center">
+    <div
+      class="flex flex-col justify-center items-center login-form p-3 z-10 overflow-hidden relative flex-12/12 sm:flex-6/12 box-border"
+      [class.is-login]="currentUser.authenticated">
       <div class="w-full form-scroll" *ngIf="!loading">
         <ng-container *ngIf="!currentUser.authenticated">
-          <div *ngIf="error" class="error p-y-xs p-x-xs m-bottom-xs">{{error}}
+          <div *ngIf="error" class="error p-3 mb-3">{{error}}
           </div>
           <mat-tab-group animationDuration="0ms" [disablePagination]="true">
             <mat-tab label="{{coreConfig.login.phoneLogin.tabLabel || '手机登录'}}"
               *ngIf="coreConfig.login?.phoneLogin?.enable">
-              <form class="p-y-sm" fxLayout="column" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
+              <form class="flex flex-col py-5" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
                 <mat-form-field appearance="fill">
                   <mat-label>请输入手机号码</mat-label>
                   <mat-icon matSuffix>phone_iphone</mat-icon>
@@ -36,15 +37,15 @@
                   </button>
                 </mat-form-field>
                 <button type="submit" mat-raised-button color="primary">
-                  <div fxLayoutAlign="center center">
-                    <div class="p-x-xs">{{coreConfig.login.phoneLogin.submitLabel}}</div>
+                  <div class="flex justify-center items-center">
+                    <div class="px-3">{{coreConfig.login.phoneLogin.submitLabel}}</div>
                   </div>
                 </button>
               </form>
             </mat-tab>
             <mat-tab label="{{coreConfig.login.pswLogin.tabLabel || '密码登录'}}"
               *ngIf="coreConfig.login?.pswLogin?.enable">
-              <form class="p-y-sm" fxLayout="column" [formGroup]="userForm" (ngSubmit)="login()">
+              <form class="flex flex-col py-5" [formGroup]="userForm" (ngSubmit)="login()">
                 <mat-form-field appearance="fill">
                   <mat-label>用户名</mat-label>
                   <mat-icon matSuffix>person</mat-icon>
@@ -73,7 +74,7 @@
             Hi, {{currentUser.display_name}}
           </h1>
           <mat-divider></mat-divider>
-          <p class="text-base m-top-xs">欢迎。</p>
+          <p class="text-base mt-3">欢迎。</p>
         </ng-container>
       </div>
       <mat-spinner diameter="50" color="accent" *ngIf="loading"></mat-spinner>
