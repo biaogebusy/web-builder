@@ -96,7 +96,7 @@ export class LayoutSettingComponent implements OnDestroy {
   }
 
   showCode(): void {
-    const { pageIndex, path } = this.content;
+    const { path } = this.content;
 
     // layout builder level
     if (path) {

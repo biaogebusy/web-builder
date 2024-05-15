@@ -14,6 +14,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -31,23 +32,22 @@ export class ComponentToolbarComponent implements OnInit {
   @Input() isStory: boolean;
   @Input() index: number;
   @Output() uuidChange: EventEmitter<string> = new EventEmitter();
-  @Output() filterChange: EventEmitter<boolean> = new EventEmitter();
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
   enableBuilderToolbar: boolean;
-  showHierarchy: boolean = false;
-  showGrid: boolean = false;
+  showGrid = false;
 
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
+    private storage: LocalStorageService,
+    private util: UtilitiesService,
     @Inject(IS_BUILDER_MODE)
-    public isBuilderMode$: Observable<boolean>,
-    private util: UtilitiesService
+    public isBDMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
-    this.isBuilderMode$.subscribe((state) => {
+    this.isBDMode$.subscribe((state) => {
       this.enableBuilderToolbar = state;
     });
   }
@@ -58,6 +58,16 @@ export class ComponentToolbarComponent implements OnInit {
 
   onUpdown(index: number, direction: string): void {
     this.builder.upDownComponent(index, direction);
+  }
+
+  onCopy(): void {
+    const content = this.content.type ? this.content : this.content.content;
+    if (content) {
+      delete content.extra;
+      this.util.copy(JSON.stringify(content));
+      this.util.openSnackbar(`已复制${content.type}JSON`);
+      this.storage.store(this.builder.COPYKEY, content);
+    }
   }
 
   onSetting(content: any, pageIndex: number, event: any): void {
@@ -85,11 +95,6 @@ export class ComponentToolbarComponent implements OnInit {
     } else {
       this.builder.onComponentSetting(component, pageIndex, uuid, path);
     }
-  }
-
-  onHierarchy(): void {
-    this.showHierarchy = !this.showHierarchy;
-    this.filterChange.emit(this.showHierarchy);
   }
 
   onShowGrid(): void {
