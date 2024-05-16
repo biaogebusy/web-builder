@@ -2,11 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   Input,
   OnInit,
-  Renderer2,
 } from '@angular/core';
-import { ICustomTemplate } from '@core/interface/IBuilder';
+import type { ICustomTemplate } from '@core/interface/IBuilder';
 import Handlebars from 'handlebars';
 import DOMPurify from 'dompurify';
 
@@ -18,7 +18,7 @@ import DOMPurify from 'dompurify';
 })
 export class CustomTemplateComponent implements OnInit, AfterViewInit {
   @Input() content: ICustomTemplate;
-  constructor(private renderer: Renderer2) {}
+  constructor(private ele: ElementRef) {}
 
   ngOnInit(): void {}
 
@@ -28,7 +28,7 @@ export class CustomTemplateComponent implements OnInit, AfterViewInit {
 
   render(content: ICustomTemplate): void {
     const { html, data } = content;
-    const parent = document.querySelector('.custom-template');
+    const parent = this.ele.nativeElement.querySelector('.custom-template');
     if (parent) {
       const sanitized = DOMPurify.sanitize(html);
       const template = Handlebars.compile(sanitized);
