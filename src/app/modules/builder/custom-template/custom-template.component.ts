@@ -9,6 +9,7 @@ import {
 import type { ICustomTemplate } from '@core/interface/IBuilder';
 import Handlebars from 'handlebars';
 import DOMPurify from 'dompurify';
+import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
   selector: 'app-custom-template',
@@ -28,7 +29,7 @@ export class CustomTemplateComponent implements OnInit, AfterViewInit {
 
   render(content: ICustomTemplate): void {
     const { html, data } = content;
-    const parent = this.ele.nativeElement.querySelector('.custom-template');
+    const parent = this.ele.nativeElement.querySelector('.template');
     if (parent) {
       const sanitized = DOMPurify.sanitize(html);
       const template = Handlebars.compile(sanitized);

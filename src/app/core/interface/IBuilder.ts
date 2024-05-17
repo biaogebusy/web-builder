@@ -119,7 +119,7 @@ export interface IMetaEdit {
   fields?: FormlyFieldConfig[];
 }
 
-export interface ICustomTemplate {
+export interface ICustomTemplate extends ICombsBase {
   type: string;
   html: string;
   data: any;
