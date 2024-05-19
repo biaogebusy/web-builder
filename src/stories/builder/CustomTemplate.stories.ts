@@ -39,7 +39,7 @@ Default.storyName = '默认';
 Default.args = {
   content: {
     type: 'custom-template',
-    data: {
+    json: {
       title: 'web builder',
       subTitle: '是一款通过拖拽组件构建页面的低代码',
       img: '/assets/images/avatar/05.jpeg',
@@ -70,7 +70,7 @@ Simple.storyName = '简单';
 Simple.args = {
   content: {
     type: 'custom-template',
-    data: {
+    json: {
       img: '/assets/images/avatar/05.jpeg',
     },
     html: `<div class="flex">
@@ -138,7 +138,7 @@ export const Playful = Template.bind({});
 Playful.storyName = 'Playful';
 Playful.args = {
   content: {
-    data: {
+    json: {
       img: '/assets/images/avatar/05.jpeg',
     },
     html: `
@@ -206,7 +206,7 @@ export const Elegant = Template.bind({});
 Elegant.storyName = 'Elegant';
 Elegant.args = {
   content: {
-    data: {
+    json: {
       img: '/assets/images/avatar/05.jpeg',
     },
     html: `
@@ -274,7 +274,7 @@ export const Responsive = Template.bind({});
 Responsive.storyName = '响应式';
 Responsive.args = {
   content: {
-    data: {},
+    json: {},
     html: `<div class="grid grid-cols-1 sm:grid-cols-2 sm:px-8 sm:py-12 sm:gap-x-8 md:py-16 bg-shadow rounded-xl overflow-hidden">
   <div class="relative z-10 col-start-1 row-start-1 px-4 pt-40 pb-3 bg-gradient-to-t from-black sm:bg-none">
     <p class="text-sm font-medium text-white sm:mb-1 sm:text-gray-500">Entire house</p>
@@ -323,7 +323,7 @@ export const State = Template.bind({});
 State.storyName = '状态';
 State.args = {
   content: {
-    data: {},
+    json: {},
     html: `<div class="bg-white dark:bg-gray-800 rounded-tl-xl sm:rounded-t-xl p-4 pb-6 sm:p-8 lg:p-4 lg:pb-6 xl:p-8 space-y-6 sm:space-y-8 lg:space-y-6 xl:space-y-8">
   <div class="flex items-center space-x-3.5 sm:space-x-5 lg:space-x-3.5 xl:space-x-5">
     <img src="/assets/images/avatar/03.jpeg" alt="" width="160" height="160" class="flex-none w-20 h-20 rounded-lg bg-gray-100" />
@@ -398,7 +398,7 @@ export const Hero = Template.bind({});
 Hero.storyName = 'Hero';
 Hero.args = {
   content: {
-    data: {},
+    json: {},
     html: `<div class="bg-white">
   <header class="absolute inset-x-0 top-0 z-50">
     <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -492,7 +492,7 @@ export const Feature = Template.bind({});
 Feature.storyName = 'Feature';
 Feature.args = {
   content: {
-    data: {},
+    json: {},
     html: `<div class="overflow-hidden bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
@@ -546,7 +546,7 @@ export const TwoGrid = Template.bind({});
 TwoGrid.storyName = 'TwoGrid';
 TwoGrid.args = {
   content: {
-    data: {},
+    json: {},
     html: `<div class="bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl lg:text-center">
@@ -614,7 +614,7 @@ export const Action = Template.bind({});
 Action.storyName = 'Action';
 Action.args = {
   content: {
-    data: {},
+    json: {},
     html: `<div class="bg-white">
   <div class="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
     <div class="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
@@ -650,7 +650,7 @@ export const Pricing = Template.bind({});
 Pricing.storyName = 'Pricing';
 Pricing.args = {
   content: {
-    data: {},
+    json: {},
     html: `<div class="bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl sm:text-center">
