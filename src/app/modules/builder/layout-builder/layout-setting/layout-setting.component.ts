@@ -31,7 +31,7 @@ export class LayoutSettingComponent implements OnDestroy {
     private builder: BuilderState,
     private dialog: MatDialog,
     private cd: ChangeDetectorRef
-  ) {}
+  ) { }
 
   onModelChange(value: any): void {
     const { path } = this.content;
@@ -95,7 +95,7 @@ export class LayoutSettingComponent implements OnDestroy {
     });
   }
 
-  showCode(): void {
+  editorJSON(): void {
     const { path } = this.content;
 
     // layout builder level
@@ -112,6 +112,29 @@ export class LayoutSettingComponent implements OnDestroy {
             content: json,
           },
         },
+      });
+    }
+  }
+
+  editorCode(): void {
+    const { path } = this.content;
+    if (path && this.content.content.type === 'custom-template') {
+      this.dialog.open(DialogComponent, {
+        width: '100vw',
+        height: '35vh',
+        hasBackdrop: false,
+        position: {
+          bottom: '0px'
+        },
+        data: {
+          inputData: {
+            content: {
+              type: 'code-editor',
+              path,
+              content: get(this.builder.currentPage.body, path)
+            }
+          }
+        }
       });
     }
   }

@@ -12,7 +12,7 @@ import { BaseModule } from '@uiux/base/base.module';
 })
 export class ComponentService {
   private moduleLists: { [key: string]: () => Promise<any> } = {};
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector) { }
 
   initUiuxModuleLoad(): void {
     [
@@ -262,6 +262,7 @@ export class ComponentService {
       'inline-editor',
       'widget-picker',
       'layout-setting',
+      'code-editor'
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule)

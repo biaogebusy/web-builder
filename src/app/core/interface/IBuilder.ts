@@ -122,5 +122,13 @@ export interface IMetaEdit {
 export interface ICustomTemplate extends ICombsBase {
   type: string;
   html: string;
-  data: any;
+  json: any;
+}
+
+export interface ICodeEditor {
+  content: {
+    html: string;
+    json: any;
+  };
+  path: string;
 }

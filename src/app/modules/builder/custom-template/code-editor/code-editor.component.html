@@ -1,0 +1,15 @@
+<div class="code-editor flex">
+  <div class="flex-4/12">
+    <json-editor [options]="editorOptions" [data]="json" (change)="onJsonChange($event)"></json-editor>
+  </div>
+  <div class="flex-8/12">
+    <ngx-codemirror (ngModelChange)="onHTMLChange($event)" [ngModel]="html" [options]="{
+    lineNumbers: true,
+    theme: 'material',
+    mode: 'htmlmixed',
+    lineWrapping: true,
+    matchBrackets: true,
+    autoCloseBrackets: true
+  }"></ngx-codemirror>
+  </div>
+</div>

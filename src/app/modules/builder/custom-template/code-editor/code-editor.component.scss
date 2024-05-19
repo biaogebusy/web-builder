@@ -1,0 +1,16 @@
+.code-editor{
+  min-height: calc(35vh - 100px);
+  ::ng-deep{
+    .CodeMirror{
+      font-size: 14px;
+    }
+  }
+  json-editor{
+    ::ng-deep{
+      >*{
+        display: block;
+        height: 100%;
+      }
+    }
+  }
+}
