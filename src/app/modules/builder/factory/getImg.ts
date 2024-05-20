@@ -16,13 +16,13 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'src',
               type: 'img-picker',
-              defaultValue: widget.src || '',
+              defaultValue: widget.src ?? '',
               templateOptions: {
                 updateLabel: '更新图片',
                 addLabel: '设置图片',
                 deleteLabel: '删除',
                 fileName: widget.src.split('/').pop(),
-                alt: widget.alt || '',
+                alt: widget.alt ?? '',
               },
             },
             {
@@ -56,7 +56,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
                   type: 'select',
                   key: 'aspectRatio',
                   className: 'w-full',
-                  defaultValue: widget?.style?.aspectRatio || 'auto',
+                  defaultValue: widget?.style?.aspectRatio ?? 'auto',
                   templateOptions: {
                     label: '宽高比',
                     options: getAspectRatio,
@@ -66,7 +66,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
                   type: 'select',
                   key: 'objectFit',
                   className: 'w-full',
-                  defaultValue: widget?.style?.objectFit || 'initial',
+                  defaultValue: widget?.style?.objectFit ?? 'initial',
                   templateOptions: {
                     label: '填充方式',
                     options: getObjectFix,

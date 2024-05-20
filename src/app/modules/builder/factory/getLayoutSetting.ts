@@ -18,7 +18,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'xs',
               className: 'w-2/5',
-              defaultValue: layout?.row?.xs || 12,
+              defaultValue: layout?.row?.xs ?? 12,
               templateOptions: {
                 min: 1,
                 max: 12,
@@ -30,7 +30,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'sm',
               className: 'w-2/5',
-              defaultValue: layout?.row?.sm || 12,
+              defaultValue: layout?.row?.sm ?? 12,
               templateOptions: {
                 min: 1,
                 max: 12,
@@ -42,7 +42,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'md',
               className: 'w-2/5',
-              defaultValue: layout?.row?.md || 12,
+              defaultValue: layout?.row?.md ?? 12,
               templateOptions: {
                 min: 1,
                 max: 12,
@@ -54,7 +54,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'lg',
               className: 'w-2/5',
-              defaultValue: layout?.row?.lg || 12,
+              defaultValue: layout?.row?.lg ?? 12,
               templateOptions: {
                 min: 1,
                 max: 12,
@@ -84,7 +84,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           {
             key: 'src',
             type: 'img-picker',
-            defaultValue: layout?.bg?.img?.src || '',
+            defaultValue: layout?.bg?.img?.src ?? '',
             templateOptions: {
               updateLabel: '更新背景图',
               addLabel: '设置背景图',
@@ -106,7 +106,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           {
             key: 'alt',
             type: 'input',
-            defaultValue: layout?.bg?.img?.alt || '',
+            defaultValue: layout?.bg?.img?.alt ?? '',
             templateOptions: {
               label: 'alt',
             },
@@ -115,7 +115,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           {
             key: 'classes',
             type: 'select',
-            defaultValue: layout?.bg?.img?.classes || 'object-fit',
+            defaultValue: layout?.bg?.img?.classes ?? 'object-fit',
             templateOptions: {
               label: '背景填充方式',
               options: [
@@ -141,7 +141,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         type: 'select',
         key: 'overlay',
         className: 'w-full',
-        defaultValue: layout?.bg?.overlay || '',
+        defaultValue: layout?.bg?.overlay ?? '',
         templateOptions: {
           label: '蒙版不透明度',
           options: getOverlay,
@@ -150,7 +150,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       {
         key: 'classes',
         type: 'select',
-        defaultValue: layout?.bg?.classes || 'bg-fill-width',
+        defaultValue: layout?.bg?.classes ?? 'bg-fill-width',
         templateOptions: {
           label: '预设背景色',
           options: getBgClasses,
@@ -167,7 +167,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           type: 'input',
           key: 'classes',
           className: 'w-full',
-          defaultValue: layout?.classes || '',
+          defaultValue: layout?.classes ?? '',
           templateOptions: {
             label: 'Layout Class',
           },
@@ -176,7 +176,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           type: 'input',
           key: 'blockClasses',
           className: 'w-full',
-          defaultValue: layout?.blockClasses || '',
+          defaultValue: layout?.blockClasses ?? '',
           templateOptions: {
             label: 'Block Class',
           },

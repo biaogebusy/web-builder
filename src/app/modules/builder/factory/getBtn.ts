@@ -15,7 +15,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'color',
               type: 'select',
               className: 'w-full',
-              defaultValue: widget.color || null,
+              defaultValue: widget.color ?? null,
               templateOptions: {
                 label: '颜色',
                 options: [
@@ -42,7 +42,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'label',
               type: 'input',
               className: 'w-full',
-              defaultValue: widget.label || '',
+              defaultValue: widget.label ?? '',
               templateOptions: {
                 type: 'text',
                 label: '文本',
@@ -53,7 +53,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'mode',
               type: 'select',
               className: 'w-full',
-              defaultValue: widget.mode || 'basic',
+              defaultValue: widget.mode ?? 'basic',
               templateOptions: {
                 label: '类型',
                 options: [
@@ -92,7 +92,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'href',
               type: 'input',
               className: 'w-full',
-              defaultValue: widget.href || '/',
+              defaultValue: widget.href ?? '/',
               templateOptions: {
                 type: 'text',
                 label: '链接地址',
@@ -102,7 +102,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'target',
               type: 'select',
               className: 'w-full',
-              defaultValue: widget.target || '_blank',
+              defaultValue: widget.target ?? '_blank',
               templateOptions: {
                 label: '打开方式',
                 options: [
@@ -126,7 +126,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'svg',
                   type: 'input',
                   className: 'w-full',
-                  defaultValue: widget?.icon?.svg || '',
+                  defaultValue: widget?.icon?.svg ?? '',
                   templateOptions: {
                     label: '图标',
                   },
@@ -142,7 +142,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'classes',
               type: 'input',
               className: 'w-full',
-              defaultValue: widget.classes || '',
+              defaultValue: widget.classes ?? '',
               templateOptions: {
                 type: 'text',
                 label: 'Class',
@@ -152,7 +152,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'pill',
               type: 'toggle',
               className: 'w-full',
-              defaultValue: widget.pill || false,
+              defaultValue: widget.pill ?? false,
               templateOptions: {
                 label: '胶囊样式',
               },

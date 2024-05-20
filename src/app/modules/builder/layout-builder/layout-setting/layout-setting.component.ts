@@ -1,8 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
 } from '@angular/core';
@@ -30,7 +32,8 @@ export class LayoutSettingComponent implements OnDestroy {
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    @Inject(DOCUMENT) private doc: Document
   ) { }
 
   onModelChange(value: any): void {
@@ -118,10 +121,12 @@ export class LayoutSettingComponent implements OnDestroy {
 
   editorCode(): void {
     const { path } = this.content;
+    let dialogRef: any;
+    let builderList: any;
     if (path && this.content.content.type === 'custom-template') {
-      this.dialog.open(DialogComponent, {
+      dialogRef = this.dialog.open(DialogComponent, {
         width: '100vw',
-        height: '35vh',
+        height: '460px',
         hasBackdrop: false,
         position: {
           bottom: '0px'
@@ -135,6 +140,15 @@ export class LayoutSettingComponent implements OnDestroy {
             }
           }
         }
+      });
+
+      dialogRef.afterOpened().subscribe(() => {
+        builderList = this.doc.querySelector('#builder-list');
+        builderList.style.paddingBottom = '500px';
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        builderList.style.paddingBottom = '150px';
       });
     }
   }

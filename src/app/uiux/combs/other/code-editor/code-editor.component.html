@@ -1,11 +1,9 @@
-<div class="code-editor flex" *ngIf="screenService.isPlatformBrowser()">
-  <div class="flex-4/12">
+<div class="code-editor flex gap-2" *ngIf="screenService.isPlatformBrowser()">
+  <div class="box flex-4/12">
     <json-editor [options]="editorOptions" [data]="json" (change)="onJsonChange($event)"></json-editor>
   </div>
-  <div class="flex-8/12">
+  <div class="box flex-8/12">
     <ngx-codemirror (ngModelChange)="onHTMLChange($event)" [ngModel]="html" [options]="{
-    lineNumbers: true,
-    theme: 'material',
     mode: 'htmlmixed',
     lineWrapping: true,
     matchBrackets: true,

@@ -1,15 +1,13 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import type { ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
+import { JsonEditorOptions } from 'ang-jsoneditor';
 import { get } from 'lodash-es';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 @Component({
@@ -24,12 +22,9 @@ export class CodeEditorComponent implements OnInit {
   html: string;
   json: any;
 
-  @ViewChild(JsonEditorComponent, { static: false })
-  editor: JsonEditorComponent;
   constructor(
     public screenService: ScreenService,
     private builder: BuilderState,
-    private cd: ChangeDetectorRef
   ) {
     if (this.screenService.isPlatformBrowser()) {
       this.editorOptions = new JsonEditorOptions();

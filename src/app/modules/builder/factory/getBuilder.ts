@@ -16,7 +16,7 @@ export function getBuilder(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'input',
               key: 'wrapperClass',
               className: 'w-full',
-              defaultValue: widget.wrapperClass || '',
+              defaultValue: widget.wrapperClass ?? '',
               templateOptions: {
                 label: 'Wrapper Classes',
               },
