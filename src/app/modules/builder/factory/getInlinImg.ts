@@ -12,7 +12,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'width',
-              defaultValue: ele.style.width || 'auto',
+              defaultValue: ele.style.width ?? 'auto',
               className: 'w-2/5',
               templateOptions: {
                 label: 'W',
@@ -22,7 +22,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'height',
               className: 'w-2/5',
-              defaultValue: ele.style.height || 'auto',
+              defaultValue: ele.style.height ?? 'auto',
               templateOptions: {
                 label: 'H',
               },
@@ -31,7 +31,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'opacity',
               className: 'w-2/5',
-              defaultValue: ele.style.opacity || 1,
+              defaultValue: ele.style.opacity ?? 1,
               templateOptions: {
                 label: 'Opacity',
                 type: 'number',
@@ -42,7 +42,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'borderRadius',
               className: 'w-2/5',
-              defaultValue: ele.style.borderRadius || 0,
+              defaultValue: ele.style.borderRadius ?? 0,
               templateOptions: {
                 label: '圆角',
               },
@@ -53,7 +53,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
           type: 'select',
           key: 'boxShadow',
           className: 'w-full',
-          defaultValue: ele.style.boxShadow || 'none',
+          defaultValue: ele.style.boxShadow ?? 'none',
           templateOptions: {
             label: '阴影',
             options: [
@@ -80,7 +80,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
           type: 'select',
           key: 'aspectRatio',
           className: 'w-full',
-          defaultValue: ele.style.aspectRatio || 'auto',
+          defaultValue: ele.style.aspectRatio ?? 'auto',
           templateOptions: {
             label: '宽高比',
             options: getAspectRatio,
@@ -90,7 +90,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
           type: 'select',
           key: 'objectFit',
           className: 'w-full',
-          defaultValue: ele.style.objectFit || 'initial',
+          defaultValue: ele.style.objectFit ?? 'initial',
           templateOptions: {
             label: '填充方式',
             options: getObjectFix,

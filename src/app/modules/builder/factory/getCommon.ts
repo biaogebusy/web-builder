@@ -339,7 +339,7 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       type: 'select',
       key: 'direction',
       className: 'w-full',
-      defaultValue: content.direction || 'row',
+      defaultValue: content.direction ?? 'row',
       templateOptions: {
         label: '布局方向',
         options: getDirectionOption,
@@ -353,7 +353,7 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       type: 'select',
       key: 'wrap',
       className: 'w-full',
-      defaultValue: content.wrap || 'wrap',
+      defaultValue: content.wrap ?? 'wrap',
       templateOptions: {
         label: '换行',
         options: getWrapOption,

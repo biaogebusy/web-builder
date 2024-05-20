@@ -21,7 +21,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               type: 'select',
               key: 'fullWidth',
               className: 'w-1/2 mr-5',
-              defaultValue: content.fullWidth,
+              defaultValue: content.fullWidth ?? false,
               templateOptions: {
                 label: '全屏宽',
                 options: [
@@ -39,7 +39,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'select',
               key: 'spacer',
-              defaultValue: content.spacer || 'md',
+              defaultValue: content.spacer ?? 'md',
               className: 'w-2/5',
               templateOptions: {
                 label: '上下间距',
@@ -75,7 +75,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               type: 'select',
               key: 'bgClasses',
               className: 'w-1/2 mr-5',
-              defaultValue: content?.bg?.classes || 'bg- bg-fill-width',
+              defaultValue: content?.bg?.classes ?? 'bg- bg-fill-width',
               templateOptions: {
                 label: '背景色',
                 options: getBgClasses,
@@ -85,7 +85,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               type: 'select',
               key: 'overlay',
               className: 'w-2/5',
-              defaultValue: content?.bg?.overlay || '',
+              defaultValue: content?.bg?.overlay ?? '',
               templateOptions: {
                 label: '蒙版',
                 options: getOverlay,
@@ -95,7 +95,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'classes',
               className: 'w-1/2 mr-5',
-              defaultValue: content.classes || '',
+              defaultValue: content.classes ?? '',
               templateOptions: {
                 label: 'Classes',
                 description: '组件 class',
@@ -105,7 +105,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'id',
               className: 'w-2/5',
-              defaultValue: content.id || '',
+              defaultValue: content.id ?? '',
               templateOptions: {
                 label: 'ID',
                 description: 'HTML ID',
@@ -121,7 +121,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                     {
                       key: 'src',
                       type: 'img-picker',
-                      defaultValue: content?.bg?.img?.src || '',
+                      defaultValue: content?.bg?.img?.src ?? '',
                       templateOptions: {
                         updateLabel: '更新背景图',
                         addLabel: '设置背景图',
@@ -145,7 +145,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                     {
                       key: 'classes',
                       type: 'select',
-                      defaultValue: content?.bg?.img?.classes || 'object-fit',
+                      defaultValue: content?.bg?.img?.classes ?? 'object-fit',
                       templateOptions: {
                         label: '背景填充方式',
                         options: [
@@ -168,7 +168,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                     {
                       key: 'alt',
                       type: 'input',
-                      defaultValue: content?.bg?.img?.alt || '',
+                      defaultValue: content?.bg?.img?.alt ?? '',
                       templateOptions: {
                         label: 'alt',
                       },
@@ -178,7 +178,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                 {
                   key: 'classes',
                   type: 'input',
-                  defaultValue: content?.bg?.classes || 'bg-fill-width',
+                  defaultValue: content?.bg?.classes ?? 'bg-fill-width',
                   templateOptions: {
                     label: 'Bg Class',
                   },
@@ -219,7 +219,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             type: 'input',
             key: 'wrapperClass',
             className: 'w-full',
-            defaultValue: content.wrapperClass || '',
+            defaultValue: content.wrapperClass ?? '',
             templateOptions: {
               label: 'Wrapper Classes',
             },
