@@ -1,6 +1,7 @@
 <div class="widget-picker">
   <div class="box flex flex-wrap" *ngIf="widgets$ | async as widgets">
-    <div *ngIf="bcData" class="item" (click)="onPasteData()">
+    <div #copy *ngIf="bcData" class="item" (click)="onPasteData()" (mouseenter)="onHover({content:bcData}, copy)"
+      matRipple>
       <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700">
         <app-icon [content]="{svg:'content-paste'}"></app-icon>
         <div class="title">粘贴组件</div>
