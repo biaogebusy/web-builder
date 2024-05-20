@@ -47,8 +47,6 @@ import { LayoutToolbarComponent } from './layout-builder/layout-toolbar/layout-t
 import { BlockToolbarComponent } from './layout-builder/block-toolbar/block-toolbar.component';
 import { CountdownModule } from 'ngx-countdown';
 import { CustomTemplateComponent } from './custom-template/custom-template.component';
-import { NgJsonEditorModule } from 'ang-jsoneditor';
-import { CodeEditorComponent } from './custom-template/code-editor/code-editor.component';
 
 const components = [
   BuilderComponent,
@@ -61,7 +59,6 @@ const components = [
   LayoutSettingComponent,
   BuilderTemplateComponent,
   CustomTemplateComponent,
-  CodeEditorComponent
 ];
 
 @NgModule({
@@ -92,8 +89,6 @@ const components = [
     DragDropModule,
     CountdownModule,
     BuilderRoutingModule,
-    CodemirrorModule,
-    NgJsonEditorModule
   ],
   providers: [
     {

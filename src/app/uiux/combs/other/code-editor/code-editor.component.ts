@@ -1,22 +1,36 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import type { ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { JsonEditorOptions } from 'ang-jsoneditor';
+import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { get } from 'lodash-es';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CodeEditorComponent implements OnInit {
   @Input() content: ICodeEditor;
   public editorOptions: JsonEditorOptions;
   html: string;
   json: any;
-  constructor(private screenService: ScreenService, private builder: BuilderState, private cd: ChangeDetectorRef) {
+
+  @ViewChild(JsonEditorComponent, { static: false })
+  editor: JsonEditorComponent;
+  constructor(
+    public screenService: ScreenService,
+    private builder: BuilderState,
+    private cd: ChangeDetectorRef
+  ) {
     if (this.screenService.isPlatformBrowser()) {
       this.editorOptions = new JsonEditorOptions();
       this.editorOptions.mode = 'code'; // set only one mode
@@ -48,5 +62,4 @@ export class CodeEditorComponent implements OnInit {
       this.builder.updatePageContentByPath(`${path}`, content);
     }
   }
-
 }

@@ -9,18 +9,21 @@ import { AutocloseComponent } from './autoclose/autoclose.component';
 import { BaseModule } from '@uiux/base/base.module';
 import { JsoneditorComponent } from './jsoneditor/jsoneditor.component';
 import { ThemePreviewComponent } from './theme-preview/theme-preview.component';
+import { CodeEditorComponent } from './code-editor/code-editor.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 const components = [
   NotfoundComponent,
   DynamicFormComponent,
   AutocloseComponent,
   JsoneditorComponent,
+  CodeEditorComponent,
   ThemePreviewComponent,
 ];
 
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule, NgJsonEditorModule],
+  imports: [ShareModule, WidgetsModule, NgJsonEditorModule, CodemirrorModule],
   exports: [...components],
 })
 export class OtherModule extends BaseModule {

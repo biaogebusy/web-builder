@@ -1,4 +1,4 @@
-<div class="code-editor flex">
+<div class="code-editor flex" *ngIf="screenService.isPlatformBrowser()">
   <div class="flex-4/12">
     <json-editor [options]="editorOptions" [data]="json" (change)="onJsonChange($event)"></json-editor>
   </div>

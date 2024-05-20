@@ -12,7 +12,7 @@ import { BaseModule } from '@uiux/base/base.module';
 })
 export class ComponentService {
   private moduleLists: { [key: string]: () => Promise<any> } = {};
-  constructor(private injector: Injector) { }
+  constructor(private injector: Injector) {}
 
   initUiuxModuleLoad(): void {
     [
@@ -182,11 +182,17 @@ export class ComponentService {
       )
     );
 
-    ['autoclose', 'dynamic-form', '404', 'jsoneditor', 'theme-preview'].forEach(
-      (type) =>
-        this.setModule(type, () =>
-          import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
-        )
+    [
+      'autoclose',
+      'dynamic-form',
+      '404',
+      'jsoneditor',
+      'theme-preview',
+      'code-editor',
+    ].forEach((type) =>
+      this.setModule(type, () =>
+        import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
+      )
     );
 
     [
@@ -262,7 +268,6 @@ export class ComponentService {
       'inline-editor',
       'widget-picker',
       'layout-setting',
-      'code-editor'
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule)
