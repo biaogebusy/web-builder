@@ -89,7 +89,7 @@ export function getTitleField(
                 {
                   key: 'enable',
                   type: 'toggle',
-                  defaultValue: widget?.typed?.enable || false,
+                  defaultValue: widget?.typed?.enable ?? false,
                   templateOptions: {
                     label: '开启打字效果',
                   },
@@ -108,7 +108,7 @@ export function getTitleField(
                     {
                       key: 'typeSpeed',
                       type: 'slider',
-                      defaultValue: widget?.typed?.config?.typeSpeed || 120,
+                      defaultValue: widget?.typed?.config?.typeSpeed ?? 120,
                       templateOptions: {
                         label: '速度',
                         min: 10,
@@ -122,7 +122,7 @@ export function getTitleField(
                 {
                   key: 'strings',
                   type: 'repeat',
-                  defaultValue: widget?.typed?.strings || [
+                  defaultValue: widget?.typed?.strings ?? [
                     { label: 'web builder' },
                   ],
                   fieldArray: {
@@ -131,7 +131,7 @@ export function getTitleField(
                         key: 'label',
                         type: 'input',
                         defaultValue:
-                          widget?.typed?.strings[0]['label'] || 'web builder',
+                          widget?.typed?.strings[0]['label'] ?? 'web builder',
                         modelOptions: {
                           debounce: {
                             default: 2000,

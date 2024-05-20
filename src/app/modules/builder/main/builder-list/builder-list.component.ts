@@ -36,7 +36,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   markers: NodeListOf<Element>;
   opened = false;
-  showBranding: boolean = false;
+  showBranding = false;
   previewClass$: Observable<any>;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -49,7 +49,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
     @Inject(BRANDING) public branding$: Observable<IBranding>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.builder.previewListDrawer$

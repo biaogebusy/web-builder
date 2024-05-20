@@ -30,7 +30,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             {
               key: 'fontSize',
               type: 'input',
-              defaultValue: view.style.fontSize || 'inherit',
+              defaultValue: view.style.fontSize ?? 'inherit',
               className: 'width-30 m-right-xs',
               templateOptions: {
                 label: 'Size',
@@ -39,7 +39,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'width',
-              defaultValue: view.style.width || 'auto',
+              defaultValue: view.style.width ?? 'auto',
               className: 'width-30 m-right-xs',
               templateOptions: {
                 label: 'W',
@@ -49,7 +49,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'height',
               className: 'width-30',
-              defaultValue: view.style.height || 'auto',
+              defaultValue: view.style.height ?? 'auto',
               templateOptions: {
                 label: 'H',
               },
@@ -57,7 +57,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             {
               key: 'textAlign',
               type: 'select',
-              defaultValue: view.style.textAlign || 'start',
+              defaultValue: view.style.textAlign ?? 'start',
               className: 'width-30 m-right-xs',
               templateOptions: {
                 label: '对齐',
@@ -84,7 +84,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             {
               key: 'lineHeight',
               type: 'input',
-              defaultValue: view.style.lineHeight || 'normal',
+              defaultValue: view.style.lineHeight ?? 'normal',
               className: 'width-30 m-right-xs',
               templateOptions: {
                 label: '行高',
@@ -95,7 +95,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'opacity',
               className: 'width-30',
-              defaultValue: view.style.opacity || 1,
+              defaultValue: view.style.opacity ?? 1,
               templateOptions: {
                 label: 'Opacity',
                 type: 'number',

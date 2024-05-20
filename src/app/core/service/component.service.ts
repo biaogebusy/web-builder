@@ -182,11 +182,17 @@ export class ComponentService {
       )
     );
 
-    ['autoclose', 'dynamic-form', '404', 'jsoneditor', 'theme-preview'].forEach(
-      (type) =>
-        this.setModule(type, () =>
-          import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
-        )
+    [
+      'autoclose',
+      'dynamic-form',
+      '404',
+      'jsoneditor',
+      'theme-preview',
+      'code-editor',
+    ].forEach((type) =>
+      this.setModule(type, () =>
+        import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
+      )
     );
 
     [
@@ -256,6 +262,7 @@ export class ComponentService {
     [
       'layout-builder',
       'builder-template',
+      'custom-template',
       'builder-generater',
       'btn-generater',
       'inline-editor',

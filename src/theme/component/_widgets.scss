@@ -12,12 +12,11 @@
 
   $bg-color: mat.get-color-from-palette($background, background);
   $divider-color: mat.get-color-from-palette($foreground, divider);
+
   .wave-wrapper {
-    background: linear-gradient(
-      -74deg,
-      mat.get-color-from-palette($primary, 50) 0%,
-      mat.get-color-from-palette($primary, 100) 100%
-    );
+    background: linear-gradient(-74deg,
+        mat.get-color-from-palette($primary, 50) 0%,
+        mat.get-color-from-palette($primary, 100) 100%);
 
     .wave {
       color: $bg-color;
@@ -28,8 +27,10 @@
     ul {
       li {
         color: mat.get-color-from-palette($foreground, text, 0.75);
+
         a {
           color: mat.get-color-from-palette($foreground, text, 0.75);
+
           &:hover {
             color: mat.get-color-from-palette($primary);
           }
@@ -45,13 +46,16 @@
           border-color: $divider-color !important;
         }
       }
+
       .testimonial-detail {
         .info {
           color: mat.get-color-from-palette($foreground, secondary-text);
         }
+
         .sub-title {
           color: mat.get-color-from-palette($primary);
         }
+
         .desc {
           color: mat.get-color-from-palette($foreground, secondary-text);
         }
@@ -61,6 +65,7 @@
 
   .line-year {
     border-top: solid 1.5px $divider-color;
+
     &:before {
       background: mat.get-color-from-palette($primary);
       border: 1px solid mat.get-color-from-palette($primary);
@@ -72,39 +77,48 @@
     &:before {
       background: $bg-color;
     }
+
     &:after {
       background: $bg-color;
     }
+
     .feature-inner {
       &:before {
         background: $bg-color;
       }
+
       &:after {
         background: $bg-color;
       }
     }
+
     .btns {
-      > a {
+      >a {
         background: $bg-color;
         color: mat.get-color-from-palette($primary);
+
         &.icon-link {
           background: rgba(0, 0, 0, 0.8);
           color: mat.get-color-from-palette($primary, default-contrast);
         }
       }
     }
+
     .feature-inner-ling {
       .media {
         background-color: mat.get-color-from-palette($background, background);
       }
+
       .title {
         color: mat.get-color-from-palette($primary, default-contrast);
       }
+
       &:before {
         box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
         -moz-box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
         -webkit-box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
       }
+
       &:after {
         background: mat.get-color-from-palette($primary);
       }
@@ -116,31 +130,37 @@
       background-color: mat.get-color-from-palette($foreground, elevation, 0.7);
       color: mat.get-color-from-palette($primary, default-contrast, 0.8);
     }
+
     .btns {
       .btn {
         transition: all 0.3s;
       }
+
       .btn-full {
         color: mat.get-color-from-palette($primary);
         border: 1px solid mat.get-color-from-palette($primary, 0.4);
         background-color: mat.get-color-from-palette($primary, 0.2);
         @include mat.elevation(3, mat.get-color-from-palette($primary), 0.5);
+
         &:hover {
           background-color: mat.get-color-from-palette($primary);
           color: mat.get-color-from-palette($primary, default-contrast);
         }
       }
+
       .btn-open {
         color: mat.get-color-from-palette($warn);
         border: 1px solid mat.get-color-from-palette($warn, 0.4);
         background-color: mat.get-color-from-palette($warn, 0.2);
         @include mat.elevation(3, mat.get-color-from-palette($warn), 0.5);
+
         &:hover {
           background-color: mat.get-color-from-palette($warn);
           color: mat.get-color-from-palette($primary, default-contrast);
         }
       }
     }
+
     .media {
       img {
         background-color: mat.get-color-from-palette($background, "app-bar");
@@ -184,12 +204,11 @@
     @media #{$gt-sm} {
       form {
         background-color: mat.get-color-from-palette($background, card);
-        @include mat.elevation(
-          4,
+        @include mat.elevation(4,
           mat.get-color-from-palette($foreground, text),
-          0.2
-        );
+          0.2);
         border: 1px solid mat.get-color-from-palette($foreground, divider, 0.1);
+
         &:hover,
         &:focus {
           @include mat.elevation(4, mat.get-color-from-palette($primary), 0.5);
@@ -202,6 +221,7 @@
   .tree-inner {
     background-color: mat.get-color-from-palette($background, card);
     border: 1px solid $divider-color;
+
     .node-content-wrapper-active,
     .node-content-wrapper:hover {
       background-color: mat.get-color-from-palette($primary, 100);
@@ -214,6 +234,7 @@
 
   .media-meta {
     border-bottom: 1px solid $divider-color;
+
     .top,
     .middle {
       color: mat.get-color-from-palette($foreground, text, 0.3);
@@ -222,10 +243,12 @@
 
   quill-editor {
     background-color: mat.get-color-from-palette($background, background);
+
     .ql-toolbar,
     .ql-container {
       border-color: mat.get-color-from-palette($foreground, divider);
     }
+
     .ql-container {
       background-color: mat.get-color-from-palette($background, card);
     }
@@ -233,35 +256,35 @@
 
   .view-list {
     .sidebar {
-      > .inner {
+      >.inner {
         background-color: mat.get-color-from-palette($background, card);
-        @include mat.elevation(
-          4,
+        @include mat.elevation(4,
           mat.get-color-from-palette($foreground, divider),
-          0.5
-        );
+          0.5);
       }
     }
+
     .view {
-      @include mat.elevation(
-        6,
+      @include mat.elevation(6,
         mat.get-color-from-palette($foreground, divider),
-        0.25
-      );
+        0.25);
     }
   }
 
   .dynamic-table {
     background-color: mat.get-color-from-palette($background, card);
+
     .mat-header-cell {
       color: mat.get-color-from-palette($foreground, text);
     }
+
     tbody {
-      > tr {
+      >tr {
         &:hover {
           background-color: mat.get-color-from-palette($background, background);
         }
       }
+
       td {
         .marker {
           color: mat.get-color-from-palette($warn);
@@ -302,11 +325,9 @@
 
   .chart {
     border: 1px solid mat.get-color-from-palette($foreground, divider);
-    @include mat.elevation(
-      2,
+    @include mat.elevation(2,
       mat.get-color-from-palette($foreground, divider),
-      0.07
-    );
+      0.07);
   }
 
   .tab {
@@ -314,6 +335,7 @@
       .mat-tab-labels {
         background-color: mat.get-color-from-palette($primary, 0.06);
       }
+
       .mat-tab-label-active {
         background-color: mat.get-color-from-palette($primary);
         color: mat.get-color-from-palette($primary, default-contrast);
@@ -325,22 +347,39 @@
   .github-star {
     background-color: mat.get-color-from-palette($background, card);
     border: 1px solid mat.get-color-from-palette($foreground, divider);
+
     a {
       color: mat.get-color-from-palette($foreground, text, 0.75);
     }
+
     .right {
       border-left: 1px solid mat.get-color-from-palette($foreground, divider);
     }
   }
+
   .mat-stroked-button:not(.mat-button-disabled) {
     border-color: mat.get-color-from-palette($primary);
   }
 
   .jsoneditor {
     border-color: mat.get-color-from-palette($primary);
+
     .jsoneditor-menu {
       background-color: mat.get-color-from-palette($primary);
       border-bottom-color: mat.get-color-from-palette($primary);
+    }
+  }
+
+  .code-editor {
+    .box {
+      border: 1px solid mat.get-color-from-palette($foreground, divider);
+      @include mat.elevation(2,
+        mat.get-color-from-palette($foreground, divider),
+        0.07);
+
+      .jsoneditor {
+        border-color: transparent;
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ShareModule } from '@share/share.module';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { BuilderRoutingModule } from './builder-routing.module';
 import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
 import { BuilderPanelComponent } from './sidebar/builder-panel/builder-panel.component';
@@ -45,6 +46,7 @@ import { BuilderTemplateComponent } from './main/builder-template/builder-templa
 import { LayoutToolbarComponent } from './layout-builder/layout-toolbar/layout-toolbar.component';
 import { BlockToolbarComponent } from './layout-builder/block-toolbar/block-toolbar.component';
 import { CountdownModule } from 'ngx-countdown';
+import { CustomTemplateComponent } from './custom-template/custom-template.component';
 
 const components = [
   BuilderComponent,
@@ -56,6 +58,7 @@ const components = [
   WidgetPickerComponent,
   LayoutSettingComponent,
   BuilderTemplateComponent,
+  CustomTemplateComponent,
 ];
 
 @NgModule({

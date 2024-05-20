@@ -1,8 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
 } from '@angular/core';
@@ -30,8 +32,9 @@ export class LayoutSettingComponent implements OnDestroy {
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef
-  ) {}
+    private cd: ChangeDetectorRef,
+    @Inject(DOCUMENT) private doc: Document
+  ) { }
 
   onModelChange(value: any): void {
     const { path } = this.content;
@@ -95,7 +98,7 @@ export class LayoutSettingComponent implements OnDestroy {
     });
   }
 
-  showCode(): void {
+  editorJSON(): void {
     const { path } = this.content;
 
     // layout builder level
@@ -112,6 +115,40 @@ export class LayoutSettingComponent implements OnDestroy {
             content: json,
           },
         },
+      });
+    }
+  }
+
+  editorCode(): void {
+    const { path } = this.content;
+    let dialogRef: any;
+    let builderList: any;
+    if (path && this.content.content.type === 'custom-template') {
+      dialogRef = this.dialog.open(DialogComponent, {
+        width: '100vw',
+        height: '460px',
+        hasBackdrop: false,
+        position: {
+          bottom: '0px'
+        },
+        data: {
+          inputData: {
+            content: {
+              type: 'code-editor',
+              path,
+              content: get(this.builder.currentPage.body, path)
+            }
+          }
+        }
+      });
+
+      dialogRef.afterOpened().subscribe(() => {
+        builderList = this.doc.querySelector('#builder-list');
+        builderList.style.paddingBottom = '500px';
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        builderList.style.paddingBottom = '150px';
       });
     }
   }

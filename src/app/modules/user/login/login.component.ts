@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit {
         }
         // logout
         if (!currentUser) {
-          this.currentUser.authenticated = false;
           this.cd.detectChanges();
         }
       });

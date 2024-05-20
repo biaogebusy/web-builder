@@ -118,3 +118,17 @@ export interface IMetaEdit {
   mode: 'img' | 'text';
   fields?: FormlyFieldConfig[];
 }
+
+export interface ICustomTemplate extends ICombsBase {
+  type: string;
+  html: string;
+  json: any;
+}
+
+export interface ICodeEditor {
+  content: {
+    html: string;
+    json: any;
+  };
+  path: string;
+}
