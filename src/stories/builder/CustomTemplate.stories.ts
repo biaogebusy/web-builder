@@ -47,16 +47,16 @@ Default.args = {
         '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
     },
     html: `<div class="text-center md:text-left md:flex bg-shadow rounded-xl p-8 md:p-0 m-5 mx-auto overflow-hidden">
-          <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto" src="{{img}}" alt="" width="384" height="512">
+          <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full" src="{{img}}" alt="" width="384" height="512">
           <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
              <p class="text-lg font-medium">
                 “{{content}}”
               </p>
             <div class="font-medium">
-              <div class="text-primary text-xl">
+              <div class="text-xl mb-2">
                 {{title}}
               </div>
-              <div class="opacity-75">
+              <div class="opacity-75 text-sm">
                 {{subTitle}}
               </div>
             </div>
