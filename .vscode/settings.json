@@ -23,7 +23,7 @@
   "git.ignoreMissingGitWarning": true,
   "git.enableSmartCommit": true,
   "git.confirmSync": false,
-  "git.autofetch": true,
+  "git.autofetch": false,
   "files.eol": "\n",
   "gitlens.currentLine.enabled": false,
   "[json]": {
