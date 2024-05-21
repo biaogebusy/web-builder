@@ -75,7 +75,6 @@ export const {
 
 export const {
   Default: { args: showcase3v4_default },
-  Background: { args: showcase3v4_background, storyName: s3v4BackgroundName },
 } = s3v4Story;
 
 export const {
@@ -224,10 +223,6 @@ export const showcase = [
       {
         label: '3v4',
         ...showcase3v4_default,
-      },
-      {
-        label: '3v4 背景',
-        ...showcase3v4_background,
       },
       {
         label: '3v5',

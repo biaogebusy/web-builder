@@ -25,11 +25,5 @@
   "git.confirmSync": false,
   "git.autofetch": false,
   "files.eol": "\n",
-  "gitlens.currentLine.enabled": false,
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
-  }
+  "gitlens.currentLine.enabled": false
 }

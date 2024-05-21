@@ -712,3 +712,33 @@ Pricing.args = {
 `,
   },
 };
+
+export const Showcase = Template.bind({});
+Showcase.storyName = 'Showcase';
+Showcase.args = {
+  content: {
+    json: {
+      title: 'web builder',
+      subTitle: '是一款通过拖拽组件构建页面的低代码',
+      img: '/assets/images/showcase/6.jpg',
+      content:
+        '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
+      more: {
+        href: '/',
+        label: '了解更多',
+      },
+    },
+    html: `<div class="flex flex-wrap justify-center items-center bg-shadow rounded-lg overflow-hidden text-center shadow-lg my-20">
+          <div class="md:flex-6/12">
+            <img class="w-full h-[350px] !object-cover" src="{{img}}" />
+          </div>
+          <div class="md:flex-6/12">
+            <div class="p-5">
+              <div class="mat-display-2 uppercase !mb-5">{{title}}</div>
+              <div class="text-sm">{{content}}</div>
+              <a class="mt-5 py-2 px-8 text-center rounded-full inline-block !text-white hover:opacity-80 bg-primary" href="{{more.href}}">{{more.label}}</a>
+            </div>
+          </div>
+        </div>`,
+  },
+};
