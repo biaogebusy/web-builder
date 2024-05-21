@@ -4,7 +4,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ShareModule } from '@share/share.module';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { BuilderRoutingModule } from './builder-routing.module';
 import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
 import { BuilderPanelComponent } from './sidebar/builder-panel/builder-panel.component';
