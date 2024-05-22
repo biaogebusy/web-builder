@@ -189,6 +189,7 @@ export class ComponentService {
       'jsoneditor',
       'theme-preview',
       'code-editor',
+      'custom-template',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
@@ -262,7 +263,6 @@ export class ComponentService {
     [
       'layout-builder',
       'builder-template',
-      'custom-template',
       'builder-generater',
       'btn-generater',
       'inline-editor',
