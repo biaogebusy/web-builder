@@ -11,6 +11,7 @@ import { JsoneditorComponent } from './jsoneditor/jsoneditor.component';
 import { ThemePreviewComponent } from './theme-preview/theme-preview.component';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { CustomTemplateComponent } from './custom-template/custom-template.component';
 
 const components = [
   NotfoundComponent,
@@ -19,6 +20,7 @@ const components = [
   JsoneditorComponent,
   CodeEditorComponent,
   ThemePreviewComponent,
+  CustomTemplateComponent,
 ];
 
 @NgModule({

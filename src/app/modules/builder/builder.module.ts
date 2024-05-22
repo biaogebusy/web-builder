@@ -44,8 +44,6 @@ import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sideb
 import { BuilderTemplateComponent } from './main/builder-template/builder-template.component';
 import { LayoutToolbarComponent } from './layout-builder/layout-toolbar/layout-toolbar.component';
 import { BlockToolbarComponent } from './layout-builder/block-toolbar/block-toolbar.component';
-import { CountdownModule } from 'ngx-countdown';
-import { CustomTemplateComponent } from './custom-template/custom-template.component';
 
 const components = [
   BuilderComponent,
@@ -57,7 +55,6 @@ const components = [
   WidgetPickerComponent,
   LayoutSettingComponent,
   BuilderTemplateComponent,
-  CustomTemplateComponent,
 ];
 
 @NgModule({
@@ -86,7 +83,6 @@ const components = [
     WidgetsModule,
     BrandingModule,
     DragDropModule,
-    CountdownModule,
     BuilderRoutingModule,
   ],
   providers: [

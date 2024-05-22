@@ -5,7 +5,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { CustomTemplateComponent } from '@modules/builder/custom-template/custom-template.component';
+import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custom-template.component';
 export default {
   title: '低代码/Layout builder/Tailwind 自定义组件',
   id: 'custom-template',
