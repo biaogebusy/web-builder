@@ -42,6 +42,21 @@
         }"
       ></app-btn>
     </div>
+    <div
+      class="item"
+      matTooltip="粘贴复制的组件到下面"
+      *ngIf="bcData"
+      (click)="onPaste($event, bcData)"
+    >
+      <app-btn
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'content-paste', inline: true }
+        }"
+      ></app-btn>
+    </div>
     <div class="item" matTooltip="显示网格" (click)="onShowGrid()">
       <app-btn
         [content]="{

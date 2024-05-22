@@ -185,12 +185,18 @@ export class BuilderState {
 
     if (addType === 'add') {
       const lastDotIndex = path.lastIndexOf('.');
-      const before = path.slice(0, lastDotIndex);
-      const index = path.slice(lastDotIndex + 1);
-      const targetArray = get(body, before);
-      if (Array.isArray(targetArray)) {
-        targetArray.splice(Number(index) + 1, 0, content);
-        set(body, before, targetArray);
+      if (lastDotIndex !== -1) {
+        // loop element 等，新增组件到数组
+        const before = path.slice(0, lastDotIndex);
+        const index = path.slice(lastDotIndex + 1);
+        const targetArray = get(body, before);
+        if (Array.isArray(targetArray)) {
+          targetArray.splice(Number(index) + 1, 0, content);
+          set(body, before, targetArray);
+        }
+      } else {
+        // body 一级组件
+        body.splice(Number(path) + 1, 0, cloneDeep(content));
       }
     }
 

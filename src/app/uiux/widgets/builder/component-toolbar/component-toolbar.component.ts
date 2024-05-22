@@ -10,7 +10,7 @@ import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
-import { LocalStorageService } from 'ngx-webstorage';
+import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -29,6 +29,9 @@ export class ComponentToolbarComponent implements OnInit {
   dialogRef: any;
   enableBuilderToolbar: boolean;
   showGrid = false;
+
+  @LocalStorage('bc')
+  public bcData: any;
 
   constructor(
     private builder: BuilderState,
@@ -60,6 +63,12 @@ export class ComponentToolbarComponent implements OnInit {
       this.util.openSnackbar(`已复制${content.type}JSON`);
       this.storage.store(this.builder.COPYKEY, content);
     }
+  }
+
+  onPaste(event: any, content: any): void {
+    const path = this.util.generatePath(event.target);
+    this.builder.updatePageContentByPath(path, content, 'add');
+    this.storage.clear(this.builder.COPYKEY);
   }
 
   onSetting(content: any, pageIndex: number, event: any): void {
