@@ -39,7 +39,6 @@ export class DynamicComponentComponent
   @HostBinding('class.active-toolbar') activeToolbarClass: boolean;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
-  uuid: string;
   showToolbar: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -80,10 +79,6 @@ export class DynamicComponentComponent
 
   ngAfterViewInit(): void {
     this.loadComponent();
-  }
-
-  onUuid(uuid: string): void {
-    this.uuid = uuid;
   }
 
   async loadComponent(): Promise<void> {
