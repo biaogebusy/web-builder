@@ -9,7 +9,7 @@ import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-l
 import { ListModule } from '@uiux/combs/list/list.module';
 import { StorysModule } from '@core/module/storys.module';
 import { ITaxonomyList } from '@core/interface/combs/IList';
-import { mediaList } from '@stories/builder/data/widgets-for-story';
+import * as MediaListStories from '@stories/widgets/media/MediaList.stories';
 
 export default {
   title: '复合组件/列表/分类列表',
@@ -368,7 +368,7 @@ const content: ITaxonomyList = {
     },
   ],
   sidebar: [
-    mediaList,
+    MediaListStories.Default?.args?.content,
     {
       type: 'menu-list',
       title: '\u5206\u7c7b',

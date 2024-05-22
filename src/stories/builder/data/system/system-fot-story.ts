@@ -10,39 +10,6 @@ import * as profileStory from '@stories/components/profile/profile1v1.stories';
 import { drupal } from './drupal.builder';
 import { map } from './map.builder';
 
-export const {
-  UserProfile: { args: profile },
-  Componey: { args: componey },
-} = profileStory as any;
-
-export const {
-  Default: { args: userCenter },
-} = userCenterStory;
-const {
-  Order: { args: dashboard },
-  Advert: { args: advert },
-} = dashboardStory;
-const {
-  Default: { args: notfound },
-} = notfoundStory;
-export const {
-  Default: { args: search },
-} = searchStory;
-
-export const {
-  Default: { args: calendar },
-} = calendarStory;
-export const {
-  Comment: { args: article },
-} = articleStory;
-
-const {
-  BannerOverlay: { args: banner },
-} = bannerStory as any;
-
-const {
-  Default: { args: location },
-} = locationStory;
 export const systems: any[] = [
   {
     label: '通用',
@@ -52,56 +19,56 @@ export const systems: any[] = [
         icon: {
           svg: 'page-layout-header',
         },
-        ...banner,
+        content: bannerStory.BannerOverlay?.args?.content,
       },
       {
         label: '文章',
         icon: {
           svg: 'translate',
         },
-        ...article,
+        content: articleStory.Comment?.args?.content,
       },
       {
         label: '面板 v1',
         icon: {
           svg: 'view-dashboard-outline',
         },
-        ...dashboard,
+        content: dashboardStory.Order?.args?.content,
       },
       {
         label: '面板 v2',
         icon: {
           svg: 'view-dashboard-variant-outline',
         },
-        ...advert,
+        content: dashboardStory.Advert?.args?.content,
       },
       {
         label: '用户中心',
         icon: {
           svg: 'account-box-outline',
         },
-        ...userCenter,
+        content: userCenterStory.Default?.args?.content,
       },
       {
         label: '用户资料',
         icon: {
           svg: 'account-outline',
         },
-        ...profile,
+        content: profileStory.UserProfile?.args?.content,
       },
       {
         label: '企业资料',
         icon: {
           svg: 'home-variant-outline',
         },
-        ...componey,
+        content: profileStory.Componey?.args?.content,
       },
       {
         label: '搜索',
         icon: {
           svg: 'magnify',
         },
-        ...search,
+        content: searchStory.Default?.args?.content,
         form: {},
         vauleChange$: {},
       },
@@ -110,19 +77,19 @@ export const systems: any[] = [
         icon: {
           svg: 'calendar-month-outline',
         },
-        ...calendar,
+        content: calendarStory.Default?.args?.content,
       },
       {
         label: '位置',
         icon: {
           svg: 'map-marker-outline',
         },
-        ...location,
+        content: locationStory.Default?.args?.content,
       },
       {
         label: '404',
         icon: { svg: 'text-search-variant' },
-        ...notfound,
+        content: notfoundStory.Default?.args?.content,
       },
     ],
   },

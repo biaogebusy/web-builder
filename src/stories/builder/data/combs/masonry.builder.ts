@@ -1,26 +1,17 @@
 import * as packeryStory from '@stories/components/masonry/packery.stories';
 import * as shuffleStory from '@stories/components/masonry/shuffle.stories';
 
-export const {
-  Default: { args: shuffle },
-} = shuffleStory;
-
-export const {
-  Default: { args: packery },
-  ContentBox: { args: contentBox, storyName: contentBoxName },
-} = packeryStory;
-
 export const masonry = [
   {
     label: 'packery',
-    ...packery,
+    content: packeryStory?.Default?.args?.content,
   },
   {
-    label: contentBoxName,
-    ...contentBox,
+    label: '内容盒子',
+    content: packeryStory?.ContentBox?.args?.content,
   },
   {
     label: '洗牌',
-    ...shuffle,
+    content: shuffleStory?.Default?.args?.content,
   },
 ];

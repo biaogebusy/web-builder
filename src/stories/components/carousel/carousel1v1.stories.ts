@@ -3,7 +3,8 @@ import { Story } from '@storybook/angular/types-6-0';
 import { Carousel1v1Component } from '@uiux/combs/carousel/carousel1v1/carousel1v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
-import { swiper } from '@stories/builder/data/base/common.builder';
+import * as SwiperStories from '@stories/widgets/Swiper.stories';
+
 export default {
   title: '复合组件/幻灯片/1v1',
   id: 'carousel-1v1',
@@ -36,7 +37,7 @@ const defaultContent: ICarouselBase = {
   bg: {
     classes: 'bg-white bg-fill-width',
   },
-  sliders: swiper?.content,
+  sliders: SwiperStories.Default?.args?.content,
 };
 Default.args = {
   content: defaultContent,

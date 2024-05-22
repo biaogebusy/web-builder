@@ -1,49 +1,25 @@
-import * as viewListStory from '@stories/drupal/ViewList.stories';
 import * as treeListStory from '@stories/drupal/treeList.stories';
 import * as questionStory from '@stories/sample/node/question.stories';
 import * as taxonomyListStory from '@stories/components/list/taxonomyList.stories';
 import * as taxonomyThinListStory from '@stories/components/list/taxonomyThinList.stories';
 import * as contact1v1Story from '@stories/drupal/form/ContactUs1v1.stories';
 
-export const {
-  Default: { args: taxonomyThinList },
-} = taxonomyThinListStory;
-export const {
-  Default: { args: taxonomyList },
-} = taxonomyListStory;
-
-export const {
-  Default: { args: question },
-} = questionStory;
-
-export const {
-  Default: { args: treeList },
-} = treeListStory;
-
-export const {
-  Default: { args: viewList },
-} = viewListStory;
-
-export const {
-  Default: { args: contact1v1 },
-} = contact1v1Story;
-
 export const drupal = [
   {
     label: '问答',
-    ...question,
+    content: questionStory.Default?.args?.content,
   },
   {
     label: '联系表单',
-    ...contact1v1,
+    content: contact1v1Story.Default?.args?.content,
   },
   {
     label: '分类列表',
-    ...taxonomyList,
+    content: taxonomyListStory.Default?.args?.content,
   },
   {
     label: '分类列表 Thin',
-    ...taxonomyThinList,
+    content: taxonomyThinListStory.Default?.args?.content,
   },
   {
     label: '图文列表',
@@ -256,6 +232,6 @@ export const drupal = [
   },
   {
     label: '树形列表',
-    ...treeList,
+    content: treeListStory.Default?.args?.content,
   },
 ];

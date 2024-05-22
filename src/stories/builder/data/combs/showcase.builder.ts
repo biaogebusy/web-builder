@@ -17,87 +17,6 @@ import * as s3v9Story from '@stories/feature/showcase/showcase3v9.stories';
 import * as s4v1Story from '@stories/feature/showcase/showcase4v1.stories';
 
 export const {
-  Default: { args: showcase1v1Default },
-  StyleV1: { args: showcase1v1_v1, storyName: s1v1V1Name },
-  StyleV2: { args: showcase1v1_v2, storyName: s1v1V2Name },
-  StyleV3: { args: showcase1v1_v3, storyName: s1v1V3Name },
-  Primary: { args: showcase1v1_primary, storyName: s1v1PrimaryName },
-  StyleV4: { args: showcase1v1_v4, storyName: s1v1V4Name },
-  StyleV5: { args: showcase1v1_v5, storyName: s1v1V5Name },
-  Image: { args: shwocase1v1_image, storyName: s1v1ImageName },
-} = s1v1Story;
-export const {
-  Default: { args: showcase1v2_default, storyName: s1v2DefaultName },
-  Primary: { args: showcase1v2_primary, storyName: s1v2PrimaryName },
-} = s1v2Story;
-export const {
-  Default: { args: showcase1v3_default, storyName: s1v3DefaultName },
-  Contact: { args: showcase1v3_contact, storyName: sv1v3ContactName },
-  Video: { args: showcase1v3_video, storyName: s1v3VideoName },
-} = s1v3Story;
-
-export const {
-  Default: { args: showcase1v4_default, storyName: s1v4DefaultName },
-  Price: { args: showcase1v4_price, storyName: s1v4PriceName },
-  Dynamic: { args: showcase1v4_dynamic, storyName: s1v4DynamciName },
-} = s1v4Story as any;
-
-export const {
-  Default: { args: showcase2v1_default, storyName: s2v1DefaultName },
-  Card1v1: { args: showcase2v1_card1v1, storyName: s2v1Card1v1Name },
-} = s2v1Story;
-
-export const {
-  Default: { args: showcase2v2_default },
-} = s2v2Story as any;
-
-export const {
-  Default: { args: showcase2v4_default },
-} = s2v4Story;
-
-export const {
-  Default: { args: showcase2v5_default },
-} = s2v5Story;
-
-export const {
-  Default: { args: showcase2v6_default },
-} = s2v6Story;
-
-export const {
-  Default: { args: showcase3v2_default },
-  List: { args: showcase3v2_list, storyName: s3v2ListName },
-} = s3v2Story;
-
-export const {
-  Default: { args: showcase3v3_default },
-  Image: { args: showcase3v3_image, storyName: s3v3ImageName },
-} = s3v3Story;
-
-export const {
-  Default: { args: showcase3v4_default },
-} = s3v4Story;
-
-export const {
-  Default: { args: showcase3v5_default },
-} = s3v5Story;
-
-export const {
-  Default: { args: showcase3v6_default },
-  WithLink: { args: showcase3v6_withLink, storyName: s3v6WithLinkName },
-  Background: { args: showcase3v6_background, storyName: s3v6BackgroundName },
-} = s3v6Story;
-
-export const {
-  Default: { args: showcase3v7_default },
-} = s3v7Story;
-
-export const {
-  Default: { args: showcase3v9_default },
-  Reverse: { args: showcase3v9_reverse, storyName: s3v9ReverseName },
-  Video: { args: showcase3v9_video, storyName: s3v9VideoName },
-} = s3v9Story;
-
-export const {
   Default: { args: showcase4v1_default },
   Img: { args: showcase4v1_img, storyName: s4v1ImgName },
 } = s4v1Story;
@@ -108,67 +27,67 @@ export const showcase = [
     child: [
       {
         label: '1v1',
-        ...showcase1v1Default,
+        content: s1v1Story.Default?.args?.content,
       },
       {
         label: '1v1-1',
-        ...showcase1v1_v1,
+        content: s1v1Story.StyleV1?.args?.content,
       },
       {
         label: '1v1-2',
-        ...showcase1v1_v2,
+        content: s1v1Story.StyleV2?.args?.content,
       },
       {
         label: '1v1-3',
-        ...showcase1v1_v3,
+        content: s1v1Story.StyleV3?.args?.content,
       },
       {
         label: '1v1 Primary',
-        ...showcase1v1_primary,
+        content: s1v1Story.Primary?.args?.content,
       },
       {
         label: '1v1-4',
-        ...showcase1v1_v4,
+        content: s1v1Story.StyleV4?.args?.content,
       },
       {
         label: '1v1-5',
-        ...showcase1v1_v5,
+        content: s1v1Story.StyleV5?.args?.content,
       },
       {
         label: '1v1 Image',
-        ...shwocase1v1_image,
+        content: s1v1Story.Image?.args?.content,
       },
       {
         label: '1v2',
-        ...showcase1v2_default,
+        content: s1v2Story.Default?.args?.content,
       },
       {
         label: '1v2 Primary',
-        ...showcase1v2_primary,
+        content: s1v2Story.Primary?.args?.content,
       },
       {
         label: '1v3',
-        ...showcase1v3_default,
+        content: s1v3Story.Default?.args?.content,
       },
       {
         label: '1v3 表单',
-        ...showcase1v3_contact,
+        content: s1v3Story.Contact?.args?.content,
       },
       {
         label: '1v3 视频',
-        ...showcase1v3_video,
+        content: s1v3Story.Video?.args?.content,
       },
       {
         label: '1v4',
-        ...showcase1v4_default,
+        content: s1v4Story.Default?.args?.content,
       },
       {
         label: '1v4 价格',
-        ...showcase1v4_price,
+        content: s1v4Story.Price?.args?.content,
       },
       {
         label: '1v4 动态',
-        ...showcase1v4_dynamic,
+        content: s1v4Story.Dynamic?.args?.content,
       },
     ],
   },
@@ -177,27 +96,27 @@ export const showcase = [
     child: [
       {
         label: '2v1',
-        ...showcase2v1_default,
+        content: s2v1Story.Default?.args?.content,
       },
       {
         label: '2v1 Card',
-        ...showcase2v1_card1v1,
+        content: s2v1Story.Card1v1?.args?.content,
       },
       {
         label: '2v2',
-        ...showcase2v2_default,
+        content: s2v2Story.Default?.args?.content,
       },
       {
         label: '2v4',
-        ...showcase2v4_default,
+        content: s2v4Story.Default?.args?.content,
       },
       {
         label: '2v5',
-        ...showcase2v5_default,
+        content: s2v5Story.Default?.args?.content,
       },
       {
         label: '2v6',
-        ...showcase2v6_default,
+        content: s2v6Story.Default?.args?.content,
       },
     ],
   },
@@ -206,55 +125,47 @@ export const showcase = [
     child: [
       {
         label: '3v2',
-        ...showcase3v2_default,
-      },
-      {
-        label: '3v2 列表',
-        ...showcase3v2_list,
+        content: s3v2Story.Default?.args?.content,
       },
       {
         label: '3v3',
-        ...showcase3v3_default,
+        content: s3v3Story.Default?.args?.content,
       },
       {
         label: '3v3 图片',
-        ...showcase3v3_image,
+        content: s3v3Story.Image?.args?.content,
       },
       {
         label: '3v4',
-        ...showcase3v4_default,
+        content: s3v4Story.Default?.args?.content,
       },
       {
         label: '3v5',
-        ...showcase3v5_default,
+        content: s3v5Story.Default?.args?.content,
       },
       {
         label: '3v6',
-        ...showcase3v6_default,
+        content: s3v6Story.Default?.args?.content,
       },
       {
         label: '3v6 链接',
-        ...showcase3v6_withLink,
-      },
-      {
-        label: '3v6 背景',
-        ...showcase3v6_background,
+        content: s3v6Story.WithLink?.args?.content,
       },
       {
         label: '3v7',
-        ...showcase3v7_default,
+        content: s3v7Story.Default?.args?.content,
       },
       {
         label: '3v9',
-        ...showcase3v9_default,
+        content: s3v9Story.Default?.args?.content,
       },
       {
         label: '3v9 反向',
-        ...showcase3v9_reverse,
+        content: s3v9Story.Reverse?.args?.content,
       },
       {
         label: '3v9 视频',
-        ...showcase3v9_video,
+        content: s3v9Story.Video?.args?.content,
       },
     ],
   },
@@ -263,11 +174,7 @@ export const showcase = [
     child: [
       {
         label: '4v1',
-        ...showcase4v1_default,
-      },
-      {
-        label: '4v1 图片',
-        ...showcase4v1_img,
+        content: s3v9Story.Default?.args?.content,
       },
     ],
   },

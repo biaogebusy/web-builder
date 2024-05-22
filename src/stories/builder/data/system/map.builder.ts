@@ -2,31 +2,17 @@ import * as viewMapStory from '@stories/drupal/ViewMap.stories';
 
 import * as mapList1v1Story from '@stories/components/map/mapList1v1.stories';
 
-const {
-  Default: { args: viewMapDefault },
-  Circle: { args: viewMapCircle, storyName: viewMapCircleName },
-} = viewMapStory;
-
-const {
-  Default: { args: mapList1v1 },
-  Sidebar: { args: mapList1v1Sidebar, storyName: mapList1v1SidebarName },
-} = mapList1v1Story;
-
 export const map = [
   {
     label: '地图应用',
-    ...viewMapDefault,
+    content: viewMapStory.Default?.args?.content,
   },
   {
-    label: viewMapCircleName,
-    ...viewMapCircle,
+    label: '地图圈',
+    content: viewMapStory.Circle?.args?.content,
   },
   {
     label: '位置列表',
-    ...mapList1v1,
-  },
-  {
-    label: mapList1v1SidebarName,
-    ...mapList1v1Sidebar,
+    content: mapList1v1Story.Default?.args?.content,
   },
 ];

@@ -5,36 +5,6 @@ import * as hero1v4Story from '@stories/feature/hero/hero1v4.stories';
 import * as hero2v1Story from '@stories/feature/hero/hero2v1.stories';
 import * as hero2v2Story from '@stories/feature/hero/hero2v2.stories';
 import * as hero2v3Story from '@stories/feature/hero/hero2v3.stories';
-export const {
-  Default: { args: hero1v1 },
-} = hero1v1Story;
-export const {
-  Default: { args: hero1v2 },
-} = hero1v2Story;
-export const {
-  V1: { args: hero1v3V1, storyName: h1v3V1Name },
-  V2: { args: hero1v3V2, storyName: h1v3V2Name },
-} = hero1v3Story;
-
-export const {
-  Default: { args: hero1v4Default, storyName: h1v4DefaultName },
-  Shape: { args: hero1v4Shape, storyName: h1v4ShapeName },
-} = hero1v4Story;
-
-export const {
-  Default: { args: hero2v1Default },
-  YCenter: { args: yCenter, storyName: yCenterName },
-  YCenterXCustom: { args: yCenterXCustom, storyName: yCenterXCustomName },
-  XYCustom: { args: xyCustom, storyName: xyCustomName },
-} = hero2v1Story;
-
-export const {
-  Default: { args: hero2v2 },
-} = hero2v2Story;
-
-export const {
-  Default: { args: hero2v3 },
-} = hero2v3Story as any;
 
 export const hero = [
   {
@@ -42,27 +12,19 @@ export const hero = [
     child: [
       {
         label: '1v1',
-        ...hero1v1,
+        content: hero1v1Story.Default?.args?.content,
       },
       {
         label: '1v2',
-        ...hero1v2,
+        content: hero1v2Story.Default?.args?.content,
       },
       {
         label: '1v3-1',
-        ...hero1v3V1,
-      },
-      {
-        label: '1v3-2',
-        ...hero1v3V2,
-      },
-      {
-        label: '1v4',
-        ...hero1v4Default,
+        content: hero1v3Story.V1?.args?.content,
       },
       {
         label: '1v4 Shape',
-        ...hero1v4Shape,
+        content: hero1v4Story.Shape?.args?.content,
       },
     ],
   },
@@ -71,23 +33,23 @@ export const hero = [
     child: [
       {
         label: '2v1',
-        ...hero2v1Default,
+        content: hero2v1Story.Default?.args?.content,
       },
       {
         label: 'Y中心 X自定义',
-        ...yCenterXCustom,
+        content: hero2v1Story.YCenterXCustom?.args?.content,
       },
       {
         label: 'XY自定义',
-        ...xyCustom,
+        content: hero2v1Story.XYCustom?.args?.content,
       },
       {
         label: '2v2',
-        ...hero2v2,
+        content: hero2v2Story.Default?.args?.content,
       },
       {
         label: '2v3',
-        ...hero2v3,
+        content: hero2v3Story.Default?.args?.content,
       },
     ],
   },
