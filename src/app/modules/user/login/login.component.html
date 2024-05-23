@@ -81,8 +81,8 @@
                   >
                     <small>
                       发送验证码
-                      <ng-container *ngIf="config?.leftTime">
-                        (<countdown #cd [config]="config"></countdown>)
+                      <ng-container *ngIf="countdown">
+                        ({{ countdown }})
                       </ng-container>
                     </small>
                   </button>
