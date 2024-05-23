@@ -4,11 +4,12 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import type { IPage } from '@core/interface/IAppConfig';
-import type { IBuilderSamplePage } from '@core/interface/IBuilder';
+import { BuilderService } from '@core/service/builder.service';
+import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { samples } from '@modules/builder/data/samples-for-builder';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-sample',
@@ -17,15 +18,39 @@ import { samples } from '@modules/builder/data/samples-for-builder';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSampleComponent implements OnInit {
-  @Input() content: IBuilderSamplePage[];
-  constructor(private builder: BuilderState, private util: UtilitiesService) {}
+  samplePages$: Observable<any[]>;
+  constructor(
+    private builder: BuilderState,
+    private util: UtilitiesService,
+    private noderService: NodeService,
+    private builderService: BuilderService
+  ) {}
 
   ngOnInit(): void {
-    this.content = samples;
+    const params = `filter[taxonomy_term--tags][condition][path]=group.name&filter[taxonomy_term--tags][condition][operator]=IN&filter[taxonomy_term--tags][condition][value]=示例页&noCache=1`;
+    this.samplePages$ = this.noderService
+      .fetch('/api/v1/node/landing_page', params)
+      .pipe(
+        map((res: any) => {
+          console.log(res);
+          const { data, links } = res;
+          const pages = data.map((page: any) => {
+            const {
+              attributes: { title, drupal_internal__nid },
+            } = page;
+            return {
+              title,
+              nid: drupal_internal__nid,
+            };
+          });
+          return pages;
+        })
+      );
   }
 
-  onSample(page: IPage): void {
-    this.util.openSnackbar(`正在载入 ${page.title} 示例...`, 'ok');
-    this.builder.loadNewPage(page);
+  loadSample(item: any): void {
+    this.util.openSnackbar(`正在加载${item.title}`, 'ok');
+    this.builder.loading$.next(true);
+    this.builderService.loadPage(item.nid);
   }
 }

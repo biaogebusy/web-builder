@@ -14,7 +14,7 @@ import {
   defaultHeader,
   footerInverse,
 } from '@modules/builder/data/Branding.json';
-import { home_v11 } from '@modules/builder/data/samples/home_v11';
+import { home_v11 } from '@stories/sample/home/data/home_v11';
 
 export default {
   title: '示例页面/首页示例/11 客户故事',

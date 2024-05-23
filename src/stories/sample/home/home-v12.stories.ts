@@ -14,7 +14,7 @@ import {
   defaultHeader,
   footerInverse,
 } from '@modules/builder/data/Branding.json';
-import { home_v12 } from '@modules/builder/data/samples/home_v12';
+import { home_v12 } from '@stories/sample/home/data/home_v12';
 
 export default {
   title: '示例页面/首页示例/12 工作室',

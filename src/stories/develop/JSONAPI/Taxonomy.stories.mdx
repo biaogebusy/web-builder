@@ -31,3 +31,11 @@ import { Meta } from "@storybook/addon-docs";
 ```
 /jsonapi/taxonomy_term/category_article/[id]
 ```
+
+## 过滤某个分类下的 node
+
+```
+GET {{apiUrl}}/api/v1/node/landing_page?filter[taxonomy_term--tags][condition][path]=group.name&filter[taxonomy_term--tags][condition][operator]=IN&filter[taxonomy_term--tags][condition][value]=示例页&noCache=1
+```
+
+taxonomy_term--tags 为 group，过滤分类名称为"示例页"的所有着陆页

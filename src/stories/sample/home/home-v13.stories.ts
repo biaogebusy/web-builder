@@ -14,7 +14,7 @@ import {
   footerInverse,
 } from '@modules/builder/data/Branding.json';
 import { BRANDING } from '@core/token/token-providers';
-import { home_v13 } from '@modules/builder/data/samples/home_v13';
+import { home_v13 } from '@stories/sample/home/data/home_v13';
 
 export default {
   title: '示例页面/首页示例/13 现代商业',

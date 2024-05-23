@@ -14,7 +14,7 @@ import {
 } from '@modules/builder/data/Branding.json';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
-import { home_v2 } from '@modules/builder/data/samples/home_v2';
+import { home_v2 } from '@stories/sample/home/data/home_v2';
 
 export default {
   title: '示例页面/首页示例/02 服务介绍',

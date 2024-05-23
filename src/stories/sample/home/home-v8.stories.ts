@@ -14,7 +14,7 @@ import {
   defaultHeader,
   footerInverse,
 } from '@modules/builder/data/Branding.json';
-import { home_v8 } from '@modules/builder/data/samples/home_v8';
+import { home_v8 } from '@stories/sample/home/data/home_v8';
 
 export default {
   title: '示例页面/首页示例/08 应用市场',
