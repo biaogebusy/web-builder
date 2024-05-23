@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   error: string;
   userForm: FormGroup;
   phoneForm: FormGroup;
-  currentUser: IUser;
+  currentUser: IUser | false;
 
   config: any;
 
@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
         }
         // logout
         if (!currentUser) {
+          this.currentUser = false;
           this.cd.detectChanges();
         }
       });
