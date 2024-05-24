@@ -24,5 +24,7 @@
   "git.confirmSync": false,
   "git.autofetch": false,
   "files.eol": "\n",
-  "gitlens.currentLine.enabled": false
+  "gitlens.currentLine.enabled": false,
+  "prettier.singleAttributePerLine": false,
+  "prettier.bracketSameLine": true
 }
