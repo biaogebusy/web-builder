@@ -16,7 +16,6 @@ import { PreviewListComponent } from './main/preview-list/preview-list.component
 import { BaseModule } from '@uiux/base/base.module';
 import {
   BUILDER_CURRENT_PAGE,
-  BUILDER_SAMPLE_PAGE,
   WIDGETS,
   UIUX,
   COLOR_TEST,
@@ -24,7 +23,6 @@ import {
 import { uiux } from './data/uiux-for-builder';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
-import { samples } from './data/samples-for-builder';
 import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.component';
 import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
 import { builderCurrentPageFactory } from '@core/factory/factory';
@@ -93,10 +91,6 @@ const components = [
     {
       provide: WIDGETS,
       useValue: of(widgets),
-    },
-    {
-      provide: BUILDER_SAMPLE_PAGE,
-      useValue: samples,
     },
     {
       provide: BUILDER_CURRENT_PAGE,
