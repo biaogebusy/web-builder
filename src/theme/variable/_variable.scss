@@ -26,12 +26,18 @@ $font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
 // https://material.angular.io/guide/typography
 $custom-typography: mat.define-typography-config(
   $font-family: $font-family,
-  $display-4: mat.define-typography-level(60px, 1.25, 600, $font-family: $font-family),
-  $display-3: mat.define-typography-level(48px, 1.25, 600, $font-family: $font-family),
-  $display-2: mat.define-typography-level(40px, 1.25, 600, $font-family: $font-family),
-  $display-1: mat.define-typography-level(30px, 1.5, 600, $font-family: $font-family),
-  $headline: mat.define-typography-level(25px, 1.618, 600, $font-family: $font-family),
-  $title: mat.define-typography-level(20px, 1.618, 500, $font-family: $font-family),
+  $display-4:
+    mat.define-typography-level(60px, 1.25, 600, $font-family: $font-family),
+  $display-3:
+    mat.define-typography-level(48px, 1.25, 600, $font-family: $font-family),
+  $display-2:
+    mat.define-typography-level(40px, 1.25, 600, $font-family: $font-family),
+  $display-1:
+    mat.define-typography-level(30px, 1.5, 600, $font-family: $font-family),
+  $headline:
+    mat.define-typography-level(25px, 1.618, 600, $font-family: $font-family),
+  $title:
+    mat.define-typography-level(20px, 1.618, 500, $font-family: $font-family),
   $body-1: mat.define-typography-level(16px, 1.618, 400),
   $body-2: mat.define-typography-level(14px, 1.618, 500),
 );
@@ -41,25 +47,66 @@ $font-size: 1.6rem;
 $font-size-sm: 1.4rem;
 $line-height: 1.618;
 
-@media #{$lt-md} {
+.mat-display-1 {
+  font-size: 20px !important;
+}
+
+@media (min-width: 600px) {
   .mat-display-1 {
-    font-size: 20px !important;
-    line-height: 1.2 !important;
-    margin-bottom: 20px !important;
+    font-size: calc(20px + 10 * ((100vw - 600px) / (1440 - 600))) !important;
   }
+}
+
+@media (min-width: 1440px) {
+  .mat-display-1 {
+    font-size: 30px !important;
+  }
+}
+
+.mat-display-2 {
+  font-size: 24px !important;
+}
+
+@media (min-width: 600px) {
   .mat-display-2 {
-    font-size: 24px !important;
-    line-height: 1.2 !important;
-    margin-bottom: 20px !important;
+    font-size: calc(24px + 10 * ((100vw - 600px) / (1440 - 600))) !important;
   }
-  .mat-display-3 {
-    font-size: 32px !important;
-    line-height: 1.2 !important;
-    margin-bottom: 20px !important;
-  }
-  .mat-display-4 {
+}
+
+@media (min-width: 1440px) {
+  .mat-display-2 {
     font-size: 40px !important;
-    line-height: 1.2 !important;
-    margin-bottom: 20px !important;
+  }
+}
+
+.mat-display-3 {
+  font-size: 32px !important;
+}
+
+@media (min-width: 600px) {
+  .mat-display-3 {
+    font-size: calc(32px + 16 * ((100vw - 600px) / (1440 - 600))) !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .mat-display-3 {
+    font-size: 48px !important;
+  }
+}
+
+.mat-display-4 {
+  font-size: 40px !important;
+}
+
+@media (min-width: 600px) {
+  .mat-display-4 {
+    font-size: calc(40px + 20 * ((100vw - 600px) / (1440 - 600))) !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .mat-display-4 {
+    font-size: 60px !important;
   }
 }
