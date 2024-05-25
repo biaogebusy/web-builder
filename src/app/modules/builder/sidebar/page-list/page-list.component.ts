@@ -44,7 +44,7 @@ export class PageListComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private builder: BuilderState,
     private util: UtilitiesService,
-    private buiderService: BuilderService
+    private builderService: BuilderService
   ) {}
 
   ngOnInit(): void {
@@ -119,7 +119,7 @@ export class PageListComponent implements OnInit, OnDestroy {
   loadPage(item: any): void {
     this.util.openSnackbar(`正在加载${item.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.buiderService.loadPage(item.nid);
+    this.builderService.loadPage(item.nid);
   }
 
   onReload(): void {

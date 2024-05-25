@@ -37,9 +37,6 @@ export const DEBUG_ANIMATE = new InjectionToken<boolean>('debug animate');
 export const BUILDER_FULL_SCREEN = new InjectionToken<Observable<boolean>>(
   'builder full screen'
 );
-export const BUILDER_SAMPLE_PAGE = new InjectionToken<IBuilderSamplePage>(
-  'Builder sample page'
-);
 export const UIUX = new InjectionToken<IUiux[]>('builder uiux data');
 export const IS_BUILDER_MODE = new InjectionToken<Observable<boolean>>(
   'is builder mode'

@@ -34,7 +34,7 @@ export class LayoutSettingComponent implements OnDestroy {
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
     @Inject(DOCUMENT) private doc: Document
-  ) { }
+  ) {}
 
   onModelChange(value: any): void {
     const { path } = this.content;
@@ -129,26 +129,29 @@ export class LayoutSettingComponent implements OnDestroy {
         height: '460px',
         hasBackdrop: false,
         position: {
-          bottom: '0px'
+          bottom: '0px',
         },
         data: {
           inputData: {
             content: {
               type: 'code-editor',
               path,
-              content: get(this.builder.currentPage.body, path)
-            }
-          }
-        }
+              content: get(this.builder.currentPage.body, path),
+            },
+          },
+        },
       });
 
       dialogRef.afterOpened().subscribe(() => {
         builderList = this.doc.querySelector('#builder-list');
         builderList.style.paddingBottom = '500px';
+        this.builder.fullScreen$.next(true);
+        this.builder.closeBuilderRightDrawer$.next(true);
       });
 
       dialogRef.afterClosed().subscribe(() => {
         builderList.style.paddingBottom = '150px';
+        this.builder.fullScreen$.next(false);
       });
     }
   }

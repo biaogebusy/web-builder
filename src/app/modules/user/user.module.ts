@@ -4,19 +4,12 @@ import { UserRoutingModule } from './user-routing.module';
 import { LoginComponent } from './login/login.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { ListModule } from '@uiux/combs/list/list.module';
-import { CountdownModule } from 'ngx-countdown';
 import { UserComponent } from './user.component';
 import { BaseModule } from '@uiux/base/base.module';
 const components = [LoginComponent, UserComponent];
 @NgModule({
   declarations: [...components],
-  imports: [
-    ShareModule,
-    WidgetsModule,
-    CountdownModule,
-    ListModule,
-    UserRoutingModule,
-  ],
+  imports: [ShareModule, WidgetsModule, ListModule, UserRoutingModule],
   exports: [LoginComponent],
 })
 export class UserModule extends BaseModule {
