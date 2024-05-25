@@ -281,124 +281,6 @@ export const components: any[] = [
             },
           },
           {
-            label: '1v3-2',
-            content: {
-              type: 'hero-1v3',
-              spacer: 'xl',
-              classes: '',
-              text: {
-                title: {
-                  label:
-                    '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
-                  classes: 'mat-display-2 bold',
-                  style: 'style-v4',
-                },
-                classes: 'text-light',
-                body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong >Storybook</strong> 页面时添加组件到预览页面。',
-                actions: [
-                  {
-                    type: 'btn',
-                    mode: 'raised',
-                    color: 'primary',
-                    href: '#',
-                    label: '立刻体验',
-                    target: '_blank',
-                  },
-                  {
-                    type: 'btn',
-                    mode: 'raised',
-                    color: 'primary',
-                    href: '#',
-                    label: 'Demo',
-                    target: '_blank',
-                  },
-                  {
-                    type: 'btn',
-                    mode: 'raised',
-                    color: 'primary',
-                    href: '#',
-                    label: '下载',
-                    target: '_blank',
-                  },
-                  {
-                    type: 'btn-video',
-                    color: 'primary',
-                    video: {
-                      type: 'player',
-                      options: {
-                        controls: true,
-                        aspectRatio: '16:9',
-                        poster: '/assets/video/poster01.png',
-                        sources: [
-                          {
-                            src: '/assets/video/storybook.mp4',
-                            type: 'video/mp4',
-                          },
-                        ],
-                      },
-                    },
-                  },
-                ],
-              },
-              right: [
-                {
-                  type: 'img',
-                  hostClasses: 'img-bg-shape',
-                  src: '/assets/images/hero/hero-component.svg',
-                },
-              ],
-              bg: {
-                classes: 'bg-fill-width bg-primary bg-center',
-                img: {
-                  src: '/assets/images/bg/bg-hero.svg',
-                  mobile: '/assets/images/bg/bg-hero.svg',
-                },
-              },
-            },
-          },
-          {
-            label: '1v4',
-            content: {
-              type: 'hero-1v4',
-              spacer: 'xl',
-              classes: '',
-              text: {
-                title: {
-                  label:
-                    '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
-                  classes: 'mat-display-2 bold',
-                  style: 'style-v1',
-                },
-                classes: 'p-x text-center',
-                body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
-                actionsAlign: 'center center',
-                actions: [
-                  {
-                    type: 'btn',
-                    mode: 'raised',
-                    color: 'primary',
-                    href: '#',
-                    label: '立刻体验',
-                    target: '_blank',
-                  },
-                ],
-              },
-              bg: {
-                classes: 'bg-fill-width overlay- overlay-',
-                img: {
-                  src: '/assets/images/bg/home-shape.png',
-                  hostClasses: '',
-                },
-              },
-              widget: [
-                {
-                  type: 'img',
-                  src: '/assets/images/illustration/29.png',
-                },
-              ],
-            },
-          },
-          {
             label: '1v4 Shape',
             content: {
               spacer: 'xl',
@@ -2073,7 +1955,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-05-15',
+                  subTitle: '2024-05-22',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2123,7 +2005,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-15',
+                  subTitle: '2024-05-22',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2160,7 +2042,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-15',
+                  subTitle: '2024-05-22',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2197,7 +2079,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-15',
+                  subTitle: '2024-05-22',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2234,7 +2116,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-15',
+                  subTitle: '2024-05-22',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2271,7 +2153,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-15',
+                  subTitle: '2024-05-22',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2308,7 +2190,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-15',
+                  subTitle: '2024-05-22',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2345,7 +2227,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-15',
+                  subTitle: '2024-05-22',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -3014,249 +2896,6 @@ export const components: any[] = [
             },
           },
           {
-            label: '3v2 列表',
-            content: {
-              type: 'showcase-3v2',
-              text: {
-                title: {
-                  label: '音乐',
-                  style: 'style-v1',
-                  classes: 'mat-display-1 bold',
-                },
-              },
-              bg: {
-                classes: 'bg-fill-width',
-                img: {
-                  hostClasses: '',
-                  src: '/assets/images/bg/home-shape.png',
-                },
-              },
-              classes: '',
-              elements: [
-                {
-                  img: {
-                    src: '/assets/images/illustration/24.png',
-                    alt: '',
-                  },
-                  content: {
-                    title: {
-                      label: '专题文章',
-                      style: 'style-v4',
-                      classes: 'bold',
-                    },
-                    lists: {
-                      params: {
-                        icon: true,
-                      },
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '使用 DevTools 对 Angular 前端应用性能分析',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: '使用 takeUntil 操作符管理 Angular 组件的订阅',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: '你应该了解的 Angular 最佳实践',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label:
-                            'Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: 'Angular 有哪几种不同类型的绑定',
-                          href: '#',
-                        },
-                      ],
-                    },
-                    actions: [
-                      {
-                        type: 'btn',
-                        label: '更多',
-                        href: '#',
-                        mode: 'raised',
-                        color: 'primary',
-                      },
-                    ],
-                  },
-                },
-                {
-                  img: {
-                    src: '/assets/images/illustration/24.png',
-                    alt: '',
-                  },
-                  content: {
-                    title: {
-                      label: '案例研究',
-                      style: 'style-v4',
-                      classes: 'bold',
-                    },
-                    lists: {
-                      params: {
-                        icon: true,
-                      },
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '使用 DevTools 对 Angular 前端应用性能分析',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: '使用 takeUntil 操作符管理 Angular 组件的订阅',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: '你应该了解的 Angular 最佳实践',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label:
-                            'Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: 'Angular 有哪几种不同类型的绑定',
-                          href: '#',
-                        },
-                      ],
-                    },
-                    actions: [
-                      {
-                        type: 'btn',
-                        label: '更多',
-                        href: '#',
-                        mode: 'raised',
-                        color: 'primary',
-                      },
-                    ],
-                  },
-                },
-                {
-                  img: {
-                    src: '/assets/images/illustration/24.png',
-                    alt: '',
-                  },
-                  content: {
-                    title: {
-                      label: '行业资讯',
-                      style: 'style-v4',
-                      classes: 'bold',
-                    },
-                    lists: {
-                      params: {
-                        icon: true,
-                      },
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '使用 DevTools 对 Angular 前端应用性能分析',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: '使用 takeUntil 操作符管理 Angular 组件的订阅',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: '你应该了解的 Angular 最佳实践',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label:
-                            'Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: 'Angular 有哪几种不同类型的绑定',
-                          href: '#',
-                        },
-                      ],
-                    },
-                    actions: [
-                      {
-                        type: 'btn',
-                        label: '更多',
-                        href: '#',
-                        mode: 'raised',
-                        color: 'primary',
-                      },
-                    ],
-                  },
-                },
-                {
-                  img: {
-                    src: '/assets/images/illustration/24.png',
-                    alt: '',
-                  },
-                  content: {
-                    title: {
-                      label: '合同模板',
-                      style: 'style-v4',
-                      classes: 'bold',
-                    },
-                    lists: {
-                      params: {
-                        icon: true,
-                      },
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '使用 DevTools 对 Angular 前端应用性能分析',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: '使用 takeUntil 操作符管理 Angular 组件的订阅',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: '你应该了解的 Angular 最佳实践',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label:
-                            'Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器',
-                          href: '#',
-                        },
-                        {
-                          type: 'link',
-                          label: 'Angular 有哪几种不同类型的绑定',
-                          href: '#',
-                        },
-                      ],
-                    },
-                    actions: [
-                      {
-                        type: 'btn',
-                        label: '更多',
-                        href: '#',
-                        mode: 'raised',
-                        color: 'primary',
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
             label: '3v3',
             content: {
               type: 'showcase-3v3',
@@ -3330,93 +2969,6 @@ export const components: any[] = [
               },
               bg: {
                 classes: 'bg-light bg-fill-width',
-              },
-              classes: '',
-              img: {
-                src: '/assets/images/1-1/business-02.png',
-                alt: 'OUR FEATURES',
-              },
-              elements: [
-                {
-                  type: 'box',
-                  style: 'style-v7',
-                  icon: {
-                    name: 'verified_user',
-                  },
-                  title: {
-                    href: '/',
-                    label: '组件编辑',
-                  },
-                  content: '通过简单的管理界面对复杂的可视化编辑',
-                  more: {
-                    href: '#',
-                    label: '更多',
-                  },
-                },
-                {
-                  type: 'box',
-                  style: 'style-v7',
-                  icon: {
-                    name: 'fingerprint',
-                  },
-                  title: {
-                    href: '/',
-                    label: '多语言',
-                  },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                  more: {
-                    href: '#',
-                    label: '更多',
-                  },
-                },
-                {
-                  type: 'box',
-                  style: 'style-v7',
-                  icon: {
-                    name: 'favorite',
-                  },
-                  title: {
-                    href: '/',
-                    label: '高性能',
-                  },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                  more: {
-                    href: '#',
-                    label: '更多',
-                  },
-                },
-                {
-                  type: 'box',
-                  style: 'style-v7',
-                  icon: {
-                    name: 'android',
-                  },
-                  title: {
-                    href: '/',
-                    label: '易用的编辑器',
-                  },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                  more: {
-                    href: '#',
-                    label: '更多',
-                  },
-                },
-              ],
-            },
-          },
-          {
-            label: '3v4 背景',
-            content: {
-              type: 'showcase-3v4',
-              title: {
-                label: '为什么你将会喜欢这个前端框架？',
-                style: 'style-v1',
-              },
-              bg: {
-                classes: 'bg-shadow bg-fill-width',
               },
               classes: '',
               img: {
@@ -3848,108 +3400,6 @@ export const components: any[] = [
             },
           },
           {
-            label: '3v6 背景',
-            content: {
-              type: 'showcase-3v6',
-              id: '',
-              title: {
-                type: 'text',
-                spacer: 'sm',
-                title: {
-                  label: '为所有开发者、所有应用场景而设计',
-                  style: 'style-v1',
-                },
-                classes: 'text-center',
-                body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
-              },
-              bg: {
-                classes: 'bg-shadow bg-fill-width',
-              },
-              classes: '',
-              row: '3',
-              elements: [
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: '响应式设计',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: '支持 SSR 服务端渲染',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: '支持多主题、暗黑模式',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: 'MDI 6000多个icons',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: 'Storybook 全覆盖测试',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: '动态组件动态表单',
-                },
-              ],
-              action: {
-                label: '查看更多',
-                href: '#',
-                style: 'style-v1',
-                icon: 'open_in_new',
-              },
-            },
-          },
-          {
             label: '3v7',
             content: {
               type: 'showcase-3v7',
@@ -4344,122 +3794,78 @@ export const components: any[] = [
           {
             label: '4v1',
             content: {
-              type: 'showcase-4v1',
-              spacer: 'lg',
-              text: {
-                title: {
-                  label: '平台实时数据',
-                  style: 'style-v1',
-                },
-              },
+              type: 'showcase-3v9',
               bg: {
-                classes: '',
+                classes: 'bg-fill-width',
+                img: {
+                  classes: 'object-fit',
+                  src: '/assets/images/bg/bg-01.png',
+                },
               },
               classes: '',
-              params: {
-                apiBak: 'api/v1/xxx',
+              order: {
+                left: 1,
+                right: 0,
               },
-              elements: [
+              left: [
                 {
-                  icon: {
-                    name: 'fingerprint',
-                  },
-                  digit: {
-                    value: 659,
-                    label: '+',
-                  },
-                  title: '日访问人数',
-                },
-                {
-                  icon: {
-                    name: 'verified_user',
-                  },
-                  digit: {
-                    value: 167,
-                    label: '+',
-                  },
-                  title: '日打开次数',
-                },
-                {
-                  icon: {
-                    name: 'android',
-                  },
-                  digit: {
-                    value: 111,
-                    label: '人',
-                  },
-                  title: '日新增人数',
-                },
-                {
-                  icon: {
-                    name: 'mail',
-                  },
-                  digit: {
-                    value: 7631,
-                    label: '万',
-                  },
-                  title: '累计用户数',
+                  type: 'img',
+                  src: '/assets/images/illustration/13.png',
+                  classes: 'mover',
+                  hostClasses: 'relative img-bg-shape',
+                  actions: [
+                    {
+                      type: 'btn-video',
+                      color: 'default',
+                      dialog: {
+                        width: '900',
+                        height: '800',
+                      },
+                      video: {
+                        type: 'iframe',
+                        url: '//player.bilibili.com/player.html?aid=998790468&bvid=BV1ux4y197kc&cid=1207367269&page=1',
+                        width: '900',
+                        height: '700',
+                      },
+                    },
+                  ],
                 },
               ],
-            },
-          },
-          {
-            label: '4v1 图片',
-            content: {
-              type: 'showcase-4v1',
-              spacer: 'lg',
-              text: {
-                title: {
-                  label: 'Storybook 是如何流行于前端开发测试的',
-                  style: 'style-v1',
-                  classes: 'mat-display-1',
-                },
-                classes: 'text-center',
-                body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
-              },
-              paramsBak: {
-                api: 'api/v1/tab/order_process_statistics',
-              },
-              elements: [
+              right: [
                 {
-                  img: {
-                    src: '/assets/images/svg/Asset187.svg',
+                  type: 'text',
+                  spacer: 'md',
+                  body: '从左侧选择组件拖动到编辑区：<ul class="list-done"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class="text-primary">1176468251</span></p><p style="display:flex"><img width="120px" src="/assets/icons/large-left-arrow.svg"><video muted="" autoplay="" loop="" width="120px" src="/assets/video/drag-drop.mp4"></video></p>',
+                  title: {
+                    label:
+                      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+                    style: 'style-v4',
+                    classes: 'mat-display-1 bold',
                   },
-                  digit: {
-                    value: 54,
-                    label: 'M',
+                  bg: {
+                    classes: '',
                   },
-                  title: 'Github Start',
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset189.svg',
-                  },
-                  digit: {
-                    value: 46648,
-                    label: '+',
-                  },
-                  title: 'NPM 周下载量',
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset190.svg',
-                  },
-                  digit: {
-                    value: 3505,
-                    label: 'K',
-                  },
-                  title: '社区活跃',
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset192.svg',
-                  },
-                  digit: {
-                    value: 741,
-                    label: '个',
-                  },
-                  title: '成功故事',
+                  actionsAlign: 'start center',
+                  actions: [
+                    {
+                      type: 'btn-generater',
+                      label: '生成页面',
+                      color: 'primary',
+                      mode: 'raised',
+                    },
+                    {
+                      type: 'btn',
+                      color: 'primary',
+                      mode: 'stroked',
+                      label: '演示视频',
+                      href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                      target: '_blank',
+                      icon: {
+                        inline: true,
+                        svg: 'play-circle-outline',
+                      },
+                    },
+                  ],
                 },
               ],
             },
