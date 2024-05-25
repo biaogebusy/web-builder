@@ -1,13 +1,29 @@
 <div class="code-editor flex gap-2" *ngIf="screenService.isPlatformBrowser()">
   <div class="box flex-4/12">
-    <json-editor [options]="editorOptions" [data]="json" (change)="onJsonChange($event)"></json-editor>
+    <app-formly
+      class="block px-3"
+      [fields]="fields"
+      [model]="model"
+      (modelChange)="onModelChange($event)"
+    ></app-formly>
+    <json-editor
+      [options]="editorOptions"
+      [data]="json"
+      (change)="onJsonChange($event)"
+    ></json-editor>
   </div>
   <div class="box flex-8/12">
-    <ngx-codemirror (ngModelChange)="onHTMLChange($event)" [ngModel]="html" [options]="{
-    mode: 'htmlmixed',
-    lineWrapping: true,
-    matchBrackets: true,
-    autoCloseBrackets: true
-  }"></ngx-codemirror>
+    <ngx-codemirror
+      (ngModelChange)="onHTMLChange($event)"
+      [ngModel]="html"
+      [options]="{
+        mode: 'htmlmixed',
+        lineNumbers: true,
+        lineWrapping: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        lint: true
+      }"
+    ></ngx-codemirror>
   </div>
 </div>

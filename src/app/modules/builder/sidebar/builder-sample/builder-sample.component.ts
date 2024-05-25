@@ -34,7 +34,6 @@ export class BuilderSampleComponent implements OnInit {
       .fetch('/api/v1/node/landing_page', params)
       .pipe(
         map((res: any) => {
-          console.log(res);
           const { data } = res;
           const pages = data.map((page: any) => {
             const {

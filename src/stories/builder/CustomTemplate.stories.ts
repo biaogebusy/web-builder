@@ -65,6 +65,52 @@ Default.args = {
   },
 };
 
+export const Each = Template.bind({});
+Each.storyName = '循环';
+Each.args = {
+  content: {
+    isAPI: true,
+    json: {
+      rows: [
+        {
+          url: '/',
+          title: 'CSS 有什么奇技淫巧？',
+          type: '前端',
+          body: '不是什么奇技淫巧，但是一行css代码可能让你省下js代码，作为前端的你变得更加专业： 1. 阻止鼠标选择文本 .no-select { user-select: none } 阻止用户在页面上选择文本。',
+          created: '20240502x',
+        },
+        {
+          url: '/',
+          title: '信使WEB BUILDER 新增自定义组件流程',
+          type: '前端',
+          body: '新增组件流程 在合适的 uiux 模块中新建组件； 注册组件到动态组件； 在 storybook 中开发组件； 新增组件到 web builder 供用户选择使用； ',
+          created: '20240502x',
+        },
+        {
+          url: '/',
+          title: 'GITHUB 22 端口连接超时报错的解决办法',
+          type: '前端',
+          body: '最近发现github一直连接超时，pull和push代码都无法正常使用。 ssh: connect to host github.com port 22: Operation timed out fatal: Could not read from remote repository',
+          created: '20240502x',
+        },
+      ],
+    },
+    html: `
+<div class="flex flex-wrap break-all">
+  {{#each rows}}
+    <div class="flex-3/12  break-all">
+      <div class="shadow-md m-3 p-5 overflow-hidden rounded-md bg-white">
+      	<h2><a href="{{url}}">{{title}}</a></h2>
+        <span class="bg-primary py-1 px-3 text-xs rounded-full">{{type}}</span>
+        <div class="">{{body}}</div>
+        <div class="mt-3">{{created}}</div>
+      </div>
+    </div>
+    {{/each}}
+</div>`,
+  },
+};
+
 export const Simple = Template.bind({});
 Simple.storyName = '简单';
 Simple.args = {
