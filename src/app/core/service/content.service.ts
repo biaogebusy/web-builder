@@ -18,7 +18,6 @@ import {
   enDefaultHeader,
   enFooterInverse,
 } from '@modules/builder/data/Branding.json';
-import { samples } from '@modules/builder/data/samples-for-builder';
 import { ILanguage } from '@core/interface/IEnvironment';
 @Injectable({
   providedIn: 'root',
@@ -73,18 +72,16 @@ export class ContentService {
         })
       );
     } else {
-      const pageId = pageUrl.split('/')[1];
-      const samplePage = samples.map((item: any) => item.elements);
-
-      const currentPage = flattenDeep(samplePage).find(
-        (page: any) => page.id === pageId
-      );
-      if (currentPage) {
-        this.updatePage(currentPage.page);
-        return of(currentPage.page);
-      } else {
-        return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-      }
+      return this.http
+        .get<any>(`${this.apiUrl}/assets/app${pageUrl}.json`)
+        .pipe(
+          tap((page) => {
+            this.updatePage(page);
+          }),
+          catchError(() => {
+            return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
+          })
+        );
     }
   }
 

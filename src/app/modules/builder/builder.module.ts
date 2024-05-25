@@ -4,7 +4,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ShareModule } from '@share/share.module';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { BuilderRoutingModule } from './builder-routing.module';
 import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
 import { BuilderPanelComponent } from './sidebar/builder-panel/builder-panel.component';
@@ -17,7 +16,6 @@ import { PreviewListComponent } from './main/preview-list/preview-list.component
 import { BaseModule } from '@uiux/base/base.module';
 import {
   BUILDER_CURRENT_PAGE,
-  BUILDER_SAMPLE_PAGE,
   WIDGETS,
   UIUX,
   COLOR_TEST,
@@ -25,7 +23,6 @@ import {
 import { uiux } from './data/uiux-for-builder';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
-import { samples } from './data/samples-for-builder';
 import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.component';
 import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
 import { builderCurrentPageFactory } from '@core/factory/factory';
@@ -45,8 +42,6 @@ import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sideb
 import { BuilderTemplateComponent } from './main/builder-template/builder-template.component';
 import { LayoutToolbarComponent } from './layout-builder/layout-toolbar/layout-toolbar.component';
 import { BlockToolbarComponent } from './layout-builder/block-toolbar/block-toolbar.component';
-import { CountdownModule } from 'ngx-countdown';
-import { CustomTemplateComponent } from './custom-template/custom-template.component';
 
 const components = [
   BuilderComponent,
@@ -58,7 +53,6 @@ const components = [
   WidgetPickerComponent,
   LayoutSettingComponent,
   BuilderTemplateComponent,
-  CustomTemplateComponent,
 ];
 
 @NgModule({
@@ -87,7 +81,6 @@ const components = [
     WidgetsModule,
     BrandingModule,
     DragDropModule,
-    CountdownModule,
     BuilderRoutingModule,
   ],
   providers: [
@@ -98,10 +91,6 @@ const components = [
     {
       provide: WIDGETS,
       useValue: of(widgets),
-    },
-    {
-      provide: BUILDER_SAMPLE_PAGE,
-      useValue: samples,
     },
     {
       provide: BUILDER_CURRENT_PAGE,
