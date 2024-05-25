@@ -30,7 +30,7 @@ import { Router } from '@angular/router';
 export class UserMenuComponent implements OnInit, OnDestroy {
   @Input() content: any[];
   dialogRef: any;
-  currentUser: IUser;
+  currentUser: IUser | false;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -52,6 +52,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
       }
       // logout
       if (!currentUser) {
+        this.currentUser = false;
         this.cd.detectChanges();
       }
     });

@@ -1,78 +1,144 @@
 <div class="login-container flex justify-center items-center">
-  <div class="login-wrapper relative flex justify-center items-center rounded-xl">
+  <div
+    class="login-wrapper relative flex justify-center items-center rounded-xl"
+  >
     <div
-      class="hidden sm:flex justify-center items-center login-second relative p-5 flex-12/12 sm:flex-6/12 box-border">
-      <app-dynamic-component *ngIf="coreConfig.login.left" [inputs]="coreConfig.login.left">
+      class="
+        hidden
+        sm:flex
+        justify-center
+        items-center
+        login-second
+        relative
+        p-5
+        flex-12/12
+        sm:flex-6/12
+        box-border
+      "
+    >
+      <app-dynamic-component
+        *ngIf="coreConfig.login.left"
+        [inputs]="coreConfig.login.left"
+      >
       </app-dynamic-component>
     </div>
     <div
-      class="flex flex-col justify-center items-center login-form p-3 z-10 overflow-hidden relative flex-12/12 sm:flex-6/12 box-border"
-      [class.is-login]="currentUser?.authenticated">
+      class="
+        flex flex-col
+        justify-center
+        items-center
+        login-form
+        p-3
+        z-10
+        overflow-hidden
+        relative
+        flex-12/12
+        sm:flex-6/12
+        box-border
+      "
+      [class.is-login]="currentUser"
+    >
       <div class="w-full form-scroll" *ngIf="!loading">
-        <ng-container *ngIf="!currentUser.authenticated">
-          <div *ngIf="error" class="error p-3 mb-3">{{error}}
-          </div>
+        <ng-container *ngIf="!currentUser">
+          <div *ngIf="error" class="error p-3 mb-3">{{ error }}</div>
           <mat-tab-group animationDuration="0ms" [disablePagination]="true">
-            <mat-tab label="{{coreConfig.login.phoneLogin.tabLabel || '手机登录'}}"
-              *ngIf="coreConfig.login?.phoneLogin?.enable">
-              <form class="flex flex-col py-5" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
+            <mat-tab
+              label="{{ coreConfig.login.phoneLogin.tabLabel || '手机登录' }}"
+              *ngIf="coreConfig.login?.phoneLogin?.enable"
+            >
+              <form
+                class="flex flex-col py-5"
+                [formGroup]="phoneForm"
+                (ngSubmit)="loginByPhone()"
+              >
                 <mat-form-field appearance="fill">
                   <mat-label>请输入手机号码</mat-label>
                   <mat-icon matSuffix>phone_iphone</mat-icon>
-                  <input placeholder="请输入手机号码" type="text" matInput formControlName="phone">
+                  <input
+                    placeholder="请输入手机号码"
+                    type="text"
+                    matInput
+                    formControlName="phone"
+                  />
                   <mat-error *ngIf="formPhone.phone.errors?.pattern">
-                    {{coreConfig.login.phoneLogin.error || '请输入正确的手机号码'}}</mat-error>
+                    {{
+                      coreConfig.login.phoneLogin.error ||
+                        "请输入正确的手机号码"
+                    }}</mat-error
+                  >
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label>验证码</mat-label>
-                  <input matInput type="text" formControlName="code">
-                  <button disabled="{{formPhone.phone.errors? true: false}}" (click)="getCode($event)" class="code"
-                    matSuffix color="primary" mat-raised-button aria-label="code">
+                  <input matInput type="text" formControlName="code" />
+                  <button
+                    disabled="{{ formPhone.phone.errors ? true : false }}"
+                    (click)="getCode($event)"
+                    class="code"
+                    matSuffix
+                    color="primary"
+                    mat-raised-button
+                    aria-label="code"
+                  >
                     <small>
                       发送验证码
-                      <ng-container *ngIf="config?.leftTime">
-                        (<countdown #cd [config]="config"></countdown>)
+                      <ng-container *ngIf="countdown">
+                        ({{ countdown }})
                       </ng-container>
                     </small>
                   </button>
                 </mat-form-field>
                 <button type="submit" mat-raised-button color="primary">
-                  <div class="flex justify-center items-center">
-                    <div class="px-3">{{coreConfig.login.phoneLogin.submitLabel}}</div>
-                  </div>
+                  {{ coreConfig.login.phoneLogin.submitLabel }}
                 </button>
               </form>
             </mat-tab>
-            <mat-tab label="{{coreConfig.login.pswLogin.tabLabel || '密码登录'}}"
-              *ngIf="coreConfig.login?.pswLogin?.enable">
-              <form class="flex flex-col py-5" [formGroup]="userForm" (ngSubmit)="login()">
+            <mat-tab
+              label="{{ coreConfig.login.pswLogin.tabLabel || '密码登录' }}"
+              *ngIf="coreConfig.login?.pswLogin?.enable"
+            >
+              <form
+                class="flex flex-col py-5"
+                [formGroup]="userForm"
+                (ngSubmit)="login()"
+              >
                 <mat-form-field appearance="fill">
                   <mat-label>用户名</mat-label>
                   <mat-icon matSuffix>person</mat-icon>
-                  <input matInput formControlName="name" autocomplete="username">
+                  <input
+                    matInput
+                    formControlName="name"
+                    autocomplete="username"
+                  />
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label>密码</mat-label>
-                  <input matInput [type]="hide ? 'password' : 'text'" formControlName="pass"
-                    autocomplete="current-password">
-                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <input
+                    matInput
+                    [type]="hide ? 'password' : 'text'"
+                    formControlName="pass"
+                    autocomplete="current-password"
+                  />
+                  <button
+                    mat-icon-button
+                    matSuffix
+                    (click)="hide = !hide"
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide"
+                  >
+                    <mat-icon>{{
+                      hide ? "visibility_off" : "visibility"
+                    }}</mat-icon>
                   </button>
                 </mat-form-field>
                 <button type="submit" mat-raised-button color="primary">
-                  <div fxLayoutAlign="center center">
-                    <div class="p-x-xs">{{coreConfig.login.pswLogin.submitLabel}}</div>
-                  </div>
+                  {{ coreConfig.login.pswLogin.submitLabel }}
                 </button>
               </form>
             </mat-tab>
           </mat-tab-group>
         </ng-container>
-        <ng-container *ngIf="currentUser?.authenticated">
-          <h1 class="mat-h1 text-base">
-            Hi, {{currentUser.display_name}}
-          </h1>
+        <ng-container *ngIf="currentUser">
+          <h1 class="mat-h1 text-base">Hi, {{ currentUser.display_name }}</h1>
           <mat-divider></mat-divider>
           <p class="text-base mt-3">欢迎。</p>
         </ng-container>

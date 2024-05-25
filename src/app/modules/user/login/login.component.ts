@@ -4,6 +4,7 @@ import {
   Inject,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -14,21 +15,21 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
+import { Subscription, interval } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   hide = true;
   loading: boolean;
   error: string;
   userForm: FormGroup;
   phoneForm: FormGroup;
-  currentUser: IUser;
-
-  config: any;
+  currentUser: IUser | false;
+  public countdown: number;
+  private subscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -55,6 +56,7 @@ export class LoginComponent implements OnInit {
         }
         // logout
         if (!currentUser) {
+          this.currentUser = false;
           this.cd.detectChanges();
         }
       });
@@ -132,11 +134,23 @@ export class LoginComponent implements OnInit {
       return false;
     }
     this.userService.getCode(this.phoneForm.value.phone).subscribe(() => {
-      this.config = {
-        leftTime: 60,
-        format: 'ss',
-      };
+      const { leftTime } = this.coreConfig.login.phoneLogin;
+      this.countdown = leftTime;
+      const source = interval(1000);
+      this.subscription = source.subscribe((val) => {
+        if (this.countdown > 0) {
+          this.countdown--;
+        } else {
+          this.subscription.unsubscribe();
+        }
+      });
       this.cd.detectChanges();
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
