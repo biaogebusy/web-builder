@@ -185,12 +185,18 @@ export class BuilderState {
 
     if (addType === 'add') {
       const lastDotIndex = path.lastIndexOf('.');
-      const before = path.slice(0, lastDotIndex);
-      const index = path.slice(lastDotIndex + 1);
-      const targetArray = get(body, before);
-      if (Array.isArray(targetArray)) {
-        targetArray.splice(Number(index) + 1, 0, content);
-        set(body, before, targetArray);
+      if (lastDotIndex !== -1) {
+        // loop element 等，新增组件到数组
+        const before = path.slice(0, lastDotIndex);
+        const index = path.slice(lastDotIndex + 1);
+        const targetArray = get(body, before);
+        if (Array.isArray(targetArray)) {
+          targetArray.splice(Number(index) + 1, 0, content);
+          set(body, before, targetArray);
+        }
+      } else {
+        // body 一级组件
+        body.splice(Number(path) + 1, 0, cloneDeep(content));
       }
     }
 
@@ -231,12 +237,7 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  onComponentSetting(
-    content: any,
-    pageIndex: number,
-    uuid: string,
-    path: string
-  ): void {
+  onComponentSetting(content: any, pageIndex: number, path: string): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
       fields: getComponentSetting(content),
@@ -262,11 +263,11 @@ export class BuilderState {
     this.fixedChange$.next(true);
   }
 
-  getRandomElements = (
+  getRandomElements(
     data: IBuilderComponent[],
     id: string,
     count: number
-  ) => {
+  ): any[] {
     const elements = data.find((item) => item.id === id)?.elements || [];
     // 如果元素中包含 content.child，则将其元素也添加到结果中
     const result = elements.reduce((acc: any[], element: any) => {
@@ -292,7 +293,7 @@ export class BuilderState {
     } else {
       return [];
     }
-  };
+  }
 
   renderMarkers(isDebugAnimate: boolean): void {
     const markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
