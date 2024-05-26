@@ -1,12 +1,12 @@
 <div class="code-editor flex gap-2" *ngIf="screenService.isPlatformBrowser()">
-  <div class="box flex-4/12">
+  <div class="box flex-4/12 flex flex-col">
     <app-formly
       class="block px-3"
       [fields]="fields"
       [model]="model"
       (modelChange)="onModelChange($event)"
     ></app-formly>
-    <json-editor
+    <json-editor class="block flex-auto"
       [options]="editorOptions"
       [data]="json"
       (change)="onJsonChange($event)"
