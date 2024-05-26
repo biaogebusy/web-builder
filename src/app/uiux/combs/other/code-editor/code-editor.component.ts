@@ -27,7 +27,6 @@ export class CodeEditorComponent implements OnInit {
   html: string;
   json: any;
   isAPI: boolean;
-  isRealTime: boolean;
   api: string;
   form = new FormGroup({});
   model: any = {};
@@ -65,14 +64,6 @@ export class CodeEditorComponent implements OnInit {
             },
           },
           {
-            type: 'toggle',
-            key: 'isRealTime',
-            className: 'flex-4/12',
-            templateOptions: {
-              label: '实时更新',
-            },
-          },
-          {
             type: 'input',
             key: 'api',
             defaultValue: this.api,
@@ -87,7 +78,7 @@ export class CodeEditorComponent implements OnInit {
     ];
 
     if (this.isAPI && this.api) {
-      this.nodeService.fetch(this.api, 'noCache=true').subscribe((res) => {
+      this.nodeService.fetch(this.api, '').subscribe((res) => {
         this.json = res;
         this.cd.detectChanges();
       });
@@ -96,7 +87,7 @@ export class CodeEditorComponent implements OnInit {
 
   onHTMLChange(html: string): void {
     const { path } = this.content;
-    if (path && this.isRealTime) {
+    if (path) {
       const content = { ...get(this.builder.currentPage.body, path), html };
       if (this.isAPI) {
         content.json = null;
@@ -109,11 +100,10 @@ export class CodeEditorComponent implements OnInit {
     const { isAPI, isRealTime, api } = value;
     const { path } = this.content;
     this.isAPI = isAPI;
-    this.isRealTime = isRealTime;
     this.api = api;
     if (isAPI && api) {
       this.nodeService
-        .fetch(api, 'noCache=true')
+        .fetch(api, '')
         .pipe(debounceTime(1000), distinctUntilChanged())
         .subscribe((res) => {
           this.json = res;
@@ -138,8 +128,7 @@ export class CodeEditorComponent implements OnInit {
   }
 
   onJsonChange(value: any): void {
-    this.json = value;
-    if (value.timeStamp || this.isAPI || !this.isRealTime) {
+    if (value.timeStamp || this.isAPI) {
       return;
     }
     const { path } = this.content;
