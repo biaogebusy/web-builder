@@ -27,6 +27,7 @@ export class CodeEditorComponent implements OnInit {
   html: string;
   json: any;
   isAPI: boolean;
+  isRealTime: boolean;
   api: string;
   form = new FormGroup({});
   model: any = {};
@@ -52,21 +53,36 @@ export class CodeEditorComponent implements OnInit {
     this.api = this.content.content.api ?? '';
     this.fields = [
       {
-        type: 'toggle',
-        key: 'isAPI',
-        defaultValue: this.isAPI,
-        templateOptions: {
-          label: 'API',
-        },
-      },
-      {
-        type: 'input',
-        key: 'api',
-        defaultValue: this.api,
-        templateOptions: {
-          label: 'API',
-        },
-        hideExpression: '!model.isAPI',
+        fieldGroupClassName: 'flex flex-wrap',
+        fieldGroup: [
+          {
+            type: 'toggle',
+            key: 'isAPI',
+            defaultValue: this.isAPI,
+            className: 'flex-4/12',
+            templateOptions: {
+              label: 'API',
+            },
+          },
+          {
+            type: 'toggle',
+            key: 'isRealTime',
+            className: 'flex-4/12',
+            templateOptions: {
+              label: '实时更新',
+            },
+          },
+          {
+            type: 'input',
+            key: 'api',
+            defaultValue: this.api,
+            className: 'flex-12/12',
+            templateOptions: {
+              label: 'API',
+            },
+            hideExpression: '!model.isAPI',
+          },
+        ],
       },
     ];
 
@@ -80,7 +96,7 @@ export class CodeEditorComponent implements OnInit {
 
   onHTMLChange(html: string): void {
     const { path } = this.content;
-    if (path) {
+    if (path && this.isRealTime) {
       const content = { ...get(this.builder.currentPage.body, path), html };
       if (this.isAPI) {
         content.json = null;
@@ -90,9 +106,10 @@ export class CodeEditorComponent implements OnInit {
   }
 
   onModelChange(value: any): void {
-    const { isAPI, api } = value;
+    const { isAPI, isRealTime, api } = value;
     const { path } = this.content;
     this.isAPI = isAPI;
+    this.isRealTime = isRealTime;
     this.api = api;
     if (isAPI && api) {
       this.nodeService
@@ -122,7 +139,7 @@ export class CodeEditorComponent implements OnInit {
 
   onJsonChange(value: any): void {
     this.json = value;
-    if (value.timeStamp || this.isAPI) {
+    if (value.timeStamp || this.isAPI || !this.isRealTime) {
       return;
     }
     const { path } = this.content;

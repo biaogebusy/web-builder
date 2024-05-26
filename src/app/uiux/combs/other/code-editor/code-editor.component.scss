@@ -9,6 +9,10 @@
       font-size: 14px;
       height: 500px;
       overflow-y: auto;
+      pre.CodeMirror-line,
+      pre.CodeMirror-line-like {
+        padding: 0 12px;
+      }
     }
   }
 
