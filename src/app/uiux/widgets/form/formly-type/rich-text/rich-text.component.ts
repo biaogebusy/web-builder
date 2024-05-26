@@ -59,7 +59,6 @@ export class RichTextComponent
   ngOnInit(): void {}
 
   openRichText(): void {
-    console.log(this.formControl);
     this.value = this.formControl.value;
     this.popper = createPopper(
       this.ele.nativeElement,
@@ -88,7 +87,6 @@ export class RichTextComponent
   }
 
   onContentChanged(event: any): void {
-    console.log(event);
     const { html } = event;
     this.value = html;
   }
