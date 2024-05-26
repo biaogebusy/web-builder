@@ -29,7 +29,7 @@ export class RichTextComponent
           header: [1, 2, 3, 4, 5, 6, false],
         },
       ],
-      ['bold', 'italic'],
+      ['bold', 'italic', 'underline', 'strike'],
       [
         {
           align: [],
@@ -42,9 +42,14 @@ export class RichTextComponent
         {
           list: 'bullet',
         },
+        {
+          list: 'check',
+        },
       ],
-      ['link', 'image'],
-      ['blockquote'],
+      [{ indent: '-1' }, { indent: '+1' }],
+      [{ color: [] }, { background: [] }],
+      ['link', 'image', 'video'],
+      ['blockquote', 'code-block'],
       ['clean'],
     ],
   };

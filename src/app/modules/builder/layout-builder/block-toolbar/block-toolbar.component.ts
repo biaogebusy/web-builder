@@ -21,7 +21,7 @@ import { getNone } from '@modules/builder/factory/getNone';
 import { getSpacer } from '@modules/builder/factory/getSpacer';
 import { getSwiper } from '@modules/builder/factory/getSwiper';
 import { getText } from '@modules/builder/factory/getText';
-import { getTitleField } from '@modules/builder/factory/getTitleField';
+import { getTitle } from '@modules/builder/factory/getTitle';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getBuilder } from '@modules/builder/factory/getBuilder';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -86,7 +86,7 @@ export class BlockToolbarComponent implements OnInit {
     const animateConfig = getAnimate(widget);
     switch (widget.type) {
       case 'title':
-        fields = getTitleField(widget, [animateConfig]);
+        fields = getTitle(widget, [animateConfig]);
         break;
       case 'btn-video':
         fields = getBtnVideo(widget, [animateConfig]);

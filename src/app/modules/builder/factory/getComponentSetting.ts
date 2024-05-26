@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getSwiper } from './getSwiper';
-import { getTitleField } from './getTitleField';
+import { getTitle } from './getTitle';
 import { getText } from './getText';
 import { getAnimate } from './getAnimate';
 import { getBgClasses, getFlexLayoutConfig, getOverlay } from './getCommon';
@@ -244,6 +244,27 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
     });
   }
 
+  if (content.type === 'text') {
+    fields[0].fieldGroup?.push({
+      templateOptions: {
+        label: '文本',
+      },
+      fieldGroup: [
+        ...getTitle(content.title),
+        {
+          key: 'body',
+          type: 'rich-text',
+          className: 'w-full',
+          defaultValue: content.body,
+          templateOptions: {
+            label: '内容',
+            rows: 10,
+          },
+        },
+      ],
+    });
+  }
+
   if (
     content.type === 'carousel-1v1' ||
     content.type === 'carousel-1v2' ||
@@ -255,7 +276,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         templateOptions: {
           label: '标题',
         },
-        fieldGroup: [...getTitleField(content.title)],
+        fieldGroup: [...getTitle(content.title)],
       };
       fields[0].fieldGroup?.push(titleConfig);
     }
@@ -306,7 +327,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         templateOptions: {
           label: '标题',
         },
-        fieldGroup: [...getTitleField(content.title)],
+        fieldGroup: [...getTitle(content.title)],
       };
       fields[0].fieldGroup?.push(titleConfig);
     }
