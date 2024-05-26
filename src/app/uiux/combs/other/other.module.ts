@@ -10,8 +10,8 @@ import { BaseModule } from '@uiux/base/base.module';
 import { JsoneditorComponent } from './jsoneditor/jsoneditor.component';
 import { ThemePreviewComponent } from './theme-preview/theme-preview.component';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { CustomTemplateComponent } from './custom-template/custom-template.component';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 const components = [
   NotfoundComponent,
@@ -25,7 +25,12 @@ const components = [
 
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule, NgJsonEditorModule, CodemirrorModule],
+  imports: [
+    ShareModule,
+    WidgetsModule,
+    NgJsonEditorModule,
+    MonacoEditorModule.forRoot(),
+  ],
   exports: [...components],
 })
 export class OtherModule extends BaseModule {

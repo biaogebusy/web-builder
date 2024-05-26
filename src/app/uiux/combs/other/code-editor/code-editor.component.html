@@ -13,17 +13,11 @@
     ></json-editor>
   </div>
   <div class="box flex-8/12">
-    <ngx-codemirror
-      (ngModelChange)="onHTMLChange($event)"
+    <ngx-monaco-editor
+      class="!h-full"
+      [options]="MonacoOptions"
       [ngModel]="html"
-      [options]="{
-        mode: 'htmlmixed',
-        lineNumbers: true,
-        lineWrapping: true,
-        matchBrackets: true,
-        autoCloseBrackets: true,
-        lint: true
-      }"
-    ></ngx-codemirror>
+      (ngModelChange)="onHTMLChange($event)"
+    ></ngx-monaco-editor>
   </div>
 </div>
