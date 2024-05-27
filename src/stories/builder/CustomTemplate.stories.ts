@@ -102,7 +102,7 @@ Each.args = {
       <div class="shadow-md m-3 p-5 overflow-hidden rounded-md bg-white">
       	<h2><a href="{{url}}">{{title}}</a></h2>
         <span class="bg-primary py-1 px-3 text-xs rounded-full">{{type}}</span>
-        <div class="">{{body}}</div>
+        <div style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{body}}</div>
         <div class="mt-3">{{created}}</div>
       </div>
     </div>
