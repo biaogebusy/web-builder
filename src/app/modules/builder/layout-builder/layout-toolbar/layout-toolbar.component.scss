@@ -14,7 +14,7 @@
   .toggle {
     border-bottom-left-radius: 4px;
   }
-  .block-toolbar {
+  .actions {
     display: none;
     position: absolute;
     border-radius: 0 0 0 4px;
@@ -26,7 +26,7 @@
     .toggle {
       display: none;
     }
-    .block-toolbar {
+    .actions {
       display: block;
     }
   }

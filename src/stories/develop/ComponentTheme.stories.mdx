@@ -20,8 +20,8 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 
 2. 最佳实践
 
-```css
-@import "~@angular/material/theming";
+```scss
+@use '~@angular/material' as mat;
 
 @mixin hero-color($config-or-theme) {
   $config: mat.get-color-config($config-or-theme);
@@ -31,37 +31,43 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $type: mat-get-typography-config($config-or-theme);
-
-  $bg-card-color: mat-color($background, card);
+  $bg-card-color: mat.get-color-from-palette($background, card);
   .hero-1-v2 {
-    .title {
-      color: mat-color($primary, default-contrast);
-      font: font: {
-        family: mat-font-family($config, body-1);
-        size: mat-font-size($config, body-1);
-        weight: mat-font-weight($config, body-1);
-      }
+    .title,
+    .sub-title {
+      color: mat.get-color-from-palette($primary, default-contrast);
     }
   }
   .hero-2-v2 {
     .box {
       background-color: $bg-card-color;
-      @include mat-elevation(4, mat-color($foreground, text), 0.2);
+      @include mat.elevation(
+        4,
+        mat.get-color-from-palette($foreground, text),
+        0.2
+      );
       .content {
-        color: mat-color($foreground, text, 0.5);
+        color: mat.get-color-from-palette($foreground, text, 0.5);
       }
     }
   }
 
   .hero-2-v3 {
-    background-color: mat-color($primary);
-    color: mat-color($primary, default-contrast);
+    background-color: mat.get-color-from-palette($primary);
+    color: mat.get-color-from-palette($primary, default-contrast);
     .card {
       background-color: $bg-card-color;
-      @include mat-elevation(4, mat-color($foreground, text), 0.2);
+      @include mat.elevation(
+        4,
+        mat.get-color-from-palette($foreground, text),
+        0.2
+      );
       .card-media {
-        @include mat-elevation(5, mat-color($foreground, text), 0.3);
+        @include mat.elevation(
+          5,
+          mat.get-color-from-palette($foreground, text),
+          0.3
+        );
       }
     }
   }
@@ -76,9 +82,9 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 - $accent: 强调色
 - $warn: 警告色
 
-使用 mat-color(palette,hue: default, $opacity: null) :从调色盘获取特定的颜色，可以指定色调和透明度。
+使用 mat.get-color-from-palette(palette,hue: default, $opacity: null) :从调色盘获取特定的颜色，可以指定色调和透明度。
 
-```css
+```scss
 @import "~@angular/material/theming";
 
 @mixin hero-color($config-or-theme) {
@@ -91,23 +97,23 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 
   .hero-1-v2 {
     // 获取默认色调
-    color: mat-color($primary);
+    color: mat.get-color-from-palette($primary);
 
     // 获取指定色调
-    background-color: mat-color($accent, 300);
+    background-color: mat.get-color-from-palette($accent, 300);
 
     // 获取相对色调 ('lighter' or 'darker')
-    outline-color: mat-color($accent, lighter);
+    outline-color: mat.get-color-from-palette($accent, lighter);
 
     // 添加 `-contrast` 获取指定色盘的对比度颜色
-    border-color: mat-color($primary, "100-contrast");
+    border-color: mat.get-color-from-palette($primary, "100-contrast");
   }
 }
 ```
 
 ### 前景色调色盘
 
-```css
+```scss
 $mat-light-theme-foreground: (
   base: black,
   divider: $dark-dividers,
@@ -123,7 +129,7 @@ $mat-light-theme-foreground: (
   text: rgba(black, 0.87),
   slider-min: rgba(black, 0.87),
   slider-off: rgba(black, 0.26),
-  slider-off-active: rgba(black, 0.38)
+  slider-off-active: rgba(black, 0.38),
 );
 
 $mat-dark-theme-foreground: (
@@ -141,13 +147,13 @@ $mat-dark-theme-foreground: (
   text: white,
   slider-min: white,
   slider-off: rgba(white, 0.3),
-  slider-off-active: rgba(white, 0.3)
+  slider-off-active: rgba(white, 0.3),
 );
 ```
 
 ### 背景色调色盘
 
-```css
+```scss
 $mat-light-theme-background: (
   status-bar: map-get($mat-grey, 300),
   app-bar: map-get($mat-grey, 100),
@@ -163,7 +169,7 @@ $mat-light-theme-background: (
   disabled-button-toggle: map-get($mat-grey, 200),
   unselected-chip: map-get($mat-grey, 300),
   disabled-list-option: map-get($mat-grey, 200),
-  tooltip: map-get($mat-grey, 700)
+  tooltip: map-get($mat-grey, 700),
 );
 
 $mat-dark-theme-background: (
@@ -181,6 +187,6 @@ $mat-dark-theme-background: (
   disabled-button-toggle: black,
   unselected-chip: map-get($mat-grey, 700),
   disabled-list-option: black,
-  tooltip: map-get($mat-grey, 700)
+  tooltip: map-get($mat-grey, 700),
 );
 ```
