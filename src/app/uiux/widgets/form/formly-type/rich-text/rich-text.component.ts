@@ -29,7 +29,7 @@ export class RichTextComponent
           header: [1, 2, 3, 4, 5, 6, false],
         },
       ],
-      ['bold', 'italic'],
+      ['bold', 'italic', 'underline', 'strike'],
       [
         {
           align: [],
@@ -42,9 +42,14 @@ export class RichTextComponent
         {
           list: 'bullet',
         },
+        {
+          list: 'check',
+        },
       ],
-      ['link', 'image'],
-      ['blockquote'],
+      [{ indent: '-1' }, { indent: '+1' }],
+      [{ color: [] }, { background: [] }],
+      ['link', 'image', 'video'],
+      ['blockquote', 'code-block'],
       ['clean'],
     ],
   };
@@ -54,7 +59,6 @@ export class RichTextComponent
   ngOnInit(): void {}
 
   openRichText(): void {
-    console.log(this.formControl);
     this.value = this.formControl.value;
     this.popper = createPopper(
       this.ele.nativeElement,
@@ -83,7 +87,6 @@ export class RichTextComponent
   }
 
   onContentChanged(event: any): void {
-    console.log(event);
     const { html } = event;
     this.value = html;
   }
