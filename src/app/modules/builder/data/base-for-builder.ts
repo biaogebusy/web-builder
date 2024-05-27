@@ -1425,8 +1425,14 @@ export const base = [
           ],
         },
       },
+    ],
+  },
+  {
+    label: '自定义组件',
+    id: 'custom',
+    elements: [
       {
-        label: '自定义',
+        label: '静态数据',
         icon: {
           svg: 'code-json',
         },
@@ -1440,6 +1446,18 @@ export const base = [
               '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
           },
           html: '<div class="text-center md:text-left md:flex bg-shadow rounded-xl p-8 md:p-0 m-5 mx-auto overflow-hidden">\n          <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full" src="{{img}}" alt="" width="384" height="512">\n          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">\n             <p class="text-lg font-medium">\n                “{{content}}”\n              </p>\n            <div class="font-medium">\n              <div class="text-xl mb-2">\n                {{title}}\n              </div>\n              <div class="opacity-75 text-sm">\n                {{subTitle}}\n              </div>\n            </div>\n          </div>\n        </div>',
+        },
+      },
+      {
+        label: 'API',
+        icon: {
+          svg: 'api',
+        },
+        content: {
+          type: 'custom-template',
+          isAPI: true,
+          api: '/api/v1/content',
+          html: '<div class="flex flex-wrap">\n    {{#each rows}}\n    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">\n        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">\n            <a href="{{url}}"><img class="!object-cover w-full" height="200px" src="{{img}}" /></a>\n            <div class="p-5">\n                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>\n                <div class="three-line opacity-90">{{body}}</div>\n                <div class="footer flex items-center mt-5">\n                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />\n                    <div class="flex flex-col">\n                        <div class="font-bold">{{user}}</div>\n                        <div class="small">{{created}}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    {{/each}}\n</div>',
         },
       },
     ],

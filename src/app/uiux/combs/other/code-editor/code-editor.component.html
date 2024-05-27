@@ -2,11 +2,12 @@
   <div class="box flex-4/12 flex flex-col">
     <app-formly
       class="block px-3"
+      [form]="form"
       [fields]="fields"
       [model]="model"
-      (modelChange)="onModelChange($event)"
     ></app-formly>
-    <json-editor class="block flex-auto"
+    <json-editor
+      class="block flex-auto"
       [options]="editorOptions"
       [data]="json"
       (change)="onJsonChange($event)"
@@ -17,7 +18,7 @@
       class="!h-full"
       [options]="MonacoOptions"
       [ngModel]="html"
-      (ngModelChange)="onHTMLChange($event)"
+      [formControl]="htmlForm"
     ></ngx-monaco-editor>
   </div>
 </div>

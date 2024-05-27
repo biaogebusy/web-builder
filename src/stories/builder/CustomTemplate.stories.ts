@@ -69,6 +69,7 @@ export const Each = Template.bind({});
 Each.storyName = '循环';
 Each.args = {
   content: {
+    type: 'custom-template',
     isAPI: true,
     json: {
       rows: [
@@ -77,34 +78,61 @@ Each.args = {
           title: 'CSS 有什么奇技淫巧？',
           type: '前端',
           body: '不是什么奇技淫巧，但是一行css代码可能让你省下js代码，作为前端的你变得更加专业： 1. 阻止鼠标选择文本 .no-select { user-select: none } 阻止用户在页面上选择文本。',
-          created: '20240502x',
+          created: '20240502',
+          img: '/assets/images/builder/template/about.png',
+          user: '表歌',
+          picture: '/assets/images/avatar/01.jpeg',
         },
         {
           url: '/',
           title: '信使WEB BUILDER 新增自定义组件流程',
           type: '前端',
           body: '新增组件流程 在合适的 uiux 模块中新建组件； 注册组件到动态组件； 在 storybook 中开发组件； 新增组件到 web builder 供用户选择使用； ',
-          created: '20240502x',
+          created: '20240502',
+          img: '/assets/images/builder/template/contact.png',
+          user: '表歌',
+          picture: '/assets/images/avatar/02.jpeg',
         },
         {
           url: '/',
           title: 'GITHUB 22 端口连接超时报错的解决办法',
           type: '前端',
           body: '最近发现github一直连接超时，pull和push代码都无法正常使用。 ssh: connect to host github.com port 22: Operation timed out fatal: Could not read from remote repository',
-          created: '20240502x',
+          created: '20240502',
+          img: '/assets/images/builder/template/search.png',
+          user: '表歌',
+          picture: '/assets/images/avatar/03.jpeg',
+        },
+        {
+          url: '/',
+          title: '信使 UI 应用初始化及页面渲染流程',
+          type: '前端',
+          body: '大概流程 在应用初始化声明周期读取 core 接口，拿到全局配置信息； 通过 Branding 接口获取 Header，footer 的配置信息，初始化页头页脚； 拿到当前页面的 url，作为页面的接口获取页面的组件',
+          created: '20240502',
+          img: '/assets/images/builder/template/service.png',
+          user: '表歌',
+          picture: '/assets/images/avatar/04.jpeg',
         },
       ],
     },
     html: `
-<div class="flex flex-wrap break-all">
-  {{#each rows}}
-    <div class="flex-3/12  break-all">
-      <div class="shadow-md m-3 p-5 overflow-hidden rounded-md bg-white">
-      	<h2><a href="{{url}}">{{title}}</a></h2>
-        <span class="bg-primary py-1 px-3 text-xs rounded-full">{{type}}</span>
-        <div style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{body}}</div>
-        <div class="mt-3">{{created}}</div>
-      </div>
+<div class="flex flex-wrap">
+    {{#each rows}}
+    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">
+        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">
+            <a href="{{url}}"><img class="!object-cover w-full" height="200px" src="{{img}}" /></a>
+            <div class="p-5">
+                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>
+                <div class="three-line opacity-90">{{body}}</div>
+                <div class="footer flex items-center mt-5">
+                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />
+                    <div class="flex flex-col">
+                        <div class="font-bold">{{user}}</div>
+                        <div class="small">{{created}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     {{/each}}
 </div>`,

@@ -16,7 +16,7 @@
     "configFile": "./.vscode/.eslintrc.json"
   },
   "workbench.colorTheme": "One Monokai",
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "vscode-icons",
   "eslint.run": "onSave",
   "editor.accessibilitySupport": "off",
   "git.ignoreMissingGitWarning": true,

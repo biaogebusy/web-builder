@@ -9,11 +9,12 @@ import type { ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorOptions } from 'ang-jsoneditor';
-import { get } from 'lodash-es';
-import { FormGroup } from '@angular/forms';
+import { get, take } from 'lodash-es';
+import { FormControl, FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NodeService } from '@core/service/node.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
@@ -28,6 +29,7 @@ export class CodeEditorComponent implements OnInit {
   isAPI: boolean;
   api: string;
   form = new FormGroup({});
+  htmlForm = new FormControl({});
   model: any = {};
   fields: FormlyFieldConfig[];
   MonacoOptions = { theme: 'vs-black', language: 'html' };
@@ -83,48 +85,64 @@ export class CodeEditorComponent implements OnInit {
         this.cd.detectChanges();
       });
     }
+    this.onFormChange();
+    this.onHTMLChange();
   }
 
-  onHTMLChange(html: string): void {
-    const { path } = this.content;
-    if (path) {
-      const content = { ...get(this.builder.currentPage.body, path), html };
-      if (this.isAPI) {
-        content.json = null;
-      }
-      this.builder.updatePageContentByPath(`${path}`, content);
-    }
+  onHTMLChange(): void {
+    this.htmlForm.valueChanges
+      .pipe(debounceTime(3000), distinctUntilChanged())
+      .subscribe((html) => {
+        const { path } = this.content;
+        if (path) {
+          const content = { ...get(this.builder.currentPage.body, path), html };
+          if (this.isAPI) {
+            content.json = null;
+          }
+          this.builder.updatePageContentByPath(`${path}`, content);
+        }
+      });
   }
 
-  onModelChange(value: any): void {
-    const { isAPI, isRealTime, api } = value;
-    const { path } = this.content;
-    this.isAPI = isAPI;
-    this.api = api;
-    if (isAPI && api) {
-      this.nodeService
-        .fetch(api, '')
-        .pipe(debounceTime(1000), distinctUntilChanged())
-        .subscribe((res) => {
-          this.json = res;
+  onFormChange(): void {
+    this.form.valueChanges
+      .pipe(debounceTime(1000), distinctUntilChanged())
+      .subscribe((value) => {
+        const { isAPI, api } = value;
+        const { path } = this.content;
+        this.isAPI = isAPI;
+        this.api = api;
+        if (isAPI && api) {
+          this.nodeService
+            .fetch(api, '')
+            .pipe(
+              catchError((err) => {
+                return of({
+                  message: err.message ?? '404',
+                });
+              })
+            )
+            .subscribe((res) => {
+              this.json = Object.assign({}, res);
+              const content = {
+                ...get(this.builder.currentPage.body, path),
+                isAPI,
+                api,
+                json: null,
+              };
+              this.builder.updatePageContentByPath(`${path}`, content);
+              this.cd.detectChanges();
+            });
+        } else {
           const content = {
             ...get(this.builder.currentPage.body, path),
             isAPI,
             api,
-            json: null,
+            json: this.json,
           };
           this.builder.updatePageContentByPath(`${path}`, content);
-          this.cd.detectChanges();
-        });
-    } else {
-      const content = {
-        ...get(this.builder.currentPage.body, path),
-        isAPI,
-        api,
-        json: this.json,
-      };
-      this.builder.updatePageContentByPath(`${path}`, content);
-    }
+        }
+      });
   }
 
   onJsonChange(value: any): void {

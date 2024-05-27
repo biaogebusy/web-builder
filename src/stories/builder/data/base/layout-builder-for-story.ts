@@ -4,7 +4,6 @@ import {
   ThreeCol,
   TwoCol,
 } from '@stories/builder/LayoutBuilder.stories';
-import { Default as CustomTeplate } from '@stories/builder/CustomTemplate.stories';
 
 export const layoutBuilder: any[] = [
   {
@@ -190,12 +189,5 @@ export const layoutBuilder: any[] = [
         },
       ],
     },
-  },
-  {
-    label: '自定义',
-    icon: {
-      svg: 'code-json',
-    },
-    content: CustomTeplate.args?.content,
   },
 ];
