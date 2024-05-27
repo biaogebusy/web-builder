@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  Input,
   OnInit,
 } from '@angular/core';
 import { BuilderService } from '@core/service/builder.service';
@@ -19,11 +19,13 @@ import { map } from 'rxjs/operators';
 })
 export class BuilderSampleComponent implements OnInit {
   samplePages$: Observable<any[]>;
+  loading = true;
   constructor(
     private builder: BuilderState,
     private util: UtilitiesService,
     private noderService: NodeService,
-    private builderService: BuilderService
+    private builderService: BuilderService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -32,8 +34,7 @@ export class BuilderSampleComponent implements OnInit {
       .fetch('/api/v1/node/landing_page', params)
       .pipe(
         map((res: any) => {
-          console.log(res);
-          const { data, links } = res;
+          const { data } = res;
           const pages = data.map((page: any) => {
             const {
               attributes: { title, drupal_internal__nid },
@@ -43,6 +44,8 @@ export class BuilderSampleComponent implements OnInit {
               nid: drupal_internal__nid,
             };
           });
+          this.loading = false;
+          this.cd.detectChanges();
           return pages;
         })
       );

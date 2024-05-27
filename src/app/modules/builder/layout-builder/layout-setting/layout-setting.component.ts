@@ -126,7 +126,6 @@ export class LayoutSettingComponent implements OnDestroy {
     if (path && this.content.content.type === 'custom-template') {
       dialogRef = this.dialog.open(DialogComponent, {
         width: '100vw',
-        height: '460px',
         hasBackdrop: false,
         position: {
           bottom: '0px',

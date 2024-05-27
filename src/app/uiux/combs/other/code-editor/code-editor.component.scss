@@ -1,16 +1,15 @@
 .code-editor {
-  min-height: calc(35vh - 100px);
-
+  height: 500px;
+  overflow: hidden;
   ::ng-deep {
-    .CodeMirror {
-      font-size: 14px;
-      height: 366px;
+    .jsoneditor-outer {
+      max-height: 426px;
     }
   }
 
   json-editor {
     ::ng-deep {
-      >* {
+      > * {
         display: block;
         height: 100%;
       }

@@ -1,25 +1,41 @@
-<div class="sample" *ngIf="samplePages$ | async as samples">
+<div class="sample">
   <mat-accordion multi>
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
-        <mat-panel-title> 示例 ({{ samples.length }}) </mat-panel-title>
+        <mat-panel-title>示例页面</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
-        <div class="cards" fxLayout="row wrap">
-          <div
-            class="item"
-            [matTooltip]="item.title"
-            (click)="loadSample(item)"
-            *ngFor="let item of samples; index as i"
-            fxFlex.lt-sm="50%"
-            fxFlex.gt-xs="0 0 calc(100%/3)"
-          >
-            <div class="inner flex flex-col justify-center items-center">
-              <div class="font-mono">{{ i + 1 }}</div>
-              <div class="title">{{ item.title }}</div>
+        <mat-spinner
+          class="mx-auto my-10"
+          diameter="50"
+          color="primary"
+          *ngIf="loading"
+        ></mat-spinner>
+        <ng-container *ngIf="samplePages$ | async as samples">
+          <div class="cards" fxLayout="row wrap">
+            <div
+              class="item"
+              [matTooltip]="item.title"
+              (click)="loadSample(item)"
+              *ngFor="let item of samples; index as i"
+              fxFlex.lt-sm="50%"
+              fxFlex.gt-xs="0 0 calc(100%/3)"
+            >
+              <div
+                class="
+                  inner
+                  flex flex-col
+                  justify-center
+                  items-center
+                  overflow-hidden
+                "
+              >
+                <div class="font-mono">{{ i + 1 }}</div>
+                <div class="title">{{ item.title }}</div>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </mat-list>
     </mat-expansion-panel>
   </mat-accordion>
