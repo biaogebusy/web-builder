@@ -56,7 +56,7 @@
     "@tailwindcss/typography": "^0.4.1",
     "ang-jsoneditor": "^1.10.5",
     "angular-count-to": "^0.0.3",
-    "angulartics2": "^10.0.0",
+    "angulartics2": "^11.0.0",
     "crypto-js": "^4.1.1",
     "dompurify": "^3.1.0",
     "drupal-jsonapi-params": "^2.3.1",
