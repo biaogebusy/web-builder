@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { DOCUMENT } from '@angular/common';
 
 declare var gtag: any;
 declare var window: any;
@@ -11,7 +12,8 @@ declare var window: any;
 export class AnalyticsService {
   constructor(
     private angulartics: Angulartics2GoogleAnalytics,
-    private utility: UtilitiesService
+    private utility: UtilitiesService,
+    @Inject(DOCUMENT) private doc: Document
   ) {}
 
   loadGoogleAnalytics(id: string): void {
@@ -33,7 +35,11 @@ export class AnalyticsService {
 
   loadBaiduAnalytics(id: string): void {
     window._hmt = window._hmt || [];
-    const src = `https://hm.baidu.com/hm.js?${id}`;
-    this.utility.loadScript(src, null, false);
+    var hm = this.doc.createElement('script');
+    hm.src = `https://hm.baidu.com/hm.js?${id}`;
+    var s = this.doc.getElementsByTagName('script')[0];
+    if (s.parentNode) {
+      s.parentNode.insertBefore(hm, s);
+    }
   }
 }
