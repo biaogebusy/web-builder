@@ -11,6 +11,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { environment } from 'src/environments/environment';
 import { API_URL } from '@core/token/token-providers';
 import { intersection } from 'lodash-es';
+import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,6 +21,7 @@ export class UserService extends ApiService {
     public http: HttpClient,
     public storage: LocalStorageService,
     public cryptoJS: CryptoJSService,
+    private cookieService: CookieService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(API_URL) public apiBaseUrl: string
   ) {
@@ -105,7 +107,7 @@ export class UserService extends ApiService {
 
   refreshLocalUser(user: IUser): void {
     this.userSub$.next(user);
-    this.storeLocalUser(user);
+    this.setUserCookie(user);
   }
 
   checkShow(content: any, user: IUser): boolean {
@@ -136,17 +138,17 @@ export class UserService extends ApiService {
   loginUser(data: any, user: any): void {
     const currentUser: IUser = Object.assign(data, user);
     this.userSub$.next(currentUser);
-    this.storeLocalUser(currentUser);
+    this.setUserCookie(currentUser);
   }
 
   logoutUser(): void {
     this.userSub$.next(false);
-    this.storage.clear(this.localUserKey);
+    this.cookieService.delete(this.localUserKey, '/');
   }
 
   logoutLocalUser(): void {
     this.userSub$.next(false);
-    this.storage.clear(this.localUserKey);
+    this.cookieService.delete(this.localUserKey, '/');
   }
 
   logout(logoutToken: string): any {
@@ -285,10 +287,15 @@ export class UserService extends ApiService {
       );
   }
 
-  storeLocalUser(user: IUser): void {
-    this.storage.store(
+  setUserCookie(user: IUser): void {
+    this.cookieService.set(
       this.localUserKey,
-      this.cryptoJS.encrypt(JSON.stringify(user))
+      this.cryptoJS.encrypt(JSON.stringify(user)),
+      {
+        expires: 5,
+        path: '/',
+        sameSite: 'Lax',
+      }
     );
   }
 

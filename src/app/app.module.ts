@@ -56,6 +56,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { ManageService } from '@core/service/manage.service';
 import { NodeService } from '@core/service/node.service';
 import { ContentState } from '@core/state/ContentState';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -77,6 +78,7 @@ import { ContentState } from '@core/state/ContentState';
   providers: [
     Title,
     httpInterceptorProviders,
+    CookieService,
     {
       provide: CORE_CONFIG,
       useValue: {},
@@ -110,7 +112,7 @@ import { ContentState } from '@core/state/ContentState';
     {
       provide: USER,
       useFactory: userFactory,
-      deps: [LocalStorageService, CryptoJSService, UserService],
+      deps: [CryptoJSService, UserService, CookieService],
     },
     {
       provide: NOTIFY_CONTENT,
