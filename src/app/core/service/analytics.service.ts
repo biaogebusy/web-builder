@@ -32,6 +32,7 @@ export class AnalyticsService {
   }
 
   loadBaiduAnalytics(id: string): void {
+    window._hmt = window._hmt || [];
     const src = `https://hm.baidu.com/hm.js?${id}`;
     this.utility.loadScript(src, null, false);
   }
