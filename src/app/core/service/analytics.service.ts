@@ -35,11 +35,13 @@ export class AnalyticsService {
 
   loadBaiduAnalytics(id: string): void {
     window._hmt = window._hmt || [];
-    var hm = this.doc.createElement('script');
-    hm.src = `https://hm.baidu.com/hm.js?${id}`;
-    var s = this.doc.getElementsByTagName('script')[0];
-    if (s.parentNode) {
-      s.parentNode.insertBefore(hm, s);
-    }
+    (function () {
+      var hm = document.createElement('script');
+      hm.src = `https://hm.baidu.com/hm.js?${id}`;
+      var s = document.getElementsByTagName('script')[0];
+      if (s.parentNode) {
+        s.parentNode.insertBefore(hm, s);
+      }
+    })();
   }
 }
