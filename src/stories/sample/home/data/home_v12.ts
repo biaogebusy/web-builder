@@ -269,7 +269,7 @@ export const home_v12 = {
       bg: {
         img: {
           src: '',
-          classes: 'object-cover',
+          classes: 'bg-cover',
           alt: 'bg-05',
         },
         classes: 'bg- bg-fill-width',

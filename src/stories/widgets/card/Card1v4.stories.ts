@@ -34,7 +34,7 @@ export const Default = Template.bind({});
 const content: ICard1v4 = {
   type: 'card-1v4',
   img: {
-    classes: 'object-fit',
+    classes: 'w-full h-full object-cover',
     src: '/assets/images/avatar/01.jpeg',
   },
   star: 5,
