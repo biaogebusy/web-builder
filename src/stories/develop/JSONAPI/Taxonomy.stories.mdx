@@ -39,3 +39,29 @@ GET {{apiUrl}}/api/v1/node/landing_page?filter[taxonomy_term--tags][condition][p
 ```
 
 taxonomy_term--tags 为 group，过滤分类名称为"示例页"的所有着陆页
+
+使用 `DrupalJsonApiParams`
+
+```js
+const apiParams = new DrupalJsonApiParams();
+apiParams
+  .addPageLimit(20)
+  .addSort("changed", "DESC")
+  .addFilter("status", "1")
+  .addFilter("group.name", "示例页")
+  .addCustomParam({ noCache: true });
+```
+
+## 排除某个分类
+
+```js
+const apiParams = new DrupalJsonApiParams();
+apiParams.addCustomParam({ noCache: true });
+
+apiParams
+  .addPageLimit(10)
+  .addInclude(["uid", "revision_uid", "group"])
+  .addSort("changed", "DESC")
+  .addFilter("status", "1")
+  .addFilter("group.name", "示例页", "IS NULL");
+```

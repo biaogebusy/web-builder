@@ -55,7 +55,8 @@ export class PageListComponent implements OnInit, OnDestroy {
       .addPageLimit(10)
       .addInclude(['uid', 'revision_uid', 'group'])
       .addSort('changed', 'DESC')
-      .addFilter('status', '1');
+      .addFilter('status', '1')
+      .addFilter('group.name', '示例页', 'IS NULL');
     this.getContent(apiParams);
   }
 
@@ -63,33 +64,36 @@ export class PageListComponent implements OnInit, OnDestroy {
     this.loading = true;
     const { title } = value;
     const apiParams = new DrupalJsonApiParams();
-    apiParams.addCustomParam({ noCache: true });
 
     apiParams
       .addPageLimit(10)
       .addInclude(['uid', 'revision_uid', 'group'])
       .addSort('changed', 'DESC')
       .addFilter('status', '1')
-      .addFilter('title', title, 'CONTAINS');
+      .addFilter('title', title, 'CONTAINS')
+      .addFilter('group.name', '示例页', 'IS NULL')
+      .addCustomParam({ noCache: true });
+
     this.getContent(apiParams);
   }
 
   getContent(apiParams: DrupalJsonApiParams): void {
     const params = apiParams.getQueryString();
+    this.fetchPage(params);
+  }
 
+  onPageChange(link: string): void {
+    const apiParams = new DrupalJsonApiParams();
+    const sq = link.split('?')[1];
+    const params = apiParams.initializeWithQueryString(sq).getQueryString();
+    this.fetchPage(params);
+  }
+
+  fetchPage(params: string): void {
     this.content$ = this.nodeService.fetch('node/landing_page', params).pipe(
       takeUntil(this.destroy$),
       map((res) => {
         this.loading = false;
-        return this.getLists(res);
-      })
-    );
-  }
-
-  onPageChange(link: string): void {
-    this.content$ = this.nodeService.getNodeByLink(link).pipe(
-      takeUntil(this.destroy$),
-      map((res: any) => {
         return this.getLists(res);
       })
     );

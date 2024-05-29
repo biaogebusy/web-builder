@@ -8,6 +8,7 @@ import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -29,7 +30,15 @@ export class BuilderSampleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const params = `filter[taxonomy_term--tags][condition][path]=group.name&filter[taxonomy_term--tags][condition][operator]=IN&filter[taxonomy_term--tags][condition][value]=示例页&noCache=1`;
+    const apiParams = new DrupalJsonApiParams();
+    apiParams
+      .addPageLimit(20)
+      .addSort('changed', 'DESC')
+      .addFilter('status', '1')
+      .addFilter('group.name', '示例页')
+      .addCustomParam({ noCache: true });
+
+    const params = apiParams.getQueryString();
     this.samplePages$ = this.noderService
       .fetch('/api/v1/node/landing_page', params)
       .pipe(
