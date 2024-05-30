@@ -49,14 +49,13 @@ export class PageListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const apiParams = new DrupalJsonApiParams();
-    apiParams.addCustomParam({ noCache: true });
 
     apiParams
       .addPageLimit(10)
       .addInclude(['uid', 'revision_uid', 'group'])
       .addSort('changed', 'DESC')
       .addFilter('status', '1')
-      .addFilter('group.name', '示例页', 'IS NULL');
+      .addCustomParam({ noCache: true });
     this.getContent(apiParams);
   }
 
@@ -71,7 +70,6 @@ export class PageListComponent implements OnInit, OnDestroy {
       .addSort('changed', 'DESC')
       .addFilter('status', '1')
       .addFilter('title', title, 'CONTAINS')
-      .addFilter('group.name', '示例页', 'IS NULL')
       .addCustomParam({ noCache: true });
 
     this.getContent(apiParams);
