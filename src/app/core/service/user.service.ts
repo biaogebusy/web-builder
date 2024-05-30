@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { API_URL } from '@core/token/token-providers';
 import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
+import { UtilitiesService } from './utilities.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,6 +23,7 @@ export class UserService extends ApiService {
     public storage: LocalStorageService,
     public cryptoJS: CryptoJSService,
     private cookieService: CookieService,
+    private util: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(API_URL) public apiBaseUrl: string
   ) {
@@ -136,8 +138,12 @@ export class UserService extends ApiService {
   }
 
   loginUser(data: any, user: any): void {
+    const { logout_token } = data;
     const currentUser: IUser = Object.assign(data, user);
     this.userSub$.next(currentUser);
+    if (logout_token) {
+      this.storage.store('logoutToken', logout_token);
+    }
     this.setUserCookie(currentUser);
   }
 
@@ -163,6 +169,10 @@ export class UserService extends ApiService {
       }),
       withCredentials: true,
     };
+    if (!logoutToken) {
+      this.util.openSnackbar('检测到会话异常，安全起见请手动清除Cookie', 'ok');
+      return;
+    }
     const params = ['_format=json', `token=${logoutToken}`].join('&');
     return this.http
       .post(
@@ -288,6 +298,7 @@ export class UserService extends ApiService {
   }
 
   setUserCookie(user: IUser): void {
+    // console.log(user);
     this.cookieService.set(
       this.localUserKey,
       this.cryptoJS.encrypt(JSON.stringify(user)),

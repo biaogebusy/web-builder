@@ -20,6 +20,7 @@ import { UserService } from '@core/service/user.service';
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from '@modules/user/login/login.component';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-user-menu',
@@ -41,6 +42,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     public userService: UserService,
     private router: Router,
+    private storage: LocalStorageService,
     @Inject(USER) public user: IUser
   ) {
     this.currentUser = user;
@@ -71,7 +73,8 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.userService.logout(this.user.logout_token);
+    const logoutToken = this.storage.retrieve('logoutToken');
+    this.userService.logout(logoutToken);
   }
 
   onLogin(): void {
