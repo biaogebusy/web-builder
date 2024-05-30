@@ -1,0 +1,114 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="开发/用户认证/流程"
+  id="authentication"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+# 用户认证
+
+Drupal 作为 Headless CMS 的前后端分离项目中，采用传统的会话认证（Session Authentication）步骤如下：
+
+## 1. 启用 RESTful Web Services
+
+确保启用以下模块：
+
+- RESTful Web Services (rest)
+- Serialization (serialization)
+
+## 2. 配置用户实体的 RESTful 资源
+
+在 Drupal 管理后台，导航到 admin/config/services/rest，启用并配置用户实体的 REST 资源，确保支持适当的请求方法（如 POST、GET、PATCH）。
+
+## 3. 配置跨域资源共享（CORS）
+
+为了允许前端应用程序访问 Drupal 的 API，您需要配置 CORS。编辑 services.yml 文件，确保如下配置：
+
+```yaml
+Copy code
+cors.config:
+  enabled: true
+  allowedHeaders: ['x-csrf-token', 'content-type', 'authorization']
+  allowedMethods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS']
+  allowedOrigins: ['*']
+  exposedHeaders: true
+  maxAge: 1000
+  supportsCredentials: true
+```
+
+## 4. 启用会话认证
+
+确保在 admin/config/people/accounts 中启用了用户注册和登录。
+
+## 5. 前端应用中的用户认证
+
+1. 用户登录
+   使用 fetch 或 axios 发送 POST 请求到 /user/login 端点。登录成功后，服务器会在响应中设置一个会话 cookie，前端应用可以使用这个会话 cookie 进行后续的认证。
+
+```javascript
+fetch("https://your-drupal-site.com/user/login?_format=json", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name: "username",
+    pass: "password",
+  }),
+  credentials: "include", // 确保会话 cookie 被发送
+})
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.current_user) {
+      console.log("Logged in as:", data.current_user.name);
+    }
+  })
+  .catch((error) => console.error("Error:", error));
+```
+
+2. 使用会话进行认证
+   之后的请求将自动包含会话 cookie，无需手动添加。确保在每个请求中包含 credentials: 'include' 以便发送和接收会话 cookie。
+
+```javascript
+fetch("https://your-drupal-site.com/some-endpoint", {
+  method: "GET",
+  credentials: "include", // 确保会话 cookie 被发送
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error("Error:", error));
+```
+
+## 6. CSRF 保护
+
+在使用会话认证时，确保前端应用在发送请求时包括 CSRF 令牌。首先在前端应用中获取 CSRF 令牌：
+
+```javascript
+fetch("https://your-drupal-site.com/session/token", {
+  credentials: "include", // 确保会话 cookie 被发送
+})
+  .then((response) => response.text())
+  .then((token) => {
+    // 在后续请求中包含这个 token
+    fetch("https://your-drupal-site.com/some-endpoint", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": token,
+      },
+      credentials: "include", // 确保会话 cookie 被发送
+      body: JSON.stringify({ data: "your data" }),
+    });
+  });
+```
+
+## 总结
+
+不使用 JWT 认证而采用会话认证是完全可行的，并且在许多情况下更为简单，特别是当前后端都在同一个域或子域下运行时。确保正确配置 CORS 和 CSRF 令牌，以保证安全性。

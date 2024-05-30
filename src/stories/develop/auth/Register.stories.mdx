@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/addon-docs";
 
 <Meta
-  title="开发/REST/用户相关"
-  id="user"
+  title="开发/用户认证/注册"
+  id="register"
   parameters={{
     viewMode: "docs",
     previewTabs: {
@@ -11,29 +11,6 @@ import { Meta } from "@storybook/addon-docs";
     layout: "fullscreen",
   }}
 />
-
-## 用户登录
-
-```
-POST {{apiUrl}}/user/login?_format=json HTTP/1.1
-content-type: application/json
-
-{"name": "{{user}}","pass": "{{psw}}"}
-```
-
-## 用户退出
-
-```
-POST {{apiUrl}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
-Content-type: application/json
-withCredentials: true
-```
-
-## 查看用户状态
-
-```
-GET {{apiUrl}}/user/login_status?_format=json HTTP/1.1
-```
 
 ## 使用 Drupal REST API 注册用户
 
@@ -151,20 +128,4 @@ X-CSRF-Token: 6G4y09P_6SxE1wuQh_UMdhEq-I6-aQ9_mGFTs9SEnFs
   "headimgurl":[{ "value" : "https://thirdwx.qlogo.cn/mmopen/vi_32/1b820GreUob15yeicXA8alyZbjoibIMSHPmDnaZwHnVrn4tQP3nPwYMXgu1diaicfRnpBvpNy8DcBajsfQuicmPJtGA/132" }]
 }
 
-```
-
-## 获取 session
-
-```
-GET {{apiUrl}}/session/token
-```
-
-## Cookies
-
-如果您决定在前端使用 javascript 应用程序，在后端使用 Drupal，则浏览器可以为您完成所有 cookie 存储工作。别忘了，如果你的 JS 应用程序和 Drupal 网站有不同的域名，你必须允许浏览器通过将 SameSite cookie 参数更改为“none”来存储用户的会话 cookie。为此，请编辑 services.yml 文件并添加以下参数：
-
-```yml
-parameters:
-  session.storage.options:
-    cookie_samesite: None
 ```

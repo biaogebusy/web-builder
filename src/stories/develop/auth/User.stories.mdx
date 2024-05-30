@@ -1,0 +1,35 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="开发/用户认证/查询相关"
+  id="user"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## 查看用户状态
+
+```
+GET {{apiUrl}}/user/login_status?_format=json HTTP/1.1
+```
+
+## 获取 session
+
+```
+GET {{apiUrl}}/session/token
+```
+
+## Cookies
+
+如果您决定在前端使用 javascript 应用程序，在后端使用 Drupal，则浏览器可以为您完成所有 cookie 存储工作。别忘了，如果你的 JS 应用程序和 Drupal 网站有不同的域名，你必须允许浏览器通过将 SameSite cookie 参数更改为“none”来存储用户的会话 cookie。为此，请编辑 services.yml 文件并添加以下参数：
+
+```yml
+parameters:
+  session.storage.options:
+    cookie_samesite: None
+```
