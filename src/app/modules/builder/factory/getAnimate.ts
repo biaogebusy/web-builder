@@ -60,10 +60,10 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'x',
                     type: 'input',
-                    className: 'w-2/5 mr-5',
+                    className: 'w-2/5 mr-3',
                     defaultValue: content?.animate?.from?.x ?? 0,
                     templateOptions: {
-                      label: 'X',
+                      label: '水平位移',
                       min: -500,
                       max: 500,
                       step: 10,
@@ -76,7 +76,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     className: 'w-2/5',
                     defaultValue: content?.animate?.from?.y ?? 0,
                     templateOptions: {
-                      label: 'Y',
+                      label: '垂直位移',
                       min: -500,
                       max: 500,
                       step: 10,
@@ -89,12 +89,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 fieldGroupClassName: 'section-group',
                 fieldGroup: [
                   {
-                    key: 'rotation',
+                    key: 'rotationX',
                     type: 'input',
-                    className: 'w-2/5 mr-5',
-                    defaultValue: content?.animate?.from?.rotation ?? 0,
+                    className: 'w-2/5 mr-3',
+                    defaultValue: content?.animate?.from?.rotationX ?? 0,
                     templateOptions: {
-                      label: '旋转',
+                      label: '水平旋转',
                       min: -360,
                       max: 360,
                       step: 1,
@@ -102,12 +102,43 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     },
                   },
                   {
-                    key: 'scale',
+                    key: 'rotationY',
                     type: 'input',
                     className: 'w-2/5',
-                    defaultValue: content?.animate?.from?.scale ?? 1,
+                    defaultValue: content?.animate?.from?.rotationY ?? 0,
                     templateOptions: {
-                      label: '缩放',
+                      label: '垂直旋转',
+                      min: -360,
+                      max: 360,
+                      step: 1,
+                      type: 'number',
+                    },
+                  },
+                ],
+              },
+              {
+                fieldGroupClassName: 'section-group',
+                fieldGroup: [
+                  {
+                    key: 'scaleX',
+                    type: 'input',
+                    className: 'w-2/5 mr-3',
+                    defaultValue: content?.animate?.from?.scaleX ?? 1,
+                    templateOptions: {
+                      label: '水平缩放',
+                      min: 0,
+                      max: 2,
+                      step: 0.1,
+                      type: 'number',
+                    },
+                  },
+                  {
+                    key: 'scaleY',
+                    type: 'input',
+                    className: 'w-2/5',
+                    defaultValue: content?.animate?.from?.scaleY ?? 1,
+                    templateOptions: {
+                      label: '垂直缩放',
                       min: 0,
                       max: 2,
                       step: 0.1,
@@ -120,9 +151,40 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 fieldGroupClassName: 'section-group',
                 fieldGroup: [
                   {
+                    key: 'skewX',
+                    type: 'input',
+                    className: 'w-2/5 mr-3',
+                    defaultValue: content?.animate?.from?.skewX ?? 0,
+                    templateOptions: {
+                      label: 'skewX',
+                      min: -180,
+                      max: 180,
+                      step: 1,
+                      type: 'number',
+                    },
+                  },
+                  {
+                    key: 'skewY',
+                    type: 'input',
+                    className: 'w-2/5',
+                    defaultValue: content?.animate?.from?.skewY ?? 0,
+                    templateOptions: {
+                      label: 'skewY',
+                      min: -180,
+                      max: 180,
+                      step: 1,
+                      type: 'number',
+                    },
+                  },
+                ],
+              },
+              {
+                fieldGroupClassName: 'section-group',
+                fieldGroup: [
+                  {
                     key: 'opacity',
                     type: 'input',
-                    className: 'w-2/5 mr-5',
+                    className: 'w-2/5 mr-3',
                     defaultValue: content?.animate?.from?.opacity ?? 1,
                     templateOptions: {
                       label: '不透明度',
@@ -148,7 +210,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'duration',
                     type: 'input',
-                    className: 'w-2/5 mr-5',
+                    className: 'w-2/5 mr-3',
                     defaultValue: content?.animate?.from?.duration ?? 1,
                     templateOptions: {
                       label: '时长',
