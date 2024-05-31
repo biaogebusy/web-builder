@@ -1428,8 +1428,8 @@ export const base = [
     ],
   },
   {
-    label: '自定义组件',
-    id: 'custom',
+    label: 'Tailwind 组件',
+    id: 'tailwind',
     elements: [
       {
         label: '静态数据',

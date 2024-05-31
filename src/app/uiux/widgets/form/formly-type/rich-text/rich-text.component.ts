@@ -64,16 +64,8 @@ export class RichTextComponent
       this.ele.nativeElement,
       this.popup.nativeElement,
       {
-        placement: 'auto',
+        placement: 'left',
         strategy: 'fixed',
-        modifiers: [
-          {
-            name: 'offset',
-            options: {
-              offfset: [80, 80],
-            },
-          },
-        ],
       }
     );
   }

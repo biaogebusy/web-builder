@@ -39,6 +39,7 @@ export class BuilderSidebarComponent implements OnInit {
   onSelectAssets(): void {
     this.dialog.open(DialogComponent, {
       width: '100%',
+      panelClass: 'close-outside',
       data: {
         title: '媒体库',
         disableCloseButton: true,

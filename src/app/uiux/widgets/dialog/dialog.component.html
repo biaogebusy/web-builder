@@ -1,14 +1,30 @@
 <div class="dialog relative">
-  <h2 mat-dialog-title *ngIf="data.title">{{data.title}}</h2>
+  <app-btn
+    class="absolute right-0 top-[-66px]"
+    [content]="{ icon: { svg: 'close' }, mode: 'icon', color: 'primary' }"
+    mat-dialog-close="true"
+  ></app-btn>
+  <h2 mat-dialog-title *ngIf="data.title">{{ data.title }}</h2>
   <mat-dialog-content>
     <ng-container *ngIf="data.inputData | isArray; else one">
-      <app-dynamic-component *ngFor="let widget of data.inputData" [inputs]="{content:widget}"></app-dynamic-component>
+      <app-dynamic-component
+        *ngFor="let widget of data.inputData"
+        [inputs]="{ content: widget }"
+      ></app-dynamic-component>
     </ng-container>
     <ng-template #one>
-      <app-dynamic-component [inputs]="{content:data.inputData.content}"></app-dynamic-component>
+      <app-dynamic-component
+        [inputs]="{ content: data.inputData.content }"
+      ></app-dynamic-component>
     </ng-template>
   </mat-dialog-content>
-  <div class="flex justify-center items-center" mat-dialog-actions *ngIf="!data.disableCloseButton">
-    <button mat-raised-button color="primary" [mat-dialog-close]="true">关闭</button>
+  <div
+    class="flex justify-center items-center"
+    mat-dialog-actions
+    *ngIf="!data.disableCloseButton"
+  >
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">
+      关闭
+    </button>
   </div>
 </div>

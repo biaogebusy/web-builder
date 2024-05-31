@@ -2,7 +2,7 @@ import { IBuilderComponent } from '@core/interface/IBuilder';
 import { common } from './common.builder';
 import { layoutBuilder } from './layout-builder-for-story';
 import { sections } from './sections-for-story';
-import { custom } from './custom-for-story';
+import { tailwind } from './custom-for-story';
 
 export const base: IBuilderComponent[] = [
   {
@@ -11,9 +11,9 @@ export const base: IBuilderComponent[] = [
     elements: layoutBuilder,
   },
   {
-    label: '自定义组件',
-    id: 'custom',
-    elements: custom,
+    label: 'Tailwind 组件',
+    id: 'tailwind',
+    elements: tailwind,
   },
   {
     label: '常用 Section',

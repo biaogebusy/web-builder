@@ -1,5 +1,6 @@
 .code-editor {
   height: 500px;
+  max-height: 50vh;
   overflow: hidden;
   ::ng-deep {
     .jsoneditor-outer {

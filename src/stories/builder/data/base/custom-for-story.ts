@@ -1,6 +1,6 @@
 import { Default as CustomTeplate } from '@stories/builder/CustomTemplate.stories';
 
-export const custom: any[] = [
+export const tailwind: any[] = [
   {
     label: '静态数据',
     icon: {

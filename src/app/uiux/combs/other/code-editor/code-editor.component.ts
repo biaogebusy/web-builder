@@ -9,7 +9,7 @@ import type { ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorOptions } from 'ang-jsoneditor';
-import { get, take } from 'lodash-es';
+import { get } from 'lodash-es';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NodeService } from '@core/service/node.service';
@@ -32,7 +32,7 @@ export class CodeEditorComponent implements OnInit {
   htmlForm = new FormControl({});
   model: any = {};
   fields: FormlyFieldConfig[];
-  MonacoOptions = { theme: 'vs-black', language: 'html' };
+  MonacoOptions = { theme: 'vs-dark', language: 'html' };
   constructor(
     public screenService: ScreenService,
     private builder: BuilderState,

@@ -56,3 +56,9 @@ pre {
     background-color: transparent;
   }
 }
+
+.close-outside {
+  .mat-dialog-container {
+    overflow: visible;
+  }
+}

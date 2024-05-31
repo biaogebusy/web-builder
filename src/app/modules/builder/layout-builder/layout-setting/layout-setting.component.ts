@@ -110,7 +110,9 @@ export class LayoutSettingComponent implements OnDestroy {
       };
       this.dialog.open(DialogComponent, {
         width: '1000px',
+        panelClass: 'close-outside',
         data: {
+          disableCloseButton: true,
           inputData: {
             content: json,
           },
@@ -127,10 +129,12 @@ export class LayoutSettingComponent implements OnDestroy {
       dialogRef = this.dialog.open(DialogComponent, {
         width: '100vw',
         hasBackdrop: false,
+        panelClass: 'close-outside',
         position: {
           bottom: '0px',
         },
         data: {
+          disableCloseButton: true,
           inputData: {
             content: {
               type: 'code-editor',
