@@ -123,12 +123,16 @@ export interface ICustomTemplate extends ICombsBase {
   type: string;
   html: string;
   json: any;
+  isAPI?: boolean;
+  api?: string;
 }
 
 export interface ICodeEditor {
   content: {
     html: string;
-    json: any;
+    json?: any;
+    isAPI?: boolean;
+    api?: string;
   };
   path: string;
 }

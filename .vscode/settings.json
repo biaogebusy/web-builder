@@ -1,6 +1,6 @@
 {
   "editor.fontSize": 14,
-  "window.zoomLevel": 0.8,
+  "window.zoomLevel": 1,
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "files.trimTrailingWhitespace": true,
@@ -16,7 +16,7 @@
     "configFile": "./.vscode/.eslintrc.json"
   },
   "workbench.colorTheme": "One Monokai",
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "vscode-icons",
   "eslint.run": "onSave",
   "editor.accessibilitySupport": "off",
   "git.ignoreMissingGitWarning": true,
@@ -24,5 +24,7 @@
   "git.confirmSync": false,
   "git.autofetch": false,
   "files.eol": "\n",
-  "gitlens.currentLine.enabled": false
+  "gitlens.currentLine.enabled": false,
+  "prettier.singleAttributePerLine": false,
+  "prettier.bracketSameLine": true
 }

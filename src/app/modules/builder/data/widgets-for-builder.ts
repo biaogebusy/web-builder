@@ -62,6 +62,18 @@ export const widgets = [
     },
   },
   {
+    label: 'API',
+    icon: {
+      svg: 'api',
+    },
+    content: {
+      type: 'custom-template',
+      isAPI: true,
+      api: '/api/v1/content',
+      html: '<div class="flex flex-wrap">\n    {{#each rows}}\n    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">\n        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">\n            <a href="{{url}}"><img class="object-cover w-full" height="200px" src="{{img}}" /></a>\n            <div class="p-5">\n                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>\n                <div class="three-line opacity-90">{{body}}</div>\n                <div class="footer flex items-center mt-5">\n                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />\n                    <div class="flex flex-col">\n                        <div class="font-bold">{{user}}</div>\n                        <div class="small">{{created}}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    {{/each}}\n</div>',
+    },
+  },
+  {
     label: '标题',
     icon: {
       svg: 'format-header-2',
@@ -390,9 +402,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 7694, 5682, 3909],
-          ['第二季度', 4417, 9065, 5039],
-          ['第三季度', 7220, 3512, 4243],
+          ['第一季度', 9565, 5090, 5409],
+          ['第二季度', 6098, 4413, 6056],
+          ['第三季度', 9942, 7374, 9960],
         ],
       },
       xAxis: {
@@ -433,9 +445,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 7694, 5682, 3909],
-          ['第二季度', 4417, 9065, 5039],
-          ['第三季度', 7220, 3512, 4243],
+          ['第一季度', 9565, 5090, 5409],
+          ['第二季度', 6098, 4413, 6056],
+          ['第三季度', 9942, 7374, 9960],
         ],
       },
       xAxis: {
@@ -482,9 +494,9 @@ export const widgets = [
       dataset: {
         source: [
           ['预算', '费用'],
-          ['大额红包总金额', 746],
-          ['小额红包总金额', 472],
-          ['提成总额', 593],
+          ['大额红包总金额', 906],
+          ['小额红包总金额', 463],
+          ['提成总额', 375],
         ],
       },
       series: [
@@ -597,25 +609,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 6547,
+          tatol: 9993,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 3354,
+          tatol: 7968,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 5459,
+          tatol: 3960,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 3632,
+          tatol: 2477,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -1097,7 +1109,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-22',
+          changed: '2024-05-27',
         },
         {
           link: {
@@ -1108,29 +1120,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-22',
+          changed: '2024-05-27',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-05-22',
+            href: '2024-05-27',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-22',
+          changed: '2024-05-27',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-05-22',
+            href: '2024-05-27',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-22',
+          changed: '2024-05-27',
         },
       ],
     },

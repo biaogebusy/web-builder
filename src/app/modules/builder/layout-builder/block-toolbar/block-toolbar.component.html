@@ -1,15 +1,65 @@
 <div class="block-toolbar flex justify-center items-center">
-  <div class="title rounded-xl">{{block.type}}</div>
-  <app-btn matTooltip="上移" *ngIf="index > 0 && index < layout.elements.length" (click)="onUpDown('up',i,index)"
-    [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>
-  <app-btn matTooltip="下移" *ngIf="index > -1 && index < layout.elements.length -1" (click)="onUpDown('down',i,index)"
-    [content]="{label:'',color:'primary',mode: 'icon',icon:{svg:'arrow-collapse-down',inline:true } }"></app-btn>
-  <app-btn matTooltip="复制JSON" (click)="onCopy(block)"
-    [content]="{label:'',color:'primary',mode: 'icon',icon:{svg:'content-copy',inline:true } }"></app-btn>
-  <app-btn matTooltip="插入组件" (click)="addBlock('widget',lbContent,$event)"
-    [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'plus' } }"></app-btn>
-  <app-btn matTooltip="删除" (click)="deleteBlock(i,index)"
-    [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'close',inline:true } }"></app-btn>
-  <app-btn matTooltip="{{block.type}}组件配置" (click)="onWidgetSetting(block,$event)"
-    [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'tune-vertical',inline:true } }"></app-btn>
+  <div class="title rounded-xl">{{ block.type }}</div>
+  <app-btn
+    matTooltip="上移"
+    *ngIf="index > 0 && index < layout.elements.length"
+    (click)="onUpDown('up', i, index)"
+    [content]="{
+      label: '',
+      color: 'primary',
+      mode: 'icon',
+      icon: { svg: 'arrow-collapse-up', inline: true }
+    }"
+  ></app-btn>
+  <app-btn
+    matTooltip="下移"
+    *ngIf="index > -1 && index < layout.elements.length - 1"
+    (click)="onUpDown('down', i, index)"
+    [content]="{
+      label: '',
+      color: 'primary',
+      mode: 'icon',
+      icon: { svg: 'arrow-collapse-down', inline: true }
+    }"
+  ></app-btn>
+  <app-btn
+    matTooltip="复制JSON"
+    (click)="onCopy(block)"
+    [content]="{
+      label: '',
+      color: 'primary',
+      mode: 'icon',
+      icon: { svg: 'content-copy', inline: true }
+    }"
+  ></app-btn>
+  <app-btn
+    matTooltip="插入组件"
+    (click)="addBlock('widget', lbContent, $event)"
+    [content]="{
+      label: '',
+      color: 'primary',
+      mode: 'icon',
+      icon: { svg: 'plus' }
+    }"
+  ></app-btn>
+  <app-btn
+    matTooltip="删除"
+    (click)="deleteBlock(i, index)"
+    [content]="{
+      label: '',
+      color: 'primary',
+      mode: 'icon',
+      icon: { svg: 'close', inline: true }
+    }"
+  ></app-btn>
+  <app-btn
+    matTooltip="{{ block.type }}组件配置"
+    (click)="onWidgetSetting(block, $event)"
+    [content]="{
+      label: '',
+      color: 'primary',
+      mode: 'icon',
+      icon: { svg: 'tune-vertical', inline: true }
+    }"
+  ></app-btn>
 </div>

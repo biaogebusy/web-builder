@@ -115,21 +115,21 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           {
             key: 'classes',
             type: 'select',
-            defaultValue: layout?.bg?.img?.classes ?? 'object-fit',
+            defaultValue: layout?.bg?.img?.classes ?? 'bg-cover',
             templateOptions: {
               label: '背景填充方式',
               options: [
                 {
                   label: '按比例铺满 cover',
-                  value: 'object-cover',
+                  value: 'bg-cover',
                 },
                 {
                   label: '按比例完整显示 contain',
-                  value: 'object-contain',
+                  value: 'bg-contain',
                 },
                 {
                   label: '拉伸铺满 fill',
-                  value: 'object-fill',
+                  value: 'bg-fill',
                 },
               ],
             },

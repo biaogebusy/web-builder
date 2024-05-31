@@ -18,23 +18,15 @@
           }
           .layout-toolbar {
             .toggle {
-              background-color: mat.get-color-from-palette(
-                $foreground,
-                elevation,
-                0.7
-              );
+              background-color: #333;
               color: mat.get-color-from-palette(
                 $primary,
                 default-contrast,
                 0.8
               );
             }
-            .block-toolbar {
-              background-color: mat.get-color-from-palette(
-                $foreground,
-                elevation,
-                0.7
-              );
+            .actions {
+              background-color: #333;
               @include mat.elevation(
                 2,
                 mat.get-color-from-palette($background, tooltip),
@@ -61,11 +53,7 @@
                 z-index: 10;
               }
               > app-block-toolbar {
-                background-color: mat.get-color-from-palette(
-                  $foreground,
-                  elevation,
-                  0.7
-                );
+                background-color: #333;
 
                 @include mat.elevation(
                   2,

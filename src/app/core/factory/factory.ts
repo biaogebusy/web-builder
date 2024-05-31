@@ -20,6 +20,7 @@ import { ManageService } from '@core/service/manage.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
 import { mediaAssets } from '@modules/builder/data/mediaAssets';
 import { ILanguage } from '@core/interface/IEnvironment';
+import { CookieService } from 'ngx-cookie-service';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -319,14 +320,14 @@ export function brandingFactory(
 }
 
 export function userFactory(
-  storage: LocalStorageService,
   cryptoJS: CryptoJSService,
-  userService: UserService
+  userService: UserService,
+  cookieService: CookieService
 ): IUser | boolean {
   const key = userService.localUserKey;
-  if (storage.retrieve(key)) {
-    const user: IUser = JSON.parse(cryptoJS.decrypt(storage.retrieve(key)));
-    if (user.authenticated) {
+  if (cookieService.check(key)) {
+    const user: IUser = JSON.parse(cryptoJS.decrypt(cookieService.get(key)));
+    if (user) {
       return user;
     } else {
       return false;
@@ -335,9 +336,9 @@ export function userFactory(
 
   // if user info change will reload window
   if (environment?.drupalProxy) {
-    storage.observe(userService.localUserKey).subscribe((user) => {
+    if (!cookieService.check(key)) {
       window.location.reload();
-    });
+    }
   }
   return false;
 }

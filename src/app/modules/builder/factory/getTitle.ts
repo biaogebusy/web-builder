@@ -1,9 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getTitleField(
-  widget: any,
-  options?: any[]
-): FormlyFieldConfig[] {
+export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'title',

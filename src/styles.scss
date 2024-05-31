@@ -2,7 +2,6 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-@import '~codemirror/lib/codemirror';
 /* You can add global styles to this file, and also import other style files */
 @import "./theme/mixins/reset";
 @import "./theme/main.scss";
@@ -35,7 +34,7 @@ body {
 }
 
 .mat-drawer-content {
-  >app-dynamic-component {
+  > app-dynamic-component {
     position: relative;
   }
 }
@@ -55,5 +54,11 @@ pre {
 
   .hljs {
     background-color: transparent;
+  }
+}
+
+.close-outside {
+  .mat-dialog-container {
+    overflow: visible;
   }
 }

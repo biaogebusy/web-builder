@@ -164,26 +164,17 @@
   "defaultAvatar": "/assets/images/avatar/01.jpeg",
   "defaultThumb": "/assets/images/default.png",
   "amap": {
-    "key": "33877188af64f0213ff4fa259b1c14b8",
+    "key": "xxx",
     "version": "1.4.15",
-    "plugins": [
-      "AMap.Geocoder"
-    ],
+    "plugins": ["AMap.Geocoder"],
     "city": "0771",
     "zoom": 18,
-    "center": [
-      108.32067,
-      22.817424
-    ],
+    "center": [108.32067, 22.817424],
     "mapStyle": {
-      "light": "amap://styles/1421728e809147de8bfac4fd1abd2fb3",
-      "dark": "amap://styles/50fcdf3719b8cd479cd3017044e49c22"
+      "light": "amap://styles/xxx",
+      "dark": "amap://styles/xxx"
     },
-    "features": [
-      "bg",
-      "road",
-      "point"
-    ]
+    "features": ["bg", "road", "point"]
   },
   "apiUrl": {
     "loginPath": "/user/login",
@@ -238,26 +229,11 @@
       "toolbar": [
         [
           {
-            "header": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              false
-            ]
+            "header": [1, 2, 3, 4, 5, 6, false]
           }
         ],
-        [
-          "bold",
-          "italic",
-          "underline",
-          "strike"
-        ],
-        [
-          "clean"
-        ],
+        ["bold", "italic", "underline", "strike"],
+        ["clean"],
         [
           {
             "background": []
@@ -287,14 +263,8 @@
             "indent": "+1"
           }
         ],
-        [
-          "link",
-          "image"
-        ],
-        [
-          "blockquote",
-          "code-block"
-        ]
+        ["link", "image"],
+        ["blockquote", "code-block"]
       ]
     }
   },
@@ -356,8 +326,13 @@
   "user": {
     "banner": "/assets/images/16-9/business-14.jpeg"
   },
-  "googleAnalyticsBak": {
-    "id": "G-N7PGP9ND57"
+  "analyticsBak": {
+    "ga": {
+      "id": "xxx"
+    },
+    "baidu": {
+      "id": "xxx"
+    }
   },
   "clarity": {
     "id": "j9gy21q9e9"
@@ -381,20 +356,14 @@
       {
         "get": "/api/v2/unread-message",
         "action": "/api/v1/flagging/message_unread",
-        "reqRoles": [
-          "lawyer",
-          "assistant_lawyer"
-        ],
+        "reqRoles": ["lawyer", "assistant_lawyer"],
         "icon": "clipboard-text-clock",
         "color": "primary"
       },
       {
         "get": "/api/v1/filter/handler",
         "action": "/api/v3/private/read",
-        "reqRoles": [
-          "lawyer",
-          "assistant_lawyer"
-        ],
+        "reqRoles": ["lawyer", "assistant_lawyer"],
         "icon": "chart-line",
         "color": "warn"
       }
@@ -603,9 +572,7 @@
       "update": "/api/v3/landingPage/update"
     },
     "params": {
-      "reqRoles": [
-        "administrator"
-      ]
+      "reqRoles": ["administrator"]
     },
     "widgetPicker": {
       "help": {

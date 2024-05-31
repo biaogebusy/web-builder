@@ -45,8 +45,16 @@
     }
     .preview-iframe {
       &:after {
-        background-color: mat.get-color-from-palette($foreground, elevation, 0.95);
-        @include mat.elevation(2, mat.get-color-from-palette($foreground, elevation), 0.5);
+        background-color: mat.get-color-from-palette(
+          $foreground,
+          elevation,
+          0.95
+        );
+        @include mat.elevation(
+          2,
+          mat.get-color-from-palette($foreground, elevation),
+          0.5
+        );
       }
     }
   }
@@ -67,10 +75,14 @@
   }
   .component-toolbar {
     .actions {
-      background-color: mat.get-color-from-palette($foreground, elevation, 0.7);
-      @include mat.elevation(2, mat.get-color-from-palette($background, tooltip), 0.25);
+      background-color: #333;
+      @include mat.elevation(
+        2,
+        mat.get-color-from-palette($background, tooltip),
+        0.25
+      );
       .mat-button-base {
-        color: rgba(255, 255, 255, 0.8);
+        color: mat.get-color-from-palette($primary, default-contrast, 0.8);
       }
     }
   }

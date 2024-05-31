@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
+import { Inject, Injectable } from '@angular/core';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { DOCUMENT } from '@angular/common';
 
 declare var gtag: any;
 declare var window: any;
@@ -8,10 +9,11 @@ declare var window: any;
 @Injectable({
   providedIn: 'root',
 })
-export class GoogleAnalyticsService {
+export class AnalyticsService {
   constructor(
-    private angulartics: Angulartics2GoogleGlobalSiteTag,
-    private utility: UtilitiesService
+    private angulartics: Angulartics2GoogleAnalytics,
+    private utility: UtilitiesService,
+    @Inject(DOCUMENT) private doc: Document
   ) {}
 
   loadGoogleAnalytics(id: string): void {
@@ -29,5 +31,17 @@ export class GoogleAnalyticsService {
     // tracking current url at app bootstrap
     gtag('config', id);
     this.angulartics.startTracking();
+  }
+
+  loadBaiduAnalytics(id: string): void {
+    window._hmt = window._hmt || [];
+    (function () {
+      var hm = document.createElement('script');
+      hm.src = `https://hm.baidu.com/hm.js?${id}`;
+      var s = document.getElementsByTagName('script')[0];
+      if (s.parentNode) {
+        s.parentNode.insertBefore(hm, s);
+      }
+    })();
   }
 }
