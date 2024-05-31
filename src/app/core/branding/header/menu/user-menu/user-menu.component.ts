@@ -73,7 +73,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    const logoutToken = this.storage.retrieve('logoutToken');
+    const logoutToken = this.storage.retrieve(this.userService.logoutToken);
     this.userService.logout(logoutToken);
   }
 
