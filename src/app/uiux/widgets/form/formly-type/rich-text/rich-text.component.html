@@ -11,7 +11,7 @@
   <quill-editor (onEditorCreated)="editorCreated($event)" [(ngModel)]="value" [modules]="modules"
     (onContentChanged)="onContentChanged($event)" [styles]="{height:'100%'}">
   </quill-editor>
-  <div class="flex justify-center items-center gap-5">
+  <div class="flex justify-center items-center gap-5 mt-5">
     <app-btn (click)="onCancel()" [content]="{'label':'取消'}"></app-btn>
     <app-btn (click)="onSave()" [content]="{'label':'保存','mode':'raised','color':'primary'}"></app-btn>
   </div>
