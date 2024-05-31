@@ -30,9 +30,6 @@ export interface ICoreConfig {
     ga?: {
       id: string;
     };
-    baidu?: {
-      id: string;
-    };
   };
   clarity: {
     id: string;

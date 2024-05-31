@@ -32,16 +32,4 @@ export class AnalyticsService {
     gtag('config', id);
     this.angulartics.startTracking();
   }
-
-  loadBaiduAnalytics(id: string): void {
-    window._hmt = window._hmt || [];
-    (function () {
-      var hm = document.createElement('script');
-      hm.src = `https://hm.baidu.com/hm.js?${id}`;
-      var s = document.getElementsByTagName('script')[0];
-      if (s.parentNode) {
-        s.parentNode.insertBefore(hm, s);
-      }
-    })();
-  }
 }
