@@ -111,9 +111,7 @@ export class PageListComponent implements OnInit, OnDestroy {
         user: included.find(
           (user: any) => user.id === item.relationships.revision_uid.data.id
         ).attributes.display_name,
-        href: attributes.path.alias
-          ? attributes.path.alias
-          : `/node/${attributes.drupal_internal__nid}`,
+        href: this.nodeService.getNodePath(attributes),
       };
     });
   }
