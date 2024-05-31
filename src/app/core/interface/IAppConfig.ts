@@ -26,7 +26,14 @@ export interface ICoreConfig {
   actions: IActions;
   dialog: IDialog;
   user: User;
-  googleAnalytics: GoogleAnalytics;
+  analytics?: {
+    ga?: {
+      id: string;
+    };
+    baidu?: {
+      id: string;
+    };
+  };
   clarity: {
     id: string;
   };
@@ -265,10 +272,6 @@ export interface Commerce {
     actionsAlign: string;
     actions: Action2[];
   };
-}
-
-export interface GoogleAnalytics {
-  id: string;
 }
 
 export interface Guard {

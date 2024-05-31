@@ -8,6 +8,7 @@ import {
 import type { ICustomTemplate } from '@core/interface/IBuilder';
 import Handlebars from 'handlebars';
 import DOMPurify from 'dompurify';
+import { NodeService } from '@core/service/node.service';
 
 @Component({
   selector: 'app-custom-template',
@@ -18,20 +19,28 @@ import DOMPurify from 'dompurify';
 export class CustomTemplateComponent implements AfterViewInit {
   @Input() content: ICustomTemplate;
 
-  constructor(private ele: ElementRef) { }
+  constructor(private ele: ElementRef, private nodeService: NodeService) {}
 
   ngAfterViewInit(): void {
     this.render(this.content);
   }
 
   render(content: any): void {
-    const { html, json } = content;
+    const { html, json, isAPI, api } = content;
     const parent = this.ele.nativeElement.querySelector('.template');
-    if (parent) {
-      const sanitized = DOMPurify.sanitize(html);
-      const template = Handlebars.compile(sanitized);
-      const component = template(json);
-      parent.innerHTML = component;
+    if (isAPI && api) {
+      this.nodeService.fetch(api, 'noCache=true').subscribe((res) => {
+        this.renderView(res, parent, html);
+      });
+    } else {
+      this.renderView(json, parent, html);
     }
+  }
+
+  renderView(content: any, parent: Element, html: string): void {
+    const sanitized = DOMPurify.sanitize(html);
+    const template = Handlebars.compile(sanitized);
+    const component = template(content);
+    parent.innerHTML = component;
   }
 }
