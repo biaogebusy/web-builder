@@ -20,6 +20,10 @@ export class ApiService {
     return camelCase(this.apiBaseUrl.split('//')[1]);
   }
 
+  get logoutToken(): string {
+    return 'logoutToken';
+  }
+
   get httpOptionsOfCommon(): any {
     return {
       headers: new HttpHeaders({

@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   Inject,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
