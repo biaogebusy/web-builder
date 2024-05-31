@@ -61,13 +61,13 @@
 
 ## 技术选型
 
-- 前端：Angular + Material + FlexLayout(将慢慢废弃) + TailwindCss
+- 前端：Angular + Material + FlexLayout + TailwindCss
 - 动态表单：ngx-formly
 - web 动画：gsap
 - 图表：Echarts
 - 视频：Video.js
 - 文件生成：jspdf 生成 pdf，html2canvas 生成图像，file-saver 下载文件，jszip 压缩文件
-- 编辑器：quill, ang-jsoneditor
+- 编辑器：quill, ang-jsoneditor, vs monaco-editor
 - 幻灯片：swiper
 - 字体图标：material design icons + 自定义 svg icon
 - 加密：crypto-js
