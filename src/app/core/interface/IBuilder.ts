@@ -59,7 +59,7 @@ export interface IBuilderShowcase {
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
   style: any;
-  direction: 'column' | 'row' | 'row wrap';
+  direction: 'col' | 'row' | 'row wrap';
   wrap: 'wrap' | 'wrap-reverse' | 'nowrap';
   horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
   vertical: 'start' | 'end' | 'center' | 'stretch';
@@ -83,7 +83,7 @@ export interface ILayoutBlock {
   animate?: any;
   bg?: IBgImg;
   elements: any[];
-  direction: 'column' | 'row' | 'row wrap';
+  direction: 'col' | 'row' | 'row wrap';
   wrap: 'wrap' | 'wrap-reverse' | 'nowrap';
   horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
   vertical: 'start' | 'end' | 'center' | 'stretch';

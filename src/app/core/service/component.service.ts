@@ -185,7 +185,6 @@ export class ComponentService {
     [
       'autoclose',
       'dynamic-form',
-      '404',
       'jsoneditor',
       'theme-preview',
       'code-editor',

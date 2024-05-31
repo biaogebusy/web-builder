@@ -3,7 +3,6 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { NgJsonEditorModule } from 'ang-jsoneditor';
 
-import { NotfoundComponent } from './notfound/notfound.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { AutocloseComponent } from './autoclose/autoclose.component';
 import { BaseModule } from '@uiux/base/base.module';
@@ -14,7 +13,6 @@ import { CustomTemplateComponent } from './custom-template/custom-template.compo
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 const components = [
-  NotfoundComponent,
   DynamicFormComponent,
   AutocloseComponent,
   JsoneditorComponent,
