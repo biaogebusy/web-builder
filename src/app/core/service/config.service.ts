@@ -1,6 +1,6 @@
 import { Inject, Injectable, Injector } from '@angular/core';
 import { DialogService } from './dialog.service';
-import { GoogleAnalyticsService } from './ga.service';
+import { AnalyticsService } from './analytics.service';
 import { QiDianService } from './qidian.service';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -22,16 +22,20 @@ export class ConfigService {
 
   init(): void {
     const screenService = this.injector.get(ScreenService);
-    const gaService = this.injector.get(GoogleAnalyticsService);
+    const analyticsService = this.injector.get(AnalyticsService);
     const qiDianService = this.injector.get(QiDianService);
     const dialogService = this.injector.get(DialogService);
     const clarityService = this.injector.get(ClarityService);
     const tourService = this.injector.get(TourService);
     if (screenService.isPlatformBrowser()) {
       if (this.coreConfig) {
-        if (this.coreConfig?.googleAnalytics) {
-          const id = this.coreConfig.googleAnalytics.id;
-          gaService.loadGoogleAnalytics(id);
+        if (this.coreConfig?.analytics?.ga) {
+          const id = this.coreConfig.analytics.ga.id;
+          analyticsService.loadGoogleAnalytics(id);
+        }
+        if (this.coreConfig?.analytics?.baidu) {
+          const id = this.coreConfig.analytics.baidu.id;
+          analyticsService.loadBaiduAnalytics(id);
         }
         if (this.coreConfig?.qidian) {
           const qdConfig = this.coreConfig.qidian;
