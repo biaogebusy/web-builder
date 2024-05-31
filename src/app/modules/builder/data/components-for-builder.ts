@@ -1955,7 +1955,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-05-22',
+                  subTitle: '2024-05-27',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2005,7 +2005,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-22',
+                  subTitle: '2024-05-27',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2042,7 +2042,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-22',
+                  subTitle: '2024-05-27',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2079,7 +2079,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-22',
+                  subTitle: '2024-05-27',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2116,7 +2116,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-22',
+                  subTitle: '2024-05-27',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2153,7 +2153,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-22',
+                  subTitle: '2024-05-27',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2190,7 +2190,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-22',
+                  subTitle: '2024-05-27',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2227,7 +2227,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-22',
+                  subTitle: '2024-05-27',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
