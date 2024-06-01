@@ -8,6 +8,7 @@ export interface IManageAssets {
 
 export interface IManageMedia {
   type: 'manage-media';
+  time: Date;
 }
 
 export interface IMediaSelect {

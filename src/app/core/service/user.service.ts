@@ -150,11 +150,6 @@ export class UserService extends ApiService {
   logoutUser(): void {
     this.userSub$.next(false);
     this.cookieService.delete(this.localUserKey, '/');
-  }
-
-  logoutLocalUser(): void {
-    this.userSub$.next(false);
-    this.cookieService.delete(this.localUserKey, '/');
     this.cookieService.delete(this.logoutToken, '/');
   }
 

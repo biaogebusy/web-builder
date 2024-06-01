@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
+  time: Date;
   constructor(private dialog: MatDialog, private builder: BuilderState) {
     super();
   }
@@ -20,15 +21,21 @@ export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.builder.selectedMedia$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(({ img }) => {
-        const { src } = img;
-        this.dialog.closeAll();
-        this.field.templateOptions = { ...this.field.templateOptions, ...img };
-        this.formControl.patchValue(src);
+      .subscribe(({ img, time }) => {
+        if (this.time && this.time === time) {
+          const { src } = img;
+          this.dialog.closeAll();
+          this.field.templateOptions = {
+            ...this.field.templateOptions,
+            ...img,
+          };
+          this.formControl.patchValue(src);
+        }
       });
   }
 
   openMedias(): void {
+    this.time = new Date();
     this.dialog.open(DialogComponent, {
       width: '100%',
       data: {
@@ -37,6 +44,7 @@ export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
         inputData: {
           content: {
             type: 'manage-media',
+            time: this.time,
           },
         },
       },

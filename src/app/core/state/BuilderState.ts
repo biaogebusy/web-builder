@@ -38,6 +38,7 @@ export class BuilderState {
   public selectedMedia$ = new Subject<{
     img: IMediaSelect;
     value: IManageMedia;
+    time?: Date;
   }>();
   public switchPreivew$ = new Subject<
     'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'

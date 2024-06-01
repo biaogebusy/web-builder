@@ -65,7 +65,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
       if (this.user && environment.production) {
         this.userService.getLoginState().subscribe((state) => {
           if (!state) {
-            this.userService.logoutLocalUser();
+            this.userService.logoutUser();
           }
         });
       }
