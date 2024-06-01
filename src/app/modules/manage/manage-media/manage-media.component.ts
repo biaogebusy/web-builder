@@ -103,6 +103,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
         tag: 'img',
       },
       value: this.content,
+      time: this.content.time,
     });
   }
 
