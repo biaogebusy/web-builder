@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 @mixin img-color($config-or-theme) {
   $config: mat.get-color-config($config-or-theme);

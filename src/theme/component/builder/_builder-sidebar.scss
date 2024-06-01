@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin sidebar($background, $foreground, $primary) {
   background-color: mat.get-color-from-palette($background, card);
   .mat-drawer-inner-container {
