@@ -52,7 +52,6 @@ export class ComponentService {
       'view-list',
       'text-hero',
       'menu-list',
-      'line-year',
       'chip-list',
       'chart',
       'input',

@@ -14,9 +14,11 @@
   $divider-color: mat.get-color-from-palette($foreground, divider);
 
   .wave-wrapper {
-    background: linear-gradient(-74deg,
-        mat.get-color-from-palette($primary, 50) 0%,
-        mat.get-color-from-palette($primary, 100) 100%);
+    background: linear-gradient(
+      -74deg,
+      mat.get-color-from-palette($primary, 50) 0%,
+      mat.get-color-from-palette($primary, 100) 100%
+    );
 
     .wave {
       color: $bg-color;
@@ -63,16 +65,6 @@
     }
   }
 
-  .line-year {
-    border-top: solid 1.5px $divider-color;
-
-    &:before {
-      background: mat.get-color-from-palette($primary);
-      border: 1px solid mat.get-color-from-palette($primary);
-      box-shadow: 0 0px 1px 5px mat.get-color-from-palette($primary, 0.3);
-    }
-  }
-
   .feature-cover {
     &:before {
       background: $bg-color;
@@ -93,7 +85,7 @@
     }
 
     .btns {
-      >a {
+      > a {
         background: $bg-color;
         color: mat.get-color-from-palette($primary);
 
@@ -204,9 +196,11 @@
     @media #{$gt-sm} {
       form {
         background-color: mat.get-color-from-palette($background, card);
-        @include mat.elevation(4,
+        @include mat.elevation(
+          4,
           mat.get-color-from-palette($foreground, text),
-          0.2);
+          0.2
+        );
         border: 1px solid mat.get-color-from-palette($foreground, divider, 0.1);
 
         &:hover,
@@ -256,18 +250,22 @@
 
   .view-list {
     .sidebar {
-      >.inner {
+      > .inner {
         background-color: mat.get-color-from-palette($background, card);
-        @include mat.elevation(4,
+        @include mat.elevation(
+          4,
           mat.get-color-from-palette($foreground, divider),
-          0.5);
+          0.5
+        );
       }
     }
 
     .view {
-      @include mat.elevation(6,
+      @include mat.elevation(
+        6,
         mat.get-color-from-palette($foreground, divider),
-        0.25);
+        0.25
+      );
     }
   }
 
@@ -279,7 +277,7 @@
     }
 
     tbody {
-      >tr {
+      > tr {
         &:hover {
           background-color: mat.get-color-from-palette($background, background);
         }
@@ -325,9 +323,11 @@
 
   .chart {
     border: 1px solid mat.get-color-from-palette($foreground, divider);
-    @include mat.elevation(2,
+    @include mat.elevation(
+      2,
       mat.get-color-from-palette($foreground, divider),
-      0.07);
+      0.07
+    );
   }
 
   .tab {
@@ -373,9 +373,11 @@
   .code-editor {
     .box {
       border: 1px solid mat.get-color-from-palette($foreground, divider);
-      @include mat.elevation(2,
+      @include mat.elevation(
+        2,
         mat.get-color-from-palette($foreground, divider),
-        0.07);
+        0.07
+      );
 
       .jsoneditor {
         border-color: transparent;

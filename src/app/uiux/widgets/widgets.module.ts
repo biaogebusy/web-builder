@@ -51,7 +51,6 @@ import { MenuListComponent } from './menu-list/menu-list.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { TextareaComponent } from './form/textarea/textarea.component';
 import { ChipListComponent } from './chip-list/chip-list.component';
-import { LineYearComponent } from './line-year/line-year.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
@@ -164,7 +163,6 @@ const components = [
   CheckboxComponent,
   ChipListComponent,
   TextareaComponent,
-  LineYearComponent,
   ContentBoxComponent,
   FeatureBoxComponent,
   BreadcrumbComponent,
