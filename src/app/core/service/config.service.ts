@@ -33,10 +33,6 @@ export class ConfigService {
           const id = this.coreConfig.analytics.ga.id;
           analyticsService.loadGoogleAnalytics(id);
         }
-        if (this.coreConfig?.analytics?.baidu) {
-          const id = this.coreConfig.analytics.baidu.id;
-          analyticsService.loadBaiduAnalytics(id);
-        }
         if (this.coreConfig?.qidian) {
           const qdConfig = this.coreConfig.qidian;
           qiDianService.loadQiDian(qdConfig);
