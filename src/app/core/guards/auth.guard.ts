@@ -57,7 +57,7 @@ export class AuthGuard implements CanActivate {
                     }
                     return true;
                   } else {
-                    this.userService.logoutLocalUser();
+                    this.userService.logoutUser();
                     if (environment?.drupalProxy) {
                       window.location.href =
                         defaultDrupalLoginPage || '/user/login';
@@ -94,7 +94,7 @@ export class AuthGuard implements CanActivate {
                   .pipe(
                     tap((status) => {
                       if (!status) {
-                        this.userService.logoutLocalUser();
+                        this.userService.logoutUser();
                       }
                       if (status && !this.user) {
                         this.userService.updateUserBySession();
