@@ -1,13 +1,32 @@
 <div class="search-box">
-  <form (ngSubmit)="search(form.value)" [formGroup]="form" matTooltip="{{content?.tooltip}}">
+  <form
+    (ngSubmit)="search(form.value)"
+    [formGroup]="form"
+    matTooltip="{{ content.tooltip }}"
+  >
     <div class="js-form-type-search">
-      <a href="{{content.link}}" target="_blank" title="Search">
+      <a href="{{ content.link }}" target="_blank" title="Search">
         <mat-icon>search</mat-icon>
       </a>
-      <input matInput formControlName="{{content.key}}" type="search" size="15" maxlength="128"
-        value="{{content.value}}" class="form-search" [matAutocomplete]="auto" placeholder="{{content?.placeholder}}">
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelected($event)">
-        <mat-option *ngFor="let option of options;trackBy:trackByFn" [value]="option.href">
+      <input
+        matInput
+        formControlName="{{ content.key }}"
+        type="search"
+        size="15"
+        maxlength="128"
+        value="{{ content.value }}"
+        class="form-search"
+        [matAutocomplete]="auto"
+        placeholder="{{ content.placeholder }}"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="onSelected($event)"
+      >
+        <mat-option
+          *ngFor="let option of options; trackBy: trackByFn"
+          [value]="option.href"
+        >
           <app-link [content]="option"></app-link>
         </mat-option>
       </mat-autocomplete>

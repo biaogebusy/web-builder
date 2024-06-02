@@ -26,8 +26,7 @@ function getFlexClasses() {
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: "jit",
-  purge: {
+  content: {
     enabled: true,
     content: ["./src/**/*.{html,ts,mdx}"],
     safelist: [
@@ -73,7 +72,11 @@ module.exports = {
       "3/4": "75%",
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+  ],
   corePlugins: {
     preflight: false,
   },

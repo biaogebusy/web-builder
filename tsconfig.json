@@ -17,9 +17,9 @@
     "strictPropertyInitialization": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "target": "es2020",
+    "target": "es6",
     "module": "esnext",
-    "lib": ["es2018", "dom"],
+    "lib": ["esnext", "dom"],
     "paths": {
       "@angular/*": ["./node_modules/@angular/*"],
       "@uiux/": ["./src/app/uiux"],

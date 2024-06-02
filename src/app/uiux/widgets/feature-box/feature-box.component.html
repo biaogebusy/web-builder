@@ -1,25 +1,56 @@
-<div class="feature-box relative overflow-hidden {{content?.mode == 'float'?'feature-float':'feature-cover'}}"
-  *ngIf="box && content">
+<div
+  class="feature-box relative overflow-hidden {{
+    content.mode == 'float' ? 'feature-float' : 'feature-cover'
+  }}"
+  *ngIf="box && content"
+>
   <div class="feature-inner">
-    <div class="btns absolute flex z-10" *ngIf="isHoverIcon;else noIcon">
-      <a href="javascript:void(0)" (click)="open(box.img)" class="btn expand-image btn-full" *ngIf="box.fullIcon">
-        <app-icon [content]="{svg:box.fullIcon}"></app-icon>
+    <div class="btns absolute flex z-10" *ngIf="isHoverIcon; else noIcon">
+      <a
+        href="javascript:void(0)"
+        (click)="open(box.img)"
+        class="btn expand-image btn-full"
+        *ngIf="box.fullIcon"
+      >
+        <app-icon [content]="{ svg: box.fullIcon }"></app-icon>
       </a>
-      <a href="javascript:void(0)" (click)="copy(box.img)" class="btn btn-full" *ngIf="box.copyIcon">
-        <app-icon [content]="{svg:box.copyIcon}"></app-icon>
+      <a
+        href="javascript:void(0)"
+        (click)="copy(box.img)"
+        class="btn btn-full"
+        *ngIf="box.copyIcon"
+      >
+        <app-icon [content]="{ svg: box.copyIcon }"></app-icon>
       </a>
-      <a href="{{box.link}}" class="btn icon-link btn-open icon-{{box.openIcon}}" *ngIf="box.openIcon">
-        <app-icon [content]="{svg:'open-in-new'}"></app-icon>
+      <a
+        href="{{ box.link }}"
+        class="btn icon-link btn-open icon-{{ box.openIcon }}"
+        *ngIf="box.openIcon"
+      >
+        <app-icon [content]="{ svg: 'open-in-new' }"></app-icon>
       </a>
     </div>
     <ng-template #noIcon>
-      <a *ngIf="box.link" href="{{box.link}}" class="btns flex absolute z-10 w-full h-full"></a>
+      <a
+        *ngIf="box.link"
+        href="{{ box.link }}"
+        class="btns flex absolute z-10 w-full h-full"
+      ></a>
     </ng-template>
     <div class="feature-inner-ling">
       <div class="media" [ngClass]="box.ratios || 'media-4-3'">
-        <app-img [attr.data-path]="'img'" *ngIf="box.img" [content]="box.img"></app-img>
+        <app-img
+          [attr.data-path]="'img'"
+          *ngIf="box.img"
+          [content]="box.img"
+        ></app-img>
       </div>
-      <div class="title one-line px-3" *ngIf="content?.mode === 'float' || type !== 'picture'">{{title}}</div>
+      <div
+        class="title one-line px-3"
+        *ngIf="content?.mode === 'float' || type !== 'picture'"
+      >
+        {{ title }}
+      </div>
     </div>
   </div>
 </div>

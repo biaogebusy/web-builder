@@ -1,8 +1,8 @@
 <div class="relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-title [content]="content.title" *ngIf="content.title"></app-title>
   <app-map class="block m-top-md" [ngStyle]="content.style" *ngIf="content" [content]="content">
   </app-map>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

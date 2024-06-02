@@ -5,7 +5,7 @@
     [content]="content.bg"
     *ngIf="content.bg"
   ></app-bg-img>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <div class="flex flex-wrap" [ngClass]="containerClass">
     <app-text
       [attr.data-path]="'text'"

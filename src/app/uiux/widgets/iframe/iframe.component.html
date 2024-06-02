@@ -1,6 +1,14 @@
 <div class="loading-inner" *ngIf="loading">
   <mat-spinner diameter="50"></mat-spinner>
 </div>
-<iframe [style]="{visibility:loading ? 'hidden' : 'visible'}" [width]="content.width || '100%'"
-  [class]="content.classes" height="{{content.height || '100%'}}" [src]="url | safeUrl" [title]="content?.title"
-  [id]="content?.id" frameborder="0" [name]="content.name || 'xinshi'"></iframe>
+<iframe
+  [style]="{ visibility: loading ? 'hidden' : 'visible' }"
+  [width]="content.width || '100%'"
+  [class]="content.classes"
+  height="{{ content.height || '100%' }}"
+  [src]="url | safeUrl"
+  [title]="content.title"
+  [id]="content.id"
+  frameborder="0"
+  [name]="content.name || 'xinshi'"
+></iframe>

@@ -1,6 +1,6 @@
 <div class="contact-us-1v1" *ngIf="content" [ngClass]="content.classes">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}">
     <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
@@ -17,5 +17,5 @@
       </div>
     </div>
   </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

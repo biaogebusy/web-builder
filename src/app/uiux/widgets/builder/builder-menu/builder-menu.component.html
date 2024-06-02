@@ -1,23 +1,34 @@
 <ng-container>
   <div class="builder-menu">
-    <button aria-label="builder page" [matTooltip]="'更多'" mat-icon-button [mat-menu-trigger-for]="menu">
-      <app-icon [matBadge]="page?.body?.length" matBadgeSize="small" matBadgeColor="primary"
-        fxLayoutAlign="center center" [content]="{svg:'dots-vertical',inline:true}"></app-icon>
+    <button
+      aria-label="builder page"
+      [matTooltip]="'更多'"
+      mat-icon-button
+      [mat-menu-trigger-for]="menu"
+    >
+      <app-icon
+        fxLayoutAlign="center center"
+        [content]="{ svg: 'dots-vertical', inline: true }"
+      ></app-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onPageJson()">
-        <app-icon [content]="{svg:'code-json'}"></app-icon>
+        <app-icon [content]="{ svg: 'code-json' }"></app-icon>
         <span>页面 JSON</span>
       </button>
       <button mat-menu-item *ngIf="canShow">
-        <mat-slide-toggle [checked]="debugAnimate$ | async" (change)="onDebugAnimate($event)">动画调式</mat-slide-toggle>
+        <mat-slide-toggle
+          [checked]="debugAnimate$ | async"
+          (change)="onDebugAnimate($event)"
+          >动画调式</mat-slide-toggle
+        >
       </button>
       <button mat-menu-item (click)="onColorTest()">
-        <app-icon [content]="{svg:'marker-check'}"></app-icon>
+        <app-icon [content]="{ svg: 'marker-check' }"></app-icon>
         <span>颜色检查</span>
       </button>
       <button mat-menu-item (click)="onPreview()">
-        <app-icon [content]="{svg:'eye'}"></app-icon>
+        <app-icon [content]="{ svg: 'eye' }"></app-icon>
         <span>页面预览</span>
       </button>
     </mat-menu>
