@@ -2,6 +2,7 @@
   <app-btn
     class="toggle block"
     matTooltip="当前栏配置"
+    matTooltipPosition="above"
     [content]="{
       label: '',
       mode: 'icon',
@@ -11,6 +12,7 @@
   <div class="actions">
     <app-btn
       matTooltip="左移"
+      matTooltipPosition="above"
       *ngIf="i > 0 && i < lbContent.elements.length"
       (click)="onMoveCol('left', lbContent.elements, $event, i)"
       [content]="{
@@ -22,6 +24,7 @@
     ></app-btn>
     <app-btn
       matTooltip="右移"
+      matTooltipPosition="above"
       *ngIf="i > -1 && i < lbContent.elements.length - 1"
       (click)="onMoveCol('right', lbContent.elements, $event, i)"
       [content]="{
@@ -33,6 +36,7 @@
     ></app-btn>
     <app-btn
       matTooltip="选择组件并插入新一栏"
+      matTooltipPosition="above"
       (click)="addBlock('layout', lbContent, $event)"
       [content]="{
         label: '',
@@ -43,6 +47,7 @@
     ></app-btn>
     <app-btn
       matTooltip="移除当前栏"
+      matTooltipPosition="above"
       (click)="onDeleteRow(i)"
       [content]="{
         label: '',
@@ -53,6 +58,7 @@
     ></app-btn>
     <app-btn
       matTooltip="当前栏配置"
+      matTooltipPosition="above"
       (click)="onLayoutSettings(layout, $event)"
       [content]="{
         label: '',
