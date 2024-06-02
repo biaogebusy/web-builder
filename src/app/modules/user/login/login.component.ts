@@ -5,7 +5,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { TagsService } from '@core/service/tags.service';
@@ -24,14 +24,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   hide = true;
   loading: boolean;
   error: string;
-  userForm: FormGroup;
-  phoneForm: FormGroup;
+  userForm: UntypedFormGroup;
+  phoneForm: UntypedFormGroup;
   currentUser: IUser | false;
   public countdown: number;
   private subscription: Subscription;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     public screenState: ScreenState,
     private tagsService: TagsService,

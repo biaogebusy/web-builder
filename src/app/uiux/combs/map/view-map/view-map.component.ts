@@ -5,7 +5,7 @@ import {
   OnInit,
   ChangeDetectorRef,
 } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { isString, merge } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
@@ -25,8 +25,8 @@ import { map } from 'rxjs/operators';
 export class ViewMapComponent extends BaseComponent implements OnInit {
   @Input() content: IViewMap;
   lists$: Observable<IViewMapItem[] | any>;
-  form = new FormGroup({
-    page: new FormControl(),
+  form = new UntypedFormGroup({
+    page: new UntypedFormControl(),
   });
   model: any = {};
   selectedId: number;

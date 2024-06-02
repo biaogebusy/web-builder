@@ -5,7 +5,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { NodeService } from '@core/service/node.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ import type { IHeaderSearch } from '@core/interface/branding/IBranding';
 export class SearchBoxComponent extends BaseComponent implements OnInit {
   @Input() content: IHeaderSearch;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   options: any[] = [];
 
   constructor(

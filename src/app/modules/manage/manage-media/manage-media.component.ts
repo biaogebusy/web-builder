@@ -7,7 +7,7 @@ import {
   Input,
   OnDestroy,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, Subject } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
@@ -29,7 +29,7 @@ import { ManageService } from '@core/service/manage.service';
 })
 export class ManageMediaComponent implements OnInit, OnDestroy {
   @Input() content: IManageMedia;
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   loading = false;
   destroy$: Subject<boolean> = new Subject<boolean>();

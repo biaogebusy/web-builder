@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '@core/service/api.service';
@@ -19,39 +19,39 @@ export class FormService {
         case 'datepicker':
           if (item.range) {
             group.start = item.params?.required
-              ? new FormControl(item.start || '', Validators.required)
-              : new FormControl(item.start || '');
+              ? new UntypedFormControl(item.start || '', Validators.required)
+              : new UntypedFormControl(item.start || '');
             group.end = item.params?.required
-              ? new FormControl(item.end || '', Validators.required)
-              : new FormControl(item.end || '');
+              ? new UntypedFormControl(item.end || '', Validators.required)
+              : new UntypedFormControl(item.end || '');
           }
           if (!item.range && item.key) {
             group[item.key] = item.params?.required
-              ? new FormControl(item.value || '', Validators.required)
-              : new FormControl(item.value || '');
+              ? new UntypedFormControl(item.value || '', Validators.required)
+              : new UntypedFormControl(item.value || '');
           }
           break;
         case 'select':
           if (item.multiple) {
             const value = item?.value?.split('+') || '';
             group[item.key] = item.params?.required
-              ? new FormControl(value, Validators.required)
-              : new FormControl(value);
+              ? new UntypedFormControl(value, Validators.required)
+              : new UntypedFormControl(value);
           } else {
             group[item.key] = item.params?.required
-              ? new FormControl(item.value || '', Validators.required)
-              : new FormControl(item.value || '');
+              ? new UntypedFormControl(item.value || '', Validators.required)
+              : new UntypedFormControl(item.value || '');
           }
           break;
         default:
           if (item.key) {
             group[item.key] = item.params?.required
-              ? new FormControl(item.value || '', Validators.required)
-              : new FormControl(item.value || '');
+              ? new UntypedFormControl(item.value || '', Validators.required)
+              : new UntypedFormControl(item.value || '');
           }
       }
     });
-    return new FormGroup(group);
+    return new UntypedFormGroup(group);
   }
 
   getwebFormData(params: any, value: any): any {

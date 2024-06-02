@@ -8,7 +8,7 @@ import {
   Input,
   OnDestroy,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
@@ -25,7 +25,7 @@ import { Subject } from 'rxjs';
 })
 export class LayoutSettingComponent implements OnDestroy {
   @Input() content: ILayoutSetting;
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   destroy$: Subject<boolean> = new Subject<boolean>();
 

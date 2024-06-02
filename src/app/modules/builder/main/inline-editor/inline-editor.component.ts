@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { IMetaEdit } from '@core/interface/IBuilder';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-inline-editor',
@@ -21,7 +21,7 @@ import { FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InlineEditComponent implements OnInit, AfterViewInit {
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   @Input() content: IMetaEdit;
   @ViewChild('guiStyle', { static: false }) guiStyle: ElementRef;

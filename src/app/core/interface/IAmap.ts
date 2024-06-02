@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 export interface IAmap {
   key: string;
@@ -35,5 +35,5 @@ export interface IMap {
   elements: any[];
   params?: any;
   model?: any;
-  form?: FormGroup;
+  form?: UntypedFormGroup;
 }

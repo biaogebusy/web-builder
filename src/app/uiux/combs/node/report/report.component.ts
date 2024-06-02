@@ -5,7 +5,7 @@ import {
   OnInit,
   ChangeDetectorRef,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
 import { FormService } from '@core/service/form.service';
@@ -21,7 +21,7 @@ import { map } from 'rxjs/operators';
 })
 export class ReportComponent extends BaseComponent implements OnInit {
   @Input() content: IReport;
-  @Input() form = new FormGroup({});
+  @Input() form = new UntypedFormGroup({});
   @Input() model: any = {};
   box$: Observable<any[]>;
   loading: boolean;

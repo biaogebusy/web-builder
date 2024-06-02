@@ -7,7 +7,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import type { IControl } from '@core/interface/widgets/IControl';
 import { NodeService } from '@core/service/node.service';
@@ -25,10 +25,10 @@ import { catchError, shareReplay, take } from 'rxjs/operators';
 })
 export class SelectComponent implements OnInit, AfterViewInit {
   @Input() content: IControl;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   @ViewChild('select') select: MatSelect;
   /** control for the MatSelect filter keyword multi-selection */
-  public searchCtrl: FormControl = new FormControl();
+  public searchCtrl: UntypedFormControl = new UntypedFormControl();
   /** list of banks filtered by search keyword */
   public filteredOptions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   options: {

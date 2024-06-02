@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { FormService } from '@core/service/form.service';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
@@ -17,7 +17,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 })
 export class ContactUsComponent implements OnInit {
   @Input() content: any;
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   success = false;
   submited = false;

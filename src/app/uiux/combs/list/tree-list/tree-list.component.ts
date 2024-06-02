@@ -15,7 +15,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -36,7 +36,7 @@ export class TreeListComponent
   page: number;
   pager: any;
   formState: any = {};
-  form: FormGroup;
+  form: UntypedFormGroup;
   defaultValue: any;
 
   destroy$: Subject<boolean> = new Subject<boolean>();

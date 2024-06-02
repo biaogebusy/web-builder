@@ -4,7 +4,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import type { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -19,7 +19,7 @@ import { map, shuffle } from 'lodash-es';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderGeneraterComponent implements OnInit {
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   constructor(
     private builder: BuilderState,
