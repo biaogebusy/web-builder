@@ -20,8 +20,8 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderVersionComponent implements OnInit, OnDestroy {
-  @LocalStorage('version')
-  version: IPage[];
+  public version: IPage[] | undefined;
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -32,10 +32,12 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.version = this.storage.retrieve('version');
     this.storage
       .observe('version')
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
+      .subscribe((version: IPage[]) => {
+        this.version = version;
         this.cd.detectChanges();
       });
   }

@@ -3,7 +3,7 @@
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span>历史记录 ({{ version.length }})</span>
+          <span>历史记录 ({{ version?.length || 0 }})</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
