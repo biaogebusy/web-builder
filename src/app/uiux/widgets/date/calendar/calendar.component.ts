@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import type { CalendarOptions } from '@fullcalendar/angular';
+import type { CalendarOptions } from '@fullcalendar/core';
 
 @Component({
   selector: 'app-calendar',

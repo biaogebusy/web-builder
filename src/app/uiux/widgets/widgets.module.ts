@@ -123,12 +123,6 @@ import { SliderComponent } from './form/formly-type/slider/slider.component';
 import { DividerComponent } from './divider/divider.component';
 import { RichTextComponent } from './form/formly-type/rich-text/rich-text.component';
 import { QuillModule } from 'ngx-quill';
-FullCalendarModule.registerPlugins([
-  // register FullCalendar plugins
-  dayGridPlugin,
-  timeGridPlugin,
-  listPlugin,
-]);
 const components = [
   BgComponent,
   ImgComponent,
