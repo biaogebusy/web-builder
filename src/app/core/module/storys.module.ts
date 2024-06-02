@@ -32,7 +32,6 @@ import {
   LANG,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { ActionModule } from '@uiux/combs/action/action.module';
 import { BannerModule } from '@uiux/combs/banner/banner.module';
 import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
 import { HeroModule } from '@uiux/combs/hero/hero.module';
@@ -185,7 +184,6 @@ export class StorysModule {
   static forEntryComponents(): any[] {
     return [
       ...WidgetsModule.forStorybook(),
-      ...ActionModule.forStorybook(),
       ...BannerModule.forStorybook(),
       ...CalculatorModule.forStorybook(),
       ...CalendarModule.forStorybook(),

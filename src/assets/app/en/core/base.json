@@ -214,24 +214,6 @@
   "loading": true,
   "loadingBar": true,
   "article": {
-    "fontSize": {
-      "enable": true,
-      "form": [
-        {
-          "label": "字体大小",
-          "key": "font",
-          "value": 16,
-          "type": "input",
-          "placeholder": "Ex. 12",
-          "controlType": "number",
-          "appearance": "legacy",
-          "errorMes": "最小: 10px",
-          "tooltip": "通过键盘上下键可快速更改大小",
-          "matTooltipPosition": "above",
-          "suffix": "px"
-        }
-      ]
-    },
     "login": {
       "label": "登录"
     },

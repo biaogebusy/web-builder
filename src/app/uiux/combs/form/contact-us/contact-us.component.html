@@ -1,32 +1,42 @@
 <div class="contact-us relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg-img [content]="content.bg" *ngIf="content.bg">
-  </app-bg-img>
-  <div class="{{content.fullWidth?'':'container'}}">
-    <form class="flex flex-wrap justify-center items-center" [formGroup]="form">
+  <app-bg-img [content]="content.bg" *ngIf="content.bg"> </app-bg-img>
+  <div class="{{ content.fullWidth ? '' : 'container' }}">
+    <form class="flex flex-col justify-center items-center">
       <div class="inner flex flex-wrap justify-center items-center">
-        <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
+        <div class="flex flex-col flex-12/12 sm:flex-6/12">
           <div class="p-x-sm">
-            <app-box [attr.data-path]="'contact.'+i" *ngFor="let item of content.contact;index as i"
-              [content]="item"></app-box>
+            <app-box
+              [attr.data-path]="'contact.' + i"
+              *ngFor="let item of content.contact; index as i"
+              [content]="item"
+            ></app-box>
           </div>
         </div>
-        <div fxFlexOrder="{{content.formOrder || 10}}" fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
-          <div class="p-x-sm" fxLayoutAlign="start center" fxLayout="row wrap" fxFlex="100">
-            <app-dynamic-form-control *ngFor="let item of content.forms" [control]="item" [form]="form">
-            </app-dynamic-form-control>
+        <div class="flex flex-col flex-12/12 sm:flex-6/12">
+          <div class="px-3 flex flex-wrap justify-start items-center">
+            <app-formly [form]="form" [fields]="content.form" [model]="model">
+            </app-formly>
           </div>
         </div>
       </div>
 
-      <button *ngIf="content.action" class="m-top" type="submit" mat-raised-button color="primary" fxFlex="0 1 auto">
-        <div fxLayoutAlign="center center">
-          <div class="p-x-xs">{{content.action.label}}</div>
-        </div>
+      <button
+        *ngIf="content.action"
+        class="m-top"
+        type="submit"
+        mat-raised-button
+        color="primary"
+        (click)="onSubmit()"
+      >
+        {{ content.action.label }}
       </button>
-      <div fxFlex="100" fxLayoutAlign="center center">
-        <app-spinner [content]="{color:'primary', size:40}" *ngIf="submited"></app-spinner>
+      <div class="flex flex-12/12 justify-center items-center">
+        <app-spinner
+          [content]="{ color: 'primary', size: 40 }"
+          *ngIf="submited"
+        ></app-spinner>
       </div>
     </form>
   </div>
