@@ -1,6 +1,23 @@
 <div class="calendar relative">
-  <div class="loading-inner absolute top-0 left-0" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
+  <div
+    class="
+      loading-inner
+      absolute
+      top-0
+      left-0
+      flex
+      h-full
+      w-full
+      justify-center
+      items-center
+    "
+    *ngIf="loading"
+  >
     <mat-spinner diameter="50" color="accent"></mat-spinner>
   </div>
-  <full-calendar #calendar [options]="options"></full-calendar>
+  <full-calendar
+    *ngIf="isBrowser"
+    #calendar
+    [options]="options"
+  ></full-calendar>
 </div>

@@ -14,7 +14,6 @@ import { FieldType } from '@ngx-formly/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateRangeComponent extends FieldType implements OnInit {
-  formControl: UntypedFormControl;
   start: UntypedFormControl;
   end: UntypedFormControl;
   constructor(private cd: ChangeDetectorRef) {

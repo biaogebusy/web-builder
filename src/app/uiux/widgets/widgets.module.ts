@@ -1,8 +1,5 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
-import listPlugin from '@fullcalendar/list';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import { LightboxModule } from 'ngx-lightbox';
 import { ShareModule } from '@share/share.module';
 import { SwiperModule } from 'swiper/angular';
