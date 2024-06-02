@@ -3,12 +3,16 @@ import { FullCalendarComponent } from './full-calendar/full-calendar.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BaseModule } from '@uiux/base/base.module';
 import { ShareModule } from '@share/share.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarComponent } from './calendar/calendar.component';
 
-const components = [FullCalendarComponent];
+const components = [FullCalendarComponent,CalendarComponent];
 
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule],
+  imports: [ShareModule, WidgetsModule,
+    FullCalendarModule,
+  ],
   exports: [...components],
   providers: [],
 })

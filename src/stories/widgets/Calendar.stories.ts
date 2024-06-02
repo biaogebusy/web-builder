@@ -4,7 +4,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CalendarComponent } from '@uiux/widgets/date/calendar/calendar.component';
+import { CalendarComponent } from '@uiux/combs/calendar/calendar/calendar.component';
 import { StorysModule } from '@core/module/storys.module';
 import { random } from 'lodash-es';
 import { IFullCalendar } from '@core/interface/combs/ICalendar';

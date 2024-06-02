@@ -1,5 +1,4 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
-import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import { LightboxModule } from 'ngx-lightbox';
 import { ShareModule } from '@share/share.module';
 import { SwiperModule } from 'swiper/angular';
@@ -81,7 +80,6 @@ import { TermsServiceComponent } from './form/terms-service/terms-service.compon
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
-import { CalendarComponent } from './date/calendar/calendar.component';
 import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
 import { ViewListComponent } from './view-list/view-list.component';
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
@@ -172,7 +170,6 @@ const components = [
   BgImgComponent,
   TreeComponent,
   IframeComponent,
-  CalendarComponent,
   DownloadComponent,
   CardMetaComponent,
   ViewListComponent,
@@ -217,7 +214,6 @@ const components = [
     LightboxModule,
     CountToModule,
     CdkTableModule,
-    FullCalendarModule,
     MatDatepickerModule,
     MatNativeDateModule,
     NgxMatSelectSearchModule,
