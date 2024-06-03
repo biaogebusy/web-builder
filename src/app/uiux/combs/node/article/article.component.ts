@@ -8,7 +8,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
@@ -45,7 +45,7 @@ export class ArticleComponent
   destroy$: Subject<boolean> = new Subject<boolean>();
   dialogRef: MatDialogRef<any>;
   fontSize: number;
-  fontForm: FormGroup;
+  fontForm: UntypedFormGroup;
   htmlBody: any;
   isReqRoles = false;
   canAccess: boolean;

@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox',
@@ -14,7 +14,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class CheckboxComponent implements OnInit {
   @Input() content: any;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
 
   constructor() {}
 

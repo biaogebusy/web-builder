@@ -1,8 +1,4 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
-import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
-import listPlugin from '@fullcalendar/list';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import { LightboxModule } from 'ngx-lightbox';
 import { ShareModule } from '@share/share.module';
 import { SwiperModule } from 'swiper/angular';
@@ -49,7 +45,6 @@ import { SpacerComponent } from './spacer/spacer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { TextareaComponent } from './form/textarea/textarea.component';
 import { ChipListComponent } from './chip-list/chip-list.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './pagination/pagination.component';
@@ -63,7 +58,6 @@ import { MediaListComponent } from './media/media-list/media-list.component';
 import { MediaObjectComponent } from './media/media-object/media-object.component';
 import { MediaObjectGroupComponent } from './media/media-object-group/media-object-group.component';
 import { DialogComponent } from './dialog/dialog.component';
-import { DynamicFormControlComponent } from './dynamic-form-control/dynamic-form-control.component';
 import { SelectComponent } from './form/select/select.component';
 import { PaginationLinksComponent } from './pagination/pagination-links/pagination-links.component';
 import { FlagComponent } from './actions/flag/flag.component';
@@ -80,17 +74,14 @@ import { CardMetaComponent } from './card/card-meta/card-meta.component';
 import { DownloadComponent } from './actions/download/download.component';
 import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 import { TextHeroComponent } from './text-hero/text-hero.component';
-import { FontChangeComponent } from './font-change/font-change.component';
 import { CheckboxComponent } from './form/checkbox/checkbox.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import { TermsServiceComponent } from './form/terms-service/terms-service.component';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
-import { CalendarComponent } from './date/calendar/calendar.component';
 import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
 import { ViewListComponent } from './view-list/view-list.component';
-import { SearchActionComponent } from './actions/search-action/search-action.component';
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
 import { IframeComponent } from './iframe/iframe.component';
 import { UserCardComponent } from './card/user-card/user-card.component';
@@ -127,12 +118,6 @@ import { SliderComponent } from './form/formly-type/slider/slider.component';
 import { DividerComponent } from './divider/divider.component';
 import { RichTextComponent } from './form/formly-type/rich-text/rich-text.component';
 import { QuillModule } from 'ngx-quill';
-FullCalendarModule.registerPlugins([
-  // register FullCalendar plugins
-  dayGridPlugin,
-  timeGridPlugin,
-  listPlugin,
-]);
 const components = [
   BgComponent,
   ImgComponent,
@@ -162,7 +147,6 @@ const components = [
   TextHeroComponent,
   CheckboxComponent,
   ChipListComponent,
-  TextareaComponent,
   ContentBoxComponent,
   FeatureBoxComponent,
   BreadcrumbComponent,
@@ -186,20 +170,16 @@ const components = [
   BgImgComponent,
   TreeComponent,
   IframeComponent,
-  CalendarComponent,
   DownloadComponent,
   CardMetaComponent,
   ViewListComponent,
   DatepickerComponent,
-  FontChangeComponent,
   TermsServiceComponent,
   DynamicTableComponent,
-  SearchActionComponent,
   SearchSidebarComponent,
   InlineLightboxComponent,
   MediaObjectGroupComponent,
   ContentTextCenterComponent,
-  DynamicFormControlComponent,
   DateRangeComponent,
   MatSelectComponent,
   ChartComponent,
@@ -234,7 +214,6 @@ const components = [
     LightboxModule,
     CountToModule,
     CdkTableModule,
-    FullCalendarModule,
     MatDatepickerModule,
     MatNativeDateModule,
     NgxMatSelectSearchModule,

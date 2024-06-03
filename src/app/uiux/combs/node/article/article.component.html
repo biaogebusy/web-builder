@@ -1,49 +1,96 @@
 <div class="article m-bottom" *ngIf="content">
-  <app-article-banner [content]="content.banner" *ngIf="content.banner"></app-article-banner>
+  <app-article-banner
+    [content]="content.banner"
+    *ngIf="content.banner"
+  ></app-article-banner>
   <div class="container">
-    <div class="article-inner m-top-sm" fxLayout.lt-md="column" fxLayout.gt-sm="row">
-      <div class="article-node" fxFlex.lt-md="100" fxFlex.gt-sm="{{content.sidebar?'75':'100'}}">
+    <div
+      class="article-inner m-top-sm"
+      fxLayout.lt-md="column"
+      fxLayout.gt-sm="row"
+    >
+      <div
+        class="article-node"
+        fxFlex.lt-md="100"
+        fxFlex.gt-sm="{{ content.sidebar ? '75' : '100' }}"
+      >
         <h2 class="title">
-          {{content.title}}
+          {{ content.title }}
         </h2>
         <div class="article-meta m-y-xs" fxLayoutAlign="space-between center">
-          <app-article-meta [content]="content.meta" *ngIf="content.meta"></app-article-meta>
-          <app-font-change *ngIf="showNotXs && fontSizeConfig" [content]="fontSizeConfig" [form]="fontForm">
-          </app-font-change>
+          <app-article-meta
+            [content]="content.meta"
+            *ngIf="content.meta"
+          ></app-article-meta>
         </div>
         <mat-divider></mat-divider>
         <div class="article-body relative">
-          <div *ngIf="canAccess;else canotAccess" class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"
-            [style.fontSize.px]="fontSize">
-          </div>
+          <div
+            *ngIf="canAccess; else canotAccess"
+            class="article-body m-y-sm"
+            [innerHTML]="content.body | safeHtml"
+            [style.fontSize.px]="fontSize"
+          ></div>
           <ng-template #canotAccess>
             <div class="article-body m-y-sm relative" *ngIf="content.body">
-              <div [innerHTML]="content.body |stripTags:'p'|trim|shorten:1000:'...'" [style.fontSize.px]="fontSize">
-              </div>
+              <div
+                [innerHTML]="
+                  content.body | stripTags: 'p' | trim | shorten: 1000:'...'
+                "
+                [style.fontSize.px]="fontSize"
+              ></div>
               <div class="shadow"></div>
             </div>
-            <div *ngIf="!user.authenticated" class="auth line p-y-sm p-x-sm w-full text-center"
-              fxLayoutAlign="center center">
-              <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label|safeHtml"></a>
+            <div
+              *ngIf="!user.authenticated"
+              class="auth line p-y-sm p-x-sm w-full text-center"
+              fxLayoutAlign="center center"
+            >
+              <a
+                href="javascript:void(0)"
+                (click)="openLogin()"
+                [innerHTML]="loginConfig?.label | safeHtml"
+              ></a>
             </div>
           </ng-template>
         </div>
         <div class="article-bottom m-y" *ngIf="content.bottom">
-          <app-dynamic-component [inputs]="action" *ngFor="let action of content.bottom"></app-dynamic-component>
+          <app-dynamic-component
+            [inputs]="action"
+            *ngFor="let action of content.bottom"
+          ></app-dynamic-component>
         </div>
         <div class="ations m-y" *ngIf="content.actions">
-          <app-dynamic-component [inputs]="{content:action, data:content.params}"
-            *ngFor="let action of content.actions">
+          <app-dynamic-component
+            [inputs]="{ content: action, data: content.params }"
+            *ngFor="let action of content.actions"
+          >
           </app-dynamic-component>
         </div>
-        <app-comment-form *ngIf="user.authenticated && coreConfig.article?.comment?.enable && content?.params?.comment"
-          [content]="content" [type]="'add'">
+        <app-comment-form
+          *ngIf="
+            user.authenticated &&
+            coreConfig.article?.comment?.enable &&
+            content?.params?.comment
+          "
+          [content]="content"
+          [type]="'add'"
+        >
         </app-comment-form>
-        <app-comment-list *ngIf="user.authenticated" [comments]="comments" [content]="content">
+        <app-comment-list
+          *ngIf="user.authenticated"
+          [comments]="comments"
+          [content]="content"
+        >
         </app-comment-list>
       </div>
-      <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"
-        [content]="content.sidebar"></app-sidebar>
+      <app-sidebar
+        [ngClass.gt-sm]="'m-left-sm'"
+        *ngIf="content.sidebar"
+        fxFlex.lt-md="100"
+        fxFlex.gt-sm="25"
+        [content]="content.sidebar"
+      ></app-sidebar>
     </div>
   </div>
 </div>

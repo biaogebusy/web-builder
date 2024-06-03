@@ -6,10 +6,9 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { FormService } from '@core/service/form.service';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { UtilitiesService } from '@core/service/utilities.service';
 
-// TODO: need move to combs
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
@@ -18,7 +17,8 @@ import { UtilitiesService } from '@core/service/utilities.service';
 })
 export class ContactUsComponent implements OnInit {
   @Input() content: any;
-  form: FormGroup;
+  form = new UntypedFormGroup({});
+  model: any = {};
   success = false;
   submited = false;
   constructor(
@@ -27,9 +27,7 @@ export class ContactUsComponent implements OnInit {
     private utilitiesService: UtilitiesService
   ) {}
 
-  ngOnInit(): void {
-    this.form = this.formService.toFormGroup(this.content.forms);
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.form.invalid) {

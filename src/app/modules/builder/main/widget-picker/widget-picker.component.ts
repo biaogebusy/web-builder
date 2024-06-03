@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Inject,
@@ -15,7 +16,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, WIDGETS } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
-import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
@@ -28,19 +29,20 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   public widget$: Subject<any> = new Subject();
   help: any;
 
-  @LocalStorage('bc')
   public bcData: any;
 
   constructor(
     public builder: BuilderState,
     private dialog: MatDialog,
     private storage: LocalStorageService,
+    private cd: ChangeDetectorRef,
     @Inject(WIDGETS) public widgets$: Observable<any[]>,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
     this.help = this.coreConfig?.builder?.widgetPicker?.help;
+    this.bcData = this.storage.retrieve('bc');
   }
 
   ngAfterViewInit(): void {}

@@ -2,6 +2,7 @@
   <div class="title rounded-xl">{{ block.type }}</div>
   <app-btn
     matTooltip="上移"
+    matTooltipPosition="above"
     *ngIf="index > 0 && index < layout.elements.length"
     (click)="onUpDown('up', i, index)"
     [content]="{
@@ -13,6 +14,7 @@
   ></app-btn>
   <app-btn
     matTooltip="下移"
+    matTooltipPosition="above"
     *ngIf="index > -1 && index < layout.elements.length - 1"
     (click)="onUpDown('down', i, index)"
     [content]="{
@@ -24,6 +26,7 @@
   ></app-btn>
   <app-btn
     matTooltip="复制JSON"
+    matTooltipPosition="above"
     (click)="onCopy(block)"
     [content]="{
       label: '',
@@ -34,6 +37,7 @@
   ></app-btn>
   <app-btn
     matTooltip="插入组件"
+    matTooltipPosition="above"
     (click)="addBlock('widget', lbContent, $event)"
     [content]="{
       label: '',
@@ -44,6 +48,7 @@
   ></app-btn>
   <app-btn
     matTooltip="删除"
+    matTooltipPosition="above"
     (click)="deleteBlock(i, index)"
     [content]="{
       label: '',
@@ -54,6 +59,7 @@
   ></app-btn>
   <app-btn
     matTooltip="{{ block.type }}组件配置"
+    matTooltipPosition="above"
     (click)="onWidgetSetting(block, $event)"
     [content]="{
       label: '',

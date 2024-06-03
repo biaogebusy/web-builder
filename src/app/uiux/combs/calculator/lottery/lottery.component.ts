@@ -6,7 +6,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import type { ILottery, ILotteryForm } from '@core/interface/combs/ICalculator';
 import { EChartsOption } from 'echarts';
 
@@ -18,7 +18,7 @@ import { EChartsOption } from 'echarts';
 })
 export class LotteryComponent implements OnInit, AfterViewInit {
   @Input() content: ILottery;
-  @Input() form = new FormGroup({});
+  @Input() form = new UntypedFormGroup({});
   @Input() model: any = {};
   total = 0;
   promoteMoney = '0';

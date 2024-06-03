@@ -1,21 +1,43 @@
 <!-- https://github.com/angular/flex-layout/wiki/imgSrc-API -->
 
 <div class="img-wrapper" *ngIf="content">
-  <ng-container *ngIf="!content.href;else withLink">
-    <img loading="lazy" contentedit="src" [ngStyle]="content.style" [ngClass]="content?.classes"
+  <ng-container *ngIf="!content.href; else withLink">
+    <img
+      loading="lazy"
+      contentedit="src"
+      [ngStyle]="content.style"
+      [ngClass]="content.classes"
       [src]="content.src || coreConfig.defaultThumb"
-      [src.lt-md]="content.mobile ? content.mobile : content.src || coreConfig.defaultThumb"
-      [alt]="content.alt || ''" />
+      [src.lt-md]="
+        content.mobile ? content.mobile : content.src || coreConfig.defaultThumb
+      "
+      [alt]="content.alt || ''"
+    />
   </ng-container>
   <ng-template #withLink>
-    <a href="{{content.href}}" target="{{content.target}}">
-      <img loading="lazy" contentedit="src" [ngClass]="content?.classes" [src]="content.src || coreConfig.defaultThumb"
-        [src.lt-md]="content.mobile ? content.mobile : content.src || coreConfig.defaultThumb" [ngStyle]="content.style"
-        [alt]="content.alt || ''" />
+    <a href="{{ content.href }}" target="{{ content.target }}">
+      <img
+        loading="lazy"
+        contentedit="src"
+        [ngClass]="content.classes"
+        [src]="content.src || coreConfig.defaultThumb"
+        [src.lt-md]="
+          content.mobile
+            ? content.mobile
+            : content.src || coreConfig.defaultThumb
+        "
+        [ngStyle]="content.style"
+        [alt]="content.alt || ''"
+      />
     </a>
   </ng-template>
-  <div class="actions flex justify-center items-center gap-3" *ngIf="content.actions">
-    <app-dynamic-component [inputs]="{content: action,disableToolbar:true}"
-      *ngFor="let action of content.actions"></app-dynamic-component>
+  <div
+    class="actions flex justify-center items-center gap-3"
+    *ngIf="content.actions"
+  >
+    <app-dynamic-component
+      [inputs]="{ content: action, disableToolbar: true }"
+      *ngFor="let action of content.actions"
+    ></app-dynamic-component>
   </div>
 </div>

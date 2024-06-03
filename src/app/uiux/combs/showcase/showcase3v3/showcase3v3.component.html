@@ -1,40 +1,66 @@
 <div class="showcase-3-v3" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
-  <div class="{{content.fullWidth?'':'container'}}">
-    <div class="showcase-inner teaser" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100"
-      [ngStyle.lt-md]="{gap:'0'}" [ngStyle.gt-xs]="{gap:'3rem'}">
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+  <app-bg-img
+    [attr.data-path]="'bg'"
+    [content]="content.bg"
+    *ngIf="content.bg"
+  ></app-bg-img>
+  <div class="{{ content.fullWidth ? '' : 'container' }}">
+    <div
+      class="showcase-inner teaser"
+      fxLayout.lt-md="column"
+      fxLayout.gt-sm="row"
+      fxFlex="100"
+      [ngStyle.lt-md]="{ gap: '0' }"
+      [ngStyle.gt-xs]="{ gap: '3rem' }"
+    >
       <ng-container *ngIf="content.feature">
-        <app-feature-box [attr.data-path]="'feature'" fxFlex.lt-md="100" fxFlex.gt-sm="40" [content]="content.feature"
-          *ngIf="isShow">
+        <app-feature-box
+          [attr.data-path]="'feature'"
+          fxFlex.lt-md="100"
+          fxFlex.gt-sm="40"
+          [content]="content.feature"
+          *ngIf="isShow"
+        >
         </app-feature-box>
       </ng-container>
-      <div fxFlex.lt-md="100" fxFlex.gt-sm="{{content.showImage && content.feature?'60':'100'}}">
+      <div
+        fxFlex.lt-md="100"
+        fxFlex.gt-sm="{{ content.showImage && content.feature ? '60' : '100' }}"
+      >
         <h2 class="title">
-          <app-link [attr.data-path]="'title'" [content]="content.title"></app-link>
+          <app-link
+            [attr.data-path]="'title'"
+            [content]="content.title"
+          ></app-link>
         </h2>
         <ul class="post-meta-info" fxLayout fxLayoutAlign="start start">
           <li *ngIf="content.date" fxLayoutAlign="center center">
             <mat-icon>schedule</mat-icon>
-            <div>{{content.date | date:"YYYY-MM-dd"}}</div>
+            <div>{{ content.date | date: "YYYY-MM-dd" }}</div>
           </li>
           <li *ngIf="content.commentCount" fxLayoutAlign="center center">
             <mat-icon>comment</mat-icon>
-            <div>{{content.commentCount}} 评论</div>
+            <div>{{ content.commentCount }} 评论</div>
           </li>
           <li *ngIf="content.category" fxLayoutAlign="center center">
             <mat-icon>folder</mat-icon>
-            <div>{{content.category | slice:0:20}}</div>
+            <div>{{ content.category | slice: 0:20 }}</div>
           </li>
         </ul>
-        <div class="shortdesc" [innerHTML]="content.body |stripTags|trim|shorten:150:'...'">
-        </div>
+        <div
+          class="shortdesc"
+          [innerHTML]="content.body | stripTags | trim | shorten: 150:'...'"
+        ></div>
         <div class="m-top-sm" *ngIf="content.details">
-          <app-btn [attr.data-path]="'details'" [content]="content.details"></app-btn>
+          <app-btn
+            [attr.data-path]="'details'"
+            [content]="content.details"
+          ></app-btn>
         </div>
       </div>
     </div>
   </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

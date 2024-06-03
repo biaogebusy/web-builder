@@ -5,7 +5,7 @@ import {
   ViewChild,
   ChangeDetectorRef,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { NodeService } from '@core/service/node.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
@@ -24,7 +24,7 @@ export class MatSelectComponent
 {
   @ViewChild('select') select: MatSelect;
   /** control for the MatSelect filter keyword multi-selection */
-  public searchCtrl: FormControl = new FormControl();
+  public searchCtrl: UntypedFormControl = new UntypedFormControl();
   /** list of banks filtered by search keyword */
   public filteredOptions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   matOptions: any;

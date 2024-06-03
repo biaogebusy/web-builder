@@ -25,7 +25,7 @@
         <app-btn-generater matTooltip="快速生成页面"
           [content]="{label:'',color:'primary', mode: 'icon',icon:{svg:'lightning-bolt'} }"></app-btn-generater>
         <app-btn (click)="onSubmit(page)"
-          [content]="{label:page.uuid?'更新页面':'新建页面',color:'primary',mode:'raised',icon:{svg:page.uuid?'navigation-variant':'pencil-plus'}}"></app-btn>
+          [content]="{label:page?.uuid?'更新页面':'新建页面',color:'primary',mode:'raised',icon:{svg:page?.uuid?'navigation-variant':'pencil-plus'}}"></app-btn>
         <app-lang-switch></app-lang-switch>
         <app-builder-menu></app-builder-menu>
       </div>

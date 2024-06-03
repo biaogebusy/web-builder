@@ -16,7 +16,7 @@ interface ISpacer {
 })
 export class SpacerComponent implements OnInit {
   // content and size 是兼容写法
-  @Input() content: ISpacer;
+  @Input() content?: ISpacer;
   @Input() size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   constructor() {}
 

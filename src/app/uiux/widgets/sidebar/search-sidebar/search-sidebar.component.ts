@@ -7,7 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import type { ISearchLabel } from '@core/interface/combs/ISearch';
 
 @Component({
@@ -19,7 +19,7 @@ import type { ISearchLabel } from '@core/interface/combs/ISearch';
 export class SearchSidebarComponent implements OnInit {
   @Input() content: any[];
   @Input() label: ISearchLabel;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   @Output() modelChange: EventEmitter<any> = new EventEmitter();
 
   panelOpenState = true;

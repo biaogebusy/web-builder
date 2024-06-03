@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -25,7 +25,7 @@ export class PageListComponent implements OnInit, OnDestroy {
   content$: Observable<any[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
   links: any;
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   loading = false;
   fields: FormlyFieldConfig[] = [

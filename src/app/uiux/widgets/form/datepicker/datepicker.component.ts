@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -15,7 +15,7 @@ import { formatDate } from '@angular/common';
 })
 export class DatepickerComponent implements OnInit {
   @Input() content: any;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   selected: Date | null;
   constructor() {}
 

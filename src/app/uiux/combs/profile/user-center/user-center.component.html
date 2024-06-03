@@ -1,31 +1,52 @@
 <div class="user-center relative" *ngIf="content">
   <div class="inner" *ngIf="content?.params?.showProfile">
     <div class="container">
-      <app-user-profile *ngIf="userConfig$" [content]="currentUser" [userConfig$]="userConfig$">
+      <app-user-profile
+        *ngIf="userConfig$"
+        [content]="currentUser"
+        [userConfig$]="userConfig$"
+      >
       </app-user-profile>
     </div>
   </div>
-  <div class="{{content?.main?.fullWidth?'container-fluid':'container'}}">
-    <app-spacer [size]="content?.main?.spacer || 'md'"></app-spacer>
+  <div class="{{ content.main?.fullWidth ? 'container-fluid' : 'container' }}">
+    <app-spacer [size]="content.main?.spacer || 'md'"></app-spacer>
     <app-bg *ngIf="content?.main?.bg" [content]="content.main.bg">
-      <app-img *ngIf="content?.main?.bg?.img" [content]="content.main.bg.img"></app-img>
+      <app-img
+        *ngIf="content?.main?.bg?.img"
+        [content]="content.main.bg.img"
+      ></app-img>
     </app-bg>
     <div class="main" fxLayoutAlign="space-between start" fxLayout="row wrap">
-      <div class="left" *ngIf="content?.left?.length" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
+      <div
+        class="left"
+        *ngIf="content?.left?.length"
+        fxFlex.lt-md="0 0 100"
+        fxFlex.gt-sm="0 0 30"
+      >
         <ng-container *ngFor="let item of content.left">
           <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item">
           </app-dynamic-component>
         </ng-container>
       </div>
-      <div class="right" *ngIf="content?.right?.length" fxFlex.lt-md="0 0 100"
-        fxFlex.gt-sm="0 0 {{content?.left?.length ? 'calc(100% - 30% - 2rem)' : '100'}}">
+      <div
+        class="right"
+        *ngIf="content?.right?.length"
+        fxFlex.lt-md="0 0 100"
+        fxFlex.gt-sm="0 0 {{
+          content.left.length ? 'calc(100% - 30% - 2rem)' : '100'
+        }}"
+      >
         <ng-container *ngFor="let item of content.right">
-          <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="{content:item}">
+          <app-dynamic-component
+            *reqRolesIf="item"
+            class="box"
+            [inputs]="{ content: item }"
+          >
           </app-dynamic-component>
         </ng-container>
-
       </div>
     </div>
-    <app-spacer [size]="content?.main?.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.main?.spacer || 'md'"></app-spacer>
   </div>
 </div>

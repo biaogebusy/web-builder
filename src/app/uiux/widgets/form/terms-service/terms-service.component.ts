@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
@@ -17,7 +17,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
 })
 export class TermsServiceComponent implements OnInit {
   @Input() content: any;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   dialogRef: any;
   constructor(public dialog: MatDialog) {}
 

@@ -1,15 +1,34 @@
 <div class="showcase-2v2 relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
-  <div class="{{content.fullWidth?'':'container'}}" fxLayout="column">
-    <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
-    <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100%">
-      <app-card [attr.data-path]="'elements.'+i" class="m-x-sm m-bottom-sm" fxFlex.xs="100" fxFlex.sm="calc(50% - 30px)"
-        fxFlex.gt-sm="0 0 calc({{100/(content.row||4)}}% - 40px)" *ngFor="let case of content.elements;index as i"
-        [content]="case">
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+  <app-bg-img
+    [attr.data-path]="'bg'"
+    [content]="content.bg"
+    *ngIf="content.bg"
+  ></app-bg-img>
+  <div class="{{ content.fullWidth ? '' : 'container' }}" fxLayout="column">
+    <app-text
+      [attr.data-path]="'text'"
+      [content]="content.text"
+      *ngIf="content.text"
+    ></app-text>
+    <div
+      class="m-y"
+      fxLayout="row wrap"
+      fxLayoutAlign="center start"
+      fxFlex="100%"
+    >
+      <app-card
+        [attr.data-path]="'elements.' + i"
+        class="m-x-sm m-bottom-sm"
+        fxFlex.xs="100"
+        fxFlex.sm="calc(50% - 30px)"
+        fxFlex.gt-sm="0 0 calc({{ 100 / (content.row || 4) }}% - 40px)"
+        *ngFor="let case of content.elements; index as i"
+        [content]="case"
+      >
       </app-card>
     </div>
   </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>
