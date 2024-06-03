@@ -44,7 +44,6 @@ export class ComponentService {
       'card-1v4',
       'card-1v5',
       'card-1v6',
-      'calendar',
       'chart-box',
       'accordion',
       'user-card',
@@ -70,7 +69,6 @@ export class ComponentService {
       'dynamic-table',
       'dropdown-menu',
       'number-animate',
-      'search-action',
       'progress-group',
       'datepicker',
       'inline-lightbox',
@@ -80,11 +78,6 @@ export class ComponentService {
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/widgets/widgets.module').then((m) => m.WidgetsModule)
-      )
-    );
-    ['action-1v1'].forEach((type) =>
-      this.setModule(type, () =>
-        import('@uiux/combs/action/action.module').then((m) => m.ActionModule)
       )
     );
 
@@ -183,7 +176,6 @@ export class ComponentService {
 
     [
       'autoclose',
-      'dynamic-form',
       'jsoneditor',
       'theme-preview',
       'code-editor',

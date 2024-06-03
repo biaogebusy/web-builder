@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import type { IControl } from '@core/interface/widgets/IControl';
 import { FormService } from '@core/service/form.service';
 @Component({
@@ -16,7 +16,7 @@ import { FormService } from '@core/service/form.service';
 })
 export class InputComponent implements OnInit {
   @Input() content: IControl;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   autoLists: any[];
   constructor(
     private formService: FormService,

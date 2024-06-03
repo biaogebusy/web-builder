@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import type { IDashboardBox } from '@core/interface/combs/IDashboard';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
@@ -22,7 +22,7 @@ import { catchError, delay, map } from 'rxjs/operators';
 })
 export class DashboardBoxComponent extends BaseComponent implements OnInit {
   @Input() content: IDashboardBox;
-  @Input() form = new FormGroup({});
+  @Input() form = new UntypedFormGroup({});
   @Input() model: any = {};
   widget$: Observable<any>;
   loading = true;

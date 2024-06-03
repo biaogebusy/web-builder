@@ -8,7 +8,7 @@ import {
   Inject,
   OnDestroy,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import type { IUser } from '@core/interface/IUser';
 import type { IViewList } from '@core/interface/widgets/IViewList';
 import { IPager } from '@core/interface/widgets/IWidgets';
@@ -34,8 +34,8 @@ export class ViewListComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: IViewList;
-  @Input() form = new FormGroup({
-    page: new FormControl(),
+  @Input() form = new UntypedFormGroup({
+    page: new UntypedFormControl(),
   });
   @Input() model: any = {};
   searchEntry: any;

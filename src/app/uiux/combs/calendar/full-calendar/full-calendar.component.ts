@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
@@ -18,7 +18,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 import { EMPTY, Subject } from 'rxjs';
-import { CalendarOptions, DatesSetArg, ViewApi } from '@fullcalendar/angular';
+import { CalendarOptions, DatesSetArg, ViewApi } from '@fullcalendar/core';
 import { CalendarState } from '@core/state/CalendarState';
 import { formatDate } from '@angular/common';
 import { RouteService } from '@core/service/route.service';
@@ -41,7 +41,7 @@ export class FullCalendarComponent
   selected: Date | null;
   options: CalendarOptions;
   theme: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   loading: boolean;
   visiable = false;
   viewApi: ViewApi;

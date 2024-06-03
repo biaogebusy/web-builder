@@ -9,7 +9,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import type { IDynamicTable } from '../../../core/interface/widgets/IWidgets';
@@ -43,7 +43,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() content: IDynamicTable;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
 
   @ViewChild(MatSort) sort: MatSort;
   dataSource: any;

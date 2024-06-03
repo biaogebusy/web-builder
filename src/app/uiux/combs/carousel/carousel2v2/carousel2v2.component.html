@@ -1,11 +1,17 @@
 <div class="carousel-2-v2 relative" *ngIf="content" [ngClass]="content.classes">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-bg-img *ngIf="content.bg" [content]="content.bg">
-  </app-bg-img>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <div class="{{content.fullWidth?'':'container'}}">
-    <app-title [attr.data-path]="'title'" *ngIf="content.title" [content]="content.title"></app-title>
-    <app-swiper [attr.data-path]="'sliders'" [content]="content.sliders"></app-swiper>
+  <app-bg-img *ngIf="content.bg" [content]="content.bg"> </app-bg-img>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+  <div class="{{ content.fullWidth ? '' : 'container' }}">
+    <app-title
+      [attr.data-path]="'title'"
+      *ngIf="content.title"
+      [content]="content.title"
+    ></app-title>
+    <app-swiper
+      [attr.data-path]="'sliders'"
+      [content]="content.sliders"
+    ></app-swiper>
   </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormService } from '../../../service/form.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 
@@ -10,7 +10,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 })
 export class InverseComponent implements OnInit {
   @Input() content: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   success = false;
   submited = false;
 

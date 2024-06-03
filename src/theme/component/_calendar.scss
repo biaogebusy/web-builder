@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin bg-calendar($color) {
   background-color: rgba($color, 0.2);
   border-left: 3px solid $color;

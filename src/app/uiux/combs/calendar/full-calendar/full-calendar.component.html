@@ -1,6 +1,6 @@
 <div class="full-calendar relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}">
     <div class="inner p-y" fxLayout="row wrap">
@@ -16,5 +16,5 @@
       </div>
     </div>
   </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

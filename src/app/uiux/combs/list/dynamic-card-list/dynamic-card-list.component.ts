@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { isEmpty, omitBy, result } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
@@ -28,7 +28,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   keys: string;
   page: number;
   pager: IPager;
-  form: FormGroup;
+  form: UntypedFormGroup;
   filterForm: any[];
   nodes: any[];
   status: any;

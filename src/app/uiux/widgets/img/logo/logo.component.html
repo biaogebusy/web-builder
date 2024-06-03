@@ -3,8 +3,11 @@
     <app-img [content]="img"></app-img>
   </div>
   <ng-template #name>
-    <a class="site-name mat-h2" [routerLink]="content.href" [innerHTML]="content?.label|safeHtml"></a>
+    <a
+      class="site-name mat-h2"
+      [routerLink]="content.href"
+      [innerHTML]="content.label | safeHtml"
+    ></a>
   </ng-template>
   <span *ngIf="content.version" class="pl-3 version">v5.0.0</span>
-
 </ng-container>

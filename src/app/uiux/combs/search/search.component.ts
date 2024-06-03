@@ -11,7 +11,7 @@ import { omitBy, isEmpty } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '../../base/base.widget';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
@@ -31,7 +31,7 @@ export class SearchComponent
   @Input() content: ISearch;
   page: number;
   pager: any;
-  form: FormGroup = new FormGroup({});
+  form: UntypedFormGroup = new UntypedFormGroup({});
   filterForm: any[];
   nodes: any[];
   loading = false;
@@ -75,7 +75,7 @@ export class SearchComponent
         this.nodeSearch(querys);
       });
     } else {
-      this.form = new FormGroup({});
+      this.form = new UntypedFormGroup({});
     }
   }
 

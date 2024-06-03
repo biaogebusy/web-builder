@@ -30,7 +30,6 @@ import { DOCUMENT } from '@angular/common';
 export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('builderRightDrawer', { static: false })
   builderRightDrawer: MatDrawer;
-  @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
   panelOpenState = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -49,6 +48,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     const storage = this.injector.get(LocalStorageService);
     const utli = this.injector.get(UtilitiesService);
     if (this.coreConfig.builder?.enable) {
+      this.builderFullScreen = storage.retrieve('builderFullScreen');
       if (!this.builderFullScreen) {
         storage.store('builderFullScreen', false);
       }

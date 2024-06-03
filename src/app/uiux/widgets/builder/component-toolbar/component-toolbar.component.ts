@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   HostBinding,
   Inject,
@@ -10,7 +11,7 @@ import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
-import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -30,13 +31,13 @@ export class ComponentToolbarComponent implements OnInit {
   enableBuilderToolbar: boolean;
   showGrid = false;
 
-  @LocalStorage('bc')
   public bcData: any;
 
   constructor(
     private builder: BuilderState,
     private storage: LocalStorageService,
     private util: UtilitiesService,
+    private cd: ChangeDetectorRef,
     @Inject(IS_BUILDER_MODE)
     public isBDMode$: Observable<boolean>
   ) {}
@@ -44,6 +45,11 @@ export class ComponentToolbarComponent implements OnInit {
   ngOnInit(): void {
     this.isBDMode$.subscribe((state) => {
       this.enableBuilderToolbar = state;
+    });
+
+    this.storage.observe('bc').subscribe((data) => {
+      this.bcData = data;
+      this.cd.detectChanges();
     });
   }
 
@@ -60,7 +66,9 @@ export class ComponentToolbarComponent implements OnInit {
     if (content) {
       delete content.extra;
       this.util.copy(JSON.stringify(content));
-      this.util.openSnackbar(`已复制${content.type}JSON`);
+      this.util.openSnackbar(`已复制${content.type}JSON`, 'ok', {
+        verticalPosition: 'bottom',
+      });
       this.storage.store(this.builder.COPYKEY, content);
     }
   }

@@ -1,19 +1,29 @@
 <div class="packery relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
-  <div class="{{content.fullWidth?'':'container'}}">
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+  <app-text
+    [attr.data-path]="'text'"
+    [content]="content.text"
+    *ngIf="content.text"
+  ></app-text>
+  <div class="{{ content.fullWidth ? '' : 'container' }}">
     <ngx-packery #packery [options]="config">
-      <ngx-packery-item fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{item.width || 20}}"
-        *ngFor="let item of content.elements;index as i">
-        <app-dynamic-component [attr.data-path]="'elements.'+i" [inputs]="{content: item}"></app-dynamic-component>
+      <ngx-packery-item
+        fxFlex.lt-md="0 0 100"
+        fxFlex.gt-sm="0 0 {{ item.width || 20 }}"
+        *ngFor="let item of content.elements; index as i"
+      >
+        <app-dynamic-component
+          [attr.data-path]="'elements.' + i"
+          [inputs]="{ content: item }"
+        ></app-dynamic-component>
       </ngx-packery-item>
       <ngx-packery-item fxFlex="0 0 100">
         <!-- fix bug -->
-        <img class="just-for-cal" alt="just for calculation">
+        <img class="just-for-cal" alt="just for calculation" />
       </ngx-packery-item>
     </ngx-packery>
   </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

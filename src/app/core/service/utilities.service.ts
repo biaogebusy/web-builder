@@ -27,17 +27,12 @@ export class UtilitiesService {
   }
 
   openSnackbar(message: string, action = '', config?: MatSnackBarConfig): void {
-    this.snackbar.open(
-      message,
-      action,
-      config
-        ? config
-        : {
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            duration: 3000,
-          }
-    );
+    this.snackbar.open(message, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 3000,
+      ...config,
+    });
   }
 
   loadScript(src: string, id?: any, defer?: boolean): any {

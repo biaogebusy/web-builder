@@ -1,18 +1,34 @@
 <div class="showcase-3-v4 relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
-  <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+  <app-bg-img
+    [attr.data-path]="'bg'"
+    [content]="content.bg"
+    *ngIf="content.bg"
+  ></app-bg-img>
+  <div class="{{ content.fullWidth ? '' : 'container' }}" *ngIf="content">
     <app-title [attr.data-path]="'title'" [content]="content.title"></app-title>
-    <div class="showcase-inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
+    <div
+      class="showcase-inner"
+      fxLayout.lt-md="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign="center center"
+    >
       <div fxLayout="column" fxFlex="100">
-        <app-box [attr.data-path]="'elements.'+i" [content]="item"
-          *ngFor="let item of content.elements;index as i"></app-box>
+        <app-box
+          [attr.data-path]="'elements.' + i"
+          [content]="item"
+          *ngFor="let item of content.elements; index as i"
+        ></app-box>
       </div>
       <div fxLayout="column" fxFlex="100">
-        <app-img [attr.data-path]="'img'" class="m-left-sm" [content]="content.img"></app-img>
+        <app-img
+          [attr.data-path]="'img'"
+          class="m-left-sm"
+          [content]="content.img"
+        ></app-img>
       </div>
     </div>
   </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

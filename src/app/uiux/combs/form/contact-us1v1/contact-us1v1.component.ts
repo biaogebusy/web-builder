@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import type { IContactUs1v1 } from '@core/interface/combs/IForm';
 import { FormService } from '@core/service/form.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -18,7 +18,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 })
 export class ContactUs1v1Component extends BaseComponent implements OnInit {
   @Input() content: IContactUs1v1;
-  form: FormGroup = new FormGroup({});
+  form: UntypedFormGroup = new UntypedFormGroup({});
   model: any = {};
   constructor(
     private formService: FormService,

@@ -3,27 +3,65 @@
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span>历史记录 ({{version?.length}})</span>
+          <span>历史记录 ({{ version?.length || 0 }})</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
         <ng-container *ngIf="version?.length">
-          <mat-list-item matRipple (click)="onVersion(version,i)" *ngFor="let version of version; index as i">
-            <mat-icon mat-list-icon *ngIf="!version.current">radio_button_unchecked</mat-icon>
-            <mat-icon mat-list-icon color="primary" *ngIf="version.current"> radio_button_checked </mat-icon>
-            <div class="title" (blur)="onUpdateTitle($event,i)" (click)="onClickTitle($event)" mat-line
-              contenteditable="true">{{version.title}}</div>
-            <div class="time" mat-line> {{version.time | date:'yyyy/MM/dd HH:mm:ss'}} </div>
-            <app-btn *ngIf="i > 0" (click)="onDelete(i)" class="delete" [matTooltip]="'删除'"
-              [content]="{mode:'icon',color:'warn',icon:{svg:'trash-can-outline'}}"></app-btn>
+          <mat-list-item
+            matRipple
+            (click)="onVersion(version, i)"
+            *ngFor="let version of version; index as i"
+          >
+            <mat-icon mat-list-icon *ngIf="!version.current"
+              >radio_button_unchecked</mat-icon
+            >
+            <mat-icon mat-list-icon color="primary" *ngIf="version.current">
+              radio_button_checked
+            </mat-icon>
+            <div
+              class="title"
+              (blur)="onUpdateTitle($event, i)"
+              (click)="onClickTitle($event)"
+              mat-line
+              contenteditable="true"
+            >
+              {{ version.title }}
+            </div>
+            <div class="time" mat-line>
+              {{ version.time | date: "yyyy/MM/dd HH:mm:ss" }}
+            </div>
+            <app-btn
+              *ngIf="i > 0"
+              (click)="onDelete(i)"
+              class="delete"
+              [matTooltip]="'删除'"
+              [content]="{
+                mode: 'icon',
+                color: 'warn',
+                icon: { svg: 'trash-can-outline' }
+              }"
+            ></app-btn>
           </mat-list-item>
         </ng-container>
       </mat-list>
       <mat-action-row>
-        <app-btn (click)="onDeleteAll()"
-          [content]="{label:'清空所有',color:'warn',icon:{svg:'delete-empty-outline'}}"></app-btn>
-        <app-btn (click)="onNewPage()"
-          [content]="{label:'新建页面',color:'primary',icon:{svg:'pencil-plus','inline':true}}"></app-btn>
+        <app-btn
+          (click)="onDeleteAll()"
+          [content]="{
+            label: '清空所有',
+            color: 'warn',
+            icon: { svg: 'delete-empty-outline' }
+          }"
+        ></app-btn>
+        <app-btn
+          (click)="onNewPage()"
+          [content]="{
+            label: '新建页面',
+            color: 'primary',
+            icon: { svg: 'pencil-plus', inline: true }
+          }"
+        ></app-btn>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
