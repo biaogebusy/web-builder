@@ -38,7 +38,6 @@ import { LinkComponent } from './link/link.component';
 import { CardComponent } from './card/card.component';
 import { TextComponent } from './text/text.component';
 import { TitleComponent } from './title/title.component';
-import { InputComponent } from './form/input/input.component';
 import { PanelComponent } from './panel/panel.component';
 import { SwiperComponent } from './swiper/swiper.component';
 import { SpacerComponent } from './spacer/spacer.component';
@@ -58,7 +57,6 @@ import { MediaListComponent } from './media/media-list/media-list.component';
 import { MediaObjectComponent } from './media/media-object/media-object.component';
 import { MediaObjectGroupComponent } from './media/media-object-group/media-object-group.component';
 import { DialogComponent } from './dialog/dialog.component';
-import { SelectComponent } from './form/select/select.component';
 import { PaginationLinksComponent } from './pagination/pagination-links/pagination-links.component';
 import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
@@ -74,7 +72,6 @@ import { CardMetaComponent } from './card/card-meta/card-meta.component';
 import { DownloadComponent } from './actions/download/download.component';
 import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 import { TextHeroComponent } from './text-hero/text-hero.component';
-import { CheckboxComponent } from './form/checkbox/checkbox.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import { TermsServiceComponent } from './form/terms-service/terms-service.component';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
@@ -132,8 +129,6 @@ const components = [
   IconComponent,
   TitleComponent,
   PanelComponent,
-  InputComponent,
-  SelectComponent,
   SwiperComponent,
   SpacerComponent,
   SpinnerComponent,
@@ -145,7 +140,6 @@ const components = [
   Card1v6Component,
   UserCardComponent,
   TextHeroComponent,
-  CheckboxComponent,
   ChipListComponent,
   ContentBoxComponent,
   FeatureBoxComponent,
