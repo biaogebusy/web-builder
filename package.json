@@ -39,7 +39,6 @@
     "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/platform-server": "14.3.0",
     "@angular/router": "^14.3.0",
-    "@circlon/angular-tree-component": "^11.0.4",
     "@fullcalendar/angular": "^6.1.13",
     "@fullcalendar/core": "^6.1.13",
     "@fullcalendar/daygrid": "^6.1.13",

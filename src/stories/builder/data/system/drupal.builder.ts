@@ -1,4 +1,3 @@
-import * as treeListStory from '@stories/drupal/treeList.stories';
 import * as questionStory from '@stories/sample/node/question.stories';
 import * as taxonomyListStory from '@stories/components/list/taxonomyList.stories';
 import * as taxonomyThinListStory from '@stories/components/list/taxonomyThinList.stories';
@@ -229,9 +228,5 @@ export const drupal = [
         },
       },
     },
-  },
-  {
-    label: '树形列表',
-    content: treeListStory.Default?.args?.content,
   },
 ];

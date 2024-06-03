@@ -138,7 +138,6 @@ export class ComponentService {
       'list-thin',
       'taxonomy-list',
       'taxonomy-thin-list',
-      'tree-list',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/list/list.module').then((m) => m.ListModule)

@@ -3,7 +3,6 @@ import { LightboxModule } from 'ngx-lightbox';
 import { ShareModule } from '@share/share.module';
 import { SwiperModule } from 'swiper/angular';
 import { CountToModule } from 'angular-count-to';
-import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 
 // Material
@@ -62,7 +61,6 @@ import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
 import { BgImgComponent } from './bg-img/bg-img.component';
 import { ShareComponent } from './actions/share/share.component';
-import { TreeComponent } from './tree/tree.component';
 import { Card1v1Component } from './card/card1v1/card1v1.component';
 import { BtnComponent } from './btn/btn.component';
 import { Card1v2Component } from './card/card1v2/card1v2.component';
@@ -162,7 +160,6 @@ const components = [
   ShareComponent,
   ShapeComponent,
   BgImgComponent,
-  TreeComponent,
   IframeComponent,
   DownloadComponent,
   CardMetaComponent,
@@ -204,7 +201,6 @@ const components = [
     MatChipsModule,
     MatBadgeModule,
     ShareModule,
-    TreeModule,
     LightboxModule,
     CountToModule,
     CdkTableModule,

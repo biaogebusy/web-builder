@@ -16,7 +16,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
   selector: 'app-img',
   templateUrl: './img.component.html',
   styleUrls: ['./img.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImgComponent implements OnInit {
   @Input() content: IImg | undefined;
