@@ -10,7 +10,7 @@ export function getSpacer(widget: any): FormlyFieldConfig[] {
           type: 'select',
           className: 'w-full',
           defaultValue: widget.size || 'sm',
-          templateOptions: spacerOption,
+          props: spacerOption,
         },
       ],
     },

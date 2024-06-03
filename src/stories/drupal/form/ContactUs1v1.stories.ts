@@ -60,7 +60,7 @@ const content: IContactUs1v1 = {
           type: 'input',
           key: 'name',
           className: 'w-2/5 m-right-sm',
-          templateOptions: {
+          props: {
             label: '姓名',
             required: true,
           },
@@ -69,7 +69,7 @@ const content: IContactUs1v1 = {
           type: 'input',
           key: 'email',
           className: 'w-2/5 m-right-sm',
-          templateOptions: {
+          props: {
             label: '邮箱',
             required: true,
           },
@@ -78,7 +78,7 @@ const content: IContactUs1v1 = {
           type: 'input',
           key: 'subject',
           className: 'w-2/5 m-right-sm',
-          templateOptions: {
+          props: {
             label: '主题',
             required: true,
           },
@@ -87,7 +87,7 @@ const content: IContactUs1v1 = {
           type: 'textarea',
           key: 'message',
           className: 'w-full',
-          templateOptions: {
+          props: {
             label: '内容',
             rows: 8,
             required: true,

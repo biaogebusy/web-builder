@@ -100,7 +100,7 @@ export const templates: any[] = [
               key: 'keys',
               type: 'input',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '关键词',
                 appearance: 'legacy',
                 type: 'search',
@@ -110,7 +110,7 @@ export const templates: any[] = [
               type: 'select',
               key: 'skill',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '技能',
                 options: [
                   {
@@ -136,7 +136,7 @@ export const templates: any[] = [
               type: 'select',
               key: 'cms',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: 'CMS',
                 options: [
                   {
@@ -162,7 +162,7 @@ export const templates: any[] = [
               type: 'checkbox',
               key: 'article',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '文章',
               },
             },
@@ -170,7 +170,7 @@ export const templates: any[] = [
               type: 'checkbox',
               key: 'blog',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '博客',
               },
             },

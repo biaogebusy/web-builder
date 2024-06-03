@@ -91,7 +91,7 @@ const oreder: IDashboard = {
           key: 'position',
           defaultValue: 2023,
           className: 'block',
-          templateOptions: {
+          props: {
             label: '年份',
             description: '请选择年份',
             options: [
@@ -611,7 +611,7 @@ const advert: IDashboard = {
           key: 'position',
           defaultValue: 2023,
           className: 'block',
-          templateOptions: {
+          props: {
             label: '年份',
             description: '请选择年份',
             options: [

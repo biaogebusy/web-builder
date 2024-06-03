@@ -89,14 +89,14 @@ Default.args = {
           {
             type: 'input',
             key: 'title',
-            templateOptions: {
+            props: {
               label: '标题',
             },
           },
           {
             type: 'mat-select',
             key: 'user',
-            templateOptions: {
+            props: {
               multiple: true,
               search: true,
               hideSelected: true,
@@ -111,7 +111,7 @@ Default.args = {
           {
             type: 'date-range',
             key: 'date',
-            templateOptions: {
+            props: {
               label: '期间',
               value: '',
               placeholder: '选择发布日期',
@@ -133,7 +133,7 @@ Default.args = {
             type: 'input',
             key: 'page',
             className: 'hidden',
-            templateOptions: {
+            props: {
               label: '页码',
             },
           },

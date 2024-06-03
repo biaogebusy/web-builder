@@ -258,7 +258,7 @@ export const system: any[] = [
                   key: 'position',
                   defaultValue: 2023,
                   className: 'block',
-                  templateOptions: {
+                  props: {
                     label: '年份',
                     description: '请选择年份',
                     options: [
@@ -902,7 +902,7 @@ export const system: any[] = [
                   key: 'position',
                   defaultValue: 2023,
                   className: 'block',
-                  templateOptions: {
+                  props: {
                     label: '年份',
                     description: '请选择年份',
                     options: [
@@ -2392,7 +2392,7 @@ export const system: any[] = [
               key: 'keys',
               type: 'input',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '关键词',
                 appearance: 'legacy',
                 type: 'search',
@@ -2402,7 +2402,7 @@ export const system: any[] = [
               type: 'select',
               key: 'skill',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '技能',
                 options: [
                   {
@@ -2428,7 +2428,7 @@ export const system: any[] = [
               type: 'select',
               key: 'cms',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: 'CMS',
                 options: [
                   {
@@ -2454,7 +2454,7 @@ export const system: any[] = [
               type: 'checkbox',
               key: 'article',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '文章',
               },
             },
@@ -2462,7 +2462,7 @@ export const system: any[] = [
               type: 'checkbox',
               key: 'blog',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '博客',
               },
             },
@@ -3932,7 +3932,7 @@ export const system: any[] = [
                   type: 'input',
                   key: 'name',
                   className: 'w-2/5 m-right-sm',
-                  templateOptions: {
+                  props: {
                     label: '姓名',
                     required: true,
                   },
@@ -3941,7 +3941,7 @@ export const system: any[] = [
                   type: 'input',
                   key: 'email',
                   className: 'w-2/5 m-right-sm',
-                  templateOptions: {
+                  props: {
                     label: '邮箱',
                     required: true,
                   },
@@ -3950,7 +3950,7 @@ export const system: any[] = [
                   type: 'input',
                   key: 'subject',
                   className: 'w-2/5 m-right-sm',
-                  templateOptions: {
+                  props: {
                     label: '主题',
                     required: true,
                   },
@@ -3959,7 +3959,7 @@ export const system: any[] = [
                   type: 'textarea',
                   key: 'message',
                   className: 'w-full',
-                  templateOptions: {
+                  props: {
                     label: '内容',
                     rows: 8,
                     required: true,
@@ -4813,7 +4813,7 @@ export const system: any[] = [
                 {
                   type: 'input',
                   key: 'title',
-                  templateOptions: {
+                  props: {
                     label: '标题',
                   },
                 },
@@ -4821,7 +4821,7 @@ export const system: any[] = [
                   type: 'input',
                   key: 'page',
                   className: 'hidden',
-                  templateOptions: {
+                  props: {
                     label: '页码',
                   },
                 },
@@ -4996,7 +4996,7 @@ export const system: any[] = [
               type: 'input',
               key: 'title',
               className: 'm-right-xs width-30',
-              templateOptions: {
+              props: {
                 label: '搜索职位',
               },
             },
@@ -5005,7 +5005,7 @@ export const system: any[] = [
               key: 'skill',
               className: 'm-right-xs width-30',
               apiBak: '/api/v2/filter/taxonomy/skill',
-              templateOptions: {
+              props: {
                 multiple: true,
                 search: true,
                 hideSelected: true,
@@ -5167,7 +5167,7 @@ export const system: any[] = [
               type: 'input',
               key: 'title',
               className: 'm-right-xs width-30',
-              templateOptions: {
+              props: {
                 label: '搜索职位',
               },
             },
@@ -5176,7 +5176,7 @@ export const system: any[] = [
               key: 'skill',
               className: 'm-right-xs width-30',
               apiBak: '/api/v2/filter/taxonomy/skill',
-              templateOptions: {
+              props: {
                 multiple: true,
                 search: true,
                 hideSelected: true,
@@ -5201,7 +5201,7 @@ export const system: any[] = [
               key: 'enableCircle',
               type: 'toggle',
               className: 'w-full',
-              templateOptions: {
+              props: {
                 label: '开启范围圈',
                 description: '开启后点击地图获取经纬度',
               },
@@ -5215,7 +5215,7 @@ export const system: any[] = [
                   type: 'input',
                   key: 'lnglat',
                   className: 'm-bottom-sm width-20 m-right-xs',
-                  templateOptions: {
+                  props: {
                     label: '经纬度',
                     appearance: 'outline',
                     type: 'text',
@@ -5227,7 +5227,7 @@ export const system: any[] = [
                   key: 'radius',
                   defaultValue: 3,
                   className: 'm-bottom-sm width-20 m-right-xs',
-                  templateOptions: {
+                  props: {
                     label: '圆半径/公里',
                     appearance: 'outline',
                     type: 'number',
@@ -5247,7 +5247,7 @@ export const system: any[] = [
                   key: 'bg',
                   className: 'm-bottom-sm width-20 m-right-xs',
                   defaultValue: '#00a281',
-                  templateOptions: {
+                  props: {
                     label: '圆背景色',
                     appearance: 'outline',
                     type: 'color',
@@ -5259,7 +5259,7 @@ export const system: any[] = [
                   key: 'opacity',
                   defaultValue: 0.1,
                   className: 'm-bottom-sm width-20',
-                  templateOptions: {
+                  props: {
                     label: '不透明度',
                     appearance: 'outline',
                     type: 'number',

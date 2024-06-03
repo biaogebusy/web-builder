@@ -7,7 +7,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '链接',
           },
           fieldGroup: [
@@ -16,7 +16,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'textarea',
               className: 'w-full',
               defaultValue: widget.label ?? '',
-              templateOptions: {
+              props: {
                 rows: 1,
                 label: '链接文本',
               },
@@ -26,7 +26,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'input',
               className: 'w-full',
               defaultValue: widget.href ?? '/',
-              templateOptions: {
+              props: {
                 type: 'text',
                 label: '链接地址',
               },
@@ -36,7 +36,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'input',
               className: 'w-full',
               defaultValue: widget.classes ?? '',
-              templateOptions: {
+              props: {
                 type: 'text',
                 label: 'Class',
               },
@@ -46,7 +46,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'input',
               className: 'w-full hidden',
               defaultValue: widget.rel ?? '',
-              templateOptions: {
+              props: {
                 type: 'text',
               },
             },
@@ -55,7 +55,7 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'isRel',
               defaultValue: widget.rel ?? false,
               className: 'w-full',
-              templateOptions: {
+              props: {
                 label: '在侧边栏加载链接页面',
                 description: '请发布后测试，点击加载链接的页面到侧边栏显示',
               },

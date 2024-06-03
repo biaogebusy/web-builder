@@ -42,7 +42,7 @@ Default.args = {
         type: 'input',
         key: 'title',
         className: 'm-right-xs width-30',
-        templateOptions: {
+        props: {
           label: '搜索职位',
         },
       },
@@ -51,7 +51,7 @@ Default.args = {
         key: 'skill',
         className: 'm-right-xs width-30',
         apiBak: '/api/v2/filter/taxonomy/skill',
-        templateOptions: {
+        props: {
           multiple: true,
           search: true,
           hideSelected: true,
@@ -200,7 +200,7 @@ Circle.args = {
         type: 'input',
         key: 'title',
         className: 'm-right-xs width-30',
-        templateOptions: {
+        props: {
           label: '搜索职位',
         },
       },
@@ -209,7 +209,7 @@ Circle.args = {
         key: 'skill',
         className: 'm-right-xs width-30',
         apiBak: '/api/v2/filter/taxonomy/skill',
-        templateOptions: {
+        props: {
           multiple: true,
           search: true,
           hideSelected: true,
@@ -234,7 +234,7 @@ Circle.args = {
         key: 'enableCircle',
         type: 'toggle',
         className: 'w-full',
-        templateOptions: {
+        props: {
           label: '开启范围圈',
           description: '开启后点击地图获取经纬度',
         },
@@ -248,7 +248,7 @@ Circle.args = {
             type: 'input',
             key: 'lnglat',
             className: 'm-bottom-sm width-20 m-right-xs',
-            templateOptions: {
+            props: {
               label: '经纬度',
               appearance: 'outline',
               type: 'text',
@@ -260,7 +260,7 @@ Circle.args = {
             key: 'radius',
             defaultValue: 3,
             className: 'm-bottom-sm width-20 m-right-xs',
-            templateOptions: {
+            props: {
               label: '圆半径/公里',
               appearance: 'outline',
               type: 'number',
@@ -280,7 +280,7 @@ Circle.args = {
             key: 'bg',
             className: 'm-bottom-sm width-20 m-right-xs',
             defaultValue: '#00a281',
-            templateOptions: {
+            props: {
               label: '圆背景色',
               appearance: 'outline',
               type: 'color',
@@ -292,7 +292,7 @@ Circle.args = {
             key: 'opacity',
             defaultValue: 0.1,
             className: 'm-bottom-sm width-20',
-            templateOptions: {
+            props: {
               label: '不透明度',
               appearance: 'outline',
               type: 'number',

@@ -37,6 +37,7 @@ export class LayoutSettingComponent implements OnDestroy {
   ) {}
 
   onModelChange(value: any): void {
+    console.log(value)
     const { path } = this.content;
     let content: any = {};
     Object.keys(value).forEach((config) => {

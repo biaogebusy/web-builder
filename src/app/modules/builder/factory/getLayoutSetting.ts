@@ -19,7 +19,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               key: 'xs',
               className: 'w-2/5',
               defaultValue: layout?.row?.xs ?? 12,
-              templateOptions: {
+              props: {
                 min: 1,
                 max: 12,
                 label: 'xs',
@@ -31,7 +31,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               key: 'sm',
               className: 'w-2/5',
               defaultValue: layout?.row?.sm ?? 12,
-              templateOptions: {
+              props: {
                 min: 1,
                 max: 12,
                 label: 'sm',
@@ -43,7 +43,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               key: 'md',
               className: 'w-2/5',
               defaultValue: layout?.row?.md ?? 12,
-              templateOptions: {
+              props: {
                 min: 1,
                 max: 12,
                 label: 'md',
@@ -55,7 +55,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
               key: 'lg',
               className: 'w-2/5',
               defaultValue: layout?.row?.lg ?? 12,
-              templateOptions: {
+              props: {
                 min: 1,
                 max: 12,
                 label: 'lg',
@@ -85,7 +85,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             key: 'src',
             type: 'img-picker',
             defaultValue: layout?.bg?.img?.src ?? '',
-            templateOptions: {
+            props: {
               updateLabel: '更新背景图',
               addLabel: '设置背景图',
               deleteLabel: '删除',
@@ -107,7 +107,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             key: 'alt',
             type: 'input',
             defaultValue: layout?.bg?.img?.alt ?? '',
-            templateOptions: {
+            props: {
               label: 'alt',
             },
             hideExpression: '!model.src',
@@ -116,7 +116,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             key: 'classes',
             type: 'select',
             defaultValue: layout?.bg?.img?.classes ?? 'bg-cover',
-            templateOptions: {
+            props: {
               label: '背景填充方式',
               options: [
                 {
@@ -142,7 +142,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         key: 'overlay',
         className: 'w-full',
         defaultValue: layout?.bg?.overlay ?? '',
-        templateOptions: {
+        props: {
           label: '蒙版不透明度',
           options: getOverlay,
         },
@@ -151,7 +151,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         key: 'classes',
         type: 'select',
         defaultValue: layout?.bg?.classes ?? 'bg-fill-width',
-        templateOptions: {
+        props: {
           label: '预设背景色',
           options: getBgClasses,
         },
@@ -168,7 +168,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           key: 'classes',
           className: 'w-full',
           defaultValue: layout?.classes ?? '',
-          templateOptions: {
+          props: {
             label: 'Layout Class',
           },
         },
@@ -177,7 +177,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
           key: 'blockClasses',
           className: 'w-full',
           defaultValue: layout?.blockClasses ?? '',
-          templateOptions: {
+          props: {
             label: 'Block Class',
           },
         },
@@ -190,13 +190,13 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       key: 'block',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '基础',
           },
           fieldGroup: [...responsive, ...flexLayout],
         },
         {
-          templateOptions: {
+          props: {
             label: '样式',
           },
           fieldGroup: [...styles],

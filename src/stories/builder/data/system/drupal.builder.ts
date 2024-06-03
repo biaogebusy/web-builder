@@ -176,7 +176,7 @@ export const drupal = [
             {
               type: 'input',
               key: 'title',
-              templateOptions: {
+              props: {
                 label: '标题',
               },
             },
@@ -184,7 +184,7 @@ export const drupal = [
               type: 'input',
               key: 'page',
               className: 'hidden',
-              templateOptions: {
+              props: {
                 label: '页码',
               },
             },

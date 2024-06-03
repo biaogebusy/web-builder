@@ -12,7 +12,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
       key: 'component',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '通用',
           },
           fieldGroupClassName: 'flex flex-wrap',
@@ -22,7 +22,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               key: 'fullWidth',
               className: 'w-1/2 mr-5',
               defaultValue: content.fullWidth ?? false,
-              templateOptions: {
+              props: {
                 label: '全屏宽',
                 options: [
                   {
@@ -41,7 +41,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               key: 'spacer',
               defaultValue: content.spacer ?? 'md',
               className: 'w-2/5',
-              templateOptions: {
+              props: {
                 label: '上下间距',
                 options: [
                   {
@@ -76,7 +76,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               key: 'bgClasses',
               className: 'w-1/2 mr-5',
               defaultValue: content?.bg?.classes ?? 'bg- bg-fill-width',
-              templateOptions: {
+              props: {
                 label: '背景色',
                 options: getBgClasses,
               },
@@ -86,7 +86,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               key: 'overlay',
               className: 'w-2/5',
               defaultValue: content?.bg?.overlay ?? '',
-              templateOptions: {
+              props: {
                 label: '蒙版',
                 options: getOverlay,
               },
@@ -96,7 +96,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               key: 'classes',
               className: 'w-1/2 mr-5',
               defaultValue: content.classes ?? '',
-              templateOptions: {
+              props: {
                 label: 'Classes',
                 description: '组件 class',
               },
@@ -106,7 +106,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               key: 'id',
               className: 'w-2/5',
               defaultValue: content.id ?? '',
-              templateOptions: {
+              props: {
                 label: 'ID',
                 description: 'HTML ID',
               },
@@ -122,7 +122,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                       key: 'src',
                       type: 'img-picker',
                       defaultValue: content?.bg?.img?.src ?? '',
-                      templateOptions: {
+                      props: {
                         updateLabel: '更新背景图',
                         addLabel: '设置背景图',
                         deleteLabel: '删除',
@@ -146,7 +146,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                       key: 'classes',
                       type: 'select',
                       defaultValue: content?.bg?.img?.classes ?? 'bg-cover',
-                      templateOptions: {
+                      props: {
                         label: '背景填充方式',
                         options: [
                           {
@@ -169,7 +169,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                       key: 'alt',
                       type: 'input',
                       defaultValue: content?.bg?.img?.alt ?? '',
-                      templateOptions: {
+                      props: {
                         label: 'alt',
                       },
                     },
@@ -179,7 +179,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                   key: 'classes',
                   type: 'input',
                   defaultValue: content?.bg?.classes ?? 'bg-fill-width',
-                  templateOptions: {
+                  props: {
                     label: 'Bg Class',
                   },
                   hideExpression: '!model.src',
@@ -210,7 +210,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
   if (content.type === 'layout-builder') {
     const flexConfig: FormlyFieldConfig[] = [
       {
-        templateOptions: {
+        props: {
           label: '布局',
         },
         fieldGroup: [
@@ -220,7 +220,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             key: 'wrapperClass',
             className: 'w-full',
             defaultValue: content.wrapperClass ?? '',
-            templateOptions: {
+            props: {
               label: 'Wrapper Classes',
             },
           },
@@ -232,7 +232,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
 
   if (content.type === 'swiper') {
     fields[0].fieldGroup?.push({
-      templateOptions: {
+      props: {
         label: '幻灯片',
       },
       fieldGroup: [
@@ -246,7 +246,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
 
   if (content.type === 'text') {
     fields[0].fieldGroup?.push({
-      templateOptions: {
+      props: {
         label: '文本',
       },
       fieldGroup: [
@@ -256,7 +256,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           type: 'rich-text',
           className: 'w-full',
           defaultValue: content.body,
-          templateOptions: {
+          props: {
             label: '内容',
             rows: 10,
           },
@@ -273,7 +273,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
   ) {
     if (content.title) {
       const titleConfig: FormlyFieldConfig = {
-        templateOptions: {
+        props: {
           label: '标题',
         },
         fieldGroup: [...getTitle(content.title)],
@@ -282,7 +282,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
     }
 
     const swiperConfig: FormlyFieldConfig = {
-      templateOptions: {
+      props: {
         label: '幻灯片',
       },
       fieldGroup: [
@@ -299,7 +299,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
   if (content.type === 'carousel-1v3') {
     if (content.text) {
       const textConfig: FormlyFieldConfig = {
-        templateOptions: {
+        props: {
           label: '标题',
         },
         fieldGroup: [...getText(content.text)],
@@ -307,7 +307,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
       fields[0].fieldGroup?.push(textConfig);
     }
     const swiperConfig: FormlyFieldConfig = {
-      templateOptions: {
+      props: {
         label: '幻灯片',
       },
       fieldGroup: [
@@ -324,7 +324,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
   if (content.type === 'carousel-2v1') {
     if (content.title) {
       const titleConfig: FormlyFieldConfig = {
-        templateOptions: {
+        props: {
           label: '标题',
         },
         fieldGroup: [...getTitle(content.title)],
@@ -333,7 +333,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
     }
 
     const swiperConfig: FormlyFieldConfig = {
-      templateOptions: {
+      props: {
         label: '幻灯片',
       },
       fieldGroup: [

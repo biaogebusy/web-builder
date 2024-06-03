@@ -7,7 +7,7 @@ export function getDivider(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '分割线',
           },
           fieldGroup: [
@@ -16,7 +16,7 @@ export function getDivider(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'toggle',
               className: 'w-full',
               defaultValue: widget?.inset,
-              templateOptions: {
+              props: {
                 label: '缩进',
               },
             },

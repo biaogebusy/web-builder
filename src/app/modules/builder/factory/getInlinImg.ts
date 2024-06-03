@@ -14,7 +14,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               key: 'width',
               defaultValue: ele.style.width ?? 'auto',
               className: 'w-2/5',
-              templateOptions: {
+              props: {
                 label: 'W',
               },
             },
@@ -23,7 +23,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               key: 'height',
               className: 'w-2/5',
               defaultValue: ele.style.height ?? 'auto',
-              templateOptions: {
+              props: {
                 label: 'H',
               },
             },
@@ -32,7 +32,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               key: 'opacity',
               className: 'w-2/5',
               defaultValue: ele.style.opacity ?? 1,
-              templateOptions: {
+              props: {
                 label: 'Opacity',
                 type: 'number',
                 step: 0.1,
@@ -43,7 +43,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
               key: 'borderRadius',
               className: 'w-2/5',
               defaultValue: ele.style.borderRadius ?? 0,
-              templateOptions: {
+              props: {
                 label: '圆角',
               },
             },
@@ -54,7 +54,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
           key: 'boxShadow',
           className: 'w-full',
           defaultValue: ele.style.boxShadow ?? 'none',
-          templateOptions: {
+          props: {
             label: '阴影',
             options: [
               {
@@ -81,7 +81,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
           key: 'aspectRatio',
           className: 'w-full',
           defaultValue: ele.style.aspectRatio ?? 'auto',
-          templateOptions: {
+          props: {
             label: '宽高比',
             options: getAspectRatio,
           },
@@ -91,7 +91,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
           key: 'objectFit',
           className: 'w-full',
           defaultValue: ele.style.objectFit ?? 'initial',
-          templateOptions: {
+          props: {
             label: '填充方式',
             options: getObjectFix,
           },
@@ -102,7 +102,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
       type: 'img-picker',
       key: 'src',
       defaultValue: ele.src,
-      templateOptions: {
+      props: {
         updateLabel: '更新图片',
         addLabel: '设置图片',
         deleteLabel: '删除',

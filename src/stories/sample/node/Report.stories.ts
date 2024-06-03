@@ -75,7 +75,7 @@ const content: IReport = {
           key: 'position',
           defaultValue: 5,
           className: 'block m-bottom-sm m-right-sm',
-          templateOptions: {
+          props: {
             label: '位置距离',
             description: '请选择位置距离',
             options: [
@@ -127,7 +127,7 @@ const content: IReport = {
           key: 'shop',
           defaultValue: 5,
           className: 'block m-bottom-sm m-right-sm',
-          templateOptions: {
+          props: {
             label: '指定门店',
             description: '请选择门店',
             options: [
@@ -145,7 +145,7 @@ const content: IReport = {
         {
           type: 'date-range',
           key: 'date',
-          templateOptions: {
+          props: {
             label: '日期范围',
             value: '',
             placeholder: '选择发布日期',
@@ -154,14 +154,14 @@ const content: IReport = {
             {
               type: 'input',
               key: 'start',
-              templateOptions: {
+              props: {
                 placeholder: '开始',
               },
             },
             {
               type: 'input',
               key: 'end',
-              templateOptions: {
+              props: {
                 placeholder: '结束',
               },
             },
@@ -412,7 +412,7 @@ const workTime: IReport = {
           key: 'lawyer',
           defaultValue: 5,
           className: 'block m-bottom-sm m-right-sm',
-          templateOptions: {
+          props: {
             label: '选择项目经理',
             description: '选择项目经理',
             options: [
@@ -432,7 +432,7 @@ const workTime: IReport = {
           key: 'year',
           defaultValue: 5,
           className: 'block m-bottom-sm m-right-sm',
-          templateOptions: {
+          props: {
             label: '年份',
             description: '请选择年份',
             options: [
@@ -639,7 +639,7 @@ const singleMode: IReport = {
           key: 'lawyer',
           defaultValue: 5,
           className: 'block m-bottom-sm m-right-sm',
-          templateOptions: {
+          props: {
             label: '选择客户',
             description: '请选择客户',
             options: [
@@ -659,7 +659,7 @@ const singleMode: IReport = {
           key: 'position',
           defaultValue: 5,
           className: 'block m-bottom-sm m-right-sm',
-          templateOptions: {
+          props: {
             label: '年份',
             description: '请选择年份',
             options: [

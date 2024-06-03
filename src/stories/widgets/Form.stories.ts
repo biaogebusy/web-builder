@@ -56,7 +56,7 @@ const base: FormlyFieldConfig[] = [
     key: 'total',
     defaultValue: 300,
     className: 'block m-bottom-sm',
-    templateOptions: {
+    props: {
       label: '大额红包总金额',
       type: 'number',
       required: true,
@@ -80,7 +80,7 @@ const base: FormlyFieldConfig[] = [
     key: 'Textarea',
     type: 'textarea',
     className: 'block m-bottom-sm',
-    templateOptions: {
+    props: {
       label: '文本域',
       placeholder: 'Placeholder',
       description: 'Description',
@@ -91,7 +91,7 @@ const base: FormlyFieldConfig[] = [
     key: 'Checkbox',
     type: 'checkbox',
     className: 'block m-bottom-sm',
-    templateOptions: {
+    props: {
       label: '接受协议',
       description: '为了更好的服务，网站将收集用户的Cookies信息。',
       pattern: 'true',
@@ -107,7 +107,7 @@ const base: FormlyFieldConfig[] = [
     key: 'Radio',
     type: 'radio',
     className: 'block m-bottom-sm',
-    templateOptions: {
+    props: {
       label: '单选框',
       placeholder: 'Placeholder',
       description: 'Description',
@@ -125,7 +125,7 @@ const base: FormlyFieldConfig[] = [
     key: 'type',
     defaultValue: 'fixed',
     className: 'block m-bottom-sm',
-    templateOptions: {
+    props: {
       label: '下拉单选',
       description: '固定金额或者按比例',
       options: [
@@ -144,7 +144,7 @@ const base: FormlyFieldConfig[] = [
     type: 'mat-select',
     key: 'customer',
     className: 'block m-bottom-sm',
-    templateOptions: {
+    props: {
       multiple: true,
       search: true,
       hideSelected: true,
@@ -160,7 +160,7 @@ const base: FormlyFieldConfig[] = [
   {
     type: 'date-range',
     key: 'date',
-    templateOptions: {
+    props: {
       label: '期间',
       value: '',
       placeholder: '请选择日期',
@@ -181,7 +181,7 @@ const base: FormlyFieldConfig[] = [
     key: 'isPromote',
     type: 'toggle',
     className: 'block m-bottom',
-    templateOptions: {
+    props: {
       label: '开关',
       description: '超过推广次数则推广结束',
     },
@@ -208,7 +208,7 @@ const group: FormlyFieldConfig[] = [
         key: 'total',
         defaultValue: 300,
         className: 'm-right-sm',
-        templateOptions: {
+        props: {
           label: '大额红包总金额',
           appearance: 'outline',
           type: 'number',
@@ -229,7 +229,7 @@ const group: FormlyFieldConfig[] = [
         key: 'per',
         defaultValue: 10,
         className: 'm-right-sm',
-        templateOptions: {
+        props: {
           label: '大额红包平均每次可抽得',
           appearance: 'outline',
           type: 'number',
@@ -257,7 +257,7 @@ const group: FormlyFieldConfig[] = [
         key: 'total',
         defaultValue: 500,
         className: 'm-right-sm',
-        templateOptions: {
+        props: {
           label: '小额红包总金额',
           appearance: 'outline',
           type: 'number',
@@ -277,7 +277,7 @@ const group: FormlyFieldConfig[] = [
         type: 'input',
         key: 'per',
         defaultValue: 0.8,
-        templateOptions: {
+        props: {
           label: '小额红包平均每次可抽得',
           appearance: 'outline',
           type: 'number',
@@ -316,7 +316,7 @@ const hide: FormlyFieldConfig[] = [
         key: 'type',
         defaultValue: 'fixed',
         className: 'm-bottom-sm m-right-sm',
-        templateOptions: {
+        props: {
           label: '选择提成方式',
           description: '固定金额或者按比例',
           options: [
@@ -336,7 +336,7 @@ const hide: FormlyFieldConfig[] = [
         key: 'fixedTimes',
         defaultValue: 100,
         className: 'm-right-sm m-bottom-sm',
-        templateOptions: {
+        props: {
           label: '推广成功总次数',
           appearance: 'outline',
           type: 'number',
@@ -358,7 +358,7 @@ const hide: FormlyFieldConfig[] = [
         key: 'fixedMoney',
         defaultValue: 2,
         className: 'm-bottom-sm',
-        templateOptions: {
+        props: {
           label: '每次推广可得金额/元',
           appearance: 'outline',
           type: 'number',
@@ -380,7 +380,7 @@ const hide: FormlyFieldConfig[] = [
         key: 'maxTimes',
         defaultValue: 15,
         className: 'm-right-sm m-bottom-sm',
-        templateOptions: {
+        props: {
           label: '大额推广成功总次数',
           appearance: 'outline',
           type: 'number',
@@ -402,7 +402,7 @@ const hide: FormlyFieldConfig[] = [
         key: 'minTimes',
         defaultValue: 300,
         className: 'm-right-sm m-bottom-sm',
-        templateOptions: {
+        props: {
           label: '小额推广成功总次数',
           appearance: 'outline',
           type: 'number',
@@ -423,7 +423,7 @@ const hide: FormlyFieldConfig[] = [
         type: 'input',
         key: 'prop',
         defaultValue: 80,
-        templateOptions: {
+        props: {
           label: '每次推广可得比例%',
           appearance: 'outline',
           type: 'number',
@@ -451,7 +451,7 @@ const expression: FormlyFieldConfig[] = [
   {
     key: 'text',
     type: 'input',
-    templateOptions: {
+    props: {
       label: 'Text',
       placeholder: '请输入您的姓名',
     },
@@ -459,12 +459,12 @@ const expression: FormlyFieldConfig[] = [
   {
     key: 'text2',
     type: 'input',
-    templateOptions: {
+    props: {
       label: 'Hey!',
       placeholder: '请输入您的学号',
     },
     expressionProperties: {
-      'templateOptions.disabled': '!model.text',
+      'props.disabled': '!model.text',
     },
   },
 ];
@@ -483,7 +483,7 @@ const style: FormlyFieldConfig[] = [
     key: 'name',
     type: 'input',
     className: 'm-right-sm m-bottom-sm',
-    templateOptions: {
+    props: {
       label: '姓名',
       appearance: 'legacy',
       placeholder: '请输入您的姓名',
@@ -493,7 +493,7 @@ const style: FormlyFieldConfig[] = [
     key: 'age',
     type: 'input',
     className: 'm-right-sm m-bottom-sm',
-    templateOptions: {
+    props: {
       label: '年龄',
       appearance: 'standard',
       placeholder: '年龄',
@@ -503,7 +503,7 @@ const style: FormlyFieldConfig[] = [
     key: 'where',
     type: 'input',
     className: 'm-right-sm m-bottom-sm',
-    templateOptions: {
+    props: {
       label: '籍贯',
       appearance: 'fill',
       placeholder: '籍贯',
@@ -513,7 +513,7 @@ const style: FormlyFieldConfig[] = [
     key: 'height',
     type: 'input',
     className: 'm-right-sm m-bottom-sm',
-    templateOptions: {
+    props: {
       label: '身高',
       appearance: 'outline',
       placeholder: '身高',
@@ -535,7 +535,7 @@ const responsive: FormlyFieldConfig[] = [
     type: 'slider',
     key: 'xs',
     className: 'w-full',
-    templateOptions: {
+    props: {
       label: '移动端',
       min: 1,
       max: 12,
@@ -546,7 +546,7 @@ const responsive: FormlyFieldConfig[] = [
     type: 'slider',
     key: 'sm',
     className: 'w-full',
-    templateOptions: {
+    props: {
       label: '平板电脑',
       min: 1,
       max: 12,
@@ -557,7 +557,7 @@ const responsive: FormlyFieldConfig[] = [
     type: 'slider',
     key: 'md',
     className: 'w-full',
-    templateOptions: {
+    props: {
       label: '桌面电脑',
       min: 1,
       max: 12,
@@ -568,7 +568,7 @@ const responsive: FormlyFieldConfig[] = [
     type: 'slider',
     key: 'lg',
     className: 'w-full',
-    templateOptions: {
+    props: {
       label: '超大桌面',
       min: 1,
       max: 12,
@@ -591,21 +591,21 @@ const use: FormlyFieldConfig[] = [
   {
     key: 'firstName',
     type: 'input',
-    templateOptions: {
+    props: {
       label: '姓',
     },
   },
   {
     key: 'lastName',
     type: 'input',
-    templateOptions: {
+    props: {
       label: '名',
     },
   },
   {
     key: 'mac',
     type: 'input',
-    templateOptions: {
+    props: {
       label: '电脑 Mac 地址',
       pattern: '([0-9A-F]{2}[:-]){5}([0-9A-F]{2})',
     },
@@ -613,18 +613,18 @@ const use: FormlyFieldConfig[] = [
   {
     key: 'color',
     type: 'input',
-    templateOptions: {
+    props: {
       label: '颜色偏爱',
     },
   },
   {
     key: 'reason',
     type: 'textarea',
-    templateOptions: {
+    props: {
       label: '理由?',
     },
     expressionProperties: {
-      'templateOptions.label': "'为什么选择 ' + model.color + '?'",
+      'props.label': "'为什么选择 ' + model.color + '?'",
     },
     hideExpression: '!model.color',
   },
@@ -667,7 +667,7 @@ const cascadedSelectFields: FormlyFieldConfig[] = [
   {
     key: 'sport',
     type: 'select',
-    templateOptions: {
+    props: {
       label: 'Sport',
       options: [
         { id: '1', name: 'Soccer' },
@@ -680,33 +680,33 @@ const cascadedSelectFields: FormlyFieldConfig[] = [
   {
     key: 'team',
     type: 'select',
-    templateOptions: {
+    props: {
       label: 'Team',
       options: [],
       valueProp: 'id',
       labelProp: 'name',
     },
     expressionProperties: {
-      'templateOptions.options':
+      'props.options':
         'formState.selectOptionsData.teams.filter(team => team.sportId === model.sport)',
       // reset model when updating select options
-      'model.team': `field.templateOptions.options.find(o => o.id === model.team) ? model.team:null`,
+      'model.team': `field.props.options.find(o => o.id === model.team) ? model.team:null`,
     },
   },
   {
     key: 'player',
     type: 'select',
-    templateOptions: {
+    props: {
       label: 'Player',
       options: [],
       valueProp: 'id',
       labelProp: 'name',
     },
     expressionProperties: {
-      'templateOptions.options':
+      'props.options':
         'formState.selectOptionsData.players.filter(player => player.teamId === model.team)',
       // reset model when updating select options
-      'model.player': `field.templateOptions.options.find(o => o.id === model.player) ? model.player:null`,
+      'model.player': `field.props.options.find(o => o.id === model.player) ? model.player:null`,
     },
   },
 ];
@@ -730,7 +730,7 @@ const modelOptionFields: FormlyFieldConfig[] = [
         default: 2000,
       },
     },
-    templateOptions: {
+    props: {
       label: 'Debounce',
     },
   },
@@ -740,7 +740,7 @@ const modelOptionFields: FormlyFieldConfig[] = [
     modelOptions: {
       updateOn: 'blur',
     },
-    templateOptions: {
+    props: {
       label: '`updateOn` on Blur',
       required: true,
     },
@@ -751,7 +751,7 @@ const modelOptionFields: FormlyFieldConfig[] = [
     modelOptions: {
       updateOn: 'submit',
     },
-    templateOptions: {
+    props: {
       label: '`updateOn` on Submit',
       required: true,
     },
@@ -782,7 +782,7 @@ ImgPicker.args = {
           type: 'img-picker',
           className: 'w-2/5',
           defaultValue: '/assets/images/avatar/01.jpeg',
-          templateOptions: {
+          props: {
             updateLabel: '更新背景图',
             addLabel: '设置背景图',
             deleteLabel: '删除',
@@ -807,7 +807,7 @@ RichText.args = {
         {
           key: 'text',
           type: 'rich-text',
-          templateOptions: {
+          props: {
             label: '富文本',
             rows: 10,
           },

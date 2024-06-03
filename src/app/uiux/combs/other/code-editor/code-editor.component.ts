@@ -61,7 +61,7 @@ export class CodeEditorComponent implements OnInit {
             key: 'isAPI',
             defaultValue: this.isAPI,
             className: 'flex-4/12',
-            templateOptions: {
+            props: {
               label: 'API',
             },
           },
@@ -70,7 +70,7 @@ export class CodeEditorComponent implements OnInit {
             key: 'api',
             defaultValue: this.api,
             className: 'flex-12/12',
-            templateOptions: {
+            props: {
               label: 'API',
             },
             hideExpression: '!model.isAPI',

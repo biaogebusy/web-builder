@@ -4775,7 +4775,7 @@ export const base = [
             {
               type: 'input',
               key: 'name',
-              templateOptions: {
+              props: {
                 label: '姓名',
                 appearance: 'outline',
                 required: true,
@@ -4784,7 +4784,7 @@ export const base = [
             {
               type: 'input',
               key: 'email',
-              templateOptions: {
+              props: {
                 label: '邮箱',
                 appearance: 'outline',
                 required: true,
@@ -4793,7 +4793,7 @@ export const base = [
             {
               type: 'input',
               key: 'subject',
-              templateOptions: {
+              props: {
                 label: '主题',
                 appearance: 'outline',
               },
@@ -4801,7 +4801,7 @@ export const base = [
             {
               type: 'textarea',
               key: 'message',
-              templateOptions: {
+              props: {
                 label: '内容',
                 placeholder: 'Message',
                 appearance: 'fill',

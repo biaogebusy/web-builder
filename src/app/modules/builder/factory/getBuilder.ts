@@ -7,7 +7,7 @@ export function getBuilder(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '布局',
           },
           fieldGroup: [
@@ -17,7 +17,7 @@ export function getBuilder(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'wrapperClass',
               className: 'w-full',
               defaultValue: widget.wrapperClass ?? '',
-              templateOptions: {
+              props: {
                 label: 'Wrapper Classes',
               },
             },

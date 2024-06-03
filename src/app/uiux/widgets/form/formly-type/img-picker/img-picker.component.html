@@ -2,8 +2,8 @@
   <div class="meta mt-3 flex flex-row justify-start items-center" *ngIf="formControl.value">
     <img src="{{formControl.value}}" alt="">
     <div class="content flex flex-col">
-      <div class="title">{{field.templateOptions?.fileName}}</div>
-      <div class="desc">{{field.templateOptions?.alt}}</div>
+      <div class="title">{{field.props?.fileName}}</div>
+      <div class="desc">{{field.props?.alt}}</div>
     </div>
   </div>
   <div class="actions my-3 flex justify-center items-center gap-3">

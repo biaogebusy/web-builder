@@ -36,7 +36,7 @@ import { Meta, Story } from "@storybook/addon-docs";
           "type": "input",
           "key": "key",
           "className": "block m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "type": "string",
             "appearance": "legacy",
             "label": "请输入关键词"
@@ -47,7 +47,7 @@ import { Meta, Story } from "@storybook/addon-docs";
           "key": "type",
           "defaultValue": "/api/v1/media/image",
           "className": "block m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "label": "选择资源类型",
             "options": [
               {
@@ -74,7 +74,7 @@ import { Meta, Story } from "@storybook/addon-docs";
           "key": "limit",
           "defaultValue": 20,
           "className": "block m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "label": "每页显示个数",
             "options": [
               {
@@ -105,7 +105,7 @@ import { Meta, Story } from "@storybook/addon-docs";
           "key": "filter",
           "defaultValue": 1,
           "className": "block m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "label": "发布状态",
             "options": [
               {
@@ -128,7 +128,7 @@ import { Meta, Story } from "@storybook/addon-docs";
               "key": "direction",
               "defaultValue": "DESC",
               "className": "block m-bottom-sm",
-              "templateOptions": {
+              "props": {
                 "label": "排序",
                 "options": [
                   {

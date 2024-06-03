@@ -290,7 +290,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       key: 'xs',
       type: 'slider',
       defaultValue: content.gap?.xs,
-      templateOptions: {
+      props: {
         min: 0,
         max: 20,
         step: 1,
@@ -301,7 +301,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       key: 'sm',
       type: 'slider',
       defaultValue: content.gap?.sm,
-      templateOptions: {
+      props: {
         min: 0,
         max: 20,
         step: 1,
@@ -312,7 +312,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       key: 'md',
       type: 'slider',
       defaultValue: content.gap?.md,
-      templateOptions: {
+      props: {
         min: 0,
         max: 20,
         step: 1,
@@ -323,7 +323,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       key: 'lg',
       type: 'slider',
       defaultValue: content.gap?.lg,
-      templateOptions: {
+      props: {
         min: 0,
         max: 20,
         step: 1,
@@ -340,7 +340,7 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       key: 'direction',
       className: 'w-full',
       defaultValue: content.direction ?? 'row',
-      templateOptions: {
+      props: {
         label: '布局方向',
         options: getDirectionOption,
         required: true,
@@ -354,7 +354,7 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       key: 'wrap',
       className: 'w-full',
       defaultValue: content.wrap ?? 'wrap',
-      templateOptions: {
+      props: {
         label: '换行',
         options: getWrapOption,
         required: true,
@@ -365,7 +365,7 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       key: 'horizontal',
       className: 'w-full',
       defaultValue: content.horizontal,
-      templateOptions: {
+      props: {
         label: '水平对齐',
         options: getHorizontalOption,
       },
@@ -375,7 +375,7 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       key: 'vertical',
       className: 'w-full',
       defaultValue: content.vertical,
-      templateOptions: {
+      props: {
         label: '垂直对齐',
         options: getVerticalOption,
       },
