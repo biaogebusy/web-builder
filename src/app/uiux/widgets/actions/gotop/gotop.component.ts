@@ -35,7 +35,7 @@ export class GotopComponent implements OnInit {
       this.screen.scroll$.subscribe(() => {
         if (this.goTop) {
           if (this.document.body.getBoundingClientRect().top < -100) {
-            this.goTop.nativeElement.style.bottom = '7rem';
+            this.goTop.nativeElement.style.bottom = '3rem';
           } else {
             this.goTop.nativeElement.style.bottom = '-10rem';
           }

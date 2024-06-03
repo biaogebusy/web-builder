@@ -7,11 +7,10 @@
       <app-title [attr.data-path]="'title'" class="block" #title *ngIf="content.title"
         [content]="content.title"></app-title>
       <app-text [attr.data-path]="'subTitle'" *ngIf="content.subTitle" [content]="content.subTitle"></app-text>
-      <div class="m-top" fxLayout.lt-md="column" fxLayout.gt-sm="row wrap" fxLayoutGap.lt-md="6rem"
-        fxLayoutAlign.gt-sm="center start" fxLayoutAlign.lt-md="center center">
-        <app-dynamic-component [attr.data-path]="'elements.'+i" class="box p-x-sm p-y-sm" [inputs]="item"
-          *ngFor="let item of content.elements;index as i" fxFlex.lt-md="100%"
-          [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>
+      <div class="mt-md flex flex-col md:flex-row flex-wrap justify-center items-center">
+        <app-dynamic-component [attr.data-path]="'elements.'+i" class="flex-12/12 box" [inputs]="item"
+          *ngFor="let item of content.elements;index as i"
+          [style]="{flex:row(content.row, '0rem')+'!important'}"></app-dynamic-component>
       </div>
     </div>
   </div>

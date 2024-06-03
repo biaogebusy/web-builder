@@ -8,37 +8,36 @@
 <div class="footer-{{content?.params?.style === 'light'?'inverse-light':'inverse'}} relative" *ngIf="content">
   <div class="container">
     <div class="py-10">
-      <div *ngIf="content?.footerBrand" fxLayout.lt-md="column" fxLayout.gt-sm="row">
-        <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 25" class="brand" fxLayout="column">
+      <div *ngIf="content?.footerBrand" class="flex flex-col md:flex-row">
+        <div class="brand flex-col flex-12/12 md:flex-3/12">
           <app-img [content]="content.footerBrand.logo.img" *ngIf="content.footerBrand.logo"></app-img>
           <p class="m-y-sm" [innerHTML]="content.footerBrand?.summary|safeHtml" *ngIf="content.footerBrand?.summary">
           </p>
-          <div class="social" fxLayout="row" *ngIf="content?.footerBrand?.social">
-            <a class="item" fxLayoutAlign="center center" *ngFor="let item of content.footerBrand.social"
+          <div class="social flex flex-row" *ngIf="content?.footerBrand?.social">
+            <a class="item flex justify-center items-center" *ngFor="let item of content.footerBrand.social"
               href="{{item.href}}" target="_blank" title="{{item.label}}">
               <app-icon [content]="item.icon"></app-icon>
             </a>
           </div>
         </div>
-        <div fxFlex.lt-md="100" fxFlex.gt-sm="0 1 100" *ngIf="content.mainMenu">
+        <div class="flex-12/12 md:flex-auto whitespace-nowrap" *ngIf="content.mainMenu">
           <app-menu-item [content]="content?.mainMenu" [mobileMenu]="content.mobileMenu"></app-menu-item>
         </div>
-        <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 25" *ngIf="content.footerNewsletter">
-          <form (ngSubmit)="onSubmit()" [formGroup]="form" fxLayout="row wrap">
-            <div fxFlex="100" class="item-header">
+        <div class="flex-12/12 md:flex-3/12" *ngIf="content.footerNewsletter">
+          <form class="flex flex-col" (ngSubmit)="onSubmit()" [formGroup]="form">
+            <div class="item-header">
               {{content.footerNewsletter.label}}
             </div>
-            <p fxFlex="100" class="m-y-xs" [innerHTML]="content.footerNewsletter.summary|safeHtml"></p>
-            <app-dynamic-component *ngFor="let item of content.footerNewsletter.forms"
-              [inputs]="{content:item,form: form}"></app-dynamic-component>
-            <div fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayout="row wrap">
-              <button fxFlex="100" *ngIf="content.footerNewsletter.action" class="m-top-xs" type="submit"
+            <p class="m-y-xs" [innerHTML]="content.footerNewsletter.summary|safeHtml"></p>
+            <app-formly [form]="form" [fields]="content.footerNewsletter.form"></app-formly>
+            <div class="w-full md:w-2/4 flex flex-col">
+              <button *ngIf="content.footerNewsletter.action" class="m-top-xs" type="submit"
                 mat-raised-button color="primary">
-                <div fxLayoutAlign="center center">
+                <div class="flex justify-center items-center">
                   <div class="p-x-xs">{{content.footerNewsletter.action.label}}</div>
                 </div>
               </button>
-              <div fxFlex="auto" fxLayoutAlign="center center">
+              <div class="flex justify-center items-center">
                 <app-spinner [content]="{color:'primary', size:36}" *ngIf="submited"></app-spinner>
               </div>
             </div>
@@ -49,12 +48,11 @@
   </div>
   <div class="footer-bottom py-5">
     <div class="container">
-      <div class="inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign.lt-md="center center"
-        fxLayoutAlign.gt-sm="space-between center">
-        <div class="left" [ngClass.lt-md]="'text-center'" *ngIf="content?.footerBottom?.left"
+      <div class="inner flex flex-col md:flex-row justify-center items-center md:justify-between">
+        <div class="left text-center md:text-left" *ngIf="content?.footerBottom?.left"
           [innerHTML]="content.footerBottom.left | safeHtml"></div>
         <div class="right" *ngIf="content?.footerBottom?.right">
-          <div fxLayout="row">
+          <div class="flex flex-row">
             <app-link class="item" *ngFor="let item of content.footerBottom.right" [content]="item"></app-link>
           </div>
         </div>

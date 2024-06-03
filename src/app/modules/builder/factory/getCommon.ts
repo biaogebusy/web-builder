@@ -87,6 +87,33 @@ export const getBgClasses = [
   },
 ];
 
+export const getSpacerOptions = [
+  {
+    label: '无',
+    value: 'none',
+  },
+  {
+    label: '超小',
+    value: 'xs',
+  },
+  {
+    label: '小',
+    value: 'sm',
+  },
+  {
+    label: '正常',
+    value: 'md',
+  },
+  {
+    label: '大',
+    value: 'lg',
+  },
+  {
+    label: '超大',
+    value: 'xl',
+  },
+];
+
 export const getOverlay = [
   {
     label: '无',

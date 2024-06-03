@@ -1,6 +1,7 @@
 import { ILink } from '@core/interface/widgets/ILink';
 import { IImg } from '@core/interface/widgets/IImg';
 import { IIcon } from '@core/interface/widgets/IIcon';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 export interface IBranding {
   header: IHeader;
   footer?: IFooter;
@@ -81,7 +82,7 @@ interface FooterNewsletter {
   params: LetterParams;
   label: string;
   summary: string;
-  forms: Form[];
+  form: FormlyFieldConfig[];
   action: {
     label: string;
   };

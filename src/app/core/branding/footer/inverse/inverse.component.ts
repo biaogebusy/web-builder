@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { FormService } from '../../../service/form.service';
+import { FormService } from '@core/service/form.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 })
 export class InverseComponent implements OnInit {
   @Input() content: any;
-  form: UntypedFormGroup;
+  form: UntypedFormGroup = new UntypedFormGroup({});
   success = false;
   submited = false;
 
@@ -20,13 +20,7 @@ export class InverseComponent implements OnInit {
     private utilitiesService: UtilitiesService
   ) {}
 
-  ngOnInit(): void {
-    if (this.content?.footerNewsletter) {
-      this.form = this.formService.toFormGroup(
-        this.content.footerNewsletter.forms
-      );
-    }
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.form.invalid) {
