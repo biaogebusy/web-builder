@@ -1,12 +1,18 @@
 <div class="footer-light">
   <div class="container">
-    <app-menu-item [content]="content.mainMenu" [mobileMenu]="content.mobileMenu"></app-menu-item>
+    <app-menu-item
+      [content]="content.mainMenu"
+      [mobileMenu]="content.mobileMenu"
+    ></app-menu-item>
   </div>
   <div class="footer-bottom text-center p-y-sm">
     <div class="container">
-      <div class="brand" fxLayoutAlign="space-between center">
-        <h2 class="mat-h2 m-bottom-0">{{content.logo.label}}</h2>
-        <p>©{{utilities.fullYear}} <span [innerHTML]="content.copyRight|safeHtml"></span></p>
+      <div class="brand flex justify-between items-center">
+        <h2 class="!mb-0 !font-normal">{{ content.logo.label }}</h2>
+        <p class="!mb-0">
+          ©{{ utilities.fullYear }}
+          <span [innerHTML]="content.copyRight | safeHtml"></span>
+        </p>
       </div>
     </div>
   </div>

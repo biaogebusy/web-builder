@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { flattenDeep, isArray } from 'lodash-es';
+import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
@@ -17,6 +17,7 @@ import {
   defaultHeader,
   enDefaultHeader,
   enFooterInverse,
+  footerLight,
 } from '@modules/builder/data/Branding.json';
 import { ILanguage } from '@core/interface/IEnvironment';
 @Injectable({

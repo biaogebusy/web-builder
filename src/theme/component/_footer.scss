@@ -80,6 +80,9 @@
       border-color: rgba($text, 0.5);
     }
   }
+  .mat-form-field-label {
+    color: $text;
+  }
 }
 
 @mixin footer-color($config-or-theme) {

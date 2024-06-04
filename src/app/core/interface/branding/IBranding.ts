@@ -88,16 +88,6 @@ interface FooterNewsletter {
   };
 }
 
-interface Form {
-  type: string;
-  label: string;
-  key: string;
-  params: any;
-  placeholder: string;
-  hint: string;
-  error: string;
-}
-
 interface LetterParams {
   webform_id: string;
 }
@@ -121,9 +111,8 @@ interface Social {
 }
 
 interface FooterParams {
-  mode: 'light' | 'inverse' | 'space-between';
+  mode: 'light' | 'inverse';
   shape?: boolean;
-  // style: string;
 }
 
 export interface IUserMenu {
@@ -147,17 +136,6 @@ interface Action {
     type: string;
     snackMes: string;
   };
-}
-
-interface Content {
-  type: string;
-  key: string;
-  label: string;
-  placeholder: string;
-  params?: {
-    required: boolean;
-  };
-  errorMes?: string;
 }
 
 export interface IHeaderSearch {

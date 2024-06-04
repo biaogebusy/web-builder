@@ -2,16 +2,23 @@
   <div class="bar-inner">
     <ng-container *ngFor="let item of content">
       <ng-container [ngSwitch]="item.type">
-        <div class="item" [attr.id]="item.id" *ngSwitchCase="'link'" fxLayout="column" fxLayoutAlign="center center">
-          <a href="{{item.href}}" target="{{item.target}}">
+        <div
+          class="item flex flex-col justify-center items-center"
+          [attr.id]="item.id"
+          *ngSwitchCase="'link'"
+        >
+          <a href="{{ item.href }}" target="{{ item.target }}">
             <app-icon [content]="item.icon"></app-icon>
           </a>
           <app-link class="label" [content]="item"></app-link>
         </div>
-        <div class="item item-popup" [attr.id]="item.id" *ngSwitchCase="'popup'" fxLayout="column"
-          fxLayoutAlign="center center">
+        <div
+          class="item item-popup flex flex-col justify-center items-center"
+          [attr.id]="item.id"
+          *ngSwitchCase="'popup'"
+        >
           <app-icon [content]="item.icon"></app-icon>
-          <span class="label">{{item.label}}</span>
+          <span class="label">{{ item.label }}</span>
           <app-fix-bar-popup [content]="item.content"></app-fix-bar-popup>
         </div>
       </ng-container>
