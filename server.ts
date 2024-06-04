@@ -26,6 +26,7 @@ const win = dominoModule.createWindow(indexTemplate);
 (global as any).localStorage = win.localStorage;
 (global as any).sessionStorage = win.sessionStorage;
 (global as any).XMLHttpRequest = require('xhr2');
+(global as any).HTMLAnchorElement = win.HTMLAnchorElement;
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
