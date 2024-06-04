@@ -59,10 +59,44 @@ export class ContentService {
     }
   }
 
+  getLang(path: string): ILanguage | undefined {
+    const { multiLang, langs } = environment;
+
+    if (!multiLang) {
+      return undefined;
+    }
+    if (multiLang && langs) {
+      const lang = path.split('/')[1];
+      const currentLang = langs.find((item) => item.value === lang);
+      if (currentLang) {
+        return currentLang;
+      } else {
+        // default language
+        const defLang = langs.find((item) => item.default);
+        if (!defLang) {
+          return undefined;
+        }
+        return defLang;
+      }
+    }
+
+    return undefined;
+  }
+
   loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
+    const currentLang = this.getLang(pageUrl);
+    let prefix = '';
+    let path = pageUrl;
+    if (currentLang && !currentLang.default) {
+      prefix = currentLang.prefix;
+      if (prefix) {
+        path = pageUrl.split(prefix)[1];
+      }
+    }
+
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
-      const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
+      const pageUrlParams = `${this.apiUrl}${prefix}${landingPath}${path}`;
       return this.http.get<any>(pageUrlParams).pipe(
         tap((page) => {
           this.updatePage(page);
@@ -74,7 +108,7 @@ export class ContentService {
       );
     } else {
       return this.http
-        .get<any>(`${this.apiUrl}/assets/app${pageUrl}.json`)
+        .get<any>(`${this.apiUrl}/assets/app${prefix}${pageUrl}.json`)
         .pipe(
           tap((page) => {
             this.updatePage(page);
