@@ -53,7 +53,6 @@ const content: IHero2v3 = {
     spacer: 'none',
     body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
   },
-  row: 6,
   elements: [
     {
       img: {
