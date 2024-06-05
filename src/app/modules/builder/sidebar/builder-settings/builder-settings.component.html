@@ -1,23 +1,44 @@
 <div class="builder-settings" *ngIf="content">
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let item of content;index as i" [expanded]="i == 0" (afterExpand)="onAfterExpand()">
+    <mat-expansion-panel
+      *ngFor="let item of content; index as i"
+      [expanded]="i == 0"
+      (afterExpand)="onAfterExpand()"
+    >
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{item.label}}
+          {{ item.label }}
         </mat-panel-title>
         <mat-panel-description *ngIf="item.description">
-          {{item.description}}
+          {{ item.description }}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-list>
-        <div class="cards" id="widgets" fxLayout="row wrap" cdkDropList cdkDropListSortingDisabled="true"
-          [cdkDropListData]="item.elements" [cdkDropListConnectedTo]="['builder-list','builder-list-sideabr']">
+        <div
+          class="cards flex flex-wrap"
+          id="widgets"
+          cdkDropList
+          cdkDropListSortingDisabled="true"
+          [cdkDropListData]="item.elements"
+          [cdkDropListConnectedTo]="['builder-list', 'builder-list-sideabr']"
+        >
           <ng-container *ngFor="let widget of item.elements">
-            <div class="item" matRipple fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)" matTooltipPosition='above'>
+            <div
+              class="item"
+              matRipple
+              fxFlex.lt-sm="50%"
+              fxFlex.gt-xs="0 0 calc(100%/3)"
+              matTooltipPosition="above"
+            >
               <div *ngIf="widget.type === 'json'" (click)="onJson(widget)">
-                <div class="inner show" fxLayout="column" fxLayoutAlign="center center">
-                  <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
-                  <div class="title">{{widget.label}}</div>
+                <div
+                  class="inner show flex flex-col justify-center items-center"
+                >
+                  <app-icon
+                    *ngIf="widget.icon"
+                    [content]="widget.icon"
+                  ></app-icon>
+                  <div class="title">{{ widget.label }}</div>
                 </div>
               </div>
             </div>
@@ -26,5 +47,4 @@
       </mat-list>
     </mat-expansion-panel>
   </mat-accordion>
-
 </div>

@@ -2,17 +2,40 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
-  <div class="{{content.fullWidth?'':'container'}}">
+  <div class="{{ content.fullWidth ? '' : 'container' }}">
     <div [ngClass]="content.classes">
-      <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
-      <div class="flex flex-row flex-wrap justify-center items-center md:items-start">
-        <app-dynamic-component [attr.data-path]="'elements.'+i" class="box p-x-sm p-y-sm" [inputs]="item"
-          *ngFor="let item of content.elements;index as i" fxFlex.xs="100%" fxFlex.sm="50%"
-          [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>
+      <app-text
+        [attr.data-path]="'text'"
+        *ngIf="content.text"
+        [content]="content.text"
+      ></app-text>
+      <div
+        class="
+          flex flex-row flex-wrap
+          justify-center
+          items-center
+          md:items-start
+        "
+      >
+        <app-dynamic-component
+          [attr.data-path]="'elements.' + i"
+          class="box p-x-sm p-y-sm"
+          [inputs]="item"
+          *ngFor="let item of content.elements; index as i"
+          fxFlex.xs="100%"
+          fxFlex.sm="50%"
+          [fxFlex.gt-sm]="row(content.row, '0rem')"
+        ></app-dynamic-component>
       </div>
-      <div class="actions m-top pb-[10px]" *ngIf="content.actions" fxLayoutAlign="center center">
-        <ng-container *ngFor="let action of content.actions;index as i">
-          <app-dynamic-component [attr.data-path]="'actions.'+i" [inputs]="action"></app-dynamic-component>
+      <div
+        class="actions m-top pb-[10px] flex justify-center"
+        *ngIf="content.actions"
+      >
+        <ng-container *ngFor="let action of content.actions; index as i">
+          <app-dynamic-component
+            [attr.data-path]="'actions.' + i"
+            [inputs]="action"
+          ></app-dynamic-component>
         </ng-container>
       </div>
     </div>

@@ -12,14 +12,12 @@
           *ngIf="loading"
         ></mat-spinner>
         <ng-container *ngIf="samplePages$ | async as samples">
-          <div class="cards" fxLayout="row wrap">
+          <div class="cards flex flex-wrap">
             <div
-              class="item"
+              class="item flex-6/12 sm:flex-4/12"
               [matTooltip]="item.title"
               (click)="loadSample(item)"
               *ngFor="let item of samples; index as i"
-              fxFlex.lt-sm="50%"
-              fxFlex.gt-xs="0 0 calc(100%/3)"
             >
               <div
                 class="

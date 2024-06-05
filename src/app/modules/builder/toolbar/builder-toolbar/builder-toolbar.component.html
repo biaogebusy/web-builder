@@ -1,31 +1,77 @@
-<ng-container *ngIf="builderFullScreen$|async">
-  <div *ngTemplateOutlet="toolbar;context:{isFull:builderFullScreen$|async}"></div>
+<ng-container *ngIf="builderFullScreen$ | async">
+  <div
+    *ngTemplateOutlet="toolbar; context: { isFull: builderFullScreen$ | async }"
+  ></div>
 </ng-container>
 <!-- placeholder for fixed -->
-<div *ngTemplateOutlet="toolbar;context:{isFull:false}"></div>
+<div *ngTemplateOutlet="toolbar; context: { isFull: false }"></div>
 
 <ng-template #toolbar let-isFull="isFull">
-  <div class="builder-toolbar" [ngClass]="{'fixed':isFull}">
-    <div class="wrapper" fxLayoutAlign="space-between center">
-      <div *ngIf="currentPage$ | async as page" class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%"
-        fxLayoutAlign="center start" fxLayout="column">
-        <div class="page-title" contenteditable="true" (blur)="onTitle($event)">{{page.title}}</div>
-        <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
+  <div class="builder-toolbar" [ngClass]="{ fixed: isFull }">
+    <div class="wrapper flex justify-between items-center">
+      <div
+        *ngIf="currentPage$ | async as page"
+        class="
+          left
+          flex flex-col flex-auto
+          md:flex-4/12
+          justify-center
+          items-start
+        "
+      >
+        <div class="page-title" contenteditable="true" (blur)="onTitle($event)">
+          {{ page.title }}
+        </div>
+        <div class="time">{{ page.time | date: "YYYY-MM-dd HH:mm" }}</div>
       </div>
-      <div class="middle text-primary justify-center items-center hidden md:flex">
+      <div
+        class="middle text-primary justify-center items-center hidden md:flex"
+      >
         <app-switch-preview></app-switch-preview>
         <app-switch-theme></app-switch-theme>
       </div>
-      <div id="toolbar-right" class="right gap-1 flex justify-center items-center">
-        <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)"
-          [matTooltip]="(builderFullScreen$|async) ? '显示边栏' : '切换全宽'"></mat-slide-toggle>
-        <app-btn fxHide.xs="true" [matTooltip]="(builder.previewListDrawer$|async)?'展开组件导航' : '收起组件导航'"
+      <div
+        id="toolbar-right"
+        class="right gap-1 flex justify-center items-center"
+      >
+        <mat-slide-toggle
+          [checked]="builderFullScreen$ | async"
+          (change)="onFullScreen($event)"
+          [matTooltip]="(builderFullScreen$ | async) ? '显示边栏' : '切换全宽'"
+        ></mat-slide-toggle>
+        <app-btn
+          fxHide.xs="true"
+          [matTooltip]="
+            (builder.previewListDrawer$ | async)
+              ? '展开组件导航'
+              : '收起组件导航'
+          "
           (click)="toggleNavigate()"
-          [content]="{label:'', color:(builder.previewListDrawer$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
-        <app-btn-generater matTooltip="快速生成页面"
-          [content]="{label:'',color:'primary', mode: 'icon',icon:{svg:'lightning-bolt'} }"></app-btn-generater>
-        <app-btn (click)="onSubmit(page)"
-          [content]="{label:page?.uuid?'更新页面':'新建页面',color:'primary',mode:'raised',icon:{svg:page?.uuid?'navigation-variant':'pencil-plus'}}"></app-btn>
+          [content]="{
+            label: '',
+            color: (builder.previewListDrawer$ | async) ? 'primary' : undefined,
+            mode: 'icon',
+            icon: { svg: 'dock-left' }
+          }"
+        ></app-btn>
+        <app-btn-generater
+          matTooltip="快速生成页面"
+          [content]="{
+            label: '',
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'lightning-bolt' }
+          }"
+        ></app-btn-generater>
+        <app-btn
+          (click)="onSubmit(page)"
+          [content]="{
+            label: page?.uuid ? '更新页面' : '新建页面',
+            color: 'primary',
+            mode: 'raised',
+            icon: { svg: page?.uuid ? 'navigation-variant' : 'pencil-plus' }
+          }"
+        ></app-btn>
         <app-lang-switch></app-lang-switch>
         <app-builder-menu></app-builder-menu>
       </div>
