@@ -1,17 +1,32 @@
 <div class="list">
-  <div *ngIf="loading" class="m-y" fxLayoutAlign="center center">
-    <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
+  <div *ngIf="loading" class="m-y flex justify-center items-center">
+    <app-spinner [content]="{ color: 'primary', size: 40 }"></app-spinner>
   </div>
   <ng-container *ngIf="!loading">
     <ng-container *ngIf="links">
-      <app-showcase-3v3 [attr.data-path]="i" [content]="item"
-        *ngFor="let item of content;index as i; trackBy: trackByFn">
+      <app-showcase-3v3
+        [attr.data-path]="i"
+        [content]="item"
+        *ngFor="let item of content; index as i; trackBy: trackByFn"
+      >
       </app-showcase-3v3>
-      <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
+      <app-pagination-links
+        (pageChange)="onPageChange($event)"
+        [links]="links"
+      ></app-pagination-links>
     </ng-container>
     <ng-container *ngIf="pager">
-      <app-showcase-3v3 [attr.data-path]="i" [content]="item" *ngFor="let item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p }; trackBy:
-        trackByFn; index as i">
+      <app-showcase-3v3
+        [attr.data-path]="i"
+        [content]="item"
+        *ngFor="
+          let item of content
+            | paginate
+              : { itemsPerPage: pager.itemsPerPage || 20, currentPage: p };
+          trackBy: trackByFn;
+          index as i
+        "
+      >
       </app-showcase-3v3>
       <app-pagination (pageChange)="p = $event"></app-pagination>
     </ng-container>

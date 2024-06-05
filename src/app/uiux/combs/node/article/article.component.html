@@ -4,20 +4,16 @@
     *ngIf="content.banner"
   ></app-article-banner>
   <div class="container">
-    <div
-      class="article-inner m-top-sm"
-      fxLayout.lt-md="column"
-      fxLayout.gt-sm="row"
-    >
+    <div class="article-inner m-top-sm flex flex-col md:flex-row md:gap-5">
       <div
-        class="article-node"
-        fxFlex.lt-md="100"
-        fxFlex.gt-sm="{{ content.sidebar ? '75' : '100' }}"
+        class="article-node flex-12/12 md:flex-{{
+          content.sidebar ? '9' : '12'
+        }}/12"
       >
         <h2 class="title">
           {{ content.title }}
         </h2>
-        <div class="article-meta m-y-xs" fxLayoutAlign="space-between center">
+        <div class="article-meta m-y-xs flex justify-between items-center">
           <app-article-meta
             [content]="content.meta"
             *ngIf="content.meta"
@@ -43,8 +39,16 @@
             </div>
             <div
               *ngIf="!user.authenticated"
-              class="auth line p-y-sm p-x-sm w-full text-center"
-              fxLayoutAlign="center center"
+              class="
+                auth
+                line
+                p-y-sm p-x-sm
+                w-full
+                text-center
+                flex
+                justify-center
+                items-center
+              "
             >
               <a
                 href="javascript:void(0)"
@@ -85,10 +89,8 @@
         </app-comment-list>
       </div>
       <app-sidebar
-        [ngClass.gt-sm]="'m-left-sm'"
+        class="flex-12/12 md:flex-3/12"
         *ngIf="content.sidebar"
-        fxFlex.lt-md="100"
-        fxFlex.gt-sm="25"
         [content]="content.sidebar"
       ></app-sidebar>
     </div>

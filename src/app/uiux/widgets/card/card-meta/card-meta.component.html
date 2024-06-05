@@ -1,27 +1,49 @@
 <div class="meta" *ngIf="content">
   <div class="item flex justify-start items-start" *ngFor="let meta of content">
-    <span class="flex-initial font-bold mr-3 whitespace-nowrap" *ngIf="meta.label">{{meta.label}}: </span>
+    <span
+      class="flex-initial font-bold mr-3 whitespace-nowrap"
+      *ngIf="meta.label"
+      >{{ meta.label }}:
+    </span>
     <!-- params -->
-    <div class="right w-full flex justify-start items-center" *ngIf="meta?.params">
-      <span *ngIf="meta.value | isString" class="{{meta?.params?.line || 'two'}}-line pr-[10px]"
-        [innerHTML]="meta.value | stripTags | shorten:meta.params?.shorten||200"></span>
+    <div
+      class="right w-full flex justify-start items-center"
+      *ngIf="meta?.params"
+    >
+      <span
+        *ngIf="meta.value | isString"
+        class="{{ meta?.params?.line || 'two' }}-line pr-[10px]"
+        [innerHTML]="
+          meta.value | stripTags | shorten: meta.params?.shorten || 200
+        "
+      ></span>
       <!-- dialog -->
       <ng-container *ngIf="meta?.params?.dialog">
         <button class="custom-btn" mat-icon-button (click)="onDialog(meta)">
-          <span [innerHTML]="meta.params?.dialog?.label|safeHtml"></span>
+          <span [innerHTML]="meta.params?.dialog?.label | safeHtml"></span>
         </button>
       </ng-container>
 
       <!-- dynamic component -->
       <ng-container *ngIf="meta?.params?.dynamic">
-        <div class="inner w-full" fxLayout="column">
-          <div class="li" *ngFor="let items of meta.value" fxLayout="row" fxLayoutAlign="space-between center">
-            <app-dynamic-component *ngFor="let widget of items.elements" [inputs]="widget"></app-dynamic-component>
+        <div class="inner w-full flex flex-col'">
+          <div
+            class="li flex flex-row justify-between items-center"
+            *ngFor="let items of meta.value"
+          >
+            <app-dynamic-component
+              *ngFor="let widget of items.elements"
+              [inputs]="widget"
+            ></app-dynamic-component>
           </div>
         </div>
       </ng-container>
     </div>
     <!-- no params, just label, value -->
-    <span class="normal" *ngIf="!meta?.params" [innerHTML]="meta.value|safeHtml"></span>
+    <span
+      class="normal"
+      *ngIf="!meta?.params"
+      [innerHTML]="meta.value | safeHtml"
+    ></span>
   </div>
 </div>

@@ -6,10 +6,7 @@
       mat-icon-button
       [mat-menu-trigger-for]="menu"
     >
-      <app-icon
-        fxLayoutAlign="center center"
-        [content]="{ svg: 'dots-vertical', inline: true }"
-      ></app-icon>
+      <app-icon [content]="{ svg: 'dots-vertical', inline: true }"></app-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onPageJson()">

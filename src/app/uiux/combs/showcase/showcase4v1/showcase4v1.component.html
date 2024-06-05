@@ -12,7 +12,7 @@
       [content]="content.text"
       *ngIf="content.text"
     ></app-text>
-    <div class="inner" fxLayout.xs="column" fxLayout.gt-xs="row">
+    <div class="inner flex flex-col sm:flex-row">
       <div fxFlex *ngFor="let item of elements; index as i">
         <div class="style04 inv-stats">
           <div class="stats-icon">

@@ -1,39 +1,67 @@
-<div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
-  <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
+<div class="m-y flex justify-center items-center" *ngIf="loading">
+  <app-spinner
+    class="m-y"
+    [content]="{ color: 'primary', size: 40 }"
+  ></app-spinner>
 </div>
-<div class="search-list" [ngClass.gt-sm]="'p-x-sm m-y'" *ngIf="content && pager">
+<div
+  class="search-list"
+  [ngClass.gt-sm]="'p-x-sm m-y'"
+  *ngIf="content && pager"
+>
   <div class="container">
-    <div class="results m-bottom-sm">
-      找到 {{pager?.totalItems}} 个结果
-    </div>
+    <div class="results m-bottom-sm">找到 {{ pager?.totalItems }} 个结果</div>
     <mat-divider></mat-divider>
-    <div class="list p-y-sm p-x-sm m-y-sm" fxLayout.xs="column" fxLayout.gt-xs="row"
-      *ngFor="let item of content | paginate: pager; trackBy: trackByFn">
-      <div *ngIf="item?.img?.src" class="object-left relative m-right-sm" fxFlex.xs="100" fxFlex.gt-xs="0 0 30">
+    <div
+      class="list p-y-sm p-x-sm m-y-sm flex flex-col sm:flex-row"
+      *ngFor="let item of content | paginate: pager; trackBy: trackByFn"
+    >
+      <div
+        *ngIf="item?.img?.src"
+        class="object-left relative m-right-sm"
+        fxFlex.xs="100"
+        fxFlex.gt-xs="0 0 30"
+      >
         <app-img [content]="item.img"></app-img>
       </div>
       <div class="content w-full">
         <h2 class="title">
           <app-link [content]="item.link"></app-link>
         </h2>
-        <div class="content" *ngIf="item.body"
-          [innerHTML]="item.body | stripTags:'strong':'a':'em' | shorten: 150: '...'|safeHtml "></div>
+        <div
+          class="content"
+          *ngIf="item.body"
+          [innerHTML]="
+            item.body
+              | stripTags: 'strong':'a':'em'
+              | shorten: 150:'...'
+              | safeHtml
+          "
+        ></div>
         <div class="flex justify-between items-center my-3 bottom">
           <div class="flex justify-start items-center gap-3">
-            <div>{{item.user | ucfirst}}</div>
-            <div>{{item?.type}}</div>
-            <div [innerHTML]="item?.category|safeHtml" *ngIf="item.category"></div>
-            <div [innerHTML]="item?.tags|safeHtml" *ngIf="item.tags"></div>
-            <div class="actions" fxLayout>
-              <app-dynamic-component [inputs]="{content:action}"
-                *ngFor="let action of item.actions"></app-dynamic-component>
+            <div>{{ item.user | ucfirst }}</div>
+            <div>{{ item?.type }}</div>
+            <div
+              [innerHTML]="item?.category | safeHtml"
+              *ngIf="item.category"
+            ></div>
+            <div [innerHTML]="item?.tags | safeHtml" *ngIf="item.tags"></div>
+            <div class="actions flex">
+              <app-dynamic-component
+                [inputs]="{ content: action }"
+                *ngFor="let action of item.actions"
+              ></app-dynamic-component>
             </div>
           </div>
-          <div>{{item.created}}</div>
+          <div>{{ item.created }}</div>
         </div>
       </div>
     </div>
-    <app-pagination *ngIf="content?.length > 0;else empty" (pageChange)="onPageChange($event)"></app-pagination>
+    <app-pagination
+      *ngIf="content?.length > 0; else empty"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
     <ng-template #empty>
       <div class="text-center py-10">
         <p>没有数据。</p>

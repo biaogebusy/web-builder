@@ -52,20 +52,20 @@
     </ng-container>
   </div>
   <mat-card-content>
-    <div fxLayout>
+    <div class="flex flex-row">
       <div *ngIf="content.avatar" mat-card-avatar class="m-right-xs">
         <app-img [attr.data-path]="'img'" [content]="content.avatar"></app-img>
       </div>
-      <div fxLayout="row wrap" fxFlex="100">
+      <div class="flex flex-wrap basis-full">
         <mat-card-title
           contentedit="title"
-          fxFlex="100"
+          class="basis-full"
           *ngIf="content?.title; else link"
         >
           <div [innerHTML]="content.title | safeHtml"></div>
         </mat-card-title>
         <ng-template #link>
-          <mat-card-title fxFlex="100" *ngIf="content.link">
+          <mat-card-title class="basis-full" *ngIf="content.link">
             <app-link
               [attr.data-path]="'link'"
               [content]="content.link"
@@ -74,7 +74,7 @@
         </ng-template>
         <mat-card-subtitle
           contentedit="subTitle"
-          fxFlex="100"
+          class="basis-full"
           *ngIf="content?.subTitle"
         >
           <div [innerHTML]="content.subTitle | safeHtml"></div>

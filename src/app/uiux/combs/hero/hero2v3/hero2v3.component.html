@@ -8,9 +8,7 @@
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <div class="{{ content.fullWidth ? 'relative' : 'container relative' }}">
     <div
-      class="hero-body text-center"
-      fxLayout="row wrap"
-      fxLayoutAlign="center center"
+      class="hero-body text-center flex flex-wrap justify-center items-center"
     >
       <app-text
         [attr.data-path]="'text'"
@@ -19,24 +17,17 @@
       ></app-text>
       <div
         fxFlex="100"
-        class="box m-top-md"
-        fxLayout="row wrap"
-        fxLayoutAlign="center center"
+        class="box m-top-md flex flex-wrap justify-center items-center"
       >
         <div
-          class="item"
-          fxFlex.lt-md="50"
-          fxFlex.gt-sm="33.33"
-          fxFlex.gt-md="{{ row(content.row, '0rem') }}"
+          class="item basis-1/2 sm:basis-4/12 md:basis-2/12"
           *ngFor="let item of content.elements; index as i"
         >
           <div
-            class="card m-y-xs m-x-xs"
-            fxLayout="column"
-            fxLayoutAlign="center center"
+            class="card m-y-xs m-x-xs flex flex-col justify-center items-center"
           >
             <div class="card-inner p-y-sm p-x-sm">
-              <div class="card-media" fxLayoutAlign="center center">
+              <div class="card-media flex justify-center items-center">
                 <app-img
                   [attr.data-path]="'elements.' + i + '.img'"
                   [content]="item.img"
@@ -47,6 +38,7 @@
                   <app-link
                     [attr.data-path]="'elements.' + i"
                     [content]="item.link"
+                    class="line-clamp-1"
                   ></app-link>
                 </h3>
               </div>

@@ -1,12 +1,27 @@
-<app-search-header [content]="content.header" [filterForm]="filterForm" [form]="form">
+<app-search-header
+  [content]="content.header"
+  [filterForm]="filterForm"
+  [form]="form"
+>
 </app-search-header>
 <div class="container">
-  <div class="search-body" fxLayout="row wrap" fxFlex="100%">
-    <app-search-sidebar *ngIf="filterForm" [label]="content.label" [content]="content.sidebar" [form]="form"
-      fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 25%" (modelChange)="onSearch($event)">
+  <div class="search-body flex flex-wrap">
+    <app-search-sidebar
+      class="block flex-12/12 md:flex-3/12"
+      *ngIf="filterForm"
+      [label]="content.label"
+      [content]="content.sidebar"
+      [form]="form"
+      (modelChange)="onSearch($event)"
+    >
     </app-search-sidebar>
-    <app-search-list fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{content.sidebar ? '75%':'100%'}}" [content]="nodes"
-      [loading]="loading" [pager]="pager" (pageChange)="onPageChange($event)">
+    <app-search-list
+      class="block flex-12/12 md:flex-{{ content.sidebar ? '9' : '12' }}/12"
+      [content]="nodes"
+      [loading]="loading"
+      [pager]="pager"
+      (pageChange)="onPageChange($event)"
+    >
     </app-search-list>
   </div>
 </div>
