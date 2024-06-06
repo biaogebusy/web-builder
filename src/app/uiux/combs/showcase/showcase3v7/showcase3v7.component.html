@@ -9,50 +9,43 @@
   <div class="{{ content.fullWidth ? '' : 'container' }}" *ngIf="content">
     <app-text [attr.data-path]="'title'" [content]="content.title"></app-text>
     <div
-      class="showcase-inner"
-      fxLayout.lt-md="column"
-      fxLayout.gt-sm="row"
-      fxLayoutAlign="center center"
+      class="
+        showcase-inner
+        flex flex-col
+        md:flex-row
+        justify-center
+        items-center
+      "
     >
-      <div
-        class="left"
-        fxLayout="row wrap"
-        fxFlex.lt-md="0 0 100"
-        fxFlex.gt-sm="0 0 33.33"
-      >
+      <div class="left flex flex-wrap flex-12/12 md:flex-4/12">
         <app-box
           [attr.data-path]="'left.' + i"
-          fxLayoutAlign.gt-sm="end center"
-          fxFlex="0 0 calc(100% - 2rem)"
-          class="box p-x-xs"
+          class="box p-x-xs flex justify-end items-center"
           [content]="item"
           *ngFor="let item of content.left; index as i"
         >
         </app-box>
       </div>
       <div
-        class="middle"
-        fxLayout="column"
-        fxLayoutAlign="center center"
-        fxFlex.lt-md="100"
-        fxFlex.gt-sm="33.33"
+        class="
+          middle
+          flex flex-col
+          justify-center
+          items-center
+          flex-12/12
+          md:flex-4/12
+        "
       >
         <app-img
           [attr.data-path]="'img'"
-          class="p-x-sm"
+          class="p-x-sm max-w-1/2"
           [content]="content.img"
         ></app-img>
       </div>
-      <div
-        class="right"
-        fxLayout="row wrap"
-        fxFlex.lt-md="0 0 100"
-        fxFlex.gt-sm="0 0 33.33"
-      >
+      <div class="right flex flex-wrap flex-12/12 md:flex-4/12">
         <app-box
           [attr.data-path]="'right.' + i"
-          fxFlex="0 0 calc(100% - 2rem)"
-          class="box p-x-xs"
+          class="box p-x-xs flex"
           [content]="item"
           *ngFor="let item of content.right; index as i"
         >

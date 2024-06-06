@@ -9,31 +9,35 @@
   <div class="{{ content.fullWidth ? '' : 'container' }}" *ngIf="content">
     <app-text [attr.data-path]="'title'" [content]="content.title"></app-text>
     <div
-      class="showcase-inner"
-      fxLayout.lt-md="column"
-      fxLayout.gt-sm="row"
-      fxLayoutAlign="center center"
+      class="
+        showcase-inner
+        flex flex-col
+        md:flex-row
+        justify-center
+        items-center
+      "
     >
-      <div fxLayout="row wrap" fxFlex.lt-md="100" fxFlex.gt-sm="66.66">
+      <div class="flex flex-wrap flex-12/12 md:flex-8/12">
         <app-box
           [attr.data-path]="'elements.' + i"
-          fxFlex.lt-md="100"
-          fxFlex.gt-sm="0 0 calc(50% - 2rem)"
-          class="p-x-xs"
+          class="flex flex-12/12 md:flex-6/12"
           [content]="item"
           *ngFor="let item of content.elements; index as i"
         >
         </app-box>
       </div>
       <div
-        fxLayout="column"
-        fxLayoutAlign="center center"
-        fxFlex.lt-md="100"
-        fxFlex.gt-sm="33.33"
+        class="
+          flex flex-col
+          justify-center
+          items-center
+          flex-12/12
+          md:flex-4/12
+        "
       >
         <app-img
           [attr.data-path]="'img'"
-          class="p-x-sm"
+          class="p-x-sm max-w-1/2"
           [content]="content.img"
         ></app-img>
       </div>

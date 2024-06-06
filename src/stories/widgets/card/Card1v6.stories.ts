@@ -42,7 +42,7 @@ const content: ICard1v6 = {
   suffix: '/月',
   body: '<ul class="list-done"><li>完全开放</li><li>安全检测机制</li><li>高质量交付源码文件</li><li>免费一个域名绑定</li><li>二十四小时免费技术支持</li></ul>',
   classes: '',
-  actionsAlign: 'start center',
+  actionsAlign: 'start',
   actions: [
     {
       href: '#',

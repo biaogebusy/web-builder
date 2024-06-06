@@ -1,18 +1,55 @@
-<div class="card-1v6 rounded-md transition-all p-6 duration-300 ease-in-out hover:scale-105 hover:z-10" *ngIf="content"
-  [ngClass]="content.classes">
+<div
+  class="
+    card-1v6
+    rounded-md
+    transition-all
+    p-6
+    duration-300
+    ease-in-out
+    hover:scale-105
+    hover:z-10
+  "
+  *ngIf="content"
+  [ngClass]="content.classes"
+>
   <div class="card-inner flex flex-col gap-5">
-    <h2 class="title bold" [contentedit]="'title.label'" [ngClass]="content.title.classes"
-      [innerHTML]="content.title.label|safeHtml"></h2>
+    <h2
+      class="title bold"
+      [contentedit]="'title.label'"
+      [ngClass]="content.title.classes"
+      [innerHTML]="content.title.label | safeHtml"
+    ></h2>
     <div class="meta bold flex">
-      <div [contentedit]="'prefix'" class="mat-display-1 !mb-0" [innerHTML]="content.prefix|safeHtml"></div>
-      <div [contentedit]="'number'" class="mat-display-3 !mb-0" [innerHTML]="content.number|safeHtml"></div>
-      <div [contentedit]="'suffix'" class="flex items-end mat-display-1 !mb-0" [innerHTML]="content.suffix|safeHtml">
-      </div>
+      <div
+        [contentedit]="'prefix'"
+        class="mat-display-1 !mb-0"
+        [innerHTML]="content.prefix | safeHtml"
+      ></div>
+      <div
+        [contentedit]="'number'"
+        class="mat-display-3 !mb-0"
+        [innerHTML]="content.number | safeHtml"
+      ></div>
+      <div
+        [contentedit]="'suffix'"
+        class="flex items-end mat-display-1 !mb-0"
+        [innerHTML]="content.suffix | safeHtml"
+      ></div>
     </div>
-    <div [contentedit]="'body'" class="content" [innerHTML]="content.body|safeHtml"></div>
-    <div class="actions gap-3" *ngIf="content.actions" fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
-      <app-dynamic-component [attr.data-path]="'actions.'+i" [inputs]="{content: action}"
-        *ngFor="let action of content.actions;index as i"></app-dynamic-component>
+    <div
+      [contentedit]="'body'"
+      class="content"
+      [innerHTML]="content.body | safeHtml"
+    ></div>
+    <div
+      class="actions gap-3 flex justify-{{ content.actionsAlign }} items-center"
+      *ngIf="content.actions"
+    >
+      <app-dynamic-component
+        [attr.data-path]="'actions.' + i"
+        [inputs]="{ content: action }"
+        *ngFor="let action of content.actions; index as i"
+      ></app-dynamic-component>
     </div>
   </div>
 </div>

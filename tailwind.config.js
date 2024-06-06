@@ -36,9 +36,6 @@ module.exports = {
       "flex-col-reverse",
       "flex-wrap-reverse",
       "flex-nowrap",
-      "place-content-start",
-      "place-content-center",
-      "place-content-end",
     ],
   },
   theme: {
