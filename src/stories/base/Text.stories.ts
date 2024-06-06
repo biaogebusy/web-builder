@@ -66,7 +66,7 @@ const action: IText = {
   bg: {
     classes: '',
   },
-  actionsAlign: 'start center',
+  actionsAlign: 'start',
   actions: [
     {
       type: 'btn-generater',
@@ -106,7 +106,7 @@ const center: IText = {
   },
   body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
   classes: 'text-center',
-  actionsAlign: 'center center',
+  actionsAlign: 'center',
   actions: [...Actions.args.content.actions],
 };
 Center.args = {
@@ -120,7 +120,7 @@ const searchAction: IText = {
   bg: {
     classes: 'bg-shadow bg-fill-width',
   },
-  actionsAlign: 'center center',
+  actionsAlign: 'center',
   actions: [
     {
       type: 'search-action',
@@ -205,7 +205,7 @@ const video: IText = {
   bg: {
     classes: 'bg-fill-width',
   },
-  actionsAlign: 'center center',
+  actionsAlign: 'center',
   actions: [
     {
       ...btnVideo,
@@ -260,7 +260,7 @@ const list: IText = {
       },
     ],
   },
-  actionsAlign: 'start center',
+  actionsAlign: 'start',
   actions: [
     {
       type: 'btn',
@@ -291,7 +291,7 @@ MaxWidth.args = {
     },
     body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
     classes: 'text-center md:max-w-3/4 mx-auto',
-    actionsAlign: 'center center',
+    actionsAlign: 'center',
     actions: [
       {
         type: 'btn-generater',

@@ -19,7 +19,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget p-y" fxFlex="33" fxLayoutAlign="center center">${story}</div>`
+        `<div class="widget p-y flex w-[300px] justify-center items-center">${story}</div>`
     ),
   ],
   parameters: {

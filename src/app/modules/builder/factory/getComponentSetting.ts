@@ -3,7 +3,12 @@ import { getSwiper } from './getSwiper';
 import { getTitle } from './getTitle';
 import { getText } from './getText';
 import { getAnimate } from './getAnimate';
-import { getBgClasses, getFlexLayoutConfig, getOverlay, getSpacerOptions } from './getCommon';
+import {
+  getBgClasses,
+  getFlexLayoutConfig,
+  getOverlay,
+  getSpacerOptions,
+} from './getCommon';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
@@ -43,7 +48,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               className: 'w-2/5',
               props: {
                 label: '上下间距',
-                options: getSpacerOptions
+                options: getSpacerOptions,
               },
             },
             {
@@ -234,6 +239,29 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           props: {
             label: '内容',
             rows: 10,
+          },
+        },
+        {
+          key: 'actionsAlign',
+          type: 'select',
+          className: 'w-full',
+          defaultValue: content.actionsAlign ?? 'center',
+          props: {
+            label: '按钮对齐',
+            options: [
+              {
+                label: '左对齐',
+                value: 'start',
+              },
+              {
+                label: '居中对齐',
+                value: 'center',
+              },
+              {
+                label: '右对齐',
+                value: 'end',
+              },
+            ],
           },
         },
       ],
