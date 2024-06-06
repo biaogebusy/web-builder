@@ -45,7 +45,7 @@
       <div
         [attr.data-path]="'actions'"
         #actions
-        class="actions mt-10 pb-3 flex flex-wrap place-content-{{content.actionsAlign??'center'}}"
+        class="actions mt-10 pb-3 flex flex-wrap justify-{{content.actionsAlign??'center'}} items-center"
         *ngIf="content.actions"
       >
         <ng-container *ngFor="let action of content.actions; index as i">
