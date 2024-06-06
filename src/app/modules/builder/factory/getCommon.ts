@@ -364,36 +364,11 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
   return [
     {
       type: 'select',
-      key: 'direction',
-      className: 'w-full',
-      defaultValue: content.direction ?? 'row',
-      props: {
-        label: '布局方向',
-        options: getDirectionOption,
-        required: true,
-      },
-      validation: {
-        show: true,
-      },
-    },
-    {
-      type: 'select',
-      key: 'wrap',
-      className: 'w-full',
-      defaultValue: content.wrap ?? 'wrap',
-      props: {
-        label: '换行',
-        options: getWrapOption,
-        required: true,
-      },
-    },
-    {
-      type: 'select',
       key: 'horizontal',
       className: 'w-full',
       defaultValue: content.horizontal,
       props: {
-        label: '水平对齐',
+        label: '主轴对齐',
         options: getHorizontalOption,
       },
     },
@@ -403,7 +378,17 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       className: 'w-full',
       defaultValue: content.vertical,
       props: {
-        label: '垂直对齐',
+        label: 'Y轴对齐',
+        options: getVerticalOption,
+      },
+    },
+    {
+      type: 'select',
+      key: 'alignItems',
+      className: 'w-full',
+      defaultValue: content.alignItems,
+      props: {
+        label: 'X轴对齐',
         options: getVerticalOption,
       },
     },
