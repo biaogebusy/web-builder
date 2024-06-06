@@ -136,7 +136,7 @@ export const home_v1 = {
                 color: 'primary',
                 mode: 'raised',
                 label: ' Github',
-                href: 'https://github.com/biaogebusy/xinshi-ui',
+                href: 'https://github.com/biaogebusy/web-builder',
                 target: '_blank',
                 icon: {
                   inline: true,
