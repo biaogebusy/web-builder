@@ -1,0 +1,22 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="开发/Drupal 环境"
+  id="drupal-dev"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## Drupal 开发环境同步附件
+
+```php
+$config['stage_file_proxy.settings']['origin'] = 'https://username:password@www.yourdoman.com';
+$config['stage_file_proxy.settings']['origin_dir'] = 'sites/default/files';
+```
+
+将这两行加到 settings.php，然后启用 stage_file_proxy 模块：drush en stage_file_proxy
