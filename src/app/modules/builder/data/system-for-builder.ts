@@ -3534,8 +3534,6 @@ export const system: any[] = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'col',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           gap: {},
@@ -3576,8 +3574,6 @@ export const system: any[] = [
                 md: 12,
                 lg: 12,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'start',
               vertical: 'stretch',
               gap: {
@@ -3649,8 +3645,6 @@ export const system: any[] = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'start',
               vertical: 'stretch',
               gap: {
@@ -3746,8 +3740,6 @@ export const system: any[] = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'center',
               gap: {

@@ -35,8 +35,6 @@ export const widgets: any[] = [
     },
     preview: '/assets/images/builder/widgets/layout.png',
     content: {
-      direction: 'row',
-      wrap: 'wrap',
       gap: {
         xs: 0,
         sm: 0,
@@ -59,7 +57,6 @@ export const widgets: any[] = [
             md: 6,
             lg: 6,
           },
-          direction: 'column',
           elements: [],
         },
         {
@@ -70,7 +67,6 @@ export const widgets: any[] = [
             md: 6,
             lg: 6,
           },
-          direction: 'column',
           elements: [],
         },
       ],

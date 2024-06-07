@@ -120,7 +120,12 @@ Each.args = {
     {{#each rows}}
     <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">
         <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">
-            <a href="{{url}}"><img class="object-cover w-full" height="200px" src="{{img}}" /></a>
+            <a href="{{url}}">
+                {{#if img}}
+                <img class="object-cover w-full" height="200px" src="{{img}}" /></a>
+                {{else}}
+                <img class="object-cover w-full" height="200px" src="/assets/images/hero/182.jpg" /></a>
+                {{/if}}
             <div class="p-5">
                 <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>
                 <div class="three-line opacity-90">{{body}}</div>

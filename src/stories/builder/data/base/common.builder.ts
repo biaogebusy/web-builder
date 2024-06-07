@@ -6,7 +6,6 @@ import * as panelStory from '@stories/widgets/Panel.stories';
 import * as swiperStory from '@stories/widgets/Swiper.stories';
 import * as videoBgStory from '@stories/components/video/videoBg.stories';
 import * as contactStory from '@stories/drupal/form/ContactUs.stories';
-import * as action1v1Story from '@stories/components/action/Action1v1.stories';
 
 export const common = [
   {
@@ -42,11 +41,6 @@ export const common = [
       svg: 'view-array-outline',
     },
     content: swiperStory.Default?.args?.content,
-  },
-  {
-    label: '搜索框',
-    icon: { svg: 'magnify' },
-    content: action1v1Story.Default?.args?.content,
   },
   {
     label: '折叠面板',

@@ -60,8 +60,6 @@ const content: ILayoutBuilder = {
     classes: 'bg-fill-width',
     overlay: '',
   },
-  direction: 'col',
-  wrap: 'wrap',
   horizontal: 'center',
   vertical: 'center',
   gap: {},
@@ -102,8 +100,6 @@ const content: ILayoutBuilder = {
         md: 12,
         lg: 12,
       },
-      direction: 'row',
-      wrap: 'wrap',
       horizontal: 'start',
       vertical: 'stretch',
       gap: {
@@ -175,8 +171,6 @@ const content: ILayoutBuilder = {
         md: 6,
         lg: 6,
       },
-      direction: 'row',
-      wrap: 'wrap',
       horizontal: 'start',
       vertical: 'stretch',
       gap: {
@@ -272,8 +266,6 @@ const content: ILayoutBuilder = {
         md: 6,
         lg: 6,
       },
-      direction: 'col',
-      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
       gap: {

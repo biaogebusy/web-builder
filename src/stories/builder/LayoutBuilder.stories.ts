@@ -53,8 +53,6 @@ LayoutDefault.args = {
       classes: 'bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
     animate: {
@@ -86,7 +84,6 @@ LayoutDefault.args = {
           md: 6,
           lg: 7,
         },
-        direction: 'col',
         horizontal: 'center',
         vertical: 'start',
         gap: {
@@ -175,7 +172,6 @@ LayoutDefault.args = {
           md: 6,
           lg: 5,
         },
-        direction: 'col',
         gap: {
           xs: 0,
           sm: 0,
@@ -275,8 +271,6 @@ TwoCol.args = {
       classes: 'bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'stretch',
     gap: {
@@ -312,8 +306,6 @@ TwoCol.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'center',
         gap: {
@@ -446,8 +438,6 @@ TwoCol.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'center',
         gap: {
@@ -597,8 +587,6 @@ ThreeCol.args = {
       classes: 'bg-shadow bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
     animate: {
@@ -630,7 +618,6 @@ ThreeCol.args = {
           md: 4,
           lg: 4,
         },
-        direction: 'row',
         horizontal: 'center',
         vertical: 'stretch',
         gap: {
@@ -705,7 +692,6 @@ ThreeCol.args = {
           md: 4,
           lg: 4,
         },
-        direction: 'row',
         horizontal: 'center',
         vertical: 'stretch',
         gap: {
@@ -780,8 +766,6 @@ ThreeCol.args = {
           md: 4,
           lg: 4,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'center',
         gap: {
@@ -872,8 +856,6 @@ FourCol.args = {
       classes: 'bg-shadow bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
     animate: {
@@ -905,7 +887,6 @@ FourCol.args = {
           md: 3,
           lg: 3,
         },
-        direction: 'col',
         horizontal: 'end',
         vertical: 'end',
         gap: {
@@ -1024,8 +1005,6 @@ FourCol.args = {
           md: 3,
           lg: 3,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'stretch',
         gap: {
@@ -1117,8 +1096,6 @@ FourCol.args = {
           md: 3,
           lg: 3,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'stretch',
         gap: {
@@ -1209,8 +1186,6 @@ FourCol.args = {
           md: 3,
           lg: 3,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'stretch',
         gap: {
@@ -1318,8 +1293,6 @@ Section1A.args = {
       classes: 'bg-shadow bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
     animate: {
@@ -1351,7 +1324,6 @@ Section1A.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
         horizontal: 'start',
         vertical: 'stretch',
         gap: {
@@ -1454,7 +1426,6 @@ Section1A.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
         gap: {
           xs: 0,
           sm: 0,
@@ -1546,11 +1517,8 @@ Section1B.args = {
       classes: 'bg-shadow bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
-    wrapperClass: 'md:flex-nowrap',
     gap: {
       xs: '5',
     },
@@ -1583,7 +1551,6 @@ Section1B.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
         gap: {
           xs: 0,
           sm: 0,
@@ -1658,7 +1625,6 @@ Section1B.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
         horizontal: 'flex-start',
         vertical: 'flex-start',
         gap: {
@@ -1778,8 +1744,6 @@ Section2A.args = {
       classes: 'bg-fill-width',
       overlay: '',
     },
-    direction: 'col',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
     animate: {
@@ -1811,7 +1775,6 @@ Section2A.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
         horizontal: 'center',
         vertical: 'center',
         gap: {
@@ -1924,7 +1887,6 @@ Section2A.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
         wrap: 'wrap',
         gap: {
           xs: 0,
@@ -2004,7 +1966,6 @@ Section2A.args = {
           md: 12,
           lg: 12,
         },
-        direction: 'column',
         elements: [
           {
             type: 'btn',
@@ -2040,8 +2001,6 @@ Section2B.args = {
       classes: 'bg-fill-width',
       overlay: '',
     },
-    direction: 'col',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
     animate: {
@@ -2074,7 +2033,6 @@ Section2B.args = {
           md: 12,
           lg: 12,
         },
-        direction: 'column',
         elements: [
           {
             type: 'title',
@@ -2093,7 +2051,6 @@ Section2B.args = {
           md: 12,
           lg: 12,
         },
-        direction: 'column',
         elements: [
           {
             type: 'text',
@@ -2111,7 +2068,6 @@ Section2B.args = {
           md: 12,
           lg: 12,
         },
-        direction: 'column',
         elements: [
           {
             type: 'btn',
@@ -2131,7 +2087,6 @@ Section2B.args = {
           md: 12,
           lg: 12,
         },
-        direction: 'column',
         elements: [
           {
             src: '/assets/images/builder/builder-01.png',
@@ -2196,11 +2151,8 @@ Section3A.args = {
       classes: 'bg-shadow bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
-    wrapperClass: 'md:flex-nowrap',
     gap: {
       xs: 0,
       sm: 4,
@@ -2234,7 +2186,6 @@ Section3A.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
         wrap: 'wrap',
         horizontal: 'start',
         vertical: 'stretch',
@@ -2316,8 +2267,6 @@ Section3A.args = {
           md: 6,
           lg: 6,
         },
-        direction: 'col',
-        wrap: 'wrap',
         horizontal: 'start',
         vertical: 'start',
         gap: {
@@ -2526,11 +2475,8 @@ Section3B.args = {
       classes: 'bg-shadow bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
-    wrapperClass: 'md:flex-nowrap',
     gap: {
       xs: 0,
     },
@@ -2563,8 +2509,6 @@ Section3B.args = {
           md: 3,
           lg: 3,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'stretch',
         gap: {
@@ -2647,8 +2591,6 @@ Section3B.args = {
           md: 3,
           lg: 3,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'stretch',
         gap: {
@@ -2733,8 +2675,6 @@ Section3B.args = {
           md: 3,
           lg: 3,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'stretch',
         gap: {
@@ -2817,8 +2757,6 @@ Section3B.args = {
           md: 3,
           lg: 3,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'stretch',
         gap: {
@@ -2918,8 +2856,6 @@ Section4A.args = {
       classes: 'bg- bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
     animate: {
@@ -2951,8 +2887,6 @@ Section4A.args = {
           md: 6,
           lg: 7,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'start',
         vertical: 'start',
         gap: {
@@ -3011,8 +2945,6 @@ Section4A.args = {
               md: 12,
               lg: 12,
             },
-            direction: 'row',
-            wrap: 'wrap',
             horizontal: 'center',
             vertical: 'center',
             gap: {
@@ -3074,8 +3006,6 @@ Section4A.args = {
                   md: 6,
                   lg: 6,
                 },
-                direction: 'col',
-                wrap: 'wrap',
                 horizontal: 'start',
                 vertical: 'stretch',
                 gap: {
@@ -3222,8 +3152,6 @@ Section4A.args = {
                   md: 6,
                   lg: 6,
                 },
-                direction: 'col',
-                wrap: 'wrap',
                 horizontal: 'start',
                 vertical: 'stretch',
                 gap: {
@@ -3364,8 +3292,6 @@ Section4A.args = {
           md: 6,
           lg: 5,
         },
-        direction: 'col',
-        wrap: 'wrap',
         horizontal: 'flex-start',
         vertical: 'flex-start',
         gap: {
@@ -3463,8 +3389,6 @@ Section5A.args = {
       classes: 'bg-shadow bg-fill-width',
       overlay: '',
     },
-    direction: 'row',
-    wrap: 'wrap',
     horizontal: 'center',
     vertical: 'center',
     animate: {
@@ -3496,8 +3420,6 @@ Section5A.args = {
           md: 6,
           lg: 8,
         },
-        direction: 'row',
-        wrap: 'wrap',
         horizontal: 'center',
         vertical: 'center',
         gap: {
@@ -3562,8 +3484,6 @@ Section5A.args = {
             body: '信使UI是基于 Material 的 Angular 前端框架，丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
           },
           {
-            direction: 'row',
-            wrap: 'wrap',
             horizontal: 'center',
             vertical: 'center',
             gap: {
@@ -3632,7 +3552,6 @@ Section5A.args = {
                   md: 4,
                   lg: 4,
                 },
-                direction: 'column',
                 horizontal: 'flex-start',
                 vertical: 'flex-start',
                 bg: {
@@ -3698,7 +3617,6 @@ Section5A.args = {
                   md: 4,
                   lg: 4,
                 },
-                direction: 'row',
                 horizontal: 'center',
                 vertical: 'center',
                 bg: {
@@ -3768,7 +3686,6 @@ Section5A.args = {
                   md: 4,
                   lg: 4,
                 },
-                direction: 'column',
                 horizontal: 'center',
                 vertical: 'center',
                 bg: {
@@ -3838,7 +3755,6 @@ Section5A.args = {
           md: 6,
           lg: 4,
         },
-        direction: 'row',
         horizontal: 'center',
         vertical: 'center',
         gap: {

@@ -55,8 +55,6 @@ export const layoutBuilder: any[] = [
         classes: 'bg-fill-width',
         overlay: '',
       },
-      direction: 'row',
-      wrap: 'wrap',
       horizontal: 'center',
       vertical: 'center',
       animate: {
@@ -88,8 +86,6 @@ export const layoutBuilder: any[] = [
             md: 6,
             lg: 6,
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'start',
           vertical: 'stretch',
           gap: {
@@ -141,8 +137,6 @@ export const layoutBuilder: any[] = [
             md: 6,
             lg: 6,
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'start',
           vertical: 'stretch',
           gap: {
