@@ -41,7 +41,7 @@ export class BuilderToolbarComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() builderRightDrawer: MatDrawer;
-  page: IPage;
+  page?: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
   showNavigate = false;
 

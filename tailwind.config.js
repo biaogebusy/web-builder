@@ -12,17 +12,19 @@ function getGapClasses() {
   return gapClasses;
 }
 
-function getFlexClasses() {
+function getLayoutClasses(layout) {
+  const prefix = layout === "flex" ? "/12" : "";
   const FlexClasses = [];
   for (let i = 1; i <= 12; i++) {
-    FlexClasses.push(`flex-${i}/12`);
+    FlexClasses.push(`${layout}-${i}${prefix}`);
     for (const size of sizes) {
-      FlexClasses.push(`${size}:flex-${i}/12`);
+      FlexClasses.push(`${size}:${layout}-${i}${prefix}`);
     }
   }
 
   return FlexClasses;
 }
+
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -31,11 +33,24 @@ module.exports = {
     content: ["./src/**/*.{html,ts,mdx}"],
     safelist: [
       ...getGapClasses(),
-      ...getFlexClasses(),
+      ...getLayoutClasses("flex"),
+      ...getLayoutClasses("col-span"),
       "flex-row-reverse",
       "flex-col-reverse",
       "flex-wrap-reverse",
       "flex-nowrap",
+      "grid-flow-col",
+      "grid-flow-row",
+      "justify-items-start",
+      "justify-items-end",
+      "justify-items-center",
+      "justify-items-baseline",
+      "justify-items-stretch",
+      "items-start",
+      "items-end",
+      "items-center",
+      "items-baseline",
+      "items-stretch",
     ],
   },
   theme: {

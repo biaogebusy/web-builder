@@ -110,41 +110,6 @@ export const images_showcases = [
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/showcase/info01.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-contain',
-      src: '/assets/images/showcase/info02.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-contain',
-      src: '/assets/images/showcase/info03.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-contain',
-      src: '/assets/images/showcase/info04.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-contain',
-      src: '/assets/images/showcase/info05.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-contain',
       src: '/assets/images/showcase/pattern-01.png',
     },
   },

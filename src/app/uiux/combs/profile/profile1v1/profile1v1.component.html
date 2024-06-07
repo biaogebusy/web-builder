@@ -3,8 +3,8 @@
 </div>
 <div class="profile-1v1 relative m-y">
   <div class="container">
-    <div class="profile" fxLayoutAlign="space-between start" fxLayout="row wrap">
-      <div class="left m-bottom" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 280px">
+    <div class="profile grid grid-cols-12 justify-between items-start gap-8">
+      <div class="left m-bottom col-span-12 md:col-span-3">
         <div class="box p-y-sm p-x text-center">
           <app-img [content]="avatar"></app-img>
           <h2 class="mat-h2 m-bottom-0 m-top-xs two-line">{{content.name}}</h2>
@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-      <div class="right" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 calc(100% - 280px - 4rem)">
+      <div class="right col-span-12 md:col-span-9">
         <div class="content">
           <div class="item m-bottom" *ngFor="let item of content.content">
             <ng-container *ngIf="!(item.empty && item.empty === true)">

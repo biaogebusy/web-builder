@@ -63,13 +63,13 @@
             icon: { svg: 'lightning-bolt' }
           }"
         ></app-btn-generater>
-        <app-btn
+        <app-btn *ngIf="page"
           (click)="onSubmit(page)"
           [content]="{
-            label: page?.uuid ? '更新页面' : '新建页面',
+            label: page.uuid ? '更新页面' : '新建页面',
             color: 'primary',
             mode: 'raised',
-            icon: { svg: page?.uuid ? 'navigation-variant' : 'pencil-plus' }
+            icon: { svg: page.uuid ? 'navigation-variant' : 'pencil-plus' }
           }"
         ></app-btn>
         <app-lang-switch></app-lang-switch>

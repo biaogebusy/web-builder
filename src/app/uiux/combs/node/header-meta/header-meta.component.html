@@ -1,8 +1,8 @@
-<div *ngIf="content" class="header-meta relative" fxLayout="row wrap" fxLayoutAlign="space-between	center">
-  <app-text fxFlex.lt-md="100" fxFlex.gt-sm="70" [content]="content.text"></app-text>
-  <div fxLayoutAlign.lt-md="center center" fxLayoutAlign.gt-sm="end center" fxFlex.lt-md="100" fxFlex.gt-sm="30"
-    class="meta" fxLayout="row">
-    <div class="item" *ngFor="let item of content.meta" fxLayout="column" fxLayoutAlign="center center">
+<div *ngIf="content" class="header-meta relative flex flex-wrap justify-between items-center">
+  <app-text class="flex-12/12 md:flex-8/12" [content]="content.text"></app-text>
+  <div
+    class="meta flex justify-center items-center md:justify-end flex-12/12 md:flex-4/12">
+    <div class="item flex flex-col justify-center items-center" *ngFor="let item of content.meta">
       <span class="label">{{item.label}}</span>
       <span class="value mat-display-2 m-bottom-0">{{item.value}}</span>
     </div>

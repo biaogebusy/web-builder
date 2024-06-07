@@ -6,24 +6,18 @@
     [content]="content.bg"
     *ngIf="content.bg"
   ></app-bg-img>
-  <div class="{{ content.fullWidth ? '' : 'container' }}" fxLayout="column">
+  <div class="{{ content.fullWidth ? '' : 'container' }} flex flex-col">
     <app-text
       [attr.data-path]="'text'"
       [content]="content.text"
       *ngIf="content.text"
     ></app-text>
     <div
-      class="m-y"
-      fxLayout="row wrap"
-      fxLayoutAlign="center start"
-      fxFlex="100%"
+      class="m-y grid grid-cols-12 gap-8 justify-center items-start"
     >
       <app-card
         [attr.data-path]="'elements.' + i"
-        class="m-x-sm m-bottom-sm"
-        fxFlex.xs="100"
-        fxFlex.sm="calc(50% - 30px)"
-        fxFlex.gt-sm="0 0 calc({{ 100 / (content.row || 4) }}% - 40px)"
+        class="m-bottom-sm col-span-12 md:col-span-{{content.row}}"
         *ngFor="let case of content.elements; index as i"
         [content]="case"
       >

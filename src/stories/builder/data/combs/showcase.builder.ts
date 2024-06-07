@@ -7,7 +7,6 @@ import * as s2v2Story from '@stories/feature/showcase/showcase2v2.stories';
 import * as s2v4Story from '@stories/feature/showcase/showcase2v4.stories';
 import * as s2v5Story from '@stories/feature/showcase/showcase2v5.stories';
 import * as s2v6Story from '@stories/feature/showcase/showcase2v6.stories';
-import * as s3v2Story from '@stories/feature/showcase/showcase3v2.stories';
 import * as s3v3Story from '@stories/feature/showcase/showcase3v3.stories';
 import * as s3v4Story from '@stories/feature/showcase/showcase3v4.stories';
 import * as s3v5Story from '@stories/feature/showcase/showcase3v5.stories';
@@ -15,11 +14,6 @@ import * as s3v6Story from '@stories/feature/showcase/showcase3v6.stories';
 import * as s3v7Story from '@stories/feature/showcase/showcase3v7.stories';
 import * as s3v9Story from '@stories/feature/showcase/showcase3v9.stories';
 import * as s4v1Story from '@stories/feature/showcase/showcase4v1.stories';
-
-export const {
-  Default: { args: showcase4v1_default },
-  Img: { args: showcase4v1_img, storyName: s4v1ImgName },
-} = s4v1Story;
 
 export const showcase = [
   {
@@ -124,10 +118,6 @@ export const showcase = [
     label: 'V3',
     child: [
       {
-        label: '3v2',
-        content: s3v2Story.Default?.args?.content,
-      },
-      {
         label: '3v3',
         content: s3v3Story.Default?.args?.content,
       },
@@ -174,7 +164,7 @@ export const showcase = [
     child: [
       {
         label: '4v1',
-        content: s3v9Story.Default?.args?.content,
+        content: s4v1Story.Default?.args?.content,
       },
     ],
   },

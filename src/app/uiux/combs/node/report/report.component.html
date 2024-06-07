@@ -1,7 +1,7 @@
 <div class="report" [ngStyle]="content.style">
   <div class="container">
     <app-header-meta [content]="content.header"></app-header-meta>
-    <div class="box filter p-x-sm p-y-sm m-bottom-sm" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <div class="box filter p-x-sm p-y-sm m-bottom-sm flex flex-wrap justify-between items-center">
       <app-formly [form]="form" [model]="model" [fields]="content.form"
         (modelChange)="onModelChange($event)"></app-formly>
       <div class="actions">
@@ -10,7 +10,7 @@
         </button>
       </div>
     </div>
-    <div class="box details p-x-sm p-y-sm relative" fxLayout="row wrap" fxLayoutAlign="space-between start">
+    <div class="box details p-x-sm p-y-sm relative flex flex-wrap justify-between items-start">
       <div class="loading-inner absolute" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
         <mat-spinner diameter="50"></mat-spinner>
       </div>

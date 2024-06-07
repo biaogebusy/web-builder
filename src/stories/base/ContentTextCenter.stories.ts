@@ -37,7 +37,7 @@ const content: IContentTextCenter = {
   text: '<p style="font-size:45px">118k</p><p>活跃的模块</p><p style="font-size:45px">46k<sup>+</sup></p><p>开发者</p><p style="font-size:45px">1.4M<sup></sup></p><p>使用</p><p>Drupal 统计</p>',
   img: {
     classes: 'object-fit',
-    src: '/assets/images/showcase/info01.png',
+    src: '/assets/images/showcase/4.jpg',
     alt: 'alt',
   },
 };

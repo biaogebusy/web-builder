@@ -47,7 +47,6 @@ const content: IShowcase2v6 = {
   spacer: 'md',
   bg: { classes: '' },
   classes: '',
-  row: 2,
   fullWidth: true,
   elements: [
     {
