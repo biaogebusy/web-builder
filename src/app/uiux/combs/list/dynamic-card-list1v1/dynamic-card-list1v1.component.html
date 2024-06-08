@@ -1,10 +1,9 @@
 <div class="dynamic-card-list-1-v1 m-y" *ngIf="content">
   <div class="container">
-    <div class="inner" fxLayout="row wrap" fxFlex="100%">
-      <app-text [content]="content.header" *ngIf="content.header" fxFlex="100"></app-text>
-      <div *ngIf="nodes" class="card-list m-y" fxLayout="row wrap" fxLayoutAlign="start start" fxFlex.lt-md="0 0 100"
-        fxFlex.gt-sm="0 0 {{content.sidebar ? '75%':'100%'}}">
-        <app-card-1v1 class="m-bottom-sm m-x-xs" fxFlex.gt-sm="{{row(content.row, '2rem')}}" fxFlex.lt-md="0 0 100%"
+    <div class="inner flex flex-wrap">
+      <app-text class="block flex-12/12" [content]="content.header" *ngIf="content.header"></app-text>
+      <div *ngIf="nodes" class="card-list m-y grid grid-cols-12 gap-5">
+        <app-card-1v1 class="m-bottom-sm m-x-xs col-span-12 md:col-span-{{content.row}}"
           [content]="card" *ngFor="let card of nodes | paginate: { itemsPerPage: pager.itemsPerPage, currentPage:
           pager.currentPage, totalItems: pager.totalItems}; trackBy: trackByFn">
         </app-card-1v1>

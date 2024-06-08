@@ -6,18 +6,18 @@
     class="{{ content.fullWidth ? '' : 'container' }}"
     [ngStyle]="content.style"
   >
-    <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
+    <div class="inner flex flex-wrap justify-center items-center">
       <app-text
         [attr.data-path]="'text'"
-        fxFlex="100%"
+        class="basis-full"
         [content]="content.text"
         *ngIf="content.text"
       ></app-text>
       <div
-        fxFlex="100%"
-        fxFlexOrder="{{ content.order || 0 }}"
+        class="basis-full order-{{
+          content.order
+        }} flex justify-center items-center"
         *ngIf="content.widget"
-        fxLayoutAlign="center center"
       >
         <app-dynamic-component
           [attr.data-path]="'widget.' + i"

@@ -1,15 +1,29 @@
 <div class="dashboard-box">
-  <div class="box-header" *ngIf="content.title || content.form" fxLayout="row" fxLayoutAlign="space-between center">
+  <div
+    class="box-header flex flex-row justify-between items-center"
+    *ngIf="content.title || content.form"
+  >
     <div class="mat-h3 bold m-bottom-0" *ngIf="content.title">
-      {{content.title.label}}
+      {{ content.title.label }}
     </div>
     <div class="filter flex justify-center items-center gap-4">
-      <app-formly *ngIf="content.form" [form]="form" [model]="model" [fields]="content.form"
-        (modelChange)="onModelChange($event)"></app-formly>
-      <app-icon *ngIf="content?.params?.api" (click)="reload()" [content]="{svg:'reload'}"></app-icon>
+      <app-formly
+        *ngIf="content.form"
+        [form]="form"
+        [model]="model"
+        [fields]="content.form"
+        (modelChange)="onModelChange($event)"
+      ></app-formly>
+      <app-icon
+        *ngIf="content?.params?.api"
+        (click)="reload()"
+        [content]="{ svg: 'reload' }"
+      ></app-icon>
     </div>
   </div>
-  <app-dynamic-component [inputs]="{content: widget$ | async}"></app-dynamic-component>
+  <app-dynamic-component
+    [inputs]="{ content: widget$ | async }"
+  ></app-dynamic-component>
   <div class="loading-inner" *ngIf="loading">
     <mat-spinner diameter="50"></mat-spinner>
   </div>

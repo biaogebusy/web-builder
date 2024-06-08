@@ -1,21 +1,39 @@
-<div class="showcase-1-v4 relative" *ngIf="content">
+<div class="showcase-1-v4 relative" [ngClass]="content.classes" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
-  <div class="{{content.fullWidth?'':'container'}}">
-    <div [ngClass]="content.classes">
-      <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
-      <div class="flex flex-row flex-wrap justify-center items-center md:items-start">
-        <app-dynamic-component [attr.data-path]="'elements.'+i" class="box p-x-sm p-y-sm" [inputs]="item"
-          *ngFor="let item of content.elements;index as i" fxFlex.xs="100%" fxFlex.sm="50%"
-          [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>
+  <div class="{{ content.fullWidth ? '' : 'container' }}">
+      <app-text
+        [attr.data-path]="'text'"
+        *ngIf="content.text"
+        [content]="content.text"
+      ></app-text>
+      <div
+        class="
+          grid
+          grid-cols-12
+          justify-center
+          items-center
+        "
+      >
+        <app-dynamic-component
+          [attr.data-path]="'elements.' + i"
+          class="box p-3 col-span-12 sm:col-span-6 md:col-span-{{content.row}}"
+          [inputs]="item"
+          *ngFor="let item of content.elements; index as i"
+        ></app-dynamic-component>
       </div>
-      <div class="actions m-top pb-[10px]" *ngIf="content.actions" fxLayoutAlign="center center">
-        <ng-container *ngFor="let action of content.actions;index as i">
-          <app-dynamic-component [attr.data-path]="'actions.'+i" [inputs]="action"></app-dynamic-component>
+      <div
+        class="actions m-top pb-[10px] flex justify-center"
+        *ngIf="content.actions"
+      >
+        <ng-container *ngFor="let action of content.actions; index as i">
+          <app-dynamic-component
+            [attr.data-path]="'actions.' + i"
+            [inputs]="action"
+          ></app-dynamic-component>
         </ng-container>
       </div>
-    </div>
   </div>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

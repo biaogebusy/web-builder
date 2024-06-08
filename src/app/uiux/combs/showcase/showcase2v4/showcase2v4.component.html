@@ -8,12 +8,10 @@
     *ngIf="content.text"
   ></app-text>
   <div class="{{ content.fullWidth ? '' : 'container' }}">
-    <div class="inner" fxLayout="row wrap">
+    <div class="inner flex flex-wrap">
       <app-dynamic-component
         [attr.data-path]="'elements.' + i"
-        class="item"
-        fxFlex.lt-md="0 0 100"
-        fxFlex.gt-sm="0 0 {{ item.width || 20 }}"
+        class="item flex-12/12 md:flex-4/12"
         [inputs]="item"
         *ngFor="let item of content.elements; index as i"
       ></app-dynamic-component>

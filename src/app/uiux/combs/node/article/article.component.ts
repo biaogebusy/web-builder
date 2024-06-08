@@ -49,7 +49,6 @@ export class ArticleComponent
   htmlBody: any;
   isReqRoles = false;
   canAccess: boolean;
-  showNotXs: boolean;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -113,10 +112,6 @@ export class ArticleComponent
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.tagsService.highlightCode();
-      this.screen.mqAlias$().subscribe((mq) => {
-        this.showNotXs = mq.includes('gt-xs');
-        this.cd.detectChanges();
-      });
     }
     if (this.coreConfig.article?.comment?.enable) {
       if (this.screenService.isPlatformBrowser()) {

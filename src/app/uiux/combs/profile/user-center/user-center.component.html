@@ -17,12 +17,10 @@
         [content]="content.main.bg.img"
       ></app-img>
     </app-bg>
-    <div class="main" fxLayoutAlign="space-between start" fxLayout="row wrap">
+    <div class="main grid grid-cols-12 justify-between items-start gap-5">
       <div
-        class="left"
+        class="left col-span-12 md:col-span-3"
         *ngIf="content?.left?.length"
-        fxFlex.lt-md="0 0 100"
-        fxFlex.gt-sm="0 0 30"
       >
         <ng-container *ngFor="let item of content.left">
           <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item">
@@ -30,12 +28,8 @@
         </ng-container>
       </div>
       <div
-        class="right"
+        class="right col-span-12 md:col-span-9"
         *ngIf="content?.right?.length"
-        fxFlex.lt-md="0 0 100"
-        fxFlex.gt-sm="0 0 {{
-          content.left.length ? 'calc(100% - 30% - 2rem)' : '100'
-        }}"
       >
         <ng-container *ngFor="let item of content.right">
           <app-dynamic-component

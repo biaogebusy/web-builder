@@ -1,13 +1,23 @@
 <div class="dynamic-media-list m-y" [ngClass]="content.params.type">
   <div class="container">
-    <div class="m-top-sm" fxLayout.lt-md="column" fxLayout.gt-sm="row">
-      <div class="list" fxFlex.lt-md="100" fxFlex.gt-sm="75">
-        <app-list [attr.data-path]="'list'" [content]="list" [links]="links" [loading]="loading"
-          (pageChange)="loadContent($event)">
+    <div class="m-top-sm flex flex-col md:flex-row">
+      <div class="list flex-12/12 md:flex-9/12">
+        <app-list
+          class="block md:mr-5"
+          [attr.data-path]="'list'"
+          [content]="list"
+          [links]="links"
+          [loading]="loading"
+          (pageChange)="loadContent($event)"
+        >
         </app-list>
       </div>
-      <app-sidebar [attr.data-path]="'sidebar'" [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100"
-        fxFlex.gt-sm="25" [content]="content.sidebar"></app-sidebar>
+      <app-sidebar
+        class="flex-12/12 md:flex-3/12"
+        [attr.data-path]="'sidebar'"
+        *ngIf="content.sidebar"
+        [content]="content.sidebar"
+      ></app-sidebar>
     </div>
   </div>
 </div>

@@ -1,3 +1,4 @@
+@import "../../../../../theme/variable/breakpoint";
 .view-map {
   height: calc(100vh - 100px);
   .sidebar {
@@ -107,6 +108,12 @@
     z-index: 1;
     .loading-inner {
       position: absolute;
+    }
+  }
+
+  @media #{$gt-md} {
+    .tools {
+      width: calc(100% - 460px);
     }
   }
 }

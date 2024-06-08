@@ -2,12 +2,9 @@
   <a class="anchor" [id]="content.id || ''"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <div class="{{ content.fullWidth ? 'relative' : 'container relative' }}">
+  <div class="{{ content.fullWidth ? 'relative' : 'container relative' }} flex">
     <div
-      class="inner"
-      fxFlex.lt-md="100"
-      fxFlex.gt-sm="58"
-      fxFlexOffset.gt-sm="42"
+      class="inner md:left-2/4 flex-12/12 md:flex-7/12 relative"
     >
       <div class="box p-x">
         <app-text [attr.data-path]="'body'" [content]="content.body"></app-text>

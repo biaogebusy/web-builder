@@ -10,7 +10,6 @@ import { DynamicTextListComponent } from './dynamic-text-list/dynamic-text-list.
 import { TaxonomyThinListComponent } from './taxonomy-thin-list/taxonomy-thin-list.component';
 import { ListThinComponent } from './list/list-thin/list-thin.component';
 import { SearchModule } from '../search/search.module';
-import { TreeListComponent } from './tree-list/tree-list.component';
 import { DynamicCardList1v1Component } from './dynamic-card-list1v1/dynamic-card-list1v1.component';
 import { BaseModule } from '@uiux/base/base.module';
 
@@ -23,7 +22,6 @@ const components = [
   DynamicTextListComponent,
   TaxonomyThinListComponent,
   ListThinComponent,
-  TreeListComponent,
 ];
 
 @NgModule({
