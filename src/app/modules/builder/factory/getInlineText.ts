@@ -32,7 +32,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               type: 'input',
               defaultValue: view.style.fontSize ?? 'inherit',
               className: 'width-30 m-right-xs',
-              templateOptions: {
+              props: {
                 label: 'Size',
               },
             },
@@ -41,7 +41,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               key: 'width',
               defaultValue: view.style.width ?? 'auto',
               className: 'width-30 m-right-xs',
-              templateOptions: {
+              props: {
                 label: 'W',
               },
             },
@@ -50,7 +50,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               key: 'height',
               className: 'width-30',
               defaultValue: view.style.height ?? 'auto',
-              templateOptions: {
+              props: {
                 label: 'H',
               },
             },
@@ -59,7 +59,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               type: 'select',
               defaultValue: view.style.textAlign ?? 'start',
               className: 'width-30 m-right-xs',
-              templateOptions: {
+              props: {
                 label: '对齐',
                 options: [
                   {
@@ -86,7 +86,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               type: 'input',
               defaultValue: view.style.lineHeight ?? 'normal',
               className: 'width-30 m-right-xs',
-              templateOptions: {
+              props: {
                 label: '行高',
                 unit: '',
               },
@@ -96,7 +96,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               key: 'opacity',
               className: 'width-30',
               defaultValue: view.style.opacity ?? 1,
-              templateOptions: {
+              props: {
                 label: 'Opacity',
                 type: 'number',
                 step: 0.1,
@@ -112,7 +112,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               type: 'input',
               defaultValue: rgbToHex(view.style.color),
               className: 'width-30 m-right-xs',
-              templateOptions: {
+              props: {
                 label: '颜色',
                 type: 'color',
               },
@@ -122,7 +122,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               type: 'input',
               defaultValue: rgbToHex(view.style.backgroundColor),
               className: 'width-30 m-right-xs',
-              templateOptions: {
+              props: {
                 label: '背景颜色',
                 type: 'color',
               },

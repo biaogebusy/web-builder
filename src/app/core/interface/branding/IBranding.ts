@@ -1,6 +1,7 @@
 import { ILink } from '@core/interface/widgets/ILink';
 import { IImg } from '@core/interface/widgets/IImg';
 import { IIcon } from '@core/interface/widgets/IIcon';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 export interface IBranding {
   header: IHeader;
   footer?: IFooter;
@@ -81,20 +82,10 @@ interface FooterNewsletter {
   params: LetterParams;
   label: string;
   summary: string;
-  forms: Form[];
+  form: FormlyFieldConfig[];
   action: {
     label: string;
   };
-}
-
-interface Form {
-  type: string;
-  label: string;
-  key: string;
-  params: any;
-  placeholder: string;
-  hint: string;
-  error: string;
 }
 
 interface LetterParams {
@@ -120,9 +111,8 @@ interface Social {
 }
 
 interface FooterParams {
-  mode: 'light' | 'inverse' | 'space-between';
+  mode: 'light' | 'inverse';
   shape?: boolean;
-  // style: string;
 }
 
 export interface IUserMenu {
@@ -146,17 +136,6 @@ interface Action {
     type: string;
     snackMes: string;
   };
-}
-
-interface Content {
-  type: string;
-  key: string;
-  label: string;
-  placeholder: string;
-  params?: {
-    required: boolean;
-  };
-  errorMes?: string;
 }
 
 export interface IHeaderSearch {

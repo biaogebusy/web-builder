@@ -193,7 +193,7 @@
   "github": {
     "enable": false,
     "owner": "biaogebusy",
-    "repo": "xinshi-ui",
+    "repo": "web-builder",
     "token": ""
   },
   "loading": true,
@@ -421,19 +421,19 @@
           "key": "fromStatic",
           "className": "static-item",
           "defaultValue": true,
-          "templateOptions": {
+          "props": {
             "label": "切换资源库",
             "description": "静态资源/后台媒体库"
           },
           "expressionProperties": {
-            "templateOptions.description": "model.fromStatic?'静态资源':'后台媒体库'"
+            "props.description": "model.fromStatic?'静态资源':'后台媒体库'"
           }
         },
         {
           "type": "input",
           "key": "key",
           "className": "m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "type": "string",
             "appearance": "legacy",
             "label": "请输入关键词"
@@ -444,7 +444,7 @@
           "key": "type",
           "defaultValue": "/api/v1/media/image",
           "className": "m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "label": "选择资源类型",
             "options": [
               {
@@ -471,7 +471,7 @@
           "key": "limit",
           "defaultValue": 20,
           "className": "m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "label": "每页显示个数",
             "options": [
               {
@@ -502,7 +502,7 @@
           "key": "filter",
           "defaultValue": 1,
           "className": "m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "label": "发布状态",
             "options": [
               {
@@ -525,7 +525,7 @@
               "key": "direction",
               "defaultValue": "DESC",
               "className": "m-bottom-sm",
-              "templateOptions": {
+              "props": {
                 "label": "排序",
                 "options": [
                   {
@@ -869,7 +869,7 @@
         "key": "hero",
         "defaultValue": 1,
         "className": "block m-bottom-sm",
-        "templateOptions": {
+        "props": {
           "label": "选择首屏个数",
           "description": "页面菜单下的第一个首屏组件",
           "options": [
@@ -905,7 +905,7 @@
         "key": "showcase",
         "defaultValue": 3,
         "className": "block m-bottom-sm",
-        "templateOptions": {
+        "props": {
           "label": "选择 Showcase 个数",
           "description": "一般一个页面会有多个 Showcase 组件",
           "options": [
@@ -957,7 +957,7 @@
         "key": "carousel",
         "defaultValue": 1,
         "className": "block m-bottom-sm",
-        "templateOptions": {
+        "props": {
           "label": "选择幻灯片个数",
           "description": "幻灯片不宜太多，生成后可重排",
           "options": [
@@ -993,7 +993,7 @@
         "key": "masonry",
         "defaultValue": 0,
         "className": "block m-bottom-sm",
-        "templateOptions": {
+        "props": {
           "label": "选择瀑布流组件个数",
           "description": "瀑布流组件一般只需要一个",
           "options": [

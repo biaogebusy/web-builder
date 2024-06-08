@@ -1,5 +1,3 @@
-<!-- https://github.com/angular/flex-layout/wiki/imgSrc-API -->
-
 <div class="img-wrapper" *ngIf="content">
   <ng-container *ngIf="!content.href; else withLink">
     <img
@@ -8,9 +6,6 @@
       [ngStyle]="content.style"
       [ngClass]="content.classes"
       [src]="content.src || coreConfig.defaultThumb"
-      [src.lt-md]="
-        content.mobile ? content.mobile : content.src || coreConfig.defaultThumb
-      "
       [alt]="content.alt || ''"
     />
   </ng-container>
@@ -21,11 +16,6 @@
         contentedit="src"
         [ngClass]="content.classes"
         [src]="content.src || coreConfig.defaultThumb"
-        [src.lt-md]="
-          content.mobile
-            ? content.mobile
-            : content.src || coreConfig.defaultThumb
-        "
         [ngStyle]="content.style"
         [alt]="content.alt || ''"
       />

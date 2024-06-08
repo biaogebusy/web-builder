@@ -6,17 +6,18 @@ export const widgets = [
     },
     preview: '/assets/images/builder/widgets/layout.png',
     content: {
+      gap: {
+        xs: 0,
+        sm: 0,
+        md: 0,
+        lg: 0,
+      },
+      wrapperClass: '',
+      spacer: 'none',
       type: 'layout-builder',
-      spacer: 'md',
       fullWidth: false,
       bg: {
         classes: 'bg-fill-width',
-      },
-      gap: {
-        xs: 8,
-        sm: 16,
-        md: 32,
-        lg: 48,
       },
       elements: [
         {
@@ -27,7 +28,6 @@ export const widgets = [
             md: 6,
             lg: 6,
           },
-          direction: 'column',
           elements: [],
         },
         {
@@ -38,7 +38,6 @@ export const widgets = [
             md: 6,
             lg: 6,
           },
-          direction: 'column',
           elements: [],
         },
       ],

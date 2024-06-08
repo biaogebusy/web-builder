@@ -24,8 +24,6 @@ export const base = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           animate: {
@@ -57,8 +55,6 @@ export const base = [
                 md: 6,
                 lg: 7,
               },
-              direction: 'col',
-              horizontal: 'center',
               vertical: 'start',
               gap: {
                 xs: '2',
@@ -146,7 +142,6 @@ export const base = [
                 md: 6,
                 lg: 5,
               },
-              direction: 'col',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -246,8 +241,6 @@ export const base = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'stretch',
           gap: {
@@ -283,8 +276,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'center',
               gap: {
@@ -417,8 +408,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'center',
               gap: {
@@ -568,8 +557,6 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           animate: {
@@ -601,7 +588,6 @@ export const base = [
                 md: 4,
                 lg: 4,
               },
-              direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -676,7 +662,6 @@ export const base = [
                 md: 4,
                 lg: 4,
               },
-              direction: 'row',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -751,8 +736,6 @@ export const base = [
                 md: 4,
                 lg: 4,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'center',
               gap: {
@@ -844,8 +827,6 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           animate: {
@@ -877,7 +858,6 @@ export const base = [
                 md: 3,
                 lg: 3,
               },
-              direction: 'col',
               horizontal: 'end',
               vertical: 'end',
               gap: {
@@ -996,8 +976,6 @@ export const base = [
                 md: 3,
                 lg: 3,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -1089,8 +1067,6 @@ export const base = [
                 md: 3,
                 lg: 3,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -1181,8 +1157,6 @@ export const base = [
                 md: 3,
                 lg: 3,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -1290,8 +1264,6 @@ export const base = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           animate: {
@@ -1323,8 +1295,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'start',
               vertical: 'stretch',
               gap: {
@@ -1376,8 +1346,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'start',
               vertical: 'stretch',
               gap: {
@@ -1457,7 +1425,31 @@ export const base = [
           type: 'custom-template',
           isAPI: true,
           api: '/api/v1/content',
-          html: '<div class="flex flex-wrap">\n    {{#each rows}}\n    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">\n        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">\n            <a href="{{url}}"><img class="object-cover w-full" height="200px" src="{{img}}" /></a>\n            <div class="p-5">\n                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>\n                <div class="three-line opacity-90">{{body}}</div>\n                <div class="footer flex items-center mt-5">\n                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />\n                    <div class="flex flex-col">\n                        <div class="font-bold">{{user}}</div>\n                        <div class="small">{{created}}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    {{/each}}\n</div>',
+          html: `<div class="flex flex-wrap">
+    {{#each rows}}
+    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">
+        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">
+            <a href="{{url}}">
+                {{#if img}}
+                <img class="object-cover w-full" height="200px" src="{{img}}" /></a>
+                {{else}}
+                <img class="object-cover w-full" height="200px" src="/assets/images/hero/182.jpg" /></a>
+                {{/if}}
+            <div class="p-5">
+                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>
+                <div class="three-line opacity-90">{{body}}</div>
+                <div class="footer flex items-center mt-5">
+                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />
+                    <div class="flex flex-col">
+                        <div class="font-bold">{{user}}</div>
+                        <div class="small">{{created}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>`,
         },
       },
     ],
@@ -1484,8 +1476,6 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           animate: {
@@ -1517,7 +1507,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
               horizontal: 'start',
               vertical: 'stretch',
               gap: {
@@ -1620,7 +1609,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -1709,8 +1697,6 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           wrapperClass: 'md:flex-nowrap',
@@ -1746,7 +1732,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -1821,7 +1806,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
               horizontal: 'flex-start',
               vertical: 'flex-start',
               gap: {
@@ -1938,8 +1922,6 @@ export const base = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'col',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           animate: {
@@ -1971,7 +1953,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
               horizontal: 'center',
               vertical: 'center',
               gap: {
@@ -2084,7 +2065,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
               wrap: 'wrap',
               gap: {
                 xs: 0,
@@ -2164,7 +2144,6 @@ export const base = [
                 md: 12,
                 lg: 12,
               },
-              direction: 'column',
               elements: [
                 {
                   type: 'btn',
@@ -2197,7 +2176,6 @@ export const base = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'col',
           wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
@@ -2231,7 +2209,6 @@ export const base = [
                 md: 12,
                 lg: 12,
               },
-              direction: 'column',
               elements: [
                 {
                   type: 'title',
@@ -2250,7 +2227,6 @@ export const base = [
                 md: 12,
                 lg: 12,
               },
-              direction: 'column',
               elements: [
                 {
                   type: 'text',
@@ -2268,7 +2244,6 @@ export const base = [
                 md: 12,
                 lg: 12,
               },
-              direction: 'column',
               elements: [
                 {
                   type: 'btn',
@@ -2288,7 +2263,6 @@ export const base = [
                 md: 12,
                 lg: 12,
               },
-              direction: 'column',
               elements: [
                 {
                   src: '/assets/images/builder/builder-01.png',
@@ -2350,8 +2324,6 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           wrapperClass: 'md:flex-nowrap',
@@ -2388,8 +2360,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
-              wrap: 'wrap',
               horizontal: 'start',
               vertical: 'stretch',
               gap: {
@@ -2470,8 +2440,6 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'col',
-              wrap: 'wrap',
               horizontal: 'start',
               vertical: 'start',
               gap: {
@@ -2677,8 +2645,6 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           wrapperClass: 'md:flex-nowrap',
@@ -2714,8 +2680,6 @@ export const base = [
                 md: 3,
                 lg: 3,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -2798,8 +2762,6 @@ export const base = [
                 md: 3,
                 lg: 3,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -2884,8 +2846,6 @@ export const base = [
                 md: 3,
                 lg: 3,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -2968,8 +2928,6 @@ export const base = [
                 md: 3,
                 lg: 3,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'stretch',
               gap: {
@@ -3066,8 +3024,6 @@ export const base = [
             classes: 'bg- bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           animate: {
@@ -3099,8 +3055,6 @@ export const base = [
                 md: 6,
                 lg: 7,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'start',
               vertical: 'start',
               gap: {
@@ -3159,8 +3113,6 @@ export const base = [
                     md: 12,
                     lg: 12,
                   },
-                  direction: 'row',
-                  wrap: 'wrap',
                   horizontal: 'center',
                   vertical: 'center',
                   gap: {
@@ -3222,8 +3174,6 @@ export const base = [
                         md: 6,
                         lg: 6,
                       },
-                      direction: 'col',
-                      wrap: 'wrap',
                       horizontal: 'start',
                       vertical: 'stretch',
                       gap: {
@@ -3370,8 +3320,6 @@ export const base = [
                         md: 6,
                         lg: 6,
                       },
-                      direction: 'col',
-                      wrap: 'wrap',
                       horizontal: 'start',
                       vertical: 'stretch',
                       gap: {
@@ -3512,8 +3460,6 @@ export const base = [
                 md: 6,
                 lg: 5,
               },
-              direction: 'col',
-              wrap: 'wrap',
               horizontal: 'flex-start',
               vertical: 'flex-start',
               gap: {
@@ -3608,8 +3554,6 @@ export const base = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           animate: {
@@ -3641,8 +3585,6 @@ export const base = [
                 md: 6,
                 lg: 8,
               },
-              direction: 'row',
-              wrap: 'wrap',
               horizontal: 'center',
               vertical: 'center',
               gap: {
@@ -3707,8 +3649,6 @@ export const base = [
                   body: '信使UI是基于 Material 的 Angular 前端框架，丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
                 },
                 {
-                  direction: 'row',
-                  wrap: 'wrap',
                   horizontal: 'center',
                   vertical: 'center',
                   gap: {
@@ -3777,7 +3717,6 @@ export const base = [
                         md: 4,
                         lg: 4,
                       },
-                      direction: 'column',
                       horizontal: 'flex-start',
                       vertical: 'flex-start',
                       bg: {
@@ -3843,7 +3782,6 @@ export const base = [
                         md: 4,
                         lg: 4,
                       },
-                      direction: 'row',
                       horizontal: 'center',
                       vertical: 'center',
                       bg: {
@@ -3913,7 +3851,6 @@ export const base = [
                         md: 4,
                         lg: 4,
                       },
-                      direction: 'column',
                       horizontal: 'center',
                       vertical: 'center',
                       bg: {
@@ -3983,7 +3920,6 @@ export const base = [
                 md: 6,
                 lg: 4,
               },
-              direction: 'row',
               horizontal: 'center',
               vertical: 'center',
               gap: {
@@ -4775,7 +4711,7 @@ export const base = [
             {
               type: 'input',
               key: 'name',
-              templateOptions: {
+              props: {
                 label: '姓名',
                 appearance: 'outline',
                 required: true,
@@ -4784,7 +4720,7 @@ export const base = [
             {
               type: 'input',
               key: 'email',
-              templateOptions: {
+              props: {
                 label: '邮箱',
                 appearance: 'outline',
                 required: true,
@@ -4793,7 +4729,7 @@ export const base = [
             {
               type: 'input',
               key: 'subject',
-              templateOptions: {
+              props: {
                 label: '主题',
                 appearance: 'outline',
               },
@@ -4801,7 +4737,7 @@ export const base = [
             {
               type: 'textarea',
               key: 'message',
-              templateOptions: {
+              props: {
                 label: '内容',
                 placeholder: 'Message',
                 appearance: 'fill',

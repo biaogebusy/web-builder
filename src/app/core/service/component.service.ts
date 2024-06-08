@@ -53,10 +53,8 @@ export class ComponentService {
       'menu-list',
       'chip-list',
       'chart',
-      'input',
       'formly',
       'media-list',
-      'select',
       'feature-box',
       'content-box',
       'testimonial',
@@ -64,7 +62,6 @@ export class ComponentService {
       'media-object',
       'media-meta',
       'textarea',
-      'checkbox',
       'download',
       'dynamic-table',
       'dropdown-menu',
@@ -121,7 +118,6 @@ export class ComponentService {
     [
       'hero-1v1',
       'hero-1v2',
-      'hero-1v3',
       'hero-1v4',
       'hero-2v1',
       'hero-2v2',
@@ -141,7 +137,6 @@ export class ComponentService {
       'list-thin',
       'taxonomy-list',
       'taxonomy-thin-list',
-      'tree-list',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/list/list.module').then((m) => m.ListModule)
@@ -154,7 +149,7 @@ export class ComponentService {
       )
     );
 
-    ['packery', 'shuffle'].forEach((type) =>
+    ['shuffle'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/masonry/masonry.module').then(
           (m) => m.MasonryModule
@@ -212,9 +207,7 @@ export class ComponentService {
       'showcase-2v1',
       'showcase-2v2',
       'showcase-2v4',
-      'showcase-2v5',
       'showcase-2v6',
-      'showcase-3v2',
       'showcase-3v3',
       'showcase-3v4',
       'showcase-3v5',

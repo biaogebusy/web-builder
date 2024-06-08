@@ -1,16 +1,43 @@
 <div class="backdrop" (click)="onClose()"></div>
 <div class="showcase">
   <app-card-1v1 [content]="content.card"></app-card-1v1>
-  <div class="showcase-footer" fxLayout="row" fxLayoutAlign="space-between center">
-    <div class="title">{{content.title}}</div>
+  <div class="showcase-footer flex flex-row justify-between items-center">
+    <div class="title">{{ content.title }}</div>
     <div class="actions">
       <div class="item">
-        <app-btn (click)="onCopy(content.card.components[0])" [matTooltip]="'复制 JSON'" matTooltipPosition="above"
-          [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'content-copy',inline:true } }"></app-btn>
-        <app-btn (click)="showCode(content.card.components[0])" [matTooltip]="'查看 JSON'" matTooltipPosition="above"
-          [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'code-json',inline:true } }"></app-btn>
-        <app-btn (click)="insert(content.card.components[0])" [matTooltip]="'插入组件到编辑区'" matTooltipPosition="above"
-          [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-right',inline:true } }"></app-btn>
+        <app-btn
+          (click)="onCopy(content.card.components[0])"
+          [matTooltip]="'复制 JSON'"
+          matTooltipPosition="above"
+          [content]="{
+            label: '',
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'content-copy', inline: true }
+          }"
+        ></app-btn>
+        <app-btn
+          (click)="showCode(content.card.components[0])"
+          [matTooltip]="'查看 JSON'"
+          matTooltipPosition="above"
+          [content]="{
+            label: '',
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'code-json', inline: true }
+          }"
+        ></app-btn>
+        <app-btn
+          (click)="insert(content.card.components[0])"
+          [matTooltip]="'插入组件到编辑区'"
+          matTooltipPosition="above"
+          [content]="{
+            label: '',
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'arrow-right', inline: true }
+          }"
+        ></app-btn>
       </div>
     </div>
   </div>

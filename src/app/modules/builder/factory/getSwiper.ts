@@ -7,7 +7,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
       fieldGroup: [
         {
           key: 'params',
-          templateOptions: {
+          props: {
             label: '参数',
           },
           fieldGroup: [
@@ -16,7 +16,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'direction',
               className: 'w-full',
               defaultValue: widget.params?.direction ?? 'horizontal',
-              templateOptions: {
+              props: {
                 label: '方向',
                 options: [
                   {
@@ -45,7 +45,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                       className: 'w-full',
                       defaultValue:
                         widget.params?.breakpoints?.[600]?.slidesPerView,
-                      templateOptions: {
+                      props: {
                         min: 1,
                         max: 10,
                         step: 0.2,
@@ -59,7 +59,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                       className: 'w-full',
                       defaultValue:
                         widget.params?.breakpoints?.[600]?.spaceBetween || 0,
-                      templateOptions: {
+                      props: {
                         min: 1,
                         max: 100,
                         step: 1,
@@ -81,7 +81,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                       className: 'w-full',
                       defaultValue:
                         widget.params.breakpoints?.[960].slidesPerView,
-                      templateOptions: {
+                      props: {
                         min: 1,
                         max: 10,
                         step: 0.2,
@@ -95,7 +95,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                       className: 'w-full',
                       defaultValue:
                         widget.params?.breakpoints?.[960]?.spaceBetween || 0,
-                      templateOptions: {
+                      props: {
                         min: 1,
                         max: 100,
                         step: 1,
@@ -113,7 +113,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'select',
               className: 'w-full',
               defaultValue: widget.params?.effect || 'slide',
-              templateOptions: {
+              props: {
                 label: `特效`,
                 options: [
                   {
@@ -144,7 +144,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'slider',
               className: 'w-full',
               defaultValue: widget.params.speed ?? 300,
-              templateOptions: {
+              props: {
                 min: 0,
                 max: 10000,
                 step: 100,
@@ -156,7 +156,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
         },
         {
           key: 'params',
-          templateOptions: {
+          props: {
             label: '功能',
           },
           fieldGroup: [
@@ -170,7 +170,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                   type: 'toggle',
                   className: 'w-full',
                   defaultValue: widget.params.pagination ?? false,
-                  templateOptions: {
+                  props: {
                     label: '页码',
                   },
                 },
@@ -178,7 +178,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'type',
                   type: 'select',
                   className: 'w-2/5',
-                  templateOptions: {
+                  props: {
                     label: '类型',
                     options: [
                       {
@@ -200,12 +200,12 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                 {
                   key: 'clickable',
                   type: 'toggle',
-                  templateOptions: {
+                  props: {
                     className: 'w-2/5',
                     label: '可点击',
                   },
                   expressionProperties: {
-                    'templateOptions.disabled': 'model.type !== "bullets"',
+                    'props.disabled': 'model.type !== "bullets"',
                   },
                   hideExpression: '!model.paginationEnable',
                 },
@@ -216,7 +216,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'toggle',
               className: 'w-full',
               defaultValue: widget.params.navigation ?? false,
-              templateOptions: {
+              props: {
                 label: '左右箭头',
               },
             },
@@ -225,7 +225,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'toggle',
               className: 'w-full',
               defaultValue: widget.params.centeredSlides ?? false,
-              templateOptions: {
+              props: {
                 label: '居中',
               },
             },
@@ -234,7 +234,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'toggle',
               className: 'w-full',
               defaultValue: widget.params.loop ?? false,
-              templateOptions: {
+              props: {
                 label: '循环',
               },
             },
@@ -243,7 +243,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'toggle',
               className: 'w-full',
               defaultValue: widget.params.autoplay ?? false,
-              templateOptions: {
+              props: {
                 label: '自动播放',
               },
             },
@@ -252,7 +252,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'toggle',
               className: 'w-full',
               defaultValue: widget.params.mousewheel ?? false,
-              templateOptions: {
+              props: {
                 label: '鼠标控制',
               },
             },

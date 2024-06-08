@@ -3,7 +3,6 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import express from 'express';
 import { join } from 'path';
 import bodyParser from 'body-parser';
-import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import { environment } from 'src/environments/environment';
 import compression from 'compression';
@@ -26,10 +25,8 @@ const win = dominoModule.createWindow(indexTemplate);
 (global as any).navigator = win.navigator;
 (global as any).localStorage = win.localStorage;
 (global as any).sessionStorage = win.sessionStorage;
-(global as any).DOMTokenList = win.DOMTokenList;
-(global as any).HTMLAnchorElement = win.HTMLAnchorElement;
-(global as any).WebSocket = require('ws');
 (global as any).XMLHttpRequest = require('xhr2');
+(global as any).HTMLAnchorElement = win.HTMLAnchorElement;
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
@@ -40,14 +37,6 @@ const distFolder = join(process.cwd(), `${environment.site}/browser`);
 export function app(): express.Express {
   const server = express();
   server.use(compression());
-  server.use(
-    rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 10000, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-      standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-      legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-    })
-  );
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({ extended: false }));
   server.use(
@@ -70,7 +59,6 @@ export function app(): express.Express {
 
   server.use((req, res, next) => {
     let err = null;
-    console.log(req);
     try {
       decodeURIComponent(req.originalUrl);
     } catch (e) {

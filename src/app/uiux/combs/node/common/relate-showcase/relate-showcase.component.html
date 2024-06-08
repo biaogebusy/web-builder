@@ -1,13 +1,13 @@
-<div class="relate-showcase p-x-sm p-y-sm" *ngIf="content" fxLayout="row wrap">
-  <div class="media p-x-sm p-y-sm" fxFlex.lt-md="100" fxFlex.gt-sm="140px">
+<div class="relate-showcase p-x-sm p-y-sm flex flex-wrap" *ngIf="content">
+  <div class="media p-x-sm p-y-sm flex-12/12 md:flex-1/12">
     <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
   </div>
-  <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="calc(100% - 140px)">
+  <div class="right flex-12/12 md:flex-11/12">
     <div class="meta p-x-sm p-y-sm">
       <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
-      <div class="list m-y-xs" fxLayout="row" *ngFor="let list of content.meta">
+      <div class="list m-y-xs flex" *ngFor="let list of content.meta">
         <ng-container *ngFor="let item of list;index as i">
-          <div class="item" fxFlex="100">
+          <div class="item flex-[0_1_100%]">
             <span [contentedit]="'meta.'+i+'.label'" class="label m-right-xs">{{item.label}}:</span>
             <span [contentedit]="'meta.'+i+'.value'" class="value" [innerHTML]="item.value|safeHtml"></span>
           </div>
@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <div class="bottom" fxFlex="100">
+  <div class="bottom flex-12/12">
     <ng-container *ngFor="let item of content.content;index as i">
       <app-dynamic-component [attr.data-path]="'content.'+i" [inputs]="item"></app-dynamic-component>
     </ng-container>

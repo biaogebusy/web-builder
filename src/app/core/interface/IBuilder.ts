@@ -59,10 +59,9 @@ export interface IBuilderShowcase {
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
   style: any;
-  direction: 'col' | 'row' | 'row wrap';
-  wrap: 'wrap' | 'wrap-reverse' | 'nowrap';
   horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
-  vertical: 'start' | 'end' | 'center' | 'stretch';
+  vertical: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+  alignItems: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
   wrapperClass: any;
   gap?: {
     xs?: number;
@@ -83,10 +82,9 @@ export interface ILayoutBlock {
   animate?: any;
   bg?: IBgImg;
   elements: any[];
-  direction: 'col' | 'row' | 'row wrap';
-  wrap: 'wrap' | 'wrap-reverse' | 'nowrap';
   horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
-  vertical: 'start' | 'end' | 'center' | 'stretch';
+  vertical: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+  alignItems: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
   gap?: {
     xs?: number;
     sm?: number;

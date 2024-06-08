@@ -208,7 +208,7 @@
   "github": {
     "enable": false,
     "owner": "biaogebusy",
-    "repo": "xinshi-ui",
+    "repo": "web-builder",
     "token": ""
   },
   "loading": true,
@@ -436,19 +436,19 @@
           "key": "fromStatic",
           "className": "static-item",
           "defaultValue": true,
-          "templateOptions": {
+          "props": {
             "label": "Switch libraries",
             "description": "Static medias/backend media library"
           },
           "expressionProperties": {
-            "templateOptions.description": "model.fromStatic?'Static medias':'backend media library'"
+            "props.description": "model.fromStatic?'Static medias':'backend media library'"
           }
         },
         {
           "type": "input",
           "key": "key",
           "className": "m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "type": "string",
             "appearance": "legacy",
             "label": "please input keyword"
@@ -459,7 +459,7 @@
           "key": "type",
           "defaultValue": "/api/v1/media/image",
           "className": "m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "label": "Select libraries type",
             "options": [
               {
@@ -486,7 +486,7 @@
           "key": "limit",
           "defaultValue": 20,
           "className": "m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "label": "Number of per page",
             "options": [
               {
@@ -517,7 +517,7 @@
           "key": "filter",
           "defaultValue": 1,
           "className": "m-bottom-sm",
-          "templateOptions": {
+          "props": {
             "label": "Status",
             "options": [
               {
@@ -540,7 +540,7 @@
               "key": "direction",
               "defaultValue": "DESC",
               "className": "m-bottom-sm",
-              "templateOptions": {
+              "props": {
                 "label": "Sort",
                 "options": [
                   {
@@ -884,7 +884,7 @@
         "key": "hero",
         "defaultValue": 1,
         "className": "block m-bottom-sm",
-        "templateOptions": {
+        "props": {
           "label": "Select the number of Heros",
           "description": "The first screen component under the page menu",
           "options": [
@@ -920,7 +920,7 @@
         "key": "showcase",
         "defaultValue": 3,
         "className": "block m-bottom-sm",
-        "templateOptions": {
+        "props": {
           "label": "Select the number of Showcases",
           "description": "Usually, a page will have multiple Showcase components",
           "options": [
@@ -972,7 +972,7 @@
         "key": "carousel",
         "defaultValue": 1,
         "className": "block m-bottom-sm",
-        "templateOptions": {
+        "props": {
           "label": "Select the number of slides",
           "description": "There should not be too many slides",
           "options": [
@@ -1008,7 +1008,7 @@
         "key": "masonry",
         "defaultValue": 0,
         "className": "block m-bottom-sm",
-        "templateOptions": {
+        "props": {
           "label": "Select the number of waterfall",
           "description": "The waterfall flow component usually only requires one",
           "options": [

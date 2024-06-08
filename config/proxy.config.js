@@ -1,6 +1,7 @@
 const PROXY_CONFIG = [
   {
     context: [
+      "/en/api",
       "/api",
       "/session",
       "/user",

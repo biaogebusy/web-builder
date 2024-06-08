@@ -97,7 +97,7 @@ import { CookieService } from 'ngx-cookie-service';
     {
       provide: LANG,
       useFactory: langFactory,
-      deps: [Router],
+      deps: [ContentService],
     },
     {
       provide: API_URL,

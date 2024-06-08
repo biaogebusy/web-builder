@@ -7,7 +7,7 @@ export function getNone(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '配置',
           },
           fieldGroup: [

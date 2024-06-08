@@ -1,43 +1,104 @@
 <mat-accordion multi>
-  <mat-expansion-panel *ngFor="let item of content;index as i" [expanded]="i == 0" (afterExpand)="onAfterExpand()">
+  <mat-expansion-panel
+    *ngFor="let item of content; index as i"
+    [expanded]="i == 0"
+    (afterExpand)="onAfterExpand()"
+  >
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{item.label}}
+        {{ item.label }}
       </mat-panel-title>
       <mat-panel-description *ngIf="item.description">
-        {{item.description}}
+        {{ item.description }}
       </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-list>
-      <div class="cards" id="widgets" fxLayout="row wrap" cdkDropList cdkDropListSortingDisabled="true"
-        [cdkDropListData]="item.elements" [cdkDropListConnectedTo]="['builder-list','builder-list-sideabr']">
+      <div
+        class="cards flex flex-row flex-wrap"
+        id="widgets"
+        cdkDropList
+        cdkDropListSortingDisabled="true"
+        [cdkDropListData]="item.elements"
+        [cdkDropListConnectedTo]="['builder-list', 'builder-list-sideabr']"
+      >
         <ng-container *ngFor="let widget of item.elements">
           <ng-container *ngIf="!widget.child">
-            <div class="item" matRipple fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"
-              [matTooltip]="builder.fixedContent  === widget.content ?'已锁定预览，可查看复制组件JSON' : ''"
-              matTooltipPosition='above'>
-              <div [cdkDragData]="widget.content" cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragMoved)="onMoved()"
-                (mouseenter)="onShowcase(widget.content)" (mouseleave)="hideShowcase()"
-                (click)="onFixed(widget.content)">
-                <div class="inner move" [ngClass]="builder.fixedContent === widget.content ? 'active' : ''"
-                  fxLayout="column" fxLayoutAlign="center center">
-                  <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
-                  <div class="title" title="{{widget.label}}">{{widget.label}}</div>
+            <div
+              class="item flex flex-6/12 sm:flex-4/12"
+              matRipple
+              [matTooltip]="
+                builder.fixedContent === widget.content
+                  ? '已锁定预览，可查看复制组件JSON'
+                  : ''
+              "
+              matTooltipPosition="above"
+            >
+              <div
+                class="w-full"
+                [cdkDragData]="widget.content"
+                cdkDrag
+                (cdkDragStarted)="onDragStarted()"
+                (cdkDragMoved)="onMoved()"
+                (mouseenter)="onShowcase(widget.content)"
+                (mouseleave)="hideShowcase()"
+                (click)="onFixed(widget.content)"
+              >
+                <div
+                  class="inner move flex flex-col justify-center items-center"
+                  [ngClass]="
+                    builder.fixedContent === widget.content ? 'active' : ''
+                  "
+                >
+                  <app-icon
+                    *ngIf="widget.icon"
+                    [content]="widget.icon"
+                  ></app-icon>
+                  <div class="title" title="{{ widget.label }}">
+                    {{ widget.label }}
+                  </div>
                 </div>
               </div>
             </div>
           </ng-container>
-          <div class="group w-full" matTooltipPosition="above" fxLayout="row wrap" *ngIf="widget.child">
+          <div
+            class="group w-full flex flex-wrap"
+            matTooltipPosition="above"
+            *ngIf="widget.child"
+          >
             <ng-container *ngFor="let item of widget.child">
-              <div class="item" matRipple fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"
-                [matTooltip]="builder.fixedContent === item.content ?'已锁定预览，可查看复制组件JSON' : ''"
-                matTooltipPosition='above'>
-                <div [cdkDragData]="item.content" cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragMoved)="onMoved()"
-                  (mouseenter)="onShowcase(item.content)" (mouseleave)="hideShowcase()" (click)="onFixed(item.content)">
-                  <div class="inner move" [ngClass]="builder.fixedContent === item.content ? 'active' : ''"
-                    fxLayout="column" fxLayoutAlign="center center">
-                    <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
-                    <div class="title" title="{{item.label}}">{{item.label}}</div>
+              <div
+                class="item flex flex-6/12 sm:flex-4/12"
+                matRipple
+                [matTooltip]="
+                  builder.fixedContent === item.content
+                    ? '已锁定预览，可查看复制组件JSON'
+                    : ''
+                "
+                matTooltipPosition="above"
+              >
+                <div
+                  class="w-full"
+                  [cdkDragData]="item.content"
+                  cdkDrag
+                  (cdkDragStarted)="onDragStarted()"
+                  (cdkDragMoved)="onMoved()"
+                  (mouseenter)="onShowcase(item.content)"
+                  (mouseleave)="hideShowcase()"
+                  (click)="onFixed(item.content)"
+                >
+                  <div
+                    class="inner move flex flex-col justify-center items-center"
+                    [ngClass]="
+                      builder.fixedContent === item.content ? 'active' : ''
+                    "
+                  >
+                    <app-icon
+                      *ngIf="item.icon"
+                      [content]="item.icon"
+                    ></app-icon>
+                    <div class="title" title="{{ item.label }}">
+                      {{ item.label }}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -7,7 +7,7 @@ export function getContact(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '联系我们',
           },
           fieldGroup: [
@@ -19,7 +19,7 @@ export function getContact(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'webform_id',
                   type: 'input',
                   defaultValue: widget.params.webform_id,
-                  templateOptions: {
+                  props: {
                     label: 'Webform ID',
                     description: 'Drupal webform id',
                   },
@@ -34,7 +34,7 @@ export function getContact(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'label',
                   type: 'input',
                   defaultValue: widget.action.label,
-                  templateOptions: {
+                  props: {
                     label: '提交文字',
                   },
                 },

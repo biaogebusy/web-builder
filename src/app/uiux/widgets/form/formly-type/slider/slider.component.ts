@@ -15,7 +15,7 @@ export class SliderComponent
   @ViewChild(MatSlider) slider!: MatSlider;
 
   defaultOptions = {
-    templateOptions: {
+    props: {
       hideFieldUnderline: true,
       floatLabel: 'always',
       thumbLabel: false,

@@ -8,26 +8,22 @@
   ></app-bg-img>
   <div class="{{ content.fullWidth ? '' : 'container' }}" *ngIf="content">
     <app-text [attr.data-path]="'title'" [content]="content.title"></app-text>
-    <div
-      class="showcase-inner"
-      fxLayout="row wrap"
-      fxLayoutAlign="center center"
-    >
+    <div class="showcase-inner flex flex-wrap justify-center items-center">
       <div
-        fxLayout="row wrap"
-        fxFlex.lt-md="100"
-        [fxFlex.gt-sm]="row(content.row, '0px')"
+        class="flex flex-wrap flex-12/12 md:flex-{{ content.row }}/12"
         *ngFor="let item of content.elements; index as i"
       >
         <app-media-object
           [attr.data-path]="'elements.' + i"
-          fxFlex="100"
-          class="p-x-xs p-y-xs"
+          class="p-x-xs p-y-xs block w-full"
           [content]="item"
         ></app-media-object>
       </div>
     </div>
-    <div class="actions" *ngIf="content.action" fxLayoutAlign="center center">
+    <div
+      class="actions flex justify-center items-center"
+      *ngIf="content.action"
+    >
       <div class="m-y">
         <app-dynamic-component
           [attr.data-path]="'action'"

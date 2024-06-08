@@ -2,15 +2,30 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
-  <div class="{{content.fullWidth?'':'container'}}">
-    <div class="inner p-y" fxLayout="row wrap">
-      <div *ngIf="content.sidebar" class="sidebar p-x-sm" fxFlex.gt-sm="25" fxFlex.lt-md="100">
-        <app-dynamic-component [inputs]="{content:item, form:form}" *ngFor="let item of content.sidebar;">
+  <div class="{{ content.fullWidth ? '' : 'container' }}">
+    <div class="inner p-y flex flex-wrap">
+      <div
+        *ngIf="content.sidebar"
+        class="sidebar p-x-sm flex-12/12 md:flex-3/12"
+      >
+        <app-dynamic-component
+          [inputs]="{ content: item, form: form }"
+          *ngFor="let item of content.sidebar"
+        >
         </app-dynamic-component>
       </div>
-      <div class="main p-x-sm p-y-sm" [fxFlex.gt-sm]="content.sidebar ? '75' : '100'" fxFlex.lt-md="100">
+      <div
+        class="main p-x-sm p-y-sm flex-12/12 {{
+          content.sidebar ? 'md:flex-8/12' : ''
+        }}"
+      >
         <div class="calendar w-full">
-          <app-calendar *ngIf="visiable" [content]="content.calendar.options" [loading]="loading" [options]="options">
+          <app-calendar
+            *ngIf="visiable"
+            [content]="content.calendar.options"
+            [loading]="loading"
+            [options]="options"
+          >
           </app-calendar>
         </div>
       </div>

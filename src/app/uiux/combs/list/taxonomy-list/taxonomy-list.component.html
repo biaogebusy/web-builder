@@ -1,11 +1,18 @@
 <div class="taxonomy-list m-y">
   <div class="container">
-    <div class="m-top-sm" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="center start">
-      <div class="list" fxFlex.lt-md="100" fxFlex.gt-sm="75">
-        <app-list [content]="content.elements" [pager]="content.pager"></app-list>
+    <div class="m-top-sm flex flex-col md:flex-row justify-center items-start">
+      <div class="list flex-12/12 md:flex-9/12">
+        <app-list
+          class="block md:mr-5"
+          [content]="content.elements"
+          [pager]="content.pager"
+        ></app-list>
       </div>
-      <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"
-        [content]="content.sidebar"></app-sidebar>
+      <app-sidebar
+        class="flex-12/12 md:flex-3/12"
+        *ngIf="content.sidebar"
+        [content]="content.sidebar"
+      ></app-sidebar>
     </div>
   </div>
 </div>
