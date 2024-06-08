@@ -8,7 +8,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import type { IMark } from '@core/interface/IAmap';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { Card1v3Item, ICard1v3 } from '@core/interface/widgets/ICard';
 

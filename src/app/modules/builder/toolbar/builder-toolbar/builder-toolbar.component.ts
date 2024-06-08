@@ -8,7 +8,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -26,7 +26,7 @@ import type { IBranding } from '@core/interface/branding/IBranding';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoginComponent } from '@modules/user/login/login.component';
 import { Router } from '@angular/router';

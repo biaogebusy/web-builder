@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { TextComponent } from '../../text/text.component';
 import { DialogComponent } from '../../dialog/dialog.component';
 import type { IMeta } from '@core/interface/widgets/ICard';

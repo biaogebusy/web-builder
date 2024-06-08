@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BlockComponent } from './block/block.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { pageContentFactory } from '@core/factory/factory';

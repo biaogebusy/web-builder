@@ -13,11 +13,13 @@ $dark-theme: mat.define-dark-theme(
       accent: $dark-accent,
       warn: $dark-warn,
     ),
+    typography: mat.define-legacy-typography-config(),
+    density: 0,
   )
 );
 
 .dark-theme {
-  @include mat.all-component-colors($dark-theme);
+  @include mat.all-legacy-component-colors($dark-theme);
   @include base-colors($dark-theme);
   @include component-theme($dark-theme);
   .mat-expansion-panel-header {

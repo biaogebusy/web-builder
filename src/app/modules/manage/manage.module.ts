@@ -5,7 +5,7 @@ import { ManageMediaComponent } from './manage-media/manage-media.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { ManageBlockComponent } from './manage-block/manage-block.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSliderModule } from '@angular/material/slider';
+import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
 
 import { BaseModule } from '@uiux/base/base.module';
 const components = [ManageMediaComponent, ManageBlockComponent];

@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING } from '@core/token/token-providers';

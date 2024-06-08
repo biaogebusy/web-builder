@@ -14,7 +14,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
 import { tap } from 'rxjs/operators';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 @Injectable({
   providedIn: 'root',

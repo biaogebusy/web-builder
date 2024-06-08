@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import type { IBuilderShowcase } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';

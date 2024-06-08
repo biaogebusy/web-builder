@@ -46,11 +46,13 @@ $green-theme: mat.define-light-theme(
       accent: $green-accent,
       warn: $green-warn,
     ),
+    typography: mat.define-legacy-typography-config(),
+    density: 0,
   )
 );
 
 .green-theme {
-  @include mat.all-component-themes($green-theme);
+  @include mat.all-legacy-component-themes($green-theme);
   @include base-colors($green-theme);
   @include component-theme($green-theme);
 }

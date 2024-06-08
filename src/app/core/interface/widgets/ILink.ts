@@ -1,4 +1,4 @@
-import { MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { Params } from '@angular/router';
 
 export interface ILink {

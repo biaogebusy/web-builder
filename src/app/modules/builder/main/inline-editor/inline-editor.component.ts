@@ -8,7 +8,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { IMetaEdit } from '@core/interface/IBuilder';

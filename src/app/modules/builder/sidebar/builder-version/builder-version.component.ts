@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';

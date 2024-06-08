@@ -9,7 +9,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import type { IWidgetPicker } from '@core/interface/IBuilder';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';

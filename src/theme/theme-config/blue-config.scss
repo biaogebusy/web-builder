@@ -47,11 +47,13 @@ $blue-theme: mat.define-light-theme(
       accent: $blue-accent,
       warn: $blue-warn,
     ),
+    typography: mat.define-legacy-typography-config(),
+    density: 0,
   )
 );
 
 .blue-theme {
-  @include mat.all-component-themes($blue-theme);
+  @include mat.all-legacy-component-themes($blue-theme);
   @include base-colors($blue-theme);
   @include component-theme($blue-theme);
 }

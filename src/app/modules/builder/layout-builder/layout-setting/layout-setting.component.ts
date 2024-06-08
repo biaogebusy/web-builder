@@ -9,7 +9,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';

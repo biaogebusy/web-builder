@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import type { IDownload } from '@core/interface/widgets/IDownload';
 import { ScreenService } from '@core/service/screen.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';

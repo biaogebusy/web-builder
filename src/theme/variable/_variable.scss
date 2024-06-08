@@ -24,7 +24,7 @@ $font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
 
 // custom typography
 // https://material.angular.io/guide/typography
-$custom-typography: mat.define-typography-config(
+$custom-typography: mat.define-legacy-typography-config(
   $font-family: $font-family,
   $display-4:
     mat.define-typography-level(60px, 1.25, 600, $font-family: $font-family),

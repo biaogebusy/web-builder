@@ -15,7 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { UserService } from '@core/service/user.service';

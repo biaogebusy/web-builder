@@ -1,5 +1,5 @@
-import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { TooltipPosition } from '@angular/material/tooltip';
+import { MatLegacyFormFieldAppearance as MatFormFieldAppearance } from '@angular/material/legacy-form-field';
+import { LegacyTooltipPosition as TooltipPosition } from '@angular/material/legacy-tooltip';
 
 export interface IControl {
   type: string;

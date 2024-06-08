@@ -7,7 +7,7 @@ import {
 import { Lightbox } from 'ngx-lightbox';
 import { UtilitiesService } from '@core/service/utilities.service';
 import type { IInlineLightbox } from '@core/interface/widgets/IWidgets';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
