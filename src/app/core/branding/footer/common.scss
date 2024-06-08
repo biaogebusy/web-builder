@@ -26,15 +26,17 @@
 }
 .social {
   .item {
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 26px;
     border-radius: 6px;
     margin-right: 10px;
     transition: all 0.4s ease;
-  }
-  .mat-icon {
-    font-size: 16px;
-    width: 16px;
+    ::ng-deep {
+      .mat-icon {
+        width: 16px !important;
+        height: 16px !important;
+      }
+    }
   }
 }
 

@@ -104,7 +104,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           .mqAlias$()
           .pipe(takeUntil(this.destroy$))
           .subscribe((mq) => {
-            this.showBanner = mq.includes(banner.breakpoint || 'gt-md');
+            this.showBanner =
+              mq.includes('md') || mq.includes('lg') || mq.includes('xl');
             this.cd.detectChanges();
           });
       }
