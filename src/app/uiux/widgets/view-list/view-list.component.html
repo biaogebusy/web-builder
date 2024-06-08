@@ -6,27 +6,17 @@
     *ngIf="content.bg"
   ></app-bg-img>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <div class="flex flex-wrap" [ngClass]="containerClass">
+  <div class="flex flex-col" [ngClass]="containerClass">
     <app-text
       [attr.data-path]="'text'"
       [content]="content.text"
       *ngIf="content.text"
     ></app-text>
     <div
-      class="filter"
+      class="filter flex flex-col md:flex-row justify-between items-center"
       *ngIf="content.form"
-      fxFlex.gt-sm="0 0 100"
-      fxFlex.lt-md="100"
-      fxLayout.gt-sm="row"
-      fxLayout.lt-md="column"
-      fxLayoutAlign="space-between center"
     >
-      <div
-        class="filter-item"
-        fxLayout.gt-sm="row wrap"
-        fxLayout.lt-md="column"
-        fxLayoutGap.gt-sm="1rem"
-      >
+      <div class="filter-item flex flex-col md:flex-row flex-wrap gap-3">
         <app-formly
           [form]="form"
           [fields]="content.form"
@@ -51,7 +41,7 @@
       </div>
     </div>
     <mat-divider></mat-divider>
-    <div class="view" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100">
+    <div class="view">
       <ngx-skeleton-loader
         *ngIf="loading"
         count="10"

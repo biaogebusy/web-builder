@@ -17,8 +17,7 @@ img {
   position: relative;
   @media #{$gt-sm} {
     img {
-      max-width: none;
-      margin-left: 8rem;
+      margin-left: 4rem;
     }
   }
   &:after {

@@ -25,8 +25,8 @@ export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
         if (this.time && this.time === time) {
           const { src } = img;
           this.dialog.closeAll();
-          this.field.templateOptions = {
-            ...this.field.templateOptions,
+          this.field.props = {
+            ...this.field.props,
             ...img,
           };
           this.formControl.patchValue(src);

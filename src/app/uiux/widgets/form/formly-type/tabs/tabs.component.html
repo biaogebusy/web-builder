@@ -1,7 +1,7 @@
 <div class="tabs-type">
   <mat-tab-group *ngIf="field.fieldGroup">
     <mat-tab *ngFor="let tab of field.fieldGroup; let i = index; let last = last"
-      [label]="tab.templateOptions?.label || ''" [disabled]="i !== 0 && !isValid(field.fieldGroup[i - 1])">
+      [label]="tab.props?.label || ''" [disabled]="i !== 0 && !isValid(field.fieldGroup[i - 1])">
       <div class="my-5">
         <formly-field [field]="tab"></formly-field>
       </div>
