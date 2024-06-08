@@ -23,8 +23,8 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 ```scss
 @use '~@angular/material' as mat;
 
-@mixin hero-color($config-or-theme) {
-  $config: mat.get-color-config($config-or-theme);
+@mixin hero-color($theme) {
+  $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -87,8 +87,8 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 ```scss
 @import "~@angular/material/theming";
 
-@mixin hero-color($config-or-theme) {
-  $config: mat.get-color-config($config-or-theme);
+@mixin hero-color($theme) {
+  $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);

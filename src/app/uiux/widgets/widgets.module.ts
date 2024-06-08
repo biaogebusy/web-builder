@@ -6,11 +6,11 @@ import { CountToModule } from 'angular-count-to';
 import { CdkTableModule } from '@angular/cdk/table';
 
 // Material
-import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSortModule } from '@angular/material/sort';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 

@@ -15,7 +15,6 @@ import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { UserService } from '@core/service/user.service';
@@ -28,6 +27,7 @@ import type { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-article',

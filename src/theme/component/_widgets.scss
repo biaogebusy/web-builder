@@ -2,8 +2,8 @@
 @import "../../theme/variable/breakpoint";
 @import "../../theme/mixins/amixin";
 
-@mixin widgets-color($config-or-theme) {
-  $config: mat.get-color-config($config-or-theme);
+@mixin widgets-color($theme) {
+  $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);

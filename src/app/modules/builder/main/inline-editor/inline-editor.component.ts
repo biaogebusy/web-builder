@@ -8,11 +8,11 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { IMetaEdit } from '@core/interface/IBuilder';
 import { UntypedFormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-inline-editor',

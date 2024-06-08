@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import type { IDownload } from '@core/interface/widgets/IDownload';
 import { ScreenService } from '@core/service/screen.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
@@ -22,6 +21,7 @@ import type {
 } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-download',

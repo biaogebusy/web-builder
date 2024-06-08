@@ -10,7 +10,6 @@ import type { IPage } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { RouteService } from '@core/service/route.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -18,6 +17,7 @@ import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
 import { Router } from '@angular/router';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-link',

@@ -10,7 +10,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import type { IDynamicTable } from '../../../core/interface/widgets/IWidgets';
 import { RouteService } from '@core/service/route.service';
@@ -22,8 +21,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-dynamic-table',

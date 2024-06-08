@@ -7,7 +7,8 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+
 import type { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';

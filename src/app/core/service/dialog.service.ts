@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '../../uiux/widgets/text/text.component';
 import { DOCUMENT } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',

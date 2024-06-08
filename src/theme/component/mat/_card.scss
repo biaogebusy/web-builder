@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
-@mixin card-color($config-or-theme) {
-  $config: mat.get-color-config($config-or-theme);
+@mixin card-color($theme) {
+  $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -48,7 +48,7 @@
     @include mat.elevation(
       4,
       mat.get-color-from-palette($foreground, text),
-      0.3
+      0.1
     );
     background-color: $bg-color;
     a {
@@ -110,7 +110,7 @@
         @include mat.elevation(
           4,
           mat.get-color-from-palette($foreground, text),
-          0.3
+          0.1
         );
       }
     }
@@ -125,7 +125,7 @@
       @include mat.elevation(
         4,
         mat.get-color-from-palette($foreground, text),
-        0.3
+        0.1
       );
       color: mat.get-color-from-palette($foreground, text, 0.5);
       background-color: mat.get-color-from-palette($background, card);
@@ -135,8 +135,8 @@
   .card-1v5 {
     @include mat.elevation(
       4,
-      mat.get-color-from-palette($foreground, divider),
-      0.4
+      mat.get-color-from-palette($foreground, text),
+      0.1
     );
     background-color: mat.get-color-from-palette($background, card);
     .more {
@@ -149,9 +149,9 @@
 
   .card-1v6 {
     @include mat.elevation(
-      3,
-      mat.get-color-from-palette($foreground, divider),
-      0.3
+      4,
+      mat.get-color-from-palette($foreground, text),
+      0.1
     );
     background-color: mat.get-color-from-palette($primary, 0.07);
     border-bottom: 3px solid

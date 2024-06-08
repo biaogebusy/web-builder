@@ -7,7 +7,6 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -21,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { LoginComponent } from '@modules/user/login/login.component';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-menu',

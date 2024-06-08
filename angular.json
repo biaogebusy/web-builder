@@ -84,7 +84,6 @@
               "highlight.js",
               "lodash",
               "ngx-lightbox",
-              "ngx-packery",
               "crypto-js",
               "@babel",
               "@babel/runtime/helpers/inherits",

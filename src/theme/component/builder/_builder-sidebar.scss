@@ -54,7 +54,11 @@
   .page-list {
     color: mat.get-color-from-palette($foreground, text, 0.75);
     background-color: mat.get-color-from-palette($background, background);
-    @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.4);
+    @include mat.elevation(
+      3,
+      mat.get-color-from-palette($foreground, divider),
+      0.4
+    );
     .form {
       background-color: mat.get-color-from-palette($background, card);
       .mat-form-field-wrapper {
@@ -64,7 +68,8 @@
     .mat-list {
       @include scrollbar(mat.get-color-from-palette($primary));
       .mat-list-item {
-        border-bottom: 1px solid mat.get-color-from-palette($foreground, divider);
+        border-bottom: 1px solid
+          mat.get-color-from-palette($foreground, divider);
         color: mat.get-color-from-palette($foreground, text, 0.75);
         a {
           color: mat.get-color-from-palette($foreground, text, 0.75);
@@ -87,9 +92,17 @@
       .inner {
         background-color: mat.get-color-from-palette($background, card);
         transition: background 0.1s ease-in-out;
-        @include mat.elevation(1, mat.get-color-from-palette($background, focused-button), 0.2);
+        @include mat.elevation(
+          1,
+          mat.get-color-from-palette($background, focused-button),
+          0.2
+        );
         &:hover {
-          @include mat.elevation(1, mat.get-color-from-palette($background, hover), 0.6);
+          @include mat.elevation(
+            1,
+            mat.get-color-from-palette($background, hover),
+            0.2
+          );
           background: mat.get-color-from-palette($primary, 0.08);
         }
         .custom-icon {

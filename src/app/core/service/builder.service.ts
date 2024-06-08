@@ -14,7 +14,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
 import { tap } from 'rxjs/operators';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -152,7 +152,7 @@ export class BuilderService extends ApiService {
 
   getTitle(title: string): string {
     // api respone title with site name, need remove;
-    let index = title.indexOf('|');
+    const index = title.indexOf('|');
     let pageTitle = '';
     if (index !== -1) {
       pageTitle = title.substring(0, index).trim();

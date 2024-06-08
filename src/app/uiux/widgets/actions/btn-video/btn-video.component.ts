@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import type { IBtnVideo } from '@core/interface/widgets/IBtn';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({

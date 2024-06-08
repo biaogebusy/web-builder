@@ -5,13 +5,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDrawer } from '@angular/material/sidenav';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-builder-sidebar',

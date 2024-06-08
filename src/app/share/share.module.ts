@@ -3,49 +3,49 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 // Material
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
-import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
-import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
-import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
-import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatBadgeModule } from '@angular/material/badge';
 
 // Form
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 // utils
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IconService } from '@core/service/icon.service';
 import {
-  MatLegacyPaginatorIntl as MatPaginatorIntl,
-  MatLegacyPaginatorModule as MatPaginatorModule,
-} from '@angular/material/legacy-paginator';
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { throwError } from 'rxjs';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
 import { ComponentService } from '@core/service/component.service';
-import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 
 @NgModule({
