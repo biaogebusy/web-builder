@@ -190,7 +190,7 @@ export const home_v12 = {
         },
       },
       type: 'showcase-1v4',
-      row: 3,
+      row: 4,
       text: {
         title: {
           label: '特色服务',
@@ -296,7 +296,7 @@ export const home_v12 = {
         },
       },
       type: 'showcase-1v4',
-      row: 2,
+      row: 6,
       text: {
         title: {
           label: '艺术设计之旅：探索创意与美学的奇妙世界',

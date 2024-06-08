@@ -18,54 +18,6 @@ export const home_v13 = {
   ],
   body: [
     {
-      type: 'hero-1v3',
-      spacer: 'xl',
-      classes: '',
-      text: {
-        title: {
-          label:
-            '<p style="display: inline-block; margin-bottom: 0px;">为您的业务提供强大的运营方案</p>',
-          classes: 'mat-display-2 bold',
-          style: 'style-v4',
-        },
-        classes: 'text-light',
-        body: '您的产品是独一无二的，而我们的目标是让更多的人了解它们、爱上它们，并成为您的忠实粉丝。我们是一家专注于产品宣传运营方案的公司，致力于帮助您实现品牌的价值最大化。',
-        actions: [
-          {
-            type: 'btn',
-            mode: 'raised',
-            color: 'primary',
-            href: '#',
-            label: '立刻咨询',
-            target: '_blank',
-          },
-        ],
-      },
-      right: [
-        {
-          type: 'img',
-          hostClasses: 'img-bg-shape',
-          src: '/assets/images/illustration/02.png',
-          style: {
-            width: 'auto',
-            height: 'auto',
-            opacity: 1,
-            borderRadius: 0,
-            boxShadow: 'none',
-            aspectRatio: 'auto',
-            objectFit: 'initial',
-          },
-        },
-      ],
-      bg: {
-        classes: 'bg-fill-width bg-primary bg-center',
-        img: {
-          src: '/assets/images/bg/bg-hero.svg',
-          mobile: '/assets/images/bg/bg-hero.svg',
-        },
-      },
-    },
-    {
       type: 'carousel-2v2',
       id: '',
       spacer: 'xl',
@@ -469,7 +421,7 @@ export const home_v13 = {
       bg: {
         classes: 'bg- bg-fill-width',
       },
-      row: 4,
+      row: 3,
       classes: '',
       text: {
         title: {

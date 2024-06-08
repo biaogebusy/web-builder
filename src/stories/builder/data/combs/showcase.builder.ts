@@ -5,7 +5,6 @@ import * as s1v4Story from '@stories/feature/showcase/showcase1v4.stories';
 import * as s2v1Story from '@stories/feature/showcase/showcase2v1.stories';
 import * as s2v2Story from '@stories/feature/showcase/showcase2v2.stories';
 import * as s2v4Story from '@stories/feature/showcase/showcase2v4.stories';
-import * as s2v5Story from '@stories/feature/showcase/showcase2v5.stories';
 import * as s2v6Story from '@stories/feature/showcase/showcase2v6.stories';
 import * as s3v3Story from '@stories/feature/showcase/showcase3v3.stories';
 import * as s3v4Story from '@stories/feature/showcase/showcase3v4.stories';
@@ -103,10 +102,6 @@ export const showcase = [
       {
         label: '2v4',
         content: s2v4Story.Default?.args?.content,
-      },
-      {
-        label: '2v5',
-        content: s2v5Story.Default?.args?.content,
       },
       {
         label: '2v6',

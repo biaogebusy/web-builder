@@ -226,7 +226,7 @@ const componey: IProfile1v1 = {
     },
     {
       type: 'showcase-2v1',
-      row: 5,
+      row: 3,
       label: '相关材料',
       spacer: 'xs',
       elements: [

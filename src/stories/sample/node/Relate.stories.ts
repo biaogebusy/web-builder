@@ -216,7 +216,7 @@ const content: IRelate = {
     content: [
       {
         type: 'showcase-2v1',
-        row: 5,
+        row: 4,
         spacer: 'xs',
         elements: [
           {

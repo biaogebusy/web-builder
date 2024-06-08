@@ -6,8 +6,8 @@
   </div>
   <div class="profile-1v1 relative p-y">
     <div class="container">
-      <div class="profile flex flex-wrap justify-between items-start">
-        <div class="left flex-12/12 md:flex-4/12">
+      <div class="profile grid grid-cols-12 gap-5 justify-between items-start">
+        <div class="left clo-span-12 md:col-span-4">
           <div class="box p-y p-x text-center" *ngIf="currentUser">
             <app-img [content]="currentUser.avatar"></app-img>
             <h2 class="mat-h2 m-bottom-0 m-top-xs">{{ currentUser.name }}</h2>
@@ -60,9 +60,7 @@
           </div>
         </div>
         <div
-          class="right"
-          fxFlex.lt-md="0 0 100"
-          fxFlex.gt-sm="0 0 calc(100% - 30% - 4rem)"
+          class="right col-span md:col-span-8"
         >
           <div class="content">
             <router-outlet></router-outlet>

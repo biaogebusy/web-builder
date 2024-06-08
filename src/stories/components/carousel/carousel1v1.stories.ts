@@ -463,7 +463,7 @@ FullScreen.args = {
           bg: {
             classes: 'bg- bg-fill-width',
           },
-          row: 3,
+          row: 4,
           classes: '',
           text: {
             title: {

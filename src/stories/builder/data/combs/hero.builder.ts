@@ -1,6 +1,5 @@
 import * as hero1v1Story from '@stories/feature/hero/hero1v1.stories';
 import * as hero1v2Story from '@stories/feature/hero/hero1v2.stories';
-import * as hero1v3Story from '@stories/feature/hero/hero1v3.stories';
 import * as hero1v4Story from '@stories/feature/hero/hero1v4.stories';
 import * as hero2v1Story from '@stories/feature/hero/hero2v1.stories';
 import * as hero2v2Story from '@stories/feature/hero/hero2v2.stories';
@@ -17,10 +16,6 @@ export const hero = [
       {
         label: '1v2',
         content: hero1v2Story.Default?.args?.content,
-      },
-      {
-        label: '1v3-1',
-        content: hero1v3Story.V1?.args?.content,
       },
       {
         label: '1v4 Shape',

@@ -10,13 +10,13 @@
         </button>
       </div>
     </div>
-    <div class="box details p-x-sm p-y-sm relative flex flex-wrap justify-between items-start">
-      <div class="loading-inner absolute" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
+    <div class="box details p-x-sm p-y-sm relative grid grid-cols-12 justify-between items-start gap-5">
+      <div class="loading-inner absolute w-full h-full justify-center items-center" *ngIf="loading">
         <mat-spinner diameter="50"></mat-spinner>
       </div>
       <ng-container *ngIf="box$|async as box">
-        <app-dynamic-component fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content.row,'2rem')"
-          class="item block m-bottom m-x-xs" [inputs]="{content:item.content}"
+        <app-dynamic-component
+          class="item block m-bottom col-span-12 md:col-span-6" [inputs]="{content:item.content}"
           *ngFor="let item of box"></app-dynamic-component>
       </ng-container>
     </div>

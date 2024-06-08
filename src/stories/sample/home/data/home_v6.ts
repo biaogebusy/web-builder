@@ -18,62 +18,6 @@ export const home_v6 = {
   ],
   body: [
     {
-      type: 'hero-1v3',
-      spacer: 'xl',
-      classes: '',
-      text: {
-        title: {
-          label: '领先医疗科技，塑造健康未来，您的智能医疗解决方案伙伴',
-          classes: 'mat-display-2 bold',
-          style: 'style-v4',
-        },
-        classes: 'text-light',
-        body: '我们是一家致力于运用前沿医疗科技，以提升人类健康水平为使命的创新型公司。通过融合尖端科技与人性化关怀，我们提供全方位、高质量的医疗服务解决方案，旨在革新医疗体验，普惠大众健康。',
-        actions: [
-          {
-            type: 'btn',
-            mode: 'raised',
-            color: 'primary',
-            href: '#',
-            label: '立刻咨询',
-            target: '_blank',
-          },
-          {
-            type: 'btn-video',
-            color: 'primary',
-            video: {
-              type: 'player',
-              options: {
-                controls: true,
-                aspectRatio: '16:9',
-                poster: '/assets/video/poster01.png',
-                sources: [
-                  {
-                    src: '/assets/video/storybook.mp4',
-                    type: 'video/mp4',
-                  },
-                ],
-              },
-            },
-          },
-        ],
-      },
-      right: [
-        {
-          type: 'img',
-          hostClasses: 'img-bg-shape',
-          src: '/assets/images/hero/hero-component.svg',
-        },
-      ],
-      bg: {
-        classes: 'bg-fill-width bg-primary bg-center',
-        img: {
-          src: '/assets/images/bg/bg-hero.svg',
-          mobile: '/assets/images/bg/bg-hero.svg',
-        },
-      },
-    },
-    {
       id: '',
       type: 'showcase-3v9',
       spacer: 'xl',

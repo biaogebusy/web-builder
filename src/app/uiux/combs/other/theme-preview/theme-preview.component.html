@@ -4,11 +4,9 @@
     [inputs]="item"
   ></app-dynamic-component>
   <div class="container">
-    <div class="bg-colors flex flex-wrap">
+    <div class="bg-colors grid grid-cols-12 gap-5">
       <div
-        class="box"
-        fxFlex.lt-md="calc(100% / 3 - 30px)"
-        fxFlex.gt-sm="calc(100% / {{ content.bgColors.row }} - 30px)"
+        class="box col-span-4 md:col-span-{{content.bgColors.row}}"
         [ngClass]="color.classes"
         *ngFor="let color of content.bgColors.lists"
       >
@@ -16,21 +14,17 @@
       </div>
     </div>
     <mat-divider class="m-y-lg"></mat-divider>
-    <div class="row flex flex-wrap">
+    <div class="row grid grid-cols-12 gap-5">
       <app-dynamic-component
-        class="item"
-        fxFlex.xs="100%"
-        fxFlex.gt-xs="calc(100% / 3 - 30px)"
+        class="item col-span-12 sm:col-span-4"
         *ngFor="let item of content.row"
         [inputs]="item"
       ></app-dynamic-component>
     </div>
     <div class="columns">
-      <div class="wrapper flex flex-wrap">
+      <div class="wrapper grid grid-cols-12 gap-5">
         <div
-          class="item flex flex-col"
-          fxFlex.xs="100%"
-          fxFlex.gt-xs="calc(100% / 3 - 30px)"
+          class="item flex flex-col col-span-12 sm:col-span-4"
           *ngFor="let column of content.columns"
         >
           <app-dynamic-component

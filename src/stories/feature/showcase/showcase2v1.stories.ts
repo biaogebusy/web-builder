@@ -46,7 +46,7 @@ const content: IShowcase2v1 = {
   },
   bg: { classes: '' },
   classes: '',
-  row: 5,
+  row: 4,
   elements: [
     {
       type: 'card',

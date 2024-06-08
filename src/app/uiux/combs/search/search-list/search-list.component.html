@@ -18,9 +18,7 @@
     >
       <div
         *ngIf="item?.img?.src"
-        class="object-left relative m-right-sm"
-        fxFlex.xs="100"
-        fxFlex.gt-xs="0 0 30"
+        class="object-left relative m-right-sm flex-12/12 sm:flex-[0_0_30%]"
       >
         <app-img [content]="item.img"></app-img>
       </div>

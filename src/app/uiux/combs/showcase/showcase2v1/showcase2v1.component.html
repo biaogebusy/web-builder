@@ -8,13 +8,10 @@
       [content]="content.text"
       *ngIf="content.text"
     ></app-text>
-    <div class="m-y flex flex-wrap justify-center items-center flex-12/12">
+    <div class="m-y grid grid-cols-12 justify-center items-center gap-4">
       <app-dynamic-component
         [attr.data-path]="'elements.' + i"
-        class="m-x-sm m-bottom-sm"
-        fxFlex.xs="100"
-        [fxFlex.sm]="row(content.row || 2)"
-        [fxFlex.gt-sm]="row(content.row || 5)"
+        class="m-bottom-sm col-span-12 sm:col-span-6 md:col-span-{{content.row}}"
         *ngFor="let item of elements; index as i"
         [inputs]="item"
       ></app-dynamic-component>

@@ -33,7 +33,7 @@ const content: IShowcase1v4 = {
   bg: {
     classes: 'bg- bg-fill-width',
   },
-  row: 3,
+  row: 4,
   classes: '',
   text: {
     title: {
@@ -116,7 +116,7 @@ const price: IShowcase1v4 = {
   bg: {
     classes: 'bg- bg-fill-width',
   },
-  row: 4,
+  row: 3,
   classes: '',
   text: {
     title: {
@@ -231,7 +231,7 @@ const dynamic: IShowcase1v4 = {
   bg: {
     classes: 'bg- bg-fill-width',
   },
-  row: 2,
+  row: 6,
   classes: '',
   text: {
     title: {
