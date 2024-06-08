@@ -8,7 +8,7 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '文本',
           },
           fieldGroup: [
@@ -17,7 +17,7 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'rich-text',
               className: 'w-full',
               defaultValue: widget.body,
-              templateOptions: {
+              props: {
                 label: '文本',
                 rows: 10,
               },
@@ -27,14 +27,14 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
               type: 'select',
               className: 'w-full',
               defaultValue: widget.spacer,
-              templateOptions: spacerOption,
+              props: spacerOption,
             },
             {
               key: 'classes',
               type: 'input',
               className: 'w-full',
               defaultValue: widget.classes,
-              templateOptions: {
+              props: {
                 label: '自定义Class',
               },
             },

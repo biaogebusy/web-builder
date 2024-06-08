@@ -36,7 +36,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
     },
   ];
   return {
-    templateOptions: {
+    props: {
       label: '动画',
     },
     fieldGroup: [
@@ -47,12 +47,17 @@ export function getAnimate(content: any): FormlyFieldConfig {
             key: 'enable',
             type: 'toggle',
             defaultValue: content?.animate?.enable,
-            templateOptions: {
+            props: {
               label: '开启动画',
             },
           },
           {
             key: 'from',
+            expressions: {
+              hide: (field: FormlyFieldConfig) => {
+                return !field.parent?.model?.enable;
+              },
+            },
             fieldGroup: [
               {
                 fieldGroupClassName: 'section-group',
@@ -62,7 +67,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5 mr-3',
                     defaultValue: content?.animate?.from?.x ?? 0,
-                    templateOptions: {
+                    props: {
                       label: '水平位移',
                       min: -500,
                       max: 500,
@@ -75,7 +80,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5',
                     defaultValue: content?.animate?.from?.y ?? 0,
-                    templateOptions: {
+                    props: {
                       label: '垂直位移',
                       min: -500,
                       max: 500,
@@ -93,7 +98,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5 mr-3',
                     defaultValue: content?.animate?.from?.rotationX ?? 0,
-                    templateOptions: {
+                    props: {
                       label: '水平旋转',
                       min: -360,
                       max: 360,
@@ -106,7 +111,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5',
                     defaultValue: content?.animate?.from?.rotationY ?? 0,
-                    templateOptions: {
+                    props: {
                       label: '垂直旋转',
                       min: -360,
                       max: 360,
@@ -124,7 +129,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5 mr-3',
                     defaultValue: content?.animate?.from?.scaleX ?? 1,
-                    templateOptions: {
+                    props: {
                       label: '水平缩放',
                       min: 0,
                       max: 2,
@@ -137,7 +142,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5',
                     defaultValue: content?.animate?.from?.scaleY ?? 1,
-                    templateOptions: {
+                    props: {
                       label: '垂直缩放',
                       min: 0,
                       max: 2,
@@ -155,7 +160,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5 mr-3',
                     defaultValue: content?.animate?.from?.skewX ?? 0,
-                    templateOptions: {
+                    props: {
                       label: 'skewX',
                       min: -180,
                       max: 180,
@@ -168,7 +173,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5',
                     defaultValue: content?.animate?.from?.skewY ?? 0,
-                    templateOptions: {
+                    props: {
                       label: 'skewY',
                       min: -180,
                       max: 180,
@@ -186,7 +191,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5 mr-3',
                     defaultValue: content?.animate?.from?.opacity ?? 1,
-                    templateOptions: {
+                    props: {
                       label: '不透明度',
                       min: 0,
                       max: 1,
@@ -199,7 +204,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5',
                     defaultValue: content?.animate?.from?.delay ?? 0,
-                    templateOptions: {
+                    props: {
                       label: '延迟',
                       min: 0,
                       max: 6,
@@ -212,7 +217,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5 mr-3',
                     defaultValue: content?.animate?.from?.duration ?? 1,
-                    templateOptions: {
+                    props: {
                       label: '时长',
                       min: 0.1,
                       max: 6,
@@ -225,7 +230,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     defaultValue: content?.animate?.from?.ease ?? 'none',
                     type: 'select',
                     className: 'w-2/5',
-                    templateOptions: {
+                    props: {
                       label: '缓动曲线',
                       options: [
                         { label: 'none', value: 'none' },
@@ -256,6 +261,11 @@ export function getAnimate(content: any): FormlyFieldConfig {
           },
           {
             key: 'trigger',
+            expressions: {
+              hide: (field: FormlyFieldConfig) => {
+                return !field.parent?.model?.enable;
+              },
+            },
             fieldGroup: [
               {
                 fieldGroupClassName: 'section-group',
@@ -265,7 +275,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'select',
                     className: 'w-2/5',
                     defaultValue: content?.animate?.trigger?.onEnter ?? 'play',
-                    templateOptions: {
+                    props: {
                       label: '元素进入视线',
                       options: actionsOptions,
                     },
@@ -275,7 +285,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'select',
                     className: 'w-2/5',
                     defaultValue: content?.animate?.trigger?.onLeave ?? 'none',
-                    templateOptions: {
+                    props: {
                       label: '元素离开视线',
                       options: actionsOptions,
                     },
@@ -286,7 +296,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     className: 'w-2/5',
                     defaultValue:
                       content?.animate?.trigger?.onEnterBack ?? 'none',
-                    templateOptions: {
+                    props: {
                       label: '再进入视线',
                       options: actionsOptions,
                     },
@@ -297,7 +307,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     className: 'w-2/5',
                     defaultValue:
                       content?.animate?.trigger?.onLeaveBack ?? 'none',
-                    templateOptions: {
+                    props: {
                       label: '再进入后离开',
                       options: actionsOptions,
                     },
@@ -312,7 +322,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5',
                     defaultValue: content?.animate?.trigger?.start ?? 'top 90%',
-                    templateOptions: {
+                    props: {
                       label: '触发开始位置',
                     },
                   },
@@ -321,7 +331,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     type: 'input',
                     className: 'w-2/5',
                     defaultValue: content?.animate?.trigger?.end ?? 'top 40%',
-                    templateOptions: {
+                    props: {
                       label: '触发结束位置',
                     },
                   },
@@ -331,7 +341,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 key: 'scrub',
                 type: 'toggle',
                 defaultValue: content?.animate?.trigger?.scrub ?? false,
-                templateOptions: {
+                props: {
                   label: '跟随滚动变化',
                 },
               },

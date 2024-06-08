@@ -7,7 +7,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '播放按钮',
           },
           fieldGroup: [
@@ -16,7 +16,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'color',
               className: 'w-full',
               defaultValue: widget.color,
-              templateOptions: {
+              props: {
                 label: '颜色',
                 options: [
                   {
@@ -49,7 +49,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
                       key: 'aspectRatio',
                       className: 'w-full',
                       defaultValue: widget.video.options.aspectRatio,
-                      templateOptions: {
+                      props: {
                         label: '播放比例',
                         options: [
                           {
@@ -79,7 +79,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
                       type: 'input',
                       className: 'w-full',
                       defaultValue: widget.video.options.poster,
-                      templateOptions: {
+                      props: {
                         label: '视频封面',
                       },
                     },
@@ -88,7 +88,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
                       type: 'repeat',
                       defaultValue: widget.video.options.sources,
                       className: 'w-full',
-                      templateOptions: {
+                      props: {
                         addText: '新增',
                       },
                       fieldArray: {
@@ -98,7 +98,7 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
                             type: 'input',
                             className: 'w-full',
                             defaultValue: widget.video.options.sources[0].src,
-                            templateOptions: {
+                            props: {
                               label: '视频地址',
                             },
                           },

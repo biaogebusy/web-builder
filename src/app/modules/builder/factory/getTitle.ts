@@ -7,7 +7,7 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '样式',
           },
           fieldGroup: [
@@ -16,7 +16,7 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'style',
               className: 'w-full',
               defaultValue: widget.style,
-              templateOptions: {
+              props: {
                 label: '风格',
                 options: [
                   {
@@ -47,7 +47,7 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'classes',
               className: 'w-full',
               defaultValue: widget.classes,
-              templateOptions: {
+              props: {
                 label: '大小',
                 options: [
                   {
@@ -76,7 +76,7 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
           ],
         },
         {
-          templateOptions: {
+          props: {
             label: '特效',
           },
           fieldGroup: [
@@ -87,7 +87,7 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'enable',
                   type: 'toggle',
                   defaultValue: widget?.typed?.enable ?? false,
-                  templateOptions: {
+                  props: {
                     label: '开启打字效果',
                   },
                 },
@@ -98,7 +98,7 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
                       key: 'loop',
                       type: 'toggle',
                       defaultValue: widget?.typed?.config?.loop,
-                      templateOptions: {
+                      props: {
                         label: '循环',
                       },
                     },
@@ -106,7 +106,7 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
                       key: 'typeSpeed',
                       type: 'slider',
                       defaultValue: widget?.typed?.config?.typeSpeed ?? 120,
-                      templateOptions: {
+                      props: {
                         label: '速度',
                         min: 10,
                         max: 1000,
@@ -134,7 +134,7 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
                             default: 2000,
                           },
                         },
-                        templateOptions: {
+                        props: {
                           label: '文字',
                         },
                       },

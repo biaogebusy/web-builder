@@ -7,7 +7,7 @@ export function getIcon(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '图标',
           },
           fieldGroup: [
@@ -15,7 +15,7 @@ export function getIcon(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'svg',
               type: 'input',
               defaultValue: widget.svg,
-              templateOptions: {
+              props: {
                 label: 'Icon',
               },
             },
@@ -23,7 +23,7 @@ export function getIcon(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'color',
               type: 'select',
               defaultValue: widget.color,
-              templateOptions: {
+              props: {
                 label: '颜色',
                 options: [
                   {

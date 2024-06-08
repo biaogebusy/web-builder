@@ -7,7 +7,7 @@ export function getChart(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '图表',
           },
           fieldGroup: [
@@ -19,7 +19,7 @@ export function getChart(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'text',
                   type: 'input',
                   defaultValue: widget.title.text,
-                  templateOptions: {
+                  props: {
                     label: '标题',
                   },
                 },
@@ -27,7 +27,7 @@ export function getChart(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'subtext',
                   type: 'input',
                   defaultValue: widget.title.subtext,
-                  templateOptions: {
+                  props: {
                     label: '副标题',
                   },
                 },

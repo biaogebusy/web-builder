@@ -87,6 +87,33 @@ export const getBgClasses = [
   },
 ];
 
+export const getSpacerOptions = [
+  {
+    label: '无',
+    value: 'none',
+  },
+  {
+    label: '超小',
+    value: 'xs',
+  },
+  {
+    label: '小',
+    value: 'sm',
+  },
+  {
+    label: '正常',
+    value: 'md',
+  },
+  {
+    label: '大',
+    value: 'lg',
+  },
+  {
+    label: '超大',
+    value: 'xl',
+  },
+];
+
 export const getOverlay = [
   {
     label: '无',
@@ -290,7 +317,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       key: 'xs',
       type: 'slider',
       defaultValue: content.gap?.xs,
-      templateOptions: {
+      props: {
         min: 0,
         max: 20,
         step: 1,
@@ -301,7 +328,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       key: 'sm',
       type: 'slider',
       defaultValue: content.gap?.sm,
-      templateOptions: {
+      props: {
         min: 0,
         max: 20,
         step: 1,
@@ -312,7 +339,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       key: 'md',
       type: 'slider',
       defaultValue: content.gap?.md,
-      templateOptions: {
+      props: {
         min: 0,
         max: 20,
         step: 1,
@@ -323,7 +350,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
       key: 'lg',
       type: 'slider',
       defaultValue: content.gap?.lg,
-      templateOptions: {
+      props: {
         min: 0,
         max: 20,
         step: 1,
@@ -337,36 +364,11 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
   return [
     {
       type: 'select',
-      key: 'direction',
-      className: 'w-full',
-      defaultValue: content.direction ?? 'row',
-      templateOptions: {
-        label: '布局方向',
-        options: getDirectionOption,
-        required: true,
-      },
-      validation: {
-        show: true,
-      },
-    },
-    {
-      type: 'select',
-      key: 'wrap',
-      className: 'w-full',
-      defaultValue: content.wrap ?? 'wrap',
-      templateOptions: {
-        label: '换行',
-        options: getWrapOption,
-        required: true,
-      },
-    },
-    {
-      type: 'select',
       key: 'horizontal',
       className: 'w-full',
       defaultValue: content.horizontal,
-      templateOptions: {
-        label: '水平对齐',
+      props: {
+        label: '主轴对齐',
         options: getHorizontalOption,
       },
     },
@@ -375,8 +377,18 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       key: 'vertical',
       className: 'w-full',
       defaultValue: content.vertical,
-      templateOptions: {
-        label: '垂直对齐',
+      props: {
+        label: 'Y轴对齐',
+        options: getVerticalOption,
+      },
+    },
+    {
+      type: 'select',
+      key: 'alignItems',
+      className: 'w-full',
+      defaultValue: content.alignItems,
+      props: {
+        label: 'X轴对齐',
         options: getVerticalOption,
       },
     },

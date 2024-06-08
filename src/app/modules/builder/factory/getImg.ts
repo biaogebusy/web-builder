@@ -9,7 +9,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
       type: 'tabs',
       fieldGroup: [
         {
-          templateOptions: {
+          props: {
             label: '图片',
           },
           fieldGroup: [
@@ -17,7 +17,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'src',
               type: 'img-picker',
               defaultValue: widget.src ?? '',
-              templateOptions: {
+              props: {
                 updateLabel: '更新图片',
                 addLabel: '设置图片',
                 deleteLabel: '删除',
@@ -29,7 +29,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'classes',
               type: 'input',
               defaultValue: widget.classes,
-              templateOptions: {
+              props: {
                 label: 'class',
               },
             },
@@ -37,7 +37,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'hostClasses',
               type: 'input',
               defaultValue: widget.hostClasses,
-              templateOptions: {
+              props: {
                 label: 'Wrapper Class',
               },
             },
@@ -45,7 +45,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'alt',
               type: 'input',
               defaultValue: widget.alt,
-              templateOptions: {
+              props: {
                 label: 'Alt 描述',
               },
             },
@@ -57,7 +57,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'aspectRatio',
                   className: 'w-full',
                   defaultValue: widget?.style?.aspectRatio ?? 'auto',
-                  templateOptions: {
+                  props: {
                     label: '宽高比',
                     options: getAspectRatio,
                   },
@@ -67,7 +67,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
                   key: 'objectFit',
                   className: 'w-full',
                   defaultValue: widget?.style?.objectFit ?? 'initial',
-                  templateOptions: {
+                  props: {
                     label: '填充方式',
                     options: getObjectFix,
                   },
@@ -77,7 +77,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'isLink',
               type: 'toggle',
-              templateOptions: {
+              props: {
                 label: '是否链接',
               },
             },
@@ -85,7 +85,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'href',
               defaultValue: widget.href,
               type: 'input',
-              templateOptions: {
+              props: {
                 label: '链接',
               },
               hideExpression: '!model.isLink',
@@ -94,7 +94,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               key: 'target',
               defaultValue: widget.target,
               type: 'select',
-              templateOptions: {
+              props: {
                 label: 'target',
                 options: [
                   {
@@ -112,7 +112,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
           ],
         },
         // {
-        //   templateOptions: {
+        //   props: {
         //     label: '移动端',
         //   },
         //   fieldGroup: [
@@ -120,7 +120,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
         //       key: 'mobile',
         //       type: 'img-picker',
         //       defaultValue: widget.mobile || '',
-        //       templateOptions: {
+        //       props: {
         //         updateLabel: '更新移动端图片',
         //         addLabel: '设置移动端图片',
         //         deleteLabel: '删除',
