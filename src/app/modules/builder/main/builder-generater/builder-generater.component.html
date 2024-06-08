@@ -1,12 +1,25 @@
-<div class="builder-generater" *ngIf="uiux" fxLayout="column">
+<div class="builder-generater flex flex-col" *ngIf="uiux">
   <ng-container *ngIf="coreConfig.builder?.generater">
-    <app-formly [classes]="'form-field-width-auto'" [form]="form" [fields]="coreConfig.builder.generater"
-      [model]="model">
+    <app-formly
+      [classes]="'form-field-width-auto'"
+      [form]="form"
+      [fields]="coreConfig.builder.generater"
+      [model]="model"
+    >
     </app-formly>
   </ng-container>
   <mat-divider class="m-y-xs"></mat-divider>
-  <div class="actions m-top-sm" fxFlex="100" fxLayoutAlign="center center">
-    <app-btn matTooltip="将会覆盖当前页面" matTooltipPosition="above" (click)="onGenerate(model)"
-      [content]="{color:'primary',mode:'raised',label:'立即生成',icon:{svg:'lightning-bolt',inline:true}}"></app-btn>
+  <div class="actions m-top-sm flex justify-center">
+    <app-btn
+      matTooltip="将会覆盖当前页面"
+      matTooltipPosition="above"
+      (click)="onGenerate(model)"
+      [content]="{
+        color: 'primary',
+        mode: 'raised',
+        label: '立即生成',
+        icon: { svg: 'lightning-bolt', inline: true }
+      }"
+    ></app-btn>
   </div>
 </div>

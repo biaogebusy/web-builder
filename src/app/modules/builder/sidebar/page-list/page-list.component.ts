@@ -32,7 +32,7 @@ export class PageListComponent implements OnInit, OnDestroy {
     {
       key: 'title',
       type: 'input',
-      templateOptions: {
+      props: {
         placeholder: '关键词',
         type: 'search',
         appearance: 'outline',

@@ -87,11 +87,6 @@
             [content]="branding.footer"
           >
           </app-inverse>
-          <app-space-between
-            *ngIf="branding.footer?.params?.mode === 'space-between'"
-            [content]="branding.footer"
-          >
-          </app-space-between>
           <app-fix-bar
             [content]="branding.footer?.fixBar"
             *ngIf="branding.footer?.fixBar"

@@ -1,31 +1,64 @@
 <div class="manage-media relative" *ngIf="coreConfig?.manageMedia">
   <mat-drawer-container>
     <mat-drawer mode="side" [opened]="true">
-      <div class="sidebar flex flex-col" [ngClass]='{"from-static":model.fromStatic}'>
-        <mat-slider [(ngModel)]="coreConfig.manageMedia.row" max="7" min="4" step="1" [thumbLabel]="true"
-          [invert]="true">
+      <div
+        class="sidebar flex flex-col"
+        [ngClass]="{ 'from-static': model.fromStatic }"
+      >
+        <mat-slider
+          [(ngModel)]="coreConfig.manageMedia.row"
+          max="7"
+          min="4"
+          step="1"
+          [thumbLabel]="true"
+          [invert]="true"
+        >
         </mat-slider>
-        <app-formly *ngIf="coreConfig.manageMedia.sidebar.form" [classes]="'form-field-width-auto'" [form]="form"
-          [fields]="coreConfig.manageMedia.sidebar.form" [model]="model">
+        <app-formly
+          *ngIf="coreConfig.manageMedia.sidebar.form"
+          [classes]="'form-field-width-auto'"
+          [form]="form"
+          [fields]="coreConfig.manageMedia.sidebar.form"
+          [model]="model"
+        >
         </app-formly>
       </div>
     </mat-drawer>
     <mat-drawer-content>
-      <div class="inner" fxLayout="row wrap">
+      <div class="inner flex flex-wrap">
         <div class="load" *ngIf="loading">
           <mat-spinner diameter="50" color="accent"></mat-spinner>
         </div>
         <ng-container *ngIf="mediaAssets$ | async as assets">
-          <div class="viewport flex flex-wrap overflow-auto" *ngIf="assets.elements.length;else empty">
-            <div class="masonry-item box-border" *ngFor="let item of assets.elements" [style.flex]="flexBasisStyle"
-              trackBy="trackByFn">
+          <div
+            class="viewport flex flex-wrap overflow-auto"
+            *ngIf="assets.elements.length; else empty"
+          >
+            <div
+              class="masonry-item box-border"
+              *ngFor="let item of assets.elements"
+              [style.flex]="flexBasisStyle"
+              trackBy="trackByFn"
+            >
               <div class="actions">
-                <app-btn *reqRolesIf="{params:{reqRoles:['administrator']}}" fxHide.xs="true" [matTooltip]="'删除'"
-                  (click)="onDelete(item.id,assets.type)"
-                  [content]="{label:'', mode: 'icon' ,icon:{svg:'delete' } }"></app-btn>
+                <app-btn
+                  *reqRolesIf="{ params: { reqRoles: ['administrator'] } }"
+                  fxHide.xs="true"
+                  [matTooltip]="'删除'"
+                  (click)="onDelete(item.id, assets.type)"
+                  [content]="{
+                    label: '',
+                    mode: 'icon',
+                    icon: { svg: 'delete' }
+                  }"
+                ></app-btn>
               </div>
-              <app-dynamic-component [ngClass]="{selected:isSelected(item)}" (click)="onSelect(item)" class="block"
-                [inputs]="{content:item}"></app-dynamic-component>
+              <app-dynamic-component
+                [ngClass]="{ selected: isSelected(item) }"
+                (click)="onSelect(item)"
+                class="block"
+                [inputs]="{ content: item }"
+              ></app-dynamic-component>
             </div>
           </div>
           <ng-template #empty>
@@ -33,7 +66,10 @@
           </ng-template>
         </ng-container>
         <div class="page m-y" *ngIf="mediaAssets$ | async as assets">
-          <app-pagination-links (pageChange)="onPageChange($event)" [links]="assets.links"></app-pagination-links>
+          <app-pagination-links
+            (pageChange)="onPageChange($event)"
+            [links]="assets.links"
+          ></app-pagination-links>
         </div>
       </div>
     </mat-drawer-content>
