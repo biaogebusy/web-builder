@@ -4,9 +4,9 @@
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
     <div id="layout"
-      class="layout-inner {{content.wrapperClass}} flex flex-{{content.direction}} flex-{{content.wrap}} justify-{{content.horizontal}} items-{{content.vertical}}  gap-{{content.gap?.xs||'none'}} sm:gap-{{content.gap?.sm||'none'}} md:gap-{{content.gap?.md||'none'}} lg:gap-{{content.gap?.lg||'none'}}">
+      class="layout-inner {{content.wrapperClass}} grid grid-cols-12 grid-flow-row  justify-{{content.horizontal}} justify-items-{{content.vertical}} items-{{content.alignItems}}  gap-{{content.gap?.xs||'none'}} sm:gap-{{content.gap?.sm||'none'}} md:gap-{{content.gap?.md||'none'}} lg:gap-{{content.gap?.lg||'none'}}">
       <div [ngClass]="layout.classes"
-        class="layout relative layout-{{i}} flex-{{layout.row.xs}}/12 sm:flex-{{layout.row.sm}}/12 md:flex-{{layout.row.md}}/12 lg:flex-{{layout.row.lg}}/12"
+        class="layout relative layout-{{i}} col-span-{{layout.row.xs||'12'}}  sm:col-span-{{layout.row.sm}} md:col-span-{{layout.row.md}} lg:col-span-{{layout.row.lg}}"
         *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
         <ng-container *ngIf="isBuilderMode$ | async">
           <app-layout-toolbar class="hidden absolute z-50" [lbContent]="content" [i]="i" [layout]="layout"
@@ -19,9 +19,9 @@
         </ng-container>
         <div class="for-animate">
           <div [ngClass]="layout.blockClasses"
-            class="blocks box-border relative w-full h-full flex flex-{{layout.direction}} flex-{{layout.wrap}} justify-{{layout.horizontal}} items-{{layout.vertical}} gap-{{layout.gap?.xs||'none'}} sm:gap-{{layout.gap?.sm||'none'}} md:gap-{{layout.gap?.md||'none'}} lg:gap-{{layout.gap?.lg||'none'}}">
+            class="blocks box-border relative w-full h-full grid grid-cols-12 grid-flow-row  justify-{{layout.horizontal}} justify-items-{{layout.vertical}} items-{{layout.alignItems}} gap-{{layout.gap?.xs||'none'}} sm:gap-{{layout.gap?.sm||'none'}} md:gap-{{layout.gap?.md||'none'}} lg:gap-{{layout.gap?.lg||'none'}}">
             <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
-            <div class="item relative box-border item-{{item.type}}" [attr.data-path]="'elements.'+index"
+            <div class="item relative box-border item-{{item.type}} col-span-12" [attr.data-path]="'elements.'+index"
               *ngFor="let item of layout.elements;index as index">
               <app-block-toolbar
                 class="absolute top-auto left-[50%] bottom-full z-10 whitespace-nowrap rounded-tl-[4px] rounded-tr-[4px] -translate-x-1/2 hidden"
