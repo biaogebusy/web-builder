@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, fromEvent, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ScreenService } from '@core/service/screen.service';
 
 @Injectable({
@@ -12,13 +11,19 @@ export class ScreenState {
   public scroll$ = new BehaviorSubject<boolean>(true);
   public drawer$ = new Subject();
   public stickyMenu$ = new Subject();
+  displayNameMap = new Map([
+    [Breakpoints.XSmall, 'xs'],
+    [Breakpoints.Small, 'sm'],
+    [Breakpoints.Medium, 'md'],
+    [Breakpoints.Large, 'lg'],
+    [Breakpoints.XLarge, 'xl'],
+  ]);
 
   viewPort: string[];
 
   constructor(
     public breakpointObserver: BreakpointObserver,
-    public mediaObserver: MediaObserver,
-    private screenService: ScreenService
+    private screenService: ScreenService,
   ) {
     if (this.screenService.isPlatformBrowser()) {
       this.initScreen();
@@ -33,21 +38,25 @@ export class ScreenState {
   }
 
   mqAlias$(): Observable<string[]> {
-    return this.mediaObserver.asObservable().pipe(
-      distinctUntilChanged(
-        (x: MediaChange[], y: MediaChange[]) =>
-          this.getAlias(x) === this.getAlias(y)
-      ),
-      map((change: any) => {
-        return change.map((item: any) => {
-          return item.mqAlias;
-        });
-      })
+    return this.breakpointObserver
+      .observe([
+        Breakpoints.XSmall,
+        Breakpoints.Small,
+        Breakpoints.Medium,
+        Breakpoints.Large,
+        Breakpoints.XLarge,
+      ])
+      .pipe(
+        distinctUntilChanged(),
+        map((result) => {
+          for (const query of Object.keys(result.breakpoints)) {
+            if (result.breakpoints[query]) {
+              return [this.displayNameMap.get(query) ?? 'Unknown'];
+            }
+          }
+          return ['unknown'];
+        })
     );
-  }
-
-  getAlias(change: MediaChange[]): any {
-    return change[0].mqAlias;
   }
 
   eq(targetPoint: string): boolean {
