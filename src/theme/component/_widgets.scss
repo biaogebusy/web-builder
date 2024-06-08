@@ -212,20 +212,6 @@
     }
   }
 
-  .tree-inner {
-    background-color: mat.get-color-from-palette($background, card);
-    border: 1px solid $divider-color;
-
-    .node-content-wrapper-active,
-    .node-content-wrapper:hover {
-      background-color: mat.get-color-from-palette($primary, 100);
-    }
-  }
-
-  .tree {
-    @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
-  }
-
   .media-meta {
     border-bottom: 1px solid $divider-color;
 
