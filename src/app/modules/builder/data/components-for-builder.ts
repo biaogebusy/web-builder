@@ -225,62 +225,6 @@ export const components: any[] = [
             },
           },
           {
-            label: '1v3-1',
-            content: {
-              type: 'hero-1v3',
-              spacer: 'xl',
-              bg: {
-                classes: '',
-              },
-              classes: '',
-              text: {
-                title: {
-                  label:
-                    '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
-                  classes: 'mat-display-2 bold',
-                  style: 'style-v4',
-                },
-                classes: 'p-x',
-                body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong >Storybook</strong> 页面时添加组件到预览页面。',
-                actions: [
-                  {
-                    type: 'btn',
-                    mode: 'raised',
-                    color: 'primary',
-                    href: '#',
-                    label: '立刻体验',
-                    target: '_blank',
-                  },
-                  {
-                    type: 'btn-video',
-                    color: 'primary',
-                    video: {
-                      type: 'player',
-                      options: {
-                        controls: true,
-                        aspectRatio: '16:9',
-                        poster: '/assets/video/poster01.png',
-                        sources: [
-                          {
-                            src: '/assets/video/storybook.mp4',
-                            type: 'video/mp4',
-                          },
-                        ],
-                      },
-                    },
-                  },
-                ],
-              },
-              right: [
-                {
-                  type: 'img',
-                  hostClasses: 'img-bg-shape',
-                  src: '/assets/images/illustration/29.png',
-                },
-              ],
-            },
-          },
-          {
             label: '1v4 Shape',
             content: {
               spacer: 'xl',
@@ -1628,7 +1572,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg- bg-fill-width',
               },
-              row: 3,
+              row: 4,
               classes: '',
               text: {
                 title: {
@@ -1709,7 +1653,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg- bg-fill-width',
               },
-              row: 4,
+              row: 3,
               classes: '',
               text: {
                 title: {
@@ -1821,7 +1765,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg- bg-fill-width',
               },
-              row: 2,
+              row: 6,
               classes: '',
               text: {
                 title: {
@@ -1951,7 +1895,7 @@ export const components: any[] = [
                 classes: '',
               },
               classes: '',
-              row: 5,
+              row: 3,
               elements: [
                 {
                   type: 'card',
@@ -2385,7 +2329,7 @@ export const components: any[] = [
                 classes: 'text-center',
                 body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
               },
-              row: 4,
+              row: 3,
               bg: {
                 classes: '',
               },
@@ -2612,116 +2556,6 @@ export const components: any[] = [
             },
           },
           {
-            label: '2v5',
-            content: {
-              type: 'showcase-2v5',
-              text: {
-                title: {
-                  label: 'Drupal 数据统计报告',
-                  style: 'style-v1',
-                  classes: 'mat-display-1',
-                },
-                classes: 'text-center',
-                body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
-              },
-              spacer: 'md',
-              fullWidth: true,
-              bg: {
-                classes: '',
-              },
-              classes: '',
-              elements: [
-                {
-                  type: 'content-text-center',
-                  ratios: 'media-140',
-                  text: '<p style="font-size:45px">118k</p><p>活跃的模块</p><p style="font-size:45px">46k<sup>+</sup></p><p>开发者</p><p style="font-size:45px">1.4M<sup></sup></p><p>使用</p><p>Drupal 统计</p>',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/showcase/info01.png',
-                    alt: 'alt',
-                  },
-                },
-                {
-                  type: 'content-text-center',
-                  width: '25',
-                  ratios: 'media-140',
-                  text: '<p>全球有超过100万个网站采用 Drupal 进行构建和管理</p>',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/showcase/info02.png',
-                    alt: 'alt',
-                  },
-                },
-                {
-                  type: 'content-text-center',
-                  width: '25',
-                  ratios: 'media-140',
-                  text: '<p>全球约有200,000名活跃的 Drupal 开发者和贡献者</p>',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/showcase/info03.png',
-                    alt: 'alt',
-                  },
-                },
-                {
-                  type: 'content-text-center',
-                  width: '25',
-                  ratios: 'media-140',
-                  text: '<p>Drupal 支持超过100种不同语言的本地化和翻译</p>',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/showcase/info04.png',
-                    alt: 'alt',
-                  },
-                },
-                {
-                  type: 'content-text-center',
-                  width: '25',
-                  ratios: 'media-140',
-                  text: '<p>超过50,000个可用模块和主题，可根据不同需求轻松扩展和定制网站功能</p>',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/showcase/info05.png',
-                    alt: 'alt',
-                  },
-                },
-                {
-                  type: 'content-text-center',
-                  width: '25',
-                  ratios: 'media-140',
-                  text: '<p>全球一些知名的品牌和机构，如纽约时报、华盛顿邮报、红十字会等，都选择使用 Drupal 构建和管理其官方网站。</p>',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/showcase/info01.png',
-                    alt: 'alt',
-                  },
-                },
-                {
-                  type: 'content-text-center',
-                  width: '25',
-                  ratios: 'media-140',
-                  text: '<p>Drupal 社区每年都会举办全球各地的 DrupalCon 大会和其他相关活动，汇聚开发者、用户和专家，促进知识共享和交流。根据统计数据，DrupalCon 已在全球超过30个国家举办过。',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/showcase/info02.png',
-                    alt: 'alt',
-                  },
-                },
-                {
-                  type: 'content-text-center',
-                  width: '25',
-                  ratios: 'media-140',
-                  text: '<p>全球超过70%的 Drupal 网站具有响应式设计，能够适应不同设备和屏幕尺寸，提供优质的移动浏览体验</p>',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/showcase/info05.png',
-                    alt: 'alt',
-                  },
-                },
-              ],
-            },
-          },
-          {
             label: '2v6',
             content: {
               type: 'showcase-2v6',
@@ -2793,108 +2627,6 @@ export const components: any[] = [
       {
         label: 'V3',
         child: [
-          {
-            label: '3v2',
-            content: {
-              type: 'showcase-3v2',
-              text: {
-                title: {
-                  label:
-                    '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
-                  style: 'style-v1',
-                  classes: 'mat-display-2 bold',
-                },
-                classes: 'text-center',
-                body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
-              },
-              classes: '',
-              bg: {
-                classes: 'bg-fill-width',
-                img: {
-                  hostClasses: '',
-                  src: '/assets/images/bg/home-shape.png',
-                  mobile: '/assets/images/bg/home-shape.png',
-                },
-              },
-              elements: [
-                {
-                  img: {
-                    src: '/assets/images/svg/vscode.svg',
-                    alt: '',
-                  },
-                  content: {
-                    type: 'text',
-                    spacer: 'sm',
-                    title: {
-                      label: '组件驱动开发',
-                      style: 'style-v4',
-                      classes: 'mat-display-2',
-                    },
-                    body: '<strong class="text-primary">Storybook</strong> 采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class="list-done">\r\n\t<li>为每个UI组件创建"stories"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n',
-                    actions: [
-                      {
-                        type: 'btn',
-                        color: 'primary',
-                        mode: 'raised',
-                        href: '#',
-                        label: '马上体验',
-                      },
-                    ],
-                  },
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/storybook-mock-ui.svg',
-                    alt: '',
-                  },
-                  content: {
-                    type: 'text',
-                    spacer: 'sm',
-                    title: {
-                      label: '组件展示和测试',
-                      style: 'style-v4',
-                      classes: 'mat-display-2',
-                    },
-                    body: '<strong class="text-primary">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
-                    actions: [
-                      {
-                        type: 'btn',
-                        color: 'primary',
-                        mode: 'raised',
-                        href: '#',
-                        label: '马上体验',
-                      },
-                    ],
-                  },
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/monday-com.webp',
-                    alt: '',
-                  },
-                  content: {
-                    type: 'text',
-                    spacer: 'sm',
-                    title: {
-                      label: '文档化',
-                      style: 'style-v4',
-                      classes: 'mat-display-2',
-                    },
-                    body: '<strong class="text-primary">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class="list-done">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n',
-                    actions: [
-                      {
-                        type: 'btn',
-                        color: 'primary',
-                        mode: 'raised',
-                        href: '#',
-                        label: '马上体验',
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
           {
             label: '3v3',
             content: {
@@ -4613,7 +4345,7 @@ export const components: any[] = [
                     bg: {
                       classes: 'bg- bg-fill-width',
                     },
-                    row: 3,
+                    row: 4,
                     classes: '',
                     text: {
                       title: {
@@ -5599,296 +5331,6 @@ export const components: any[] = [
     label: '瀑布流',
     id: 'masonry',
     elements: [
-      {
-        label: 'packery',
-        content: {
-          type: 'packery',
-          config: {
-            gutter: 0,
-            imagesLoaded: true,
-            percentPosition: true,
-          },
-          spacer: 'md',
-          text: {
-            title: {
-              label: 'Drupal 是如何数字创新的？',
-              style: 'style-v1',
-              classes: 'mat-display-1 text-light',
-            },
-            classes: 'text-center',
-            body: '<p class="text-light text-center">Drupal通过其灵活性、多功能性和可扩展性，为数字创新提供了强大的基础。它能够满足不同规模和需求的组织和企业的数字化转型和创新需求，并提供可靠、安全、高效的数字解决方案。</p>',
-          },
-          classes: '',
-          bg: {
-            classes: 'bg-fill-width bg-shadow overlay overlay-80',
-            img: {
-              hostClasses: '',
-              src: '/assets/images/bg/home-shape.png',
-              mobile: '/assets/images/bg/home-shape.png',
-            },
-          },
-          elements: [
-            {
-              type: 'feature-box',
-              width: '20',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-4-3',
-              hoverIcon: true,
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto1.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'feature-box',
-              width: '20',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-4-3',
-              hoverIcon: true,
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto2.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'feature-box',
-              width: '40',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-4-3',
-              hoverIcon: true,
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto3.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'feature-box',
-              width: '20',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-4-3',
-              hoverIcon: true,
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto4.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'feature-box',
-              width: '20',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-4-3',
-              hoverIcon: true,
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto5.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'feature-box',
-              width: '20',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-4-3',
-              hoverIcon: true,
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto6.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'feature-box',
-              width: '20',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-4-3',
-              hoverIcon: true,
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto7.jpg',
-                alt: 'alt',
-              },
-            },
-          ],
-        },
-      },
-      {
-        label: '内容盒子',
-        content: {
-          type: 'packery',
-          config: {
-            gutter: 0,
-            imagesLoaded: true,
-            percentPosition: true,
-          },
-          spacer: 'md',
-          text: {
-            title: {
-              label: 'Drupal 是如何数字创新的？',
-              style: 'style-v1',
-              classes: 'mat-display-1 text-light',
-            },
-            classes: 'text-center',
-            body: '<p class="text-light text-center">Drupal通过其灵活性、多功能性和可扩展性，为数字创新提供了强大的基础。它能够满足不同规模和需求的组织和企业的数字化转型和创新需求，并提供可靠、安全、高效的数字解决方案。</p>',
-          },
-          bg: {
-            classes: 'bg-fill-width bg-shadow overlay overlay-80',
-            img: {
-              hostClasses: '',
-              src: '/assets/images/bg/home-shape.png',
-              mobile: '/assets/images/bg/home-shape.png',
-            },
-          },
-          fullWidth: true,
-          classes: '',
-          elements: [
-            {
-              type: 'content-box',
-              width: '33.33',
-              ratios: 'media-4-3',
-              subTitle: {
-                label: '灵活的架构',
-                href: '/search',
-              },
-              title: {
-                label: '能够构建各种类型的数字解决方案',
-                href: '/search',
-              },
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto1.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'content-box',
-              width: '33.33',
-              ratios: 'media-4-3',
-              subTitle: {
-                label: '多站点管理',
-                href: '/search',
-              },
-              title: {
-                label: '简化了多个网站的运维和维护工作',
-                href: '/search',
-              },
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto2.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'content-box',
-              width: '33.33',
-              ratios: 'media-4-3',
-              subTitle: {
-                label: '多语言支持',
-                href: '/search',
-              },
-              title: {
-                label: '企业能够更好地面向全球市场进行本地化和国际化',
-                href: '/search',
-              },
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto3.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'content-box',
-              width: '25',
-              ratios: 'media-4-3',
-              subTitle: {
-                label: '社交媒体集成',
-                href: '/search',
-              },
-              title: {
-                label: '增强用户参与度、推广品牌和提高网站的可见性',
-                href: '/search',
-              },
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto4.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'content-box',
-              width: '25',
-              ratios: 'media-4-3',
-              subTitle: {
-                label: '移动友好性',
-                href: '/search',
-              },
-              title: {
-                label: '能够更好地适应移动化的用户行为和需求',
-                href: '/search',
-              },
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto6.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'content-box',
-              width: '25',
-              ratios: 'media-4-3',
-              subTitle: {
-                label: '数据分析和个性化',
-                href: '/search',
-              },
-              title: {
-                label: '根据用户的兴趣和偏好提供个性化的内容和体验',
-                href: '/search',
-              },
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto7.jpg',
-                alt: 'alt',
-              },
-            },
-            {
-              type: 'content-box',
-              width: '25',
-              ratios: 'media-4-3',
-              subTitle: {
-                label: '安全和稳定性',
-                href: '/search',
-              },
-              title: {
-                label:
-                  '它的安全记录和稳定性得到了业界的认可，为企业提供了可信赖的数字平台',
-                href: '/search',
-              },
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto5.jpg',
-                alt: 'alt',
-              },
-            },
-          ],
-        },
-      },
       {
         label: '洗牌',
         content: {

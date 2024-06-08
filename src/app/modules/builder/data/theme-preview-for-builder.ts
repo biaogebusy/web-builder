@@ -24,7 +24,7 @@ export const colorTest: IPage = {
         },
       ],
       bgColors: {
-        row: 10,
+        row: 1,
         lists: [
           {
             label: 'primary',

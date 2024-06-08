@@ -31,7 +31,6 @@ export const templates: any[] = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
               layoutAlign: 'start start',
               elements: [],
             },
@@ -43,7 +42,6 @@ export const templates: any[] = [
                 md: 6,
                 lg: 6,
               },
-              direction: 'column',
               layoutAlign: 'start start',
               elements: [],
             },
@@ -100,7 +98,7 @@ export const templates: any[] = [
               key: 'keys',
               type: 'input',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '关键词',
                 appearance: 'legacy',
                 type: 'search',
@@ -110,7 +108,7 @@ export const templates: any[] = [
               type: 'select',
               key: 'skill',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '技能',
                 options: [
                   {
@@ -136,7 +134,7 @@ export const templates: any[] = [
               type: 'select',
               key: 'cms',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: 'CMS',
                 options: [
                   {
@@ -162,7 +160,7 @@ export const templates: any[] = [
               type: 'checkbox',
               key: 'article',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '文章',
               },
             },
@@ -170,7 +168,7 @@ export const templates: any[] = [
               type: 'checkbox',
               key: 'blog',
               className: 'block',
-              templateOptions: {
+              props: {
                 label: '博客',
               },
             },
@@ -210,79 +208,6 @@ export const templates: any[] = [
           },
           title: '关于我们',
           breadcrumb: [],
-        },
-        {
-          spacer: 'xl',
-          bgClasses: 'bg-fill-width overlay overlay-',
-          overlay: '',
-          classes: '',
-          id: '',
-          bg: {
-            img: {
-              src: '/assets/images/bg/home-shape.png',
-              classes: 'object-fit',
-              alt: 'home-shape',
-              hostClasses: '',
-            },
-            classes: 'bg-fill-width overlay overlay-',
-            overlay: '',
-          },
-          type: 'showcase-3v2',
-          title: {
-            label: '关于我们',
-            style: 'style-v1',
-            classes: 'mat-display-0 bold',
-          },
-          subTitle:
-            '<p class="text-align-center">远方信使（XINSHI）是一个使用 Drupal 提供 API 的 Angular 前端开发学习框架，拥有丰富的前端组件，通过 Drupal Pannel 可快速构建 Landing 营销着陆页，常规的 Web 官网通过拖曳的方式即可创建。</p>\r\n',
-          elements: [
-            {
-              img: {
-                src: '/assets/images/1-1/business-03.png',
-                alt: '',
-                style: {
-                  width: 'auto',
-                  height: 'auto',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  opacity: '1',
-                  borderRadius: 0,
-                  objectFit: 'initial',
-                },
-              },
-              content: {
-                title: {
-                  label: '我们的故事',
-                  style: 'style-v4',
-                  classes: 'mat-display-1',
-                },
-                body: '<p>我们是专业开发 Drupal 多年的前后端开发人员，热衷于分享 Drupal 相关的技术和资讯，创建维护微信公众号：drupalstudy 从 Drupal 7开始，目前已发布了了四百多期，是国内为数不多的 Drupal 相关的微信公众号。</p>\r\n',
-              },
-            },
-            {
-              img: {
-                src: '/assets/images/1-1/business-02.png',
-                alt: '',
-              },
-              content: {
-                title: {
-                  label: '技术分享',
-                  style: 'style-v4',
-                  classes: 'mat-display-1',
-                },
-                actions: [
-                  {
-                    type: 'btn-animate',
-                    label: 'Drupal 自习室知乎专栏',
-                    href: 'https://www.zhihu.com/column/c_1331898788731375616',
-                    style: 'style-v1',
-                    icon: 'open_in_new',
-                  },
-                ],
-                body: '<p>我们也及时在知乎更新 Drupal 相关的技术文章，分享给更多感兴趣的人，愿你们能够享受 Drupal 带来的字数创新体验。</p>\r\n',
-              },
-            },
-          ],
         },
         {
           spacer: 'md',
@@ -400,7 +325,6 @@ export const templates: any[] = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          direction: 'row',
           horizontal: 'center',
           vertical: 'center',
           layoutAlign: 'center center',
@@ -419,7 +343,6 @@ export const templates: any[] = [
                 md: 12,
                 lg: 12,
               },
-              direction: 'row',
               horizontal: 'center',
               vertical: 'center',
               layoutAlign: 'center center',
@@ -645,7 +568,6 @@ export const templates: any[] = [
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
-          direction: 'row wrap',
           horizontal: 'center',
           vertical: 'stretch',
           layoutAlign: 'center stretch',
@@ -664,7 +586,6 @@ export const templates: any[] = [
                 md: 6,
                 lg: 7,
               },
-              direction: 'column',
               horizontal: 'center',
               vertical: 'center',
               layoutAlign: 'center center',
@@ -750,7 +671,6 @@ export const templates: any[] = [
                 md: 12,
                 lg: 5,
               },
-              direction: 'column',
               horizontal: 'center',
               vertical: 'center',
               layoutAlign: 'center center',
