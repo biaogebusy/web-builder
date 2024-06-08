@@ -534,18 +534,17 @@ const footerNewsletter = {
   },
   label: '资讯',
   summary: '欢迎使用邮箱订阅最新的公告和产品。',
-  forms: [
+  form: [
     {
       type: 'input',
-      label: '邮箱地址',
       key: 'email',
-      params: {
+      props: {
+        label: '邮箱地址',
         required: true,
         email: true,
+        placeholder: '请输入您的邮箱',
+        appearance: 'outline',
       },
-      placeholder: '请输入您的邮箱',
-      hint: '请输入邮箱',
-      error: '邮箱地址无效',
     },
   ],
   action: {
@@ -580,33 +579,11 @@ export const footerLight: IFooter = {
     mode: 'light',
   },
   logo: {
-    label: '远方信使',
+    label: 'Web Builder',
   },
   copyRight: 'Copyright by XinShi',
   mainMenu: footerMainMenu,
   mobileMenu: footerMobileMenu,
-  fixBar,
-};
-
-export const footerSimple: IFooter = {
-  params: {
-    mode: 'space-between',
-    shape: false,
-  },
-  footerBrand: {
-    logo: footerBrandLogo,
-  },
-  content: {
-    left: {
-      spacer: 'none',
-      body: '<p class="m-bottom-0"><strong>地址：</strong>南宁市创客城</p><p class="m-bottom-0"><strong>微信：</strong> biaogebusy</p>',
-    },
-    middle: {
-      spacer: 'none',
-      body: '',
-    },
-  },
-  footerBottom,
   fixBar,
 };
 
