@@ -44,7 +44,6 @@ export class BuilderToolbarComponent
   page?: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
   showNavigate = false;
-
   constructor(
     private storage: LocalStorageService,
     public builder: BuilderState,

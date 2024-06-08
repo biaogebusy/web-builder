@@ -32,7 +32,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 // utils
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IconService } from '@core/service/icon.service';
@@ -65,7 +64,6 @@ import { ContenteditDirective } from '@core/directive/contentedit.directive';
     MatCardModule,
     MatAutocompleteModule,
     MatDividerModule,
-    FlexLayoutModule,
     MatRippleModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
@@ -99,7 +97,6 @@ import { ContenteditDirective } from '@core/directive/contentedit.directive';
     MatAutocompleteModule,
     MatInputModule,
     MatDividerModule,
-    FlexLayoutModule,
     MatFormFieldModule,
     MatSelectModule,
     MatRippleModule,

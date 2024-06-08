@@ -37,8 +37,8 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.screen.mqAlias$().subscribe((res: string[]) => {
-      this.show = res.includes('gt-sm');
+    this.screen.mqAlias$().subscribe((mq: string[]) => {
+      this.show = mq.includes('md') || mq.includes('lg') || mq.includes('xl');
       this.cd.detectChanges();
     });
   }

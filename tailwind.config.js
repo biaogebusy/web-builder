@@ -25,7 +25,6 @@ function getLayoutClasses(layout) {
   return FlexClasses;
 }
 
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: {
@@ -51,6 +50,8 @@ module.exports = {
       "items-center",
       "items-baseline",
       "items-stretch",
+      "order-1",
+      "order-0",
     ],
   },
   theme: {

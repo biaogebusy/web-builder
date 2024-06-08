@@ -1,7 +1,7 @@
 <div class="hero-2-v3 relative p-y-md">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer
-    *ngIf="(pageContent$ | async)?.config?.headerMode?.transparent && showGtXs"
+    *ngIf="(pageContent$ | async)?.config?.headerMode?.transparent"
     [size]="'xl'"
   ></app-spacer>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>

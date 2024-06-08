@@ -14,7 +14,7 @@ import { Meta } from "@storybook/addon-docs";
 
 # 更新日志
 
-## 6.0.0(2024-06-06)
+## 6.0.0(2024-06-08)
 
 - 升级 Angular v12 到 v13;
 - 移除 article change, search action,dynamic form,dynamic form control, action 1v1 组件；
@@ -24,10 +24,13 @@ import { Meta } from "@storybook/addon-docs";
 - tailwindCss 升级到 v3.4.3；
 - ngx-localstorage 升级到 v10；
 - ngx-cookie-service 升级到 v14；
-- ngx-formly 升级到v6；
-- 移除了tree,tree-list组件和包，其中包含mobx依赖；
-- img 去掉了flexLayout依赖；
-- Layout builder 使用grid，flex 有局限性，配置也少很多；
+- ngx-formly 升级到 v6；
+- 移除了 tree,tree-list 组件和包，其中包含 mobx 依赖；
+- img 去掉了 flexLayout 依赖；
+- Layout builder 使用 grid，flex 有局限性，配置也少很多；
+- 移除了 packpery 模块；
+- 完全移除了 flex-layout 模块，所有的组件依赖该模块都已替换；
+- text 组件去除了限制只对 pc 断点的样式，会影响到 Hero 个别组件在移动端的样式；
 
 ## 5.0.1(2024-05-29)
 
