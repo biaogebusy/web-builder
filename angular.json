@@ -218,7 +218,8 @@
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "sourceMap": true,
-            "optimization": false
+            "optimization": false,
+            "buildOptimizer": false
           },
           "configurations": {
             "production": {
@@ -230,7 +231,8 @@
                 }
               ],
               "sourceMap": false,
-              "optimization": true
+              "optimization": true,
+              "buildOptimizer": true
             },
             "xinshi": {
               "outputHashing": "media",
@@ -241,7 +243,8 @@
                 }
               ],
               "sourceMap": false,
-              "optimization": true
+              "optimization": true,
+              "buildOptimizer": true
             },
             "nnit": {
               "outputHashing": "media",
@@ -252,7 +255,8 @@
                 }
               ],
               "sourceMap": false,
-              "optimization": true
+              "optimization": true,
+              "buildOptimizer": true
             },
             "sanziqi": {
               "outputHashing": "media",
@@ -263,7 +267,8 @@
                 }
               ],
               "sourceMap": false,
-              "optimization": true
+              "optimization": true,
+              "buildOptimizer": true
             }
           },
           "defaultConfiguration": ""
