@@ -8,7 +8,6 @@ import {
 import type { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import type { IImg } from '@core/interface/widgets/IImg';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 import { RouteService } from '@core/service/route.service';
 @Component({
   selector: 'app-feature-box',
@@ -23,17 +22,11 @@ export class FeatureBoxComponent implements OnInit {
   isHoverIcon = true;
   title: string;
   constructor(
-    private lightbox: Lightbox,
-    private lightboxConfig: LightboxConfig,
     private utli: UtilitiesService,
     private cd: ChangeDetectorRef,
     private routerService: RouteService,
     private util: UtilitiesService
-  ) {
-    this.lightboxConfig.disableScrolling = true;
-    this.lightboxConfig.centerVertically = true;
-    this.lightboxConfig.showRotate = true;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.type = this.utli.getFileType(this.content.img.src);
@@ -97,14 +90,15 @@ export class FeatureBoxComponent implements OnInit {
       window.open(img.preview, '_blank');
       return;
     }
-    this.lightbox.open([
-      {
-        src: img.src,
-        caption: img.alt || 'Lightbox',
-        thumb: img.src,
-        downloadUrl: img.src,
-      },
-    ]);
+    // TODO: refact
+    // this.lightbox.open([
+    //   {
+    //     src: img.src,
+    //     caption: img.alt || 'Lightbox',
+    //     thumb: img.src,
+    //     downloadUrl: img.src,
+    //   },
+    // ]);
   }
 
   copy(img: IImg): void {

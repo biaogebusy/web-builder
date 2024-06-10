@@ -14,7 +14,7 @@ $dark-theme: mat.define-dark-theme(
       accent: $dark-accent,
       warn: $dark-warn,
     ),
-    typography: mat.define-legacy-typography-config(),
+    typography: mat.define-typography-config(),
     density: 0,
   )
 );

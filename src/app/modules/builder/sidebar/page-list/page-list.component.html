@@ -1,26 +1,59 @@
 <div class="page-list">
   <div class="reload">
-    <app-btn *ngIf="!loading" (click)="onReload()"
-      [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'reload'}}"></app-btn>
+    <app-btn
+      *ngIf="!loading"
+      (click)="onReload()"
+      [content]="{
+        label: '',
+        mode: 'icon',
+        color: 'primary',
+        icon: { svg: 'reload' }
+      }"
+    ></app-btn>
   </div>
-  <app-title [content]="{label:'管理列表',style:'style-v4',classes:'p-y-xs m-bottom-x bold'}"></app-title>
+  <app-title
+    [content]="{
+      label: '管理列表',
+      style: 'style-v4',
+      classes: 'p-y-xs m-bottom-x bold'
+    }"
+  ></app-title>
   <div class="form">
-    <app-formly [fields]="fields" [form]="form" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
+    <app-formly
+      [fields]="fields"
+      [form]="form"
+      [model]="model"
+      (modelChange)="onModelChange($event)"
+    ></app-formly>
   </div>
   <mat-list>
     <mat-spinner *ngIf="loading" diameter="50" color="primary"></mat-spinner>
     <ng-container *ngIf="content$ | async as content">
       <mat-list-item *ngFor="let page of content; index as i">
-        <div class="title" mat-line>
-          <a href="{{page.href}}?preview=true" target="_blank">{{page.title}}</a>
+        <div class="title" matListItemLine>
+          <a href="{{ page.href }}?preview=true" target="_blank">{{
+            page.title
+          }}</a>
         </div>
-        <div class="meta" mat-line>{{page.user|shorten: 6: '...'}} {{page.changed | date:'yyyy/MM/dd HH:mm'}} </div>
-        <div class="meta" mat-line>
-          <a href="{{page.href}}?preview=true" target="_blank">{{page.href}}</a>
+        <div class="meta" matListItemLine>
+          {{ page.user | shorten: 6:"..." }}
+          {{ page.changed | date: "yyyy/MM/dd HH:mm" }}
         </div>
-        <app-btn (click)="loadPage(page)" [content]="{label:'编辑','mode':'stroked','color':'primary'}"></app-btn>
+        <div class="meta" matListItemLine>
+          <a href="{{ page.href }}?preview=true" target="_blank">{{
+            page.href
+          }}</a>
+        </div>
+        <app-btn
+          matListItemMeta
+          (click)="loadPage(page)"
+          [content]="{ label: '编辑', mode: 'stroked', color: 'primary' }"
+        ></app-btn>
       </mat-list-item>
     </ng-container>
   </mat-list>
-  <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
+  <app-pagination-links
+    (pageChange)="onPageChange($event)"
+    [links]="links"
+  ></app-pagination-links>
 </div>

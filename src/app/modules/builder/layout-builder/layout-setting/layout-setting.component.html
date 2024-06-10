@@ -11,9 +11,12 @@
         *ngFor="let widget of content.content.elements; index as i"
         cdkDrag
       >
-        <app-icon mat-list-icon [content]="{ svg: 'dots-vertical' }"></app-icon>
-        <div mat-line>{{ i + 1 }}.{{ widget?.type }}</div>
-        <div mat-line class="title" *ngIf="widget.title | isString">
+        <app-icon
+          matListItemIcon
+          [content]="{ svg: 'dots-vertical' }"
+        ></app-icon>
+        <div matListItemLine>{{ i + 1 }}.{{ widget?.type }}</div>
+        <div matListItemLine class="title" *ngIf="widget.title | isString">
           {{ widget?.title }}
         </div>
         <div class="actions">

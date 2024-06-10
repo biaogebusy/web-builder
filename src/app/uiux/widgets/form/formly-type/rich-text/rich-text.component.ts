@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MAT_LEGACY_INPUT_VALUE_ACCESSOR as MAT_INPUT_VALUE_ACCESSOR, MatLegacyInput as MatInput } from '@angular/material/legacy-input';
+import { MAT_INPUT_VALUE_ACCESSOR, MatInput } from '@angular/material/input';
 import { NodeService } from '@core/service/node.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 import { FormlyFieldTextArea } from '@ngx-formly/material/textarea';

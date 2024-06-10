@@ -32,7 +32,7 @@
                 mat.get-color-from-palette($background, tooltip),
                 0.25
               );
-              .mat-button-base {
+              .mat-mdc-button-base {
                 color: mat.get-color-from-palette(
                   $primary,
                   default-contrast,
@@ -61,7 +61,7 @@
                   0.25
                 );
 
-                .mat-button-base,
+                .mat-mdc-button-base,
                 .title {
                   color: mat.get-color-from-palette(
                     $primary,

@@ -1,8 +1,5 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
-import { LightboxModule } from 'ngx-lightbox';
 import { ShareModule } from '@share/share.module';
-import { SwiperModule } from 'swiper/angular';
-import { CountToModule } from 'angular-count-to';
 import { CdkTableModule } from '@angular/cdk/table';
 
 // Material
@@ -113,6 +110,9 @@ import { SliderComponent } from './form/formly-type/slider/slider.component';
 import { DividerComponent } from './divider/divider.component';
 import { RichTextComponent } from './form/formly-type/rich-text/rich-text.component';
 import { QuillModule } from 'ngx-quill';
+import { CountUpModule } from 'ngx-countup';
+import { LightgalleryModule } from 'lightgallery/angular';
+
 const components = [
   BgComponent,
   ImgComponent,
@@ -201,8 +201,8 @@ const components = [
     MatChipsModule,
     MatBadgeModule,
     ShareModule,
-    LightboxModule,
-    CountToModule,
+    CountUpModule,
+    LightgalleryModule,
     CdkTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -213,7 +213,6 @@ const components = [
     FormlyMatSliderModule,
     FormlyMatToggleModule,
     MatCheckboxModule,
-    SwiperModule,
     MatSortModule,
     ClipboardModule,
     QuillModule.forRoot(),

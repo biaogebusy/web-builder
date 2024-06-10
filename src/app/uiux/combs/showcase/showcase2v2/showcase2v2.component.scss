@@ -1,4 +1,4 @@
-:host ::ng-deep .mat-card {
+:host ::ng-deep .mat-mdc-card {
   border-radius: 0;
   &:not([class*="mat-elevation-z"]) {
     box-shadow: none;
@@ -6,10 +6,10 @@
   &:hover {
     background-color: transparent;
   }
-  .mat-card-content {
+  .mat-mdc-card-content {
     margin-left: -16px;
     margin-right: -16px;
-    .mat-card-title {
+    .mat-mdc-card-title {
       padding: 0 0 1rem 0;
       text-align: center;
     }

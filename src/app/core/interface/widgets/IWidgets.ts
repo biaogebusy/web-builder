@@ -1,5 +1,5 @@
 import { ThemePalette } from '@angular/material/core';
-import { LegacyProgressBarMode as ProgressBarMode } from '@angular/material/legacy-progress-bar';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 import { IImg } from './IImg';
 import { IIcon } from '@core/interface/widgets/IIcon';
 import { EChartsOption } from 'echarts';

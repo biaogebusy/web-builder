@@ -1,6 +1,6 @@
 @import "../../../../theme/mixins/amixin";
 
-.mat-spinner {
+.mat-mdc-progress-spinner {
   @include middle-center();
 }
 .loading-inner {

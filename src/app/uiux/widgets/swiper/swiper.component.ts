@@ -7,46 +7,10 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import SwiperCore, {
-  Navigation,
-  Pagination,
-  SwiperOptions,
-  EffectFade,
-  Lazy,
-  Autoplay,
-  Keyboard,
-  Mousewheel,
-  EffectCoverflow,
-  EffectFlip,
-  EffectCube,
-} from 'swiper';
-import { SwiperComponent as SwiperCom } from 'swiper/angular';
 
 import { Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
-import { PaginationOptions } from 'swiper/types';
 import type { ISwiper } from '@core/interface/widgets/ISwiper';
-
-const paginationgConfig: PaginationOptions = {
-  type: 'bullets',
-  clickable: true,
-  hideOnClick: false,
-};
-
-// install Swiper modules
-SwiperCore.use([
-  Navigation,
-  Pagination,
-  EffectFade,
-  Lazy,
-  Autoplay,
-  Keyboard,
-  Mousewheel,
-  EffectCoverflow,
-  EffectFlip,
-  EffectFade,
-  EffectCube,
-]);
 
 @Component({
   selector: 'app-swiper',
@@ -58,20 +22,19 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: ISwiper;
   @Input() index: number;
   @Input() navigationSub: Subject<any>;
-  @ViewChild('swiper', { static: false }) swiper: SwiperCom;
+  @ViewChild('swiper', { static: false }) swiper: any;
   constructor(private screenService: ScreenService) {}
 
-  defaultConfig: SwiperOptions = {
+  defaultConfig = {
     slidesPerView: 'auto',
     speed: 1000,
     scrollbar: false,
     keyboard: true,
     mousewheel: false,
     navigation: true,
-    pagination: paginationgConfig,
     autoplay: true,
   };
-  config: SwiperOptions;
+  config: any;
   ngOnInit(): void {
     let customPagination = {};
     if (this.content?.custom?.pagination?.bulletsStyle) {

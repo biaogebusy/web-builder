@@ -14,8 +14,8 @@
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
 //    `@include mat.legacy-typography-hierarchy($custom-typography);`
-@include mat.all-legacy-component-typographies($custom-typography);
-@include mat.legacy-core();
+@include mat.all-component-typographies($custom-typography);
+@include mat.core();
 
 @include branding(map-get($color-theme, shadow), "shadow");
 @include branding(map-get($color-theme, light), "light");

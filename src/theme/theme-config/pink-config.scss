@@ -46,13 +46,13 @@ $pink-theme: mat.define-light-theme(
       accent: $pink-accent,
       warn: $pink-warn,
     ),
-    typography: mat.define-legacy-typography-config(),
+    typography: mat.define-typography-config(),
     density: 0,
   )
 );
 
 .pink-theme {
-  @include mat.all-legacy-component-themes($pink-theme);
+  @include mat.all-component-themes($pink-theme);
   @include base-colors($pink-theme);
   @include component-theme($pink-theme);
 }

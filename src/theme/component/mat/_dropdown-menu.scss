@@ -11,13 +11,13 @@
   $text-color: mat.get-color-from-palette($foreground, text, 0.75);
   .mat-accordion {
     .mat-expansion-panel-header,
-    .mat-list {
+    .mat-mdc-list {
       border-color: mat.get-color-from-palette($foreground, divider) !important;
     }
     .mat-expansion-panel-header-title {
       color: $text-color;
     }
-    .mat-list {
+    .mat-mdc-list {
       a {
         color: $text-color;
         &.active {
@@ -28,7 +28,7 @@
   }
 
   .user-dropdown {
-    .mat-menu-item {
+    .mat-mdc-menu-item {
       a {
         color: $text-color;
         &.active {
@@ -41,8 +41,8 @@
   .notify-menu {
     @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
 
-    .mat-menu-content {
-      .mat-list-item {
+    .mat-mdc-menu-content {
+      .mat-mdc-list-item {
         &:hover {
           background-color: mat.get-color-from-palette($background, background);
         }

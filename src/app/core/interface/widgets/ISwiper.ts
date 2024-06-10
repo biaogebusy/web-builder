@@ -1,8 +1,6 @@
-import { SwiperOptions } from 'swiper';
-
 export interface ISwiper {
   type?: 'swiper';
-  params: SwiperOptions;
+  params: any;
   elements: any[];
   classes: string;
   sliderClasses?: any;

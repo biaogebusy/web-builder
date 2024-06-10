@@ -6,11 +6,8 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { SwiperComponent } from 'swiper/angular';
-import SwiperCore, { Navigation, Pagination, SwiperOptions } from 'swiper';
 import type { IHero1v2 } from '@core/interface/combs/IHero';
 // install Swiper modules
-SwiperCore.use([Navigation, Pagination]);
 @Component({
   selector: 'app-hero-1v2',
   templateUrl: './hero1v2.component.html',
@@ -19,10 +16,10 @@ SwiperCore.use([Navigation, Pagination]);
 })
 export class Hero1v2Component implements OnInit {
   @Input() content: IHero1v2;
-  @ViewChild('media', { static: false }) media: SwiperComponent;
+  @ViewChild('media', { static: false }) media: any;
   index = 0;
-  mediaConfig: SwiperOptions;
-  textConfig: SwiperOptions = {
+  mediaConfig: any;
+  textConfig: any = {
     slidesPerView: 1,
     autoplay: true,
   };

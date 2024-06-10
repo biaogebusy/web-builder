@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+@include mat.button-density(-1);
 .block-toolbar {
   .title {
     line-height: 8px;
@@ -7,7 +9,7 @@
     text-transform: capitalize;
   }
   ::ng-deep {
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       width: 30px;
       height: 30px;
       line-height: 30px;

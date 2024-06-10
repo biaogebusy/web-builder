@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatLegacySlider as MatSlider } from '@angular/material/legacy-slider';
+import { MatSlider } from '@angular/material/slider';
 import { FieldTypeConfig } from '@ngx-formly/core';
 import { FieldType } from '@ngx-formly/material/form-field';
 
@@ -33,7 +33,8 @@ export class SliderComponent
   }
 
   onContainerClick(event: MouseEvent): void {
-    this.slider.focus();
+    // TODO
+    // this.slider.focus();
     this.onContainerClick(event);
   }
 }

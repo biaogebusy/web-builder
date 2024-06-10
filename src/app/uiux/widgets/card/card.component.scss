@@ -3,7 +3,7 @@
   min-height: 4rem;
   @include line-clamp(2);
 }
-.mat-card-title {
+.mat-mdc-card-title {
   @include line-clamp(1);
 }
 .card-header {
@@ -35,7 +35,7 @@
       }
     }
     .swiper-container {
-      .mat-card-image {
+      .mat-mdc-card-image {
         margin: 0 0 16px 0px;
       }
     }
@@ -72,15 +72,15 @@
   }
 }
 
-.mat-card-subtitle,
+.mat-mdc-card-subtitle,
 .card-body {
   font-size: 14px;
   word-break: break-word;
 }
 
-.mat-card-content {
+.mat-mdc-card-content {
   ::ng-deep {
-    .mat-card-avatar {
+    .mat-mdc-card-avatar {
       position: relative;
       img {
         width: 100%;
@@ -88,7 +88,7 @@
         border-radius: 50%;
       }
     }
-    .mat-card-title {
+    .mat-mdc-card-title {
       font-size: 16px;
       font-weight: bold;
     }
@@ -125,8 +125,9 @@
       }
     }
   }
-  ::ng-deep .mat-card-footer {
-    .mat-progress-bar .mat-progress-bar-fill::after {
+  ::ng-deep .mat-mdc-card-footer {
+    /* TODO(mdc-migration): The following rule targets internal classes of progress-bar that may no longer apply for the MDC version.*/
+    .mat-mdc-progress-bar .mat-progress-bar-fill::after {
       border-radius: 0 0 4px 4px;
     }
   }

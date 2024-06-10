@@ -9,7 +9,7 @@
   $warn: map-get($config, warn);
   $text-color: mat.get-color-from-palette($foreground, text, 0.75);
   $bg-color: mat.get-color-from-palette($background, card);
-  .mat-card {
+  .mat-mdc-card {
     color: inherit;
     background-color: $bg-color;
     &:hover {
@@ -27,7 +27,7 @@
       }
     }
   }
-  .mat-card-title {
+  .mat-mdc-card-title {
     a {
       color: $text-color;
       &:hover {
@@ -35,11 +35,11 @@
       }
     }
   }
-  .mat-card-subtitle {
+  .mat-mdc-card-subtitle {
     color: inherit;
   }
 
-  .mat-card-subtitle,
+  .mat-mdc-card-subtitle,
   .card-body {
     color: mat.get-color-from-palette($foreground, text, 0.6);
   }
@@ -97,7 +97,7 @@
   }
 
   .law-card {
-    .mat-card {
+    .mat-mdc-card {
       overflow: hidden;
       border-radius: 12px;
       box-shadow: 0 6px 16px 0 rgb(0 0 0 / 10%);

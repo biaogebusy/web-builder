@@ -1,22 +1,25 @@
-<div class="hero-1-v2 relative pt-20  md:mb-20" *ngIf="content">
+<div class="hero-1-v2 relative pt-20 md:mb-20" *ngIf="content">
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <div class="!z-10 {{content.fullWidth?'relative':'container relative'}}" *ngIf="mediaConfig">
+  <div
+    class="!z-10 {{ content.fullWidth ? 'relative' : 'container relative' }}"
+    *ngIf="mediaConfig"
+  >
     <div class="swiper-media">
-      <swiper #media [config]="mediaConfig" [(index)]="index" (slideChange)="onSlideChange($event)">
+      <!-- <swiper #media [config]="mediaConfig" [(index)]="index" (slideChange)="onSlideChange($event)">
         <ng-template swiperSlide *ngFor="let slide of content.sliders.elements;index as i">
           <app-bg-img [attr.data-path]="'sliders.elements.'+i+'.bg'" [content]="slide.bg"></app-bg-img>
         </ng-template>
-      </swiper>
+      </swiper> -->
     </div>
     <div class="swiper-text p-5">
-      <swiper #text [config]="textConfig" [(index)]="index" (slideChange)="onSlideChange($event)">
+      <!-- <swiper #text [config]="textConfig" [(index)]="index" (slideChange)="onSlideChange($event)">
         <ng-template swiperSlide *ngFor="let slide of content.sliders.elements;index as i">
           <h2 [contentedit]="'sliders.elements.'+i+'.title'" class="title" [innerHTML]="slide.title|safeHtml"></h2>
           <div [contentedit]="'sliders.elements.'+i+'.subTitle'" *ngIf="slide.subTitle" class="sub-title my-5"
             [innerHTML]="slide.subTitle|safeHtml"></div>
           <app-btn [content]="slide.btn"></app-btn>
         </ng-template>
-      </swiper>
+      </swiper> -->
     </div>
   </div>
 </div>

@@ -27,7 +27,7 @@
 
 <!-- inline -->
 <ng-container *ngIf="content?.inline">
-  <mat-card class="inline-calendar-card">
+  <mat-card appearance="outlined" class="inline-calendar-card">
     <mat-calendar (selectedChange)="onSelectedChange($event)" [(selected)]="content.value"></mat-calendar>
   </mat-card>
 </ng-container>

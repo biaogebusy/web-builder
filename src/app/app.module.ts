@@ -10,7 +10,6 @@ import { NgxWebstorageModule, LocalStorageService } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
-import { Angulartics2Module } from 'angulartics2';
 import {
   BRANDING,
   BUILDER_FULL_SCREEN,
@@ -57,14 +56,12 @@ import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'xinshi' }),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CommonModule,
     MatSidenavModule,
     NgxWebstorageModule.forRoot(),
-    Angulartics2Module.forRoot(),
     RenderModule,
     BrandingModule,
     LoadingBarHttpClientModule,

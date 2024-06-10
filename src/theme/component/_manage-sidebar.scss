@@ -42,8 +42,8 @@
           }
         }
       }
-      .mat-list {
-        .mat-list-item {
+      .mat-mdc-list {
+        .mat-mdc-list-item {
           color: mat.get-color-from-palette($foreground, text, 0.5);
           &:hover {
             a {
@@ -97,7 +97,7 @@
                 mat.get-color-from-palette($foreground, divider)
               );
               .sub-menu {
-                .mat-button {
+                .mat-mdc-button {
                   &:hover {
                     &::before {
                       background-color: mat.get-color-from-palette(
@@ -132,7 +132,7 @@
         }
       }
       .mat-accordion {
-        > .mat-list {
+        > .mat-mdc-list {
           &.active {
             &::before {
               background-color: mat.get-color-from-palette($primary);

@@ -27,7 +27,7 @@
             color: mat.get-color-from-palette($foreground, base, 0.4);
           }
         }
-        .mat-header-cell {
+        .mat-mdc-header-cell {
           color: mat.get-color-from-palette($foreground, base, 0.4);
         }
       }

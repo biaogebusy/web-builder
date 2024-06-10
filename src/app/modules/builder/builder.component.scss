@@ -13,10 +13,12 @@
   .sidebar {
     width: 230px;
     ::ng-deep {
+      /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
       .mat-list-text {
         padding-right: 0 !important;
       }
-      .mat-tab-header {
+      .mat-mdc-tab-header {
+        /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
         .mat-tab-label {
           max-width: 66px;
           min-width: 66px;
@@ -24,7 +26,7 @@
             padding: 8px;
           }
         }
-
+        /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
         .mat-tab-label-content {
           padding: 4px 24px;
           border-radius: 6px;

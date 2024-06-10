@@ -5,7 +5,6 @@
       color="primary"
       (click)="onLogin()"
       mat-mini-fab
-      mat-button
     >
       <mat-icon>person</mat-icon>
     </button>
@@ -16,7 +15,6 @@
       *ngIf="!currentUser.picture; else picture"
       mat-mini-fab
       color="primary"
-      mat-button
       [matMenuTriggerFor]="menu"
     >
       <h3 class="name">

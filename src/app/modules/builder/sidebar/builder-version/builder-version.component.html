@@ -13,22 +13,22 @@
             (click)="onVersion(version, i)"
             *ngFor="let version of version; index as i"
           >
-            <mat-icon mat-list-icon *ngIf="!version.current"
+            <mat-icon matListItemIcon *ngIf="!version.current"
               >radio_button_unchecked</mat-icon
             >
-            <mat-icon mat-list-icon color="primary" *ngIf="version.current">
+            <mat-icon matListItemIcon color="primary" *ngIf="version.current">
               radio_button_checked
             </mat-icon>
             <div
               class="title"
               (blur)="onUpdateTitle($event, i)"
               (click)="onClickTitle($event)"
-              mat-line
+              matListItemTitle
               contenteditable="true"
             >
               {{ version.title }}
             </div>
-            <div class="time" mat-line>
+            <div class="time" matListItemLine>
               {{ version.time | date: "yyyy/MM/dd HH:mm:ss" }}
             </div>
             <app-btn

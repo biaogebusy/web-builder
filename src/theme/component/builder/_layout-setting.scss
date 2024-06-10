@@ -18,9 +18,9 @@
     }
 
     .loop-elements {
-      .mat-list-item {
+      .mat-mdc-list-item {
         background-color: mat.get-color-from-palette($primary, 0.2);
-        .mat-list-icon {
+        .mat-mdc-list-item-icon {
           color: mat.get-color-from-palette($foreground, text, 0.4);
         }
         &:hover {

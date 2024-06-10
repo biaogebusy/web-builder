@@ -8,7 +8,7 @@
       <mat-list-item *ngIf="!subMenu.popup; else popup" role="listitem">
         <mat-icon
           *ngIf="subMenu.icon"
-          mat-list-icon
+          matListItemIcon
           svgIcon="{{ subMenu.icon }}"
         ></mat-icon>
         <app-link [content]="subMenu"></app-link>
@@ -17,7 +17,7 @@
         <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
           <mat-icon
             *ngIf="subMenu.icon"
-            mat-list-icon
+            matListItemIcon
             svgIcon="{{ subMenu.icon }}"
           ></mat-icon>
           <span>{{ subMenu.label }}</span>

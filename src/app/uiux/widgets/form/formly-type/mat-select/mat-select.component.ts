@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { MatLegacySelect as MatSelect } from '@angular/material/legacy-select';
+import { MatSelect } from '@angular/material/select';
 import { NodeService } from '@core/service/node.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 import { of, ReplaySubject } from 'rxjs';

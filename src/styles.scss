@@ -10,6 +10,7 @@
 @import "~quill/dist/quill.snow.css";
 @import "~jsoneditor/dist/jsoneditor.min.css";
 @import "highlight.js/scss/atom-one-dark.scss";
+@import "lightgallery/scss/lightgallery";
 
 html {
   font-size: 16px;
@@ -57,7 +58,7 @@ pre {
 }
 
 .close-outside {
-  .mat-dialog-container {
+  .mat-mdc-dialog-container {
     overflow: visible;
   }
 }

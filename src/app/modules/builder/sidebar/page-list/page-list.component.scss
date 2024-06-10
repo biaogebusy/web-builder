@@ -36,17 +36,17 @@
   app-title {
     margin: 0 10px;
   }
-  .mat-list {
+  .mat-mdc-list {
     position: relative;
     height: 510px;
     overflow: auto;
-    .mat-spinner {
+    .mat-mdc-progress-spinner {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
     }
-    .mat-list-item {
+    .mat-mdc-list-item {
       .mat-line {
         font-size: 15px;
       }
@@ -55,9 +55,10 @@
         opacity: 0.5;
       }
       ::ng-deep {
-        .mat-button-base {
+        .mat-mdc-button-base {
           font-size: 12px;
           line-height: 24px;
+          height: auto;
         }
       }
     }

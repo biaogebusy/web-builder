@@ -55,7 +55,6 @@
             "styles": [
               "src/styles.scss",
               "node_modules/swiper/swiper-bundle.css",
-              "node_modules/ngx-lightbox/lightbox.css",
               "node_modules/social-share.js/dist/css/share.min.css",
               "node_modules/video.js/dist/video-js.css",
               {
