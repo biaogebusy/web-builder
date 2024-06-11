@@ -1,21 +1,12 @@
 {
   "extends": "../tsconfig.app.json",
   "compilerOptions": {
-    "types": [
-      "node"
-    ],
-    "allowSyntheticDefaultImports": true
+    "types": ["node"],
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
   },
-  "exclude": [
-    "../src/test.ts",
-    "../src/**/*.spec.ts",
-    "../projects/**/*.spec.ts"
-  ],
-  "include": [
-    "../src/**/*",
-    "../projects/**/*"
-  ],
-  "files": [
-    "./typings.d.ts"
-  ]
+  "exclude": ["../src/test.ts", "../src/**/*.spec.ts"],
+  "include": ["../src/**/*.stories.*", "./preview.ts"],
+  "files": ["./typings.d.ts","../src/polyfills.ts"]
 }

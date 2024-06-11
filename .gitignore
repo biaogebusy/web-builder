@@ -52,3 +52,5 @@ documentation.json
 /storybook-static.zip
 
 /.angular
+
+*storybook.log
