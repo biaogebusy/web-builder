@@ -1,10 +1,11 @@
 .layout-toolbar {
   ::ng-deep {
     .mat-mdc-icon-button {
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      .custom.mat-icon {
+      &.mat-mdc-button-base {
+        --mdc-icon-button-state-layer-size: 30px;
+        padding: 0;
+      }
+      svg {
         width: 16px !important;
         height: 16px !important;
         line-height: 16px !important;

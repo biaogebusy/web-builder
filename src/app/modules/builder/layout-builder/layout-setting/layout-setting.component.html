@@ -15,7 +15,7 @@
           matListItemIcon
           [content]="{ svg: 'dots-vertical' }"
         ></app-icon>
-        <div matListItemLine>{{ i + 1 }}.{{ widget?.type }}</div>
+        <div matListItemTitle>{{ i + 1 }}.{{ widget?.type }}</div>
         <div matListItemLine class="title" *ngIf="widget.title | isString">
           {{ widget?.title }}
         </div>

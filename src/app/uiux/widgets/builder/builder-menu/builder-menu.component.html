@@ -10,8 +10,8 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onPageJson()">
-        <app-icon [content]="{ svg: 'code-json' }"></app-icon>
-        <span>页面 JSON</span>
+        <app-icon matListItemIcon [content]="{ svg: 'code-json' }"></app-icon>
+        <span matListItemTitle>页面 JSON</span>
       </button>
       <button mat-menu-item *ngIf="canShow">
         <mat-slide-toggle
@@ -21,12 +21,15 @@
         >
       </button>
       <button mat-menu-item (click)="onColorTest()">
-        <app-icon [content]="{ svg: 'marker-check' }"></app-icon>
-        <span>颜色检查</span>
+        <app-icon
+          matListItemIcon
+          [content]="{ svg: 'marker-check' }"
+        ></app-icon>
+        <span matListItemTitle>颜色检查</span>
       </button>
       <button mat-menu-item (click)="onPreview()">
-        <app-icon [content]="{ svg: 'eye' }"></app-icon>
-        <span>页面预览</span>
+        <app-icon matListItemIcon [content]="{ svg: 'eye' }"></app-icon>
+        <span matListItemTitle>页面预览</span>
       </button>
     </mat-menu>
   </div>

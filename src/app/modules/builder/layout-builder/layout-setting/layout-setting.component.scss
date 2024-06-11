@@ -54,18 +54,25 @@
     }
     .actions {
       display: none;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
     }
 
     ::ng-deep {
       .mat-mdc-icon-button {
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
+        &.mat-mdc-button-base {
+          --mdc-icon-button-state-layer-size: 30px;
+          padding: 0;
+        }
         opacity: 0.6;
         .custom.mat-icon {
-          width: 16px !important;
-          height: 16px !important;
-          line-height: 16px !important;
+          svg {
+            width: 16px !important;
+            height: 16px !important;
+            line-height: 16px !important;
+          }
         }
         &:hover {
           opacity: 1;

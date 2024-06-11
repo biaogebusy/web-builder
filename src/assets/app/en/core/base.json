@@ -3,23 +3,19 @@
   "theme": [
     {
       "name": "Blue Theme",
-      "style": "blue-theme",
-      "icon": "laptop_mac"
+      "style": "blue-theme"
     },
     {
       "name": "Pink Theme",
-      "style": "pink-theme",
-      "icon": "laptop_mac"
+      "style": "pink-theme"
     },
     {
       "name": "Green Theme",
-      "style": "green-theme",
-      "icon": "laptop_mac"
+      "style": "green-theme"
     },
     {
       "name": "Dark Theme",
-      "style": "dark-theme",
-      "svgIcon": "dark_mode"
+      "style": "dark-theme"
     }
   ],
   "login": {

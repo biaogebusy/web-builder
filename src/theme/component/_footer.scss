@@ -13,7 +13,9 @@
   .mat-mdc-subheader {
     color: $contrast;
   }
-  .mat-mdc-list-item {
+  .mat-mdc-list-item,
+  .mat-icon,
+  .mdc-list-item__primary-text {
     color: $text;
   }
   .mat-accordion {

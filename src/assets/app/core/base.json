@@ -3,23 +3,19 @@
   "theme": [
     {
       "name": "Blue 主题",
-      "style": "blue-theme",
-      "icon": "laptop_mac"
+      "style": "blue-theme"
     },
     {
       "name": "Pink 主题",
-      "style": "pink-theme",
-      "icon": "laptop_mac"
+      "style": "pink-theme"
     },
     {
       "name": "Green 主题",
-      "style": "green-theme",
-      "icon": "laptop_mac"
+      "style": "green-theme"
     },
     {
       "name": "暗黑主题",
-      "style": "dark-theme",
-      "svgIcon": "dark_mode"
+      "style": "dark-theme"
     }
   ],
   "login": {
