@@ -3,13 +3,13 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { FormlyComponent } from '@uiux/widgets/form/formly/formly.component';
 import { FormGroup } from '@angular/forms';
 import { StorysModule } from '@core/module/storys.module';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/表单',
   id: 'form',
   component: FormlyComponent,
@@ -27,7 +27,7 @@ export default {
       <p class="widget m-5 bg-shadow">
       {{model|json}}
       </p>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -37,18 +37,15 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 const form = new FormGroup({});
 const options: any = {};
 const model: any = {};
 
-export const Default = Template.bind({});
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.storyName = '预览';
 const base: FormlyFieldConfig[] = [
   {

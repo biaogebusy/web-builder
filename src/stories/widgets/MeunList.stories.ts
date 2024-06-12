@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { MenuListComponent } from '@uiux/widgets/menu-list/menu-list.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IMenuList } from '@core/interface/widgets/IMenuList';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/菜单项',
   id: 'menu-list',
   component: MenuListComponent,
@@ -22,13 +22,9 @@ export default {
       return `<div classs="widget">${story}</div>`;
     }),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Base = Template.bind({});
 const base: IMenuList = {
   type: 'menu-list',

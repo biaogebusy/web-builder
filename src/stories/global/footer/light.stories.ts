@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -14,7 +14,7 @@ import {
 } from '@modules/builder/data/Branding.json';
 import { StorysModule } from '@core/module/storys.module';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '全局配置/页脚/浅色',
   id: 'footer-light',
   component: FooterComponent,
@@ -36,7 +36,7 @@ export default {
         </div>
         <mat-divider></mat-divider>
         ${story}
-    `
+    `,
     ),
   ],
   parameters: {
@@ -53,14 +53,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.storyName = '预览';
 Default.parameters = {
   docs: {

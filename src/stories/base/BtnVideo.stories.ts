@@ -4,12 +4,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BtnVideoComponent } from '@uiux/widgets/actions/btn-video/btn-video.component';
 import * as playerStory from '../feature/media/Player.stories';
 import { IBtnVideo } from '@core/interface/widgets/IBtn';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/播放按钮',
   id: 'btn-video',
   component: BtnVideoComponent,
@@ -23,15 +23,12 @@ export default {
       return `<div classs="widget">${story}</div>`;
     }),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
-export const Default = Template.bind({});
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.parameters = {
   controls: {
     include: ['content'],

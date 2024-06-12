@@ -3,14 +3,14 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { StorysModule } from '@core/module/storys.module';
 import { ReportComponent } from '@uiux/combs/node/report/report.component';
 import { FormGroup } from '@angular/forms';
 import { IReport } from '@core/interface/node/IReport';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/内容类型/统计报告',
   id: 'report',
   component: ReportComponent,
@@ -30,14 +30,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IReport = {
   type: 'report',
   header: {

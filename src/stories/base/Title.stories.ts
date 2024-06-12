@@ -4,7 +4,7 @@ import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ITitle } from '@core/interface/widgets/ITitle';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/标题',
   id: 'title',
   component: TitleComponent,
@@ -16,13 +16,9 @@ export default {
       providers: [SafeHtmlPipe],
     }),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
 export const TitleV1 = Template.bind({});
 TitleV1.storyName = 'Style V1';

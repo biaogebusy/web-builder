@@ -1,12 +1,12 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
 import { StorysModule } from '@core/module/storys.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import * as calendarStory from '../widgets/Calendar.stories';
 const calendar: any = calendarStory.Default.args;
-export default {
+const meta: Meta<MyComponent> = {
   title: 'Drupal/日历',
   id: 'full-calendar',
   component: FullCalendarComponent,
@@ -25,14 +25,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 
 Default.args = {
   content: {

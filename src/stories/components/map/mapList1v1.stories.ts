@@ -1,5 +1,5 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { userEvent } from '@storybook/testing-library';
 import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.component';
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
@@ -7,7 +7,7 @@ import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stori
 import { sleep, StorysModule } from '@core/module/storys.module';
 import { IMapListv1 } from '@core/interface/combs/IMap';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '复合组件/地图/位置列表 1v1',
   id: 'map-list-1v1',
   component: MapListV1Component,
@@ -25,14 +25,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const card1v3: any = Card1v3Stories.Base.args;
 const content: IMapListv1 = {
   type: 'map-list-v1',

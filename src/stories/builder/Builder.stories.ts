@@ -1,5 +1,5 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -15,7 +15,7 @@ import { ManageModule } from '@modules/manage/manage.module';
 import { widgets } from './data/widgets-for-story';
 import { base } from './data/base/export-for-story';
 import { mediaAssets } from './data/assets/media-assets-for-story';
-export default {
+const meta: Meta<MyComponent> = {
   title: '低代码/Web builder',
   id: 'builder',
   component: BuilderComponent,
@@ -45,14 +45,11 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 
 if (!environment.production) {
   console.log('Base:', base);

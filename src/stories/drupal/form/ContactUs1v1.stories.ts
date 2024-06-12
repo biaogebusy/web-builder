@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StorysModule } from '@core/module/storys.module';
 import { ContactUs1v1Component } from '@uiux/combs/form/contact-us1v1/contact-us1v1.component';
 import { IContactUs1v1 } from '@core/interface/combs/IForm';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: 'Drupal/表单/联系我们 1v1',
   id: 'contact-us-1v1',
   component: ContactUs1v1Component,
@@ -23,14 +23,11 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.storyName = '默认';
 const content: IContactUs1v1 = {
   type: 'contact-us-1v1',

@@ -3,14 +3,14 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { ILayoutBuilder } from '@core/interface/IBuilder';
 import { BuilderModule } from '@modules/builder/builder.module';
 import { LayoutBuilderComponent } from '@modules/builder/layout-builder/layout-builder.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/系统页面/404',
   id: 'notFound',
   component: LayoutBuilderComponent,
@@ -25,7 +25,7 @@ export default {
       <app-header></app-header>
       ${story}
       <app-footer></app-footer>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -36,14 +36,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ILayoutBuilder = {
   fullWidth: false,
   spacer: 'md',

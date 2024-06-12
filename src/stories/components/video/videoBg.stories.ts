@@ -3,14 +3,14 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { VideoBgComponent } from '@uiux/combs/video/video-bg/video-bg.component';
 import { StorysModule } from '@core/module/storys.module';
 import { VideoModule } from '@uiux/combs/video/video.module';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
 import { IVideoBg } from '@core/interface/combs/IVideoBg';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '复合组件/视频/背景视频',
   id: 'video-bg',
   component: VideoBgComponent,
@@ -33,14 +33,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IVideoBg = {
   type: 'video-bg',
   source: {

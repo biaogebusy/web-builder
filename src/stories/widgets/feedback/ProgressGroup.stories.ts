@@ -5,10 +5,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { ProgressGroupComponent } from '@uiux/widgets/progress-group/progress-group.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/反馈组件/进度条组',
   id: 'progress-group',
   component: ProgressGroupComponent,
@@ -20,17 +20,14 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IProgressGroup = {
   type: 'progress-group',
   elements: [

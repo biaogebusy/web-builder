@@ -3,13 +3,13 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-links/pagination-links.component';
 import { environment } from 'src/environments/environment';
 import { StorysModule } from '@core/module/storys.module';
 import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/分页/JSONAPI 分页',
   id: 'pagination-links',
   component: PaginationLinksComponent,
@@ -29,14 +29,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';
 const content: IPaginationLinks = {

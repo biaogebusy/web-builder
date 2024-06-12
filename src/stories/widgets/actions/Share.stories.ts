@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { ShareComponent } from '@uiux/widgets/actions/share/share.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IShare } from '@core/interface/widgets/IActions';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/Actions/分享',
   id: 'share',
   component: ShareComponent,
@@ -29,14 +29,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';
 const content: IShare = {

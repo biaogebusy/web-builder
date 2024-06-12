@@ -3,13 +3,13 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { Showcase4v1Component } from '@uiux/combs/showcase/showcase4v1/showcase4v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { random } from 'lodash-es';
 import { IShowcase4v1 } from '@core/interface/combs/IShowcase';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '特色组件/图文 Showcase/4v1',
   id: 'showcase-4v1',
   component: Showcase4v1Component,
@@ -24,14 +24,11 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IShowcase4v1 = {
   type: 'showcase-4v1',
   spacer: 'lg',

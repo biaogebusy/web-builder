@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StorysModule } from '@core/module/storys.module';
 import { Card1v5Component } from '@uiux/widgets/card/card1v5/card1v5.component';
 import { ICard1v5 } from '@core/interface/widgets/ICard';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/卡片/1v5',
   id: 'card-1v5',
   component: Card1v5Component,
@@ -20,16 +20,12 @@ export default {
       providers: [],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="370px" class="widget relative">${story}</div>`
+      (story) => `<div fxFlex="370px" class="widget relative">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const StepFirst = Template.bind({});
 const first: ICard1v5 = {
   type: 'card-1v5',

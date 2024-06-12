@@ -3,13 +3,13 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { MediaMetaComponent } from '@uiux/widgets/media/media-meta/media-meta.component';
 import { StorysModule } from '@core/module/storys.module';
 import { formatDate } from '@angular/common';
 import { IMediaMeta } from '@core/interface/widgets/IMediaMeta';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/媒体/媒体 meta',
   id: 'media-meta',
   component: MediaMetaComponent,
@@ -21,17 +21,14 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IMediaMeta = {
   type: 'media-meta',
   link: {

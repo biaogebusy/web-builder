@@ -3,12 +3,11 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
 
 import { InlineLightboxComponent } from '@uiux/widgets/lightbox/inline-lightbox/inline-lightbox.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IInlineLightbox } from '@core/interface/widgets/IWidgets';
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/Lightbox',
   id: 'inline-lightbox',
   component: InlineLightboxComponent,
@@ -29,14 +28,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';
 const content: IInlineLightbox = {

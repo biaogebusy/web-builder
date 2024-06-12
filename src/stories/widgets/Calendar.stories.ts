@@ -3,13 +3,13 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { CalendarComponent } from '@uiux/combs/calendar/calendar/calendar.component';
 import { StorysModule } from '@core/module/storys.module';
 import { random } from 'lodash-es';
 import { IFullCalendar } from '@core/interface/combs/ICalendar';
 import { CalendarOptions } from '@fullcalendar/angular';
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/日历',
   id: 'calendar',
   component: CalendarComponent,
@@ -20,17 +20,14 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="widget relative text-light">${story}</div>`
+      (story) => `<div class="widget relative text-light">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const options: CalendarOptions = {
   events: [
     {

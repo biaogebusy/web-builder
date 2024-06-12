@@ -1,9 +1,9 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StorysModule } from '@core/module/storys.module';
 import { ViewMapComponent } from '@uiux/combs/map/view-map/view-map.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '特色组件/地图应用',
   id: 'viewMap',
   component: ViewMapComponent,
@@ -21,14 +21,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.args = {
   content: {
     type: 'view-map',

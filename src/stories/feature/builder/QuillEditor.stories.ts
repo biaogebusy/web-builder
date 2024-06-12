@@ -3,10 +3,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StorysModule } from '@core/module/storys.module';
 import { QuillModule } from 'ngx-quill';
-export default {
+const meta: Meta<MyComponent> = {
   title: '特色组件/编辑器/富文本',
   id: 'quill',
   decorators: [
@@ -19,7 +19,7 @@ export default {
       (story) => `
      <quill-editor  [styles]="{height:content.editor?.height || '250px'}">
     </quill-editor>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -29,14 +29,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.args = {
   content: {},
 };

@@ -8,7 +8,7 @@ import {
 } from '@storybook/angular';
 import { ChartBoxComponent } from '@uiux/widgets/chart/chart-box/chart-box.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/图表/图表数据',
   id: 'chart-box',
   component: ChartBoxComponent,
@@ -19,18 +19,15 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="relative p-x p-y" >${story}</div>`
+      (story) => `<div class="relative p-x p-y" >${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
-export const Default = Template.bind({});
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.storyName = '图表数据';
 const content: IChartBox = {
   type: 'chart',

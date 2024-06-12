@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StorysModule } from '@core/module/storys.module';
 import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 import { IPlayer } from '@core/interface/widgets/IPlayer';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '特色组件/媒体/播放器',
   id: 'player',
   component: PlayerComponent,
@@ -20,17 +20,14 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IPlayer = {
   type: 'player',
   options: {

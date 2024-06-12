@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BlockComponent } from '@modules/render/block/block.component';
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
@@ -16,7 +16,7 @@ import {
 } from '@modules/builder/data/Branding.json';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/按钮/预览',
   id: 'buttom-review',
   component: BlockComponent,
@@ -42,19 +42,15 @@ export default {
       ${story}
       </div>
       <app-footer></app-footer>
-    `
+    `,
     ),
   ],
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
 const {
   Default: {

@@ -3,14 +3,14 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { StorysModule } from '@core/module/storys.module';
 import { RelateComponent } from '@uiux/combs/node/relate/relate.component';
 import { random } from 'lodash-es';
 import { IRelate } from '@core/interface/node/IRelate';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/内容类型/相关性',
   id: 'relate',
   component: RelateComponent,
@@ -30,14 +30,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IRelate = {
   type: 'relate',
   title: {

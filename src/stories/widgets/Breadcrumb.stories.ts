@@ -5,10 +5,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BreadcrumbComponent } from '@uiux/widgets/breadcrumb/breadcrumb.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/面包屑',
   id: 'breadcrumb',
   component: BreadcrumbComponent,
@@ -20,16 +20,12 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget bg-primary bg-fill-width p-x p-y">${story}</div>`
+        `<div class="widget bg-primary bg-fill-width p-x p-y">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Base = Template.bind({});
 const base: ILink[] = [
   {

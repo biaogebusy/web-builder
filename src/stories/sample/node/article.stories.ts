@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { screen, userEvent } from '@storybook/testing-library';
 import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
@@ -16,7 +16,7 @@ import { formatDate } from '@angular/common';
 import { IBaseNode } from '@core/interface/node/INode';
 import * as SwiperStories from '@stories/widgets/Swiper.stories';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/内容类型/普通文章',
   id: 'article',
   component: ArticleComponent,
@@ -29,7 +29,7 @@ export default {
     componentWrapperDecorator(
       (story) => `
       <app-dynamic-component [inputs]="content"></app-dynamic-component>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -40,14 +40,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const MediaList: any = MediaListStories.Default.args;
 const MenuList: any = MeunListStories.Base.args;
 const content: IBaseNode = {
@@ -215,7 +212,7 @@ Comment.play = async () => {
     '信使基于 Material 的 Angular 前端框架，为了适配 IE11 目前的版本保持在 Angular v11，支持 SSR 服务端渲染。',
     {
       delay: 100,
-    }
+    },
   );
 
   await sleep(2000);

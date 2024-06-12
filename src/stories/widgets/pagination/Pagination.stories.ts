@@ -3,11 +3,11 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { PaginationComponent } from '@uiux/widgets/pagination/pagination.component';
 import { StorysModule } from '@core/module/storys.module';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/分页/普通分页',
   id: 'pagination-default',
   component: PaginationComponent,
@@ -20,7 +20,7 @@ export default {
       (story) => `
      <div classs="widget"> <div *ngFor="let item of [1,2,3,4,5,6,7,8,9,10] | paginate: {itemsPerPage: 2,currentPage: 0,totalItems: 100}"></div>
      <app-pagination></app-pagination></div>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -30,14 +30,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 // Raname Story
 Default.parameters = {
   controls: {

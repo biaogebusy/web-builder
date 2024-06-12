@@ -9,7 +9,7 @@ import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IText } from '@core/interface/widgets/IText';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/富文本',
   id: 'text',
   component: TextComponent,
@@ -20,19 +20,15 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="relative p-10 z-10">${story}</div>`
+      (story) => `<div class="relative p-10 z-10">${story}</div>`,
     ),
   ],
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Base = Template.bind({});
 Base.storyName = '基础文本';
 const base: IText = {

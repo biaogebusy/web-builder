@@ -3,16 +3,19 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
-import { defaultHeader, footerInverse } from '@modules/builder/data/Branding.json';
+import {
+  defaultHeader,
+  footerInverse,
+} from '@modules/builder/data/Branding.json';
 import { JsoneditorComponent } from '@uiux/combs/other/jsoneditor/jsoneditor.component';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
-export default {
+const meta: Meta<MyComponent> = {
   title: '特色组件/编辑器/JSON',
   id: 'jsoneditor',
   component: JsoneditorComponent,
@@ -36,7 +39,7 @@ export default {
       <app-header></app-header>
       ${story}
       <app-footer></app-footer>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -46,14 +49,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IJsoneditor = {
   type: 'jsoneditor',
   data: {

@@ -5,10 +5,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { TestimonialComponent } from '@uiux/widgets/testimonial/testimonial.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/媒体/Testimonial',
   id: 'testimonial',
   component: TestimonialComponent,
@@ -20,17 +20,14 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ITestimonial = {
   type: 'testimonial',
   style: 'style-v2',

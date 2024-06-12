@@ -1,12 +1,12 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { SwiperModule } from 'swiper/angular';
 import { StorysModule } from '@core/module/storys.module';
 import { LotteryComponent } from '@uiux/combs/calculator/lottery/lottery.component';
 import { ILottery } from '@core/interface/combs/ICalculator';
 import { FormGroup } from '@angular/forms';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '特色组件/计算器',
   id: 'lottery',
   component: LotteryComponent,
@@ -25,14 +25,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ILottery = {
   type: 'lottery',
   text: {

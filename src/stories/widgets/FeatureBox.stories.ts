@@ -5,10 +5,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { FeatureBoxComponent } from '@uiux/widgets/feature-box/feature-box.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/功能盒子',
   id: 'feature-box',
   component: FeatureBoxComponent,
@@ -19,17 +19,14 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div classs="widget" style="width:33%">${story}</div>`
+      (story) => `<div classs="widget" style="width:33%">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.storyName = '4:3';
 const content: IFeatureBox = {
   type: 'feature-box',

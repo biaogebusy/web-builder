@@ -3,13 +3,13 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import * as TextStories from './Text.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { ILink } from '@core/interface/widgets/ILink';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/链接',
   id: 'link',
   component: LinkComponent,
@@ -20,17 +20,14 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="widget relative p-x-md p-y-md">${story}</div>`
+      (story) => `<div class="widget relative p-x-md p-y-md">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ILink = {
   type: 'link',
   label: '更多',

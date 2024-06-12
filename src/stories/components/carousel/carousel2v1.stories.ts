@@ -1,10 +1,10 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { Carousel2v1Component } from '@uiux/combs/carousel/carousel2v1/carousel2v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '复合组件/幻灯片/2v1',
   id: 'carousel-2v1',
   component: Carousel2v1Component,
@@ -15,14 +15,11 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ICarouselBase = {
   type: 'carousel-2v1',
   title: {

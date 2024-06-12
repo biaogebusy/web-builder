@@ -1,10 +1,10 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StorysModule } from '@core/module/storys.module';
 import { Showcase1v4Component } from '@uiux/combs/showcase/showcase1v4/showcase1v4.component';
 import { IShowcase1v4 } from '@core/interface/combs/IShowcase';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '特色组件/图文 Showcase/1v4',
   id: 'showcase-1v4',
   component: Showcase1v4Component,
@@ -18,14 +18,11 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.storyName = '默认';
 const content: IShowcase1v4 = {
   type: 'showcase-1v4',

@@ -3,14 +3,14 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StorysModule } from '@core/module/storys.module';
 import { Showcase3v9Component } from '@uiux/combs/showcase/showcase3v9/showcase3v9.component';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IShowcase3v9 } from '@core/interface/combs/IShowcase';
 import { Actions } from '@stories/base/Text.stories';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '特色组件/图文 Showcase/3v9',
   id: 'showcase-3v9',
   component: Showcase3v9Component,
@@ -25,14 +25,11 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IShowcase3v9 = {
   type: 'showcase-3v9',
   bg: {

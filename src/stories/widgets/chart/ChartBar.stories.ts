@@ -9,7 +9,7 @@ import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 import { EChartsOption } from 'echarts';
 import { random } from 'lodash-es';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/图表/柱状图',
   id: 'chart-bar',
   component: ChartComponent,
@@ -21,7 +21,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
   parameters: {
@@ -31,13 +31,9 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
 export const Bar = Template.bind({});
 Bar.storyName = '柱状图';

@@ -3,11 +3,11 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { DropdownMenuComponent } from '@uiux/widgets/dropdown-menu/dropdown-menu.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IDropdowMenu } from '@core/interface/widgets/IWidgets';
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/下拉菜单',
   id: 'dropdown-menu',
   component: DropdownMenuComponent,
@@ -19,17 +19,14 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div style="width:40%" class="widget relative text-light">${story}</div>`
+        `<div style="width:40%" class="widget relative text-light">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IDropdowMenu = {
   type: 'dropdown-menu',
   btn: {

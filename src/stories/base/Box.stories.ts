@@ -3,11 +3,11 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BoxComponent } from '@uiux/widgets/box/box.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IBox } from '@core/interface/widgets/IBox';
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/内容盒子',
   id: 'box',
   component: BoxComponent,
@@ -19,7 +19,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget p-y flex w-[300px] justify-center items-center">${story}</div>`
+        `<div class="widget p-y flex w-[300px] justify-center items-center">${story}</div>`,
     ),
   ],
   parameters: {
@@ -29,13 +29,9 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const StyleV1 = Template.bind({});
 const v1: IBox = {
   type: 'box',

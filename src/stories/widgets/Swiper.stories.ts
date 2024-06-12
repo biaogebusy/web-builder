@@ -3,11 +3,11 @@ import { StorysModule } from '@core/module/storys.module';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { SwiperComponent } from '@uiux/widgets/swiper/swiper.component';
 import { SwiperModule } from 'swiper/angular';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/Swiper',
   id: 'swiper',
   component: SwiperComponent,
@@ -25,14 +25,11 @@ export default {
       ],
     }),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ISwiper = {
   type: 'swiper',
   params: {

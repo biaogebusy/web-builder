@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { UserCardComponent } from '@uiux/widgets/card/user-card/user-card.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IUserCard } from '@core/interface/widgets/ICard';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/卡片/用户卡片',
   id: 'user-card',
   component: UserCardComponent,
@@ -19,17 +19,14 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="300px" class="widget relative">${story}</div>`
+      (story) => `<div fxFlex="300px" class="widget relative">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.storyName = '预览';
 const content: IUserCard = {
   type: 'user-card',

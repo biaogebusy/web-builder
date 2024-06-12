@@ -5,10 +5,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/按钮/基础',
   id: 'btn',
   component: BtnComponent,
@@ -22,13 +22,9 @@ export default {
       return `<div classs="widget">${story}</div>`;
     }),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
 export const BtnDefault = Template.bind({});
 BtnDefault.parameters = {

@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { Showcase1v1Component } from '@uiux/combs/showcase/showcase1v1/showcase1v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IShowcase1v1 } from '@core/interface/combs/IShowcase';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '特色组件/图文 Showcase/1v1',
   id: 'showcase-1v1',
   component: Showcase1v1Component,
@@ -22,20 +22,17 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.decorators = [
   componentWrapperDecorator(
     (story) =>
       `<div class="relative p-top-xl m-top-xl" style="z-index:1">
         ${story}
-        </div>`
+        </div>`,
   ),
 ];
 const content: IShowcase1v1 = {

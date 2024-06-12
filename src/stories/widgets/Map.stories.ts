@@ -3,14 +3,14 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { AmapService } from '@core/service/amap.service';
 import { MapComponent } from '@uiux/widgets/map/map.component';
 import { ConfigService } from '@core/service/config.service';
 import { StorysModule } from '@core/module/storys.module';
 import { IMap } from '@core/interface/IAmap';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/地图',
   id: 'map',
   component: MapComponent,
@@ -23,17 +23,14 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget relative p-x p-y" style="z-index:1;height:500px;">${story}</div>`
+        `<div class="widget relative p-x p-y" style="z-index:1;height:500px;">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IMap = {
   type: 'map',
   city: '南宁市',

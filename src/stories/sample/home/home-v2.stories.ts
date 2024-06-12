@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BlockComponent } from '@modules/render/block/block.component';
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
@@ -16,7 +16,7 @@ import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
 import { home_v2 } from '@stories/sample/home/data/home_v2';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/首页示例/02 服务介绍',
   id: 'home-v2',
   component: BlockComponent,
@@ -40,19 +40,15 @@ export default {
       <app-header></app-header>
       ${story}
       <app-footer></app-footer>
-    `
+    `,
     ),
   ],
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
 const content = of(home_v2);
 export const Page = Template.bind({});

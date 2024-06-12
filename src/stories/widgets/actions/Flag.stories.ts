@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { FlagComponent } from '@uiux/widgets/actions/flag/flag.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IFlag } from '@core/interface/widgets/IFlag';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/Actions/收藏',
   id: 'flag',
   component: FlagComponent,
@@ -29,14 +29,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';
 const content: IFlag = {

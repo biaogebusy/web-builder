@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { userEvent } from '@storybook/testing-library';
 import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-list.component';
 import { ListModule } from '@uiux/combs/list/list.module';
@@ -11,7 +11,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { ITaxonomyList } from '@core/interface/combs/IList';
 import * as MediaListStories from '@stories/widgets/media/MediaList.stories';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '复合组件/列表/分类列表',
   id: 'taxonomy-list',
   component: TaxonomyListComponent,
@@ -30,14 +30,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ITaxonomyList = {
   type: 'taxonomy-list',
   pager: {

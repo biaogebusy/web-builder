@@ -5,10 +5,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { NumberAnimateComponent } from '@uiux/widgets/number-animate/number-animate.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/反馈组件/动态数字',
   id: 'number-animate',
   component: NumberAnimateComponent,
@@ -22,14 +22,11 @@ export default {
       return `<div classs="widget">${story}</div>`;
     }),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: INumberAnimate = {
   type: 'number-animate',
   value: 100,

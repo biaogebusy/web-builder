@@ -3,11 +3,11 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { screen, userEvent } from '@storybook/testing-library';
 import { ContactUsComponent } from '@uiux/combs/form/contact-us/contact-us.component';
 import { StorysModule } from '@core/module/storys.module';
-export default {
+const meta: Meta<MyComponent> = {
   title: 'Drupal/表单/联系我们',
   id: 'contact-us',
   component: ContactUsComponent,
@@ -18,17 +18,14 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="0 1 100" class="relative">${story}</div>`
+      (story) => `<div fxFlex="0 1 100" class="relative">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 
 Default.args = {
   content: {
@@ -149,6 +146,6 @@ Default.play = async () => {
     'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。',
     {
       delay: 100,
-    }
+    },
   );
 };

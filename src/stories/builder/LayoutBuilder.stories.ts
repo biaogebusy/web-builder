@@ -1,12 +1,12 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { LayoutBuilderComponent } from '@modules/builder/layout-builder/layout-builder.component';
-export default {
+const meta: Meta<MyComponent> = {
   title: '低代码/Layout builder/示例',
   id: 'layoutBuilder',
   component: LayoutBuilderComponent,
@@ -26,13 +26,9 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const LayoutDefault = Template.bind({});
 LayoutDefault.storyName = '默认';
 LayoutDefault.args = {

@@ -5,10 +5,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BgComponent } from '@uiux/widgets/bg/bg.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/背景色',
   id: 'bg',
   component: BgComponent,
@@ -20,16 +20,12 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="widget relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const BgPrimary = Template.bind({});
 BgPrimary.storyName = '主色背景';
 const content: IBg = {

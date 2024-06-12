@@ -3,11 +3,11 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { StepperComponent } from '@uiux/widgets/stepper/stepper.component';
 import { StorysModule } from '@core/module/storys.module';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/进步器',
   id: 'stepper',
   component: StepperComponent,
@@ -19,16 +19,12 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Horizontal = Template.bind({});
 Horizontal.storyName = '水平方向';
 Horizontal.args = {

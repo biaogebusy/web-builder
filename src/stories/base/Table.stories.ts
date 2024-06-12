@@ -3,13 +3,13 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table.component';
 import { StorysModule } from '@core/module/storys.module';
 import { random } from 'lodash-es';
 import { IDynamicTable } from '@core/interface/widgets/IWidgets';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/表格',
   id: 'table',
   component: DynamicTableComponent,
@@ -30,14 +30,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 Default.parameters = {
   controls: {
     include: ['content', 'form'],

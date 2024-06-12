@@ -1,11 +1,11 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { screen, userEvent } from '@storybook/testing-library';
 import { ShuffleComponent } from '@uiux/combs/masonry/shuffle/shuffle.component';
 import { sleep, StorysModule } from '@core/module/storys.module';
 import { IShuffle } from '@core/interface/combs/IMasonry';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '复合组件/瀑布流/图片洗牌',
   id: 'shuffle',
   component: ShuffleComponent,
@@ -24,14 +24,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IShuffle = {
   type: 'shuffle',
   title: {

@@ -5,11 +5,11 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { userEvent } from '@storybook/testing-library';
 import { TabComponent } from '@uiux/widgets/tab/tab.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/选项卡',
   id: 'tab',
   component: TabComponent,
@@ -20,17 +20,14 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="relative" style="z-index:1">${story}</div>`
+      (story) => `<div class="relative" style="z-index:1">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ITab = {
   type: 'tab',
   classes: 'bg-light',

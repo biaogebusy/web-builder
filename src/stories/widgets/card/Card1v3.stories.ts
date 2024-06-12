@@ -3,13 +3,13 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { Card1v3Component } from '@uiux/widgets/card/card1v3/card1v3.component';
 import * as TextStories from '@stories/base/Text.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { ICard1v3 } from '@core/interface/widgets/ICard';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/卡片/1v3',
   id: 'card-1v3',
   component: Card1v3Component,
@@ -21,7 +21,7 @@ export default {
       providers: [],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="300px" class="widget relative">${story}</div>`
+      (story) => `<div fxFlex="300px" class="widget relative">${story}</div>`,
     ),
   ],
   parameters: {
@@ -31,13 +31,9 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Base = Template.bind({});
 const text: any = TextStories.Title.args;
 const base: ICard1v3 = {

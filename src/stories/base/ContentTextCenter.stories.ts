@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { ContentTextCenterComponent } from '@uiux/widgets/content-text-center/content-text-center.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IContentTextCenter } from '@core/interface/widgets/IContentWidget';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/内容居中块',
   id: 'content-text-center',
   component: ContentTextCenterComponent,
@@ -20,16 +20,12 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div style="width:40%" class="widget relative text-light">${story}</div>`
+        `<div style="width:40%" class="widget relative text-light">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Base = Template.bind({});
 const content: IContentTextCenter = {
   type: 'content-text-center',

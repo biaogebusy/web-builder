@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BlockComponent } from '@modules/render/block/block.component';
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
@@ -17,7 +17,7 @@ import {
   defaultHeader,
   footerInverse,
 } from '@modules/builder/data/Branding.json';
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/工作日历',
   id: 'calendar-page',
   component: BlockComponent,
@@ -46,7 +46,7 @@ export default {
      <app-header></app-header>
       ${story}
       <app-footer></app-footer>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -57,13 +57,9 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Page = Template.bind({});
 // Raname Story
 const content = of({

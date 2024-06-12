@@ -17,7 +17,7 @@ import { Default as MediaObject } from '@stories/widgets/media/MediaObject.stori
 import { random } from 'lodash-es';
 import { environment } from 'src/environments/environment';
 import { IThemePreview } from '@core/interface/combs/IThemePreview';
-export default {
+const meta: Meta<MyComponent> = {
   title: '主题/色彩检查',
   id: 'color-preview',
   component: ThemePreviewComponent,
@@ -31,15 +31,12 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
-export const Default = Template.bind({});
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 
 const content: IThemePreview = {
   type: 'theme-preview',

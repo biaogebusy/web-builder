@@ -9,7 +9,7 @@ import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IImg } from '@core/interface/widgets/IImg';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/图片',
   id: 'img',
   component: ImgComponent,
@@ -21,18 +21,15 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget relative" fxFlex="300px" style="height:300px">${story}</div>`
+        `<div class="widget relative" fxFlex="300px" style="height:300px">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
-export const Default = Template.bind({});
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IImg = {
   type: 'img',
   hostClasses: 'text-center',

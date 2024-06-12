@@ -5,10 +5,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/图标',
   id: 'icon',
   component: IconComponent,
@@ -19,7 +19,7 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="widget relative p-x-md p-y-md">${story}</div>`
+      (story) => `<div class="widget relative p-x-md p-y-md">${story}</div>`,
     ),
   ],
   parameters: {
@@ -31,7 +31,7 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
 const Template: Story = (args) => ({
   props: {

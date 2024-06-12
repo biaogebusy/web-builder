@@ -8,7 +8,7 @@ import {
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 import { Bar } from './ChartBar.stories';
 import { EChartsOption } from 'echarts';
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/图表/折线图',
   id: 'chart-line',
   component: ChartComponent,
@@ -20,7 +20,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
   parameters: {
@@ -30,13 +30,9 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Line = Template.bind({});
 const barArgs: any = Bar.args;
 const line: EChartsOption = {

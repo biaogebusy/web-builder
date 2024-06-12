@@ -3,12 +3,12 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IBgImg } from '@core/interface/widgets/IBgImg';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/背景图',
   id: 'bg-img',
   component: BgImgComponent,
@@ -21,16 +21,12 @@ export default {
     componentWrapperDecorator(
       (story) =>
         `<div class="widget relative" style="z-index:1;height:400px;overflow:hidden">
-        ${story}</div>`
+        ${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Base = Template.bind({});
 const base: IBgImg = {
   type: 'bg-img',

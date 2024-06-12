@@ -3,11 +3,11 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { ViewListComponent } from '@uiux/widgets/view-list/view-list.component';
 import { StorysModule } from '@core/module/storys.module';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: 'Drupal/视图列表',
   id: 'view-list',
   component: ViewListComponent,
@@ -27,14 +27,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';
 // Default.parameters = {

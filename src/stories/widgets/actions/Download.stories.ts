@@ -5,10 +5,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { DownloadComponent } from '@uiux/widgets/actions/download/download.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/Actions/下载',
   id: 'download',
   component: DownloadComponent,
@@ -29,14 +29,11 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';
 const content: IDownload = {

@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { screen, userEvent } from '@storybook/testing-library';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { QuestionComponent } from '@uiux/combs/node/question/question.component';
@@ -12,7 +12,7 @@ import { comments } from './comments.json';
 import { of } from 'rxjs';
 import { IQuestion } from '@core/interface/node/INode';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/内容类型/问答',
   id: 'question',
   component: QuestionComponent,
@@ -27,14 +27,11 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: IQuestion = {
   type: 'question',
   title: '作为一个前端开发人员，如何让自己保持学习的热忱并坚持下去？',

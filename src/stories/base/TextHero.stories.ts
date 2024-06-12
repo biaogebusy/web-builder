@@ -1,10 +1,10 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { TextHeroComponent } from '@uiux/widgets/text-hero/text-hero.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ITextHero } from '@core/interface/widgets/IText';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基本元素/首屏内容',
   id: 'text-hero',
   component: TextHeroComponent,
@@ -15,14 +15,11 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ITextHero = {
   type: 'text-hero',
   theme: 'text-light',

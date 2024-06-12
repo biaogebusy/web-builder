@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { BlockComponent } from '@modules/render/block/block.component';
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
@@ -14,7 +14,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import * as relateStory from '@stories/sample/node/Relate.stories';
 import { manageHeader } from '@modules/builder/data/Branding.json';
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/中台管理/管理边栏',
   id: 'manage-sidebar',
   component: BlockComponent,
@@ -49,7 +49,7 @@ export default {
         </div>
       </mat-drawer-content>
     </mat-drawer-container>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -60,13 +60,9 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Page = Template.bind({});
 const {
   Default: { args: relate },

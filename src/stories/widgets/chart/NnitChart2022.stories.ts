@@ -7,7 +7,7 @@ import {
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/图表/2022问卷',
   id: 'nnit-chart-2022',
   component: ChartComponent,
@@ -19,7 +19,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
   parameters: {
@@ -29,13 +29,9 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
 export const ITChart01 = Template.bind({});
 ITChart01.storyName = '男女比例';

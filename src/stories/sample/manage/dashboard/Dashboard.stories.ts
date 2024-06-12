@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -18,7 +18,7 @@ import { manageHeader } from '@modules/builder/data/Branding.json';
 import { IDashboard } from '@core/interface/combs/IDashboard';
 const calendar: any = calendarStory.Default.args;
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/中台管理/工作面板',
   id: 'dashboard',
   component: DashboardComponent,
@@ -53,7 +53,7 @@ export default {
         </div>
       </mat-drawer-content>
     </mat-drawer-container>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -64,13 +64,9 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 
 export const Order = Template.bind({});
 Order.storyName = 'Order';

@@ -3,7 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { screen, userEvent } from '@storybook/testing-library';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from '@core/service/crypto-js.service';
@@ -17,7 +17,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { notify } from '@core/module/data/notify';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '示例页面/系统页面/注册登录',
   id: 'login',
   component: LoginComponent,
@@ -43,7 +43,7 @@ export default {
      <app-header></app-header>
       ${story}
       <app-footer></app-footer>
-    `
+    `,
     ),
   ],
   parameters: {
@@ -54,13 +54,9 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
+export default meta;
 export const Page = Template.bind({});
 // Raname Story
 Page.storyName = '预览';

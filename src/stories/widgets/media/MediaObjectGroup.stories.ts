@@ -3,14 +3,14 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { MediaObjectGroupComponent } from '@uiux/widgets/media/media-object-group/media-object-group.component';
 import * as MediaObjectStories from './MediaObject.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { formatDate } from '@angular/common';
 import { IMediaObjectGroup } from '@core/interface/widgets/IMediaObject';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/媒体/媒体对象组',
   id: 'media-object-group',
   component: MediaObjectGroupComponent,
@@ -22,17 +22,14 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const mediaObject: any = MediaObjectStories.Default.args;
 const content: IMediaObjectGroup = {
   label: '工作经历',

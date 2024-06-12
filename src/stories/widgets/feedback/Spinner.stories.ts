@@ -4,10 +4,10 @@ import {
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '基础组件/反馈组件/加载 Loading',
   id: 'spinner',
   component: SpinnerComponent,
@@ -19,17 +19,14 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="widget relative p-x p-y" style="z-index:1">${story}</div>`,
     ),
   ],
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 
 Default.args = {
   content: {

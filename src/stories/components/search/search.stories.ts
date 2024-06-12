@@ -1,5 +1,5 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
+
 import { screen, userEvent } from '@storybook/testing-library';
 import { SearchModule } from '@uiux/combs/search/search.module';
 import { SearchComponent } from '@uiux/combs/search/search.component';
@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 import { ISearch } from '@core/interface/combs/ISearch';
 import { Subject } from 'rxjs';
 
-export default {
+const meta: Meta<MyComponent> = {
   title: '复合组件/搜索/默认',
   id: 'search',
   component: SearchComponent,
@@ -28,14 +28,11 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-});
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<MyComponent>;
+export const Default: Story = {};
 const content: ISearch = {
   type: 'search',
   header: {
