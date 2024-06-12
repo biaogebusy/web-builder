@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { Card1v5Component } from '@uiux/widgets/card/card1v5/card1v5.component';
 import { ICard1v5 } from '@core/interface/widgets/ICard';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Card1v5Component> = {
   title: '基础组件/卡片/1v5',
   id: 'card-1v5',
   component: Card1v5Component,
@@ -26,7 +27,9 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const StepFirst = Template.bind({});
+
+type Story = StoryObj<Card1v5Component>;
+export const StepFirst: Story = {};
 const first: ICard1v5 = {
   type: 'card-1v5',
   title: '讨论 Builder 架构',
@@ -47,7 +50,7 @@ StepFirst.args = {
   content: first,
 };
 
-export const StepEnd = Template.bind({});
+export const StepEnd: Story = {};
 const end: ICard1v5 = {
   type: 'card-1v5',
   title: '讨论支持多语言',

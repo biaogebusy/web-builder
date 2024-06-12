@@ -1,12 +1,11 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
-import { SwiperModule } from 'swiper/angular';
 import { StorysModule } from '@core/module/storys.module';
 import { LotteryComponent } from '@uiux/combs/calculator/lottery/lottery.component';
 import { ILottery } from '@core/interface/combs/ICalculator';
 import { FormGroup } from '@angular/forms';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<LotteryComponent> = {
   title: '特色组件/计算器',
   id: 'lottery',
   component: LotteryComponent,
@@ -14,7 +13,7 @@ const meta: Meta<MyComponent> = {
     moduleMetadata({
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [SwiperModule, StorysModule.forRoot()],
+      imports: [StorysModule.forRoot()],
     }),
   ],
   parameters: {
@@ -28,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<LotteryComponent>;
 export const Default: Story = {};
 const content: ILottery = {
   type: 'lottery',

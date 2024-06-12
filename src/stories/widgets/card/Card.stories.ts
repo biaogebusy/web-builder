@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { CardComponent } from '@uiux/widgets/card/card.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICard } from '@core/interface/widgets/ICard';
 import { formatDate } from '@angular/common';
-const meta: Meta<MyComponent> = {
+const meta: Meta<CardComponent> = {
   title: '基础组件/卡片/基础',
   id: 'card',
   component: CardComponent,
@@ -25,7 +26,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Base = Template.bind({});
+type Story = StoryObj<CardComponent>;
+export const Base: Story = {};
 Base.storyName = '无边框、无阴影';
 const base: ICard = {
   type: 'card',
@@ -49,7 +51,7 @@ Base.args = {
   content: base,
 };
 
-export const Avatar = Template.bind({});
+export const Avatar: Story = {};
 Avatar.storyName = '头像及幻灯片';
 const avatar: ICard = {
   type: 'card',
@@ -105,7 +107,7 @@ Avatar.args = {
   content: avatar,
 };
 
-export const BroderShadow = Template.bind({});
+export const BroderShadow: Story = {};
 BroderShadow.storyName = '带边框和阴影';
 const shadow: ICard = {
   type: 'card',

@@ -2,9 +2,9 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
-import { screen, userEvent } from '@storybook/testing-library';
 import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import * as MediaListStories from 'src/stories/widgets/media/MediaList.stories';
@@ -16,7 +16,7 @@ import { formatDate } from '@angular/common';
 import { IBaseNode } from '@core/interface/node/INode';
 import * as SwiperStories from '@stories/widgets/Swiper.stories';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ArticleComponent> = {
   title: '示例页面/内容类型/普通文章',
   id: 'article',
   component: ArticleComponent,
@@ -43,7 +43,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ArticleComponent>;
 export const Default: Story = {};
 const MediaList: any = MediaListStories.Default.args;
 const MenuList: any = MeunListStories.Base.args;
@@ -82,7 +82,7 @@ Default.args = {
   canAccess: true,
 };
 
-export const Comment = Template.bind({});
+export const Comment: Story = {};
 Comment.storyName = '带评论';
 const comment: IBaseNode = {
   ...Default.args.content,
@@ -186,41 +186,10 @@ const comment: IBaseNode = {
 Comment.args = {
   content: comment,
   canAccess: true,
-  comments: comments,
+  comments,
 };
 
-Comment.play = async () => {
-  const Flaging = screen.getByText('收藏');
-  await userEvent.click(Flaging);
-
-  await sleep(2000);
-  const Share = screen.getByText('分享');
-  await userEvent.click(Share);
-  await sleep(1000);
-  await userEvent.click(Share);
-
-  await sleep(2000);
-  const Download = screen.getByText('下载');
-  await userEvent.click(Download);
-  await sleep(1000);
-  await userEvent.click(Download);
-
-  await sleep(2000);
-  const Form = document.querySelectorAll('.ql-editor')[0];
-  await userEvent.type(
-    Form,
-    '信使基于 Material 的 Angular 前端框架，为了适配 IE11 目前的版本保持在 Angular v11，支持 SSR 服务端渲染。',
-    {
-      delay: 100,
-    },
-  );
-
-  await sleep(2000);
-  const Submit = screen.getByText('提交');
-  await userEvent.click(Submit);
-};
-
-export const Relate = Template.bind({});
+export const Relate: Story = {};
 Relate.storyName = '相关文章';
 Relate.args = {
   content: {

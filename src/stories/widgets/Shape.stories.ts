@@ -2,12 +2,13 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { ShapeComponent } from '@uiux/widgets/shape/shape.component';
 import { StorysModule } from '@core/module/storys.module';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ShapeComponent> = {
   title: '基础组件/形状',
   id: 'shape',
   component: ShapeComponent,
@@ -28,7 +29,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ShapeComponent>;
 export const Default: Story = {};
 
 Default.args = {

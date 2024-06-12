@@ -1,15 +1,14 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
-import { screen, userEvent } from '@storybook/testing-library';
 import { SearchModule } from '@uiux/combs/search/search.module';
 import { SearchComponent } from '@uiux/combs/search/search.component';
-import { sleep, StorysModule } from '@core/module/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { nodes } from './search.json';
 import { FormGroup } from '@angular/forms';
 import { ISearch } from '@core/interface/combs/ISearch';
 import { Subject } from 'rxjs';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<SearchComponent> = {
   title: '复合组件/搜索/默认',
   id: 'search',
   component: SearchComponent,
@@ -31,7 +30,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<SearchComponent>;
 export const Default: Story = {};
 const content: ISearch = {
   type: 'search',
@@ -149,16 +148,4 @@ Default.args = {
   content,
   form: new FormGroup({}),
   vauleChange$: new Subject<any>(),
-};
-Default.play = async () => {
-  const Keys = screen.getByPlaceholderText('请输入你的关键词');
-  await userEvent.type(Keys, 'Angular', {
-    delay: 300,
-  });
-
-  await sleep(2000);
-  const Clear = screen.getByText('清空');
-  await userEvent.click(Clear);
-
-  await sleep(2000);
 };

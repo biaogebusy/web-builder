@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { ContentTextCenterComponent } from '@uiux/widgets/content-text-center/content-text-center.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IContentTextCenter } from '@core/interface/widgets/IContentWidget';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ContentTextCenterComponent> = {
   title: '基本元素/内容居中块',
   id: 'content-text-center',
   component: ContentTextCenterComponent,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Base = Template.bind({});
+type Story = StoryObj<ContentTextCenterComponent>;
 const content: IContentTextCenter = {
   type: 'content-text-center',
   ratios: 'media-140',
@@ -37,6 +38,8 @@ const content: IContentTextCenter = {
     alt: 'alt',
   },
 };
-Base.args = {
-  content,
+export const Base: Story = {
+  args: {
+    content,
+  },
 };

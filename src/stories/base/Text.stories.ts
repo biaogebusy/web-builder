@@ -3,13 +3,14 @@ import {
   componentWrapperDecorator,
   Meta,
   Story,
+  StoryObj,
 } from '@storybook/angular';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IText } from '@core/interface/widgets/IText';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<TextComponent> = {
   title: '基本元素/富文本',
   id: 'text',
   component: TextComponent,
@@ -29,7 +30,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Base = Template.bind({});
+type Story = StoryObj<TextComponent>;
+export const Base: Story = {};
 Base.storyName = '基础文本';
 const base: IText = {
   type: 'text',
@@ -40,7 +42,7 @@ Base.args = {
   content: base,
 };
 
-export const Title = Template.bind({});
+export const Title: Story = {};
 Title.storyName = '带标题';
 const title: IText = {
   ...Base.args.content,
@@ -55,7 +57,7 @@ Title.args = {
   content: title,
 };
 
-export const Actions = Template.bind({});
+export const Actions: Story = {};
 Actions.storyName = '带 Actions';
 const action: IText = {
   ...Title.args.content,
@@ -88,7 +90,7 @@ Actions.args = {
   content: action,
 };
 
-export const Center = Template.bind({});
+export const Center: Story = {};
 // for builder sample
 Center.storyName = '居中';
 const center: IText = {
@@ -109,7 +111,7 @@ Center.args = {
   content: center,
 };
 
-export const SearchAction = Template.bind({});
+export const SearchAction: Story = {};
 SearchAction.storyName = '搜索';
 const searchAction: IText = {
   ...Title.args.content,
@@ -193,7 +195,7 @@ const {
   },
 } = btnVideoStory as any;
 
-export const BtnVideoAction = Template.bind({});
+export const BtnVideoAction: Story = {};
 BtnVideoAction.storyName = '视频播放';
 const video: IText = {
   ...Title.args.content,
@@ -213,7 +215,7 @@ BtnVideoAction.args = {
   content: video,
 };
 
-export const List = Template.bind({});
+export const List: Story = {};
 List.storyName = '带列表';
 const list: IText = {
   ...Title.args.content,
@@ -271,7 +273,7 @@ List.args = {
   content: list,
 };
 
-export const MaxWidth = Template.bind({});
+export const MaxWidth: Story = {};
 MaxWidth.storyName = '最大宽度';
 MaxWidth.args = {
   content: {

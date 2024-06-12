@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BlockComponent } from '@modules/render/block/block.component';
@@ -17,7 +18,7 @@ import {
   defaultHeader,
   footerInverse,
 } from '@modules/builder/data/Branding.json';
-const meta: Meta<MyComponent> = {
+const meta: Meta<BlockComponent> = {
   title: '示例页面/工作日历',
   id: 'calendar-page',
   component: BlockComponent,
@@ -60,7 +61,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Page = Template.bind({});
+type Story = StoryObj<BlockComponent>;
+export const Page: Story = {};
 // Raname Story
 const content = of({
   title: '工作日历',

@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { AmapService } from '@core/service/amap.service';
@@ -10,7 +11,7 @@ import { ConfigService } from '@core/service/config.service';
 import { StorysModule } from '@core/module/storys.module';
 import { IMap } from '@core/interface/IAmap';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<MapComponent> = {
   title: '基础组件/地图',
   id: 'map',
   component: MapComponent,
@@ -29,7 +30,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<MapComponent>;
 export const Default: Story = {};
 const content: IMap = {
   type: 'map',

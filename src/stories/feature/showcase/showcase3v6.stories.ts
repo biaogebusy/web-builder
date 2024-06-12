@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { Showcase3v6Component } from '@uiux/combs/showcase/showcase3v6/showcase3v6.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IShowcase3v6 } from '@core/interface/combs/IShowcase';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Showcase3v6Component> = {
   title: '特色组件/图文 Showcase/3v6',
   id: 'showcase-3v6',
   component: Showcase3v6Component,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Showcase3v6Component>;
 export const Default: Story = {};
 const content: IShowcase3v6 = {
   type: 'showcase-3v6',
@@ -129,7 +130,7 @@ Default.args = {
   content,
 };
 
-export const WithLink = Template.bind({});
+export const WithLink: Story = {};
 WithLink.storyName = '带连接';
 const link: IShowcase3v6 = {
   type: 'showcase-3v6',
@@ -283,7 +284,7 @@ WithLink.args = {
   content: link,
 };
 
-export const Background = Template.bind({});
+export const Background: Story = {};
 Background.storyName = '带背景';
 const bg: IShowcase3v6 = {
   ...Default.args.content,

@@ -1,11 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { Hero2v1Component } from '@uiux/combs/hero/hero2v1/hero2v1.component';
-import { SwiperModule } from 'swiper/angular';
 import { StorysModule } from '@core/module/storys.module';
 import { ITextHero } from '@core/interface/widgets/IText';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Hero2v1Component> = {
   title: '特色组件/首屏/2v1',
   id: 'hero-2v1',
   component: Hero2v1Component,
@@ -13,7 +12,7 @@ const meta: Meta<MyComponent> = {
     moduleMetadata({
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [SwiperModule, StorysModule.forRoot()],
+      imports: [StorysModule.forRoot()],
     }),
   ],
   parameters: {
@@ -27,7 +26,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Hero2v1Component>;
 export const Default: Story = {};
 const content: ITextHero = {
   type: 'hero-2v1',
@@ -67,7 +66,7 @@ Default.args = {
   content,
 };
 
-export const YCenter = Template.bind({});
+export const YCenter: Story = {};
 YCenter.storyName = 'Y轴中心';
 const yContent: ITextHero = {
   type: 'hero-2v1',
@@ -110,7 +109,7 @@ YCenter.args = {
   content: yContent,
 };
 
-export const YCenterXCustom = Template.bind({});
+export const YCenterXCustom: Story = {};
 YCenterXCustom.storyName = 'Y中心 X自定义';
 const yCxCustom: ITextHero = {
   type: 'hero-2v1',
@@ -155,7 +154,7 @@ YCenterXCustom.args = {
   content: yCxCustom,
 };
 
-export const XYCustom = Template.bind({});
+export const XYCustom: Story = {};
 XYCustom.storyName = 'XY自定义';
 const xyCustom: ITextHero = {
   type: 'hero-2v1',

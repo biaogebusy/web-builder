@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { FlagComponent } from '@uiux/widgets/actions/flag/flag.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IFlag } from '@core/interface/widgets/IFlag';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<FlagComponent> = {
   title: '基础组件/Actions/收藏',
   id: 'flag',
   component: FlagComponent,
@@ -32,7 +33,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<FlagComponent>;
 export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';

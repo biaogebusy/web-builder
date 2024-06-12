@@ -4,12 +4,13 @@ import {
   componentWrapperDecorator,
   Meta,
   Story,
+  StoryObj,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 import { EChartsOption } from 'echarts';
 import { random } from 'lodash-es';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ChartComponent> = {
   title: '基础组件/图表/柱状图',
   id: 'chart-bar',
   component: ChartComponent,
@@ -34,8 +35,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-
-export const Bar = Template.bind({});
+type Story = StoryObj<ChartComponent>;
+export const Bar: Story = {};
 Bar.storyName = '柱状图';
 const bar: EChartsOption = {
   type: 'chart',
@@ -112,7 +113,7 @@ Bar.args = {
   content: bar,
 };
 
-export const SingleSelected = Template.bind({});
+export const SingleSelected: Story = {};
 SingleSelected.storyName = '单选图例';
 const single: EChartsOption = {
   ...Bar.args.content,

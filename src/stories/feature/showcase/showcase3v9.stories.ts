@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
@@ -10,7 +11,7 @@ import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IShowcase3v9 } from '@core/interface/combs/IShowcase';
 import { Actions } from '@stories/base/Text.stories';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Showcase3v9Component> = {
   title: '特色组件/图文 Showcase/3v9',
   id: 'showcase-3v9',
   component: Showcase3v9Component,
@@ -28,7 +29,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Showcase3v9Component>;
 export const Default: Story = {};
 const content: IShowcase3v9 = {
   type: 'showcase-3v9',
@@ -78,7 +79,7 @@ Default.args = {
   content,
 };
 
-export const Reverse = Template.bind({});
+export const Reverse: Story = {};
 Reverse.storyName = '反向';
 const reverse: IShowcase3v9 = {
   id: '',
@@ -166,7 +167,7 @@ const {
   },
 } = btnVideoStory as any;
 
-export const Video = Template.bind({});
+export const Video: Story = {};
 Video.storyName = '视频';
 Video.args = {
   content: {

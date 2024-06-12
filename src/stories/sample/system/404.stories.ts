@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
@@ -10,7 +11,7 @@ import { ILayoutBuilder } from '@core/interface/IBuilder';
 import { BuilderModule } from '@modules/builder/builder.module';
 import { LayoutBuilderComponent } from '@modules/builder/layout-builder/layout-builder.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<LayoutBuilderComponent> = {
   title: '示例页面/系统页面/404',
   id: 'notFound',
   component: LayoutBuilderComponent,
@@ -39,7 +40,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<LayoutBuilderComponent>;
 export const Default: Story = {};
 const content: ILayoutBuilder = {
   fullWidth: false,

@@ -1,11 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
-import { screen, userEvent } from '@storybook/testing-library';
 import { Carousel1v2Component } from '@uiux/combs/carousel/carousel1v2/carousel1v2.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Carousel1v2Component> = {
   title: '复合组件/幻灯片/1v2',
   id: 'carousel-1v2',
   component: Carousel1v2Component,
@@ -19,7 +18,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Carousel1v2Component>;
 export const Default: Story = {};
 const content: ICarouselBase = {
   type: 'carousel-1v2',
@@ -177,9 +176,4 @@ const content: ICarouselBase = {
 
 Default.args = {
   content,
-};
-
-Default.play = async () => {
-  const Next = screen.getByTestId('next');
-  await userEvent.click(Next);
 };

@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IBgImg } from '@core/interface/widgets/IBgImg';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<BgImgComponent> = {
   title: '基本元素/背景图',
   id: 'bg-img',
   component: BgImgComponent,
@@ -27,7 +28,10 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Base = Template.bind({});
+
+type Story = StoryObj<BgImgComponent>;
+
+export const Base: Story = {};
 const base: IBgImg = {
   type: 'bg-img',
   classes: '',
@@ -40,7 +44,7 @@ Base.args = {
   content: base,
 };
 
-export const Opacity = Template.bind({});
+export const Opacity: Story = {};
 Opacity.storyName = '不透明度';
 const opacity: IBgImg = {
   type: 'bg-img',

@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { ProgressBarComponent } from '@uiux/widgets/progress-bar/progress-bar.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ProgressBarComponent> = {
   title: '基础组件/反馈组件/进度条',
   id: 'progress-bar',
   component: ProgressBarComponent,
@@ -26,7 +27,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Determinate = Template.bind({});
+type Story = StoryObj<ProgressBarComponent>;
+export const Determinate: Story = {};
 const deter: IProgressBar = {
   type: 'progress-bar',
   color: 'primary',
@@ -37,7 +39,7 @@ Determinate.args = {
   content: deter,
 };
 
-export const Indeterminate = Template.bind({});
+export const Indeterminate: Story = {};
 const indeter: IProgressBar = {
   type: 'progress-bar',
   color: 'primary',
@@ -48,7 +50,7 @@ Indeterminate.args = {
   content: indeter,
 };
 
-export const Buffer = Template.bind({});
+export const Buffer: Story = {};
 const buffer: IProgressBar = {
   type: 'progress-bar',
   color: 'primary',
@@ -59,7 +61,7 @@ Buffer.args = {
   content: buffer,
 };
 
-export const Query = Template.bind({});
+export const Query: Story = {};
 const query: IProgressBar = {
   type: 'progress-bar',
   color: 'primary',

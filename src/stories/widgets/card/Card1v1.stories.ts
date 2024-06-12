@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { Card1v1Component } from '@uiux/widgets/card/card1v1/card1v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Card1v1Component> = {
   title: '基础组件/卡片/1v1',
   id: 'card-1v1',
   component: Card1v1Component,
@@ -25,7 +26,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Card1v1Component>;
 export const Default: Story = {};
 const content: ICard1v1 = {
   type: 'card-1v1',
@@ -52,7 +53,7 @@ Default.args = {
   content,
 };
 
-export const Component = Template.bind({});
+export const Component: Story = {};
 const comp: ICard1v1 = {
   type: 'card-1v1',
   link: {

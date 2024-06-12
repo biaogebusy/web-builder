@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { NodeModule } from '@uiux/combs/node/node.module';
@@ -10,7 +11,7 @@ import { RelateComponent } from '@uiux/combs/node/relate/relate.component';
 import { random } from 'lodash-es';
 import { IRelate } from '@core/interface/node/IRelate';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<RelateComponent> = {
   title: '示例页面/内容类型/相关性',
   id: 'relate',
   component: RelateComponent,
@@ -33,7 +34,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<RelateComponent>;
 export const Default: Story = {};
 const content: IRelate = {
   type: 'relate',
@@ -348,7 +349,7 @@ Default.args = {
   content,
 };
 
-export const RelateV2 = Template.bind({});
+export const RelateV2: Story = {};
 const v2: IRelate = {
   ...Default.args.content,
   title: {
@@ -463,7 +464,7 @@ RelateV2.args = {
   content: v2,
 };
 
-export const RelateV3 = Template.bind({});
+export const RelateV3: Story = {};
 const v3: IRelate = {
   type: 'relate',
   actions: [

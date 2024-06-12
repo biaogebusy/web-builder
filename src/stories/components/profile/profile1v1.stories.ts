@@ -1,4 +1,4 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
@@ -7,7 +7,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { IProfile1v1 } from '@core/interface/combs/IProfile';
 import { comments } from '@stories/sample/node/comments.json';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Profile1v1Component> = {
   title: '示例页面/资料简介',
   id: 'profile-1v1',
   component: Profile1v1Component,
@@ -29,7 +29,9 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const UserProfile = Template.bind({});
+type Story = StoryObj<Profile1v1Component>;
+
+export const UserProfile: Story = {};
 UserProfile.storyName = '用户资料';
 const swiper: any = SwiperStories.Default.args;
 const medaiObjectGroup: any = MediaObjectGroupStories.Default.args;
@@ -152,7 +154,7 @@ UserProfile.args = {
   content,
 };
 
-export const Componey = Template.bind({});
+export const Componey: Story = {};
 Componey.storyName = '公司简介';
 const componey: IProfile1v1 = {
   type: 'profile-1v1',
@@ -394,7 +396,7 @@ Componey.args = {
   content: componey,
 };
 
-export const Comments = Template.bind({});
+export const Comments: Story = {};
 Comments.storyName = '带评论';
 const comment: IProfile1v1 = {
   ...componey,
@@ -429,5 +431,5 @@ const comment: IProfile1v1 = {
 };
 Comments.args = {
   content: comment,
-  comments: comments,
+  comments,
 };

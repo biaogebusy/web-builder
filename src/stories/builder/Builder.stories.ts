@@ -1,4 +1,4 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
@@ -15,7 +15,7 @@ import { ManageModule } from '@modules/manage/manage.module';
 import { widgets } from './data/widgets-for-story';
 import { base } from './data/base/export-for-story';
 import { mediaAssets } from './data/assets/media-assets-for-story';
-const meta: Meta<MyComponent> = {
+const meta: Meta<BuilderComponent> = {
   title: '低代码/Web builder',
   id: 'builder',
   component: BuilderComponent,
@@ -48,7 +48,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<BuilderComponent>;
 export const Default: Story = {};
 
 if (!environment.production) {

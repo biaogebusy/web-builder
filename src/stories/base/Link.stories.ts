@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import * as TextStories from './Text.stories';
@@ -9,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { ILink } from '@core/interface/widgets/ILink';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<LinkComponent> = {
   title: '基本元素/链接',
   id: 'link',
   component: LinkComponent,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<LinkComponent>;
 export const Default: Story = {};
 const content: ILink = {
   type: 'link',
@@ -38,7 +39,7 @@ Default.args = {
   content,
 };
 
-export const QueryParams = Template.bind({});
+export const QueryParams: Story = {};
 QueryParams.storyName = 'QueryParams 参数';
 const query: ILink = {
   ...Default.args.content,
@@ -51,7 +52,7 @@ QueryParams.args = {
   content: query,
 };
 
-export const Fragment = Template.bind({});
+export const Fragment: Story = {};
 Fragment.storyName = 'Fragment 片段';
 const fragment: ILink = {
   ...Default.args.content,
@@ -61,7 +62,7 @@ Fragment.args = {
   content: fragment,
 };
 
-export const Dialog = Template.bind({});
+export const Dialog: Story = {};
 Dialog.storyName = 'Dialog';
 const textContent: any = TextStories.List.args;
 const dialog: ILink = {
@@ -82,7 +83,7 @@ Dialog.args = {
   content: dialog,
 };
 
-export const Drawer = Template.bind({});
+export const Drawer: Story = {};
 const drawer: ILink = {
   ...Default.args.content,
   rel: 'drawer',
@@ -91,7 +92,7 @@ Drawer.args = {
   content: drawer,
 };
 
-export const ReqRoles = Template.bind({});
+export const ReqRoles: Story = {};
 ReqRoles.storyName = '根据权限显示';
 const roles: ILink = {
   ...Default.args.content,

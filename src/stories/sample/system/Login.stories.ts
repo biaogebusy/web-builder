@@ -2,9 +2,9 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
-import { screen, userEvent } from '@storybook/testing-library';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
@@ -17,7 +17,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { notify } from '@core/module/data/notify';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<LoginComponent> = {
   title: '示例页面/系统页面/注册登录',
   id: 'login',
   component: LoginComponent,
@@ -57,48 +57,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Page = Template.bind({});
-// Raname Story
+type Story = StoryObj<LoginComponent>;
+
+export const Page: Story = {};
 Page.storyName = '预览';
-
-Page.play = async () => {
-  // 输入手机号
-  const Phone = screen.getByLabelText('请输入手机号码');
-  await userEvent.type(Phone, '188787101300', {
-    delay: 200,
-  });
-
-  const Form = document.getElementsByClassName('login-form')[0];
-  await userEvent.click(Form);
-
-  // 修改手机号
-  await sleep(2000);
-  await userEvent.clear(Phone);
-  await userEvent.type(Phone, '18878710130');
-
-  // 输入验证码
-  await sleep(2000);
-  const Code = screen.getByLabelText('验证码');
-  await userEvent.type(Code, '34799', {
-    delay: 200,
-  });
-
-  // 切换到用户密码
-  await sleep(2000);
-  const PassW = screen.getByText('密码登录');
-  await userEvent.click(PassW);
-
-  // 输入用户名
-  await sleep(2000);
-  const UserName = screen.getByLabelText('用户名');
-  await userEvent.type(UserName, 'biaogebusy', {
-    delay: 200,
-  });
-
-  // 输入密码
-  await sleep(2000);
-  const UserPW = screen.getByLabelText('密码');
-  await userEvent.type(UserPW, 'helloWord', {
-    delay: 200,
-  });
-};

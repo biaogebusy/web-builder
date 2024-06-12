@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { ListModule } from '@uiux/combs/list/list.module';
@@ -9,7 +10,7 @@ import { TaxonomyThinListComponent } from '@uiux/combs/list/taxonomy-thin-list/t
 import { StorysModule } from '@core/module/storys.module';
 import { ITaxonomyThinList } from '@core/interface/combs/IList';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<TaxonomyThinListComponent> = {
   title: '复合组件/列表/分类列表（thin）',
   id: 'taxonomy-thin-list',
   component: TaxonomyThinListComponent,
@@ -24,7 +25,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<TaxonomyThinListComponent>;
 export const Default: Story = {};
 const content: ITaxonomyThinList = {
   type: 'taxonomy-thin-list',

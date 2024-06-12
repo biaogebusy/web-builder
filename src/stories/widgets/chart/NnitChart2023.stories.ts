@@ -4,10 +4,11 @@ import {
   componentWrapperDecorator,
   Meta,
   Story,
+  StoryObj,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ChartComponent> = {
   title: '基础组件/图表/2023问卷',
   id: 'nnit-chart-2023',
   component: ChartComponent,
@@ -32,8 +33,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-
-export const ITChart01 = Template.bind({});
+type Story = StoryObj<ChartComponent>;
+export const ITChart01: Story = {};
 ITChart01.storyName = '男女比例';
 ITChart01.args = {
   data: {
@@ -188,7 +189,7 @@ ITChart01.args = {
   },
 };
 
-export const ITChart02 = Template.bind({});
+export const ITChart02: Story = {};
 ITChart02.storyName = '年龄分布';
 ITChart02.args = {
   content: {
@@ -254,7 +255,7 @@ ITChart02.args = {
   },
 };
 
-export const ITChart03 = Template.bind({});
+export const ITChart03: Story = {};
 ITChart03.storyName = '办公所在地';
 ITChart03.args = {
   data: {
@@ -351,7 +352,7 @@ ITChart03.args = {
   },
 };
 
-export const ITChart04 = Template.bind({});
+export const ITChart04: Story = {};
 ITChart04.storyName = '当前职位';
 ITChart04.args = {
   data: {
@@ -443,7 +444,7 @@ ITChart04.args = {
   },
 };
 
-export const ITChart05 = Template.bind({});
+export const ITChart05: Story = {};
 ITChart05.storyName = '月薪收入';
 ITChart05.args = {
   data: {
@@ -534,7 +535,7 @@ ITChart05.args = {
   },
 };
 
-export const ITChart06 = Template.bind({});
+export const ITChart06: Story = {};
 ITChart06.storyName = '周末双休';
 ITChart06.args = {
   data: {
@@ -613,7 +614,7 @@ ITChart06.args = {
   },
 };
 
-export const ITChart07 = Template.bind({});
+export const ITChart07: Story = {};
 ITChart07.storyName = '是否加班';
 ITChart07.args = {
   data: {
@@ -693,7 +694,7 @@ ITChart07.args = {
   },
 };
 
-export const ITChart09 = Template.bind({});
+export const ITChart09: Story = {};
 ITChart09.storyName = '五险一金缴纳';
 ITChart09.args = {
   data: {
@@ -773,7 +774,7 @@ ITChart09.args = {
   },
 };
 
-export const ITChart08 = Template.bind({});
+export const ITChart08: Story = {};
 ITChart08.storyName = '今年公司或团队扩招裁员情况';
 ITChart08.args = {
   data: {
@@ -848,7 +849,7 @@ ITChart08.args = {
   },
 };
 
-export const ITChart10 = Template.bind({});
+export const ITChart10: Story = {};
 ITChart10.storyName = '车房情况';
 ITChart10.args = {
   data: {

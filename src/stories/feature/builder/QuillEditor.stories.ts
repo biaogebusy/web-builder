@@ -2,11 +2,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { QuillModule } from 'ngx-quill';
-const meta: Meta<MyComponent> = {
+const meta: Meta<any> = {
   title: '特色组件/编辑器/富文本',
   id: 'quill',
   decorators: [
@@ -32,7 +33,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<any>;
 export const Default: Story = {};
 Default.args = {
   content: {},

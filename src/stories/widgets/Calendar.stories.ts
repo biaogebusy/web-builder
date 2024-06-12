@@ -2,14 +2,13 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { CalendarComponent } from '@uiux/combs/calendar/calendar/calendar.component';
 import { StorysModule } from '@core/module/storys.module';
 import { random } from 'lodash-es';
-import { IFullCalendar } from '@core/interface/combs/ICalendar';
-import { CalendarOptions } from '@fullcalendar/angular';
-const meta: Meta<MyComponent> = {
+const meta: Meta<CalendarComponent> = {
   title: '基础组件/日历',
   id: 'calendar',
   component: CalendarComponent,
@@ -26,9 +25,9 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<CalendarComponent>;
 export const Default: Story = {};
-const options: CalendarOptions = {
+const options = {
   events: [
     {
       title: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',

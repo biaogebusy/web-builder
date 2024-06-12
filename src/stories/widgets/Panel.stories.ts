@@ -1,9 +1,9 @@
 import { StorysModule } from '@core/module/storys.module';
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { PanelComponent } from '@uiux/widgets/panel/panel.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<PanelComponent> = {
   title: '基础组件/面板',
   id: 'panel',
   component: PanelComponent,
@@ -17,7 +17,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<PanelComponent>;
 export const Default: Story = {};
 
 Default.args = {

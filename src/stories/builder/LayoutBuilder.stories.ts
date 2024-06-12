@@ -1,4 +1,4 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
@@ -6,7 +6,7 @@ import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { LayoutBuilderComponent } from '@modules/builder/layout-builder/layout-builder.component';
-const meta: Meta<MyComponent> = {
+const meta: Meta<LayoutBuilderComponent> = {
   title: '低代码/Layout builder/示例',
   id: 'layoutBuilder',
   component: LayoutBuilderComponent,
@@ -29,7 +29,9 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const LayoutDefault = Template.bind({});
+type Story = StoryObj<LayoutBuilderComponent>;
+
+export const LayoutDefault: Story = {};
 LayoutDefault.storyName = '默认';
 LayoutDefault.args = {
   pageIndex: 0,
@@ -247,7 +249,7 @@ LayoutDefault.args = {
   },
 };
 
-export const TwoCol = Template.bind({});
+export const TwoCol: Story = {};
 TwoCol.storyName = '两栏';
 TwoCol.args = {
   pageIndex: 0,
@@ -563,7 +565,7 @@ TwoCol.args = {
   },
 };
 
-export const ThreeCol = Template.bind({});
+export const ThreeCol: Story = {};
 ThreeCol.storyName = '三栏';
 ThreeCol.args = {
   pageIndex: 0,
@@ -832,7 +834,7 @@ ThreeCol.args = {
   },
 };
 
-export const FourCol = Template.bind({});
+export const FourCol: Story = {};
 FourCol.storyName = '四栏';
 FourCol.args = {
   pageIndex: 0,
@@ -1269,7 +1271,7 @@ FourCol.args = {
   },
 };
 
-export const Section1A = Template.bind({});
+export const Section1A: Story = {};
 Section1A.storyName = '1A';
 Section1A.args = {
   pageIndex: 0,
@@ -1493,7 +1495,7 @@ Section1A.args = {
   },
 };
 
-export const Section1B = Template.bind({});
+export const Section1B: Story = {};
 Section1B.storyName = '1B';
 Section1B.args = {
   pageIndex: 0,
@@ -1720,7 +1722,7 @@ Section1B.args = {
   },
 };
 
-export const Section2A = Template.bind({});
+export const Section2A: Story = {};
 Section2A.storyName = '2A';
 Section2A.args = {
   pageIndex: 0,
@@ -1977,7 +1979,7 @@ Section2A.args = {
   },
 };
 
-export const Section2B = Template.bind({});
+export const Section2B: Story = {};
 Section2B.storyName = '2B';
 Section2B.args = {
   pageIndex: 0,
@@ -2127,7 +2129,7 @@ Section2B.args = {
   },
 };
 
-export const Section3A = Template.bind({});
+export const Section3A: Story = {};
 Section3A.storyName = '3A';
 Section3A.args = {
   pageIndex: 0,
@@ -2451,7 +2453,7 @@ Section3A.args = {
   },
 };
 
-export const Section3B = Template.bind({});
+export const Section3B: Story = {};
 Section3B.storyName = '3B';
 Section3B.args = {
   pageIndex: 0,
@@ -2832,7 +2834,7 @@ Section3B.args = {
   },
 };
 
-export const Section4A = Template.bind({});
+export const Section4A: Story = {};
 Section4A.storyName = '4A';
 Section4A.args = {
   pageIndex: 0,
@@ -3365,7 +3367,7 @@ Section4A.args = {
   },
 };
 
-export const Section5A = Template.bind({});
+export const Section5A: Story = {};
 Section5A.storyName = '5A';
 Section5A.args = {
   pageIndex: 0,

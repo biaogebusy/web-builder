@@ -3,13 +3,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BtnVideoComponent } from '@uiux/widgets/actions/btn-video/btn-video.component';
 import * as playerStory from '../feature/media/Player.stories';
 import { IBtnVideo } from '@core/interface/widgets/IBtn';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<BtnVideoComponent> = {
   title: '基本元素/播放按钮',
   id: 'btn-video',
   component: BtnVideoComponent,
@@ -27,7 +28,7 @@ const meta: Meta<MyComponent> = {
 
 export default meta;
 
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<BtnVideoComponent>;
 export const Default: Story = {};
 Default.parameters = {
   controls: {
@@ -50,8 +51,6 @@ const content: IBtnVideo = {
 Default.args = {
   content,
 };
-
-export const Iframe = Template.bind({});
 const iframeContent: IBtnVideo = {
   type: 'btn-video',
   color: 'primary',
@@ -65,6 +64,9 @@ const iframeContent: IBtnVideo = {
     height: '700',
   },
 };
+
+export const Iframe: Story = {};
+
 Iframe.args = {
   content: iframeContent,
 };

@@ -1,4 +1,4 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
@@ -6,7 +6,7 @@ import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custom-template.component';
-const meta: Meta<MyComponent> = {
+const meta: Meta<CustomTemplateComponent> = {
   title: '低代码/Layout builder/Tailwind 自定义组件',
   id: 'custom-template',
   component: CustomTemplateComponent,
@@ -30,7 +30,7 @@ const meta: Meta<MyComponent> = {
 
 export default meta;
 
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<CustomTemplateComponent>;
 export const Default: Story = {};
 Default.storyName = '默认';
 Default.args = {
@@ -62,7 +62,7 @@ Default.args = {
   },
 };
 
-export const Each = Template.bind({});
+export const Each: Story = {};
 Each.storyName = '循环';
 Each.args = {
   content: {
@@ -141,7 +141,7 @@ Each.args = {
   },
 };
 
-export const Simple = Template.bind({});
+export const Simple: Story = {};
 Simple.storyName = '简单';
 Simple.args = {
   content: {
@@ -210,7 +210,7 @@ Simple.args = {
   },
 };
 
-export const Playful = Template.bind({});
+export const Playful: Story = {};
 Playful.storyName = 'Playful';
 Playful.args = {
   content: {
@@ -278,7 +278,7 @@ Playful.args = {
   },
 };
 
-export const Elegant = Template.bind({});
+export const Elegant: Story = {};
 Elegant.storyName = 'Elegant';
 Elegant.args = {
   content: {
@@ -346,7 +346,7 @@ Elegant.args = {
   },
 };
 
-export const Responsive = Template.bind({});
+export const Responsive: Story = {};
 Responsive.storyName = '响应式';
 Responsive.args = {
   content: {
@@ -395,7 +395,7 @@ Responsive.args = {
   },
 };
 
-export const State = Template.bind({});
+export const State: Story = {};
 State.storyName = '状态';
 State.args = {
   content: {
@@ -470,7 +470,7 @@ State.args = {
   },
 };
 
-export const Hero = Template.bind({});
+export const Hero: Story = {};
 Hero.storyName = 'Testimonial';
 Hero.args = {
   content: {
@@ -639,7 +639,7 @@ Hero.args = {
   },
 };
 
-export const Product = Template.bind({});
+export const Product: Story = {};
 Product.args = {
   content: {
     json: {},
@@ -852,7 +852,7 @@ Product.args = {
   },
 };
 
-export const Feature = Template.bind({});
+export const Feature: Story = {};
 Feature.storyName = 'Feature';
 Feature.args = {
   content: {
@@ -906,7 +906,7 @@ Feature.args = {
   },
 };
 
-export const TwoGrid = Template.bind({});
+export const TwoGrid: Story = {};
 TwoGrid.storyName = 'TwoGrid';
 TwoGrid.args = {
   content: {
@@ -974,7 +974,7 @@ TwoGrid.args = {
   },
 };
 
-export const Action = Template.bind({});
+export const Action: Story = {};
 Action.storyName = 'Action';
 Action.args = {
   content: {
@@ -1010,7 +1010,7 @@ Action.args = {
   },
 };
 
-export const Pricing = Template.bind({});
+export const Pricing: Story = {};
 Pricing.storyName = 'Pricing';
 Pricing.args = {
   content: {
@@ -1449,7 +1449,7 @@ Pricing.args = {
   },
 };
 
-export const Showcase = Template.bind({});
+export const Showcase: Story = {};
 Showcase.storyName = 'Showcase';
 Showcase.args = {
   content: {
@@ -1479,7 +1479,7 @@ Showcase.args = {
   },
 };
 
-export const Step = Template.bind({});
+export const Step: Story = {};
 Step.storyName = 'Step';
 Step.args = {
   content: {

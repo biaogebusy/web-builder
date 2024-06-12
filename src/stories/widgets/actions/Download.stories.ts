@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { DownloadComponent } from '@uiux/widgets/actions/download/download.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<DownloadComponent> = {
   title: '基础组件/Actions/下载',
   id: 'download',
   component: DownloadComponent,
@@ -32,7 +33,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<DownloadComponent>;
 export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';

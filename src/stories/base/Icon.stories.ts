@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<IconComponent> = {
   title: '基本元素/图标',
   id: 'icon',
   component: IconComponent,
@@ -32,24 +33,20 @@ const meta: Meta<MyComponent> = {
     },
   },
 };
-
-const Template: Story = (args) => ({
-  props: {
-    ...args,
-  },
-  template: `<app-icon [content]="content"></app-icon>`,
-});
-export const Primary = Template.bind({});
+export default meta;
+type Story = StoryObj<IconComponent>;
 const primary: IIcon = {
   type: 'icon',
   color: 'primary',
   svg: 'border-color',
 };
+
+export const Primary: Story = {};
 Primary.args = {
   content: primary,
 };
 
-export const Accent = Template.bind({});
+export const Accent: Story = {};
 const accent: IIcon = {
   type: 'icon',
   color: 'accent',
@@ -59,19 +56,19 @@ Accent.args = {
   content: accent,
 };
 
-export const Warn = Template.bind({});
+export const Warn: Story = {};
 const warn: IIcon = { type: 'icon', color: 'warn', name: 'format_color_fill' };
 Warn.args = {
   content: warn,
 };
 
-export const svgIcon = Template.bind({});
+export const svgIcon: Story = {};
 const svg: IIcon = { type: 'icon', color: 'primary', svg: 'credit-card-check' };
 svgIcon.args = {
   content: svg,
 };
 
-export const customStyle = Template.bind({});
+export const customStyle: Story = {};
 const custom: IIcon = {
   type: 'icon',
   color: 'primary',

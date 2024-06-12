@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table.component';
@@ -9,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { random } from 'lodash-es';
 import { IDynamicTable } from '@core/interface/widgets/IWidgets';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<DynamicTableComponent> = {
   title: '基本元素/表格',
   id: 'table',
   component: DynamicTableComponent,
@@ -33,7 +34,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<DynamicTableComponent>;
 export const Default: Story = {};
 Default.parameters = {
   controls: {
@@ -92,7 +93,7 @@ Default.args = {
   content,
 };
 
-export const CustomStyle = Template.bind({});
+export const CustomStyle: Story = {};
 CustomStyle.storyName = '自定义列样式';
 const custom: IDynamicTable = {
   type: 'dynamic-table',
@@ -128,7 +129,7 @@ CustomStyle.args = {
   content: custom,
 };
 
-export const DialogColumn = Template.bind({});
+export const DialogColumn: Story = {};
 DialogColumn.storyName = '支持弹窗';
 const dialog: IDynamicTable = {
   type: 'dynamic-table',
@@ -191,7 +192,7 @@ DialogColumn.args = {
   content: dialog,
 };
 
-export const ExpandColumn = Template.bind({});
+export const ExpandColumn: Story = {};
 ExpandColumn.storyName = '可折叠指定列';
 const expand: IDynamicTable = {
   type: 'dynamic-table',

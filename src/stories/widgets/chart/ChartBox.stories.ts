@@ -5,10 +5,11 @@ import {
   componentWrapperDecorator,
   Meta,
   Story,
+  StoryObj,
 } from '@storybook/angular';
 import { ChartBoxComponent } from '@uiux/widgets/chart/chart-box/chart-box.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ChartBoxComponent> = {
   title: '基础组件/图表/图表数据',
   id: 'chart-box',
   component: ChartBoxComponent,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 
 export default meta;
 
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ChartBoxComponent>;
 export const Default: Story = {};
 Default.storyName = '图表数据';
 const content: IChartBox = {

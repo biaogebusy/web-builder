@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BlockComponent } from '@modules/render/block/block.component';
@@ -16,7 +17,7 @@ import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
 import { home_v4 } from '@stories/sample/home/data/home_v4';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<BlockComponent> = {
   title: '示例页面/首页示例/04 应用介绍',
   id: 'home-v4',
   component: BlockComponent,
@@ -51,7 +52,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Page = Template.bind({});
+type Story = StoryObj<BlockComponent>;
+export const Page: Story = {};
 // Raname Story
 Page.storyName = '预览';
 const content = of(home_v4);

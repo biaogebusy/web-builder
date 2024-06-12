@@ -1,10 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { Showcase1v4Component } from '@uiux/combs/showcase/showcase1v4/showcase1v4.component';
 import { IShowcase1v4 } from '@core/interface/combs/IShowcase';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Showcase1v4Component> = {
   title: '特色组件/图文 Showcase/1v4',
   id: 'showcase-1v4',
   component: Showcase1v4Component,
@@ -21,7 +21,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Showcase1v4Component>;
 export const Default: Story = {};
 Default.storyName = '默认';
 const content: IShowcase1v4 = {
@@ -105,7 +105,7 @@ Default.args = {
   content,
 };
 
-export const Price = Template.bind({});
+export const Price: Story = {};
 Price.storyName = '价格组件';
 const price: IShowcase1v4 = {
   type: 'showcase-1v4',
@@ -220,7 +220,7 @@ Price.args = {
   content: price,
 };
 
-export const Dynamic = Template.bind({});
+export const Dynamic: Story = {};
 Dynamic.storyName = '动态';
 const dynamic: IShowcase1v4 = {
   type: 'showcase-1v4',

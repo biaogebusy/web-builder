@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<BtnComponent> = {
   title: '基本元素/按钮/基础',
   id: 'btn',
   component: BtnComponent,
@@ -25,13 +26,9 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
+type Story = StoryObj<BtnComponent>;
 
-export const BtnDefault = Template.bind({});
-BtnDefault.parameters = {
-  controls: {
-    include: ['content'],
-  },
-};
+export const BtnDefault: Story = {};
 BtnDefault.storyName = '默认';
 const content: IBtn = {
   type: 'btn',
@@ -46,18 +43,17 @@ BtnDefault.args = {
   content,
 };
 
-export const BtnRaised = Template.bind({});
 const raised: IBtn = {
   type: 'btn',
   color: 'primary',
   label: 'Primary',
   mode: 'raised',
 };
+export const BtnRaised: Story = {};
 BtnRaised.args = {
   content: raised,
 };
 
-export const BtnDisabled = Template.bind({});
 const disabled: IBtn = {
   type: 'btn',
   color: 'primary',
@@ -65,11 +61,11 @@ const disabled: IBtn = {
   mode: 'raised',
   disabled: true,
 };
+export const BtnDisabled: Story = {};
 BtnDisabled.args = {
   content: disabled,
 };
 
-export const Pill = Template.bind({});
 const round: IBtn = {
   type: 'btn',
   label: 'Round',
@@ -77,12 +73,11 @@ const round: IBtn = {
   mode: 'raised',
   pill: true,
 };
-
+export const Pill: Story = {};
 Pill.args = {
   content: round,
 };
 
-export const BtnLink = Template.bind({});
 const btnLink: IBtn = {
   type: 'btn',
   href: '/node/1',
@@ -91,11 +86,11 @@ const btnLink: IBtn = {
   mode: 'raised',
   color: 'primary',
 };
+export const BtnLink: Story = {};
 BtnLink.args = {
   content: btnLink,
 };
 
-export const BtnDrawer = Template.bind({});
 const drawer: IBtn = {
   type: 'btn',
   href: '/?path=/story/welcome--page',
@@ -103,34 +98,33 @@ const drawer: IBtn = {
   mode: 'raised',
   drawerIframe: true,
 };
+export const BtnDrawer: Story = {};
 BtnDrawer.args = {
   content: drawer,
 };
 
-export const BtnStroked = Template.bind({});
 const stroked: IBtn = {
   type: 'btn',
   label: 'stroked',
   color: 'primary',
   mode: 'stroked',
 };
+export const BtnStroked: Story = {};
 BtnStroked.args = {
   content: stroked,
 };
 
-export const StrokedLink = Template.bind({});
 const strokedLink: IBtn = {
   href: '#',
   target: '_blank',
   label: 'Stroked link',
   mode: 'stroked',
 };
-
+export const StrokedLink: Story = {};
 StrokedLink.args = {
   content: strokedLink,
 };
 
-export const StrokedLinkBorderPrimary = Template.bind({});
 const slbp: IBtn = {
   type: 'btn',
   href: '#',
@@ -139,22 +133,22 @@ const slbp: IBtn = {
   mode: 'stroked',
   classes: 'border-primary',
 };
+export const StrokedLinkBorderPrimary: Story = {};
 StrokedLinkBorderPrimary.args = {
   content: slbp,
 };
 
-export const BtnFlat = Template.bind({});
 const flat: IBtn = {
   type: 'btn',
   label: 'Flat',
   color: 'primary',
   mode: 'flat',
 };
+export const BtnFlat: Story = {};
 BtnFlat.args = {
   content: flat,
 };
 
-export const BtnIcon = Template.bind({});
 const icon: IBtn = {
   type: 'btn',
   color: 'primary',
@@ -163,11 +157,11 @@ const icon: IBtn = {
     name: 'more_vert',
   },
 };
+export const BtnIcon: Story = {};
 BtnIcon.args = {
   content: icon,
 };
 
-export const BtnFab = Template.bind({});
 const fab: IBtn = {
   type: 'btn',
   color: 'primary',
@@ -176,11 +170,11 @@ const fab: IBtn = {
     name: 'more_vert',
   },
 };
+export const BtnFab: Story = {};
 BtnFab.args = {
   content: fab,
 };
 
-export const BtnMiniFab = Template.bind({});
 const mini: IBtn = {
   type: 'btn',
   color: 'primary',
@@ -189,6 +183,7 @@ const mini: IBtn = {
     name: 'more_vert',
   },
 };
+export const BtnMiniFab: Story = {};
 BtnMiniFab.args = {
   content: mini,
 };

@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { FeatureBoxComponent } from '@uiux/widgets/feature-box/feature-box.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<FeatureBoxComponent> = {
   title: '基础组件/功能盒子',
   id: 'feature-box',
   component: FeatureBoxComponent,
@@ -25,7 +26,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<FeatureBoxComponent>;
 export const Default: Story = {};
 Default.storyName = '4:3';
 const content: IFeatureBox = {
@@ -44,7 +45,7 @@ Default.args = {
   content,
 };
 
-export const CustomContain = Template.bind({});
+export const CustomContain: Story = {};
 CustomContain.storyName = '图片不裁切';
 CustomContain.args = {
   content: {
@@ -57,7 +58,7 @@ CustomContain.args = {
   },
 };
 
-export const HoverIcon = Template.bind({});
+export const HoverIcon: Story = {};
 HoverIcon.storyName = 'Icon 经过';
 const hover: IFeatureBox = {
   ...Default.args.content,
@@ -67,7 +68,7 @@ HoverIcon.args = {
   content: hover,
 };
 
-export const Float = Template.bind({});
+export const Float: Story = {};
 Float.storyName = 'Icon 浮出';
 const float: IFeatureBox = {
   ...Default.args.content,
@@ -78,7 +79,7 @@ Float.args = {
   content: float,
 };
 
-export const NotMedia = Template.bind({});
+export const NotMedia: Story = {};
 NotMedia.storyName = '非图片/边栏切出';
 NotMedia.parameters = {
   docs: {

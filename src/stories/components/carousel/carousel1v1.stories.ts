@@ -1,11 +1,11 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { Carousel1v1Component } from '@uiux/combs/carousel/carousel1v1/carousel1v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
 import * as SwiperStories from '@stories/widgets/Swiper.stories';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Carousel1v1Component> = {
   title: '复合组件/幻灯片/1v1',
   id: 'carousel-1v1',
   component: Carousel1v1Component,
@@ -19,7 +19,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Carousel1v1Component>;
 export const Default: Story = {};
 const defaultContent: ICarouselBase = {
   spacer: 'lg',
@@ -40,7 +40,7 @@ Default.args = {
   content: defaultContent,
 };
 
-export const TextHero = Template.bind({});
+export const TextHero: Story = {};
 TextHero.storyName = '图片带文本';
 const textHeroContent: ICarouselBase = {
   type: 'carousel-1v1',
@@ -179,7 +179,7 @@ TextHero.args = {
   content: textHeroContent,
 };
 
-export const Video = Template.bind({});
+export const Video: Story = {};
 Video.storyName = '视频';
 Video.args = {
   content: {
@@ -315,7 +315,7 @@ Video.args = {
   },
 };
 
-export const FullScreen = Template.bind({});
+export const FullScreen: Story = {};
 FullScreen.storyName = '满屏';
 FullScreen.args = {
   content: {

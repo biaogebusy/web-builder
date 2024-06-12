@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BRANDING } from '@core/token/token-providers';
@@ -14,7 +15,7 @@ import {
 } from '@modules/builder/data/Branding.json';
 import { StorysModule } from '@core/module/storys.module';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<FooterComponent> = {
   title: '全局配置/页脚/反色',
   id: 'footer-inverse',
   component: FooterComponent,
@@ -56,7 +57,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<FooterComponent>;
 export const Default: Story = {};
 Default.storyName = '预览';
 Default.parameters = {

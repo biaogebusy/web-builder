@@ -3,11 +3,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<SpinnerComponent> = {
   title: '基础组件/反馈组件/加载 Loading',
   id: 'spinner',
   component: SpinnerComponent,
@@ -25,7 +26,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<SpinnerComponent>;
 export const Default: Story = {};
 
 Default.args = {

@@ -1,9 +1,9 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { Carousel2v2Component } from '@uiux/combs/carousel/carousel2v2/carousel2v2.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
-const meta: Meta<MyComponent> = {
+const meta: Meta<Carousel2v2Component> = {
   title: '复合组件/幻灯片/2v2',
   id: 'carousel-2v2',
   component: Carousel2v2Component,
@@ -17,7 +17,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Carousel2v2Component>;
 export const Default: Story = {};
 const content: ICarouselBase = {
   type: 'carousel-2v2',

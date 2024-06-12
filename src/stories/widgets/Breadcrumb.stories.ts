@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BreadcrumbComponent } from '@uiux/widgets/breadcrumb/breadcrumb.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<BreadcrumbComponent> = {
   title: '基础组件/面包屑',
   id: 'breadcrumb',
   component: BreadcrumbComponent,
@@ -26,7 +27,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Base = Template.bind({});
+type Story = StoryObj<BreadcrumbComponent>;
+export const Base: Story = {};
 const base: ILink[] = [
   {
     label: '首页',

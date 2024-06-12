@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { TitleComponent } from '@uiux/widgets/title/title.component';
@@ -9,7 +10,7 @@ import { IframeComponent } from '@uiux/widgets/iframe/iframe.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IIframe } from '@core/interface/widgets/IWidgets';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<IframeComponent> = {
   title: '基础组件/Iframe',
   id: 'iframe',
   component: IframeComponent,
@@ -34,7 +35,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<IframeComponent>;
 export const Default: Story = {};
 // Raname Story
 Default.storyName = '默认';
@@ -46,7 +47,7 @@ Default.args = {
   content,
 };
 
-export const CustomSize = Template.bind({});
+export const CustomSize: Story = {};
 CustomSize.storyName = '自定义';
 const custom: IIframe = {
   type: 'iframe',
@@ -58,7 +59,7 @@ CustomSize.args = {
   content: custom,
 };
 
-export const FullScreenHeight = Template.bind({});
+export const FullScreenHeight: Story = {};
 FullScreenHeight.storyName = '全屏高';
 const full: IIframe = {
   type: 'iframe',

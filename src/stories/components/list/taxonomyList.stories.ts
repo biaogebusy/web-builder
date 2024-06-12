@@ -2,16 +2,16 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
-import { userEvent } from '@storybook/testing-library';
 import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-list.component';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { StorysModule } from '@core/module/storys.module';
 import { ITaxonomyList } from '@core/interface/combs/IList';
 import * as MediaListStories from '@stories/widgets/media/MediaList.stories';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<TaxonomyListComponent> = {
   title: '复合组件/列表/分类列表',
   id: 'taxonomy-list',
   component: TaxonomyListComponent,
@@ -33,7 +33,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<TaxonomyListComponent>;
 export const Default: Story = {};
 const content: ITaxonomyList = {
   type: 'taxonomy-list',
@@ -390,9 +390,4 @@ const content: ITaxonomyList = {
 };
 Default.args = {
   content,
-};
-
-Default.play = async () => {
-  const Btn = document.querySelectorAll('.mat-btn')[0];
-  await userEvent.hover(Btn);
 };

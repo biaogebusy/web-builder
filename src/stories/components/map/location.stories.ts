@@ -1,10 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { LocationComponent } from '@uiux/combs/map/location/location.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ILocation } from '@core/interface/combs/IMap';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<LocationComponent> = {
   title: '复合组件/地图/位置',
   id: 'location',
   component: LocationComponent,
@@ -25,7 +25,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<LocationComponent>;
 export const Default: Story = {};
 const content: ILocation = {
   type: 'location',

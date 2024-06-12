@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 import { IPlayer } from '@core/interface/widgets/IPlayer';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<PlayerComponent> = {
   title: '特色组件/媒体/播放器',
   id: 'player',
   component: PlayerComponent,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<PlayerComponent>;
 export const Default: Story = {};
 const content: IPlayer = {
   type: 'player',

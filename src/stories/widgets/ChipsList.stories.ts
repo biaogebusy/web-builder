@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { ChipListComponent } from '@uiux/widgets/chip-list/chip-list.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ChipListComponent> = {
   title: '基础组件/胶囊按钮',
   id: 'chip-list',
   component: ChipListComponent,
@@ -23,7 +24,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ChipListComponent>;
 export const Default: Story = {};
 const content: IChipList = {
   type: 'chip-list',
@@ -56,7 +57,7 @@ Default.args = {
   content,
 };
 
-export const Mini = Template.bind({});
+export const Mini: Story = {};
 const mini: IChipList = {
   ...Default.args.content,
 };

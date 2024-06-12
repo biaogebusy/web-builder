@@ -2,12 +2,13 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { DropdownMenuComponent } from '@uiux/widgets/dropdown-menu/dropdown-menu.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IDropdowMenu } from '@core/interface/widgets/IWidgets';
-const meta: Meta<MyComponent> = {
+const meta: Meta<DropdownMenuComponent> = {
   title: '基础组件/下拉菜单',
   id: 'dropdown-menu',
   component: DropdownMenuComponent,
@@ -25,7 +26,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<DropdownMenuComponent>;
 export const Default: Story = {};
 const content: IDropdowMenu = {
   type: 'dropdown-menu',

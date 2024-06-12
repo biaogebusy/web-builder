@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { ProgressGroupComponent } from '@uiux/widgets/progress-group/progress-group.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ProgressGroupComponent> = {
   title: '基础组件/反馈组件/进度条组',
   id: 'progress-group',
   component: ProgressGroupComponent,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ProgressGroupComponent>;
 export const Default: Story = {};
 const content: IProgressGroup = {
   type: 'progress-group',

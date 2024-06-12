@@ -1,13 +1,12 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
-import { userEvent } from '@storybook/testing-library';
 import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.component';
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
 import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
 import { sleep, StorysModule } from '@core/module/storys.module';
 import { IMapListv1 } from '@core/interface/combs/IMap';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<MapListV1Component> = {
   title: '复合组件/地图/位置列表 1v1',
   id: 'map-list-1v1',
   component: MapListV1Component,
@@ -28,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<MapListV1Component>;
 export const Default: Story = {};
 const card1v3: any = Card1v3Stories.Base.args;
 const content: IMapListv1 = {
@@ -56,20 +55,7 @@ Default.args = {
   content,
 };
 
-Default.play = async () => {
-  await sleep(2000);
-
-  const First = document.querySelectorAll('.list')[0];
-  await userEvent.click(First);
-  await sleep(2000);
-  const Dialog = document.querySelectorAll('.list')[3];
-  await userEvent.click(Dialog);
-  await sleep(2000);
-  const CloseDialog = document.querySelectorAll('button.close')[0];
-  await userEvent.click(CloseDialog);
-};
-
-export const Sidebar = Template.bind({});
+export const Sidebar: Story = {};
 const mediaObject: any = MediaObjectStories.Default.args;
 Sidebar.storyName = '带边栏';
 const sidebar: IMapListv1 = {

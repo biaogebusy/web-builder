@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { NumberAnimateComponent } from '@uiux/widgets/number-animate/number-animate.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<NumberAnimateComponent> = {
   title: '基础组件/反馈组件/动态数字',
   id: 'number-animate',
   component: NumberAnimateComponent,
@@ -25,7 +26,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<NumberAnimateComponent>;
 export const Default: Story = {};
 const content: INumberAnimate = {
   type: 'number-animate',

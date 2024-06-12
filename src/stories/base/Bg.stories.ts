@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BgComponent } from '@uiux/widgets/bg/bg.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<BgComponent> = {
   title: '基本元素/背景色',
   id: 'bg',
   component: BgComponent,
@@ -26,7 +27,10 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const BgPrimary = Template.bind({});
+
+type Story = StoryObj<BgComponent>;
+
+export const BgPrimary: Story = {};
 BgPrimary.storyName = '主色背景';
 const content: IBg = {
   type: 'bg',
@@ -36,7 +40,8 @@ BgPrimary.args = {
   content,
 };
 
-export const BgShadow = Template.bind({});
+export const BgShadow: Story = {};
+
 BgShadow.storyName = '灰色背景';
 const shadow: IBg = {
   type: 'bg',

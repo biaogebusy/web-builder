@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { Showcase1v1Component } from '@uiux/combs/showcase/showcase1v1/showcase1v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IShowcase1v1 } from '@core/interface/combs/IShowcase';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Showcase1v1Component> = {
   title: '特色组件/图文 Showcase/1v1',
   id: 'showcase-1v1',
   component: Showcase1v1Component,
@@ -25,7 +26,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Showcase1v1Component>;
 export const Default: Story = {};
 Default.decorators = [
   componentWrapperDecorator(
@@ -114,7 +115,7 @@ Default.args = {
   content,
 };
 
-export const StyleV1 = Template.bind({});
+export const StyleV1: Story = {};
 StyleV1.storyName = 'Style v1';
 const v1: IShowcase1v1 = {
   type: 'showcase-1v1',
@@ -150,7 +151,7 @@ StyleV1.args = {
   content: v1,
 };
 
-export const StyleV2 = Template.bind({});
+export const StyleV2: Story = {};
 StyleV2.storyName = 'Style v2';
 const v2: IShowcase1v1 = {
   type: 'showcase-1v1',
@@ -199,7 +200,7 @@ StyleV2.args = {
   content: v2,
 };
 
-export const StyleV3 = Template.bind({});
+export const StyleV3: Story = {};
 StyleV3.storyName = 'Style v3';
 const v3: IShowcase1v1 = {
   type: 'showcase-1v1',
@@ -248,7 +249,7 @@ StyleV3.args = {
   content: v3,
 };
 
-export const Primary = Template.bind({});
+export const Primary: Story = {};
 Primary.storyName = 'Primary';
 const primary: IShowcase1v1 = {
   type: 'showcase-1v1',
@@ -290,7 +291,7 @@ Primary.args = {
   content: primary,
 };
 
-export const StyleV4 = Template.bind({});
+export const StyleV4: Story = {};
 StyleV4.storyName = 'Style v4';
 const v4: IShowcase1v1 = {
   type: 'showcase-1v1',
@@ -338,7 +339,7 @@ StyleV4.args = {
   content: v4,
 };
 
-export const StyleV5 = Template.bind({});
+export const StyleV5: Story = {};
 StyleV5.storyName = 'Style v5';
 const v5: IShowcase1v1 = {
   type: 'showcase-1v1',
@@ -386,7 +387,7 @@ StyleV5.args = {
   content: v5,
 };
 
-export const Image = Template.bind({});
+export const Image: Story = {};
 Image.storyName = '图片';
 const image: IShowcase1v1 = {
   type: 'showcase-1v1',

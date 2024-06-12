@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { MenuListComponent } from '@uiux/widgets/menu-list/menu-list.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IMenuList } from '@core/interface/widgets/IMenuList';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<MenuListComponent> = {
   title: '基础组件/菜单项',
   id: 'menu-list',
   component: MenuListComponent,
@@ -25,7 +26,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Base = Template.bind({});
+type Story = StoryObj<MenuListComponent>;
+export const Base: Story = {};
 const base: IMenuList = {
   type: 'menu-list',
   title: '标签',

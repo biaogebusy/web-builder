@@ -2,12 +2,13 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BoxComponent } from '@uiux/widgets/box/box.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IBox } from '@core/interface/widgets/IBox';
-const meta: Meta<MyComponent> = {
+const meta: Meta<BoxComponent> = {
   title: '基本元素/内容盒子',
   id: 'box',
   component: BoxComponent,
@@ -32,7 +33,10 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const StyleV1 = Template.bind({});
+
+type Story = StoryObj<BoxComponent>;
+
+export const StyleV1: Story = {};
 const v1: IBox = {
   type: 'box',
   style: 'style-v1',
@@ -54,7 +58,6 @@ StyleV1.args = {
   content: v1,
 };
 
-export const StyleV2 = Template.bind({});
 const v2: IBox = {
   ...StyleV1.args.content,
   style: 'style-v2',
@@ -63,77 +66,79 @@ const v2: IBox = {
   },
 };
 
+export const StyleV2: Story = {};
+
 StyleV2.args = {
   content: v2,
 };
 
-export const StyleV3 = Template.bind({});
 const v3: IBox = {
   ...StyleV2.args.content,
   style: 'style-v3',
 };
+export const StyleV3: Story = {};
 
 StyleV3.args = {
   content: v3,
 };
 
-export const StyleV4 = Template.bind({});
 const v4: IBox = {
   ...StyleV2.args.content,
   style: 'style-v4',
 };
-
+export const StyleV4: Story = {};
 StyleV4.args = {
   content: v4,
 };
 
-export const StyleV5 = Template.bind({});
 const v5: IBox = {
   ...StyleV2.args.content,
   style: 'style-v5',
 };
-
+export const StyleV5: Story = {};
 StyleV5.args = {
   content: v5,
 };
 
-export const StyleV6 = Template.bind({});
 const v6: IBox = {
   ...StyleV2.args.content,
   style: 'style-v6',
 };
+export const StyleV6: Story = {};
 StyleV6.args = {
   content: v6,
 };
 
-export const StyleV7 = Template.bind({});
 const v7: IBox = {
   ...StyleV2.args.content,
   style: 'style-v7',
 };
+
+export const StyleV7: Story = {};
 StyleV7.args = {
   content: v7,
 };
 
-export const StyleV9 = Template.bind({});
 const v9: IBox = {
   ...StyleV1.args.content,
   style: 'style-v9',
 };
+
+export const StyleV9: Story = {};
 StyleV9.args = {
   content: v9,
 };
 
-export const StyleV10 = Template.bind({});
 const v10: IBox = {
   ...StyleV1.args.content,
   style: 'style-v10',
 };
+
+export const StyleV10: Story = {};
 StyleV10.args = {
   content: v10,
 };
 
-export const Primary = Template.bind({});
 const primary: IBox = {
   type: 'box',
   img: { src: '/assets/images/svg/Asset187.svg', alt: 'browser' },
@@ -142,6 +147,7 @@ const primary: IBox = {
   content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
 };
 
+export const Primary: Story = {};
 Primary.args = {
   content: primary,
 };

@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { Showcase2v2Component } from '@uiux/combs/showcase/showcase2v2/showcase2v2.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IShowcase2v2 } from '@core/interface/combs/IShowcase';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Showcase2v2Component> = {
   title: '特色组件/图文 Showcase/2v2',
   id: 'showcase-2v2',
   component: Showcase2v2Component,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Showcase2v2Component>;
 export const Default: Story = {};
 const content: IShowcase2v2 = {
   type: 'showcase-2v2',

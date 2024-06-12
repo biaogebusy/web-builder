@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { MediaListComponent } from '@uiux/widgets/media/media-list/media-list.component';
@@ -9,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { formatDate } from '@angular/common';
 import { IMediaList } from '@core/interface/widgets/IMediaList';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<MediaListComponent> = {
   title: '基础组件/媒体/媒体列表',
   id: 'media-list',
   component: MediaListComponent,
@@ -27,7 +28,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<MediaListComponent>;
 export const Default: Story = {};
 const content: IMediaList = {
   type: 'media-list',

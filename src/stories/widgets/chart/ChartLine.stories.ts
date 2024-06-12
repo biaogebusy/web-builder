@@ -3,12 +3,12 @@ import {
   moduleMetadata,
   componentWrapperDecorator,
   Meta,
-  Story,
+  StoryObj,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 import { Bar } from './ChartBar.stories';
 import { EChartsOption } from 'echarts';
-const meta: Meta<MyComponent> = {
+const meta: Meta<ChartComponent> = {
   title: '基础组件/图表/折线图',
   id: 'chart-line',
   component: ChartComponent,
@@ -33,7 +33,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Line = Template.bind({});
+type Story = StoryObj<ChartComponent>;
+export const Line: Story = {};
 const barArgs: any = Bar.args;
 const line: EChartsOption = {
   type: 'chart',
@@ -102,7 +103,7 @@ Line.args = {
   content: line,
 };
 
-export const LineTime = Template.bind({});
+export const LineTime: Story = {};
 LineTime.storyName = '折线图';
 LineTime.args = {
   data: {
@@ -206,7 +207,7 @@ LineTime.args = {
   },
 };
 
-export const MutipleLineTime = Template.bind({});
+export const MutipleLineTime: Story = {};
 MutipleLineTime.storyName = '多条折线图';
 MutipleLineTime.args = {
   data: {

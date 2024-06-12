@@ -1,11 +1,11 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import * as Breadcrumb from 'src/stories/widgets/Breadcrumb.stories';
 import { BannerSimpleComponent } from '@uiux/combs/banner/banner-simple/banner-simple.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IBannerSimple } from '@core/interface/combs/IBanner';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<BannerSimpleComponent> = {
   title: '复合组件/横幅/简单横幅',
   id: 'banner-sample',
   component: BannerSimpleComponent,
@@ -27,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<BannerSimpleComponent>;
 export const Default: Story = {};
 const breadcrumb: any = Breadcrumb.Base.args;
 const defaultContent: IBannerSimple = {
@@ -41,7 +41,7 @@ Default.args = {
   content: defaultContent,
 };
 
-export const BannerWithBg = Template.bind({});
+export const BannerWithBg: Story = {};
 BannerWithBg.storyName = '横幅带背景图';
 const BannerWithBgContent: IBannerSimple = {
   style: 'normal',
@@ -61,7 +61,7 @@ BannerWithBg.args = {
   content: BannerWithBgContent,
 };
 
-export const BannerOverlay = Template.bind({});
+export const BannerOverlay: Story = {};
 BannerOverlay.storyName = '背景图不透明度';
 const overlayContent: IBannerSimple = {
   style: 'normal',

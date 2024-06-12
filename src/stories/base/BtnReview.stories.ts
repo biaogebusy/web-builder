@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BlockComponent } from '@modules/render/block/block.component';
@@ -16,7 +17,7 @@ import {
 } from '@modules/builder/data/Branding.json';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<BlockComponent> = {
   title: '基本元素/按钮/预览',
   id: 'buttom-review',
   component: BlockComponent,
@@ -51,14 +52,14 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-
+type Story = StoryObj<BlockComponent>;
 const {
   Default: {
     args: { content: btnVideo },
   },
 } = btnVideoStory as any;
 
-export const Page = Template.bind({});
+export const Page: Story = {};
 // Raname Story
 Page.storyName = '预览';
 const content = of({

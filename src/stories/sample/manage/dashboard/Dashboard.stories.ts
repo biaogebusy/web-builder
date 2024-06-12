@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { RenderModule } from '@modules/render/render.module';
@@ -18,7 +19,7 @@ import { manageHeader } from '@modules/builder/data/Branding.json';
 import { IDashboard } from '@core/interface/combs/IDashboard';
 const calendar: any = calendarStory.Default.args;
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<DashboardComponent> = {
   title: '示例页面/中台管理/工作面板',
   id: 'dashboard',
   component: DashboardComponent,
@@ -67,8 +68,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-
-export const Order = Template.bind({});
+type Story = StoryObj<DashboardComponent>;
+export const Order: Story = {};
 Order.storyName = 'Order';
 const oreder: IDashboard = {
   type: 'dashboard',
@@ -587,7 +588,7 @@ Order.args = {
   content: oreder,
 };
 
-export const Advert = Template.bind({});
+export const Advert: Story = {};
 // Raname Story
 Advert.storyName = 'Advert';
 const advert: IDashboard = {

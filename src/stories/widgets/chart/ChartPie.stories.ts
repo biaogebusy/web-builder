@@ -3,12 +3,12 @@ import {
   moduleMetadata,
   componentWrapperDecorator,
   Meta,
-  Story,
+  StoryObj,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 import { random } from 'lodash-es';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ChartComponent> = {
   title: '基础组件/图表/饼图',
   id: 'chart-pie',
   component: ChartComponent,
@@ -33,8 +33,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-
-export const Pie = Template.bind({});
+type Story = StoryObj<ChartComponent>;
+export const Pie: Story = {};
 Pie.storyName = '饼图';
 Pie.args = {
   data: {

@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-links/pagination-links.component';
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 import { StorysModule } from '@core/module/storys.module';
 import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<PaginationLinksComponent> = {
   title: '基础组件/分页/JSONAPI 分页',
   id: 'pagination-links',
   component: PaginationLinksComponent,
@@ -32,7 +33,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<PaginationLinksComponent>;
 export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';

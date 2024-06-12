@@ -2,12 +2,12 @@ import { ISwiper } from '@core/interface/widgets/ISwiper';
 import { StorysModule } from '@core/module/storys.module';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { SwiperComponent } from '@uiux/widgets/swiper/swiper.component';
 import { SwiperModule } from 'swiper/angular';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<SwiperComponent> = {
   title: '基础组件/Swiper',
   id: 'swiper',
   component: SwiperComponent,
@@ -28,7 +28,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<SwiperComponent>;
 export const Default: Story = {};
 const content: ISwiper = {
   type: 'swiper',
@@ -143,7 +143,7 @@ Default.args = {
   content,
 };
 
-export const CustomPagination = Template.bind({});
+export const CustomPagination: Story = {};
 CustomPagination.args = {
   content: {
     ...content,

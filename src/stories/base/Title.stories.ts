@@ -1,10 +1,10 @@
-import { moduleMetadata, Meta, Story } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ITitle } from '@core/interface/widgets/ITitle';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<TitleComponent> = {
   title: '基本元素/标题',
   id: 'title',
   component: TitleComponent,
@@ -19,8 +19,9 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
+type Story = StoryObj<TitleComponent>;
 
-export const TitleV1 = Template.bind({});
+export const TitleV1: Story = {};
 TitleV1.storyName = 'Style V1';
 const v1: ITitle = {
   type: 'title',
@@ -32,7 +33,7 @@ TitleV1.args = {
   content: v1,
 };
 
-export const TitleV2 = Template.bind({});
+export const TitleV2: Story = {};
 TitleV2.storyName = 'Style V2';
 const v2: ITitle = {
   ...TitleV1.args.content,
@@ -43,7 +44,7 @@ TitleV2.args = {
   content: v2,
 };
 
-export const TitleV3 = Template.bind({});
+export const TitleV3: Story = {};
 TitleV3.storyName = 'Style V3';
 const v3: ITitle = {
   ...TitleV1.args.content,
@@ -53,7 +54,7 @@ TitleV3.args = {
   content: v3,
 };
 
-export const TitleV4 = Template.bind({});
+export const TitleV4: Story = {};
 TitleV4.storyName = 'Style V4';
 const v4: ITitle = {
   ...TitleV1.args.content,
@@ -63,7 +64,7 @@ TitleV4.args = {
   content: v4,
 };
 
-export const TitleV5 = Template.bind({});
+export const TitleV5: Story = {};
 TitleV5.storyName = 'Style V5';
 const v5: ITitle = {
   ...TitleV1.args.content,
@@ -73,7 +74,7 @@ TitleV5.args = {
   content: v5,
 };
 
-export const TitleType = Template.bind({});
+export const TitleType: Story = {};
 TitleType.storyName = '打字效果';
 const type: ITitle = {
   label: '欢迎使用 <strong class="text-primary"></strong> <br>快速构建页面',

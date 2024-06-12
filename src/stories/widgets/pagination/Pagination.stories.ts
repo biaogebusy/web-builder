@@ -2,12 +2,13 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { PaginationComponent } from '@uiux/widgets/pagination/pagination.component';
 import { StorysModule } from '@core/module/storys.module';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<PaginationComponent> = {
   title: '基础组件/分页/普通分页',
   id: 'pagination-default',
   component: PaginationComponent,
@@ -33,7 +34,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<PaginationComponent>;
 export const Default: Story = {};
 // Raname Story
 Default.parameters = {

@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { NodeModule } from '@uiux/combs/node/node.module';
@@ -10,7 +11,7 @@ import { ReportComponent } from '@uiux/combs/node/report/report.component';
 import { FormGroup } from '@angular/forms';
 import { IReport } from '@core/interface/node/IReport';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ReportComponent> = {
   title: '示例页面/内容类型/统计报告',
   id: 'report',
   component: ReportComponent,
@@ -33,7 +34,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ReportComponent>;
 export const Default: Story = {};
 const content: IReport = {
   type: 'report',
@@ -385,7 +386,7 @@ Default.args = {
   content,
 };
 
-export const WorkTime = Template.bind({});
+export const WorkTime: Story = {};
 const workTime: IReport = {
   type: 'report',
   header: {
@@ -612,7 +613,7 @@ WorkTime.args = {
   content: workTime,
 };
 
-export const SingleMode = Template.bind({});
+export const SingleMode: Story = {};
 const singleMode: IReport = {
   type: 'report',
   header: {

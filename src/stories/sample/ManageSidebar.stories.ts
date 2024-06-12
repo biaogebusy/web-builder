@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { BlockComponent } from '@modules/render/block/block.component';
@@ -14,7 +15,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import * as relateStory from '@stories/sample/node/Relate.stories';
 import { manageHeader } from '@modules/builder/data/Branding.json';
-const meta: Meta<MyComponent> = {
+const meta: Meta<BlockComponent> = {
   title: '示例页面/中台管理/管理边栏',
   id: 'manage-sidebar',
   component: BlockComponent,
@@ -63,7 +64,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Page = Template.bind({});
+type Story = StoryObj<BlockComponent>;
+export const Page: Story = {};
 const {
   Default: { args: relate },
 } = relateStory as any;

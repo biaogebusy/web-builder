@@ -1,10 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { Hero2v2Component } from '@uiux/combs/hero/hero2v2/hero2v2.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IHero2v2 } from '@core/interface/combs/IHero';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Hero2v2Component> = {
   title: '特色组件/首屏/2v2',
   id: 'hero-2v2',
   component: Hero2v2Component,
@@ -26,7 +26,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Hero2v2Component>;
 export const Default: Story = {};
 const content: IHero2v2 = {
   type: 'hero-2v2',

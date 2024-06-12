@@ -2,6 +2,7 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { FormlyComponent } from '@uiux/widgets/form/formly/formly.component';
@@ -9,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 import { StorysModule } from '@core/module/storys.module';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<FormlyComponent> = {
   title: '基础组件/表单',
   id: 'form',
   component: FormlyComponent,
@@ -44,7 +45,7 @@ const form = new FormGroup({});
 const options: any = {};
 const model: any = {};
 
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<FormlyComponent>;
 export const Default: Story = {};
 Default.storyName = '预览';
 const base: FormlyFieldConfig[] = [
@@ -192,7 +193,7 @@ Default.args = {
   fields: base,
 };
 
-export const Group = Template.bind({});
+export const Group: Story = {};
 Group.storyName = '分组';
 const group: FormlyFieldConfig[] = [
   {
@@ -301,7 +302,7 @@ Group.args = {
   fields: group,
 };
 
-export let HideExpression = Template.bind({});
+export const HideExpression: Story = {};
 HideExpression.storyName = '条件隐藏';
 const hide: FormlyFieldConfig[] = [
   {
@@ -442,7 +443,7 @@ HideExpression.args = {
   fields: hide,
 };
 
-export const ExpressionProperties = Template.bind({});
+export const ExpressionProperties: Story = {};
 ExpressionProperties.storyName = '动态更新属性';
 const expression: FormlyFieldConfig[] = [
   {
@@ -473,7 +474,7 @@ ExpressionProperties.args = {
   fields: expression,
 };
 
-export const Style = Template.bind({});
+export const Style: Story = {};
 Style.storyName = '外观';
 const style: FormlyFieldConfig[] = [
   {
@@ -525,7 +526,7 @@ Style.args = {
   fields: style,
 };
 
-export const Responsive = Template.bind({});
+export const Responsive: Story = {};
 Responsive.storyName = '响应式';
 const responsive: FormlyFieldConfig[] = [
   {
@@ -582,7 +583,7 @@ Responsive.args = {
   fields: responsive,
 };
 
-export const Pattern = Template.bind({});
+export const Pattern: Story = {};
 Pattern.storyName = '模式匹配';
 const use: FormlyFieldConfig[] = [
   {
@@ -635,7 +636,7 @@ Pattern.args = {
   fields: use,
 };
 
-export const CascadedSelect = Template.bind({});
+export const CascadedSelect: Story = {};
 CascadedSelect.storyName = '级联选择';
 const cascadedSelectOption: FormlyFormOptions = {
   formState: {
@@ -716,7 +717,7 @@ CascadedSelect.args = {
   options: cascadedSelectOption,
 };
 
-export const ModelOption = Template.bind({});
+export const ModelOption: Story = {};
 ModelOption.storyName = 'Model 选项';
 const modelOptionFields: FormlyFieldConfig[] = [
   {
@@ -763,7 +764,7 @@ ModelOption.args = {
   fields: modelOptionFields,
 };
 
-export const ImgPicker = Template.bind({});
+export const ImgPicker: Story = {};
 ImgPicker.storyName = '图片选择器';
 ImgPicker.args = {
   type: 'formly',
@@ -790,7 +791,7 @@ ImgPicker.args = {
   ],
 };
 
-export const RichText = Template.bind({});
+export const RichText: Story = {};
 RichText.storyName = '富文本';
 RichText.args = {
   type: 'formly',

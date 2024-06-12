@@ -1,10 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { Carousel1v1Component } from '@uiux/combs/carousel/carousel1v1/carousel1v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Carousel1v1Component> = {
   title: '复合组件/幻灯片/1v4',
   id: 'carousel-1v4',
   component: Carousel1v1Component,
@@ -25,7 +25,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Carousel1v1Component>;
 export const Default: Story = {};
 Default.storyName = '自定义位置';
 const content: ICarouselBase = {

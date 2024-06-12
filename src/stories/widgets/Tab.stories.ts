@@ -4,12 +4,13 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { userEvent } from '@storybook/testing-library';
 import { TabComponent } from '@uiux/widgets/tab/tab.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<TabComponent> = {
   title: '基础组件/选项卡',
   id: 'tab',
   component: TabComponent,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<TabComponent>;
 export const Default: Story = {};
 const content: ITab = {
   type: 'tab',
@@ -123,7 +124,7 @@ Default.play = async () => {
   await sleep(1000);
 };
 
-export const Align = Template.bind({});
+export const Align: Story = {};
 const align: ITab = {
   type: 'tab',
   classes: 'bg-light',
@@ -201,7 +202,7 @@ Align.args = {
   content: align,
 };
 
-export const Pills = Template.bind({});
+export const Pills: Story = {};
 const pills: ITab = {
   type: 'tab',
   classes: 'bg-light',

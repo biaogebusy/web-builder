@@ -2,9 +2,9 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
-import { screen, userEvent } from '@storybook/testing-library';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { QuestionComponent } from '@uiux/combs/node/question/question.component';
 import { sleep, StorysModule } from '@core/module/storys.module';
@@ -12,7 +12,7 @@ import { comments } from './comments.json';
 import { of } from 'rxjs';
 import { IQuestion } from '@core/interface/node/INode';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<QuestionComponent> = {
   title: '示例页面/内容类型/问答',
   id: 'question',
   component: QuestionComponent,
@@ -30,7 +30,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<QuestionComponent>;
 export const Default: Story = {};
 const content: IQuestion = {
   type: 'question',
@@ -74,17 +74,5 @@ Default.args = {
   content,
   isAsked: false,
   showEditor: true,
-  comments: comments,
-};
-
-Default.play = async () => {
-  await sleep(2000);
-  const Form = document.querySelectorAll('.ql-editor')[0];
-  await userEvent.type(Form, '找到自己的动力和目标', {
-    delay: 100,
-  });
-
-  await sleep(2000);
-  const Submit = screen.getByText('发布回答');
-  await userEvent.click(Submit);
+  comments,
 };

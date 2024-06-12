@@ -1,10 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { TextHeroComponent } from '@uiux/widgets/text-hero/text-hero.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ITextHero } from '@core/interface/widgets/IText';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<TextHeroComponent> = {
   title: '基本元素/首屏内容',
   id: 'text-hero',
   component: TextHeroComponent,
@@ -18,7 +18,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<TextHeroComponent>;
 export const Default: Story = {};
 const content: ITextHero = {
   type: 'text-hero',

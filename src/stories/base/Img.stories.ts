@@ -1,15 +1,15 @@
 import {
   moduleMetadata,
   Meta,
-  Story,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IImg } from '@core/interface/widgets/IImg';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ImgComponent> = {
   title: '基本元素/图片',
   id: 'img',
   component: ImgComponent,
@@ -28,7 +28,7 @@ const meta: Meta<MyComponent> = {
 
 export default meta;
 
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ImgComponent>;
 export const Default: Story = {};
 const content: IImg = {
   type: 'img',
@@ -41,7 +41,7 @@ Default.args = {
   content,
 };
 
-export const ImgWithLink = Template.bind({});
+export const ImgWithLink: Story = {};
 ImgWithLink.storyName = '带链接';
 const link: IImg = {
   ...Default.args.content,
@@ -52,7 +52,7 @@ ImgWithLink.args = {
   content: link,
 };
 
-export const Mobile = Template.bind({});
+export const Mobile: Story = {};
 Mobile.storyName = '移动端';
 const mobile: IImg = {
   ...Default.args.content,
@@ -63,7 +63,7 @@ Mobile.args = {
   content: mobile,
 };
 
-export const Shape = Template.bind({});
+export const Shape: Story = {};
 Shape.storyName = '带背景形状';
 const shape: IImg = {
   type: 'img',
@@ -74,7 +74,7 @@ Shape.args = {
   content: shape,
 };
 
-export const Mover = Template.bind({});
+export const Mover: Story = {};
 Mover.storyName = '动起来';
 const mover: IImg = {
   type: 'img',
@@ -92,7 +92,7 @@ const {
   },
 } = btnVideoStory as any;
 
-export const VideoDefault = Template.bind({});
+export const VideoDefault: Story = {};
 VideoDefault.storyName = '视频-默认';
 const video: IImg = {
   type: 'img',
@@ -109,7 +109,7 @@ VideoDefault.args = {
   content: video,
 };
 
-export const VideoPrimary = Template.bind({});
+export const VideoPrimary: Story = {};
 VideoPrimary.storyName = '视频-主色';
 const videoPrimary: IImg = {
   type: 'img',

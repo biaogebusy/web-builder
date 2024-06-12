@@ -4,11 +4,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { TestimonialComponent } from '@uiux/widgets/testimonial/testimonial.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<TestimonialComponent> = {
   title: '基础组件/媒体/Testimonial',
   id: 'testimonial',
   component: TestimonialComponent,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<TestimonialComponent>;
 export const Default: Story = {};
 const content: ITestimonial = {
   type: 'testimonial',

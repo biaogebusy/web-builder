@@ -2,9 +2,9 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
-import { screen, userEvent } from '@storybook/testing-library';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
@@ -15,7 +15,7 @@ import {
 } from '@modules/builder/data/Branding.json';
 import { StorysModule } from '@core/module/storys.module';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<HeaderComponent> = {
   title: '全局配置/页头/Hover',
   id: 'header-hover',
   component: HeaderComponent,
@@ -59,7 +59,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<HeaderComponent>;
 export const Default: Story = {};
 Default.storyName = '预览';
 Default.parameters = {

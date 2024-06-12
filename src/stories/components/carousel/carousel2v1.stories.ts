@@ -1,10 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { Carousel2v1Component } from '@uiux/combs/carousel/carousel2v1/carousel2v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<Carousel2v1Component> = {
   title: '复合组件/幻灯片/2v1',
   id: 'carousel-2v1',
   component: Carousel2v1Component,
@@ -18,7 +18,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<Carousel2v1Component>;
 export const Default: Story = {};
 const content: ICarouselBase = {
   type: 'carousel-2v1',
@@ -105,7 +105,7 @@ Default.args = {
   content,
 };
 
-export const Light = Template.bind({});
+export const Light: Story = {};
 Light.storyName = '自定义背景不透明度';
 Light.args = {
   content: {

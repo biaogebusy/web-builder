@@ -2,12 +2,13 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { StepperComponent } from '@uiux/widgets/stepper/stepper.component';
 import { StorysModule } from '@core/module/storys.module';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<StepperComponent> = {
   title: '基础组件/进步器',
   id: 'stepper',
   component: StepperComponent,
@@ -25,7 +26,8 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-export const Horizontal = Template.bind({});
+type Story = StoryObj<StepperComponent>;
+export const Horizontal: Story = {};
 Horizontal.storyName = '水平方向';
 Horizontal.args = {
   content: {
@@ -55,7 +57,7 @@ Horizontal.args = {
     ],
   },
 };
-export const Vertical = Template.bind({});
+export const Vertical: Story = {};
 Vertical.storyName = '垂直方向';
 Vertical.args = {
   content: {
@@ -67,7 +69,7 @@ Vertical.args = {
   },
 };
 
-export const ForStory = Template.bind({});
+export const ForStory: Story = {};
 ForStory.args = {
   content: {
     type: 'stepper',

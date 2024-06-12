@@ -1,10 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IUserCenter } from '@core/interface/IUserCenter';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<UserCenterComponent> = {
   title: '复合组件/用户/用户中心',
   id: 'user-center',
   component: UserCenterComponent,
@@ -25,7 +25,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<UserCenterComponent>;
 export const Default: Story = {};
 const content: IUserCenter = {
   type: 'user-center',

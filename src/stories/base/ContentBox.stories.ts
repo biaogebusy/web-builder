@@ -2,13 +2,14 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { ContentBoxComponent } from '@uiux/widgets/content-box/content-box.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IContentBox } from '@core/interface/widgets/IContentWidget';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ContentBoxComponent> = {
   title: '基本元素/内容块',
   id: 'content-box',
   component: ContentBoxComponent,
@@ -26,7 +27,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ContentBoxComponent>;
 export const Default: Story = {};
 const content: IContentBox = {
   type: 'content-box',

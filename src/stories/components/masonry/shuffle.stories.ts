@@ -1,11 +1,10 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
-import { screen, userEvent } from '@storybook/testing-library';
 import { ShuffleComponent } from '@uiux/combs/masonry/shuffle/shuffle.component';
 import { sleep, StorysModule } from '@core/module/storys.module';
 import { IShuffle } from '@core/interface/combs/IMasonry';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ShuffleComponent> = {
   title: '复合组件/瀑布流/图片洗牌',
   id: 'shuffle',
   component: ShuffleComponent,
@@ -27,7 +26,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ShuffleComponent>;
 export const Default: Story = {};
 const content: IShuffle = {
   type: 'shuffle',
@@ -360,21 +359,4 @@ const content: IShuffle = {
 };
 Default.args = {
   content,
-};
-
-Default.play = async () => {
-  const Desige = screen.getByText('设计');
-  await userEvent.click(Desige);
-
-  await sleep(2000);
-  const CMS = screen.getByText('CMS');
-  await userEvent.click(CMS);
-
-  await sleep(2000);
-  const FW = screen.getByText('框架');
-  await userEvent.click(FW);
-
-  await sleep(2000);
-  const All = screen.getByText('全部');
-  await userEvent.click(All);
 };
