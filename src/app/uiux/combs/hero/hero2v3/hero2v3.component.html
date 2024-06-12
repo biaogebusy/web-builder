@@ -5,7 +5,7 @@
     [size]="'xl'"
   ></app-spacer>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" *ngIf="content.bg" [content]="content.bg"></app-bg-img>
   <div class="{{ content.fullWidth ? 'relative' : 'container relative' }}">
     <div
       class="hero-body text-center flex flex-wrap justify-center items-center"

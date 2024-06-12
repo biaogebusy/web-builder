@@ -1,5 +1,5 @@
 <div class="hero-1-v2 relative pt-20 md:mb-20" *ngIf="content">
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" *ngIf="content.bg" [content]="content.bg"></app-bg-img>
   <div
     class="!z-10 {{ content.fullWidth ? 'relative' : 'container relative' }}"
     *ngIf="mediaConfig"

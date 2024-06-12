@@ -5,10 +5,10 @@ import { IText } from '../widgets/IText';
 export interface ICombsBase {
   type: string;
   id?: string;
-  bg: IBgImg;
+  bg?: IBgImg;
   spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   text?: IText;
-  classes: object | string;
+  classes?: object | string;
   row?: number;
   params?: any;
   fullWidth?: boolean;
