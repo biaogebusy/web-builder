@@ -2,12 +2,13 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
 import { StorysModule } from '@core/module/storys.module';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<SpacerComponent> = {
   title: '主题/间距大小',
   id: 'spacer',
   component: SpacerComponent,
@@ -58,11 +59,11 @@ const meta: Meta<MyComponent> = {
 
 export default meta;
 
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<SpacerComponent>;
 export const Default: Story = {};
 Default.storyName = '预览';
 
-export const Normal = Template.bind({});
+export const Normal: Story = {};
 Normal.storyName = '正常';
 Normal.args = {
   content: {

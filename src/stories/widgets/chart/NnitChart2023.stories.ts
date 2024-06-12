@@ -3,7 +3,6 @@ import {
   moduleMetadata,
   componentWrapperDecorator,
   Meta,
-  Story,
   StoryObj,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
@@ -524,7 +523,6 @@ ITChart05.args = {
       {
         name: '2023',
         type: 'bar',
-        smooth: true,
         emphasis: { focus: 'series' },
         label: {
           position: 'top',

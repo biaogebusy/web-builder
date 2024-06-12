@@ -7,7 +7,6 @@ import {
   StoryObj,
 } from '@storybook/angular';
 
-import { userEvent } from '@storybook/testing-library';
 import { TabComponent } from '@uiux/widgets/tab/tab.component';
 
 const meta: Meta<TabComponent> = {
@@ -103,25 +102,6 @@ const content: ITab = {
 };
 Default.args = {
   content,
-};
-
-Default.play = async () => {
-  const tab = document.getElementsByClassName('mat-tab-label');
-
-  await userEvent.click(tab[0]);
-  await sleep(1000);
-
-  await userEvent.click(tab[1]);
-  await sleep(1000);
-
-  await userEvent.click(tab[2]);
-  await sleep(1000);
-
-  await userEvent.click(tab[3]);
-  await sleep(1000);
-
-  await userEvent.click(tab[4]);
-  await sleep(1000);
 };
 
 export const Align: Story = {};

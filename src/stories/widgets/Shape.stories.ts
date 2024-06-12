@@ -32,8 +32,4 @@ export default meta;
 type Story = StoryObj<ShapeComponent>;
 export const Default: Story = {};
 
-Default.args = {
-  content: {
-    type: 'shape',
-  },
-};
+Default.args = {};

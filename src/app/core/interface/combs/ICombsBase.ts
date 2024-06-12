@@ -9,7 +9,7 @@ export interface ICombsBase {
   spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   text?: IText;
   classes?: object | string;
-  row?: number;
+  row?: number | string;
   params?: any;
   fullWidth?: boolean;
 }

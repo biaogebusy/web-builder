@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 
 interface ISpacer {
+  type: string;
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
 }
 @Component({

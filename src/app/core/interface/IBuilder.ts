@@ -64,10 +64,10 @@ export interface ILayoutBuilder extends ICombsBase {
   alignItems: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
   wrapperClass: any;
   gap?: {
-    xs?: number;
-    sm?: number;
-    md?: number;
-    lg?: number;
+    xs?: number | string;
+    sm?: number | string;
+    md?: number | string;
+    lg?: number | string;
   };
   elements: ILayoutBlock[];
 }
@@ -86,10 +86,10 @@ export interface ILayoutBlock {
   vertical: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
   alignItems: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
   gap?: {
-    xs?: number;
-    sm?: number;
-    md?: number;
-    lg?: number;
+    xs?: number | string;
+    sm?: number | string;
+    md?: number | string;
+    lg?: number | string;
   };
 }
 

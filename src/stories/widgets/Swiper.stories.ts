@@ -5,7 +5,6 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { SwiperComponent } from '@uiux/widgets/swiper/swiper.component';
-import { SwiperModule } from 'swiper/angular';
 
 const meta: Meta<SwiperComponent> = {
   title: '基础组件/Swiper',
@@ -15,7 +14,7 @@ const meta: Meta<SwiperComponent> = {
     moduleMetadata({
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot(), SwiperModule],
+      imports: [StorysModule.forRoot()],
       providers: [
         SafeHtmlPipe,
         {

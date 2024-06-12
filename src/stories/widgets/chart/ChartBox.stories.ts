@@ -4,7 +4,6 @@ import {
   moduleMetadata,
   componentWrapperDecorator,
   Meta,
-  Story,
   StoryObj,
 } from '@storybook/angular';
 import { ChartBoxComponent } from '@uiux/widgets/chart/chart-box/chart-box.component';

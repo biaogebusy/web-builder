@@ -1,5 +1,5 @@
 import { StorysModule } from '@core/module/storys.module';
-import { Meta, Story, moduleMetadata } from '@storybook/angular';
+import { Meta, Story, StoryObj, moduleMetadata } from '@storybook/angular';
 import { ThemePreviewComponent } from '@uiux/combs/other/theme-preview/theme-preview.component';
 import { BannerWithBg } from '../components/banner/BannerSimple.stories';
 import {
@@ -17,7 +17,7 @@ import { Default as MediaObject } from '@stories/widgets/media/MediaObject.stori
 import { random } from 'lodash-es';
 import { environment } from 'src/environments/environment';
 import { IThemePreview } from '@core/interface/combs/IThemePreview';
-const meta: Meta<MyComponent> = {
+const meta: Meta<ThemePreviewComponent> = {
   title: '主题/色彩检查',
   id: 'color-preview',
   component: ThemePreviewComponent,
@@ -35,7 +35,7 @@ const meta: Meta<MyComponent> = {
 
 export default meta;
 
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ThemePreviewComponent>;
 export const Default: Story = {};
 
 const content: IThemePreview = {
