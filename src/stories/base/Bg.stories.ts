@@ -1,11 +1,5 @@
 import { IBg } from '@core/interface/widgets/IBg';
-import { StorysModule } from '@core/module/storys.module';
-import {
-  moduleMetadata,
-  Meta,
-  componentWrapperDecorator,
-  StoryObj,
-} from '@storybook/angular';
+import { Meta, componentWrapperDecorator, StoryObj } from '@storybook/angular';
 
 import { BgComponent } from '@uiux/widgets/bg/bg.component';
 
@@ -14,11 +8,6 @@ const meta: Meta<BgComponent> = {
   id: 'bg',
   component: BgComponent,
   decorators: [
-    moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
-    }),
     componentWrapperDecorator(
       (story) =>
         `<div class="widget relative p-x p-y" style="z-index:1">${story}</div>`,

@@ -1,26 +1,35 @@
 import { IBtn } from '@core/interface/widgets/IBtn';
-import { StorysModule } from '@core/module/storys.module';
 import {
-  moduleMetadata,
   Meta,
-  componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
+  moduleMetadata,
 } from '@storybook/angular';
-
+import { HttpClientModule } from '@angular/common/http';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { importProvidersFrom } from '@angular/core';
+import { LocalStorageService } from 'ngx-webstorage';
+import { CommonModule } from '@angular/common';
+import { StorysModule } from '@core/module/storys.module';
 
 const meta: Meta<BtnComponent> = {
   title: '基本元素/按钮/基础',
   id: 'btn',
   component: BtnComponent,
   decorators: [
-    moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+    applicationConfig({
+      providers: [
+        importProvidersFrom(
+          HttpClientModule,
+          LocalStorageService,
+          ReqRolesDirective,
+          CommonModule,
+        ),
+      ],
     }),
-    componentWrapperDecorator((story) => {
-      return `<div classs="widget">${story}</div>`;
+    moduleMetadata({
+      declarations: [StorysModule.forEntryComponents()],
     }),
   ],
 };

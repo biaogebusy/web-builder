@@ -3,6 +3,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IBtn } from '@core/interface/widgets/IBtn';
 import { RouteService } from '@core/service/route.service';
@@ -15,11 +16,12 @@ import { RouteService } from '@core/service/route.service';
 })
 export class BtnComponent implements OnInit {
   @Input() content: IBtn;
-  constructor(private routService: RouteService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
   onNav(event: any, content: any): void {
-    this.routService.toNavigate(event, content);
+    const routService = inject(RouteService);
+    routService.toNavigate(event, content);
   }
 }

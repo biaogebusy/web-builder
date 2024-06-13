@@ -3,20 +3,48 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { BoxComponent } from '@uiux/widgets/box/box.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IBox } from '@core/interface/widgets/IBox';
+import { importProvidersFrom } from '@angular/core';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { ImgComponent } from '@uiux/widgets/img/img.component';
+import { MatIcon } from '@angular/material/icon';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 const meta: Meta<BoxComponent> = {
   title: '基本元素/内容盒子',
   id: 'box',
   component: BoxComponent,
   decorators: [
+    applicationConfig({
+      providers: [
+        importProvidersFrom(
+          StorysModule.forRoot(),
+          ActivatedRoute,
+          RouterModule,
+          HttpClientModule,
+          RouterTestingModule,
+          NgxWebstorageModule.forRoot(),
+        ),
+      ],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [
+        LinkComponent,
+        SafeHtmlPipe,
+        IconComponent,
+        ImgComponent,
+        MatIcon,
+      ],
     }),
     componentWrapperDecorator(
       (story) =>

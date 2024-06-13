@@ -3,21 +3,25 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IBgImg } from '@core/interface/widgets/IBgImg';
+import { ImgComponent } from '@uiux/widgets/img/img.component';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<BgImgComponent> = {
   title: '基本元素/背景图',
   id: 'bg-img',
   component: BgImgComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [ImgComponent],
     }),
     componentWrapperDecorator(
       (story) =>
