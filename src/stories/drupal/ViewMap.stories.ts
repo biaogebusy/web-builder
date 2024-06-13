@@ -1,9 +1,9 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { ViewMapComponent } from '@uiux/combs/map/view-map/view-map.component';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ViewMapComponent> = {
   title: '特色组件/地图应用',
   id: 'viewMap',
   component: ViewMapComponent,
@@ -24,13 +24,13 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ViewMapComponent>;
 export const Default: Story = {};
 Default.args = {
   content: {
     type: 'view-map',
     params: {
-      apiBak: '/api/v2/view-map',
+      api: '/api/v2/view-map',
       city: '南宁市',
       drawer: true,
     },
@@ -47,7 +47,7 @@ Default.args = {
         type: 'mat-select',
         key: 'skill',
         className: 'm-right-xs width-30',
-        apiBak: '/api/v2/filter/taxonomy/skill',
+        api: '/api/v2/filter/taxonomy/skill',
         props: {
           multiple: true,
           search: true,
@@ -186,12 +186,11 @@ Default.args = {
     ],
   },
 };
-
-export const Circle = Template.bind({});
+export const Circle: Story = {};
 Circle.storyName = '地图范围圈';
 Circle.args = {
   content: {
-    ...Default.args.content,
+    ...Default?.args?.content,
     form: [
       {
         type: 'input',
@@ -205,7 +204,7 @@ Circle.args = {
         type: 'mat-select',
         key: 'skill',
         className: 'm-right-xs width-30',
-        apiBak: '/api/v2/filter/taxonomy/skill',
+        api: '/api/v2/filter/taxonomy/skill',
         props: {
           multiple: true,
           search: true,

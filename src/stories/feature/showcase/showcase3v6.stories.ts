@@ -286,8 +286,8 @@ WithLink.args = {
 
 export const Background: Story = {};
 Background.storyName = '带背景';
-const bg: IShowcase3v6 = {
-  ...Default.args.content,
+const bg = {
+  ...content,
   bg: {
     classes: 'bg-shadow bg-fill-width',
   },

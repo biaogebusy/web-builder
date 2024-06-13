@@ -58,10 +58,10 @@ Default.args = {
 };
 
 export const Mini: Story = {};
-const mini: IChipList = {
+const mini = {
   ...Default.args.content,
 };
 Mini.args = {
   classes: 'mini',
-  content: mini,
+  content: content,
 };

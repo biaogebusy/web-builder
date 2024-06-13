@@ -129,19 +129,19 @@ const v1: IShowcase1v1 = {
   classes: '',
   elements: [
     {
-      ...Default.args.content.elements[0],
+      ...content.elements[0],
       style: 'style-v1',
     },
     {
-      ...Default.args.content.elements[1],
+      ...content.elements[1],
       style: 'style-v1',
     },
     {
-      ...Default.args.content.elements[2],
+      ...content.elements[2],
       style: 'style-v1',
     },
     {
-      ...Default.args.content.elements[3],
+      ...content.elements[3],
       style: 'style-v1',
     },
   ],
@@ -156,7 +156,8 @@ StyleV2.storyName = 'Style v2';
 const v2: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    ...StyleV1.args.content.title,
+    label:
+      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v2',
     icon: 'mail',
   },
@@ -167,28 +168,28 @@ const v2: IShowcase1v1 = {
   classes: '',
   elements: [
     {
-      ...Default.args.content.elements[0],
+      ...content.elements[0],
       icon: {
         name: 'verified_user',
       },
       style: 'style-v2',
     },
     {
-      ...Default.args.content.elements[1],
+      ...content.elements[1],
       icon: {
         name: 'fingerprint',
       },
       style: 'style-v2',
     },
     {
-      ...Default.args.content.elements[2],
+      ...content.elements[2],
       icon: {
         name: 'favorite',
       },
       style: 'style-v2',
     },
     {
-      ...Default.args.content.elements[3],
+      ...content.elements[3],
       icon: {
         name: 'android',
       },
@@ -205,7 +206,8 @@ StyleV3.storyName = 'Style v3';
 const v3: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    ...StyleV1.args.content.title,
+    label:
+      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v3',
   },
   row: 4,
@@ -216,28 +218,28 @@ const v3: IShowcase1v1 = {
   style: 'style-v3',
   elements: [
     {
-      ...Default.args.content.elements[0],
+      ...content.elements[0],
       icon: {
         name: 'verified_user',
       },
       style: 'style-v3',
     },
     {
-      ...Default.args.content.elements[1],
+      ...content.elements[1],
       icon: {
         name: 'fingerprint',
       },
       style: 'style-v3',
     },
     {
-      ...Default.args.content.elements[2],
+      ...content.elements[2],
       icon: {
         name: 'favorite',
       },
       style: 'style-v3',
     },
     {
-      ...Default.args.content.elements[3],
+      ...content.elements[3],
       icon: {
         name: 'android',
       },
@@ -296,7 +298,8 @@ StyleV4.storyName = 'Style v4';
 const v4: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    ...StyleV1.args.content.title,
+    label:
+      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v4',
   },
   row: 4,
@@ -306,28 +309,28 @@ const v4: IShowcase1v1 = {
   classes: '',
   elements: [
     {
-      ...Default.args.content.elements[0],
+      ...content.elements[0],
       style: 'style-v4',
       icon: {
         name: 'verified_user',
       },
     },
     {
-      ...Default.args.content.elements[1],
+      ...content.elements[1],
       icon: {
         name: 'fingerprint',
       },
       style: 'style-v4',
     },
     {
-      ...Default.args.content.elements[2],
+      ...content.elements[2],
       icon: {
         name: 'favorite',
       },
       style: 'style-v4',
     },
     {
-      ...Default.args.content.elements[3],
+      ...content.elements[3],
       icon: {
         name: 'android',
       },
@@ -344,7 +347,8 @@ StyleV5.storyName = 'Style v5';
 const v5: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    ...StyleV1.args.content.title,
+    label:
+      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v5',
   },
   row: 4,
@@ -354,28 +358,29 @@ const v5: IShowcase1v1 = {
   classes: '',
   elements: [
     {
-      ...Default.args.content.elements[0],
+      label:
+        '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
       icon: {
         name: 'verified_user',
       },
       style: 'style-v5',
     },
     {
-      ...Default.args.content.elements[1],
+      ...content.elements[1],
       icon: {
         name: 'fingerprint',
       },
       style: 'style-v5',
     },
     {
-      ...Default.args.content.elements[2],
+      ...content.elements[2],
       icon: {
         name: 'favorite',
       },
       style: 'style-v5',
     },
     {
-      ...Default.args.content.elements[3],
+      ...content.elements[3],
       icon: {
         name: 'android',
       },

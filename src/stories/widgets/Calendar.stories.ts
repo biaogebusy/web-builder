@@ -154,6 +154,5 @@ const options = {
   ],
 };
 Default.args = {
-  type: 'calendar',
   options,
 };

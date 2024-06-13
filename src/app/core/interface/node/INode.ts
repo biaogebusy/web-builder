@@ -45,7 +45,7 @@ export interface ICommentParams {
     field_name?: string;
     comment_body?: {
       value?: any;
-      format: 'full_html' | 'plain_text';
+      format: string;
     };
   };
   relationships: {

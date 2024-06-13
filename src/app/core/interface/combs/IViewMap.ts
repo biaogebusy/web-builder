@@ -19,5 +19,9 @@ export interface IViewMapItem {
   meta_1?: string;
   meta_2?: string;
   address?: string;
-  position?: string;
+  nid?: string;
+  url?: string;
+  latitude?: string;
+  longitude?: string;
+  position?: string | number[];
 }

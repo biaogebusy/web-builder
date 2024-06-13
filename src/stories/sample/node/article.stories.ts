@@ -84,8 +84,8 @@ Default.args = {
 
 export const Comment: Story = {};
 Comment.storyName = '带评论';
-const comment: IBaseNode = {
-  ...Default.args.content,
+const comment = {
+  ...content,
   params: {
     require_rule: [],
     comment: {
@@ -193,7 +193,7 @@ export const Relate: Story = {};
 Relate.storyName = '相关文章';
 Relate.args = {
   content: {
-    ...Default.args.content,
+    ...content,
     bottom: [SwiperStories.Default?.args?.content],
   },
 };

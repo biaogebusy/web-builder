@@ -1,4 +1,4 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
 
 import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -6,7 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import * as calendarStory from '../widgets/Calendar.stories';
 const calendar: any = calendarStory.Default.args;
-const meta: Meta<MyComponent> = {
+const meta: Meta<FullCalendarComponent> = {
   title: 'Drupal/日历',
   id: 'full-calendar',
   component: FullCalendarComponent,
@@ -28,7 +28,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<FullCalendarComponent>;
 export const Default: Story = {};
 
 Default.args = {
@@ -108,7 +108,7 @@ Default.args = {
     ],
     calendar: {
       drawer: true,
-      apiBak: '/api/v1/demo',
+      api: '/api/v1/demo',
       options: {
         ...calendar.options,
       },

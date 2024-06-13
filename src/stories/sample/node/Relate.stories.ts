@@ -350,8 +350,8 @@ Default.args = {
 };
 
 export const RelateV2: Story = {};
-const v2: IRelate = {
-  ...Default.args.content,
+const v2 = {
+  ...content,
   title: {
     label: 'A公司广告制作年度合作合同2020年',
     style: 'style-v4',

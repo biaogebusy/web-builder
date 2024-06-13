@@ -2,12 +2,12 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
-import { screen, userEvent } from '@storybook/testing-library';
 import { ContactUsComponent } from '@uiux/combs/form/contact-us/contact-us.component';
 import { StorysModule } from '@core/module/storys.module';
-const meta: Meta<MyComponent> = {
+const meta: Meta<ContactUsComponent> = {
   title: 'Drupal/表单/联系我们',
   id: 'contact-us',
   component: ContactUsComponent,
@@ -24,7 +24,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ContactUsComponent>;
 export const Default: Story = {};
 
 Default.args = {
@@ -122,30 +122,4 @@ Default.args = {
       },
     ],
   },
-};
-
-Default.play = async () => {
-  const Name = screen.getByLabelText('姓名');
-  await userEvent.type(Name, 'Johnson', {
-    delay: 100,
-  });
-
-  const Email = screen.getByLabelText('邮箱');
-  await userEvent.type(Email, 'hi@example.com', {
-    delay: 100,
-  });
-
-  const Subject = screen.getByLabelText('主题');
-  await userEvent.type(Subject, '关于贡献', {
-    delay: 100,
-  });
-
-  const Content = screen.getByLabelText('内容');
-  await userEvent.type(
-    Content,
-    'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。',
-    {
-      delay: 100,
-    },
-  );
 };

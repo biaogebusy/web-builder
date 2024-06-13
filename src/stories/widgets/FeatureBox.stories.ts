@@ -60,24 +60,24 @@ CustomContain.args = {
 
 export const HoverIcon: Story = {};
 HoverIcon.storyName = 'Icon 经过';
-const hover: IFeatureBox = {
-  ...Default.args.content,
+const hover = {
+  ...content,
   hoverIcon: true,
 };
 HoverIcon.args = {
   content: hover,
 };
 
-export const Float: Story = {};
-Float.storyName = 'Icon 浮出';
-const float: IFeatureBox = {
-  ...Default.args.content,
-  mode: 'float',
-  hoverIcon: true,
-};
-Float.args = {
-  content: float,
-};
+// export const Float: Story = {};
+// Float.storyName = 'Icon 浮出';
+// const float = {
+//   ...content,
+//   mode: 'float',
+//   hoverIcon: true,
+// };
+// Float.args = {
+//   content: float,
+// };
 
 export const NotMedia: Story = {};
 NotMedia.storyName = '非图片/边栏切出';
@@ -96,7 +96,7 @@ const notMedia: IFeatureBox = {
   openIcon: 'file_download',
   openIframe: true,
   img: {
-    class: 'object-fit',
+    classes: 'object-fit',
     src: '/xxx.doc',
     preview: '/xxx.doc',
     alt: '说明文档v1.doc',

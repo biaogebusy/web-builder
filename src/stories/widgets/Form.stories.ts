@@ -186,7 +186,6 @@ const base: FormlyFieldConfig[] = [
   },
 ];
 Default.args = {
-  type: 'formly',
   form,
   model,
   options,
@@ -295,7 +294,6 @@ const group: FormlyFieldConfig[] = [
   },
 ];
 Group.args = {
-  type: 'formly',
   form,
   model,
   options,
@@ -436,7 +434,6 @@ const hide: FormlyFieldConfig[] = [
   },
 ];
 HideExpression.args = {
-  type: 'formly',
   form,
   model,
   options,
@@ -467,7 +464,6 @@ const expression: FormlyFieldConfig[] = [
   },
 ];
 ExpressionProperties.args = {
-  type: 'formly',
   form,
   model,
   options,
@@ -519,7 +515,6 @@ const style: FormlyFieldConfig[] = [
   },
 ];
 Style.args = {
-  type: 'formly',
   form,
   model,
   options,
@@ -576,7 +571,6 @@ const responsive: FormlyFieldConfig[] = [
 ];
 
 Responsive.args = {
-  type: 'formly',
   form,
   model,
   options,
@@ -629,7 +623,6 @@ const use: FormlyFieldConfig[] = [
 ];
 
 Pattern.args = {
-  type: 'formly',
   form,
   model,
   options,
@@ -710,7 +703,6 @@ const cascadedSelectFields: FormlyFieldConfig[] = [
 ];
 
 CascadedSelect.args = {
-  type: 'formly',
   form,
   model,
   fields: cascadedSelectFields,
@@ -757,7 +749,6 @@ const modelOptionFields: FormlyFieldConfig[] = [
 ];
 
 ModelOption.args = {
-  type: 'formly',
   form,
   model,
   options,
@@ -767,7 +758,6 @@ ModelOption.args = {
 export const ImgPicker: Story = {};
 ImgPicker.storyName = '图片选择器';
 ImgPicker.args = {
-  type: 'formly',
   form,
   model,
   options,
@@ -794,7 +784,6 @@ ImgPicker.args = {
 export const RichText: Story = {};
 RichText.storyName = '富文本';
 RichText.args = {
-  type: 'formly',
   form,
   model,
   options,

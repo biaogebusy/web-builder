@@ -109,7 +109,7 @@ export const Light: Story = {};
 Light.storyName = '自定义背景不透明度';
 Light.args = {
   content: {
-    ...Default.args.content,
+    ...content,
     bg: {
       classes: 'bg-fill-width overlay overlay-60',
     },

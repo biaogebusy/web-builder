@@ -1,5 +1,5 @@
 import { StorysModule } from '@core/module/storys.module';
-import { Meta, Story, StoryObj, moduleMetadata } from '@storybook/angular';
+import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { ThemePreviewComponent } from '@uiux/combs/other/theme-preview/theme-preview.component';
 import { BannerWithBg } from '../components/banner/BannerSimple.stories';
 import {

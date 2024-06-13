@@ -6,7 +6,7 @@ export interface ICombsBase {
   type: string;
   id?: string;
   bg?: IBgImg;
-  spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
   text?: IText;
   classes?: object | string;
   row?: number | string;

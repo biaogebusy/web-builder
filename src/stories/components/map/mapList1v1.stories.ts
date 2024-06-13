@@ -59,7 +59,7 @@ export const Sidebar: Story = {};
 const mediaObject: any = MediaObjectStories.Default.args;
 Sidebar.storyName = '带边栏';
 const sidebar: IMapListv1 = {
-  ...Default.args.content,
+  ...content,
   sidebarRight: [
     {
       type: 'title',

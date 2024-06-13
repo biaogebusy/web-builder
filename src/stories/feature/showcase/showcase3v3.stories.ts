@@ -64,7 +64,7 @@ Default.args = {
 export const Image: Story = {};
 Image.storyName = '图片';
 const image: IShowcase3v3 = {
-  ...Default.args.content,
+  ...content,
   showImage: true,
   feature: {
     fullIcon: 'fullscreen',

@@ -109,7 +109,7 @@ Img.args = {
       classes: 'text-center',
       body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
     },
-    paramsBak: {
+    params: {
       api: 'api/v1/tab/order_process_statistics',
     },
     elements: [

@@ -78,7 +78,7 @@ const shape: IHero1v4 = {
   type: 'hero-1v4',
   classes: '',
   text: {
-    ...Default.args.content.text,
+    ...content.text,
     actionsAlign: 'center center',
     actions: [
       {

@@ -2,12 +2,13 @@ import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
+  StoryObj,
 } from '@storybook/angular';
 
 import { ViewListComponent } from '@uiux/widgets/view-list/view-list.component';
 import { StorysModule } from '@core/module/storys.module';
 
-const meta: Meta<MyComponent> = {
+const meta: Meta<ViewListComponent> = {
   title: 'Drupal/视图列表',
   id: 'view-list',
   component: ViewListComponent,
@@ -30,7 +31,7 @@ const meta: Meta<MyComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<MyComponent>;
+type Story = StoryObj<ViewListComponent>;
 export const Default: Story = {};
 // Raname Story
 Default.storyName = '预览';
@@ -76,7 +77,7 @@ Default.args = {
     type: 'view-list',
     spacer: 'none',
     params: {
-      apiTypeBak: '/api/v1/event',
+      apiType: '/api/v1/event',
     },
     header,
     form: [
@@ -117,12 +118,10 @@ Default.args = {
               {
                 type: 'input',
                 key: 'start',
-                placeholder: '开始',
               },
               {
                 type: 'input',
                 key: 'end',
-                placeholder: '结束',
               },
             ],
           },

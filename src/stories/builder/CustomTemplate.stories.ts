@@ -214,6 +214,7 @@ export const Playful: Story = {};
 Playful.storyName = 'Playful';
 Playful.args = {
   content: {
+    type: 'custom-template',
     json: {
       img: '/assets/images/avatar/05.jpeg',
     },
@@ -282,6 +283,7 @@ export const Elegant: Story = {};
 Elegant.storyName = 'Elegant';
 Elegant.args = {
   content: {
+    type: 'custom-template',
     json: {
       img: '/assets/images/avatar/05.jpeg',
     },
@@ -350,6 +352,7 @@ export const Responsive: Story = {};
 Responsive.storyName = '响应式';
 Responsive.args = {
   content: {
+    type: 'custom-template',
     json: {},
     html: `<div class="grid grid-cols-1 sm:grid-cols-2 sm:px-8 sm:py-12 sm:gap-x-8 md:py-16 bg-shadow rounded-xl overflow-hidden">
   <div class="relative z-10 col-start-1 row-start-1 px-4 pt-40 pb-3 bg-gradient-to-t from-black sm:bg-none">
@@ -399,6 +402,7 @@ export const State: Story = {};
 State.storyName = '状态';
 State.args = {
   content: {
+    type: 'custom-template',
     json: {},
     html: `<div class="bg-white dark:bg-gray-800 rounded-tl-xl sm:rounded-t-xl p-4 pb-6 sm:p-8 lg:p-4 lg:pb-6 xl:p-8 space-y-6 sm:space-y-8 lg:space-y-6 xl:space-y-8">
   <div class="flex items-center space-x-3.5 sm:space-x-5 lg:space-x-3.5 xl:space-x-5">
@@ -474,6 +478,7 @@ export const Hero: Story = {};
 Hero.storyName = 'Testimonial';
 Hero.args = {
   content: {
+    type: 'custom-template',
     json: {},
     html: `<section class="py-12 bg-gray-50 sm:py-16 lg:py-20">
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -642,6 +647,7 @@ Hero.args = {
 export const Product: Story = {};
 Product.args = {
   content: {
+    type: 'custom-template',
     json: {},
     html: `<section class="py-12 bg-white sm:py-16 lg:py-20">
     <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
@@ -856,6 +862,7 @@ export const Feature: Story = {};
 Feature.storyName = 'Feature';
 Feature.args = {
   content: {
+    type: 'custom-template',
     json: {},
     html: `<div class="overflow-hidden bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -910,6 +917,7 @@ export const TwoGrid: Story = {};
 TwoGrid.storyName = 'TwoGrid';
 TwoGrid.args = {
   content: {
+    type: 'custom-template',
     json: {},
     html: `<div class="bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -978,6 +986,7 @@ export const Action: Story = {};
 Action.storyName = 'Action';
 Action.args = {
   content: {
+    type: 'custom-template',
     json: {},
     html: `<div class="bg-white">
   <div class="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
@@ -1014,6 +1023,7 @@ export const Pricing: Story = {};
 Pricing.storyName = 'Pricing';
 Pricing.args = {
   content: {
+    type: 'custom-template',
     json: {},
     html: `<section class="py-10 bg-white sm:py-16 lg:py-24">
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -1453,6 +1463,7 @@ export const Showcase: Story = {};
 Showcase.storyName = 'Showcase';
 Showcase.args = {
   content: {
+    type: 'custom-template',
     json: {
       title: 'web builder',
       subTitle: '是一款通过拖拽组件构建页面的低代码',
@@ -1483,6 +1494,7 @@ export const Step: Story = {};
 Step.storyName = 'Step';
 Step.args = {
   content: {
+    type: 'custom-template',
     json: {
       title: 'web builder',
       subTitle: '是一款通过拖拽组件构建页面的低代码',

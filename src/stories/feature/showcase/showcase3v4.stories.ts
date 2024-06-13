@@ -92,7 +92,7 @@ Default.args = {
 export const Background: Story = {};
 Background.storyName = '背景色';
 const bg: IShowcase3v4 = {
-  ...Default.args.content,
+  ...content,
   bg: {
     classes: 'bg-shadow bg-fill-width',
   },

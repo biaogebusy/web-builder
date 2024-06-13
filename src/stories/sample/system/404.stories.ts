@@ -147,7 +147,6 @@ const content: ILayoutBuilder = {
       style: {
         borderRadius: 'none',
       },
-      layoutAlign: 'start start',
       elements: [
         {
           type: 'img',
@@ -210,7 +209,6 @@ const content: ILayoutBuilder = {
           end: 'top 40%',
         },
       },
-      layoutAlign: 'start start',
       elements: [
         {
           style: 'style-v1',
@@ -313,7 +311,6 @@ const content: ILayoutBuilder = {
       style: {
         borderRadius: 'none',
       },
-      layoutAlign: 'start start',
       elements: [
         {
           type: 'text',

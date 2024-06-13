@@ -54,7 +54,7 @@ const BannerWithBgContent: IBannerSimple = {
       alt: 'page title',
     },
   },
-  title: Default.args.content.title,
+  title: defaultContent.title,
   breadcrumb: breadcrumb.content,
 };
 BannerWithBg.args = {
@@ -74,7 +74,7 @@ const overlayContent: IBannerSimple = {
       alt: 'page title',
     },
   },
-  title: Default.args.content.title,
+  title: defaultContent.title,
   breadcrumb: breadcrumb.content,
 };
 BannerOverlay.args = {

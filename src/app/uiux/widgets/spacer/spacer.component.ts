@@ -7,7 +7,7 @@ import {
 
 interface ISpacer {
   type: string;
-  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
 }
 @Component({
   selector: 'app-spacer',
@@ -18,7 +18,7 @@ interface ISpacer {
 export class SpacerComponent implements OnInit {
   // content and size 是兼容写法
   @Input() content?: ISpacer;
-  @Input() size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  @Input() size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
   constructor() {}
 
   ngOnInit(): void {}

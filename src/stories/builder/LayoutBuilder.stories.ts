@@ -38,8 +38,6 @@ LayoutDefault.args = {
   content: {
     fullWidth: false,
     spacer: 'md',
-    bgClasses: 'bg-fill-width',
-    overlay: '',
     classes: '',
     id: '',
     bg: {
@@ -256,8 +254,6 @@ TwoCol.args = {
   content: {
     fullWidth: false,
     spacer: 'md',
-    bgClasses: 'bg-fill-width',
-    overlay: '',
     classes: '',
     id: '',
     bg: {
@@ -665,7 +661,6 @@ ThreeCol.args = {
             end: 'top 40%',
           },
         },
-        wrap: 'wrap',
         elements: [
           {
             type: 'box',
@@ -739,7 +734,6 @@ ThreeCol.args = {
             end: 'top 40%',
           },
         },
-        wrap: 'wrap',
         elements: [
           {
             type: 'box',
@@ -936,7 +930,7 @@ FourCol.args = {
             end: 'top 40%',
           },
         },
-        wrap: 'wrap',
+
         elements: [
           {
             spacer: 'none',
@@ -1363,7 +1357,7 @@ Section1A.args = {
             end: 'top 40%',
           },
         },
-        wrap: 'wrap',
+
         elements: [
           {
             style: 'style-v4',
@@ -1439,6 +1433,8 @@ Section1A.args = {
           overlay: '',
           classes: 'bg-fill-width',
         },
+        horizontal: 'start',
+        vertical: 'stretch',
         classes: '',
         style: {
           borderRadius: 'none',
@@ -1463,7 +1459,7 @@ Section1A.args = {
             end: 'top 40%',
           },
         },
-        wrap: 'wrap',
+
         elements: [
           {
             type: 'spacer',
@@ -1568,6 +1564,8 @@ Section1B.args = {
         style: {
           borderRadius: 'none',
         },
+        horizontal: 'start',
+        vertical: 'stretch',
         animate: {
           from: {
             x: 0,
@@ -1588,7 +1586,7 @@ Section1B.args = {
             end: 'top 40%',
           },
         },
-        wrap: 'wrap',
+
         elements: [
           {
             type: 'spacer',
@@ -1623,14 +1621,14 @@ Section1B.args = {
           md: 6,
           lg: 6,
         },
-        horizontal: 'flex-start',
-        vertical: 'flex-start',
         gap: {
           xs: '4',
           sm: '4',
           md: '4',
           lg: '4',
         },
+        horizontal: 'start',
+        vertical: 'stretch',
         bg: {
           img: {
             src: '',
@@ -1664,7 +1662,7 @@ Section1B.args = {
             end: 'top 40%',
           },
         },
-        wrap: 'wrap',
+
         elements: [
           {
             style: 'style-v4',
@@ -1822,7 +1820,7 @@ Section2A.args = {
             end: 'top 40%',
           },
         },
-        wrap: 'wrap',
+
         elements: [
           {
             type: 'img',
@@ -1885,7 +1883,7 @@ Section2A.args = {
           md: 6,
           lg: 6,
         },
-        wrap: 'wrap',
+
         gap: {
           xs: 0,
           sm: 0,
@@ -1964,6 +1962,8 @@ Section2A.args = {
           md: 12,
           lg: 12,
         },
+        horizontal: 'start',
+        vertical: 'stretch',
         elements: [
           {
             type: 'btn',
@@ -2031,6 +2031,8 @@ Section2B.args = {
           md: 12,
           lg: 12,
         },
+        horizontal: 'start',
+        vertical: 'stretch',
         elements: [
           {
             type: 'title',
@@ -2049,6 +2051,8 @@ Section2B.args = {
           md: 12,
           lg: 12,
         },
+        horizontal: 'start',
+        vertical: 'stretch',
         elements: [
           {
             type: 'text',
@@ -2066,6 +2070,8 @@ Section2B.args = {
           md: 12,
           lg: 12,
         },
+        horizontal: 'start',
+        vertical: 'stretch',
         elements: [
           {
             type: 'btn',
@@ -2085,6 +2091,8 @@ Section2B.args = {
           md: 12,
           lg: 12,
         },
+        horizontal: 'start',
+        vertical: 'stretch',
         elements: [
           {
             src: '/assets/images/builder/builder-01.png',
@@ -2184,7 +2192,7 @@ Section3A.args = {
           md: 6,
           lg: 6,
         },
-        wrap: 'wrap',
+
         horizontal: 'start',
         vertical: 'stretch',
         gap: {
@@ -3290,8 +3298,8 @@ Section4A.args = {
           md: 6,
           lg: 5,
         },
-        horizontal: 'flex-start',
-        vertical: 'flex-start',
+        horizontal: 'start',
+        vertical: 'stretch',
         gap: {
           xs: '4',
           sm: '4',
@@ -3659,7 +3667,7 @@ Section5A.args = {
                     end: 'top 40%',
                   },
                 },
-                wrap: 'wrap',
+
                 elements: [
                   {
                     type: 'box',
@@ -3803,7 +3811,6 @@ Section5A.args = {
             end: 'top 40%',
           },
         },
-        wrap: 'wrap',
         elements: [
           {
             type: 'img',
