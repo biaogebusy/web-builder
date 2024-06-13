@@ -1,6 +1,7 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export interface IViewMap {
+  type: 'view-map';
   params: {
     api?: string;
     city?: string;

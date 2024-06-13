@@ -59,11 +59,11 @@ StyleV1.args = {
 };
 
 const v2: IBox = {
-  ...StyleV1.args.content,
-  style: 'style-v2',
+  ...v1,
   icon: {
     name: 'verified_user',
   },
+  style: 'style-v2',
 };
 
 export const StyleV2: Story = {};
@@ -73,7 +73,10 @@ StyleV2.args = {
 };
 
 const v3: IBox = {
-  ...StyleV2.args.content,
+  ...v1,
+  icon: {
+    name: 'verified_user',
+  },
   style: 'style-v3',
 };
 export const StyleV3: Story = {};
@@ -83,7 +86,10 @@ StyleV3.args = {
 };
 
 const v4: IBox = {
-  ...StyleV2.args.content,
+  ...v1,
+  icon: {
+    name: 'verified_user',
+  },
   style: 'style-v4',
 };
 export const StyleV4: Story = {};
@@ -92,7 +98,10 @@ StyleV4.args = {
 };
 
 const v5: IBox = {
-  ...StyleV2.args.content,
+  ...v1,
+  icon: {
+    name: 'verified_user',
+  },
   style: 'style-v5',
 };
 export const StyleV5: Story = {};
@@ -101,7 +110,10 @@ StyleV5.args = {
 };
 
 const v6: IBox = {
-  ...StyleV2.args.content,
+  ...v1,
+  icon: {
+    name: 'verified_user',
+  },
   style: 'style-v6',
 };
 export const StyleV6: Story = {};
@@ -110,7 +122,10 @@ StyleV6.args = {
 };
 
 const v7: IBox = {
-  ...StyleV2.args.content,
+  ...v1,
+  icon: {
+    name: 'verified_user',
+  },
   style: 'style-v7',
 };
 
@@ -120,7 +135,7 @@ StyleV7.args = {
 };
 
 const v9: IBox = {
-  ...StyleV1.args.content,
+  ...v1,
   style: 'style-v9',
 };
 
@@ -130,7 +145,7 @@ StyleV9.args = {
 };
 
 const v10: IBox = {
-  ...StyleV1.args.content,
+  ...v1,
   style: 'style-v10',
 };
 

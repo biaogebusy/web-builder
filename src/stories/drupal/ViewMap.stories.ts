@@ -47,7 +47,6 @@ Default.args = {
         type: 'mat-select',
         key: 'skill',
         className: 'm-right-xs width-30',
-        api: '/api/v2/filter/taxonomy/skill',
         props: {
           multiple: true,
           search: true,
@@ -190,7 +189,12 @@ export const Circle: Story = {};
 Circle.storyName = '地图范围圈';
 Circle.args = {
   content: {
-    ...Default?.args?.content,
+    type: 'view-map',
+    params: {
+      api: '/api/v2/view-map',
+      city: '南宁市',
+      drawer: true,
+    },
     form: [
       {
         type: 'input',
@@ -204,7 +208,6 @@ Circle.args = {
         type: 'mat-select',
         key: 'skill',
         className: 'm-right-xs width-30',
-        api: '/api/v2/filter/taxonomy/skill',
         props: {
           multiple: true,
           search: true,

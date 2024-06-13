@@ -123,7 +123,7 @@ const custom: IDynamicTable = {
       key: 'remarks',
     },
   ],
-  elements: Default.args.content.elements,
+  elements: content.elements,
 };
 CustomStyle.args = {
   content: custom,

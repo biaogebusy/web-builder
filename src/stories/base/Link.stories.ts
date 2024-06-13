@@ -42,7 +42,10 @@ Default.args = {
 export const QueryParams: Story = {};
 QueryParams.storyName = 'QueryParams 参数';
 const query: ILink = {
-  ...Default.args.content,
+  type: 'link',
+  label: '更多',
+  classes: '',
+  href: '/',
   queryParams: {
     demo: '466',
   },
@@ -55,7 +58,10 @@ QueryParams.args = {
 export const Fragment: Story = {};
 Fragment.storyName = 'Fragment 片段';
 const fragment: ILink = {
-  ...Default.args.content,
+  type: 'link',
+  label: '更多',
+  classes: '',
+  href: '/',
   fragment: 'title',
 };
 Fragment.args = {
@@ -66,7 +72,10 @@ export const Dialog: Story = {};
 Dialog.storyName = 'Dialog';
 const textContent: any = TextStories.List.args;
 const dialog: ILink = {
-  ...Default.args.content,
+  type: 'link',
+  label: '更多',
+  classes: '',
+  href: '/',
   dialog: {
     params: {
       width: '800px',
@@ -85,7 +94,10 @@ Dialog.args = {
 
 export const Drawer: Story = {};
 const drawer: ILink = {
-  ...Default.args.content,
+  type: 'link',
+  label: '更多',
+  classes: '',
+  href: '/',
   rel: 'drawer',
 };
 Drawer.args = {
@@ -95,7 +107,10 @@ Drawer.args = {
 export const ReqRoles: Story = {};
 ReqRoles.storyName = '根据权限显示';
 const roles: ILink = {
-  ...Default.args.content,
+  type: 'link',
+  label: '更多',
+  classes: '',
+  href: '/',
   params: {
     reqRoles: ['administrator'],
   },

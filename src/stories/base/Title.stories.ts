@@ -26,8 +26,8 @@ TitleV1.storyName = 'Style V1';
 const v1: ITitle = {
   type: 'title',
   label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
-  style: 'style-v4',
   classes: 'mat-display-1 bold',
+  style: 'style-v4',
 };
 TitleV1.args = {
   content: v1,
@@ -36,7 +36,9 @@ TitleV1.args = {
 export const TitleV2: Story = {};
 TitleV2.storyName = 'Style V2';
 const v2: ITitle = {
-  ...TitleV1.args.content,
+  type: 'title',
+  label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
+  classes: 'mat-display-1 bold',
   style: 'style-v2',
   icon: 'mail',
 };
@@ -47,7 +49,9 @@ TitleV2.args = {
 export const TitleV3: Story = {};
 TitleV3.storyName = 'Style V3';
 const v3: ITitle = {
-  ...TitleV1.args.content,
+  type: 'title',
+  label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
+  classes: 'mat-display-1 bold',
   style: 'style-v3',
 };
 TitleV3.args = {
@@ -57,7 +61,9 @@ TitleV3.args = {
 export const TitleV4: Story = {};
 TitleV4.storyName = 'Style V4';
 const v4: ITitle = {
-  ...TitleV1.args.content,
+  type: 'title',
+  label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
+  classes: 'mat-display-1 bold',
   style: 'style-v4',
 };
 TitleV4.args = {
@@ -67,7 +73,9 @@ TitleV4.args = {
 export const TitleV5: Story = {};
 TitleV5.storyName = 'Style V5';
 const v5: ITitle = {
-  ...TitleV1.args.content,
+  type: 'title',
+  label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
+  classes: 'mat-display-1 bold',
   style: 'style-v5',
 };
 TitleV5.args = {

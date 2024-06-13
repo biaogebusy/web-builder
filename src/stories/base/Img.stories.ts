@@ -44,7 +44,7 @@ Default.args = {
 export const ImgWithLink: Story = {};
 ImgWithLink.storyName = '带链接';
 const link: IImg = {
-  ...Default.args.content,
+  ...content,
   href: '#',
   target: '_blank',
 };
@@ -55,7 +55,7 @@ ImgWithLink.args = {
 export const Mobile: Story = {};
 Mobile.storyName = '移动端';
 const mobile: IImg = {
-  ...Default.args.content,
+  ...content,
   mobile: '/assets/images/mobile/follower-01.jpg',
 };
 
