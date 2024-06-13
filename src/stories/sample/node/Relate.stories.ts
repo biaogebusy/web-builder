@@ -3,23 +3,38 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
-import { NodeModule } from '@uiux/combs/node/node.module';
 import { StorysModule } from '@core/module/storys.module';
 import { RelateComponent } from '@uiux/combs/node/relate/relate.component';
 import { random } from 'lodash-es';
 import { IRelate } from '@core/interface/node/IRelate';
+import { importProvidersFrom } from '@angular/core';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { SummaryItemComponent } from '@uiux/combs/node/common/summary/summary-item/summary-item.component';
+import { NgPipesModule } from 'ngx-pipes';
+import { MatIcon } from '@angular/material/icon';
+import { ShareModule } from '@share/share.module';
 
 const meta: Meta<RelateComponent> = {
   title: '示例页面/内容类型/相关性',
   id: 'relate',
   component: RelateComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot()), NgPipesModule],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot(), NodeModule],
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        ReqRolesDirective,
+        SafeHtmlPipe,
+        MatProgressBar,
+        SummaryItemComponent,
+      ],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

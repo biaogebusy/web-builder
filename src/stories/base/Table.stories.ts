@@ -3,22 +3,26 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table.component';
 import { StorysModule } from '@core/module/storys.module';
 import { random } from 'lodash-es';
 import { IDynamicTable } from '@core/interface/widgets/IWidgets';
+import { importProvidersFrom } from '@angular/core';
+import { MatTable } from '@angular/material/table';
 
 const meta: Meta<DynamicTableComponent> = {
   title: '基本元素/表格',
   id: 'table',
   component: DynamicTableComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents(), MatTable],
     }),
     componentWrapperDecorator((story) => {
       return `<div classs="widget">${story}</div>`;

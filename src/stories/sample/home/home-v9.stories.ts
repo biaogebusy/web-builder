@@ -3,12 +3,11 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { BlockComponent } from '@modules/render/block/block.component';
-import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
-import { BrandingModule } from '@core/branding/branding.module';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import {
@@ -16,16 +15,24 @@ import {
   footerInverse,
 } from '@modules/builder/data/Branding.json';
 import { home_v9 } from '@stories/sample/home/data/home_v9';
+import { importProvidersFrom } from '@angular/core';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 
 const meta: Meta<BlockComponent> = {
   title: '示例页面/首页示例/09 艺术科学',
   id: 'home-v9',
   component: BlockComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      entryComponents: [...StorysModule.forEntryComponents()],
-      declarations: [],
-      imports: [StorysModule.forRoot(), RenderModule, BrandingModule],
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        ReqRolesDirective,
+        SafeHtmlPipe,
+      ],
       providers: [
         {
           provide: BRANDING,
@@ -39,9 +46,7 @@ const meta: Meta<BlockComponent> = {
     componentWrapperDecorator(
       (story) => `
       <app-header></app-header>
-      <div style="overflow:hidden">
       ${story}
-      </div>
       <app-footer></app-footer>
     `,
     ),

@@ -3,22 +3,31 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import * as TextStories from './Text.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { ILink } from '@core/interface/widgets/ILink';
+import { importProvidersFrom } from '@angular/core';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 
 const meta: Meta<LinkComponent> = {
   title: '基本元素/链接',
   id: 'link',
   component: LinkComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        ReqRolesDirective,
+        SafeHtmlPipe,
+      ],
     }),
     componentWrapperDecorator(
       (story) => `<div class="widget relative p-x-md p-y-md">${story}</div>`,

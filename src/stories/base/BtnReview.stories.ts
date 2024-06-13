@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { BlockComponent } from '@modules/render/block/block.component';
@@ -16,24 +17,28 @@ import {
   footerInverse,
 } from '@modules/builder/data/Branding.json';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
+import { importProvidersFrom } from '@angular/core';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { MatIcon } from '@angular/material/icon';
 
 const meta: Meta<BlockComponent> = {
   title: '基本元素/按钮/预览',
   id: 'buttom-review',
   component: BlockComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      entryComponents: [...StorysModule.forEntryComponents()],
-      declarations: [],
-      imports: [StorysModule.forRoot(), RenderModule, BrandingModule],
-      providers: [
-        {
-          provide: BRANDING,
-          useValue: of({
-            header: defaultHeader,
-            footer: footerInverse,
-          }),
-        },
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        DynamicComponentComponent,
+        SafeHtmlPipe,
+        ReqRolesDirective,
+        MatIcon,
       ],
     }),
     componentWrapperDecorator(

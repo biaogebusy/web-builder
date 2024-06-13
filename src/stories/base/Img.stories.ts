@@ -3,21 +3,24 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IImg } from '@core/interface/widgets/IImg';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<ImgComponent> = {
   title: '基本元素/图片',
   id: 'img',
   component: ImgComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

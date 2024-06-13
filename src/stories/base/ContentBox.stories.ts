@@ -3,21 +3,30 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ContentBoxComponent } from '@uiux/widgets/content-box/content-box.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IContentBox } from '@core/interface/widgets/IContentWidget';
+import { importProvidersFrom } from '@angular/core';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 
 const meta: Meta<ContentBoxComponent> = {
   title: '基本元素/内容块',
   id: 'content-box',
   component: ContentBoxComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        ReqRolesDirective,
+        SafeHtmlPipe,
+      ],
     }),
     componentWrapperDecorator(
       (story) =>

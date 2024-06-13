@@ -1,20 +1,25 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
-import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
-import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custom-template.component';
+import { importProvidersFrom } from '@angular/core';
 const meta: Meta<CustomTemplateComponent> = {
   title: '低代码/Layout builder/Tailwind 自定义组件',
   id: 'custom-template',
   component: CustomTemplateComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [BuilderModule, RenderModule, StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
       providers: [
         {
           provide: IS_BUILDER_MODE,

@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
@@ -10,22 +11,30 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { ILayoutBuilder } from '@core/interface/IBuilder';
 import { BuilderModule } from '@modules/builder/builder.module';
 import { LayoutBuilderComponent } from '@modules/builder/layout-builder/layout-builder.component';
+import { importProvidersFrom } from '@angular/core';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { HeaderComponent } from '@core/branding/header/header.component';
+import { FooterComponent } from '@core/branding/footer/footer.component';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 
 const meta: Meta<LayoutBuilderComponent> = {
   title: '示例页面/系统页面/404',
   id: 'notFound',
   component: LayoutBuilderComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot(), BrandingModule, BuilderModule],
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        SafeHtmlPipe,
+        ReqRolesDirective,
+      ],
     }),
     componentWrapperDecorator(
       (story) => `
-      <app-header></app-header>
       ${story}
-      <app-footer></app-footer>
     `,
     ),
   ],

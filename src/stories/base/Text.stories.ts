@@ -3,21 +3,30 @@ import {
   componentWrapperDecorator,
   Meta,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IText } from '@core/interface/widgets/IText';
+import { importProvidersFrom } from '@angular/core';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 
 const meta: Meta<TextComponent> = {
   title: '基本元素/富文本',
   id: 'text',
   component: TextComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      entryComponents: [...StorysModule.forEntryComponents()],
-      declarations: [],
-      imports: [StorysModule.forRoot()],
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        ReqRolesDirective,
+        SafeHtmlPipe,
+      ],
     }),
     componentWrapperDecorator(
       (story) => `<div class="relative p-10 z-10">${story}</div>`,

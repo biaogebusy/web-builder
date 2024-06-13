@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ArticleComponent } from '@uiux/combs/node/article/article.component';
@@ -15,16 +16,21 @@ import { comments } from './comments.json';
 import { formatDate } from '@angular/common';
 import { IBaseNode } from '@core/interface/node/INode';
 import * as SwiperStories from '@stories/widgets/Swiper.stories';
+import { importProvidersFrom } from '@angular/core';
+import { MenuListComponent } from '@uiux/widgets/menu-list/menu-list.component';
+import { MatIcon } from '@angular/material/icon';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 
 const meta: Meta<ArticleComponent> = {
   title: '示例页面/内容类型/普通文章',
   id: 'article',
   component: ArticleComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot(), UserModule, NodeModule],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) => `

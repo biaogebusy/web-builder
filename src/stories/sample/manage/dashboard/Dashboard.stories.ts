@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { RenderModule } from '@modules/render/render.module';
@@ -17,6 +18,10 @@ import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { manageHeader } from '@modules/builder/data/Branding.json';
 import { IDashboard } from '@core/interface/combs/IDashboard';
+import { importProvidersFrom } from '@angular/core';
+import { ManageSidebarComponent } from '@core/branding/manage-sidebar/manage-sidebar.component';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 const calendar: any = calendarStory.Default.args;
 
 const meta: Meta<DashboardComponent> = {
@@ -24,16 +29,17 @@ const meta: Meta<DashboardComponent> = {
   id: 'dashboard',
   component: DashboardComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [
-        MatSidenavModule,
-        RenderModule,
-        NodeModule,
-        BrandingModule,
-        StorysModule.forRoot(),
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        ManageSidebarComponent,
+        ReqRolesDirective,
+        SafeHtmlPipe,
       ],
+      imports: [MatSidenavModule],
       providers: [
         {
           provide: BRANDING,

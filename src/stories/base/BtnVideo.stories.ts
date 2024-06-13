@@ -4,21 +4,26 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { BtnVideoComponent } from '@uiux/widgets/actions/btn-video/btn-video.component';
 import * as playerStory from '../feature/media/Player.stories';
 import { IBtnVideo } from '@core/interface/widgets/IBtn';
+import { importProvidersFrom } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 
 const meta: Meta<BtnVideoComponent> = {
   title: '基本元素/播放按钮',
   id: 'btn-video',
   component: BtnVideoComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
       entryComponents: [...StorysModule.forEntryComponents()],
-      declarations: [],
-      imports: [StorysModule.forRoot()],
+      declarations: [MatIcon],
     }),
     componentWrapperDecorator((story) => {
       return `<div classs="widget">${story}</div>`;

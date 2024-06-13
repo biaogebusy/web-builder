@@ -12,6 +12,8 @@ import { importProvidersFrom } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CommonModule } from '@angular/common';
 import { StorysModule } from '@core/module/storys.module';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { MatButton } from '@angular/material/button';
 
 const meta: Meta<BtnComponent> = {
   title: '基本元素/按钮/基础',
@@ -19,17 +21,15 @@ const meta: Meta<BtnComponent> = {
   component: BtnComponent,
   decorators: [
     applicationConfig({
-      providers: [
-        importProvidersFrom(
-          HttpClientModule,
-          LocalStorageService,
-          ReqRolesDirective,
-          CommonModule,
-        ),
-      ],
+      providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [StorysModule.forEntryComponents()],
+      declarations: [
+        StorysModule.forEntryComponents(),
+        ReqRolesDirective,
+        MatButton,
+        SafeHtmlPipe,
+      ],
     }),
   ],
 };

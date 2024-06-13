@@ -1,20 +1,26 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
-import { ManageModule } from '@modules/manage/manage.module';
 import { ManageMediaComponent } from '@modules/manage/manage-media/manage-media.component';
 import { FormGroup } from '@angular/forms';
+import { importProvidersFrom } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 
 const meta: Meta<ManageMediaComponent> = {
   title: '低代码/媒体库',
   id: 'manage-media',
   component: ManageMediaComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [ManageModule, StorysModule.forRoot()],
-      providers: [],
+      declarations: [...StorysModule.forEntryComponents(), MatIcon],
     }),
   ],
   parameters: {

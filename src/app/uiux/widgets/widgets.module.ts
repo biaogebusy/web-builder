@@ -20,7 +20,6 @@ import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
 
 // Core
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
 import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
 
@@ -196,7 +195,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
+  declarations: [...components, SafeUrlPipe, DataSourcePipe],
   imports: [
     MatChipsModule,
     MatBadgeModule,
@@ -255,7 +254,7 @@ const components = [
       ],
     }),
   ],
-  exports: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
+  exports: [...components, SafeUrlPipe, DataSourcePipe],
   providers: [
     MatDatepickerModule,
     { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },

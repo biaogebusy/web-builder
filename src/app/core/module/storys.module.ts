@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import base from '@assets/app/core/base.json';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   builderFullScreenFactory,
   debugAnimateFactory,
@@ -63,6 +63,12 @@ import { ManageModule } from '@modules/manage/manage.module';
 import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
 import { ThemeService } from '@core/service/theme.service';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -71,23 +77,26 @@ export function sleep(ms: number): Promise<any> {
 @NgModule({
   declarations: [],
   imports: [
-    // ShareModule,
+    ShareModule,
+
     // WidgetsModule,
     // BuilderModule,
     // CombsModule,
-    // HttpClientModule,
-    // NgxWebstorageModule.forRoot(),
-    // RouterTestingModule,
-    // BrowserAnimationsModule,
+    RouterModule,
+    HttpClientModule,
+    NgxWebstorageModule.forRoot(),
+    RouterTestingModule,
+    BrowserAnimationsModule,
   ],
   exports: [
-    // ShareModule,
+    ShareModule,
     // WidgetsModule,
     // CombsModule,
     // ManageModule,
-    // HttpClientModule,
-    // RouterTestingModule,
-    // BrowserAnimationsModule,
+    RouterModule,
+    HttpClientModule,
+    RouterTestingModule,
+    BrowserAnimationsModule,
   ],
 })
 export class StorysModule {
@@ -95,7 +104,6 @@ export class StorysModule {
     return {
       ngModule: StorysModule,
       providers: [
-        SafeHtmlPipe,
         {
           provide: CORE_CONFIG,
           useValue: base,

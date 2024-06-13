@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { NodeModule } from '@uiux/combs/node/node.module';
@@ -10,16 +11,18 @@ import { StorysModule } from '@core/module/storys.module';
 import { ReportComponent } from '@uiux/combs/node/report/report.component';
 import { FormGroup } from '@angular/forms';
 import { IReport } from '@core/interface/node/IReport';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<ReportComponent> = {
   title: '示例页面/内容类型/统计报告',
   id: 'report',
   component: ReportComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot(), NodeModule],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

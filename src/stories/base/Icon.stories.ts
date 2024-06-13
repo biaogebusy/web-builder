@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { IIcon } from '@core/interface/widgets/IIcon';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
@@ -14,10 +16,11 @@ const meta: Meta<IconComponent> = {
   id: 'icon',
   component: IconComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) => `<div class="widget relative p-x-md p-y-md">${story}</div>`,

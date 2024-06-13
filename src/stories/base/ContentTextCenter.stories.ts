@@ -3,21 +3,30 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ContentTextCenterComponent } from '@uiux/widgets/content-text-center/content-text-center.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IContentTextCenter } from '@core/interface/widgets/IContentWidget';
+import { importProvidersFrom } from '@angular/core';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 
 const meta: Meta<ContentTextCenterComponent> = {
   title: '基本元素/内容居中块',
   id: 'content-text-center',
   component: ContentTextCenterComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        ReqRolesDirective,
+        SafeHtmlPipe,
+      ],
     }),
     componentWrapperDecorator(
       (story) =>

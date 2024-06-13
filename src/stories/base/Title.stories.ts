@@ -1,19 +1,25 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ITitle } from '@core/interface/widgets/ITitle';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<TitleComponent> = {
   title: '基本元素/标题',
   id: 'title',
   component: TitleComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
-      providers: [SafeHtmlPipe],
+      declarations: [...StorysModule.forEntryComponents(), SafeHtmlPipe],
     }),
   ],
 };

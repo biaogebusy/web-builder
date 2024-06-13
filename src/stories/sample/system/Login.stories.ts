@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { LocalStorageService } from 'ngx-webstorage';
@@ -16,16 +17,19 @@ import { userFactory } from '@core/factory/factory';
 import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { notify } from '@core/module/data/notify';
+import { importProvidersFrom } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 const meta: Meta<LoginComponent> = {
   title: '示例页面/系统页面/注册登录',
   id: 'login',
   component: LoginComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot()), CookieService],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [UserModule, StorysModule.forRoot(), BrandingModule],
+      declarations: [...StorysModule.forEntryComponents()],
       providers: [
         {
           provide: USER,
@@ -40,9 +44,7 @@ const meta: Meta<LoginComponent> = {
     }),
     componentWrapperDecorator(
       (story) => `
-     <app-header></app-header>
       ${story}
-      <app-footer></app-footer>
     `,
     ),
   ],
