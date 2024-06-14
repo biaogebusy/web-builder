@@ -7,14 +7,10 @@ import {
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
-import { BrandingModule } from '@core/branding/branding.module';
 import { ILayoutBuilder } from '@core/interface/IBuilder';
-import { BuilderModule } from '@modules/builder/builder.module';
 import { LayoutBuilderComponent } from '@modules/builder/layout-builder/layout-builder.component';
 import { importProvidersFrom } from '@angular/core';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { HeaderComponent } from '@core/branding/header/header.component';
-import { FooterComponent } from '@core/branding/footer/footer.component';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 
 const meta: Meta<LayoutBuilderComponent> = {

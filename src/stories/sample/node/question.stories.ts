@@ -6,11 +6,9 @@ import {
   applicationConfig,
 } from '@storybook/angular';
 
-import { NodeModule } from '@uiux/combs/node/node.module';
 import { QuestionComponent } from '@uiux/combs/node/question/question.component';
-import { sleep, StorysModule } from '@core/module/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { comments } from './comments.json';
-import { of } from 'rxjs';
 import { IQuestion } from '@core/interface/node/INode';
 import { importProvidersFrom } from '@angular/core';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';

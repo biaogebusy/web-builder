@@ -11,7 +11,7 @@ declare var window: any;
 export class AnalyticsService {
   constructor(
     private utility: UtilitiesService,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
   ) {}
 
   loadGoogleAnalytics(id: string): void {
@@ -25,10 +25,6 @@ export class AnalyticsService {
       window.dataLayer.push(arguments);
     };
     gtag('js', new Date());
-
-    // tracking current url at app bootstrap
     gtag('config', id);
-    // TODO
-    // this.angulartics.startTracking();
   }
 }
