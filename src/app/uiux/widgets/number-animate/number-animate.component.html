@@ -1,10 +1,7 @@
-<div #animatedDigit class="animated-digit">
-  <span
-    [contentedit]="'value'"
-    [ngStyle]="content.style || null"
-    [countUp]="content.value"
-    [options]="{ enableScrollSpy: true }"
-  ></span>
+<div class="animated-digit">
+  <span [contentedit]="'value'" [ngStyle]="content.style || null">
+    {{ content.value }}</span
+  >
   <span
     [contentedit]="'label'"
     class="pl-3 suffix font-light"

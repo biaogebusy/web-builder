@@ -35,7 +35,7 @@ export class Showcase1v1Component
     private screenService: ScreenService,
     private contentState: ContentState,
     private builder: BuilderState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
   ) {
     super();
   }
@@ -64,7 +64,7 @@ export class Showcase1v1Component
   showAnimate(debug?: any): void {
     const title: Element = this.title?.nativeElement;
     const boxs = this.el.nativeElement.querySelectorAll('.box');
-    let tl = window.gsap.timeline({
+    const tl = window.gsap.timeline({
       scrollTrigger: {
         trigger: this.el.nativeElement,
         scroller: this.getScroller(),
