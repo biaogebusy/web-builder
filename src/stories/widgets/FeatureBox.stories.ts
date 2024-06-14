@@ -1,3 +1,6 @@
+import { importProvidersFrom } from '@angular/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,19 +8,24 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 import { FeatureBoxComponent } from '@uiux/widgets/feature-box/feature-box.component';
+import { NgPipesModule } from 'ngx-pipes';
 
 const meta: Meta<FeatureBoxComponent> = {
   title: '基础组件/功能盒子',
   id: 'feature-box',
   component: FeatureBoxComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents(), DialogComponent],
+      imports: [MatIconModule, MatDialogModule],
     }),
     componentWrapperDecorator(
       (story) => `<div classs="widget" style="width:33%">${story}</div>`,

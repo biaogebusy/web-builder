@@ -42,18 +42,12 @@ const content: IInlineLightbox = {
   elements: [
     {
       src: '/assets/images/cases/porto1.jpg',
-      caption: '描述',
-      thumb: '/assets/images/cases/porto1.jpg',
     },
     {
-      src: '/assets/images/cases/porto2.doc',
-      preview: '/assets/images/cases/porto2.pdf',
-      thumb: '',
+      src: '/assets/images/cases/porto2.pdf',
     },
     {
       src: '/assets/images/cases/porto3.pdf',
-      preview: '/assets/images/cases/porto3.pdf',
-      thumb: '',
     },
   ],
 };

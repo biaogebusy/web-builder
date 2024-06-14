@@ -1,14 +1,12 @@
-<!-- <div class="inline-lightbox" *ngIf="content">
-  <a class="inline" [ngClass]="isFirst?'' : 'px-3'" (click)="onLightbox(i)" href="javascript:void(0)"
-    *ngFor="let item of content.label;first as isFirst; index as i">
-    <span [innerHTML]="item|safeHtml"></span>
-  </a>
-</div> -->
-<lightgallery [settings]="settings">
-  <a href="img/img1.jpg">
-    <img alt="img1" src="img/thumb1.jpg" />
-  </a>
-  <a href="img/img1.jpg">
-    <img alt="img2" src="img/thumb1.jpg" />
-  </a>
-</lightgallery>
+<div class="inline-lightbox" *ngIf="content">
+  <lightgallery [settings]="settings">
+    <a
+      class="inline"
+      [ngClass]="isFirst ? '' : 'px-3'"
+      *ngFor="let item of content.label; first as isFirst; index as i"
+      [href]="content.elements[i].src"
+    >
+      <span [innerHTML]="item | safeHtml"></span>
+    </a>
+  </lightgallery>
+</div>

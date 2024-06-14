@@ -9,6 +9,8 @@ import type { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import type { IImg } from '@core/interface/widgets/IImg';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { RouteService } from '@core/service/route.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 @Component({
   selector: 'app-feature-box',
   templateUrl: './feature-box.component.html',
@@ -25,7 +27,8 @@ export class FeatureBoxComponent implements OnInit {
     private utli: UtilitiesService,
     private cd: ChangeDetectorRef,
     private routerService: RouteService,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -49,8 +52,8 @@ export class FeatureBoxComponent implements OnInit {
             this.type === 'pdf'
               ? `${iconPath}/file-pdf.svg`
               : this.type === 'excel'
-              ? `${iconPath}/file-excel.svg`
-              : `${iconPath}/file-word.svg`,
+                ? `${iconPath}/file-excel.svg`
+                : `${iconPath}/file-word.svg`,
           preview: this.content.img?.preview,
         },
       };
@@ -90,15 +93,16 @@ export class FeatureBoxComponent implements OnInit {
       window.open(img.preview, '_blank');
       return;
     }
-    // TODO: refact
-    // this.lightbox.open([
-    //   {
-    //     src: img.src,
-    //     caption: img.alt || 'Lightbox',
-    //     thumb: img.src,
-    //     downloadUrl: img.src,
-    //   },
-    // ]);
+    this.dialog.open(DialogComponent, {
+      data: {
+        inputData: {
+          content: {
+            type: 'img',
+            src: img.src,
+          },
+        },
+      },
+    });
   }
 
   copy(img: IImg): void {
