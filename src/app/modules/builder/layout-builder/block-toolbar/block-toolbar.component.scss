@@ -1,5 +1,8 @@
-@use '@angular/material' as mat;
-@include mat.button-density(-1);
+@use "@angular/material" as mat;
+
+:host {
+  transform: translateX(-50%);
+}
 .block-toolbar {
   .title {
     line-height: 8px;

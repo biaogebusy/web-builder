@@ -1,18 +1,14 @@
-<ng-container *ngIf="content && content.elements.length > 0">
-  <swiper
-    [attr.data-path]="'elements'"
-    [ngClass]="content.classes"
-    #swiper
-    (swiper)="onSwiper($event)"
-    (slideChange)="onSlideChange()"
-    (paginationRender)="onpaginationRender($event)"
-  >
-    <ng-template swiperSlide *ngFor="let slide of content.elements; index as i">
-      <app-dynamic-component
-        [attr.data-path]="i"
-        [ngClass]="content.sliderClasses"
-        [inputs]="{ content: slide }"
-      ></app-dynamic-component>
-    </ng-template>
-  </swiper>
-</ng-container>
+<swiper-container
+  init="false"
+  #swiper
+  [attr.data-path]="'elements'"
+  [ngClass]="content.classes"
+>
+  <swiper-slide *ngFor="let slide of content.elements; index as i">
+    <app-dynamic-component
+      [attr.data-path]="i"
+      [ngClass]="content.sliderClasses"
+      [inputs]="{ content: slide }"
+    ></app-dynamic-component>
+  </swiper-slide>
+</swiper-container>

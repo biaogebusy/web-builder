@@ -24,8 +24,6 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   form = new UntypedFormGroup({});
   model: any = {};
   @Input() content: IMetaEdit;
-  @ViewChild('guiStyle', { static: false }) guiStyle: ElementRef;
-  @ViewChild('guiSize', { static: false }) guiSize: ElementRef;
   sizeGuiUI: any;
   styleFolder: any;
   sizeFolder: any;
@@ -36,7 +34,7 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private builder: BuilderState,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {}
@@ -84,7 +82,7 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
       this.viewHTML.removeAttribute('style');
       this.builder.updatePageContentByPath(
         this.content.path,
-        this.viewHTML.outerHTML
+        this.viewHTML.outerHTML,
       );
     }
 

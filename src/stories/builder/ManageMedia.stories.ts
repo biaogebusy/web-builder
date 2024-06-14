@@ -9,7 +9,8 @@ import { StorysModule } from '@core/module/storys.module';
 import { ManageMediaComponent } from '@modules/manage/manage-media/manage-media.component';
 import { FormGroup } from '@angular/forms';
 import { importProvidersFrom } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { FormlyModule } from '@ngx-formly/core';
 
 const meta: Meta<ManageMediaComponent> = {
   title: '低代码/媒体库',
@@ -20,7 +21,8 @@ const meta: Meta<ManageMediaComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents(), MatIcon],
+      declarations: [StorysModule.forEntryComponents()],
+      imports: [MatIconModule],
     }),
   ],
   parameters: {

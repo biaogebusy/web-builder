@@ -1,8 +1,16 @@
+import { importProvidersFrom } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { ISwiper } from '@core/interface/widgets/ISwiper';
 import { StorysModule } from '@core/module/storys.module';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
+import { CardComponent } from '@uiux/widgets/card/card.component';
 
 import { SwiperComponent } from '@uiux/widgets/swiper/swiper.component';
 
@@ -11,17 +19,12 @@ const meta: Meta<SwiperComponent> = {
   id: 'swiper',
   component: SwiperComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-      ],
+      declarations: [StorysModule.forEntryComponents()],
+      imports: [MatIconModule],
     }),
   ],
 };

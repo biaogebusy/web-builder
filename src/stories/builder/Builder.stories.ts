@@ -54,12 +54,7 @@ const meta: Meta<BuilderComponent> = {
       ],
     }),
     moduleMetadata({
-      declarations: [
-        ...StorysModule.forEntryComponents(),
-        ReqRolesDirective,
-        SafeHtmlPipe,
-        MatIcon,
-      ],
+      declarations: [StorysModule.forEntryComponents(), SafeHtmlPipe, MatIcon],
     }),
   ],
   parameters: {

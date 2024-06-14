@@ -15,8 +15,7 @@
     .feature-inner {
       border-top-left-radius: inherit;
       border-top-right-radius: inherit;
-      width: calc(100% + 32px);
-      margin: 0 -16px 16px -16px;
+      width: 100%;
       &:after,
       &:before {
         right: 0 !important;

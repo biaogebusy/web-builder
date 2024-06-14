@@ -1,4 +1,8 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  ComponentFactoryResolver,
+  NgModule,
+} from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -111,6 +115,7 @@ import { RichTextComponent } from './form/formly-type/rich-text/rich-text.compon
 import { QuillModule } from 'ngx-quill';
 import { CountUpModule } from 'ngx-countup';
 import { LightgalleryModule } from 'lightgallery/angular';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 
 const components = [
   BgComponent,
@@ -195,7 +200,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components, SafeUrlPipe, DataSourcePipe],
+  declarations: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
   imports: [
     MatChipsModule,
     MatBadgeModule,
@@ -254,11 +259,12 @@ const components = [
       ],
     }),
   ],
-  exports: [...components, SafeUrlPipe, DataSourcePipe],
+  exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
   providers: [
     MatDatepickerModule,
     { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WidgetsModule extends BaseModule {
   dynamicComponents = [...components];

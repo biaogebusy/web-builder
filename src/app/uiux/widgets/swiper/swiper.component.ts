@@ -11,7 +11,8 @@ import {
 import { Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import type { ISwiper } from '@core/interface/widgets/ISwiper';
-
+import { register } from 'swiper/element/bundle';
+register();
 @Component({
   selector: 'app-swiper',
   templateUrl: './swiper.component.html',
@@ -49,11 +50,13 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
     this.config = Object.assign(
       this.defaultConfig,
       this.content.params,
-      customPagination
+      customPagination,
     );
   }
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      Object.assign(this.swiper.nativeElement, this.config);
+      this.swiper.nativeElement.initialize();
       if (this.navigationSub) {
         this.navigationSub.subscribe((action) => {
           if (action > 0) {
@@ -65,10 +68,6 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-
-  onSwiper(swiper: any): void {}
-
-  onSlideChange(): void {}
 
   onpaginationRender(swiper: any): void {
     if (this.content?.custom?.pagination?.bulletsStyle) {

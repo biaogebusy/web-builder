@@ -54,7 +54,6 @@ import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
     ReqRolesDirective,
     CheckChildMenuActiveDirective,
     ContenteditDirective,
-    SafeHtmlPipe,
   ],
   imports: [
     CommonModule,

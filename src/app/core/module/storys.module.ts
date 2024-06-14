@@ -63,13 +63,6 @@ import { ManageModule } from '@modules/manage/manage.module';
 import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
 import { ThemeService } from '@core/service/theme.service';
 import { FormModule } from '@uiux/combs/form/form.module';
-import { ReqRolesDirective } from '@core/directive/req-roles.directive';
-import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
-import { ContenteditDirective } from '@core/directive/contentedit.directive';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
-
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

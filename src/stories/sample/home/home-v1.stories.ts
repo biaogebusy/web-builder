@@ -18,6 +18,7 @@ import { home_v1 } from '@stories/sample/home/data/home_v1';
 import { importProvidersFrom } from '@angular/core';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { MatIconModule } from '@angular/material/icon';
 
 const meta: Meta<BlockComponent> = {
   title: '示例页面/首页示例/01 经典布局',
@@ -33,6 +34,7 @@ const meta: Meta<BlockComponent> = {
         ReqRolesDirective,
         SafeHtmlPipe,
       ],
+      imports: [MatIconModule],
       providers: [
         {
           provide: BRANDING,

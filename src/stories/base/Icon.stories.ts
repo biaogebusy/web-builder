@@ -8,6 +8,7 @@ import {
   StoryObj,
   applicationConfig,
 } from '@storybook/angular';
+import { MatIconModule } from '@angular/material/icon';
 
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
@@ -19,8 +20,10 @@ const meta: Meta<IconComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
+
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
+      imports: [MatIconModule],
     }),
     componentWrapperDecorator(
       (story) => `<div class="widget relative p-x-md p-y-md">${story}</div>`,

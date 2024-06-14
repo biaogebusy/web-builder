@@ -12,6 +12,12 @@ const config: StorybookConfig = {
     options: {},
   },
   logLevel: 'debug',
-  staticDirs: [{ from: '../src/assets', to: '/assets' }],
+  staticDirs: [
+    { from: '../src/assets', to: '/assets' },
+    {
+      from: '../node_modules/@mdi/angular-material/mdi.svg',
+      to: '/assets/mdi.svg',
+    },
+  ],
 };
 export default config;

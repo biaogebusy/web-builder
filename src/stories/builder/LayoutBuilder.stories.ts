@@ -1,20 +1,31 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
-import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
-import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { LayoutBuilderComponent } from '@modules/builder/layout-builder/layout-builder.component';
+import { importProvidersFrom } from '@angular/core';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 const meta: Meta<LayoutBuilderComponent> = {
   title: '低代码/Layout builder/示例',
   id: 'layoutBuilder',
   component: LayoutBuilderComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [BuilderModule, RenderModule, StorysModule.forRoot()],
+      declarations: [
+        ...StorysModule.forEntryComponents(),
+        SafeHtmlPipe,
+        ReqRolesDirective,
+      ],
       providers: [
         {
           provide: IS_BUILDER_MODE,

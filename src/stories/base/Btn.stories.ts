@@ -5,12 +5,9 @@ import {
   applicationConfig,
   moduleMetadata,
 } from '@storybook/angular';
-import { HttpClientModule } from '@angular/common/http';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { importProvidersFrom } from '@angular/core';
-import { LocalStorageService } from 'ngx-webstorage';
-import { CommonModule } from '@angular/common';
 import { StorysModule } from '@core/module/storys.module';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { MatButton } from '@angular/material/button';

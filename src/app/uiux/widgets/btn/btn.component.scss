@@ -17,6 +17,9 @@
       align-items: center;
     }
   }
+  &.mat-primary.mdc-button--raised {
+    color: #fff;
+  }
 }
 ::ng-deep {
   .mat-mdc-menu-content {
