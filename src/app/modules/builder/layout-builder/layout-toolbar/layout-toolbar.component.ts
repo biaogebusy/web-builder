@@ -28,7 +28,7 @@ export class LayoutToolbarComponent implements OnInit {
   constructor(
     private util: UtilitiesService,
     private builder: BuilderState,
-    private builderService: BuilderService
+    private builderService: BuilderService,
   ) {}
 
   ngOnInit(): void {}
@@ -37,7 +37,7 @@ export class LayoutToolbarComponent implements OnInit {
     direction: 'left' | 'right',
     lists: any[],
     event: any,
-    index: number
+    index: number,
   ): void {
     const elements = cloneDeep(lists);
     const path = this.util.generatePath(event.target);
@@ -75,7 +75,7 @@ export class LayoutToolbarComponent implements OnInit {
       mode: 'push',
       hasBackdrop: false,
       style: {
-        width: '260px',
+        width: '318px',
       },
       elements: [layoutSetting],
     });

@@ -3,42 +3,25 @@
     h2.title-header {
       text-transform: capitalize;
     }
-    .mat-form-field-appearance-legacy {
-      &.mat-form-field-type-slider {
-        /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-        .mat-form-field-wrapper {
-          margin-bottom: 0;
-          padding-bottom: 0;
-        }
-      }
-    }
     input.mat-mdc-input-element,
     .mat-mdc-form-field {
       font-size: 15px;
     }
-    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-    .mat-form-field-infix {
-      width: auto;
-      /* TODO(mdc-migration): The following rule targets internal classes of slider that may no longer apply for the MDC version. */
-      .mat-slider-horizontal {
-        min-width: 80px;
-      }
-    }
+
     .none-description {
       font-size: 14px;
       padding: 12px;
       border-radius: 4px;
       opacity: 0.7;
     }
-    /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
-    /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
-    .mat-tab-labels {
+
+    .mat-mdc-tab-labels {
       width: 220px;
       justify-content: center;
-      /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
-      .mat-tab-label {
-        flex: 0 1 auto;
+      .mat-mdc-tab {
+        min-width: auto;
+        padding-right: 10px;
+        padding-left: 10px;
       }
     }
   }

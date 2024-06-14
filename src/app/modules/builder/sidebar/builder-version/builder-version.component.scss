@@ -7,10 +7,10 @@
         display: block;
       }
     }
-    ::ng-deep {
-      /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
-      .mat-list-item-content {
-        padding: 0;
+    &.mdc-list-item--with-leading-icon {
+      .mdc-list-item__start {
+        margin-left: 0px;
+        margin-right: 10px;
       }
     }
     .mat-line {
