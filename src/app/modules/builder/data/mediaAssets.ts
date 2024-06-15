@@ -9,7 +9,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/1-3.jpg',
       },
     },
@@ -22,7 +22,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/1-6.jpg',
       },
     },
@@ -35,7 +35,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/182.jpg',
       },
     },
@@ -48,7 +48,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/219.jpg',
       },
     },
@@ -61,7 +61,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/329.jpg',
       },
     },
@@ -74,7 +74,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/bg-pattern-hero.png',
       },
     },
@@ -87,7 +87,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/bg01.jpg',
       },
     },
@@ -100,7 +100,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/bg02.jpg',
       },
     },
@@ -113,7 +113,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/bg03.jpg',
       },
     },
@@ -126,7 +126,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/bg05.jpg',
       },
     },
@@ -139,7 +139,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/hero-1-v2-3.jpeg',
       },
     },
@@ -152,7 +152,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/hero-1-v2-4.jpeg',
       },
     },
@@ -165,7 +165,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/hero-component.svg',
       },
     },
@@ -178,7 +178,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/hero/light-bg.jpeg',
       },
     },
@@ -191,7 +191,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/bg/bg-01.png',
       },
     },
@@ -204,7 +204,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/bg/bg-02.png',
       },
     },
@@ -217,7 +217,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/bg/bg-03.jpeg',
       },
     },
@@ -230,7 +230,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/bg/bg-03.svg',
       },
     },
@@ -243,7 +243,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/bg/bg-04.png',
       },
     },
@@ -256,7 +256,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/bg/bg-05.svg',
       },
     },
@@ -269,7 +269,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/bg/bg-hero.svg',
       },
     },
@@ -282,7 +282,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/bg/bg.png',
       },
     },
@@ -295,7 +295,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/bg/home-shape.png',
       },
     },
@@ -308,7 +308,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/01.png',
       },
     },
@@ -321,7 +321,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/02.png',
       },
     },
@@ -334,7 +334,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/02.svg',
       },
     },
@@ -347,7 +347,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/03.png',
       },
     },
@@ -360,7 +360,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/04.png',
       },
     },
@@ -373,7 +373,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/07.png',
       },
     },
@@ -386,7 +386,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/07.svg',
       },
     },
@@ -399,7 +399,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/08.png',
       },
     },
@@ -412,7 +412,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/09.png',
       },
     },
@@ -425,7 +425,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/09.svg',
       },
     },
@@ -438,7 +438,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/10.png',
       },
     },
@@ -451,7 +451,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/11.png',
       },
     },
@@ -464,7 +464,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/12.png',
       },
     },
@@ -477,7 +477,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/13.png',
       },
     },
@@ -490,7 +490,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/13.svg',
       },
     },
@@ -503,7 +503,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/14.png',
       },
     },
@@ -516,7 +516,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/15.png',
       },
     },
@@ -529,7 +529,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/15.svg',
       },
     },
@@ -542,7 +542,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/16.png',
       },
     },
@@ -555,7 +555,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/16.svg',
       },
     },
@@ -568,7 +568,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/17.png',
       },
     },
@@ -581,7 +581,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/18.png',
       },
     },
@@ -594,7 +594,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/19.png',
       },
     },
@@ -607,7 +607,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/19.svg',
       },
     },
@@ -620,7 +620,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/20.png',
       },
     },
@@ -633,7 +633,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/20.svg',
       },
     },
@@ -646,7 +646,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/22.png',
       },
     },
@@ -659,7 +659,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/22.svg',
       },
     },
@@ -672,7 +672,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/23.png',
       },
     },
@@ -685,7 +685,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/23.svg',
       },
     },
@@ -698,7 +698,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/24.png',
       },
     },
@@ -711,7 +711,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/25.png',
       },
     },
@@ -724,7 +724,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/27.png',
       },
     },
@@ -737,7 +737,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/28.png',
       },
     },
@@ -750,7 +750,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/28.svg',
       },
     },
@@ -763,7 +763,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/29.png',
       },
     },
@@ -776,7 +776,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/30.png',
       },
     },
@@ -789,7 +789,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/31.svg',
       },
     },
@@ -802,7 +802,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/ai.svg',
       },
     },
@@ -815,7 +815,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/graduation-hat.svg',
       },
     },
@@ -828,7 +828,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/illustration/insurance.svg',
       },
     },
@@ -841,7 +841,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/1.jpg',
       },
     },
@@ -854,7 +854,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/2.jpg',
       },
     },
@@ -867,7 +867,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/3.jpg',
       },
     },
@@ -880,7 +880,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/4.jpg',
       },
     },
@@ -893,7 +893,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/5.jpg',
       },
     },
@@ -906,7 +906,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/6.jpg',
       },
     },
@@ -919,7 +919,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/7.jpg',
       },
     },
@@ -932,7 +932,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/8.jpg',
       },
     },
@@ -945,7 +945,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/blog1-large.jpeg',
       },
     },
@@ -958,7 +958,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/blog2-large.jpeg',
       },
     },
@@ -971,7 +971,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/blog3-large.jpeg',
       },
     },
@@ -984,7 +984,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/blog4-large.jpeg',
       },
     },
@@ -997,7 +997,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/blog5-large.jpeg',
       },
     },
@@ -1010,7 +1010,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/blog6-large.jpeg',
       },
     },
@@ -1023,7 +1023,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/pattern-01.png',
       },
     },
@@ -1036,7 +1036,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/pattern-02.png',
       },
     },
@@ -1049,7 +1049,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/showcase/wave.jpg',
       },
     },
@@ -1062,7 +1062,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto1.jpg',
       },
     },
@@ -1075,7 +1075,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto2.jpg',
       },
     },
@@ -1088,7 +1088,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto3.jpg',
       },
     },
@@ -1101,7 +1101,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto4.jpg',
       },
     },
@@ -1114,7 +1114,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto5.jpg',
       },
     },
@@ -1127,7 +1127,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto6.jpg',
       },
     },
@@ -1140,7 +1140,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto7.jpg',
       },
     },
@@ -1153,7 +1153,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto8.jpg',
       },
     },
@@ -1166,7 +1166,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto9.jpg',
       },
     },
@@ -1179,7 +1179,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/cases/porto10.jpg',
       },
     },
@@ -1192,7 +1192,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/avatar/01.jpeg',
       },
     },
@@ -1205,7 +1205,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/avatar/02.jpeg',
       },
     },
@@ -1218,7 +1218,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/avatar/03.jpeg',
       },
     },
@@ -1231,7 +1231,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/avatar/04.jpeg',
       },
     },
@@ -1244,7 +1244,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/avatar/05.jpeg',
       },
     },
@@ -1257,7 +1257,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/avatar/06.jpeg',
       },
     },
@@ -1270,7 +1270,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/avatar/default.png',
       },
     },
@@ -1283,7 +1283,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/avatar/default.svg',
       },
     },
@@ -1296,7 +1296,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/1-1/business-01.png',
       },
     },
@@ -1309,7 +1309,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/1-1/business-02.png',
       },
     },
@@ -1322,7 +1322,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/1-1/business-03.png',
       },
     },
@@ -1335,7 +1335,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/1-1/business-04.png',
       },
     },
@@ -1348,7 +1348,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-01.jpg',
       },
     },
@@ -1361,7 +1361,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-02.jpg',
       },
     },
@@ -1374,7 +1374,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-03.jpg',
       },
     },
@@ -1387,7 +1387,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-05.jpg',
       },
     },
@@ -1400,7 +1400,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-06.jpg',
       },
     },
@@ -1413,7 +1413,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-07.jpg',
       },
     },
@@ -1426,7 +1426,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-08.jpg',
       },
     },
@@ -1439,7 +1439,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-09.jpg',
       },
     },
@@ -1452,7 +1452,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-11.jpg',
       },
     },
@@ -1465,7 +1465,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-12.jpg',
       },
     },
@@ -1478,7 +1478,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-13.jpg',
       },
     },
@@ -1491,7 +1491,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-14.jpeg',
       },
     },
@@ -1504,7 +1504,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-15.jpeg',
       },
     },
@@ -1517,7 +1517,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-16.jpeg',
       },
     },
@@ -1530,7 +1530,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/business-17.jpeg',
       },
     },
@@ -1543,7 +1543,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/f-01.png',
       },
     },
@@ -1556,7 +1556,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/f-02.png',
       },
     },
@@ -1569,7 +1569,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/f-03.png',
       },
     },
@@ -1582,7 +1582,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/f-04.png',
       },
     },
@@ -1595,7 +1595,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/nature-01.jpg',
       },
     },
@@ -1608,7 +1608,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/nature-02.jpg',
       },
     },
@@ -1621,7 +1621,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/nature-03.jpg',
       },
     },
@@ -1634,7 +1634,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/nature-05.jpg',
       },
     },
@@ -1647,7 +1647,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/nature-06.jpg',
       },
     },
@@ -1660,7 +1660,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/nature-07.jpg',
       },
     },
@@ -1673,7 +1673,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/16-9/nature-08.jpg',
       },
     },
@@ -1686,7 +1686,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/spacejoy.jpg',
       },
     },
@@ -1699,7 +1699,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/01.png',
       },
     },
@@ -1712,7 +1712,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/02.png',
       },
     },
@@ -1725,7 +1725,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/03.png',
       },
     },
@@ -1738,7 +1738,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/04.png',
       },
     },
@@ -1751,7 +1751,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/05.png',
       },
     },
@@ -1764,7 +1764,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/06.png',
       },
     },
@@ -1777,7 +1777,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/07.png',
       },
     },
@@ -1790,7 +1790,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/08.png',
       },
     },
@@ -1803,7 +1803,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/09.png',
       },
     },
@@ -1816,7 +1816,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/10.png',
       },
     },
@@ -1829,7 +1829,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/11.png',
       },
     },
@@ -1842,7 +1842,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/furniture/12.png',
       },
     },
@@ -1855,7 +1855,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
       },
     },
@@ -1868,7 +1868,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
       },
     },
@@ -1881,7 +1881,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: 'assets/images/products/huawei-watch-gt4-ios-android-compatible.webp',
       },
     },
@@ -1894,7 +1894,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-01.png',
       },
     },
@@ -1907,7 +1907,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-02.png',
       },
     },
@@ -1920,7 +1920,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-02.png',
       },
     },
@@ -1933,7 +1933,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-03.png',
       },
     },
@@ -1946,7 +1946,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-04.png',
       },
     },
@@ -1959,7 +1959,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-05.png',
       },
     },
@@ -1972,7 +1972,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-06.png',
       },
     },
@@ -1985,7 +1985,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-07.png',
       },
     },
@@ -1998,7 +1998,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-08.png',
       },
     },
@@ -2011,7 +2011,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/builder/builder-09.png',
       },
     },
@@ -2024,7 +2024,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/Asset187.svg',
       },
     },
@@ -2037,7 +2037,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/Asset189.svg',
       },
     },
@@ -2050,7 +2050,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/Asset190.svg',
       },
     },
@@ -2063,7 +2063,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/Asset192.svg',
       },
     },
@@ -2076,7 +2076,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/bike.png',
       },
     },
@@ -2089,7 +2089,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/bike.svg',
       },
     },
@@ -2102,7 +2102,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/calendar.png',
       },
     },
@@ -2115,7 +2115,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/calendar.svg',
       },
     },
@@ -2128,7 +2128,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/car.png',
       },
     },
@@ -2141,7 +2141,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/car.svg',
       },
     },
@@ -2154,7 +2154,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/family-health.png',
       },
     },
@@ -2167,7 +2167,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/family-health.svg',
       },
     },
@@ -2180,7 +2180,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/health.png',
       },
     },
@@ -2193,7 +2193,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/health.svg',
       },
     },
@@ -2206,7 +2206,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/investment.png',
       },
     },
@@ -2219,7 +2219,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/investment.svg',
       },
     },
@@ -2232,7 +2232,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/monday-com.webp',
       },
     },
@@ -2245,7 +2245,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/sand-clock.svg',
       },
     },
@@ -2258,7 +2258,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/sand-clock.svg',
       },
     },
@@ -2271,7 +2271,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/storybook-mock-ui.svg',
       },
     },
@@ -2284,7 +2284,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/term-life.png',
       },
     },
@@ -2297,7 +2297,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/term-life.svg',
       },
     },
@@ -2310,7 +2310,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/time-frame-overview.svg',
       },
     },
@@ -2323,7 +2323,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/user.png',
       },
     },
@@ -2336,7 +2336,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/svg/vscode.svg',
       },
     },
@@ -2349,7 +2349,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo.png',
       },
     },
@@ -2362,7 +2362,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/amazon.svg',
       },
     },
@@ -2375,7 +2375,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/codepen.svg',
       },
     },
@@ -2388,7 +2388,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/google.svg',
       },
     },
@@ -2401,7 +2401,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/lenovo.svg',
       },
     },
@@ -2414,7 +2414,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo_default.png',
       },
     },
@@ -2427,7 +2427,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo-blue-storybook.png',
       },
     },
@@ -2440,7 +2440,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo-blue.png',
       },
     },
@@ -2453,7 +2453,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo-white.png',
       },
     },
@@ -2466,7 +2466,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo7.png',
       },
     },
@@ -2479,7 +2479,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo9.png',
       },
     },
@@ -2492,7 +2492,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo10.png',
       },
     },
@@ -2505,7 +2505,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo11.png',
       },
     },
@@ -2518,7 +2518,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/logo12.png',
       },
     },
@@ -2531,7 +2531,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/paypal.svg',
       },
     },
@@ -2544,7 +2544,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/shopify.svg',
       },
     },
@@ -2557,7 +2557,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/logo/spotify.svg',
       },
     },
@@ -2570,7 +2570,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/follower-01.jpg',
       },
     },
@@ -2583,7 +2583,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/follower-02.jpg',
       },
     },
@@ -2596,7 +2596,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/follower-03.jpg',
       },
     },
@@ -2609,7 +2609,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/follower-04.jpg',
       },
     },
@@ -2622,7 +2622,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/follower-05.jpg',
       },
     },
@@ -2635,7 +2635,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/follower-06.jpg',
       },
     },
@@ -2648,7 +2648,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/follower-07.jpg',
       },
     },
@@ -2661,7 +2661,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/mobile-01.jpg',
       },
     },
@@ -2674,7 +2674,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/mobile-02.jpg',
       },
     },
@@ -2687,7 +2687,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/mobile-03.jpg',
       },
     },
@@ -2700,7 +2700,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/mobile/mobile-04.jpg',
       },
     },
@@ -2713,7 +2713,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/404.svg',
       },
     },
@@ -2726,7 +2726,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/default.png',
       },
     },
@@ -2739,7 +2739,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/favicon.png',
       },
     },
@@ -2752,7 +2752,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/map.png',
       },
     },
@@ -2765,7 +2765,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/qrcode-official.jpg',
       },
     },
@@ -2778,7 +2778,7 @@ export const mediaAssets = {
       mode: 'float',
       hoverIcon: true,
       img: {
-        classes: 'object-contain',
+        classes: 'object-cover',
         src: '/assets/images/wechat.jpg',
       },
     },

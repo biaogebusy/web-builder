@@ -240,11 +240,11 @@ const components = [
         { name: 'repeat', component: RepeatTypeComponent },
         { name: 'tabs', component: TabsTypeComponent },
         { name: 'img-picker', component: ImgPickerComponent },
-        // {
-        //   name: 'slider',
-        //   component: SliderComponent,
-        //   wrappers: ['form-field'],
-        // },
+        {
+          name: 'slider',
+          component: SliderComponent,
+          wrappers: ['form-field'],
+        },
       ],
       validationMessages: [
         { name: 'required', message: '该字段必填' },

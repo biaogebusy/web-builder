@@ -1,4 +1,5 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
+
 @mixin layout-setting($theme) {
   $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
@@ -7,6 +8,10 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
   .layout-setting {
+    .mat-mdc-tab-header {
+      background-color: mat.get-color-from-palette($background, background);
+    }
+
     .none-description {
       background-color: mat.get-color-from-palette($warn, 0.1);
       border-left: 4px solid mat.get-color-from-palette($warn);

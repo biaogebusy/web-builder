@@ -60,12 +60,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
             },
             fieldGroup: [
               {
-                fieldGroupClassName: 'section-group',
+                fieldGroupClassName: 'grid grid-cols-12 gap-3',
                 fieldGroup: [
                   {
                     key: 'x',
                     type: 'input',
-                    className: 'w-2/5 mr-3',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.x ?? 0,
                     props: {
                       label: '水平位移',
@@ -78,7 +78,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'y',
                     type: 'input',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.y ?? 0,
                     props: {
                       label: '垂直位移',
@@ -91,12 +91,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 ],
               },
               {
-                fieldGroupClassName: 'section-group',
+                fieldGroupClassName: 'grid grid-cols-12 gap-3',
                 fieldGroup: [
                   {
                     key: 'rotationX',
                     type: 'input',
-                    className: 'w-2/5 mr-3',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.rotationX ?? 0,
                     props: {
                       label: '水平旋转',
@@ -109,7 +109,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'rotationY',
                     type: 'input',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.rotationY ?? 0,
                     props: {
                       label: '垂直旋转',
@@ -122,12 +122,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 ],
               },
               {
-                fieldGroupClassName: 'section-group',
+                fieldGroupClassName: 'grid grid-cols-12 gap-3',
                 fieldGroup: [
                   {
                     key: 'scaleX',
                     type: 'input',
-                    className: 'w-2/5 mr-3',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.scaleX ?? 1,
                     props: {
                       label: '水平缩放',
@@ -140,7 +140,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'scaleY',
                     type: 'input',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.scaleY ?? 1,
                     props: {
                       label: '垂直缩放',
@@ -153,12 +153,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 ],
               },
               {
-                fieldGroupClassName: 'section-group',
+                fieldGroupClassName: 'grid grid-cols-12 gap-3',
                 fieldGroup: [
                   {
                     key: 'skewX',
                     type: 'input',
-                    className: 'w-2/5 mr-3',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.skewX ?? 0,
                     props: {
                       label: 'skewX',
@@ -171,7 +171,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'skewY',
                     type: 'input',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.skewY ?? 0,
                     props: {
                       label: 'skewY',
@@ -184,12 +184,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 ],
               },
               {
-                fieldGroupClassName: 'section-group',
+                fieldGroupClassName: 'grid grid-cols-12 gap-3',
                 fieldGroup: [
                   {
                     key: 'opacity',
                     type: 'input',
-                    className: 'w-2/5 mr-3',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.opacity ?? 1,
                     props: {
                       label: '不透明度',
@@ -202,7 +202,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'delay',
                     type: 'input',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.delay ?? 0,
                     props: {
                       label: '延迟',
@@ -215,7 +215,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'duration',
                     type: 'input',
-                    className: 'w-2/5 mr-3',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.from?.duration ?? 1,
                     props: {
                       label: '时长',
@@ -229,7 +229,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'ease',
                     defaultValue: content?.animate?.from?.ease ?? 'none',
                     type: 'select',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     props: {
                       label: '缓动曲线',
                       options: [
@@ -268,12 +268,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
             },
             fieldGroup: [
               {
-                fieldGroupClassName: 'section-group',
+                fieldGroupClassName: 'grid grid-cols-12 gap-3',
                 fieldGroup: [
                   {
                     key: 'onEnter',
                     type: 'select',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.trigger?.onEnter ?? 'play',
                     props: {
                       label: '元素进入视线',
@@ -283,7 +283,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'onLeave',
                     type: 'select',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.trigger?.onLeave ?? 'none',
                     props: {
                       label: '元素离开视线',
@@ -293,7 +293,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'onEnterBack',
                     type: 'select',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue:
                       content?.animate?.trigger?.onEnterBack ?? 'none',
                     props: {
@@ -304,7 +304,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'onLeaveBack',
                     type: 'select',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue:
                       content?.animate?.trigger?.onLeaveBack ?? 'none',
                     props: {
@@ -315,12 +315,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 ],
               },
               {
-                fieldGroupClassName: 'section-group',
+                fieldGroupClassName: 'grid grid-cols-12 gap-3',
                 fieldGroup: [
                   {
                     key: 'start',
                     type: 'input',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.trigger?.start ?? 'top 90%',
                     props: {
                       label: '触发开始位置',
@@ -329,7 +329,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                   {
                     key: 'end',
                     type: 'input',
-                    className: 'w-2/5',
+                    className: 'col-span-6',
                     defaultValue: content?.animate?.trigger?.end ?? 'top 40%',
                     props: {
                       label: '触发结束位置',

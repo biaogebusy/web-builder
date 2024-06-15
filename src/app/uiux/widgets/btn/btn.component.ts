@@ -16,12 +16,12 @@ import { RouteService } from '@core/service/route.service';
 })
 export class BtnComponent implements OnInit {
   @Input() content: IBtn;
+  routService = inject(RouteService);
   constructor() {}
 
   ngOnInit(): void {}
 
   onNav(event: any, content: any): void {
-    const routService = inject(RouteService);
-    routService.toNavigate(event, content);
+    this.routService.toNavigate(event, content);
   }
 }

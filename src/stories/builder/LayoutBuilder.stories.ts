@@ -1779,8 +1779,8 @@ Section2A.args = {
         row: {
           xs: 12,
           sm: 12,
-          md: 6,
-          lg: 6,
+          md: 12,
+          lg: 12,
         },
         horizontal: 'center',
         vertical: 'center',
@@ -1800,6 +1800,7 @@ Section2A.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
+        blockClasses: '',
         style: {
           borderRadius: 'none',
           paddingTop: '0px',
@@ -1831,20 +1832,20 @@ Section2A.args = {
             end: 'top 40%',
           },
         },
-
         elements: [
           {
             type: 'img',
             hostClasses: 'text-center',
             classes: '',
-            src: '/assets/images/illustration/09.png',
+            src: 'http://localhost:4200/assets/images/illustration/09.png',
             alt: 'alt',
             style: {
               width: 'auto',
               height: 'auto',
-              opacity: 1,
-              borderRadius: 0,
+              opacity: '1',
+              borderRadius: '0px',
               boxShadow: 'none',
+              aspectRatio: 'auto',
               objectFit: 'initial',
             },
           },
@@ -1891,10 +1892,11 @@ Section2A.args = {
         row: {
           xs: 12,
           sm: 12,
-          md: 6,
-          lg: 6,
+          md: 12,
+          lg: 12,
         },
-
+        horizontal: 'center',
+        vertical: 'center',
         gap: {
           xs: 0,
           sm: 0,
@@ -1911,6 +1913,7 @@ Section2A.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
+        blockClasses: '',
         style: {
           borderRadius: 'none',
         },
@@ -1934,8 +1937,6 @@ Section2A.args = {
             end: 'top 40%',
           },
         },
-        horizontal: 'center',
-        vertical: 'center',
         elements: [
           {
             spacer: 'none',
@@ -1973,8 +1974,8 @@ Section2A.args = {
           md: 12,
           lg: 12,
         },
-        horizontal: 'start',
-        vertical: 'stretch',
+        horizontal: 'center',
+        vertical: 'center',
         elements: [
           {
             type: 'btn',
@@ -2867,14 +2868,19 @@ Section4A.args = {
     bg: {
       img: {
         src: '/assets/images/bg/bg-02.png',
-        classes: 'object-fit',
         alt: 'bg-02',
+        classes: 'object-fit',
       },
       classes: 'bg- bg-fill-width',
       overlay: '',
     },
     horizontal: 'center',
     vertical: 'center',
+    gap: {
+      xs: '5',
+    },
+    wrapperClass: '',
+    alignItems: 'center',
     animate: {
       from: {
         x: 0,
@@ -2956,19 +2962,21 @@ Section4A.args = {
         },
         elements: [
           {
+            horizontal: 'center',
+            vertical: 'center',
+            gap: {
+              xs: '4',
+              sm: '4',
+              md: '5',
+              lg: '5',
+            },
+            wrapperClass: '',
+            spacer: 'md',
             row: {
               xs: 12,
               sm: 12,
               md: 12,
               lg: 12,
-            },
-            horizontal: 'center',
-            vertical: 'center',
-            gap: {
-              xs: 0,
-              sm: 0,
-              md: 0,
-              lg: 0,
             },
             bg: {
               img: {
@@ -3013,7 +3021,6 @@ Section4A.args = {
               marginLeft: '0px',
             },
             type: 'layout-builder',
-            spacer: 'md',
             fullWidth: false,
             elements: [
               {
@@ -3041,7 +3048,7 @@ Section4A.args = {
                   classes: 'bg-fill-width',
                 },
                 classes: '',
-                blockClasses: 'p-5',
+                blockClasses: '',
                 animate: {
                   from: {
                     x: 0,
@@ -3175,7 +3182,7 @@ Section4A.args = {
                   xs: 5,
                   sm: 5,
                   md: 5,
-                  lg: 11,
+                  lg: 8,
                 },
                 bg: {
                   img: {
@@ -3187,7 +3194,7 @@ Section4A.args = {
                   classes: 'bg-fill-width',
                 },
                 classes: '',
-                blockClasses: 'p-5',
+                blockClasses: '',
                 animate: {
                   from: {
                     x: 0,
@@ -3309,8 +3316,9 @@ Section4A.args = {
           md: 6,
           lg: 5,
         },
-        horizontal: 'start',
-        vertical: 'stretch',
+        horizontal: 'center',
+        vertical: 'start',
+        alignItems: 'center',
         gap: {
           xs: '4',
           sm: '4',
@@ -3327,7 +3335,7 @@ Section4A.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
-        blockClasses: 'p-5',
+        blockClasses: '',
         style: {
           borderRadius: 'none',
           paddingTop: '0px',

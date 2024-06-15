@@ -3,14 +3,10 @@
     <mat-drawer mode="side" [opened]="true">
       <div
         class="sidebar flex flex-col"
-        [ngClass]="{ 'from-static': model.fromStatic }"
+        [class]="{ 'from-static': model.fromStatic }"
       >
-        <mat-slider
-          [(ngModel)]="coreConfig.manageMedia.row"
-          max="7"
-          min="4"
-          step="1"
-          ><input />
+        <mat-slider class="overflow-hidden" max="7" min="4" step="1"
+          ><input matSliderThumb [(ngModel)]="coreConfig.manageMedia.row" />
         </mat-slider>
         <app-formly
           *ngIf="coreConfig.manageMedia.sidebar.form"
@@ -47,7 +43,7 @@
                   [content]="{
                     label: '',
                     mode: 'icon',
-                    icon: { svg: 'delete' }
+                    icon: { svg: 'delete' },
                   }"
                 ></app-btn>
               </div>

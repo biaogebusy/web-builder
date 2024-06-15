@@ -8,21 +8,15 @@
       font-size: 15px;
     }
 
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: transparent;
+    }
+
     .none-description {
       font-size: 14px;
       padding: 12px;
       border-radius: 4px;
       opacity: 0.7;
-    }
-
-    .mat-mdc-tab-labels {
-      width: 220px;
-      justify-content: center;
-      .mat-mdc-tab {
-        min-width: auto;
-        padding-right: 10px;
-        padding-left: 10px;
-      }
     }
   }
   .mat-mdc-list-item {
