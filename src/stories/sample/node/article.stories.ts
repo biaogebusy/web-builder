@@ -32,11 +32,6 @@ const meta: Meta<ArticleComponent> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator(
-      (story) => `
-      <app-dynamic-component [inputs]="content"></app-dynamic-component>
-    `,
-    ),
   ],
   parameters: {
     docs: {
@@ -162,7 +157,6 @@ const comment = {
       label: '下载',
       icon: {
         name: 'file_download',
-        inline: true,
       },
       elements: [
         {

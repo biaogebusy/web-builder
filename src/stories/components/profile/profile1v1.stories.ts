@@ -1,4 +1,9 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
@@ -6,16 +11,18 @@ import * as MediaObjectGroupStories from 'src/stories/widgets/media/MediaObjectG
 import { StorysModule } from '@core/module/storys.module';
 import { IProfile1v1 } from '@core/interface/combs/IProfile';
 import { comments } from '@stories/sample/node/comments.json';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<Profile1v1Component> = {
   title: '示例页面/资料简介',
   id: 'profile-1v1',
   component: Profile1v1Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

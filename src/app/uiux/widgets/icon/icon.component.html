@@ -3,7 +3,7 @@
     [ngStyle]="content.style"
     [color]="content.color"
     *ngIf="!content.svg"
-    [inline]="content.inline"
+    [inline]="content.inline ?? false"
     [fontIcon]="content.name || ''"
   ></mat-icon>
   <mat-icon
@@ -11,7 +11,7 @@
     class="custom"
     [color]="content.color"
     *ngIf="content.svg"
-    [inline]="content.inline"
+    [inline]="content.inline ?? false"
     [svgIcon]="content.svg"
   ></mat-icon>
   <ng-content></ng-content>

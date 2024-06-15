@@ -264,8 +264,7 @@
     "download": {
       "label": "下载",
       "icon": {
-        "name": "file_download",
-        "inline": true
+        "name": "file_download"
       },
       "enable": true
     }

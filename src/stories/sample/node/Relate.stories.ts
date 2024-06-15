@@ -30,13 +30,10 @@ const meta: Meta<RelateComponent> = {
     moduleMetadata({
       declarations: [
         ...StorysModule.forEntryComponents(),
-        ReqRolesDirective,
         SafeHtmlPipe,
-        MatProgressBar,
         SummaryItemComponent,
       ],
     }),
-    componentWrapperDecorator((story) => `${story}`),
   ],
   parameters: {
     docs: {

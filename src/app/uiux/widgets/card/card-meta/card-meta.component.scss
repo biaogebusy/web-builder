@@ -37,8 +37,4 @@
   width: auto;
   height: 20px;
   line-height: 16px;
-  /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
-  ::ng-deep .mat-button-wrapper {
-    line-height: 16px;
-  }
 }

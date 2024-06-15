@@ -5,10 +5,6 @@
   min-height: calc(100vh - 76px);
 
   ::ng-deep {
-    /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
-    .mat-tab-label {
-      min-width: auto !important;
-    }
     .layout-toolbar,
     .block-toolbar {
       display: none !important;

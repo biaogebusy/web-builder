@@ -2,10 +2,10 @@
   margin-right: 5px;
 }
 
-:host {
+.mat-mdc-menu-item {
   ::ng-deep {
-    .mat-badge-content {
-      font-weight: normal;
+    .mat-mdc-menu-item-text {
+      display: flex;
     }
   }
 }

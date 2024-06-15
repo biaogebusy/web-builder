@@ -6,20 +6,22 @@
     <div mat-subheader class="bold">{{ menu.label }}</div>
     <ng-container *ngFor="let subMenu of menu.child; index as i">
       <mat-list-item *ngIf="!subMenu.popup; else popup" role="listitem">
-        <mat-icon
+        <app-icon
+          class="!mr-3"
           *ngIf="subMenu.icon"
           matListItemIcon
-          svgIcon="{{ subMenu.icon }}"
-        ></mat-icon>
+          [content]="subMenu.icon"
+        ></app-icon>
         <app-link [content]="subMenu"></app-link>
       </mat-list-item>
       <ng-template #popup>
         <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
-          <mat-icon
+          <app-icon
+            class="!mr-3"
             *ngIf="subMenu.icon"
             matListItemIcon
-            svgIcon="{{ subMenu.icon }}"
-          ></mat-icon>
+            [content]="subMenu.icon"
+          ></app-icon>
           <span>{{ subMenu.label }}</span>
           <mat-menu #popup="matMenu" yPosition="above">
             <span [innerHTML]="subMenu.popup | safeHtml"></span>

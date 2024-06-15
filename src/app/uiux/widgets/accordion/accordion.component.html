@@ -4,17 +4,36 @@
       <ng-container *reqRolesIf="item">
         <mat-list class="no-child" *ngIf="!item.child" checkChildMenuActive>
           <mat-list-item>
-            <app-icon [class]="'icon pr-[10px]'" *ngIf="item.icon" [content]="item.icon"></app-icon>
+            <app-icon
+              matListItemIcon
+              class="!mr-3"
+              *ngIf="item.icon"
+              [content]="item.icon"
+            ></app-icon>
             <app-link [content]="item"></app-link>
           </mat-list-item>
         </mat-list>
-        <mat-expansion-panel checkChildMenuActive [expanded]="item.expanded" *ngIf="item.child"
-          (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel
+          checkChildMenuActive
+          [expanded]="item.expanded"
+          *ngIf="item.child"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
           <mat-expansion-panel-header>
-            <mat-panel-title *ngIf="!item.href" [ngClass]="item.classes||''">
-              <app-icon class="icon pr-[10px]" *ngIf="item.icon" [content]="item.icon"></app-icon>{{item.label}}
+            <mat-panel-title *ngIf="!item.href" [ngClass]="item.classes || ''">
+              <app-icon
+                class="!mr-3"
+                *ngIf="item.icon"
+                [content]="item.icon"
+              ></app-icon
+              >{{ item.label }}
             </mat-panel-title>
-            <app-link *ngIf="item.href" [ngClass]="item.classes||''" [content]="item"></app-link>
+            <app-link
+              *ngIf="item.href"
+              [ngClass]="item.classes || ''"
+              [content]="item"
+            ></app-link>
           </mat-expansion-panel-header>
           <app-accordion [content]="item.child"></app-accordion>
         </mat-expansion-panel>

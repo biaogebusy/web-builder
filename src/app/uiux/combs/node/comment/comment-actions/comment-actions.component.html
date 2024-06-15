@@ -1,10 +1,6 @@
 <div class="actions">
   <ng-container *ngIf="!config?.actions; else configActions">
-    <div
-      class="m-top-sm"
-      ngClass.gt-sm="m-left p-left-xs"
-      fxLayoutAlign="start center"
-    >
+    <div class="flex items-start mt-5 md:ml-5 pl-3">
       <button *ngIf="isMy()" mat-button color="primary" (click)="onUpdate()">
         <mat-icon inline="true">editor</mat-icon> 修改
       </button>
@@ -30,7 +26,7 @@
         color="primary"
         (click)="onDelete(item.id)"
       >
-        <div fxLayoutAlign="center center">
+        <div class="flex justify-center items-center">
           <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
           <mat-icon inline="true" *ngIf="!loading">delete</mat-icon> 删除
         </div>
@@ -39,11 +35,7 @@
   </ng-container>
 
   <ng-template #configActions>
-    <div
-      class="m-top-sm"
-      ngClass.gt-sm="m-left p-left-xs"
-      fxLayoutAlign="start center"
-    >
+    <div class="mt-5 flex items-start md:ml-5 pl-3">
       <ng-container *ngFor="let action of config.actions">
         <ng-container [ngSwitch]="action">
           <ng-container *ngSwitchCase="'update'">
@@ -83,7 +75,7 @@
               color="primary"
               (click)="onDelete(item.id)"
             >
-              <div fxLayoutAlign="center center">
+              <div class="flex justify-center items-center">
                 <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
                 <mat-icon inline="true" *ngIf="!loading">delete</mat-icon> 删除
               </div>

@@ -1,5 +1,8 @@
 <div class="profile-banner relative">
-  <app-bg-img *ngIf="content.bannerBg" [content]="content.bannerBg"></app-bg-img>
+  <app-bg-img
+    *ngIf="content.bannerBg"
+    [content]="content.bannerBg"
+  ></app-bg-img>
 </div>
 <div class="profile-1v1 relative m-y">
   <div class="container">
@@ -7,10 +10,16 @@
       <div class="left m-bottom col-span-12 md:col-span-3">
         <div class="box p-y-sm p-x text-center">
           <app-img [content]="avatar"></app-img>
-          <h2 class="mat-h2 m-bottom-0 m-top-xs two-line">{{content.name}}</h2>
-          <div class="subTitle">{{content.subTitle}}</div>
+          <h2 class="mat-h2 m-bottom-0 m-top-xs two-line">
+            {{ content.name }}
+          </h2>
+          <div class="subTitle">{{ content.subTitle }}</div>
           <div class="actions" *ngIf="content.actions">
-            <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
+            <button
+              mat-icon-button
+              aria-label="menu"
+              [matMenuTriggerFor]="menu"
+            >
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="actions-menu">
@@ -23,15 +32,17 @@
         </div>
         <mat-divider></mat-divider>
         <div class="left-item p-y-sm p-x-xs" *ngIf="content?.details">
-          <app-title [content]="{
-            'label':content.details.label,
-            'style':'style-v4'
-          }"></app-title>
+          <app-title
+            [content]="{
+              label: content.details.label,
+              style: 'style-v4',
+            }"
+          ></app-title>
           <div class="list">
-            <div fxLayoutAlign="start start" *ngFor="let item of content.details.elements">
+            <div class="flex" *ngFor="let item of content.details.elements">
               <app-icon [content]="item.icon"></app-icon>
-              <div class="label m-right-xs bold">{{item.label}}:</div>
-              <div class="one-line">{{item.content}}</div>
+              <div class="label m-right-xs bold">{{ item.label }}:</div>
+              <div class="one-line">{{ item.content }}</div>
             </div>
           </div>
         </div>
@@ -48,19 +59,27 @@
         <div class="content">
           <div class="item m-bottom" *ngFor="let item of content.content">
             <ng-container *ngIf="!(item.empty && item.empty === true)">
-              <app-title [content]="{
-                'label':item.label,
-                'style':'style-v4'
-              }"></app-title>
+              <app-title
+                [content]="{
+                  label: item.label,
+                  style: 'style-v4',
+                }"
+              ></app-title>
               <app-dynamic-component [inputs]="item"></app-dynamic-component>
             </ng-container>
           </div>
         </div>
       </div>
     </div>
-    <div class="comment-wrapper" *ngIf="content?.params?.comment" ngClass.gt-sm="m-y-sm p-y p-x"
-      ngClass.lt-md="m-y-xs p-y-xs p-x-xs">
-      <app-comment-form *ngIf="content?.params?.comment" [content]="content" [type]="'add'">
+    <div
+      class="comment-wrapper my-3 p-3 md:my-5 md:p-5"
+      *ngIf="content?.params?.comment"
+    >
+      <app-comment-form
+        *ngIf="content?.params?.comment"
+        [content]="content"
+        [type]="'add'"
+      >
       </app-comment-form>
       <app-comment-list [comments]="comments" [content]="content">
       </app-comment-list>

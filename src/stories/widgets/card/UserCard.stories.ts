@@ -83,7 +83,6 @@ const content: IUserCard = {
       digit: {
         value: 100,
         from: 0,
-        duration: 2,
         style: {
           color: 'red',
         },
@@ -94,7 +93,6 @@ const content: IUserCard = {
       digit: {
         value: 55,
         from: 0,
-        duration: 2,
       },
       title: '回复',
     },
@@ -102,7 +100,6 @@ const content: IUserCard = {
       digit: {
         value: 12,
         from: 0,
-        duration: 2,
       },
       title: '审批',
     },
