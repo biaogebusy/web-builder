@@ -1,4 +1,4 @@
-import { Title } from '@angular/platform-browser';
+import { Title, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, NgModule, Inject } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
@@ -71,6 +71,7 @@ import { CookieService } from 'ngx-cookie-service';
     Title,
     httpInterceptorProviders,
     CookieService,
+    provideClientHydration(),
     {
       provide: CORE_CONFIG,
       useValue: {},

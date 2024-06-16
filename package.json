@@ -42,7 +42,7 @@
     "@fullcalendar/list": "^6.1.13",
     "@fullcalendar/timegrid": "^6.1.13",
     "@mdi/angular-material": "^7.0.96",
-    "@nguniversal/express-engine": "^14.2.3",
+    "@nguniversal/express-engine": "^16.2.0",
     "@ngx-formly/core": "^6.3.2",
     "@ngx-formly/material": "^6.3.2",
     "@ngx-loading-bar/core": "^6.0.2",
