@@ -52,6 +52,7 @@
     "ang-jsoneditor": "^3.1.1",
     "angulartics2": "^13.1.0",
     "crypto-js": "^4.1.1",
+    "domino": "^2.1.6",
     "dompurify": "^3.1.0",
     "drupal-jsonapi-params": "^2.3.1",
     "echarts": "^5.0.2",
