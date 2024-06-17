@@ -6,9 +6,9 @@ import {
   Input,
 } from '@angular/core';
 import type { ICustomTemplate } from '@core/interface/IBuilder';
-import Handlebars from 'handlebars';
 import DOMPurify from 'dompurify';
 import { NodeService } from '@core/service/node.service';
+import * as Mustache from 'mustache';
 
 @Component({
   selector: 'app-custom-template',
@@ -19,7 +19,10 @@ import { NodeService } from '@core/service/node.service';
 export class CustomTemplateComponent implements AfterViewInit {
   @Input() content: ICustomTemplate;
 
-  constructor(private ele: ElementRef, private nodeService: NodeService) {}
+  constructor(
+    private ele: ElementRef,
+    private nodeService: NodeService,
+  ) {}
 
   ngAfterViewInit(): void {
     this.render(this.content);
@@ -39,8 +42,6 @@ export class CustomTemplateComponent implements AfterViewInit {
 
   renderView(content: any, parent: Element, html: string): void {
     const sanitized = DOMPurify.sanitize(html);
-    const template = Handlebars.compile(sanitized);
-    const component = template(content);
-    parent.innerHTML = component;
+    parent.innerHTML = Mustache.render(sanitized, content);
   }
 }

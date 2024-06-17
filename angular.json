@@ -86,8 +86,7 @@
               "jspdf-autotable",
               "jsoneditor",
               "quill",
-              "dompurify",
-              "handlebars"
+              "dompurify"
             ],
             "vendorChunk": true,
             "extractLicenses": false,
