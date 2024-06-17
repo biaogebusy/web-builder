@@ -21,7 +21,7 @@ const meta: Meta<Showcase3v3Component> = {
     }),
     componentWrapperDecorator(
       (story) => `
-      <div fxFlex.gt-sm="60" fxFlexOffset.gt-sm="20">
+      <div>
       ${story}
       </div>
     `,

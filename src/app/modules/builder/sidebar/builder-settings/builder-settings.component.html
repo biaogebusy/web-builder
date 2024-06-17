@@ -15,7 +15,7 @@
       </mat-expansion-panel-header>
       <mat-list>
         <div
-          class="cards flex flex-wrap"
+          class="cards grid grid-cols-12 gap-1"
           id="widgets"
           cdkDropList
           cdkDropListSortingDisabled="true"
@@ -24,10 +24,8 @@
         >
           <ng-container *ngFor="let widget of item.elements">
             <div
-              class="item"
+              class="item col-span-6 sm:col-span-4"
               matRipple
-              fxFlex.lt-sm="50%"
-              fxFlex.gt-xs="0 0 calc(100%/3)"
               matTooltipPosition="above"
             >
               <div *ngIf="widget.type === 'json'" (click)="onJson(widget)">

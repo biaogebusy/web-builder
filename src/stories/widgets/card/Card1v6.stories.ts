@@ -21,7 +21,7 @@ const meta: Meta<Card1v6Component> = {
       providers: [],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="255px" class="widget relative">${story}</div>`,
+      (story) => `<div class="widget relative w-[255px]">${story}</div>`,
     ),
   ],
 };

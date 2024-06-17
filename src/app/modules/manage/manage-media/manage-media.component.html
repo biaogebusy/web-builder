@@ -37,7 +37,7 @@
               <div class="actions">
                 <app-btn
                   *reqRolesIf="{ params: { reqRoles: ['administrator'] } }"
-                  fxHide.xs="true"
+                  class="hidden sm:block"
                   [matTooltip]="'删除'"
                   (click)="onDelete(item.id, assets.type)"
                   [content]="{

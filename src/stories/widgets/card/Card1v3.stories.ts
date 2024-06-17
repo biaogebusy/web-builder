@@ -22,7 +22,7 @@ const meta: Meta<Card1v3Component> = {
       providers: [],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="300px" class="widget relative">${story}</div>`,
+      (story) => `<div class="widget relative w-[300px]">${story}</div>`,
     ),
   ],
   parameters: {

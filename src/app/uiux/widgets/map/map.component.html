@@ -1,8 +1,11 @@
 <ng-container *ngIf="content">
-  <div class="loading-inner flex justify-center items-center w-full h-full" *ngIf="mapLoading">
+  <div
+    class="loading-inner flex justify-center items-center w-full h-full"
+    *ngIf="mapLoading"
+  >
     <mat-spinner diameter="50"></mat-spinner>
   </div>
-  <div id="map" fxFill (click)="onMarkLink($event)"></div>
+  <div id="map" class="w-100 h-100" (click)="onMarkLink($event)"></div>
   <button (click)="setFitView()" class="set-fit-view" mat-fab color="primary">
     <mat-icon>filter_center_focus</mat-icon>
   </button>

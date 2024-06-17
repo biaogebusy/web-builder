@@ -11,13 +11,7 @@
     <div class="wrapper flex justify-between items-center">
       <div
         *ngIf="currentPage$ | async as page"
-        class="
-          left
-          flex flex-col flex-auto
-          md:flex-4/12
-          justify-center
-          items-start
-        "
+        class="left flex flex-col flex-auto md:flex-4/12 justify-center items-start"
       >
         <div class="page-title" contenteditable="true" (blur)="onTitle($event)">
           {{ page.title }}
@@ -40,7 +34,7 @@
           [matTooltip]="(builderFullScreen$ | async) ? '显示边栏' : '切换全宽'"
         ></mat-slide-toggle>
         <app-btn
-          fxHide.xs="true"
+          class="hidden sm:block"
           [matTooltip]="
             (builder.previewListDrawer$ | async)
               ? '展开组件导航'
@@ -51,7 +45,7 @@
             label: '',
             color: (builder.previewListDrawer$ | async) ? 'primary' : undefined,
             mode: 'icon',
-            icon: { svg: 'dock-left' }
+            icon: { svg: 'dock-left' },
           }"
         ></app-btn>
         <app-btn-generater
@@ -60,16 +54,17 @@
             label: '',
             color: 'primary',
             mode: 'icon',
-            icon: { svg: 'lightning-bolt' }
+            icon: { svg: 'lightning-bolt' },
           }"
         ></app-btn-generater>
-        <app-btn *ngIf="page"
+        <app-btn
+          *ngIf="page"
           (click)="onSubmit(page)"
           [content]="{
             label: page.uuid ? '更新页面' : '新建页面',
             color: 'primary',
             mode: 'raised',
-            icon: { svg: page.uuid ? 'navigation-variant' : 'pencil-plus' }
+            icon: { svg: page.uuid ? 'navigation-variant' : 'pencil-plus' },
           }"
         ></app-btn>
         <app-lang-switch></app-lang-switch>

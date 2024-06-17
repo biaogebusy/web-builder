@@ -18,7 +18,7 @@ const meta: Meta<ContactUsComponent> = {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="0 1 100" class="relative">${story}</div>`,
+      (story) => `<div class="relative">${story}</div>`,
     ),
   ],
 };

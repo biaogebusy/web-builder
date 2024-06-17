@@ -14,7 +14,7 @@
     </mat-expansion-panel-header>
     <mat-list>
       <div
-        class="cards flex flex-row flex-wrap"
+        class="cards grid grid-cols-12 gap-1"
         id="widgets"
         cdkDropList
         cdkDropListSortingDisabled="true"
@@ -24,7 +24,7 @@
         <ng-container *ngFor="let widget of item.elements">
           <ng-container *ngIf="!widget.child">
             <div
-              class="item flex flex-6/12 sm:flex-4/12"
+              class="item col-span-6 sm:col-span-4"
               matRipple
               [matTooltip]="
                 builder.fixedContent === widget.content
@@ -61,13 +61,13 @@
             </div>
           </ng-container>
           <div
-            class="group w-full flex flex-wrap"
+            class="group col-span-12 grid grid-cols-12 gap-1"
             matTooltipPosition="above"
             *ngIf="widget.child"
           >
             <ng-container *ngFor="let item of widget.child">
               <div
-                class="item flex flex-6/12 sm:flex-4/12"
+                class="item col-span-6 sm:col-span-4"
                 matRipple
                 [matTooltip]="
                   builder.fixedContent === item.content

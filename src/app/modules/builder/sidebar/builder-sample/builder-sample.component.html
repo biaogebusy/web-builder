@@ -12,21 +12,15 @@
           *ngIf="loading"
         ></mat-spinner>
         <ng-container *ngIf="samplePages$ | async as samples">
-          <div class="cards flex flex-wrap">
+          <div class="cards grid grid-cols-12 gap-1">
             <div
-              class="item flex-6/12 sm:flex-4/12"
+              class="item col-span-6 sm:col-span-4"
               [matTooltip]="item.title"
               (click)="loadSample(item)"
               *ngFor="let item of samples; index as i"
             >
               <div
-                class="
-                  inner
-                  flex flex-col
-                  justify-center
-                  items-center
-                  overflow-hidden
-                "
+                class="inner flex flex-col justify-center items-center overflow-hidden"
               >
                 <div class="font-mono">{{ i + 1 }}</div>
                 <div class="title">{{ item.title }}</div>

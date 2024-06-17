@@ -24,7 +24,7 @@ const meta: Meta<ImgComponent> = {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="widget relative" fxFlex="300px" style="height:300px">${story}</div>`,
+        `<div class="widget relative  w-[300px]"  style="height:300px">${story}</div>`,
     ),
   ],
 };

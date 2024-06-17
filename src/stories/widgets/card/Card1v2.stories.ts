@@ -20,7 +20,7 @@ const meta: Meta<Card1v2Component> = {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="50%" class="widget relative">${story}</div>`,
+      (story) => `<div class="widget relative  w-[300px]">${story}</div>`,
     ),
   ],
 };
