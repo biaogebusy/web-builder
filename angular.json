@@ -23,7 +23,7 @@
             "outputPath": "dist/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -87,13 +87,7 @@
               "jsoneditor",
               "quill",
               "dompurify"
-            ],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            ]
           },
           "configurations": {
             "production": {
@@ -122,6 +116,14 @@
                   "maximumError": "32kb"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             },
             "xinshi": {
               "fileReplacements": [
@@ -205,17 +207,14 @@
               ]
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "outputPath": "dist/server",
             "main": "server.ts",
-            "tsConfig": "tsconfig.server.json",
-            "sourceMap": true,
-            "optimization": false,
-            "buildOptimizer": false
+            "tsConfig": "tsconfig.server.json"
           },
           "configurations": {
             "production": {
@@ -225,10 +224,12 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ],
-              "sourceMap": false,
-              "optimization": true,
-              "buildOptimizer": true
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
             },
             "xinshi": {
               "outputHashing": "media",
@@ -267,20 +268,21 @@
               "buildOptimizer": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve-ssr": {
           "builder": "@nguniversal/builders:ssr-dev-server",
-          "options": {
-            "browserTarget": "xinshi:build",
-            "serverTarget": "xinshi:server"
-          },
           "configurations": {
             "production": {
               "browserTarget": "xinshi:build:production",
               "serverTarget": "xinshi:server:production"
+            },
+            "development": {
+              "browserTarget": "xinshi:build:development",
+              "serverTarget": "xinshi:server:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -292,8 +294,12 @@
           "configurations": {
             "production": {
               "browserTarget": "xinshi:build:production"
+            },
+            "development": {
+              "browserTarget": "xinshi:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -352,7 +358,7 @@
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "configDir": ".storybook",
-            "browserTarget": "xinshi:build",
+            "browserTarget": "xinshi:build:development",
             "compodoc": true,
             "compodocArgs": ["-e", "json", "-d", "."],
             "port": 6006
@@ -362,7 +368,7 @@
           "builder": "@storybook/angular:build-storybook",
           "options": {
             "configDir": ".storybook",
-            "browserTarget": "xinshi:build",
+            "browserTarget": "xinshi:build:production",
             "compodoc": true,
             "compodocArgs": ["-e", "json", "-d", "."],
             "outputDir": "storybook-static"

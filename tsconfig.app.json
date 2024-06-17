@@ -4,10 +4,7 @@
     "outDir": "./out-tsc/app",
     "types": []
   },
-  "files": ["src/main.ts", "src/polyfills.ts"],
+  "files": ["src/main.ts"],
   "include": ["src/**/*.d.ts"],
-  "exclude": ["**/*.stories.*"],
-  "angularCompilerOptions": {
-    "preserveWhitespaces": false
-  }
+  "exclude": ["**/*.stories.*"]
 }
