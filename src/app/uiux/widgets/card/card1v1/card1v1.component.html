@@ -1,15 +1,5 @@
 <div
-  class="
-    card-1v1
-    relative
-    rounded-md
-    overflow-hidden
-    top-0
-    hover:-top-3
-    transition-all
-    ease-in
-    duration-300
-  "
+  class="card-1v1 relative rounded-md overflow-hidden top-0 hover:-top-3 transition-all ease-in duration-300"
   [ngClass]="content.classes"
 >
   <app-feature-box
@@ -46,23 +36,12 @@
     </div>
   </div>
   <div
-    class="
-      flex flex-col
-      author
-      absolute
-      z-10
-      opacity-0
-      top-[5%]
-      left-[5%]
-      transition-all
-      duration-300
-      ease-in
-    "
+    class="flex flex-col author absolute z-10 opacity-0 top-[5%] left-[5%] transition-all duration-300 ease-in"
   >
     <small class="user" *ngIf="content.user">
       <mat-icon inline="true">person</mat-icon> {{ content.user }}
     </small>
-    <small class="date" *ngIf="content.time">
+    <small class="date flex justify-center items-center" *ngIf="content.time">
       <mat-icon inline="true">event</mat-icon> {{ content.time }}
     </small>
   </div>

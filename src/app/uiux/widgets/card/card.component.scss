@@ -98,6 +98,7 @@
 .card {
   &.card-no-shadow {
     box-shadow: none !important;
+    border: 0 !important;
   }
   ::ng-deep .meta {
     font-size: small;

@@ -249,8 +249,7 @@
   "actions": {
     "flag": {
       "icon": {
-        "name": "star",
-        "inline": true
+        "name": "star"
       },
       "enable": true
     },

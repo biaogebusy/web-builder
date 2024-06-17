@@ -4,9 +4,9 @@
     [inputs]="item"
   ></app-dynamic-component>
   <div class="container">
-    <div class="bg-colors grid grid-cols-12 gap-5">
+    <div class="bg-colors grid grid-cols-10 gap-5">
       <div
-        class="box col-span-4 md:col-span-{{content.bgColors.row}}"
+        class="box col-span-4 md:col-span-{{ content.bgColors.row }}"
         [ngClass]="color.classes"
         *ngFor="let color of content.bgColors.lists"
       >
