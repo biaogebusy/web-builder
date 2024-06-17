@@ -8,7 +8,7 @@ import {
 import type { ICustomTemplate } from '@core/interface/IBuilder';
 import DOMPurify from 'dompurify';
 import { NodeService } from '@core/service/node.service';
-import * as Mustache from 'mustache';
+import Mustache from 'mustache';
 
 @Component({
   selector: 'app-custom-template',
