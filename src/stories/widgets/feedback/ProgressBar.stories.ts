@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { IProgressBar } from '@core/interface/widgets/IWidgets';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ProgressBarComponent } from '@uiux/widgets/progress-bar/progress-bar.component';
@@ -14,10 +16,11 @@ const meta: Meta<ProgressBarComponent> = {
   id: 'progress-bar',
   component: ProgressBarComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

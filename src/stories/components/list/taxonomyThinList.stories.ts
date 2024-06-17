@@ -3,22 +3,25 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ListModule } from '@uiux/combs/list/list.module';
 import { TaxonomyThinListComponent } from '@uiux/combs/list/taxonomy-thin-list/taxonomy-thin-list.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ITaxonomyThinList } from '@core/interface/combs/IList';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<TaxonomyThinListComponent> = {
   title: '复合组件/列表/分类列表（thin）',
   id: 'taxonomy-thin-list',
   component: TaxonomyThinListComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [ListModule, StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

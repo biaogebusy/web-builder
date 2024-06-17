@@ -3,26 +3,30 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { BrandingModule } from '@core/branding/branding.module';
 import { FooterComponent } from '@core/branding/footer/footer.component';
 import {
   defaultHeader,
   footerInverse,
 } from '@modules/builder/data/Branding.json';
 import { StorysModule } from '@core/module/storys.module';
+import { importProvidersFrom } from '@angular/core';
+import { HeaderComponent } from '@core/branding/header/header.component';
 
 const meta: Meta<FooterComponent> = {
   title: '全局配置/页脚/反色',
   id: 'footer-inverse',
   component: FooterComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [BrandingModule, StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents(), HeaderComponent],
       providers: [
         {
           provide: BRANDING,

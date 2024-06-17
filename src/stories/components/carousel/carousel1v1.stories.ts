@@ -1,19 +1,26 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { Carousel1v1Component } from '@uiux/combs/carousel/carousel1v1/carousel1v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
 import * as SwiperStories from '@stories/widgets/Swiper.stories';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<Carousel1v1Component> = {
   title: '复合组件/幻灯片/1v1',
   id: 'carousel-1v1',
   component: Carousel1v1Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
 };

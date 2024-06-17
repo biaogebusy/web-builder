@@ -4,9 +4,9 @@
     "types": ["node"],
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "exclude": ["../src/test.ts", "../src/**/*.spec.ts"],
   "include": ["../src/**/*.stories.*", "./preview.ts"],
-  "files": ["./typings.d.ts","../src/polyfills.ts"]
+  "files": ["./typings.d.ts"]
 }

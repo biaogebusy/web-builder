@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { IChipList } from '@core/interface/widgets/IChipList';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ChipListComponent } from '@uiux/widgets/chip-list/chip-list.component';
@@ -14,10 +16,11 @@ const meta: Meta<ChipListComponent> = {
   id: 'chip-list',
   component: ChipListComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

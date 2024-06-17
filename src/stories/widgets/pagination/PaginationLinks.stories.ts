@@ -3,21 +3,25 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-links/pagination-links.component';
 import { environment } from 'src/environments/environment';
 import { StorysModule } from '@core/module/storys.module';
 import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<PaginationLinksComponent> = {
   title: '基础组件/分页/JSONAPI 分页',
   id: 'pagination-links',
   component: PaginationLinksComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
       declarations: [],
-      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => {
       return `<div classs="widget">${story}</div>`;

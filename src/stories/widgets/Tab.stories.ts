@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { ITab } from '@core/interface/widgets/ITab';
 import { sleep, StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { TabComponent } from '@uiux/widgets/tab/tab.component';
@@ -14,10 +16,11 @@ const meta: Meta<TabComponent> = {
   id: 'tab',
   component: TabComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) => `<div class="relative" style="z-index:1">${story}</div>`,

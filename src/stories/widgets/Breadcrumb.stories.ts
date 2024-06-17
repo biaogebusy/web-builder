@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { ILink } from '@core/interface/widgets/ILink';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { BreadcrumbComponent } from '@uiux/widgets/breadcrumb/breadcrumb.component';
@@ -14,10 +16,11 @@ const meta: Meta<BreadcrumbComponent> = {
   id: 'breadcrumb',
   component: BreadcrumbComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

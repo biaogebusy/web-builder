@@ -1,17 +1,24 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { ViewMapComponent } from '@uiux/combs/map/view-map/view-map.component';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<ViewMapComponent> = {
   title: '特色组件/地图应用',
   id: 'viewMap',
   component: ViewMapComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

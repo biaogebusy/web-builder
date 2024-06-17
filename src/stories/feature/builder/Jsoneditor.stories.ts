@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
@@ -16,15 +17,18 @@ import {
 } from '@modules/builder/data/Branding.json';
 import { JsoneditorComponent } from '@uiux/combs/other/jsoneditor/jsoneditor.component';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import { importProvidersFrom } from '@angular/core';
 const meta: Meta<JsoneditorComponent> = {
   title: '特色组件/编辑器/JSON',
   id: 'jsoneditor',
   component: JsoneditorComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot(), BrandingModule, CalculatorModule],
+      declarations: [...StorysModule.forEntryComponents()],
+      imports: [BrandingModule, CalculatorModule],
       providers: [
         {
           provide: BRANDING,

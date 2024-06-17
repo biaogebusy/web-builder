@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { MediaObjectGroupComponent } from '@uiux/widgets/media/media-object-group/media-object-group.component';
@@ -10,16 +11,18 @@ import * as MediaObjectStories from './MediaObject.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { formatDate } from '@angular/common';
 import { IMediaObjectGroup } from '@core/interface/widgets/IMediaObject';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<MediaObjectGroupComponent> = {
   title: '基础组件/媒体/媒体对象组',
   id: 'media-object-group',
   component: MediaObjectGroupComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

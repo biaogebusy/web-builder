@@ -3,19 +3,23 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
 import { StorysModule } from '@core/module/storys.module';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<SpacerComponent> = {
   title: '主题/间距大小',
   id: 'spacer',
   component: SpacerComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

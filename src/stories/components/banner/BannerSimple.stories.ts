@@ -1,19 +1,26 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import * as Breadcrumb from 'src/stories/widgets/Breadcrumb.stories';
 import { BannerSimpleComponent } from '@uiux/combs/banner/banner-simple/banner-simple.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IBannerSimple } from '@core/interface/combs/IBanner';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<BannerSimpleComponent> = {
   title: '复合组件/横幅/简单横幅',
   id: 'banner-sample',
   component: BannerSimpleComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

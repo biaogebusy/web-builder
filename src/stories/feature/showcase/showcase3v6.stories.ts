@@ -3,21 +3,24 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { Showcase3v6Component } from '@uiux/combs/showcase/showcase3v6/showcase3v6.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IShowcase3v6 } from '@core/interface/combs/IShowcase';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<Showcase3v6Component> = {
   title: '特色组件/图文 Showcase/3v6',
   id: 'showcase-3v6',
   component: Showcase3v6Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

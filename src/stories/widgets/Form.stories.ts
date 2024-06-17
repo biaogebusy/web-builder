@@ -3,12 +3,14 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { FormlyComponent } from '@uiux/widgets/form/formly/formly.component';
 import { FormGroup } from '@angular/forms';
 import { StorysModule } from '@core/module/storys.module';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<FormlyComponent> = {
   title: '基础组件/表单',
@@ -16,10 +18,11 @@ const meta: Meta<FormlyComponent> = {
   component: FormlyComponent,
   subcomponents: { FormlyComponent },
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) => `

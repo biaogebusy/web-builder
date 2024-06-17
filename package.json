@@ -6,7 +6,6 @@
     "ng": "ng",
     "start": "ng serve",
     "start:ssl": "ng serve --ssl",
-    "start-hmr": "ng serve --hmr -o",
     "build": "ng build --configuration production",
     "build:xinshi": "ng build --configuration xinshi --output-path dist/xinshi/browser && ng run xinshi:server:xinshi --output-path dist/xinshi/server",
     "build:nnit": "ng build --configuration nnit --output-path dist/nnit/browser && ng run xinshi:server:nnit --output-path dist/nnit/server",

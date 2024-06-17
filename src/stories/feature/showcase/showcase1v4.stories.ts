@@ -1,18 +1,25 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { Showcase1v4Component } from '@uiux/combs/showcase/showcase1v4/showcase1v4.component';
 import { IShowcase1v4 } from '@core/interface/combs/IShowcase';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<Showcase1v4Component> = {
   title: '特色组件/图文 Showcase/1v4',
   id: 'showcase-1v4',
   component: Showcase1v4Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

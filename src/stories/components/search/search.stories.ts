@@ -1,4 +1,9 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { SearchModule } from '@uiux/combs/search/search.module';
 import { SearchComponent } from '@uiux/combs/search/search.component';
@@ -7,16 +12,18 @@ import { nodes } from './search.json';
 import { FormGroup } from '@angular/forms';
 import { ISearch } from '@core/interface/combs/ISearch';
 import { Subject } from 'rxjs';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<SearchComponent> = {
   title: '复合组件/搜索/默认',
   id: 'search',
   component: SearchComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot(), SearchModule],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

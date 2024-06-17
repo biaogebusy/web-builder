@@ -1,18 +1,25 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { Carousel2v1Component } from '@uiux/combs/carousel/carousel2v1/carousel2v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<Carousel2v1Component> = {
   title: '复合组件/幻灯片/2v1',
   id: 'carousel-2v1',
   component: Carousel2v1Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
 };

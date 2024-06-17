@@ -1,5 +1,10 @@
 import { StorysModule } from '@core/module/storys.module';
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import {
+  Meta,
+  StoryObj,
+  applicationConfig,
+  moduleMetadata,
+} from '@storybook/angular';
 import { ThemePreviewComponent } from '@uiux/combs/other/theme-preview/theme-preview.component';
 import { BannerWithBg } from '../components/banner/BannerSimple.stories';
 import {
@@ -17,15 +22,18 @@ import { Default as MediaObject } from '@stories/widgets/media/MediaObject.stori
 import { random } from 'lodash-es';
 import { environment } from 'src/environments/environment';
 import { IThemePreview } from '@core/interface/combs/IThemePreview';
+import { importProvidersFrom } from '@angular/core';
+
 const meta: Meta<ThemePreviewComponent> = {
   title: '主题/色彩检查',
   id: 'color-preview',
   component: ThemePreviewComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {
@@ -50,7 +58,7 @@ const content: IThemePreview = {
     },
   ],
   bgColors: {
-    row: 10,
+    row: 1,
     lists: [
       {
         label: 'primary',

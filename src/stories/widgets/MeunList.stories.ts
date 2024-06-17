@@ -3,21 +3,24 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { MenuListComponent } from '@uiux/widgets/menu-list/menu-list.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IMenuList } from '@core/interface/widgets/IMenuList';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<MenuListComponent> = {
   title: '基础组件/菜单项',
   id: 'menu-list',
   component: MenuListComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => {
       return `<div classs="widget">${story}</div>`;

@@ -1,18 +1,25 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { Hero1v2Component } from '@uiux/combs/hero/hero1v2/hero1v2.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IHero1v2 } from '@core/interface/combs/IHero';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<Hero1v2Component> = {
   title: '特色组件/首屏/1v2',
   id: 'hero-1v2',
   component: Hero1v2Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

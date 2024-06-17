@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-list.component';
@@ -10,16 +11,18 @@ import { ListModule } from '@uiux/combs/list/list.module';
 import { StorysModule } from '@core/module/storys.module';
 import { ITaxonomyList } from '@core/interface/combs/IList';
 import * as MediaListStories from '@stories/widgets/media/MediaList.stories';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<TaxonomyListComponent> = {
   title: '复合组件/列表/分类列表',
   id: 'taxonomy-list',
   component: TaxonomyListComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [ListModule, StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

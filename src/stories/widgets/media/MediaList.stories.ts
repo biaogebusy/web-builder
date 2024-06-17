@@ -3,22 +3,25 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { MediaListComponent } from '@uiux/widgets/media/media-list/media-list.component';
 import { StorysModule } from '@core/module/storys.module';
 import { formatDate } from '@angular/common';
 import { IMediaList } from '@core/interface/widgets/IMediaList';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<MediaListComponent> = {
   title: '基础组件/媒体/媒体列表',
   id: 'media-list',
   component: MediaListComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

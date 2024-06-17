@@ -3,21 +3,24 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 import { IPlayer } from '@core/interface/widgets/IPlayer';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<PlayerComponent> = {
   title: '特色组件/媒体/播放器',
   id: 'player',
   component: PlayerComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

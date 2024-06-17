@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
@@ -10,16 +11,18 @@ import { Showcase3v9Component } from '@uiux/combs/showcase/showcase3v9/showcase3
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IShowcase3v9 } from '@core/interface/combs/IShowcase';
 import { Actions } from '@stories/base/Text.stories';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<Showcase3v9Component> = {
   title: '特色组件/图文 Showcase/3v9',
   id: 'showcase-3v9',
   component: Showcase3v9Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

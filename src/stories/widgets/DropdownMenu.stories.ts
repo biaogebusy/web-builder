@@ -3,20 +3,23 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { DropdownMenuComponent } from '@uiux/widgets/dropdown-menu/dropdown-menu.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IDropdowMenu } from '@core/interface/widgets/IWidgets';
+import { importProvidersFrom } from '@angular/core';
 const meta: Meta<DropdownMenuComponent> = {
   title: '基础组件/下拉菜单',
   id: 'dropdown-menu',
   component: DropdownMenuComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

@@ -16,9 +16,10 @@ import {
 } from '@modules/builder/data/Branding.json';
 import { home_v1 } from '@stories/sample/home/data/home_v1';
 import { importProvidersFrom } from '@angular/core';
-import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { MatIconModule } from '@angular/material/icon';
+import { HeaderComponent } from '@core/branding/header/header.component';
+import { FooterComponent } from '@core/branding/footer/footer.component';
 
 const meta: Meta<BlockComponent> = {
   title: '示例页面/首页示例/01 经典布局',
@@ -31,8 +32,9 @@ const meta: Meta<BlockComponent> = {
     moduleMetadata({
       declarations: [
         ...StorysModule.forEntryComponents(),
-        ReqRolesDirective,
         SafeHtmlPipe,
+        HeaderComponent,
+        FooterComponent,
       ],
       imports: [MatIconModule],
       providers: [

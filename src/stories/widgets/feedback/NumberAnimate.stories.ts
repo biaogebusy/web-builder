@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { NumberAnimateComponent } from '@uiux/widgets/number-animate/number-animate.component';
@@ -14,10 +16,11 @@ const meta: Meta<NumberAnimateComponent> = {
   id: 'number-animate',
   component: NumberAnimateComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => {
       return `<div classs="widget">${story}</div>`;

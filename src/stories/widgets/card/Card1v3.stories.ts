@@ -3,23 +3,25 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { Card1v3Component } from '@uiux/widgets/card/card1v3/card1v3.component';
 import * as TextStories from '@stories/base/Text.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { ICard1v3 } from '@core/interface/widgets/ICard';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<Card1v3Component> = {
   title: '基础组件/卡片/1v3',
   id: 'card-1v3',
   component: Card1v3Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
-      providers: [],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) => `<div class="widget relative w-[300px]">${story}</div>`,

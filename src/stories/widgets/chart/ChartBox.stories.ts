@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { IChartBox } from '@core/interface/widgets/IWidgets';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   componentWrapperDecorator,
   Meta,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 import { ChartBoxComponent } from '@uiux/widgets/chart/chart-box/chart-box.component';
 
@@ -13,10 +15,11 @@ const meta: Meta<ChartBoxComponent> = {
   id: 'chart-box',
   component: ChartBoxComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) => `<div class="relative p-x p-y" >${story}</div>`,

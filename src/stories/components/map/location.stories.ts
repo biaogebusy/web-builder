@@ -1,18 +1,25 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { LocationComponent } from '@uiux/combs/map/location/location.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ILocation } from '@core/interface/combs/IMap';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<LocationComponent> = {
   title: '复合组件/地图/位置',
   id: 'location',
   component: LocationComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

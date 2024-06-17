@@ -3,20 +3,23 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { CalendarComponent } from '@uiux/combs/calendar/calendar/calendar.component';
 import { StorysModule } from '@core/module/storys.module';
 import { random } from 'lodash-es';
+import { importProvidersFrom } from '@angular/core';
 const meta: Meta<CalendarComponent> = {
   title: '基础组件/日历',
   id: 'calendar',
   component: CalendarComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) => `<div class="widget relative text-light">${story}</div>`,

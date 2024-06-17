@@ -3,20 +3,23 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { InlineLightboxComponent } from '@uiux/widgets/lightbox/inline-lightbox/inline-lightbox.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IInlineLightbox } from '@core/interface/widgets/IWidgets';
+import { importProvidersFrom } from '@angular/core';
 const meta: Meta<InlineLightboxComponent> = {
   title: '基础组件/Lightbox',
   id: 'inline-lightbox',
   component: InlineLightboxComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => {
       return `<div classs="widget">${story}</div>`;

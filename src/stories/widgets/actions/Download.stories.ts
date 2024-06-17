@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { IDownload } from '@core/interface/widgets/IDownload';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { DownloadComponent } from '@uiux/widgets/actions/download/download.component';
@@ -14,10 +16,11 @@ const meta: Meta<DownloadComponent> = {
   id: 'download',
   component: DownloadComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => {
       return `<div classs="widget">${story}</div>`;

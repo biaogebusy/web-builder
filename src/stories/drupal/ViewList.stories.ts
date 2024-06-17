@@ -3,20 +3,23 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ViewListComponent } from '@uiux/widgets/view-list/view-list.component';
 import { StorysModule } from '@core/module/storys.module';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<ViewListComponent> = {
   title: 'Drupal/视图列表',
   id: 'view-list',
   component: ViewListComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

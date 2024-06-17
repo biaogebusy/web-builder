@@ -3,12 +3,14 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { IframeComponent } from '@uiux/widgets/iframe/iframe.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IIframe } from '@core/interface/widgets/IWidgets';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<IframeComponent> = {
   title: '基础组件/Iframe',
@@ -16,10 +18,11 @@ const meta: Meta<IframeComponent> = {
   component: IframeComponent,
   subcomponents: { TitleComponent },
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => {
       return `<div classs="widget">${story}</div>`;

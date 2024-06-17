@@ -3,21 +3,24 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { FlagComponent } from '@uiux/widgets/actions/flag/flag.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IFlag } from '@core/interface/widgets/IFlag';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<FlagComponent> = {
   title: '基础组件/Actions/收藏',
   id: 'flag',
   component: FlagComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => {
       return `<div classs="widget">${story}</div>`;
@@ -42,7 +45,7 @@ const content: IFlag = {
   label: '收藏',
   icon: {
     name: 'star',
-    inline: true,
+    inline: false,
   },
   params: {
     type: 'flagging--favorite',

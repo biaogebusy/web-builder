@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { VideoBgComponent } from '@uiux/combs/video/video-bg/video-bg.component';
@@ -10,19 +11,18 @@ import { StorysModule } from '@core/module/storys.module';
 import { VideoModule } from '@uiux/combs/video/video.module';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
 import { IVideoBg } from '@core/interface/combs/IVideoBg';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<VideoBgComponent> = {
   title: '复合组件/视频/背景视频',
   id: 'video-bg',
   component: VideoBgComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [
-        ...StorysModule.forEntryComponents(),
-        Showcase1v3Component,
-      ],
-      imports: [VideoModule, StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

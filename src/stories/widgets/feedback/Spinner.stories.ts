@@ -1,9 +1,11 @@
+import { importProvidersFrom } from '@angular/core';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
@@ -13,10 +15,11 @@ const meta: Meta<SpinnerComponent> = {
   id: 'spinner',
   component: SpinnerComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
       declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>

@@ -4,19 +4,29 @@ import {
   componentWrapperDecorator,
   Meta,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 import { Bar } from './ChartBar.stories';
 import { EChartsOption } from 'echarts';
+import { importProvidersFrom } from '@angular/core';
+import { NGX_ECHARTS_CONFIG } from 'ngx-echarts';
 const meta: Meta<ChartComponent> = {
   title: '基础组件/图表/折线图',
   id: 'chart-line',
   component: ChartComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
+      providers: [
+        {
+          provide: NGX_ECHARTS_CONFIG,
+          useValue: {},
+        },
+      ],
     }),
     componentWrapperDecorator(
       (story) =>

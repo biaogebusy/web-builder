@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { ITestimonial } from '@core/interface/widgets/IWidgets';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { TestimonialComponent } from '@uiux/widgets/testimonial/testimonial.component';
@@ -14,10 +16,11 @@ const meta: Meta<TestimonialComponent> = {
   id: 'testimonial',
   component: TestimonialComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

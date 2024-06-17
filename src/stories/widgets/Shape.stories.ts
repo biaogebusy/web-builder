@@ -3,20 +3,23 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ShapeComponent } from '@uiux/widgets/shape/shape.component';
 import { StorysModule } from '@core/module/storys.module';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<ShapeComponent> = {
   title: '基础组件/形状',
   id: 'shape',
   component: ShapeComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

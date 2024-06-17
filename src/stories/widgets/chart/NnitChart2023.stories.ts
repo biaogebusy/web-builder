@@ -1,21 +1,31 @@
+import { importProvidersFrom } from '@angular/core';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
   componentWrapperDecorator,
   Meta,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
+import { NGX_ECHARTS_CONFIG } from 'ngx-echarts';
 
 const meta: Meta<ChartComponent> = {
   title: '基础组件/图表/2023问卷',
   id: 'nnit-chart-2023',
   component: ChartComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
+      providers: [
+        {
+          provide: NGX_ECHARTS_CONFIG,
+          useValue: {},
+        },
+      ],
     }),
     componentWrapperDecorator(
       (story) =>

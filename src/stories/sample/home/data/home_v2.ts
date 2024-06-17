@@ -110,7 +110,7 @@ export const home_v2 = {
           '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v3',
       },
-      row: 4,
+      row: 3,
       bg: {
         classes: 'bg- bg-fill-width',
       },
@@ -185,7 +185,7 @@ export const home_v2 = {
     },
     {
       type: 'showcase-2v1',
-      row: 4,
+      row: 3,
       bg: {
         classes: '',
       },

@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
@@ -10,16 +11,18 @@ import * as ContactUs from '@stories/drupal/form/ContactUs.stories';
 import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IShowcase1v3 } from '@core/interface/combs/IShowcase';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<Showcase1v3Component> = {
   title: '特色组件/图文 Showcase/1v3',
   id: 'showcase-1v3',
   component: Showcase1v3Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      entryComponents: [...StorysModule.forEntryComponents()],
-      declarations: [],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

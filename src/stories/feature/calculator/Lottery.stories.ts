@@ -1,19 +1,26 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { LotteryComponent } from '@uiux/combs/calculator/lottery/lottery.component';
 import { ILottery } from '@core/interface/combs/ICalculator';
 import { FormGroup } from '@angular/forms';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<LotteryComponent> = {
   title: '特色组件/计算器',
   id: 'lottery',
   component: LotteryComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

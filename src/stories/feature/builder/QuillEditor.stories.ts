@@ -3,18 +3,22 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { QuillModule } from 'ngx-quill';
+import { importProvidersFrom } from '@angular/core';
 const meta: Meta<any> = {
   title: '特色组件/编辑器/富文本',
   id: 'quill',
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot(), QuillModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
+      imports: [QuillModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) => `

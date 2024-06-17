@@ -3,19 +3,23 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { PaginationComponent } from '@uiux/widgets/pagination/pagination.component';
 import { StorysModule } from '@core/module/storys.module';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<PaginationComponent> = {
   title: '基础组件/分页/普通分页',
   id: 'pagination-default',
   component: PaginationComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
       declarations: [],
-      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) => `

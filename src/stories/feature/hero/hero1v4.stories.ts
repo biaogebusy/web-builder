@@ -1,17 +1,24 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { Hero1v4Component } from '@uiux/combs/hero/hero1v4/hero1v4.component';
 import { IHero1v4 } from '@core/interface/combs/IHero';
+import { importProvidersFrom } from '@angular/core';
 const meta: Meta<Hero1v4Component> = {
   title: '特色组件/首屏/1v4',
   id: 'hero-1v4',
   component: Hero1v4Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

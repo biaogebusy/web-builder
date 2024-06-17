@@ -63,6 +63,8 @@ import { ManageModule } from '@modules/manage/manage.module';
 import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
 import { ThemeService } from '@core/service/theme.service';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -209,5 +211,7 @@ export class StorysModule {
 
   constructor(private themeService: ThemeService) {
     this.themeService.initTheme();
+    window.gsap = gsap;
+    window.gsap.registerPlugin(ScrollTrigger);
   }
 }

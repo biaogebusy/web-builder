@@ -1,20 +1,27 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
 import { StorysModule } from '@core/module/storys.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import * as calendarStory from '../widgets/Calendar.stories';
+import { importProvidersFrom } from '@angular/core';
 const calendar: any = calendarStory.Default.args;
 const meta: Meta<FullCalendarComponent> = {
   title: 'Drupal/日历',
   id: 'full-calendar',
   component: FullCalendarComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [MatSidenavModule, CalendarModule, StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

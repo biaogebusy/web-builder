@@ -1,20 +1,27 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.component';
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
 import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
 import { sleep, StorysModule } from '@core/module/storys.module';
 import { IMapListv1 } from '@core/interface/combs/IMap';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<MapListV1Component> = {
   title: '复合组件/地图/位置列表 1v1',
   id: 'map-list-1v1',
   component: MapListV1Component,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

@@ -3,27 +3,29 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
-import { BrandingModule } from '@core/branding/branding.module';
 import {
   footerInverse,
   HoverHeader,
 } from '@modules/builder/data/Branding.json';
 import { StorysModule } from '@core/module/storys.module';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<HeaderComponent> = {
   title: '全局配置/页头/Hover',
   id: 'header-hover',
   component: HeaderComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [BrandingModule, StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
       providers: [
         {
           provide: BRANDING,

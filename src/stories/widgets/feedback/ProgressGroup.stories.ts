@@ -1,3 +1,4 @@
+import { importProvidersFrom } from '@angular/core';
 import { IProgressGroup } from '@core/interface/widgets/IWidgets';
 import { StorysModule } from '@core/module/storys.module';
 import {
@@ -5,6 +6,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ProgressGroupComponent } from '@uiux/widgets/progress-group/progress-group.component';
@@ -14,10 +16,11 @@ const meta: Meta<ProgressGroupComponent> = {
   id: 'progress-group',
   component: ProgressGroupComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
       (story) =>

@@ -1,17 +1,25 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IUserCenter } from '@core/interface/IUserCenter';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<UserCenterComponent> = {
   title: '复合组件/用户/用户中心',
   id: 'user-center',
   component: UserCenterComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {

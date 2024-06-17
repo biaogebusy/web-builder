@@ -3,6 +3,7 @@ import {
   Meta,
   componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { AmapService } from '@core/service/amap.service';
@@ -10,16 +11,18 @@ import { MapComponent } from '@uiux/widgets/map/map.component';
 import { ConfigService } from '@core/service/config.service';
 import { StorysModule } from '@core/module/storys.module';
 import { IMap } from '@core/interface/IAmap';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<MapComponent> = {
   title: '基础组件/地图',
   id: 'map',
   component: MapComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
       providers: [AmapService, ConfigService],
     }),
     componentWrapperDecorator(

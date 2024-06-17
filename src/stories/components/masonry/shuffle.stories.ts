@@ -1,18 +1,25 @@
-import { moduleMetadata, Meta, StoryObj } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  StoryObj,
+  applicationConfig,
+} from '@storybook/angular';
 
 import { ShuffleComponent } from '@uiux/combs/masonry/shuffle/shuffle.component';
 import { sleep, StorysModule } from '@core/module/storys.module';
 import { IShuffle } from '@core/interface/combs/IMasonry';
+import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<ShuffleComponent> = {
   title: '复合组件/瀑布流/图片洗牌',
   id: 'shuffle',
   component: ShuffleComponent,
   decorators: [
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
+    }),
     moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+      declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {
