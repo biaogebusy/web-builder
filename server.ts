@@ -10,7 +10,7 @@ import { readFileSync, existsSync } from 'fs';
 
 const dominoModule = require('domino');
 const indexTemplate = readFileSync(
-  `${environment.site}/browser/index.html`
+  `${environment.site}/browser/index.html`,
 ).toString();
 const win = dominoModule.createWindow(indexTemplate);
 
@@ -40,7 +40,7 @@ export function app(): express.Express {
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({ extended: false }));
   server.use(
-    helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false })
+    helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }),
   );
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
@@ -51,26 +51,26 @@ export function app(): express.Express {
     'html',
     ngExpressEngine({
       bootstrap: AppServerModule,
-    })
+    }),
   );
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  server.use((req, res, next) => {
-    let err = null;
-    try {
-      decodeURIComponent(req.originalUrl);
-    } catch (e) {
-      err = e;
-    }
+  // server.use((req, res, next) => {
+  //   let err = null;
+  //   try {
+  //     decodeURIComponent(req.originalUrl);
+  //   } catch (e) {
+  //     err = e;
+  //   }
 
-    if (err) {
-      console.log(`\n======\n`, `${err}\n${req.originalUrl}\n=====\n`);
-      return res.status(400).send('400: Bad Request!');
-    }
-    next();
-  });
+  //   if (err) {
+  //     console.log(`\n======\n`, `${err}\n${req.originalUrl}\n=====\n`);
+  //     return res.status(400).send('400: Bad Request!');
+  //   }
+  //   next();
+  // });
 
   // server static files
   server.use(express.static(__dirname + distFolder, { index: false }));
@@ -82,7 +82,7 @@ export function app(): express.Express {
     '*.*',
     express.static(distFolder, {
       maxAge: '1y',
-    })
+    }),
   );
 
   // Set headers for all requests
@@ -114,7 +114,7 @@ function run(): void {
   const server = app();
   server.listen(port, () => {
     console.log(
-      `Node Express server ${environment.site} listening on http://localhost:${port}`
+      `Node Express server ${environment.site} listening on http://localhost:${port}`,
     );
   });
 }
