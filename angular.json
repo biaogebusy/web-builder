@@ -271,7 +271,7 @@
           "defaultConfiguration": "production"
         },
         "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
           "configurations": {
             "production": {
               "browserTarget": "xinshi:build:production",
@@ -287,16 +287,16 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "xinshi:build",
             "proxyConfig": "config/proxy.config.js",
-            "disableHostCheck": true
+            "disableHostCheck": true,
+            "buildTarget": "xinshi:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "xinshi:build:production"
+              "buildTarget": "xinshi:build:production"
             },
             "development": {
-              "browserTarget": "xinshi:build:development"
+              "buildTarget": "xinshi:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -304,7 +304,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "xinshi:build"
+            "buildTarget": "xinshi:build"
           }
         },
         "test": {
@@ -344,7 +344,7 @@
           }
         },
         "prerender": {
-          "builder": "@nguniversal/builders:prerender",
+          "builder": "@angular-devkit/build-angular:prerender",
           "options": {
             "browserTarget": "xinshi:build:production",
             "serverTarget": "xinshi:server:production",
