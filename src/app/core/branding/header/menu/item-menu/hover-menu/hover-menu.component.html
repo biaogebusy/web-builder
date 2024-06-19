@@ -1,17 +1,23 @@
 <app-link class="top {{content.href ? 'is-link':'not-link'}}" [content]="content"></app-link>
-<div class="hover-menu" [class.active]="active" *ngIf="content.child && content.child.length > 0">
-  <div *ngTemplateOutlet="child;context:{content: content}"></div>
-</div>
+@if (content.child && content.child.length > 0) {
+  <div class="hover-menu" [class.active]="active">
+    <div *ngTemplateOutlet="child;context:{content: content}"></div>
+  </div>
+}
 
 <ng-template let-content="content" #child>
-  <div class="sub-menu" *ngFor="let item of content.child;">
-    <ng-container *reqRolesIf="item">
-      <button mat-button [class.has-child]="item.child ? true : false">
-        <app-link [content]="item"></app-link>
-      </button>
-      <div class="child" *ngIf="item.child && item.child.length > 0">
-        <div *ngTemplateOutlet="child;context:{content: item}"></div>
-      </div>
-    </ng-container>
-  </div>
+  @for (item of content.child; track item) {
+    <div class="sub-menu">
+      <ng-container *reqRolesIf="item">
+        <button mat-button [class.has-child]="item.child ? true : false">
+          <app-link [content]="item"></app-link>
+        </button>
+        @if (item.child && item.child.length > 0) {
+          <div class="child">
+            <div *ngTemplateOutlet="child;context:{content: item}"></div>
+          </div>
+        }
+      </ng-container>
+    </div>
+  }
 </ng-template>

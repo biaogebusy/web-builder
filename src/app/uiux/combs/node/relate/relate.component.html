@@ -1,16 +1,23 @@
-<div class="relate relative" *ngIf="content">
-  <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
-  <div class="container">
-    <div class="head m-y-md flex justify-between items-center">
-      <app-title *ngIf="content.title" [content]="content.title"></app-title>
-      <app-dynamic-component
-        [inputs]="{ content: action }"
-        *ngFor="let action of content.actions"
-      ></app-dynamic-component>
+@if (content) {
+  <div class="relate relative">
+    @if (content.bg) {
+      <app-bg [content]="content.bg"></app-bg>
+    }
+    <div class="container">
+      <div class="head m-y-md flex justify-between items-center">
+        @if (content.title) {
+          <app-title [content]="content.title"></app-title>
+        }
+        @for (action of content.actions; track action) {
+          <app-dynamic-component
+            [inputs]="{ content: action }"
+          ></app-dynamic-component>
+        }
+      </div>
+      <app-summary [content]="content.summary"></app-summary>
+      <app-spacer [size]="'md'"></app-spacer>
+      <app-relate-showcase [content]="content.showcase"></app-relate-showcase>
     </div>
-    <app-summary [content]="content.summary"></app-summary>
-    <app-spacer [size]="'md'"></app-spacer>
-    <app-relate-showcase [content]="content.showcase"></app-relate-showcase>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

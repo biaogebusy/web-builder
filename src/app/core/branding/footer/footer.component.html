@@ -1,18 +1,23 @@
-<ng-container *ngIf="!(isBuilderMode$ | async)">
-  <div class="footer" *ngIf="branding$ | async as branding">
-    <app-light
-      *ngIf="branding.footer?.params?.mode === 'light'"
-      [content]="branding.footer"
-    ></app-light>
-    <app-inverse
-      *ngIf="branding.footer?.params?.mode === 'inverse'"
-      [content]="branding.footer"
-    >
-    </app-inverse>
-    <app-fix-bar
-      [content]="branding.footer?.fixBar"
-      *ngIf="branding.footer?.fixBar"
-    ></app-fix-bar>
-    <app-gotop></app-gotop>
-  </div>
-</ng-container>
+@if (!(isBuilderMode$ | async)) {
+  @if (branding$ | async; as branding) {
+    <div class="footer">
+      @if (branding.footer?.params?.mode === 'light') {
+        <app-light
+          [content]="branding.footer"
+        ></app-light>
+      }
+      @if (branding.footer?.params?.mode === 'inverse') {
+        <app-inverse
+          [content]="branding.footer"
+          >
+        </app-inverse>
+      }
+      @if (branding.footer?.fixBar) {
+        <app-fix-bar
+          [content]="branding.footer?.fixBar"
+        ></app-fix-bar>
+      }
+      <app-gotop></app-gotop>
+    </div>
+  }
+}

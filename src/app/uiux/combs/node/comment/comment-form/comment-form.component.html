@@ -1,29 +1,34 @@
-<div class="comment-form m-bottom" *ngIf="content">
-  <a class="anchor" id="comment"></a>
-  <app-title [content]="content.editor?.title"></app-title>
-  <div class="editor">
-    <quill-editor
-      (onEditorCreated)="editorCreated($event)"
-      [modules]="modules"
-      [placeholder]="content.editor?.placeholder || placeholder"
-      *ngIf="screenService.isPlatformBrowser()"
-      [(ngModel)]="commentContent"
-      [styles]="{ height: content.editor?.height || '250px' }"
-    >
-    </quill-editor>
+@if (content) {
+  <div class="comment-form m-bottom">
+    <a class="anchor" id="comment"></a>
+    <app-title [content]="content.editor?.title"></app-title>
+    <div class="editor">
+      @if (screenService.isPlatformBrowser()) {
+        <quill-editor
+          (onEditorCreated)="editorCreated($event)"
+          [modules]="modules"
+          [placeholder]="content.editor?.placeholder || placeholder"
+          [(ngModel)]="commentContent"
+          [styles]="{ height: content.editor?.height || '250px' }"
+          >
+        </quill-editor>
+      }
+    </div>
+    <div class="actions p-y-sm p-x-sm">
+      <button
+        (click)="onSubmit(commentContent)"
+        mat-raised-button
+        color="primary"
+        [disabled]="!commentContent"
+        >
+        <div class="flex justify-center items-center">
+          @if (loading) {
+            <mat-spinner diameter="14"></mat-spinner>
+          }
+          <span class="px-3">{{ content.editor?.action?.label || "提交" }}</span>
+        </div>
+      </button>
+      <button class="ml-3" (click)="onCancel()" mat-button>取消</button>
+    </div>
   </div>
-  <div class="actions p-y-sm p-x-sm">
-    <button
-      (click)="onSubmit(commentContent)"
-      mat-raised-button
-      color="primary"
-      [disabled]="!commentContent"
-    >
-      <div class="flex justify-center items-center">
-        <mat-spinner diameter="14" *ngIf="loading"></mat-spinner>
-        <span class="px-3">{{ content.editor?.action?.label || "提交" }}</span>
-      </div>
-    </button>
-    <button class="ml-3" (click)="onCancel()" mat-button>取消</button>
-  </div>
-</div>
+}

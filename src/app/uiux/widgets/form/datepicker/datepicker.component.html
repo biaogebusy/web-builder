@@ -1,33 +1,45 @@
 <!-- range -->
-<ng-container *ngIf="content?.range">
-  <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" *ngIf="content" [formGroup]="form">
-    <mat-label *ngIf="content.label">{{content.label}}</mat-label>
-    <mat-date-range-input [rangePicker]="pickerRange">
-      <input matStartDate formControlName="start" [placeholder]="content.props?.placeholder?.start || '开始'">
-      <input matEndDate formControlName="end" [placeholder]="content?.props?.placeholder?.end || '结束'">
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="pickerRange"></mat-datepicker-toggle>
-    <mat-date-range-picker [dateClass]="content?.classes" [opened]="content?.opened" #pickerRange>
-    </mat-date-range-picker>
-  </mat-form-field>
-</ng-container>
+@if (content?.range) {
+  @if (content) {
+    <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" [formGroup]="form">
+      @if (content.label) {
+        <mat-label>{{content.label}}</mat-label>
+      }
+      <mat-date-range-input [rangePicker]="pickerRange">
+        <input matStartDate formControlName="start" [placeholder]="content.props?.placeholder?.start || '开始'">
+        <input matEndDate formControlName="end" [placeholder]="content?.props?.placeholder?.end || '结束'">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="pickerRange"></mat-datepicker-toggle>
+      <mat-date-range-picker [dateClass]="content?.classes" [opened]="content?.opened" #pickerRange>
+      </mat-date-range-picker>
+    </mat-form-field>
+  }
+}
 
 <!-- key -->
-<ng-container *ngIf="!content?.range && content?.key && !content.inline">
-  <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" *ngIf="content" [formGroup]="form">
-    <mat-label *ngIf="content.label">{{content.label}}</mat-label>
-    <input matInput formControlName="{{content.key}}" [matDatepicker]="datepicker"
-      [placeholder]="content?.placeholder || ''">
-    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-    <mat-datepicker [dateClass]="content?.classes" #datepicker></mat-datepicker>
-    <mat-hint *ngIf="content.hint">{{content.hint}}</mat-hint>
-    <mat-error *ngIf="!isValid">{{content.errorMes}}</mat-error>
-  </mat-form-field>
-</ng-container>
+@if (!content?.range && content?.key && !content.inline) {
+  @if (content) {
+    <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" [formGroup]="form">
+      @if (content.label) {
+        <mat-label>{{content.label}}</mat-label>
+      }
+      <input matInput formControlName="{{content.key}}" [matDatepicker]="datepicker"
+        [placeholder]="content?.placeholder || ''">
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker [dateClass]="content?.classes" #datepicker></mat-datepicker>
+      @if (content.hint) {
+        <mat-hint>{{content.hint}}</mat-hint>
+      }
+      @if (!isValid) {
+        <mat-error>{{content.errorMes}}</mat-error>
+      }
+    </mat-form-field>
+  }
+}
 
 <!-- inline -->
-<ng-container *ngIf="content?.inline">
+@if (content?.inline) {
   <mat-card appearance="outlined" class="inline-calendar-card">
     <mat-calendar (selectedChange)="onSelectedChange($event)" [(selected)]="content.value"></mat-calendar>
   </mat-card>
-</ng-container>
+}

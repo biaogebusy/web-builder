@@ -1,14 +1,18 @@
-<div class="builder-template flex flex-wrap gap-5" *ngIf="content.length">
-  <div class="item mb-3" *ngFor="let item of content">
-    <div class="card" (click)="onNewPage(item.page)" matRipple>
-      <div class="card-header">
-        <div class="title">{{item.title}}</div>
-        <div class="sub-title">{{item.subTitle}}</div>
+@if (content.length) {
+  <div class="builder-template flex flex-wrap gap-5">
+    @for (item of content; track item) {
+      <div class="item mb-3">
+        <div class="card" (click)="onNewPage(item.page)" matRipple>
+          <div class="card-header">
+            <div class="title">{{item.title}}</div>
+            <div class="sub-title">{{item.subTitle}}</div>
+          </div>
+          <app-img class="block rounded-xl overflow-hidden" [content]="{src:item.img}"></app-img>
+          <div class="action">
+            <app-btn [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'plus'}}"></app-btn>
+          </div>
+        </div>
       </div>
-      <app-img class="block rounded-xl overflow-hidden" [content]="{src:item.img}"></app-img>
-      <div class="action">
-        <app-btn [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'plus'}}"></app-btn>
-      </div>
-    </div>
+    }
   </div>
-</div>
+}

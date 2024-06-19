@@ -1,21 +1,24 @@
-<div class="inline-editor" *ngIf="content">
-  <app-title
-    [content]="{ label: content.data.tag, style: 'style-v5' }"
-  ></app-title>
-  <app-formly
-    *ngIf="content.fields"
-    [fields]="content.fields"
-    [model]="model"
-    (modelChange)="onModelChange($event)"
-  ></app-formly>
-  <div class="actions m-top-sm flex flex-row justify-center">
-    <app-btn
-      (click)="onClear()"
+@if (content) {
+  <div class="inline-editor">
+    <app-title
+      [content]="{ label: content.data.tag, style: 'style-v5' }"
+    ></app-title>
+    @if (content.fields) {
+      <app-formly
+        [fields]="content.fields"
+        [model]="model"
+        (modelChange)="onModelChange($event)"
+      ></app-formly>
+    }
+    <div class="actions m-top-sm flex flex-row justify-center">
+      <app-btn
+        (click)="onClear()"
       [content]="{
         label: '清空',
         color: 'primary',
         icon: { svg: 'format-clear' }
       }"
-    ></app-btn>
+      ></app-btn>
+    </div>
   </div>
-</div>
+}

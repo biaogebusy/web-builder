@@ -4,15 +4,19 @@
     [matTooltipPosition]="'above'" (click)="p.previous()" mat-icon-button aria-label="Prev Page">
     <mat-icon inline="true" width="16px">navigate_before</mat-icon>
   </button>
-  <ng-container *ngFor="let page of p.pages">
-    <button [class.current]="p.getCurrent() === page.value" (click)="p.setCurrent(page.value)" mat-icon-button
-      *ngIf="p.getCurrent() !== page.value">
-      <a>{{ page.label }}</a>
-    </button>
-    <button disabled [class.current]="p.getCurrent() === page.value" mat-mini-fab *ngIf="p.getCurrent() === page.value">
-      {{ page.label }}
-    </button>
-  </ng-container>
+  @for (page of p.pages; track page) {
+    @if (p.getCurrent() !== page.value) {
+      <button [class.current]="p.getCurrent() === page.value" (click)="p.setCurrent(page.value)" mat-icon-button
+        >
+        <a>{{ page.label }}</a>
+      </button>
+    }
+    @if (p.getCurrent() === page.value) {
+      <button disabled [class.current]="p.getCurrent() === page.value" mat-mini-fab>
+        {{ page.label }}
+      </button>
+    }
+  }
   <button class="pagination-next" color="primary" [class.disabled]="p.isLastPage()" matTooltip="Next Page"
     [matTooltipPosition]="'above'" (click)="p.next()" mat-icon-button aria-label="Next Page">
     <mat-icon inline="true">navigate_next</mat-icon>

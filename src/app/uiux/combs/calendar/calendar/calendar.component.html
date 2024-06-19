@@ -1,5 +1,6 @@
 <div class="calendar relative">
-  <div
+  @if (loading) {
+    <div
     class="
       loading-inner
       absolute
@@ -11,13 +12,14 @@
       justify-center
       items-center
     "
-    *ngIf="loading"
-  >
-    <mat-spinner diameter="50" color="accent"></mat-spinner>
-  </div>
-  <full-calendar
-    *ngIf="isBrowser"
-    #calendar
-    [options]="options"
-  ></full-calendar>
+      >
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+    </div>
+  }
+  @if (isBrowser) {
+    <full-calendar
+      #calendar
+      [options]="options"
+    ></full-calendar>
+  }
 </div>

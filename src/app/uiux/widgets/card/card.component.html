@@ -1,109 +1,147 @@
-<mat-card
-  appearance="outlined"
-  *ngIf="content"
-  class="card {{ content.header?.meta ? 'has-header' : '' }}"
-  [ngClass]="content.classes"
->
-  <mat-card-content *ngIf="content.header?.meta">
-    <app-card-meta
-      [attr.data-path]="'header.meta'"
-      [content]="content.header?.meta"
-    ></app-card-meta>
-  </mat-card-content>
-  <mat-card-header class="m-bottom-xs" *ngIf="content?.header">
-    <div mat-card-avatar *ngIf="content.header?.avatar">
-      <app-img
-        [attr.data-path]="'header.avatar'"
-        [content]="content.header?.avatar || { src: '' }"
-      ></app-img>
-    </div>
-    <mat-card-title
-      contentedit="header.title"
-      contentedit="title"
-      *ngIf="content.header?.title"
-      [innerHTML]="content.header?.title || '' | safeHtml"
-    ></mat-card-title>
-    <mat-card-subtitle
-      contentedit="header.subTitle"
-      *ngIf="content.header?.subTitle"
-      [innerHTML]="content.header?.subTitle || '' | safeHtml"
+@if (content) {
+  <mat-card
+    appearance="outlined"
+    class="card {{ content.header?.meta ? 'has-header' : '' }}"
+    [ngClass]="content.classes"
     >
-    </mat-card-subtitle>
-  </mat-card-header>
-  <div class="card-header">
-    <ng-container *ngIf="content.carousel">
-      <app-swiper
-        [attr.data-path]="'carousel'"
-        *ngIf="content?.carousel?.elements.length > 1; else feature"
-        [content]="content.carousel"
-      >
-      </app-swiper>
-      <ng-template #feature>
-        <app-feature-box
-          [attr.data-path]="'carousel.elements.0'"
-          [content]="content.carousel.elements[0]"
-        ></app-feature-box>
-      </ng-template>
-    </ng-container>
-    <ng-container *ngIf="!content.carousel && content.feature">
-      <app-feature-box
-        [attr.data-path]="'feature'"
-        [content]="content.feature"
-      ></app-feature-box>
-    </ng-container>
-  </div>
-  <mat-card-content>
-    <div class="flex flex-row py-3">
-      <div *ngIf="content.avatar" mat-card-avatar class="m-right-xs">
-        <app-img [attr.data-path]="'img'" [content]="content.avatar"></app-img>
-      </div>
-      <div class="flex flex-wrap basis-full">
-        <mat-card-title
-          contentedit="title"
-          class="basis-full"
-          *ngIf="content?.title; else link"
-        >
-          <div [innerHTML]="content.title | safeHtml"></div>
-        </mat-card-title>
-        <ng-template #link>
-          <mat-card-title class="basis-full" *ngIf="content.link">
-            <app-link
-              [attr.data-path]="'link'"
-              [content]="content.link"
-            ></app-link>
-          </mat-card-title>
+    @if (content.header?.meta) {
+      <mat-card-content>
+        <app-card-meta
+          [attr.data-path]="'header.meta'"
+          [content]="content.header?.meta"
+        ></app-card-meta>
+      </mat-card-content>
+    }
+    @if (content?.header) {
+      <mat-card-header class="m-bottom-xs">
+        @if (content.header?.avatar) {
+          <div mat-card-avatar>
+            <app-img
+              [attr.data-path]="'header.avatar'"
+              [content]="content.header?.avatar || { src: '' }"
+            ></app-img>
+          </div>
+        }
+        @if (content.header?.title) {
+          <mat-card-title
+            contentedit="header.title"
+            contentedit="title"
+            [innerHTML]="content.header?.title || '' | safeHtml"
+          ></mat-card-title>
+        }
+        @if (content.header?.subTitle) {
+          <mat-card-subtitle
+            contentedit="header.subTitle"
+            [innerHTML]="content.header?.subTitle || '' | safeHtml"
+            >
+          </mat-card-subtitle>
+        }
+      </mat-card-header>
+    }
+    <div class="card-header">
+      @if (content.carousel) {
+        @if (content?.carousel?.elements.length > 1) {
+          <app-swiper
+            [attr.data-path]="'carousel'"
+            [content]="content.carousel"
+            >
+          </app-swiper>
+        } @else {
+          <app-feature-box
+            [attr.data-path]="'carousel.elements.0'"
+            [content]="content.carousel.elements[0]"
+          ></app-feature-box>
+        }
+        <ng-template #feature>
+          <app-feature-box
+            [attr.data-path]="'carousel.elements.0'"
+            [content]="content.carousel.elements[0]"
+          ></app-feature-box>
         </ng-template>
-        <mat-card-subtitle
-          contentedit="subTitle"
-          class="basis-full"
-          *ngIf="content?.subTitle"
-        >
-          <div [innerHTML]="content.subTitle | safeHtml"></div>
-        </mat-card-subtitle>
+      }
+      @if (!content.carousel && content.feature) {
+        <app-feature-box
+          [attr.data-path]="'feature'"
+          [content]="content.feature"
+        ></app-feature-box>
+      }
+    </div>
+    <mat-card-content>
+      <div class="flex flex-row py-3">
+        @if (content.avatar) {
+          <div mat-card-avatar class="m-right-xs">
+            <app-img [attr.data-path]="'img'" [content]="content.avatar"></app-img>
+          </div>
+        }
+        <div class="flex flex-wrap basis-full">
+          @if (content?.title) {
+            <mat-card-title
+              contentedit="title"
+              class="basis-full"
+              >
+              <div [innerHTML]="content.title | safeHtml"></div>
+            </mat-card-title>
+          } @else {
+            @if (content.link) {
+              <mat-card-title class="basis-full">
+                <app-link
+                  [attr.data-path]="'link'"
+                  [content]="content.link"
+                ></app-link>
+              </mat-card-title>
+            }
+          }
+          <ng-template #link>
+            @if (content.link) {
+              <mat-card-title class="basis-full">
+                <app-link
+                  [attr.data-path]="'link'"
+                  [content]="content.link"
+                ></app-link>
+              </mat-card-title>
+            }
+          </ng-template>
+          @if (content?.subTitle) {
+            <mat-card-subtitle
+              contentedit="subTitle"
+              class="basis-full"
+              >
+              <div [innerHTML]="content.subTitle | safeHtml"></div>
+            </mat-card-subtitle>
+          }
+        </div>
       </div>
-    </div>
-    <div
-      *ngIf="content.body"
-      contentedit="body"
-      class="card-body"
-      [innerHTML]="content.body | safeHtml"
-    ></div>
-  </mat-card-content>
-  <mat-card-actions [attr.data-path]="'actions'" *ngIf="content?.actions">
-    <button mat-button *ngFor="let action of content.actions">
-      {{ action.label }}
-    </button>
-  </mat-card-actions>
-  <mat-card-footer>
-    <div class="footer" *ngIf="content.footer">
-      <app-card-meta
-        [attr.data-path]="'footer.meta'"
-        [content]="content.footer.meta"
-      ></app-card-meta>
-    </div>
-    <app-progress-bar
-      *ngIf="content.progressBar"
-      [content]="content.progressBar"
-    ></app-progress-bar>
-  </mat-card-footer>
-</mat-card>
+      @if (content.body) {
+        <div
+          contentedit="body"
+          class="card-body"
+          [innerHTML]="content.body | safeHtml"
+        ></div>
+      }
+    </mat-card-content>
+    @if (content?.actions) {
+      <mat-card-actions [attr.data-path]="'actions'">
+        @for (action of content.actions; track action) {
+          <button mat-button>
+            {{ action.label }}
+          </button>
+        }
+      </mat-card-actions>
+    }
+    <mat-card-footer>
+      @if (content.footer) {
+        <div class="footer">
+          <app-card-meta
+            [attr.data-path]="'footer.meta'"
+            [content]="content.footer.meta"
+          ></app-card-meta>
+        </div>
+      }
+      @if (content.progressBar) {
+        <app-progress-bar
+          [content]="content.progressBar"
+        ></app-progress-bar>
+      }
+    </mat-card-footer>
+  </mat-card>
+}

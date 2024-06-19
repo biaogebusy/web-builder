@@ -1,44 +1,52 @@
-<div class="contact-us relative" *ngIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img [content]="content.bg" *ngIf="content.bg"> </app-bg-img>
-  <div class="{{ content.fullWidth ? '' : 'container' }}">
-    <form class="flex flex-col justify-center items-center">
-      <div class="inner flex flex-wrap justify-center items-center">
-        <div class="flex flex-col flex-12/12 sm:flex-6/12">
-          <div class="p-x-sm">
-            <app-box
-              [attr.data-path]="'contact.' + i"
-              *ngFor="let item of content.contact; index as i"
-              [content]="item"
-            ></app-box>
+@if (content) {
+  <div class="contact-us relative">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    @if (content.bg) {
+      <app-bg-img [content]="content.bg"> </app-bg-img>
+    }
+    <div class="{{ content.fullWidth ? '' : 'container' }}">
+      <form class="flex flex-col justify-center items-center">
+        <div class="inner flex flex-wrap justify-center items-center">
+          <div class="flex flex-col flex-12/12 sm:flex-6/12">
+            <div class="p-x-sm">
+              @for (item of content.contact; track item; let i = $index) {
+                <app-box
+                  [attr.data-path]="'contact.' + i"
+                  [content]="item"
+                ></app-box>
+              }
+            </div>
+          </div>
+          <div class="flex flex-col flex-12/12 sm:flex-6/12">
+            <div class="px-3 flex flex-wrap justify-start items-center">
+              <app-formly [form]="form" [fields]="content.form" [model]="model">
+              </app-formly>
+            </div>
           </div>
         </div>
-        <div class="flex flex-col flex-12/12 sm:flex-6/12">
-          <div class="px-3 flex flex-wrap justify-start items-center">
-            <app-formly [form]="form" [fields]="content.form" [model]="model">
-            </app-formly>
-          </div>
+        @if (content.action) {
+          <button
+            class="m-top"
+            type="submit"
+            mat-raised-button
+            color="primary"
+            (click)="onSubmit()"
+            >
+            {{ content.action.label }}
+          </button>
+        }
+        <div class="flex flex-12/12 justify-center items-center">
+          @if (submited) {
+            <app-spinner
+              [content]="{ color: 'primary', size: 40 }"
+            ></app-spinner>
+          }
         </div>
-      </div>
-
-      <button
-        *ngIf="content.action"
-        class="m-top"
-        type="submit"
-        mat-raised-button
-        color="primary"
-        (click)="onSubmit()"
-      >
-        {{ content.action.label }}
-      </button>
-      <div class="flex flex-12/12 justify-center items-center">
-        <app-spinner
-          [content]="{ color: 'primary', size: 40 }"
-          *ngIf="submited"
-        ></app-spinner>
-      </div>
-    </form>
+      </form>
+    </div>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

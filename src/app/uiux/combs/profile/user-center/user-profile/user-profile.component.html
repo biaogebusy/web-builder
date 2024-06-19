@@ -1,33 +1,43 @@
-<div class="profile p-5 flex flex-wrap justify-between items-center" *ngIf="content">
-  <div class="avatar flex-12/12 md:flex-2/12 justify-center items-center">
-    <app-img [content]="content.avatar"></app-img>
-  </div>
-  <div class="details flex-12/12 md:flex-10/12 flex flex-wrap justify-center items-center md:justify-between md:items-end">
-    <div class="left flex flex-col md:flex-row flex-auto md:flex-12/12">
-      <h1 class="mat-h1 m-bottom-0">{{content.name}}</h1>
-      <div class="subTitle">{{content.subTitle}}</div>
-      <div class="meta m-top-sm" *ngIf="content?.details">
-        <div class="list flex flex-wrap justify-center items-center">
-          <div class="m-right-xs flex-12/12 md:flex-auto justify-start items-start"
-            *ngFor="let item of content.details.elements">
-            <div class="label m-right-xs bold">{{item.label}}:</div>
-            <div>{{item.content}}</div>
+@if (content) {
+  <div class="profile p-5 flex flex-wrap justify-between items-center">
+    <div class="avatar flex-12/12 md:flex-2/12 justify-center items-center">
+      <app-img [content]="content.avatar"></app-img>
+    </div>
+    <div class="details flex-12/12 md:flex-10/12 flex flex-wrap justify-center items-center md:justify-between md:items-end">
+      <div class="left flex flex-col md:flex-row flex-auto md:flex-12/12">
+        <h1 class="mat-h1 m-bottom-0">{{content.name}}</h1>
+        <div class="subTitle">{{content.subTitle}}</div>
+        @if (content?.details) {
+          <div class="meta m-top-sm">
+            <div class="list flex flex-wrap justify-center items-center">
+              @for (item of content.details.elements; track item) {
+                <div class="m-right-xs flex-12/12 md:flex-auto justify-start items-start"
+                  >
+                  <div class="label m-right-xs bold">{{item.label}}:</div>
+                  <div>{{item.content}}</div>
+                </div>
+              }
+            </div>
           </div>
-        </div>
+        }
       </div>
-    </div>
-    <div class="right">
-      <div class="user-menu flex flex-row" *ngIf="userConfig$ | async as config">
-        <div *ngFor="let menu of config.menu" class="item flex-12/12 md:flex-6/12">
-          <app-btn [content]="menu"></app-btn>
-        </div>
-        <div class="item flex-12/12 md:flex-6/12">
-          <a mat-button (click)="logout()">
-            <mat-icon inline="true">exit_to_app</mat-icon>
-            <span>退出</span>
-          </a>
-        </div>
+      <div class="right">
+        @if (userConfig$ | async; as config) {
+          <div class="user-menu flex flex-row">
+            @for (menu of config.menu; track menu) {
+              <div class="item flex-12/12 md:flex-6/12">
+                <app-btn [content]="menu"></app-btn>
+              </div>
+            }
+            <div class="item flex-12/12 md:flex-6/12">
+              <a mat-button (click)="logout()">
+                <mat-icon inline="true">exit_to_app</mat-icon>
+                <span>退出</span>
+              </a>
+            </div>
+          </div>
+        }
       </div>
     </div>
   </div>
-</div>
+}

@@ -1,19 +1,31 @@
-<div *ngIf="content" [ngClass]="content.style" class="inv-builder-box m-bottom-sm">
-  <div *ngIf="content.icon" class="box-icon">
-    <app-icon [content]="content.icon"></app-icon>
-  </div>
-  <div *ngIf="content.img" class="box-image">
-    <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
-  </div>
-  <div class="box-content-wrapper">
-    <h3 class="box-title one-line" *ngIf="content.title.label">
-      <app-link [attr.data-path]="'title'" [content]="content.title"></app-link>
-    </h3>
-    <div *ngIf="content.content" contentedit="content" class="box-content" [innerHTML]="content.content | safeHtml">
-    </div>
-    <div class="read-more" *ngIf="content.more">
-      <a href="{{content.more.href}}" target="{{content.more.target||'_blank'}}"><span contentedit="more.label"
+@if (content) {
+  <div [ngClass]="content.style" class="inv-builder-box m-bottom-sm">
+    @if (content.icon) {
+      <div class="box-icon">
+        <app-icon [content]="content.icon"></app-icon>
+      </div>
+    }
+    @if (content.img) {
+      <div class="box-image">
+        <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
+      </div>
+    }
+    <div class="box-content-wrapper">
+      @if (content.title.label) {
+        <h3 class="box-title one-line">
+          <app-link [attr.data-path]="'title'" [content]="content.title"></app-link>
+        </h3>
+      }
+      @if (content.content) {
+        <div contentedit="content" class="box-content" [innerHTML]="content.content | safeHtml">
+        </div>
+      }
+      @if (content.more) {
+        <div class="read-more">
+          <a href="{{content.more.href}}" target="{{content.more.target||'_blank'}}"><span contentedit="more.label"
           [innerHTML]="content.more.label | safeHtml"></span></a>
+        </div>
+      }
     </div>
   </div>
-</div>
+}

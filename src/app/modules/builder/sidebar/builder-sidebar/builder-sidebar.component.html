@@ -1,11 +1,12 @@
 <div class="builder-sidebar">
-  <a
-    [routerLink]="branding.header.logo?.href"
-    class="logo"
-    *ngIf="branding$ | async as branding"
-  >
-    <app-logo [content]="branding.header.logo" [isInvert]="true"></app-logo>
-  </a>
+  @if (branding$ | async; as branding) {
+    <a
+      [routerLink]="branding.header.logo?.href"
+      class="logo"
+      >
+      <app-logo [content]="branding.header.logo" [isInvert]="true"></app-logo>
+    </a>
+  }
   <mat-divider></mat-divider>
   <div class="menu">
     <div
@@ -14,7 +15,7 @@
       [routerLinkActiveOptions]="{ exact: true }"
       [matTooltip]="'页面编辑'"
       routerLink="./"
-    >
+      >
       <app-icon [content]="{ svg: 'pencil' }"></app-icon>
     </div>
     <div
@@ -23,7 +24,7 @@
       [routerLinkActiveOptions]="{ exact: true }"
       [matTooltip]="'管理列表'"
       routerLink="./page-list"
-    >
+      >
       <app-icon [content]="{ svg: 'format-list-bulleted' }"></app-icon>
     </div>
     <div
@@ -32,7 +33,7 @@
       [routerLinkActiveOptions]="{ exact: true }"
       [matTooltip]="'示例库'"
       routerLink="./samples"
-    >
+      >
       <app-icon [content]="{ svg: 'lightbulb-on-30' }"></app-icon>
     </div>
     <div
@@ -41,12 +42,12 @@
       [routerLinkActiveOptions]="{ exact: true }"
       [matTooltip]="'站点配置'"
       routerLink="./settings"
-    >
+      >
       <app-icon [content]="{ svg: 'cog' }"></app-icon>
     </div>
   </div>
   <div class="bottom">
-    <ng-container *ngIf="branding$ | async as branding">
+    @if (branding$ | async; as branding) {
       <app-btn
         [matTooltip]="'媒体库'"
         (click)="onSelectAssets()"
@@ -73,10 +74,10 @@
           },
         }"
       ></app-btn>
-      <app-btn
-        *ngIf="builder.builderThemeMode | async as mode"
-        [matTooltip]="mode === 'light' ? '切换暗黑风格' : '切换浅色风格'"
-        (click)="onToggleBuilderTheme(mode)"
+      @if (builder.builderThemeMode | async; as mode) {
+        <app-btn
+          [matTooltip]="mode === 'light' ? '切换暗黑风格' : '切换浅色风格'"
+          (click)="onToggleBuilderTheme(mode)"
         [content]="{
           label: '',
           mode: 'icon',
@@ -85,12 +86,14 @@
               mode === 'light' ? 'white-balance-sunny' : 'moon-waning-crescent',
           },
         }"
-      ></app-btn>
+        ></app-btn>
+      }
       <mat-divider></mat-divider>
-      <app-user-menu
-        *ngIf="branding.header?.params?.userInfo"
-        [content]="branding.header.userMenu"
-      ></app-user-menu>
-    </ng-container>
+      @if (branding.header?.params?.userInfo) {
+        <app-user-menu
+          [content]="branding.header.userMenu"
+        ></app-user-menu>
+      }
+    }
   </div>
 </div>

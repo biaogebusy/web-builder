@@ -1,47 +1,55 @@
 <div class="user">
-  <ng-container *ngIf="!currentUser">
+  @if (!currentUser) {
     <button
       aria-label="user login"
       color="primary"
       (click)="onLogin()"
       mat-mini-fab
-    >
+      >
       <mat-icon>person</mat-icon>
     </button>
-  </ng-container>
-  <ng-container *ngIf="currentUser">
-    <button
-      aria-label="user name"
-      *ngIf="!currentUser.picture; else picture"
-      mat-mini-fab
-      color="primary"
-      [matMenuTriggerFor]="menu"
-    >
-      <h3 class="name">
-        {{ utilities.getIndexTitle(currentUser.display_name || "N") }}
-      </h3>
-    </button>
+  }
+  @if (currentUser) {
+    @if (!currentUser.picture) {
+      <button
+        aria-label="user name"
+        mat-mini-fab
+        color="primary"
+        [matMenuTriggerFor]="menu"
+        >
+        <h3 class="name">
+          {{ utilities.getIndexTitle(currentUser.display_name || "N") }}
+        </h3>
+      </button>
+    } @else {
+      <img
+        class="user-picture"
+        [matMenuTriggerFor]="menu"
+        [src]="currentUser.picture"
+        alt="{{ currentUser.display_name }}"
+        />
+    }
     <ng-template #picture>
       <img
         class="user-picture"
         [matMenuTriggerFor]="menu"
         [src]="currentUser.picture"
         alt="{{ currentUser.display_name }}"
-      />
+        />
     </ng-template>
     <mat-menu #menu="matMenu" class="user-dropdown">
       <a mat-menu-item [routerLink]="userService.userPage">
         <mat-icon>account_circle</mat-icon>{{ currentUser.display_name }}
       </a>
-      <ng-container *ngFor="let item of content">
+      @for (item of content; track item) {
         <button aria-label="user link" mat-menu-item *reqRolesIf="item">
           <app-icon [content]="item.icon"></app-icon>
           <app-link [content]="item"></app-link>
         </button>
-      </ng-container>
+      }
       <button aria-label="logout" mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>退出
       </button>
     </mat-menu>
-  </ng-container>
+  }
 </div>

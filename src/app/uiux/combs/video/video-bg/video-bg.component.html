@@ -1,13 +1,23 @@
-<div class="video-bg relative" *ngIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg *ngIf="content.bg" [content]="content.bg"></app-bg>
-  <app-player *ngIf="video" [content]="video"></app-player>
-  <div class="inner relative" ngClass.gt-sm="xy-center" ngClass.lt-md="y-center">
-    <div class="wrapper">
-      <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of content.elements;index as i"
-        [inputs]="item"></app-dynamic-component>
+@if (content) {
+  <div class="video-bg relative">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    @if (content.bg) {
+      <app-bg [content]="content.bg"></app-bg>
+    }
+    @if (video) {
+      <app-player [content]="video"></app-player>
+    }
+    <div class="inner relative" ngClass.gt-sm="xy-center" ngClass.lt-md="y-center">
+      <div class="wrapper">
+        @for (item of content.elements; track item; let i = $index) {
+          <app-dynamic-component [attr.data-path]="'elements.'+i"
+          [inputs]="item"></app-dynamic-component>
+        }
+      </div>
     </div>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

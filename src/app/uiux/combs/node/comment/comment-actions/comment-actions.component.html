@@ -1,88 +1,104 @@
 <div class="actions">
-  <ng-container *ngIf="!config?.actions; else configActions">
+  @if (!config?.actions) {
     <div class="flex items-start mt-5 md:ml-5 pl-3">
-      <button *ngIf="isMy()" mat-button color="primary" (click)="onUpdate()">
-        <mat-icon inline="true">editor</mat-icon> 修改
-      </button>
-      <button
-        *ngIf="!item.child"
-        mat-button
-        color="primary"
-        (click)="onReply()"
-      >
-        <mat-icon inline="true">reply</mat-icon> 回复
-      </button>
-      <button
-        *ngIf="!item.child"
-        mat-button
-        color="primary"
-        (click)="onQuote()"
-      >
-        <mat-icon inline="true">repeat</mat-icon> 引用
-      </button>
-      <button
-        *ngIf="isMy()"
-        mat-button
-        color="primary"
-        (click)="onDelete(item.id)"
-      >
-        <div class="flex justify-center items-center">
-          <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-          <mat-icon inline="true" *ngIf="!loading">delete</mat-icon> 删除
+      @if (isMy()) {
+        <button mat-button color="primary" (click)="onUpdate()">
+          <mat-icon inline="true">editor</mat-icon> 修改
+        </button>
+      }
+      @if (!item.child) {
+        <button
+          mat-button
+          color="primary"
+          (click)="onReply()"
+          >
+          <mat-icon inline="true">reply</mat-icon> 回复
+        </button>
+      }
+      @if (!item.child) {
+        <button
+          mat-button
+          color="primary"
+          (click)="onQuote()"
+          >
+          <mat-icon inline="true">repeat</mat-icon> 引用
+        </button>
+      }
+      @if (isMy()) {
+        <button
+          mat-button
+          color="primary"
+          (click)="onDelete(item.id)"
+          >
+          <div class="flex justify-center items-center">
+            @if (loading) {
+              <mat-spinner diameter="20"></mat-spinner>
+            }
+            @if (!loading) {
+              <mat-icon inline="true">delete</mat-icon>
+              } 删除
+            </div>
+          </button>
+        }
+      </div>
+    } @else {
+      <div class="mt-5 flex items-start md:ml-5 pl-3">
+        @for (action of config.actions; track action) {
+          @switch (action) {
+            @case ('update') {
+              @if (isMy()) {
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="onUpdate()"
+                  >
+                  <mat-icon inline="true">editor</mat-icon> 修改
+                </button>
+              }
+            }
+            @case ('reply') {
+              @if (item.level === 1) {
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="onReply()"
+                  >
+                  <mat-icon inline="true">reply</mat-icon> 回复
+                </button>
+              }
+            }
+            @case ('quote') {
+              @if (item.level === 1) {
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="onQuote()"
+                  >
+                  <mat-icon inline="true">repeat</mat-icon> 引用
+                </button>
+              }
+            }
+            @case ('delete') {
+              @if (isMy()) {
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="onDelete(item.id)"
+                  >
+                  <div class="flex justify-center items-center">
+                    @if (loading) {
+                      <mat-spinner diameter="20"></mat-spinner>
+                    }
+                    @if (!loading) {
+                      <mat-icon inline="true">delete</mat-icon>
+                      } 删除
+                    </div>
+                  </button>
+                }
+              }
+            }
+          }
         </div>
-      </button>
-    </div>
-  </ng-container>
+      }
 
-  <ng-template #configActions>
-    <div class="mt-5 flex items-start md:ml-5 pl-3">
-      <ng-container *ngFor="let action of config.actions">
-        <ng-container [ngSwitch]="action">
-          <ng-container *ngSwitchCase="'update'">
-            <button
-              *ngIf="isMy()"
-              mat-button
-              color="primary"
-              (click)="onUpdate()"
-            >
-              <mat-icon inline="true">editor</mat-icon> 修改
-            </button>
-          </ng-container>
-          <ng-container *ngSwitchCase="'reply'">
-            <button
-              *ngIf="item.level === 1"
-              mat-button
-              color="primary"
-              (click)="onReply()"
-            >
-              <mat-icon inline="true">reply</mat-icon> 回复
-            </button>
-          </ng-container>
-          <ng-container *ngSwitchCase="'quote'">
-            <button
-              *ngIf="item.level === 1"
-              mat-button
-              color="primary"
-              (click)="onQuote()"
-            >
-              <mat-icon inline="true">repeat</mat-icon> 引用
-            </button>
-          </ng-container>
-          <ng-container *ngSwitchCase="'delete'">
-            <button
-              *ngIf="isMy()"
-              mat-button
-              color="primary"
-              (click)="onDelete(item.id)"
-            >
-              <div class="flex justify-center items-center">
-                <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-                <mat-icon inline="true" *ngIf="!loading">delete</mat-icon> 删除
-              </div>
-            </button>
-          </ng-container>
-        </ng-container>
-      </ng-container>
     </div>
-  </ng-template>
-</div>

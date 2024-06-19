@@ -1,34 +1,39 @@
-<div
-  id="builder-list-sideabr"
-  class="flex flex-col justify-center items-center"
-  *ngIf="currentPage$ | async as page"
-  cdkDropList
-  [cdkDropListConnectedTo]="['widgets', 'components']"
-  (cdkDropListDropped)="drop($event)"
->
-  <div class="component-item empty" *ngIf="!page.body.length">
-    <div class="box">没有组件</div>
-  </div>
+@if (currentPage$ | async; as page) {
   <div
-    class="component-item"
-    cdkDrag
-    [cdkDragData]="item"
-    *ngFor="let item of page.body; index as i; trackBy: trackByFn"
-    (click)="onClickSidebar(i, item)"
-  >
-    <div *ngIf="item" class="box flex flex-row justify-center items-center">
-      <div class="pr-[10px]">{{ i }}</div>
-      <ng-container *ngIf="item.type; else warn">
-        <div class="inner flex flex-col justify-center items-center">
-          <div class="one-line bold">{{ item.type || item.content.type }}</div>
-          <div class="one-line">{{ item.name }}</div>
-        </div>
-      </ng-container>
-      <ng-template #warn>
-        <div class="inner flex flex-col justify-center">
-          <div class="one-line bold">无法识别该组件</div>
-        </div>
-      </ng-template>
-    </div>
+    id="builder-list-sideabr"
+    class="flex flex-col justify-center items-center"
+    cdkDropList
+    [cdkDropListConnectedTo]="['widgets', 'components']"
+    (cdkDropListDropped)="drop($event)"
+    >
+    @if (!page.body.length) {
+      <div class="component-item empty">
+        <div class="box">没有组件</div>
+      </div>
+    }
+    @for (item of page.body; track trackByFn(i, item); let i = $index) {
+      <div
+        class="component-item"
+        cdkDrag
+        [cdkDragData]="item"
+        (click)="onClickSidebar(i, item)"
+        >
+        @if (item) {
+          <div class="box flex flex-row justify-center items-center">
+            <div class="pr-[10px]">{{ i }}</div>
+            @if (item.type) {
+              <div class="inner flex flex-col justify-center items-center">
+                <div class="one-line bold">{{ item.type || item.content.type }}</div>
+                <div class="one-line">{{ item.name }}</div>
+              </div>
+            } @else {
+              <div class="inner flex flex-col justify-center">
+                <div class="one-line bold">无法识别该组件</div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
   </div>
-</div>
+}

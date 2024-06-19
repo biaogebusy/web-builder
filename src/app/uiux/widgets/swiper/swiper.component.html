@@ -4,15 +4,16 @@
   #swiper
   [attr.data-path]="'elements'"
   [ngClass]="content.classes"
->
-  <swiper-slide
-    class="swiper-slide"
-    *ngFor="let slide of content.elements; index as i"
   >
-    <app-dynamic-component
-      [attr.data-path]="i"
-      [ngClass]="content.sliderClasses"
-      [inputs]="{ content: slide }"
-    ></app-dynamic-component>
-  </swiper-slide>
+  @for (slide of content.elements; track slide; let i = $index) {
+    <swiper-slide
+      class="swiper-slide"
+      >
+      <app-dynamic-component
+        [attr.data-path]="i"
+        [ngClass]="content.sliderClasses"
+        [inputs]="{ content: slide }"
+      ></app-dynamic-component>
+    </swiper-slide>
+  }
 </swiper-container>

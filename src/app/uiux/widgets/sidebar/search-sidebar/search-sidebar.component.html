@@ -1,46 +1,50 @@
-<div class="search-sidebar my-10 sticky top-[40px]" *ngIf="content">
-  <div class="sidebar-header flex justify-between items-center">
-    <div class="key m-3">
-      <mat-chip-listbox>
-        <mat-chip-option
-          *ngIf="form.controls['title']?.value"
-          color="primary"
-          selected
-          >{{ form.controls["title"].value }}
-        </mat-chip-option>
-        <mat-chip-option
-          *ngIf="form.controls['keys']?.value"
-          color="primary"
-          selected
-          >{{ form.controls["keys"].value }}
-        </mat-chip-option>
-      </mat-chip-listbox>
+@if (content) {
+  <div class="search-sidebar my-10 sticky top-[40px]">
+    <div class="sidebar-header flex justify-between items-center">
+      <div class="key m-3">
+        <mat-chip-listbox>
+          @if (form.controls['title']?.value) {
+            <mat-chip-option
+              color="primary"
+              selected
+              >{{ form.controls["title"].value }}
+            </mat-chip-option>
+          }
+          @if (form.controls['keys']?.value) {
+            <mat-chip-option
+              color="primary"
+              selected
+              >{{ form.controls["keys"].value }}
+            </mat-chip-option>
+          }
+        </mat-chip-listbox>
+      </div>
+      <div class="item m-3">
+        <button mat-button (click)="clear()">
+          <mat-icon>clear</mat-icon>{{ label.clear || "清空" }}
+        </button>
+      </div>
     </div>
-    <div class="item m-3">
-      <button mat-button (click)="clear()">
-        <mat-icon>clear</mat-icon>{{ label.clear || "清空" }}
-      </button>
-    </div>
+    <mat-divider></mat-divider>
+    <form [formGroup]="form">
+      <mat-accordion>
+        <mat-expansion-panel
+          expanded="true"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+          >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>{{ label.filter || "过滤条件" }}</strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <app-formly
+            [form]="form"
+            [fields]="content"
+            (modelChange)="onModelChange($event)"
+          ></app-formly>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
   </div>
-  <mat-divider></mat-divider>
-  <form [formGroup]="form">
-    <mat-accordion>
-      <mat-expansion-panel
-        expanded="true"
-        (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false"
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <strong>{{ label.filter || "过滤条件" }}</strong>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <app-formly
-          [form]="form"
-          [fields]="content"
-          (modelChange)="onModelChange($event)"
-        ></app-formly>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </form>
-</div>
+}

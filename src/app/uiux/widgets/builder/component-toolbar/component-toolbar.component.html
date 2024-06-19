@@ -1,37 +1,39 @@
 <div class="wrapper flex justify-between items-center">
   <div class="actions flex">
-    <div
-      *ngIf="index > 0 && isPreview"
-      class="item"
-      (click)="onUpdown(index, 'up')"
-      [matTooltip]="'上移'"
-      matTooltipPosition="above"
-    >
-      <app-btn
+    @if (index > 0 && isPreview) {
+      <div
+        class="item"
+        (click)="onUpdown(index, 'up')"
+        [matTooltip]="'上移'"
+        matTooltipPosition="above"
+        >
+        <app-btn
         [content]="{
           label: '',
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'arrow-collapse-up', inline: true }
         }"
-      ></app-btn>
-    </div>
-    <div
-      *ngIf="isPreview"
-      class="item"
-      (click)="onUpdown(index, 'down')"
-      [matTooltip]="'下移'"
-      matTooltipPosition="above"
-    >
-      <app-btn
+        ></app-btn>
+      </div>
+    }
+    @if (isPreview) {
+      <div
+        class="item"
+        (click)="onUpdown(index, 'down')"
+        [matTooltip]="'下移'"
+        matTooltipPosition="above"
+        >
+        <app-btn
         [content]="{
           label: '',
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'arrow-collapse-down', inline: true }
         }"
-      ></app-btn>
-    </div>
+        ></app-btn>
+      </div>
+    }
     <div class="item" matTooltip="复制JSON" (click)="onCopy()">
       <app-btn
         [content]="{
@@ -42,21 +44,22 @@
         }"
       ></app-btn>
     </div>
-    <div
-      class="item"
-      matTooltip="粘贴复制的组件到下面"
-      *ngIf="bcData"
-      (click)="onPaste($event, bcData)"
-    >
-      <app-btn
+    @if (bcData) {
+      <div
+        class="item"
+        matTooltip="粘贴复制的组件到下面"
+        (click)="onPaste($event, bcData)"
+        >
+        <app-btn
         [content]="{
           label: '',
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'content-paste', inline: true }
         }"
-      ></app-btn>
-    </div>
+        ></app-btn>
+      </div>
+    }
     <div class="item" matTooltip="显示网格" (click)="onShowGrid()">
       <app-btn
         [content]="{
@@ -67,28 +70,29 @@
         }"
       ></app-btn>
     </div>
-    <div
-      class="item"
-      (click)="onDelete(index)"
-      *ngIf="isPreview"
-      [matTooltip]="'移除'"
-      matTooltipPosition="above"
-    >
-      <app-btn
+    @if (isPreview) {
+      <div
+        class="item"
+        (click)="onDelete(index)"
+        [matTooltip]="'移除'"
+        matTooltipPosition="above"
+        >
+        <app-btn
         [content]="{
           label: '',
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'delete', inline: true }
         }"
-      ></app-btn>
-    </div>
+        ></app-btn>
+      </div>
+    }
     <div
       class="item"
       (click)="onSetting(content, index, $event)"
       [matTooltip]="'编辑组件通用配置'"
       matTooltipPosition="above"
-    >
+      >
       <app-btn
         [content]="{
           label: '',

@@ -1,28 +1,35 @@
-<div class="showcase-2v2 relative" *ngIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img
-    [attr.data-path]="'bg'"
-    [content]="content.bg"
-    *ngIf="content.bg"
-  ></app-bg-img>
-  <div class="{{ content.fullWidth ? '' : 'container' }} flex flex-col">
-    <app-text
-      [attr.data-path]="'text'"
-      [content]="content.text"
-      *ngIf="content.text"
-    ></app-text>
-    <div
-      class="m-y grid grid-cols-12 gap-8 justify-center items-start"
-    >
-      <app-card
-        [attr.data-path]="'elements.' + i"
-        class="m-bottom-sm col-span-12 md:col-span-{{content.row}}"
-        *ngFor="let case of content.elements; index as i"
-        [content]="case"
-      >
-      </app-card>
+@if (content) {
+  <div class="showcase-2v2 relative">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    @if (content.bg) {
+      <app-bg-img
+        [attr.data-path]="'bg'"
+        [content]="content.bg"
+      ></app-bg-img>
+    }
+    <div class="{{ content.fullWidth ? '' : 'container' }} flex flex-col">
+      @if (content.text) {
+        <app-text
+          [attr.data-path]="'text'"
+          [content]="content.text"
+        ></app-text>
+      }
+      <div
+        class="m-y grid grid-cols-12 gap-8 justify-center items-start"
+        >
+        @for (case of content.elements; track case; let i = $index) {
+          <app-card
+            [attr.data-path]="'elements.' + i"
+            class="m-bottom-sm col-span-12 md:col-span-{{content.row}}"
+            [content]="case"
+            >
+          </app-card>
+        }
+      </div>
     </div>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

@@ -1,25 +1,39 @@
-<div class="shuffle-container" *ngIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
-  <div class="{{content.fullWidth?'':'container'}}">
-    <app-title [attr.data-path]="'title'" *ngIf="content.title" [content]="content.title"></app-title>
-    <div class="filter" *ngIf="content.filter">
-      <mat-button-toggle-group name="toggle group" aria-label="toggle group" (change)="onChange($event)">
-        <ng-container *ngFor="let item of content.filter">
-          <mat-button-toggle *ngIf="item.value" value="{{item.value}}">
-            {{item.label}}
-          </mat-button-toggle>
-        </ng-container>
-      </mat-button-toggle-group>
-    </div>
-    <div class="shuffle-inner flex w-full h-full flex-wrap">
-      <div class="item w-[100%] sm:w-[50%] md:w-[25%]"
-        *ngFor="let item of content.elements;" [attr.data-groups]="item.category">
-        <app-dynamic-component [inputs]="{content:item}"></app-dynamic-component>
+@if (content) {
+  <div class="shuffle-container">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    @if (content.bg) {
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+    }
+    <div class="{{content.fullWidth?'':'container'}}">
+      @if (content.title) {
+        <app-title [attr.data-path]="'title'" [content]="content.title"></app-title>
+      }
+      @if (content.filter) {
+        <div class="filter">
+          <mat-button-toggle-group name="toggle group" aria-label="toggle group" (change)="onChange($event)">
+            @for (item of content.filter; track item) {
+              @if (item.value) {
+                <mat-button-toggle value="{{item.value}}">
+                  {{item.label}}
+                </mat-button-toggle>
+              }
+            }
+          </mat-button-toggle-group>
+        </div>
+      }
+      <div class="shuffle-inner flex w-full h-full flex-wrap">
+        @for (item of content.elements; track item) {
+          <div class="item w-[100%] sm:w-[50%] md:w-[25%]"
+            [attr.data-groups]="item.category">
+            <app-dynamic-component [inputs]="{content:item}"></app-dynamic-component>
+          </div>
+        }
+        <div class="sizer w-[100%] sm:w-[50%] md:w-[25%]"></div>
       </div>
-      <div class="sizer w-[100%] sm:w-[50%] md:w-[25%]"></div>
     </div>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

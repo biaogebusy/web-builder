@@ -1,48 +1,60 @@
 <div
   class="card-1v1 relative rounded-md overflow-hidden top-0 hover:-top-3 transition-all ease-in duration-300"
   [ngClass]="content.classes"
->
-  <app-feature-box
-    [attr.data-path]="'feature'"
-    *ngIf="content.feature"
-    [content]="content.feature"
-  ></app-feature-box>
-  <div class="components" *ngIf="content.components">
-    <app-dynamic-component
-      [attr.data-path]="'components.' + i"
-      *ngFor="let item of content.components; index as i"
-      [inputs]="item"
-    ></app-dynamic-component>
-  </div>
+  >
+  @if (content.feature) {
+    <app-feature-box
+      [attr.data-path]="'feature'"
+      [content]="content.feature"
+    ></app-feature-box>
+  }
+  @if (content.components) {
+    <div class="components">
+      @for (item of content.components; track item; let i = $index) {
+        <app-dynamic-component
+          [attr.data-path]="'components.' + i"
+          [inputs]="item"
+        ></app-dynamic-component>
+      }
+    </div>
+  }
   <div class="card-body p-y-sm p-x-sm">
-    <div class="title mat-h2 two-line" *ngIf="content.link">
-      <app-link [attr.data-path]="'link'" [content]="content.link"></app-link>
-    </div>
-    <div
-      class="post-meta flex justify-between items-center"
-      *ngIf="content.moreLabel"
-    >
-      <a
-        *ngIf="content.link"
-        [href]="content.link.href"
-        class="text-muted readmore"
-      >
-        <span
-          contentedit="moreLabel"
-          [innerHTML]="content.moreLabel | safeHtml"
-        ></span>
-        <mat-icon inline="true">navigate_next</mat-icon>
-      </a>
-    </div>
+    @if (content.link) {
+      <div class="title mat-h2 two-line">
+        <app-link [attr.data-path]="'link'" [content]="content.link"></app-link>
+      </div>
+    }
+    @if (content.moreLabel) {
+      <div
+        class="post-meta flex justify-between items-center"
+        >
+        @if (content.link) {
+          <a
+            [href]="content.link.href"
+            class="text-muted readmore"
+            >
+            <span
+              contentedit="moreLabel"
+              [innerHTML]="content.moreLabel | safeHtml"
+            ></span>
+            <mat-icon inline="true">navigate_next</mat-icon>
+          </a>
+        }
+      </div>
+    }
   </div>
   <div
     class="flex flex-col author absolute z-10 opacity-0 top-[5%] left-[5%] transition-all duration-300 ease-in"
-  >
-    <small class="user" *ngIf="content.user">
-      <mat-icon inline="true">person</mat-icon> {{ content.user }}
-    </small>
-    <small class="date flex justify-center items-center" *ngIf="content.time">
-      <mat-icon inline="true">event</mat-icon> {{ content.time }}
-    </small>
+    >
+    @if (content.user) {
+      <small class="user">
+        <mat-icon inline="true">person</mat-icon> {{ content.user }}
+      </small>
+    }
+    @if (content.time) {
+      <small class="date flex justify-center items-center">
+        <mat-icon inline="true">event</mat-icon> {{ content.time }}
+      </small>
+    }
   </div>
 </div>

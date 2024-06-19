@@ -1,10 +1,12 @@
 <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs>
-  <mat-tab *ngFor="let widget of uiux">
-    <ng-template mat-tab-label>
-      <app-icon [content]="widget.icon" [matTooltip]="widget.label"></app-icon>
-    </ng-template>
-    <div class="p-x-xs p-y-xs">
-      <app-builder-panel [content]="widget.elements"></app-builder-panel>
-    </div>
-  </mat-tab>
+  @for (widget of uiux; track widget) {
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <app-icon [content]="widget.icon" [matTooltip]="widget.label"></app-icon>
+      </ng-template>
+      <div class="p-x-xs p-y-xs">
+        <app-builder-panel [content]="widget.elements"></app-builder-panel>
+      </div>
+    </mat-tab>
+  }
 </mat-tab-group>

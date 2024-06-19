@@ -5,29 +5,31 @@
         <mat-panel-title>示例页面</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
-        <mat-spinner
-          class="mx-auto my-10"
-          diameter="50"
-          color="primary"
-          *ngIf="loading"
-        ></mat-spinner>
-        <ng-container *ngIf="samplePages$ | async as samples">
+        @if (loading) {
+          <mat-spinner
+            class="mx-auto my-10"
+            diameter="50"
+            color="primary"
+          ></mat-spinner>
+        }
+        @if (samplePages$ | async; as samples) {
           <div class="cards grid grid-cols-12 gap-1">
-            <div
-              class="item col-span-6 sm:col-span-4"
-              [matTooltip]="item.title"
-              (click)="loadSample(item)"
-              *ngFor="let item of samples; index as i"
-            >
+            @for (item of samples; track item; let i = $index) {
               <div
-                class="inner flex flex-col justify-center items-center overflow-hidden"
-              >
-                <div class="font-mono">{{ i + 1 }}</div>
-                <div class="title">{{ item.title }}</div>
+                class="item col-span-6 sm:col-span-4"
+                [matTooltip]="item.title"
+                (click)="loadSample(item)"
+                >
+                <div
+                  class="inner flex flex-col justify-center items-center overflow-hidden"
+                  >
+                  <div class="font-mono">{{ i + 1 }}</div>
+                  <div class="title">{{ item.title }}</div>
+                </div>
               </div>
-            </div>
+            }
           </div>
-        </ng-container>
+        }
       </mat-list>
     </mat-expansion-panel>
   </mat-accordion>

@@ -1,8 +1,9 @@
 <div class="profile-banner relative">
-  <app-bg-img
-    *ngIf="content.bannerBg"
-    [content]="content.bannerBg"
-  ></app-bg-img>
+  @if (content.bannerBg) {
+    <app-bg-img
+      [content]="content.bannerBg"
+    ></app-bg-img>
+  }
 </div>
 <div class="profile-1v1 relative m-y">
   <div class="container">
@@ -14,75 +15,91 @@
             {{ content.name }}
           </h2>
           <div class="subTitle">{{ content.subTitle }}</div>
-          <div class="actions" *ngIf="content.actions">
-            <button
-              mat-icon-button
-              aria-label="menu"
-              [matMenuTriggerFor]="menu"
-            >
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" class="actions-menu">
-              <button mat-menu-item *ngFor="let action of content.actions">
-                <app-dynamic-component [inputs]="action">
-                </app-dynamic-component>
+          @if (content.actions) {
+            <div class="actions">
+              <button
+                mat-icon-button
+                aria-label="menu"
+                [matMenuTriggerFor]="menu"
+                >
+                <mat-icon>more_vert</mat-icon>
               </button>
-            </mat-menu>
-          </div>
+              <mat-menu #menu="matMenu" class="actions-menu">
+                @for (action of content.actions; track action) {
+                  <button mat-menu-item>
+                    <app-dynamic-component [inputs]="action">
+                    </app-dynamic-component>
+                  </button>
+                }
+              </mat-menu>
+            </div>
+          }
         </div>
         <mat-divider></mat-divider>
-        <div class="left-item p-y-sm p-x-xs" *ngIf="content?.details">
-          <app-title
+        @if (content?.details) {
+          <div class="left-item p-y-sm p-x-xs">
+            <app-title
             [content]="{
               label: content.details.label,
               style: 'style-v4',
             }"
-          ></app-title>
-          <div class="list">
-            <div class="flex" *ngFor="let item of content.details.elements">
-              <app-icon [content]="item.icon"></app-icon>
-              <div class="label m-right-xs bold">{{ item.label }}:</div>
-              <div class="one-line">{{ item.content }}</div>
+            ></app-title>
+            <div class="list">
+              @for (item of content.details.elements; track item) {
+                <div class="flex">
+                  <app-icon [content]="item.icon"></app-icon>
+                  <div class="label m-right-xs bold">{{ item.label }}:</div>
+                  <div class="one-line">{{ item.content }}</div>
+                </div>
+              }
             </div>
           </div>
-        </div>
-        <div class="left-bottom p-y-sm p-x-sm" *ngIf="content?.leftBottom">
-          <div class="content">
-            <div class="item m-bottom" *ngFor="let item of content.leftBottom">
-              <app-title [content]="item.title"></app-title>
-              <app-dynamic-component [inputs]="item"></app-dynamic-component>
+        }
+        @if (content?.leftBottom) {
+          <div class="left-bottom p-y-sm p-x-sm">
+            <div class="content">
+              @for (item of content.leftBottom; track item) {
+                <div class="item m-bottom">
+                  <app-title [content]="item.title"></app-title>
+                  <app-dynamic-component [inputs]="item"></app-dynamic-component>
+                </div>
+              }
             </div>
           </div>
-        </div>
+        }
       </div>
       <div class="right col-span-12 md:col-span-9">
         <div class="content">
-          <div class="item m-bottom" *ngFor="let item of content.content">
-            <ng-container *ngIf="!(item.empty && item.empty === true)">
-              <app-title
+          @for (item of content.content; track item) {
+            <div class="item m-bottom">
+              @if (!(item.empty && item.empty === true)) {
+                <app-title
                 [content]="{
                   label: item.label,
                   style: 'style-v4',
                 }"
-              ></app-title>
-              <app-dynamic-component [inputs]="item"></app-dynamic-component>
-            </ng-container>
-          </div>
+                ></app-title>
+                <app-dynamic-component [inputs]="item"></app-dynamic-component>
+              }
+            </div>
+          }
         </div>
       </div>
     </div>
-    <div
-      class="comment-wrapper my-3 p-3 md:my-5 md:p-5"
-      *ngIf="content?.params?.comment"
-    >
-      <app-comment-form
-        *ngIf="content?.params?.comment"
-        [content]="content"
-        [type]="'add'"
-      >
-      </app-comment-form>
-      <app-comment-list [comments]="comments" [content]="content">
-      </app-comment-list>
-    </div>
+    @if (content?.params?.comment) {
+      <div
+        class="comment-wrapper my-3 p-3 md:my-5 md:p-5"
+        >
+        @if (content?.params?.comment) {
+          <app-comment-form
+            [content]="content"
+            [type]="'add'"
+            >
+          </app-comment-form>
+        }
+        <app-comment-list [comments]="comments" [content]="content">
+        </app-comment-list>
+      </div>
+    }
   </div>
 </div>

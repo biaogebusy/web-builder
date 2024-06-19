@@ -1,21 +1,37 @@
-<div class="menu-list" *ngIf="content">
-  <h2 class="block-title" *ngIf="content.title | isString">{{content.title}}</h2>
-  <mat-divider></mat-divider>
-  <div class="list" *ngIf="list">
-    <div class="item flex justify-between items-center" *ngFor="let item of list">
-      <app-link [content]="item.link"></app-link>
-      <div class="num-posts" *ngIf="item.label">
-        {{item.label}}
+@if (content) {
+  <div class="menu-list">
+    @if (content.title | isString) {
+      <h2 class="block-title">{{content.title}}</h2>
+    }
+    <mat-divider></mat-divider>
+    @if (list) {
+      <div class="list">
+        @for (item of list; track item) {
+          <div class="item flex justify-between items-center">
+            <app-link [content]="item.link"></app-link>
+            @if (item.label) {
+              <div class="num-posts">
+                {{item.label}}
+              </div>
+            }
+          </div>
+        }
+        @if (initList && (initList.length > row)) {
+          <div class="action py-5 flex justify-center items-center"
+            (click)="onExpand()">
+            @if (expand) {
+              <button mat-icon-button>
+                <mat-icon>expand_less</mat-icon>
+              </button>
+            }
+            @if (!expand) {
+              <button mat-icon-button>
+                <mat-icon>expand_more</mat-icon>
+              </button>
+            }
+          </div>
+        }
       </div>
-    </div>
-    <div *ngIf="initList && (initList.length > row)" class="action py-5 flex justify-center items-center"
-      (click)="onExpand()">
-      <button mat-icon-button *ngIf="expand">
-        <mat-icon>expand_less</mat-icon>
-      </button>
-      <button mat-icon-button *ngIf="!expand">
-        <mat-icon>expand_more</mat-icon>
-      </button>
-    </div>
+    }
   </div>
-</div>
+}

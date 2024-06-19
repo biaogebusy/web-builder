@@ -1,9 +1,15 @@
 <div class="lottery relative">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  @if (content.id) {
+    <a class="anchor" [id]="content.id"></a>
+  }
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img [content]="content.bg" *ngIf="content.bg"> </app-bg-img>
+  @if (content.bg) {
+    <app-bg-img [content]="content.bg"> </app-bg-img>
+  }
   <div class="{{ content.fullWidth ? '' : 'container' }}">
-    <app-text *ngIf="content.text" [content]="content.text"></app-text>
+    @if (content.text) {
+      <app-text [content]="content.text"></app-text>
+    }
     <div class="inner flex flex-wrap justify-center items-center">
       <app-formly
         class="m-y p-x-sm flex-12/12 md:flex-5/12"
@@ -11,12 +17,12 @@
         [form]="form"
         [model]="model"
         (modelChange)="onFormlyChange($event)"
-      >
+        >
       </app-formly>
       <div class="flex flex-col flex-12/12 md:flex-7/12">
         <div
           class="result p-x-sm p-y flex flex-wrap justify-between items-center"
-        >
+          >
           <div
             class="
               left
@@ -25,39 +31,47 @@
               justify-center
               items-center
             "
-          >
+            >
             <h2>红包大约需要总预算</h2>
             <h1 class="total p-y-sm">
               ¥<span>{{ total }}</span>
             </h1>
             <div class="result-footer text-center flex flex-wrap gap-5">
-              <div class="item flex flex-col" *ngIf="model?.max?.total_number">
-                <span class="label">大额红包预算</span>
-                <span class="value">{{ model.max.total_money }}元</span>
-              </div>
-              <div class="item flex flex-col" *ngIf="model?.min?.total_number">
-                <span class="label">小额红包预算</span>
-                <span class="value">{{ minTotalMoney }}元</span>
-              </div>
-              <div *ngIf="model.isPromote" class="item flex flex-col">
-                <span class="label">推广占用金额</span>
-                <span class="value">{{ promoteMoney }}元</span>
-              </div>
+              @if (model?.max?.total_number) {
+                <div class="item flex flex-col">
+                  <span class="label">大额红包预算</span>
+                  <span class="value">{{ model.max.total_money }}元</span>
+                </div>
+              }
+              @if (model?.min?.total_number) {
+                <div class="item flex flex-col">
+                  <span class="label">小额红包预算</span>
+                  <span class="value">{{ minTotalMoney }}元</span>
+                </div>
+              }
+              @if (model.isPromote) {
+                <div class="item flex flex-col">
+                  <span class="label">推广占用金额</span>
+                  <span class="value">{{ promoteMoney }}元</span>
+                </div>
+              }
             </div>
           </div>
           <div class="right flex-12/12 md:flex-6/12">
-            <app-chart
-              *ngIf="chart"
-              [content]="chart"
-              [data]="content.data"
-            ></app-chart>
+            @if (chart) {
+              <app-chart
+                [content]="chart"
+                [data]="content.data"
+              ></app-chart>
+            }
           </div>
         </div>
-        <div
-          *ngIf="content.description"
-          class="description m-y-sm flex-12/12"
-          [innerHTML]="content.description | safeHtml"
-        ></div>
+        @if (content.description) {
+          <div
+            class="description m-y-sm flex-12/12"
+            [innerHTML]="content.description | safeHtml"
+          ></div>
+        }
       </div>
     </div>
   </div>

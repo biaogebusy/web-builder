@@ -1,17 +1,22 @@
 <app-link class="top" [content]="content"></app-link>
 <div class="mega-menu" [class.active]="active">
   <div class="container inner flex">
-    <div
-      class="item flex-[0_1_100%]"
-      *ngFor="let item of content.child; trackBy: trackByFn"
-    >
-      <div class="label m-bottom-xs">
-        <app-link [content]="item"></app-link>
+    @for (item of content.child; track trackByFn($index, item)) {
+      <div
+        class="item flex-[0_1_100%]"
+        >
+        <div class="label m-bottom-xs">
+          <app-link [content]="item"></app-link>
+        </div>
+        @for (subMenu of item.child; track subMenu; let isLast = $last) {
+          <div class="sub-menu">
+            <app-link [content]="subMenu"></app-link>
+            @if (!isLast) {
+              <mat-divider class="m-y-xs"></mat-divider>
+            }
+          </div>
+        }
       </div>
-      <div class="sub-menu" *ngFor="let subMenu of item.child; last as isLast">
-        <app-link [content]="subMenu"></app-link>
-        <mat-divider *ngIf="!isLast" class="m-y-xs"></mat-divider>
-      </div>
-    </div>
+    }
   </div>
 </div>

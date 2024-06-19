@@ -1,30 +1,27 @@
 <div class="item-menu" #itemMenu *reqRolesIf="content">
-  <ng-container
-    *ngIf="!isMegaMenu && content.child && content.child.length > 0"
-  >
+  @if (!isMegaMenu && content.child && content.child.length > 0) {
     <!-- hover open -->
-    <ng-container *ngIf="params?.menuHoverOpen; else clickOpen">
+    @if (params?.menuHoverOpen) {
       <app-hover-menu [content]="content"></app-hover-menu>
-    </ng-container>
-
-    <!-- click open -->
-    <ng-template #clickOpen>
+    } @else {
       <app-link
         class="top"
         [content]="content"
         [matMenuTriggerFor]="menu.childMenu"
       ></app-link>
       <app-sub-menu #menu [content]="content"></app-sub-menu>
-    </ng-template>
-  </ng-container>
+    }
+    <!-- click open -->
+  }
 
   <!-- mega menu -->
-  <ng-container *ngIf="isMegaMenu && content.child && content.child.length > 0">
+  @if (isMegaMenu && content.child && content.child.length > 0) {
     <app-mega-menu [content]="content"></app-mega-menu>
-  </ng-container>
-  <app-link
-    class="top"
-    *ngIf="!content.child || content.child.length === 0"
-    [content]="content"
-  ></app-link>
+  }
+  @if (!content.child || content.child.length === 0) {
+    <app-link
+      class="top"
+      [content]="content"
+    ></app-link>
+  }
 </div>

@@ -1,12 +1,17 @@
 <div class="flex flex-wrap justify-start items-start gap-3 opacity-80">
-  <div *ngFor="let item of content" class="flex justify-center items-center">
-    <ng-container *ngIf="item.icon;else value">
-      <app-icon [content]="{svg:item.icon}"></app-icon>
-      <div>{{item.value || item.label}}</div>
-    </ng-container>
-    <ng-template #value>
-      <div class="label">{{item.label}}:&nbsp;</div>
-      <div [innerHTML]="item.value|safeHtml"></div>
-    </ng-template>
-  </div>
+  @for (item of content; track item) {
+    <div class="flex justify-center items-center">
+      @if (item.icon) {
+        <app-icon [content]="{svg:item.icon}"></app-icon>
+        <div>{{item.value || item.label}}</div>
+      } @else {
+        <div class="label">{{item.label}}:&nbsp;</div>
+        <div [innerHTML]="item.value|safeHtml"></div>
+      }
+      <ng-template #value>
+        <div class="label">{{item.label}}:&nbsp;</div>
+        <div [innerHTML]="item.value|safeHtml"></div>
+      </ng-template>
+    </div>
+  }
 </div>
