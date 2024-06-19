@@ -48,8 +48,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     public contentState: ContentState,
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(BRANDING) public branding$: Observable<IBranding>
-  ) { }
+    @Inject(BRANDING) public branding$: Observable<IBranding>,
+  ) {}
 
   ngOnInit(): void {
     this.builder.previewListDrawer$
@@ -100,7 +100,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
           'preview-lg': media === 'lg',
           'preview-xs-md': media === 'xs-md',
         };
-      })
+      }),
     );
   }
 
