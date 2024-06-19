@@ -49,7 +49,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     private utilService: UtilitiesService,
     private cd: ChangeDetectorRef,
     @Inject(THEME) private theme: string,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
   ) {}
 
   ngOnInit(): void {
@@ -112,7 +112,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
   }
 
@@ -152,7 +152,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     };
     this.map = new this.AMap.Map(
       'map',
-      Object.assign({}, defaultOptions, options)
+      Object.assign({}, defaultOptions, options),
     );
     if (this.configService?.switchChange$) {
       this.configService.switchChange$

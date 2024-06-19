@@ -29,7 +29,7 @@ const BUILDERPATH = '/builder';
 export function pageContentFactory(
   activateRoute: ActivatedRoute,
   contentService: ContentService,
-  contentState: ContentState
+  contentState: ContentState,
 ): Observable<IPage | object | boolean> {
   const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
   activateRoute.url.subscribe(async (url) => {
@@ -43,7 +43,7 @@ export function pageContentFactory(
 export function builderFullScreenFactory(
   router: Router,
   storage: LocalStorageService,
-  builder: BuilderState
+  builder: BuilderState,
 ): Observable<boolean> {
   const isFull$ = new BehaviorSubject<boolean>(false);
   const isFull = storage.retrieve('builderFullScreen');
@@ -62,7 +62,7 @@ export function builderFullScreenFactory(
 }
 
 export function builderCurrentPageFactory(
-  storage: LocalStorageService
+  storage: LocalStorageService,
 ): Observable<IPage | object | boolean> {
   const versionKey = 'version';
   const currentPage$ = new BehaviorSubject<IPage | object | boolean>(false);
@@ -103,7 +103,7 @@ export function isBuilderModeFactory(router: Router): Observable<boolean> {
 
 export function debugAnimateFactory(
   storage: LocalStorageService,
-  builder: BuilderState
+  builder: BuilderState,
 ): Observable<boolean> {
   const debugAnimate$ = new BehaviorSubject<boolean>(false);
   const isDebugAnimate = storage.retrieve(DEBUG_ANIMATE_KEY);
@@ -132,7 +132,7 @@ export function manageSidebarStateFactory(
   screenService: ScreenService,
   storage: LocalStorageService,
   user: IUser,
-  doc: Document
+  doc: Document,
 ): Observable<IManageSidebarState> {
   const state$ = new BehaviorSubject<IManageSidebarState>({
     enableSidebar: false,
@@ -208,7 +208,7 @@ export function manageSidebarStateFactory(
 
 export function notifyFactory(
   coreConfig: ICoreConfig,
-  notifyService: NotifyService
+  notifyService: NotifyService,
 ): Observable<INotify[] | object | boolean> {
   const $notify = new BehaviorSubject<INotify[] | object | boolean>(false);
   const apis = coreConfig?.notify?.api;
@@ -242,7 +242,7 @@ export function notifyFactory(
             lists = [...message];
           });
           return lists;
-        })
+        }),
       )
       .subscribe((res: INotify[]) => {
         $notify.next(res);
@@ -262,26 +262,28 @@ export const apiUrlFactory = () => {
 export function coreConfigFactory(
   contentService: ContentService,
   coreConfig: object,
-  lang: ILanguage
+  lang: ILanguage,
 ): any {
   return () => contentService.loadConfig(coreConfig, lang);
 }
 
-export function langFactory(contentService: ContentService): ILanguage | undefined {
+export function langFactory(
+  contentService: ContentService,
+): ILanguage | undefined {
+  return undefined;
   return contentService.getLang(window.location.pathname);
 }
 
-
 export function themeFactory(
   coreConfig: ICoreConfig,
-  storage: LocalStorageService
+  storage: LocalStorageService,
 ): string {
   const defaultTheme = coreConfig.defaultTheme || 'blue-theme';
   const localTheme = storage.retrieve(THEMKEY);
   if (localTheme) {
     // checkout the theme is removed
     const isInThemeList = coreConfig.theme.filter(
-      (item) => item.style === localTheme
+      (item) => item.style === localTheme,
     );
     if (isInThemeList.length) {
       return localTheme;
@@ -294,7 +296,7 @@ export function themeFactory(
 
 export function brandingFactory(
   contentService: ContentService,
-  lang: ILanguage
+  lang: ILanguage,
 ): Observable<IBranding | object> {
   return contentService.loadBranding(lang);
 }
@@ -302,7 +304,7 @@ export function brandingFactory(
 export function userFactory(
   cryptoJS: CryptoJSService,
   userService: UserService,
-  cookieService: CookieService
+  cookieService: CookieService,
 ): IUser | boolean {
   const key = userService.localUserKey;
   if (cookieService.check(key)) {
@@ -326,7 +328,7 @@ export function userFactory(
 export function mediaAssetsFactory(
   nodeService: NodeService,
   manageService: ManageService,
-  contentState: ContentState
+  contentState: ContentState,
 ): Observable<IManageAssets | boolean> {
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 

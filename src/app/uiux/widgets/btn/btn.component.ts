@@ -16,8 +16,7 @@ import { RouteService } from '@core/service/route.service';
 })
 export class BtnComponent implements OnInit {
   @Input() content: IBtn;
-  routService = inject(RouteService);
-  constructor() {}
+  constructor(private routService: RouteService) {}
 
   ngOnInit(): void {}
 

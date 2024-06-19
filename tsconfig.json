@@ -10,7 +10,6 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
@@ -19,6 +18,7 @@
     "esModuleInterop": true,
     "target": "ES2022",
     "module": "ES2022",
+    "typeRoots": ["node_modules/@types"],
     "lib": ["ES2022", "dom"],
     "paths": {
       "@angular/*": ["./node_modules/@angular/*"],
