@@ -74,30 +74,30 @@ export class ComponentService {
       'github-star',
     ].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/widgets/widgets.module').then((m) => m.WidgetsModule)
-      )
+        import('@uiux/widgets/widgets.module').then((m) => m.WidgetsModule),
+      ),
     );
 
     ['banner-simple'].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/banner/banner.module').then((m) => m.BannerModule)
-      )
+        import('@uiux/combs/banner/banner.module').then((m) => m.BannerModule),
+      ),
     );
 
     ['lottery'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/calculator/calculator.module').then(
-          (m) => m.CalculatorModule
-        )
-      )
+          (m) => m.CalculatorModule,
+        ),
+      ),
     );
 
     ['full-calendar'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/calendar/calendar.module').then(
-          (m) => m.CalendarModule
-        )
-      )
+          (m) => m.CalendarModule,
+        ),
+      ),
     );
 
     [
@@ -110,9 +110,9 @@ export class ComponentService {
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/carousel/carousel.module').then(
-          (m) => m.CarouselModule
-        )
-      )
+          (m) => m.CarouselModule,
+        ),
+      ),
     );
 
     [
@@ -124,8 +124,8 @@ export class ComponentService {
       'hero-2v3',
     ].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/hero/hero.module').then((m) => m.HeroModule)
-      )
+        import('@uiux/combs/hero/hero.module').then((m) => m.HeroModule),
+      ),
     );
 
     [
@@ -139,34 +139,34 @@ export class ComponentService {
       'taxonomy-thin-list',
     ].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/list/list.module').then((m) => m.ListModule)
-      )
+        import('@uiux/combs/list/list.module').then((m) => m.ListModule),
+      ),
     );
 
     ['location', 'map-list-v1', 'view-map'].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/map/map.module').then((m) => m.MapModule)
-      )
+        import('@uiux/combs/map/map.module').then((m) => m.MapModule),
+      ),
     );
 
     ['shuffle'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/masonry/masonry.module').then(
-          (m) => m.MasonryModule
-        )
-      )
+          (m) => m.MasonryModule,
+        ),
+      ),
     );
 
     ['article', 'question', 'report', 'relate'].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/node/node.module').then((m) => m.NodeModule)
-      )
+        import('@uiux/combs/node/node.module').then((m) => m.NodeModule),
+      ),
     );
 
     ['contact-us', 'contact-us-1v1'].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/form/form.module').then((m) => m.FormModule)
-      )
+        import('@uiux/combs/form/form.module').then((m) => m.FormModule),
+      ),
     );
 
     [
@@ -177,8 +177,8 @@ export class ComponentService {
       'custom-template',
     ].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
-      )
+        import('@uiux/combs/other/other.module').then((m) => m.OtherModule),
+      ),
     );
 
     [
@@ -190,15 +190,15 @@ export class ComponentService {
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/profile/profile.module').then(
-          (m) => m.ProfileModule
-        )
-      )
+          (m) => m.ProfileModule,
+        ),
+      ),
     );
 
     ['search'].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/search/search.module').then((m) => m.SearchModule)
-      )
+        import('@uiux/combs/search/search.module').then((m) => m.SearchModule),
+      ),
     );
     [
       'showcase-1v1',
@@ -218,29 +218,29 @@ export class ComponentService {
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/showcase/showcase.module').then(
-          (m) => m.ShowcaseModule
-        )
-      )
+          (m) => m.ShowcaseModule,
+        ),
+      ),
     );
 
     ['tab-1v1'].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/tab/tab.module').then((m) => m.TabModule)
-      )
+        import('@uiux/combs/tab/tab.module').then((m) => m.TabModule),
+      ),
     );
 
     ['video-bg'].forEach((type) =>
       this.setModule(type, () =>
-        import('@uiux/combs/video/video.module').then((m) => m.VideoModule)
-      )
+        import('@uiux/combs/video/video.module').then((m) => m.VideoModule),
+      ),
     );
 
     ['dashboard'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/dashboard/dashboard.module').then(
-          (m) => m.DashboardModule
-        )
-      )
+          (m) => m.DashboardModule,
+        ),
+      ),
     );
 
     [
@@ -253,19 +253,19 @@ export class ComponentService {
       'layout-setting',
     ].forEach((type) =>
       this.setModule(type, () =>
-        import('@modules/builder/builder.module').then((m) => m.BuilderModule)
-      )
+        import('@modules/builder/builder.module').then((m) => m.BuilderModule),
+      ),
     );
 
     ['manage-media', 'manage-block'].forEach((type) =>
       this.setModule(type, () =>
-        import('@modules/manage/manage.module').then((m) => m.ManageModule)
-      )
+        import('@modules/manage/manage.module').then((m) => m.ManageModule),
+      ),
     );
     ['login'].forEach((type) =>
       this.setModule(type, () =>
-        import('@modules/user/user.module').then((m) => m.UserModule)
-      )
+        import('@modules/user/user.module').then((m) => m.UserModule),
+      ),
     );
   }
 
@@ -274,7 +274,7 @@ export class ComponentService {
   }
 
   async getComponent(
-    type: string
+    type: string,
   ): Promise<ComponentRef<unknown> | ComponentRef<any> | undefined> {
     return this.getModuleFactory(type)
       .then((factory: any) => {
