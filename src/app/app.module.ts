@@ -100,7 +100,7 @@ import { CookieService } from 'ngx-cookie-service';
     {
       provide: LANG,
       useFactory: langFactory,
-      deps: [ContentService],
+      deps: [ContentService, ScreenService],
     },
     {
       provide: API_URL,

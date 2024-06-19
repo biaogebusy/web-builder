@@ -2,8 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
-  Injector,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, THEME } from '@core/token/token-providers';
@@ -19,10 +19,12 @@ import { ThemeService } from '@core/service/theme.service';
 })
 export class SwitchThemeComponent implements OnInit {
   currentTheme: string;
+  themeService = inject(ThemeService);
+  configService = inject(ConfigService);
+  storage = inject(LocalStorageService);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(THEME) public theme: string,
-    protected injector: Injector
   ) {}
 
   ngOnInit(): void {
@@ -30,12 +32,9 @@ export class SwitchThemeComponent implements OnInit {
   }
 
   onSwitchTheme(theme: string): void {
-    const themeService = this.injector.get(ThemeService);
-    const configService = this.injector.get(ConfigService);
-    const storage = this.injector.get(LocalStorageService);
-    configService.switchChange$.next(theme);
-    storage.store(THEMKEY, theme);
+    this.configService.switchChange$.next(theme);
+    this.storage.store(THEMKEY, theme);
     this.currentTheme = theme;
-    themeService.setTheme(theme);
+    this.themeService.setTheme(theme);
   }
 }

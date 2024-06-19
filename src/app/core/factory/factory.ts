@@ -269,9 +269,13 @@ export function coreConfigFactory(
 
 export function langFactory(
   contentService: ContentService,
+  screenService: ScreenService,
 ): ILanguage | undefined {
-  return undefined;
-  return contentService.getLang(window.location.pathname);
+  if (screenService.isPlatformBrowser()) {
+    return contentService.getLang(window.location.pathname);
+  } else {
+    return undefined;
+  }
 }
 
 export function themeFactory(
@@ -280,7 +284,7 @@ export function themeFactory(
 ): string {
   const defaultTheme = coreConfig.defaultTheme || 'blue-theme';
   const localTheme = storage.retrieve(THEMKEY);
-  if (localTheme) {
+  if (localTheme && coreConfig.theme) {
     // checkout the theme is removed
     const isInThemeList = coreConfig.theme.filter(
       (item) => item.style === localTheme,
