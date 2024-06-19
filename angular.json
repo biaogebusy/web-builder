@@ -81,7 +81,6 @@
               "node_modules/social-share.js/src/js/social-share.js"
             ],
             "allowedCommonJsDependencies": [
-              "hammerjs",
               "highlight.js",
               "lodash",
               "crypto-js",
