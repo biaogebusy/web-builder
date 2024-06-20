@@ -36,8 +36,7 @@
               "type": "btn-video",
               "color": "default",
               "dialog": {
-                "width": "900",
-                "height": "800"
+                "width": "900px"
               },
               "video": {
                 "type": "player",
