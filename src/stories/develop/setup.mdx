@@ -48,7 +48,7 @@ import { Meta } from "@storybook/blocks";
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: coreConfigFactory,
+      useFactory: initApp,
       deps: [ContentService, [new Inject(CORE_CONFIG)]],
       multi: true,
     },
@@ -296,7 +296,7 @@ export class RenderModule {}
 export function pageContentFactory(
   activateRoute: ActivatedRoute,
   contentService: ContentService,
-  contentState: ContentState
+  contentState: ContentState,
 ): Observable<IPage | object | boolean> {
   const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
   activateRoute.url.subscribe(async (url) => {
@@ -352,11 +352,11 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private userService: UserService,
     private nodeService: NodeService,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -391,7 +391,7 @@ export class AuthGuard implements CanActivate {
                         [guardConfig.defaultFrontLoginPage || "/me/login"],
                         {
                           queryParams: { returnUrl: state.url },
-                        }
+                        },
                       );
                       return false;
                     }
@@ -408,11 +408,11 @@ export class AuthGuard implements CanActivate {
                     ]);
                     return of(false);
                   }
-                })
+                }),
               );
             }
             return of(true);
-          })
+          }),
         );
     } else {
       return of(true);

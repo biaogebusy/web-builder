@@ -34,7 +34,7 @@ import {
   apiUrlFactory,
   brandingFactory,
   builderFullScreenFactory,
-  coreConfigFactory,
+  initApp,
   debugAnimateFactory,
   isBuilderModeFactory,
   langFactory,
@@ -56,6 +56,7 @@ import { ManageService } from '@core/service/manage.service';
 import { NodeService } from '@core/service/node.service';
 import { ContentState } from '@core/state/ContentState';
 import { CookieService } from 'ngx-cookie-service';
+import { ComponentService } from '@core/service/component.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -93,8 +94,13 @@ import { CookieService } from 'ngx-cookie-service';
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: coreConfigFactory,
-      deps: [ContentService, [new Inject(CORE_CONFIG)], [new Inject(LANG)]],
+      useFactory: initApp,
+      deps: [
+        ContentService,
+        ComponentService,
+        [new Inject(CORE_CONFIG)],
+        [new Inject(LANG)],
+      ],
       multi: true,
     },
     {
