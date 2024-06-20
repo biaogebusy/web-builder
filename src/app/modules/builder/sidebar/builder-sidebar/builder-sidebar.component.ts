@@ -26,7 +26,7 @@ export class BuilderSidebarComponent implements OnInit {
   constructor(
     public builder: BuilderState,
     private dialog: MatDialog,
-    @Inject(BRANDING) public branding$: Observable<IBranding>
+    @Inject(BRANDING) public branding$: Observable<IBranding>,
   ) {}
 
   ngOnInit(): void {}
@@ -38,7 +38,7 @@ export class BuilderSidebarComponent implements OnInit {
 
   onSelectAssets(): void {
     this.dialog.open(DialogComponent, {
-      width: '100%',
+      width: '85vw',
       panelClass: 'close-outside',
       data: {
         title: '媒体库',
