@@ -266,7 +266,7 @@ export function initApp(
   coreConfig: object,
   lang: ILanguage,
 ): any {
-  componentService.initUiuxModuleLoad();
+  componentService.registerDynamicComponent();
   return () => contentService.loadConfig(coreConfig, lang);
 }
 
