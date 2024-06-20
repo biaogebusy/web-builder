@@ -21,6 +21,7 @@ import { IManageAssets } from '@core/interface/manage/IManage';
 import { mediaAssets } from '@modules/builder/data/mediaAssets';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
+import { ComponentService } from '@core/service/component.service';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -259,11 +260,13 @@ export const apiUrlFactory = () => {
   return environment.apiUrl;
 };
 
-export function coreConfigFactory(
+export function initApp(
   contentService: ContentService,
+  componentService: ComponentService,
   coreConfig: object,
   lang: ILanguage,
 ): any {
+  componentService.registerDynamicComponent();
   return () => contentService.loadConfig(coreConfig, lang);
 }
 

@@ -14,7 +14,7 @@ export class ComponentService {
   private moduleLists: { [key: string]: () => Promise<any> } = {};
   constructor(private injector: Injector) {}
 
-  initUiuxModuleLoad(): void {
+  registerDynamicComponent(): void {
     [
       'bg',
       'img',
@@ -291,7 +291,7 @@ export class ComponentService {
 
   async getModuleFactory(type: string) {
     if (!this.moduleLists[type]) {
-      throw new Error(`组件不存在！`);
+      throw new Error(`组件${type}不存在！`);
     }
     const ngModuleOrNgModuleFactory = await this.moduleLists[type]();
     let factory = null;
