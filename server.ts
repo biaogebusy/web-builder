@@ -4,7 +4,7 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import AppServerModule from './src/main.server';
-
+import { environment } from 'src/environments/environment';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -30,7 +30,10 @@ export function app(): express.Express {
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
-
+    if (!environment.ssr) {
+      res.sendFile(join(browserDistFolder, 'index.html'));
+      return;
+    }
     commonEngine
       .render({
         bootstrap: AppServerModule,
@@ -47,7 +50,7 @@ export function app(): express.Express {
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 4000;
+  const port = environment.port || process.env['PORT'] || 4000;
 
   // Start up the Node server
   const server = app();
