@@ -48,8 +48,8 @@ export class AmapService {
     const img = item.img
       ? `<div class="media"><img src="${item.img}" /></div>`
       : '';
-    const badge_1 = item.badge_1 ? `<div>${item.badge_1}</div>` : '';
-    const badge_2 = item.badge_2 ? `<div>${item.badge_2}</div>` : '';
+    const badge1 = item.badge_1 ? `<div>${item.badge_1}</div>` : '';
+    const badge2 = item.badge_2 ? `<div>${item.badge_2}</div>` : '';
     return `
     <div class="mark-card reverse p-y-xs p-x-xs">
         ${img}
@@ -57,7 +57,7 @@ export class AmapService {
         <div class="title one-line ${isLink}" data-url="${item.url}">${item.title}</div>
         <div class="text-dark sub-title one-line">${item.subTitle}</div>
         <div class="meta m-bottom-0 text-primary">
-           ${badge_1}${badge_2}
+           ${badge1}${badge2}
         </div>
       </div>
       <div class="top arrow"></div>

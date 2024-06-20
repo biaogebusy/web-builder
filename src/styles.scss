@@ -5,10 +5,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./theme/mixins/reset";
 @import "./theme/main.scss";
-@import "material-design-icons/iconfont/material-icons.css";
-@import "quill/dist/quill.core.css";
-@import "quill/dist/quill.snow.css";
-@import "jsoneditor/dist/jsoneditor.min.css";
 @import "highlight.js/scss/atom-one-dark.scss";
 
 html {
