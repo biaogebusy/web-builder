@@ -2,11 +2,7 @@ import { Title, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, NgModule, Inject } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
-import {
-  HttpClientModule,
-  provideHttpClient,
-  withFetch,
-} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, DOCUMENT, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -77,7 +73,6 @@ import { ComponentService } from '@core/service/component.service';
     httpInterceptorProviders,
     CookieService,
     provideClientHydration(),
-    provideHttpClient(withFetch()),
     {
       provide: CORE_CONFIG,
       useValue: {},

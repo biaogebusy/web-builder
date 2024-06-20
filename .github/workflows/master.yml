@@ -20,7 +20,7 @@ jobs:
       - name: use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: "18"
 
       - name: Cache verify
         run: npm cache verify
@@ -32,7 +32,7 @@ jobs:
         run: npm install -g @angular/cli > /dev/null
 
       - name: NPM build all App Production
-        run: npm run build:xinshi
+        run: npm run build
 
       - name: Deploy to Server
         uses: AEnterprise/rsync-deploy@v1.0.2
@@ -40,7 +40,7 @@ jobs:
           DEPLOY_KEY: ${{ secrets.KEY }}
           ARGS: -avz --delete
           SERVER_PORT: "22"
-          FOLDER: "dist/xinshi"
+          FOLDER: "dist"
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: "/sdc/www/app/dist/"
+          SERVER_DESTINATION: "/sdc/www/sit/builder/"
