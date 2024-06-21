@@ -1,11 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import {
-  CanActivate,
-  Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { map, catchError } from 'rxjs/operators';
@@ -15,7 +9,7 @@ import { USER } from '@core/token/token-providers';
 @Injectable({
   providedIn: 'root',
 })
-export class ManageGuard implements CanActivate {
+export class ManageGuard  {
   constructor(
     private router: Router,
     private userService: UserService,

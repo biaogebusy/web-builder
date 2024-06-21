@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import type { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 
@@ -11,7 +11,6 @@ import type { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 export class NumberAnimateComponent implements OnInit {
   @Input() content: INumberAnimate;
 
-  @ViewChild('animatedDigit') animatedDigit: ElementRef;
   constructor() {}
 
   ngOnInit(): void {}

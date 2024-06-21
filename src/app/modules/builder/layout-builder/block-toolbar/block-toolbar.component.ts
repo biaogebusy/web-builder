@@ -43,7 +43,7 @@ export class BlockToolbarComponent implements OnInit {
     private builder: BuilderState,
     private builderSerivce: BuilderService,
     private util: UtilitiesService,
-    private storage: LocalStorageService
+    private storage: LocalStorageService,
   ) {}
 
   ngOnInit(): void {}
@@ -136,7 +136,7 @@ export class BlockToolbarComponent implements OnInit {
   showWidgetSetting(
     widget: any,
     fields: FormlyFieldConfig[],
-    path: string
+    path: string,
   ): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
@@ -149,7 +149,7 @@ export class BlockToolbarComponent implements OnInit {
       mode: 'over',
       hasBackdrop: false,
       style: {
-        width: '260px',
+        width: '308px',
       },
       elements: [data],
     });

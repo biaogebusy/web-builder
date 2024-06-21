@@ -1,10 +1,10 @@
 import { DOCUMENT, formatDate } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',

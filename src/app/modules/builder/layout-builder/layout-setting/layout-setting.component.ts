@@ -33,7 +33,7 @@ export class LayoutSettingComponent implements OnDestroy {
     private builder: BuilderState,
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
   ) {}
 
   onModelChange(value: any): void {
@@ -54,7 +54,7 @@ export class LayoutSettingComponent implements OnDestroy {
     moveItemInArray(
       this.content.content.elements,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
     if (path) {
       this.builder.updatePageContentByPath(path, content);
@@ -127,7 +127,7 @@ export class LayoutSettingComponent implements OnDestroy {
     let builderList: any;
     if (path && this.content.content.type === 'custom-template') {
       dialogRef = this.dialog.open(DialogComponent, {
-        width: '100vw',
+        width: '85vw',
         hasBackdrop: false,
         panelClass: 'close-outside',
         position: {

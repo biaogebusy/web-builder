@@ -25,13 +25,13 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
       key: 'style',
       fieldGroup: [
         {
-          fieldGroupClassName: 'flex flex-wrap',
+          fieldGroupClassName: 'grid grid-cols-12 gap-3',
           fieldGroup: [
             {
               key: 'fontSize',
               type: 'input',
               defaultValue: view.style.fontSize ?? 'inherit',
-              className: 'width-30 m-right-xs',
+              className: 'col-span-6',
               props: {
                 label: 'Size',
               },
@@ -40,7 +40,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               type: 'input',
               key: 'width',
               defaultValue: view.style.width ?? 'auto',
-              className: 'width-30 m-right-xs',
+              className: 'col-span-6',
               props: {
                 label: 'W',
               },
@@ -48,7 +48,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'height',
-              className: 'width-30',
+              className: 'col-span-6',
               defaultValue: view.style.height ?? 'auto',
               props: {
                 label: 'H',
@@ -58,7 +58,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               key: 'textAlign',
               type: 'select',
               defaultValue: view.style.textAlign ?? 'start',
-              className: 'width-30 m-right-xs',
+              className: 'col-span-6',
               props: {
                 label: '对齐',
                 options: [
@@ -85,7 +85,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               key: 'lineHeight',
               type: 'input',
               defaultValue: view.style.lineHeight ?? 'normal',
-              className: 'width-30 m-right-xs',
+              className: 'col-span-6',
               props: {
                 label: '行高',
                 unit: '',
@@ -94,7 +94,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'opacity',
-              className: 'width-30',
+              className: 'col-span-6',
               defaultValue: view.style.opacity ?? 1,
               props: {
                 label: 'Opacity',
@@ -105,13 +105,13 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
           ],
         },
         {
-          fieldGroupClassName: 'flex flex-wrap',
+          fieldGroupClassName: 'grid grid-cols-12 gap-3',
           fieldGroup: [
             {
               key: 'color',
               type: 'input',
               defaultValue: rgbToHex(view.style.color),
-              className: 'width-30 m-right-xs',
+              className: 'col-span-6',
               props: {
                 label: '颜色',
                 type: 'color',
@@ -121,7 +121,7 @@ export function getInlineText(ele: any): FormlyFieldConfig[] {
               key: 'backgroundColor',
               type: 'input',
               defaultValue: rgbToHex(view.style.backgroundColor),
-              className: 'width-30 m-right-xs',
+              className: 'col-span-6',
               props: {
                 label: '背景颜色',
                 type: 'color',

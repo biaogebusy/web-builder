@@ -14,10 +14,6 @@ export interface IInlineLightbox {
 
 export interface ILightboxElement {
   src: string;
-  preview?: string;
-  caption?: string;
-  thumb: string;
-  downloadUrl?: string;
 }
 
 export interface IDynamicTable {

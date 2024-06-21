@@ -1,10 +1,14 @@
-<div class="user-card-count relative" *ngIf="content">
-  <div class="innner flex flex-wrap">
-    <div class="item flex flex-4/12" *ngFor="let item of content">
-      <span>{{ item.title }}</span>
-      <span class="m-left-xs">
-        <app-number-animate [content]="item.digit"></app-number-animate>
-      </span>
+@if (content) {
+  <div class="user-card-count relative">
+    <div class="innner flex flex-wrap">
+      @for (item of content; track item) {
+        <div class="item flex flex-4/12">
+          <span>{{ item.title }}</span>
+          <span class="m-left-xs">
+            <app-number-animate [content]="item.digit"></app-number-animate>
+          </span>
+        </div>
+      }
     </div>
   </div>
-</div>
+}

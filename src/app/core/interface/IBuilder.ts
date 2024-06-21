@@ -58,24 +58,27 @@ export interface IBuilderShowcase {
 
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
-  style: any;
+  style?: any;
   horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
   vertical: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-  alignItems: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-  wrapperClass: any;
+  alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+  wrapperClass?: any;
+  animate?: any;
+  bgClasses?: string;
+  overlay?: string;
   gap?: {
-    xs?: number;
-    sm?: number;
-    md?: number;
-    lg?: number;
+    xs?: number | string;
+    sm?: number | string;
+    md?: number | string;
+    lg?: number | string;
   };
   elements: ILayoutBlock[];
 }
 
 export interface ILayoutBlock {
   classes: any;
-  blockClasses: any;
-  style: any;
+  blockClasses?: any;
+  style?: any;
   row: {
     [key: string]: number;
   };
@@ -84,12 +87,12 @@ export interface ILayoutBlock {
   elements: any[];
   horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
   vertical: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-  alignItems: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+  alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
   gap?: {
-    xs?: number;
-    sm?: number;
-    md?: number;
-    lg?: number;
+    xs?: number | string;
+    sm?: number | string;
+    md?: number | string;
+    lg?: number | string;
   };
 }
 

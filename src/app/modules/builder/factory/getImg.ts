@@ -111,25 +111,6 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
             },
           ],
         },
-        // {
-        //   props: {
-        //     label: '移动端',
-        //   },
-        //   fieldGroup: [
-        //     {
-        //       key: 'mobile',
-        //       type: 'img-picker',
-        //       defaultValue: widget.mobile || '',
-        //       props: {
-        //         updateLabel: '更新移动端图片',
-        //         addLabel: '设置移动端图片',
-        //         deleteLabel: '删除',
-        //         fileName: widget.mobile ? widget.mobile.split('/').pop() : '',
-        //         alt: widget.alt || '',
-        //       },
-        //     },
-        //   ],
-        // },
       ],
     },
   ];

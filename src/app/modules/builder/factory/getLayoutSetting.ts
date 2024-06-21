@@ -12,12 +12,12 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         },
         {
           key: 'row',
-          fieldGroupClassName: 'section-group',
+          fieldGroupClassName: 'grid grid-cols-12 gap-3',
           fieldGroup: [
             {
               type: 'input',
               key: 'xs',
-              className: 'w-2/5',
+              className: 'col-span-6',
               defaultValue: layout?.row?.xs ?? 12,
               props: {
                 min: 1,
@@ -29,7 +29,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'sm',
-              className: 'w-2/5',
+              className: 'col-span-6',
               defaultValue: layout?.row?.sm ?? 12,
               props: {
                 min: 1,
@@ -41,7 +41,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'md',
-              className: 'w-2/5',
+              className: 'col-span-6',
               defaultValue: layout?.row?.md ?? 12,
               props: {
                 min: 1,
@@ -53,7 +53,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'lg',
-              className: 'w-2/5',
+              className: 'col-span-6',
               defaultValue: layout?.row?.lg ?? 12,
               props: {
                 min: 1,

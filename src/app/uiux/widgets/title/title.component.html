@@ -1,10 +1,12 @@
-<ng-container *ngIf="content">
+@if (content) {
   <div class="title" [ngClass]="content.style">
     <h2 #title contentedit="label" class="title-header {{content.style === 'none'?'!mb-0':''}}"
-      [ngClass]="content.classes || 'mat-h2'" [innerHTML]="content.label|safeHtml"></h2>
+    [ngClass]="content.classes || 'mat-h2'" [innerHTML]="content.label|safeHtml"></h2>
     <div class="line-style" [class.m-top-sm]="content.icon">
-      <mat-icon *ngIf="content.icon && content.style">{{content.icon}}</mat-icon>
+      @if (content.icon && content.style) {
+        <mat-icon>{{content.icon}}</mat-icon>
+      }
       <span></span>
     </div>
   </div>
-</ng-container>
+}

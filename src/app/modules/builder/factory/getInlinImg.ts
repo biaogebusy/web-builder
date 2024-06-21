@@ -7,13 +7,13 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
       key: 'style',
       fieldGroup: [
         {
-          fieldGroupClassName: 'section-group',
+          fieldGroupClassName: 'grid grid-cols-12 gap-3',
           fieldGroup: [
             {
               type: 'input',
               key: 'width',
               defaultValue: ele.style.width ?? 'auto',
-              className: 'w-2/5',
+              className: 'col-span-6',
               props: {
                 label: 'W',
               },
@@ -21,7 +21,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'height',
-              className: 'w-2/5',
+              className: 'col-span-6',
               defaultValue: ele.style.height ?? 'auto',
               props: {
                 label: 'H',
@@ -30,7 +30,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'opacity',
-              className: 'w-2/5',
+              className: 'col-span-6',
               defaultValue: ele.style.opacity ?? 1,
               props: {
                 label: 'Opacity',
@@ -41,7 +41,7 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'borderRadius',
-              className: 'w-2/5',
+              className: 'col-span-6',
               defaultValue: ele.style.borderRadius ?? 0,
               props: {
                 label: '圆角',

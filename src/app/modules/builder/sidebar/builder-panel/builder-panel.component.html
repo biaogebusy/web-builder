@@ -1,111 +1,117 @@
 <mat-accordion multi>
-  <mat-expansion-panel
-    *ngFor="let item of content; index as i"
-    [expanded]="i == 0"
-    (afterExpand)="onAfterExpand()"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ item.label }}
-      </mat-panel-title>
-      <mat-panel-description *ngIf="item.description">
-        {{ item.description }}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <mat-list>
-      <div
-        class="cards flex flex-row flex-wrap"
-        id="widgets"
-        cdkDropList
-        cdkDropListSortingDisabled="true"
-        [cdkDropListData]="item.elements"
-        [cdkDropListConnectedTo]="['builder-list', 'builder-list-sideabr']"
+  @for (item of content; track item; let i = $index) {
+    <mat-expansion-panel
+      [expanded]="i == 0"
+      (afterExpand)="onAfterExpand()"
       >
-        <ng-container *ngFor="let widget of item.elements">
-          <ng-container *ngIf="!widget.child">
-            <div
-              class="item flex flex-6/12 sm:flex-4/12"
-              matRipple
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ item.label }}
+        </mat-panel-title>
+        @if (item.description) {
+          <mat-panel-description>
+            {{ item.description }}
+          </mat-panel-description>
+        }
+      </mat-expansion-panel-header>
+      <mat-list>
+        <div
+          class="cards grid grid-cols-12 gap-1"
+          id="widgets"
+          cdkDropList
+          cdkDropListSortingDisabled="true"
+          [cdkDropListData]="item.elements"
+          [cdkDropListConnectedTo]="['builder-list', 'builder-list-sideabr']"
+          >
+          @for (widget of item.elements; track widget) {
+            @if (!widget.child) {
+              <div
+                class="item col-span-6 sm:col-span-4"
+                matRipple
               [matTooltip]="
                 builder.fixedContent === widget.content
                   ? '已锁定预览，可查看复制组件JSON'
                   : ''
               "
-              matTooltipPosition="above"
-            >
-              <div
-                class="w-full"
-                [cdkDragData]="widget.content"
-                cdkDrag
-                (cdkDragStarted)="onDragStarted()"
-                (cdkDragMoved)="onMoved()"
-                (mouseenter)="onShowcase(widget.content)"
-                (mouseleave)="hideShowcase()"
-                (click)="onFixed(widget.content)"
-              >
+                matTooltipPosition="above"
+                >
                 <div
-                  class="inner move flex flex-col justify-center items-center"
+                  class="w-full"
+                  [cdkDragData]="widget.content"
+                  cdkDrag
+                  (cdkDragStarted)="onDragStarted()"
+                  (cdkDragMoved)="onMoved()"
+                  (mouseenter)="onShowcase(widget.content)"
+                  (mouseleave)="hideShowcase()"
+                  (click)="onFixed(widget.content)"
+                  >
+                  <div
+                    class="inner move flex flex-col justify-center items-center"
                   [ngClass]="
                     builder.fixedContent === widget.content ? 'active' : ''
                   "
-                >
-                  <app-icon
-                    *ngIf="widget.icon"
-                    [content]="widget.icon"
-                  ></app-icon>
-                  <div class="title" title="{{ widget.label }}">
-                    {{ widget.label }}
+                    >
+                    @if (widget.icon) {
+                      <app-icon
+                        [content]="widget.icon"
+                      ></app-icon>
+                    }
+                    <div class="title" title="{{ widget.label }}">
+                      {{ widget.label }}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </ng-container>
-          <div
-            class="group w-full flex flex-wrap"
-            matTooltipPosition="above"
-            *ngIf="widget.child"
-          >
-            <ng-container *ngFor="let item of widget.child">
+            }
+            @if (widget.child) {
               <div
-                class="item flex flex-6/12 sm:flex-4/12"
-                matRipple
+                class="group col-span-12 grid grid-cols-12 gap-1"
+                matTooltipPosition="above"
+                >
+                @for (item of widget.child; track item) {
+                  <div
+                    class="item col-span-6 sm:col-span-4"
+                    matRipple
                 [matTooltip]="
                   builder.fixedContent === item.content
                     ? '已锁定预览，可查看复制组件JSON'
                     : ''
                 "
-                matTooltipPosition="above"
-              >
-                <div
-                  class="w-full"
-                  [cdkDragData]="item.content"
-                  cdkDrag
-                  (cdkDragStarted)="onDragStarted()"
-                  (cdkDragMoved)="onMoved()"
-                  (mouseenter)="onShowcase(item.content)"
-                  (mouseleave)="hideShowcase()"
-                  (click)="onFixed(item.content)"
-                >
-                  <div
-                    class="inner move flex flex-col justify-center items-center"
+                    matTooltipPosition="above"
+                    >
+                    <div
+                      class="w-full"
+                      [cdkDragData]="item.content"
+                      cdkDrag
+                      (cdkDragStarted)="onDragStarted()"
+                      (cdkDragMoved)="onMoved()"
+                      (mouseenter)="onShowcase(item.content)"
+                      (mouseleave)="hideShowcase()"
+                      (click)="onFixed(item.content)"
+                      >
+                      <div
+                        class="inner move flex flex-col justify-center items-center"
                     [ngClass]="
                       builder.fixedContent === item.content ? 'active' : ''
                     "
-                  >
-                    <app-icon
-                      *ngIf="item.icon"
-                      [content]="item.icon"
-                    ></app-icon>
-                    <div class="title" title="{{ item.label }}">
-                      {{ item.label }}
+                        >
+                        @if (item.icon) {
+                          <app-icon
+                            [content]="item.icon"
+                          ></app-icon>
+                        }
+                        <div class="title" title="{{ item.label }}">
+                          {{ item.label }}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                }
               </div>
-            </ng-container>
-          </div>
-        </ng-container>
-      </div>
-    </mat-list>
-  </mat-expansion-panel>
+            }
+          }
+        </div>
+      </mat-list>
+    </mat-expansion-panel>
+  }
 </mat-accordion>

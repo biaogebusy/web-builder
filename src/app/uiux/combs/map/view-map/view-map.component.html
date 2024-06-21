@@ -1,89 +1,91 @@
-<div class="view-map relativen" *ngIf="content">
-  <div
-    class="sidebar p-x-xs p-y-xs flex flex-col w-full md:w-[430px] box-border"
-  >
-    <div class="sidebar-wrapper">
+@if (content) {
+  <div class="view-map relativen">
+    <div
+      class="sidebar p-x-xs p-y-xs flex flex-col w-full md:w-[430px] box-border"
+      >
+      <div class="sidebar-wrapper">
+        <mat-expansion-panel [expanded]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="view-map-header relative">
+                <div class="result p-y-xs">
+                  总计
+                  <span class="result-total">{{ (lists$ | async)?.length }}</span>
+                  条数据
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
+            <mat-divider class="m-y-sm"></mat-divider>
+            <div
+              class="list m-y-sm p-y-xs m-x-xs p-x-xs flex flex-row"
+              [class.selected]="i == selectedId"
+              matRipple
+              [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
+              *cdkVirtualFor="let item of lists$ | async as lists; index as i"
+              (click)="onCard(item, i)"
+              >
+              <div class="media">
+                <img [src]="item.img" [alt]="item.title" />
+              </div>
+              <div class="content flex flex-col basis-auto">
+                <div class="head flex flex-wrap">
+                  <div class="title bold m-bottom-0">{{ item.title }}</div>
+                  <div class="badge" [innerHTML]="item.badge_1"></div>
+                </div>
+                <div class="inner flex flex-row justify-between items-end">
+                  <div class="left">
+                    <div class="title sub-title one-line">
+                      {{ item.subTitle }}
+                    </div>
+                    <div class="badge" [innerHTML]="item.badge_2"></div>
+                  </div>
+                  <div class="meta text-right basis-1/2">
+                    <div class="item one-line" [innerHTML]="item.meta_1"></div>
+                    <div class="item one-line" [innerHTML]="item.meta_2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </cdk-virtual-scroll-viewport>
+        </mat-expansion-panel>
+      </div>
+    </div>
+    <div class="tools p-x-xs p-y-xs w-full right-0">
       <mat-expansion-panel [expanded]="false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <div class="view-map-header relative">
-              <div class="result p-y-xs">
-                总计
-                <span class="result-total">{{ (lists$ | async)?.length }}</span>
-                条数据
-              </div>
-            </div>
+            <div class="view-map-header relative">展开</div>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
-          <mat-divider class="m-y-sm"></mat-divider>
-          <div
-            class="list m-y-sm p-y-xs m-x-xs p-x-xs flex flex-row"
-            [class.selected]="i == selectedId"
-            matRipple
-            [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
-            *cdkVirtualFor="let item of lists$ | async as lists; index as i"
-            (click)="onCard(item, i)"
+        <mat-divider class="m-y-sm"></mat-divider>
+        <app-formly
+          [classes]="'form-field-width-auto'"
+          [form]="form"
+          [fields]="content.form"
+          [model]="model"
+          (modelChange)="onModelChange($event)"
           >
-            <div class="media">
-              <img [src]="item.img" [alt]="item.title" />
-            </div>
-            <div class="content flex flex-col basis-auto">
-              <div class="head flex flex-wrap">
-                <div class="title bold m-bottom-0">{{ item.title }}</div>
-                <div class="badge" [innerHTML]="item.badge_1"></div>
-              </div>
-              <div class="inner flex flex-row justify-between items-end">
-                <div class="left">
-                  <div class="title sub-title one-line">
-                    {{ item.subTitle }}
-                  </div>
-                  <div class="badge" [innerHTML]="item.badge_2"></div>
-                </div>
-                <div class="meta text-right basis-1/2">
-                  <div class="item one-line" [innerHTML]="item.meta_1"></div>
-                  <div class="item one-line" [innerHTML]="item.meta_2"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </cdk-virtual-scroll-viewport>
+        </app-formly>
+        <mat-divider class="m-y-sm"></mat-divider>
+        <div class="actions flex justify-end items-center gap-3">
+          <button mat-raised-button color="primary" (click)="clear()">
+            <mat-icon>clear</mat-icon>清空
+          </button>
+        </div>
       </mat-expansion-panel>
     </div>
-  </div>
-  <div class="tools p-x-xs p-y-xs w-full right-0">
-    <mat-expansion-panel [expanded]="false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <div class="view-map-header relative">展开</div>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-divider class="m-y-sm"></mat-divider>
-      <app-formly
-        [classes]="'form-field-width-auto'"
-        [form]="form"
-        [fields]="content.form"
-        [model]="model"
-        (modelChange)="onModelChange($event)"
-      >
-      </app-formly>
-      <mat-divider class="m-y-sm"></mat-divider>
-      <div class="actions flex justify-end items-center gap-3">
-        <button mat-raised-button color="primary" (click)="clear()">
-          <mat-icon>clear</mat-icon>清空
-        </button>
-      </div>
-    </mat-expansion-panel>
-  </div>
-  <div class="map-wrapper flex">
-    <app-map
-      class="flex-12/12"
+    <div class="map-wrapper flex">
+      <app-map
+        class="flex-12/12"
       [content]="{
         city: content.params.city,
         elements: lists$ | async,
         model: model,
         form: form
       }"
-    ></app-map>
+      ></app-map>
+    </div>
   </div>
-</div>
+}

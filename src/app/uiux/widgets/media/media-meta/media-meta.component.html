@@ -1,20 +1,22 @@
-<div class="media-meta py-5 flex flex-row flex-wrap" *ngIf="content">
-  <div class="meta flex-col gap-3 justify-center items-center md:flex-[10] hidden md:flex">
-    <div class="top">{{content.date| date:'d'}}</div>
-    <div class="middle">
-      {{content.date| date:'y-M'}}
+@if (content) {
+  <div class="media-meta py-5 flex flex-row flex-wrap">
+    <div class="meta flex-col gap-3 justify-center items-center md:flex-[10] hidden md:flex">
+      <div class="top">{{content.date| date:'d'}}</div>
+      <div class="middle">
+        {{content.date| date:'y-M'}}
+      </div>
+      <div class="more">
+        <a mat-button href="{{content.more.href}}" target="_blank">{{content.more.label}}</a>
+      </div>
     </div>
-    <div class="more">
-      <a mat-button href="{{content.more.href}}" target="_blank">{{content.more.label}}</a>
+    <div class="wrapper md:flex-[90]">
+      <div class="title">
+        <h2>
+          <app-link [content]="content.link"></app-link>
+        </h2>
+        <div class="time md:hidden">{{content.date}}</div>
+        <div class="content" [innerHTML]="content.body|stripTags|trim|shorten:150:'...'"></div>
+      </div>
     </div>
   </div>
-  <div class="wrapper md:flex-[90]">
-    <div class="title">
-      <h2>
-        <app-link [content]="content.link"></app-link>
-      </h2>
-      <div class="time md:hidden">{{content.date}}</div>
-      <div class="content" [innerHTML]="content.body|stripTags|trim|shorten:150:'...'"></div>
-    </div>
-  </div>
-</div>
+}

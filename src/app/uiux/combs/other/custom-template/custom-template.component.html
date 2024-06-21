@@ -1,7 +1,11 @@
 <div class="custom relative">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  @if (content.id) {
+    <a class="anchor" [id]="content.id"></a>
+  }
   <app-spacer [size]="content.spacer || 'none'"></app-spacer>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
+  @if (content.bg) {
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+  }
   <div class="template {{content.fullWidth?'':'container'}}"></div>
   <app-spacer [size]="content.spacer || 'none'"></app-spacer>
 </div>

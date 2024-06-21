@@ -1,6 +1,8 @@
-<div class="loading-inner" *ngIf="loading">
-  <mat-spinner diameter="50"></mat-spinner>
-</div>
+@if (loading) {
+  <div class="loading-inner">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+}
 <iframe
   [style]="{ visibility: loading ? 'hidden' : 'visible' }"
   [width]="content.width || '100%'"

@@ -1,30 +1,37 @@
 <div class="dashboard-box">
-  <div
-    class="box-header flex flex-row justify-between items-center"
-    *ngIf="content.title || content.form"
-  >
-    <div class="mat-h3 bold m-bottom-0" *ngIf="content.title">
-      {{ content.title.label }}
+  @if (content.title || content.form) {
+    <div
+      class="box-header flex flex-row justify-between items-center"
+      >
+      @if (content.title) {
+        <div class="mat-h3 bold m-bottom-0">
+          {{ content.title.label }}
+        </div>
+      }
+      <div class="filter flex justify-center items-center gap-4">
+        @if (content.form) {
+          <app-formly
+            [form]="form"
+            [model]="model"
+            [fields]="content.form"
+            (modelChange)="onModelChange($event)"
+          ></app-formly>
+        }
+        @if (content?.params?.api) {
+          <app-icon
+            (click)="reload()"
+            [content]="{ svg: 'reload' }"
+          ></app-icon>
+        }
+      </div>
     </div>
-    <div class="filter flex justify-center items-center gap-4">
-      <app-formly
-        *ngIf="content.form"
-        [form]="form"
-        [model]="model"
-        [fields]="content.form"
-        (modelChange)="onModelChange($event)"
-      ></app-formly>
-      <app-icon
-        *ngIf="content?.params?.api"
-        (click)="reload()"
-        [content]="{ svg: 'reload' }"
-      ></app-icon>
-    </div>
-  </div>
+  }
   <app-dynamic-component
     [inputs]="{ content: widget$ | async }"
   ></app-dynamic-component>
-  <div class="loading-inner" *ngIf="loading">
-    <mat-spinner diameter="50"></mat-spinner>
-  </div>
+  @if (loading) {
+    <div class="loading-inner">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  }
 </div>

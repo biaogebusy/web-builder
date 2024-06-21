@@ -1,7 +1,20 @@
-<ng-container *ngIf="content">
-  <mat-icon [ngStyle]="content.style" color="{{content.color}}" *ngIf="!content.svg"
-    [inline]="content.inline">{{content.name}}</mat-icon>
-  <mat-icon [ngStyle]="content.style" class="custom" color="{{content.color}}" *ngIf="content.svg"
-    [inline]="content.inline" [svgIcon]="content.svg"></mat-icon>
+@if (content) {
+  @if (!content.svg) {
+    <mat-icon
+      [ngStyle]="content.style"
+      [color]="content.color"
+      [inline]="content.inline ?? false"
+      [fontIcon]="content.name || ''"
+    ></mat-icon>
+  }
+  @if (content.svg) {
+    <mat-icon
+      [ngStyle]="content.style"
+      class="custom"
+      [color]="content.color"
+      [inline]="content.inline ?? false"
+      [svgIcon]="content.svg"
+    ></mat-icon>
+  }
   <ng-content></ng-content>
-</ng-container>
+}

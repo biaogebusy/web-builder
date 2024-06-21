@@ -1,21 +1,27 @@
-<div class="search-header relative bg-shadow p-y-xl" *ngIf="content">
-  <app-bg [content]="content.bg" *ngIf="content.bg">
-    <app-img [attr.data-path]="'bg.img'" [content]="content.bg.img"></app-img>
-  </app-bg>
-  <div class="container relative">
-    <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
-    <app-spacer [size]="'sm'"></app-spacer>
-    <div class="w-full">
-      <form [formGroup]="form">
-        <div class="search-input">
-          <ng-container *ngFor="let item of filterForm">
-            <ng-container [ngSwitch]="item.key">
-              <input *ngSwitchCase="'keys'" formControlName="{{item.key}}" matInput
-                placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128" class="form-search">
-            </ng-container>
-          </ng-container>
-        </div>
-      </form>
+@if (content) {
+  <div class="search-header relative bg-shadow p-y-xl">
+    @if (content.bg) {
+      <app-bg [content]="content.bg">
+        <app-img [attr.data-path]="'bg.img'" [content]="content.bg.img"></app-img>
+      </app-bg>
+    }
+    <div class="container relative">
+      <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
+      <app-spacer [size]="'sm'"></app-spacer>
+      <div class="w-full">
+        <form [formGroup]="form">
+          <div class="search-input">
+            @for (item of filterForm; track item) {
+              @switch (item.key) {
+                @case ('keys') {
+                  <input formControlName="{{item.key}}" matInput
+                    placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128" class="form-search">
+                }
+              }
+            }
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+}

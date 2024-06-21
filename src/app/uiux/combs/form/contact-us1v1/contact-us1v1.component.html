@@ -1,35 +1,42 @@
-<div class="contact-us-1v1" *ngIf="content" [ngClass]="content.classes">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img
-    [attr.data-path]="'bg'"
-    [content]="content.bg"
-    *ngIf="content.bg"
-  ></app-bg-img>
-  <div class="{{ content.fullWidth ? '' : 'container' }}">
-    <app-text
-      [attr.data-path]="'text'"
-      *ngIf="content.text"
-      [content]="content.text"
-    ></app-text>
-    <div class="box flex flex-wrap">
-      <div class="form p-x-md p-y-md flex-12/12 md:flex-8/12">
-        <form [formGroup]="form">
-          <app-formly [fields]="content.form" [model]="model"></app-formly>
-        </form>
-        <app-btn [content]="content.action" (click)="onSubmit(model)"></app-btn>
-      </div>
-      <div
-        class="content p-x-md p-y-md flex-12/12 md:flex-4/12"
-        [ngStyle]="content.contentStyle"
-      >
-        <app-dynamic-component
-          [attr.data-path]="'content.' + i"
-          [inputs]="item"
-          *ngFor="let item of content.content; index as i"
-        ></app-dynamic-component>
+@if (content) {
+  <div class="contact-us-1v1" [ngClass]="content.classes">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    @if (content.bg) {
+      <app-bg-img
+        [attr.data-path]="'bg'"
+        [content]="content.bg"
+      ></app-bg-img>
+    }
+    <div class="{{ content.fullWidth ? '' : 'container' }}">
+      @if (content.text) {
+        <app-text
+          [attr.data-path]="'text'"
+          [content]="content.text"
+        ></app-text>
+      }
+      <div class="box flex flex-wrap">
+        <div class="form p-x-md p-y-md flex-12/12 md:flex-8/12">
+          <form [formGroup]="form">
+            <app-formly [fields]="content.form" [model]="model"></app-formly>
+          </form>
+          <app-btn [content]="content.action" (click)="onSubmit(model)"></app-btn>
+        </div>
+        <div
+          class="content p-x-md p-y-md flex-12/12 md:flex-4/12"
+          [ngStyle]="content.contentStyle"
+          >
+          @for (item of content.content; track item; let i = $index) {
+            <app-dynamic-component
+              [attr.data-path]="'content.' + i"
+              [inputs]="item"
+            ></app-dynamic-component>
+          }
+        </div>
       </div>
     </div>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

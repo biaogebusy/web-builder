@@ -33,7 +33,7 @@ export class PageListComponent implements OnInit, OnDestroy {
       key: 'title',
       type: 'input',
       props: {
-        placeholder: '关键词',
+        label: '关键词',
         type: 'search',
         appearance: 'outline',
       },
@@ -44,7 +44,7 @@ export class PageListComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private builder: BuilderState,
     private util: UtilitiesService,
-    private builderService: BuilderService
+    private builderService: BuilderService,
   ) {}
 
   ngOnInit(): void {
@@ -93,7 +93,7 @@ export class PageListComponent implements OnInit, OnDestroy {
       map((res) => {
         this.loading = false;
         return this.getLists(res);
-      })
+      }),
     );
   }
 
@@ -109,7 +109,7 @@ export class PageListComponent implements OnInit, OnDestroy {
         id: item.id,
         nid: attributes.drupal_internal__nid,
         user: included.find(
-          (user: any) => user.id === item.relationships.revision_uid.data.id
+          (user: any) => user.id === item.relationships.revision_uid.data.id,
         ).attributes.display_name,
         href: this.nodeService.getNodePath(attributes),
       };

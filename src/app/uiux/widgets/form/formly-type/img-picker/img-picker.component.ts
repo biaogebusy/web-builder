@@ -14,7 +14,10 @@ import { takeUntil } from 'rxjs/operators';
 export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   time: Date;
-  constructor(private dialog: MatDialog, private builder: BuilderState) {
+  constructor(
+    private dialog: MatDialog,
+    private builder: BuilderState,
+  ) {
     super();
   }
 
@@ -37,7 +40,7 @@ export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
   openMedias(): void {
     this.time = new Date();
     this.dialog.open(DialogComponent, {
-      width: '100%',
+      width: '85vw',
       data: {
         title: '媒体库',
         disableCloseButton: true,

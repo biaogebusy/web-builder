@@ -1,40 +1,51 @@
-<div class="tab-1v1 pt-5" *ngIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img
-    [attr.data-path]="'bg'"
-    [content]="content.bg"
-    *ngIf="content.bg"
-  ></app-bg-img>
-  <div
-    class="{{ content.fullWidth ? '' : 'container' }}"
-    *ngIf="content.tab && pager"
-  >
-    <app-text *ngIf="content.text" [content]="content.text"></app-text>
-    <mat-tab-group
-      [selectedIndex]="selectedIndex"
-      (selectedIndexChange)="onSelectChange($event)"
-      mat-align-tabs="center"
-      animationDuration="0ms"
-    >
-      <mat-tab label="{{ tab.label }}" *ngFor="let tab of tabs">
-        <ng-template matTabContent>
-          <app-media-meta
-            [content]="item"
-            *ngFor="let item of currentList | paginate: pager"
+@if (content) {
+  <div class="tab-1v1 pt-5">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    @if (content.bg) {
+      <app-bg-img
+        [attr.data-path]="'bg'"
+        [content]="content.bg"
+      ></app-bg-img>
+    }
+    @if (content.tab && pager) {
+      <div
+        class="{{ content.fullWidth ? '' : 'container' }}"
+        >
+        @if (content.text) {
+          <app-text [content]="content.text"></app-text>
+        }
+        <mat-tab-group
+          [selectedIndex]="selectedIndex"
+          (selectedIndexChange)="onSelectChange($event)"
+          mat-align-tabs="center"
+          animationDuration="0ms"
           >
-          </app-media-meta>
-        </ng-template>
-      </mat-tab>
-    </mat-tab-group>
-    <app-pagination
-      *ngIf="currentList.length > 0; else empty"
-      (pageChange)="onPageChange($event)"
-    ></app-pagination>
-    <ng-template #empty>
-      <div class="text-center p-y-xl">
-        <p>没有数据。</p>
+          @for (tab of tabs; track tab) {
+            <mat-tab label="{{ tab.label }}">
+              <ng-template matTabContent>
+                @for (item of currentList | paginate: pager; track item) {
+                  <app-media-meta
+                    [content]="item"
+                    >
+                  </app-media-meta>
+                }
+              </ng-template>
+            </mat-tab>
+          }
+        </mat-tab-group>
+        @if (currentList.length > 0) {
+          <app-pagination
+            (pageChange)="onPageChange($event)"
+          ></app-pagination>
+        } @else {
+          <div class="text-center p-y-xl">
+            <p>没有数据。</p>
+          </div>
+        }
       </div>
-    </ng-template>
+    }
   </div>
-</div>
+}

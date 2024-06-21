@@ -1,8 +1,9 @@
 .tab {
   &.pills {
     ::ng-deep {
-      .mat-tab-header {
+      .mat-mdc-tab-header {
         border-bottom: 0;
+        /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
         .mat-tab-label-active,
         .mat-tab-labels {
           border-radius: 6px;

@@ -31,7 +31,7 @@ export class ContentService {
     private apiService: ApiService,
     @Inject(API_URL) private apiUrl: string,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
   ) {}
 
   updatePage(pageValue: IPage): void {
@@ -104,7 +104,7 @@ export class ContentService {
         }),
         catchError(() => {
           return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
-        })
+        }),
       );
     } else {
       return this.http
@@ -115,7 +115,7 @@ export class ContentService {
           }),
           catchError(() => {
             return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-          })
+          }),
         );
     }
   }
@@ -140,7 +140,7 @@ export class ContentService {
     };
     if (environment.production) {
       return this.http.get<IBranding>(
-        `${this.apiUrl}/api/v1/config?content=${language}/core/branding`
+        `${this.apiUrl}/api/v1/config?content=${language}/core/branding`,
       );
     } else {
       if (lang?.value === 'en') {
@@ -151,7 +151,10 @@ export class ContentService {
   }
 
   loadConfig(coreConfig: object, lang: ILanguage): any {
-    const language = lang ? `${lang.prefix}` : '';
+    let language = lang ? `${lang.prefix}` : '';
+    if (lang?.default) {
+      language = '';
+    }
     const configPath = environment.production
       ? `${this.apiUrl}/api/v1/config?content=${language}/core/base`
       : `${this.apiUrl}/assets/app${language}/core/base.json`;
@@ -160,7 +163,7 @@ export class ContentService {
       .pipe(
         tap((config: any) => {
           Object.assign(coreConfig, config);
-        })
+        }),
       )
       .toPromise()
       .then(
@@ -170,7 +173,7 @@ export class ContentService {
         (error) => {
           console.log(error);
           console.log('base json not found!');
-        }
+        },
       );
   }
 
@@ -198,7 +201,7 @@ export class ContentService {
             html_url: '',
             stargazers_count: 0,
           });
-        })
+        }),
       );
   }
 }

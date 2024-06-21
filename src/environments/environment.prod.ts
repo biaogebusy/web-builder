@@ -1,11 +1,23 @@
 import { IEnvironment } from '../app/core/interface/IEnvironment';
 
 export const environment: IEnvironment = {
-  apiUrl: 'http://localhost:4200',
+  apiUrl: 'https://yourdomain.com',
   production: true,
-  site: 'dist',
-  port: 4209,
+  port: 4200,
   cache: true,
-  ssr: false,
-  drupalProxy: false,
+  ssr: true,
+  multiLang: true,
+  langs: [
+    {
+      label: '中文',
+      value: 'zh',
+      prefix: '/',
+      default: true,
+    },
+    {
+      label: 'EN',
+      value: 'en',
+      prefix: '/en',
+    },
+  ],
 };

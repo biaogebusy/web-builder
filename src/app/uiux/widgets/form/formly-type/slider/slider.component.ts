@@ -31,9 +31,4 @@ export class SliderComponent
       this.formControl.patchValue(value, { emitEvent: false });
     });
   }
-
-  onContainerClick(event: MouseEvent): void {
-    this.slider.focus();
-    this.onContainerClick(event);
-  }
 }

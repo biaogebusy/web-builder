@@ -1,24 +1,51 @@
-<ng-container *ngIf="content">
+@if (content) {
   <mat-accordion multi>
-    <ng-container *ngFor="let item of content">
+    @for (item of content; track item) {
       <ng-container *reqRolesIf="item">
-        <mat-list class="no-child" *ngIf="!item.child" checkChildMenuActive>
-          <mat-list-item>
-            <app-icon [class]="'icon pr-[10px]'" *ngIf="item.icon" [content]="item.icon"></app-icon>
-            <app-link [content]="item"></app-link>
-          </mat-list-item>
-        </mat-list>
-        <mat-expansion-panel checkChildMenuActive [expanded]="item.expanded" *ngIf="item.child"
-          (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title *ngIf="!item.href" [ngClass]="item.classes||''">
-              <app-icon class="icon pr-[10px]" *ngIf="item.icon" [content]="item.icon"></app-icon>{{item.label}}
-            </mat-panel-title>
-            <app-link *ngIf="item.href" [ngClass]="item.classes||''" [content]="item"></app-link>
-          </mat-expansion-panel-header>
-          <app-accordion [content]="item.child"></app-accordion>
-        </mat-expansion-panel>
-      </ng-container>
-    </ng-container>
-  </mat-accordion>
-</ng-container>
+        @if (!item.child) {
+          <mat-list class="no-child" checkChildMenuActive>
+            <mat-list-item>
+              @if (item.icon) {
+                <app-icon
+                  matListItemIcon
+                  class="!mr-3"
+                  [content]="item.icon"
+                ></app-icon>
+              }
+              <app-link [content]="item"></app-link>
+            </mat-list-item>
+          </mat-list>
+        }
+        @if (item.child) {
+          <mat-expansion-panel
+            checkChildMenuActive
+            [expanded]="item.expanded"
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+            >
+            <mat-expansion-panel-header>
+              @if (!item.href) {
+                <mat-panel-title [ngClass]="item.classes || ''">
+                  @if (item.icon) {
+                    <app-icon
+                      class="!mr-3"
+                      [content]="item.icon"
+                      ></app-icon
+                      >
+                      }{{ item.label }}
+                    </mat-panel-title>
+                  }
+                  @if (item.href) {
+                    <app-link
+                      [ngClass]="item.classes || ''"
+                      [content]="item"
+                    ></app-link>
+                  }
+                </mat-expansion-panel-header>
+                <app-accordion [content]="item.child"></app-accordion>
+              </mat-expansion-panel>
+            }
+          </ng-container>
+        }
+      </mat-accordion>
+    }

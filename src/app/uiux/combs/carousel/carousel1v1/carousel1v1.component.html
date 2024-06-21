@@ -1,17 +1,22 @@
-<div class="carousel-1-v1 relative" [ngClass]="content.classes" *ngIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <div class="{{ content.fullWidth ? '' : 'container' }}">
-    <app-title
-      [attr.data-path]="'title'"
-      *ngIf="content.title"
-      [content]="content.title"
-    ></app-title>
-    <app-swiper
-      [attr.data-path]="'sliders'"
-      [content]="content.sliders"
-    ></app-swiper>
+@if (content) {
+  <div class="carousel-1-v1 relative" [ngClass]="content.classes">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+    <div class="{{ content.fullWidth ? '' : 'container' }}">
+      @if (content.title) {
+        <app-title
+          [attr.data-path]="'title'"
+          [content]="content.title"
+        ></app-title>
+      }
+      <app-swiper
+        [attr.data-path]="'sliders'"
+        [content]="content.sliders"
+      ></app-swiper>
+    </div>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

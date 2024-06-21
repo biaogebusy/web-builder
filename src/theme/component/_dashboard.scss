@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
-@mixin dashboard-color($config-or-theme) {
-  $config: mat.get-color-config($config-or-theme);
+@mixin dashboard-color($theme) {
+  $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);

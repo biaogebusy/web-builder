@@ -1,8 +1,9 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
-import { LightboxModule } from 'ngx-lightbox';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  ComponentFactoryResolver,
+  NgModule,
+} from '@angular/core';
 import { ShareModule } from '@share/share.module';
-import { SwiperModule } from 'swiper/angular';
-import { CountToModule } from 'angular-count-to';
 import { CdkTableModule } from '@angular/cdk/table';
 
 // Material
@@ -23,7 +24,6 @@ import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
 
 // Core
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
 import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
 
@@ -113,6 +113,10 @@ import { SliderComponent } from './form/formly-type/slider/slider.component';
 import { DividerComponent } from './divider/divider.component';
 import { RichTextComponent } from './form/formly-type/rich-text/rich-text.component';
 import { QuillModule } from 'ngx-quill';
+import { CountUpModule } from 'ngx-countup';
+import { LightgalleryModule } from 'lightgallery/angular';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+
 const components = [
   BgComponent,
   ImgComponent,
@@ -196,13 +200,13 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
+  declarations: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
   imports: [
     MatChipsModule,
     MatBadgeModule,
     ShareModule,
-    LightboxModule,
-    CountToModule,
+    CountUpModule,
+    LightgalleryModule,
     CdkTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -213,7 +217,6 @@ const components = [
     FormlyMatSliderModule,
     FormlyMatToggleModule,
     MatCheckboxModule,
-    SwiperModule,
     MatSortModule,
     ClipboardModule,
     QuillModule.forRoot(),
@@ -256,11 +259,12 @@ const components = [
       ],
     }),
   ],
-  exports: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
+  exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
   providers: [
     MatDatepickerModule,
     { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WidgetsModule extends BaseModule {
   dynamicComponents = [...components];

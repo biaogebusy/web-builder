@@ -1,50 +1,56 @@
-<div class="builder-settings" *ngIf="content">
-  <mat-accordion>
-    <mat-expansion-panel
-      *ngFor="let item of content; index as i"
-      [expanded]="i == 0"
-      (afterExpand)="onAfterExpand()"
-    >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{ item.label }}
-        </mat-panel-title>
-        <mat-panel-description *ngIf="item.description">
-          {{ item.description }}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-list>
-        <div
-          class="cards flex flex-wrap"
-          id="widgets"
-          cdkDropList
-          cdkDropListSortingDisabled="true"
-          [cdkDropListData]="item.elements"
-          [cdkDropListConnectedTo]="['builder-list', 'builder-list-sideabr']"
-        >
-          <ng-container *ngFor="let widget of item.elements">
+@if (content) {
+  <div class="builder-settings">
+    <mat-accordion>
+      @for (item of content; track item; let i = $index) {
+        <mat-expansion-panel
+          [expanded]="i == 0"
+          (afterExpand)="onAfterExpand()"
+          >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ item.label }}
+            </mat-panel-title>
+            @if (item.description) {
+              <mat-panel-description>
+                {{ item.description }}
+              </mat-panel-description>
+            }
+          </mat-expansion-panel-header>
+          <mat-list>
             <div
-              class="item"
-              matRipple
-              fxFlex.lt-sm="50%"
-              fxFlex.gt-xs="0 0 calc(100%/3)"
-              matTooltipPosition="above"
-            >
-              <div *ngIf="widget.type === 'json'" (click)="onJson(widget)">
+              class="cards grid grid-cols-12 gap-1"
+              id="widgets"
+              cdkDropList
+              cdkDropListSortingDisabled="true"
+              [cdkDropListData]="item.elements"
+              [cdkDropListConnectedTo]="['builder-list', 'builder-list-sideabr']"
+              >
+              @for (widget of item.elements; track widget) {
                 <div
-                  class="inner show flex flex-col justify-center items-center"
-                >
-                  <app-icon
-                    *ngIf="widget.icon"
-                    [content]="widget.icon"
-                  ></app-icon>
-                  <div class="title">{{ widget.label }}</div>
+                  class="item col-span-6 sm:col-span-4"
+                  matRipple
+                  matTooltipPosition="above"
+                  >
+                  @if (widget.type === 'json') {
+                    <div (click)="onJson(widget)">
+                      <div
+                        class="inner show flex flex-col justify-center items-center"
+                        >
+                        @if (widget.icon) {
+                          <app-icon
+                            [content]="widget.icon"
+                          ></app-icon>
+                        }
+                        <div class="title">{{ widget.label }}</div>
+                      </div>
+                    </div>
+                  }
                 </div>
-              </div>
+              }
             </div>
-          </ng-container>
-        </div>
-      </mat-list>
-    </mat-expansion-panel>
-  </mat-accordion>
-</div>
+          </mat-list>
+        </mat-expansion-panel>
+      }
+    </mat-accordion>
+  </div>
+}

@@ -1,16 +1,21 @@
-<div class="hero-1-v1 relative" *ngIf="content" [ngClass]="content.classes">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img
-    [attr.data-path]="'bg'"
-    [content]="content.bg"
-    *ngIf="content.bg"
-  ></app-bg-img>
-  <div class="{{ content.fullWidth ? '' : 'container' }}">
-    <app-swiper
-      [attr.data-path]="'sliders'"
-      [content]="content.sliders"
-    ></app-swiper>
+@if (content) {
+  <div class="hero-1-v1 relative" [ngClass]="content.classes">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    @if (content.bg) {
+      <app-bg-img
+        [attr.data-path]="'bg'"
+        [content]="content.bg"
+      ></app-bg-img>
+    }
+    <div class="{{ content.fullWidth ? '' : 'container' }}">
+      <app-swiper
+        [attr.data-path]="'sliders'"
+        [content]="content.sliders"
+      ></app-swiper>
+    </div>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

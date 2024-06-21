@@ -13,24 +13,6 @@
   .sidebar {
     width: 230px;
     ::ng-deep {
-      .mat-list-text {
-        padding-right: 0 !important;
-      }
-      .mat-tab-header {
-        .mat-tab-label {
-          max-width: 66px;
-          min-width: 66px;
-          .custom-icon {
-            padding: 8px;
-          }
-        }
-
-        .mat-tab-label-content {
-          padding: 4px 24px;
-          border-radius: 6px;
-          font-size: small;
-        }
-      }
       .mat-expansion-panel-header {
         padding: 0 16px;
       }
@@ -66,15 +48,16 @@
       position: absolute;
       left: 0;
       top: 35px;
-      width: 45px;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
+      width: 48px;
+      height: 48px;
+      border-top-left-radius: 24px;
+      border-bottom-left-radius: 24px;
     }
   }
   .mat-drawer-opened {
     .actions {
       &.expand {
-        left: -45px;
+        left: -48px;
       }
     }
   }

@@ -11,7 +11,7 @@
   }
 }
 :host ::ng-deep {
-  .mat-card:not([class*="mat-elevation-z"]) {
+  .mat-mdc-card:not([class*="mat-elevation-z"]) {
     box-shadow: none;
   }
 }

@@ -1,7 +1,7 @@
 <div class="auto-close relative">
   <div class="container">
-    <ng-container *ngFor="let block of content.elements">
+    @for (block of content.elements; track block) {
       <app-dynamic-component [inputs]="{content:block}"></app-dynamic-component>
-    </ng-container>
+    }
   </div>
 </div>

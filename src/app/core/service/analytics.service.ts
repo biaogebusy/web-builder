@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { DOCUMENT } from '@angular/common';
 
@@ -11,9 +10,8 @@ declare var window: any;
 })
 export class AnalyticsService {
   constructor(
-    private angulartics: Angulartics2GoogleAnalytics,
     private utility: UtilitiesService,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
   ) {}
 
   loadGoogleAnalytics(id: string): void {
@@ -27,9 +25,6 @@ export class AnalyticsService {
       window.dataLayer.push(arguments);
     };
     gtag('js', new Date());
-
-    // tracking current url at app bootstrap
     gtag('config', id);
-    this.angulartics.startTracking();
   }
 }

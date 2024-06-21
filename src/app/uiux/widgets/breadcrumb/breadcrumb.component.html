@@ -1,8 +1,12 @@
-<div class="breadcrumb" *ngIf="content">
-  <ul class="flex">
-    <li class="flex justify-center items-center" *ngFor="let link of content">
-      <app-link [content]="link"></app-link>
-      <app-icon [content]="{svg:'chevron-right'}"></app-icon>
-    </li>
-  </ul>
-</div>
+@if (content) {
+  <div class="breadcrumb">
+    <ul class="flex">
+      @for (link of content; track link) {
+        <li class="flex justify-center items-center">
+          <app-link [content]="link"></app-link>
+          <app-icon [content]="{svg:'chevron-right'}"></app-icon>
+        </li>
+      }
+    </ul>
+  </div>
+}

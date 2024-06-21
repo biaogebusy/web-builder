@@ -1,43 +1,51 @@
-<div class="theme-preview" *ngIf="content">
-  <app-dynamic-component
-    *ngFor="let item of content.top"
-    [inputs]="item"
-  ></app-dynamic-component>
-  <div class="container">
-    <div class="bg-colors grid grid-cols-12 gap-5">
-      <div
-        class="box col-span-4 md:col-span-{{content.bgColors.row}}"
-        [ngClass]="color.classes"
-        *ngFor="let color of content.bgColors.lists"
-      >
-        <div class="label">{{ color.label }}</div>
-      </div>
-    </div>
-    <mat-divider class="m-y-lg"></mat-divider>
-    <div class="row grid grid-cols-12 gap-5">
+@if (content) {
+  <div class="theme-preview">
+    @for (item of content.top; track item) {
       <app-dynamic-component
-        class="item col-span-12 sm:col-span-4"
-        *ngFor="let item of content.row"
         [inputs]="item"
       ></app-dynamic-component>
-    </div>
-    <div class="columns">
-      <div class="wrapper grid grid-cols-12 gap-5">
-        <div
-          class="item flex flex-col col-span-12 sm:col-span-4"
-          *ngFor="let column of content.columns"
-        >
+    }
+    <div class="container">
+      <div class="bg-colors grid grid-cols-10 gap-5">
+        @for (color of content.bgColors.lists; track color) {
+          <div
+            class="box col-span-4 md:col-span-{{ content.bgColors.row }}"
+            [ngClass]="color.classes"
+            >
+            <div class="label">{{ color.label }}</div>
+          </div>
+        }
+      </div>
+      <mat-divider class="m-y-lg"></mat-divider>
+      <div class="row grid grid-cols-12 gap-5">
+        @for (item of content.row; track item) {
           <app-dynamic-component
-            class="box"
-            *ngFor="let item of column"
+            class="item col-span-12 sm:col-span-4"
             [inputs]="item"
           ></app-dynamic-component>
+        }
+      </div>
+      <div class="columns">
+        <div class="wrapper grid grid-cols-12 gap-5">
+          @for (column of content.columns; track column) {
+            <div
+              class="item flex flex-col col-span-12 sm:col-span-4"
+              >
+              @for (item of column; track item) {
+                <app-dynamic-component
+                  class="box"
+                  [inputs]="item"
+                ></app-dynamic-component>
+              }
+            </div>
+          }
         </div>
       </div>
+      @for (item of content.bottom; track item) {
+        <app-dynamic-component
+          [inputs]="item"
+        ></app-dynamic-component>
+      }
     </div>
-    <app-dynamic-component
-      *ngFor="let item of content.bottom"
-      [inputs]="item"
-    ></app-dynamic-component>
   </div>
-</div>
+}

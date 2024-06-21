@@ -368,25 +368,25 @@ const footerMainMenu = [
     child: [
       {
         label: 'Angular 中文站',
-        icon: 'arrow_right',
+        icon: {
+          svg: 'chevron-right',
+        },
         href: 'https://angular.cn/',
         target: '_blank',
       },
       {
         label: 'Material Angular',
-        icon: 'arrow_right',
+        icon: {
+          svg: 'chevron-right',
+        },
         href: 'https://material.angular.io/',
         target: '_blank',
       },
       {
-        label: 'Flex Layout',
-        icon: 'arrow_right',
-        href: 'https://github.com/angular/flex-layout/wiki',
-        target: '_blank',
-      },
-      {
         label: 'JSONAPI',
-        icon: 'arrow_right',
+        icon: {
+          svg: 'chevron-right',
+        },
         href: 'https://jsonapi.org/format/',
         target: '_blank',
       },
@@ -396,26 +396,26 @@ const footerMainMenu = [
     label: '帮助',
     child: [
       {
-        label: 'Angular 中文站',
-        icon: 'github',
-        href: 'https://github.com/biaogebusy/nnitpay-angular',
-        target: '_blank',
-      },
-      {
         label: 'Drupal 自习室',
-        icon: 'offiaccount',
+        icon: {
+          svg: 'wechat',
+        },
         href: 'https://www.zhihu.com/column/c_1331898788731375616',
         target: '_blank',
       },
       {
         label: '前端茶馆',
-        icon: 'zhihu',
+        icon: {
+          svg: 'zhihu',
+        },
         href: 'https://www.zhihu.com/column/frontend-focus',
         target: '_blank',
       },
       {
         label: 'Drupal 中文模块',
-        icon: 'github',
+        icon: {
+          svg: 'github',
+        },
         href: 'https://github.com/biaogebusy/drupal-modules-cn',
         target: '_blank',
       },
@@ -426,18 +426,24 @@ const footerMainMenu = [
     child: [
       {
         label: 'Drupal 自习室',
-        icon: 'offiaccount',
+        icon: {
+          svg: 'offiaccount',
+        },
         popup:
           '<img width="112px" src="./assets/images/qrcode-official.jpg" alt="">',
       },
       {
         label: 'Drupal 主题开发',
-        icon: 'wechat',
+        icon: {
+          svg: 'wechat',
+        },
         popup: '<img width="112px" src="./assets/images/wechat.jpg" alt="">',
       },
       {
         label: '南宁IT派',
-        icon: 'offiaccount',
+        icon: {
+          svg: 'offiaccount',
+        },
         popup: '<img width="112px" src="./assets/images/wechat.jpg" alt="">',
       },
     ],
@@ -450,25 +456,25 @@ const footerMobileMenu = [
     child: [
       {
         label: 'Angular 中文站',
-        icon: 'arrow_right',
+        icon: {
+          svg: 'chevron-right',
+        },
         href: 'https://angular.cn/',
         target: '_blank',
       },
       {
         label: 'Material Angular',
-        icon: 'arrow_right',
+        icon: {
+          svg: 'chevron-right',
+        },
         href: 'https://material.angular.io/',
         target: '_blank',
       },
       {
-        label: 'Flex Layout',
-        icon: 'arrow_right',
-        href: 'https://github.com/angular/flex-layout/wiki',
-        target: '_blank',
-      },
-      {
         label: 'JSONAPI',
-        icon: 'arrow_right',
+        icon: {
+          svg: 'chevron-right',
+        },
         href: 'https://jsonapi.org/format/',
         target: '_blank',
       },
@@ -478,26 +484,26 @@ const footerMobileMenu = [
     label: '帮助',
     child: [
       {
-        label: 'Angular 中文站',
-        icon: 'github',
-        href: 'https://github.com/biaogebusy/nnitpay-angular',
-        target: '_blank',
-      },
-      {
         label: 'Drupal 自习室',
-        icon: 'offiaccount',
+        icon: {
+          svg: 'wechat',
+        },
         href: 'https://www.zhihu.com/column/c_1331898788731375616',
         target: '_blank',
       },
       {
         label: '前端茶馆',
-        icon: 'zhihu',
+        icon: {
+          svg: 'zhihu',
+        },
         href: 'https://www.zhihu.com/column/frontend-focus',
         target: '_blank',
       },
       {
         label: 'Drupal 中文模块',
-        icon: 'github',
+        icon: {
+          svg: 'github',
+        },
         href: 'https://github.com/biaogebusy/drupal-modules-cn',
         target: '_blank',
       },

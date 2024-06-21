@@ -1,27 +1,31 @@
-<div class="fix-bar" *ngIf="content">
-  <div class="bar-inner">
-    <ng-container *ngFor="let item of content">
-      <ng-container [ngSwitch]="item.type">
-        <div
-          class="item flex flex-col justify-center items-center"
-          [attr.id]="item.id"
-          *ngSwitchCase="'link'"
-        >
-          <a href="{{ item.href }}" target="{{ item.target }}">
-            <app-icon [content]="item.icon"></app-icon>
-          </a>
-          <app-link class="label" [content]="item"></app-link>
-        </div>
-        <div
-          class="item item-popup flex flex-col justify-center items-center"
-          [attr.id]="item.id"
-          *ngSwitchCase="'popup'"
-        >
-          <app-icon [content]="item.icon"></app-icon>
-          <span class="label">{{ item.label }}</span>
-          <app-fix-bar-popup [content]="item.content"></app-fix-bar-popup>
-        </div>
-      </ng-container>
-    </ng-container>
+@if (content) {
+  <div class="fix-bar">
+    <div class="bar-inner">
+      @for (item of content; track item) {
+        @switch (item.type) {
+          @case ('link') {
+            <div
+              class="item flex flex-col justify-center items-center"
+              [attr.id]="item.id"
+              >
+              <a href="{{ item.href }}" target="{{ item.target }}">
+                <app-icon [content]="item.icon"></app-icon>
+              </a>
+              <app-link class="label" [content]="item"></app-link>
+            </div>
+          }
+          @case ('popup') {
+            <div
+              class="item item-popup flex flex-col justify-center items-center"
+              [attr.id]="item.id"
+              >
+              <app-icon [content]="item.icon"></app-icon>
+              <span class="label">{{ item.label }}</span>
+              <app-fix-bar-popup [content]="item.content"></app-fix-bar-popup>
+            </div>
+          }
+        }
+      }
+    </div>
   </div>
-</div>
+}

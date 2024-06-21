@@ -14,9 +14,7 @@
       margin: 0;
     }
   }
-  ::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
-    padding: 0;
-  }
+
   input[type="search"] {
     border: medium none;
     height: 100%;
@@ -26,8 +24,6 @@
     @include border-radius(200px, 200px, 200px, 200px);
     &:active,
     &:focus {
-      -moz-box-shadow: none;
-      -webkit-box-shadow: none;
       box-shadow: none;
       outline: none;
     }

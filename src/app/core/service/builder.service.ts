@@ -152,7 +152,7 @@ export class BuilderService extends ApiService {
 
   getTitle(title: string): string {
     // api respone title with site name, need remove;
-    let index = title.indexOf('|');
+    const index = title.indexOf('|');
     let pageTitle = '';
     if (index !== -1) {
       pageTitle = title.substring(0, index).trim();

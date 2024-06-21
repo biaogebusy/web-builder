@@ -4,7 +4,7 @@
   .mat-drawer-inner-container {
     @include scrollbar(mat.get-color-from-palette($foreground, divider));
   }
-  .mat-tab-header {
+  .mat-mdc-tab-header {
     background-color: mat.get-color-from-palette($background, background);
     .mat-tab-label {
       color: mat.get-color-from-palette($foreground, text);
@@ -26,7 +26,7 @@
     .mat-expansion-indicator::after {
       color: mat.get-color-from-palette($foreground, text, 0.75);
     }
-    .mat-list-base {
+    .mat-mdc-list-base {
       .mat-list-option {
         color: mat.get-color-from-palette($foreground, text, 0.75);
       }
@@ -54,17 +54,23 @@
   .page-list {
     color: mat.get-color-from-palette($foreground, text, 0.75);
     background-color: mat.get-color-from-palette($background, background);
-    @include mat.elevation(3, mat.get-color-from-palette($foreground, divider), 0.4);
+    @include mat.elevation(
+      3,
+      mat.get-color-from-palette($foreground, divider),
+      0.4
+    );
     .form {
       background-color: mat.get-color-from-palette($background, card);
+      /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
       .mat-form-field-wrapper {
         border: 1px solid mat.get-color-from-palette($foreground, divider);
       }
     }
-    .mat-list {
+    .mat-mdc-list {
       @include scrollbar(mat.get-color-from-palette($primary));
-      .mat-list-item {
-        border-bottom: 1px solid mat.get-color-from-palette($foreground, divider);
+      .mat-mdc-list-item {
+        border-bottom: 1px solid
+          mat.get-color-from-palette($foreground, divider);
         color: mat.get-color-from-palette($foreground, text, 0.75);
         a {
           color: mat.get-color-from-palette($foreground, text, 0.75);
@@ -87,9 +93,17 @@
       .inner {
         background-color: mat.get-color-from-palette($background, card);
         transition: background 0.1s ease-in-out;
-        @include mat.elevation(1, mat.get-color-from-palette($background, focused-button), 0.2);
+        @include mat.elevation(
+          1,
+          mat.get-color-from-palette($background, focused-button),
+          0.2
+        );
         &:hover {
-          @include mat.elevation(1, mat.get-color-from-palette($background, hover), 0.6);
+          @include mat.elevation(
+            1,
+            mat.get-color-from-palette($background, hover),
+            0.2
+          );
           background: mat.get-color-from-palette($primary, 0.08);
         }
         .custom-icon {

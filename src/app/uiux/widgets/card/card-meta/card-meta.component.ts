@@ -4,10 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { TextComponent } from '../../text/text.component';
 import { DialogComponent } from '../../dialog/dialog.component';
 import type { IMeta } from '@core/interface/widgets/ICard';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-card-meta',

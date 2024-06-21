@@ -20,8 +20,8 @@ export interface IViewList {
 export interface Params {
   apiType: string;
   export?: any;
-  emptyHidden: boolean;
-  reqRoles: string[];
+  emptyHidden?: boolean;
+  reqRoles?: string[];
 }
 
 export interface Header {
@@ -32,7 +32,7 @@ export interface Header {
 }
 
 export interface Style {
-  color: string;
+  [key: string]: string;
 }
 
 export interface Dialog {

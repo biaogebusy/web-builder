@@ -16,11 +16,15 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './builder-panel.component.html',
   styleUrls: ['./builder-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { ngSkipHydration: 'true' },
 })
 export class BuilderPanelComponent implements OnInit, OnDestroy {
   @Input() content: IBuilderComponent[];
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(public builder: BuilderState, private cd: ChangeDetectorRef) {}
+  constructor(
+    public builder: BuilderState,
+    private cd: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.builder.fixedChange$.pipe(takeUntil(this.destroy$)).subscribe(() => {

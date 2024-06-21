@@ -3,40 +3,23 @@
     h2.title-header {
       text-transform: capitalize;
     }
-    .mat-form-field-appearance-legacy {
-      &.mat-form-field-type-slider {
-        .mat-form-field-wrapper {
-          margin-bottom: 0;
-          padding-bottom: 0;
-        }
-      }
-    }
-    input.mat-input-element,
-    .mat-form-field {
+    input.mat-mdc-input-element,
+    .mat-mdc-form-field {
       font-size: 15px;
     }
 
-    .mat-form-field-infix {
-      width: auto;
-      .mat-slider-horizontal {
-        min-width: 80px;
-      }
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: transparent;
     }
+
     .none-description {
       font-size: 14px;
       padding: 12px;
       border-radius: 4px;
       opacity: 0.7;
     }
-    .mat-tab-labels {
-      width: 220px;
-      justify-content: center;
-      .mat-tab-label {
-        flex: 0 1 auto;
-      }
-    }
   }
-  .mat-list-item {
+  .mat-mdc-list-item {
     margin: 4px 0;
     border-radius: 5px;
     opacity: 0.8;
@@ -48,18 +31,25 @@
     }
     .actions {
       display: none;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
     }
 
     ::ng-deep {
-      .mat-icon-button {
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
+      .mat-mdc-icon-button {
+        &.mat-mdc-button-base {
+          --mdc-icon-button-state-layer-size: 30px;
+          padding: 0;
+        }
         opacity: 0.6;
         .custom.mat-icon {
-          width: 16px !important;
-          height: 16px !important;
-          line-height: 16px !important;
+          svg {
+            width: 16px !important;
+            height: 16px !important;
+            line-height: 16px !important;
+          }
         }
         &:hover {
           opacity: 1;

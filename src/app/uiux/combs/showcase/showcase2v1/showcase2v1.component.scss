@@ -2,14 +2,14 @@
   position: relative;
 }
 :host ::ng-deep {
-  .mat-card {
+  .mat-mdc-card {
     border-radius: 0;
     border-top: 0;
     border-left: 0;
     border-right: 0;
     border-bottom-width: 1px;
-    .mat-card-content {
-      .mat-card-title {
+    .mat-mdc-card-content {
+      .mat-mdc-card-title {
         font-size: 18px;
       }
     }

@@ -1200,12 +1200,12 @@ export const widgets = [
           thumb: '/assets/images/cases/porto1.jpg',
         },
         {
-          src: '/assets/images/cases/porto2.doc',
+          src: '/assets/images/cases/porto2.jpg',
           preview: '/assets/images/cases/porto2.pdf',
           thumb: '',
         },
         {
-          src: '/assets/images/cases/porto3.pdf',
+          src: '/assets/images/cases/porto3.jpg',
           preview: '/assets/images/cases/porto3.pdf',
           thumb: '',
         },
