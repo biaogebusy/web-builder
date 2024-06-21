@@ -6,6 +6,7 @@ const config: StorybookConfig = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
+    '@chromatic-com/storybook',
   ],
   framework: {
     name: '@storybook/angular',
@@ -19,5 +20,6 @@ const config: StorybookConfig = {
       to: '/assets/mdi.svg',
     },
   ],
+  docs: {},
 };
 export default config;
