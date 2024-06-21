@@ -20,7 +20,6 @@ import { Meta } from "@storybook/blocks";
 export const environment: IEnvironment = {
   apiUrl: "http://localhost:4200",
   production: false,
-  site: "dist",
   port: 4200,
   cache: false,
   ssr: false,
@@ -30,7 +29,6 @@ export const environment: IEnvironment = {
 
 - apiUrl: 是整个应用的 Base api 参数；
 - production: 为 false 时，页面的内容 api 将调用本地 json 文件，true 时将会调用`${this.apiUrl}/api/v1/landingPage?content=${this.pageUrl}`接口；
-- site: prod 打包时生成的文件夹名称，此设置是为了区分多个 app 项目；
 - port: 自定义应用端口；
 - cache: 是否开启 api 请求缓存；
 - ssr: 是否使用 SSR 服务端渲染方式；

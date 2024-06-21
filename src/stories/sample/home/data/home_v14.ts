@@ -124,7 +124,7 @@ export const home_v14 = {
             },
             {
               style: 'none',
-              classes: 'mat-display-4 bold text-left',
+              classes: 'mat-display-4 font-bold text-left',
               typed: {
                 enable: false,
                 config: {

@@ -2,7 +2,7 @@
   <div class="view-map relativen">
     <div
       class="sidebar p-x-xs p-y-xs flex flex-col w-full md:w-[430px] box-border"
-      >
+    >
       <div class="sidebar-wrapper">
         <mat-expansion-panel [expanded]="false">
           <mat-expansion-panel-header>
@@ -10,7 +10,9 @@
               <div class="view-map-header relative">
                 <div class="result p-y-xs">
                   总计
-                  <span class="result-total">{{ (lists$ | async)?.length }}</span>
+                  <span class="result-total">{{
+                    (lists$ | async)?.length
+                  }}</span>
                   条数据
                 </div>
               </div>
@@ -25,13 +27,13 @@
               [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
               *cdkVirtualFor="let item of lists$ | async as lists; index as i"
               (click)="onCard(item, i)"
-              >
+            >
               <div class="media">
                 <img [src]="item.img" [alt]="item.title" />
               </div>
-              <div class="content flex flex-col basis-auto">
-                <div class="head flex flex-wrap">
-                  <div class="title bold m-bottom-0">{{ item.title }}</div>
+              <div class="content flex flex-col flex-[0_1_100%]">
+                <div class="head flex items-center">
+                  <div class="title font-bold m-bottom-0">{{ item.title }}</div>
                   <div class="badge" [innerHTML]="item.badge_1"></div>
                 </div>
                 <div class="inner flex flex-row justify-between items-end">
@@ -66,7 +68,7 @@
           [fields]="content.form"
           [model]="model"
           (modelChange)="onModelChange($event)"
-          >
+        >
         </app-formly>
         <mat-divider class="m-y-sm"></mat-divider>
         <div class="actions flex justify-end items-center gap-3">
@@ -79,12 +81,12 @@
     <div class="map-wrapper flex">
       <app-map
         class="flex-12/12"
-      [content]="{
-        city: content.params.city,
-        elements: lists$ | async,
-        model: model,
-        form: form
-      }"
+        [content]="{
+          city: content.params.city,
+          elements: lists$ | async,
+          model: model,
+          form: form,
+        }"
       ></app-map>
     </div>
   </div>

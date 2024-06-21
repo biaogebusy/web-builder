@@ -160,15 +160,15 @@
   "defaultAvatar": "/assets/images/avatar/01.jpeg",
   "defaultThumb": "/assets/images/default.png",
   "amap": {
-    "key": "xxx",
+    "key": "33877188af64f0213ff4fa259b1c14b8",
     "version": "1.4.15",
     "plugins": ["AMap.Geocoder"],
     "city": "0771",
     "zoom": 18,
     "center": [108.32067, 22.817424],
     "mapStyle": {
-      "light": "amap://styles/xxx",
-      "dark": "amap://styles/xxx"
+      "light": "amap://styles/1421728e809147de8bfac4fd1abd2fb3",
+      "dark": "amap://styles/50fcdf3719b8cd479cd3017044e49c22"
     },
     "features": ["bg", "road", "point"]
   },

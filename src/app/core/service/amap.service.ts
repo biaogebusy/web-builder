@@ -14,7 +14,6 @@ import { ScreenService } from './screen.service';
 export class AmapService {
   position$ = new Subject();
   markers$: Subject<IMark> = new Subject();
-  mapLoading$ = new BehaviorSubject<boolean>(false);
   screenSerivce = inject(ScreenService);
   constructor() {}
 

@@ -20,14 +20,12 @@
           <mat-divider></mat-divider>
           @if (currentUser?.details) {
             <div class="left-item p-y-sm p-x-sm">
-              <div class="item-header bold m-bottom-sm">
+              <div class="item-header font-bold m-bottom-sm">
                 {{ currentUser.details.label }}
               </div>
               <div class="list">
                 @for (item of currentUser.details.elements; track item) {
-                  <div
-                    class="flex justify-start items-start"
-                    >
+                  <div class="flex justify-start items-start">
                     <app-icon [content]="item.icon"></app-icon>
                     <div class="label m-right-xs bold">{{ item.label }}:</div>
                     <div>{{ item.content }}</div>
@@ -37,20 +35,14 @@
             </div>
           }
           <div
-            class="
-              currentUser-menu
-              p-x-sm
-              m-bottom
-              flex flex-wrap
-              justify-between
-            "
-            >
+            class="currentUser-menu p-x-sm m-bottom flex flex-wrap justify-between"
+          >
             <div class="item flex-12/12 md:flex-5/12">
               <a
                 class="p-y-sm p-x-sm flex flex-col justify-center items-center"
                 [routerLink]="['favorite']"
                 [routerLinkActive]="['active']"
-                >
+              >
                 <mat-icon class="pb-[10px]">favorite</mat-icon>
                 <span>收藏</span>
               </a>
@@ -59,16 +51,14 @@
               <a
                 class="p-y-sm p-x-sm flex flex-col justify-center items-center"
                 (click)="logout()"
-                >
+              >
                 <mat-icon class="pb-[10px]">exit_to_app</mat-icon>
                 <span>退出</span>
               </a>
             </div>
           </div>
         </div>
-        <div
-          class="right col-span md:col-span-8"
-          >
+        <div class="right col-span md:col-span-8">
           <div class="content">
             <router-outlet></router-outlet>
           </div>
