@@ -1,36 +1,43 @@
 <div class="showcase-3-v6 relative" *reqRolesIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  @if (content.id) {
+    <a class="anchor" [id]="content.id"></a>
+  }
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img
-    [attr.data-path]="'bg'"
-    [content]="content.bg"
-    *ngIf="content.bg"
-  ></app-bg-img>
-  <div class="{{ content.fullWidth ? '' : 'container' }}" *ngIf="content">
-    <app-text [attr.data-path]="'title'" [content]="content.title"></app-text>
-    <div class="showcase-inner flex flex-wrap justify-center items-center">
-      <div
-        class="flex flex-wrap flex-12/12 md:flex-{{ content.row }}/12"
-        *ngFor="let item of content.elements; index as i"
-      >
-        <app-media-object
-          [attr.data-path]="'elements.' + i"
-          class="p-x-xs p-y-xs block w-full"
-          [content]="item"
-        ></app-media-object>
+  @if (content.bg) {
+    <app-bg-img
+      [attr.data-path]="'bg'"
+      [content]="content.bg"
+    ></app-bg-img>
+  }
+  @if (content) {
+    <div class="{{ content.fullWidth ? '' : 'container' }}">
+      <app-text [attr.data-path]="'title'" [content]="content.title"></app-text>
+      <div class="showcase-inner flex flex-wrap justify-center items-center">
+        @for (item of content.elements; track item; let i = $index) {
+          <div
+            class="flex flex-wrap flex-12/12 md:flex-{{ content.row }}/12"
+            >
+            <app-media-object
+              [attr.data-path]="'elements.' + i"
+              class="p-x-xs p-y-xs block w-full"
+              [content]="item"
+            ></app-media-object>
+          </div>
+        }
       </div>
+      @if (content.action) {
+        <div
+          class="actions flex justify-center items-center"
+          >
+          <div class="m-y">
+            <app-dynamic-component
+              [attr.data-path]="'action'"
+              [inputs]="content.action"
+            ></app-dynamic-component>
+          </div>
+        </div>
+      }
     </div>
-    <div
-      class="actions flex justify-center items-center"
-      *ngIf="content.action"
-    >
-      <div class="m-y">
-        <app-dynamic-component
-          [attr.data-path]="'action'"
-          [inputs]="content.action"
-        ></app-dynamic-component>
-      </div>
-    </div>
-  </div>
+  }
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

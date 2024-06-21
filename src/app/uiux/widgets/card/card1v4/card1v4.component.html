@@ -1,31 +1,35 @@
-<div class="card-1-v4 py-3 flex justify-start items-start" *ngIf="content">
-  <div class="left mr-3">
-    <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
-  </div>
-  <div class="relative inner p-5 flex flex-col rounded-md">
-    <div class="star">
-      <app-icon
-        [content]="{ svg: 'star' }"
-        *ngFor="let item of star"
-      ></app-icon>
+@if (content) {
+  <div class="card-1-v4 py-3 flex justify-start items-start">
+    <div class="left mr-3">
+      <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
     </div>
-    <div
-      contentedit="body"
-      class="content my-3"
-      [innerHTML]="content.body | safeHtml"
-    ></div>
-    <div class="flex">
+    <div class="relative inner p-5 flex flex-col rounded-md">
+      <div class="star">
+        @for (item of star; track item) {
+          <app-icon
+            [content]="{ svg: 'star' }"
+          ></app-icon>
+        }
+      </div>
       <div
-        contentedit="title"
-        class="title mr-3"
-        [innerHTML]="content.title | safeHtml"
+        contentedit="body"
+        class="content my-3"
+        [innerHTML]="content.body | safeHtml"
       ></div>
-      <div
-        contentedit="subTitle"
-        class="sub-title"
-        *ngIf="content.subTitle"
-        [innerHTML]="content.subTitle | safeHtml"
-      ></div>
+      <div class="flex">
+        <div
+          contentedit="title"
+          class="title mr-3"
+          [innerHTML]="content.title | safeHtml"
+        ></div>
+        @if (content.subTitle) {
+          <div
+            contentedit="subTitle"
+            class="sub-title"
+            [innerHTML]="content.subTitle | safeHtml"
+          ></div>
+        }
+      </div>
     </div>
   </div>
-</div>
+}

@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
-@mixin showcase-color($config-or-theme) {
-  $config: mat.get-color-config($config-or-theme);
+@mixin showcase-color($theme) {
+  $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -11,7 +11,7 @@
   $text-base: mat.get-color-from-palette($foreground, text);
 
   .showcase-2v1 {
-    .mat-card {
+    .mat-mdc-card {
       transition: all 0.4s ease;
       border-bottom-color: mat.get-color-from-palette($foreground, divider);
       a {
@@ -27,8 +27,8 @@
   }
 
   .showcase-2v2 {
-    .mat-card-content {
-      .mat-card-title {
+    .mat-mdc-card-content {
+      .mat-mdc-card-title {
         border-bottom: 1px solid
           mat.get-color-from-palette($foreground, divider, 0.1);
       }

@@ -1,14 +1,18 @@
-<div class="card-1v5 rounded-md transition-all duration-300 ease-in-out hover:-translate-y-3" *ngIf="content">
-  <div class="card-inner p-5 flex flex-col">
-    <div [contentedit]="'title'" class="title mat-h2" [innerHTML]="content.title"></div>
-    <div [contentedit]="'body'" class="content opacity-70" [innerHTML]="content.body"></div>
-    <div class="more flex justify-start items-center my-5" *ngIf="content.more">
-      <app-link [attr.data-path]="'more'" [content]="content.more"></app-link>
-      <app-icon [content]="{svg:'chevron-right',inline:true}"></app-icon>
-    </div>
-    <div class="footer flex justify-between items-center mat-display-2 m-bottom-0 opacity-10">
-      <div class="left" [contentedit]="'footer.label'" [innerHTML]="content.footer.label"></div>
-      <app-icon [content]="content.footer.icon"></app-icon>
+@if (content) {
+  <div class="card-1v5 rounded-md transition-all duration-300 ease-in-out hover:-translate-y-3">
+    <div class="card-inner p-5 flex flex-col">
+      <div [contentedit]="'title'" class="title mat-h2" [innerHTML]="content.title"></div>
+      <div [contentedit]="'body'" class="content opacity-70" [innerHTML]="content.body"></div>
+      @if (content.more) {
+        <div class="more flex justify-start items-center my-5">
+          <app-link [attr.data-path]="'more'" [content]="content.more"></app-link>
+          <app-icon [content]="{svg:'chevron-right',inline:true}"></app-icon>
+        </div>
+      }
+      <div class="footer flex justify-between items-center mat-headline-3 m-bottom-0 opacity-10">
+        <div class="left" [contentedit]="'footer.label'" [innerHTML]="content.footer.label"></div>
+        <app-icon [content]="content.footer.icon"></app-icon>
+      </div>
     </div>
   </div>
-</div>
+}

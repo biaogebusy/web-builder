@@ -1,12 +1,3 @@
-import { IBtn } from './IBtn';
-import { IControl } from './IControl';
-
-export interface ISearchAction {
-  type: string;
-  button: Button;
-  form: IControl[];
-}
-
 export interface Button {
   label: string;
   color: string;

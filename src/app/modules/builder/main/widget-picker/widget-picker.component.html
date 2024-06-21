@@ -1,34 +1,43 @@
 <div class="widget-picker">
-  <div class="box flex flex-wrap" *ngIf="widgets$ | async as widgets">
-    <div #copy *ngIf="bcData" class="item" (click)="onPasteData()" (mouseenter)="onHover({content:bcData}, copy)"
-      matRipple>
-      <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700">
-        <app-icon [content]="{svg:'content-paste'}"></app-icon>
-        <div class="title">粘贴组件</div>
-      </div>
+  @if (widgets$ | async; as widgets) {
+    <div class="box flex flex-wrap">
+      @if (bcData) {
+        <div #copy class="item" (click)="onPasteData()" (mouseenter)="onHover({content:bcData}, copy)"
+          matRipple>
+          <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700">
+            <app-icon [content]="{svg:'content-paste'}"></app-icon>
+            <div class="title">粘贴组件</div>
+          </div>
+        </div>
+      }
+      @for (widget of widgets; track widget) {
+        <div class="item" #item (mouseenter)="onHover(widget, item)" (click)="onSelect(widget.content)" matRipple
+          >
+          <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
+            @if (widget.icon) {
+              <app-icon [content]="widget.icon"></app-icon>
+            }
+            <div class="title" title="{{widget.label}}">{{widget.label}}</div>
+          </div>
+        </div>
+      }
     </div>
-    <div class="item" #item (mouseenter)="onHover(widget, item)" (click)="onSelect(widget.content)" matRipple
-      *ngFor="let widget of widgets">
-      <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
-        <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
-        <div class="title" title="{{widget.label}}">{{widget.label}}</div>
-      </div>
-    </div>
-  </div>
+  }
   <div class="popup p-4 z-10 w-[560px] h-[400px]" #popup>
-    <ng-container *ngIf="widget$ | async as widget">
+    @if (widget$ | async; as widget) {
       <div class="hover-show w-full h-full flex justify-center items-center relative">
-        <ng-container *ngIf="widget.preview;else comp">
+        @if (widget.preview) {
           <img [src]="widget.preview" alt="">
-        </ng-container>
-        <ng-template #comp>
+        } @else {
           <app-dynamic-component [inputs]="widget.content"></app-dynamic-component>
-        </ng-template>
+        }
       </div>
-    </ng-container>
+    }
   </div>
-  <div class="help absolute" [matTooltip]="help.tooltip" *ngIf="help">
-    <app-btn
+  @if (help) {
+    <div class="help absolute" [matTooltip]="help.tooltip">
+      <app-btn
       [content]="{label:'',mode:'icon',color:undefined,href:help.link,target:'_blank',icon:{svg:'help-circle'}}"></app-btn>
-  </div>
+    </div>
+  }
 </div>

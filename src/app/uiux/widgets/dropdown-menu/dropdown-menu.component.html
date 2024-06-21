@@ -1,14 +1,17 @@
 <div class="dropdown-menu">
   <app-btn [content]="content.btn" [matMenuTriggerFor]="menu"></app-btn>
   <mat-menu #menu="matMenu">
-    <ng-container *ngFor="let item of content.child;">
+    @for (item of content.child; track item) {
       <button mat-menu-item>
-        <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
-        <app-dynamic-component *ngIf="item.type;else link" [inputs]="item"></app-dynamic-component>
-        <ng-template #link>
+        @if (item.icon) {
+          <app-icon [content]="item.icon"></app-icon>
+        }
+        @if (item.type) {
+          <app-dynamic-component [inputs]="item"></app-dynamic-component>
+        } @else {
           <app-link [content]="item"></app-link>
-        </ng-template>
+        }
       </button>
-    </ng-container>
+    }
   </mat-menu>
 </div>

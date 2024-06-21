@@ -1,16 +1,9 @@
 .user {
   ::ng-deep {
-    .mat-button-wrapper {
-      padding: 0;
-
-      .name {
-        font-size: 2rem;
-        line-height: 4rem;
-        padding: 0;
-        margin: 0;
-        text-transform: uppercase;
-        font-weight: normal;
-      }
+    .name {
+      margin: 0;
+      text-transform: uppercase;
+      font-weight: normal;
     }
   }
 }

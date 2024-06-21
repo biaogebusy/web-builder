@@ -1,3 +1,5 @@
-<ng-container *ngIf="content">
-  <app-progress-bar *ngFor="let bar of content.elements" [content]="bar"></app-progress-bar>
-</ng-container>
+@if (content) {
+  @for (bar of content.elements; track bar) {
+    <app-progress-bar [content]="bar"></app-progress-bar>
+  }
+}

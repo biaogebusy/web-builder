@@ -5,9 +5,6 @@
   min-height: calc(100vh - 76px);
 
   ::ng-deep {
-    .mat-tab-label {
-      min-width: auto !important;
-    }
     .layout-toolbar,
     .block-toolbar {
       display: none !important;
@@ -15,7 +12,7 @@
   }
 }
 
-:host-context(.mat-dialog-container) {
+:host-context(.mat-mdc-dialog-container) {
   .login-container {
     max-height: none;
     min-height: auto;

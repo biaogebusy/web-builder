@@ -3,6 +3,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IBtn } from '@core/interface/widgets/IBtn';
 import { RouteService } from '@core/service/route.service';

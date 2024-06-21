@@ -9,11 +9,22 @@
     }
   }
 }
-
+.mdc-button {
+  ::ng-deep {
+    .mdc-button__label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &.mat-primary.mdc-button--raised {
+    color: #fff;
+  }
+}
 ::ng-deep {
-  .mat-menu-content {
-    .mat-menu-item {
-      a.mat-button {
+  .mat-mdc-menu-content {
+    .mat-mdc-menu-item {
+      a.mat-mdc-button {
         width: 100%;
         white-space: nowrap;
         overflow: hidden;

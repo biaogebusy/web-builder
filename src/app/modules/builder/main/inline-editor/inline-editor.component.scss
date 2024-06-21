@@ -1,18 +1,3 @@
 .inline-editor {
   padding: 20px;
-
-  ::ng-deep {
-    .mat-form-field-appearance-legacy {
-      &.mat-form-field-type-slider {
-        .mat-form-field-wrapper {
-          margin-bottom: 0;
-          padding-bottom: 0;
-        }
-      }
-    }
-    .mat-slider-horizontal .mat-slider-wrapper {
-      left: 0;
-      right: 0;
-    }
-  }
 }

@@ -1,20 +1,26 @@
 <div class="showcase-2v6 relative">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+  @if (content.id) {
+    <a class="anchor" [id]="content.id"></a>
+  }
+  @if (content.bg) {
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+  }
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-text
-    [attr.data-path]="'text'"
-    [content]="content.text"
-    *ngIf="content.text"
-  ></app-text>
+  @if (content.text) {
+    <app-text
+      [attr.data-path]="'text'"
+      [content]="content.text"
+    ></app-text>
+  }
   <div class="{{ content.fullWidth ? '' : 'container' }}" ngClass.gt-sm="m-top">
     <div class="inner flex flex-wrap">
-      <app-dynamic-component
-        [attr.data-path]="'elements.' + i"
-        class="item flex-12/12 md:flex-6/12"
-        [inputs]="item"
-        *ngFor="let item of content.elements; index as i"
-      ></app-dynamic-component>
+      @for (item of content.elements; track item; let i = $index) {
+        <app-dynamic-component
+          [attr.data-path]="'elements.' + i"
+          class="item flex-12/12 md:flex-6/12"
+          [inputs]="item"
+        ></app-dynamic-component>
+      }
     </div>
   </div>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>

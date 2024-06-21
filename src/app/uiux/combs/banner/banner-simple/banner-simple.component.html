@@ -1,11 +1,13 @@
-<div class="banner-simple relative" [ngClass]="content.style" *ngIf="content">
-  <app-bg-img
-    [attr.data-path]="'bannerBg'"
-    *ngIf="content.bannerBg"
-    [content]="content.bannerBg"
-  ></app-bg-img>
-  <div class="container">
-    <div
+@if (content) {
+  <div class="banner-simple relative" [ngClass]="content.style">
+    @if (content.bannerBg) {
+      <app-bg-img
+        [attr.data-path]="'bannerBg'"
+        [content]="content.bannerBg"
+      ></app-bg-img>
+    }
+    <div class="container">
+      <div
       class="
         banner-inner
         relative
@@ -16,24 +18,28 @@
         md:justify-between
         md:items-center
       "
-    >
-      <div class="title flex flex-col">
-        <h2
-          class="page-title"
-          contentedit="title"
-          *ngIf="content.title"
-          [innerHTML]="content.title | safeHtml"
-        ></h2>
-        <div
-          class="sub-title"
-          *ngIf="content.subTitle"
-          [innerHTML]="content.subTitle | safeHtml"
-        ></div>
+        >
+        <div class="title flex flex-col">
+          @if (content.title) {
+            <h2
+              class="page-title"
+              contentedit="title"
+              [innerHTML]="content.title | safeHtml"
+            ></h2>
+          }
+          @if (content.subTitle) {
+            <div
+              class="sub-title"
+              [innerHTML]="content.subTitle | safeHtml"
+            ></div>
+          }
+        </div>
+        @if (content.breadcrumb) {
+          <app-breadcrumb
+            [content]="content.breadcrumb"
+          ></app-breadcrumb>
+        }
       </div>
-      <app-breadcrumb
-        [content]="content.breadcrumb"
-        *ngIf="content.breadcrumb"
-      ></app-breadcrumb>
     </div>
   </div>
-</div>
+}

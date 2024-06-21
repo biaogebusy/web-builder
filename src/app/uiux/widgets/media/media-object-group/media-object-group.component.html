@@ -1,9 +1,10 @@
-<ng-container *ngIf="content">
-  <ng-container *ngIf="content.elements.length>0;else empty">
-    <app-media-object class="block mb-10" [content]="item" *ngFor="let item of content.elements">
-    </app-media-object>
-  </ng-container>
-  <ng-template #empty>
+@if (content) {
+  @if (content.elements.length>0) {
+    @for (item of content.elements; track item) {
+      <app-media-object class="block mb-10" [content]="item">
+      </app-media-object>
+    }
+  } @else {
     暂无数据
-  </ng-template>
-</ng-container>
+  }
+}

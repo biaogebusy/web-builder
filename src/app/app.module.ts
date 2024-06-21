@@ -1,4 +1,4 @@
-import { BrowserModule, Title } from '@angular/platform-browser';
+import { Title, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, NgModule, Inject } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
@@ -10,7 +10,6 @@ import { NgxWebstorageModule, LocalStorageService } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
-import { Angulartics2Module } from 'angulartics2';
 import {
   BRANDING,
   BUILDER_FULL_SCREEN,
@@ -31,7 +30,7 @@ import {
   apiUrlFactory,
   brandingFactory,
   builderFullScreenFactory,
-  coreConfigFactory,
+  initApp,
   debugAnimateFactory,
   isBuilderModeFactory,
   langFactory,
@@ -53,18 +52,17 @@ import { ManageService } from '@core/service/manage.service';
 import { NodeService } from '@core/service/node.service';
 import { ContentState } from '@core/state/ContentState';
 import { CookieService } from 'ngx-cookie-service';
+import { ComponentService } from '@core/service/component.service';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'xinshi' }),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CommonModule,
     MatSidenavModule,
     NgxWebstorageModule.forRoot(),
-    Angulartics2Module.forRoot(),
     RenderModule,
     BrandingModule,
     LoadingBarHttpClientModule,
@@ -74,6 +72,7 @@ import { CookieService } from 'ngx-cookie-service';
     Title,
     httpInterceptorProviders,
     CookieService,
+    provideClientHydration(),
     {
       provide: CORE_CONFIG,
       useValue: {},
@@ -90,14 +89,19 @@ import { CookieService } from 'ngx-cookie-service';
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: coreConfigFactory,
-      deps: [ContentService, [new Inject(CORE_CONFIG)], [new Inject(LANG)]],
+      useFactory: initApp,
+      deps: [
+        ContentService,
+        ComponentService,
+        [new Inject(CORE_CONFIG)],
+        [new Inject(LANG)],
+      ],
       multi: true,
     },
     {
       provide: LANG,
       useFactory: langFactory,
-      deps: [ContentService],
+      deps: [ContentService, ScreenService],
     },
     {
       provide: API_URL,

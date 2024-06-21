@@ -1,4 +1,4 @@
-.mat-list-item-with-avatar {
+.mat-mdc-list-item {
   height: 40px !important;
   .mat-icon {
     line-height: 1;
@@ -6,5 +6,6 @@
     width: 20px !important;
     height: 20px !important;
     opacity: 0.85;
+    margin-right: 10px;
   }
 }

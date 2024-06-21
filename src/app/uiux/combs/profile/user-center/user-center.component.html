@@ -1,46 +1,56 @@
-<div class="user-center relative" *ngIf="content">
-  <div class="inner" *ngIf="content?.params?.showProfile">
-    <div class="container">
-      <app-user-profile
-        *ngIf="userConfig$"
-        [content]="currentUser"
-        [userConfig$]="userConfig$"
-      >
-      </app-user-profile>
+@if (content) {
+  <div class="user-center relative">
+    @if (content?.params?.showProfile) {
+      <div class="inner">
+        <div class="container">
+          @if (userConfig$) {
+            <app-user-profile
+              [content]="currentUser"
+              [userConfig$]="userConfig$"
+              >
+            </app-user-profile>
+          }
+        </div>
+      </div>
+    }
+    <div class="{{ content.main?.fullWidth ? 'container-fluid' : 'container' }}">
+      <app-spacer [size]="content.main?.spacer || 'md'"></app-spacer>
+      @if (content?.main?.bg) {
+        <app-bg [content]="content.main.bg">
+          @if (content?.main?.bg?.img) {
+            <app-img
+              [content]="content.main.bg.img"
+            ></app-img>
+          }
+        </app-bg>
+      }
+      <div class="main grid grid-cols-12 justify-between items-start gap-5">
+        @if (content?.left?.length) {
+          <div
+            class="left col-span-12 md:col-span-3"
+            >
+            @for (item of content.left; track item) {
+              <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item">
+              </app-dynamic-component>
+            }
+          </div>
+        }
+        @if (content?.right?.length) {
+          <div
+            class="right col-span-12 md:col-span-9"
+            >
+            @for (item of content.right; track item) {
+              <app-dynamic-component
+                *reqRolesIf="item"
+                class="box"
+                [inputs]="{ content: item }"
+                >
+              </app-dynamic-component>
+            }
+          </div>
+        }
+      </div>
+      <app-spacer [size]="content.main?.spacer || 'md'"></app-spacer>
     </div>
   </div>
-  <div class="{{ content.main?.fullWidth ? 'container-fluid' : 'container' }}">
-    <app-spacer [size]="content.main?.spacer || 'md'"></app-spacer>
-    <app-bg *ngIf="content?.main?.bg" [content]="content.main.bg">
-      <app-img
-        *ngIf="content?.main?.bg?.img"
-        [content]="content.main.bg.img"
-      ></app-img>
-    </app-bg>
-    <div class="main grid grid-cols-12 justify-between items-start gap-5">
-      <div
-        class="left col-span-12 md:col-span-3"
-        *ngIf="content?.left?.length"
-      >
-        <ng-container *ngFor="let item of content.left">
-          <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item">
-          </app-dynamic-component>
-        </ng-container>
-      </div>
-      <div
-        class="right col-span-12 md:col-span-9"
-        *ngIf="content?.right?.length"
-      >
-        <ng-container *ngFor="let item of content.right">
-          <app-dynamic-component
-            *reqRolesIf="item"
-            class="box"
-            [inputs]="{ content: item }"
-          >
-          </app-dynamic-component>
-        </ng-container>
-      </div>
-    </div>
-    <app-spacer [size]="content.main?.spacer || 'md'"></app-spacer>
-  </div>
-</div>
+}

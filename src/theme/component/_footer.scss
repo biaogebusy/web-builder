@@ -10,14 +10,16 @@
       color: $contrast;
     }
   }
-  .mat-subheader {
+  .mat-mdc-subheader {
     color: $contrast;
   }
-  .mat-list-item {
+  .mat-mdc-list-item,
+  .mat-icon,
+  .mdc-list-item__primary-text {
     color: $text;
   }
   .mat-accordion {
-    .mat-list a {
+    .mat-mdc-list a {
       color: $text;
     }
     .mat-expansion-panel {
@@ -40,9 +42,11 @@
     color: $contrast;
   }
   .mat-form-field-appearance-fill {
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-label {
       color: mat.get-color-from-palette($primary, default-contrast, 0.5);
     }
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-flex {
       background-color: $form;
       &:hover {
@@ -80,13 +84,14 @@
       border-color: rgba($text, 0.5);
     }
   }
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-label {
     color: $text;
   }
 }
 
-@mixin footer-color($config-or-theme) {
-  $config: mat.get-color-config($config-or-theme);
+@mixin footer-color($theme) {
+  $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -127,7 +132,7 @@
         background-color: mat.get-color-from-palette($background, background);
         z-index: 10;
       }
-
+      /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
       .mat-list-item-content {
         color: $text-base;
 

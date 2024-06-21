@@ -1,5 +1,5 @@
 .builder-version {
-  .mat-list-item {
+  .mat-mdc-list-item {
     cursor: pointer;
     &:hover {
       .delete,
@@ -7,9 +7,10 @@
         display: block;
       }
     }
-    ::ng-deep {
-      .mat-list-item-content {
-        padding: 0;
+    &.mdc-list-item--with-leading-icon {
+      .mdc-list-item__start {
+        margin-left: 0px;
+        margin-right: 10px;
       }
     }
     .mat-line {

@@ -8,8 +8,9 @@ import {
 import type { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import type { IImg } from '@core/interface/widgets/IImg';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 import { RouteService } from '@core/service/route.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 @Component({
   selector: 'app-feature-box',
   templateUrl: './feature-box.component.html',
@@ -23,17 +24,12 @@ export class FeatureBoxComponent implements OnInit {
   isHoverIcon = true;
   title: string;
   constructor(
-    private lightbox: Lightbox,
-    private lightboxConfig: LightboxConfig,
     private utli: UtilitiesService,
     private cd: ChangeDetectorRef,
     private routerService: RouteService,
-    private util: UtilitiesService
-  ) {
-    this.lightboxConfig.disableScrolling = true;
-    this.lightboxConfig.centerVertically = true;
-    this.lightboxConfig.showRotate = true;
-  }
+    private util: UtilitiesService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.type = this.utli.getFileType(this.content.img.src);
@@ -56,8 +52,8 @@ export class FeatureBoxComponent implements OnInit {
             this.type === 'pdf'
               ? `${iconPath}/file-pdf.svg`
               : this.type === 'excel'
-              ? `${iconPath}/file-excel.svg`
-              : `${iconPath}/file-word.svg`,
+                ? `${iconPath}/file-excel.svg`
+                : `${iconPath}/file-word.svg`,
           preview: this.content.img?.preview,
         },
       };
@@ -97,14 +93,16 @@ export class FeatureBoxComponent implements OnInit {
       window.open(img.preview, '_blank');
       return;
     }
-    this.lightbox.open([
-      {
-        src: img.src,
-        caption: img.alt || 'Lightbox',
-        thumb: img.src,
-        downloadUrl: img.src,
+    this.dialog.open(DialogComponent, {
+      data: {
+        inputData: {
+          content: {
+            type: 'img',
+            src: img.src,
+          },
+        },
       },
-    ]);
+    });
   }
 
   copy(img: IImg): void {

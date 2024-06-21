@@ -4,53 +4,63 @@
     [model]="model"
     (modelChange)="onModelChange($event)"
   ></app-formly>
-  <div class="loop-elements" *ngIf="content?.content?.elements?.length">
-    <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
-      <div mat-subheader>子项</div>
-      <mat-list-item
-        *ngFor="let widget of content.content.elements; index as i"
-        cdkDrag
-      >
-        <app-icon mat-list-icon [content]="{ svg: 'dots-vertical' }"></app-icon>
-        <div mat-line>{{ i + 1 }}.{{ widget?.type }}</div>
-        <div mat-line class="title" *ngIf="widget.title | isString">
-          {{ widget?.title }}
-        </div>
-        <div class="actions">
-          <app-btn
-            (click)="onDelete(content.content.elements, i)"
-            [content]="{ label: '', mode: 'icon', icon: { svg: 'delete' } }"
-          ></app-btn>
-          <app-btn
-            (click)="onCopy(content.content.elements, i)"
+  @if (content?.content?.elements?.length) {
+    <div class="loop-elements">
+      <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
+        <div mat-subheader>子项</div>
+        @for (widget of content.content.elements; track widget; let i = $index) {
+          <mat-list-item
+            cdkDrag
+            >
+            <app-icon
+              matListItemIcon
+              [content]="{ svg: 'dots-vertical' }"
+            ></app-icon>
+            <div matListItemTitle>{{ i + 1 }}.{{ widget?.type }}</div>
+            @if (widget.title | isString) {
+              <div matListItemLine class="title">
+                {{ widget?.title }}
+              </div>
+            }
+            <div class="actions">
+              <app-btn
+                (click)="onDelete(content.content.elements, i)"
+                [content]="{ label: '', mode: 'icon', icon: { svg: 'delete' } }"
+              ></app-btn>
+              <app-btn
+                (click)="onCopy(content.content.elements, i)"
             [content]="{
               label: '',
               mode: 'icon',
               icon: { svg: 'content-copy' }
             }"
-          ></app-btn>
-        </div>
-      </mat-list-item>
-      <div
-        class="actions my-5 flex justify-center"
-        *ngIf="content.content.elements[0]?.type | isString"
-      >
-        <app-btn
-          (click)="onWidgetPicker()"
-          [content]="{ label: '新增', icon: { svg: 'plus' }, color: 'primary' }"
-        ></app-btn>
-      </div>
-    </mat-list>
-  </div>
+              ></app-btn>
+            </div>
+          </mat-list-item>
+        }
+        @if (content.content.elements[0]?.type | isString) {
+          <div
+            class="actions my-5 flex justify-center"
+            >
+            <app-btn
+              (click)="onWidgetPicker()"
+              [content]="{ label: '新增', icon: { svg: 'plus' }, color: 'primary' }"
+            ></app-btn>
+          </div>
+        }
+      </mat-list>
+    </div>
+  }
   <div class="actions flex justify-center items-center gap-3 my-5">
     <app-btn
       (click)="editorJSON()"
       [content]="{ label: '编辑 JSON', color: 'primary', mode: 'stroked' }"
     ></app-btn>
-    <app-btn
-      *ngIf="content.content.type === 'custom-template'"
-      (click)="editorCode()"
-      [content]="{ label: '编辑自定义模板', color: 'primary', mode: 'raised' }"
-    ></app-btn>
+    @if (content.content.type === 'custom-template') {
+      <app-btn
+        (click)="editorCode()"
+        [content]="{ label: '编辑自定义模板', color: 'primary', mode: 'raised' }"
+      ></app-btn>
+    }
   </div>
 </div>

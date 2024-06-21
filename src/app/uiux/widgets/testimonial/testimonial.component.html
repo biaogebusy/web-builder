@@ -1,14 +1,22 @@
-<div class="testimonial" [ngClass]="content.style" *ngIf="content">
-  <div class="bx-wrapper">
-    <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
-  </div>
-  <div class="testimonial-detail">
-    <div class="info">
-      <span contentedit="title" class="title" *ngIf="content.title">{{content.title}}</span> / <span
-        contentedit="subTitle" class="sub-title" *ngIf="content.subTitle">{{content.subTitle}}</span>
+@if (content) {
+  <div class="testimonial" [ngClass]="content.style">
+    <div class="bx-wrapper">
+      <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
     </div>
-    <div class="desc">
-      <p contentedit="body" *ngIf="content.body" [innerHTML]="content.body | safeHtml"></p>
+    <div class="testimonial-detail">
+      <div class="info">
+        @if (content.title) {
+          <span contentedit="title" class="title">{{content.title}}</span>
+          } / @if (content.subTitle) {
+          <span
+          contentedit="subTitle" class="sub-title">{{content.subTitle}}</span>
+        }
+      </div>
+      <div class="desc">
+        @if (content.body) {
+          <p contentedit="body" [innerHTML]="content.body | safeHtml"></p>
+        }
+      </div>
     </div>
   </div>
-</div>
+}

@@ -1,8 +1,7 @@
-<mat-form-field
-  class="date-range w-full"
-  [appearance]="to.appearance || 'legacy'"
->
-  <mat-label *ngIf="to.label">{{ to.label }}</mat-label>
+<mat-form-field class="date-range w-full" [appearance]="to.appearance">
+  @if (to.label) {
+    <mat-label>{{ to.label }}</mat-label>
+  }
   <mat-date-range-input [rangePicker]="pickerRange">
     <input matStartDate [formControl]="start" [placeholder]="'开始'" />
     <input matEndDate [formControl]="end" [placeholder]="'结束'" />

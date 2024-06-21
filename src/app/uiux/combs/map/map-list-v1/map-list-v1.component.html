@@ -1,36 +1,54 @@
 <div class="container-fluid map-list-common">
   <div class="map-list-v1 relativen flex flex-col md:flex-row justify-start items-stretch relative">
     <div class="sidebar relative p-x-x flex flex-col flex-12/12 md:flex-[0_1_500px]">
-      <div class="m-y flex justify-center items-center" *ngIf="loading">
-        <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
-      </div>
-      <div class="m-y flex justify-center items-center" *ngIf="elements?.length == 0">
-        暂无相关数据
-      </div>
+      @if (loading) {
+        <div class="m-y flex justify-center items-center">
+          <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
+        </div>
+      }
+      @if (elements?.length == 0) {
+        <div class="m-y flex justify-center items-center">
+          暂无相关数据
+        </div>
+      }
       <div class="map-list-head p-x-sm p-y-sm">
         <app-title [content]="content.title"></app-title>
-        <div class="meta" *ngIf="content?.meta">
-          <div class="item" *ngFor="let item of content.meta">
-            <span>{{item.label}}: </span>
-            <span>{{item.value}}
-              <mat-icon color="primary" inline *ngIf="item.label === '地址'">place</mat-icon>
-            </span>
+        @if (content?.meta) {
+          <div class="meta">
+            @for (item of content.meta; track item) {
+              <div class="item">
+                <span>{{item.label}}: </span>
+                <span>{{item.value}}
+                  @if (item.label === '地址') {
+                    <mat-icon color="primary" inline>place</mat-icon>
+                  }
+                </span>
+              </div>
+            }
           </div>
-        </div>
+        }
       </div>
       <div class="map-lists">
         <app-card-1v3 [content]="{elements: elements}" (selected)="onMap($event)"></app-card-1v3>
       </div>
     </div>
     <div class="map-wrapper relative flex-auto">
-      <app-map  class="flex-12/12" *ngIf="content?.map" [content]="{city: content.map.city, elements: elements}"></app-map>
-      <div class="m-y flex justify-center items-center absolute" *ngIf="loading">
-        <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
+      @if (content?.map) {
+        <app-map  class="flex-12/12" [content]="{city: content.map.city, elements: elements}"></app-map>
+      }
+      @if (loading) {
+        <div class="m-y flex justify-center items-center absolute">
+          <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
+        </div>
+      }
+    </div>
+    @if (content.sidebarRight) {
+      <div class="sidebar-right p-5 flex-[0_1_400px] md:flex-[0_1_600px] md:absolute">
+        @for (item of content.sidebarRight; track item) {
+          <app-dynamic-component [inputs]="item"></app-dynamic-component>
+        }
       </div>
-    </div>
-    <div class="sidebar-right p-5 flex-[0_1_400px] md:flex-[0_1_600px] md:absolute" *ngIf="content.sidebarRight">
-      <app-dynamic-component [inputs]="item" *ngFor="let item of content.sidebarRight"></app-dynamic-component>
-    </div>
+    }
   </div>
 </div>
 <app-spacer></app-spacer>

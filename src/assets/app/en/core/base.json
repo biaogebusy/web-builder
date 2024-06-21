@@ -3,23 +3,19 @@
   "theme": [
     {
       "name": "Blue Theme",
-      "style": "blue-theme",
-      "icon": "laptop_mac"
+      "style": "blue-theme"
     },
     {
       "name": "Pink Theme",
-      "style": "pink-theme",
-      "icon": "laptop_mac"
+      "style": "pink-theme"
     },
     {
       "name": "Green Theme",
-      "style": "green-theme",
-      "icon": "laptop_mac"
+      "style": "green-theme"
     },
     {
       "name": "Dark Theme",
-      "style": "dark-theme",
-      "svgIcon": "dark_mode"
+      "style": "dark-theme"
     }
   ],
   "login": {
@@ -268,8 +264,7 @@
   "actions": {
     "flag": {
       "icon": {
-        "name": "star",
-        "inline": true
+        "name": "star"
       },
       "enable": true
     },
@@ -283,8 +278,7 @@
     "download": {
       "label": "下载",
       "icon": {
-        "name": "file_download",
-        "inline": true
+        "name": "file_download"
       },
       "enable": true
     }
@@ -450,7 +444,7 @@
           "className": "m-bottom-sm",
           "props": {
             "type": "string",
-            "appearance": "legacy",
+            "appearance": "fill",
             "label": "please input keyword"
           }
         },
@@ -646,6 +640,7 @@
               }
             },
             "body": "Building a modern, responsive, and low code for your company website：<ul class=\"list-done\"><li>Start from the template, customize as needed;</li><li>Customize theme colors and fonts to create brand websites;</li><li>Visual editing component graphic and textual data, WYSIWYG;</li></ul><p>Welcome to join the QQ communication group to explore more possibilities and digital innovation experiences together：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\"><video muted=\"\" autoplay=\"\" loop=\"\" width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
+            "actionsAlign": "start",
             "actions": [
               {
                 "type": "btn",
@@ -813,7 +808,7 @@
           }
         },
         "type": "showcase-1v4",
-        "row": 3,
+        "row": 4,
         "text": {
           "title": {
             "label": "How was the page created",

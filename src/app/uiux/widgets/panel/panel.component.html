@@ -1,30 +1,50 @@
-<div class="panel" *ngIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <div class="container">
-    <div class="actions flex justify-end items-center my-3" *ngIf="content?.params?.enableActions">
-      <button mat-button *ngIf="!isAll"
-        (click)="accordion.openAll(); isAll =!isAll">{{content.params?.actions?.openAll||'全部展开'}}</button>
-      <button mat-button *ngIf="isAll"
-        (click)="accordion.closeAll(); isAll =!isAll">{{content.params?.actions?.closeAll||'全部收起'}}</button>
+@if (content) {
+  <div class="panel">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+    <div class="container">
+      @if (content?.params?.enableActions) {
+        <div class="actions flex justify-end items-center my-3">
+          @if (!isAll) {
+            <button mat-button
+            (click)="accordion.openAll(); isAll =!isAll">{{content.params?.actions?.openAll||'全部展开'}}</button>
+          }
+          @if (isAll) {
+            <button mat-button
+            (click)="accordion.closeAll(); isAll =!isAll">{{content.params?.actions?.closeAll||'全部收起'}}</button>
+          }
+        </div>
+      }
+      <mat-accordion multi [attr.data-path]="'elements'">
+        @for (item of content.elements; track item; let i = $index) {
+          <mat-expansion-panel [attr.data-path]="i" [expanded]="item?.params?.expanded"
+            >
+            <mat-expansion-panel-header>
+              @if (item.title) {
+                <mat-panel-title>
+                  <span contentedit="title" [innerHTML]="item.title|safeHtml"></span>
+                </mat-panel-title>
+              }
+              @if (item.description) {
+                <mat-panel-description contentedit="description">
+                  {{item.description}}
+                  @if (item.icon) {
+                    <mat-icon>{{item.icon}}</mat-icon>
+                  }
+                </mat-panel-description>
+              }
+            </mat-expansion-panel-header>
+            @for (item of item.elements; track item; let i = $index) {
+              <app-dynamic-component [attr.data-path]="'elements.'+i"
+              [inputs]="{content:item}"></app-dynamic-component>
+            }
+          </mat-expansion-panel>
+        }
+      </mat-accordion>
     </div>
-    <mat-accordion multi [attr.data-path]="'elements'">
-      <mat-expansion-panel [attr.data-path]="i" [expanded]="item?.params?.expanded"
-        *ngFor="let item of content.elements;index as i">
-        <mat-expansion-panel-header>
-          <mat-panel-title *ngIf="item.title">
-            <span contentedit="title" [innerHTML]="item.title|safeHtml"></span>
-          </mat-panel-title>
-          <mat-panel-description contentedit="description" *ngIf="item.description">
-            {{item.description}}
-            <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of item.elements;index as i"
-          [inputs]="{content:item}"></app-dynamic-component>
-      </mat-expansion-panel>
-    </mat-accordion>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

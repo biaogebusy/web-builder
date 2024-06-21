@@ -1,6 +1,8 @@
 <div class="content-text-center relative">
   <div class="media" [ngClass]="content.ratios || 'media-4-3'">
-    <app-img [attr.data-path]="'img'" *ngIf="content.img" [content]="content.img"></app-img>
+    @if (content.img) {
+      <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
+    }
   </div>
   <div
     class="flex justify-center items-center absolute left-0 top-0 w-full h-full box-border text-center min-h-[375px] z-10 p-5">

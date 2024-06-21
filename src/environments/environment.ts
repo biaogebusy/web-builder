@@ -6,7 +6,6 @@ import { IEnvironment } from '../app/core/interface/IEnvironment';
 export const environment: IEnvironment = {
   apiUrl: 'http://localhost:4200',
   production: false,
-  site: 'dist',
   port: 4200,
   cache: false,
   ssr: false,

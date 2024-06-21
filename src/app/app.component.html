@@ -1,24 +1,32 @@
-<div *ngIf="loading" class="loading-container flex fixed top-0 left-0 w-screen h-screen z-10">
-  <div class="loader">Loading...</div>
-</div>
-<ngx-loading-bar [includeSpinner]="false" *ngIf="coreConfig?.loadingBar"></ngx-loading-bar>
-<mat-drawer-container *ngIf="coreConfig && branding$ | async as branding">
-  <mat-drawer class="mobile-menu" #drawer [(opened)]="mobileMenuOpened">
-    <app-menu [isDrawer]="mobileMenuOpened"></app-menu>
-  </mat-drawer>
-  <mat-drawer-content>
-    <mat-drawer-container>
-      <mat-drawer #manageDrawer id="sidebar" class="sidebar" mode="side" [opened]="(sidebarState$|async)?.sidebarOpened"
-        *ngIf="(sidebarState$|async)?.enableSidebar">
-        <app-manage-sidebar [drawer]="manageDrawer"></app-manage-sidebar>
-      </mat-drawer>
-      <mat-drawer-content id="main-container">
-        <app-header></app-header>
-        <div class="main" [ngClass]="{'has-manage-sidebar': branding.header.sidebar ? true : false }">
-          <router-outlet></router-outlet>
-        </div>
-        <app-footer></app-footer>
-      </mat-drawer-content>
-    </mat-drawer-container>
-  </mat-drawer-content>
-</mat-drawer-container>
+@if (loading) {
+  <div class="loading-container flex fixed top-0 left-0 w-screen h-screen z-10">
+    <div class="loader">Loading...</div>
+  </div>
+}
+@if (coreConfig?.loadingBar) {
+  <ngx-loading-bar [includeSpinner]="false"></ngx-loading-bar>
+}
+@if (coreConfig && branding$ | async; as branding) {
+  <mat-drawer-container>
+    <mat-drawer class="mobile-menu" #drawer [(opened)]="mobileMenuOpened">
+      <app-menu [isDrawer]="mobileMenuOpened"></app-menu>
+    </mat-drawer>
+    <mat-drawer-content>
+      <mat-drawer-container>
+        @if ((sidebarState$|async)?.enableSidebar) {
+          <mat-drawer #manageDrawer id="sidebar" class="sidebar" mode="side" [opened]="(sidebarState$|async)?.sidebarOpened"
+            >
+            <app-manage-sidebar [drawer]="manageDrawer"></app-manage-sidebar>
+          </mat-drawer>
+        }
+        <mat-drawer-content id="main-container">
+          <app-header></app-header>
+          <div class="main" [ngClass]="{'has-manage-sidebar': branding.header.sidebar ? true : false }">
+            <router-outlet></router-outlet>
+          </div>
+          <app-footer></app-footer>
+        </mat-drawer-content>
+      </mat-drawer-container>
+    </mat-drawer-content>
+  </mat-drawer-container>
+}

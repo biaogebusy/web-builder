@@ -44,7 +44,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { throwError } from 'rxjs';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
-import { ComponentService } from '@core/service/component.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 
@@ -137,10 +136,8 @@ export class ShareModule {
    */
   constructor(
     private iconService: IconService,
-    private componentService: ComponentService,
-    @Optional() @SkipSelf() parentModule: ShareModule
+    @Optional() @SkipSelf() parentModule: ShareModule,
   ) {
-    this.componentService.initUiuxModuleLoad();
     this.iconService.loadSvgResources();
     if (parentModule) {
       throwError('ShareModule already loaded!');

@@ -47,6 +47,8 @@ $blue-theme: mat.define-light-theme(
       accent: $blue-accent,
       warn: $blue-warn,
     ),
+    typography: mat.define-typography-config(),
+    density: 0,
   )
 );
 

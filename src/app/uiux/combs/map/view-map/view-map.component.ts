@@ -31,11 +31,12 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
   model: any = {};
   selectedId: number;
   loading: boolean;
+
   constructor(
     private formService: FormService,
     private nodeService: NodeService,
     private amapService: AmapService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {
     super();
   }
@@ -74,7 +75,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
         });
         this.loading = false;
         return [...rows];
-      })
+      }),
     );
   }
 

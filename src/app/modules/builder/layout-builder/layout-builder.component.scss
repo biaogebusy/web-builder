@@ -26,15 +26,6 @@
       right: -2px;
       top: -2px;
     }
-    .placeholder {
-      ::ng-deep {
-        .custom.mat-icon {
-          width: 40px !important;
-          height: 40px !important;
-          line-height: 16px !important;
-        }
-      }
-    }
   }
 }
 

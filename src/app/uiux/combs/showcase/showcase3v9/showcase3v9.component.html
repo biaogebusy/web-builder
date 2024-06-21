@@ -1,40 +1,49 @@
-<div class="showcase-3-v9 relative" *ngIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img
-    [attr.data-path]="'bg'"
-    [content]="content.bg"
-    *ngIf="content.bg"
-  ></app-bg-img>
-  <div class="{{ content.fullWidth ? '' : 'container' }}" *ngIf="content">
-    <div class="inner flex flex-wrap justify-center items-center">
-      <div
+@if (content) {
+  <div class="showcase-3-v9 relative">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    @if (content.bg) {
+      <app-bg-img
+        [attr.data-path]="'bg'"
+        [content]="content.bg"
+      ></app-bg-img>
+    }
+    @if (content) {
+      <div class="{{ content.fullWidth ? '' : 'container' }}">
+        <div class="inner flex flex-wrap justify-center items-center">
+          <div
         class="left flex justify-center items-center flex-wrap flex-12/12 md:flex-7/12 order-{{
           content.order.left
         }}"
-      >
-        <app-dynamic-component
-          [attr.data-path]="'left.' + i"
-          class="p-x-sm w-full flex justify-center items-center"
-          *ngFor="let item of content.left; index as i"
-          [inputs]="{ content: item }"
-        >
-        </app-dynamic-component>
-      </div>
-      <div
-        class="right flex justify-center items-center flex-wrap flex-12/12 md:flex-5/12 order-{{
+            >
+            @for (item of content.left; track item; let i = $index) {
+              <app-dynamic-component
+                [attr.data-path]="'left.' + i"
+                class="p-x-sm w-full flex justify-center items-center"
+                [inputs]="{ content: item }"
+                >
+              </app-dynamic-component>
+            }
+          </div>
+          <div
+        class="right flex justify-center items-center flex-wrap overflow-hidden flex-12/12 md:flex-5/12 order-{{
           content.order.right
         }}"
-      >
-        <app-dynamic-component
-          [attr.data-path]="'right.' + i"
-          class="block p-x-sm w-full"
-          *ngFor="let item of content.right; index as i"
-          [inputs]="{ content: item }"
-        >
-        </app-dynamic-component>
+            >
+            @for (item of content.right; track item; let i = $index) {
+              <app-dynamic-component
+                [attr.data-path]="'right.' + i"
+                class="block p-x-sm w-full"
+                [inputs]="{ content: item }"
+                >
+              </app-dynamic-component>
+            }
+          </div>
+        </div>
       </div>
-    </div>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

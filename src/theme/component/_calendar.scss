@@ -10,8 +10,8 @@
     color: $color;
   }
 }
-@mixin calendar-color($config-or-theme) {
-  $config: mat.get-color-config($config-or-theme);
+@mixin calendar-color($theme) {
+  $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);

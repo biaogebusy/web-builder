@@ -12,7 +12,7 @@
       word-break: break-word;
     }
   }
-  .mat-header-cell {
+  .mat-mdc-header-cell {
     font-size: 15px;
     word-break: keep-all;
   }
@@ -30,7 +30,7 @@
     display: flex;
   }
 
-  .mat-cell {
+  .mat-mdc-cell {
     ::ng-deep {
       ol,
       ul {

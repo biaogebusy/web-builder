@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
+  host: { ngSkipHydration: 'true' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent implements OnInit {
@@ -27,7 +28,7 @@ export class MenuComponent implements OnInit {
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     public screen: ScreenState,
     private router: Router,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (this.isDrawer && event instanceof NavigationStart) {

@@ -20,12 +20,12 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           props: {
             label: '通用',
           },
-          fieldGroupClassName: 'flex flex-wrap',
+          fieldGroupClassName: 'grid grid-cols-12 gap-3',
           fieldGroup: [
             {
               type: 'select',
               key: 'fullWidth',
-              className: 'w-1/2 mr-5',
+              className: 'col-span-6',
               defaultValue: content.fullWidth ?? false,
               props: {
                 label: '全屏宽',
@@ -45,7 +45,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
               type: 'select',
               key: 'spacer',
               defaultValue: content.spacer ?? 'md',
-              className: 'w-2/5',
+              className: 'col-span-6',
               props: {
                 label: '上下间距',
                 options: getSpacerOptions,
@@ -54,7 +54,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'select',
               key: 'bgClasses',
-              className: 'w-1/2 mr-5',
+              className: 'col-span-6',
               defaultValue: content?.bg?.classes ?? 'bg- bg-fill-width',
               props: {
                 label: '背景色',
@@ -64,7 +64,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'select',
               key: 'overlay',
-              className: 'w-2/5',
+              className: 'col-span-6',
               defaultValue: content?.bg?.overlay ?? '',
               props: {
                 label: '蒙版',
@@ -74,7 +74,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'classes',
-              className: 'w-1/2 mr-5',
+              className: 'col-span-6',
               defaultValue: content.classes ?? '',
               props: {
                 label: 'Classes',
@@ -84,7 +84,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'id',
-              className: 'w-2/5',
+              className: 'col-span-6',
               defaultValue: content.id ?? '',
               props: {
                 label: 'ID',
@@ -93,7 +93,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             },
             {
               key: 'bg',
-              className: 'w-full mt-3',
+              className: 'col-span-12 mt-3',
               fieldGroup: [
                 {
                   key: 'img',

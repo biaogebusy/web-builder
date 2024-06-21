@@ -1,7 +1,9 @@
 <div class="manage-block">
   <app-spacer [size]="'md'"></app-spacer>
   <div class="container">
-    <app-dynamic-table [content]="blocks" *ngIf="blocks"></app-dynamic-table>
+    @if (blocks) {
+      <app-dynamic-table [content]="blocks"></app-dynamic-table>
+    }
   </div>
   <app-spacer [size]="'md'"></app-spacer>
 </div>

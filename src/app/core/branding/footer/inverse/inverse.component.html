@@ -1,62 +1,90 @@
-<div class="shape-inner relative pt-10 my-10" *ngIf="content?.params?.shape">
-  <div class="shape shape-{{content?.params?.style === 'light'?'inverse-light':'inverse'}}">
-    <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor"></path>
-    </svg>
+@if (content?.params?.shape) {
+  <div class="shape-inner relative pt-10 my-10">
+    <div class="shape shape-{{content?.params?.style === 'light'?'inverse-light':'inverse'}}">
+      <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor"></path>
+      </svg>
+    </div>
   </div>
-</div>
-<div class="footer-{{content?.params?.style === 'light'?'inverse-light':'inverse'}} relative" *ngIf="content">
-  <div class="container">
-    <div class="py-10">
-      <div *ngIf="content?.footerBrand" class="flex flex-col md:flex-row">
-        <div class="brand flex-col flex-12/12 md:flex-3/12">
-          <app-img [content]="content.footerBrand.logo.img" *ngIf="content.footerBrand.logo"></app-img>
-          <p class="m-y-sm" [innerHTML]="content.footerBrand?.summary|safeHtml" *ngIf="content.footerBrand?.summary">
-          </p>
-          <div class="social flex flex-row" *ngIf="content?.footerBrand?.social">
-            <a class="item flex justify-center items-center" *ngFor="let item of content.footerBrand.social"
-              href="{{item.href}}" target="_blank" title="{{item.label}}">
-              <app-icon [content]="item.icon"></app-icon>
-            </a>
-          </div>
-        </div>
-        <div class="flex-12/12 md:flex-auto whitespace-nowrap" *ngIf="content.mainMenu">
-          <app-menu-item [content]="content?.mainMenu" [mobileMenu]="content.mobileMenu"></app-menu-item>
-        </div>
-        <div class="flex-12/12 md:flex-3/12" *ngIf="content.footerNewsletter">
-          <form class="flex flex-col" (ngSubmit)="onSubmit()" [formGroup]="form">
-            <div class="item-header">
-              {{content.footerNewsletter.label}}
-            </div>
-            <p class="m-y-xs" [innerHTML]="content.footerNewsletter.summary|safeHtml"></p>
-            <app-formly [form]="form" [fields]="content.footerNewsletter.form"></app-formly>
-            <div class="w-full md:w-2/4 flex flex-col">
-              <button *ngIf="content.footerNewsletter.action" class="m-top-xs" type="submit"
-                mat-raised-button color="primary">
-                <div class="flex justify-center items-center">
-                  <div class="p-x-xs">{{content.footerNewsletter.action.label}}</div>
+}
+@if (content) {
+  <div class="footer-{{content?.params?.style === 'light'?'inverse-light':'inverse'}} relative">
+    <div class="container">
+      <div class="py-10">
+        @if (content?.footerBrand) {
+          <div class="flex flex-col md:flex-row">
+            <div class="brand flex-col flex-12/12 md:flex-3/12">
+              @if (content.footerBrand.logo) {
+                <app-img [content]="content.footerBrand.logo.img"></app-img>
+              }
+              @if (content.footerBrand?.summary) {
+                <p class="m-y-sm" [innerHTML]="content.footerBrand?.summary|safeHtml">
+                </p>
+              }
+              @if (content?.footerBrand?.social) {
+                <div class="social flex flex-row">
+                  @for (item of content.footerBrand.social; track item) {
+                    <a class="item flex justify-center items-center"
+                      href="{{item.href}}" target="_blank" title="{{item.label}}">
+                      <app-icon [content]="item.icon"></app-icon>
+                    </a>
+                  }
                 </div>
-              </button>
-              <div class="flex justify-center items-center">
-                <app-spinner [content]="{color:'primary', size:36}" *ngIf="submited"></app-spinner>
+              }
+            </div>
+            @if (content.mainMenu) {
+              <div class="flex-12/12 md:flex-auto whitespace-nowrap">
+                <app-menu-item [content]="content?.mainMenu" [mobileMenu]="content.mobileMenu"></app-menu-item>
+              </div>
+            }
+            @if (content.footerNewsletter) {
+              <div class="flex-12/12 md:flex-3/12">
+                <form class="flex flex-col" (ngSubmit)="onSubmit()" [formGroup]="form">
+                  <div class="item-header">
+                    {{content.footerNewsletter.label}}
+                  </div>
+                  <p class="m-y-xs" [innerHTML]="content.footerNewsletter.summary|safeHtml"></p>
+                  <app-formly [form]="form" [fields]="content.footerNewsletter.form"></app-formly>
+                  <div class="w-full md:w-2/4 flex flex-col">
+                    @if (content.footerNewsletter.action) {
+                      <button class="m-top-xs" type="submit"
+                        mat-raised-button color="primary">
+                        <div class="flex justify-center items-center">
+                          <div class="p-x-xs">{{content.footerNewsletter.action.label}}</div>
+                        </div>
+                      </button>
+                    }
+                    <div class="flex justify-center items-center">
+                      @if (submited) {
+                        <app-spinner [content]="{color:'primary', size:36}"></app-spinner>
+                      }
+                    </div>
+                  </div>
+                </form>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+    <div class="footer-bottom py-5">
+      <div class="container">
+        <div class="inner flex flex-col md:flex-row justify-center items-center md:justify-between">
+          @if (content?.footerBottom?.left) {
+            <div class="left text-center md:text-left"
+            [innerHTML]="content.footerBottom.left | safeHtml"></div>
+          }
+          @if (content?.footerBottom?.right) {
+            <div class="right">
+              <div class="flex flex-row">
+                @for (item of content.footerBottom.right; track item) {
+                  <app-link class="item" [content]="item"></app-link>
+                }
               </div>
             </div>
-          </form>
+          }
         </div>
       </div>
     </div>
   </div>
-  <div class="footer-bottom py-5">
-    <div class="container">
-      <div class="inner flex flex-col md:flex-row justify-center items-center md:justify-between">
-        <div class="left text-center md:text-left" *ngIf="content?.footerBottom?.left"
-          [innerHTML]="content.footerBottom.left | safeHtml"></div>
-        <div class="right" *ngIf="content?.footerBottom?.right">
-          <div class="flex flex-row">
-            <app-link class="item" *ngFor="let item of content.footerBottom.right" [content]="item"></app-link>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+}

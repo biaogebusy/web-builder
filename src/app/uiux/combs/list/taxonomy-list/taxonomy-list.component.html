@@ -8,11 +8,12 @@
           [pager]="content.pager"
         ></app-list>
       </div>
-      <app-sidebar
-        class="flex-12/12 md:flex-3/12"
-        *ngIf="content.sidebar"
-        [content]="content.sidebar"
-      ></app-sidebar>
+      @if (content.sidebar) {
+        <app-sidebar
+          class="flex-12/12 md:flex-3/12"
+          [content]="content.sidebar"
+        ></app-sidebar>
+      }
     </div>
   </div>
 </div>

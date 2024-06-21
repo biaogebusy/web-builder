@@ -5,13 +5,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDrawer } from '@angular/material/sidenav';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-builder-sidebar',
@@ -26,7 +26,7 @@ export class BuilderSidebarComponent implements OnInit {
   constructor(
     public builder: BuilderState,
     private dialog: MatDialog,
-    @Inject(BRANDING) public branding$: Observable<IBranding>
+    @Inject(BRANDING) public branding$: Observable<IBranding>,
   ) {}
 
   ngOnInit(): void {}
@@ -38,7 +38,7 @@ export class BuilderSidebarComponent implements OnInit {
 
   onSelectAssets(): void {
     this.dialog.open(DialogComponent, {
-      width: '100%',
+      width: '85vw',
       panelClass: 'close-outside',
       data: {
         title: '媒体库',

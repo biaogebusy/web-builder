@@ -1,13 +1,16 @@
-<ng-container *ngIf="content">
-  <div class="logo flex justify-start items-end" *ngIf="img; else name">
-    <app-img [content]="img"></app-img>
-  </div>
-  <ng-template #name>
+@if (content) {
+  @if (img) {
+    <div class="logo flex justify-start items-end">
+      <app-img [content]="img"></app-img>
+    </div>
+  } @else {
     <a
       class="site-name mat-h2"
       [routerLink]="content.href"
       [innerHTML]="content.label | safeHtml"
     ></a>
-  </ng-template>
-  <span *ngIf="content.version" class="pl-3 version">v5.0.0</span>
-</ng-container>
+  }
+  @if (content.version) {
+    <span class="pl-3 version">v5.0.0</span>
+  }
+}

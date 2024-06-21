@@ -1,17 +1,20 @@
-<ng-container *ngIf="branding$ | async as branding">
-  <header *ngIf="show" class="header">
-    <div class="container">
-      <div
+@if (branding$ | async; as branding) {
+  @if (show) {
+    <header class="header">
+      <div class="container">
+        <div
         class="header-container flex flex-row {{
           branding.header.logo
             ? 'justify-between items-center'
             : 'justify-end items-center'
         }}"
-      >
-        <div class="header-left one-line" *ngIf="branding.header?.logo">
-          <app-logo [content]="branding.header.logo"></app-logo>
-        </div>
-        <div
+          >
+          @if (branding.header?.logo) {
+            <div class="header-left one-line">
+              <app-logo [content]="branding.header.logo"></app-logo>
+            </div>
+          }
+          <div
           class="
             header-right
             flex flex-row
@@ -20,71 +23,89 @@
             gap-3
             md:gap-5
           "
-        >
-          <div class="menu-inner" *ngIf="branding.header?.mainMenu">
-            <div class="main-menu flex flex-row">
-              <div
-                class="item"
-                *ngFor="
-                  let menu of branding.header.mainMenu;
-                  trackBy: trackByFn
-                "
-              >
-                <app-item-menu
-                  *ngIf="branding.header?.params"
-                  [params]="branding.header.params"
-                  [content]="menu"
-                ></app-item-menu>
-              </div>
-            </div>
-          </div>
-          <app-search-box
-            [content]="branding.header.search"
-            *ngIf="branding.header?.search?.enable"
-          ></app-search-box>
-          <div class="actions" *ngIf="branding.header.actions">
-            <button
-              color="primary"
-              mat-raised-button
-              *ngFor="let action of branding.header.actions"
             >
-              <app-link [content]="action"></app-link>
-            </button>
+            @if (branding.header?.mainMenu) {
+              <div class="menu-inner">
+                <div class="main-menu flex flex-row">
+                  @for (
+                    menu of branding.header.mainMenu; track trackByFn($index,
+                    menu)) {
+                    <div
+                      class="item"
+                      >
+                      @if (branding.header?.params) {
+                        <app-item-menu
+                          [params]="branding.header.params"
+                          [content]="menu"
+                        ></app-item-menu>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+            @if (branding.header?.search?.enable) {
+              <app-search-box
+                [content]="branding.header.search"
+              ></app-search-box>
+            }
+            @if (branding.header.actions) {
+              <div class="actions">
+                @for (action of branding.header.actions; track action) {
+                  <button
+                    color="primary"
+                    mat-raised-button
+                    >
+                    <app-link [content]="action"></app-link>
+                  </button>
+                }
+              </div>
+            }
+            @if (coreConfig.notify?.enable) {
+              <app-notify
+                class="has-icon"
+              ></app-notify>
+            }
+            @if (branding.header?.params?.themeSwitch) {
+              <app-switch-theme
+                class="has-icon"
+              ></app-switch-theme>
+            }
+            @if (branding.header?.params?.userInfo) {
+              <app-user-menu
+                [content]="branding.header.userMenu"
+              ></app-user-menu>
+            }
+            <app-lang-switch></app-lang-switch>
           </div>
-          <app-notify
-            class="has-icon"
-            *ngIf="coreConfig.notify?.enable"
-          ></app-notify>
-          <app-switch-theme
-            class="has-icon"
-            *ngIf="branding.header?.params?.themeSwitch"
-          ></app-switch-theme>
-          <app-user-menu
-            *ngIf="branding.header?.params?.userInfo"
-            [content]="branding.header.userMenu"
-          ></app-user-menu>
-          <app-lang-switch></app-lang-switch>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
+  }
   <div class="drawer">
-    <mat-toolbar *ngIf="!show">
-      <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
-        <mat-icon *ngIf="!isDrawer">menu</mat-icon>
-        <mat-icon *ngIf="isDrawer">close</mat-icon>
-      </button>
-      <span class="spacer"></span>
-      <span class="app-name">{{ branding.header.logo?.label }}</span>
-      <span class="spacer"></span>
-      <app-switch-theme></app-switch-theme>
-      <app-user-menu class="m-left-xs"></app-user-menu>
-    </mat-toolbar>
+    @if (!show) {
+      <mat-toolbar>
+        <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
+          @if (!isDrawer) {
+            <mat-icon>menu</mat-icon>
+          }
+          @if (isDrawer) {
+            <mat-icon>close</mat-icon>
+          }
+        </button>
+        <span class="spacer"></span>
+        <span class="app-name">{{ branding.header.logo?.label }}</span>
+        <span class="spacer"></span>
+        <app-switch-theme></app-switch-theme>
+        <app-user-menu class="m-left-xs"></app-user-menu>
+      </mat-toolbar>
+    }
     <div [hidden]="!(!show && isDrawer)">
-      <app-accordion
-        *ngIf="branding.header.mainMenu"
-        [content]="branding.header.mainMenu"
-      ></app-accordion>
+      @if (branding.header.mainMenu) {
+        <app-accordion
+          [content]="branding.header.mainMenu"
+        ></app-accordion>
+      }
     </div>
   </div>
-</ng-container>
+}

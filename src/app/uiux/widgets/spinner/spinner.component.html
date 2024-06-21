@@ -1,4 +1,4 @@
-<ng-container *ngIf="content">
+@if (content) {
   <mat-progress-spinner [color]="content?.color" [diameter]="content?.size" [mode]="'indeterminate'">
   </mat-progress-spinner>
-</ng-container>
+}

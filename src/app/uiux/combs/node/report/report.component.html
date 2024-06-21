@@ -3,7 +3,7 @@
     <app-header-meta [content]="content.header"></app-header-meta>
     <div class="box filter p-x-sm p-y-sm m-bottom-sm flex flex-wrap justify-between items-center">
       <app-formly [form]="form" [model]="model" [fields]="content.form"
-        (modelChange)="onModelChange($event)"></app-formly>
+      (modelChange)="onModelChange($event)"></app-formly>
       <div class="actions">
         <button mat-raised-button color="primary" (click)="clear()">
           <mat-icon>clear</mat-icon>重置
@@ -11,14 +11,18 @@
       </div>
     </div>
     <div class="box details p-x-sm p-y-sm relative grid grid-cols-12 justify-between items-start gap-5">
-      <div class="loading-inner absolute w-full h-full justify-center items-center" *ngIf="loading">
-        <mat-spinner diameter="50"></mat-spinner>
-      </div>
-      <ng-container *ngIf="box$|async as box">
-        <app-dynamic-component
-          class="item block m-bottom col-span-12 md:col-span-6" [inputs]="{content:item.content}"
-          *ngFor="let item of box"></app-dynamic-component>
-      </ng-container>
+      @if (loading) {
+        <div class="loading-inner absolute w-full h-full justify-center items-center">
+          <mat-spinner diameter="50"></mat-spinner>
+        </div>
+      }
+      @if (box$|async; as box) {
+        @for (item of box; track item) {
+          <app-dynamic-component
+            class="item block m-bottom col-span-12 md:col-span-6" [inputs]="{content:item.content}"
+          ></app-dynamic-component>
+        }
+      }
     </div>
   </div>
 </div>

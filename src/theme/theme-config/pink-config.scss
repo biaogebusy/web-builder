@@ -46,6 +46,8 @@ $pink-theme: mat.define-light-theme(
       accent: $pink-accent,
       warn: $pink-warn,
     ),
+    typography: mat.define-typography-config(),
+    density: 0,
   )
 );
 

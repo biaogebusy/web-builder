@@ -1,9 +1,15 @@
-<mat-button-toggle-group class="mb-5" *ngIf="data?.toggle" (change)="onChange($event)" name="switchChart"
-  aria-label="switch chart">
-  <mat-button-toggle value="{{item.value}}" *ngFor="let item of data.toggle">
-    <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
-    {{item.label}}
-  </mat-button-toggle>
-</mat-button-toggle-group>
+@if (data?.toggle) {
+  <mat-button-toggle-group class="mb-5" (change)="onChange($event)" name="switchChart"
+    aria-label="switch chart">
+    @for (item of data.toggle; track item) {
+      <mat-button-toggle value="{{item.value}}">
+        @if (item.icon) {
+          <app-icon [content]="item.icon"></app-icon>
+        }
+        {{item.label}}
+      </mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+}
 <div echarts [options]="content" [theme]="theme" class="chart rounded-md p-5 box-border min-w-[400px] min-h-[400px]"
-  [ngStyle]="style"></div>
+[ngStyle]="style"></div>

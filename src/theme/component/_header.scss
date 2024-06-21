@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 @import "../../theme/mixins/amixin";
 
-@mixin header-color($config-or-theme) {
-  $config: mat.get-color-config($config-or-theme);
+@mixin header-color($theme) {
+  $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -136,6 +136,7 @@
 
   // user dropdown menu
   .user {
+    /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
     .mat-button-wrapper {
       .mat-icon {
         color: $primary-contrast;
@@ -217,8 +218,8 @@
   }
 
   // sub menu
-  .mat-menu-panel {
-    .mat-menu-item {
+  .mat-mdc-menu-panel {
+    .mat-mdc-menu-item {
       min-width: 180px;
     }
     &.sub-menu {

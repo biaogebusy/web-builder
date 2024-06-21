@@ -1,34 +1,59 @@
-<div
-  *ngIf="content && !showXs"
-  class="footer-main-menu flex flex-row justify-between items-start"
->
-  <mat-list class="flex-auto" *ngFor="let menu of content" role="list">
-    <div mat-subheader class="bold">{{ menu.label }}</div>
-    <ng-container *ngFor="let subMenu of menu.child; index as i">
-      <mat-list-item *ngIf="!subMenu.popup; else popup" role="listitem">
-        <mat-icon
-          *ngIf="subMenu.icon"
-          mat-list-icon
-          svgIcon="{{ subMenu.icon }}"
-        ></mat-icon>
-        <app-link [content]="subMenu"></app-link>
-      </mat-list-item>
-      <ng-template #popup>
-        <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
-          <mat-icon
-            *ngIf="subMenu.icon"
-            mat-list-icon
-            svgIcon="{{ subMenu.icon }}"
-          ></mat-icon>
-          <span>{{ subMenu.label }}</span>
-          <mat-menu #popup="matMenu" yPosition="above">
-            <span [innerHTML]="subMenu.popup | safeHtml"></span>
-          </mat-menu>
-        </mat-list-item>
-      </ng-template>
-    </ng-container>
-  </mat-list>
-</div>
-<div class="mobile p-y-sm" *ngIf="mobileMenu && showXs">
-  <app-accordion [content]="mobileMenu"></app-accordion>
-</div>
+@if (content && !showXs) {
+  <div
+    class="footer-main-menu flex flex-row justify-between items-start"
+    >
+    @for (menu of content; track menu) {
+      <mat-list class="flex-auto" role="list">
+        <div mat-subheader class="bold">{{ menu.label }}</div>
+        @for (subMenu of menu.child; track subMenu; let i = $index) {
+          @if (!subMenu.popup) {
+            <mat-list-item role="listitem">
+              @if (subMenu.icon) {
+                <app-icon
+                  class="!mr-3"
+                  matListItemIcon
+                  [content]="subMenu.icon"
+                ></app-icon>
+              }
+              <app-link [content]="subMenu"></app-link>
+            </mat-list-item>
+          } @else {
+            <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
+              @if (subMenu.icon) {
+                <app-icon
+                  class="!mr-3"
+                  matListItemIcon
+                  [content]="subMenu.icon"
+                ></app-icon>
+              }
+              <span>{{ subMenu.label }}</span>
+              <mat-menu #popup="matMenu" yPosition="above">
+                <span [innerHTML]="subMenu.popup | safeHtml"></span>
+              </mat-menu>
+            </mat-list-item>
+          }
+          <ng-template #popup>
+            <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
+              @if (subMenu.icon) {
+                <app-icon
+                  class="!mr-3"
+                  matListItemIcon
+                  [content]="subMenu.icon"
+                ></app-icon>
+              }
+              <span>{{ subMenu.label }}</span>
+              <mat-menu #popup="matMenu" yPosition="above">
+                <span [innerHTML]="subMenu.popup | safeHtml"></span>
+              </mat-menu>
+            </mat-list-item>
+          </ng-template>
+        }
+      </mat-list>
+    }
+  </div>
+}
+@if (mobileMenu && showXs) {
+  <div class="mobile p-y-sm">
+    <app-accordion [content]="mobileMenu"></app-accordion>
+  </div>
+}

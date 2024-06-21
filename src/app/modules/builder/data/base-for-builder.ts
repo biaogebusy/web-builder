@@ -1950,8 +1950,8 @@ export const base = [
               row: {
                 xs: 12,
                 sm: 12,
-                md: 6,
-                lg: 6,
+                md: 12,
+                lg: 12,
               },
               horizontal: 'center',
               vertical: 'center',
@@ -1971,6 +1971,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -2008,14 +2009,15 @@ export const base = [
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: '/assets/images/illustration/09.png',
+                  src: 'http://localhost:4200/assets/images/illustration/09.png',
                   alt: 'alt',
                   style: {
                     width: 'auto',
                     height: 'auto',
-                    opacity: 1,
-                    borderRadius: 0,
+                    opacity: '1',
+                    borderRadius: '0px',
                     boxShadow: 'none',
+                    aspectRatio: 'auto',
                     objectFit: 'initial',
                   },
                 },
@@ -2062,10 +2064,11 @@ export const base = [
               row: {
                 xs: 12,
                 sm: 12,
-                md: 6,
-                lg: 6,
+                md: 12,
+                lg: 12,
               },
-              wrap: 'wrap',
+              horizontal: 'center',
+              vertical: 'center',
               gap: {
                 xs: 0,
                 sm: 0,
@@ -2082,6 +2085,8 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
+              wrap: 'wrap',
               style: {
                 borderRadius: 'none',
               },
@@ -2105,8 +2110,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              horizontal: 'center',
-              vertical: 'center',
               elements: [
                 {
                   spacer: 'none',
@@ -3018,14 +3021,19 @@ export const base = [
           bg: {
             img: {
               src: '/assets/images/bg/bg-02.png',
-              classes: 'object-fit',
               alt: 'bg-02',
+              classes: 'object-fit',
             },
             classes: 'bg- bg-fill-width',
             overlay: '',
           },
           horizontal: 'center',
           vertical: 'center',
+          gap: {
+            xs: '5',
+          },
+          wrapperClass: '',
+          alignItems: 'center',
           animate: {
             from: {
               x: 0,
@@ -3107,19 +3115,21 @@ export const base = [
               },
               elements: [
                 {
+                  horizontal: 'center',
+                  vertical: 'center',
+                  gap: {
+                    xs: '4',
+                    sm: '4',
+                    md: '5',
+                    lg: '5',
+                  },
+                  wrapperClass: '',
+                  spacer: 'md',
                   row: {
                     xs: 12,
                     sm: 12,
                     md: 12,
                     lg: 12,
-                  },
-                  horizontal: 'center',
-                  vertical: 'center',
-                  gap: {
-                    xs: 0,
-                    sm: 0,
-                    md: 0,
-                    lg: 0,
                   },
                   bg: {
                     img: {
@@ -3164,7 +3174,6 @@ export const base = [
                     marginLeft: '0px',
                   },
                   type: 'layout-builder',
-                  spacer: 'md',
                   fullWidth: false,
                   elements: [
                     {
@@ -3192,7 +3201,7 @@ export const base = [
                         classes: 'bg-fill-width',
                       },
                       classes: '',
-                      blockClasses: 'p-5',
+                      blockClasses: '',
                       animate: {
                         from: {
                           x: 0,
@@ -3326,7 +3335,7 @@ export const base = [
                         xs: 5,
                         sm: 5,
                         md: 5,
-                        lg: 11,
+                        lg: 8,
                       },
                       bg: {
                         img: {
@@ -3338,7 +3347,7 @@ export const base = [
                         classes: 'bg-fill-width',
                       },
                       classes: '',
-                      blockClasses: 'p-5',
+                      blockClasses: '',
                       animate: {
                         from: {
                           x: 0,
@@ -3460,8 +3469,9 @@ export const base = [
                 md: 6,
                 lg: 5,
               },
-              horizontal: 'flex-start',
-              vertical: 'flex-start',
+              horizontal: 'center',
+              vertical: 'start',
+              alignItems: 'center',
               gap: {
                 xs: '4',
                 sm: '4',
@@ -3478,7 +3488,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
-              blockClasses: 'p-5',
+              blockClasses: '',
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',

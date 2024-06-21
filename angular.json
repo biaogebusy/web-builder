@@ -18,12 +18,13 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/browser",
+            "outputPath": {
+              "base": "dist"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -55,9 +56,13 @@
             "styles": [
               "src/styles.scss",
               "node_modules/swiper/swiper-bundle.css",
-              "node_modules/ngx-lightbox/lightbox.css",
               "node_modules/social-share.js/dist/css/share.min.css",
               "node_modules/video.js/dist/video-js.css",
+              "node_modules/lightgallery/css/lightgallery-bundle.min.css",
+              "node_modules/material-design-icons/iconfont/material-icons.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/jsoneditor/dist/jsoneditor.min.css",
               {
                 "input": "src/theme/theme-config/blue-config.scss",
                 "bundleName": "blue-theme"
@@ -80,25 +85,23 @@
               "node_modules/social-share.js/src/js/social-share.js"
             ],
             "allowedCommonJsDependencies": [
-              "hammerjs",
               "highlight.js",
               "lodash",
-              "ngx-lightbox",
-              "ngx-packery",
               "crypto-js",
-              "@babel",
-              "@babel/runtime/helpers/inherits",
-              "@babel/runtime/helpers/construct",
-              "@babel/runtime/helpers/inheritsLoose",
-              "global/document",
-              "jspdf-autotable"
+              "jspdf-autotable",
+              "jsoneditor",
+              "quill",
+              "dompurify"
             ],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "stylePreprocessorOptions": {
+              "includePaths": ["."]
+            },
+            "prerender": true,
+            "ssr": {
+              "entry": "server.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -113,8 +116,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -128,108 +129,43 @@
                 }
               ]
             },
-            "xinshi": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.xinshi.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "3mb",
-                  "maximumError": "8mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "20kb",
-                  "maximumError": "32kb"
-                }
-              ]
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": false
             }
           },
-          "defaultConfiguration": ""
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/server",
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json",
-            "sourceMap": true,
-            "optimization": false
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "sourceMap": false,
-              "optimization": true
-            },
-            "xinshi": {
-              "outputHashing": "media",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.xinshi.ts"
-                }
-              ],
-              "sourceMap": false,
-              "optimization": true
-            }
-          },
-          "defaultConfiguration": ""
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "options": {
-            "browserTarget": "xinshi:build",
-            "serverTarget": "xinshi:server"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "xinshi:build:production",
-              "serverTarget": "xinshi:server:production"
-            }
-          }
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "xinshi:build",
             "proxyConfig": "config/proxy.config.js",
-            "disableHostCheck": true
+            "disableHostCheck": true,
+            "buildTarget": "xinshi:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "xinshi:build:production"
+              "buildTarget": "xinshi:build:production"
+            },
+            "development": {
+              "buildTarget": "xinshi:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "xinshi:build"
+            "buildTarget": "xinshi:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
@@ -261,15 +197,24 @@
             }
           }
         },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
           "options": {
+            "configDir": ".storybook",
+            "browserTarget": "xinshi:build:development",
+            "compodoc": true,
+            "compodocArgs": ["-e", "json", "-d", "."],
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": ".storybook",
             "browserTarget": "xinshi:build:production",
-            "serverTarget": "xinshi:server:production",
-            "routes": ["/"]
-          },
-          "configurations": {
-            "production": {}
+            "compodoc": true,
+            "compodocArgs": ["-e", "json", "-d", "."],
+            "outputDir": "storybook-static"
           }
         }
       }

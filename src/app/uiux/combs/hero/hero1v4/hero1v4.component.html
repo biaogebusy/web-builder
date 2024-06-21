@@ -1,30 +1,37 @@
 <div class="hero-1v4 relative">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+  @if (content.id) {
+    <a class="anchor" [id]="content.id"></a>
+  }
+  @if (content.bg) {
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+  }
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <div
     class="{{ content.fullWidth ? '' : 'container' }}"
     [ngStyle]="content.style"
-  >
+    >
     <div class="inner flex flex-wrap justify-center items-center">
-      <app-text
-        [attr.data-path]="'text'"
-        class="basis-full"
-        [content]="content.text"
-        *ngIf="content.text"
-      ></app-text>
-      <div
+      @if (content.text) {
+        <app-text
+          [attr.data-path]="'text'"
+          class="basis-full"
+          [content]="content.text"
+        ></app-text>
+      }
+      @if (content.widget) {
+        <div
         class="basis-full order-{{
           content.order
         }} flex justify-center items-center"
-        *ngIf="content.widget"
-      >
-        <app-dynamic-component
-          [attr.data-path]="'widget.' + i"
-          *ngFor="let item of content.widget; index as i"
-          [inputs]="{ content: item }"
-        ></app-dynamic-component>
-      </div>
+          >
+          @for (item of content.widget; track item; let i = $index) {
+            <app-dynamic-component
+              [attr.data-path]="'widget.' + i"
+              [inputs]="{ content: item }"
+            ></app-dynamic-component>
+          }
+        </div>
+      }
     </div>
   </div>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>

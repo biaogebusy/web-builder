@@ -1,64 +1,77 @@
-<div class="showcase-3-v3" *ngIf="content">
-  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img
-    [attr.data-path]="'bg'"
-    [content]="content.bg"
-    *ngIf="content.bg"
-  ></app-bg-img>
-  <div class="{{ content.fullWidth ? '' : 'container' }}">
-    <div class="showcase-inner teaser grid grid-cols-12 sm:gap-5">
-      <ng-container *ngIf="content.feature">
-        <app-feature-box
-          class="col-span-12 md:col-span-4"
-          [attr.data-path]="'feature'"
-          [content]="content.feature"
-          *ngIf="isShow"
-        >
-        </app-feature-box>
-      </ng-container>
-      <div
+@if (content) {
+  <div class="showcase-3-v3">
+    @if (content.id) {
+      <a class="anchor" [id]="content.id"></a>
+    }
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    @if (content.bg) {
+      <app-bg-img
+        [attr.data-path]="'bg'"
+        [content]="content.bg"
+      ></app-bg-img>
+    }
+    <div class="{{ content.fullWidth ? '' : 'container' }}">
+      <div class="showcase-inner teaser grid grid-cols-12 sm:gap-5">
+        @if (content.feature) {
+          @if (isShow) {
+            <app-feature-box
+              class="col-span-12 md:col-span-4"
+              [attr.data-path]="'feature'"
+              [content]="content.feature"
+              >
+            </app-feature-box>
+          }
+        }
+        <div
         class="col-span-12 {{
           content.showImage && content.feature
             ? 'md:col-span-8'
             : 'md:col-span-12'
         }}"
-      >
-        <h2 class="title">
-          <app-link
-            [attr.data-path]="'title'"
-            [content]="content.title"
-          ></app-link>
-        </h2>
-        <ul class="post-meta-info flex">
-          <li class="flex justify-center items-center" *ngIf="content.date">
-            <mat-icon>schedule</mat-icon>
-            <div>{{ content.date | date: "YYYY-MM-dd" }}</div>
-          </li>
-          <li
-            class="flex justify-center items-center"
-            *ngIf="content.commentCount"
           >
-            <mat-icon>comment</mat-icon>
-            <div>{{ content.commentCount }} 评论</div>
-          </li>
-          <li class="flex justify-center items-center" *ngIf="content.category">
-            <mat-icon>folder</mat-icon>
-            <div>{{ content.category | slice: 0:20 }}</div>
-          </li>
-        </ul>
-        <div
-          class="shortdesc"
-          [innerHTML]="content.body | stripTags | trim | shorten: 150:'...'"
-        ></div>
-        <div class="m-top-sm" *ngIf="content.details">
-          <app-btn
-            [attr.data-path]="'details'"
-            [content]="content.details"
-          ></app-btn>
+          <h2 class="title">
+            <app-link
+              [attr.data-path]="'title'"
+              [content]="content.title"
+            ></app-link>
+          </h2>
+          <ul class="post-meta-info flex">
+            @if (content.date) {
+              <li class="flex justify-center items-center">
+                <mat-icon>schedule</mat-icon>
+                <div>{{ content.date | date: "YYYY-MM-dd" }}</div>
+              </li>
+            }
+            @if (content.commentCount) {
+              <li
+                class="flex justify-center items-center"
+                >
+                <mat-icon>comment</mat-icon>
+                <div>{{ content.commentCount }} 评论</div>
+              </li>
+            }
+            @if (content.category) {
+              <li class="flex justify-center items-center">
+                <mat-icon>folder</mat-icon>
+                <div>{{ content.category | slice: 0:20 }}</div>
+              </li>
+            }
+          </ul>
+          <div
+            class="shortdesc"
+            [innerHTML]="content.body | stripTags | trim | shorten: 150:'...'"
+          ></div>
+          @if (content.details) {
+            <div class="m-top-sm">
+              <app-btn
+                [attr.data-path]="'details'"
+                [content]="content.details"
+              ></app-btn>
+            </div>
+          }
         </div>
       </div>
     </div>
+    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
+}

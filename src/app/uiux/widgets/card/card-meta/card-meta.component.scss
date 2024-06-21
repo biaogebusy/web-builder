@@ -13,7 +13,7 @@
           a.one-line {
             margin-right: 70px;
           }
-          .mat-button-base {
+          .mat-mdc-button-base {
             position: absolute;
             right: 0;
             top: -9px;
@@ -23,7 +23,7 @@
         }
         &:hover {
           ::ng-deep {
-            .mat-button-base {
+            .mat-mdc-button-base {
               opacity: 1;
             }
           }
@@ -37,7 +37,4 @@
   width: auto;
   height: 20px;
   line-height: 16px;
-  ::ng-deep .mat-button-wrapper {
-    line-height: 16px;
-  }
 }
