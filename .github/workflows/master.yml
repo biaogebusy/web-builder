@@ -20,7 +20,7 @@ jobs:
       - name: use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "18"
+          node-version: "20"
 
       - name: Cache verify
         run: npm cache verify
@@ -43,4 +43,4 @@ jobs:
           FOLDER: "dist"
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: "/sdc/www/sit/builder/"
+          SERVER_DESTINATION: "/sdc/www/app/builder/"

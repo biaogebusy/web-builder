@@ -76,9 +76,11 @@ export function builderCurrentPageFactory(
   }
 
   storage.observe(versionKey).subscribe((version: IPage[]) => {
-    const current =
-      version.find((page: IPage) => page.current === true) || version[0];
-    currentPage$.next(current);
+    if (version.length > 0) {
+      const current =
+        version.find((page: IPage) => page.current === true) || version[0];
+      currentPage$.next(current);
+    }
   });
 
   return currentPage$;
