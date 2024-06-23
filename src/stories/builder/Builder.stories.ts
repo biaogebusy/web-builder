@@ -54,7 +54,7 @@ const meta: Meta<BuilderComponent> = {
       ],
     }),
     moduleMetadata({
-      declarations: [StorysModule.forEntryComponents(), SafeHtmlPipe, MatIcon],
+      declarations: [StorysModule.forEntryComponents(), SafeHtmlPipe],
     }),
   ],
   parameters: {

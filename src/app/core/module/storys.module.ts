@@ -3,7 +3,6 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import base from '@assets/app/core/base.json';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -73,24 +72,15 @@ export function sleep(ms: number): Promise<any> {
   declarations: [],
   imports: [
     ShareModule,
-
-    // WidgetsModule,
-    // BuilderModule,
-    // CombsModule,
     RouterModule,
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
-    RouterTestingModule,
     BrowserAnimationsModule,
   ],
   exports: [
     ShareModule,
-    // WidgetsModule,
-    // CombsModule,
-    // ManageModule,
     RouterModule,
     HttpClientModule,
-    RouterTestingModule,
     BrowserAnimationsModule,
   ],
 })
