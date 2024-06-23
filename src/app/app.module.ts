@@ -76,11 +76,7 @@ import { ComponentService } from '@core/service/component.service';
     Title,
     httpInterceptorProviders,
     CookieService,
-    provideClientHydration(
-      withHttpTransferCacheOptions({
-        includePostRequests: true,
-      }),
-    ),
+    provideClientHydration(),
     {
       provide: CORE_CONFIG,
       useValue: {},
