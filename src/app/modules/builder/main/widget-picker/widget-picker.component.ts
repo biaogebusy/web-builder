@@ -1,7 +1,6 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Inject,
@@ -28,6 +27,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @ViewChild('popup', { static: false }) popup: ElementRef;
   public widget$: Subject<any> = new Subject();
   help: any;
+  popper: any;
 
   public bcData: any;
 
@@ -35,9 +35,8 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     public builder: BuilderState,
     private dialog: MatDialog,
     private storage: LocalStorageService,
-    private cd: ChangeDetectorRef,
     @Inject(WIDGETS) public widgets$: Observable<any[]>,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +65,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       this.builder.updatePageContentByPath(
         path,
         this.copyLayoutLastChild(content.elements, widget),
-        'add'
+        'add',
       );
       this.dialog.closeAll();
       return;
@@ -79,6 +78,10 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     this.dialog.closeAll();
   }
 
+  onLeave(): void {
+    this.widget$.next(false);
+    this.popper.destroy();
+  }
   copyLayoutLastChild(elements: any[], widget: any): any {
     const last = Object.assign({}, elements[elements.length - 1]);
     last.elements = [widget];
@@ -88,7 +91,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   onHover(widget: any, ele: any): void {
     if (this.popup?.nativeElement) {
       this.widget$.next(widget);
-      createPopper(ele, this.popup.nativeElement, {
+      this.popper = createPopper(ele, this.popup.nativeElement, {
         placement: 'top',
         strategy: 'fixed',
         modifiers: [
