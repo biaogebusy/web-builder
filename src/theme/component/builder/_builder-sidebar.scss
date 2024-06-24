@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @mixin sidebar($background, $foreground, $primary) {
   background-color: mat.get-color-from-palette($background, card);
   .mat-drawer-inner-container {
@@ -61,10 +61,6 @@
     );
     .form {
       background-color: mat.get-color-from-palette($background, card);
-      /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-      .mat-form-field-wrapper {
-        border: 1px solid mat.get-color-from-palette($foreground, divider);
-      }
     }
     .mat-mdc-list {
       @include scrollbar(mat.get-color-from-palette($primary));

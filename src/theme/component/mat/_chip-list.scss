@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @mixin chip-list-color($theme) {
   $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
@@ -6,11 +6,7 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-  .mini {
-    /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version. */
-    mat-chip {
-    }
-  }
+
   .mat-mdc-chip {
     a {
       color: mat.get-color-from-palette($primary, default-contrast);
