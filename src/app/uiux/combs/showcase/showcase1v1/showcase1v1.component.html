@@ -5,10 +5,7 @@
     }
     <app-spacer [size]="content.spacer || 'md'"></app-spacer>
     @if (content.bg) {
-      <app-bg-img
-        [attr.data-path]="'bg'"
-        [content]="content.bg"
-      ></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
     }
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       <div [ngClass]="content.classes">
@@ -30,7 +27,9 @@
           @for (item of content.elements; track item; let i = $index) {
             <app-dynamic-component
               [attr.data-path]="'elements.' + i"
-              class="col-span-12 sm:col-span-6 md:col-span-3 box"
+              class="col-span-12 sm:col-span-6 md:col-span-{{
+                content.row
+              }} box"
               [inputs]="item"
             ></app-dynamic-component>
           }

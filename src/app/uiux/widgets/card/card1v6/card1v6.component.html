@@ -1,17 +1,8 @@
 @if (content) {
   <div
-  class="
-    card-1v6
-    rounded-md
-    transition-all
-    p-6
-    duration-300
-    ease-in-out
-    hover:scale-105
-    hover:z-10
-  "
+    class="card-1v6 rounded-md transition-all p-6 duration-300 ease-in-out hover:scale-105 hover:z-10"
     [ngClass]="content.classes"
-    >
+  >
     <div class="card-inner flex flex-col gap-5">
       <h2
         class="title bold"
@@ -19,7 +10,7 @@
         [ngClass]="content.title.classes"
         [innerHTML]="content.title.label | safeHtml"
       ></h2>
-      <div class="meta bold flex">
+      <div class="meta font-bold flex">
         <div
           [contentedit]="'prefix'"
           class="mat-headline-4 !mb-0"
@@ -43,8 +34,10 @@
       ></div>
       @if (content.actions) {
         <div
-          class="actions gap-3 flex justify-{{ content.actionsAlign }} items-center"
-          >
+          class="actions gap-3 flex justify-{{
+            content.actionsAlign
+          }} items-center"
+        >
           @for (action of content.actions; track action; let i = $index) {
             <app-dynamic-component
               [attr.data-path]="'actions.' + i"

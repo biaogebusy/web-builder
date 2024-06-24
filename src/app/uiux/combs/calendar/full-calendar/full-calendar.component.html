@@ -9,30 +9,31 @@
     }
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       <div class="inner p-y flex flex-wrap">
-        @if (content.sidebar) {
-          <div
-            class="sidebar p-x-sm flex-12/12 md:flex-3/12"
-            >
-            @for (item of content.sidebar; track item) {
-              <app-dynamic-component
-                [inputs]="{ content: item, form: form }"
-                >
-              </app-dynamic-component>
-            }
-          </div>
-        }
+        <div class="sidebar p-x-sm flex-12/12 md:flex-3/12">
+          @if (content.text) {
+            <app-text [content]="content.text"></app-text>
+          }
+          @if (content.form) {
+            <app-formly
+              [form]="form"
+              [fields]="content.form"
+              [model]="model"
+              (modelChange)="onChange($event)"
+            ></app-formly>
+          }
+        </div>
         <div
-        class="main p-x-sm p-y-sm flex-12/12 {{
-          content.sidebar ? 'md:flex-8/12' : ''
-        }}"
-          >
+          class="main p-x-sm p-y-sm flex-12/12 {{
+            content.form ? 'md:flex-8/12' : ''
+          }}"
+        >
           <div class="calendar w-full">
             @if (visiable) {
               <app-calendar
                 [content]="content.calendar.options"
                 [loading]="loading"
                 [options]="options"
-                >
+              >
               </app-calendar>
             }
           </div>

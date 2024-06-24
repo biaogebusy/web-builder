@@ -55,17 +55,6 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.initMap();
-      this.mapLoading = true;
-      this.amapService.mapLoading$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((state) => {
-          // init map, run once
-          if (state) {
-            this.mapLoading = false;
-            this.getPositionAndMarkers(this.content.elements);
-            this.cd.detectChanges();
-          }
-        });
     }
   }
 
@@ -90,7 +79,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  getPositionAndMarkers(lists: any[]) {
+  getPositionAndMarkers(lists: any[]): void {
     if (lists && lists.length > 0) {
       this.getPosition(lists);
       this.getMarkers(lists);
@@ -102,13 +91,18 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     if (!amapConfig) {
       return;
     }
+    this.mapLoading = true;
     this.amapService.load(amapConfig).subscribe(
       (AMap: any) => {
-        this.AMap = AMap;
-        this.geocoder = new AMap.Geocoder({
-          city: this.content?.city || this.coreConfig?.amap?.city || '全国',
-        });
-        this.renderMap();
+        if (AMap) {
+          this.AMap = AMap;
+          this.geocoder = new AMap.Geocoder({
+            city: this.content?.city || this.coreConfig?.amap?.city || '全国',
+          });
+          this.mapLoading = false;
+          this.cd.detectChanges();
+          this.renderMap();
+        }
       },
       (error) => {
         console.log(error);
@@ -175,7 +169,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
         this.utilService.openSnackbar('已设置中心点', 'ok');
       }
     });
-    this.amapService.mapLoading$.next(true);
+    this.getPositionAndMarkers(this.content.elements);
   }
 
   getMarkers(lists: any[]): void {
@@ -186,7 +180,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     this.setMarkers(lists);
   }
 
-  clearMarkers() {
+  clearMarkers(): void {
     this.map.remove(this.markers);
     this.cd.detectChanges();
   }
