@@ -5,7 +5,11 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { TagsService } from '@core/service/tags.service';
@@ -39,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user: IUser
+    @Inject(USER) public user: IUser,
   ) {
     if (this.screenService.isPlatformBrowser()) {
       this.userService.userSub$.subscribe((currentUser: any) => {

@@ -1,5 +1,16 @@
-import { Inject, Injectable } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {
+  Inject,
+  Injectable,
+  afterNextRender,
+  afterRender,
+  inject,
+} from '@angular/core';
+import {
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
@@ -8,27 +19,28 @@ import { NodeService } from '@core/service/node.service';
 import { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { ICoreConfig } from '@core/interface/IAppConfig';
+import { ScreenService } from '@core/service/screen.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard  {
-  constructor(
-    private router: Router,
-    private userService: UserService,
-    private nodeService: NodeService,
-    @Inject(USER) private user: IUser
-  ) {}
+export class AuthGuard {
+  router = inject(Router);
+  userService = inject(UserService);
+  nodeService = inject(NodeService);
+  screenService = inject(ScreenService);
+
+  constructor(@Inject(USER) private user: IUser) {}
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
     // return true;
-    if (environment.production) {
+    if (this.screenService.isPlatformBrowser() && environment.production) {
       return this.nodeService
         .fetch(`/api/v1/config`, 'content=/core/base')
         .pipe(
@@ -61,7 +73,7 @@ export class AuthGuard  {
                         [defaultFrontLoginPage || '/me/login'],
                         {
                           queryParams: { returnUrl: state.url },
-                        }
+                        },
                       );
                       return false;
                     }
@@ -78,7 +90,7 @@ export class AuthGuard  {
                     ]);
                     return of(false);
                   }
-                })
+                }),
               );
             } else {
               if (checkUserState) {
@@ -93,13 +105,13 @@ export class AuthGuard  {
                       if (status && !this.user) {
                         this.userService.updateUserBySession();
                       }
-                    })
+                    }),
                   )
                   .subscribe();
               }
               return of(true);
             }
-          })
+          }),
         );
     } else {
       return of(true);

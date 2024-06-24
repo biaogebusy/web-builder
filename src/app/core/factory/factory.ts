@@ -68,13 +68,19 @@ export function builderCurrentPageFactory(
   const versionKey = 'version';
   const currentPage$ = new BehaviorSubject<IPage | object | boolean>(false);
   const localVersion = storage.retrieve(versionKey);
-  const currentPage = localVersion.find((page: IPage) => page.current === true);
-  currentPage$.next(currentPage);
+  if (localVersion) {
+    const currentPage = localVersion.find(
+      (page: IPage) => page.current === true,
+    );
+    currentPage$.next(currentPage);
+  }
 
   storage.observe(versionKey).subscribe((version: IPage[]) => {
-    const current =
-      version.find((page: IPage) => page.current === true) || version[0];
-    currentPage$.next(current);
+    if (version.length > 0) {
+      const current =
+        version.find((page: IPage) => page.current === true) || version[0];
+      currentPage$.next(current);
+    }
   });
 
   return currentPage$;
