@@ -23,7 +23,7 @@ export class BuilderShowcaseComponent implements OnInit {
     private builder: BuilderState,
     private util: UtilitiesService,
     private dialog: MatDialog,
-    private screenService: ScreenService
+    private screenService: ScreenService,
   ) {}
 
   ngOnInit(): void {}

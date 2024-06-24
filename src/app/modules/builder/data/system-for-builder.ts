@@ -2394,7 +2394,6 @@ export const system: any[] = [
               className: 'block',
               props: {
                 label: '关键词',
-                appearance: 'legacy',
                 type: 'search',
               },
             },
@@ -3273,80 +3272,80 @@ export const system: any[] = [
         content: {
           type: 'full-calendar',
           spacer: 'xxl',
-          sidebar: [
-            {
-              type: 'text',
-              title: {
-                label: '筛选',
-                style: 'style-v4',
-                classes: 'm-bottom-xs',
-              },
-              spacer: 'sm',
+          text: {
+            title: {
+              label: '筛选',
+              style: 'style-v4',
+              classes: 'm-bottom-xs',
             },
+            spacer: 'sm',
+          },
+          form: [
             {
-              appearance: 'legacy',
-              controlType: 'search',
               key: 'keys',
-              label: '关键词',
               type: 'input',
+              props: {
+                label: '关键词',
+              },
             },
             {
               type: 'select',
               key: 'type',
-              mutiple: false,
-              label: '内容来源',
-              options: [
-                {
-                  label: '文章',
-                  value: 'article',
-                },
-                {
-                  label: '博客',
-                  value: 'blog',
-                },
-                {
-                  label: '会议',
-                  value: 'metting',
-                },
-              ],
+              props: {
+                mutiple: false,
+                label: '内容来源',
+                options: [
+                  {
+                    label: '文章',
+                    value: 'article',
+                  },
+                  {
+                    label: '博客',
+                    value: 'blog',
+                  },
+                  {
+                    label: '会议',
+                    value: 'metting',
+                  },
+                ],
+              },
             },
             {
               type: 'select',
               key: 'changed',
-              mutiple: false,
-              label: '最新更新',
-              options: [
-                {
-                  label: '文章',
-                  value: 'article',
-                },
-                {
-                  label: '博客',
-                  value: 'blog',
-                },
-                {
-                  label: '会议',
-                  value: 'metting',
-                },
-              ],
+              props: {
+                mutiple: false,
+                label: '最新更新',
+                options: [
+                  {
+                    label: '文章',
+                    value: 'article',
+                  },
+                  {
+                    label: '博客',
+                    value: 'blog',
+                  },
+                  {
+                    label: '会议',
+                    value: 'metting',
+                  },
+                ],
+              },
             },
             {
               type: 'datepicker',
-              label: '日历',
-              hint: 'MM/DD/YYYY – MM/DD/YYYY',
-              key: 'datepicker',
-              'key-': '固定值',
-              value: '',
-              inline: true,
-              placeholder: '请选择日期',
-              params: {
-                required: true,
+              key: 'date',
+              props: {
+                label: '日期',
+                hint: 'MM/DD/YYYY – MM/DD/YYYY',
+                placeholder: '请选择日期',
+                value: '',
               },
             },
           ],
           calendar: {
             drawer: true,
-            apiBak: '/api/v1/demo',
+            api: '/api/v1/content',
             options: {
               events: [
                 {

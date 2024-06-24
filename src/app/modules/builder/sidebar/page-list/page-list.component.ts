@@ -35,7 +35,6 @@ export class PageListComponent implements OnInit, OnDestroy {
       props: {
         label: '关键词',
         type: 'search',
-        appearance: 'outline',
       },
     },
   ];

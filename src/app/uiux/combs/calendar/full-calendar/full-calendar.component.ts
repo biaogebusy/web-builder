@@ -5,18 +5,13 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  takeUntil,
-} from 'rxjs/operators';
 import { EMPTY, Subject } from 'rxjs';
 import { CalendarOptions, DatesSetArg, ViewApi } from '@fullcalendar/core';
 import { CalendarState } from '@core/state/CalendarState';
@@ -26,6 +21,7 @@ import type { IFullCalendar } from '@core/interface/combs/ICalendar';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import type { IPage } from '@core/interface/IAppConfig';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-full-calendar',
@@ -37,32 +33,32 @@ export class FullCalendarComponent
   extends BaseComponent
   implements OnInit, OnDestroy
 {
-  @Input() content: IFullCalendar;
+  @Input() readonly content: IFullCalendar;
   selected: Date | null;
   options: CalendarOptions;
   theme: any;
-  form: UntypedFormGroup;
+  form = new UntypedFormGroup({});
+  fields: FormlyFieldConfig[];
+  model: any = {};
   loading: boolean;
   visiable = false;
   viewApi: ViewApi;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private formService: FormService,
-    private screenService: ScreenService,
-    private nodeService: NodeService,
-    private calendarState: CalendarState,
-    private routeService: RouteService,
-    private contentService: ContentService,
-    private contentState: ContentState
-  ) {
+  formService = inject(FormService);
+  screenService = inject(ScreenService);
+  nodeService = inject(NodeService);
+  calendarState = inject(CalendarState);
+  routeService = inject(RouteService);
+  contentService = inject(ContentService);
+  contentState = inject(ContentState);
+  constructor(private cd: ChangeDetectorRef) {
     super();
   }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.initForm();
+      this.fields = this.content.form;
       this.getEvents();
     }
   }
@@ -73,49 +69,20 @@ export class FullCalendarComponent
       this.content.calendar.options,
       {
         datesSet: this.handleDates.bind(this),
-      }
+      },
     );
     this.theme = this.content?.calendar?.theme || {};
     this.cd.detectChanges();
   }
 
-  initForm(): void {
-    const calendarForm: any[] = [
-      {
-        key: 'date',
-        value: '',
-      },
-      {
-        key: 'date-type',
-      },
-    ];
-    this.form = this.formService.toFormGroup(
-      calendarForm.concat(this.content.sidebar || [])
-    );
-    this.form.valueChanges
-      .pipe(
-        map((data) => {
-          if (Object.keys(data).includes('datepicker') && data.datepicker) {
-            this.viewApi.calendar.changeView('timeGridDay', data.datepicker);
-            this.form.controls.datepicker.setValue('');
-            return EMPTY;
-          }
-          this.loading = true;
-          this.cd.detectChanges();
-          return data;
-        }),
-        debounceTime(500),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((value) => {
-        if (value) {
-          this.getEvents(value);
-        }
-      });
+  onChange(value: any): void {
+    this.getEvents(value);
   }
 
   getEvents(options?: any): void {
+    if (options?.date) {
+      options.date = formatDate(options.date, 'yyyy-MM-dd', 'en-US');
+    }
     const state = this.getParamsState(this.form.value, options);
     const params = this.getApiParams(state);
     const api = this.content?.calendar?.api || '';

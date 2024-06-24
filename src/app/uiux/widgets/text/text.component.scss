@@ -28,12 +28,6 @@
   }
 }
 
-.actions {
-  > *:not(:only-child) {
-    margin-right: 2rem;
-  }
-}
-
 .lists {
   ::ng-deep {
     a {

@@ -32,7 +32,7 @@ export class BuilderPanelComponent implements OnInit, OnDestroy {
     });
   }
 
-  onShowcase(content: any) {
+  onShowcase(content: any): void {
     if (this.builder.fixedShowcase) {
       return;
     }

@@ -15,28 +15,29 @@
         .list {
           border-radius: 10px;
           cursor: pointer;
-          margin-bottom: 2rem;
+          margin-bottom: 20px;
           .media {
-            width: 8rem;
-            height: 8rem;
-            margin-right: 1rem;
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
             border-radius: 4px;
 
             img {
               max-width: 100%;
-              padding: 1rem;
+              padding: 10px;
               object-fit: contain;
             }
           }
 
           .title {
-            font-size: 1.4rem;
+            font-size: 14px;
           }
           .badge {
             ::ng-deep {
               ul,
               ol {
                 margin: 0;
+                padding: 0;
               }
               li {
                 display: inline-block;

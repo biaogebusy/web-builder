@@ -67,10 +67,6 @@ input.example-right-align::-webkit-inner-spin-button {
   display: none;
 }
 
-.error {
-  border-radius: 4px;
-}
-
 .mark-bg {
   width: 0;
   height: 100%;
@@ -79,11 +75,4 @@ input.example-right-align::-webkit-inner-spin-button {
   bottom: 0;
   left: auto;
   z-index: 1;
-}
-
-.code {
-  padding: 0px 10px;
-  position: absolute;
-  top: -33px;
-  right: 0;
 }

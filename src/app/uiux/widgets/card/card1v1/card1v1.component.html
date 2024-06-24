@@ -1,7 +1,7 @@
 <div
   class="card-1v1 relative rounded-md overflow-hidden top-0 hover:-top-3 transition-all ease-in duration-300"
   [ngClass]="content.classes"
-  >
+>
   @if (content.feature) {
     <app-feature-box
       [attr.data-path]="'feature'"
@@ -25,19 +25,17 @@
       </div>
     }
     @if (content.moreLabel) {
-      <div
-        class="post-meta flex justify-between items-center"
-        >
+      <div class="post-meta flex justify-between items-center">
         @if (content.link) {
           <a
             [href]="content.link.href"
-            class="text-muted readmore"
-            >
+            class="text-muted readmore flex items-center"
+          >
             <span
               contentedit="moreLabel"
               [innerHTML]="content.moreLabel | safeHtml"
             ></span>
-            <mat-icon inline="true">navigate_next</mat-icon>
+            <mat-icon>navigate_next</mat-icon>
           </a>
         }
       </div>
@@ -45,7 +43,7 @@
   </div>
   <div
     class="flex flex-col author absolute z-10 opacity-0 top-[5%] left-[5%] transition-all duration-300 ease-in"
-    >
+  >
     @if (content.user) {
       <small class="user">
         <mat-icon inline="true">person</mat-icon> {{ content.user }}

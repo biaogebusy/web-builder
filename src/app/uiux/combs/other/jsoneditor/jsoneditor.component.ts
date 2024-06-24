@@ -36,7 +36,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private builder: BuilderState,
     private cd: ChangeDetectorRef,
-    private screenService: ScreenService
+    private screenService: ScreenService,
   ) {
     if (this.screenService.isPlatformBrowser()) {
       this.editorOptions = new JsonEditorOptions();
@@ -54,7 +54,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(
         debounceTime(1500),
         distinctUntilChanged(),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe((value) => {
         this.value = value;

@@ -1,27 +1,20 @@
 @if (branding$ | async; as branding) {
-  <div
-    class="h-full"
-    [ngClass]="branding.header.sidebar?.classes"
-    >
+  <div class="h-full" [ngClass]="branding.header.sidebar?.classes">
     <div
       class="manage-sidebar {{ drawer.opened ? 'opened' : 'expanded' }}"
       *reqRolesIf="branding.header?.sidebar"
-      >
+    >
       @if (branding.header?.sidebar; as sidebar) {
-        <div
-          class="manage-brand p-y-sm p-x-sm"
-          >
+        <div class="manage-brand p-y-sm p-x-sm">
           @if (!sidebar?.params.showUser) {
-            <app-logo
-              [content]="sidebar.logo"
-            ></app-logo>
+            <app-logo [content]="sidebar.logo"></app-logo>
           } @else {
             <div class="profile">
               <a class="picture" [routerLink]="userService.userPage">
                 <img [src]="user.picture || coreConfig.defaultAvatar" alt="" />
               </a>
               @if (drawer.opened) {
-                <div class="name bold pt-[10px]">
+                <div class="name font-bold pt-[10px]">
                   <a class="one-line" [routerLink]="userService.userPage">{{
                     user.display_name
                   }}</a>
@@ -40,7 +33,7 @@
                 <img [src]="user.picture || coreConfig.defaultAvatar" alt="" />
               </a>
               @if (drawer.opened) {
-                <div class="name bold pt-[10px]">
+                <div class="name font-bold pt-[10px]">
                   <a class="one-line" [routerLink]="userService.userPage">{{
                     user.display_name
                   }}</a>
@@ -59,17 +52,17 @@
         <div
           class="manage-menu"
           [ngStyle]="{ overflow: drawer.opened ? 'auto' : 'visible' }"
-          >
-          <app-accordion [hidden]="!drawer.opened" [content]="menu"></app-accordion>
+        >
+          <app-accordion
+            [hidden]="!drawer.opened"
+            [content]="menu"
+          ></app-accordion>
           <div class="icon-list" [hidden]="drawer.opened">
             @for (item of menu; track item) {
               <div class="item" checkChildMenuActive>
                 <ng-container *reqRolesIf="item">
                   @if (item.icon) {
-                    <app-icon
-                      class="icon"
-                      [content]="item.icon"
-                    ></app-icon>
+                    <app-icon class="icon" [content]="item.icon"></app-icon>
                   }
                   <app-hover-menu [content]="item"></app-hover-menu>
                 </ng-container>
