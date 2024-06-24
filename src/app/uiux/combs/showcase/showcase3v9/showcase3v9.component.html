@@ -5,39 +5,36 @@
     }
     <app-spacer [size]="content.spacer || 'md'"></app-spacer>
     @if (content.bg) {
-      <app-bg-img
-        [attr.data-path]="'bg'"
-        [content]="content.bg"
-      ></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
     }
     @if (content) {
       <div class="{{ content.fullWidth ? '' : 'container' }}">
         <div class="inner flex flex-wrap justify-center items-center">
           <div
-        class="left flex justify-center items-center flex-wrap flex-12/12 md:flex-7/12 order-{{
-          content.order.left
-        }}"
-            >
+            class="left flex justify-center items-center flex-wrap flex-12/12 md:flex-7/12 order-{{
+              content.order.left
+            }}"
+          >
             @for (item of content.left; track item; let i = $index) {
               <app-dynamic-component
                 [attr.data-path]="'left.' + i"
                 class="p-x-sm w-full flex justify-center items-center"
                 [inputs]="{ content: item }"
-                >
+              >
               </app-dynamic-component>
             }
           </div>
           <div
-        class="right flex justify-center items-center flex-wrap overflow-hidden flex-12/12 md:flex-5/12 order-{{
-          content.order.right
-        }}"
-            >
+            class="right flex justify-center items-center flex-wrap overflow-hidden flex-12/12 md:flex-5/12 order-{{
+              content.order.right
+            }}"
+          >
             @for (item of content.right; track item; let i = $index) {
               <app-dynamic-component
                 [attr.data-path]="'right.' + i"
-                class="block p-x-sm w-full"
+                class="block w-full"
                 [inputs]="{ content: item }"
-                >
+              >
               </app-dynamic-component>
             }
           </div>

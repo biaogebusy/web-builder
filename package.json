@@ -45,7 +45,6 @@
     "ang-jsoneditor": "^3.1.1",
     "angulartics2": "^13.1.0",
     "crypto-js": "^4.1.1",
-    "domino": "https://github.com/angular/domino.git#9e7881d2ac1e5977cefbc557f935931ec23f6658",
     "dompurify": "^3.1.0",
     "drupal-jsonapi-params": "^2.3.1",
     "echarts": "^5.0.2",

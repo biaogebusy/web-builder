@@ -14,7 +14,7 @@
         class="inner"
         [class]="content.classes"
         [style]="content.style"
-        >
+      >
         @if (content.title) {
           <app-title
             [attr.data-path]="'title'"
@@ -35,11 +35,9 @@
             #list
             class="lists my-5 flex flex-col"
             [class.list-done]="content.lists?.params?.icon"
-            >
+          >
             @for (list of content.lists?.elements; track list) {
-              <li
-                class="flex justify-start items-center"
-                >
+              <li class="flex justify-start items-center">
                 @if (!list.href) {
                   <span [innerHTML]="list.label"></span>
                 } @else {
@@ -53,17 +51,19 @@
           <div
             [attr.data-path]="'actions'"
             #actions
-            class="actions mt-10 pb-3 flex flex-wrap justify-{{content.actionsAlign??'center'}} items-center"
-            >
+            class="actions mt-10 pb-3 gap-3 flex flex-wrap justify-{{
+              content.actionsAlign ?? 'center'
+            }} items-center"
+          >
             @for (action of content.actions; track action; let i = $index) {
               @switch (action.type) {
-                @case ('closeDialog') {
+                @case ("closeDialog") {
                   <button
                     [attr.data-path]="i"
                     mat-raised-button
                     mat-dialog-close
                     color="{{ action.color || 'primary' }}"
-                    >
+                  >
                     {{ action.label }}
                   </button>
                 }

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { DOCUMENT } from '@angular/common';
 
@@ -9,10 +9,8 @@ declare var window: any;
   providedIn: 'root',
 })
 export class AnalyticsService {
-  constructor(
-    private utility: UtilitiesService,
-    @Inject(DOCUMENT) private doc: Document,
-  ) {}
+  utility = inject(UtilitiesService);
+  constructor(@Inject(DOCUMENT) private doc: Document) {}
 
   loadGoogleAnalytics(id: string): void {
     // injecting GA main script asynchronously

@@ -6,8 +6,6 @@ import { isArray, remove, result } from 'lodash-es';
 export abstract class BaseComponent {
   abstract content: any;
 
-  constructor() {}
-
   getParams(obj: any, key: string): any {
     return obj?.params && obj.params[key];
   }

@@ -4,6 +4,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { NodeService } from '@core/service/node.service';
@@ -25,13 +26,10 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
 
   form: UntypedFormGroup;
   options: any[] = [];
-
-  constructor(
-    public nodeService: NodeService,
-    private router: Router,
-    private formService: FormService,
-    private cd: ChangeDetectorRef
-  ) {
+  nodeService = inject(NodeService);
+  formService = inject(FormService);
+  router = inject(Router);
+  constructor(private cd: ChangeDetectorRef) {
     super();
   }
 
@@ -54,9 +52,9 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
               page: '0',
               loading: 0,
             },
-            value
+            value,
           ),
-          isEmpty
+          isEmpty,
         );
 
         this.nodeService
