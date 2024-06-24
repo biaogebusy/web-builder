@@ -1,8 +1,9 @@
 import { CalendarOptions } from '@fullcalendar/core';
 import { ICombsBase } from './ICombsBase';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export interface IFullCalendar extends ICombsBase {
-  sidebar: any[];
+  form: FormlyFieldConfig[];
   calendar: {
     options: CalendarOptions;
     theme: object;
