@@ -4,6 +4,7 @@ import {
   Inject,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { ILink } from '@core/interface/widgets/ILink';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -30,15 +31,16 @@ export class LinkComponent extends BaseComponent implements OnInit {
   classes: any;
   href: string;
   dialogRef: MatDialogRef<any>;
+
+  router = inject(Router);
+  routeService = inject(RouteService);
+  dialogService = inject(DialogService);
+  contentService = inject(ContentService);
+  contentState = inject(ContentState);
+  util = inject(UtilitiesService);
   constructor(
     @Inject(USER) private user: IUser,
-    public routeService: RouteService,
-    private router: Router,
-    private util: UtilitiesService,
     private dialog: MatDialog,
-    private dialogService: DialogService,
-    private contentService: ContentService,
-    private contentState: ContentState
   ) {
     super();
   }

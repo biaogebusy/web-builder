@@ -19,7 +19,7 @@ const meta: Meta<Hero1v1Component> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
+      // declarations: [...StorysModule.forEntryComponents()],
     }),
   ],
   parameters: {
