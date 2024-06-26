@@ -1,11 +1,11 @@
-@if (coreConfig?.manageMedia) {
+@if (coreConfig.manageMedia) {
   <div class="manage-media relative">
     <mat-drawer-container>
       <mat-drawer mode="side" [opened]="true">
         <div
           class="sidebar flex flex-col"
           [class]="{ 'from-static': model.fromStatic }"
-          >
+        >
           <mat-slider class="overflow-hidden" max="7" min="4" step="1"
             ><input matSliderThumb [(ngModel)]="coreConfig.manageMedia.row" />
           </mat-slider>
@@ -15,7 +15,7 @@
               [form]="form"
               [fields]="coreConfig.manageMedia.sidebar.form"
               [model]="model"
-              >
+            >
             </app-formly>
           }
         </div>
@@ -29,26 +29,26 @@
           }
           @if (mediaAssets$ | async; as assets) {
             @if (assets.elements.length) {
-              <div
-                class="viewport flex flex-wrap overflow-auto"
-                >
+              <div class="viewport flex flex-wrap overflow-auto">
                 @for (item of assets.elements; track item) {
                   <div
                     class="masonry-item box-border"
                     [style.flex]="flexBasisStyle"
                     trackBy="trackByFn"
-                    >
+                  >
                     <div class="actions">
                       <app-btn
-                        *reqRolesIf="{ params: { reqRoles: ['administrator'] } }"
+                        *reqRolesIf="{
+                          params: { reqRoles: ['administrator'] },
+                        }"
                         class="hidden sm:block"
                         [matTooltip]="'删除'"
                         (click)="onDelete(item.id, assets.type)"
-                  [content]="{
-                    label: '',
-                    mode: 'icon',
-                    icon: { svg: 'delete' },
-                  }"
+                        [content]="{
+                          label: '',
+                          mode: 'icon',
+                          icon: { svg: 'delete' },
+                        }"
                       ></app-btn>
                     </div>
                     <app-dynamic-component

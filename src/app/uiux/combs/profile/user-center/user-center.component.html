@@ -1,50 +1,50 @@
 @if (content) {
   <div class="user-center relative">
-    @if (content?.params?.showProfile) {
+    @if (content.params.showProfile) {
       <div class="inner">
         <div class="container">
           @if (userConfig$) {
             <app-user-profile
               [content]="currentUser"
               [userConfig$]="userConfig$"
-              >
+            >
             </app-user-profile>
           }
         </div>
       </div>
     }
-    <div class="{{ content.main?.fullWidth ? 'container-fluid' : 'container' }}">
+    <div
+      class="{{ content.main?.fullWidth ? 'container-fluid' : 'container' }}"
+    >
       <app-spacer [size]="content.main?.spacer || 'md'"></app-spacer>
-      @if (content?.main?.bg) {
+      @if (content.main?.bg) {
         <app-bg [content]="content.main.bg">
-          @if (content?.main?.bg?.img) {
-            <app-img
-              [content]="content.main.bg.img"
-            ></app-img>
+          @if (content.main?.bg?.img) {
+            <app-img [content]="content.main.bg.img"></app-img>
           }
         </app-bg>
       }
       <div class="main grid grid-cols-12 justify-between items-start gap-5">
-        @if (content?.left?.length) {
-          <div
-            class="left col-span-12 md:col-span-3"
-            >
+        @if (content.left.length) {
+          <div class="left col-span-12 md:col-span-3">
             @for (item of content.left; track item) {
-              <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item">
+              <app-dynamic-component
+                *reqRolesIf="item"
+                class="box"
+                [inputs]="item"
+              >
               </app-dynamic-component>
             }
           </div>
         }
-        @if (content?.right?.length) {
-          <div
-            class="right col-span-12 md:col-span-9"
-            >
+        @if (content.right.length) {
+          <div class="right col-span-12 md:col-span-9">
             @for (item of content.right; track item) {
               <app-dynamic-component
                 *reqRolesIf="item"
                 class="box"
                 [inputs]="{ content: item }"
-                >
+              >
               </app-dynamic-component>
             }
           </div>

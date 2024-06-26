@@ -3,12 +3,12 @@
     @if (!loading) {
       <app-btn
         (click)="onReload()"
-      [content]="{
-        label: '',
-        mode: 'icon',
-        color: 'primary',
-        icon: { svg: 'reload' }
-      }"
+        [content]="{
+          label: '',
+          mode: 'icon',
+          color: 'primary',
+          icon: { svg: 'reload' },
+        }"
       ></app-btn>
     }
   </div>
@@ -16,7 +16,7 @@
     [content]="{
       label: '管理列表',
       style: 'style-v4',
-      classes: 'p-y-xs m-bottom-x bold'
+      classes: 'p-y-xs m-bottom-x bold',
     }"
   ></app-title>
   <div class="form">
@@ -32,7 +32,17 @@
       <mat-spinner diameter="50" color="primary"></mat-spinner>
     }
     @if (content$ | async; as content) {
-      @for (page of content; track page; let i = $index) {
+      @for (
+        page of content
+          | paginate
+            : {
+                itemsPerPage: pager.itemsPerPage,
+                currentPage: pager.currentPage,
+                totalItems: pager.totalItems,
+              };
+        track page;
+        let i = $index
+      ) {
         <mat-list-item>
           <div class="title" matListItemLine>
             <a href="{{ page.href }}?preview=true" target="_blank">{{
@@ -40,7 +50,7 @@
             }}</a>
           </div>
           <div class="meta" matListItemLine>
-            {{ page.user | shorten: 6:"..." }}
+            {{ page.author | shorten: 6 : "..." }}
             {{ page.changed | date: "yyyy/MM/dd HH:mm" }}
           </div>
           <div class="meta" matListItemLine>
@@ -57,8 +67,5 @@
       }
     }
   </mat-list>
-  <app-pagination-links
-    (pageChange)="onPageChange($event)"
-    [links]="links"
-  ></app-pagination-links>
+  <app-pagination (pageChange)="onPageChange($event)"> </app-pagination>
 </div>

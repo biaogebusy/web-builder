@@ -2,16 +2,20 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { BaseComponent } from '@uiux/base/base.widget';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
+import { merge } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
@@ -21,13 +25,18 @@ import { map, takeUntil } from 'rxjs/operators';
   styleUrls: ['./page-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageListComponent implements OnInit, OnDestroy {
+export class PageListComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
+  @Input() content: any;
   content$: Observable<any[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
   links: any;
   form = new UntypedFormGroup({});
   model: any = {};
   loading = false;
+  pager: IPager;
   fields: FormlyFieldConfig[] = [
     {
       key: 'title',
@@ -37,6 +46,14 @@ export class PageListComponent implements OnInit, OnDestroy {
         type: 'search',
       },
     },
+    {
+      type: 'input',
+      key: 'page',
+      className: 'hidden',
+      props: {
+        label: '页码',
+      },
+    },
   ];
   constructor(
     private nodeService: NodeService,
@@ -44,73 +61,44 @@ export class PageListComponent implements OnInit, OnDestroy {
     private builder: BuilderState,
     private util: UtilitiesService,
     private builderService: BuilderService,
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
-    const apiParams = new DrupalJsonApiParams();
-
-    apiParams
-      .addPageLimit(10)
-      .addInclude(['uid', 'revision_uid', 'group'])
-      .addSort('changed', 'DESC')
-      .addFilter('status', '1')
-      .addCustomParam({ noCache: true });
-    this.getContent(apiParams);
+    this.fetchPage();
   }
 
   onModelChange(value: any): void {
     this.loading = true;
-    const { title } = value;
-    const apiParams = new DrupalJsonApiParams();
-
-    apiParams
-      .addPageLimit(10)
-      .addInclude(['uid', 'revision_uid', 'group'])
-      .addSort('changed', 'DESC')
-      .addFilter('status', '1')
-      .addFilter('title', title, 'CONTAINS')
-      .addCustomParam({ noCache: true });
-
-    this.getContent(apiParams);
-  }
-
-  getContent(apiParams: DrupalJsonApiParams): void {
-    const params = apiParams.getQueryString();
+    this.form.get('page')?.patchValue(1, { onlySelf: true, emitEvent: false });
+    const formValue = merge(value, this.form.getRawValue());
+    const params = this.getApiParams(formValue);
     this.fetchPage(params);
   }
 
-  onPageChange(link: string): void {
-    const apiParams = new DrupalJsonApiParams();
-    const sq = link.split('?')[1];
-    const params = apiParams.initializeWithQueryString(sq).getQueryString();
-    this.fetchPage(params);
-  }
-
-  fetchPage(params: string): void {
-    this.content$ = this.nodeService.fetch('node/landing_page', params).pipe(
-      takeUntil(this.destroy$),
-      map((res) => {
-        this.loading = false;
-        return this.getLists(res);
-      }),
-    );
+  fetchPage(params?: string): void {
+    this.content$ = this.nodeService
+      .fetch('/api/v2/node/landing-page', params ?? '')
+      .pipe(
+        takeUntil(this.destroy$),
+        map((res) => {
+          this.loading = false;
+          return this.getLists(res);
+        }),
+      );
   }
 
   getLists(res: any): any[] {
-    this.links = res.links;
-    const { included } = res;
+    this.pager = res.pager;
     this.cd.detectChanges();
-    return res.data.map((item: any) => {
-      const { attributes } = item;
+    return res.rows.map((item: any) => {
       return {
-        title: attributes.title,
-        changed: attributes.changed,
+        title: item.title,
+        changed: item.changed,
         id: item.id,
-        nid: attributes.drupal_internal__nid,
-        user: included.find(
-          (user: any) => user.id === item.relationships.revision_uid.data.id,
-        ).attributes.display_name,
-        href: this.nodeService.getNodePath(attributes),
+        author: item.author,
+        href: item.url,
       };
     });
   }
@@ -118,7 +106,15 @@ export class PageListComponent implements OnInit, OnDestroy {
   loadPage(item: any): void {
     this.util.openSnackbar(`正在加载${item.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.builderService.loadPage(item.nid);
+    this.builderService.loadPage(item.id);
+  }
+
+  onPageChange(page: number): void {
+    this.form
+      .get('page')
+      ?.patchValue(page, { onlySelf: true, emitEvent: false });
+    const value = merge(this.model, this.form.getRawValue());
+    this.fetchPage(value);
   }
 
   onReload(): void {

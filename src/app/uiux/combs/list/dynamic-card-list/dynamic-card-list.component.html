@@ -3,20 +3,40 @@
     <div class="container">
       <div class="inner grid grid-cols-12">
         @if (content.sidebar) {
-          <app-search-sidebar class="col-span-12 md:col-span-2" [content]="content.sidebar" [form]="form">
+          <app-search-sidebar
+            class="col-span-12 md:col-span-2"
+            [content]="content.sidebar"
+            [form]="form"
+          >
           </app-search-sidebar>
         }
         @if (nodes) {
-          <div class="card-list m-y col-span-12 md:col-span-{{content.sidebar?'10':'12'}} grid grid-cols-12">
-            @for (card of nodes | paginate: { itemsPerPage: pager.itemsPerPage, currentPage:
-              pager.currentPage, totalItems: pager.totalItems}; track trackByFn($index, card)) {
-              <app-card class="col-span-12 md:col-span-{{content.row}} m-bottom-sm"
-                [content]="card">
+          <div
+            class="card-list m-y col-span-12 md:col-span-{{
+              content.sidebar ? '10' : '12'
+            }} grid grid-cols-12"
+          >
+            @for (
+              card of nodes
+                | paginate
+                  : {
+                      itemsPerPage: pager.itemsPerPage,
+                      currentPage: pager.currentPage,
+                      totalItems: pager.totalItems,
+                    };
+              track trackByFn($index, card)
+            ) {
+              <app-card
+                class="col-span-12 md:col-span-{{ content.row }} m-bottom-sm"
+                [content]="card"
+              >
               </app-card>
             }
             <div class="list-bottom w-full">
-              @if (nodes?.length) {
-                <app-pagination (pageChange)="onPageChange($event)"></app-pagination>
+              @if (nodes.length) {
+                <app-pagination
+                  (pageChange)="onPageChange($event)"
+                ></app-pagination>
               } @else {
                 <div class="text-center p-y-xl">
                   <p>没有数据。</p>

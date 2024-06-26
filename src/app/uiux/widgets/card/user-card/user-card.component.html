@@ -2,15 +2,20 @@
   <div class="inner flex flex-col justify-center items-start">
     <app-media-object class="w-full" [content]="profile"></app-media-object>
     @if (count) {
-      <app-user-card-count class="w-full my-5" [content]="count"></app-user-card-count>
+      <app-user-card-count
+        class="w-full my-5"
+        [content]="count"
+      ></app-user-card-count>
     }
-    @if (user?.login) {
+    @if (user.login) {
       <div class="time text-xs mt-3">
-        您上次登录时间：{{user.login | date:"YYYY-MM-dd hh:mm"}}
+        您上次登录时间：{{ user.login | date: "YYYY-MM-dd hh:mm" }}
       </div>
     }
     @for (item of content.content; track item) {
-      <app-dynamic-component class="w-full mt-5" [inputs]="item"
+      <app-dynamic-component
+        class="w-full mt-5"
+        [inputs]="item"
       ></app-dynamic-component>
     }
     @if (content.menu) {
@@ -21,8 +26,7 @@
         <mat-menu #menu="matMenu" class="item">
           @for (action of content.menu; track action) {
             <button mat-menu-item>
-              <app-dynamic-component [inputs]="action">
-              </app-dynamic-component>
+              <app-dynamic-component [inputs]="action"> </app-dynamic-component>
             </button>
           }
         </mat-menu>

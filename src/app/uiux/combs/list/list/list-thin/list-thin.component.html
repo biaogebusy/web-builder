@@ -5,15 +5,14 @@
         <app-spinner [content]="{ color: 'primary', size: 40 }"></app-spinner>
       </div>
     }
-    @if (content?.length) {
+    @if (content.length) {
       @for (
         item of content
-        | paginate
-        : { itemsPerPage: pager.itemsPerPage || 20, currentPage: p }; track trackByFn($index,
-        item)) {
-        <div
-          class="flex flex-col item mb-3 py-3 px-3"
-          >
+          | paginate
+            : { itemsPerPage: pager.itemsPerPage || 20, currentPage: p };
+        track trackByFn($index, item)
+      ) {
+        <div class="flex flex-col item mb-3 py-3 px-3">
           <app-link [content]="item.link"></app-link>
           <div class="item-bottom flex flex-wrap justify-start items-center">
             <div class="meta mr-3 flex gap-3">
@@ -28,7 +27,7 @@
                 @for (action of item.actions; track action) {
                   <app-dynamic-component
                     [inputs]="{ content: action, data: action?.params }"
-                    >
+                  >
                   </app-dynamic-component>
                 }
               </div>
