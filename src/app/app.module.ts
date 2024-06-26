@@ -42,7 +42,6 @@ import {
 } from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
 import { ContentService } from '@core/service/content.service';
-import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 import { NotifyService } from '@core/service/notify.service';
 import { Router } from '@angular/router';
@@ -80,7 +79,7 @@ import { ComponentService } from '@core/service/component.service';
     {
       provide: BRANDING,
       useFactory: brandingFactory,
-      deps: [ContentService, [new Inject(LANG)]],
+      deps: [[new Inject(LANG)]],
     },
     {
       provide: THEME,
@@ -90,12 +89,7 @@ import { ComponentService } from '@core/service/component.service';
     {
       provide: APP_INITIALIZER,
       useFactory: initApp,
-      deps: [
-        ContentService,
-        ComponentService,
-        [new Inject(CORE_CONFIG)],
-        [new Inject(LANG)],
-      ],
+      deps: [[new Inject(CORE_CONFIG)], [new Inject(LANG)]],
       multi: true,
     },
     {
@@ -115,7 +109,7 @@ import { ComponentService } from '@core/service/component.service';
     {
       provide: NOTIFY_CONTENT,
       useFactory: notifyFactory,
-      deps: [[new Inject(CORE_CONFIG)], NotifyService],
+      deps: [[new Inject(CORE_CONFIG)]],
     },
     {
       provide: BUILDER_FULL_SCREEN,
@@ -125,20 +119,11 @@ import { ComponentService } from '@core/service/component.service';
     {
       provide: DEBUG_ANIMATE,
       useFactory: debugAnimateFactory,
-      deps: [LocalStorageService, BuilderState],
     },
     {
       provide: MANAGE_SIDEBAR_STATE,
       useFactory: manageSidebarStateFactory,
-      deps: [
-        Router,
-        BRANDING,
-        UserService,
-        ScreenService,
-        LocalStorageService,
-        [new Inject(USER)],
-        DOCUMENT,
-      ],
+      deps: [BRANDING, [new Inject(USER)], DOCUMENT],
     },
     {
       provide: IS_BUILDER_MODE,
@@ -148,7 +133,6 @@ import { ComponentService } from '@core/service/component.service';
     {
       provide: MEDIA_ASSETS,
       useFactory: mediaAssetsFactory,
-      deps: [NodeService, ManageService, ContentState],
     },
   ],
   bootstrap: [AppComponent],

@@ -462,40 +462,42 @@ export const templates: any[] = [
               content: 'biaogebusy',
             },
           ],
-          forms: [
+          form: [
             {
               type: 'input',
-              label: '姓名',
               key: 'name',
-              params: {
+              props: {
+                label: '姓名',
+                appearance: 'outline',
                 required: true,
               },
             },
             {
               type: 'input',
-              label: '邮箱',
               key: 'email',
-              params: {
+              props: {
+                label: '邮箱',
+                appearance: 'outline',
                 required: true,
               },
             },
             {
               type: 'input',
-              label: '主题',
               key: 'subject',
-              params: {
-                required: true,
+              props: {
+                label: '主题',
+                appearance: 'outline',
               },
             },
             {
               type: 'textarea',
-              label: '内容',
-              params: {
-                required: true,
-                matAutosizeMinRows: 5,
-              },
               key: 'message',
-              placeholder: 'Message',
+              props: {
+                label: '内容',
+                placeholder: 'Message',
+                appearance: 'fill',
+                rows: 5,
+              },
             },
           ],
         },

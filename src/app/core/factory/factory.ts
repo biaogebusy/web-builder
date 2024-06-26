@@ -109,10 +109,9 @@ export function isBuilderModeFactory(router: Router): Observable<boolean> {
   return isBuilderMode$;
 }
 
-export function debugAnimateFactory(
-  storage: LocalStorageService,
-  builder: BuilderState,
-): Observable<boolean> {
+export function debugAnimateFactory(): Observable<boolean> {
+  const builder = inject(BuilderState);
+  const storage = inject(LocalStorageService);
   const debugAnimate$ = new BehaviorSubject<boolean>(false);
   const isDebugAnimate = storage.retrieve(DEBUG_ANIMATE_KEY);
   if (isDebugAnimate) {
@@ -134,14 +133,14 @@ export function debugAnimateFactory(
 }
 
 export function manageSidebarStateFactory(
-  router: Router,
   branding$: Observable<IBranding>,
-  userService: UserService,
-  screenService: ScreenService,
-  storage: LocalStorageService,
   user: IUser,
   doc: Document,
 ): Observable<IManageSidebarState> {
+  const router = inject(Router);
+  const userService = inject(UserService);
+  const screenService = inject(ScreenService);
+  const storage = inject(LocalStorageService);
   const state$ = new BehaviorSubject<IManageSidebarState>({
     enableSidebar: false,
     sidebarOpened: false,
@@ -216,8 +215,8 @@ export function manageSidebarStateFactory(
 
 export function notifyFactory(
   coreConfig: ICoreConfig,
-  notifyService: NotifyService,
 ): Observable<INotify[] | object | boolean> {
+  const notifyService = inject(NotifyService);
   const $notify = new BehaviorSubject<INotify[] | object | boolean>(false);
   const apis = coreConfig?.notify?.api;
 
@@ -267,12 +266,9 @@ export const apiUrlFactory = () => {
   return environment.apiUrl;
 };
 
-export function initApp(
-  contentService: ContentService,
-  componentService: ComponentService,
-  coreConfig: object,
-  lang: ILanguage,
-): any {
+export function initApp(coreConfig: object, lang: ILanguage): any {
+  const contentService = inject(ContentService);
+  const componentService = inject(ComponentService);
   componentService.registerDynamicComponent();
   return () => contentService.loadConfig(coreConfig, lang);
 }
@@ -309,9 +305,9 @@ export function themeFactory(
 }
 
 export function brandingFactory(
-  contentService: ContentService,
   lang: ILanguage,
 ): Observable<IBranding | object> {
+  const contentService = inject(ContentService);
   return contentService.loadBranding(lang);
 }
 
@@ -343,11 +339,10 @@ export function userFactory(): IUser | boolean {
   return false;
 }
 
-export function mediaAssetsFactory(
-  nodeService: NodeService,
-  manageService: ManageService,
-  contentState: ContentState,
-): Observable<IManageAssets | boolean> {
+export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
+  const nodeService = inject(NodeService);
+  const manageService = inject(ManageService);
+  const contentState = inject(ContentState);
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 
   // on page change
