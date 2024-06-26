@@ -22,6 +22,7 @@ import { mediaAssets } from '@modules/builder/data/mediaAssets';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
+import { inject } from '@angular/core';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -314,26 +315,30 @@ export function brandingFactory(
   return contentService.loadBranding(lang);
 }
 
-export function userFactory(
-  cryptoJS: CryptoJSService,
-  userService: UserService,
-  cookieService: CookieService,
-): IUser | boolean {
+export function userFactory(): IUser | boolean {
+  const cryptoJS = inject(CryptoJSService);
+  const userService = inject(UserService);
+  const cookieService = inject(CookieService);
+  const screenService = inject(ScreenService);
   const key = userService.localUserKey;
-  if (cookieService.check(key)) {
-    const user: IUser = JSON.parse(cryptoJS.decrypt(cookieService.get(key)));
-    if (user) {
-      return user;
-    } else {
-      return false;
+  if (screenService.isPlatformBrowser()) {
+    if (cookieService.check(key)) {
+      const user: IUser = JSON.parse(cryptoJS.decrypt(cookieService.get(key)));
+      if (user) {
+        return user;
+      } else {
+        return false;
+      }
     }
-  }
 
-  // if user info change will reload window
-  if (environment?.drupalProxy) {
-    if (!cookieService.check(key)) {
-      window.location.reload();
+    // if user info change will reload window
+    if (environment?.drupalProxy) {
+      if (!cookieService.check(key)) {
+        debugger;
+        window.location.reload();
+      }
     }
+    return false;
   }
   return false;
 }

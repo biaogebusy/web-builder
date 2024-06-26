@@ -111,7 +111,6 @@ import { ComponentService } from '@core/service/component.service';
     {
       provide: USER,
       useFactory: userFactory,
-      deps: [CryptoJSService, UserService, CookieService],
     },
     {
       provide: NOTIFY_CONTENT,

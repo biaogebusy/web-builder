@@ -12,12 +12,16 @@ import type { ITab } from '@core/interface/widgets/ITab';
   selector: 'app-tab',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
+  host: { ngSkipHydration: 'true' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabComponent implements OnInit {
   @Input() content: ITab;
   selectedIndex: number | null;
-  constructor(private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
+  constructor(
+    private route: ActivatedRoute,
+    private cd: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((qp) => {

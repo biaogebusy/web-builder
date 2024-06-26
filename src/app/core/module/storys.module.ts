@@ -1,4 +1,4 @@
-import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
+import { Inject, ModuleWithProviders, NgModule, inject } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -64,6 +64,7 @@ import { ThemeService } from '@core/service/theme.service';
 import { FormModule } from '@uiux/combs/form/form.module';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ComponentService } from '@core/service/component.service';
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -199,8 +200,11 @@ export class StorysModule {
     ];
   }
 
-  constructor(private themeService: ThemeService) {
-    this.themeService.initTheme();
+  constructor() {
+    const themeService = inject(ThemeService);
+    const componentService = inject(ComponentService);
+    componentService.registerDynamicComponent();
+    themeService.initTheme();
     window.gsap = gsap;
     window.gsap.registerPlugin(ScrollTrigger);
   }

@@ -11,6 +11,8 @@ import { importProvidersFrom } from '@angular/core';
 import { StorysModule } from '@core/module/storys.module';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { MatButton } from '@angular/material/button';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 const meta: Meta<BtnComponent> = {
   title: '基本元素/按钮/基础',
@@ -22,11 +24,10 @@ const meta: Meta<BtnComponent> = {
     }),
     moduleMetadata({
       declarations: [
-        StorysModule.forEntryComponents(),
-        ReqRolesDirective,
-        MatButton,
+        // StorysModule.forEntryComponents(),
         SafeHtmlPipe,
       ],
+      imports: [],
     }),
   ],
 };

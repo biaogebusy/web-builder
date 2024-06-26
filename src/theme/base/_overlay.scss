@@ -1,0 +1,24 @@
+.cdk-overlay-container {
+  .close-outside {
+    .mat-mdc-dialog-container {
+      overflow: visible;
+      .mat-mdc-dialog-surface {
+        overflow-y: visible;
+      }
+    }
+  }
+  .search-box-list {
+    .mat-mdc-option .mdc-list-item__primary-text {
+      white-space: nowrap;
+    }
+  }
+  // user menu
+  .user-dropdown {
+    .mat-icon {
+      opacity: 0.75;
+    }
+    .mat-mdc-menu-item-text {
+      display: flex;
+    }
+  }
+}

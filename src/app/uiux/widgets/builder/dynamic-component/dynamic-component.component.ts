@@ -15,6 +15,7 @@ import {
   ViewChild,
   ViewContainerRef,
   ViewRef,
+  inject,
 } from '@angular/core';
 import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
@@ -43,15 +44,15 @@ export class DynamicComponentComponent
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
+  util = inject(UtilitiesService);
+  builder = inject(BuilderState);
+  screenService = inject(ScreenService);
+  componentService = inject(ComponentService);
   constructor(
-    private componentService: ComponentService,
-    public builder: BuilderState,
     private cd: ChangeDetectorRef,
     private ele: ElementRef,
-    private screenService: ScreenService,
-    private util: UtilitiesService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
   ) {}
 
   ngOnInit(): void {
@@ -105,7 +106,7 @@ export class DynamicComponentComponent
     this.util.initAnimate(
       this.inputs,
       this.ele.nativeElement.lastElementChild,
-      this.ele.nativeElement
+      this.ele.nativeElement,
     );
     this.component.changeDetectorRef.markForCheck();
   }
