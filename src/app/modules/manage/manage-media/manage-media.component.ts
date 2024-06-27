@@ -67,10 +67,10 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
     this.contentState.mediaAssetsFormChange$.next(value);
   }
 
-  onDelete(id: string, type?: string): void {
-    if (type) {
+  onDelete(uuid: string): void {
+    if (uuid) {
       this.loading = true;
-      this.manageService.deleteMedia(type, id).subscribe((res) => {
+      this.manageService.deleteMedia(uuid).subscribe((res) => {
         this.loading = false;
         this.onSearch(this.form.value);
         this.cd.detectChanges();
@@ -90,9 +90,9 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
     this.selectedId = item.id;
     this.builder.selectedMedia$.next({
       img: {
-        src: item.img.src,
-        alt: item.img.alt,
-        fileName: item.img.src.split('/').pop(),
+        src: item.src,
+        alt: item.name,
+        fileName: item.name,
         tag: 'img',
       },
       value: this.content,

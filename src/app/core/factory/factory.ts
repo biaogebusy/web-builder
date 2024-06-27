@@ -16,7 +16,6 @@ import { BuilderState } from '@core/state/BuilderState';
 import { IManageSidebarState } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
-import { ManageService } from '@core/service/manage.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
 import { mediaAssets } from '@modules/builder/data/mediaAssets';
 import { ILanguage } from '@core/interface/IEnvironment';
@@ -331,7 +330,6 @@ export function userFactory(): IUser | boolean {
     // if user info change will reload window
     if (environment?.drupalProxy) {
       if (!cookieService.check(key)) {
-        debugger;
         window.location.reload();
       }
     }

@@ -416,11 +416,10 @@
           "className": "static-item",
           "defaultValue": true,
           "props": {
-            "label": "切换资源库",
-            "description": "静态资源/后台媒体库"
+            "label": "切换资源库"
           },
-          "expressionProperties": {
-            "props.description": "model.fromStatic?'静态资源':'后台媒体库'"
+          "expressions": {
+            "props.label": "model.fromStatic?'静态资源':'后台媒体库'"
           }
         },
         {

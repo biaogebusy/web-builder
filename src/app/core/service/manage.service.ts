@@ -28,9 +28,9 @@ export class ManageService extends ApiService {
     );
   }
 
-  deleteMedia(path: string, id: string): Observable<any> {
+  deleteMedia(uuid: string): Observable<any> {
     return this.http.delete<any>(
-      `${this.apiUrl}${path}/${id}`,
+      `${this.apiUrl}/api/v1/media/image/${uuid}`,
       this.optionsWithCookieAndToken(this.user.csrf_token),
     );
   }

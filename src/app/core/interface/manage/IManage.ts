@@ -3,7 +3,6 @@ import { IPager } from '../widgets/IWidgets';
 export interface IManageAssets {
   rows: any[];
   pager: IPager;
-  type?: string;
 }
 
 export interface IManageMedia {

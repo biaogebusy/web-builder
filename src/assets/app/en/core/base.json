@@ -431,11 +431,10 @@
           "className": "static-item",
           "defaultValue": true,
           "props": {
-            "label": "Switch libraries",
-            "description": "Static medias/backend media library"
+            "label": "Switch libraries"
           },
-          "expressionProperties": {
-            "props.description": "model.fromStatic?'Static medias':'backend media library'"
+          "expressions": {
+            "props.label": "model.fromStatic?'Static medias':'Media library'"
           }
         },
         {
@@ -446,33 +445,6 @@
             "type": "string",
             "appearance": "fill",
             "label": "please input keyword"
-          }
-        },
-        {
-          "type": "select",
-          "key": "type",
-          "defaultValue": "/api/v1/media/image",
-          "className": "m-bottom-sm",
-          "props": {
-            "label": "Select libraries type",
-            "options": [
-              {
-                "label": "All",
-                "value": "/api/v1/file/file"
-              },
-              {
-                "label": "Images",
-                "value": "/api/v1/media/image"
-              },
-              {
-                "label": "Documents",
-                "value": "/api/v1/media/document"
-              },
-              {
-                "label": "Videos",
-                "value": "/api/v1/media/video"
-              }
-            ]
           }
         }
       ]
