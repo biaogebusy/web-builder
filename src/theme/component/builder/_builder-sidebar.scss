@@ -62,9 +62,9 @@
     .form {
       background-color: mat.get-color-from-palette($background, card);
     }
-    .mat-mdc-list {
+    .lists {
       @include scrollbar(mat.get-color-from-palette($primary));
-      .mat-mdc-list-item {
+      .item {
         border-bottom: 1px solid
           mat.get-color-from-palette($foreground, divider);
         color: mat.get-color-from-palette($foreground, text, 0.75);

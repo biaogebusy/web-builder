@@ -5,8 +5,10 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -14,7 +16,6 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { merge } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -55,13 +56,11 @@ export class PageListComponent
       },
     },
   ];
-  constructor(
-    private nodeService: NodeService,
-    private cd: ChangeDetectorRef,
-    private builder: BuilderState,
-    private util: UtilitiesService,
-    private builderService: BuilderService,
-  ) {
+  builder = inject(BuilderState);
+  util = inject(UtilitiesService);
+  nodeService = inject(NodeService);
+  builderService = inject(BuilderService);
+  constructor(private cd: ChangeDetectorRef) {
     super();
   }
 
@@ -71,7 +70,7 @@ export class PageListComponent
 
   onModelChange(value: any): void {
     this.loading = true;
-    this.form.get('page')?.patchValue(1, { onlySelf: true, emitEvent: false });
+    this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
     const formValue = merge(value, this.form.getRawValue());
     const params = this.getApiParams(formValue);
     this.fetchPage(params);
@@ -90,7 +89,7 @@ export class PageListComponent
   }
 
   getLists(res: any): any[] {
-    this.pager = res.pager;
+    this.pager = this.handlerPager(res.pager, res.rows.length);
     this.cd.detectChanges();
     return res.rows.map((item: any) => {
       return {
@@ -109,12 +108,13 @@ export class PageListComponent
     this.builderService.loadPage(item.id);
   }
 
-  onPageChange(page: number): void {
+  onPageChange(page: PageEvent): void {
     this.form
       .get('page')
-      ?.patchValue(page, { onlySelf: true, emitEvent: false });
+      ?.patchValue(page.pageIndex - 1, { onlySelf: true, emitEvent: false });
     const value = merge(this.model, this.form.getRawValue());
-    this.fetchPage(value);
+    const params = this.getApiParams(value);
+    this.fetchPage(params);
   }
 
   onReload(): void {
