@@ -1,8 +1,8 @@
-import { IPaginationLinks } from '../widgets/IPaginationLinks';
+import { IPager } from '../widgets/IWidgets';
 
 export interface IManageAssets {
-  elements: any[];
-  links: IPaginationLinks;
+  rows: any[];
+  pager: IPager;
   type?: string;
 }
 

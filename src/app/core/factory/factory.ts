@@ -23,6 +23,7 @@ import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
 import { inject } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -340,30 +341,39 @@ export function userFactory(): IUser | boolean {
 }
 
 export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
+  const api = '/api/v2/media';
+  let formValue = {};
   const nodeService = inject(NodeService);
-  const manageService = inject(ManageService);
   const contentState = inject(ContentState);
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 
   // on page change
-  contentState.pageChange$.subscribe((link) => {
-    nodeService.getNodeByLink(link).subscribe((res) => {
-      assets$.next(manageService.getFilesToFeatureBox(res));
+  contentState.pageChange$.subscribe((pageEvent) => {
+    const params = nodeService.getApiParams({
+      ...formValue,
+      page: pageEvent.pageIndex - 1,
+    });
+    nodeService.fetch(api, params).subscribe((res) => {
+      assets$.next({
+        rows: res.rows,
+        pager: nodeService.handlerPager(res.pager, res.rows.length),
+      });
     });
   });
 
   // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value: any) => {
+    formValue = value;
     const { fromStatic } = value;
     if (fromStatic) {
       assets$.next(mediaAssets);
       return;
     }
-    const { type, params } = manageService.handlerJsonApiParams(value);
-    nodeService.fetch(type, params).subscribe((res) => {
+    const params = nodeService.getApiParams(value);
+    nodeService.fetch(api, params).subscribe((res) => {
       assets$.next({
-        ...manageService.getFilesToFeatureBox(res),
-        type,
+        rows: res.rows,
+        pager: nodeService.handlerPager(res.pager, res.rows.length),
       });
     });
   });

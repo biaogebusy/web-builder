@@ -16,7 +16,7 @@ export class ManageService extends ApiService {
     public http: HttpClient,
     private util: UtilitiesService,
     @Inject(API_URL) public apiBaseUrl: string,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
   ) {
     super(apiBaseUrl);
   }
@@ -24,25 +24,14 @@ export class ManageService extends ApiService {
   getBlock(): Observable<any> {
     return this.http.get(
       `${this.apiUrl}/api/v1/block_content_type/block_content_type`,
-      this.optionsWithCookieAndToken(this.user.csrf_token)
+      this.optionsWithCookieAndToken(this.user.csrf_token),
     );
-  }
-
-  getFilesToFeatureBox(res: any): IManageAssets {
-    let elements;
-    const { data, links, included } = res;
-    elements = data.map((item: any) => this.getFeatureBox(item, included));
-
-    return {
-      links,
-      elements,
-    };
   }
 
   deleteMedia(path: string, id: string): Observable<any> {
     return this.http.delete<any>(
       `${this.apiUrl}${path}/${id}`,
-      this.optionsWithCookieAndToken(this.user.csrf_token)
+      this.optionsWithCookieAndToken(this.user.csrf_token),
     );
   }
 
@@ -91,8 +80,8 @@ export class ManageService extends ApiService {
             type === 'pdf'
               ? `${iconPath}/file-pdf.svg`
               : type === 'excel'
-              ? `${iconPath}/file-excel.svg`
-              : `${iconPath}/file-word.svg`,
+                ? `${iconPath}/file-excel.svg`
+                : `${iconPath}/file-word.svg`,
           alt: fileName,
         },
       };
