@@ -34,7 +34,7 @@
     @if (content$ | async; as content) {
       @for (page of content; track page; let i = $index) {
         <div class="item flex flex-col gap-2 relative p-2">
-          <div class="text-sm">
+          <div class="text-sm mr-[62px]">
             <a href="{{ page.href }}?preview=true" target="_blank">{{
               page.title
             }}</a>

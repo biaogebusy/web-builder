@@ -7,7 +7,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
@@ -33,8 +33,9 @@ export class PageListComponent
   @Input() content: any;
   content$: Observable<any[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  links: any;
-  form = new UntypedFormGroup({});
+  form = new FormGroup({
+    page: new FormControl(0),
+  });
   model: any = {};
   loading = false;
   pager: IPager;
@@ -45,14 +46,6 @@ export class PageListComponent
       props: {
         label: '关键词',
         type: 'search',
-      },
-    },
-    {
-      type: 'input',
-      key: 'page',
-      className: 'hidden',
-      props: {
-        label: '页码',
       },
     },
   ];

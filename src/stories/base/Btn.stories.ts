@@ -6,13 +6,9 @@ import {
   moduleMetadata,
 } from '@storybook/angular';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
-import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { importProvidersFrom } from '@angular/core';
 import { StorysModule } from '@core/module/storys.module';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { MatButton } from '@angular/material/button';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 const meta: Meta<BtnComponent> = {
   title: '基本元素/按钮/基础',
