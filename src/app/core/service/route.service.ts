@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -10,14 +10,12 @@ import { IPage } from '@core/interface/IAppConfig';
   providedIn: 'root',
 })
 export class RouteService {
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private location: Location,
-    private util: UtilitiesService,
-    private contentService: ContentService,
-    private contentState: ContentState
-  ) {}
+  router = inject(Router);
+  activatedRoute = inject(ActivatedRoute);
+  util = inject(UtilitiesService);
+  contentService = inject(ContentService);
+  contentState = inject(ContentState);
+  constructor(private location: Location) {}
 
   updateQueryParams(query: Params): void {
     const url = this.router

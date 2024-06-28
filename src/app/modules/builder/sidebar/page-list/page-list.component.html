@@ -3,12 +3,12 @@
     @if (!loading) {
       <app-btn
         (click)="onReload()"
-      [content]="{
-        label: '',
-        mode: 'icon',
-        color: 'primary',
-        icon: { svg: 'reload' }
-      }"
+        [content]="{
+          label: '',
+          mode: 'icon',
+          color: 'primary',
+          icon: { svg: 'reload' },
+        }"
       ></app-btn>
     }
   </div>
@@ -16,7 +16,7 @@
     [content]="{
       label: '管理列表',
       style: 'style-v4',
-      classes: 'p-y-xs m-bottom-x bold'
+      classes: 'p-y-xs !mb-2 bold',
     }"
   ></app-title>
   <div class="form">
@@ -27,38 +27,51 @@
       (modelChange)="onModelChange($event)"
     ></app-formly>
   </div>
-  <mat-list>
+  <div class="lists">
     @if (loading) {
       <mat-spinner diameter="50" color="primary"></mat-spinner>
     }
     @if (content$ | async; as content) {
       @for (page of content; track page; let i = $index) {
-        <mat-list-item>
-          <div class="title" matListItemLine>
+        <div class="item flex flex-col gap-2 relative p-2">
+          <div class="text-sm mr-[62px]">
             <a href="{{ page.href }}?preview=true" target="_blank">{{
               page.title
             }}</a>
           </div>
-          <div class="meta" matListItemLine>
-            {{ page.user | shorten: 6:"..." }}
-            {{ page.changed | date: "yyyy/MM/dd HH:mm" }}
-          </div>
-          <div class="meta" matListItemLine>
-            <a href="{{ page.href }}?preview=true" target="_blank">{{
-              page.href
-            }}</a>
+          <div class="meta text-xs font-mono">
+            {{ page.author | shorten: 6 : "**" }}
+            <div class="flex justify-between mt-2">
+              <a href="{{ page.href }}?preview=true" target="_blank">{{
+                page.href
+              }}</a>
+              <span class="whitespace-nowrap">{{
+                page.changed | date: "yyyy/MM/dd HH:mm"
+              }}</span>
+            </div>
           </div>
           <app-btn
-            matListItemMeta
+            class="absolute right-2 top-2"
             (click)="loadPage(page)"
             [content]="{ label: '编辑', mode: 'stroked', color: 'primary' }"
           ></app-btn>
-        </mat-list-item>
+        </div>
       }
     }
-  </mat-list>
-  <app-pagination-links
-    (pageChange)="onPageChange($event)"
-    [links]="links"
-  ></app-pagination-links>
+  </div>
+  @if (pager) {
+    <div class="pager">
+      <mat-paginator
+        class="demo-paginator"
+        (page)="onPageChange($event)"
+        [length]="pager.totalItems"
+        [pageSize]="pager.itemsPerPage"
+        [showFirstLastButtons]="true"
+        [hidePageSize]="true"
+        [pageIndex]="pager.currentPage"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </div>
+  }
 </div>

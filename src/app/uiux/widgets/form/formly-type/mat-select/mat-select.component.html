@@ -9,14 +9,12 @@
       [formlyAttributes]="field"
       disableRipple
       #select
-      >
+    >
       @if (to?.none) {
         <mat-option>{{ to.none?.label || "无" }}</mat-option>
       }
       @for (option of matOptions; track option) {
-        <mat-option value="{{ option.value }}"
-          >{{ option.label }}
-        </mat-option>
+        <mat-option value="{{ option.value }}">{{ option.label }} </mat-option>
       }
     </mat-select>
   }
@@ -30,23 +28,20 @@
       [formlyAttributes]="field"
       disableRipple
       #select
-      >
+    >
       <mat-option>
         <ngx-mat-select-search
           [placeholderLabel]="to.placeholder || '搜索'"
           [noEntriesFoundLabel]="to.noFound || '没有找到'"
           [formControl]="searchCtrl"
-          >
+        >
         </ngx-mat-select-search>
       </mat-option>
       @if (to?.none) {
         <mat-option>{{ to.none?.label || "无" }}</mat-option>
       }
       @for (option of filteredOptions | async; track option) {
-        <mat-option
-          [value]="option.value"
-          >{{ option.label }}
-        </mat-option>
+        <mat-option [value]="option.value">{{ option.label }} </mat-option>
       }
     </mat-select>
   }
@@ -60,14 +55,12 @@
       multiple
       disableRipple
       #select
-      >
+    >
       @if (to?.none) {
         <mat-option>{{ to.none?.label || "无" }}</mat-option>
       }
       @for (option of matOptions; track option) {
-        <mat-option value="{{ option.value }}"
-          >{{ option.label }}
-        </mat-option>
+        <mat-option value="{{ option.value }}">{{ option.label }} </mat-option>
       }
     </mat-select>
   }
@@ -82,23 +75,20 @@
       multiple
       disableRipple
       #select
-      >
+    >
       <mat-option>
         <ngx-mat-select-search
           [placeholderLabel]="to.placeholder || '搜索'"
           [noEntriesFoundLabel]="to.noFound || '没有找到'"
           [formControl]="searchCtrl"
-          >
+        >
         </ngx-mat-select-search>
       </mat-option>
-      @if (to?.none) {
+      @if (to.none) {
         <mat-option>{{ to.none?.label || "无" }}</mat-option>
       }
       @for (option of filteredOptions | async; track option) {
-        <mat-option
-          [value]="option.value"
-          >{{ option.label }}
-        </mat-option>
+        <mat-option [value]="option.value">{{ option.label }} </mat-option>
       }
     </mat-select>
   }

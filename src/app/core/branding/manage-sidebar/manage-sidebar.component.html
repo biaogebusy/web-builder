@@ -4,7 +4,7 @@
       class="manage-sidebar {{ drawer.opened ? 'opened' : 'expanded' }}"
       *reqRolesIf="branding.header?.sidebar"
     >
-      @if (branding.header?.sidebar; as sidebar) {
+      @if (branding.header.sidebar; as sidebar) {
         <div class="manage-brand p-y-sm p-x-sm">
           @if (!sidebar?.params.showUser) {
             <app-logo [content]="sidebar.logo"></app-logo>
@@ -48,7 +48,7 @@
           </ng-template>
         </div>
       }
-      @if (branding.header?.sidebar?.menu; as menu) {
+      @if (branding.header.sidebar?.menu; as menu) {
         <div
           class="manage-menu"
           [ngStyle]="{ overflow: drawer.opened ? 'auto' : 'visible' }"

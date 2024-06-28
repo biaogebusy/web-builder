@@ -1,4 +1,4 @@
-@if (content && config?.enable) {
+@if (content && config && config.enable) {
   <button mat-button extended [mat-menu-trigger-for]="menu">
     <app-icon [content]="config.icon"></app-icon>
     <span>{{ config.label }}</span>

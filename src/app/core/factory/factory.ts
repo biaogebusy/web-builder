@@ -16,12 +16,13 @@ import { BuilderState } from '@core/state/BuilderState';
 import { IManageSidebarState } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
-import { ManageService } from '@core/service/manage.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
 import { mediaAssets } from '@modules/builder/data/mediaAssets';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
+import { inject } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -108,10 +109,9 @@ export function isBuilderModeFactory(router: Router): Observable<boolean> {
   return isBuilderMode$;
 }
 
-export function debugAnimateFactory(
-  storage: LocalStorageService,
-  builder: BuilderState,
-): Observable<boolean> {
+export function debugAnimateFactory(): Observable<boolean> {
+  const builder = inject(BuilderState);
+  const storage = inject(LocalStorageService);
   const debugAnimate$ = new BehaviorSubject<boolean>(false);
   const isDebugAnimate = storage.retrieve(DEBUG_ANIMATE_KEY);
   if (isDebugAnimate) {
@@ -133,14 +133,14 @@ export function debugAnimateFactory(
 }
 
 export function manageSidebarStateFactory(
-  router: Router,
   branding$: Observable<IBranding>,
-  userService: UserService,
-  screenService: ScreenService,
-  storage: LocalStorageService,
   user: IUser,
   doc: Document,
 ): Observable<IManageSidebarState> {
+  const router = inject(Router);
+  const userService = inject(UserService);
+  const screenService = inject(ScreenService);
+  const storage = inject(LocalStorageService);
   const state$ = new BehaviorSubject<IManageSidebarState>({
     enableSidebar: false,
     sidebarOpened: false,
@@ -215,8 +215,8 @@ export function manageSidebarStateFactory(
 
 export function notifyFactory(
   coreConfig: ICoreConfig,
-  notifyService: NotifyService,
 ): Observable<INotify[] | object | boolean> {
+  const notifyService = inject(NotifyService);
   const $notify = new BehaviorSubject<INotify[] | object | boolean>(false);
   const apis = coreConfig?.notify?.api;
 
@@ -266,12 +266,9 @@ export const apiUrlFactory = () => {
   return environment.apiUrl;
 };
 
-export function initApp(
-  contentService: ContentService,
-  componentService: ComponentService,
-  coreConfig: object,
-  lang: ILanguage,
-): any {
+export function initApp(coreConfig: object, lang: ILanguage): any {
+  const contentService = inject(ContentService);
+  const componentService = inject(ComponentService);
   componentService.registerDynamicComponent();
   return () => contentService.loadConfig(coreConfig, lang);
 }
@@ -308,62 +305,73 @@ export function themeFactory(
 }
 
 export function brandingFactory(
-  contentService: ContentService,
   lang: ILanguage,
 ): Observable<IBranding | object> {
+  const contentService = inject(ContentService);
   return contentService.loadBranding(lang);
 }
 
-export function userFactory(
-  cryptoJS: CryptoJSService,
-  userService: UserService,
-  cookieService: CookieService,
-): IUser | boolean {
+export function userFactory(): IUser | boolean {
+  const cryptoJS = inject(CryptoJSService);
+  const userService = inject(UserService);
+  const cookieService = inject(CookieService);
+  const screenService = inject(ScreenService);
   const key = userService.localUserKey;
-  if (cookieService.check(key)) {
-    const user: IUser = JSON.parse(cryptoJS.decrypt(cookieService.get(key)));
-    if (user) {
-      return user;
-    } else {
-      return false;
+  if (screenService.isPlatformBrowser()) {
+    if (cookieService.check(key)) {
+      const user: IUser = JSON.parse(cryptoJS.decrypt(cookieService.get(key)));
+      if (user) {
+        return user;
+      } else {
+        return false;
+      }
     }
-  }
 
-  // if user info change will reload window
-  if (environment?.drupalProxy) {
-    if (!cookieService.check(key)) {
-      window.location.reload();
+    // if user info change will reload window
+    if (environment?.drupalProxy) {
+      if (!cookieService.check(key)) {
+        window.location.reload();
+      }
     }
+    return false;
   }
   return false;
 }
 
-export function mediaAssetsFactory(
-  nodeService: NodeService,
-  manageService: ManageService,
-  contentState: ContentState,
-): Observable<IManageAssets | boolean> {
+export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
+  const api = '/api/v2/media';
+  let formValue = {};
+  const nodeService = inject(NodeService);
+  const contentState = inject(ContentState);
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 
   // on page change
-  contentState.pageChange$.subscribe((link) => {
-    nodeService.getNodeByLink(link).subscribe((res) => {
-      assets$.next(manageService.getFilesToFeatureBox(res));
+  contentState.pageChange$.subscribe((pageEvent) => {
+    const params = nodeService.getApiParams({
+      ...formValue,
+      page: pageEvent.pageIndex - 1,
+    });
+    nodeService.fetch(api, params).subscribe((res) => {
+      assets$.next({
+        rows: res.rows,
+        pager: nodeService.handlerPager(res.pager, res.rows.length),
+      });
     });
   });
 
   // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value: any) => {
+    formValue = value;
     const { fromStatic } = value;
     if (fromStatic) {
       assets$.next(mediaAssets);
       return;
     }
-    const { type, params } = manageService.handlerJsonApiParams(value);
-    nodeService.fetch(type, params).subscribe((res) => {
+    const params = nodeService.getApiParams(value);
+    nodeService.fetch(api, params).subscribe((res) => {
       assets$.next({
-        ...manageService.getFilesToFeatureBox(res),
-        type,
+        rows: res.rows,
+        pager: nodeService.handlerPager(res.pager, res.rows.length),
       });
     });
   });

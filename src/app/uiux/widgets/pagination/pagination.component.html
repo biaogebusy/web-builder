@@ -1,24 +1,52 @@
-<pagination-template class="pagination my-10 flex justify-center items-center" #p="paginationApi"
-  (pageChange)="onPageChange($event)" [id]="id" (pageBoundsCorrection)="onPageBoundsCorrection($event)">
-  <button class="pagination-previous" color="primary" [class.disabled]="p.isFirstPage()" matTooltip="Prev Page"
-    [matTooltipPosition]="'above'" (click)="p.previous()" mat-icon-button aria-label="Prev Page">
-    <mat-icon inline="true" width="16px">navigate_before</mat-icon>
+<pagination-template
+  class="pagination my-10 flex justify-center items-center"
+  #p="paginationApi"
+  (pageChange)="onPageChange($event)"
+  [id]="id"
+  (pageBoundsCorrection)="onPageBoundsCorrection($event)"
+>
+  <button
+    class="pagination-previous"
+    color="primary"
+    [class.disabled]="p.isFirstPage()"
+    matTooltip="Prev Page"
+    [matTooltipPosition]="'above'"
+    (click)="p.previous()"
+    mat-icon-button
+    aria-label="Prev Page"
+  >
+    <mat-icon width="16px">navigate_before</mat-icon>
   </button>
   @for (page of p.pages; track page) {
     @if (p.getCurrent() !== page.value) {
-      <button [class.current]="p.getCurrent() === page.value" (click)="p.setCurrent(page.value)" mat-icon-button
-        >
+      <button
+        [class.current]="p.getCurrent() === page.value"
+        (click)="p.setCurrent(page.value)"
+        mat-icon-button
+      >
         <a>{{ page.label }}</a>
       </button>
     }
     @if (p.getCurrent() === page.value) {
-      <button disabled [class.current]="p.getCurrent() === page.value" mat-mini-fab>
+      <button
+        disabled
+        [class.current]="p.getCurrent() === page.value"
+        mat-mini-fab
+      >
         {{ page.label }}
       </button>
     }
   }
-  <button class="pagination-next" color="primary" [class.disabled]="p.isLastPage()" matTooltip="Next Page"
-    [matTooltipPosition]="'above'" (click)="p.next()" mat-icon-button aria-label="Next Page">
-    <mat-icon inline="true">navigate_next</mat-icon>
+  <button
+    class="pagination-next"
+    color="primary"
+    [class.disabled]="p.isLastPage()"
+    matTooltip="Next Page"
+    [matTooltipPosition]="'above'"
+    (click)="p.next()"
+    mat-icon-button
+    aria-label="Next Page"
+  >
+    <mat-icon>navigate_next</mat-icon>
   </button>
 </pagination-template>

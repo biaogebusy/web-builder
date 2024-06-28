@@ -1,4 +1,4 @@
-@if (coreConfig?.notify?.enable) {
+@if (coreConfig.notify?.enable) {
   <div class="notify">
     @if (!(notify$ | async)) {
       <button
@@ -6,7 +6,7 @@
         mat-icon-button
         [matTooltip]="'当前没有信息'"
         matTooltipPosition="above"
-        >
+      >
         <app-icon
           [matBadge]="0"
           matBadgeSize="small"
@@ -20,7 +20,7 @@
         aria-label="show notify"
         mat-icon-button
         [mat-menu-trigger-for]="menu"
-        >
+      >
         <app-icon
           [matBadge]="lists.length"
           matBadgeSize="small"
@@ -36,7 +36,10 @@
             <mat-list-item>
               <app-icon matListItemIcon [content]="item.icon"></app-icon>
               <div matListItemLine>
-                <app-link (click)="onRead(item)" [content]="item.link"></app-link>
+                <app-link
+                  (click)="onRead(item)"
+                  [content]="item.link"
+                ></app-link>
               </div>
               @if (item.message) {
                 <div
@@ -47,8 +50,9 @@
               @if (item.date) {
                 <div matListItemLine>
                   {{
-                  item.date
-                  | date: coreConfig.notify?.params?.dateFormat || "YYYY-MM-dd"
+                    item.date
+                      | date
+                        : coreConfig.notify?.params?.dateFormat || "YYYY-MM-dd"
                   }}
                 </div>
               }

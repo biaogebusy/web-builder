@@ -3,12 +3,11 @@
     ::ng-deep {
       .mat-mdc-tab-header {
         border-bottom: 0;
-        /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
-        .mat-tab-label-active,
-        .mat-tab-labels {
+        .mdc-tab--active,
+        .mat-mdc-tab-labels {
           border-radius: 6px;
         }
-        .mat-ink-bar {
+        .mdc-tab-indicator {
           display: none;
         }
       }

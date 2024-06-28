@@ -15,14 +15,17 @@
       .mdc-text-field--filled:not(.mdc-text-field--disabled) {
         background-color: transparent;
       }
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
     }
   }
   app-title {
     margin: 0 10px;
   }
-  .mat-mdc-list {
+  .lists {
     position: relative;
-    height: 510px;
+    height: 450px;
     overflow: auto;
     .mat-mdc-progress-spinner {
       position: absolute;
@@ -30,12 +33,11 @@
       top: 50%;
       transform: translate(-50%, -50%);
     }
-    .mat-mdc-list-item {
+    .item {
       .mat-line {
         font-size: 15px;
       }
       .meta {
-        font-size: 14px;
         opacity: 0.5;
       }
       ::ng-deep {
@@ -44,6 +46,13 @@
           line-height: 24px;
           height: auto;
         }
+      }
+    }
+  }
+  .pager {
+    ::ng-deep {
+      .mat-mdc-paginator-range-label {
+        display: none;
       }
     }
   }

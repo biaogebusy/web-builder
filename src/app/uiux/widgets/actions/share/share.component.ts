@@ -28,7 +28,7 @@ export class ShareComponent implements OnInit {
     private screenService: ScreenService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(DOCUMENT) private doc: Document,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {

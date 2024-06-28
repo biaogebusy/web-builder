@@ -1,9 +1,9 @@
 @if (box && content) {
   <div
-  class="feature-box relative overflow-hidden {{
-    content.mode == 'float' ? 'feature-float' : 'feature-cover'
-  }}"
-    >
+    class="feature-box relative overflow-hidden {{
+      content.mode == 'float' ? 'feature-float' : 'feature-cover'
+    }}"
+  >
     <div class="feature-inner">
       @if (isHoverIcon) {
         <div class="btns absolute flex z-10">
@@ -12,7 +12,7 @@
               href="javascript:void(0)"
               (click)="open(box.img)"
               class="btn expand-image btn-full"
-              >
+            >
               <app-icon [content]="{ svg: box.fullIcon }"></app-icon>
             </a>
           }
@@ -21,7 +21,7 @@
               href="javascript:void(0)"
               (click)="copy(box.img)"
               class="btn btn-full"
-              >
+            >
               <app-icon [content]="{ svg: box.copyIcon }"></app-icon>
             </a>
           }
@@ -29,7 +29,7 @@
             <a
               href="{{ box.link }}"
               class="btn icon-link btn-open icon-{{ box.openIcon }}"
-              >
+            >
               <app-icon [content]="{ svg: 'open-in-new' }"></app-icon>
             </a>
           }
@@ -45,16 +45,11 @@
       <div class="feature-inner-ling">
         <div class="media" [ngClass]="box.ratios || 'media-4-3'">
           @if (box.img) {
-            <app-img
-              [attr.data-path]="'img'"
-              [content]="box.img"
-            ></app-img>
+            <app-img [attr.data-path]="'img'" [content]="box.img"></app-img>
           }
         </div>
-        @if (content?.mode === 'float' || type !== 'picture') {
-          <div
-            class="title one-line px-3"
-            >
+        @if (content.mode === "float" || type !== "picture") {
+          <div class="title one-line px-3">
             {{ title }}
           </div>
         }

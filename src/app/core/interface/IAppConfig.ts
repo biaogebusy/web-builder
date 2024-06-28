@@ -81,7 +81,7 @@ export interface ICoreConfig {
     api: INotifyConfig[];
   };
   animate?: boolean;
-  github: {
+  github?: {
     enable: boolean;
     owner: string;
     repo: string;

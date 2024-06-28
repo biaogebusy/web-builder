@@ -1,4 +1,4 @@
-@if (multiLang) {
+@if (multiLang && currentLang) {
   <div class="lang-switch">
     <button
       aria-label="switch language"
@@ -14,10 +14,10 @@
           aria-label="switch lang item"
           mat-menu-item
         >
-          @if (currentLang?.value !== lang.value) {
+          @if (currentLang.value !== lang.value) {
             <mat-icon>radio_button_unchecked</mat-icon>
           }
-          @if (currentLang?.value === lang.value) {
+          @if (currentLang.value === lang.value) {
             <mat-icon color="primary">radio_button_checked</mat-icon>
           }
           <span>{{ lang.label }}</span>

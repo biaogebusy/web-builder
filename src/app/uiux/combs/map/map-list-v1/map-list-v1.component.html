@@ -13,12 +13,12 @@
           ></app-spinner>
         </div>
       }
-      @if (elements?.length == 0) {
+      @if (elements.length == 0) {
         <div class="m-y flex justify-center items-center">暂无相关数据</div>
       }
       <div class="map-list-head p-x-sm p-y-sm">
         <app-title [content]="content.title"></app-title>
-        @if (content?.meta) {
+        @if (content.meta) {
           <div class="meta">
             @for (item of content.meta; track item) {
               <div class="item">
@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="map-wrapper relative flex flex-auto">
-      @if (content?.map) {
+      @if (content.map) {
         <app-map
           class="flex-12/12"
           [content]="{ city: content.map.city, elements: elements }"

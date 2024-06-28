@@ -26,14 +26,9 @@
 .inner {
   padding-left: 20px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
   height: 100%;
   .viewport {
     width: 100%;
-    flex: 0 1 auto;
     height: 80%;
   }
 }

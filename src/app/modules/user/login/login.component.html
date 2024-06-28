@@ -21,7 +21,7 @@
               <div class="rounded-[4px] p-3 mb-3">{{ error }}</div>
             }
             <mat-tab-group animationDuration="0ms" [disablePagination]="true">
-              @if (coreConfig.login?.phoneLogin?.enable) {
+              @if (coreConfig.login.phoneLogin.enable) {
                 <mat-tab
                   label="{{
                     coreConfig.login.phoneLogin.tabLabel || '手机登录'
@@ -81,7 +81,7 @@
                   </form>
                 </mat-tab>
               }
-              @if (coreConfig.login?.pswLogin?.enable) {
+              @if (coreConfig.login.pswLogin.enable) {
                 <mat-tab
                   label="{{ coreConfig.login.pswLogin.tabLabel || '密码登录' }}"
                 >
@@ -135,7 +135,7 @@
           @if (currentUser) {
             <h1 class="mat-h1 text-base">Hi, {{ currentUser.display_name }}</h1>
             <mat-divider></mat-divider>
-            <p class="text-base mt-3">欢迎。</p>
+            <p class="text-base !mt-3">欢迎。</p>
           }
         </div>
       }

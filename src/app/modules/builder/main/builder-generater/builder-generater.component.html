@@ -1,12 +1,12 @@
 @if (uiux) {
   <div class="builder-generater flex flex-col">
-    @if (coreConfig.builder?.generater) {
+    @if (coreConfig.builder.generater) {
       <app-formly
         [classes]="'form-field-width-auto'"
         [form]="form"
         [fields]="coreConfig.builder.generater"
         [model]="model"
-        >
+      >
       </app-formly>
     }
     <mat-divider class="m-y-xs"></mat-divider>
@@ -15,12 +15,12 @@
         matTooltip="将会覆盖当前页面"
         matTooltipPosition="above"
         (click)="onGenerate(model)"
-      [content]="{
-        color: 'primary',
-        mode: 'raised',
-        label: '立即生成',
-        icon: { svg: 'lightning-bolt', inline: true }
-      }"
+        [content]="{
+          color: 'primary',
+          mode: 'raised',
+          label: '立即生成',
+          icon: { svg: 'lightning-bolt', inline: true },
+        }"
       ></app-btn>
     </div>
   </div>

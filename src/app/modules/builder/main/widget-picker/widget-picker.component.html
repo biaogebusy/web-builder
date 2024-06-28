@@ -1,23 +1,39 @@
-<div class="widget-picker">
+<div class="widget-picker" (mouseleave)="onLeave()">
   @if (widgets$ | async; as widgets) {
     <div class="box flex flex-wrap">
       @if (bcData) {
-        <div #copy class="item" (click)="onPasteData()" (mouseenter)="onHover({content:bcData}, copy)"
-          matRipple>
-          <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700">
-            <app-icon [content]="{svg:'content-paste'}"></app-icon>
+        <div
+          #copy
+          class="item"
+          (click)="onPasteData()"
+          (mouseenter)="onHover({ content: bcData }, copy)"
+          matRipple
+        >
+          <div
+            class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700"
+          >
+            <app-icon [content]="{ svg: 'content-paste' }"></app-icon>
             <div class="title">粘贴组件</div>
           </div>
         </div>
       }
       @for (widget of widgets; track widget) {
-        <div class="item" #item (mouseenter)="onHover(widget, item)" (click)="onSelect(widget.content)" matRipple
+        <div
+          class="item"
+          #item
+          (mouseenter)="onHover(widget, item)"
+          (click)="onSelect(widget.content)"
+          matRipple
+        >
+          <div
+            class="inner flex flex-col justify-center items-center m-[2px] p-[6px]"
           >
-          <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
             @if (widget.icon) {
               <app-icon [content]="widget.icon"></app-icon>
             }
-            <div class="title" title="{{widget.label}}">{{widget.label}}</div>
+            <div class="title" title="{{ widget.label }}">
+              {{ widget.label }}
+            </div>
           </div>
         </div>
       }
@@ -25,19 +41,31 @@
   }
   <div class="popup p-4 z-10 w-[560px] h-[400px]" #popup>
     @if (widget$ | async; as widget) {
-      <div class="hover-show w-full h-full flex justify-center items-center relative">
+      <div
+        class="hover-show w-full h-full flex justify-center items-center relative"
+      >
         @if (widget.preview) {
-          <img [src]="widget.preview" alt="">
+          <img [src]="widget.preview" alt="" />
         } @else {
-          <app-dynamic-component [inputs]="widget.content"></app-dynamic-component>
+          <app-dynamic-component
+            [inputs]="widget.content"
+          ></app-dynamic-component>
         }
       </div>
     }
   </div>
   @if (help) {
-    <div class="help absolute" [matTooltip]="help.tooltip">
+    <div class="help absolute right-3 bottom-3" [matTooltip]="help.tooltip">
       <app-btn
-      [content]="{label:'',mode:'icon',color:undefined,href:help.link,target:'_blank',icon:{svg:'help-circle'}}"></app-btn>
+        [content]="{
+          label: '',
+          mode: 'icon',
+          color: undefined,
+          href: help.link,
+          target: '_blank',
+          icon: { svg: 'help-circle' },
+        }"
+      ></app-btn>
     </div>
   }
 </div>

@@ -52,7 +52,7 @@
                 "
               >
                 <div class="static">
-                  @if (branding.header?.top) {
+                  @if (branding.header.top) {
                     <app-header-top
                       [content]="branding.header.top"
                     ></app-header-top>
@@ -72,7 +72,7 @@
                 "
               >
                 <div class="static">
-                  @if (branding.header?.top) {
+                  @if (branding.header.top) {
                     <app-header-top
                       [content]="branding.header.top"
                     ></app-header-top>
@@ -83,7 +83,7 @@
             </ng-template>
           }
         }
-        @if (!page.body?.length) {
+        @if (!page.body.length) {
           <app-builder-empty></app-builder-empty>
         }
         @for (item of page.body; track trackByFn(i, item); let i = $index) {
