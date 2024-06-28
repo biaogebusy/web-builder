@@ -1,8 +1,6 @@
 <div class="profile-banner relative">
   @if (content.bannerBg) {
-    <app-bg-img
-      [content]="content.bannerBg"
-    ></app-bg-img>
+    <app-bg-img [content]="content.bannerBg"></app-bg-img>
   }
 </div>
 <div class="profile-1v1 relative m-y">
@@ -21,7 +19,7 @@
                 mat-icon-button
                 aria-label="menu"
                 [matMenuTriggerFor]="menu"
-                >
+              >
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" class="actions-menu">
@@ -36,13 +34,13 @@
           }
         </div>
         <mat-divider></mat-divider>
-        @if (content?.details) {
+        @if (content.details) {
           <div class="left-item p-y-sm p-x-xs">
             <app-title
-            [content]="{
-              label: content.details.label,
-              style: 'style-v4',
-            }"
+              [content]="{
+                label: content.details.label,
+                style: 'style-v4',
+              }"
             ></app-title>
             <div class="list">
               @for (item of content.details.elements; track item) {
@@ -55,13 +53,15 @@
             </div>
           </div>
         }
-        @if (content?.leftBottom) {
+        @if (content.leftBottom) {
           <div class="left-bottom p-y-sm p-x-sm">
             <div class="content">
               @for (item of content.leftBottom; track item) {
                 <div class="item m-bottom">
                   <app-title [content]="item.title"></app-title>
-                  <app-dynamic-component [inputs]="item"></app-dynamic-component>
+                  <app-dynamic-component
+                    [inputs]="item"
+                  ></app-dynamic-component>
                 </div>
               }
             </div>
@@ -74,10 +74,10 @@
             <div class="item m-bottom">
               @if (!(item.empty && item.empty === true)) {
                 <app-title
-                [content]="{
-                  label: item.label,
-                  style: 'style-v4',
-                }"
+                  [content]="{
+                    label: item.label,
+                    style: 'style-v4',
+                  }"
                 ></app-title>
                 <app-dynamic-component [inputs]="item"></app-dynamic-component>
               }
@@ -86,15 +86,10 @@
         </div>
       </div>
     </div>
-    @if (content?.params?.comment) {
-      <div
-        class="comment-wrapper my-3 p-3 md:my-5 md:p-5"
-        >
-        @if (content?.params?.comment) {
-          <app-comment-form
-            [content]="content"
-            [type]="'add'"
-            >
+    @if (content.params?.comment) {
+      <div class="comment-wrapper my-3 p-3 md:my-5 md:p-5">
+        @if (content.params?.comment) {
+          <app-comment-form [content]="content" [type]="'add'">
           </app-comment-form>
         }
         <app-comment-list [comments]="comments" [content]="content">

@@ -5,10 +5,7 @@
     }
     <app-spacer [size]="content.spacer || 'md'"></app-spacer>
     @if (content.bg) {
-      <app-bg-img
-        [attr.data-path]="'bg'"
-        [content]="content.bg"
-      ></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
     }
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       <div class="showcase-inner teaser grid grid-cols-12 sm:gap-5">
@@ -18,17 +15,17 @@
               class="col-span-12 md:col-span-4"
               [attr.data-path]="'feature'"
               [content]="content.feature"
-              >
+            >
             </app-feature-box>
           }
         }
         <div
-        class="col-span-12 {{
-          content.showImage && content.feature
-            ? 'md:col-span-8'
-            : 'md:col-span-12'
-        }}"
-          >
+          class="col-span-12 {{
+            content.showImage && content.feature
+              ? 'md:col-span-8'
+              : 'md:col-span-12'
+          }}"
+        >
           <h2 class="title">
             <app-link
               [attr.data-path]="'title'"
@@ -43,9 +40,7 @@
               </li>
             }
             @if (content.commentCount) {
-              <li
-                class="flex justify-center items-center"
-                >
+              <li class="flex justify-center items-center">
                 <mat-icon>comment</mat-icon>
                 <div>{{ content.commentCount }} 评论</div>
               </li>
@@ -53,13 +48,13 @@
             @if (content.category) {
               <li class="flex justify-center items-center">
                 <mat-icon>folder</mat-icon>
-                <div>{{ content.category | slice: 0:20 }}</div>
+                <div>{{ content.category | slice: 0 : 20 }}</div>
               </li>
             }
           </ul>
           <div
             class="shortdesc"
-            [innerHTML]="content.body | stripTags | trim | shorten: 150:'...'"
+            [innerHTML]="content.body | stripTags | trim | shorten: 150 : '...'"
           ></div>
           @if (content.details) {
             <div class="m-top-sm">

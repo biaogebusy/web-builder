@@ -7,72 +7,71 @@
   </div>
 }
 @if (content && pager) {
-  <div
-    class="search-list md:px-3 md:my-5"
-    >
+  <div class="search-list">
     <div class="container">
-      <div class="results m-bottom-sm">找到 {{ pager?.totalItems }} 个结果</div>
-      <mat-divider></mat-divider>
-      @for (item of content | paginate: pager; track trackByFn($index, item)) {
-        <div
-          class="list p-y-sm p-x-sm m-y-sm flex flex-col sm:flex-row"
-          >
-          @if (item?.img?.src) {
-            <div
-              class="object-left relative m-right-sm flex-12/12 sm:flex-[0_0_30%]"
-              >
-              <app-img [content]="item.img"></app-img>
-            </div>
-          }
-          <div class="content w-full">
-            <h2 class="title">
-              <app-link [content]="item.link"></app-link>
-            </h2>
-            @if (item.body) {
+      <div class="md:px-3 md:mt-[40px]">
+        <div class="results m-bottom-sm">
+          找到 {{ pager?.totalItems }} 个结果
+        </div>
+        <mat-divider></mat-divider>
+        @for (
+          item of content | paginate: pager;
+          track trackByFn($index, item)
+        ) {
+          <div class="list p-y-sm p-x-sm m-y-sm flex flex-col sm:flex-row">
+            @if (item?.img?.src) {
               <div
-                class="content"
-          [innerHTML]="
-            item.body
-              | stripTags: 'strong':'a':'em'
-              | shorten: 150:'...'
-              | safeHtml
-          "
-              ></div>
-            }
-            <div class="flex justify-between items-center my-3 bottom">
-              <div class="flex justify-start items-center gap-3">
-                <div>{{ item.user | ucfirst }}</div>
-                <div>{{ item?.type }}</div>
-                @if (item.category) {
-                  <div
-                    [innerHTML]="item?.category | safeHtml"
-                  ></div>
-                }
-                @if (item.tags) {
-                  <div [innerHTML]="item?.tags | safeHtml"></div>
-                }
-                <div class="actions flex">
-                  @for (action of item.actions; track action) {
-                    <app-dynamic-component
-                      [inputs]="{ content: action }"
-                    ></app-dynamic-component>
-                  }
-                </div>
+                class="object-left relative m-right-sm flex-12/12 sm:flex-[0_0_30%]"
+              >
+                <app-img [content]="item.img"></app-img>
               </div>
-              <div>{{ item.created }}</div>
+            }
+            <div class="content w-full">
+              <h2 class="title">
+                <app-link [content]="item.link"></app-link>
+              </h2>
+              @if (item.body) {
+                <div
+                  class="content"
+                  [innerHTML]="
+                    item.body
+                      | stripTags: 'strong' : 'a' : 'em'
+                      | shorten: 150 : '...'
+                      | safeHtml
+                  "
+                ></div>
+              }
+              <div class="flex justify-between items-center my-3 bottom">
+                <div class="flex justify-start items-center gap-3">
+                  <div>{{ item.user | ucfirst }}</div>
+                  <div>{{ item?.type }}</div>
+                  @if (item.category) {
+                    <div [innerHTML]="item?.category | safeHtml"></div>
+                  }
+                  @if (item.tags) {
+                    <div [innerHTML]="item?.tags | safeHtml"></div>
+                  }
+                  <div class="actions flex">
+                    @for (action of item.actions; track action) {
+                      <app-dynamic-component
+                        [inputs]="{ content: action }"
+                      ></app-dynamic-component>
+                    }
+                  </div>
+                </div>
+                <div>{{ item.created }}</div>
+              </div>
             </div>
           </div>
-        </div>
-      }
-      @if (content?.length > 0) {
-        <app-pagination
-          (pageChange)="onPageChange($event)"
-        ></app-pagination>
-      } @else {
-        <div class="text-center py-10">
-          <p>没有数据。</p>
-        </div>
-      }
+        }
+        @if (content?.length > 0) {
+          <app-pagination (pageChange)="onPageChange($event)"></app-pagination>
+        } @else {
+          <div class="text-center py-10">
+            <p>没有数据。</p>
+          </div>
+        }
+      </div>
     </div>
   </div>
 }
