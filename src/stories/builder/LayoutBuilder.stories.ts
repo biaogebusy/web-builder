@@ -140,7 +140,7 @@ LayoutDefault.args = {
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
           },
           {
             type: 'text',
@@ -357,7 +357,7 @@ TwoCol.args = {
         elements: [
           {
             style: 'none',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
             typed: {
               enable: false,
               config: {
@@ -489,7 +489,7 @@ TwoCol.args = {
         elements: [
           {
             style: 'none',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
             typed: {
               enable: false,
               config: {
@@ -1372,7 +1372,7 @@ Section1A.args = {
         elements: [
           {
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
             typed: {
               enable: false,
               config: {
@@ -1677,7 +1677,7 @@ Section1B.args = {
         elements: [
           {
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
             typed: {
               enable: false,
               config: {
@@ -1851,7 +1851,7 @@ Section2A.args = {
           },
           {
             style: 'style-v1',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
             typed: {
               enable: false,
               config: {
@@ -2051,7 +2051,7 @@ Section2B.args = {
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v1',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
           },
         ],
       },
@@ -2261,7 +2261,7 @@ Section3A.args = {
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
           },
           {
             type: 'text',
@@ -3373,7 +3373,7 @@ Section4A.args = {
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
           },
           {
             type: 'text',
@@ -3501,7 +3501,7 @@ Section5A.args = {
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
           },
           {
             type: 'text',

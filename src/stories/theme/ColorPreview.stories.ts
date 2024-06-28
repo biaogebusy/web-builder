@@ -419,7 +419,7 @@ const content: IThemePreview = {
         label:
           '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
         style: 'style-v1',
-        classes: 'mat-display-3 bold',
+        classes: 'mat-headline-3 bold',
       },
       body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
       classes: 'text-center',

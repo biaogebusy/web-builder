@@ -2375,7 +2375,7 @@ export const system: any[] = [
               title: {
                 label: '综合搜索',
                 style: 'style-v1',
-                classes: 'mat-display-1  text-light',
+                classes: 'mat-headline-1  text-light',
               },
               spacer: 'xl',
             },
@@ -3689,7 +3689,7 @@ export const system: any[] = [
               elements: [
                 {
                   style: 'style-v1',
-                  classes: 'mat-display-1 bold',
+                  classes: 'mat-headline-1 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -3901,7 +3901,7 @@ export const system: any[] = [
             title: {
               label: '联系我们',
               style: 'style-v1',
-              classes: 'mat-display-1',
+              classes: 'mat-headline-1',
             },
             classes: 'text-light text-center',
             body: '如果您有任何需要帮助，请联系我们！',
@@ -5426,7 +5426,7 @@ export const system: any[] = [
                       label:
                         '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                       style: 'style-v4',
-                      classes: 'mat-display-1 bold',
+                      classes: 'mat-headline-1 bold',
                     },
                   },
                 ],

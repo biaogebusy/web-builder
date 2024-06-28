@@ -124,7 +124,7 @@ export const home_v10 = {
           title: {
             label: '使用信使构建你们的项目',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
         },
@@ -223,7 +223,7 @@ export const home_v10 = {
           title: {
             label: '组件展示和测试',
             style: 'style-v4',
-            classes: 'mat-display-1',
+            classes: 'mat-headline-1',
           },
           body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
           actions: [
@@ -262,7 +262,7 @@ export const home_v10 = {
           title: {
             label: '文档化',
             style: 'style-v4',
-            classes: 'mat-display-1',
+            classes: 'mat-headline-1',
           },
           body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class="list-done">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n',
           actions: [
@@ -283,7 +283,7 @@ export const home_v10 = {
           label: '客户评价',
           icon: '',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
         classes: 'text-center',
         body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
@@ -385,7 +385,7 @@ export const home_v10 = {
         label:
           '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
-        classes: 'mat-display-1 bold',
+        classes: 'mat-headline-1 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',

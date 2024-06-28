@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @import "./breakpoint";
 
 $color-theme: (
@@ -43,70 +43,79 @@ $custom-typography: mat.define-typography-config(
 );
 
 $spacer: 4rem;
-$font-size: 1.6rem;
-$font-size-sm: 1.4rem;
-$line-height: 1.618;
 
-.mat-headline-4 {
+.mat-headline-4,
+.mat-display-4 {
   font-size: 20px !important;
 }
 
 @media (min-width: 600px) {
-  .mat-headline-4 {
+  .mat-headline-4,
+  .mat-display-4 {
     font-size: calc(20px + 10 * ((100vw - 600px) / (1440 - 600))) !important;
   }
 }
 
 @media (min-width: 1440px) {
-  .mat-headline-4 {
+  .mat-headline-4,
+  .mat-display-4 {
     font-size: 30px !important;
   }
 }
 
-.mat-headline-3 {
+.mat-headline-3,
+.mat-display-3 {
   font-size: 24px !important;
 }
 
 @media (min-width: 600px) {
-  .mat-headline-3 {
+  .mat-headline-3,
+  .mat-display-3 {
     font-size: calc(24px + 10 * ((100vw - 600px) / (1440 - 600))) !important;
   }
 }
 
 @media (min-width: 1440px) {
-  .mat-headline-3 {
+  .mat-headline-3,
+  .mat-display-3 {
     font-size: 40px !important;
   }
 }
 
-.mat-headline-2 {
+.mat-headline-2,
+.mat-display-2 {
   font-size: 32px !important;
 }
 
 @media (min-width: 600px) {
-  .mat-headline-2 {
+  .mat-headline-2,
+  .mat-display-2 {
     font-size: calc(32px + 16 * ((100vw - 600px) / (1440 - 600))) !important;
   }
 }
 
 @media (min-width: 1440px) {
-  .mat-headline-2 {
+  .mat-headline-2,
+  .mat-display-2 {
     font-size: 48px !important;
   }
 }
 
-.mat-headline-1 {
+.mat-headline-1,
+.mat-display-1 {
   font-size: 40px !important;
 }
 
 @media (min-width: 600px) {
-  .mat-headline-1 {
+  .mat-headline-1,
+  .mat-display-1 {
     font-size: calc(40px + 20 * ((100vw - 600px) / (1440 - 600))) !important;
   }
 }
 
 @media (min-width: 1440px) {
-  .mat-headline-1 {
+  .mat-headline-1,
+  .mat-display-1 {
     font-size: 60px !important;
   }
 }

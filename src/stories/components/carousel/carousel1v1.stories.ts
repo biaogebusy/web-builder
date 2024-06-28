@@ -35,7 +35,7 @@ const defaultContent: ICarouselBase = {
     label: '你将喜欢上 Drupal 的原因',
     icon: 'email',
     style: 'style-v2',
-    classes: 'mat-display-1',
+    classes: 'mat-headline-1',
   },
   classes: '',
   bg: {
@@ -194,7 +194,7 @@ const textHeroContent: ICarouselBase = {
           title: {
             label: '高性能',
             style: 'style-v4',
-            classes: 'mat-display-2 bold',
+            classes: 'mat-headline-2 bold',
           },
           classes: 'y-center',
           style: [],
@@ -229,7 +229,7 @@ const textHeroContent: ICarouselBase = {
           title: {
             label: '易用的编辑器',
             style: 'style-v4',
-            classes: 'mat-display-2 bold',
+            classes: 'mat-headline-2 bold',
           },
           classes: 'y-center',
           style: [],
@@ -263,7 +263,7 @@ const textHeroContent: ICarouselBase = {
           title: {
             label: '多语言',
             style: 'style-v4',
-            classes: 'mat-display-2 bold',
+            classes: 'mat-headline-2 bold',
           },
           classes: 'y-center',
           style: [],
@@ -487,7 +487,7 @@ FullScreen.args = {
                 title: {
                   label: '组件驱动开发',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'xy-center',
                 bg: {
@@ -514,7 +514,7 @@ FullScreen.args = {
                 title: {
                   label: '组件展示和测试',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 spacer: 'xl',
                 classes: 'xy-center text-light',
@@ -542,7 +542,7 @@ FullScreen.args = {
                 title: {
                   label: '文档化',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 spacer: 'xl',
                 classes: 'xy-center text-light',
@@ -582,7 +582,7 @@ FullScreen.args = {
               label:
                 '使用 <strong class="text-primary">Storybook</strong> 开发组件',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-headline-2 bold',
             },
             body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
           },
@@ -923,7 +923,7 @@ FullScreen.args = {
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
             style: 'style-v1',
-            classes: 'mat-display-2 bold',
+            classes: 'mat-headline-2 bold',
           },
           bg: {
             classes: 'bg- bg-fill-width',

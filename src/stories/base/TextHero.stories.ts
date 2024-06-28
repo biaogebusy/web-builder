@@ -37,7 +37,7 @@ const content: ITextHero = {
     title: {
       label: '为所有开发者、所有应用场景而设计',
       style: 'style-v4',
-      classes: 'mat-display-2 bold',
+      classes: 'mat-headline-2 bold',
     },
     classes: 'y-center',
     style: [],

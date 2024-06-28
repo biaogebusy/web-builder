@@ -56,19 +56,19 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
                   },
                   {
                     label: '1级',
-                    value: 'mat-display-1 bold',
+                    value: 'mat-headline-1 bold',
                   },
                   {
                     label: '2级',
-                    value: 'mat-display-2 bold',
+                    value: 'mat-headline-2 bold',
                   },
                   {
                     label: '3级',
-                    value: 'mat-display-3 bold',
+                    value: 'mat-headline-3 bold',
                   },
                   {
                     label: '4级',
-                    value: 'mat-display-4 bold',
+                    value: 'mat-headline-4 bold',
                   },
                 ],
               },

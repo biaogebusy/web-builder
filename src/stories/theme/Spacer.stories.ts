@@ -25,27 +25,27 @@ const meta: Meta<SpacerComponent> = {
       (story) =>
         `<div class="widget relative bg-shadow p-y p-x" style="z-index:1;">
 
-          <app-title [content]="{ 'label': 'xs', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <app-title [content]="{ 'label': 'xs', 'style': 'style-v4', 'classes': 'mat-headline-1' }"></app-title>
           <div class="bg-primary">
             <app-spacer [size]="'xs'"></app-spacer>
           </div>
 
-          <app-title [content]="{ 'label': 'sm', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <app-title [content]="{ 'label': 'sm', 'style': 'style-v4', 'classes': 'mat-headline-1' }"></app-title>
           <div class="bg-primary">
             <app-spacer [size]="'sm'"></app-spacer>
           </div>
 
-          <app-title [content]="{ 'label': 'md', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <app-title [content]="{ 'label': 'md', 'style': 'style-v4', 'classes': 'mat-headline-1' }"></app-title>
           <div class="bg-primary">
            <app-spacer [size]="'md'"></app-spacer>
           </div>
 
-          <app-title [content]="{ 'label': 'lg', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <app-title [content]="{ 'label': 'lg', 'style': 'style-v4', 'classes': 'mat-headline-1' }"></app-title>
           <div class="bg-primary">
            <app-spacer [size]="'lg'"></app-spacer>
           </div>
 
-          <app-title [content]="{ 'label': 'xl', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <app-title [content]="{ 'label': 'xl', 'style': 'style-v4', 'classes': 'mat-headline-1' }"></app-title>
           <div class="bg-primary">
            <app-spacer [size]="'xl'"></app-spacer>
           </div>

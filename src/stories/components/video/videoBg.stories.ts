@@ -55,7 +55,7 @@ const content: IVideoBg = {
       title: {
         label: 'Storybook 是什么？',
         style: 'style-v1',
-        classes: 'mat-display-1',
+        classes: 'mat-headline-1',
       },
       classes: 'text-light',
       elements: [

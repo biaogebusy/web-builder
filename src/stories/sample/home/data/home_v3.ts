@@ -44,7 +44,7 @@ export const home_v3 = {
             title: {
               label: '组件驱动开发',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-headline-2 bold',
             },
             classes: 'xy-center',
             bg: {
@@ -71,7 +71,7 @@ export const home_v3 = {
             title: {
               label: '组件展示和测试',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-headline-2 bold',
             },
             spacer: 'xl',
             classes: 'xy-center text-light',
@@ -99,7 +99,7 @@ export const home_v3 = {
             title: {
               label: '文档化',
               style: 'style-v1',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-headline-2 bold',
             },
             spacer: 'xl',
             classes: 'xy-center text-light',
@@ -332,7 +332,7 @@ export const home_v3 = {
           title: {
             label: '使用信使构建你们的项目',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
         },
@@ -452,7 +452,7 @@ export const home_v3 = {
           title: {
             label: '使用信使构建你们的项目',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
         },
@@ -530,7 +530,7 @@ export const home_v3 = {
         label:
           '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
-        classes: 'mat-display-2 bold',
+        classes: 'mat-headline-2 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',

@@ -124,7 +124,7 @@ export const home_v14 = {
             },
             {
               style: 'none',
-              classes: 'mat-display-4 font-bold text-left',
+              classes: 'mat-headline-4 font-bold text-left',
               typed: {
                 enable: false,
                 config: {
@@ -245,7 +245,7 @@ export const home_v14 = {
       title: {
         label: 'New Arrivals',
         style: 'style-v1',
-        classes: 'mat-display-1 bold',
+        classes: 'mat-headline-1 bold',
       },
       body: '<p style="display: inline-block; margin-bottom: 0px;">Look at the latest collection that we offer</p>',
       actionsAlign: 'center center',
@@ -380,7 +380,7 @@ export const home_v14 = {
             },
             {
               style: 'none',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-headline-2 bold',
               typed: {
                 enable: false,
                 config: {
@@ -535,7 +535,7 @@ export const home_v14 = {
             },
             {
               style: 'none',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-headline-2 bold',
               typed: {
                 enable: false,
                 config: {
@@ -690,7 +690,7 @@ export const home_v14 = {
             },
             {
               style: 'none',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-headline-2 bold',
               typed: {
                 enable: false,
                 config: {
@@ -960,7 +960,7 @@ export const home_v14 = {
           elements: [
             {
               style: 'none',
-              classes: 'mat-display-2 bold',
+              classes: 'mat-headline-2 bold',
               typed: {
                 enable: false,
                 config: {
@@ -1266,7 +1266,7 @@ export const home_v14 = {
                       type: 'title',
                       label: 'Living Room set<br>',
                       style: 'style-v4',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     {
                       type: 'text',
@@ -1470,7 +1470,7 @@ export const home_v14 = {
                       label:
                         '<p style="display: inline-block; margin-bottom: 0px;">Bedroom Set<br></p>',
                       style: 'style-v4',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     {
                       type: 'text',
@@ -1827,7 +1827,7 @@ export const home_v14 = {
                       label:
                         '<p style="display: inline-block; margin-bottom: 0px;">Kitchen Set<br></p>',
                       style: 'style-v4',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     {
                       type: 'text',
@@ -1890,7 +1890,7 @@ export const home_v14 = {
       title: {
         label: 'Shop by Category',
         style: 'style-v1',
-        classes: 'mat-display-1 bold',
+        classes: 'mat-headline-1 bold',
       },
       body: 'Find for your favorite products based on the categories',
     },
@@ -2202,7 +2202,7 @@ export const home_v14 = {
       },
       title: {
         style: 'style-v2',
-        classes: 'mat-display-1',
+        classes: 'mat-headline-1',
         typed: {
           enable: false,
           config: {

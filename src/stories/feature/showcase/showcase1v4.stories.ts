@@ -43,7 +43,7 @@ const content: IShowcase1v4 = {
     title: {
       label: '使用 <strong class="text-primary">Storybook</strong> 开发组件',
       style: 'style-v1',
-      classes: 'mat-display-2 bold',
+      classes: 'mat-headline-2 bold',
     },
     classes: 'text-center',
     body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
@@ -126,7 +126,7 @@ const price: IShowcase1v4 = {
     title: {
       label: '会员等级与专属服务',
       style: 'style-v1',
-      classes: 'mat-display-2 bold',
+      classes: 'mat-headline-2 bold',
     },
     classes: 'text-center',
     body: '<p class="text-center">我们为您提供了一系列多样化的会员等级和相应的专属服务，旨在打造个性化的艺术设计体验。无论您是刚起步的爱好者还是专业设计师，我们的会员计划将满足您不同层次和需求。</p>',
@@ -241,7 +241,7 @@ const dynamic: IShowcase1v4 = {
     title: {
       label: '艺术设计之旅：探索创意与美学的奇妙世界',
       style: 'style-v1',
-      classes: 'mat-display-2 bold',
+      classes: 'mat-headline-2 bold',
     },
     classes: 'text-center',
     body: '<p class="text-center">这次艺术设计之旅不仅仅是一次观赏和欣赏的体验，更是一个与艺术创造亲密接触的机会。参与者们通过参观展览、讲座和工作坊，自己动手创作和表达，发掘了自己内在的艺术潜能和表达能力。</p>',

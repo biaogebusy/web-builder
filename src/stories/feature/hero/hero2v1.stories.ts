@@ -45,7 +45,7 @@ const content: ITextHero = {
     title: {
       label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
       style: 'style-v1',
-      classes: 'mat-display-2',
+      classes: 'mat-headline-2',
     },
     spacer: 'xl',
     classes: 'xy-center text-center',
@@ -85,7 +85,7 @@ const yContent: ITextHero = {
     title: {
       label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
       style: 'style-v4',
-      classes: 'mat-display-1',
+      classes: 'mat-headline-1',
     },
     spacer: 'xl',
     style: {
@@ -129,7 +129,7 @@ const yCxCustom: ITextHero = {
       label:
         '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
       style: 'style-v4',
-      classes: 'mat-display-1',
+      classes: 'mat-headline-1',
     },
     spacer: 'xl',
     style: {

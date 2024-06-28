@@ -151,7 +151,7 @@
               "title": {
                 "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
                 "style": "style-v4",
-                "classes": "mat-display-1 bold"
+                "classes": "mat-headline-1 bold"
               }
             }
           ]
@@ -519,7 +519,7 @@
             "title": {
               "label": "Free trial <strong class=\"text-primary\">Web builder </strong> <br>to quickly build pages",
               "style": "style-v4",
-              "classes": "mat-display-3 bold",
+              "classes": "mat-headline-3 bold",
               "typed": {
                 "enable": true,
                 "strings": [
@@ -710,7 +710,7 @@
           "title": {
             "label": "How was the page created",
             "style": "style-v1",
-            "classes": "mat-display-1 bold"
+            "classes": "mat-headline-1 bold"
           }
         },
         "elements": [

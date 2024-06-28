@@ -42,7 +42,7 @@ const content: ICarouselBase = {
     label: 'Storybook 能够做什么？',
     icon: 'email',
     style: 'style-v2',
-    classes: 'mat-display-2',
+    classes: 'mat-headline-2',
   },
   bg: {
     classes: '',
@@ -79,7 +79,7 @@ const content: ICarouselBase = {
           title: {
             label: '组件驱动开发',
             style: 'style-v1',
-            classes: 'mat-display-4',
+            classes: 'mat-headline-4',
           },
           spacer: 'xl',
           classes: 'xy-center',
@@ -115,7 +115,7 @@ const content: ICarouselBase = {
           title: {
             label: '组件展示和测试',
             style: 'style-v4',
-            classes: 'mat-display-4',
+            classes: 'mat-headline-4',
           },
           spacer: 'xl',
           style: {
@@ -149,7 +149,7 @@ const content: ICarouselBase = {
           title: {
             label: '文档化',
             style: 'style-v4',
-            classes: 'mat-display-4',
+            classes: 'mat-headline-4',
           },
           spacer: 'xl',
           style: {
@@ -184,7 +184,7 @@ const content: ICarouselBase = {
           title: {
             label: '插件和工具生态系统',
             style: 'style-v4',
-            classes: 'mat-display-4',
+            classes: 'mat-headline-4',
           },
           spacer: 'xl',
           style: {

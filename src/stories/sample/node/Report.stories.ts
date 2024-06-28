@@ -47,7 +47,7 @@ const content: IReport = {
       title: {
         label: '十一月份我的福利投票统计',
         style: 'style-v4',
-        classes: 'mat-display-1 m-bottom-0',
+        classes: 'mat-headline-1 m-bottom-0',
       },
     },
     meta: [
@@ -398,7 +398,7 @@ const workTime: IReport = {
       title: {
         label: '工时统计',
         style: 'style-v4',
-        classes: 'mat-display-1 m-bottom-0',
+        classes: 'mat-headline-1 m-bottom-0',
       },
     },
   },
@@ -625,7 +625,7 @@ const singleMode: IReport = {
       title: {
         label: '客户年度统计报告',
         style: 'style-v4',
-        classes: 'mat-display-1 m-bottom-0',
+        classes: 'mat-headline-1 m-bottom-0',
       },
     },
   },

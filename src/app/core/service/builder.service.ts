@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type {
@@ -20,15 +20,15 @@ import { MatDialog } from '@angular/material/dialog';
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
+  http = inject(HttpClient);
+  util = inject(UtilitiesService);
+  builder = inject(BuilderState);
+  nodeService = inject(NodeService);
   constructor(
-    private http: HttpClient,
-    private util: UtilitiesService,
-    private builder: BuilderState,
-    private nodeService: NodeService,
     private dialog: MatDialog,
     @Inject(API_URL) public apiBaseUrl: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
   ) {
     super(apiBaseUrl);
   }
@@ -62,7 +62,7 @@ export class BuilderService extends ApiService {
       .post(
         `${this.apiUrl}${create}`,
         this.formatPage(page),
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         tap((res: any) => {
@@ -70,7 +70,7 @@ export class BuilderService extends ApiService {
             data: { id },
           } = res;
           this.loadPage(id);
-        })
+        }),
       );
   }
 
@@ -86,7 +86,7 @@ export class BuilderService extends ApiService {
       .patch(
         `${this.apiUrl}${update}/${page.id}`,
         this.coverExtraData(page),
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         tap((res: any) => {
@@ -94,7 +94,7 @@ export class BuilderService extends ApiService {
             data: { id },
           } = res;
           this.loadPage(id);
-        })
+        }),
       );
   }
 
@@ -202,7 +202,7 @@ export class BuilderService extends ApiService {
             label:
               '<p style="display: inline-block; margin-bottom: 0px;">欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面</p>',
             style: 'style-v1',
-            classes: 'mat-display-2 bold',
+            classes: 'mat-headline-2 bold',
           },
           bg: {
             classes: 'bg- bg-fill-width',

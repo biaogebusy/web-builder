@@ -25,7 +25,7 @@ export const home_v8 = {
         title: {
           label:
             '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
-          classes: 'mat-display-2 bold',
+          classes: 'mat-headline-2 bold',
           style: 'style-v1',
         },
         classes: 'p-x text-center',
@@ -322,7 +322,7 @@ export const home_v8 = {
           title: {
             label: '使用信使构建你们的项目',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
         },
@@ -403,7 +403,7 @@ export const home_v8 = {
           label: '客户评价',
           icon: '',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
         classes: 'text-center',
         body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
@@ -506,7 +506,7 @@ export const home_v8 = {
         title: {
           label: 'Storybook 是如何流行于前端开发测试的',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
         classes: 'text-center',
         body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
@@ -566,7 +566,7 @@ export const home_v8 = {
         label:
           '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
-        classes: 'mat-display-1 bold',
+        classes: 'mat-headline-1 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',

@@ -34,7 +34,7 @@ export const home_v5 = {
             title: {
               label: '前端面试全家桶',
               style: 'style-v1',
-              classes: 'mat-display-2',
+              classes: 'mat-headline-2',
             },
             classes: 'xy-center',
             style: {
@@ -62,7 +62,7 @@ export const home_v5 = {
             title: {
               label: 'Java 亿级项目架构设计的落地和应用',
               style: 'style-v1',
-              classes: 'mat-display-2',
+              classes: 'mat-headline-2',
             },
             classes: 'xy-center',
             style: {
@@ -90,7 +90,7 @@ export const home_v5 = {
             title: {
               label: '产品经理电商系统实践',
               style: 'style-v1',
-              classes: 'mat-display-2',
+              classes: 'mat-headline-2',
             },
             classes: 'xy-center',
             style: {
@@ -303,7 +303,7 @@ export const home_v5 = {
           title: {
             label: '全天候学习支持',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: '这里是您开启编程世界大门的理想起点。我们倾力打造了一系列适合各阶段学员的在线编程课程，无论您是初学者还是资深开发者，都将在这里找到适合自己的学习路径。',
         },
@@ -356,7 +356,7 @@ export const home_v5 = {
         title: {
           label: 'Storybook 是什么？',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
       },
       classes: 'text-light',
@@ -506,7 +506,7 @@ export const home_v5 = {
         title: {
           label: '最新课程',
           style: 'style-v1',
-          classes: 'mat-display-0 bold',
+          classes: 'mat-headline-0 bold',
         },
         classes: 'text-center',
         body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
@@ -604,7 +604,7 @@ export const home_v5 = {
         label:
           '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
-        classes: 'mat-display-2 bold',
+        classes: 'mat-headline-2 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',

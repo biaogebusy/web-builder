@@ -34,7 +34,7 @@ export const home_v2 = {
         title: {
           label: '开源项目使用 Github actions 自动化',
           style: 'none',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
         spacer: 'none',
         body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
@@ -194,7 +194,7 @@ export const home_v2 = {
         title: {
           label: '最新课程',
           style: 'style-v1',
-          classes: 'mat-display-0 bold',
+          classes: 'mat-headline-0 bold',
         },
         classes: 'text-center',
         body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
@@ -434,7 +434,7 @@ export const home_v2 = {
         label: '你将喜欢上 Drupal 的原因',
         icon: 'email',
         style: 'style-v2',
-        classes: 'mat-display-1',
+        classes: 'mat-headline-1',
       },
       classes: '',
       bg: {

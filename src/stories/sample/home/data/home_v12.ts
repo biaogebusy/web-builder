@@ -35,7 +35,7 @@ export const home_v12 = {
           label:
             '<p><span data-type="text">艺术点亮生活，为您打造独一无二的艺术之旅</span></p>',
           style: 'style-v4',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
         body: '<p><span data-type="text">在喧嚣的城市中寻找心灵的绿洲，[您的工作室名称]艺术工作室欢迎您！我们专注于为每一位热爱生活的您，提供个性化、高品质的艺术创作空间和课程服务。从零基础绘画课程到高端私人定制艺术品，让您在挥洒色彩间感受生活的美好。</span></p>',
         actions: [
@@ -195,7 +195,7 @@ export const home_v12 = {
         title: {
           label: '特色服务',
           style: 'style-v1',
-          classes: 'mat-display-2 bold',
+          classes: 'mat-headline-2 bold',
         },
         classes: 'text-center',
         body: '<p class="text-center">沉浸式体验，专业定制，共享艺术的魅力与温度</p>',
@@ -301,7 +301,7 @@ export const home_v12 = {
         title: {
           label: '艺术设计之旅：探索创意与美学的奇妙世界',
           style: 'style-v1',
-          classes: 'mat-display-2 bold',
+          classes: 'mat-headline-2 bold',
         },
         classes: 'text-center',
         body: '<p class="text-center">这次艺术设计之旅不仅仅是一次观赏和欣赏的体验，更是一个与艺术创造亲密接触的机会。参与者们通过参观展览、讲座和工作坊，自己动手创作和表达，发掘了自己内在的艺术潜能和表达能力。</p>',
@@ -407,7 +407,7 @@ export const home_v12 = {
       title: {
         label: '为您打造独一无二的艺术之旅',
         style: 'style-v1',
-        classes: 'mat-display-2 bold',
+        classes: 'mat-headline-2 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',

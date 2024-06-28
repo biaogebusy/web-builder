@@ -66,7 +66,7 @@ export const home_v1 = {
             label:
               '欢迎使用 <strong class="text-primary"></strong> <br>快速构建页面',
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-headline-1 bold',
             typed: {
               enable: true,
               strings: [{ label: '信使 UI' }, { label: 'Web builder' }],
@@ -112,7 +112,7 @@ export const home_v1 = {
       title: {
         label: '使用人员',
         style: 'style-v1',
-        classes: 'mat-display-1',
+        classes: 'mat-headline-1',
       },
       row: '4',
       elements: [
@@ -178,7 +178,7 @@ export const home_v1 = {
         label:
           '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
-        classes: 'mat-display-1 bold',
+        classes: 'mat-headline-1 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',

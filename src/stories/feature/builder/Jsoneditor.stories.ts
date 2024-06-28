@@ -78,7 +78,7 @@ const content: IJsoneditor = {
           title: {
             label: '开源',
             style: 'style-v1',
-            classes: 'mat-display-3 bold',
+            classes: 'mat-headline-3 bold',
           },
           classes: 'xy-center',
           bg: {
@@ -105,7 +105,7 @@ const content: IJsoneditor = {
           title: {
             label: '强大的内容管理功能',
             style: 'style-v1',
-            classes: 'mat-display-3 bold',
+            classes: 'mat-headline-3 bold',
           },
           spacer: 'xl',
           classes: 'xy-center text-light',

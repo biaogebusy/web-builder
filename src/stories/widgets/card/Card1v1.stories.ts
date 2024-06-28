@@ -70,7 +70,7 @@ const comp: ICard1v1 = {
       text: {
         title: {
           label: 'Conduct More Customer In A Better Way',
-          classes: 'mat-display-4 bold',
+          classes: 'mat-headline-4 bold',
           style: 'style-v1',
         },
         classes: 'p-x text-center',

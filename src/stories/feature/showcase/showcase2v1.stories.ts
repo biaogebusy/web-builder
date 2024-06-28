@@ -40,7 +40,7 @@ const content: IShowcase2v1 = {
     title: {
       label: 'Drupal 优秀案例',
       style: 'style-v1',
-      classes: 'mat-display-2 bold',
+      classes: 'mat-headline-2 bold',
     },
     classes: 'text-center',
     body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
@@ -376,7 +376,7 @@ const card1v1: IShowcase2v1 = {
     title: {
       label: '最新课程',
       style: 'style-v1',
-      classes: 'mat-display-0 bold',
+      classes: 'mat-headline-0 bold',
     },
     classes: 'text-center',
     body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',

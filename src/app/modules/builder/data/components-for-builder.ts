@@ -41,7 +41,7 @@ export const components: any[] = [
                     title: {
                       label: '组件驱动开发',
                       style: 'style-v1',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     classes: 'xy-center',
                     bg: {
@@ -68,7 +68,7 @@ export const components: any[] = [
                     title: {
                       label: '组件展示和测试',
                       style: 'style-v1',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     spacer: 'xl',
                     classes: 'xy-center text-light',
@@ -96,7 +96,7 @@ export const components: any[] = [
                     title: {
                       label: '文档化',
                       style: 'style-v1',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     spacer: 'xl',
                     classes: 'xy-center text-light',
@@ -234,7 +234,7 @@ export const components: any[] = [
                 title: {
                   label:
                     '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                   style: 'style-v1',
                 },
                 classes: 'p-x text-center',
@@ -302,7 +302,7 @@ export const components: any[] = [
                   label:
                     '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
                   style: 'style-v1',
-                  classes: 'mat-display-2',
+                  classes: 'mat-headline-2',
                 },
                 spacer: 'xl',
                 classes: 'xy-center text-center',
@@ -340,7 +340,7 @@ export const components: any[] = [
                   label:
                     '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
                   style: 'style-v4',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 spacer: 'xl',
                 style: {
@@ -431,7 +431,7 @@ export const components: any[] = [
                 title: {
                   label: '开源项目使用 Github actions 自动化',
                   style: 'style-v4',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
                 actions: [
@@ -469,7 +469,7 @@ export const components: any[] = [
                 title: {
                   label: '开源项目使用 Github actions 自动化',
                   style: 'none',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 spacer: 'none',
                 body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
@@ -1347,7 +1347,7 @@ export const components: any[] = [
                 title: {
                   label: 'Storybook 是什么？',
                   style: 'style-v1',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
               },
               classes: 'text-light',
@@ -1519,7 +1519,7 @@ export const components: any[] = [
                 title: {
                   label: 'Storybook 是什么？',
                   style: 'style-v1',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
               },
               classes: 'text-light',
@@ -1581,7 +1581,7 @@ export const components: any[] = [
                   label:
                     '使用 <strong class="text-primary">Storybook</strong> 开发组件',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
@@ -1661,7 +1661,7 @@ export const components: any[] = [
                 title: {
                   label: '会员等级与专属服务',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">我们为您提供了一系列多样化的会员等级和相应的专属服务，旨在打造个性化的艺术设计体验。无论您是刚起步的爱好者还是专业设计师，我们的会员计划将满足您不同层次和需求。</p>',
@@ -1773,7 +1773,7 @@ export const components: any[] = [
                 title: {
                   label: '艺术设计之旅：探索创意与美学的奇妙世界',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">这次艺术设计之旅不仅仅是一次观赏和欣赏的体验，更是一个与艺术创造亲密接触的机会。参与者们通过参观展览、讲座和工作坊，自己动手创作和表达，发掘了自己内在的艺术潜能和表达能力。</p>',
@@ -1888,7 +1888,7 @@ export const components: any[] = [
                 title: {
                   label: 'Drupal 优秀案例',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
@@ -2224,7 +2224,7 @@ export const components: any[] = [
                 title: {
                   label: '最新课程',
                   style: 'style-v1',
-                  classes: 'mat-display-0 bold',
+                  classes: 'mat-headline-0 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
@@ -2326,7 +2326,7 @@ export const components: any[] = [
                   label:
                     '本年度<strong class="text-primary">艺术作品</strong>代表作',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
@@ -2485,7 +2485,7 @@ export const components: any[] = [
                   label:
                     '本年度<strong class="text-primary">艺术作品</strong>代表作',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
@@ -2566,7 +2566,7 @@ export const components: any[] = [
                   label:
                     '<strong class="text-primary">Storybook</strong> 是什么？',
                   style: 'style-v1',
-                  classes: 'mat-display-2 blod',
+                  classes: 'mat-headline-2 blod',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文</p>',
@@ -3289,7 +3289,7 @@ export const components: any[] = [
                     label:
                       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                     style: 'style-v4',
-                    classes: 'mat-display-1 bold',
+                    classes: 'mat-headline-1 bold',
                   },
                   bg: {
                     classes: '',
@@ -3349,7 +3349,7 @@ export const components: any[] = [
                   title: {
                     label: 'Storybook 是什么？',
                     style: 'style-v4',
-                    classes: 'mat-display-2',
+                    classes: 'mat-headline-2',
                   },
                   body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。',
                 },
@@ -3447,7 +3447,7 @@ export const components: any[] = [
                   title: {
                     label: '使用信使构建你们的项目',
                     style: 'style-v4',
-                    classes: 'mat-display-2',
+                    classes: 'mat-headline-2',
                   },
                   body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
                 },
@@ -3574,7 +3574,7 @@ export const components: any[] = [
                     label:
                       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                     style: 'style-v4',
-                    classes: 'mat-display-1 bold',
+                    classes: 'mat-headline-1 bold',
                   },
                   bg: {
                     classes: '',
@@ -3624,7 +3624,7 @@ export const components: any[] = [
                 label: '你将喜欢上 Drupal 的原因',
                 icon: 'email',
                 style: 'style-v2',
-                classes: 'mat-display-1',
+                classes: 'mat-headline-1',
               },
               classes: '',
               bg: {
@@ -3780,7 +3780,7 @@ export const components: any[] = [
                       title: {
                         label: '高性能',
                         style: 'style-v4',
-                        classes: 'mat-display-2 bold',
+                        classes: 'mat-headline-2 bold',
                       },
                       classes: 'y-center',
                       style: [],
@@ -3815,7 +3815,7 @@ export const components: any[] = [
                       title: {
                         label: '易用的编辑器',
                         style: 'style-v4',
-                        classes: 'mat-display-2 bold',
+                        classes: 'mat-headline-2 bold',
                       },
                       classes: 'y-center',
                       style: [],
@@ -3849,7 +3849,7 @@ export const components: any[] = [
                       title: {
                         label: '多语言',
                         style: 'style-v4',
-                        classes: 'mat-display-2 bold',
+                        classes: 'mat-headline-2 bold',
                       },
                       classes: 'y-center',
                       style: [],
@@ -3886,7 +3886,7 @@ export const components: any[] = [
                 label: '你将喜欢上 Drupal 的原因',
                 icon: 'email',
                 style: 'style-v2',
-                classes: 'mat-display-1',
+                classes: 'mat-headline-1',
               },
               classes: '',
               bg: {
@@ -4031,7 +4031,7 @@ export const components: any[] = [
                 label: 'Storybook 能够做什么？',
                 icon: 'email',
                 style: 'style-v2',
-                classes: 'mat-display-2',
+                classes: 'mat-headline-2',
               },
               bg: {
                 classes: '',
@@ -4068,7 +4068,7 @@ export const components: any[] = [
                       title: {
                         label: '组件驱动开发',
                         style: 'style-v1',
-                        classes: 'mat-display-4',
+                        classes: 'mat-headline-4',
                       },
                       spacer: 'xl',
                       classes: 'xy-center',
@@ -4104,7 +4104,7 @@ export const components: any[] = [
                       title: {
                         label: '组件展示和测试',
                         style: 'style-v4',
-                        classes: 'mat-display-4',
+                        classes: 'mat-headline-4',
                       },
                       spacer: 'xl',
                       style: {
@@ -4138,7 +4138,7 @@ export const components: any[] = [
                       title: {
                         label: '文档化',
                         style: 'style-v4',
-                        classes: 'mat-display-4',
+                        classes: 'mat-headline-4',
                       },
                       spacer: 'xl',
                       style: {
@@ -4173,7 +4173,7 @@ export const components: any[] = [
                       title: {
                         label: '插件和工具生态系统',
                         style: 'style-v4',
-                        classes: 'mat-display-4',
+                        classes: 'mat-headline-4',
                       },
                       spacer: 'xl',
                       style: {
@@ -4259,7 +4259,7 @@ export const components: any[] = [
                           title: {
                             label: '组件驱动开发',
                             style: 'style-v1',
-                            classes: 'mat-display-2 bold',
+                            classes: 'mat-headline-2 bold',
                           },
                           classes: 'xy-center',
                           bg: {
@@ -4286,7 +4286,7 @@ export const components: any[] = [
                           title: {
                             label: '组件展示和测试',
                             style: 'style-v1',
-                            classes: 'mat-display-2 bold',
+                            classes: 'mat-headline-2 bold',
                           },
                           spacer: 'xl',
                           classes: 'xy-center text-light',
@@ -4314,7 +4314,7 @@ export const components: any[] = [
                           title: {
                             label: '文档化',
                             style: 'style-v1',
-                            classes: 'mat-display-2 bold',
+                            classes: 'mat-headline-2 bold',
                           },
                           spacer: 'xl',
                           classes: 'xy-center text-light',
@@ -4354,7 +4354,7 @@ export const components: any[] = [
                         label:
                           '使用 <strong class="text-primary">Storybook</strong> 开发组件',
                         style: 'style-v1',
-                        classes: 'mat-display-2 bold',
+                        classes: 'mat-headline-2 bold',
                       },
                       body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
                     },
@@ -4700,7 +4700,7 @@ export const components: any[] = [
                       label:
                         '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                       style: 'style-v1',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     bg: {
                       classes: 'bg- bg-fill-width',
@@ -4891,7 +4891,7 @@ export const components: any[] = [
                   label: '选择Drupal的原因',
                   icon: '',
                   style: 'style-v1',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Drupal是数据管理中心，提供集中的地方来访问所有平台的数据</p><br>',
@@ -5035,7 +5035,7 @@ export const components: any[] = [
                   label: '客户评价',
                   icon: '',
                   style: 'style-v1',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',

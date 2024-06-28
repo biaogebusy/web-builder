@@ -1486,7 +1486,7 @@ Showcase.args = {
           </div>
           <div class="md:flex-6/12">
             <div class="p-5">
-              <div class="mat-display-2 uppercase !mb-5">{{title}}</div>
+              <div class="mat-headline-2 uppercase !mb-5">{{title}}</div>
               <div class="text-sm">{{content}}</div>
               <a class="mt-5 py-2 px-8 text-center rounded-full inline-block !text-white hover:opacity-80 bg-primary" href="{{more.href}}">{{more.label}}</a>
             </div>

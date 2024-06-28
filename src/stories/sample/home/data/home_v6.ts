@@ -65,7 +65,7 @@ export const home_v6 = {
           title: {
             label: '特色服务',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
         },
@@ -143,7 +143,7 @@ export const home_v6 = {
           title: {
             label: '关于我们',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: '作为医疗科技行业的翘楚，自成立以来，始终坚持以创新驱动发展，依托强大的科研实力和卓越的专业团队，不断推出涵盖预防、诊断、治疗和康复等全链条环节的医疗科技产品和服务。我们的目标是利用科技力量打破地域、时间限制，让更多人享受到高效便捷且富有温度的医疗服务。',
         },
@@ -201,7 +201,7 @@ export const home_v6 = {
         title: {
           label: '成功案例',
           style: 'style-v1',
-          classes: 'mat-display-0 bold',
+          classes: 'mat-headline-0 bold',
         },
         classes: 'text-center',
         body: '<p class="text-center">已在全球范围内助力众多医疗机构成功实现了数字化转型，其中不乏多个标杆性项目。</p>',
@@ -452,7 +452,7 @@ export const home_v6 = {
         title: {
           label: '社会责任与愿景',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
       },
       classes: 'text-light',
@@ -503,7 +503,7 @@ export const home_v6 = {
       title: {
         label: '合作与承诺',
         style: 'style-v1',
-        classes: 'mat-display-2 bold',
+        classes: 'mat-headline-2 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',

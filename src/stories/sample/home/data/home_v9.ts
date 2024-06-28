@@ -27,7 +27,7 @@ export const home_v9 = {
         title: {
           label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
           style: 'style-v1',
-          classes: 'mat-display-2',
+          classes: 'mat-headline-2',
         },
         spacer: 'xl',
         classes: 'xy-center text-center',
@@ -57,7 +57,7 @@ export const home_v9 = {
         title: {
           label: '本年度<strong class="text-primary">艺术作品</strong>代表作',
           style: 'style-v1',
-          classes: 'mat-display-2 bold',
+          classes: 'mat-headline-2 bold',
         },
         classes: 'text-center',
         body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
@@ -213,7 +213,7 @@ export const home_v9 = {
         title: {
           label: 'Storybook 是如何流行于前端开发测试的',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
         classes: 'text-center',
         body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',

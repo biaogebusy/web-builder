@@ -138,7 +138,7 @@ export const home_v4 = {
           title: {
             label: '使用信使构建你们的项目',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
         },
@@ -238,7 +238,7 @@ export const home_v4 = {
           title: {
             label: 'Storybook 是什么？',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。',
         },
@@ -291,7 +291,7 @@ export const home_v4 = {
         title: {
           label: 'Storybook 是什么？',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
       },
       classes: 'text-light',
@@ -443,7 +443,7 @@ export const home_v4 = {
         label: '你将喜欢上 Drupal 的原因',
         icon: 'email',
         style: 'style-v2',
-        classes: 'mat-display-1',
+        classes: 'mat-headline-1',
       },
       classes: '',
       bg: {
@@ -570,7 +570,7 @@ export const home_v4 = {
         title: {
           label: '最新课程',
           style: 'style-v1',
-          classes: 'mat-display-0 bold',
+          classes: 'mat-headline-0 bold',
         },
         classes: 'text-center',
         body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
@@ -668,7 +668,7 @@ export const home_v4 = {
         label:
           '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
-        classes: 'mat-display-1 bold',
+        classes: 'mat-headline-1 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',

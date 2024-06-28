@@ -228,7 +228,7 @@ export const home_v13 = {
           title: {
             label: '为何选择我们？',
             style: 'style-v4',
-            classes: 'mat-display-2',
+            classes: 'mat-headline-2',
           },
           body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
         },
@@ -285,7 +285,7 @@ export const home_v13 = {
         title: {
           label: '让您的产品引领潮流，我们助您一臂之力',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
         classes: 'text-center',
         body: '<p class="text-center">赋予品牌力量，精准定位市场 —— 专业定制化市场宣传解决方案</p>',
@@ -378,7 +378,7 @@ export const home_v13 = {
           label:
             '<p style="display: inline-block; margin-bottom: 0px;">市场领导力</p>',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
       },
       elements: [
@@ -427,7 +427,7 @@ export const home_v13 = {
         title: {
           label: '会员等级与专属服务',
           style: 'style-v1',
-          classes: 'mat-display-2 bold',
+          classes: 'mat-headline-2 bold',
         },
         classes: 'text-center',
         body: '<p class="text-center">我们为您提供了一系列多样化的会员等级和相应的专属服务，旨在打造个性化的艺术设计体验。无论您是刚起步的爱好者还是专业设计师，我们的会员计划将满足您不同层次和需求。</p>',
@@ -533,7 +533,7 @@ export const home_v13 = {
           label: '客户评价',
           icon: '',
           style: 'style-v1',
-          classes: 'mat-display-1',
+          classes: 'mat-headline-1',
         },
         classes: 'text-center',
         body: '在我们的客户眼中，我们不仅是一家提供服务的公司，更是他们成功路上的坚实支撑和伙伴。让我们为您的品牌增添成功的见证！',
@@ -601,7 +601,7 @@ export const home_v13 = {
       title: {
         label: '立即与我们联系，让您的产品故事闪耀全球！',
         style: 'style-v1',
-        classes: 'mat-display-2 bold',
+        classes: 'mat-headline-2 bold',
       },
       bg: {
         classes: 'bg- bg-fill-width',
