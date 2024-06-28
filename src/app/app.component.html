@@ -13,15 +13,25 @@
     </mat-drawer>
     <mat-drawer-content>
       <mat-drawer-container>
-        @if ((sidebarState$|async)?.enableSidebar) {
-          <mat-drawer #manageDrawer id="sidebar" class="sidebar" mode="side" [opened]="(sidebarState$|async)?.sidebarOpened"
-            >
+        @if ((sidebarState$ | async)?.enableSidebar) {
+          <mat-drawer
+            #manageDrawer
+            id="sidebar"
+            class="sidebar"
+            mode="side"
+            [opened]="(sidebarState$ | async)?.sidebarOpened"
+          >
             <app-manage-sidebar [drawer]="manageDrawer"></app-manage-sidebar>
           </mat-drawer>
         }
         <mat-drawer-content id="main-container">
           <app-header></app-header>
-          <div class="main" [ngClass]="{'has-manage-sidebar': branding.header.sidebar ? true : false }">
+          <div
+            class="main"
+            [ngClass]="{
+              'has-manage-sidebar': branding.header.sidebar ? true : false,
+            }"
+          >
             <router-outlet></router-outlet>
           </div>
           <app-footer></app-footer>
