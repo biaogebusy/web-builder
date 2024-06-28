@@ -7,7 +7,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { FormControl, FormGroup, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
@@ -58,20 +58,20 @@ export class PageListComponent
   }
 
   ngOnInit(): void {
-    this.fetchPage();
+    this.fetchPage('noCache=1');
   }
 
   onModelChange(value: any): void {
     this.loading = true;
     this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
     const formValue = merge(value, this.form.getRawValue());
-    const params = this.getApiParams(formValue);
+    const params = this.getApiParams({ ...formValue, noCache: 1 });
     this.fetchPage(params);
   }
 
-  fetchPage(params?: string): void {
+  fetchPage(params: string): void {
     this.content$ = this.nodeService
-      .fetch('/api/v2/node/landing-page', params ?? '')
+      .fetch('/api/v2/node/landing-page', params)
       .pipe(
         takeUntil(this.destroy$),
         map((res) => {
@@ -104,7 +104,7 @@ export class PageListComponent
   onPageChange(page: PageEvent): void {
     this.form
       .get('page')
-      ?.patchValue(page.pageIndex - 1, { onlySelf: true, emitEvent: false });
+      ?.patchValue(page.pageIndex, { onlySelf: true, emitEvent: false });
     const value = merge(this.model, this.form.getRawValue());
     const params = this.getApiParams(value);
     this.fetchPage(params);
