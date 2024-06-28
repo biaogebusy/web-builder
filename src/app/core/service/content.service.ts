@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
@@ -24,11 +24,11 @@ import { ILanguage } from '@core/interface/IEnvironment';
   providedIn: 'root',
 })
 export class ContentService {
+  http = inject(HttpClient);
+  tagsService = inject(TagsService);
+  screenState = inject(ScreenState);
+  apiService = inject(ApiService);
   constructor(
-    private http: HttpClient,
-    private tagsService: TagsService,
-    private screenState: ScreenState,
-    private apiService: ApiService,
     @Inject(API_URL) private apiUrl: string,
     @Inject(DOCUMENT) private document: Document,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,

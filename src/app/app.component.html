@@ -3,7 +3,7 @@
     <div class="loader">Loading...</div>
   </div>
 }
-@if (coreConfig?.loadingBar) {
+@if (coreConfig.loadingBar) {
   <ngx-loading-bar [includeSpinner]="false"></ngx-loading-bar>
 }
 @if (coreConfig && branding$ | async; as branding) {
@@ -29,7 +29,9 @@
           <div
             class="main"
             [ngClass]="{
-              'has-manage-sidebar': branding.header.sidebar ? true : false,
+              'has-manage-sidebar': (sidebarState$ | async)?.enableSidebar
+                ? true
+                : false,
             }"
           >
             <router-outlet></router-outlet>

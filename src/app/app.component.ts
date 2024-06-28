@@ -3,7 +3,7 @@ import {
   OnInit,
   AfterViewInit,
   Inject,
-  Injector,
+  inject,
 } from '@angular/core';
 import { ScreenState } from './core/state/screen/ScreenState';
 import { ActivatedRoute } from '@angular/router';
@@ -29,33 +29,32 @@ export class AppComponent implements OnInit, AfterViewInit {
   sidebarOpened: boolean;
   enableSidebar = false;
   loading = false;
+  screen = inject(ScreenState);
+  activateRouter = inject(ActivatedRoute);
+  configService = inject(ConfigService);
+  screenService = inject(ScreenService);
+  themeService = inject(ThemeService);
   constructor(
-    private activateRouter: ActivatedRoute,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(MANAGE_SIDEBAR_STATE)
     public sidebarState$: Observable<IManageSidebarState>,
-    private injector: Injector
   ) {}
 
   ngOnInit(): void {
-    const configService = this.injector.get(ConfigService);
-    configService.init();
+    this.configService.init();
   }
 
   ngAfterViewInit(): void {
-    const screenService = this.injector.get(ScreenService);
-    const screen = this.injector.get(ScreenState);
-    const themeService = this.injector.get(ThemeService);
-    if (screenService.isPlatformBrowser()) {
-      themeService.initTheme();
-      screen.drawer$.subscribe(() => {
+    if (this.screenService.isPlatformBrowser()) {
+      this.themeService.initTheme();
+      this.screen.drawer$.subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });
 
       this.activateRouter.fragment.subscribe((fragment) => {
         if (fragment) {
-          screenService.scrollToAnchor(fragment);
+          this.screenService.scrollToAnchor(fragment);
         }
       });
     }
