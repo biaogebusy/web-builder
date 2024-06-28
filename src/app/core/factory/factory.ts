@@ -266,17 +266,16 @@ export const apiUrlFactory = () => {
   return environment.apiUrl;
 };
 
-export function initApp(coreConfig: object, lang: ILanguage): any {
+export function initApp(coreConfig: object): any {
   const contentService = inject(ContentService);
   const componentService = inject(ComponentService);
   componentService.registerDynamicComponent();
-  return () => contentService.loadConfig(coreConfig, lang);
+  return () => contentService.loadConfig(coreConfig);
 }
 
-export function langFactory(
-  contentService: ContentService,
-  screenService: ScreenService,
-): ILanguage | undefined {
+export function langFactory(): ILanguage | undefined {
+  const contentService = inject(ContentService);
+  const screenService = inject(ScreenService);
   if (screenService.isPlatformBrowser()) {
     return contentService.getLang(window.location.pathname);
   } else {
@@ -304,11 +303,9 @@ export function themeFactory(
   return defaultTheme;
 }
 
-export function brandingFactory(
-  lang: ILanguage,
-): Observable<IBranding | object> {
+export function brandingFactory(): Observable<IBranding | object> {
   const contentService = inject(ContentService);
-  return contentService.loadBranding(lang);
+  return contentService.loadBranding();
 }
 
 export function userFactory(): IUser | boolean {

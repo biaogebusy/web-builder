@@ -7,7 +7,6 @@ import {
   OnInit,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import type { ILanguage } from '@core/interface/IEnvironment';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -32,14 +31,13 @@ export class BuilderSettingsComponent
     private builder: BuilderState,
     private contentService: ContentService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(LANG) private lang: ILanguage
   ) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.contentService
-      .loadBranding(this.lang)
+      .loadBranding()
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.branding = res;
