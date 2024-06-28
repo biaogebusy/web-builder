@@ -4,41 +4,35 @@
       <a class="anchor" [id]="content.id"></a>
     }
     @if (content.bg) {
-      <app-bg-img
-        [attr.data-path]="'bg'"
-        [content]="content.bg"
-      ></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
     }
     <app-spacer [size]="content.spacer || 'md'"></app-spacer>
     <div class="flex flex-col" [ngClass]="containerClass">
       @if (content.text) {
-        <app-text
-          [attr.data-path]="'text'"
-          [content]="content.text"
-        ></app-text>
+        <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
       }
       @if (content.form) {
         <div
           class="filter flex flex-col md:flex-row justify-between items-center"
-          >
+        >
           <div class="filter-item flex flex-col md:flex-row flex-wrap gap-3">
             <app-formly
               [form]="form"
               [fields]="content.form"
               [model]="model"
               (modelChange)="onModelChange($event)"
-              >
+            >
             </app-formly>
           </div>
           <div class="actions flex justify-center items-center gap-3">
             @if (
               content?.params?.export?.enable &&
-              content.params?.export?.position === 'top'
-              ) {
+              content.params?.export?.position === "top"
+            ) {
               <app-btn
                 (click)="onExport()"
                 [content]="content.params.export.btn"
-                >
+              >
               </app-btn>
             }
             <button mat-button (click)="clear()">
@@ -56,18 +50,14 @@
           ></ngx-skeleton-loader>
         }
         @if (table && !loading) {
-          <app-dynamic-table [content]="table">
-          </app-dynamic-table>
+          <app-dynamic-table [content]="table"> </app-dynamic-table>
         }
         <div class="actions m-y p-x flex justify-end items-center">
           @if (
             content?.params?.export?.enable &&
-            content.params?.export?.position !== 'top'
-            ) {
-            <app-btn
-              (click)="onExport()"
-              [content]="content.params.export.btn"
-              >
+            content.params?.export?.position !== "top"
+          ) {
+            <app-btn (click)="onExport()" [content]="content.params.export.btn">
             </app-btn>
           }
         </div>
@@ -77,21 +67,21 @@
         @if (table) {
           @for (
             item of table.elements
-            | paginate
-            : {
-            id: content?.params?.apiType,
-            itemsPerPage: pager.itemsPerPage,
-            currentPage: pager.currentPage,
-            totalItems: pager.totalItems
-            }; track trackByFn($index,
-            item)) {
-          }
+              | paginate
+                : {
+                    id: content.params.apiType,
+                    itemsPerPage: pager.itemsPerPage,
+                    currentPage: pager.currentPage,
+                    totalItems: pager.totalItems,
+                  };
+            track trackByFn($index, item)
+          ) {}
         }
         @if (pager) {
           <app-pagination
             [id]="content.params.apiType || ''"
             (pageChange)="onPageChange($event)"
-            >
+          >
           </app-pagination>
         }
       </div>

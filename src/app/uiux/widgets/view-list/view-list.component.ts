@@ -27,6 +27,7 @@ import { catchError, takeUntil } from 'rxjs/operators';
   selector: 'app-view-list',
   templateUrl: './view-list.component.html',
   styleUrls: ['./view-list.component.scss'],
+  host: { ngSkipHydration: 'true' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewListComponent
@@ -54,7 +55,7 @@ export class ViewListComponent
     private dialogService: DialogService,
     private screenService: ScreenService,
     @Inject(USER) private user: IUser,
-    public userSerivice: UserService
+    public userSerivice: UserService,
   ) {
     super();
   }
@@ -102,7 +103,7 @@ export class ViewListComponent
           }
           return of(error.status);
         }),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe((res) => {
         if (!res) {

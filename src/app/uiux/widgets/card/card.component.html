@@ -3,7 +3,7 @@
     appearance="outlined"
     class="card {{ content.header?.meta ? 'has-header' : '' }}"
     [ngClass]="content.classes"
-    >
+  >
     @if (content.header?.meta) {
       <mat-card-content>
         <app-card-meta
@@ -33,7 +33,7 @@
           <mat-card-subtitle
             contentedit="header.subTitle"
             [innerHTML]="content.header?.subTitle || '' | safeHtml"
-            >
+          >
           </mat-card-subtitle>
         }
       </mat-card-header>
@@ -44,7 +44,7 @@
           <app-swiper
             [attr.data-path]="'carousel'"
             [content]="content.carousel"
-            >
+          >
           </app-swiper>
         } @else {
           <app-feature-box
@@ -70,15 +70,15 @@
       <div class="flex flex-row py-3">
         @if (content.avatar) {
           <div mat-card-avatar class="m-right-xs">
-            <app-img [attr.data-path]="'img'" [content]="content.avatar"></app-img>
+            <app-img
+              [attr.data-path]="'img'"
+              [content]="content.avatar"
+            ></app-img>
           </div>
         }
         <div class="flex flex-wrap basis-full">
           @if (content?.title) {
-            <mat-card-title
-              contentedit="title"
-              class="basis-full"
-              >
+            <mat-card-title contentedit="title" class="basis-full">
               <div [innerHTML]="content.title | safeHtml"></div>
             </mat-card-title>
           } @else {
@@ -102,10 +102,7 @@
             }
           </ng-template>
           @if (content?.subTitle) {
-            <mat-card-subtitle
-              contentedit="subTitle"
-              class="basis-full"
-              >
+            <mat-card-subtitle contentedit="subTitle" class="basis-full">
               <div [innerHTML]="content.subTitle | safeHtml"></div>
             </mat-card-subtitle>
           }
@@ -119,7 +116,7 @@
         ></div>
       }
     </mat-card-content>
-    @if (content?.actions) {
+    @if (content.actions) {
       <mat-card-actions [attr.data-path]="'actions'">
         @for (action of content.actions; track action) {
           <button mat-button>
@@ -138,9 +135,7 @@
         </div>
       }
       @if (content.progressBar) {
-        <app-progress-bar
-          [content]="content.progressBar"
-        ></app-progress-bar>
+        <app-progress-bar [content]="content.progressBar"></app-progress-bar>
       }
     </mat-card-footer>
   </mat-card>

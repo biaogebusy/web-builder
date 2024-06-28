@@ -1,10 +1,10 @@
-@if (coreConfig?.theme) {
+@if (coreConfig.theme) {
   <div class="switch-theme" [matTooltip]="'切换主题'">
     <button
       aria-label="switch theme"
       mat-icon-button
       [mat-menu-trigger-for]="menu"
-      >
+    >
       <app-icon [content]="{ svg: 'palette', inline: true }"></app-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -13,23 +13,18 @@
           aria-label="switch theme item"
           mat-menu-item
           (click)="onSwitchTheme(theme.style)"
-          >
+        >
           @if (currentTheme !== theme.style) {
-            <mat-icon matListItemIcon
-              >radio_button_unchecked</mat-icon
-              >
-            }
-            @if (currentTheme === theme.style) {
-              <mat-icon
-                matListItemIcon
-                color="primary"
-                >
-                radio_button_checked
-              </mat-icon>
-            }
-            <span matListItemTitle>{{ theme.name }}</span>
-          </button>
-        }
-      </mat-menu>
-    </div>
-  }
+            <mat-icon matListItemIcon>radio_button_unchecked</mat-icon>
+          }
+          @if (currentTheme === theme.style) {
+            <mat-icon matListItemIcon color="primary">
+              radio_button_checked
+            </mat-icon>
+          }
+          <span matListItemTitle>{{ theme.name }}</span>
+        </button>
+      }
+    </mat-menu>
+  </div>
+}
