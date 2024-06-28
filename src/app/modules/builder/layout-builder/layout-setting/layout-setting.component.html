@@ -4,14 +4,16 @@
     [model]="model"
     (modelChange)="onModelChange($event)"
   ></app-formly>
-  @if (content?.content?.elements?.length) {
+  @if (content.content?.elements?.length) {
     <div class="loop-elements">
       <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
         <div mat-subheader>子项</div>
-        @for (widget of content.content.elements; track widget; let i = $index) {
-          <mat-list-item
-            cdkDrag
-            >
+        @for (
+          widget of content.content.elements;
+          track widget;
+          let i = $index
+        ) {
+          <mat-list-item cdkDrag>
             <app-icon
               matListItemIcon
               [content]="{ svg: 'dots-vertical' }"
@@ -29,22 +31,24 @@
               ></app-btn>
               <app-btn
                 (click)="onCopy(content.content.elements, i)"
-            [content]="{
-              label: '',
-              mode: 'icon',
-              icon: { svg: 'content-copy' }
-            }"
+                [content]="{
+                  label: '',
+                  mode: 'icon',
+                  icon: { svg: 'content-copy' },
+                }"
               ></app-btn>
             </div>
           </mat-list-item>
         }
         @if (content.content.elements[0]?.type | isString) {
-          <div
-            class="actions my-5 flex justify-center"
-            >
+          <div class="actions my-5 flex justify-center">
             <app-btn
               (click)="onWidgetPicker()"
-              [content]="{ label: '新增', icon: { svg: 'plus' }, color: 'primary' }"
+              [content]="{
+                label: '新增',
+                icon: { svg: 'plus' },
+                color: 'primary',
+              }"
             ></app-btn>
           </div>
         }
@@ -56,10 +60,14 @@
       (click)="editorJSON()"
       [content]="{ label: '编辑 JSON', color: 'primary', mode: 'stroked' }"
     ></app-btn>
-    @if (content.content.type === 'custom-template') {
+    @if (content.content.type === "custom-template") {
       <app-btn
         (click)="editorCode()"
-        [content]="{ label: '编辑自定义模板', color: 'primary', mode: 'raised' }"
+        [content]="{
+          label: '编辑自定义模板',
+          color: 'primary',
+          mode: 'raised',
+        }"
       ></app-btn>
     }
   </div>

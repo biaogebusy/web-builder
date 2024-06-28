@@ -431,11 +431,10 @@
           "className": "static-item",
           "defaultValue": true,
           "props": {
-            "label": "Switch libraries",
-            "description": "Static medias/backend media library"
+            "label": "Switch libraries"
           },
-          "expressionProperties": {
-            "props.description": "model.fromStatic?'Static medias':'backend media library'"
+          "expressions": {
+            "props.label": "model.fromStatic?'Static medias':'Media library'"
           }
         },
         {
@@ -447,108 +446,6 @@
             "appearance": "fill",
             "label": "please input keyword"
           }
-        },
-        {
-          "type": "select",
-          "key": "type",
-          "defaultValue": "/api/v1/media/image",
-          "className": "m-bottom-sm",
-          "props": {
-            "label": "Select libraries type",
-            "options": [
-              {
-                "label": "All",
-                "value": "/api/v1/file/file"
-              },
-              {
-                "label": "Images",
-                "value": "/api/v1/media/image"
-              },
-              {
-                "label": "Documents",
-                "value": "/api/v1/media/document"
-              },
-              {
-                "label": "Videos",
-                "value": "/api/v1/media/video"
-              }
-            ]
-          }
-        },
-        {
-          "type": "select",
-          "key": "limit",
-          "defaultValue": 20,
-          "className": "m-bottom-sm",
-          "props": {
-            "label": "Number of per page",
-            "options": [
-              {
-                "label": "10",
-                "value": 10
-              },
-              {
-                "label": "20",
-                "value": 20
-              },
-              {
-                "label": "30",
-                "value": 30
-              },
-              {
-                "label": "40",
-                "value": 40
-              },
-              {
-                "label": "50",
-                "value": 50
-              }
-            ]
-          }
-        },
-        {
-          "type": "select",
-          "key": "filter",
-          "defaultValue": 1,
-          "className": "m-bottom-sm",
-          "props": {
-            "label": "Status",
-            "options": [
-              {
-                "label": "Published",
-                "value": 1
-              },
-              {
-                "label": "Unpublished",
-                "value": 0
-              }
-            ]
-          }
-        },
-        {
-          "key": "sort",
-          "className": "w-full",
-          "fieldGroup": [
-            {
-              "type": "select",
-              "key": "direction",
-              "defaultValue": "DESC",
-              "className": "m-bottom-sm",
-              "props": {
-                "label": "Sort",
-                "options": [
-                  {
-                    "label": "The latest",
-                    "value": "DESC"
-                  },
-                  {
-                    "label": "The oldest",
-                    "value": "ASC"
-                  }
-                ]
-              }
-            }
-          ]
         }
       ]
     }

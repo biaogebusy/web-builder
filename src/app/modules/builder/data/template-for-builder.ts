@@ -195,15 +195,6 @@ export const templates: any[] = [
               hostClasses: 'bg-center',
               src: '/assets/images/16-9/nature-05.jpg',
               alt: 'beach-01.jpg',
-              style: {
-                width: 'auto',
-                height: 'auto',
-                maxWidth: '100%',
-                maxHeight: '100%',
-                opacity: 1,
-                borderRadius: 0,
-                objectFit: 'initial',
-              },
             },
           },
           title: '关于我们',
@@ -295,15 +286,6 @@ export const templates: any[] = [
               hostClasses: 'bg-center',
               src: '/assets/images/16-9/nature-05.jpg',
               alt: 'beach-01.jpg',
-              style: {
-                width: 'auto',
-                height: 'auto',
-                maxWidth: '100%',
-                maxHeight: '100%',
-                opacity: 1,
-                borderRadius: 0,
-                objectFit: 'initial',
-              },
             },
           },
           title: '联系我们',
@@ -480,40 +462,42 @@ export const templates: any[] = [
               content: 'biaogebusy',
             },
           ],
-          forms: [
+          form: [
             {
               type: 'input',
-              label: '姓名',
               key: 'name',
-              params: {
+              props: {
+                label: '姓名',
+                appearance: 'outline',
                 required: true,
               },
             },
             {
               type: 'input',
-              label: '邮箱',
               key: 'email',
-              params: {
+              props: {
+                label: '邮箱',
+                appearance: 'outline',
                 required: true,
               },
             },
             {
               type: 'input',
-              label: '主题',
               key: 'subject',
-              params: {
-                required: true,
+              props: {
+                label: '主题',
+                appearance: 'outline',
               },
             },
             {
               type: 'textarea',
-              label: '内容',
-              params: {
-                required: true,
-                matAutosizeMinRows: 5,
-              },
               key: 'message',
-              placeholder: 'Message',
+              props: {
+                label: '内容',
+                placeholder: 'Message',
+                appearance: 'fill',
+                rows: 5,
+              },
             },
           ],
         },
@@ -538,15 +522,6 @@ export const templates: any[] = [
               hostClasses: 'bg-center',
               src: '/assets/images/16-9/nature-05.jpg',
               alt: 'beach-01.jpg',
-              style: {
-                width: 'auto',
-                height: 'auto',
-                maxWidth: '100%',
-                maxHeight: '100%',
-                opacity: 1,
-                borderRadius: 0,
-                objectFit: 'initial',
-              },
             },
           },
           title: '快速问答',
