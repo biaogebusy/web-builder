@@ -3,36 +3,28 @@
     <header class="header">
       <div class="container">
         <div
-        class="header-container flex flex-row {{
-          branding.header.logo
-            ? 'justify-between items-center'
-            : 'justify-end items-center'
-        }}"
-          >
+          class="header-container flex flex-row {{
+            branding.header.logo
+              ? 'justify-between items-center'
+              : 'justify-end items-center'
+          }}"
+        >
           @if (branding.header?.logo) {
             <div class="header-left one-line">
               <app-logo [content]="branding.header.logo"></app-logo>
             </div>
           }
           <div
-          class="
-            header-right
-            flex flex-row
-            justify-center
-            items-center
-            gap-3
-            md:gap-5
-          "
-            >
+            class="header-right flex flex-row justify-center items-center gap-3 md:gap-5"
+          >
             @if (branding.header?.mainMenu) {
               <div class="menu-inner">
                 <div class="main-menu flex flex-row">
                   @for (
-                    menu of branding.header.mainMenu; track trackByFn($index,
-                    menu)) {
-                    <div
-                      class="item"
-                      >
+                    menu of branding.header.mainMenu;
+                    track trackByFn($index, menu)
+                  ) {
+                    <div class="item">
                       @if (branding.header?.params) {
                         <app-item-menu
                           [params]="branding.header.params"
@@ -52,26 +44,19 @@
             @if (branding.header.actions) {
               <div class="actions">
                 @for (action of branding.header.actions; track action) {
-                  <button
-                    color="primary"
-                    mat-raised-button
-                    >
+                  <button color="primary" mat-raised-button>
                     <app-link [content]="action"></app-link>
                   </button>
                 }
               </div>
             }
             @if (coreConfig.notify?.enable) {
-              <app-notify
-                class="has-icon"
-              ></app-notify>
+              <app-notify class="has-icon"></app-notify>
             }
-            @if (branding.header?.params?.themeSwitch) {
-              <app-switch-theme
-                class="has-icon"
-              ></app-switch-theme>
+            @if (branding.header.params.themeSwitch) {
+              <app-switch-theme class="has-icon"></app-switch-theme>
             }
-            @if (branding.header?.params?.userInfo) {
+            @if (branding.header.params.userInfo) {
               <app-user-menu
                 [content]="branding.header.userMenu"
               ></app-user-menu>
@@ -102,9 +87,7 @@
     }
     <div [hidden]="!(!show && isDrawer)">
       @if (branding.header.mainMenu) {
-        <app-accordion
-          [content]="branding.header.mainMenu"
-        ></app-accordion>
+        <app-accordion [content]="branding.header.mainMenu"></app-accordion>
       }
     </div>
   </div>
