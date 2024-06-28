@@ -1,7 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { IPager } from '@core/interface/widgets/IWidgets';
 import { API_URL } from '@core/token/token-providers';
-import { camelCase, result } from 'lodash-es';
+import { camelCase, isArray, remove, result } from 'lodash-es';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -50,5 +51,43 @@ export class ApiService {
 
   getDeepValue(obj: any, path: string): any {
     return result(obj, path);
+  }
+
+  // For drupal view json api
+  getApiParams(state: any): string {
+    const params: string[] = [];
+    if (state) {
+      Object.keys(state).forEach((key) => {
+        const val = state[key];
+        if (val) {
+          if (isArray(val)) {
+            const final = remove(val, (item) => item !== undefined);
+            if (final.length > 0) {
+              params.push(`${key}=${final.join('+')}`);
+            } else {
+              return;
+            }
+          } else {
+            params.push(`${key}=${val}`);
+          }
+        }
+      });
+    }
+    return params.join('&');
+  }
+  handlerPager(pager: any, length?: number): IPager {
+    if (pager.current_page === null && pager.total_pages === 0) {
+      return {
+        itemsPerPage: length || pager.total_items,
+        currentPage: 0,
+        totalItems: pager.total_items,
+      };
+    } else {
+      return {
+        itemsPerPage: pager.items_per_page,
+        currentPage: (pager.current_page || 0) + 1,
+        totalItems: pager.total_items,
+      };
+    }
   }
 }

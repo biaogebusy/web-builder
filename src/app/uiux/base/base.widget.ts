@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Params } from '@angular/router';
 import { IPager } from '@core/interface/widgets/IWidgets';
+import { ApiService } from '@core/service/api.service';
 import { isArray, remove, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
+  apiService = inject(ApiService);
   abstract content: any;
 
   getParams(obj: any, key: string): any {
@@ -33,27 +35,8 @@ export abstract class BaseComponent {
     });
   }
 
-  // For drupal view json api
   getApiParams(state: any): string {
-    const params: string[] = [];
-    if (state) {
-      Object.keys(state).forEach((key) => {
-        const val = state[key];
-        if (val) {
-          if (isArray(val)) {
-            const final = remove(val, (item) => item !== undefined);
-            if (final.length > 0) {
-              params.push(`${key}=${final.join('+')}`);
-            } else {
-              return;
-            }
-          } else {
-            params.push(`${key}=${val}`);
-          }
-        }
-      });
-    }
-    return params.join('&');
+    return this.apiService.getApiParams(state);
   }
 
   getFormParams(state: any): Params {
@@ -90,19 +73,7 @@ export abstract class BaseComponent {
   }
 
   handlerPager(pager: any, length?: number): IPager {
-    if (pager.current_page === null && pager.total_pages === 0) {
-      return {
-        itemsPerPage: length || pager.total_items,
-        currentPage: 0,
-        totalItems: pager.total_items,
-      };
-    } else {
-      return {
-        itemsPerPage: pager.items_per_page,
-        currentPage: (pager.current_page || 0) + 1,
-        totalItems: pager.total_items,
-      };
-    }
+    return this.apiService.handlerPager(pager, length);
   }
 
   transferStoryData(instance: any): void {
