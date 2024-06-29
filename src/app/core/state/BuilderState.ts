@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import {
   IBuilderComponent,
@@ -58,12 +58,10 @@ export class BuilderState {
   pageKey = 'page';
   versionKey = 'version';
 
-  constructor(
-    private storage: LocalStorageService,
-    private util: UtilitiesService,
-    private sreenService: ScreenService,
-    @Inject(DOCUMENT) private doc: Document,
-  ) {
+  storage = inject(LocalStorageService);
+  util = inject(UtilitiesService);
+  sreenService = inject(ScreenService);
+  constructor(@Inject(DOCUMENT) private doc: Document) {
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion) {
       this.version = localVersion;
