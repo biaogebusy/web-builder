@@ -6,6 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { BuilderState } from '@core/state/BuilderState';
@@ -44,19 +45,19 @@ export class BuilderToolbarComponent
   page?: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
   showNavigate = false;
+  storage = inject(LocalStorageService);
+  builder = inject(BuilderState);
+  screenState = inject(ScreenState);
+  screenService = inject(ScreenService);
+  util = inject(UtilitiesService);
+  builderService = inject(BuilderService);
+  dialog = inject(MatDialog);
+  router = inject(Router);
   constructor(
-    private storage: LocalStorageService,
-    public builder: BuilderState,
-    private screenState: ScreenState,
-    private screenService: ScreenService,
-    private util: UtilitiesService,
-    private builderService: BuilderService,
-    private dialog: MatDialog,
-    private router: Router,
     @Inject(USER) private user: IUser,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
   ) {}
 
   ngOnInit(): void {
@@ -129,7 +130,7 @@ export class BuilderToolbarComponent
           catchError(() => {
             this.builder.loading$.next(false);
             return of({ status: false });
-          })
+          }),
         )
         .subscribe((res) => {
           const { status, message } = res;
@@ -155,7 +156,7 @@ export class BuilderToolbarComponent
             catchError(() => {
               this.builder.loading$.next(false);
               return of({ status: false });
-            })
+            }),
           )
           .subscribe((res) => {
             const { status, message } = res;

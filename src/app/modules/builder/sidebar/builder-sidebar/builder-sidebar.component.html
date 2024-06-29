@@ -1,9 +1,6 @@
 <div class="builder-sidebar">
   @if (branding$ | async; as branding) {
-    <a
-      [routerLink]="branding.header.logo?.href"
-      class="logo"
-      >
+    <a [routerLink]="branding.header.logo?.href" class="logo">
       <app-logo [content]="branding.header.logo" [isInvert]="true"></app-logo>
     </a>
   }
@@ -14,8 +11,9 @@
       [routerLinkActive]="['active']"
       [routerLinkActiveOptions]="{ exact: true }"
       [matTooltip]="'页面编辑'"
+      [matTooltipPosition]="'right'"
       routerLink="./"
-      >
+    >
       <app-icon [content]="{ svg: 'pencil' }"></app-icon>
     </div>
     <div
@@ -23,8 +21,9 @@
       [routerLinkActive]="['active']"
       [routerLinkActiveOptions]="{ exact: true }"
       [matTooltip]="'管理列表'"
+      [matTooltipPosition]="'right'"
       routerLink="./page-list"
-      >
+    >
       <app-icon [content]="{ svg: 'format-list-bulleted' }"></app-icon>
     </div>
     <div
@@ -32,8 +31,9 @@
       [routerLinkActive]="['active']"
       [routerLinkActiveOptions]="{ exact: true }"
       [matTooltip]="'示例库'"
+      [matTooltipPosition]="'right'"
       routerLink="./samples"
-      >
+    >
       <app-icon [content]="{ svg: 'lightbulb-on-30' }"></app-icon>
     </div>
     <div
@@ -41,8 +41,9 @@
       [routerLinkActive]="['active']"
       [routerLinkActiveOptions]="{ exact: true }"
       [matTooltip]="'站点配置'"
+      [matTooltipPosition]="'right'"
       routerLink="./settings"
-      >
+    >
       <app-icon [content]="{ svg: 'cog' }"></app-icon>
     </div>
   </div>
@@ -50,6 +51,7 @@
     @if (branding$ | async; as branding) {
       <app-btn
         [matTooltip]="'媒体库'"
+        [matTooltipPosition]="'right'"
         (click)="onSelectAssets()"
         [content]="{
           label: '',
@@ -61,6 +63,7 @@
         [matTooltip]="
           (builder.showBranding$ | async) ? '隐藏页头页尾' : '显示页头页尾'
         "
+        [matTooltipPosition]="'right'"
         (click)="onShowBranding()"
         [content]="{
           label: '',
@@ -77,22 +80,23 @@
       @if (builder.builderThemeMode | async; as mode) {
         <app-btn
           [matTooltip]="mode === 'light' ? '切换暗黑风格' : '切换浅色风格'"
+          [matTooltipPosition]="'right'"
           (click)="onToggleBuilderTheme(mode)"
-        [content]="{
-          label: '',
-          mode: 'icon',
-          icon: {
-            svg:
-              mode === 'light' ? 'white-balance-sunny' : 'moon-waning-crescent',
-          },
-        }"
+          [content]="{
+            label: '',
+            mode: 'icon',
+            icon: {
+              svg:
+                mode === 'light'
+                  ? 'white-balance-sunny'
+                  : 'moon-waning-crescent',
+            },
+          }"
         ></app-btn>
       }
       <mat-divider></mat-divider>
       @if (branding.header?.params?.userInfo) {
-        <app-user-menu
-          [content]="branding.header.userMenu"
-        ></app-user-menu>
+        <app-user-menu [content]="branding.header.userMenu"></app-user-menu>
       }
     }
   </div>
