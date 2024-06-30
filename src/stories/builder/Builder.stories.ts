@@ -5,11 +5,8 @@ import {
   applicationConfig,
 } from '@storybook/angular';
 
-import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
-import { BrandingModule } from '@core/branding/branding.module';
 import { BuilderComponent } from 'src/app/modules/builder/builder.component';
-import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { components } from './data/combs/export-for-story';
 import { environment } from 'src/environments/environment';
 import { systems } from './data/system/system-fot-story';
@@ -20,16 +17,13 @@ import {
 } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-story';
 import { of } from 'rxjs';
-import { ManageModule } from '@modules/manage/manage.module';
 import { widgets } from './data/widgets-for-story';
 import { base } from './data/base/export-for-story';
 import { mediaAssets } from './data/assets/media-assets-for-story';
 import { importProvidersFrom } from '@angular/core';
-import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { builderCurrentPageFactory } from '@core/factory/factory';
 import { LocalStorageService } from 'ngx-webstorage';
-import { MatIcon } from '@angular/material/icon';
 const meta: Meta<BuilderComponent> = {
   title: '低代码/Web builder',
   id: 'builder',

@@ -11,11 +11,20 @@ withCredentials: true
 X-CSRF-Token: {{csrfToken}}
 ```
 
+### 支持多语言
+
+`PATCH /{{langcode}}/api/v3/landingPage/update/{nid}`
+
 提交的数据格式：
 
 ```json
 {
-  "title": "测试页面",
+  "title": "HOME",
+  "status": true,
+  "uuid": "29e88bca-40b9-41fa-8a57-b454ad0d9768",
+  "id": "1",
+  "langcode": "en",
+  "vid": "474",
   "body": [
     {
       "uuid": "09c5359e-c610-4c8b-9f31-780c1d93a8c9",

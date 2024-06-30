@@ -2,7 +2,7 @@ import { Meta } from "@storybook/blocks";
 
 <Meta title="开发/Builder/获取页面" id="get-page" />
 
-### 获取某个页面
+## 获取某个页面
 
 ```json
 POST {{apiUrl}}/api/v3/landingPage/json/{nid}
@@ -11,18 +11,21 @@ withCredentials: true
 X-CSRF-Token: {{csrfToken}}
 ```
 
-> http://example.com/api/v3/landingPage/json/54
+## 支持多语言
 
-返回结果：
+- 默认语言：http://example.com/api/v3/landingPage/json/54
+- 其他语言：http://example.com/en/api/v3/landingPage/json/54
+
+## 返回结果：
 
 ```json
 {
+  "title": "HOME",
   "status": true,
-  "message": "",
-  "title": "着陆页 | Teslaclgs",
-  "uuid": "626613b3-dd06-4462-9768-5ad15deb42d3",
-  "id": "54",
-  "label": "着陆页",
+  "uuid": "29e88bca-40b9-41fa-8a57-b454ad0d9768",
+  "id": "1",
+  "langcode": "en",
+  "vid": "474",
   "body": [
     {
       "uuid": "09c5359e-c610-4c8b-9f31-780c1d93a8c9",
