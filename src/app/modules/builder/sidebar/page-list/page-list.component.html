@@ -64,7 +64,13 @@
                 <app-icon [content]="{ svg: 'pencil' }"></app-icon>
                 <span>编辑</span>
               </button>
-              <button mat-menu-item (click)="deletePage(page)">
+              <button
+                *reqRolesIf="{
+                  params: { reqRoles: ['administrator'] },
+                }"
+                mat-menu-item
+                (click)="deletePage(page)"
+              >
                 <app-icon [content]="{ svg: 'delete-outline' }"></app-icon>
                 <span>删除</span>
               </button>
