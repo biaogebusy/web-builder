@@ -108,6 +108,13 @@ export class PageListComponent
     this.builder.loading$.next(true);
     this.builderService.loadPage({ langcode: page.langcode, id: page.id });
   }
+
+  updateUrl(page: IPageItem): void {
+    const { uuid } = page;
+    this.builderService.updateUrlalias(page).subscribe((res) => {
+      console.log(res);
+    });
+  }
   deletePage(page: IPageItem): void {
     const { uuid } = page;
     const api = `/api/v1/node/landing_page`;
@@ -135,7 +142,6 @@ export class PageListComponent
       .fetch(`/api/v3/landingPage/json/${page.id}`, 'noCache=1', '', langCode)
       .pipe(takeUntil(this.destroy$))
       .subscribe((page: IPage) => {
-        console.log(page);
         this.builder.loading$.next(false);
         if (langCode === page.langcode) {
           // 已有翻译

@@ -6,13 +6,13 @@ import type {
   IPage,
   IPageForJSONAPI,
 } from '@core/interface/IAppConfig';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { IPageItem } from '@core/interface/IBuilder';
@@ -140,6 +140,51 @@ export class BuilderService extends ApiService {
       this.formatPage(page),
       this.optionsWithCookieAndToken(csrf_token),
     );
+  }
+
+  updateUrlalias(page: IPageItem): Observable<any> {
+    const { csrf_token, id } = this.user;
+    const { langcode, uuid, url } = page;
+
+    let prefix = '';
+    const lang = this.getApiLang(langcode);
+    if (lang) {
+      prefix = `/${lang}`;
+    }
+    return this.http
+      .post(
+        `${prefix}/api/v1/path_alias/path_alias`,
+        {
+          data: {
+            type: 'path_alias--path_alias',
+            id: uuid,
+            attributes: {
+              alias: '/test-xxxx',
+              langcode,
+              path: url,
+            },
+            relationships: {
+              uid: {
+                data: {
+                  type: 'user--user',
+                  id,
+                },
+              },
+            },
+          },
+        },
+        this.optionsWithCookieAndToken(csrf_token),
+      )
+      .pipe(
+        catchError((res: any) => {
+          console.log(res);
+          const {
+            error: { errors },
+          } = res;
+          this.util.openSnackbar(errors[0].detail, 'ok');
+          return throwError(errors[0]);
+        }),
+      );
   }
 
   formatPage(page: IPage): IPageForJSONAPI {

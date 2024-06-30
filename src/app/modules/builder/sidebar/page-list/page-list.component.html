@@ -68,6 +68,10 @@
                 <app-icon [content]="{ svg: 'pencil' }"></app-icon>
                 <span>编辑页面</span>
               </button>
+              <button mat-menu-item (click)="updateUrl(page)">
+                <app-icon [content]="{ svg: 'link-variant' }"></app-icon>
+                <span>编辑 Url</span>
+              </button>
               @if (langs) {
                 @for (item of langs; track $index) {
                   @if (!item.default && item.langCode !== page.langcode) {
