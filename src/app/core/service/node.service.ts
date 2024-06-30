@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -18,13 +18,13 @@ import { UtilitiesService } from './utilities.service';
   providedIn: 'root',
 })
 export class NodeService extends ApiService {
+  http = inject(HttpClient);
+  storage = inject(LocalStorageService);
+  util = inject(UtilitiesService);
   constructor(
-    public http: HttpClient,
-    public storage: LocalStorageService,
-    private util: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(API_URL) public apiBaseUrl: string,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
   ) {
     super(apiBaseUrl);
   }
@@ -33,20 +33,29 @@ export class NodeService extends ApiService {
     return this.coreConfig.apiUrl;
   }
 
-  fetch(type: string, params: string, token?: string): Observable<any> {
+  fetch(
+    api: string,
+    params: string,
+    token?: string,
+    langCode?: string,
+  ): Observable<any> {
     let apiParams = '';
-    if (!type) {
+    let lang = '';
+    if (!api) {
       return of(false);
     }
-    const hasApiParam = type.indexOf('?') > 0;
-    if (type.startsWith('/api/')) {
+    if (langCode) {
+      lang = `/${langCode}`;
+    }
+    const hasApiParam = api.indexOf('?') > 0;
+    if (api.startsWith('/api/')) {
       apiParams = hasApiParam
-        ? `${this.apiUrl}${type}&${params}`
-        : `${this.apiUrl}${type}?${params}`;
+        ? `${this.apiUrl}${lang}${api}&${params}`
+        : `${this.apiUrl}${lang}${api}?${params}`;
     } else {
       apiParams = hasApiParam
-        ? `${this.apiUrl}/api/v1/${type}&${params}`
-        : `${this.apiUrl}/api/v1/${type}?${params}`;
+        ? `${this.apiUrl}${lang}/api/v1/${api}&${params}`
+        : `${this.apiUrl}${lang}/api/v1/${api}?${params}`;
     }
     // search for role
     const searchForRole = this.coreConfig?.apiUrl?.search;
@@ -62,7 +71,7 @@ export class NodeService extends ApiService {
 
     return this.http.get<any>(
       apiParams,
-      token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
+      token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon,
     );
   }
 
@@ -75,18 +84,18 @@ export class NodeService extends ApiService {
     path: string,
     type: string,
     params: string = '',
-    token: string = ''
+    token: string = '',
   ): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${path}/${type}?${params}`,
-      token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
+      token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon,
     );
   }
 
   deleteEntity(path: string, id: string, token: string): Observable<any> {
     return this.http.delete<any>(
       `${this.apiUrl}${path}/${id}`,
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithCookieAndToken(token),
     );
   }
 
@@ -112,7 +121,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}`,
       JSON.stringify(data),
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithCookieAndToken(token),
     );
   }
 
@@ -123,7 +132,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       JSON.stringify(entity),
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithCookieAndToken(token),
     );
   }
 
@@ -131,7 +140,7 @@ export class NodeService extends ApiService {
     type: string,
     entityData: any,
     uuid: string,
-    token: string
+    token: string,
   ): Observable<any> {
     const entity = {
       data: entityData,
@@ -139,7 +148,7 @@ export class NodeService extends ApiService {
     return this.http.patch<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
       JSON.stringify(entity),
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithCookieAndToken(token),
     );
   }
   // TODO: refact updateComment and this to patch
@@ -147,7 +156,7 @@ export class NodeService extends ApiService {
     return this.http.patch<any>(
       `${this.apiUrl}/api/v1/node/case/${uuid}`,
       JSON.stringify(data),
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithCookieAndToken(token),
     );
   }
 
@@ -158,7 +167,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       JSON.stringify(entity),
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithCookieAndToken(token),
     );
   }
 
@@ -221,7 +230,7 @@ export class NodeService extends ApiService {
         subTitle: formatDate(
           comment.changed || comment.created,
           'yyyy-MM-dd HH:mm:ss',
-          'en-US'
+          'en-US',
         ),
       },
       time: comment.changed,
@@ -236,7 +245,7 @@ export class NodeService extends ApiService {
   getCommentsWitchChild(
     content: any,
     token = '',
-    timeStamp = 1
+    timeStamp = 1,
   ): Observable<any> {
     const path = this.apiUrlConfig.commentGetPath;
     const type = this.getCommentType(content);
@@ -262,7 +271,7 @@ export class NodeService extends ApiService {
             path,
             type,
             this.getCommentsPidParams(item.id, timeStamp),
-            token
+            token,
           ).pipe(
             map((childs: any) => {
               if (!childs.data) {
@@ -271,7 +280,7 @@ export class NodeService extends ApiService {
               return childs.data.map((child: any) => {
                 return this.handleComment(child, 2);
               });
-            })
+            }),
           );
         });
         return forkJoin(obj).pipe(
@@ -280,9 +289,9 @@ export class NodeService extends ApiService {
             return lists.map((item: any) => {
               return Object.assign(item, { child: comments[item.id] });
             });
-          })
+          }),
         );
-      })
+      }),
     );
   }
 
@@ -290,20 +299,20 @@ export class NodeService extends ApiService {
   getCustomApiComment(
     uuid: string,
     timeStamp = 1,
-    token?: string
+    token?: string,
   ): Observable<any> {
     const params = [`timeStamp=${timeStamp}`].join('&');
 
     return this.http.get<IComment[]>(
       `${this.apiUrl}/api/v3/comment/comment/${uuid}?${params}`,
-      token ? this.optionsWithCookieAndToken : this.httpOptionsOfCommon
+      token ? this.optionsWithCookieAndToken : this.httpOptionsOfCommon,
     );
   }
 
   getFlaging(path: string, params: string, token: string): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${path}?${params}`,
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithCookieAndToken(token),
     );
   }
 
@@ -311,7 +320,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${path}`,
       data,
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithCookieAndToken(token),
     );
   }
 
@@ -321,7 +330,7 @@ export class NodeService extends ApiService {
       const id = item.uuid || item.id;
       obj[id] = this.http.delete<any>(
         `${this.apiUrl}${path}/${id}`,
-        this.optionsWithCookieAndToken(token)
+        this.optionsWithCookieAndToken(token),
       );
     });
     return forkJoin(obj);
@@ -345,7 +354,7 @@ export class NodeService extends ApiService {
   checkCurrentUserPayed(
     uid: string,
     entityId: string,
-    token: string
+    token: string,
   ): Observable<boolean> {
     const params = [
       `filter[uid.id]=${uid}`,
@@ -358,14 +367,14 @@ export class NodeService extends ApiService {
         }
         console.log('用户没有购买！');
         return false;
-      })
+      }),
     );
   }
 
   checkNodeAccess(
     params: any,
     entityId: string,
-    user: IUser
+    user: IUser,
   ): Observable<IArticleAccess> {
     const reqRule = params?.require_rule;
     if (!isEmpty(reqRule)) {
@@ -395,7 +404,7 @@ export class NodeService extends ApiService {
   uploadImage(
     fileName: string,
     imageData: any,
-    csrfToken: string
+    csrfToken: string,
   ): Observable<any> {
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
@@ -419,7 +428,7 @@ export class NodeService extends ApiService {
         }),
         catchError(() => {
           return '';
-        })
+        }),
       );
   }
 
@@ -448,7 +457,7 @@ export class NodeService extends ApiService {
       .post(
         `/api/v1/media/image`,
         mediaData,
-        this.optionsWithCookieAndToken(this.user.csrf_token)
+        this.optionsWithCookieAndToken(this.user.csrf_token),
       )
       .subscribe((res) => {
         console.log('image upload done.');
@@ -464,7 +473,7 @@ export class NodeService extends ApiService {
     Imageinput.setAttribute('type', 'file');
     Imageinput.setAttribute(
       'accept',
-      'image/png, image/gif, image/jpeg, image/bmp, image/x-icon'
+      'image/png, image/gif, image/jpeg, image/bmp, image/x-icon',
     );
     Imageinput.classList.add('ql-image');
     if (Imageinput.files) {
@@ -478,7 +487,7 @@ export class NodeService extends ApiService {
               (img) => {
                 const range = editor.getSelection(true);
                 editor.insertEmbed(range.index, 'image', img);
-              }
+              },
             );
           };
           reader.readAsArrayBuffer(file);

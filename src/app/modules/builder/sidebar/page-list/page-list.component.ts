@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { IPageItem, IPageList } from '@core/interface/IBuilder';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -31,7 +32,7 @@ export class PageListComponent
   implements OnInit, OnDestroy
 {
   @Input() content: any;
-  content$: Observable<any[]>;
+  content$: Observable<IPageItem[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
   form = new FormGroup({
     page: new FormControl(0),
@@ -81,24 +82,16 @@ export class PageListComponent
       );
   }
 
-  getLists(res: any): any[] {
+  getLists(res: IPageList): any[] {
     this.pager = this.handlerPager(res.pager, res.rows.length);
     this.cd.detectChanges();
-    return res.rows.map((item: any) => {
-      return {
-        title: item.title,
-        changed: item.changed,
-        id: item.id,
-        author: item.author,
-        href: item.url,
-      };
-    });
+    return res.rows;
   }
 
-  loadPage(item: any): void {
+  loadPage(item: IPageItem): void {
     this.util.openSnackbar(`正在加载${item.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.builderService.loadPage(item.id);
+    this.builderService.loadPage(item);
   }
 
   onPageChange(page: PageEvent): void {

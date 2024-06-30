@@ -15,6 +15,8 @@ import { NodeService } from './node.service';
 import { tap } from 'rxjs/operators';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { IPageItem } from '@core/interface/IBuilder';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -33,9 +35,16 @@ export class BuilderService extends ApiService {
     super(apiBaseUrl);
   }
 
-  loadPage(id: string): void {
+  loadPage(page: IPageItem): void {
+    const { langs } = environment;
+    const { langcode, id } = page;
+    let lang = '';
+    if (langs && langs.length > 0) {
+      const defaultLang = langs.find((item) => item.default === true);
+      lang = defaultLang?.langCode === langcode ? '' : langcode;
+    }
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${id}`, 'noCache=1')
+      .fetch(`/api/v3/landingPage/json/${id}`, 'noCache=1', '', lang)
       .subscribe((page: IPage) => {
         const { body, status } = page;
         this.builder.loading$.next(false);
@@ -146,6 +155,8 @@ export class BuilderService extends ApiService {
       status: page.status,
       uuid: page.uuid,
       id: page.id,
+      langcode: page.langcode,
+      vid: page.vid,
       body: this.initExtraBody(page.body),
     };
   }

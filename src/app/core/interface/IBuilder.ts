@@ -137,3 +137,22 @@ export interface ICodeEditor {
   };
   path: string;
 }
+
+export interface IPageList {
+  rows: IPageItem[];
+  pager: {
+    current_page: null;
+    items_per_page: null;
+    total_items: null;
+    total_pages: null;
+  };
+}
+
+export interface IPageItem {
+  author: string;
+  changed: string;
+  id: string;
+  langcode: string;
+  title: string;
+  url: string;
+}

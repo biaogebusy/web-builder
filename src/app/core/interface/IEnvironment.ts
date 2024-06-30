@@ -11,7 +11,7 @@ export interface IEnvironment {
 
 export interface ILanguage {
   label: string;
-  value: string;
+  langCode: string;
   default?: boolean;
   prefix: string;
 }

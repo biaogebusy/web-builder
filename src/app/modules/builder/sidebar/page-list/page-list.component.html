@@ -35,7 +35,7 @@
       @for (page of content; track page; let i = $index) {
         <div class="item flex flex-col gap-2 relative p-2">
           <div class="text-sm mr-[62px]">
-            <a href="{{ page.href }}?preview=true" target="_blank">{{
+            <a href="{{ page.url }}?preview=true" target="_blank">{{
               page.title
             }}</a>
           </div>
@@ -44,10 +44,10 @@
             <div class="flex justify-between mt-2">
               <a
                 class="truncate"
-                [matTooltip]="page.href"
-                href="{{ page.href }}?preview=true"
+                [matTooltip]="page.url"
+                href="{{ page.url }}?preview=true"
                 target="_blank"
-                >{{ page.href }}</a
+                >{{ page.url }}</a
               >
               <span class="whitespace-nowrap">{{
                 page.changed | date: "yyyy/MM/dd HH:mm"

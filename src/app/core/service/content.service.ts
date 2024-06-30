@@ -67,7 +67,7 @@ export class ContentService {
     }
     if (multiLang && langs) {
       const lang = path.split('/')[1];
-      const currentLang = langs.find((item) => item.value === lang);
+      const currentLang = langs.find((item) => item.langCode === lang);
       if (currentLang) {
         return currentLang;
       } else {
