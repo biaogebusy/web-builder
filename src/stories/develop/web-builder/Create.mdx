@@ -304,3 +304,42 @@ X-CSRF-Token: {{csrfToken}}
   "message": "更新着陆页测试页面成功"
 }
 ```
+
+### 添加翻译
+
+`POST /api/v3/landingPage/translations/add/{node}/{source}/{target}`
+
+<table class="cherry-table">
+  <thead>
+    <tr>
+      <th align="left">名称</th>
+      <th align="center">说明</th>
+      <th align="right">备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">node</td>
+      <td align="center">内容id</td>
+      <td align="right">数值</td>
+    </tr>
+    <tr>
+      <td align="left">source</td>
+      <td align="center">原语言ID</td>
+      <td align="right">翻译内容原语言ID</td>
+    </tr>
+    <tr>
+      <td align="left">target</td>
+      <td align="center">翻译语言ID</td>
+      <td align="right">添加翻译语言ID</td>
+    </tr>
+  </tbody>
+</table>
+
+```
+###/api/v3/landingPage/translations/add/47/zh-hans/en
+{
+    "status": true,
+    "message": ""
+}
+```

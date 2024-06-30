@@ -47,6 +47,18 @@
           height: auto;
         }
       }
+      &.active {
+        &::after {
+          content: "";
+          position: absolute;
+          width: 4px;
+          height: 50%;
+          top: 0;
+          transform: translateY(50%);
+          left: 0;
+          border-radius: 0 3px 3px 0;
+        }
+      }
     }
   }
   .pager {

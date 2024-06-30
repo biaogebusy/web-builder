@@ -127,6 +127,21 @@ export class BuilderService extends ApiService {
       );
   }
 
+  addTranslation(page: IPage): Observable<any> {
+    const { id, target, langcode } = page;
+    const {
+      builder: {
+        api: { translate },
+      },
+    } = this.coreConfig;
+    const { csrf_token } = this.user;
+    return this.http.post(
+      `${this.apiUrl}${translate}/add/${id}/${langcode}/${target}`,
+      this.formatPage(page),
+      this.optionsWithCookieAndToken(csrf_token),
+    );
+  }
+
   formatPage(page: IPage): IPageForJSONAPI {
     const currentPage: IPage = { ...page };
     currentPage.body = page.body.map((item) => {
@@ -171,12 +186,8 @@ export class BuilderService extends ApiService {
 
   formatToExtraData(page: IPage): IPage {
     return {
+      ...page,
       title: this.getTitle(page.title),
-      status: page.status,
-      uuid: page.uuid,
-      id: page.id,
-      langcode: page.langcode,
-      vid: page.vid,
       body: this.initExtraBody(page.body),
     };
   }

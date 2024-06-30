@@ -292,6 +292,8 @@ export interface IPage {
   current?: boolean;
   langcode?: string;
   vid?: string;
+  translation?: true;
+  target?: string;
 }
 
 export interface IPageForJSONAPI {

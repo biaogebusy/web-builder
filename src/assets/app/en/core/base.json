@@ -454,7 +454,8 @@
     "enable": true,
     "api": {
       "create": "/api/v3/landingPage/builder",
-      "update": "/api/v3/landingPage/update"
+      "update": "/api/v3/landingPage/update",
+      "translate": "/api/v3/landingPage/translations"
     },
     "params": {
       "reqRoles": ["administrator"]

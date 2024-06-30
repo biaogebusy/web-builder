@@ -33,7 +33,10 @@
     }
     @if (content$ | async; as content) {
       @for (page of content; track page; let i = $index) {
-        <div class="item flex flex-col gap-2 relative p-2">
+        <div
+          [ngClass]="{ active: page.id === currentPage?.id }"
+          class="item flex flex-col gap-2 relative p-2"
+        >
           <div class="text-sm mr-[62px]">
             <a href="{{ page.url }}?preview=true" target="_blank">{{
               page.title
@@ -63,8 +66,21 @@
             <mat-menu #menu="matMenu" class="overlay-btn-icon">
               <button mat-menu-item (click)="loadPage(page)">
                 <app-icon [content]="{ svg: 'pencil' }"></app-icon>
-                <span>编辑</span>
+                <span>编辑页面</span>
               </button>
+              @if (langs) {
+                @for (item of langs; track $index) {
+                  @if (!item.default && item.langCode !== page.langcode) {
+                    <button
+                      mat-menu-item
+                      (click)="createLangVersion(page, item.langCode)"
+                    >
+                      <app-icon [content]="{ svg: 'translate' }"></app-icon>
+                      <span>编辑 {{ item.label }}</span>
+                    </button>
+                  }
+                }
+              }
               <button
                 *reqRolesIf="{
                   params: { reqRoles: ['administrator'] },
@@ -73,7 +89,7 @@
                 (click)="deletePage(page)"
               >
                 <app-icon [content]="{ svg: 'delete' }"></app-icon>
-                <span>删除</span>
+                <span>删除页面</span>
               </button>
             </mat-menu>
           </div>

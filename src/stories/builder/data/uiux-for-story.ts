@@ -8,7 +8,6 @@ export const uiux: IUiux[] = [
     label: '基础组件',
     icon: {
       svg: 'youtube-subscription',
-      inline: true,
     },
     type: 'component',
     elements: base,
@@ -18,7 +17,6 @@ export const uiux: IUiux[] = [
     type: 'component',
     icon: {
       svg: 'land-plots',
-      inline: true,
     },
     elements: components,
   },
@@ -26,7 +24,6 @@ export const uiux: IUiux[] = [
     label: '系统页面',
     icon: {
       svg: 'tune-variant',
-      inline: true,
     },
     type: 'system',
     elements: systems,

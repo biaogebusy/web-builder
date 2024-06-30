@@ -17,6 +17,13 @@
     .page-title {
       font-size: 14px;
       font-weight: bold;
+      ::ng-deep {
+        .mat-icon {
+          height: 16px;
+          width: 16px;
+          opacity: 0.75;
+        }
+      }
     }
     .time {
       font-size: smaller;

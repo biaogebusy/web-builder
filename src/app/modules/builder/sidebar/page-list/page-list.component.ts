@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { IPage } from '@core/interface/IAppConfig';
 import { IPageItem, IPageList } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
@@ -17,12 +18,13 @@ import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { USER } from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { merge } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-page-list',
@@ -53,12 +55,15 @@ export class PageListComponent
       },
     },
   ];
+  currentPage?: IPage;
+  langs = environment.langs;
   builder = inject(BuilderState);
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   builderService = inject(BuilderService);
+  cd = inject(ChangeDetectorRef);
   constructor(
-    private cd: ChangeDetectorRef,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
     @Inject(USER) private user: IUser,
   ) {
     super();
@@ -66,6 +71,10 @@ export class PageListComponent
 
   ngOnInit(): void {
     this.fetchPage('noCache=1');
+    this.currentPage$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
+      this.currentPage = page;
+      this.cd.detectChanges();
+    });
   }
 
   onModelChange(value: any): void {
@@ -104,8 +113,10 @@ export class PageListComponent
     const api = `/api/v1/node/landing_page`;
     this.nodeService
       .deleteEntity(api, uuid, this.user.csrf_token)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.util.openSnackbar(`删除${page.title}成功`, 'ok');
+        this.onReload();
       });
   }
 
@@ -118,8 +129,37 @@ export class PageListComponent
     this.fetchPage(params);
   }
 
+  createLangVersion(page: IPageItem, langCode: string): void {
+    this.builder.loading$.next(true);
+    this.nodeService
+      .fetch(`/api/v3/landingPage/json/${page.id}`, 'noCache=1', '', langCode)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((page: IPage) => {
+        console.log(page);
+        this.builder.loading$.next(false);
+        if (langCode === page.langcode) {
+          // 已有翻译
+          this.util.openSnackbar(`已有${page.label}语言页面，正在载入`, 'ok');
+          this.builder.loadNewPage(this.builderService.formatToExtraData(page));
+        } else {
+          // 复制一份，新建翻译
+          this.util.openSnackbar(
+            `正在载入${page.label}，请修改为${langCode}语言`,
+            'ok',
+          );
+          this.builder.loadNewPage(
+            this.builderService.formatToExtraData({
+              ...page,
+              translation: true,
+              target: langCode,
+            }),
+          );
+        }
+      });
+  }
+
   onReload(): void {
-    this.onModelChange({ title: '' });
+    this.onModelChange({ title: '', time: +new Date() });
   }
 
   ngOnDestroy(): void {
