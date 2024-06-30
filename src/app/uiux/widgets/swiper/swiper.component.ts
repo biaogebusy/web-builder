@@ -88,8 +88,10 @@ export class SwiperComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.index.firstChange) {
-      this.swiper.nativeElement.swiper.slideTo(changes.index.currentValue);
+    if (!changes?.index?.firstChange) {
+      if (typeof this.index !== 'undefined') {
+        this.swiper.nativeElement.swiper.slideTo(changes.index.currentValue);
+      }
     }
   }
 

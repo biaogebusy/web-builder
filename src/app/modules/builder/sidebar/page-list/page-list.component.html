@@ -42,9 +42,13 @@
           <div class="meta text-xs font-mono">
             {{ page.author | shorten: 6 : "**" }}
             <div class="flex justify-between mt-2">
-              <a href="{{ page.href }}?preview=true" target="_blank">{{
-                page.href
-              }}</a>
+              <a
+                class="truncate"
+                [matTooltip]="page.href"
+                href="{{ page.href }}?preview=true"
+                target="_blank"
+                >{{ page.href }}</a
+              >
               <span class="whitespace-nowrap">{{
                 page.changed | date: "yyyy/MM/dd HH:mm"
               }}</span>
