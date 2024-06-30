@@ -26,7 +26,7 @@ export class BuilderSampleComponent implements OnInit {
     private util: UtilitiesService,
     private noderService: NodeService,
     private builderService: BuilderService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -56,13 +56,13 @@ export class BuilderSampleComponent implements OnInit {
           this.loading = false;
           this.cd.detectChanges();
           return pages;
-        })
+        }),
       );
   }
 
   loadSample(item: any): void {
     this.util.openSnackbar(`正在加载${item.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.builderService.loadPage(item.nid);
+    this.builderService.loadPage({ id: item.nid });
   }
 }

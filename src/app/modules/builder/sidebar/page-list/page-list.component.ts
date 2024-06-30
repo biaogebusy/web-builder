@@ -91,7 +91,7 @@ export class PageListComponent
   loadPage(item: IPageItem): void {
     this.util.openSnackbar(`正在加载${item.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.builderService.loadPage(item);
+    this.builderService.loadPage({ langcode: item.langcode, id: item.id });
   }
 
   onPageChange(page: PageEvent): void {

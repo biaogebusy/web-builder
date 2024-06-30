@@ -35,14 +35,20 @@ export class BuilderService extends ApiService {
     super(apiBaseUrl);
   }
 
-  loadPage(page: IPageItem): void {
+  getApiLang(langcode?: string): string {
     const { langs } = environment;
-    const { langcode, id } = page;
     let lang = '';
-    if (langs && langs.length > 0) {
+    if (langs && langcode && langs.length > 0) {
       const defaultLang = langs.find((item) => item.default === true);
       lang = defaultLang?.langCode === langcode ? '' : langcode;
     }
+
+    return lang;
+  }
+
+  loadPage(page: { langcode?: string; id: string }): void {
+    const { langcode, id } = page;
+    const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${id}`, 'noCache=1', '', lang)
       .subscribe((page: IPage) => {
@@ -84,6 +90,13 @@ export class BuilderService extends ApiService {
   }
 
   updateLandingPage(page: IPage): Observable<any> {
+    const { langcode, id } = page;
+
+    let prefix = '';
+    const lang = this.getApiLang(langcode);
+    if (lang) {
+      prefix = `/${lang}`;
+    }
     const {
       builder: {
         api: { update },
@@ -93,16 +106,23 @@ export class BuilderService extends ApiService {
     this.builder.loading$.next(true);
     return this.http
       .patch(
-        `${this.apiUrl}${update}/${page.id}`,
+        `${this.apiUrl}${prefix}${update}/${id}`,
         this.coverExtraData(page),
         this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         tap((res: any) => {
-          const {
-            data: { id },
-          } = res;
-          this.loadPage(id);
+          const { status } = res;
+          if (status) {
+            if (langcode && id) {
+              this.loadPage({
+                langcode,
+                id,
+              });
+            }
+          } else {
+            this.util.openSnackbar('保存失败，请重试', 'ok');
+          }
         }),
       );
   }
