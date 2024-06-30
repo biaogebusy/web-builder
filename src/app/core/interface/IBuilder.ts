@@ -152,6 +152,7 @@ export interface IPageItem {
   author: string;
   changed: string;
   id: string;
+  uuid: string;
   langcode: string;
   title: string;
   url: string;

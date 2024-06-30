@@ -84,7 +84,7 @@ export class BuilderService extends ApiService {
           const {
             data: { id },
           } = res;
-          this.loadPage(id);
+          this.loadPage({ id });
         }),
       );
   }

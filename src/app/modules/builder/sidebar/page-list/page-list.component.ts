@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -10,11 +11,13 @@ import {
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { IPageItem, IPageList } from '@core/interface/IBuilder';
+import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { merge } from 'lodash-es';
@@ -54,7 +57,10 @@ export class PageListComponent
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   builderService = inject(BuilderService);
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(
+    private cd: ChangeDetectorRef,
+    @Inject(USER) private user: IUser,
+  ) {
     super();
   }
 
@@ -88,10 +94,19 @@ export class PageListComponent
     return res.rows;
   }
 
-  loadPage(item: IPageItem): void {
-    this.util.openSnackbar(`正在加载${item.title}`, 'ok');
+  loadPage(page: IPageItem): void {
+    this.util.openSnackbar(`正在加载${page.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.builderService.loadPage({ langcode: item.langcode, id: item.id });
+    this.builderService.loadPage({ langcode: page.langcode, id: page.id });
+  }
+  deletePage(page: IPageItem): void {
+    const { uuid } = page;
+    const api = `/api/v1/node/landing_page`;
+    this.nodeService
+      .deleteEntity(api, uuid, this.user.csrf_token)
+      .subscribe(() => {
+        this.util.openSnackbar(`删除${page.title}成功`, 'ok');
+      });
   }
 
   onPageChange(page: PageEvent): void {

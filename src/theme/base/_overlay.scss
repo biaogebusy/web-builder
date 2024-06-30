@@ -21,4 +21,20 @@
       display: flex;
     }
   }
+
+  // btn icon
+  .overlay-btn-icon {
+    button {
+      app-icon {
+        .mat-icon {
+          display: inline-block;
+          position: relative;
+          vertical-align: top;
+          font-size: 1.5rem;
+          height: 1.125rem;
+          width: 1.125rem;
+        }
+      }
+    }
+  }
 }

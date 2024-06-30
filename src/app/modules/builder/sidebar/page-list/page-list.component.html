@@ -54,11 +54,22 @@
               }}</span>
             </div>
           </div>
-          <app-btn
-            class="absolute right-2 top-2"
-            (click)="loadPage(page)"
-            [content]="{ label: '编辑', mode: 'stroked', color: 'primary' }"
-          ></app-btn>
+          <div class="actions absolute right-2 top-2">
+            <app-btn
+              [matMenuTriggerFor]="menu"
+              [content]="{ label: '编辑', mode: 'stroked', color: 'primary' }"
+            ></app-btn>
+            <mat-menu #menu="matMenu" class="overlay-btn-icon">
+              <button mat-menu-item (click)="loadPage(page)">
+                <app-icon [content]="{ svg: 'pencil' }"></app-icon>
+                <span>编辑</span>
+              </button>
+              <button mat-menu-item (click)="deletePage(page)">
+                <app-icon [content]="{ svg: 'delete-outline' }"></app-icon>
+                <span>删除</span>
+              </button>
+            </mat-menu>
+          </div>
         </div>
       }
     }
