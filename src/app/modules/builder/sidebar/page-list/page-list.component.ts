@@ -117,10 +117,20 @@ export class PageListComponent
     this.builderService.loadPage({ langcode: page.langcode, id: page.id });
   }
 
-  updateUrl(page: IPageItem): void {
-    const { uuid } = page;
-    this.builderService.updateUrlalias(page).subscribe((res) => {
-      console.log(res);
+  updatePage(page: IPageItem): void {
+    this.builder.rightContent$.next({
+      mode: 'over',
+      hasBackdrop: false,
+      style: {
+        width: '318px',
+        'max-width': 'calc(100vw - 50px)',
+      },
+      elements: [
+        {
+          type: 'page-setting',
+          content: page,
+        },
+      ],
     });
   }
   deletePage(page: IPageItem): void {

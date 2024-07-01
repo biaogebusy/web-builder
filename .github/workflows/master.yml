@@ -43,4 +43,4 @@ jobs:
           FOLDER: "dist"
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: "/home/app/builder/"
+          SERVER_DESTINATION: "/mnt/wwwroot/app/builder"

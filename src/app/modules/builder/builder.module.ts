@@ -42,6 +42,7 @@ import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sideb
 import { BuilderTemplateComponent } from './main/builder-template/builder-template.component';
 import { LayoutToolbarComponent } from './layout-builder/layout-toolbar/layout-toolbar.component';
 import { BlockToolbarComponent } from './layout-builder/block-toolbar/block-toolbar.component';
+import { PageSettingComponent } from './main/page-setting/page-setting.component';
 
 const components = [
   BuilderComponent,
@@ -53,6 +54,7 @@ const components = [
   WidgetPickerComponent,
   LayoutSettingComponent,
   BuilderTemplateComponent,
+  PageSettingComponent,
 ];
 
 @NgModule({
