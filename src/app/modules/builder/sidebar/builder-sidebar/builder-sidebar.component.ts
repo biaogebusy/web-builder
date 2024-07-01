@@ -59,6 +59,6 @@ export class BuilderSidebarComponent implements OnInit {
     } else {
       style = 'light';
     }
-    this.builder.builderThemeMode.next(style);
+    this.builder.themeMode.next(style);
   }
 }

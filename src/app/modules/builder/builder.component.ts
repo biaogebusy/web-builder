@@ -57,7 +57,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
-    this.builder.builderRightContent$
+    this.builder.rightContent$
       .pipe(takeUntil(this.destroy$))
       .subscribe((content) => {
         if (content) {
@@ -82,7 +82,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
 
-    this.builder.closeBuilderRightDrawer$
+    this.builder.closeRightDrawer$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.onClose();

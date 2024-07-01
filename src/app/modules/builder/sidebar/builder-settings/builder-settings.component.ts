@@ -60,7 +60,7 @@ export class BuilderSettingsComponent
       default:
         data = {};
     }
-    this.builder.builderRightContent$.next({
+    this.builder.rightContent$.next({
       mode: 'over',
       hasBackdrop: true,
       style: {

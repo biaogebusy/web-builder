@@ -26,7 +26,7 @@ export class SwitchPreviewComponent implements OnInit, OnDestroy {
     private builder: BuilderState,
     private cd: ChangeDetectorRef,
     private util: UtilitiesService,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
   ) {}
   currentPreview = 'none';
   currentIcon = 'cellphone-link';
@@ -85,7 +85,7 @@ export class SwitchPreviewComponent implements OnInit, OnDestroy {
       this.currentIcon = preview.icon.svg;
     }
     this.cd.detectChanges();
-    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.closeRightDrawer$.next(true);
     this.builder.switchPreivew$.next(preview.value);
   }
 

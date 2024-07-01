@@ -24,12 +24,10 @@ export class BuilderState {
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
   public showcase$: Subject<IBuilderShowcase | false> = new Subject();
-  public builderContent$ = new Subject<IPage>();
   public previewListDrawer$ = new Subject<boolean>();
-  public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
-  public builderRightContent$ = new Subject<IBuilderDynamicContent>();
-  public builderPopupSelect$ = new Subject<any>();
-  public closeBuilderRightDrawer$ = new Subject<boolean>();
+  public themeMode = new BehaviorSubject<'light' | 'dark'>('light');
+  public rightContent$ = new Subject<IBuilderDynamicContent>();
+  public closeRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
@@ -149,7 +147,7 @@ export class BuilderState {
     if (direction === 'down' && index < body.length - 1) {
       [body[index], body[index + 1]] = [body[index + 1], body[index]];
     }
-    this.closeBuilderRightDrawer$.next(true);
+    this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
   }
 
@@ -157,7 +155,6 @@ export class BuilderState {
     const { body } = this.currentPage;
     if (content && content.type) {
       body.push(content);
-      this.builderContent$.next(this.page);
       this.saveLocalVersions();
     } else {
       this.util.openSnackbar('组件添加错误', 'ok');
@@ -210,7 +207,7 @@ export class BuilderState {
       // 添加组件到指定位置
       this.transferComponet(event);
     }
-    this.closeBuilderRightDrawer$.next(true);
+    this.closeRightDrawer$.next(true);
   }
 
   dropComponent(event: CdkDragDrop<string[]>): void {
@@ -232,7 +229,7 @@ export class BuilderState {
   loadNewPage(page: IPage): void {
     this.version.forEach((version) => (version.current = false));
     this.version.unshift({ ...page, current: true, time: new Date() });
-    this.closeBuilderRightDrawer$.next(true);
+    this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
   }
 
@@ -244,7 +241,7 @@ export class BuilderState {
       content,
       path,
     };
-    this.builderRightContent$.next({
+    this.rightContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {

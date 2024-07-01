@@ -77,7 +77,7 @@
           },
         }"
       ></app-btn>
-      @if (builder.builderThemeMode | async; as mode) {
+      @if (builder.themeMode | async; as mode) {
         <app-btn
           [matTooltip]="mode === 'light' ? '切换暗黑风格' : '切换浅色风格'"
           [matTooltipPosition]="'right'"

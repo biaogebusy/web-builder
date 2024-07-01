@@ -28,7 +28,7 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
     public builder: BuilderState,
     private storage: LocalStorageService,
     private cd: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
   onDelete(index: number): void {
     this.builder.version.splice(index, 1);
     this.builder.version[0].current = true;
-    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.closeRightDrawer$.next(true);
     this.builder.saveLocalVersions();
   }
 
@@ -58,7 +58,7 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
         time: new Date(),
       },
     ];
-    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.closeRightDrawer$.next(true);
     this.builder.saveLocalVersions();
   }
 
@@ -81,7 +81,7 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
 
   onVersion(page: IPage, index: number): void {
     this.builder.showVersionPage(page, index);
-    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.closeRightDrawer$.next(true);
     this.builder.fixedShowcase = false;
     this.builder.showcase$.next(false);
   }

@@ -149,7 +149,7 @@ export class LayoutSettingComponent implements OnDestroy {
         builderList = this.doc.querySelector('#builder-list');
         builderList.style.paddingBottom = '500px';
         this.builder.fullScreen$.next(true);
-        this.builder.closeBuilderRightDrawer$.next(true);
+        this.builder.closeRightDrawer$.next(true);
       });
 
       dialogRef.afterClosed().subscribe(() => {

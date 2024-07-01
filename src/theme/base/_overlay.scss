@@ -27,12 +27,12 @@
     button {
       app-icon {
         .mat-icon {
-          display: inline-block;
+          display: flex;
           position: relative;
           vertical-align: top;
-          font-size: 1.5rem;
-          height: 1.125rem;
-          width: 1.125rem;
+          font-size: 16px;
+          height: 16px;
+          width: 16px;
         }
       }
     }
