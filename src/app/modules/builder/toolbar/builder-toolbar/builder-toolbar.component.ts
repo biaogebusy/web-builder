@@ -129,6 +129,7 @@ export class BuilderToolbarComponent
             duration: 2000,
           });
           this.builder.loading$.next(false);
+          this.builder.updateSuccess$.next(true);
           if (page.id) {
             this.builderService.loadPage({
               langcode: page.target,
@@ -158,6 +159,7 @@ export class BuilderToolbarComponent
             const { status, message } = res;
             if (status) {
               this.util.openSnackbar(message, 'ok');
+              this.builder.updateSuccess$.next(true);
             } else {
               this.util.openSnackbar('更新失败！', 'ok');
             }
@@ -184,6 +186,7 @@ export class BuilderToolbarComponent
               const { status, message } = res;
               if (status) {
                 this.util.openSnackbar(message, 'ok');
+                this.builder.updateSuccess$.next(true);
               } else {
                 this.util.openSnackbar('新建失败！', 'ok');
               }

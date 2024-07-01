@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -35,10 +36,13 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   panelOpenState = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   mode: 'side' | 'over' | 'push' = 'side';
+
+  builder = inject(BuilderState);
+  utli = inject(UtilitiesService);
+  screenState = inject(ScreenState);
+  storage = inject(LocalStorageService);
+
   constructor(
-    private injector: Injector,
-    public builder: BuilderState,
-    private storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(DOCUMENT) private doc: Document,
@@ -46,16 +50,14 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const storage = this.injector.get(LocalStorageService);
-    const utli = this.injector.get(UtilitiesService);
     if (this.coreConfig.builder?.enable) {
-      this.builderFullScreen = storage.retrieve('builderFullScreen');
+      this.builderFullScreen = this.storage.retrieve('builderFullScreen');
       if (!this.builderFullScreen) {
-        storage.store('builderFullScreen', false);
+        this.storage.store('builderFullScreen', false);
       }
       this.builder.animateDisable$.next(true);
     } else {
-      utli.openSnackbar('请开启 Builder 功能！', 'ok');
+      this.utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
     this.builder.rightContent$
       .pipe(takeUntil(this.destroy$))
@@ -69,9 +71,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const screenState = this.injector.get(ScreenState);
-
-    screenState
+    this.screenState
       .mqAlias$()
       .pipe(takeUntil(this.destroy$))
       .subscribe((alia) => {

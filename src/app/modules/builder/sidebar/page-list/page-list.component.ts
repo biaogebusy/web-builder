@@ -75,6 +75,13 @@ export class PageListComponent
       this.currentPage = page;
       this.cd.detectChanges();
     });
+    this.builder.updateSuccess$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        if (state) {
+          this.onReload();
+        }
+      });
   }
 
   onModelChange(value: any): void {
@@ -92,6 +99,7 @@ export class PageListComponent
         takeUntil(this.destroy$),
         map((res) => {
           this.loading = false;
+          this.cd.detectChanges();
           return this.getLists(res);
         }),
       );
@@ -125,7 +133,7 @@ export class PageListComponent
       .subscribe(() => {
         this.util.openSnackbar(`删除${page.title}成功`, 'ok');
         this.builder.loading$.next(false);
-        this.onReload();
+        this.builder.updateSuccess$.next(true);
       });
   }
 

@@ -15,7 +15,11 @@ import { cloneDeep, get, map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
-import { IManageMedia, IMediaSelect } from '@core/interface/manage/IManage';
+import {
+  IManageMedia,
+  IMediaSelect,
+  ISelectedMedia,
+} from '@core/interface/manage/IManage';
 
 @Injectable({
   providedIn: 'root',
@@ -33,16 +37,13 @@ export class BuilderState {
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
   public showGrid$ = new Subject<boolean>();
-  public selectedMedia$ = new Subject<{
-    img: IMediaSelect;
-    value: IManageMedia;
-    time?: Date;
-  }>();
+  public selectedMedia$ = new Subject<ISelectedMedia>();
   public switchPreivew$ = new Subject<
     'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
   >();
 
   public loading$ = new BehaviorSubject<boolean>(true);
+  public updateSuccess$ = new Subject<boolean>();
   public showBranding$ = new Subject<boolean>();
   public COPYKEY = 'bc';
 
@@ -87,6 +88,19 @@ export class BuilderState {
 
   updateVersion(page: IPage): void {
     this.version.unshift(page);
+    this.saveLocalVersions();
+  }
+
+  clearAllVersion(): void {
+    this.version = [
+      {
+        title: '欢迎页',
+        body: [],
+        current: true,
+        time: new Date(),
+      },
+    ];
+    this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
   }
 

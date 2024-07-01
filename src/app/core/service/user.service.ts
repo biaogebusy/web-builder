@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap } from 'rxjs/operators';
@@ -18,14 +18,15 @@ import { UtilitiesService } from './utilities.service';
 })
 export class UserService extends ApiService {
   userSub$ = new Subject<IUser | boolean>();
+
+  http = inject(HttpClient);
+  storage = inject(LocalStorageService);
+  cryptoJS = inject(CryptoJSService);
+  cookieService = inject(CookieService);
+  util = inject(UtilitiesService);
   constructor(
-    public http: HttpClient,
-    public storage: LocalStorageService,
-    public cryptoJS: CryptoJSService,
-    private cookieService: CookieService,
-    private util: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(API_URL) public apiBaseUrl: string
+    @Inject(API_URL) public apiBaseUrl: string,
   ) {
     super(apiBaseUrl);
   }
@@ -50,7 +51,7 @@ export class UserService extends ApiService {
           name: userName,
           pass: passWord,
         },
-        httpOptions
+        httpOptions,
       )
       .pipe(
         map((user) => {
@@ -59,7 +60,7 @@ export class UserService extends ApiService {
         }),
         catchError(() => {
           return of(false);
-        })
+        }),
       );
   }
 
@@ -67,7 +68,7 @@ export class UserService extends ApiService {
     this.getCurrentUserById(data.current_user.uid, data.csrf_token).subscribe(
       (user) => {
         this.loginUser(data, user);
-      }
+      },
     );
   }
 
@@ -93,13 +94,13 @@ export class UserService extends ApiService {
           tokenUser = data;
           return this.getCurrentUserById(
             data.current_user.uid,
-            data.csrf_token
+            data.csrf_token,
           );
         }),
         catchError((error: any) => {
           console.log(error);
           return of(null);
-        })
+        }),
       )
       .subscribe((user) => {
         console.log('get session user done!');
@@ -174,7 +175,7 @@ export class UserService extends ApiService {
       .post(
         `${this.apiUrl}${this.coreConfig.apiUrl.logoutPath}?${params}`,
         null,
-        httpOptions
+        httpOptions,
       )
       .pipe(
         catchError((error) => {
@@ -184,7 +185,7 @@ export class UserService extends ApiService {
           }
           console.log('退出异常！');
           return of(false);
-        })
+        }),
       )
       .subscribe(() => {
         this.logoutUser();
@@ -210,7 +211,7 @@ export class UserService extends ApiService {
         }),
         catchError(() => {
           return of(false);
-        })
+        }),
       );
   }
 
@@ -230,7 +231,7 @@ export class UserService extends ApiService {
     ].join('&');
     return this.http.get<any>(
       `${this.userApiPath}?${params}`,
-      this.optionsWithCookieAndToken(crsfToken)
+      this.optionsWithCookieAndToken(crsfToken),
     );
   }
 
@@ -241,7 +242,7 @@ export class UserService extends ApiService {
   getCurrentUserProfile(crsfToken: string): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}/api/v1/accountProfile?noCache=1`,
-      this.optionsWithCookieAndToken(crsfToken)
+      this.optionsWithCookieAndToken(crsfToken),
     );
   }
 
@@ -255,13 +256,13 @@ export class UserService extends ApiService {
     return this.http
       .get<any>(
         `${this.userApiPath}?${params}`,
-        this.optionsWithCookieAndToken(token)
+        this.optionsWithCookieAndToken(token),
       )
       .pipe(
         catchError((error: any) => {
           return this.http.get<any>(
             `${this.apiUrl}/api/v1/personalProfile?noCache=1`,
-            this.optionsWithCookieAndToken(token)
+            this.optionsWithCookieAndToken(token),
           );
         }),
         map((res: any) => {
@@ -289,7 +290,7 @@ export class UserService extends ApiService {
               login: new Date(),
             };
           }
-        })
+        }),
       );
   }
 
@@ -302,7 +303,7 @@ export class UserService extends ApiService {
         expires: 5,
         path: '/',
         sameSite: 'Lax',
-      }
+      },
     );
   }
 
@@ -316,7 +317,7 @@ export class UserService extends ApiService {
     return this.http
       .get<any>(
         `${this.apiUrl}/user/login_status?_format=json&noCache=1`,
-        httpOptions
+        httpOptions,
       )
       .pipe(
         map((state) => {
@@ -324,7 +325,7 @@ export class UserService extends ApiService {
             return true;
           }
           return false;
-        })
+        }),
       );
   }
 

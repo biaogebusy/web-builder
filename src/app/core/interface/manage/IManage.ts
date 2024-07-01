@@ -16,3 +16,9 @@ export interface IMediaSelect {
   fileName: string;
   tag: 'img';
 }
+
+export interface ISelectedMedia {
+  img: IMediaSelect;
+  value: IManageMedia;
+  time?: Date;
+}

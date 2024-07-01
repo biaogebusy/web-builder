@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -50,16 +50,7 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
   }
 
   onDeleteAll(): void {
-    this.builder.version = [
-      {
-        title: '欢迎页',
-        body: [],
-        current: true,
-        time: new Date(),
-      },
-    ];
-    this.builder.closeRightDrawer$.next(true);
-    this.builder.saveLocalVersions();
+    this.builder.clearAllVersion();
   }
 
   onNewPage(): void {
