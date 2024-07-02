@@ -81,16 +81,6 @@
                   }
                 }
               }
-              <button
-                *reqRolesIf="{
-                  params: { reqRoles: ['administrator'] },
-                }"
-                mat-menu-item
-                (click)="deletePage(page)"
-              >
-                <app-icon [content]="{ svg: 'delete' }"></app-icon>
-                <span>删除页面</span>
-              </button>
               <button mat-menu-item (click)="updatePage(page)">
                 <app-icon [content]="{ svg: 'dots-vertical' }"></app-icon>
                 <span>编辑更多</span>

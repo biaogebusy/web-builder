@@ -2,17 +2,24 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
-import { AbstractControl, FormGroup, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { IPageItem } from '@core/interface/IBuilder';
+import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
+import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { BuilderState } from '@core/state/BuilderState';
+import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subject, of } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-page-setting',
@@ -20,14 +27,21 @@ import { map } from 'rxjs/operators';
   styleUrl: './page-setting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageSettingComponent implements OnInit {
+export class PageSettingComponent implements OnInit, OnDestroy {
   @Input() content: any;
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[];
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
   cd = inject(ChangeDetectorRef);
+  builder = inject(BuilderState);
   builderService = inject(BuilderService);
   screenService = inject(ScreenService);
+  nodeService = inject(NodeService);
+  util = inject(UtilitiesService);
+
+  constructor(@Inject(USER) private user: IUser) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -113,6 +127,25 @@ export class PageSettingComponent implements OnInit {
       }
     }
   }
-
+  deletePage(): void {
+    const { uuid, title } = this.content.content;
+    const api = `/api/v1/node/landing_page`;
+    this.builder.loading$.next(true);
+    this.nodeService
+      .deleteEntity(api, uuid, this.user.csrf_token)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.util.openSnackbar(`删除${title}成功`, 'ok');
+        this.builder.loading$.next(false);
+        this.builder.updateSuccess$.next(true);
+      });
+  }
   onModelChange(value: any): void {}
+
+  ngOnDestroy(): void {
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
+  }
 }

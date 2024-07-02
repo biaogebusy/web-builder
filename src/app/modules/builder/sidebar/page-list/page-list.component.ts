@@ -133,19 +133,6 @@ export class PageListComponent
       ],
     });
   }
-  deletePage(page: IPageItem): void {
-    const { uuid } = page;
-    const api = `/api/v1/node/landing_page`;
-    this.builder.loading$.next(true);
-    this.nodeService
-      .deleteEntity(api, uuid, this.user.csrf_token)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.util.openSnackbar(`删除${page.title}成功`, 'ok');
-        this.builder.loading$.next(false);
-        this.builder.updateSuccess$.next(true);
-      });
-  }
 
   onPageChange(page: PageEvent): void {
     this.form
