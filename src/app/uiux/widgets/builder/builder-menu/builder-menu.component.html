@@ -5,7 +5,7 @@
       [matTooltip]="'更多'"
       mat-icon-button
       [mat-menu-trigger-for]="menu"
-      >
+    >
       <app-icon [content]="{ svg: 'dots-vertical', inline: true }"></app-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -19,24 +19,23 @@
       @if (canShow) {
         <button mat-menu-item>
           <mat-slide-toggle
-            class="opacity-70"
             [checked]="debugAnimate$ | async"
             (change)="onDebugAnimate($event)"
-            >动画调式</mat-slide-toggle
-            >
-          </button>
-        }
-        <button mat-menu-item (click)="onColorTest()">
-          <app-icon
-            class="opacity-70"
-            [content]="{ svg: 'marker-check' }"
-          ></app-icon>
-          <span matListItemTitle>颜色检查</span>
+            ><span class="text-base">动画调式</span></mat-slide-toggle
+          >
         </button>
-        <button mat-menu-item (click)="onPreview()">
-          <app-icon class="opacity-70" [content]="{ svg: 'eye' }"></app-icon>
-          <span matListItemTitle>页面预览</span>
-        </button>
-      </mat-menu>
-    </div>
-  </ng-container>
+      }
+      <button mat-menu-item (click)="onColorTest()">
+        <app-icon
+          class="opacity-70"
+          [content]="{ svg: 'marker-check' }"
+        ></app-icon>
+        <span matListItemTitle>颜色检查</span>
+      </button>
+      <button mat-menu-item (click)="onPreview()">
+        <app-icon class="opacity-70" [content]="{ svg: 'eye' }"></app-icon>
+        <span matListItemTitle>页面预览</span>
+      </button>
+    </mat-menu>
+  </div>
+</ng-container>

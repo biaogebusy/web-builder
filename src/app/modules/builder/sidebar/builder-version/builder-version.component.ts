@@ -4,6 +4,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
@@ -24,12 +25,11 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(
-    public builder: BuilderState,
-    private storage: LocalStorageService,
-    private cd: ChangeDetectorRef,
-    private dialog: MatDialog,
-  ) {}
+  dialog = inject(MatDialog);
+  cd = inject(ChangeDetectorRef);
+  builder = inject(BuilderState);
+  storage = inject(LocalStorageService);
+  constructor() {}
 
   ngOnInit(): void {
     this.version = this.storage.retrieve('version');

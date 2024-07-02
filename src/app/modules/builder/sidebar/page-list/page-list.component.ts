@@ -11,7 +11,7 @@ import {
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { IPage } from '@core/interface/IAppConfig';
-import { IPageItem, IPageList } from '@core/interface/IBuilder';
+import { IPageMeta, IPageList } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
@@ -37,7 +37,7 @@ export class PageListComponent
   implements OnInit, OnDestroy
 {
   @Input() content: any;
-  content$: Observable<IPageItem[]>;
+  content$: Observable<IPageMeta[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
   form = new FormGroup({
     page: new FormControl(0),
@@ -111,27 +111,14 @@ export class PageListComponent
     return res.rows;
   }
 
-  loadPage(page: IPageItem): void {
+  loadPage(page: IPageMeta): void {
     this.util.openSnackbar(`正在加载${page.title}`, 'ok');
     this.builder.loading$.next(true);
     this.builderService.loadPage({ langcode: page.langcode, id: page.id });
   }
 
-  updatePage(page: IPageItem): void {
-    this.builder.rightContent$.next({
-      mode: 'over',
-      hasBackdrop: false,
-      style: {
-        width: '318px',
-        'max-width': 'calc(100vw - 50px)',
-      },
-      elements: [
-        {
-          type: 'page-setting',
-          content: page,
-        },
-      ],
-    });
+  updatePage(page: IPageMeta): void {
+    this.builder.pageSetting(page);
   }
 
   onPageChange(page: PageEvent): void {
@@ -143,7 +130,7 @@ export class PageListComponent
     this.fetchPage(params);
   }
 
-  createLangVersion(page: IPageItem, langCode: string): void {
+  createLangVersion(page: IPageMeta, langCode: string): void {
     this.builder.loading$.next(true);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${page.id}`, 'noCache=1', '', langCode)

@@ -15,7 +15,7 @@ import { NodeService } from './node.service';
 import { catchError, tap } from 'rxjs/operators';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { IPageItem } from '@core/interface/IBuilder';
+import { IPageMeta } from '@core/interface/IBuilder';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -142,7 +142,7 @@ export class BuilderService extends ApiService {
     );
   }
 
-  getUrlAlias(page: IPageItem): Observable<any> {
+  getUrlAlias(page: IPageMeta): Observable<any> {
     const { langcode, uuid } = page;
 
     let prefix = '';
@@ -153,7 +153,7 @@ export class BuilderService extends ApiService {
     return this.http.get(`/api/v1/path_alias/path_alias/`);
   }
 
-  updateUrlalias(page: IPageItem, alias: string): Observable<any> {
+  updateUrlalias(page: IPageMeta, alias: string): Observable<any> {
     const { csrf_token, id } = this.user;
     const { langcode, uuid, url } = page;
 

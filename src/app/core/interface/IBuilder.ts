@@ -139,7 +139,7 @@ export interface ICodeEditor {
 }
 
 export interface IPageList {
-  rows: IPageItem[];
+  rows: IPageMeta[];
   pager: {
     current_page: null;
     items_per_page: null;
@@ -148,7 +148,7 @@ export interface IPageList {
   };
 }
 
-export interface IPageItem {
+export interface IPageMeta {
   author: string;
   changed: string;
   id: string;

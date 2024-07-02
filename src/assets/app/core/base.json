@@ -463,10 +463,39 @@
         },
         "spacer": "lg",
         "order": {
-          "left": 0,
-          "right": 1
+          "left": 1,
+          "right": 0
         },
         "left": [
+          {
+            "type": "img",
+            "src": "/assets/images/illustration/13.png",
+            "classes": "mover",
+            "hostClasses": "relative img-bg-shape",
+            "actions": [
+              {
+                "type": "btn-video",
+                "color": "default",
+                "classes": "play-video",
+                "video": {
+                  "type": "player",
+                  "options": {
+                    "controls": true,
+                    "aspectRatio": "16:9",
+                    "poster": "/assets/storybook/assets/builder.png",
+                    "sources": [
+                      {
+                        "src": "/assets/video/layout-builder-hero-demo.mp4",
+                        "type:": "video/mp4"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "right": [
           {
             "type": "text",
             "spacer": "sm",
@@ -516,35 +545,6 @@
                 "disableToolbar": true,
                 "content": {
                   "type": "github-star"
-                }
-              }
-            ]
-          }
-        ],
-        "right": [
-          {
-            "type": "img",
-            "src": "/assets/images/illustration/13.png",
-            "classes": "mover",
-            "hostClasses": "relative img-bg-shape",
-            "actions": [
-              {
-                "type": "btn-video",
-                "color": "default",
-                "classes": "play-video",
-                "video": {
-                  "type": "player",
-                  "options": {
-                    "controls": true,
-                    "aspectRatio": "16:9",
-                    "poster": "/assets/storybook/assets/builder.png",
-                    "sources": [
-                      {
-                        "src": "/assets/video/layout-builder-hero-demo.mp4",
-                        "type:": "video/mp4"
-                      }
-                    ]
-                  }
                 }
               }
             ]

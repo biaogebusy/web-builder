@@ -103,7 +103,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                 },
                 {
                   type: 'text',
@@ -322,7 +322,7 @@ export const base = [
               elements: [
                 {
                   style: 'none',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -454,7 +454,7 @@ export const base = [
               elements: [
                 {
                   style: 'none',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -1553,7 +1553,7 @@ export const base = [
               elements: [
                 {
                   style: 'style-v4',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -1852,7 +1852,7 @@ export const base = [
               elements: [
                 {
                   style: 'style-v4',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -2024,7 +2024,7 @@ export const base = [
                 },
                 {
                   style: 'style-v1',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -2219,7 +2219,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v1',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                 },
               ],
             },
@@ -2420,7 +2420,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                 },
                 {
                   type: 'text',
@@ -3527,7 +3527,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                 },
                 {
                   type: 'text',
@@ -3652,7 +3652,7 @@ export const base = [
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
                   style: 'style-v4',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                 },
                 {
                   type: 'text',
@@ -4022,7 +4022,7 @@ export const base = [
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
             style: 'style-v1',
-            classes: 'mat-headline-1 bold',
+            classes: 'mat-headline-3 bold',
           },
           bg: {
             classes: 'bg- bg-fill-width',

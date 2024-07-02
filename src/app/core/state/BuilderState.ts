@@ -6,6 +6,7 @@ import {
   IBuilderDynamicContent,
   IBuilderShowcase,
   ILayoutSetting,
+  IPageMeta,
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -20,6 +21,7 @@ import {
   IMediaSelect,
   ISelectedMedia,
 } from '@core/interface/manage/IManage';
+import { PageItem } from 'drupal-jsonapi-params';
 
 @Injectable({
   providedIn: 'root',
@@ -135,6 +137,23 @@ export class BuilderState {
       }
       this.loading$.next(false);
     }, 600);
+  }
+
+  pageSetting(page: IPageMeta): void {
+    this.rightContent$.next({
+      mode: 'over',
+      hasBackdrop: false,
+      style: {
+        width: '318px',
+        'max-width': 'calc(100vw - 50px)',
+      },
+      elements: [
+        {
+          type: 'page-setting',
+          content: page,
+        },
+      ],
+    });
   }
 
   get currentPage(): IPage {

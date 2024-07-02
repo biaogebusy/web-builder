@@ -9,7 +9,7 @@ import {
   inject,
 } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { IPageItem } from '@core/interface/IBuilder';
+import { IPageMeta } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
