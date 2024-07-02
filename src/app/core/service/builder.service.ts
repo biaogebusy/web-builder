@@ -153,6 +153,54 @@ export class BuilderService extends ApiService {
     return this.http.get(`/api/v1/path_alias/path_alias/`);
   }
 
+  updateAttributes(
+    page: IPageMeta,
+    api: string,
+    type: string,
+    attr: any,
+  ): Observable<any> {
+    const { csrf_token, id } = this.user;
+    const { langcode, uuid, url } = page;
+    let prefix = '';
+    const lang = this.getApiLang(langcode);
+    if (lang) {
+      prefix = `/${lang}`;
+    }
+
+    return this.http
+      .patch(
+        `${prefix}${api}/${uuid}`,
+        {
+          data: {
+            type,
+            id: uuid,
+            attributes: {
+              ...attr,
+            },
+            relationships: {
+              uid: {
+                data: {
+                  type: 'user--user',
+                  id,
+                },
+              },
+            },
+          },
+        },
+        this.optionsWithCookieAndToken(csrf_token),
+      )
+      .pipe(
+        catchError((res: any) => {
+          console.log(res);
+          const {
+            error: { errors },
+          } = res;
+          this.util.openSnackbar(errors[0].detail, 'ok');
+          return throwError(errors[0]);
+        }),
+      );
+  }
+
   updateUrlalias(page: IPageMeta, alias: string): Observable<any> {
     const { csrf_token, id } = this.user;
     const { langcode, uuid, url } = page;
