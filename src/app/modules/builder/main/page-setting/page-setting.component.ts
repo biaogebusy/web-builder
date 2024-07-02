@@ -68,7 +68,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
             defaultValue: content.url,
             props: {
               label: 'url别名',
-              disabled: true,
+              disabled: false,
             },
             modelOptions: {
               updateOn: 'blur',
@@ -76,9 +76,16 @@ export class PageSettingComponent implements OnInit, OnDestroy {
             asyncValidators: {
               checkUrl: {
                 expression: (control: AbstractControl) => {
-                  return this.builderService.getUrlAlias(content).pipe(
-                    map((res) => {
-                      console.log(res);
+                  return control.valueChanges.pipe(
+                    map((alias) => {
+                      return this.builderService
+                        .updateUrlalias(content, alias)
+                        .pipe(
+                          map((res) => {
+                            console.log(res);
+                            return true;
+                          }),
+                        );
                     }),
                   );
                 },

@@ -150,10 +150,10 @@ export class BuilderService extends ApiService {
     if (lang) {
       prefix = `/${lang}`;
     }
-    return this.http.get(`/api/v1/path_alias/path_alias/${uuid}`);
+    return this.http.get(`/api/v1/path_alias/path_alias/`);
   }
 
-  updateUrlalias(page: IPageItem): Observable<any> {
+  updateUrlalias(page: IPageItem, alias: string): Observable<any> {
     const { csrf_token, id } = this.user;
     const { langcode, uuid, url } = page;
 
@@ -170,7 +170,7 @@ export class BuilderService extends ApiService {
             type: 'path_alias--path_alias',
             id: uuid,
             attributes: {
-              alias: '/test-xxxx',
+              alias,
               langcode,
               path: url,
             },
