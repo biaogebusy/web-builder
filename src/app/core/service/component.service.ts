@@ -251,6 +251,7 @@ export class ComponentService {
       'inline-editor',
       'widget-picker',
       'layout-setting',
+      'page-setting',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule),

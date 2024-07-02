@@ -7,6 +7,7 @@ import {
   Inject,
   Input,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,12 +30,10 @@ export class LayoutSettingComponent implements OnDestroy {
   model: any = {};
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(
-    private builder: BuilderState,
-    private dialog: MatDialog,
-    private cd: ChangeDetectorRef,
-    @Inject(DOCUMENT) private doc: Document,
-  ) {}
+  builder = inject(BuilderState);
+  dialog = inject(MatDialog);
+  cd = inject(ChangeDetectorRef);
+  constructor(@Inject(DOCUMENT) private doc: Document) {}
 
   onModelChange(value: any): void {
     const { path } = this.content;

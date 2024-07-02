@@ -142,6 +142,17 @@ export class BuilderService extends ApiService {
     );
   }
 
+  getUrlAlias(page: IPageItem): Observable<any> {
+    const { langcode, uuid } = page;
+
+    let prefix = '';
+    const lang = this.getApiLang(langcode);
+    if (lang) {
+      prefix = `/${lang}`;
+    }
+    return this.http.get(`/api/v1/path_alias/path_alias/${uuid}`);
+  }
+
   updateUrlalias(page: IPageItem): Observable<any> {
     const { csrf_token, id } = this.user;
     const { langcode, uuid, url } = page;
