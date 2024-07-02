@@ -41,7 +41,7 @@ import { Meta } from "@storybook/blocks";
 
 ```nginx
 location / {
-    proxy_pass http://127.0.0.1:4211;
+    proxy_pass http://127.0.0.1:4200;
     proxy_set_header Host $host:$server_port;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -67,8 +67,8 @@ location / {
 当访问例如 drupal 的 api 或者 sites 文件时，则反向代理到 Drupal 的域名，完整如下：
 http://127.0.0.1:8080 这个是 Drupal 的内网地址；
 
-```ngxin
-location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([^/]+)/([^/]+)/edit|autocomplete|media-library|history|quickedit|webform_rest|session|contextual|themes|shs-term-data|modules|libraries|core|api|user|admin|manage|system|print|export|sites/([^/]+)/files) {
+```
+location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([^/]+)/([^/]+)/edit|autocomplete|media-library|history|quickedit|webform_rest|session|contextual|themes|shs-term-data|modules|libraries|core|api|en/api|user|admin|manage|system|print|export|sites/([^/]+)/files|front-preview|dropzonejs|ckeditor_uploadimage) {
     proxy_pass http://127.0.0.1:8080;
     proxy_redirect off;
     proxy_set_header X-Real-IP $remote_addr;
@@ -77,7 +77,7 @@ location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([
     proxy_set_header X-Forwarded-Proto https;
     proxy_set_header X-Forwarded-Port 443;
     proxy_read_timeout 240;
-    # proxy_cache xinshi;
+
     # 要求nginx刷新内容时使用条件请求
     proxy_cache_revalidate on;
     # 访问几次才被缓存，可以确保最常访问的添加到项目中
@@ -95,19 +95,22 @@ location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([
     # 检测缓存
     add_header X-Proxy-Cache $upstream_cache_status;
     proxy_buffering on;
-    proxy_set_header Host admin.auooa.com;
     add_header Strict-Transport-Security "max-age=31536000";
-    add_header Cache-Control no-cache;
+    proxy_set_header Host $host;
+    if ( $uri ~* "\.(gif|png|jpg|css|js|woff|woff2)$" ) {
+        expires 1m;
+    }
+    proxy_ignore_headers Set-Cookie Cache-Control expires;
+    proxy_cache proxy_cache_panel;
+    proxy_cache_key $host$uri$is_args$args;
+    proxy_cache_valid 200 304 301 302 10m;
 }
 location / {
-    proxy_pass http://127.0.0.1:4211;
+    proxy_pass http://127.0.0.1:4200;
     proxy_set_header Host $host:$server_port;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header REMOTE-HOST $remote_addr;
-    add_header X-Cache $upstream_cache_status;
-    proxy_set_header X-Host $host:$server_port;
-    proxy_set_header X-Scheme $scheme;
     proxy_connect_timeout 30s;
     proxy_read_timeout 86400s;
     proxy_send_timeout 30s;
@@ -117,9 +120,17 @@ location / {
 }
 ```
 
-## 1panel 其他配置
+## 1panel 最佳实践
 
-在高级功能的 WAP 中：
+### 开启对json的压缩
+
+1panel默认没有对`application/json`进行gzip压缩，在`OpenResty`的全局配置中，新增：
+
+```text
+gzip_types text/plain application/javascript application/x-javascript text/javascript text/css application/xml application/json;
+```
+
+### 在高级功能的 WAP 中
 
 1. 关闭参数规则，影响后台数据保存；
 2. 关闭其他中 SQL 和 XXS，影响富文本图片上传及 builder 的更新修改；
