@@ -25,14 +25,18 @@
   // btn icon
   .overlay-btn-icon {
     button {
-      app-icon {
-        .mat-icon {
-          display: flex;
-          position: relative;
-          vertical-align: top;
-          font-size: 16px;
-          height: 16px;
-          width: 16px;
+      .mat-mdc-menu-item-text {
+        display: flex;
+        align-items: center;
+        app-icon {
+          .mat-icon {
+            display: flex;
+            position: relative;
+            vertical-align: top;
+            font-size: 18px;
+            height: 18px;
+            width: 18px;
+          }
         }
       }
     }

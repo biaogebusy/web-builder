@@ -17,6 +17,8 @@ import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +59,7 @@ export class BuilderState {
   storage = inject(LocalStorageService);
   util = inject(UtilitiesService);
   sreenService = inject(ScreenService);
+  dialog = inject(MatDialog);
   constructor(@Inject(DOCUMENT) private doc: Document) {
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion) {
@@ -135,19 +138,18 @@ export class BuilderState {
   }
 
   pageSetting(page: IPageMeta): void {
-    this.rightContent$.next({
-      mode: 'over',
-      hasBackdrop: false,
-      style: {
-        width: '318px',
-        'max-width': 'calc(100vw - 50px)',
-      },
-      elements: [
-        {
-          type: 'page-setting',
-          content: page,
+    this.dialog.open(DialogComponent, {
+      width: '500px',
+      panelClass: 'close-outside',
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'page-setting',
+            content: page,
+          },
         },
-      ],
+      },
     });
   }
 

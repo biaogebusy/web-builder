@@ -34,7 +34,11 @@
     @if (content$ | async; as content) {
       @for (page of content; track page; let i = $index) {
         <div
-          [ngClass]="{ active: page.id === currentPage?.id }"
+          [ngClass]="{
+            active:
+              page.id === currentPage?.id &&
+              page.langcode === currentPage?.langcode,
+          }"
           class="item flex flex-col gap-2 relative p-2"
         >
           <div class="text-sm mr-[62px] inline-flex items-center gap-1 group">
@@ -75,7 +79,7 @@
             <mat-menu #menu="matMenu" class="overlay-btn-icon">
               <button mat-menu-item (click)="loadPage(page)">
                 <app-icon [content]="{ svg: 'pencil' }"></app-icon>
-                <span>编辑页面</span>
+                <span>载入编辑</span>
               </button>
               @if (langs) {
                 @for (item of langs; track $index) {
@@ -85,14 +89,14 @@
                       (click)="createLangVersion(page, item.langCode)"
                     >
                       <app-icon [content]="{ svg: 'translate' }"></app-icon>
-                      <span>编辑 {{ item.label }}</span>
+                      <span>编辑{{ item.label }}</span>
                     </button>
                   }
                 }
               }
               <button mat-menu-item (click)="updatePage(page)">
-                <app-icon [content]="{ svg: 'dots-vertical' }"></app-icon>
-                <span>编辑更多</span>
+                <app-icon [content]="{ svg: 'cog' }"></app-icon>
+                <span>页面属性</span>
               </button>
             </mat-menu>
           </div>

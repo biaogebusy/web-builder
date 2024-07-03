@@ -6,6 +6,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Inject,
+  inject,
 } from '@angular/core';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -34,17 +35,15 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   currentUser: IUser | false;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    public utilities: UtilitiesService,
-    public screen: ScreenState,
-    public dialog: MatDialog,
-    private dialogService: DialogService,
-    private cd: ChangeDetectorRef,
-    public userService: UserService,
-    private router: Router,
-    private storage: LocalStorageService,
-    @Inject(USER) public user: IUser
-  ) {
+  utilities = inject(UtilitiesService);
+  screen = inject(ScreenState);
+  dialog = inject(MatDialog);
+  dialogService = inject(DialogService);
+  cd = inject(ChangeDetectorRef);
+  userService = inject(UserService);
+  router = inject(Router);
+  storage = inject(LocalStorageService);
+  constructor(@Inject(USER) public user: IUser) {
     this.currentUser = user;
     this.userService.userSub$.subscribe((currentUser: any) => {
       // login

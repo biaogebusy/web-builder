@@ -191,8 +191,8 @@ export class BuilderService extends ApiService {
   }
 
   updateUrlalias(page: IPageMeta, alias: string): Observable<any> {
-    const { csrf_token, id } = this.user;
-    const { langcode, uuid, url } = page;
+    const { csrf_token } = this.user;
+    const { langcode, uuid, id } = page;
 
     let prefix = '';
     const lang = this.getApiLang(langcode);
@@ -203,9 +203,9 @@ export class BuilderService extends ApiService {
       type: 'path_alias--path_alias',
       id: uuid,
       attributes: {
-        alias,
+        alias: alias.replace(prefix, ''),
         langcode,
-        path: url,
+        path: `/node/${id}`,
       },
     };
     const status$ = new Subject<any>();
