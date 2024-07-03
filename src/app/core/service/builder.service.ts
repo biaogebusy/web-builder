@@ -6,7 +6,7 @@ import type {
   IPage,
   IPageForJSONAPI,
 } from '@core/interface/IAppConfig';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subject, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
@@ -142,17 +142,6 @@ export class BuilderService extends ApiService {
     );
   }
 
-  getUrlAlias(page: IPageMeta): Observable<any> {
-    const { langcode, uuid } = page;
-
-    let prefix = '';
-    const lang = this.getApiLang(langcode);
-    if (lang) {
-      prefix = `/${lang}`;
-    }
-    return this.http.get(`/api/v1/path_alias/path_alias/`);
-  }
-
   updateAttributes(
     page: IPageMeta,
     api: string,
@@ -160,7 +149,7 @@ export class BuilderService extends ApiService {
     attr: any,
   ): Observable<any> {
     const { csrf_token, id } = this.user;
-    const { langcode, uuid, url } = page;
+    const { langcode, uuid } = page;
     let prefix = '';
     const lang = this.getApiLang(langcode);
     if (lang) {
@@ -210,40 +199,51 @@ export class BuilderService extends ApiService {
     if (lang) {
       prefix = `/${lang}`;
     }
-    return this.http
-      .post(
-        `${prefix}/api/v1/path_alias/path_alias`,
+    const data = {
+      type: 'path_alias--path_alias',
+      id: uuid,
+      attributes: {
+        alias,
+        langcode,
+        path: url,
+      },
+    };
+    const status$ = new Subject<any>();
+    this.http
+      .patch(
+        `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
         {
-          data: {
-            type: 'path_alias--path_alias',
-            id: uuid,
-            attributes: {
-              alias,
-              langcode,
-              path: url,
-            },
-            relationships: {
-              uid: {
-                data: {
-                  type: 'user--user',
-                  id,
-                },
-              },
-            },
-          },
+          data,
         },
         this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         catchError((res: any) => {
-          console.log(res);
           const {
             error: { errors },
           } = res;
-          this.util.openSnackbar(errors[0].detail, 'ok');
-          return throwError(errors[0]);
+          return of(errors[0].status);
         }),
-      );
+      )
+      .subscribe((status) => {
+        if (status === '404') {
+          this.http
+            .post(
+              `${prefix}/api/v1/path_alias/path_alias`,
+              {
+                data,
+              },
+              this.optionsWithCookieAndToken(csrf_token),
+            )
+            .subscribe((res) => {
+              status$.next(res);
+            });
+        } else {
+          status$.next(status);
+        }
+      });
+
+    return status$;
   }
 
   formatPage(page: IPage): IPageForJSONAPI {

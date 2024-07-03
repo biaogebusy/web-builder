@@ -1,9 +1,5 @@
 <div class="page-setting p-5">
-  <app-formly
-    [fields]="fields"
-    [model]="model"
-    (modelChange)="onModelChange($event)"
-  ></app-formly>
+  <app-formly [fields]="fields" [model]="model"></app-formly>
   <div class="actions flex justify-center items-center gap-3 my-5">
     <app-btn
       *reqRolesIf="{
@@ -15,16 +11,6 @@
         color: 'warn',
         icon: {
           svg: 'delete',
-        },
-      }"
-    ></app-btn>
-    <app-btn
-      [content]="{
-        label: '更新页面',
-        color: 'primary',
-        mode: 'raised',
-        icon: {
-          svg: 'pencil',
         },
       }"
     ></app-btn>

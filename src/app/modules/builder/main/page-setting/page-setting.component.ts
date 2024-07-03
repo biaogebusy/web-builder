@@ -19,7 +19,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Subject, of } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { catchError, map, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-page-setting',
@@ -47,19 +47,39 @@ export class PageSettingComponent implements OnInit, OnDestroy {
     if (this.screenService.isPlatformBrowser()) {
       const { content } = this.content;
       if (content) {
-        console.log(content);
         this.fields = [
           {
             key: 'title',
             type: 'input',
-            defaultValue: content.title,
+            defaultValue: content.title.trim(),
             props: {
               label: '标题',
               required: true,
-              disabled: true,
             },
             modelOptions: {
               updateOn: 'blur',
+            },
+            hooks: {
+              onInit: (field: FormlyFieldConfig) => {
+                if (field.formControl) {
+                  field.formControl.valueChanges
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((value) => {
+                      this.builderService
+                        .updateAttributes(
+                          content,
+                          '/api/v1/node/landing_page',
+                          'node--landing_page',
+                          {
+                            title: value,
+                          },
+                        )
+                        .subscribe((res) => {
+                          this.util.openSnackbar(`更新标题${value}成功`, 'ok');
+                        });
+                    });
+                }
+              },
             },
           },
           {
@@ -73,23 +93,22 @@ export class PageSettingComponent implements OnInit, OnDestroy {
             modelOptions: {
               updateOn: 'blur',
             },
-            asyncValidators: {
-              checkUrl: {
-                expression: (control: AbstractControl) => {
-                  return control.valueChanges.pipe(
-                    map((alias) => {
-                      return this.builderService
-                        .updateUrlalias(content, alias)
-                        .pipe(
-                          map((res) => {
-                            console.log(res);
-                            return true;
-                          }),
-                        );
-                    }),
-                  );
-                },
-                message: '别名已使用',
+            hooks: {
+              onInit: (field: FormlyFieldConfig) => {
+                if (field.formControl) {
+                  field.formControl.valueChanges
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((value) => {
+                      this.builderService
+                        .updateUrlalias(content, value)
+                        .pipe(takeUntil(this.destroy$))
+                        .subscribe(() => {
+                          this.util.openSnackbar(
+                            `${content.title}已更新别名${value}`,
+                          );
+                        });
+                    });
+                }
               },
             },
           },
@@ -145,9 +164,9 @@ export class PageSettingComponent implements OnInit, OnDestroy {
         this.util.openSnackbar(`删除${title}成功`, 'ok');
         this.builder.loading$.next(false);
         this.builder.updateSuccess$.next(true);
+        this.builder.closeRightDrawer$.next(true);
       });
   }
-  onModelChange(value: any): void {}
 
   ngOnDestroy(): void {
     if (this.destroy$.next) {

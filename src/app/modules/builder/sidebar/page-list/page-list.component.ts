@@ -12,13 +12,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
-import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { merge } from 'lodash-es';
@@ -65,7 +64,6 @@ export class PageListComponent
   cd = inject(ChangeDetectorRef);
   constructor(
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(USER) private user: IUser,
   ) {
     super();
   }

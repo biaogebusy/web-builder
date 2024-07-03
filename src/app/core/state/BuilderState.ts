@@ -16,12 +16,7 @@ import { cloneDeep, get, map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
-import {
-  IManageMedia,
-  IMediaSelect,
-  ISelectedMedia,
-} from '@core/interface/manage/IManage';
-import { PageItem } from 'drupal-jsonapi-params';
+import { ISelectedMedia } from '@core/interface/manage/IManage';
 
 @Injectable({
   providedIn: 'root',
