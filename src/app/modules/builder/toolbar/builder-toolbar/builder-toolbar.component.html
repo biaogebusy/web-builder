@@ -39,21 +39,6 @@
           (change)="onFullScreen($event)"
           [matTooltip]="(builderFullScreen$ | async) ? '显示边栏' : '切换全宽'"
         ></mat-slide-toggle>
-        <app-btn
-          class="hidden sm:block"
-          [matTooltip]="
-            (builder.previewListDrawer$ | async)
-              ? '展开组件导航'
-              : '收起组件导航'
-          "
-          (click)="toggleNavigate()"
-          [content]="{
-            label: '',
-            color: (builder.previewListDrawer$ | async) ? 'primary' : undefined,
-            mode: 'icon',
-            icon: { svg: 'dock-left' },
-          }"
-        ></app-btn>
         <app-btn-generater
           matTooltip="快速生成页面"
           [content]="{

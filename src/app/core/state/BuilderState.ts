@@ -27,7 +27,6 @@ export class BuilderState {
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
   public showcase$: Subject<IBuilderShowcase | false> = new Subject();
-  public previewListDrawer$ = new Subject<boolean>();
   public themeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public rightContent$ = new Subject<IBuilderDynamicContent>();
   public closeRightDrawer$ = new Subject<boolean>();

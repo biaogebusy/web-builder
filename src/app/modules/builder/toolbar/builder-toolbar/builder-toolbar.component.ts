@@ -44,7 +44,6 @@ export class BuilderToolbarComponent
   @Input() builderRightDrawer: MatDrawer;
   page?: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  showNavigate = false;
   storage = inject(LocalStorageService);
   builder = inject(BuilderState);
   screenState = inject(ScreenState);
@@ -108,11 +107,6 @@ export class BuilderToolbarComponent
   onFullScreen(event: MatSlideToggleChange): void {
     this.storage.store('builderFullScreen', event.checked);
     this.builder.fullScreen$.next(event.checked);
-  }
-
-  toggleNavigate(): void {
-    this.showNavigate = !this.showNavigate;
-    this.builder.previewListDrawer$.next(this.showNavigate);
   }
 
   onSubmit(page: IPage): void {

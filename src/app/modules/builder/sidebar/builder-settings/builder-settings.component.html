@@ -5,7 +5,7 @@
         <mat-expansion-panel
           [expanded]="i == 0"
           (afterExpand)="onAfterExpand()"
-          >
+        >
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{ item.label }}
@@ -23,23 +23,21 @@
               cdkDropList
               cdkDropListSortingDisabled="true"
               [cdkDropListData]="item.elements"
-              [cdkDropListConnectedTo]="['builder-list', 'builder-list-sideabr']"
-              >
+              [cdkDropListConnectedTo]="['builder-list']"
+            >
               @for (widget of item.elements; track widget) {
                 <div
                   class="item col-span-6 sm:col-span-4"
                   matRipple
                   matTooltipPosition="above"
-                  >
-                  @if (widget.type === 'json') {
+                >
+                  @if (widget.type === "json") {
                     <div (click)="onJson(widget)">
                       <div
                         class="inner show flex flex-col justify-center items-center"
-                        >
+                      >
                         @if (widget.icon) {
-                          <app-icon
-                            [content]="widget.icon"
-                          ></app-icon>
+                          <app-icon [content]="widget.icon"></app-icon>
                         }
                         <div class="title">{{ widget.label }}</div>
                       </div>

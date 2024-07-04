@@ -33,7 +33,6 @@ import { map, takeUntil } from 'rxjs/operators';
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() builderRightDrawer: MatDrawer;
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
-  @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   markers: NodeListOf<Element>;
   opened = false;
   showBranding = false;
@@ -52,17 +51,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.builder.previewListDrawer$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((statue) => {
-        if (statue) {
-          this.drawer.open();
-        } else {
-          this.drawer.close();
-        }
-        this.cd.detectChanges();
-      });
-
     this.builder.showBranding$
       .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
