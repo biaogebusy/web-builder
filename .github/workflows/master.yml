@@ -35,12 +35,21 @@ jobs:
         run: npm run build
 
       - name: Deploy to Server
-        uses: AEnterprise/rsync-deploy@v1.0.2
-        env:
-          DEPLOY_KEY: ${{ secrets.KEY }}
-          ARGS: -avz --delete
-          SERVER_PORT: "22"
-          FOLDER: "dist"
-          SERVER_IP: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: "/mnt/wwwroot/app/builder"
+        uses: burnett01/rsync-deployments@5.2
+        with:
+          switches: -avzr --delete
+          path: dist/
+          remote_path: /mnt/wwwroot/app/builder
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_password: xJ%2wusuXrpL
+          remote_key: ${{ secrets.KEY }}
+        # uses: AEnterprise/rsync-deploy@v1.0.2
+        # env:
+        #   DEPLOY_KEY: ${{ secrets.KEY }}
+        #   ARGS: -avz --delete
+        #   SERVER_PORT: "22"
+        #   FOLDER: "dist"
+        #   SERVER_IP: ${{ secrets.HOST }}
+        #   USERNAME: ${{ secrets.SSH_USER }}
+        #   SERVER_DESTINATION: "/mnt/wwwroot/app/builder"
