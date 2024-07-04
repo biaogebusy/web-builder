@@ -5,6 +5,7 @@ import {
   OnInit,
   ChangeDetectorRef,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { omitBy, isEmpty } from 'lodash-es';
@@ -38,14 +39,13 @@ export class SearchComponent
   destroy$: Subject<boolean> = new Subject<boolean>();
   vauleChange$: Subject<any> = new Subject<any>();
 
-  constructor(
-    public nodeService: NodeService,
-    private router: ActivatedRoute,
-    public routerService: RouteService,
-    private formService: FormService,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
-  ) {
+  nodeService = inject(NodeService);
+  router = inject(ActivatedRoute);
+  routerService = inject(RouteService);
+  formService = inject(FormService);
+  screenService = inject(ScreenService);
+  cd = inject(ChangeDetectorRef);
+  constructor() {
     super();
   }
 
@@ -64,9 +64,9 @@ export class SearchComponent
             {
               page: this.page,
             },
-            query
+            query,
           ),
-          isEmpty
+          isEmpty,
         );
         if (this.content.sidebar) {
           this.initFilterForm(querys, this.content.sidebar);
@@ -91,7 +91,7 @@ export class SearchComponent
       .pipe(
         debounceTime(1000),
         distinctUntilChanged(),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe((value) => {
         this.onSelectChange(value);
@@ -135,7 +135,7 @@ export class SearchComponent
         (error) => {
           this.loading = false;
           this.cd.detectChanges();
-        }
+        },
       );
   }
 

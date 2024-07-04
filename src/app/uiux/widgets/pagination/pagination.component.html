@@ -9,7 +9,7 @@
     class="pagination-previous"
     color="primary"
     [class.disabled]="p.isFirstPage()"
-    matTooltip="Prev Page"
+    matTooltip="上一页"
     [matTooltipPosition]="'above'"
     (click)="p.previous()"
     mat-icon-button
@@ -24,7 +24,7 @@
         (click)="p.setCurrent(page.value)"
         mat-icon-button
       >
-        <a>{{ page.label }}</a>
+        <a class="text-base">{{ page.label }}</a>
       </button>
     }
     @if (p.getCurrent() === page.value) {
@@ -33,7 +33,7 @@
         [class.current]="p.getCurrent() === page.value"
         mat-mini-fab
       >
-        {{ page.label }}
+        <span class="text-base">{{ page.label }}</span>
       </button>
     }
   }
@@ -41,7 +41,7 @@
     class="pagination-next"
     color="primary"
     [class.disabled]="p.isLastPage()"
-    matTooltip="Next Page"
+    matTooltip="下一页"
     [matTooltipPosition]="'above'"
     (click)="p.next()"
     mat-icon-button
