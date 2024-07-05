@@ -15,6 +15,8 @@ import {
   FileSystemFileEntry,
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-upload-media',
@@ -24,6 +26,7 @@ import {
 })
 export class UploadMediaComponent {
   files: IMediaAttr[] = [];
+  loading: boolean;
 
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
@@ -36,6 +39,8 @@ export class UploadMediaComponent {
       this.util.openSnackbar('请先登录', 'ok');
     }
     for (const droppedFile of files) {
+      this.loading = true;
+      this.cd.detectChanges();
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
@@ -45,9 +50,21 @@ export class UploadMediaComponent {
               const data = e.target.result;
               this.nodeService
                 .uploadImage(file.name, data, this.user.csrf_token)
-                .subscribe((img: IMediaAttr) => {
-                  this.files.push(img);
+                .pipe(
+                  catchError((error) => {
+                    this.util.openSnackbar(
+                      `上传异常：${error.statusText}`,
+                      'ok',
+                    );
+                    return of(false);
+                  }),
+                )
+                .subscribe((img: IMediaAttr | boolean) => {
+                  this.loading = false;
                   this.cd.detectChanges();
+                  if (img) {
+                    this.files.push(img as IMediaAttr);
+                  }
                 });
             };
             reader.readAsArrayBuffer(file);

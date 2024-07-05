@@ -145,7 +145,6 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
   onUpload(): void {
     this.dialog.open(DialogComponent, {
       width: '800px',
-      height: '400px',
       panelClass: ['close-outside', 'close-icon-white'],
       data: {
         disableCloseButton: true,

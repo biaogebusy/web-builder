@@ -2,7 +2,7 @@ import { Inject, Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { forkJoin } from 'rxjs';
+import { forkJoin, throwError } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
@@ -418,6 +418,9 @@ export class NodeService extends ApiService {
         withCredentials: true,
       })
       .pipe(
+        catchError((errror) => {
+          return throwError(errror);
+        }),
         map((res: any) => {
           const {
             data: { attributes },
