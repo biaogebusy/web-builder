@@ -32,7 +32,6 @@ export class UploadMediaComponent {
   constructor(@Inject(USER) private user: IUser) {}
 
   dropped(files: NgxFileDropEntry[]): void {
-    debugger;
     if (!this.user) {
       this.util.openSnackbar('请先登录', 'ok');
     }
