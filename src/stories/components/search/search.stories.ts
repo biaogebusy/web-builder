@@ -5,7 +5,6 @@ import {
   applicationConfig,
 } from '@storybook/angular';
 
-import { SearchModule } from '@uiux/combs/search/search.module';
 import { SearchComponent } from '@uiux/combs/search/search.component';
 import { StorysModule } from '@core/module/storys.module';
 import { nodes } from './search.json';
@@ -41,6 +40,7 @@ type Story = StoryObj<SearchComponent>;
 export const Default: Story = {};
 const content: ISearch = {
   type: 'search',
+  api: '/api/v1/content',
   header: {
     bg: {
       classes: 'bg-shadow overlay overlay-80',

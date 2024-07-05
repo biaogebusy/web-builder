@@ -36,9 +36,7 @@ export class BuilderState {
   public debugeAnimate$ = new Subject<boolean>();
   public showGrid$ = new Subject<boolean>();
   public selectedMedia$ = new Subject<ISelectedMedia>();
-  public switchPreivew$ = new Subject<
-    'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
-  >();
+  public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public updateSuccess$ = new Subject<boolean>();
@@ -55,10 +53,10 @@ export class BuilderState {
   pageKey = 'page';
   versionKey = 'version';
 
-  storage = inject(LocalStorageService);
+  dialog = inject(MatDialog);
   util = inject(UtilitiesService);
   sreenService = inject(ScreenService);
-  dialog = inject(MatDialog);
+  storage = inject(LocalStorageService);
   constructor(@Inject(DOCUMENT) private doc: Document) {
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion) {
@@ -139,7 +137,7 @@ export class BuilderState {
   pageSetting(page: IPageMeta): void {
     this.dialog.open(DialogComponent, {
       width: '500px',
-      panelClass: 'close-outside',
+      panelClass: ['close-outside', 'close-icon-white'],
       data: {
         disableCloseButton: true,
         inputData: {

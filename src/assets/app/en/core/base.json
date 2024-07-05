@@ -424,30 +424,7 @@
         "mode": "raised",
         "label": "Search"
       },
-      "form": [
-        {
-          "type": "toggle",
-          "key": "fromStatic",
-          "className": "static-item",
-          "defaultValue": true,
-          "props": {
-            "label": "Switch libraries"
-          },
-          "expressions": {
-            "props.label": "model.fromStatic?'Static medias':'Media library'"
-          }
-        },
-        {
-          "type": "input",
-          "key": "key",
-          "className": "m-bottom-sm",
-          "props": {
-            "type": "string",
-            "appearance": "fill",
-            "label": "please input keyword"
-          }
-        }
-      ]
+      "form": []
     }
   },
   "builder": {

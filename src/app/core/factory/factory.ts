@@ -22,7 +22,6 @@ import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
 import { inject } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';

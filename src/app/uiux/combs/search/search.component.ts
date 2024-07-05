@@ -117,14 +117,13 @@ export class SearchComponent
   }
 
   nodeSearch(options: any): void {
-    console.log(options);
     this.loading = true;
+    const { api } = this.content;
     const formValue = this.form?.value || {};
-    const type = this.getParams(this.content, 'type') || 'content';
     const state = this.getParamsState(formValue, options);
     const params = this.getApiParams(state);
     this.nodeService
-      .fetch(type, params)
+      .fetch(api, params)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data) => {

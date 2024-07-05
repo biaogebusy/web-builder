@@ -109,7 +109,7 @@ export class LayoutSettingComponent implements OnDestroy {
       };
       this.dialog.open(DialogComponent, {
         width: '1000px',
-        panelClass: 'close-outside',
+        panelClass: ['close-outside', 'close-icon-white'],
         data: {
           disableCloseButton: true,
           inputData: {

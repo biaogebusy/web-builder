@@ -6,6 +6,7 @@ import {
   ChangeDetectorRef,
   Input,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
@@ -21,7 +22,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
 import { PageEvent } from '@angular/material/paginator';
-import { IPager } from '@core/interface/widgets/IWidgets';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-manage-media',
@@ -32,30 +33,63 @@ import { IPager } from '@core/interface/widgets/IWidgets';
 export class ManageMediaComponent implements OnInit, OnDestroy {
   @Input() content: IManageMedia;
   form = new UntypedFormGroup({});
+  fields: FormlyFieldConfig[];
   model: any = {};
   loading = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   selectedId: string;
+
+  cd = inject(ChangeDetectorRef);
+  builder = inject(BuilderState);
+  contentState = inject(ContentState);
+  screenService = inject(ScreenService);
+  manageService = inject(ManageService);
+
+  defaultField: FormlyFieldConfig[] = [
+    {
+      type: 'toggle',
+      key: 'fromStatic',
+      className: 'static-item',
+      defaultValue: true,
+      props: {
+        label: '切换资源库',
+      },
+      expressions: {
+        'props.label': "model.fromStatic?'静态资源':'后台媒体库'",
+      },
+    },
+    {
+      type: 'input',
+      key: 'name',
+      className: 'm-bottom-sm',
+      props: {
+        type: 'string',
+        appearance: 'fill',
+        label: '请输入关键词',
+      },
+    },
+  ];
   constructor(
-    private screenService: ScreenService,
-    private contentState: ContentState,
-    private builder: BuilderState,
-    private manageService: ManageService,
-    private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>,
   ) {}
 
   ngOnInit(): void {
-    this.form.valueChanges
-      .pipe(
-        takeUntil(this.destroy$),
-        debounceTime(1000),
-        distinctUntilChanged(),
-      )
-      .subscribe((value) => {
-        this.onSearch(value);
-      });
+    if (this.screenService.isPlatformBrowser()) {
+      this.fields = [
+        ...this.defaultField,
+        ...this.coreConfig.manageMedia.sidebar.form,
+      ];
+      this.form.valueChanges
+        .pipe(
+          takeUntil(this.destroy$),
+          debounceTime(1000),
+          distinctUntilChanged(),
+        )
+        .subscribe((value) => {
+          this.onSearch(value);
+        });
+    }
   }
 
   onPageChange(page: PageEvent): void {
@@ -98,10 +132,6 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
       value: this.content,
       time: this.content.time,
     });
-  }
-
-  trackByFn(index: number, item: any): number {
-    return item.id || index;
   }
 
   ngOnDestroy(): void {

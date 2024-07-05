@@ -6,6 +6,13 @@
         overflow-y: visible;
       }
     }
+    &.close-icon-white {
+      .dialog-colse-outside-btn {
+        .mat-icon {
+          color: #fff;
+        }
+      }
+    }
   }
   .search-box-list {
     .mat-mdc-option .mdc-list-item__primary-text {
@@ -39,6 +46,12 @@
           }
         }
       }
+    }
+  }
+
+  .dialog-p-0 {
+    .mat-mdc-dialog-container .mat-mdc-dialog-content {
+      padding: 0;
     }
   }
 }
