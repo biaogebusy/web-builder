@@ -14,6 +14,7 @@ import type { IApiUrl, ICoreConfig } from '@core/interface/IAppConfig';
 import { API_URL } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
+import { IMediaAttr } from '@core/interface/manage/IManage';
 @Injectable({
   providedIn: 'root',
 })
@@ -405,7 +406,7 @@ export class NodeService extends ApiService {
     fileName: string,
     imageData: any,
     csrfToken: string,
-  ): Observable<any> {
+  ): Observable<IMediaAttr> {
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
@@ -419,15 +420,10 @@ export class NodeService extends ApiService {
       .pipe(
         map((res: any) => {
           const {
-            data: {
-              attributes: { uri },
-            },
+            data: { attributes },
           } = res;
           this.createMediaImage(res.data);
-          return uri.url;
-        }),
-        catchError(() => {
-          return '';
+          return attributes as IMediaAttr;
         }),
       );
   }
@@ -465,7 +461,7 @@ export class NodeService extends ApiService {
   }
 
   imageHandler(editor: any): void {
-    if (!this.user.authenticated) {
+    if (!this.user) {
       this.util.openSnackbar('请登录后上传图片！', 'ok');
       return;
     }
@@ -484,9 +480,9 @@ export class NodeService extends ApiService {
           reader.onload = (e: any) => {
             const data = e.target.result;
             this.uploadImage(file.name, data, this.user.csrf_token).subscribe(
-              (img) => {
+              (img: IMediaAttr) => {
                 const range = editor.getSelection(true);
-                editor.insertEmbed(range.index, 'image', img);
+                editor.insertEmbed(range.index, 'image', img.uri.url);
               },
             );
           };

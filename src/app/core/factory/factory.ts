@@ -346,6 +346,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
     const params = nodeService.getApiParams({
       ...formValue,
       page: pageEvent.pageIndex - 1,
+      noCache: true,
     });
     nodeService.fetch(api, params).subscribe((res) => {
       assets$.next({
@@ -363,7 +364,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
       assets$.next(mediaAssets);
       return;
     }
-    const params = nodeService.getApiParams(value);
+    const params = nodeService.getApiParams({ ...value, noCache: true });
     nodeService.fetch(api, params).subscribe((res) => {
       assets$.next({
         rows: res.rows,

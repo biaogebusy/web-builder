@@ -22,3 +22,18 @@ export interface ISelectedMedia {
   value: IManageMedia;
   time?: Date;
 }
+
+export interface IMediaAttr {
+  changed: string;
+  created: string;
+  drupal_internal__fid: number;
+  filemime: string;
+  filename: string;
+  filesize: number;
+  langcode: string;
+  status: boolean;
+  uri: {
+    url: string;
+    value: string;
+  };
+}
