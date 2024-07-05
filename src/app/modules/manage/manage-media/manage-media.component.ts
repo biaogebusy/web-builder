@@ -9,7 +9,7 @@ import {
   inject,
   ViewChild,
 } from '@angular/core';
-import { FormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, Subject } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS, USER } from '@core/token/token-providers';
@@ -156,7 +156,10 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
     this.model.fromStatic = false;
   }
 
-  public dropped(files: NgxFileDropEntry[]) {
+  dropped(files: NgxFileDropEntry[]): void {
+    if (!this.user) {
+      this.util.openSnackbar('请先登录', 'ok');
+    }
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;

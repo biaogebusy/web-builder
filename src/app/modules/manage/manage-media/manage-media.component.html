@@ -26,7 +26,7 @@
               <app-btn
                 (click)="onUpload()"
                 [content]="{
-                  label: '上传',
+                  label: '上传媒体',
                   color: 'primary',
                   mode: 'raised',
                   icon: { svg: 'upload-outline' },
@@ -111,6 +111,7 @@
             dropZoneLabel="Drop files here"
             (onFileDrop)="dropped($event)"
             [multiple]="true"
+            accept=".png,.jpg,.jpeg"
           >
             <ng-template
               ngx-file-drop-content-tmp
