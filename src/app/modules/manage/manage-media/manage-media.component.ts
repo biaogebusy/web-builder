@@ -12,7 +12,7 @@ import {
 import { UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, Subject } from 'rxjs';
-import { CORE_CONFIG, MEDIA_ASSETS, USER } from '@core/token/token-providers';
+import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type {
   IManageAssets,
@@ -25,15 +25,9 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
 import { PageEvent } from '@angular/material/paginator';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import {
-  NgxFileDropEntry,
-  FileSystemFileEntry,
-  FileSystemDirectoryEntry,
-} from 'ngx-file-drop';
-import { NodeService } from '@core/service/node.service';
-import { IUser } from '@core/interface/IUser';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDrawer } from '@angular/material/sidenav';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
   selector: 'app-manage-media',
@@ -49,14 +43,12 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
   loading = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   selectedId: string;
-  files: IMediaAttr[] = [];
   cd = inject(ChangeDetectorRef);
-  util = inject(UtilitiesService);
   builder = inject(BuilderState);
   contentState = inject(ContentState);
   screenService = inject(ScreenService);
   manageService = inject(ManageService);
-  nodeService = inject(NodeService);
+  dialog = inject(MatDialog);
 
   @ViewChild('uploadDrawer', { static: false })
   uploadDrawer: MatDrawer;
@@ -88,7 +80,6 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>,
-    @Inject(USER) private user: IUser,
   ) {}
 
   ngOnInit(): void {
@@ -152,42 +143,19 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
   }
 
   onUpload(): void {
-    this.uploadDrawer.open();
-    this.model.fromStatic = false;
-  }
-
-  dropped(files: NgxFileDropEntry[]): void {
-    if (!this.user) {
-      this.util.openSnackbar('请先登录', 'ok');
-    }
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = (e: any) => {
-              const data = e.target.result;
-              this.nodeService
-                .uploadImage(file.name, data, this.user.csrf_token)
-                .subscribe((img: IMediaAttr) => {
-                  this.files.push(img);
-                  this.cd.detectChanges();
-                });
-            };
-            reader.readAsArrayBuffer(file);
-          }
-        });
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
-      }
-    }
-  }
-
-  onCopy(url: string): void {
-    this.util.copy(url);
-    this.util.openSnackbar('已复制图片地址', 'ok');
+    this.dialog.open(DialogComponent, {
+      width: '800px',
+      height: '400px',
+      panelClass: ['close-outside', 'close-icon-white'],
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'upload-media',
+          },
+        },
+      },
+    });
   }
 
   ngOnDestroy(): void {

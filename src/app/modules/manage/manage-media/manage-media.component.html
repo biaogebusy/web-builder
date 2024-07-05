@@ -105,60 +105,6 @@
           }
         </div>
       </mat-drawer-content>
-      <mat-drawer #uploadDrawer mode="over" [opened]="false" position="end">
-        <div class="media-upload p-5">
-          <ngx-file-drop
-            dropZoneLabel="Drop files here"
-            (onFileDrop)="dropped($event)"
-            [multiple]="true"
-            accept=".png,.jpg,.jpeg"
-          >
-            <ng-template
-              ngx-file-drop-content-tmp
-              let-openFileSelector="openFileSelector"
-            >
-              <div class="flex flex-col gap-5 justify-center items-center">
-                <span class="text-sm">拖拽文件到这里批量上传</span>
-                <app-btn
-                  (click)="openFileSelector()"
-                  [content]="{
-                    label: '选择图片',
-                    mode: 'raised',
-                    color: 'primary',
-                    icon: { svg: 'selection-search' },
-                  }"
-                ></app-btn>
-              </div>
-            </ng-template>
-          </ngx-file-drop>
-          <div
-            class="upload-table w-full box-border my-5 text-sm text-gray-500"
-          >
-            <div class="flex flex-col gap-3">
-              @for (item of files; track $index) {
-                <mat-divider class="my-3"></mat-divider>
-                <div class="flex justify-between items-center gap-2 truncate">
-                  <div class="flex items-center gap-2">
-                    <app-icon
-                      [content]="{ svg: 'check', color: 'primary' }"
-                    ></app-icon>
-                    <div>
-                      {{ item.filesize | bytes: 2 }}
-                    </div>
-                    <div>{{ item.filename }}</div>
-                  </div>
-                  <app-icon
-                    (click)="onCopy(item.uri.url)"
-                    class="cursor-pointer"
-                    [content]="{ svg: 'content-copy' }"
-                  ></app-icon>
-                </div>
-                <mat-divider class="my-3"></mat-divider>
-              }
-            </div>
-          </div>
-        </div>
-      </mat-drawer>
     </mat-drawer-container>
   </div>
 }

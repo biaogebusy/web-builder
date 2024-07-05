@@ -372,15 +372,12 @@
     }
   }
 
-  .media-upload {
+  .upload-media {
     .ngx-file-drop__drop-zone {
       border: 2px dotted mat.get-color-from-palette($primary, 0.75);
-      border-radius: 4px;
-      height: auto;
+
       .ngx-file-drop__content {
         color: mat.get-color-from-palette($foreground, text, 0.5);
-        padding: 20px;
-        height: auto;
       }
     }
   }
