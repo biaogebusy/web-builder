@@ -6,6 +6,7 @@ import {
   Output,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-search-list',
@@ -23,8 +24,9 @@ export class SearchListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onPageChange(page: number): void {
-    this.pageChange.emit(page - 1);
+  onPageChange(event: PageEvent): void {
+    const { pageIndex } = event;
+    this.pageChange.emit(pageIndex);
   }
 
   trackByFn(index: number, item: any): number {
