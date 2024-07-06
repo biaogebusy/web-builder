@@ -19,7 +19,9 @@ export class BtnVideoComponent implements OnInit {
     this.dialogRef = this.dialog.open(DialogComponent, {
       width: this.content.dialog?.width || '800px',
       height: this.content.dialog?.height || 'auto',
+      panelClass: ['close-outside', 'dialog-p-0', 'close-icon-white'],
       data: {
+        disableCloseButton: true,
         inputData: {
           content: this.content.video,
         },

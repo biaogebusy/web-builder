@@ -26,8 +26,8 @@
           </div>
           <div class="actions flex justify-center items-center gap-3">
             @if (
-              content?.params?.export?.enable &&
-              content.params?.export?.position === "top"
+              content.params.export?.enable &&
+              content.params.export?.position === "top"
             ) {
               <app-btn
                 (click)="onExport()"
@@ -54,8 +54,8 @@
         }
         <div class="actions m-y p-x flex justify-end items-center">
           @if (
-            content?.params?.export?.enable &&
-            content.params?.export?.position !== "top"
+            content.params.export?.enable &&
+            content.params.export?.position !== "top"
           ) {
             <app-btn (click)="onExport()" [content]="content.params.export.btn">
             </app-btn>
@@ -64,25 +64,20 @@
         @if (noAuth) {
           <div class="p-y p-x">您没有权限访问该页面！</div>
         }
-        @if (table) {
-          @for (
-            item of table.elements
-              | paginate
-                : {
-                    id: content.params.apiType,
-                    itemsPerPage: pager.itemsPerPage,
-                    currentPage: pager.currentPage,
-                    totalItems: pager.totalItems,
-                  };
-            track trackByFn($index, item)
-          ) {}
-        }
         @if (pager) {
-          <app-pagination
-            [id]="content.params.apiType || ''"
-            (pageChange)="onPageChange($event)"
-          >
-          </app-pagination>
+          <div class="pager">
+            <mat-paginator
+              class="demo-paginator"
+              (page)="onPageChange($event)"
+              [length]="pager.totalItems"
+              [pageSize]="pager.itemsPerPage"
+              [showFirstLastButtons]="true"
+              [hidePageSize]="true"
+              [pageIndex]="pager.currentPage"
+              aria-label="Select page"
+            >
+            </mat-paginator>
+          </div>
         }
       </div>
     </div>

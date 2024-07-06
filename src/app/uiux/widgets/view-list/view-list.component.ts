@@ -9,6 +9,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import type { IUser } from '@core/interface/IUser';
 import type { IViewList } from '@core/interface/widgets/IViewList';
 import { IPager } from '@core/interface/widgets/IWidgets';
@@ -150,10 +151,11 @@ export class ViewListComponent
     this.form.reset();
   }
 
-  onPageChange(page: number): void {
+  onPageChange(pageEvent: PageEvent): void {
+    const { pageIndex } = pageEvent;
     this.form
       .get('page')
-      ?.patchValue(page, { onlySelf: true, emitEvent: false });
+      ?.patchValue(pageIndex, { onlySelf: true, emitEvent: false });
     const value = merge(this.model, this.form.getRawValue());
     const options = this.formService.handleRangeDate(value);
     this.getViews(options);

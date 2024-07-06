@@ -6,6 +6,7 @@ import {
   Inject,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -33,13 +34,13 @@ export class ComponentToolbarComponent implements OnInit {
 
   public bcData: any;
 
+  builder = inject(BuilderState);
+  storage = inject(LocalStorageService);
+  util = inject(UtilitiesService);
+  cd = inject(ChangeDetectorRef);
   constructor(
-    private builder: BuilderState,
-    private storage: LocalStorageService,
-    private util: UtilitiesService,
-    private cd: ChangeDetectorRef,
     @Inject(IS_BUILDER_MODE)
-    public isBDMode$: Observable<boolean>
+    public isBDMode$: Observable<boolean>,
   ) {}
 
   ngOnInit(): void {

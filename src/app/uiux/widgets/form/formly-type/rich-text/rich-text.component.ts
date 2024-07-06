@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { MAT_INPUT_VALUE_ACCESSOR, MatInput } from '@angular/material/input';
 import { NodeService } from '@core/service/node.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
@@ -53,7 +59,9 @@ export class RichTextComponent
       ['clean'],
     ],
   };
-  constructor(private nodeService: NodeService, private ele: ElementRef) {
+  nodeService = inject(NodeService);
+  ele = inject(ElementRef);
+  constructor() {
     super();
   }
   ngOnInit(): void {}
@@ -66,7 +74,7 @@ export class RichTextComponent
       {
         placement: 'left',
         strategy: 'fixed',
-      }
+      },
     );
   }
 
@@ -74,7 +82,7 @@ export class RichTextComponent
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler(
       'image',
-      this.nodeService.imageHandler.bind(this.nodeService, quill)
+      this.nodeService.imageHandler.bind(this.nodeService, quill),
     );
   }
 

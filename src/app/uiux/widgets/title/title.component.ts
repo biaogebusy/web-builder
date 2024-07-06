@@ -32,7 +32,7 @@ export class TitleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      if (this.content.typed?.enable) {
+      if (this.content?.typed?.enable) {
         const typedEle = this.title.nativeElement.querySelectorAll('strong')[0];
         this.typed = new Typed(typedEle, {
           strings: this.content.typed.strings.map((item) => item.label),

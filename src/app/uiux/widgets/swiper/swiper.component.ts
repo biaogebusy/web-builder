@@ -6,12 +6,19 @@ import {
   AfterViewInit,
   OnDestroy,
   ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+  inject,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges,
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import type { ISwiper } from '@core/interface/widgets/ISwiper';
 import { register } from 'swiper/element/bundle';
+import { Swiper } from 'swiper/types';
 register();
 @Component({
   selector: 'app-swiper',
@@ -19,12 +26,16 @@ register();
   styleUrls: ['./swiper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SwiperComponent
+  implements OnInit, AfterViewInit, OnChanges, OnDestroy
+{
   @Input() content: ISwiper;
   @Input() index: number;
   @Input() navigationSub: Subject<any>;
+  @Output() slideChange: EventEmitter<Swiper> = new EventEmitter();
   @ViewChild('swiper', { static: false }) swiper: any;
-  constructor(private screenService: ScreenService) {}
+  screenService = inject(ScreenService);
+  constructor() {}
 
   defaultConfig = {
     slidesPerView: 'auto',
@@ -57,6 +68,13 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.screenService.isPlatformBrowser()) {
       Object.assign(this.swiper.nativeElement, this.config);
       this.swiper.nativeElement.initialize();
+      this.swiper.nativeElement.addEventListener(
+        'swiperslidechange',
+        (event: any) => {
+          const [swiper] = event.detail;
+          this.slideChange.emit(swiper);
+        },
+      );
       if (this.navigationSub) {
         this.navigationSub.subscribe((action) => {
           if (action > 0) {
@@ -65,6 +83,14 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
             this.swiper.swiperRef.slidePrev();
           }
         });
+      }
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes?.index?.firstChange) {
+      if (typeof this.index !== 'undefined') {
+        this.swiper.nativeElement.swiper.slideTo(changes.index.currentValue);
       }
     }
   }
