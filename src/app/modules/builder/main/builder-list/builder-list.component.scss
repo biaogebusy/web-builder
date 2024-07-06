@@ -3,10 +3,7 @@
   height: 100%;
   overflow-x: hidden !important;
   scroll-behavior: smooth;
-  .sidebar-drawer {
-    width: 180px;
-  }
-  .sidebar-drawer,
+
   .wrapper {
     display: flex;
     overflow-y: auto !important;
@@ -93,14 +90,6 @@
     .preview-iframe {
       width: 1280px;
       height: 800px;
-    }
-  }
-
-  .preview-lg {
-    .preview-iframe {
-      width: 1920px;
-      height: 1080px;
-      max-height: 100%;
     }
   }
 
