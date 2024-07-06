@@ -41,17 +41,9 @@ import {
   userFactory,
 } from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
-import { ContentService } from '@core/service/content.service';
-import { UserService } from '@core/service/user.service';
-import { NotifyService } from '@core/service/notify.service';
 import { Router } from '@angular/router';
 import { BuilderState } from '@core/state/BuilderState';
-import { ScreenService } from '@core/service/screen.service';
-import { ManageService } from '@core/service/manage.service';
-import { NodeService } from '@core/service/node.service';
-import { ContentState } from '@core/state/ContentState';
 import { CookieService } from 'ngx-cookie-service';
-import { ComponentService } from '@core/service/component.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -79,7 +71,6 @@ import { ComponentService } from '@core/service/component.service';
     {
       provide: BRANDING,
       useFactory: brandingFactory,
-      deps: [[new Inject(LANG)]],
     },
     {
       provide: THEME,
@@ -89,13 +80,12 @@ import { ComponentService } from '@core/service/component.service';
     {
       provide: APP_INITIALIZER,
       useFactory: initApp,
-      deps: [[new Inject(CORE_CONFIG)], [new Inject(LANG)]],
+      deps: [[new Inject(CORE_CONFIG)]],
       multi: true,
     },
     {
       provide: LANG,
       useFactory: langFactory,
-      deps: [ContentService, ScreenService],
     },
     {
       provide: API_URL,

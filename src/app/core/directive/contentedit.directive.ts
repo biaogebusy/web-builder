@@ -22,7 +22,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     private el: ElementRef,
     private builder: BuilderState,
     private util: UtilitiesService,
-    private zone: NgZone
+    private zone: NgZone,
   ) {}
 
   ngOnInit(): void {
@@ -99,7 +99,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
               tag: currentTarget.tagName,
             },
           };
-          this.builder.builderRightContent$.next({
+          this.builder.rightContent$.next({
             mode: 'push',
             hasBackdrop: false,
             style: {
@@ -130,7 +130,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
         tag: ele.tagName,
       },
     };
-    this.builder.builderRightContent$.next({
+    this.builder.rightContent$.next({
       mode: 'push',
       hasBackdrop: false,
       style: {

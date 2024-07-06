@@ -290,6 +290,10 @@ export interface IPage {
   status?: boolean;
   message?: string;
   current?: boolean;
+  langcode?: string;
+  vid?: string;
+  translation?: true;
+  target?: string;
 }
 
 export interface IPageForJSONAPI {

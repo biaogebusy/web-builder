@@ -9,7 +9,8 @@ export interface IHero1v1 extends ICombsBase {
 }
 
 export interface IHero1v2 extends ICombsBase {
-  sliders: ISwiper;
+  left: ISwiper;
+  right: ISwiper;
 }
 
 export interface IHero1v3 extends ICombsBase {

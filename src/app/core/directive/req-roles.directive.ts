@@ -4,6 +4,7 @@ import {
   Inject,
   TemplateRef,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
@@ -13,12 +14,10 @@ import type { IUser } from '@core/interface/IUser';
   selector: '[reqRolesIf]',
 })
 export class ReqRolesDirective {
-  constructor(
-    private userService: UserService,
-    @Inject(USER) private user: IUser,
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
-  ) {}
+  userService = inject(UserService);
+  viewContainer = inject(ViewContainerRef);
+  templateRef = inject(TemplateRef<any>);
+  constructor(@Inject(USER) private user: IUser) {}
 
   @Input() set reqRolesIf(content: any) {
     if (content && this.userService.checkShow(content, this.user)) {
