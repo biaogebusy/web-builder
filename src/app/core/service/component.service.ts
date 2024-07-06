@@ -251,13 +251,14 @@ export class ComponentService {
       'inline-editor',
       'widget-picker',
       'layout-setting',
+      'page-setting',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule),
       ),
     );
 
-    ['manage-media', 'manage-block'].forEach((type) =>
+    ['manage-media', 'manage-block', 'upload-media'].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/manage/manage.module').then((m) => m.ManageModule),
       ),

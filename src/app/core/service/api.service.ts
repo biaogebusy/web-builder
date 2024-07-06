@@ -85,7 +85,7 @@ export class ApiService {
     } else {
       return {
         itemsPerPage: pager.items_per_page,
-        currentPage: (pager.current_page || 0) + 1,
+        currentPage: pager.current_page,
         totalItems: pager.total_items,
       };
     }

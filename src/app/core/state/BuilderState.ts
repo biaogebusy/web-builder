@@ -1,11 +1,12 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import {
   IBuilderComponent,
   IBuilderDynamicContent,
   IBuilderShowcase,
   ILayoutSetting,
+  IPageMeta,
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -15,7 +16,9 @@ import { cloneDeep, get, map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
-import { IManageMedia, IMediaSelect } from '@core/interface/manage/IManage';
+import { ISelectedMedia } from '@core/interface/manage/IManage';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -24,27 +27,19 @@ export class BuilderState {
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
   public showcase$: Subject<IBuilderShowcase | false> = new Subject();
-  public builderContent$ = new Subject<IPage>();
-  public previewListDrawer$ = new Subject<boolean>();
-  public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
-  public builderRightContent$ = new Subject<IBuilderDynamicContent>();
-  public builderPopupSelect$ = new Subject<any>();
-  public closeBuilderRightDrawer$ = new Subject<boolean>();
+  public themeMode = new BehaviorSubject<'light' | 'dark'>('light');
+  public rightContent$ = new Subject<IBuilderDynamicContent>();
+  public closeRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
   public showGrid$ = new Subject<boolean>();
-  public selectedMedia$ = new Subject<{
-    img: IMediaSelect;
-    value: IManageMedia;
-    time?: Date;
-  }>();
-  public switchPreivew$ = new Subject<
-    'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
-  >();
+  public selectedMedia$ = new Subject<ISelectedMedia>();
+  public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
 
   public loading$ = new BehaviorSubject<boolean>(true);
+  public updateSuccess$ = new Subject<boolean>();
   public showBranding$ = new Subject<boolean>();
   public COPYKEY = 'bc';
 
@@ -58,12 +53,11 @@ export class BuilderState {
   pageKey = 'page';
   versionKey = 'version';
 
-  constructor(
-    private storage: LocalStorageService,
-    private util: UtilitiesService,
-    private sreenService: ScreenService,
-    @Inject(DOCUMENT) private doc: Document,
-  ) {
+  dialog = inject(MatDialog);
+  util = inject(UtilitiesService);
+  sreenService = inject(ScreenService);
+  storage = inject(LocalStorageService);
+  constructor(@Inject(DOCUMENT) private doc: Document) {
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion) {
       this.version = localVersion;
@@ -91,6 +85,19 @@ export class BuilderState {
 
   updateVersion(page: IPage): void {
     this.version.unshift(page);
+    this.saveLocalVersions();
+  }
+
+  clearAllVersion(): void {
+    this.version = [
+      {
+        title: '欢迎页',
+        body: [],
+        current: true,
+        time: new Date(),
+      },
+    ];
+    this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
   }
 
@@ -127,6 +134,22 @@ export class BuilderState {
     }, 600);
   }
 
+  pageSetting(page: IPageMeta): void {
+    this.dialog.open(DialogComponent, {
+      width: '500px',
+      panelClass: ['close-outside', 'close-icon-white'],
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'page-setting',
+            content: page,
+          },
+        },
+      },
+    });
+  }
+
   get currentPage(): IPage {
     const currentIndex = this.version.findIndex(
       (page) => page.current === true,
@@ -151,7 +174,7 @@ export class BuilderState {
     if (direction === 'down' && index < body.length - 1) {
       [body[index], body[index + 1]] = [body[index + 1], body[index]];
     }
-    this.closeBuilderRightDrawer$.next(true);
+    this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
   }
 
@@ -159,7 +182,6 @@ export class BuilderState {
     const { body } = this.currentPage;
     if (content && content.type) {
       body.push(content);
-      this.builderContent$.next(this.page);
       this.saveLocalVersions();
     } else {
       this.util.openSnackbar('组件添加错误', 'ok');
@@ -212,7 +234,7 @@ export class BuilderState {
       // 添加组件到指定位置
       this.transferComponet(event);
     }
-    this.closeBuilderRightDrawer$.next(true);
+    this.closeRightDrawer$.next(true);
   }
 
   dropComponent(event: CdkDragDrop<string[]>): void {
@@ -234,7 +256,7 @@ export class BuilderState {
   loadNewPage(page: IPage): void {
     this.version.forEach((version) => (version.current = false));
     this.version.unshift({ ...page, current: true, time: new Date() });
-    this.closeBuilderRightDrawer$.next(true);
+    this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
   }
 
@@ -246,7 +268,7 @@ export class BuilderState {
       content,
       path,
     };
-    this.builderRightContent$.next({
+    this.rightContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {
