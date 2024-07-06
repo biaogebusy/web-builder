@@ -132,5 +132,6 @@ gzip_types text/plain application/javascript application/x-javascript text/javas
 
 ### 在高级功能的 WAP 中
 
+1. 因为媒体库静态图片资源会加载所有的图片，1panel默认请求频率要求会封掉IP，可以调高频率或者禁用WAF功能；
 1. 关闭参数规则，影响后台数据保存；
-2. 关闭其他中 SQL 和 XXS，影响富文本图片上传及 builder 的更新修改；
+1. 关闭其他中 SQL 和 XXS，影响富文本图片上传及 builder 的更新修改；
