@@ -14,10 +14,10 @@
           aria-label="switch lang item"
           mat-menu-item
         >
-          @if (currentLang.value !== lang.value) {
+          @if (currentLang.langCode !== lang.langCode) {
             <mat-icon>radio_button_unchecked</mat-icon>
           }
-          @if (currentLang.value === lang.value) {
+          @if (currentLang.langCode === lang.langCode) {
             <mat-icon color="primary">radio_button_checked</mat-icon>
           }
           <span>{{ lang.label }}</span>
