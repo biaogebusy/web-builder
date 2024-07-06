@@ -1,24 +1,6 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @mixin builder-list($background, $foreground, $primary, $warn) {
   background-color: mat.get-color-from-palette($background, card);
-  .sidebar-drawer {
-    border-right: 1px solid mat.get-color-from-palette($foreground, divider);
-    @include scrollbar(mat.get-color-from-palette($foreground, divider));
-    .box {
-      color: mat.get-color-from-palette($foreground, text, 0.75);
-      .inner {
-        border: 1px solid mat.get-color-from-palette($foreground, divider);
-        background-color: mat.get-color-from-palette($background, card);
-      }
-      &:hover {
-        background-color: mat.get-color-from-palette($primary, 0.25);
-        color: mat.get-color-from-palette($primary);
-      }
-    }
-  }
-  .mat-drawer {
-    background-color: mat.get-color-from-palette($background, background);
-  }
   .component-item {
     &:hover {
       outline: 1px dashed mat.get-color-from-palette($primary);
