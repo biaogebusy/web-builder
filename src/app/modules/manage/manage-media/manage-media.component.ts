@@ -27,6 +27,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-manage-media',
@@ -48,6 +49,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
   screenService = inject(ScreenService);
   manageService = inject(ManageService);
   dialog = inject(MatDialog);
+  util = inject(UtilitiesService);
 
   @ViewChild('uploadDrawer', { static: false })
   uploadDrawer: MatDrawer;
@@ -116,6 +118,8 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
         this.onSearch(this.form.value);
         this.cd.detectChanges();
       });
+    } else {
+      this.util.openSnackbar('是否忘记了配置UUID？', 'ok');
     }
   }
 
