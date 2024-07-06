@@ -7,12 +7,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
-import { FormService } from '@core/service/form.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -50,20 +50,19 @@ export class ArticleComponent
   isReqRoles = false;
   canAccess: boolean;
 
+  cd = inject(ChangeDetectorRef);
+  dialog = inject(MatDialog);
+  router = inject(Router);
+  nodeService = inject(NodeService);
+  screen = inject(ScreenState);
+  screenService = inject(ScreenService);
+  tagsService = inject(TagsService);
+  userService = inject(UserService);
+  contentState = inject(ContentState);
   constructor(
-    private cd: ChangeDetectorRef,
-    private dialog: MatDialog,
-    private formService: FormService,
-    private router: Router,
-    public nodeService: NodeService,
-    public screen: ScreenState,
-    private screenService: ScreenService,
-    private tagsService: TagsService,
-    private userService: UserService,
-    public contentState: ContentState,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    @Inject(USER) public user: IUser
+    @Inject(USER) public user: IUser,
   ) {
     super();
   }
@@ -72,9 +71,7 @@ export class ArticleComponent
     if (this.content.title) {
       this.tagsService.setTitle(this.content.title);
     }
-    if (this.screenService.isPlatformBrowser()) {
-      this.onFontSize();
-    }
+
     this.checkAccess();
 
     this.userService.userSub$.subscribe(() => {
@@ -96,17 +93,6 @@ export class ArticleComponent
           this.cd.detectChanges();
         });
     });
-  }
-
-  onFontSize(): void {
-    if (this.fontSizeConfig) {
-      this.fontForm = this.formService.toFormGroup(this.fontSizeConfig.form);
-      this.fontForm.valueChanges
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((size) => {
-          this.fontSize = Math.max(10, size.font);
-        });
-    }
   }
 
   ngAfterViewInit(): void {
