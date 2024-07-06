@@ -10,11 +10,10 @@
       let-openFileSelector="openFileSelector"
     >
       <div class="flex flex-col gap-5 justify-center items-center">
-        @if (loading) {
-          <div class="load">
-            <mat-spinner diameter="50" color="accent"></mat-spinner>
-          </div>
-        }
+        <app-icon
+          class="opacity-80 upload-icon"
+          [content]="{ svg: 'cloud-arrow-up-outline' }"
+        ></app-icon>
         <span class="text-sm">拖拽文件到这里批量上传</span>
         <app-btn
           (click)="openFileSelector()"
@@ -30,21 +29,34 @@
   </ngx-file-drop>
   <div class="upload-table w-full box-border my-5 text-sm text-gray-500">
     <div class="flex flex-col gap-3">
-      @for (item of files; track $index) {
+      @for (item of filesEntry; track $index) {
         <mat-divider class="my-3"></mat-divider>
         <div class="flex justify-between items-center gap-2 truncate">
           <div class="flex items-center gap-2">
-            <app-icon [content]="{ svg: 'check', color: 'primary' }"></app-icon>
-            <div>
-              {{ item.filesize | bytes: 2 }}
-            </div>
-            <div>{{ item.filename }}</div>
+            @if (files[$index]) {
+              <app-icon
+                [content]="{ svg: 'check', color: 'primary' }"
+              ></app-icon>
+            } @else {
+              <app-spinner
+                [content]="{ color: 'primary', size: 24 }"
+              ></app-spinner>
+            }
+            <div class="text-gray-700">{{ item.relativePath }}</div>
+            @if (files[$index]) {
+              <div>
+                {{ files[$index].filesize | bytes: 2 }}
+              </div>
+            }
           </div>
-          <app-icon
-            (click)="onCopy(item.uri.url)"
-            class="cursor-pointer"
-            [content]="{ svg: 'content-copy' }"
-          ></app-icon>
+
+          @if (files[$index]) {
+            <app-icon
+              (click)="onCopy(files[$index].uri.url)"
+              class="cursor-pointer"
+              [content]="{ svg: 'content-copy' }"
+            ></app-icon>
+          }
         </div>
       }
     </div>

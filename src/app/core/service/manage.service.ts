@@ -1,20 +1,19 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 import { API_URL, USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
-import { IManageAssets } from '@core/interface/manage/IManage';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ManageService extends ApiService {
+  http = inject(HttpClient);
+  util = inject(UtilitiesService);
   constructor(
-    public http: HttpClient,
-    private util: UtilitiesService,
     @Inject(API_URL) public apiBaseUrl: string,
     @Inject(USER) private user: IUser,
   ) {

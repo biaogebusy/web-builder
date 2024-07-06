@@ -17,7 +17,6 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type {
   IManageAssets,
   IManageMedia,
-  IMediaAttr,
 } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -102,7 +101,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
 
   onPageChange(page: PageEvent): void {
     this.screenService.gotoTop();
-    this.contentState.pageChange$.next(page);
+    this.contentState.pageChange$.next(page.pageIndex);
   }
 
   onSearch(value: any): void {
@@ -143,7 +142,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
   }
 
   onUpload(): void {
-    this.dialog.open(DialogComponent, {
+    const dialog = this.dialog.open(DialogComponent, {
       width: '800px',
       panelClass: ['close-outside', 'close-icon-white'],
       data: {
@@ -155,6 +154,13 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
         },
       },
     });
+
+    dialog
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.contentState.pageChange$.next(1);
+      });
   }
 
   ngOnDestroy(): void {

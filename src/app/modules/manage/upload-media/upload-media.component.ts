@@ -26,7 +26,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class UploadMediaComponent {
   files: IMediaAttr[] = [];
-  loading: boolean;
+  filesEntry: NgxFileDropEntry[];
 
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
@@ -35,20 +35,20 @@ export class UploadMediaComponent {
   constructor(@Inject(USER) private user: IUser) {}
 
   dropped(files: NgxFileDropEntry[]): void {
+    this.filesEntry = files;
+    this.cd.detectChanges();
     if (!this.user) {
       this.util.openSnackbar('请先登录', 'ok');
     }
     for (const droppedFile of files) {
-      this.loading = true;
-      this.cd.detectChanges();
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
           if (file) {
             const reader = new FileReader();
-            reader.onload = (e: any) => {
+            reader.onload = async (e: any) => {
               const data = e.target.result;
-              this.nodeService
+              const imgAttr = await this.nodeService
                 .uploadImage(file.name, data, this.user.csrf_token)
                 .pipe(
                   catchError((error) => {
@@ -59,13 +59,10 @@ export class UploadMediaComponent {
                     return of(false);
                   }),
                 )
-                .subscribe((img: IMediaAttr | boolean) => {
-                  this.loading = false;
-                  this.cd.detectChanges();
-                  if (img) {
-                    this.files.push(img as IMediaAttr);
-                  }
-                });
+                .toPromise();
+
+              this.files.push(imgAttr as IMediaAttr);
+              this.cd.detectChanges();
             };
             reader.readAsArrayBuffer(file);
           }

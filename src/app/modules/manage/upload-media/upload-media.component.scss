@@ -7,6 +7,12 @@
         padding: 20px;
         height: auto;
         min-height: 200px;
+        .upload-icon {
+          .mat-icon {
+            height: 80px;
+            width: 80px;
+          }
+        }
       }
     }
   }

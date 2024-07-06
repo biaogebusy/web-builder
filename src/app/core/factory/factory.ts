@@ -342,10 +342,10 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 
   // on page change
-  contentState.pageChange$.subscribe((pageEvent) => {
+  contentState.pageChange$.subscribe((pageIndex) => {
     const params = nodeService.getApiParams({
       ...formValue,
-      page: pageEvent.pageIndex - 1,
+      page: pageIndex - 1,
       noCache: true,
     });
     nodeService.fetch(api, params).subscribe((res) => {
