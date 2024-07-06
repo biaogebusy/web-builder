@@ -74,7 +74,7 @@ export class BuilderPanelComponent implements OnInit, OnDestroy {
   }
 
   onDragStarted(): void {
-    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.closeRightDrawer$.next(true);
     this.builder.switchPreivew$.next('none');
   }
 
