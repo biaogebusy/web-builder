@@ -145,7 +145,7 @@ export class BlockToolbarComponent implements OnInit {
       fields,
       content: widget,
     };
-    this.builder.builderRightContent$.next({
+    this.builder.rightContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {
