@@ -5,6 +5,7 @@ import {
   Inject,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -22,12 +23,7 @@ import { takeUntil } from 'rxjs/operators';
 export class SwitchPreviewComponent implements OnInit, OnDestroy {
   currentPage: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    private builder: BuilderState,
-    private cd: ChangeDetectorRef,
-    private util: UtilitiesService,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
-  ) {}
+
   currentPreview = 'none';
   currentIcon = 'cellphone-link';
   previews = [
@@ -59,14 +55,15 @@ export class SwitchPreviewComponent implements OnInit, OnDestroy {
       value: 'md',
       label: '笔记本',
     },
-    {
-      icon: {
-        svg: 'monitor',
-      },
-      value: 'lg',
-      label: '桌面',
-    },
   ];
+
+  builder = inject(BuilderState);
+  cd = inject(ChangeDetectorRef);
+  util = inject(UtilitiesService);
+  constructor(
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+  ) {}
+
   ngOnInit(): void {
     this.currentPage$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
       this.currentPage = page;
@@ -85,7 +82,7 @@ export class SwitchPreviewComponent implements OnInit, OnDestroy {
       this.currentIcon = preview.icon.svg;
     }
     this.cd.detectChanges();
-    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.closeRightDrawer$.next(true);
     this.builder.switchPreivew$.next(preview.value);
   }
 
