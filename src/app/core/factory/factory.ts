@@ -22,7 +22,6 @@ import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
 import { inject } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -266,17 +265,16 @@ export const apiUrlFactory = () => {
   return environment.apiUrl;
 };
 
-export function initApp(coreConfig: object, lang: ILanguage): any {
+export function initApp(coreConfig: object): any {
   const contentService = inject(ContentService);
   const componentService = inject(ComponentService);
   componentService.registerDynamicComponent();
-  return () => contentService.loadConfig(coreConfig, lang);
+  return () => contentService.loadConfig(coreConfig);
 }
 
-export function langFactory(
-  contentService: ContentService,
-  screenService: ScreenService,
-): ILanguage | undefined {
+export function langFactory(): ILanguage | undefined {
+  const contentService = inject(ContentService);
+  const screenService = inject(ScreenService);
   if (screenService.isPlatformBrowser()) {
     return contentService.getLang(window.location.pathname);
   } else {
@@ -304,11 +302,9 @@ export function themeFactory(
   return defaultTheme;
 }
 
-export function brandingFactory(
-  lang: ILanguage,
-): Observable<IBranding | object> {
+export function brandingFactory(): Observable<IBranding | object> {
   const contentService = inject(ContentService);
-  return contentService.loadBranding(lang);
+  return contentService.loadBranding();
 }
 
 export function userFactory(): IUser | boolean {
@@ -346,10 +342,11 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 
   // on page change
-  contentState.pageChange$.subscribe((pageEvent) => {
+  contentState.pageChange$.subscribe((pageIndex) => {
     const params = nodeService.getApiParams({
       ...formValue,
-      page: pageEvent.pageIndex - 1,
+      page: pageIndex - 1,
+      noCache: true,
     });
     nodeService.fetch(api, params).subscribe((res) => {
       assets$.next({
@@ -367,7 +364,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
       assets$.next(mediaAssets);
       return;
     }
-    const params = nodeService.getApiParams(value);
+    const params = nodeService.getApiParams({ ...value, noCache: true });
     nodeService.fetch(api, params).subscribe((res) => {
       assets$.next({
         rows: res.rows,

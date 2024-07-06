@@ -22,12 +22,12 @@ export class BrowserStateInterceptor implements HttpInterceptor {
   constructor(
     private transferState: TransferState,
     private apiService: ApiService,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
   ) {}
 
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     const cacheKey = req.url;
     const cache = this.responseCache.get(cacheKey);
@@ -73,7 +73,7 @@ export class BrowserStateInterceptor implements HttpInterceptor {
         ) {
           this.responseCache.set(cacheKey, event.body);
         }
-      })
+      }),
     );
   }
 }

@@ -151,7 +151,7 @@
               "title": {
                 "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
                 "style": "style-v4",
-                "classes": "mat-display-1 bold"
+                "classes": "mat-headline-1 bold"
               }
             }
           ]
@@ -424,37 +424,15 @@
         "mode": "raised",
         "label": "Search"
       },
-      "form": [
-        {
-          "type": "toggle",
-          "key": "fromStatic",
-          "className": "static-item",
-          "defaultValue": true,
-          "props": {
-            "label": "Switch libraries"
-          },
-          "expressions": {
-            "props.label": "model.fromStatic?'Static medias':'Media library'"
-          }
-        },
-        {
-          "type": "input",
-          "key": "key",
-          "className": "m-bottom-sm",
-          "props": {
-            "type": "string",
-            "appearance": "fill",
-            "label": "please input keyword"
-          }
-        }
-      ]
+      "form": []
     }
   },
   "builder": {
     "enable": true,
     "api": {
       "create": "/api/v3/landingPage/builder",
-      "update": "/api/v3/landingPage/update"
+      "update": "/api/v3/landingPage/update",
+      "translate": "/api/v3/landingPage/translations"
     },
     "params": {
       "reqRoles": ["administrator"]
@@ -519,7 +497,7 @@
             "title": {
               "label": "Free trial <strong class=\"text-primary\">Web builder </strong> <br>to quickly build pages",
               "style": "style-v4",
-              "classes": "mat-display-3 bold",
+              "classes": "mat-headline-3 bold",
               "typed": {
                 "enable": true,
                 "strings": [
@@ -710,7 +688,7 @@
           "title": {
             "label": "How was the page created",
             "style": "style-v1",
-            "classes": "mat-display-1 bold"
+            "classes": "mat-headline-1 bold"
           }
         },
         "elements": [
