@@ -14,13 +14,13 @@ export const environment: IEnvironment = {
   langs: [
     {
       label: '中文',
-      value: 'zh',
+      langCode: 'zh-hans',
       prefix: '/',
       default: true,
     },
     {
       label: 'EN',
-      value: 'en',
+      langCode: 'en',
       prefix: '/en',
     },
   ],
