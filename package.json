@@ -66,6 +66,7 @@
     "ngx-cookie-service": "^14.0.1",
     "ngx-countup": "^13.1.0",
     "ngx-echarts": "^14.0.0",
+    "ngx-file-drop": "^16.0.0",
     "ngx-mat-select-search": "^7.0.6",
     "ngx-monaco-editor": "^12.0.0",
     "ngx-pagination": "^6.0.3",
