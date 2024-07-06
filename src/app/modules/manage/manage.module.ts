@@ -6,9 +6,14 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { ManageBlockComponent } from './manage-block/manage-block.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
-
+import { NgxFileDropModule } from 'ngx-file-drop';
 import { BaseModule } from '@uiux/base/base.module';
-const components = [ManageMediaComponent, ManageBlockComponent];
+import { UploadMediaComponent } from './upload-media/upload-media.component';
+const components = [
+  ManageMediaComponent,
+  ManageBlockComponent,
+  UploadMediaComponent,
+];
 
 @NgModule({
   declarations: [...components],
@@ -18,6 +23,7 @@ const components = [ManageMediaComponent, ManageBlockComponent];
     ShareModule,
     WidgetsModule,
     ManageRoutingModule,
+    NgxFileDropModule,
   ],
   exports: [...components],
 })

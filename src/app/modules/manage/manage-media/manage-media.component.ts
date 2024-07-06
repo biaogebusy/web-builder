@@ -6,6 +6,8 @@ import {
   ChangeDetectorRef,
   Input,
   OnDestroy,
+  inject,
+  ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
@@ -21,7 +23,10 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
 import { PageEvent } from '@angular/material/paginator';
-import { IPager } from '@core/interface/widgets/IWidgets';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
   selector: 'app-manage-media',
@@ -32,35 +37,71 @@ import { IPager } from '@core/interface/widgets/IWidgets';
 export class ManageMediaComponent implements OnInit, OnDestroy {
   @Input() content: IManageMedia;
   form = new UntypedFormGroup({});
+  fields: FormlyFieldConfig[];
   model: any = {};
   loading = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   selectedId: string;
+  cd = inject(ChangeDetectorRef);
+  builder = inject(BuilderState);
+  contentState = inject(ContentState);
+  screenService = inject(ScreenService);
+  manageService = inject(ManageService);
+  dialog = inject(MatDialog);
+
+  @ViewChild('uploadDrawer', { static: false })
+  uploadDrawer: MatDrawer;
+
+  defaultField: FormlyFieldConfig[] = [
+    {
+      type: 'toggle',
+      key: 'fromStatic',
+      className: 'static-item',
+      defaultValue: true,
+      props: {
+        label: '切换资源库',
+      },
+      expressions: {
+        'props.label': "model.fromStatic?'静态资源':'后台媒体库'",
+      },
+    },
+    {
+      type: 'input',
+      key: 'name',
+      className: 'm-bottom-sm',
+      props: {
+        type: 'string',
+        appearance: 'fill',
+        label: '请输入关键词',
+      },
+    },
+  ];
   constructor(
-    private screenService: ScreenService,
-    private contentState: ContentState,
-    private builder: BuilderState,
-    private manageService: ManageService,
-    private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>,
   ) {}
 
   ngOnInit(): void {
-    this.form.valueChanges
-      .pipe(
-        takeUntil(this.destroy$),
-        debounceTime(1000),
-        distinctUntilChanged(),
-      )
-      .subscribe((value) => {
-        this.onSearch(value);
-      });
+    if (this.screenService.isPlatformBrowser()) {
+      this.fields = [
+        ...this.defaultField,
+        ...this.coreConfig.manageMedia.sidebar.form,
+      ];
+      this.form.valueChanges
+        .pipe(
+          takeUntil(this.destroy$),
+          debounceTime(1000),
+          distinctUntilChanged(),
+        )
+        .subscribe((value) => {
+          this.onSearch(value);
+        });
+    }
   }
 
   onPageChange(page: PageEvent): void {
     this.screenService.gotoTop();
-    this.contentState.pageChange$.next(page);
+    this.contentState.pageChange$.next(page.pageIndex);
   }
 
   onSearch(value: any): void {
@@ -100,8 +141,26 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
     });
   }
 
-  trackByFn(index: number, item: any): number {
-    return item.id || index;
+  onUpload(): void {
+    const dialog = this.dialog.open(DialogComponent, {
+      width: '800px',
+      panelClass: ['close-outside', 'close-icon-white'],
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'upload-media',
+          },
+        },
+      },
+    });
+
+    dialog
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.contentState.pageChange$.next(1);
+      });
   }
 
   ngOnDestroy(): void {

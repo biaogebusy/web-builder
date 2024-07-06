@@ -71,7 +71,7 @@ export class LayoutToolbarComponent implements OnInit {
       content: layout,
       path: this.util.generatePath(event.target),
     };
-    this.builder.builderRightContent$.next({
+    this.builder.rightContent$.next({
       mode: 'push',
       hasBackdrop: false,
       style: {

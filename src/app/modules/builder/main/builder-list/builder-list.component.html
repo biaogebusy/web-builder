@@ -1,13 +1,6 @@
 @if (currentPage$ | async; as page) {
-  <mat-drawer-container class="builder-list">
-    <mat-drawer class="sidebar-drawer" #drawer mode="side" [opened]="opened">
-      <app-preview-list></app-preview-list>
-    </mat-drawer>
-    <mat-drawer-content
-      id="gsap-scroller"
-      class="wrapper"
-      [ngClass]="previewClass$ | async"
-    >
+  <div class="builder-list">
+    <div id="gsap-scroller" class="wrapper" [ngClass]="previewClass$ | async">
       @if (builder.loading$ | async) {
         <div class="load">
           <mat-spinner diameter="50" color="accent"></mat-spinner>
@@ -144,6 +137,6 @@
           ></app-iframe>
         </div>
       }
-    </mat-drawer-content>
-  </mat-drawer-container>
+    </div>
+  </div>
 }

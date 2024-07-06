@@ -5,6 +5,7 @@ import {
   Inject,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IImg } from '@core/interface/widgets/IImg';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -16,17 +17,15 @@ import { CORE_CONFIG } from '@core/token/token-providers';
   selector: 'app-img',
   templateUrl: './img.component.html',
   styleUrls: ['./img.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImgComponent implements OnInit {
   @Input() content: IImg | undefined;
   @HostBinding('class') hostClasses: any;
+  screen = inject(ScreenState);
+  screenService = inject(ScreenService);
 
-  constructor(
-    public screen: ScreenState,
-    private screenService: ScreenService,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
-  ) {}
+  constructor(@Inject(CORE_CONFIG) public coreConfig: ICoreConfig) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

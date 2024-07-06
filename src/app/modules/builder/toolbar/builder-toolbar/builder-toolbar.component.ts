@@ -6,6 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { BuilderState } from '@core/state/BuilderState';
@@ -43,20 +44,19 @@ export class BuilderToolbarComponent
   @Input() builderRightDrawer: MatDrawer;
   page?: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  showNavigate = false;
+  storage = inject(LocalStorageService);
+  builder = inject(BuilderState);
+  screenState = inject(ScreenState);
+  screenService = inject(ScreenService);
+  util = inject(UtilitiesService);
+  builderService = inject(BuilderService);
+  dialog = inject(MatDialog);
+  router = inject(Router);
   constructor(
-    private storage: LocalStorageService,
-    public builder: BuilderState,
-    private screenState: ScreenState,
-    private screenService: ScreenService,
-    private util: UtilitiesService,
-    private builderService: BuilderService,
-    private dialog: MatDialog,
-    private router: Router,
     @Inject(USER) private user: IUser,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
   ) {}
 
   ngOnInit(): void {
@@ -109,62 +109,83 @@ export class BuilderToolbarComponent
     this.builder.fullScreen$.next(event.checked);
   }
 
-  toggleNavigate(): void {
-    this.showNavigate = !this.showNavigate;
-    this.builder.previewListDrawer$.next(this.showNavigate);
-  }
-
   onSubmit(page: IPage): void {
-    if (page.uuid && page.id) {
+    if (page.translation && page.target) {
+      // 新增翻译
       if (!this.user) {
         this.openLogin();
         return;
       }
-      // update page
-      this.util.openSnackbar('正在更新！', 'ok');
-      this.builderService
-        .updateLandingPage(this.builder.currentPage)
-        .pipe(
-          takeUntil(this.destroy$),
-          catchError(() => {
-            this.builder.loading$.next(false);
-            return of({ status: false });
-          })
-        )
-        .subscribe((res) => {
-          const { status, message } = res;
-          if (status) {
-            this.util.openSnackbar(message, 'ok');
-          } else {
-            this.util.openSnackbar('更新失败！', 'ok');
+      this.builder.loading$.next(true);
+      this.builderService.addTranslation(page).subscribe((res) => {
+        if (res.status) {
+          this.util.openSnackbar(`翻译${page.target}成功`, '关闭', {
+            duration: 2000,
+          });
+          this.builder.loading$.next(false);
+          this.builder.updateSuccess$.next(true);
+          if (page.id) {
+            this.builderService.loadPage({
+              langcode: page.target,
+              id: page.id,
+            });
           }
-        });
+        }
+      });
     } else {
-      if (page.body.length === 0) {
-        this.onNewPage();
-      } else {
-        // submit new page
-        if (!this.user.authenticated) {
+      if (page.uuid && page.id) {
+        if (!this.user) {
           this.openLogin();
           return;
         }
+        // update page
+        this.util.openSnackbar('正在更新！', 'ok');
         this.builderService
-          .createLandingPage(this.builder.currentPage)
+          .updateLandingPage(this.builder.currentPage)
           .pipe(
             takeUntil(this.destroy$),
             catchError(() => {
               this.builder.loading$.next(false);
               return of({ status: false });
-            })
+            }),
           )
           .subscribe((res) => {
             const { status, message } = res;
             if (status) {
               this.util.openSnackbar(message, 'ok');
+              this.builder.updateSuccess$.next(true);
             } else {
-              this.util.openSnackbar('新建失败！', 'ok');
+              this.util.openSnackbar('更新失败！', 'ok');
             }
           });
+      } else {
+        if (page.body.length === 0) {
+          this.onNewPage();
+        } else {
+          // submit new page
+          if (!this.user.authenticated) {
+            this.openLogin();
+            return;
+          }
+          this.builderService
+            .createLandingPage(this.builder.currentPage)
+            .pipe(
+              takeUntil(this.destroy$),
+              catchError(() => {
+                this.builder.loading$.next(false);
+                return of({ status: false });
+              }),
+            )
+            .subscribe((res) => {
+              const { status, message } = res;
+              if (status) {
+                this.util.openSnackbar(message, 'ok');
+                this.builder.updateSuccess$.next(true);
+              } else {
+                this.util.openSnackbar('新建失败！', 'ok');
+              }
+            });
+        }
       }
     }
   }

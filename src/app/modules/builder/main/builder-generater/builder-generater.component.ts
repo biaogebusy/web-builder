@@ -25,7 +25,7 @@ export class BuilderGeneraterComponent implements OnInit {
     private builder: BuilderState,
     private util: UtilitiesService,
     @Inject(UIUX) public uiux: IUiux[],
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
   ) {}
 
   ngOnInit(): void {}
@@ -41,18 +41,18 @@ export class BuilderGeneraterComponent implements OnInit {
     const showcases = this.builder.getRandomElements(
       items,
       'showcase',
-      value.showcase
+      value.showcase,
     );
     const layout = this.builder.getRandomElements(items, 'layout', 1);
     const carousel = this.builder.getRandomElements(
       items,
       'carousel',
-      value.carousel
+      value.carousel,
     );
     const masonry = this.builder.getRandomElements(
       items,
       'masonry',
-      value.masonry
+      value.masonry,
     );
     const shuffleShowcaseCarousel = shuffle([
       ...layout,
@@ -95,7 +95,7 @@ export class BuilderGeneraterComponent implements OnInit {
       duration: 1000,
     });
     setTimeout(() => {
-      this.builder.closeBuilderRightDrawer$.next(true);
+      this.builder.closeRightDrawer$.next(true);
       this.builder.saveLocalVersions();
       this.builder.cancelFixedShowcase();
     }, 1200);

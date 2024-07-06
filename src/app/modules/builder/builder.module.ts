@@ -12,7 +12,6 @@ import { BuilderSampleComponent } from './sidebar/builder-sample/builder-sample.
 import { BuilderListComponent } from './main/builder-list/builder-list.component';
 import { BuilderEmptyComponent } from './main/builder-empty/builder-empty.component';
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
-import { PreviewListComponent } from './main/preview-list/preview-list.component';
 import { BaseModule } from '@uiux/base/base.module';
 import {
   BUILDER_CURRENT_PAGE,
@@ -42,6 +41,7 @@ import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sideb
 import { BuilderTemplateComponent } from './main/builder-template/builder-template.component';
 import { LayoutToolbarComponent } from './layout-builder/layout-toolbar/layout-toolbar.component';
 import { BlockToolbarComponent } from './layout-builder/block-toolbar/block-toolbar.component';
+import { PageSettingComponent } from './main/page-setting/page-setting.component';
 
 const components = [
   BuilderComponent,
@@ -53,6 +53,7 @@ const components = [
   WidgetPickerComponent,
   LayoutSettingComponent,
   BuilderTemplateComponent,
+  PageSettingComponent,
 ];
 
 @NgModule({
@@ -64,7 +65,6 @@ const components = [
     BuilderPanelComponent,
     SwitchPreviewComponent,
     BuilderSampleComponent,
-    PreviewListComponent,
     PreviewComponent,
     BuilderVersionComponent,
     InlineEditComponent,

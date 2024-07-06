@@ -14,37 +14,10 @@ export const getBgClasses = [
     value: 'bg-shadow bg-fill-width',
   },
   {
-    label: '蓝色',
-    value: 'bg-blue bg-fill-width',
+    label: '白色',
+    value: 'bg-white bg-fill-width',
   },
-  {
-    label: '绿色',
-    value: 'bg-green bg-fill-width',
-  },
-  {
-    label: '黄色',
-    value: 'bg-yellow bg-fill-width',
-  },
-  {
-    label: '红色',
-    value: 'bg-red bg-fill-width',
-  },
-  {
-    label: '警告色',
-    value: 'bg-warn bg-fill-width',
-  },
-  {
-    label: '粉色',
-    value: 'bg-pink bg-fill-width',
-  },
-  {
-    label: '橙色',
-    value: 'bg-orange bg-fill-width',
-  },
-  {
-    label: '紫色',
-    value: 'bg-purple bg-fill-width',
-  },
+
   {
     label: '灰色 50',
     value: 'bg-grey-50 bg-fill-width',

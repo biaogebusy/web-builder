@@ -37,7 +37,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private cd: ChangeDetectorRef,
     @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(COLOR_TEST) private colorTestPage: IPage
+    @Inject(COLOR_TEST) private colorTestPage: IPage,
   ) {}
 
   ngOnInit(): void {}
@@ -53,7 +53,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onPageJson(): void {
-    this.builder.builderRightContent$.next({
+    this.builder.rightContent$.next({
       mode: 'over',
       hasBackdrop: true,
       style: {

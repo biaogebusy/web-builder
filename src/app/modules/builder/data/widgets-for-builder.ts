@@ -82,7 +82,7 @@ export const widgets = [
       label:
         '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
       style: 'style-v4',
-      classes: 'mat-display-1 bold',
+      classes: 'mat-headline-1 bold',
     },
   },
   {

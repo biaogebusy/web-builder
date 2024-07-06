@@ -6,6 +6,21 @@
   @if (content.bg) {
     <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   }
-  <div class="template {{content.fullWidth?'':'container'}}"></div>
+  <div class="template {{ content.fullWidth ? '' : 'container' }}"></div>
   <app-spacer [size]="content.spacer || 'none'"></app-spacer>
 </div>
+@if (pager) {
+  <div class="pager">
+    <mat-paginator
+      class="demo-paginator"
+      (page)="onPageChange($event)"
+      [length]="pager.totalItems"
+      [pageSize]="pager.itemsPerPage"
+      [showFirstLastButtons]="true"
+      [hidePageSize]="true"
+      [pageIndex]="pager.currentPage"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+}

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
@@ -24,11 +24,11 @@ import { ILanguage } from '@core/interface/IEnvironment';
   providedIn: 'root',
 })
 export class ContentService {
+  http = inject(HttpClient);
+  tagsService = inject(TagsService);
+  screenState = inject(ScreenState);
+  apiService = inject(ApiService);
   constructor(
-    private http: HttpClient,
-    private tagsService: TagsService,
-    private screenState: ScreenState,
-    private apiService: ApiService,
     @Inject(API_URL) private apiUrl: string,
     @Inject(DOCUMENT) private document: Document,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
@@ -67,7 +67,7 @@ export class ContentService {
     }
     if (multiLang && langs) {
       const lang = path.split('/')[1];
-      const currentLang = langs.find((item) => item.value === lang);
+      const currentLang = langs.find((item) => item.langCode === lang);
       if (currentLang) {
         return currentLang;
       } else {
@@ -83,20 +83,29 @@ export class ContentService {
     return undefined;
   }
 
-  loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
+  getUrlPath(pageUrl: string): { lang: string; path: string } {
     const currentLang = this.getLang(pageUrl);
-    let prefix = '';
+    let lang = '';
     let path = pageUrl;
     if (currentLang && !currentLang.default) {
-      prefix = currentLang.prefix;
-      if (prefix) {
-        path = pageUrl.split(prefix)[1];
+      lang = currentLang.prefix;
+      if (lang) {
+        path = pageUrl.split(lang)[1];
       }
     }
 
+    return {
+      lang,
+      path,
+    };
+  }
+
+  loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
+    const { lang, path } = this.getUrlPath(pageUrl);
+
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
-      const pageUrlParams = `${this.apiUrl}${prefix}${landingPath}${path}`;
+      const pageUrlParams = `${this.apiUrl}${lang}${landingPath}${path}`;
       return this.http.get<any>(pageUrlParams).pipe(
         tap((page) => {
           this.updatePage(page);
@@ -108,7 +117,7 @@ export class ContentService {
       );
     } else {
       return this.http
-        .get<any>(`${this.apiUrl}/assets/app${prefix}${pageUrl}.json`)
+        .get<any>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`)
         .pipe(
           tap((page) => {
             this.updatePage(page);
@@ -127,8 +136,8 @@ export class ContentService {
     }
   }
 
-  loadBranding(lang: ILanguage): Observable<IBranding> {
-    const language = lang ? `${lang.prefix}` : '';
+  loadBranding(): Observable<IBranding> {
+    const { lang } = this.getUrlPath(this.pageUrl);
     const localBranding: IBranding = {
       header: defaultHeader,
       footer: footerInverse,
@@ -140,24 +149,21 @@ export class ContentService {
     };
     if (environment.production) {
       return this.http.get<IBranding>(
-        `${this.apiUrl}/api/v1/config?content=${language}/core/branding`,
+        `${this.apiUrl}${lang}/api/v1/config?content=/core/branding`,
       );
     } else {
-      if (lang?.value === 'en') {
+      if (lang === '/en') {
         return of(enBranding);
       }
       return of(localBranding);
     }
   }
 
-  loadConfig(coreConfig: object, lang: ILanguage): any {
-    let language = lang ? `${lang.prefix}` : '';
-    if (lang?.default) {
-      language = '';
-    }
+  loadConfig(coreConfig: object): any {
+    const { lang } = this.getUrlPath(this.pageUrl);
     const configPath = environment.production
-      ? `${this.apiUrl}/api/v1/config?content=${language}/core/base`
-      : `${this.apiUrl}/assets/app${language}/core/base.json`;
+      ? `${this.apiUrl}${lang}/api/v1/config?content=/core/base`
+      : `${this.apiUrl}/assets/app${lang}/core/base.json`;
     return this.http
       .get(configPath)
       .pipe(

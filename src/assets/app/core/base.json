@@ -409,37 +409,15 @@
         "mode": "raised",
         "label": "确定"
       },
-      "form": [
-        {
-          "type": "toggle",
-          "key": "fromStatic",
-          "className": "static-item",
-          "defaultValue": true,
-          "props": {
-            "label": "切换资源库"
-          },
-          "expressions": {
-            "props.label": "model.fromStatic?'静态资源':'后台媒体库'"
-          }
-        },
-        {
-          "type": "input",
-          "key": "name",
-          "className": "m-bottom-sm",
-          "props": {
-            "type": "string",
-            "appearance": "fill",
-            "label": "请输入关键词"
-          }
-        }
-      ]
+      "form": []
     }
   },
   "builder": {
     "enable": true,
     "api": {
       "create": "/api/v3/landingPage/builder",
-      "update": "/api/v3/landingPage/update"
+      "update": "/api/v3/landingPage/update",
+      "translate": "/api/v3/landingPage/translations"
     },
     "params": {
       "reqRoles": ["administrator"]
@@ -462,17 +440,46 @@
         },
         "spacer": "lg",
         "order": {
-          "left": 0,
-          "right": 1
+          "left": 1,
+          "right": 0
         },
         "left": [
+          {
+            "type": "img",
+            "src": "/assets/images/illustration/13.png",
+            "classes": "mover",
+            "hostClasses": "relative img-bg-shape",
+            "actions": [
+              {
+                "type": "btn-video",
+                "color": "default",
+                "classes": "play-video",
+                "video": {
+                  "type": "player",
+                  "options": {
+                    "controls": true,
+                    "aspectRatio": "16:9",
+                    "poster": "/assets/storybook/assets/builder.png",
+                    "sources": [
+                      {
+                        "src": "/assets/video/layout-builder-hero-demo.mp4",
+                        "type:": "video/mp4"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "right": [
           {
             "type": "text",
             "spacer": "sm",
             "title": {
               "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
               "style": "style-v4",
-              "classes": "mat-display-1 bold"
+              "classes": "mat-headline-1 bold"
             },
             "body": "为您的企业构建现代化的响应式无代码网站：<ul class=\"list-done\"><li>从模板开始，根据需要进行自定义；</li><li>自定义主题色、字体创建品牌网站；</li><li>可视化编辑组件图文数据，所见即所得；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\"><video muted=\"\" autoplay=\"\" loop=\"\" width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
             "actionsAlign": "start",
@@ -515,35 +522,6 @@
                 "disableToolbar": true,
                 "content": {
                   "type": "github-star"
-                }
-              }
-            ]
-          }
-        ],
-        "right": [
-          {
-            "type": "img",
-            "src": "/assets/images/illustration/13.png",
-            "classes": "mover",
-            "hostClasses": "relative img-bg-shape",
-            "actions": [
-              {
-                "type": "btn-video",
-                "color": "default",
-                "classes": "play-video",
-                "video": {
-                  "type": "player",
-                  "options": {
-                    "controls": true,
-                    "aspectRatio": "16:9",
-                    "poster": "/assets/storybook/assets/builder.png",
-                    "sources": [
-                      {
-                        "src": "/assets/video/layout-builder-hero-demo.mp4",
-                        "type:": "video/mp4"
-                      }
-                    ]
-                  }
                 }
               }
             ]
@@ -695,7 +673,7 @@
           "title": {
             "label": "页面是如何创建的",
             "style": "style-v1",
-            "classes": "mat-display-1 bold"
+            "classes": "mat-headline-1 bold"
           }
         },
         "elements": [

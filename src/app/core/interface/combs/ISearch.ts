@@ -1,6 +1,7 @@
 export interface ISearch {
   type: string;
   header: any;
+  api: string;
   label: ISearchLabel;
   sidebar: any[];
   data: any;

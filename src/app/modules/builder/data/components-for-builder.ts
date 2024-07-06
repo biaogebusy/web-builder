@@ -41,7 +41,7 @@ export const components: any[] = [
                     title: {
                       label: '组件驱动开发',
                       style: 'style-v1',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     classes: 'xy-center',
                     bg: {
@@ -68,7 +68,7 @@ export const components: any[] = [
                     title: {
                       label: '组件展示和测试',
                       style: 'style-v1',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     spacer: 'xl',
                     classes: 'xy-center text-light',
@@ -96,7 +96,7 @@ export const components: any[] = [
                     title: {
                       label: '文档化',
                       style: 'style-v1',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     spacer: 'xl',
                     classes: 'xy-center text-light',
@@ -129,8 +129,9 @@ export const components: any[] = [
               type: 'hero-1v2',
               spacer: 'none',
               classes: 'text-light text-center',
-              sliders: {
+              right: {
                 params: {
+                  navigation: false,
                   slidesPerView: 1,
                   spaceBetween: 0,
                   pagination: true,
@@ -138,80 +139,127 @@ export const components: any[] = [
                 classes: '',
                 elements: [
                   {
-                    title: '使Storybook 是什么？',
-                    subTitle:
-                      'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。',
-                    bg: {
-                      type: 'bg-img',
-                      classes: 'bg-fill-width overlay overlay-40',
-                      img: {
-                        src: '/assets/images/16-9/business-13.jpg',
-                        classes: 'object-fit',
-                      },
+                    type: 'img',
+                    src: '/assets/images/16-9/business-13.jpg',
+                    style: {
+                      width: '890px',
+                      height: '500px',
                     },
-                    btn: {
-                      href: '#',
-                      mode: 'raised',
-                      label: '查看更多',
-                      pill: true,
-                    },
+                    classes: 'object-cover',
                   },
                   {
-                    title: '组件驱动开发',
-                    subTitle:
-                      'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
-                    bg: {
-                      type: 'bg-img',
-                      classes: 'bg-fill-width overlay overlay-40',
-                      img: {
-                        src: '/assets/images/16-9/business-14.jpeg',
-                        classes: 'object-fit',
-                      },
+                    type: 'img',
+                    src: '/assets/images/16-9/business-14.jpeg',
+                    style: {
+                      width: '890px',
+                      height: '500px',
                     },
-                    btn: {
-                      href: '#',
-                      mode: 'raised',
-                      label: '查看更多',
-                      pill: true,
-                    },
+                    classes: 'object-cover',
                   },
                   {
-                    title: '组件展示和测试',
-                    subTitle:
-                      'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
-                    bg: {
-                      type: 'bg-img',
-                      classes: 'bg-fill-width overlay overlay-40',
-                      img: {
-                        src: '/assets/images/16-9/business-15.jpeg',
-                        classes: 'object-fit',
-                      },
+                    type: 'img',
+                    src: '/assets/images/16-9/business-15.jpeg',
+                    style: {
+                      width: '890px',
+                      height: '500px',
                     },
-                    btn: {
-                      href: '#',
-                      mode: 'raised',
-                      label: '查看更多',
-                      pill: true,
-                    },
+                    classes: 'object-cover',
                   },
                   {
-                    title: '文档化',
-                    subTitle:
-                      'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
-                    bg: {
-                      type: 'bg-img',
-                      classes: 'bg-fill-width overlay overlay-40',
-                      img: {
-                        src: '/assets/images/16-9/business-16.jpeg',
-                        classes: 'object-fit',
+                    type: 'img',
+                    src: '/assets/images/16-9/business-16.jpeg',
+                    style: {
+                      width: '890px',
+                      height: '500px',
+                    },
+                    classes: 'object-cover',
+                  },
+                ],
+              },
+              left: {
+                params: {
+                  navigation: false,
+                  slidesPerView: 1,
+                  spaceBetween: 0,
+                  pagination: false,
+                },
+                classes: '',
+                elements: [
+                  {
+                    type: 'text',
+                    title: {
+                      label: '使Storybook 是什么？',
+                      classes: 'mat-headline-3',
+                    },
+                    classes: 'text-white',
+                    body: 'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。',
+                    actionsAlign: 'start',
+                    actions: [
+                      {
+                        href: '#',
+                        mode: 'raised',
+                        label: '查看更多',
+                        pill: true,
+                        type: 'btn',
                       },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    title: {
+                      label: '组件驱动开发',
+                      classes: 'mat-headline-3',
                     },
-                    btn: {
-                      href: '#',
-                      mode: 'raised',
-                      label: '查看更多',
-                      pill: true,
+                    classes: 'text-white',
+                    body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
+                    actionsAlign: 'start',
+                    actions: [
+                      {
+                        href: '#',
+                        mode: 'raised',
+                        label: '查看更多',
+                        pill: true,
+                        type: 'btn',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    title: {
+                      label: '组件展示和测试',
+                      classes: 'mat-headline-3',
                     },
+                    classes: 'text-white',
+                    body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
+                    actionsAlign: 'start',
+                    actions: [
+                      {
+                        href: '#',
+                        mode: 'raised',
+                        label: '查看更多',
+                        pill: true,
+                        type: 'btn',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    title: {
+                      label: '文档化',
+                      classes: 'mat-headline-3',
+                    },
+                    classes: 'text-white',
+                    body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
+                    actionsAlign: 'start',
+                    actions: [
+                      {
+                        href: '#',
+                        mode: 'raised',
+                        label: '查看更多',
+                        pill: true,
+                        type: 'btn',
+                      },
+                    ],
                   },
                 ],
               },
@@ -234,7 +282,7 @@ export const components: any[] = [
                 title: {
                   label:
                     '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                   style: 'style-v1',
                 },
                 classes: 'p-x text-center',
@@ -302,7 +350,7 @@ export const components: any[] = [
                   label:
                     '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
                   style: 'style-v1',
-                  classes: 'mat-display-2',
+                  classes: 'mat-headline-2',
                 },
                 spacer: 'xl',
                 classes: 'xy-center text-center',
@@ -340,7 +388,7 @@ export const components: any[] = [
                   label:
                     '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
                   style: 'style-v4',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 spacer: 'xl',
                 style: {
@@ -431,7 +479,7 @@ export const components: any[] = [
                 title: {
                   label: '开源项目使用 Github actions 自动化',
                   style: 'style-v4',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
                 actions: [
@@ -469,7 +517,7 @@ export const components: any[] = [
                 title: {
                   label: '开源项目使用 Github actions 自动化',
                   style: 'none',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 spacer: 'none',
                 body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
@@ -1347,7 +1395,7 @@ export const components: any[] = [
                 title: {
                   label: 'Storybook 是什么？',
                   style: 'style-v1',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
               },
               classes: 'text-light',
@@ -1519,7 +1567,7 @@ export const components: any[] = [
                 title: {
                   label: 'Storybook 是什么？',
                   style: 'style-v1',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
               },
               classes: 'text-light',
@@ -1581,7 +1629,7 @@ export const components: any[] = [
                   label:
                     '使用 <strong class="text-primary">Storybook</strong> 开发组件',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
@@ -1661,7 +1709,7 @@ export const components: any[] = [
                 title: {
                   label: '会员等级与专属服务',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">我们为您提供了一系列多样化的会员等级和相应的专属服务，旨在打造个性化的艺术设计体验。无论您是刚起步的爱好者还是专业设计师，我们的会员计划将满足您不同层次和需求。</p>',
@@ -1773,7 +1821,7 @@ export const components: any[] = [
                 title: {
                   label: '艺术设计之旅：探索创意与美学的奇妙世界',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">这次艺术设计之旅不仅仅是一次观赏和欣赏的体验，更是一个与艺术创造亲密接触的机会。参与者们通过参观展览、讲座和工作坊，自己动手创作和表达，发掘了自己内在的艺术潜能和表达能力。</p>',
@@ -1888,7 +1936,7 @@ export const components: any[] = [
                 title: {
                   label: 'Drupal 优秀案例',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
@@ -2224,7 +2272,7 @@ export const components: any[] = [
                 title: {
                   label: '最新课程',
                   style: 'style-v1',
-                  classes: 'mat-display-0 bold',
+                  classes: 'mat-headline-0 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
@@ -2326,7 +2374,7 @@ export const components: any[] = [
                   label:
                     '本年度<strong class="text-primary">艺术作品</strong>代表作',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
@@ -2485,7 +2533,7 @@ export const components: any[] = [
                   label:
                     '本年度<strong class="text-primary">艺术作品</strong>代表作',
                   style: 'style-v1',
-                  classes: 'mat-display-2 bold',
+                  classes: 'mat-headline-2 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
@@ -2566,7 +2614,7 @@ export const components: any[] = [
                   label:
                     '<strong class="text-primary">Storybook</strong> 是什么？',
                   style: 'style-v1',
-                  classes: 'mat-display-2 blod',
+                  classes: 'mat-headline-2 blod',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文</p>',
@@ -3289,7 +3337,7 @@ export const components: any[] = [
                     label:
                       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                     style: 'style-v4',
-                    classes: 'mat-display-1 bold',
+                    classes: 'mat-headline-1 bold',
                   },
                   bg: {
                     classes: '',
@@ -3349,7 +3397,7 @@ export const components: any[] = [
                   title: {
                     label: 'Storybook 是什么？',
                     style: 'style-v4',
-                    classes: 'mat-display-2',
+                    classes: 'mat-headline-2',
                   },
                   body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。',
                 },
@@ -3447,7 +3495,7 @@ export const components: any[] = [
                   title: {
                     label: '使用信使构建你们的项目',
                     style: 'style-v4',
-                    classes: 'mat-display-2',
+                    classes: 'mat-headline-2',
                   },
                   body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
                 },
@@ -3574,7 +3622,7 @@ export const components: any[] = [
                     label:
                       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                     style: 'style-v4',
-                    classes: 'mat-display-1 bold',
+                    classes: 'mat-headline-1 bold',
                   },
                   bg: {
                     classes: '',
@@ -3624,7 +3672,7 @@ export const components: any[] = [
                 label: '你将喜欢上 Drupal 的原因',
                 icon: 'email',
                 style: 'style-v2',
-                classes: 'mat-display-1',
+                classes: 'mat-headline-1',
               },
               classes: '',
               bg: {
@@ -3780,7 +3828,7 @@ export const components: any[] = [
                       title: {
                         label: '高性能',
                         style: 'style-v4',
-                        classes: 'mat-display-2 bold',
+                        classes: 'mat-headline-2 bold',
                       },
                       classes: 'y-center',
                       style: [],
@@ -3815,7 +3863,7 @@ export const components: any[] = [
                       title: {
                         label: '易用的编辑器',
                         style: 'style-v4',
-                        classes: 'mat-display-2 bold',
+                        classes: 'mat-headline-2 bold',
                       },
                       classes: 'y-center',
                       style: [],
@@ -3849,7 +3897,7 @@ export const components: any[] = [
                       title: {
                         label: '多语言',
                         style: 'style-v4',
-                        classes: 'mat-display-2 bold',
+                        classes: 'mat-headline-2 bold',
                       },
                       classes: 'y-center',
                       style: [],
@@ -3886,7 +3934,7 @@ export const components: any[] = [
                 label: '你将喜欢上 Drupal 的原因',
                 icon: 'email',
                 style: 'style-v2',
-                classes: 'mat-display-1',
+                classes: 'mat-headline-1',
               },
               classes: '',
               bg: {
@@ -4031,7 +4079,7 @@ export const components: any[] = [
                 label: 'Storybook 能够做什么？',
                 icon: 'email',
                 style: 'style-v2',
-                classes: 'mat-display-2',
+                classes: 'mat-headline-2',
               },
               bg: {
                 classes: '',
@@ -4068,7 +4116,7 @@ export const components: any[] = [
                       title: {
                         label: '组件驱动开发',
                         style: 'style-v1',
-                        classes: 'mat-display-4',
+                        classes: 'mat-headline-4',
                       },
                       spacer: 'xl',
                       classes: 'xy-center',
@@ -4104,7 +4152,7 @@ export const components: any[] = [
                       title: {
                         label: '组件展示和测试',
                         style: 'style-v4',
-                        classes: 'mat-display-4',
+                        classes: 'mat-headline-4',
                       },
                       spacer: 'xl',
                       style: {
@@ -4138,7 +4186,7 @@ export const components: any[] = [
                       title: {
                         label: '文档化',
                         style: 'style-v4',
-                        classes: 'mat-display-4',
+                        classes: 'mat-headline-4',
                       },
                       spacer: 'xl',
                       style: {
@@ -4173,7 +4221,7 @@ export const components: any[] = [
                       title: {
                         label: '插件和工具生态系统',
                         style: 'style-v4',
-                        classes: 'mat-display-4',
+                        classes: 'mat-headline-4',
                       },
                       spacer: 'xl',
                       style: {
@@ -4259,7 +4307,7 @@ export const components: any[] = [
                           title: {
                             label: '组件驱动开发',
                             style: 'style-v1',
-                            classes: 'mat-display-2 bold',
+                            classes: 'mat-headline-2 bold',
                           },
                           classes: 'xy-center',
                           bg: {
@@ -4286,7 +4334,7 @@ export const components: any[] = [
                           title: {
                             label: '组件展示和测试',
                             style: 'style-v1',
-                            classes: 'mat-display-2 bold',
+                            classes: 'mat-headline-2 bold',
                           },
                           spacer: 'xl',
                           classes: 'xy-center text-light',
@@ -4314,7 +4362,7 @@ export const components: any[] = [
                           title: {
                             label: '文档化',
                             style: 'style-v1',
-                            classes: 'mat-display-2 bold',
+                            classes: 'mat-headline-2 bold',
                           },
                           spacer: 'xl',
                           classes: 'xy-center text-light',
@@ -4354,7 +4402,7 @@ export const components: any[] = [
                         label:
                           '使用 <strong class="text-primary">Storybook</strong> 开发组件',
                         style: 'style-v1',
-                        classes: 'mat-display-2 bold',
+                        classes: 'mat-headline-2 bold',
                       },
                       body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
                     },
@@ -4700,7 +4748,7 @@ export const components: any[] = [
                       label:
                         '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                       style: 'style-v1',
-                      classes: 'mat-display-2 bold',
+                      classes: 'mat-headline-2 bold',
                     },
                     bg: {
                       classes: 'bg- bg-fill-width',
@@ -4891,7 +4939,7 @@ export const components: any[] = [
                   label: '选择Drupal的原因',
                   icon: '',
                   style: 'style-v1',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Drupal是数据管理中心，提供集中的地方来访问所有平台的数据</p><br>',
@@ -5035,7 +5083,7 @@ export const components: any[] = [
                   label: '客户评价',
                   icon: '',
                   style: 'style-v1',
-                  classes: 'mat-display-1',
+                  classes: 'mat-headline-1',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',

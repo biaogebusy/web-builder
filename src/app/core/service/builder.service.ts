@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type {
@@ -6,36 +6,51 @@ import type {
   IPage,
   IPageForJSONAPI,
 } from '@core/interface/IAppConfig';
-import { Observable } from 'rxjs';
+import { Observable, Subject, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { IPageMeta } from '@core/interface/IBuilder';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
+  http = inject(HttpClient);
+  util = inject(UtilitiesService);
+  builder = inject(BuilderState);
+  nodeService = inject(NodeService);
   constructor(
-    private http: HttpClient,
-    private util: UtilitiesService,
-    private builder: BuilderState,
-    private nodeService: NodeService,
     private dialog: MatDialog,
     @Inject(API_URL) public apiBaseUrl: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
   ) {
     super(apiBaseUrl);
   }
 
-  loadPage(id: string): void {
+  getApiLang(langcode?: string): string {
+    const { langs } = environment;
+    let lang = '';
+    if (langs && langcode && langs.length > 0) {
+      const defaultLang = langs.find((item) => item.default === true);
+      lang = defaultLang?.langCode === langcode ? '' : langcode;
+    }
+
+    return lang;
+  }
+
+  loadPage(page: { langcode?: string; id: string }): void {
+    const { langcode, id } = page;
+    const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${id}`, 'noCache=1')
+      .fetch(`/api/v3/landingPage/json/${id}`, 'noCache=1', '', lang)
       .subscribe((page: IPage) => {
         const { body, status } = page;
         this.builder.loading$.next(false);
@@ -62,19 +77,26 @@ export class BuilderService extends ApiService {
       .post(
         `${this.apiUrl}${create}`,
         this.formatPage(page),
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         tap((res: any) => {
           const {
             data: { id },
           } = res;
-          this.loadPage(id);
-        })
+          this.loadPage({ id });
+        }),
       );
   }
 
   updateLandingPage(page: IPage): Observable<any> {
+    const { langcode, id } = page;
+
+    let prefix = '';
+    const lang = this.getApiLang(langcode);
+    if (lang) {
+      prefix = `/${lang}`;
+    }
     const {
       builder: {
         api: { update },
@@ -84,18 +106,144 @@ export class BuilderService extends ApiService {
     this.builder.loading$.next(true);
     return this.http
       .patch(
-        `${this.apiUrl}${update}/${page.id}`,
+        `${this.apiUrl}${prefix}${update}/${id}`,
         this.coverExtraData(page),
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         tap((res: any) => {
-          const {
-            data: { id },
-          } = res;
-          this.loadPage(id);
-        })
+          const { status } = res;
+          if (status) {
+            if (langcode && id) {
+              this.loadPage({
+                langcode,
+                id,
+              });
+            }
+          } else {
+            this.util.openSnackbar('保存失败，请重试', 'ok');
+          }
+        }),
       );
+  }
+
+  addTranslation(page: IPage): Observable<any> {
+    const { id, target, langcode } = page;
+    const {
+      builder: {
+        api: { translate },
+      },
+    } = this.coreConfig;
+    const { csrf_token } = this.user;
+    return this.http.post(
+      `${this.apiUrl}${translate}/add/${id}/${langcode}/${target}`,
+      this.formatPage(page),
+      this.optionsWithCookieAndToken(csrf_token),
+    );
+  }
+
+  updateAttributes(
+    page: IPageMeta,
+    api: string,
+    type: string,
+    attr: any,
+  ): Observable<any> {
+    const { csrf_token, id } = this.user;
+    const { langcode, uuid } = page;
+    let prefix = '';
+    const lang = this.getApiLang(langcode);
+    if (lang) {
+      prefix = `/${lang}`;
+    }
+
+    return this.http
+      .patch(
+        `${prefix}${api}/${uuid}`,
+        {
+          data: {
+            type,
+            id: uuid,
+            attributes: {
+              ...attr,
+            },
+            relationships: {
+              uid: {
+                data: {
+                  type: 'user--user',
+                  id,
+                },
+              },
+            },
+          },
+        },
+        this.optionsWithCookieAndToken(csrf_token),
+      )
+      .pipe(
+        catchError((res: any) => {
+          console.log(res);
+          const {
+            error: { errors },
+          } = res;
+          this.util.openSnackbar(errors[0].detail, 'ok');
+          return throwError(errors[0]);
+        }),
+      );
+  }
+
+  updateUrlalias(page: IPageMeta, alias: string): Observable<any> {
+    const { csrf_token } = this.user;
+    const { langcode, uuid, id } = page;
+
+    let prefix = '';
+    const lang = this.getApiLang(langcode);
+    if (lang) {
+      prefix = `/${lang}`;
+    }
+    const data = {
+      type: 'path_alias--path_alias',
+      id: uuid,
+      attributes: {
+        alias: alias.replace(prefix, ''),
+        langcode,
+        path: `/node/${id}`,
+      },
+    };
+    const status$ = new Subject<any>();
+    this.http
+      .patch(
+        `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
+        {
+          data,
+        },
+        this.optionsWithCookieAndToken(csrf_token),
+      )
+      .pipe(
+        catchError((res: any) => {
+          const {
+            error: { errors },
+          } = res;
+          return of(errors[0].status);
+        }),
+      )
+      .subscribe((status) => {
+        if (status === '404') {
+          this.http
+            .post(
+              `${prefix}/api/v1/path_alias/path_alias`,
+              {
+                data,
+              },
+              this.optionsWithCookieAndToken(csrf_token),
+            )
+            .subscribe((res) => {
+              status$.next(res);
+            });
+        } else {
+          status$.next(status);
+        }
+      });
+
+    return status$;
   }
 
   formatPage(page: IPage): IPageForJSONAPI {
@@ -142,10 +290,8 @@ export class BuilderService extends ApiService {
 
   formatToExtraData(page: IPage): IPage {
     return {
+      ...page,
       title: this.getTitle(page.title),
-      status: page.status,
-      uuid: page.uuid,
-      id: page.id,
       body: this.initExtraBody(page.body),
     };
   }
@@ -200,16 +346,16 @@ export class BuilderService extends ApiService {
           type: 'text',
           title: {
             label:
-              '<p style="display: inline-block; margin-bottom: 0px;">欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面</p>',
+              '<p style="display: inline-block; margin-bottom: 0px;">免费试用 <strong class="text-primary">Web Builder</strong> 快速构建页面</p>',
             style: 'style-v1',
-            classes: 'mat-display-2 bold',
+            classes: 'mat-headline-3 bold',
           },
           bg: {
             classes: 'bg- bg-fill-width',
           },
           body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
           classes: 'text-center',
-          actionsAlign: 'center center',
+          actionsAlign: 'center',
           actions: [
             {
               type: 'btn-generater',

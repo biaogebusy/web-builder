@@ -39,7 +39,7 @@ export class BuilderSidebarComponent implements OnInit {
   onSelectAssets(): void {
     this.dialog.open(DialogComponent, {
       width: '85vw',
-      panelClass: 'close-outside',
+      panelClass: ['close-outside', 'close-icon-white'],
       data: {
         title: '媒体库',
         disableCloseButton: true,
@@ -59,6 +59,6 @@ export class BuilderSidebarComponent implements OnInit {
     } else {
       style = 'light';
     }
-    this.builder.builderThemeMode.next(style);
+    this.builder.themeMode.next(style);
   }
 }

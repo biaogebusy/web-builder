@@ -65,7 +65,21 @@
           </div>
         }
         @if (content?.length > 0) {
-          <app-pagination (pageChange)="onPageChange($event)"></app-pagination>
+          @if (pager) {
+            <div class="pager">
+              <mat-paginator
+                class="demo-paginator"
+                (page)="onPageChange($event)"
+                [length]="pager.totalItems"
+                [pageSize]="pager.itemsPerPage"
+                [showFirstLastButtons]="true"
+                [hidePageSize]="true"
+                [pageIndex]="pager.currentPage"
+                aria-label="Select page"
+              >
+              </mat-paginator>
+            </div>
+          }
         } @else {
           <div class="text-center py-10">
             <p>没有数据。</p>

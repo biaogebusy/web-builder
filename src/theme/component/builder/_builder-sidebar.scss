@@ -68,10 +68,25 @@
         border-bottom: 1px solid
           mat.get-color-from-palette($foreground, divider);
         color: mat.get-color-from-palette($foreground, text, 0.75);
+        .title {
+          border-bottom: 1px solid transparent;
+          &:focus-visible,
+          &[contentEditable="true"] {
+            outline: none;
+            border-bottom-color: mat.get-color-from-palette($primary);
+          }
+        }
         a {
           color: mat.get-color-from-palette($foreground, text, 0.75);
           &:hover {
             color: mat.get-color-from-palette($primary);
+          }
+        }
+
+        &.active {
+          background-color: mat.get-color-from-palette($primary, 0.1);
+          &:after {
+            background-color: mat.get-color-from-palette($primary);
           }
         }
       }

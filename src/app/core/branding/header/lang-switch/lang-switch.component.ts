@@ -39,7 +39,7 @@ export class LangSwitchComponent implements OnInit {
     const pathParts = urlPath.split('/');
     // check if the path is like /en/some/path
     const isLangPage = this.langs?.find((lang) =>
-      urlPath.startsWith(`/${lang.value}`),
+      urlPath.startsWith(`/${lang.langCode}`),
     );
 
     if (isLangPage) {

@@ -10,13 +10,29 @@
             ><input matSliderThumb [(ngModel)]="coreConfig.manageMedia.row" />
           </mat-slider>
           @if (coreConfig.manageMedia.sidebar.form) {
-            <app-formly
-              [classes]="'form-field-width-auto'"
-              [form]="form"
-              [fields]="coreConfig.manageMedia.sidebar.form"
-              [model]="model"
-            >
-            </app-formly>
+            <form [formGroup]="form">
+              <app-formly
+                [classes]="'form-field-width-auto'"
+                [form]="form"
+                [fields]="fields"
+                [model]="model"
+              >
+              </app-formly>
+            </form>
+          }
+
+          @if (!model.fromStatic) {
+            <div class="flex justify-center my-5">
+              <app-btn
+                (click)="onUpload()"
+                [content]="{
+                  label: '上传媒体',
+                  color: 'primary',
+                  mode: 'raised',
+                  icon: { svg: 'upload-outline' },
+                }"
+              ></app-btn>
+            </div>
           }
         </div>
       </mat-drawer>
@@ -60,7 +76,6 @@
                       <img
                         class="w-full h-full object-contain"
                         src="{{ item.src }}"
-                        alt=""
                       />
                     </div>
                   </div>

@@ -4,11 +4,9 @@
   #swiper
   [attr.data-path]="'elements'"
   [ngClass]="content.classes"
-  >
+>
   @for (slide of content.elements; track slide; let i = $index) {
-    <swiper-slide
-      class="swiper-slide"
-      >
+    <swiper-slide class="swiper-slide">
       <app-dynamic-component
         [attr.data-path]="i"
         [ngClass]="content.sliderClasses"

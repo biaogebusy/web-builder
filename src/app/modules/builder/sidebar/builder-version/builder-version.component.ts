@@ -4,12 +4,13 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -24,12 +25,11 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(
-    public builder: BuilderState,
-    private storage: LocalStorageService,
-    private cd: ChangeDetectorRef,
-    private dialog: MatDialog
-  ) {}
+  dialog = inject(MatDialog);
+  cd = inject(ChangeDetectorRef);
+  builder = inject(BuilderState);
+  storage = inject(LocalStorageService);
+  constructor() {}
 
   ngOnInit(): void {
     this.version = this.storage.retrieve('version');
@@ -45,21 +45,12 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
   onDelete(index: number): void {
     this.builder.version.splice(index, 1);
     this.builder.version[0].current = true;
-    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.closeRightDrawer$.next(true);
     this.builder.saveLocalVersions();
   }
 
   onDeleteAll(): void {
-    this.builder.version = [
-      {
-        title: '欢迎页',
-        body: [],
-        current: true,
-        time: new Date(),
-      },
-    ];
-    this.builder.closeBuilderRightDrawer$.next(true);
-    this.builder.saveLocalVersions();
+    this.builder.clearAllVersion();
   }
 
   onNewPage(): void {
@@ -81,7 +72,7 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
 
   onVersion(page: IPage, index: number): void {
     this.builder.showVersionPage(page, index);
-    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.closeRightDrawer$.next(true);
     this.builder.fixedShowcase = false;
     this.builder.showcase$.next(false);
   }
