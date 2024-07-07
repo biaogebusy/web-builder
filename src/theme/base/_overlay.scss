@@ -1,4 +1,9 @@
 .cdk-overlay-container {
+  .manage-media-dialog {
+    .mat-mdc-dialog-content {
+      max-height: none;
+    }
+  }
   .close-outside {
     .mat-mdc-dialog-container {
       overflow: visible;

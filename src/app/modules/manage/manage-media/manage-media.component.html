@@ -53,12 +53,12 @@
                     }}"
                     trackBy="trackByFn"
                   >
-                    <div class="actions">
+                    <div class="actions opacity-90">
                       <app-btn
                         *reqRolesIf="{
                           params: { reqRoles: ['administrator'] },
                         }"
-                        class="hidden sm:block"
+                        class="hidden sm:block icon-delete"
                         [matTooltip]="'删除'"
                         (click)="onDelete(item.uuid)"
                         [content]="{
@@ -67,15 +67,25 @@
                           icon: { svg: 'delete' },
                         }"
                       ></app-btn>
+                      <app-btn
+                        class="hidden sm:block icon-select"
+                        [matTooltip]="'选择'"
+                        (click)="onSelect(item)"
+                        [content]="{
+                          label: '',
+                          mode: 'icon',
+                          icon: { svg: 'check' },
+                        }"
+                      ></app-btn>
                     </div>
                     <div
                       class="box w-full h-full bg-gray-200 p-3 box-border"
-                      (click)="onSelect(item)"
+                      (click)="onPreview(item)"
                       [ngClass]="{ selected: isSelected(item) }"
                     >
                       <img
                         class="w-full h-full object-contain"
-                        src="{{ item.src }}"
+                        src="{{ item.thumb || item.src }}"
                       />
                     </div>
                   </div>

@@ -16,6 +16,7 @@ import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type {
   IManageAssets,
+  IManageImg,
   IManageMedia,
 } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
@@ -28,6 +29,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-manage-media',
@@ -63,7 +65,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
       type: 'toggle',
       key: 'fromStatic',
       className: 'static-item',
-      defaultValue: false,
+      defaultValue: environment.production ? false : true,
       props: {
         label: '切换资源库',
       },
@@ -136,7 +138,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
     }
   }
 
-  isSelected(item: any): boolean {
+  isSelected(item: IManageImg): boolean {
     if (item.id) {
       return item.id === this.selectedId;
     } else {
@@ -144,17 +146,32 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSelect(item: any): void {
+  onSelect(item: IManageImg): void {
     this.selectedId = item.id;
     this.builder.selectedMedia$.next({
       img: {
-        src: item.src,
-        alt: item.name,
-        fileName: item.name,
+        src: item.source || item.src || '',
+        alt: item.title,
+        fileName: item.title,
         tag: 'img',
       },
       value: this.content,
       time: this.content.time,
+    });
+  }
+
+  onPreview(item: IManageImg): void {
+    this.dialog.open(DialogComponent, {
+      panelClass: ['close-outside', 'dialog-p-0', 'close-icon-white'],
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'img',
+            src: item.source || item.src,
+          },
+        },
+      },
     });
   }
 

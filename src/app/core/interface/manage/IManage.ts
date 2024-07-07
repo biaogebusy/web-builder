@@ -1,8 +1,17 @@
 import { IPager } from '../widgets/IWidgets';
 
 export interface IManageAssets {
-  rows: any[];
+  rows: IManageImg[];
   pager: IPager;
+}
+
+export interface IManageImg {
+  title: string;
+  thumb?: string;
+  source?: string;
+  id: string;
+  uuid: string;
+  src: string;
 }
 
 export interface IManageMedia {

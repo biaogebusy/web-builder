@@ -102,6 +102,7 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   openMedias(): void {
     this.dialog.open(DialogComponent, {
       width: '100%',
+      panelClass: ['close-outside', 'close-icon-white', 'manage-media-dialog'],
       data: {
         title: '媒体库',
         disableCloseButton: true,
