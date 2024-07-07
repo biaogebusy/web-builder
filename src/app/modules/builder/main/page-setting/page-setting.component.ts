@@ -71,6 +71,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
                   field.formControl.valueChanges
                     .pipe(takeUntil(this.destroy$))
                     .subscribe((value) => {
+                      this.loading = true;
                       this.builderService
                         .updateAttributes(
                           content,
@@ -81,6 +82,8 @@ export class PageSettingComponent implements OnInit, OnDestroy {
                           },
                         )
                         .subscribe((res) => {
+                          this.loading = false;
+                          this.cd.detectChanges();
                           this.util.openSnackbar(`更新标题${value}成功`, 'ok');
                         });
                     });
@@ -108,10 +111,13 @@ export class PageSettingComponent implements OnInit, OnDestroy {
                   field.formControl.valueChanges
                     .pipe(takeUntil(this.destroy$))
                     .subscribe((value) => {
+                      this.loading = true;
                       this.builderService
                         .updateUrlalias(content, value)
                         .pipe(takeUntil(this.destroy$))
                         .subscribe(() => {
+                          this.loading = false;
+                          this.cd.detectChanges();
                           this.util.openSnackbar(
                             `${content.title}已更新别名${value}`,
                           );
