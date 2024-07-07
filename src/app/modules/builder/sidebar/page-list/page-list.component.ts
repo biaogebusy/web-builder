@@ -86,7 +86,6 @@ export class PageListComponent
   }
 
   onModelChange(value: any): void {
-    this.loading = true;
     this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
     const formValue = merge(value, this.form.getRawValue());
     const params = this.getApiParams({ ...formValue, noCache: 1 });
@@ -133,6 +132,7 @@ export class PageListComponent
   }
 
   fetchPage(params: string): void {
+    this.loading = true;
     this.content$ = this.nodeService
       .fetch('/api/v2/node/landing-page', params)
       .pipe(
