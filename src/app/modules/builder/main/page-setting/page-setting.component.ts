@@ -8,8 +8,8 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
-import { IPageMeta } from '@core/interface/IBuilder';
+import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -18,8 +18,8 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Subject, of } from 'rxjs';
-import { catchError, map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-page-setting',
@@ -32,6 +32,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[];
+  loading: boolean;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   cd = inject(ChangeDetectorRef);
@@ -40,11 +41,13 @@ export class PageSettingComponent implements OnInit, OnDestroy {
   screenService = inject(ScreenService);
   nodeService = inject(NodeService);
   util = inject(UtilitiesService);
+  dialog = inject(MatDialog);
 
   constructor(@Inject(USER) private user: IUser) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.loading = true;
       const { content } = this.content;
       if (content) {
         this.fields = [
@@ -58,6 +61,9 @@ export class PageSettingComponent implements OnInit, OnDestroy {
             },
             modelOptions: {
               updateOn: 'blur',
+            },
+            expressions: {
+              'props.disabled': 'formState.disabled',
             },
             hooks: {
               onInit: (field: FormlyFieldConfig) => {
@@ -92,6 +98,9 @@ export class PageSettingComponent implements OnInit, OnDestroy {
             },
             modelOptions: {
               updateOn: 'blur',
+            },
+            expressions: {
+              'props.disabled': 'formState.disabled',
             },
             hooks: {
               onInit: (field: FormlyFieldConfig) => {
@@ -149,11 +158,13 @@ export class PageSettingComponent implements OnInit, OnDestroy {
             },
           },
         ];
+        this.loading = false;
         this.cd.detectChanges();
       }
     }
   }
   deletePage(): void {
+    this.loading = true;
     const { uuid, title } = this.content.content;
     const api = `/api/v1/node/landing_page`;
     this.builder.loading$.next(true);
@@ -165,6 +176,9 @@ export class PageSettingComponent implements OnInit, OnDestroy {
         this.builder.loading$.next(false);
         this.builder.updateSuccess$.next(true);
         this.builder.closeRightDrawer$.next(true);
+        this.loading = false;
+        this.dialog.closeAll();
+        this.cd.detectChanges();
       });
   }
 

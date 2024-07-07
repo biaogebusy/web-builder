@@ -41,7 +41,9 @@ export class PageListComponent
   form = new FormGroup({
     page: new FormControl(0),
   });
-  model: any = {};
+  model: any = {
+    noCache: true,
+  };
   loading = false;
   pager: IPager;
   currentEditeTitle: string;
