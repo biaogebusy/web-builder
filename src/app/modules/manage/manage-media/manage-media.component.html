@@ -82,24 +82,33 @@
                 }
               </div>
             } @else {
-              <div>无数据</div>
+              <div
+                class="text-center flex flex-col items-center gap-3 opacity-75"
+              >
+                <app-icon
+                  class="w-20 h-20"
+                  [content]="{ svg: 'magnify', inline: true }"
+                ></app-icon>
+                @if (model.name) {
+                  关键词{{ model.name }}
+                }
+                无数据
+              </div>
             }
           }
           @if (mediaAssets$ | async; as assets) {
             <div class="page m-y">
-              @if (assets.pager) {
-                <div class="pager">
-                  <mat-paginator
-                    (page)="onPageChange($event)"
-                    [length]="assets.pager.totalItems"
-                    [pageSize]="assets.pager.itemsPerPage"
-                    [showFirstLastButtons]="true"
-                    [hidePageSize]="true"
-                    [pageIndex]="assets.pager.currentPage"
-                    aria-label="Select page"
-                  >
-                  </mat-paginator>
-                </div>
+              @if (assets.pager && assets.rows.length) {
+                <mat-paginator
+                  (page)="onPageChange($event)"
+                  [length]="assets.pager.totalItems"
+                  [pageSize]="assets.pager.itemsPerPage"
+                  [showFirstLastButtons]="true"
+                  [hidePageSize]="true"
+                  [pageIndex]="assets.pager.currentPage"
+                  aria-label="Select page"
+                >
+                </mat-paginator>
               }
             </div>
           }

@@ -9,7 +9,7 @@ import {
   inject,
   ViewChild,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, Subject } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
@@ -37,19 +37,23 @@ import { UtilitiesService } from '@core/service/utilities.service';
 })
 export class ManageMediaComponent implements OnInit, OnDestroy {
   @Input() content: IManageMedia;
-  form = new UntypedFormGroup({});
+  form = new UntypedFormGroup({
+    page: new FormControl(0),
+  });
   fields: FormlyFieldConfig[];
-  model: any = {};
+  model: any = {
+    noCache: true,
+  };
   loading = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   selectedId: string;
+  dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
   builder = inject(BuilderState);
+  util = inject(UtilitiesService);
   contentState = inject(ContentState);
   screenService = inject(ScreenService);
   manageService = inject(ManageService);
-  dialog = inject(MatDialog);
-  util = inject(UtilitiesService);
 
   @ViewChild('uploadDrawer', { static: false })
   uploadDrawer: MatDrawer;
@@ -85,6 +89,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.loading = true;
       this.fields = [
         ...this.defaultField,
         ...this.coreConfig.manageMedia.sidebar.form,
@@ -98,15 +103,22 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
         .subscribe((value) => {
           this.onSearch(value);
         });
+
+      this.mediaAssets$.subscribe(() => {
+        this.loading = false;
+        this.cd.detectChanges();
+      });
     }
   }
 
   onPageChange(page: PageEvent): void {
     this.screenService.gotoTop();
-    this.contentState.pageChange$.next(page.pageIndex);
+    this.loading = true;
+    this.form.get('page')?.patchValue(page.pageIndex);
   }
 
   onSearch(value: any): void {
+    this.loading = true;
     this.contentState.mediaAssetsFormChange$.next(value);
   }
 
