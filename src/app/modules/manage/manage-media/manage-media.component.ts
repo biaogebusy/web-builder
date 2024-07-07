@@ -163,6 +163,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
   onPreview(item: IManageImg): void {
     this.dialog.open(DialogComponent, {
       panelClass: ['close-outside', 'dialog-p-0', 'close-icon-white'],
+      backdropClass: ['bg-neutral-800', '!opacity-80'],
       data: {
         disableCloseButton: true,
         inputData: {
