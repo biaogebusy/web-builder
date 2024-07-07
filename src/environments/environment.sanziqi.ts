@@ -5,5 +5,4 @@ export const environment: IEnvironment = {
   production: true,
   port: 4207,
   cache: true,
-  ssr: true,
 };

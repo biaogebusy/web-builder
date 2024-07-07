@@ -30,10 +30,6 @@ export function app(): express.Express {
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
-    if (!environment.ssr) {
-      res.sendFile(join(browserDistFolder, 'index.html'));
-      return;
-    }
     commonEngine
       .render({
         bootstrap: AppServerModule,

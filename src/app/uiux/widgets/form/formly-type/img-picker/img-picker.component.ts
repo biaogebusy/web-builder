@@ -41,6 +41,7 @@ export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
     this.time = new Date();
     this.dialog.open(DialogComponent, {
       width: '85vw',
+      id: 'img-picker',
       data: {
         title: '媒体库',
         disableCloseButton: true,

@@ -22,7 +22,6 @@ export const environment: IEnvironment = {
   production: false,
   port: 4200,
   cache: false,
-  ssr: false,
   drupalProxy: false,
 };
 ```
@@ -31,7 +30,6 @@ export const environment: IEnvironment = {
 - production: 为 false 时，页面的内容 api 将调用本地 json 文件，true 时将会调用`${this.apiUrl}/api/v1/landingPage?content=${this.pageUrl}`接口；
 - port: 自定义应用端口；
 - cache: 是否开启 api 请求缓存；
-- ssr: 是否使用 SSR 服务端渲染方式；
 - drupalProxy: 对应后端为 drupal，统一使用 Drupal 来登录登出；
 
 ## 配置代理
@@ -64,14 +62,13 @@ export const environment: IEnvironment = {
   site: 'dist',
   port: 4200,
   cache: true,
-  ssr: false,
   drupalProxy: false,
 };
 
 ```
 
 然后打包，发布到正式环境：
-`npm run build:ssr`
+`npm run build`
 
 ## 运行 Storybook
 

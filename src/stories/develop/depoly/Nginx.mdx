@@ -12,7 +12,6 @@ export const environment: IEnvironment = {
   production: true,
   port: 4200,
   cache: true,
-  ssr: false,
   drupalProxy: false,
 };
 ```
@@ -23,15 +22,18 @@ export const environment: IEnvironment = {
 在 server.ts 文件中：
 
 ```js
-server.get("*", (req, res) => {
-  if (!environment.ssr) {
-    res.sendFile(join(distFolder, "index.html"));
-    return;
-  }
-  res.render(indexHtml, {
-    req,
-    providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }],
-  });
+server.get("*", (req, res, next) => {
+  const { protocol, originalUrl, baseUrl, headers } = req;
+  commonEngine
+    .render({
+      bootstrap: AppServerModule,
+      documentFilePath: indexHtml,
+      url: `${protocol}://${headers.host}${originalUrl}`,
+      publicPath: browserDistFolder,
+      providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+    })
+    .then((html) => res.send(html))
+    .catch((err) => next(err));
 });
 ```
 
@@ -125,7 +127,6 @@ export const environment: IEnvironment = {
   production: true,
   port: 4200,
   cache: true,
-  ssr: false,
   drupalProxy: true,
 };
 ```

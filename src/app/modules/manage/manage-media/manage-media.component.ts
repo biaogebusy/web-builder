@@ -119,6 +119,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
 
   onSearch(value: any): void {
     this.loading = true;
+    this.cd.detectChanges();
     this.contentState.mediaAssetsFormChange$.next(value);
   }
 
@@ -160,6 +161,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
   onUpload(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '800px',
+      id: 'upload-dialog',
       panelClass: ['close-outside', 'close-icon-white'],
       data: {
         disableCloseButton: true,
@@ -175,7 +177,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.contentState.pageChange$.next(1);
+        this.onSearch(this.form.value);
       });
   }
 
