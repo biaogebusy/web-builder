@@ -59,7 +59,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
       type: 'toggle',
       key: 'fromStatic',
       className: 'static-item',
-      defaultValue: true,
+      defaultValue: false,
       props: {
         label: '切换资源库',
       },
