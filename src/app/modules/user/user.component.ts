@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Inject,
+  inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '@core/service/user.service';
@@ -23,13 +24,14 @@ import { environment } from 'src/environments/environment';
 export class UserComponent implements OnInit {
   currentUser: any;
   id: any;
+
+  route = inject(Router);
+  cd = inject(ChangeDetectorRef);
+  userService = inject(UserService);
+  screenService = inject(ScreenService);
   constructor(
-    private cd: ChangeDetectorRef,
-    private route: Router,
-    private screenService: ScreenService,
-    private userService: UserService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
   ) {}
 
   ngOnInit(): void {
@@ -73,7 +75,6 @@ export class UserComponent implements OnInit {
                 icon: {
                   color: 'warn',
                   svg: 'arrow_right',
-                  inline: true,
                 },
                 label: '邮箱',
                 content: info.mail || '没有填写',
@@ -82,7 +83,6 @@ export class UserComponent implements OnInit {
                 icon: {
                   color: 'warn',
                   svg: 'arrow_right',
-                  inline: true,
                 },
                 label: '手机',
                 content: info.phone_number || '没有填写',
@@ -91,7 +91,6 @@ export class UserComponent implements OnInit {
                 icon: {
                   color: 'warn',
                   svg: 'arrow_right',
-                  inline: true,
                 },
                 label: '角色',
                 content: this.getRoles(info.roles),
@@ -109,10 +108,7 @@ export class UserComponent implements OnInit {
       classes: 'bg-fill-width overlay overlay-80',
       img: {
         hostClasses: 'bg-center',
-        src:
-          this.coreConfig?.user?.banner ||
-          '/assets/images/16-9/business-14.jpeg',
-        alt: 'page title',
+        src: this.coreConfig?.user?.banner,
       },
     };
   }
