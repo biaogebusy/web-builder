@@ -107,7 +107,7 @@
             }
           }
           @if (mediaAssets$ | async; as assets) {
-            <div class="page m-y">
+            <div class="page">
               @if (assets.pager && assets.rows.length) {
                 <mat-paginator
                   (page)="onPageChange($event)"
