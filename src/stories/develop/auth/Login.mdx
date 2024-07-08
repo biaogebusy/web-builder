@@ -2,6 +2,24 @@ import { Meta } from "@storybook/blocks";
 
 <Meta title="开发/用户认证/登录退出" id="login-out" />
 
+## 前提条件
+
+在Drupal作为CMS后端的情况下，默认依赖`Require Login`模块，该模块可以方便对路径是否需要用户认证的配置，有些接口需要配置不需要认证，才能返回正确的响应数据，进入页面`/admin/config/people/login-requirements`，在请求路径中，填写：
+
+```text
+/api/v1/*
+/api/v3/*
+/api/v2/*
+/webform_rest/submit
+/user/login_status
+/user/signin
+/user/login
+/api/v1/config
+/wechat
+```
+
+勾选条件取反，以上接口路径不需要用户认证。
+
 ## 用户登录
 
 在 Drupal 中，当用户登录时，服务器会返回一个 logout_token。这个 logout_token 用于确保在用户退出登录时，只有经过身份验证的用户才能执行注销操作，从而增强安全性。在前端应用中，注销请求确实需要包含这个 logout_token。
@@ -56,7 +74,7 @@ function logout() {
         "X-CSRF-Token": csrfToken, // 包括 CSRF 令牌
       },
       credentials: "include", // 确保会话 cookie 被发送
-    }
+    },
   )
     .then((response) => {
       if (response.ok) {
