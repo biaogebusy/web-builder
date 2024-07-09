@@ -32,7 +32,7 @@ TitleV1.storyName = 'Style V1';
 const v1: ITitle = {
   type: 'title',
   label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
-  classes: 'mat-headline-1 bold',
+  classes: 'mat-headline-3 bold',
   style: 'style-v4',
 };
 TitleV1.args = {
@@ -44,7 +44,7 @@ TitleV2.storyName = 'Style V2';
 const v2: ITitle = {
   type: 'title',
   label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
-  classes: 'mat-headline-1 bold',
+  classes: 'mat-headline-3 bold',
   style: 'style-v2',
   icon: 'mail',
 };
@@ -57,7 +57,7 @@ TitleV3.storyName = 'Style V3';
 const v3: ITitle = {
   type: 'title',
   label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
-  classes: 'mat-headline-1 bold',
+  classes: 'mat-headline-3 bold',
   style: 'style-v3',
 };
 TitleV3.args = {
@@ -69,7 +69,7 @@ TitleV4.storyName = 'Style V4';
 const v4: ITitle = {
   type: 'title',
   label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
-  classes: 'mat-headline-1 bold',
+  classes: 'mat-headline-3 bold',
   style: 'style-v4',
 };
 TitleV4.args = {
@@ -81,7 +81,7 @@ TitleV5.storyName = 'Style V5';
 const v5: ITitle = {
   type: 'title',
   label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
-  classes: 'mat-headline-1 bold',
+  classes: 'mat-headline-3 bold',
   style: 'style-v5',
 };
 TitleV5.args = {
@@ -93,7 +93,7 @@ TitleType.storyName = '打字效果';
 const type: ITitle = {
   label: '欢迎使用 <strong class="text-primary"></strong> <br>快速构建页面',
   style: 'style-v4',
-  classes: 'mat-headline-2 bold',
+  classes: 'mat-headline-3 bold',
   typed: {
     enable: true,
     strings: [{ label: '信使 UI' }, { label: 'Web builder' }],

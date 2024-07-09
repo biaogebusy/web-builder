@@ -43,7 +43,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
   util = inject(UtilitiesService);
   dialog = inject(MatDialog);
 
-  constructor(@Inject(USER) private user: IUser) {}
+  constructor(@Inject(USER) public user: IUser) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

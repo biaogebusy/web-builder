@@ -48,6 +48,7 @@ export const widgets = [
     icon: {
       svg: 'code-json',
     },
+    preview: '/assets/images/builder/widgets/tailwind-v1.png',
     content: {
       type: 'custom-template',
       json: {
@@ -65,11 +66,37 @@ export const widgets = [
     icon: {
       svg: 'api',
     },
+    preview: '/assets/images/builder/widgets/tailwind-v2.png',
     content: {
       type: 'custom-template',
       isAPI: true,
       api: '/api/v1/content',
-      html: '<div class="flex flex-wrap">\n    {{#each rows}}\n    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">\n        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">\n            <a href="{{url}}"><img class="object-cover w-full" height="200px" src="{{img}}" /></a>\n            <div class="p-5">\n                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>\n                <div class="three-line opacity-90">{{body}}</div>\n                <div class="footer flex items-center mt-5">\n                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />\n                    <div class="flex flex-col">\n                        <div class="font-bold">{{user}}</div>\n                        <div class="small">{{created}}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    {{/each}}\n</div>',
+      html: `<div class="flex flex-wrap">
+    {{#rows }}
+    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">
+        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">
+            <a href="{{url}}">
+                {{#img}}
+                <img class="object-cover w-full" height="200px" src="{{img}}" /></a>
+                {{/img}}
+                {{^img}}
+                <img class="object-cover w-full" height="200px" src="/assets/images/hero/182.jpg" /></a>
+                {{/img}}
+            <div class="p-5">
+                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>
+                <div class="three-line opacity-90">{{body}}</div>
+                <div class="footer flex items-center mt-5">
+                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />
+                    <div class="flex flex-col">
+                        <div class="font-bold">{{user}}</div>
+                        <div class="small">{{created}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/rows}}
+</div>`,
     },
   },
   {
@@ -82,7 +109,7 @@ export const widgets = [
       label:
         '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
       style: 'style-v4',
-      classes: 'mat-headline-1 bold',
+      classes: 'mat-headline-3 bold',
     },
   },
   {
