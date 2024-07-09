@@ -13,6 +13,11 @@ import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 export class ManageService extends ApiService {
   http = inject(HttpClient);
   util = inject(UtilitiesService);
+  mediaDialogClass = [
+    'close-outside',
+    'close-icon-white',
+    'manage-media-dialog',
+  ];
   constructor(
     @Inject(API_URL) public apiBaseUrl: string,
     @Inject(USER) private user: IUser,

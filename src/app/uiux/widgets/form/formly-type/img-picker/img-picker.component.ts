@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ManageService } from '@core/service/manage.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { FieldType } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -14,10 +15,10 @@ import { takeUntil } from 'rxjs/operators';
 export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   time: Date;
-  constructor(
-    private dialog: MatDialog,
-    private builder: BuilderState,
-  ) {
+  dialog = inject(MatDialog);
+  builder = inject(BuilderState);
+  manageService = inject(ManageService);
+  constructor() {
     super();
   }
 
@@ -41,10 +42,9 @@ export class ImgPickerComponent extends FieldType implements OnInit, OnDestroy {
     this.time = new Date();
     this.dialog.open(DialogComponent, {
       width: '85vw',
-      panelClass: ['close-outside', 'close-icon-white', 'manage-media-dialog'],
+      panelClass: this.manageService.mediaDialogClass,
       id: 'img-picker',
       data: {
-        title: '媒体库',
         disableCloseButton: true,
         inputData: {
           content: {

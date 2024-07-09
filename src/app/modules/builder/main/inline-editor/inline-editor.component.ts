@@ -7,12 +7,14 @@ import {
   Input,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { IMetaEdit } from '@core/interface/IBuilder';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ManageService } from '@core/service/manage.service';
 
 @Component({
   selector: 'app-inline-editor',
@@ -31,11 +33,11 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   guiHTML: any;
   editor: any;
 
-  constructor(
-    private dialog: MatDialog,
-    private builder: BuilderState,
-    private cd: ChangeDetectorRef,
-  ) {}
+  dialog = inject(MatDialog);
+  builder = inject(BuilderState);
+  cd = inject(ChangeDetectorRef);
+  manageService = inject(ManageService);
+  constructor() {}
 
   ngOnInit(): void {}
 
@@ -102,9 +104,8 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   openMedias(): void {
     this.dialog.open(DialogComponent, {
       width: '100%',
-      panelClass: ['close-outside', 'close-icon-white', 'manage-media-dialog'],
+      panelClass: this.manageService.mediaDialogClass,
       data: {
-        title: '媒体库',
         disableCloseButton: true,
         inputData: {
           content: {
