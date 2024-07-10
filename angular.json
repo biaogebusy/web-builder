@@ -185,7 +185,6 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "proxyConfig": "config/proxy.config.js",
-            "disableHostCheck": true,
             "buildTarget": "xinshi:build"
           },
           "configurations": {
