@@ -103,15 +103,6 @@
                 .mat-mdc-button {
                   padding-left: 30px;
                   margin: 4px 0;
-                  /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
-                  .mat-button-wrapper {
-                    position: relative;
-                    z-index: 2;
-                  }
-                  /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
-                  .mat-button-focus-overlay {
-                    display: none;
-                  }
                   &:hover {
                     &::before {
                       content: "";
@@ -156,8 +147,7 @@
         &.no-child {
           > .mat-mdc-list-item {
             overflow: hidden;
-            /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
-            .mat-list-item-content {
+            .mdc-list-item__content {
               margin-left: 0;
             }
           }
@@ -239,8 +229,7 @@
       .mat-mdc-list-item {
         height: 56px;
       }
-      /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
-      .mat-list-item-content {
+      .mdc-list-item__content {
         padding-top: 4px;
         padding-bottom: 4px;
         margin-left: 17px;
@@ -256,6 +245,7 @@
   width: 80px;
   visibility: visible !important;
   transform: none !important;
+  display: block;
 
   &.mat-drawer-opened {
     width: 200px;
