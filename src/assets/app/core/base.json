@@ -435,7 +435,9 @@
           "classes": "bg-fill-width",
           "img": {
             "classes": "object-fit",
-            "src": "/assets/images/bg/bg-01.png"
+            "src": "/assets/images/bg/bg-01.png",
+            "width": 490,
+            "height": 500
           }
         },
         "spacer": "lg",

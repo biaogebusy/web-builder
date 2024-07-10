@@ -3,10 +3,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
   Input,
   OnInit,
-  ViewChild,
   inject,
 } from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
@@ -115,13 +113,6 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
       },
     });
   }
-
-  contentChanged(event: any): void {
-    this.builder.updatePageContentByPath(this.content.path, event.html);
-    this.content.ele.innerHTML = event.html;
-    this.cd.detectChanges();
-  }
-
   onModelChange(value: any): void {
     const path = this.content.path;
     const { style, src } = value;
@@ -139,6 +130,12 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
           style[key] = maxHeight;
           this.setStyle('maxHeight', maxHeight, value);
           break;
+        case 'width':
+          this.content.ele.setAttribute('width', parseInt(style[key]));
+          break;
+        case 'height':
+          this.content.ele.setAttribute('height', parseInt(style[key]));
+          break;
         default:
           this.setStyle(key, style[key], value);
           break;
@@ -148,6 +145,16 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
       const imgPath = path.substring(0, path.lastIndexOf('.'));
       this.builder.updatePageContentByPath(`${imgPath}.style`, style);
       this.builder.updatePageContentByPath(`${imgPath}.src`, src);
+      this.builder.updatePageContentByPath(
+        `${imgPath}.width`,
+        parseInt(style.width),
+      );
+      delete style.width;
+      this.builder.updatePageContentByPath(
+        `${imgPath}.height`,
+        parseInt(style.height),
+      );
+      delete style.height;
     }
 
     if (this.content.mode === 'text') {
