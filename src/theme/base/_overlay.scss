@@ -4,6 +4,14 @@
       max-height: none;
     }
   }
+  .media-preview-dialog {
+    img {
+      width: revert;
+      height: revert;
+      min-width: 200px;
+      min-height: 200px;
+    }
+  }
   .close-outside {
     .mat-mdc-dialog-container {
       overflow: visible;

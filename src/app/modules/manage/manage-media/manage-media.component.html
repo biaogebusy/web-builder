@@ -85,7 +85,10 @@
                     >
                       <img
                         class="w-full h-full object-contain"
-                        src="{{ item.thumb || item.src }}"
+                        ngSrc="{{ item.thumb || item.src }}"
+                        priority
+                        width="480"
+                        height="360"
                       />
                     </div>
                   </div>

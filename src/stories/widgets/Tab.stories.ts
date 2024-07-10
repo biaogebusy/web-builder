@@ -213,8 +213,17 @@ const pills: ITab = {
           left: [
             {
               type: 'img',
-              src: '/assets/images/illustration/25.png',
+              src: 'http://localhost:4200/assets/images/illustration/25.png',
               alt: '',
+              style: {
+                opacity: '',
+                borderRadius: '',
+                boxShadow: '',
+                aspectRatio: '',
+                objectFit: 'contain',
+              },
+              width: 800,
+              height: 600,
             },
           ],
           right: [
@@ -315,7 +324,15 @@ const pills: ITab = {
             {
               type: 'img',
               src: '/assets/images/illustration/25.png',
-              alt: '',
+              style: {
+                opacity: '',
+                borderRadius: '',
+                boxShadow: '',
+                aspectRatio: '',
+                objectFit: 'contain',
+              },
+              width: 800,
+              height: 600,
             },
           ],
           right: [
@@ -416,7 +433,15 @@ const pills: ITab = {
             {
               type: 'img',
               src: '/assets/images/illustration/29.png',
-              alt: '',
+              style: {
+                opacity: '',
+                borderRadius: '',
+                boxShadow: '',
+                aspectRatio: '',
+                objectFit: 'contain',
+              },
+              width: 800,
+              height: 600,
             },
           ],
           right: [

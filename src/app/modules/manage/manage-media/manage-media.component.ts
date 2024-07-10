@@ -162,7 +162,12 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
 
   onPreview(item: IManageImg): void {
     this.dialog.open(DialogComponent, {
-      panelClass: ['close-outside', 'dialog-p-0', 'close-icon-white'],
+      panelClass: [
+        'close-outside',
+        'dialog-p-0',
+        'close-icon-white',
+        'media-preview-dialog',
+      ],
       backdropClass: ['bg-neutral-800', '!opacity-80'],
       data: {
         disableCloseButton: true,
@@ -170,6 +175,9 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
           content: {
             type: 'img',
             src: item.source || item.src,
+            width: 800,
+            height: 600,
+            classes: 'object-contain',
           },
         },
       },

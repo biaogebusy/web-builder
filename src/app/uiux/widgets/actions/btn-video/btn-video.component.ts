@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IBtnVideo } from '@core/interface/widgets/IBtn';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -11,7 +11,9 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 export class BtnVideoComponent implements OnInit {
   @Input() content: IBtnVideo;
   dialogRef: any;
-  constructor(private dialog: MatDialog) {}
+  dialog = inject(MatDialog);
+
+  constructor() {}
 
   ngOnInit(): void {}
 
