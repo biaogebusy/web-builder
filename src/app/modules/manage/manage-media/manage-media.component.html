@@ -69,18 +69,19 @@
                       ></app-btn>
                       <app-btn
                         class="hidden sm:block icon-select"
-                        [matTooltip]="'选择'"
-                        (click)="onSelect(item)"
+                        [matTooltip]="'大图'"
+                        (click)="onPreview(item)"
                         [content]="{
                           label: '',
                           mode: 'icon',
-                          icon: { svg: 'check' },
+                          icon: { svg: 'magnify-scan' },
                         }"
                       ></app-btn>
                     </div>
                     <div
                       class="box w-full h-full bg-gray-200 p-1 box-border"
-                      (click)="onPreview(item)"
+                      [matTooltip]="'选择'"
+                      (click)="onSelect(item)"
                       [ngClass]="{ selected: isSelected(item) }"
                     >
                       <img

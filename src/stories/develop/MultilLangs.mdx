@@ -1,0 +1,46 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="开发/开启多语言" id="multil-langs" />
+
+## 网站开启多语言
+
+### 前台应用配置多语言
+
+在`environment`中，开启多语言，当用户访问页面的时候：
+如：`/en/home`
+
+- 应用程序会根据配置文件判断是否开启多语言
+- 开启多语言则根据Url判断当前语言为英文
+- 请求当前语言的页面数据和base配置
+
+```ts
+{
+  multiLang: true,
+  langs: [
+    {
+      label: '中文',
+      langCode: 'zh-hans',
+      prefix: '/',
+      default: true,
+    },
+    {
+      label: 'EN',
+      langCode: 'en',
+      prefix: '/en',
+    },
+  ],
+}
+```
+
+### Drupal 开启多语言
+
+查看官网[指南](https://www.drupal.org/docs/administering-a-drupal-site/multilingual-guide)
+
+### 添加应用需要的多语言数据
+
+1. 为 `branding`即header,footer添加对应的多语言；
+2. 为`base`即全局配置添加对应的多语言；
+
+### 着陆页多语言
+
+在builder中进入管理列表，选择对应的着陆页点击下拉菜单，选择【编辑语言】即可添加对应的语言版本；
