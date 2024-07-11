@@ -27,7 +27,6 @@ export class HeaderTopComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.mqAlias$().subscribe((mq) => {
-        console.log(mq);
         if (mq.includes('md') || mq.includes('lg')) {
           this.ele.nativeElement.classList.remove('hidden');
           this.ele.nativeElement.classList.add('block');

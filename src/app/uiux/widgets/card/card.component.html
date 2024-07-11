@@ -12,27 +12,27 @@
         ></app-card-meta>
       </mat-card-content>
     }
-    @if (content?.header) {
+    @if (content.header) {
       <mat-card-header class="m-bottom-xs">
-        @if (content.header?.avatar) {
+        @if (content.header.avatar) {
           <div mat-card-avatar>
             <app-img
               [attr.data-path]="'header.avatar'"
-              [content]="content.header?.avatar || { src: '' }"
+              [content]="content.header.avatar || { src: '' }"
             ></app-img>
           </div>
         }
-        @if (content.header?.title) {
+        @if (content.header.title) {
           <mat-card-title
             contentedit="header.title"
             contentedit="title"
-            [innerHTML]="content.header?.title || '' | safeHtml"
+            [innerHTML]="content.header.title || '' | safeHtml"
           ></mat-card-title>
         }
-        @if (content.header?.subTitle) {
+        @if (content.header.subTitle) {
           <mat-card-subtitle
             contentedit="header.subTitle"
-            [innerHTML]="content.header?.subTitle || '' | safeHtml"
+            [innerHTML]="content.header.subTitle || '' | safeHtml"
           >
           </mat-card-subtitle>
         }
@@ -40,7 +40,7 @@
     }
     <div class="card-header">
       @if (content.carousel) {
-        @if (content?.carousel?.elements.length > 1) {
+        @if (content.carousel?.elements.length > 1) {
           <app-swiper
             [attr.data-path]="'carousel'"
             [content]="content.carousel"
@@ -77,7 +77,7 @@
           </div>
         }
         <div class="flex flex-wrap basis-full">
-          @if (content?.title) {
+          @if (content.title) {
             <mat-card-title contentedit="title" class="basis-full">
               <div [innerHTML]="content.title | safeHtml"></div>
             </mat-card-title>
@@ -101,7 +101,7 @@
               </mat-card-title>
             }
           </ng-template>
-          @if (content?.subTitle) {
+          @if (content.subTitle) {
             <mat-card-subtitle contentedit="subTitle" class="basis-full">
               <div [innerHTML]="content.subTitle | safeHtml"></div>
             </mat-card-subtitle>

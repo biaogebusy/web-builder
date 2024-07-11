@@ -1,10 +1,15 @@
 @if (content) {
   <div class="progress-bar">
-    @if (content?.label) {
-      <div class="label">{{content.label}}</div>
+    @if (content.label) {
+      <div class="label">{{ content.label }}</div>
     }
-    <mat-progress-bar class="mb-5" [color]="content.color" [mode]="content.mode||'determinate'" [value]="content.value"
-      [bufferValue]="content.bufferValue||0">
+    <mat-progress-bar
+      class="mb-5"
+      [color]="content.color"
+      [mode]="content.mode || 'determinate'"
+      [value]="content.value"
+      [bufferValue]="content.bufferValue || 0"
+    >
     </mat-progress-bar>
   </div>
 }

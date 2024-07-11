@@ -3,14 +3,14 @@
     <div class="sidebar-header flex justify-between items-center">
       <div class="key m-3">
         <mat-chip-listbox>
-          @if (form.controls["title"]?.value) {
+          @if (model.title) {
             <mat-chip-option color="primary" selected
-              >{{ form.controls["title"].value }}
+              >{{ model.title }}
             </mat-chip-option>
           }
-          @if (form.controls["keys"]?.value) {
+          @if (model.keys) {
             <mat-chip-option color="primary" selected
-              >{{ form.controls["keys"].value }}
+              >{{ model.keys }}
             </mat-chip-option>
           }
         </mat-chip-listbox>
@@ -37,6 +37,7 @@
           <app-formly
             [form]="form"
             [fields]="content"
+            [model]="model"
             (modelChange)="onModelChange($event)"
           ></app-formly>
         </mat-expansion-panel>
