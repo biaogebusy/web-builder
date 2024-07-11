@@ -49,19 +49,23 @@ LayoutDefault.args = {
   content: {
     fullWidth: false,
     spacer: 'md',
+    bgClasses: 'bg-fill-width',
+    overlay: '',
     classes: '',
     id: '',
     bg: {
       img: {
         src: '/assets/images/bg/home-shape.png',
-        classes: 'object-fit',
         alt: 'home-shape.png',
+        classes: 'object-fit',
       },
       classes: 'bg-fill-width',
       overlay: '',
     },
     horizontal: 'center',
     vertical: 'center',
+    wrapperClass: '',
+    alignItems: 'center',
     animate: {
       from: {
         x: 0,
@@ -91,7 +95,6 @@ LayoutDefault.args = {
           md: 6,
           lg: 7,
         },
-        horizontal: 'center',
         vertical: 'start',
         gap: {
           xs: '2',
@@ -109,6 +112,8 @@ LayoutDefault.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
+        blockClasses: '',
+        horizontal: 'start',
         style: {
           borderRadius: 'none',
           padding: '',
@@ -247,10 +252,16 @@ LayoutDefault.args = {
               },
             },
             type: 'img',
-            src: '/assets/images/illustration/11.png',
+            src: 'https://builder.design/assets/images/illustration/11.png',
             style: {
-              'max-width': '60%',
+              opacity: '',
+              borderRadius: '',
+              boxShadow: '',
+              aspectRatio: '',
+              objectFit: 'contain',
             },
+            width: 500,
+            height: 600,
           },
         ],
       },
@@ -265,6 +276,8 @@ TwoCol.args = {
   content: {
     fullWidth: false,
     spacer: 'md',
+    bgClasses: 'bg-fill-width',
+    overlay: '',
     classes: '',
     id: '',
     bg: {
@@ -398,12 +411,10 @@ TwoCol.args = {
             href: '/',
           },
           {
-            src: '/assets/images/products/huawei-watch-gt4-select-strap.webp',
+            src: 'https://builder.design/assets/images/products/huawei-watch-gt4-select-strap.webp',
             classes: '',
             alt: 'alt',
             style: {
-              width: '450px',
-              height: '300px',
               opacity: '1',
               borderRadius: '0px',
               boxShadow: 'none',
@@ -433,6 +444,8 @@ TwoCol.args = {
               },
             },
             type: 'img',
+            width: 350,
+            height: 300,
           },
         ],
       },
@@ -530,12 +543,10 @@ TwoCol.args = {
             href: '/',
           },
           {
-            src: '/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
+            src: 'https://builder.design/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
             classes: '',
             alt: 'alt',
             style: {
-              width: '450px',
-              height: '300px',
               opacity: '1',
               borderRadius: '0px',
               boxShadow: 'none',
@@ -565,6 +576,8 @@ TwoCol.args = {
               },
             },
             type: 'img',
+            width: 350,
+            height: 300,
           },
         ],
       },
@@ -853,14 +866,18 @@ FourCol.args = {
     bg: {
       img: {
         src: '/assets/images/bg/home-shape.png',
-        classes: 'object-fit',
         alt: 'home-shape.png',
+        classes: 'object-fit',
       },
       classes: 'bg-shadow bg-fill-width',
       overlay: '',
     },
     horizontal: 'center',
     vertical: 'center',
+    wrapperClass: '',
+    gap: {
+      xs: 5,
+    },
     animate: {
       from: {
         x: 0,
@@ -893,10 +910,10 @@ FourCol.args = {
         horizontal: 'end',
         vertical: 'end',
         gap: {
-          xs: '10',
-          sm: '10',
-          md: '10',
-          lg: '10',
+          xs: 0,
+          sm: 0,
+          md: 0,
+          lg: 0,
         },
         bg: {
           img: {
@@ -908,6 +925,8 @@ FourCol.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
+        blockClasses: '',
+        alignItems: 'end',
         style: {
           borderRadius: 'none',
           padding: '',
@@ -941,7 +960,6 @@ FourCol.args = {
             end: 'top 40%',
           },
         },
-
         elements: [
           {
             spacer: 'none',
@@ -970,13 +988,16 @@ FourCol.args = {
           },
           {
             src: 'https://www2.bettyblocks.com/hubfs/RH-images/striped-arrow.svg',
-            classes: 'm-bottom-md',
+            classes: '',
+            hostClasses: 'text-center',
             alt: 'alt',
             style: {
               aspectRatio: 'auto',
               objectFit: 'initial',
+              opacity: '',
+              borderRadius: '',
+              boxShadow: '',
             },
-            hostClasses: 'text-center',
             animate: {
               from: {
                 x: 0,
@@ -998,6 +1019,8 @@ FourCol.args = {
               },
             },
             type: 'img',
+            width: 200,
+            height: 100,
           },
         ],
       },
@@ -1026,7 +1049,7 @@ FourCol.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
-        blockClasses: 'p-5',
+        blockClasses: '',
         style: {
           borderRadius: 'none',
           padding: '20px',
@@ -1117,7 +1140,7 @@ FourCol.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
-        blockClasses: 'p-5',
+        blockClasses: '',
         style: {
           borderRadius: 'none',
           paddingTop: '0px',
@@ -1207,7 +1230,7 @@ FourCol.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
-        blockClasses: 'p-5',
+        blockClasses: '',
         style: {
           borderRadius: 'none',
           paddingTop: '0px',
@@ -1328,7 +1351,7 @@ Section1A.args = {
           lg: 6,
         },
         horizontal: 'start',
-        vertical: 'stretch',
+        vertical: 'start',
         gap: {
           xs: '4',
           sm: '4',
@@ -1345,6 +1368,7 @@ Section1A.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
+        blockClasses: '',
         style: {
           borderRadius: 'none',
         },
@@ -1368,7 +1392,6 @@ Section1A.args = {
             end: 'top 40%',
           },
         },
-
         elements: [
           {
             style: 'style-v4',
@@ -1444,9 +1467,10 @@ Section1A.args = {
           overlay: '',
           classes: 'bg-fill-width',
         },
-        horizontal: 'start',
-        vertical: 'stretch',
         classes: '',
+        blockClasses: '',
+        horizontal: 'center',
+        vertical: 'center',
         style: {
           borderRadius: 'none',
         },
@@ -1470,7 +1494,6 @@ Section1A.args = {
             end: 'top 40%',
           },
         },
-
         elements: [
           {
             type: 'spacer',
@@ -1480,17 +1503,17 @@ Section1A.args = {
             type: 'img',
             hostClasses: 'text-center',
             classes: '',
-            src: '/assets/images/illustration/08.png',
+            src: 'https://builder.design/assets/images/illustration/08.png',
             alt: 'alt',
             style: {
-              width: 'auto',
-              height: 'auto',
-              opacity: 1,
-              borderRadius: 0,
+              opacity: '1',
+              borderRadius: '0px',
               boxShadow: 'none',
               aspectRatio: '2 / 1',
               objectFit: 'contain',
             },
+            width: 600,
+            height: 300,
           },
           {
             type: 'spacer',
@@ -1524,6 +1547,7 @@ Section1B.args = {
     },
     horizontal: 'center',
     vertical: 'center',
+    wrapperClass: 'md:flex-nowrap',
     gap: {
       xs: '5',
     },
@@ -1572,11 +1596,12 @@ Section1B.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
+        blockClasses: '',
+        horizontal: 'center',
+        vertical: 'center',
         style: {
           borderRadius: 'none',
         },
-        horizontal: 'start',
-        vertical: 'stretch',
         animate: {
           from: {
             x: 0,
@@ -1597,7 +1622,6 @@ Section1B.args = {
             end: 'top 40%',
           },
         },
-
         elements: [
           {
             type: 'spacer',
@@ -1607,17 +1631,17 @@ Section1B.args = {
             type: 'img',
             hostClasses: 'text-center',
             classes: '',
-            src: '/assets/images/illustration/08.png',
+            src: 'https://builder.design/assets/images/illustration/08.png',
             alt: 'alt',
             style: {
-              width: 'auto',
-              height: 'auto',
-              opacity: 1,
-              borderRadius: 0,
+              opacity: '1',
+              borderRadius: '0px',
               boxShadow: 'none',
               aspectRatio: '2 / 1',
               objectFit: 'contain',
             },
+            width: 600,
+            height: 300,
           },
           {
             type: 'spacer',
@@ -1632,14 +1656,14 @@ Section1B.args = {
           md: 6,
           lg: 6,
         },
+        horizontal: 'start',
+        vertical: 'start',
         gap: {
           xs: '4',
           sm: '4',
           md: '4',
           lg: '4',
         },
-        horizontal: 'start',
-        vertical: 'stretch',
         bg: {
           img: {
             src: '',
@@ -1650,6 +1674,7 @@ Section1B.args = {
           classes: 'bg-fill-width',
         },
         classes: '',
+        blockClasses: '',
         style: {
           borderRadius: 'none',
         },
@@ -1673,7 +1698,6 @@ Section1B.args = {
             end: 'top 40%',
           },
         },
-
         elements: [
           {
             style: 'style-v4',
@@ -1785,10 +1809,10 @@ Section2A.args = {
         horizontal: 'center',
         vertical: 'center',
         gap: {
-          xs: '10',
-          sm: '10',
-          md: '10',
-          lg: '20',
+          xs: 0,
+          sm: 0,
+          md: 0,
+          lg: 0,
         },
         bg: {
           img: {
@@ -1837,17 +1861,17 @@ Section2A.args = {
             type: 'img',
             hostClasses: 'text-center',
             classes: '',
-            src: 'http://localhost:4200/assets/images/illustration/09.png',
+            src: 'https://builder.design/assets/images/illustration/08.png',
             alt: 'alt',
             style: {
-              width: 'auto',
-              height: 'auto',
               opacity: '1',
               borderRadius: '0px',
               boxShadow: 'none',
-              aspectRatio: 'auto',
-              objectFit: 'initial',
+              aspectRatio: '4 / 3',
+              objectFit: 'contain',
             },
+            width: 600,
+            height: 400,
           },
           {
             style: 'style-v1',
@@ -1964,19 +1988,6 @@ Section2A.args = {
             },
             type: 'text',
           },
-        ],
-      },
-      {
-        classes: '',
-        row: {
-          xs: 12,
-          sm: 12,
-          md: 12,
-          lg: 12,
-        },
-        horizontal: 'center',
-        vertical: 'center',
-        elements: [
           {
             type: 'btn',
             href: '/node/1',
@@ -2036,15 +2047,23 @@ Section2B.args = {
     type: 'layout-builder',
     elements: [
       {
-        classes: '',
         row: {
           xs: 12,
           sm: 12,
           md: 12,
           lg: 12,
         },
-        horizontal: 'start',
-        vertical: 'stretch',
+        bg: {
+          img: {
+            src: '',
+          },
+          overlay: '',
+          classes: 'bg-fill-width',
+        },
+        classes: '',
+        blockClasses: '',
+        horizontal: 'center',
+        vertical: 'center',
         elements: [
           {
             type: 'title',
@@ -2053,38 +2072,12 @@ Section2B.args = {
             style: 'style-v1',
             classes: 'mat-headline-3 bold',
           },
-        ],
-      },
-      {
-        classes: '',
-        row: {
-          xs: 12,
-          sm: 12,
-          md: 12,
-          lg: 12,
-        },
-        horizontal: 'start',
-        vertical: 'stretch',
-        elements: [
           {
             type: 'text',
             spacer: 'none',
             classes: 'md:max-w-3/4 mx-auto',
             body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
           },
-        ],
-      },
-      {
-        classes: '',
-        row: {
-          xs: 12,
-          sm: 12,
-          md: 12,
-          lg: 12,
-        },
-        horizontal: 'start',
-        vertical: 'stretch',
-        elements: [
           {
             type: 'btn',
             href: '/node/1',
@@ -2093,32 +2086,17 @@ Section2B.args = {
             mode: 'raised',
             color: 'primary',
           },
-        ],
-      },
-      {
-        classes: '',
-        row: {
-          xs: 12,
-          sm: 12,
-          md: 12,
-          lg: 12,
-        },
-        horizontal: 'start',
-        vertical: 'stretch',
-        elements: [
           {
-            src: '/assets/images/builder/builder-01.png',
-            classes: 'mt-5',
+            src: 'https://builder.design/assets/images/builder/builder-01.png',
+            classes: '',
             hostClasses: 'text-center',
             alt: 'alt',
             style: {
-              width: '85%',
-              height: 'auto',
+              aspectRatio: 'auto',
+              objectFit: 'contain',
               opacity: '0.9',
               borderRadius: '14px',
               boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px',
-              aspectRatio: 'auto',
-              objectFit: 'contain',
             },
             animate: {
               from: {
@@ -2142,6 +2120,8 @@ Section2B.args = {
               },
             },
             type: 'img',
+            width: 800,
+            height: 600,
           },
         ],
       },
@@ -2907,7 +2887,7 @@ Section4A.args = {
         row: {
           xs: 12,
           sm: 12,
-          md: 6,
+          md: 7,
           lg: 7,
         },
         horizontal: 'start',
@@ -3033,10 +3013,10 @@ Section4A.args = {
                 horizontal: 'start',
                 vertical: 'stretch',
                 gap: {
-                  xs: '5',
-                  sm: 5,
-                  md: 5,
-                  lg: 5,
+                  xs: 4,
+                  sm: 0,
+                  md: 0,
+                  lg: 0,
                 },
                 bg: {
                   img: {
@@ -3179,10 +3159,10 @@ Section4A.args = {
                 horizontal: 'start',
                 vertical: 'stretch',
                 gap: {
-                  xs: 5,
-                  sm: 5,
-                  md: 5,
-                  lg: 8,
+                  xs: 4,
+                  sm: 0,
+                  md: 0,
+                  lg: 0,
                 },
                 bg: {
                   img: {
@@ -3313,7 +3293,7 @@ Section4A.args = {
         row: {
           xs: 12,
           sm: 12,
-          md: 6,
+          md: 5,
           lg: 5,
         },
         horizontal: 'center',
@@ -3686,7 +3666,6 @@ Section5A.args = {
                     end: 'top 40%',
                   },
                 },
-
                 elements: [
                   {
                     type: 'box',
@@ -3835,17 +3814,17 @@ Section5A.args = {
             type: 'img',
             hostClasses: 'text-center',
             classes: '',
-            src: '/assets/images/illustration/11.png',
+            src: 'https://builder.design/assets/images/illustration/11.png',
             alt: 'alt',
             style: {
-              width: '85%',
-              height: 'auto',
               opacity: '1',
               borderRadius: '0px',
               boxShadow: 'none',
               aspectRatio: '2 / 3',
               objectFit: 'contain',
             },
+            width: 500,
+            height: 600,
           },
         ],
       },

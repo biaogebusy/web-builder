@@ -1,5 +1,5 @@
 import * as s1v1Story from '@stories/feature/showcase/showcase1v1.stories';
-import * as s1v2Story from '@stories/feature/showcase/showcase1v2.stories';
+
 import * as s1v3Story from '@stories/feature/showcase/showcase1v3.stories';
 import * as s1v4Story from '@stories/feature/showcase/showcase1v4.stories';
 import * as s2v1Story from '@stories/feature/showcase/showcase2v1.stories';
@@ -49,14 +49,6 @@ export const showcase = [
       {
         label: '1v1 Image',
         content: s1v1Story.Image?.args?.content,
-      },
-      {
-        label: '1v2',
-        content: s1v2Story.Default?.args?.content,
-      },
-      {
-        label: '1v2 Primary',
-        content: s1v2Story.Primary?.args?.content,
       },
       {
         label: '1v3',

@@ -140,39 +140,59 @@ export const components: any[] = [
                 elements: [
                   {
                     type: 'img',
-                    src: '/assets/images/16-9/business-13.jpg',
+                    src: 'http://localhost:4200/assets/images/16-9/business-13.jpg',
                     style: {
-                      width: '890px',
-                      height: '500px',
+                      opacity: '',
+                      borderRadius: '',
+                      boxShadow: '',
+                      aspectRatio: '',
+                      objectFit: '',
                     },
                     classes: 'object-cover',
+                    width: 800,
+                    height: 500,
                   },
                   {
                     type: 'img',
-                    src: '/assets/images/16-9/business-14.jpeg',
+                    src: 'http://localhost:4200/assets/images/16-9/business-14.jpeg',
                     style: {
-                      width: '890px',
-                      height: '500px',
+                      opacity: '',
+                      borderRadius: '',
+                      boxShadow: '',
+                      aspectRatio: '',
+                      objectFit: '',
                     },
                     classes: 'object-cover',
+                    width: 800,
+                    height: 500,
                   },
                   {
                     type: 'img',
-                    src: '/assets/images/16-9/business-15.jpeg',
+                    src: 'http://localhost:4200/assets/images/16-9/business-15.jpeg',
                     style: {
-                      width: '890px',
-                      height: '500px',
+                      opacity: '',
+                      borderRadius: '',
+                      boxShadow: '',
+                      aspectRatio: '',
+                      objectFit: '',
                     },
                     classes: 'object-cover',
+                    width: 800,
+                    height: 500,
                   },
                   {
                     type: 'img',
-                    src: '/assets/images/16-9/business-16.jpeg',
+                    src: 'http://localhost:4200/assets/images/16-9/business-16.jpeg',
                     style: {
-                      width: '890px',
-                      height: '500px',
+                      opacity: '',
+                      borderRadius: '',
+                      boxShadow: '',
+                      aspectRatio: '',
+                      objectFit: '',
                     },
                     classes: 'object-cover',
+                    width: 800,
+                    height: 500,
                   },
                 ],
               },
@@ -325,9 +345,15 @@ export const components: any[] = [
                 {
                   type: 'img',
                   style: {
-                    maxHeight: '400px',
+                    opacity: '',
+                    borderRadius: '',
+                    boxShadow: '',
+                    aspectRatio: '',
+                    objectFit: 'contain',
                   },
-                  src: '/assets/images/illustration/30.png',
+                  src: 'http://localhost:4200/assets/images/illustration/30.png',
+                  width: 800,
+                  height: 500,
                 },
               ],
             },
@@ -388,7 +414,7 @@ export const components: any[] = [
                   label:
                     '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
                   style: 'style-v4',
-                  classes: 'mat-headline-1',
+                  classes: 'mat-headline-3',
                 },
                 spacer: 'xl',
                 style: {
@@ -1233,156 +1259,6 @@ export const components: any[] = [
                     href: '#',
                     label: '+',
                   },
-                },
-              ],
-            },
-          },
-          {
-            label: '1v2',
-            content: {
-              type: 'showcase-1v1',
-              title: {
-                label: '你将来喜欢 Drupal 的理由',
-                style: 'style-v2',
-              },
-              subTitle: {
-                spacer: 'none',
-                classes: 'text-center',
-                body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p><br>',
-              },
-              bg: {
-                classes: 'bg-shadow bg-fill-width',
-              },
-              row: 4,
-              classes: '',
-              elements: [
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset187.svg',
-                    alt: 'browser',
-                  },
-                  style: 'style-v3 use-image',
-                  title: {
-                    href: '#',
-                    label: '高性能',
-                  },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
-                  more: {
-                    href: '#',
-                    label: '+',
-                  },
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset189.svg',
-                    alt: 'browser',
-                  },
-                  style: 'style-v3 use-image',
-                  title: {
-                    href: '#',
-                    label: '易用的编辑器',
-                  },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
-                  more: {
-                    href: '#',
-                    label: '+',
-                  },
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset190.svg',
-                    alt: 'browser',
-                  },
-                  style: 'style-v3 use-image',
-                  title: {
-                    href: '#',
-                    label: '多语言',
-                  },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
-                  more: {
-                    href: '#',
-                    label: '+',
-                  },
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset192.svg',
-                    alt: 'browser',
-                  },
-                  style: 'style-v3 use-image',
-                  title: {
-                    href: '#',
-                    label: '更有弹性',
-                  },
-                  content:
-                    '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
-                  more: {
-                    href: '#',
-                    label: '+',
-                  },
-                },
-              ],
-            },
-          },
-          {
-            label: '1v2 Primary',
-            content: {
-              type: 'showcase-1v1',
-              title: {
-                label: '使用 Drupal 作为你的低代码后台',
-                style: 'style-v1',
-              },
-              subTitle: {
-                spacer: 'none',
-                body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
-              },
-              bg: {
-                classes: 'bg-shadow bg-fill-width',
-              },
-              classes: '',
-              row: 3,
-              elements: [
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset187.svg',
-                    alt: 'browser',
-                  },
-                  style: 'style-v3 use-image',
-                  title: {
-                    href: '#',
-                    label: '高性能',
-                  },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset189.svg',
-                    alt: 'browser',
-                  },
-                  style: 'style-v3 use-image primary',
-                  title: {
-                    href: '#',
-                    label: '易用的编辑器',
-                  },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
-                },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset190.svg',
-                    alt: 'browser',
-                  },
-                  style: 'style-v3 use-image',
-                  title: {
-                    href: '#',
-                    label: '多语言',
-                  },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
                 },
               ],
             },
