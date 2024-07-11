@@ -76,7 +76,7 @@ const content: IQuestion = {
     },
   },
   comment: {
-    title: '评论',
+    title: true,
     actions: ['update', 'reply', 'quote', 'delete'],
   },
 };
