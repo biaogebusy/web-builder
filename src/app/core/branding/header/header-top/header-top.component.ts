@@ -1,9 +1,10 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
+  ElementRef,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IHeaderTop } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -18,17 +19,22 @@ import { ScreenService } from '@core/service/screen.service';
 export class HeaderTopComponent implements OnInit {
   @Input() content: IHeaderTop | undefined;
   showNoXs: boolean;
-  constructor(
-    private screen: ScreenState,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
-  ) {}
+  screen = inject(ScreenState);
+  screenService = inject(ScreenService);
+
+  constructor(private ele: ElementRef) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.mqAlias$().subscribe((mq) => {
-        this.showNoXs = mq.includes('gt-xs');
-        this.cd.detectChanges();
+        console.log(mq);
+        if (mq.includes('md') || mq.includes('lg')) {
+          this.ele.nativeElement.classList.remove('hidden');
+          this.ele.nativeElement.classList.add('block');
+        } else {
+          this.ele.nativeElement.classList.remove('block');
+          this.ele.nativeElement.classList.add('hidden');
+        }
       });
     }
   }

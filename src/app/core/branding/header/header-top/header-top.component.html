@@ -1,45 +1,43 @@
-@if (showNoXs) {
-  @if (content) {
-    <div class="header-top">
-      <div class="container">
-        <div class="flex justify-between items-center">
-          <div class="left">
-            <div class="hotline flex gap-4">
-              @for (item of content.banner.left; track item) {
-                <div class="item flex">
-                  @if (item.icon) {
-                    <app-icon [content]="item.icon"></app-icon>
-                  }
-                  <div>{{ item.label }}</div>
-                </div>
-              }
-            </div>
-          </div>
-          <div class="right gap-4 flex justify-center items-center">
-            <app-github-star class="github mx-4"></app-github-star>
-            @for (item of content.banner.right; track item) {
-              @if (item?.svg) {
-                <a
-                  class="inv-icon style-v1"
-                  href="{{ item.href }}"
-                  target="_blank"
-                >
-                  <span class="soc-name">{{ item.label }}</span>
-                  <span class="soc-icon-bg"></span>
-                  @if (item.svg) {
-                    <mat-icon [inline]="true" [svgIcon]="item.svg"></mat-icon>
-                  }
-                </a>
-              } @else {
-                <app-link class="link mr-6" [content]="item"></app-link>
-              }
-              <ng-template #link>
-                <app-link class="link mr-6" [content]="item"></app-link>
-              </ng-template>
+@if (content) {
+  <div class="header-top">
+    <div class="container">
+      <div class="flex justify-between items-center">
+        <div class="left">
+          <div class="hotline flex gap-4">
+            @for (item of content.banner.left; track item) {
+              <div class="item flex">
+                @if (item.icon) {
+                  <app-icon class="h-[22px]" [content]="item.icon"></app-icon>
+                }
+                <div>{{ item.label }}</div>
+              </div>
             }
           </div>
         </div>
+        <div class="right gap-4 flex justify-center items-center">
+          <app-github-star class="github mx-4"></app-github-star>
+          @for (item of content.banner.right; track item) {
+            @if (item?.svg) {
+              <a
+                class="inv-icon style-v1"
+                href="{{ item.href }}"
+                target="_blank"
+              >
+                <span class="soc-name">{{ item.label }}</span>
+                <span class="soc-icon-bg"></span>
+                @if (item.svg) {
+                  <mat-icon [inline]="true" [svgIcon]="item.svg"></mat-icon>
+                }
+              </a>
+            } @else {
+              <app-link class="link mr-6" [content]="item"></app-link>
+            }
+            <ng-template #link>
+              <app-link class="link mr-6" [content]="item"></app-link>
+            </ng-template>
+          }
+        </div>
       </div>
     </div>
-  }
+  </div>
 }
