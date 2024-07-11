@@ -75,6 +75,10 @@ const content: IQuestion = {
       label: '成功发布！',
     },
   },
+  comment: {
+    title: '评论',
+    actions: ['update', 'reply', 'quote', 'delete'],
+  },
 };
 
 Default.args = {
