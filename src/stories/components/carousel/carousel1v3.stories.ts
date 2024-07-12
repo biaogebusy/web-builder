@@ -36,7 +36,7 @@ const content: ICarouselBase = {
       label: '选择Drupal的原因',
       icon: '',
       style: 'style-v1',
-      classes: 'mat-headline-1',
+      classes: 'mat-headline-3',
     },
     classes: 'text-center',
     body: '<p class="text-center">Drupal是数据管理中心，提供集中的地方来访问所有平台的数据</p><br>',
@@ -68,10 +68,9 @@ const content: ICarouselBase = {
         img: {
           src: '/assets/images/svg/Asset187.svg',
           alt: 'browser',
-          style: {
-            width: '80px',
-            marginRight: '10px',
-          },
+          width: 80,
+          height: 80,
+          classes: 'mr-3',
         },
         style: 'style-v8',
         title: {
@@ -85,10 +84,9 @@ const content: ICarouselBase = {
         img: {
           src: '/assets/images/svg/Asset189.svg',
           alt: 'browser',
-          style: {
-            width: '80px',
-            marginRight: '10px',
-          },
+          width: 80,
+          height: 80,
+          classes: 'mr-3',
         },
         style: 'style-v8',
         title: {
@@ -102,10 +100,9 @@ const content: ICarouselBase = {
         img: {
           src: '/assets/images/svg/Asset190.svg',
           alt: 'browser',
-          style: {
-            width: '80px',
-            marginRight: '10px',
-          },
+          width: 80,
+          height: 80,
+          classes: 'mr-3',
         },
         style: 'style-v8',
         title: {
@@ -119,10 +116,9 @@ const content: ICarouselBase = {
         img: {
           src: '/assets/images/svg/Asset192.svg',
           alt: 'browser',
-          style: {
-            width: '80px',
-            marginRight: '10px',
-          },
+          width: 80,
+          height: 80,
+          classes: 'mr-3',
         },
         style: 'style-v8',
         title: {
@@ -136,10 +132,9 @@ const content: ICarouselBase = {
         img: {
           src: '/assets/images/svg/bike.svg',
           alt: 'browser',
-          style: {
-            width: '80px',
-            marginRight: '10px',
-          },
+          width: 80,
+          height: 80,
+          classes: 'mr-3',
         },
         style: 'style-v8',
         title: {
@@ -153,10 +148,9 @@ const content: ICarouselBase = {
         img: {
           src: '/assets/images/svg/calendar.png',
           alt: 'browser',
-          style: {
-            width: '80px',
-            marginRight: '10px',
-          },
+          width: 80,
+          height: 80,
+          classes: 'mr-3',
         },
         style: 'style-v8',
         title: {
@@ -183,7 +177,7 @@ const clientContent: ICarouselBase = {
       label: '客户评价',
       icon: '',
       style: 'style-v1',
-      classes: 'mat-headline-1',
+      classes: 'mat-headline-3',
     },
     classes: 'text-center',
     body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',

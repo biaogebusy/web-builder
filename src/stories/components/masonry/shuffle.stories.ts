@@ -40,6 +40,7 @@ const content: IShuffle = {
   title: {
     label: 'Vue 开发',
     style: 'style-v1',
+    classes: 'mat-headline-3',
   },
   bg: {
     classes: '',

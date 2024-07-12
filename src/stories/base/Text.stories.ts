@@ -58,7 +58,7 @@ const title: IText = {
     label:
       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v4',
-    classes: 'mat-headline-1 bold',
+    classes: 'mat-headline-3 bold',
   },
 };
 Title.args = {
@@ -106,7 +106,7 @@ const center: IText = {
   title: {
     label:
       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
-    classes: 'mat-headline-1 bold',
+    classes: 'mat-headline-3 bold',
     style: 'style-v1',
   },
   bg: {
@@ -311,7 +311,7 @@ MaxWidth.args = {
       label:
         '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
       style: 'style-v1',
-      classes: 'mat-headline-1 bold',
+      classes: 'mat-headline-3 bold',
     },
     bg: {
       classes: 'bg- bg-fill-width',

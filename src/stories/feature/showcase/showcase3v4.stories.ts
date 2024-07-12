@@ -39,6 +39,7 @@ const content: IShowcase3v4 = {
   title: {
     label: '为什么你将会喜欢这个前端框架？',
     style: 'style-v1',
+    classes: 'mat-headline-3',
   },
   bg: {
     classes: 'bg-light bg-fill-width',

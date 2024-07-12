@@ -42,7 +42,7 @@ const content: ICarouselBase = {
     label: 'Storybook 能够做什么？',
     icon: 'email',
     style: 'style-v2',
-    classes: 'mat-headline-2',
+    classes: 'mat-headline-3',
   },
   bg: {
     classes: '',

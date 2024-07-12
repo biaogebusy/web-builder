@@ -36,7 +36,7 @@ const content: IContactUs1v1 = {
     title: {
       label: '联系我们',
       style: 'style-v1',
-      classes: 'mat-headline-1',
+      classes: 'mat-headline-3',
     },
     classes: 'text-light text-center',
     body: '如果您有任何需要帮助，请联系我们！',

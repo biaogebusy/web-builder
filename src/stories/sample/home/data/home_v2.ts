@@ -34,7 +34,7 @@ export const home_v2 = {
         title: {
           label: '开源项目使用 Github actions 自动化',
           style: 'none',
-          classes: 'mat-headline-1',
+          classes: 'mat-headline-3',
         },
         spacer: 'none',
         body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
@@ -291,6 +291,7 @@ export const home_v2 = {
       title: {
         label: '为什么你将会喜欢这个前端框架？',
         style: 'style-v1',
+        classes: 'mat-headline-3',
       },
       bg: {
         classes: 'bg-fill-width bg-',

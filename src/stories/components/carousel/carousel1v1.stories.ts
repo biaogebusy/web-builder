@@ -35,7 +35,7 @@ const defaultContent: ICarouselBase = {
     label: '你将喜欢上 Drupal 的原因',
     icon: 'email',
     style: 'style-v2',
-    classes: 'mat-headline-1',
+    classes: 'mat-headline-3',
   },
   classes: '',
   bg: {
@@ -652,6 +652,7 @@ FullScreen.args = {
           title: {
             label: '为什么你将会喜欢这个前端框架？',
             style: 'style-v1',
+            classes: 'mat-headline-3',
           },
           bg: {
             classes: 'bg-light bg-fill-width',

@@ -1269,25 +1269,21 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-shadow bg-fill-width',
+          bgClasses: 'bg-fill-width',
           overlay: '',
           classes: '',
           id: '',
           bg: {
             img: {
               src: '',
-              alt: '',
               classes: 'object-fit',
+              alt: '',
             },
-            classes: 'bg-shadow bg-fill-width',
+            classes: 'bg-fill-width',
             overlay: '',
           },
           horizontal: 'center',
           vertical: 'center',
-          wrapperClass: '',
-          gap: {
-            xs: 5,
-          },
           animate: {
             from: {
               x: 0,
@@ -1447,32 +1443,7 @@ export const base = [
           type: 'custom-template',
           isAPI: true,
           api: '/api/v1/content',
-          html: `<div class="flex flex-wrap">
-    {{#rows }}
-    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">
-        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">
-            <a href="{{url}}">
-                {{#img}}
-                <img class="object-cover w-full" height="200px" src="{{img}}" /></a>
-                {{/img}}
-                {{^img}}
-                <img class="object-cover w-full" height="200px" src="/assets/images/hero/182.jpg" /></a>
-                {{/img}}
-            <div class="p-5">
-                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>
-                <div class="three-line opacity-90">{{body}}</div>
-                <div class="footer flex items-center mt-5">
-                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />
-                    <div class="flex flex-col">
-                        <div class="font-bold">{{user}}</div>
-                        <div class="small">{{created}}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/rows}}
-</div>`,
+          html: '<div class="flex flex-wrap">\n    {{#rows}}\n    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">\n        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">\n            <a href="{{url}}">\n                {{#img}}\n                <img class="object-cover w-full" height="200px" src="{{img}}" /></a>\n                {{/img}}\n                {{^img}}\n                <img class="object-cover w-full" height="200px" src="/assets/images/hero/182.jpg" /></a>\n                {{/img}}\n            <div class="p-5">\n                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>\n                <div class="three-line opacity-90">{{body}}</div>\n                <div class="footer flex items-center mt-5">\n                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />\n                    <div class="flex flex-col">\n                        <div class="font-bold">{{user}}</div>\n                        <div class="small">{{created}}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    {{/each}}\n</div>',
         },
       },
     ],
@@ -2319,7 +2290,6 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          wrapperClass: 'md:flex-nowrap',
           gap: {
             xs: 0,
             sm: 4,
@@ -2640,7 +2610,6 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          wrapperClass: 'md:flex-nowrap',
           gap: {
             xs: 0,
           },
@@ -4008,15 +3977,15 @@ export const base = [
           title: {
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
-            style: 'style-v1',
             classes: 'mat-headline-3 bold',
+            style: 'style-v1',
           },
           bg: {
             classes: 'bg- bg-fill-width',
           },
           body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
           classes: 'text-center',
-          actionsAlign: 'center center',
+          actionsAlign: 'center',
           actions: [
             {
               type: 'btn-generater',
@@ -4632,7 +4601,7 @@ export const base = [
               title: {
                 label: 'Storybook 是什么？',
                 style: 'style-v1',
-                classes: 'mat-headline-1',
+                classes: 'mat-headline-3',
               },
               classes: 'text-light',
               elements: [

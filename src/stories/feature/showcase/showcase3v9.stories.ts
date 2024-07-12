@@ -53,6 +53,15 @@ const content: IShowcase3v9 = {
       type: 'img',
       src: '/assets/images/illustration/13.png',
       classes: 'mover',
+      style: {
+        opacity: '',
+        borderRadius: '',
+        boxShadow: '',
+        aspectRatio: '',
+        objectFit: 'contain',
+      },
+      width: 500,
+      height: 600,
       hostClasses: 'relative img-bg-shape',
       actions: [
         {
@@ -103,6 +112,15 @@ const reverse: IShowcase3v9 = {
     {
       type: 'img',
       src: '/assets/images/illustration/12.png',
+      style: {
+        opacity: '',
+        borderRadius: '',
+        boxShadow: '',
+        aspectRatio: '',
+        objectFit: 'contain',
+      },
+      width: 500,
+      height: 600,
     },
   ],
   right: [
@@ -112,7 +130,7 @@ const reverse: IShowcase3v9 = {
       title: {
         label: 'Storybook 是什么？',
         style: 'style-v4',
-        classes: 'mat-headline-2',
+        classes: 'mat-headline-3',
       },
       body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。',
     },
@@ -192,6 +210,15 @@ Video.args = {
         type: 'img',
         src: '/assets/images/illustration/13.png',
         hostClasses: 'relative',
+        style: {
+          opacity: '',
+          borderRadius: '',
+          boxShadow: '',
+          aspectRatio: '',
+          objectFit: 'contain',
+        },
+        width: 500,
+        height: 600,
         actions: [
           {
             color: 'default',

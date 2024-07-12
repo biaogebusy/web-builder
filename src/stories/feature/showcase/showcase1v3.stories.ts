@@ -41,7 +41,7 @@ const content: IShowcase1v3 = {
     title: {
       label: 'Storybook 是什么？',
       style: 'style-v1',
-      classes: 'mat-headline-1',
+      classes: 'mat-headline-3',
     },
   },
   classes: 'text-light',
@@ -133,7 +133,7 @@ const video: IShowcase1v3 = {
     title: {
       label: 'Storybook 是什么？',
       style: 'style-v1',
-      classes: 'mat-headline-1',
+      classes: 'mat-headline-3',
     },
   },
   classes: 'text-light',

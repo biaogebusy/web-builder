@@ -241,7 +241,7 @@ const dynamic: IShowcase1v4 = {
     title: {
       label: '艺术设计之旅：探索创意与美学的奇妙世界',
       style: 'style-v1',
-      classes: 'mat-headline-2 bold',
+      classes: 'mat-headline-3 bold',
     },
     classes: 'text-center',
     body: '<p class="text-center">这次艺术设计之旅不仅仅是一次观赏和欣赏的体验，更是一个与艺术创造亲密接触的机会。参与者们通过参观展览、讲座和工作坊，自己动手创作和表达，发掘了自己内在的艺术潜能和表达能力。</p>',

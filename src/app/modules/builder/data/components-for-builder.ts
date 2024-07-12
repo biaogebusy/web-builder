@@ -456,7 +456,7 @@ export const components: any[] = [
                   label:
                     '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
                   style: 'style-v4',
-                  classes: 'mat-h2',
+                  classes: 'mat-headline-3',
                 },
                 spacer: 'xl',
                 style: {
@@ -505,7 +505,7 @@ export const components: any[] = [
                 title: {
                   label: '开源项目使用 Github actions 自动化',
                   style: 'style-v4',
-                  classes: 'mat-headline-1',
+                  classes: 'mat-headline-3',
                 },
                 body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
                 actions: [
@@ -543,12 +543,11 @@ export const components: any[] = [
                 title: {
                   label: '开源项目使用 Github actions 自动化',
                   style: 'none',
-                  classes: 'mat-headline-1',
+                  classes: 'mat-headline-3',
                 },
                 spacer: 'none',
                 body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
               },
-              row: 6,
               elements: [
                 {
                   img: {
@@ -633,7 +632,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-shadow bg-fill-width',
               },
-              row: 4,
+              row: 3,
               elements: [
                 {
                   type: 'box',
@@ -710,8 +709,9 @@ export const components: any[] = [
                 label:
                   '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
+                classes: 'mat-headline-3',
               },
-              row: 4,
+              row: 3,
               bg: {
                 classes: '',
               },
@@ -793,8 +793,9 @@ export const components: any[] = [
                   '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v2',
                 icon: 'mail',
+                classes: 'mat-headline-3',
               },
-              row: 4,
+              row: 3,
               bg: {
                 classes: 'bg- bg-fill-width',
               },
@@ -875,8 +876,9 @@ export const components: any[] = [
                 label:
                   '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v3',
+                classes: 'mat-headline-3',
               },
-              row: 4,
+              row: 3,
               bg: {
                 classes: 'bg- bg-fill-width',
               },
@@ -957,6 +959,7 @@ export const components: any[] = [
               title: {
                 label: 'Drupal 已经超越了传统的 CMS 概念',
                 style: 'style-v1',
+                classes: 'mat-headline-3',
               },
               subTitle: {
                 spacer: 'none',
@@ -1022,8 +1025,9 @@ export const components: any[] = [
                 label:
                   '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v4',
+                classes: 'mat-headline-3',
               },
-              row: 4,
+              row: 3,
               bg: {
                 classes: 'bg-shadow bg-fill-width',
               },
@@ -1104,28 +1108,21 @@ export const components: any[] = [
                 label:
                   '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v5',
+                classes: 'mat-headline-3',
               },
-              row: 4,
+              row: 3,
               bg: {
                 classes: '',
               },
               classes: '',
               elements: [
                 {
-                  type: 'box',
+                  label:
+                    '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                   icon: {
                     name: 'verified_user',
                   },
                   style: 'style-v5',
-                  title: {
-                    href: '/?path=/story/guide--page',
-                    label: '丰富的组件库',
-                  },
-                  content: '常用的组件库，和三十多个基组件',
-                  more: {
-                    href: '/?path=/story/builder--default',
-                    label: '更多',
-                  },
                 },
                 {
                   type: 'box',
@@ -1185,7 +1182,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-none bg-fill-width',
               },
-              row: 4,
+              row: 3,
               classes: '',
               elements: [
                 {
@@ -1271,7 +1268,7 @@ export const components: any[] = [
                 title: {
                   label: 'Storybook 是什么？',
                   style: 'style-v1',
-                  classes: 'mat-headline-1',
+                  classes: 'mat-headline-3',
                 },
               },
               classes: 'text-light',
@@ -1348,7 +1345,7 @@ export const components: any[] = [
                     icon: 'wave',
                   },
                   action: {
-                    label: '提交',
+                    label: '提交表单',
                   },
                   formOrder: '1',
                   contact: [
@@ -1443,7 +1440,7 @@ export const components: any[] = [
                 title: {
                   label: 'Storybook 是什么？',
                   style: 'style-v1',
-                  classes: 'mat-headline-1',
+                  classes: 'mat-headline-3',
                 },
               },
               classes: 'text-light',
@@ -1697,7 +1694,7 @@ export const components: any[] = [
                 title: {
                   label: '艺术设计之旅：探索创意与美学的奇妙世界',
                   style: 'style-v1',
-                  classes: 'mat-headline-2 bold',
+                  classes: 'mat-headline-3 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">这次艺术设计之旅不仅仅是一次观赏和欣赏的体验，更是一个与艺术创造亲密接触的机会。参与者们通过参观展览、讲座和工作坊，自己动手创作和表达，发掘了自己内在的艺术潜能和表达能力。</p>',
@@ -1812,7 +1809,7 @@ export const components: any[] = [
                 title: {
                   label: 'Drupal 优秀案例',
                   style: 'style-v1',
-                  classes: 'mat-headline-2 bold',
+                  classes: 'mat-headline-3 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
@@ -1821,11 +1818,11 @@ export const components: any[] = [
                 classes: '',
               },
               classes: '',
-              row: 3,
+              row: 4,
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-05-27',
+                  subTitle: '2024-07-12',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -1875,7 +1872,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-27',
+                  subTitle: '2024-07-12',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -1912,7 +1909,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-27',
+                  subTitle: '2024-07-12',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -1949,7 +1946,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-27',
+                  subTitle: '2024-07-12',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -1986,7 +1983,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-27',
+                  subTitle: '2024-07-12',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2023,7 +2020,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-27',
+                  subTitle: '2024-07-12',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2060,7 +2057,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-27',
+                  subTitle: '2024-07-12',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2097,7 +2094,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-05-27',
+                  subTitle: '2024-07-12',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2148,7 +2145,7 @@ export const components: any[] = [
                 title: {
                   label: '最新课程',
                   style: 'style-v1',
-                  classes: 'mat-headline-0 bold',
+                  classes: 'mat-headline-3 bold',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
@@ -2500,7 +2497,6 @@ export const components: any[] = [
                 classes: '',
               },
               classes: '',
-              row: 2,
               fullWidth: true,
               elements: [
                 {
@@ -2515,6 +2511,8 @@ export const components: any[] = [
                     href: '#',
                     src: '/assets/images/16-9/business-06.jpg',
                     alt: 'alt',
+                    width: 400,
+                    height: 300,
                   },
                   bg: {
                     classes: 'object-fit',
@@ -2536,6 +2534,8 @@ export const components: any[] = [
                     href: '#',
                     src: '/assets/images/16-9/business-11.jpg',
                     alt: 'alt',
+                    width: 400,
+                    height: 300,
                   },
                   bg: {
                     classes: 'object-fit',
@@ -2624,6 +2624,7 @@ export const components: any[] = [
               title: {
                 label: '为什么你将会喜欢这个前端框架？',
                 style: 'style-v1',
+                classes: 'mat-headline-3',
               },
               bg: {
                 classes: 'bg-light bg-fill-width',
@@ -2715,6 +2716,7 @@ export const components: any[] = [
                 title: {
                   label: '为什么你将会喜欢这个前端框架？',
                   style: 'style-v1',
+                  classes: 'mat-headline-3',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',
@@ -2726,6 +2728,9 @@ export const components: any[] = [
               img: {
                 src: '/assets/images/illustration/27.png',
                 alt: 'OUR FEATURES',
+                width: 400,
+                height: 300,
+                classes: 'object-contain',
               },
               elements: [
                 {
@@ -2834,10 +2839,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -2846,10 +2849,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -2858,10 +2859,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -2870,10 +2869,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -2882,10 +2879,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -2894,10 +2889,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -2917,6 +2910,7 @@ export const components: any[] = [
                 title: {
                   label: '职位招聘',
                   style: 'style-v1',
+                  classes: 'mat-headline-3',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>',
@@ -2930,10 +2924,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -2965,10 +2957,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -2982,10 +2972,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -2999,10 +2987,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -3016,10 +3002,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -3033,10 +3017,8 @@ export const components: any[] = [
                 {
                   img: {
                     src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
+                    width: 45,
+                    height: 45,
                     alt: 'logo',
                   },
                   css3: true,
@@ -3067,6 +3049,7 @@ export const components: any[] = [
                 title: {
                   label: '为什么你将会喜欢这个前端框架？',
                   style: 'style-v1',
+                  classes: 'mat-headline-3',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',
@@ -3078,6 +3061,9 @@ export const components: any[] = [
               img: {
                 src: '/assets/images/illustration/27.png',
                 alt: 'OUR FEATURES',
+                width: 500,
+                height: 500,
+                classes: 'object-contain',
               },
               left: [
                 {
@@ -3173,6 +3159,8 @@ export const components: any[] = [
                 img: {
                   classes: 'object-fit',
                   src: '/assets/images/bg/bg-01.png',
+                  width: 490,
+                  height: 500,
                 },
               },
               classes: '',
@@ -3185,6 +3173,15 @@ export const components: any[] = [
                   type: 'img',
                   src: '/assets/images/illustration/13.png',
                   classes: 'mover',
+                  style: {
+                    opacity: '',
+                    borderRadius: '',
+                    boxShadow: '',
+                    aspectRatio: '',
+                    objectFit: 'contain',
+                  },
+                  width: 500,
+                  height: 600,
                   hostClasses: 'relative img-bg-shape',
                   actions: [
                     {
@@ -3213,12 +3210,12 @@ export const components: any[] = [
                     label:
                       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                     style: 'style-v4',
-                    classes: 'mat-headline-1 bold',
+                    classes: 'mat-headline-3 bold',
                   },
                   bg: {
                     classes: '',
                   },
-                  actionsAlign: 'start center',
+                  actionsAlign: 'start',
                   actions: [
                     {
                       type: 'btn-generater',
@@ -3264,6 +3261,15 @@ export const components: any[] = [
                 {
                   type: 'img',
                   src: '/assets/images/illustration/12.png',
+                  style: {
+                    opacity: '',
+                    borderRadius: '',
+                    boxShadow: '',
+                    aspectRatio: '',
+                    objectFit: 'contain',
+                  },
+                  width: 500,
+                  height: 600,
                 },
               ],
               right: [
@@ -3273,7 +3279,7 @@ export const components: any[] = [
                   title: {
                     label: 'Storybook 是什么？',
                     style: 'style-v4',
-                    classes: 'mat-headline-2',
+                    classes: 'mat-headline-3',
                   },
                   body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。',
                 },
@@ -3342,6 +3348,15 @@ export const components: any[] = [
                   type: 'img',
                   src: '/assets/images/illustration/13.png',
                   hostClasses: 'relative',
+                  style: {
+                    opacity: '',
+                    borderRadius: '',
+                    boxShadow: '',
+                    aspectRatio: '',
+                    objectFit: 'contain',
+                  },
+                  width: 500,
+                  height: 600,
                   actions: [
                     {
                       color: 'primary',
@@ -3452,78 +3467,62 @@ export const components: any[] = [
           {
             label: '4v1',
             content: {
-              type: 'showcase-3v9',
-              bg: {
-                classes: 'bg-fill-width',
-                img: {
-                  classes: 'object-fit',
-                  src: '/assets/images/bg/bg-01.png',
+              type: 'showcase-4v1',
+              spacer: 'lg',
+              text: {
+                title: {
+                  label: '平台实时数据',
+                  style: 'style-v1',
+                  classes: 'mat-headline-3',
                 },
+              },
+              bg: {
+                classes: '',
               },
               classes: '',
-              order: {
-                left: 1,
-                right: 0,
+              params: {
+                apiBak: 'api/v1/xxx',
               },
-              left: [
+              elements: [
                 {
-                  type: 'img',
-                  src: '/assets/images/illustration/13.png',
-                  classes: 'mover',
-                  hostClasses: 'relative img-bg-shape',
-                  actions: [
-                    {
-                      type: 'btn-video',
-                      color: 'default',
-                      dialog: {
-                        width: '900',
-                        height: '800',
-                      },
-                      video: {
-                        type: 'iframe',
-                        url: '//player.bilibili.com/player.html?aid=998790468&bvid=BV1ux4y197kc&cid=1207367269&page=1',
-                        width: '900',
-                        height: '700',
-                      },
-                    },
-                  ],
+                  icon: {
+                    name: 'fingerprint',
+                  },
+                  digit: {
+                    value: 173,
+                    label: '+',
+                  },
+                  title: '日访问人数',
                 },
-              ],
-              right: [
                 {
-                  type: 'text',
-                  spacer: 'md',
-                  body: '从左侧选择组件拖动到编辑区：<ul class="list-done"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class="text-primary">1176468251</span></p><p style="display:flex"><img width="120px" src="/assets/icons/large-left-arrow.svg"><video muted="" autoplay="" loop="" width="120px" src="/assets/video/drag-drop.mp4"></video></p>',
-                  title: {
-                    label:
-                      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
-                    style: 'style-v4',
-                    classes: 'mat-headline-1 bold',
+                  icon: {
+                    name: 'verified_user',
                   },
-                  bg: {
-                    classes: '',
+                  digit: {
+                    value: 482,
+                    label: '+',
                   },
-                  actionsAlign: 'start center',
-                  actions: [
-                    {
-                      type: 'btn-generater',
-                      label: '生成页面',
-                      color: 'primary',
-                      mode: 'raised',
-                    },
-                    {
-                      type: 'btn',
-                      color: 'primary',
-                      mode: 'stroked',
-                      label: '演示视频',
-                      href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
-                      target: '_blank',
-                      icon: {
-                        inline: true,
-                        svg: 'play-circle-outline',
-                      },
-                    },
-                  ],
+                  title: '日打开次数',
+                },
+                {
+                  icon: {
+                    name: 'android',
+                  },
+                  digit: {
+                    value: 62,
+                    label: '人',
+                  },
+                  title: '日新增人数',
+                },
+                {
+                  icon: {
+                    name: 'mail',
+                  },
+                  digit: {
+                    value: 6743,
+                    label: '万',
+                  },
+                  title: '累计用户数',
                 },
               ],
             },
@@ -3548,7 +3547,7 @@ export const components: any[] = [
                 label: '你将喜欢上 Drupal 的原因',
                 icon: 'email',
                 style: 'style-v2',
-                classes: 'mat-headline-1',
+                classes: 'mat-headline-3',
               },
               classes: '',
               bg: {
@@ -3810,7 +3809,7 @@ export const components: any[] = [
                 label: '你将喜欢上 Drupal 的原因',
                 icon: 'email',
                 style: 'style-v2',
-                classes: 'mat-headline-1',
+                classes: 'mat-headline-3',
               },
               classes: '',
               bg: {
@@ -3955,7 +3954,7 @@ export const components: any[] = [
                 label: 'Storybook 能够做什么？',
                 icon: 'email',
                 style: 'style-v2',
-                classes: 'mat-headline-2',
+                classes: 'mat-headline-3',
               },
               bg: {
                 classes: '',
@@ -4132,7 +4131,7 @@ export const components: any[] = [
             content: {
               type: 'carousel-1v1',
               spacer: 'none',
-              disableContainer: true,
+              fullWidth: true,
               bg: {
                 classes: '',
               },
@@ -4348,6 +4347,7 @@ export const components: any[] = [
                     title: {
                       label: '为什么你将会喜欢这个前端框架？',
                       style: 'style-v1',
+                      classes: 'mat-headline-3',
                     },
                     bg: {
                       classes: 'bg-light bg-fill-width',
@@ -4815,7 +4815,7 @@ export const components: any[] = [
                   label: '选择Drupal的原因',
                   icon: '',
                   style: 'style-v1',
-                  classes: 'mat-headline-1',
+                  classes: 'mat-headline-3',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Drupal是数据管理中心，提供集中的地方来访问所有平台的数据</p><br>',
@@ -4847,10 +4847,9 @@ export const components: any[] = [
                     img: {
                       src: '/assets/images/svg/Asset187.svg',
                       alt: 'browser',
-                      style: {
-                        width: '80px',
-                        marginRight: '10px',
-                      },
+                      width: 80,
+                      height: 80,
+                      classes: 'mr-3',
                     },
                     style: 'style-v8',
                     title: {
@@ -4864,10 +4863,9 @@ export const components: any[] = [
                     img: {
                       src: '/assets/images/svg/Asset189.svg',
                       alt: 'browser',
-                      style: {
-                        width: '80px',
-                        marginRight: '10px',
-                      },
+                      width: 80,
+                      height: 80,
+                      classes: 'mr-3',
                     },
                     style: 'style-v8',
                     title: {
@@ -4881,10 +4879,9 @@ export const components: any[] = [
                     img: {
                       src: '/assets/images/svg/Asset190.svg',
                       alt: 'browser',
-                      style: {
-                        width: '80px',
-                        marginRight: '10px',
-                      },
+                      width: 80,
+                      height: 80,
+                      classes: 'mr-3',
                     },
                     style: 'style-v8',
                     title: {
@@ -4898,10 +4895,9 @@ export const components: any[] = [
                     img: {
                       src: '/assets/images/svg/Asset192.svg',
                       alt: 'browser',
-                      style: {
-                        width: '80px',
-                        marginRight: '10px',
-                      },
+                      width: 80,
+                      height: 80,
+                      classes: 'mr-3',
                     },
                     style: 'style-v8',
                     title: {
@@ -4915,10 +4911,9 @@ export const components: any[] = [
                     img: {
                       src: '/assets/images/svg/bike.svg',
                       alt: 'browser',
-                      style: {
-                        width: '80px',
-                        marginRight: '10px',
-                      },
+                      width: 80,
+                      height: 80,
+                      classes: 'mr-3',
                     },
                     style: 'style-v8',
                     title: {
@@ -4932,10 +4927,9 @@ export const components: any[] = [
                     img: {
                       src: '/assets/images/svg/calendar.png',
                       alt: 'browser',
-                      style: {
-                        width: '80px',
-                        marginRight: '10px',
-                      },
+                      width: 80,
+                      height: 80,
+                      classes: 'mr-3',
                     },
                     style: 'style-v8',
                     title: {
@@ -4959,7 +4953,7 @@ export const components: any[] = [
                   label: '客户评价',
                   icon: '',
                   style: 'style-v1',
-                  classes: 'mat-headline-1',
+                  classes: 'mat-headline-3',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
@@ -5068,6 +5062,7 @@ export const components: any[] = [
               title: {
                 label: '用户是如何评价 Storybook',
                 style: 'style-v1',
+                classes: 'mat-headline-3',
               },
               bg: {
                 classes: 'bg-fill-width overlay overlay-80',
@@ -5180,70 +5175,56 @@ export const components: any[] = [
                     src: '/assets/images/logo/amazon.svg',
                     href: '#',
                     alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
+                    width: 100,
+                    height: 60,
                   },
                   {
                     type: 'img',
                     src: '/assets/images/logo/google.svg',
                     href: '#',
                     alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
+                    width: 100,
+                    height: 60,
                   },
                   {
                     type: 'img',
                     src: '/assets/images/logo/lenovo.svg',
                     href: '#',
                     alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
+                    width: 100,
+                    height: 60,
                   },
                   {
                     type: 'img',
                     src: '/assets/images/logo/paypal.svg',
                     href: '#',
                     alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
+                    width: 100,
+                    height: 60,
                   },
                   {
                     type: 'img',
                     src: '/assets/images/logo/shopify.svg',
                     href: '#',
                     alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
+                    width: 100,
+                    height: 60,
                   },
                   {
                     type: 'img',
                     src: '/assets/images/logo/spotify.svg',
                     href: '#',
                     alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
+                    width: 100,
+                    height: 60,
                   },
                   {
                     type: 'img',
                     src: '/assets/images/logo/logo10.png',
                     href: '#',
                     alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
+                    width: 100,
+                    height: 60,
                   },
                 ],
               },
@@ -5264,6 +5245,7 @@ export const components: any[] = [
           title: {
             label: 'Vue 开发',
             style: 'style-v1',
+            classes: 'mat-headline-3',
           },
           bg: {
             classes: '',

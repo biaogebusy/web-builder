@@ -217,7 +217,7 @@ const content: ILayoutBuilder = {
       elements: [
         {
           style: 'style-v1',
-          classes: 'mat-headline-1 bold',
+          classes: 'mat-headline-3 bold',
           typed: {
             enable: false,
             config: {

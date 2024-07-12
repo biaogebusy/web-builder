@@ -128,6 +128,7 @@ const link: IShowcase3v6 = {
     title: {
       label: '职位招聘',
       style: 'style-v1',
+      classes: 'mat-headline-3',
     },
     classes: 'text-center',
     body: '<p class="text-center">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>',

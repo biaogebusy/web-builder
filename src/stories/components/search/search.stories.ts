@@ -54,7 +54,7 @@ const content: ISearch = {
       title: {
         label: '综合搜索',
         style: 'style-v1',
-        classes: 'mat-headline-1  text-light',
+        classes: 'mat-headline-3  text-light',
       },
       spacer: 'xl',
     },

@@ -71,32 +71,7 @@ export const widgets = [
       type: 'custom-template',
       isAPI: true,
       api: '/api/v1/content',
-      html: `<div class="flex flex-wrap">
-    {{#rows }}
-    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">
-        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">
-            <a href="{{url}}">
-                {{#img}}
-                <img class="object-cover w-full" height="200px" src="{{img}}" /></a>
-                {{/img}}
-                {{^img}}
-                <img class="object-cover w-full" height="200px" src="/assets/images/hero/182.jpg" /></a>
-                {{/img}}
-            <div class="p-5">
-                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>
-                <div class="three-line opacity-90">{{body}}</div>
-                <div class="footer flex items-center mt-5">
-                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />
-                    <div class="flex flex-col">
-                        <div class="font-bold">{{user}}</div>
-                        <div class="small">{{created}}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/rows}}
-</div>`,
+      html: '<div class="flex flex-wrap">\n    {{#rows }}\n    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">\n        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">\n            <a href="{{url}}">\n                {{#img}}\n                <img class="object-cover w-full" height="200px" src="{{img}}" /></a>\n                {{/img}}\n                {{^img}}\n                <img class="object-cover w-full" height="200px" src="/assets/images/hero/182.jpg" /></a>\n                {{/img}}\n            <div class="p-5">\n                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>\n                <div class="three-line opacity-90">{{body}}</div>\n                <div class="footer flex items-center mt-5">\n                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />\n                    <div class="flex flex-col">\n                        <div class="font-bold">{{user}}</div>\n                        <div class="small">{{created}}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    {{/rows}}\n</div>',
     },
   },
   {
@@ -108,8 +83,8 @@ export const widgets = [
       type: 'title',
       label:
         '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
-      style: 'style-v4',
       classes: 'mat-headline-3 bold',
+      style: 'style-v4',
     },
   },
   {
@@ -324,7 +299,7 @@ export const widgets = [
         icon: 'wave',
       },
       action: {
-        label: '提交',
+        label: '提交表单',
       },
       formOrder: '1',
       contact: [
@@ -430,9 +405,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 9565, 5090, 5409],
-          ['第二季度', 6098, 4413, 6056],
-          ['第三季度', 9942, 7374, 9960],
+          ['第一季度', 7747, 5589, 8226],
+          ['第二季度', 7331, 4662, 4691],
+          ['第三季度', 7244, 4616, 7566],
         ],
       },
       xAxis: {
@@ -473,9 +448,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 9565, 5090, 5409],
-          ['第二季度', 6098, 4413, 6056],
-          ['第三季度', 9942, 7374, 9960],
+          ['第一季度', 7747, 5589, 8226],
+          ['第二季度', 7331, 4662, 4691],
+          ['第三季度', 7244, 4616, 7566],
         ],
       },
       xAxis: {
@@ -522,9 +497,9 @@ export const widgets = [
       dataset: {
         source: [
           ['预算', '费用'],
-          ['大额红包总金额', 906],
-          ['小额红包总金额', 463],
-          ['提成总额', 375],
+          ['大额红包总金额', 915],
+          ['小额红包总金额', 565],
+          ['提成总额', 563],
         ],
       },
       series: [
@@ -637,25 +612,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 9993,
+          tatol: 3188,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 7968,
+          tatol: 9828,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 3960,
+          tatol: 9337,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 2477,
+          tatol: 4784,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -998,7 +973,7 @@ export const widgets = [
     content: {
       type: 'card-1v4',
       img: {
-        classes: 'object-fit',
+        classes: 'w-full h-full object-cover',
         src: '/assets/images/avatar/01.jpeg',
       },
       star: 5,
@@ -1045,7 +1020,7 @@ export const widgets = [
       suffix: '/月',
       body: '<ul class="list-done"><li>完全开放</li><li>安全检测机制</li><li>高质量交付源码文件</li><li>免费一个域名绑定</li><li>二十四小时免费技术支持</li></ul>',
       classes: '',
-      actionsAlign: 'start center',
+      actionsAlign: 'start',
       actions: [
         {
           href: '#',
@@ -1137,7 +1112,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-27',
+          changed: '2024-07-12',
         },
         {
           link: {
@@ -1148,29 +1123,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-27',
+          changed: '2024-07-12',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-05-27',
+            href: '2024-07-12',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-27',
+          changed: '2024-07-12',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-05-27',
+            href: '2024-07-12',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-05-27',
+          changed: '2024-07-12',
         },
       ],
     },
@@ -1190,7 +1165,7 @@ export const widgets = [
         },
         alt: 'logo',
       },
-      meta: '2024-05',
+      meta: '2024-07',
       title: '前端开发工程师',
       subTitle: 'Davyin',
       content:
@@ -1225,18 +1200,12 @@ export const widgets = [
       elements: [
         {
           src: '/assets/images/cases/porto1.jpg',
-          caption: '描述',
-          thumb: '/assets/images/cases/porto1.jpg',
         },
         {
-          src: '/assets/images/cases/porto2.jpg',
-          preview: '/assets/images/cases/porto2.pdf',
-          thumb: '',
+          src: '/assets/images/cases/porto2.pdf',
         },
         {
-          src: '/assets/images/cases/porto3.jpg',
-          preview: '/assets/images/cases/porto3.pdf',
-          thumb: '',
+          src: '/assets/images/cases/porto3.pdf',
         },
       ],
     },

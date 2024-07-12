@@ -48,7 +48,7 @@ const content: IRelate = {
   title: {
     label: '团队A中国移动中标发票',
     style: 'style-v4',
-    classes: 'mat-headline-1 m-bottom-0',
+    classes: 'mat-headline-3 m-bottom-0',
   },
   actions: [
     {
@@ -363,7 +363,7 @@ RelateV2.args = {
     title: {
       label: 'A公司广告制作年度合作合同2020年',
       style: 'style-v4',
-      classes: 'mat-headline-1 m-bottom-0',
+      classes: 'mat-headline-3 m-bottom-0',
     },
     summary: {
       left: [

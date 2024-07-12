@@ -32,6 +32,7 @@ const content: ICarouselBase = {
   title: {
     label: '用户是如何评价 Storybook',
     style: 'style-v1',
+    classes: 'mat-headline-3',
   },
   bg: {
     classes: 'bg-fill-width overlay overlay-80',

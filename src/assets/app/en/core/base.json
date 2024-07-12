@@ -151,7 +151,7 @@
               "title": {
                 "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
                 "style": "style-v4",
-                "classes": "mat-headline-1 bold"
+                "classes": "mat-headline-3 bold"
               }
             }
           ]
@@ -690,7 +690,7 @@
           "title": {
             "label": "How was the page created",
             "style": "style-v1",
-            "classes": "mat-headline-1 bold"
+            "classes": "mat-headline-3 bold"
           }
         },
         "elements": [

@@ -41,6 +41,7 @@ const content: IShowcase3v5 = {
     title: {
       label: '为什么你将会喜欢这个前端框架？',
       style: 'style-v1',
+      classes: 'mat-headline-3',
     },
     classes: 'text-center',
     body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',

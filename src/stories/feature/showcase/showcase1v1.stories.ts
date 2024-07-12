@@ -46,7 +46,7 @@ const content: IShowcase1v1 = {
   bg: {
     classes: 'bg-shadow bg-fill-width',
   },
-  row: 4,
+  row: 3,
   elements: [
     {
       type: 'box',
@@ -126,8 +126,9 @@ const v1: IShowcase1v1 = {
     label:
       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v1',
+    classes: 'mat-headline-3',
   },
-  row: 4,
+  row: 3,
   bg: { classes: '' },
   classes: '',
   elements: [
@@ -163,8 +164,9 @@ const v2: IShowcase1v1 = {
       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v2',
     icon: 'mail',
+    classes: 'mat-headline-3',
   },
-  row: 4,
+  row: 3,
   bg: {
     classes: 'bg- bg-fill-width',
   },
@@ -212,8 +214,9 @@ const v3: IShowcase1v1 = {
     label:
       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v3',
+    classes: 'mat-headline-3',
   },
-  row: 4,
+  row: 3,
   bg: {
     classes: 'bg- bg-fill-width',
   },
@@ -258,7 +261,11 @@ export const Primary: Story = {};
 Primary.storyName = 'Primary';
 const primary: IShowcase1v1 = {
   type: 'showcase-1v1',
-  title: { label: 'Drupal 已经超越了传统的 CMS 概念', style: 'style-v1' },
+  title: {
+    label: 'Drupal 已经超越了传统的 CMS 概念',
+    style: 'style-v1',
+    classes: 'mat-headline-3',
+  },
   subTitle: {
     spacer: 'none',
     classes: 'text-center',
@@ -304,8 +311,9 @@ const v4: IShowcase1v1 = {
     label:
       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v4',
+    classes: 'mat-headline-3',
   },
-  row: 4,
+  row: 3,
   bg: {
     classes: 'bg-shadow bg-fill-width',
   },
@@ -353,8 +361,9 @@ const v5: IShowcase1v1 = {
     label:
       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v5',
+    classes: 'mat-headline-3',
   },
-  row: 4,
+  row: 3,
   bg: {
     classes: '',
   },
@@ -402,7 +411,7 @@ const image: IShowcase1v1 = {
   bg: {
     classes: 'bg-none bg-fill-width',
   },
-  row: 4,
+  row: 3,
   classes: '',
   elements: [
     {
