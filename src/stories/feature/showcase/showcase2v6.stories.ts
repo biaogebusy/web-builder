@@ -1,13 +1,11 @@
 import {
   moduleMetadata,
   Meta,
-  componentWrapperDecorator,
   StoryObj,
   applicationConfig,
 } from '@storybook/angular';
 
 import { Showcase2v6Component } from '@uiux/combs/showcase/showcase2v6/showcase2v6.component';
-import * as Card1v2Stories from 'src/stories/widgets/card/Card1v2.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { IShowcase2v6 } from '@core/interface/combs/IShowcase';
 import { importProvidersFrom } from '@angular/core';
@@ -23,7 +21,6 @@ const meta: Meta<Showcase2v6Component> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
   ],
   parameters: {
     layout: 'fullscreen',
@@ -33,7 +30,6 @@ const meta: Meta<Showcase2v6Component> = {
 export default meta;
 type Story = StoryObj<Showcase2v6Component>;
 export const Default: Story = {};
-const card1v2: any = Card1v2Stories.Default.args;
 const content: IShowcase2v6 = {
   type: 'showcase-2v6',
   text: {
@@ -62,6 +58,8 @@ const content: IShowcase2v6 = {
         href: '#',
         src: '/assets/images/16-9/business-06.jpg',
         alt: 'alt',
+        width: 400,
+        height: 300,
       },
       bg: {
         classes: 'object-fit',
@@ -83,6 +81,8 @@ const content: IShowcase2v6 = {
         href: '#',
         src: '/assets/images/16-9/business-11.jpg',
         alt: 'alt',
+        width: 400,
+        height: 300,
       },
       bg: {
         classes: 'object-fit',

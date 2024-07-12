@@ -22,7 +22,6 @@ const meta: Meta<Showcase3v6Component> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
   ],
   parameters: {
     layout: 'fullscreen',
@@ -54,10 +53,8 @@ const content: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -66,10 +63,8 @@ const content: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -78,11 +73,8 @@ const content: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -91,11 +83,8 @@ const content: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -104,11 +93,8 @@ const content: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -117,10 +103,8 @@ const content: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -157,10 +141,8 @@ const link: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -192,10 +174,8 @@ const link: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -209,10 +189,8 @@ const link: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -226,10 +204,8 @@ const link: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -243,10 +219,8 @@ const link: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,
@@ -260,10 +234,8 @@ const link: IShowcase3v6 = {
     {
       img: {
         src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       css3: true,

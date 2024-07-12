@@ -27,11 +27,11 @@ export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
 const BUILDERPATH = '/builder';
 
-export function pageContentFactory(
-  activateRoute: ActivatedRoute,
-  contentService: ContentService,
-  contentState: ContentState,
-): Observable<IPage | object | boolean> {
+export function pageContentFactory(): Observable<IPage | object | boolean> {
+  const activateRoute = inject(ActivatedRoute);
+  const contentService = inject(ContentService);
+  const contentState = inject(ContentState);
+
   const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
   activateRoute.url.subscribe(async (url) => {
     const page = await contentService.loadPageContent().toPromise();

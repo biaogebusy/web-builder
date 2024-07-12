@@ -729,7 +729,10 @@
               "type": "btn-generater",
               "label": "生成页面",
               "color": "primary",
-              "mode": "raised"
+              "mode": "raised",
+              "icon": {
+                "svg": "microsoft-visual-studio-code"
+              }
             }
           }
         ]

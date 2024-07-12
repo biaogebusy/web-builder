@@ -7,6 +7,7 @@ import {
   Input,
   OnDestroy,
   AfterContentInit,
+  inject,
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
@@ -38,12 +39,12 @@ export class BlockComponent
   opened: boolean;
   @Input() isPreview = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  contentState = inject(ContentState);
+  zone = inject(NgZone);
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    private contentState: ContentState,
-    private zone: NgZone
   ) {}
 
   ngOnInit(): void {}

@@ -744,7 +744,10 @@
               "type": "btn-generater",
               "label": "Generate Page",
               "color": "primary",
-              "mode": "raised"
+              "mode": "raised",
+              "icon": {
+                "svg": "microsoft-visual-studio-code"
+              }
             }
           }
         ]

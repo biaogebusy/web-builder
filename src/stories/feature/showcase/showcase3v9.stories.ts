@@ -1,7 +1,6 @@
 import {
   moduleMetadata,
   Meta,
-  componentWrapperDecorator,
   StoryObj,
   applicationConfig,
 } from '@storybook/angular';
@@ -24,7 +23,6 @@ const meta: Meta<Showcase3v9Component> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
   ],
   parameters: {
     layout: 'fullscreen',
@@ -41,6 +39,8 @@ const content: IShowcase3v9 = {
     img: {
       classes: 'object-fit',
       src: '/assets/images/bg/bg-01.png',
+      width: 490,
+      height: 500,
     },
   },
   classes: '',
