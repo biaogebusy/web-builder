@@ -19,6 +19,7 @@ import { getComponentSetting } from '@modules/builder/factory/getComponentSettin
 import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { WIDGETS } from '@core/token/token-providers';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +58,10 @@ export class BuilderState {
   util = inject(UtilitiesService);
   sreenService = inject(ScreenService);
   storage = inject(LocalStorageService);
-  constructor(@Inject(DOCUMENT) private doc: Document) {
+  constructor(
+    @Inject(DOCUMENT) private doc: Document,
+    @Inject(WIDGETS) public widgets: any[],
+  ) {
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion) {
       this.version = localVersion;
@@ -284,6 +288,25 @@ export class BuilderState {
     this.fixedContent = null;
     this.fixedShowcase = false;
     this.fixedChange$.next(true);
+  }
+
+  getAllComponents(data: IBuilderComponent[]): any[] {
+    const components: any[] = [];
+    data.forEach((item) => {
+      components.push(...item.elements);
+    });
+    components.push(...this.widgets);
+    const result = components.reduce((acc: any[], element: any) => {
+      if (typeof element === 'object' && element.child) {
+        map(element.child, (item: any) => {
+          acc.push(item.content);
+        });
+      } else {
+        acc.push(element);
+      }
+      return acc;
+    }, []);
+    return result;
   }
 
   getRandomElements(

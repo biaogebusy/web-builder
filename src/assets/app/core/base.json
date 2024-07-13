@@ -64,11 +64,11 @@
               "src": "/assets/images/logo/logo-blue.png",
               "classes": "",
               "alt": "alt",
+              "width": 100,
+              "height": 70,
               "style": {
                 "aspectRatio": "auto",
                 "objectFit": "initial",
-                "width": "100px",
-                "height": "auto",
                 "opacity": 1,
                 "borderRadius": 0,
                 "boxShadow": "none"
@@ -435,7 +435,9 @@
           "classes": "bg-fill-width",
           "img": {
             "classes": "object-fit",
-            "src": "/assets/images/bg/bg-01.png"
+            "src": "/assets/images/bg/bg-01.png",
+            "width": 490,
+            "height": 500
           }
         },
         "spacer": "lg",
@@ -479,7 +481,7 @@
             "title": {
               "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
               "style": "style-v4",
-              "classes": "mat-headline-1 bold"
+              "classes": "mat-headline-3 bold"
             },
             "body": "为您的企业构建现代化的响应式无代码网站：<ul class=\"list-done\"><li>从模板开始，根据需要进行自定义；</li><li>自定义主题色、字体创建品牌网站；</li><li>可视化编辑组件图文数据，所见即所得；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\"><video muted=\"\" autoplay=\"\" loop=\"\" width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
             "actionsAlign": "start",
@@ -673,7 +675,7 @@
           "title": {
             "label": "页面是如何创建的",
             "style": "style-v1",
-            "classes": "mat-headline-1 bold"
+            "classes": "mat-headline-3 bold"
           }
         },
         "elements": [
@@ -727,7 +729,10 @@
               "type": "btn-generater",
               "label": "生成页面",
               "color": "primary",
-              "mode": "raised"
+              "mode": "raised",
+              "icon": {
+                "svg": "microsoft-visual-studio-code"
+              }
             }
           }
         ]

@@ -6,6 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import type { IUserCenter } from '@core/interface/IUserCenter';
@@ -30,13 +31,13 @@ export class UserCenterComponent implements OnInit, OnDestroy {
   currentUser: any;
   id: any;
   userConfig$: Observable<IUserConfig>;
+  cd = inject(ChangeDetectorRef);
+  route = inject(Router);
+  screenService = inject(ScreenService);
+  userService = inject(UserService);
   constructor(
-    private cd: ChangeDetectorRef,
-    private route: Router,
-    private screenService: ScreenService,
-    public userService: UserService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) public user: IUser
+    @Inject(USER) public user: IUser,
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +75,9 @@ export class UserCenterComponent implements OnInit, OnDestroy {
           avatar: {
             src: info?.user_picture?.uri?.url || this.coreConfig.defaultAvatar,
             alt: info.name,
+            height: 60,
+            width: 60,
+            classes: 'object-cover',
           },
           name: info.name,
           subTitle: info.display_name,

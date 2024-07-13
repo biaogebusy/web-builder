@@ -6,6 +6,7 @@ import {
   Inject,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IImg } from '@core/interface/widgets/IImg';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
@@ -30,13 +31,14 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   avatar: IImg;
+
+  cd = inject(ChangeDetectorRef);
+  screenService = inject(ScreenService);
+  nodeService = inject(NodeService);
+  contentState = inject(ContentState);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) public user: IUser,
-    private cd: ChangeDetectorRef,
-    private screenService: ScreenService,
-    public nodeService: NodeService,
-    public contentState: ContentState
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +46,8 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
       this.avatar = {
         src: this.coreConfig.defaultAvatar,
         alt: 'default avatar',
+        width: 80,
+        height: 80,
       };
     } else {
       this.avatar = this.content.avatar;

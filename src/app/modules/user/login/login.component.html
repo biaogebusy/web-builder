@@ -18,7 +18,9 @@
         <div class="w-full form-scroll">
           @if (!currentUser) {
             @if (error) {
-              <div class="rounded-[4px] p-3 mb-3">{{ error }}</div>
+              <div class="error rounded-[4px] p-3 mb-3 text-sm">
+                {{ error }}
+              </div>
             }
             <mat-tab-group animationDuration="0ms" [disablePagination]="true">
               @if (coreConfig.login.phoneLogin.enable) {

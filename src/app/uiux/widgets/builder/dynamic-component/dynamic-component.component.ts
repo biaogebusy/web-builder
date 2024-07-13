@@ -48,9 +48,9 @@ export class DynamicComponentComponent
   builder = inject(BuilderState);
   screenService = inject(ScreenService);
   componentService = inject(ComponentService);
+  cd = inject(ChangeDetectorRef);
+  ele = inject(ElementRef);
   constructor(
-    private cd: ChangeDetectorRef,
-    private ele: ElementRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
   ) {}

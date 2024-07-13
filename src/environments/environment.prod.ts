@@ -5,7 +5,6 @@ export const environment: IEnvironment = {
   production: true,
   port: 4200,
   cache: true,
-  ssr: true,
   multiLang: true,
   langs: [
     {

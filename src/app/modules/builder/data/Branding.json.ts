@@ -14,6 +14,8 @@ export const defaultHeader: IHeader = {
     img: {
       src: '/assets/images/logo/logo-blue.png',
       alt: '信使 logo',
+      width: 65,
+      height: 40,
     },
     invert: '/assets/images/logo/logo-white.png',
   },
@@ -25,7 +27,7 @@ export const defaultHeader: IHeader = {
             svg: 'tooltip-check-outline',
             inline: true,
           },
-          label: 'v5.0.0',
+          label: 'v8.0.0',
         },
         {
           icon: {

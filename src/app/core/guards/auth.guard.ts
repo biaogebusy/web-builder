@@ -1,10 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  afterNextRender,
-  afterRender,
-  inject,
-} from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import {
   Router,
   ActivatedRouteSnapshot,

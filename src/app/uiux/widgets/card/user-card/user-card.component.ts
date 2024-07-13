@@ -5,6 +5,7 @@ import {
   Inject,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
 import { NodeService } from '@core/service/node.service';
@@ -27,12 +28,12 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   @Input() content: IUserCard;
   profile: IMediaObject;
   count: IUserCount[];
+  nodeService = inject(NodeService);
+  cd = inject(ChangeDetectorRef);
+  dialogService = inject(DialogService);
   constructor(
-    private nodeService: NodeService,
-    private cd: ChangeDetectorRef,
-    private dialogService: DialogService,
     @Inject(USER) public user: IUser,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
   ) {
     super();
   }
@@ -50,10 +51,10 @@ export class UserCardComponent extends BaseComponent implements OnInit {
         src: this.user.picture || this.coreConfig.defaultAvatar,
         alt: this.user.current_user.name,
         style: {
-          height: '37px',
-          width: '37px',
           borderRadius: '50%',
         },
+        height: 37,
+        width: 37,
       },
       title: this.user.current_user.name,
       subTitle: this.user.display_name,
@@ -81,7 +82,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
           return of({
             rows: [],
           });
-        })
+        }),
       )
       .subscribe((res) => {
         this.count = res.rows.map((item: any) => {

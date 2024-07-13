@@ -2,29 +2,31 @@
   <div class="img-wrapper">
     @if (!content.href) {
       <img
-        loading="lazy"
         contentedit="src"
         [ngStyle]="content.style"
         [ngClass]="content.classes"
-        [src]="content.src || coreConfig.defaultThumb"
+        [ngSrc]="content.src || coreConfig.defaultThumb"
         [alt]="content.alt || ''"
-        />
+        priority
+        [width]="content.width || 400"
+        [height]="content.height || 300"
+      />
     } @else {
       <a href="{{ content.href }}" target="{{ content.target }}">
         <img
-          loading="lazy"
           contentedit="src"
           [ngClass]="content.classes"
-          [src]="content.src || coreConfig.defaultThumb"
+          [ngSrc]="content.src || coreConfig.defaultThumb"
           [ngStyle]="content.style"
           [alt]="content.alt || ''"
-          />
+          priority
+          [width]="content.width || 400"
+          [height]="content.height || 300"
+        />
       </a>
     }
     @if (content.actions) {
-      <div
-        class="actions flex justify-center items-center gap-3"
-        >
+      <div class="actions flex justify-center items-center gap-3">
         @for (action of content.actions; track action) {
           <app-dynamic-component
             [inputs]="{ content: action, disableToolbar: true }"

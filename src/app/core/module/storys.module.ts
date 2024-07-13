@@ -13,7 +13,6 @@ import {
   pageContentFactory,
 } from '@core/factory/factory';
 import { ContentState } from '@core/state/ContentState';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { ContentService } from '@core/service/content.service';
 import {
   CORE_CONFIG,
@@ -29,6 +28,7 @@ import {
   IS_BUILDER_MODE,
   MEDIA_ASSETS,
   LANG,
+  WIDGETS,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { BannerModule } from '@uiux/combs/banner/banner.module';
@@ -93,6 +93,10 @@ export class StorysModule {
         {
           provide: CORE_CONFIG,
           useValue: base,
+        },
+        {
+          provide: WIDGETS,
+          useValue: {},
         },
         {
           provide: API_URL,

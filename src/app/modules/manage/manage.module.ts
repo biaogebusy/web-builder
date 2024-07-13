@@ -9,6 +9,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { BaseModule } from '@uiux/base/base.module';
 import { UploadMediaComponent } from './upload-media/upload-media.component';
+import { NgOptimizedImage } from '@angular/common';
 const components = [
   ManageMediaComponent,
   ManageBlockComponent,
@@ -24,6 +25,7 @@ const components = [
     WidgetsModule,
     ManageRoutingModule,
     NgxFileDropModule,
+    NgOptimizedImage,
   ],
   exports: [...components],
 })

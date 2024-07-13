@@ -3,10 +3,8 @@
     <h2 class="block-title">{{ content.title }}</h2>
     <div class="list">
       @for (item of content.elements; track item; let i = $index) {
-        <div
-          class="item {{ item.img.src ? '' : 'no-img' }}"
-          >
-          @if (item.img?.src) {
+        <div class="item {{ item.img.src ? '' : 'no-img' }}">
+          @if (item.img.src) {
             <a [href]="item.link.href" class="post-img">
               <app-img
                 [attr.data-path]="'elements.' + i + '.img'"

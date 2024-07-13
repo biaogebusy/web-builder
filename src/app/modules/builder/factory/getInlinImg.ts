@@ -12,19 +12,21 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
             {
               type: 'input',
               key: 'width',
-              defaultValue: ele.style.width ?? 'auto',
+              defaultValue: parseInt(ele.getAttribute('width')) ?? ele.width,
               className: 'col-span-6',
               props: {
                 label: 'W',
+                type: 'number',
               },
             },
             {
               type: 'input',
               key: 'height',
               className: 'col-span-6',
-              defaultValue: ele.style.height ?? 'auto',
+              defaultValue: parseInt(ele.getAttribute('height')) ?? ele.height,
               props: {
                 label: 'H',
+                type: 'number',
               },
             },
             {

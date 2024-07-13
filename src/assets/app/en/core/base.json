@@ -91,11 +91,11 @@
               "src": "/assets/images/logo/logo-blue.png",
               "classes": "",
               "alt": "alt",
+              "width": 100,
+              "height": 70,
               "style": {
                 "aspectRatio": "auto",
                 "objectFit": "initial",
-                "width": "100px",
-                "height": "auto",
                 "opacity": 1,
                 "borderRadius": 0,
                 "boxShadow": "none"
@@ -151,7 +151,7 @@
               "title": {
                 "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
                 "style": "style-v4",
-                "classes": "mat-headline-1 bold"
+                "classes": "mat-headline-3 bold"
               }
             }
           ]
@@ -463,6 +463,8 @@
             "type": "img",
             "src": "/assets/images/illustration/13.png",
             "classes": "mover",
+            "width": 490,
+            "height": 500,
             "hostClasses": "position-relative img-bg-shape",
             "actions": [
               {
@@ -688,7 +690,7 @@
           "title": {
             "label": "How was the page created",
             "style": "style-v1",
-            "classes": "mat-headline-1 bold"
+            "classes": "mat-headline-3 bold"
           }
         },
         "elements": [
@@ -742,7 +744,10 @@
               "type": "btn-generater",
               "label": "Generate Page",
               "color": "primary",
-              "mode": "raised"
+              "mode": "raised",
+              "icon": {
+                "svg": "microsoft-visual-studio-code"
+              }
             }
           }
         ]
