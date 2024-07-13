@@ -2729,11 +2729,18 @@ export const components: any[] = [
               },
               classes: '',
               img: {
-                src: '/assets/images/illustration/27.png',
+                src: '/assets/images/hero/hero-component.svg',
                 alt: 'OUR FEATURES',
-                width: 400,
+                width: 500,
                 height: 300,
                 classes: 'object-contain',
+                style: {
+                  opacity: '',
+                  borderRadius: '',
+                  boxShadow: '',
+                  aspectRatio: '',
+                  objectFit: 'cover',
+                },
               },
               elements: [
                 {
@@ -2747,7 +2754,6 @@ export const components: any[] = [
                     label: '组件编辑',
                   },
                   content: '通过简单的管理界面对复杂的可视化编辑',
-                  more: null,
                 },
                 {
                   type: 'box',
@@ -2761,7 +2767,6 @@ export const components: any[] = [
                   },
                   content:
                     'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                  more: null,
                 },
                 {
                   type: 'box',
@@ -2775,7 +2780,6 @@ export const components: any[] = [
                   },
                   content:
                     '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                  more: null,
                 },
                 {
                   type: 'box',
@@ -2789,9 +2793,9 @@ export const components: any[] = [
                   },
                   content:
                     '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                  more: null,
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'border_all',
                   },
@@ -2804,6 +2808,7 @@ export const components: any[] = [
                     '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'functions',
                   },
@@ -3081,7 +3086,6 @@ export const components: any[] = [
                     label: '组件编辑',
                   },
                   content: '通过简单的管理界面对复杂的可视化编辑',
-                  more: null,
                 },
                 {
                   type: 'box',
@@ -3095,7 +3099,6 @@ export const components: any[] = [
                   },
                   content:
                     'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                  more: null,
                 },
                 {
                   type: 'box',
@@ -3109,7 +3112,6 @@ export const components: any[] = [
                   },
                   content:
                     '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                  more: null,
                 },
               ],
               right: [
@@ -3125,9 +3127,9 @@ export const components: any[] = [
                   },
                   content:
                     '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                  more: null,
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'border_all',
                   },
@@ -3140,6 +3142,7 @@ export const components: any[] = [
                     '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
                 },
                 {
+                  type: 'box',
                   icon: {
                     name: 'functions',
                   },
@@ -3493,7 +3496,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 954,
+                    value: 640,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -3503,7 +3506,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 420,
+                    value: 349,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -3513,7 +3516,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 53,
+                    value: 69,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -3523,7 +3526,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 6303,
+                    value: 3691,
                     label: '万',
                   },
                   title: '累计用户数',

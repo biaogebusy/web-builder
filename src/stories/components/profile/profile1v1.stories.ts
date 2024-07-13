@@ -211,7 +211,6 @@ const componey: IProfile1v1 = {
         icon: {
           color: 'warn',
           svg: 'arrow_right',
-          inline: true,
         },
         label: '联系方式',
         content: '18878718888',

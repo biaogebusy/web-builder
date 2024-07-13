@@ -51,46 +51,71 @@ const content: IShowcase3v5 = {
   },
   classes: '',
   img: {
-    src: '/assets/images/illustration/27.png',
+    src: '/assets/images/hero/hero-component.svg',
     alt: 'OUR FEATURES',
-    width: 400,
+    width: 500,
     height: 300,
     classes: 'object-contain',
+    style: {
+      opacity: '',
+      borderRadius: '',
+      boxShadow: '',
+      aspectRatio: '',
+      objectFit: 'cover',
+    },
   },
   elements: [
     {
-      ...Showcase3v4.content.elements[0],
+      type: 'box',
+      style: 'style-v8',
       icon: {
         name: 'verified_user',
       },
-      style: 'style-v8',
-      more: null,
+      title: {
+        href: '/',
+        label: '组件编辑',
+      },
+      content: '通过简单的管理界面对复杂的可视化编辑',
     },
     {
-      ...Showcase3v4.content.elements[1],
+      type: 'box',
+      style: 'style-v8',
       icon: {
         name: 'favorite',
       },
-      style: 'style-v8',
-      more: null,
+      title: {
+        href: '/',
+        label: '多语言',
+      },
+      content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
     },
     {
-      ...Showcase3v4.content.elements[2],
+      type: 'box',
+      style: 'style-v8',
       icon: {
         name: 'android',
       },
-      style: 'style-v8',
-      more: null,
+      title: {
+        href: '/',
+        label: '高性能',
+      },
+      content:
+        '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
     },
     {
-      ...Showcase3v4.content.elements[3],
+      type: 'box',
+      style: 'style-v8',
       icon: {
         name: 'devices',
       },
-      style: 'style-v8',
-      more: null,
+      title: {
+        href: '/',
+        label: '易用的编辑器',
+      },
+      content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
     },
     {
+      type: 'box',
       icon: {
         name: 'border_all',
       },
@@ -102,6 +127,7 @@ const content: IShowcase3v5 = {
       content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
     },
     {
+      type: 'box',
       icon: {
         name: 'functions',
       },
