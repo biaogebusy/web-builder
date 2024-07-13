@@ -140,7 +140,7 @@ export const components: any[] = [
                 elements: [
                   {
                     type: 'img',
-                    src: 'http://localhost:4200/assets/images/16-9/business-13.jpg',
+                    src: '/assets/images/16-9/business-13.jpg',
                     style: {
                       opacity: '',
                       borderRadius: '',
@@ -154,7 +154,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'img',
-                    src: 'http://localhost:4200/assets/images/16-9/business-14.jpeg',
+                    src: '/assets/images/16-9/business-14.jpeg',
                     style: {
                       opacity: '',
                       borderRadius: '',
@@ -168,7 +168,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'img',
-                    src: 'http://localhost:4200/assets/images/16-9/business-15.jpeg',
+                    src: '/assets/images/16-9/business-15.jpeg',
                     style: {
                       opacity: '',
                       borderRadius: '',
@@ -182,7 +182,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'img',
-                    src: 'http://localhost:4200/assets/images/16-9/business-16.jpeg',
+                    src: '/assets/images/16-9/business-16.jpeg',
                     style: {
                       opacity: '',
                       borderRadius: '',
@@ -351,7 +351,7 @@ export const components: any[] = [
                     aspectRatio: '',
                     objectFit: 'contain',
                   },
-                  src: 'http://localhost:4200/assets/images/illustration/30.png',
+                  src: '/assets/images/illustration/30.png',
                   width: 800,
                   height: 500,
                 },
@@ -1322,6 +1322,7 @@ export const components: any[] = [
                 title: {
                   label: '联系我们',
                   style: 'style-v1',
+                  classes: 'mat-headline-3',
                 },
               },
               classes: '',
@@ -1818,11 +1819,11 @@ export const components: any[] = [
                 classes: '',
               },
               classes: '',
-              row: 4,
+              row: 3,
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-07-12',
+                  subTitle: '2024-07-13',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -1872,7 +1873,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-07-12',
+                  subTitle: '2024-07-13',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -1909,7 +1910,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-07-12',
+                  subTitle: '2024-07-13',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -1946,7 +1947,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-07-12',
+                  subTitle: '2024-07-13',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -1983,7 +1984,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-07-12',
+                  subTitle: '2024-07-13',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2020,7 +2021,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-07-12',
+                  subTitle: '2024-07-13',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2057,7 +2058,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-07-12',
+                  subTitle: '2024-07-13',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2094,7 +2095,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-07-12',
+                  subTitle: '2024-07-13',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2136,7 +2137,7 @@ export const components: any[] = [
             label: '2v1 Card',
             content: {
               type: 'showcase-2v1',
-              row: 4,
+              row: 3,
               bg: {
                 classes: '',
               },
@@ -2487,7 +2488,7 @@ export const components: any[] = [
                   label:
                     '<strong class="text-primary">Storybook</strong> 是什么？',
                   style: 'style-v1',
-                  classes: 'mat-headline-2 blod',
+                  classes: 'mat-headline-3 blod',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文</p>',
@@ -2511,8 +2512,9 @@ export const components: any[] = [
                     href: '#',
                     src: '/assets/images/16-9/business-06.jpg',
                     alt: 'alt',
-                    width: 400,
-                    height: 300,
+                    width: 600,
+                    height: 400,
+                    classes: 'object-cover',
                   },
                   bg: {
                     classes: 'object-fit',
@@ -2534,8 +2536,9 @@ export const components: any[] = [
                     href: '#',
                     src: '/assets/images/16-9/business-11.jpg',
                     alt: 'alt',
-                    width: 400,
-                    height: 300,
+                    width: 600,
+                    height: 400,
+                    classes: 'object-cover',
                   },
                   bg: {
                     classes: 'object-fit',
@@ -2826,6 +2829,7 @@ export const components: any[] = [
                 title: {
                   label: '为所有开发者、所有应用场景而设计',
                   style: 'style-v1',
+                  classes: 'mat-headline-3',
                 },
                 classes: 'text-center',
                 body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
@@ -3489,7 +3493,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 173,
+                    value: 954,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -3499,7 +3503,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 482,
+                    value: 420,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -3509,7 +3513,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 62,
+                    value: 53,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -3519,7 +3523,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 6743,
+                    value: 6303,
                     label: '万',
                   },
                   title: '累计用户数',

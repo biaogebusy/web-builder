@@ -40,6 +40,7 @@ const content: IShowcase3v6 = {
     title: {
       label: '为所有开发者、所有应用场景而设计',
       style: 'style-v1',
+      classes: 'mat-headline-3',
     },
     classes: 'text-center',
     body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',

@@ -7,12 +7,9 @@
   }
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   @if (content.text) {
-    <app-text
-      [attr.data-path]="'text'"
-      [content]="content.text"
-    ></app-text>
+    <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
   }
-  <div class="{{ content.fullWidth ? '' : 'container' }}" ngClass.gt-sm="m-top">
+  <div class="{{ content.fullWidth ? '' : 'container' }} sm:mt-10">
     <div class="inner flex flex-wrap">
       @for (item of content.elements; track item; let i = $index) {
         <app-dynamic-component

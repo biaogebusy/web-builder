@@ -50,7 +50,7 @@ const content: IHero1v2 = {
     elements: [
       {
         type: 'img',
-        src: 'http://localhost:4200/assets/images/16-9/business-13.jpg',
+        src: '/assets/images/16-9/business-13.jpg',
         style: {
           opacity: '',
           borderRadius: '',
@@ -64,7 +64,7 @@ const content: IHero1v2 = {
       },
       {
         type: 'img',
-        src: 'http://localhost:4200/assets/images/16-9/business-14.jpeg',
+        src: '/assets/images/16-9/business-14.jpeg',
         style: {
           opacity: '',
           borderRadius: '',
@@ -78,7 +78,7 @@ const content: IHero1v2 = {
       },
       {
         type: 'img',
-        src: 'http://localhost:4200/assets/images/16-9/business-15.jpeg',
+        src: '/assets/images/16-9/business-15.jpeg',
         style: {
           opacity: '',
           borderRadius: '',
@@ -92,7 +92,7 @@ const content: IHero1v2 = {
       },
       {
         type: 'img',
-        src: 'http://localhost:4200/assets/images/16-9/business-16.jpeg',
+        src: '/assets/images/16-9/business-16.jpeg',
         style: {
           opacity: '',
           borderRadius: '',

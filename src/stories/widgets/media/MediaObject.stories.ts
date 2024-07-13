@@ -37,10 +37,8 @@ const content: IMediaObject = {
   type: 'media-object',
   img: {
     src: '/assets/images/avatar/01.jpeg',
-    style: {
-      width: '45px',
-      height: '45px',
-    },
+    width: 45,
+    height: 45,
     alt: 'logo',
   },
   meta: formatDate(new Date(), 'yyyy-MM', 'en-US'),

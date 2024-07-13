@@ -99,6 +99,7 @@ const contactContent: IShowcase1v3 = {
     title: {
       label: '联系我们',
       style: 'style-v1',
+      classes: 'mat-headline-3',
     },
   },
   classes: '',

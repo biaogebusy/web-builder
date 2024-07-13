@@ -47,7 +47,7 @@ const content: IShowcase2v1 = {
   },
   bg: { classes: '' },
   classes: '',
-  row: 4,
+  row: 3,
   elements: [
     {
       type: 'card',
@@ -369,7 +369,7 @@ export const Card1v1: Story = {};
 Card1v1.storyName = 'Card 1v1';
 const card1v1: IShowcase2v1 = {
   type: 'showcase-2v1',
-  row: 4,
+  row: 3,
   bg: { classes: '' },
   classes: '',
   text: {

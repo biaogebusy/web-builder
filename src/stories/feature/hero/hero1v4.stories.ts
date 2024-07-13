@@ -137,7 +137,7 @@ const shape: IHero1v4 = {
         aspectRatio: '',
         objectFit: 'contain',
       },
-      src: 'http://localhost:4200/assets/images/illustration/30.png',
+      src: '/assets/images/illustration/30.png',
       width: 800,
       height: 500,
     },

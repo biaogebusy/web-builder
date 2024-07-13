@@ -55,6 +55,8 @@ const content: IProfile1v1 = {
   avatar: {
     src: '/assets/images/avatar/01.jpeg',
     alt: 'Johnson',
+    width: 80,
+    height: 80,
   },
   name: 'Johnson',
   subTitle: 'Drupal 前端开发',
@@ -65,7 +67,6 @@ const content: IProfile1v1 = {
         icon: {
           color: 'warn',
           svg: 'arrow_right',
-          inline: true,
         },
         label: '职位',
         content: '前端开发',
@@ -74,7 +75,6 @@ const content: IProfile1v1 = {
         icon: {
           color: 'warn',
           svg: 'arrow_right',
-          inline: true,
         },
         label: '微信',
         content: 'biaogebusy',
@@ -83,7 +83,6 @@ const content: IProfile1v1 = {
         icon: {
           color: 'warn',
           svg: 'arrow_right',
-          inline: true,
         },
         label: '邮箱',
         content: 'biaogebusy@example.com',
@@ -92,7 +91,6 @@ const content: IProfile1v1 = {
         icon: {
           color: 'warn',
           svg: 'arrow_right',
-          inline: true,
         },
         label: '地址',
         content: '广西南宁',
@@ -101,7 +99,6 @@ const content: IProfile1v1 = {
         icon: {
           color: 'warn',
           svg: 'arrow_right',
-          inline: true,
         },
         label: '公众号',
         content: 'Drupal 自习室',
@@ -176,6 +173,8 @@ const componey: IProfile1v1 = {
   avatar: {
     src: '/assets/images/logo/lenovo.svg',
     alt: '才华有限公司',
+    width: 80,
+    height: 80,
   },
   name: '才华有限公司',
   actions: [
@@ -184,7 +183,6 @@ const componey: IProfile1v1 = {
       label: '编辑',
       icon: {
         name: 'editor',
-        inline: true,
       },
       href: '#',
       target: '_blank',
@@ -197,7 +195,6 @@ const componey: IProfile1v1 = {
         icon: {
           color: 'warn',
           svg: 'arrow_right',
-          inline: true,
         },
         label: '类型',
         content: '科技',
@@ -206,7 +203,6 @@ const componey: IProfile1v1 = {
         icon: {
           color: 'warn',
           svg: 'arrow_right',
-          inline: true,
         },
         label: '联系人',
         content: '张三',

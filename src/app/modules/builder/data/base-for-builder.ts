@@ -4090,7 +4090,7 @@ export const base = [
                   left: [
                     {
                       type: 'img',
-                      src: 'http://localhost:4200/assets/images/illustration/25.png',
+                      src: '/assets/images/illustration/25.png',
                       alt: '',
                       style: {
                         opacity: '',

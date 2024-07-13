@@ -95,10 +95,8 @@ const content: IUserCenter = {
         {
           img: {
             src: '/assets/images/logo/codepen.svg',
-            style: {
-              width: '45px',
-              height: '45px',
-            },
+            width: 45,
+            height: 45,
             alt: 'logo',
           },
           css3: true,
@@ -130,10 +128,8 @@ const content: IUserCenter = {
         {
           img: {
             src: '/assets/images/logo/codepen.svg',
-            style: {
-              width: '45px',
-              height: '45px',
-            },
+            width: 45,
+            height: 45,
             alt: 'logo',
           },
           css3: true,
@@ -165,10 +161,8 @@ const content: IUserCenter = {
         {
           img: {
             src: '/assets/images/logo/codepen.svg',
-            style: {
-              width: '45px',
-              height: '45px',
-            },
+            width: 45,
+            height: 45,
             alt: 'logo',
           },
           css3: true,
@@ -206,10 +200,8 @@ const content: IUserCenter = {
         {
           img: {
             src: '/assets/images/logo/codepen.svg',
-            style: {
-              width: '45px',
-              height: '45px',
-            },
+            width: 45,
+            height: 45,
             alt: 'logo',
           },
           css3: true,
@@ -241,10 +233,8 @@ const content: IUserCenter = {
         {
           img: {
             src: '/assets/images/logo/codepen.svg',
-            style: {
-              width: '45px',
-              height: '45px',
-            },
+            width: 45,
+            height: 45,
             alt: 'project.png',
           },
           css3: true,
@@ -258,10 +248,8 @@ const content: IUserCenter = {
         {
           img: {
             src: '/assets/images/logo/codepen.svg',
-            style: {
-              width: '45px',
-              height: '45px',
-            },
+            width: 45,
+            height: 45,
             alt: 'meeting.png',
           },
           css3: true,
@@ -275,10 +263,8 @@ const content: IUserCenter = {
         {
           img: {
             src: '/assets/images/logo/codepen.svg',
-            style: {
-              width: '45px',
-              height: '45px',
-            },
+            width: 45,
+            height: 45,
             alt: 'doc.png',
           },
           css3: true,
@@ -292,10 +278,8 @@ const content: IUserCenter = {
         {
           img: {
             src: '/assets/images/logo/codepen.svg',
-            style: {
-              width: '45px',
-              height: '45px',
-            },
+            width: 45,
+            height: 45,
             alt: 'customer.png',
           },
           css3: true,

@@ -45,10 +45,8 @@ const content: IMediaObjectGroup = {
     {
       img: {
         src: '/assets/images/avatar/03.jpeg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
+        width: 45,
+        height: 45,
         alt: 'logo',
       },
       meta: formatDate(new Date(), 'yyyy-MM', 'en-US'),
