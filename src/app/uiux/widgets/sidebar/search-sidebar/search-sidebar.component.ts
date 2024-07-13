@@ -20,6 +20,7 @@ export class SearchSidebarComponent implements OnInit {
   @Input() content: any[];
   @Input() label: ISearchLabel;
   @Input() form: UntypedFormGroup;
+  model: any = {};
   @Output() modelChange: EventEmitter<any> = new EventEmitter();
 
   panelOpenState = true;

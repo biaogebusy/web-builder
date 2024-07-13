@@ -9,6 +9,7 @@
       <div class="swiper-media">
         <app-swiper
           [index]="index"
+          [attr.data-path]="'right'"
           (slideChange)="onSlideChange($event)"
           [content]="content.right"
         ></app-swiper>
@@ -18,6 +19,7 @@
           [index]="index"
           (slideChange)="onSlideChange($event)"
           [content]="content.left"
+          [attr.data-path]="'left'"
         ></app-swiper>
       </div>
     </div>

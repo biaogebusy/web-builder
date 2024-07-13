@@ -2,7 +2,7 @@
   <div class="media-object flex flex-row" [class.box-animate]="content.css3">
     <div class="media-left mr-3 text-center basis-auto">
       @if (content.img) {
-        @if (content?.img?.src) {
+        @if (content.img.src) {
           <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
         }
       }

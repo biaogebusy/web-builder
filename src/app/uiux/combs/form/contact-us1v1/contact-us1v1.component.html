@@ -5,29 +5,26 @@
     }
     <app-spacer [size]="content.spacer || 'md'"></app-spacer>
     @if (content.bg) {
-      <app-bg-img
-        [attr.data-path]="'bg'"
-        [content]="content.bg"
-      ></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
     }
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       @if (content.text) {
-        <app-text
-          [attr.data-path]="'text'"
-          [content]="content.text"
-        ></app-text>
+        <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
       }
-      <div class="box flex flex-wrap">
-        <div class="form p-x-md p-y-md flex-12/12 md:flex-8/12">
+      <div class="box grid grid-cols-12 gap-4">
+        <div class="form p-5 col-span-12 md:col-span-8">
           <form [formGroup]="form">
             <app-formly [fields]="content.form" [model]="model"></app-formly>
           </form>
-          <app-btn [content]="content.action" (click)="onSubmit(model)"></app-btn>
+          <app-btn
+            [content]="content.action"
+            (click)="onSubmit(model)"
+          ></app-btn>
         </div>
         <div
-          class="content p-x-md p-y-md flex-12/12 md:flex-4/12"
+          class="content p-5 col-span-12 md:col-span-4"
           [ngStyle]="content.contentStyle"
-          >
+        >
           @for (item of content.content; track item; let i = $index) {
             <app-dynamic-component
               [attr.data-path]="'content.' + i"

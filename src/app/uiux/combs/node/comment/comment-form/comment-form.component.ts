@@ -8,6 +8,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   Inject,
+  inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -40,21 +41,21 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   modules: QuillModule;
 
+  cd = inject(ChangeDetectorRef);
+  nodeService = inject(NodeService);
+  screenService = inject(ScreenService);
+  utilitiesService = inject(UtilitiesService);
+  contentState = inject(ContentState);
   constructor(
-    private cd: ChangeDetectorRef,
-    private nodeService: NodeService,
-    public screenService: ScreenService,
-    private utilitiesService: UtilitiesService,
-    public contentState: ContentState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.modules = Object.assign(
         this.coreConfig?.editor?.modules || {},
-        this.content.editor?.modules
+        this.content.editor?.modules,
       );
       this.contentState.commentQuote$.subscribe((quote: any) => {
         this.screenService.scrollToAnchor('comment');
@@ -98,7 +99,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     value: string,
     params: ICommentParams,
     type: string,
-    token: string
+    token: string,
   ): void {
     // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types
     params.attributes.comment_body = {
@@ -118,7 +119,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.utilitiesService.openSnackbar('提交失败！');
           this.cd.detectChanges();
-        }
+        },
       );
   }
 
@@ -126,7 +127,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     value: string,
     params: ICommentParams,
     type: string,
-    token: string
+    token: string,
   ): void {
     const entity = {
       type: params.type,
@@ -152,7 +153,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         // catchError(() => {
         //   return of({});
         // }),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe(() => {
         this.commentContent = '';
@@ -165,7 +166,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     value: string,
     params: ICommentParams,
     type: string,
-    token: string
+    token: string,
   ): void {
     const entity: ICommentParams = {
       type: params.type,
@@ -191,7 +192,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         // catchError(() => {
         //   return of({});
         // }),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe(
         () => {
@@ -200,7 +201,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         (error) => {
           console.log(error);
           this.done('更新失败！');
-        }
+        },
       );
   }
 
@@ -209,7 +210,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     this.cd.detectChanges();
     this.contentState.commentChange$.next(true);
     this.utilitiesService.openSnackbar(
-      snack || this.content?.editor?.succes?.label
+      snack || this.content?.editor?.succes?.label,
     );
   }
 
@@ -217,7 +218,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler(
       'image',
-      this.nodeService.imageHandler.bind(this.nodeService, quill)
+      this.nodeService.imageHandler.bind(this.nodeService, quill),
     );
   }
 

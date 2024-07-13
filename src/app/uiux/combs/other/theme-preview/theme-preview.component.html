@@ -1,9 +1,7 @@
 @if (content) {
   <div class="theme-preview">
     @for (item of content.top; track item) {
-      <app-dynamic-component
-        [inputs]="item"
-      ></app-dynamic-component>
+      <app-dynamic-component [inputs]="item"></app-dynamic-component>
     }
     <div class="container">
       <div class="bg-colors grid grid-cols-10 gap-5">
@@ -11,7 +9,7 @@
           <div
             class="box col-span-4 md:col-span-{{ content.bgColors.row }}"
             [ngClass]="color.classes"
-            >
+          >
             <div class="label">{{ color.label }}</div>
           </div>
         }
@@ -29,8 +27,8 @@
         <div class="wrapper grid grid-cols-12 gap-5">
           @for (column of content.columns; track column) {
             <div
-              class="item flex flex-col col-span-12 sm:col-span-4"
-              >
+              class="item flex flex-col col-span-12 sm:col-span-4 overflow-hidden"
+            >
               @for (item of column; track item) {
                 <app-dynamic-component
                   class="box"
@@ -42,9 +40,7 @@
         </div>
       </div>
       @for (item of content.bottom; track item) {
-        <app-dynamic-component
-          [inputs]="item"
-        ></app-dynamic-component>
+        <app-dynamic-component [inputs]="item"></app-dynamic-component>
       }
     </div>
   </div>
