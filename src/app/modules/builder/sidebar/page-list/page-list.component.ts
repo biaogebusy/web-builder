@@ -41,7 +41,9 @@ export class PageListComponent
   form = new FormGroup({
     page: new FormControl(0),
   });
-  model: any = {};
+  model: any = {
+    noCache: true,
+  };
   loading = false;
   pager: IPager;
   currentEditeTitle: string;
@@ -84,7 +86,6 @@ export class PageListComponent
   }
 
   onModelChange(value: any): void {
-    this.loading = true;
     this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
     const formValue = merge(value, this.form.getRawValue());
     const params = this.getApiParams({ ...formValue, noCache: 1 });
@@ -131,6 +132,7 @@ export class PageListComponent
   }
 
   fetchPage(params: string): void {
+    this.loading = true;
     this.content$ = this.nodeService
       .fetch('/api/v2/node/landing-page', params)
       .pipe(
@@ -168,28 +170,34 @@ export class PageListComponent
     this.fetchPage(params);
   }
 
-  createLangVersion(page: IPageMeta, langCode: string): void {
+  createLangVersion(currentPage: IPageMeta, targetlang: string): void {
     this.builder.loading$.next(true);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${page.id}`, 'noCache=1', '', langCode)
+      .fetch(
+        `/api/v3/landingPage/json/${currentPage.id}`,
+        'noCache=1',
+        '',
+        targetlang,
+      )
       .pipe(takeUntil(this.destroy$))
       .subscribe((page: IPage) => {
         this.builder.loading$.next(false);
-        if (langCode === page.langcode) {
+        if (targetlang === page.langcode) {
           // 已有翻译
           this.util.openSnackbar(`已有${page.label}语言页面，正在载入`, 'ok');
           this.builder.loadNewPage(this.builderService.formatToExtraData(page));
         } else {
           // 复制一份，新建翻译
           this.util.openSnackbar(
-            `正在载入${page.label}，请修改为${langCode}语言`,
+            `正在载入${currentPage.title}，请修改页面内容为${targetlang}语言`,
             'ok',
           );
           this.builder.loadNewPage(
             this.builderService.formatToExtraData({
+              langcode: currentPage.langcode,
               ...page,
               translation: true,
-              target: langCode,
+              target: targetlang,
             }),
           );
         }

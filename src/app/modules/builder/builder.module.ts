@@ -90,7 +90,7 @@ const components = [
     },
     {
       provide: WIDGETS,
-      useValue: of(widgets),
+      useValue: widgets,
     },
     {
       provide: BUILDER_CURRENT_PAGE,

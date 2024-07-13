@@ -4,6 +4,7 @@ import {
   Inject,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
+import { ManageService } from '@core/service/manage.service';
 
 @Component({
   selector: 'app-builder-sidebar',
@@ -23,11 +25,10 @@ export class BuilderSidebarComponent implements OnInit {
   @Input() builderRightDrawer: MatDrawer;
   showBranding = false;
 
-  constructor(
-    public builder: BuilderState,
-    private dialog: MatDialog,
-    @Inject(BRANDING) public branding$: Observable<IBranding>,
-  ) {}
+  builder = inject(BuilderState);
+  dialog = inject(MatDialog);
+  manageService = inject(ManageService);
+  constructor(@Inject(BRANDING) public branding$: Observable<IBranding>) {}
 
   ngOnInit(): void {}
 
@@ -39,9 +40,8 @@ export class BuilderSidebarComponent implements OnInit {
   onSelectAssets(): void {
     this.dialog.open(DialogComponent, {
       width: '85vw',
-      panelClass: ['close-outside', 'close-icon-white'],
+      panelClass: this.manageService.mediaDialogClass,
       data: {
-        title: '媒体库',
         disableCloseButton: true,
         inputData: {
           content: {

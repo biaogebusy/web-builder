@@ -32,7 +32,7 @@
       <mat-spinner diameter="50" color="primary"></mat-spinner>
     }
     @if (content$ | async; as content) {
-      @for (page of content; track page; let i = $index) {
+      @for (page of content; track page.id; let i = $index) {
         <div
           [ngClass]="{
             active:

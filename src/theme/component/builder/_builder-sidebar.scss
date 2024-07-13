@@ -6,14 +6,18 @@
   }
   .mat-mdc-tab-header {
     background-color: mat.get-color-from-palette($background, background);
-    .mat-tab-label {
-      color: mat.get-color-from-palette($foreground, text);
-      &.mat-tab-label-active {
-        color: mat.get-color-from-palette($primary, text);
-        opacity: 1;
+    .mat-mdc-tab {
+      .mdc-tab__text-label {
+        color: mat.get-color-from-palette($foreground, text);
+      }
+      &.mdc-tab--active {
+        .mdc-tab__text-label {
+          color: mat.get-color-from-palette($primary, text);
+          opacity: 1;
+        }
       }
     }
-    .mat-tab-label-content {
+    .mdc-tab__content {
       background-color: transparent;
     }
   }
@@ -34,12 +38,13 @@
   }
 
   .builder-version {
-    .mat-list-item-content {
-      color: mat.get-color-from-palette($foreground, text, 0.75);
+    .mdc-list-item__content {
       .mat-icon:not(.mat-primary) {
         color: mat.get-color-from-palette($foreground, text, 0.5);
       }
-      .title {
+      .title,
+      .time {
+        color: mat.get-color-from-palette($foreground, text, 0.75);
         &:focus-visible {
           color: mat.get-color-from-palette($primary);
           border-bottom-color: mat.get-color-from-palette($foreground, divider);
