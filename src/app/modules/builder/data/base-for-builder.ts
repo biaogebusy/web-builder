@@ -18,14 +18,16 @@ export const base = [
           bg: {
             img: {
               src: '/assets/images/bg/home-shape.png',
-              classes: 'object-fit',
               alt: 'home-shape.png',
+              classes: 'object-fit',
             },
             classes: 'bg-fill-width',
             overlay: '',
           },
           horizontal: 'center',
           vertical: 'center',
+          wrapperClass: '',
+          alignItems: 'center',
           animate: {
             from: {
               x: 0,
@@ -72,6 +74,8 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
+              horizontal: 'start',
               style: {
                 borderRadius: 'none',
                 padding: '',
@@ -210,10 +214,16 @@ export const base = [
                     },
                   },
                   type: 'img',
-                  src: '/assets/images/illustration/11.png',
+                  src: 'https://builder.design/assets/images/illustration/11.png',
                   style: {
-                    'max-width': '60%',
+                    opacity: '',
+                    borderRadius: '',
+                    boxShadow: '',
+                    aspectRatio: '',
+                    objectFit: 'contain',
                   },
+                  width: 500,
+                  height: 600,
                 },
               ],
             },
@@ -363,12 +373,10 @@ export const base = [
                   href: '/',
                 },
                 {
-                  src: '/assets/images/products/huawei-watch-gt4-select-strap.webp',
+                  src: 'https://builder.design/assets/images/products/huawei-watch-gt4-select-strap.webp',
                   classes: '',
                   alt: 'alt',
                   style: {
-                    width: '450px',
-                    height: '300px',
                     opacity: '1',
                     borderRadius: '0px',
                     boxShadow: 'none',
@@ -398,6 +406,8 @@ export const base = [
                     },
                   },
                   type: 'img',
+                  width: 350,
+                  height: 300,
                 },
               ],
             },
@@ -495,12 +505,10 @@ export const base = [
                   href: '/',
                 },
                 {
-                  src: '/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
+                  src: 'https://builder.design/assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
                   classes: '',
                   alt: 'alt',
                   style: {
-                    width: '450px',
-                    height: '300px',
                     opacity: '1',
                     borderRadius: '0px',
                     boxShadow: 'none',
@@ -530,6 +538,8 @@ export const base = [
                     },
                   },
                   type: 'img',
+                  width: 350,
+                  height: 300,
                 },
               ],
             },
@@ -637,7 +647,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
               elements: [
                 {
                   type: 'box',
@@ -711,7 +720,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
               elements: [
                 {
                   type: 'box',
@@ -821,14 +829,18 @@ export const base = [
           bg: {
             img: {
               src: '/assets/images/bg/home-shape.png',
-              classes: 'object-fit',
               alt: 'home-shape.png',
+              classes: 'object-fit',
             },
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
           horizontal: 'center',
           vertical: 'center',
+          wrapperClass: '',
+          gap: {
+            xs: 5,
+          },
           animate: {
             from: {
               x: 0,
@@ -861,10 +873,10 @@ export const base = [
               horizontal: 'end',
               vertical: 'end',
               gap: {
-                xs: '10',
-                sm: '10',
-                md: '10',
-                lg: '10',
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
               },
               bg: {
                 img: {
@@ -876,6 +888,8 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
+              alignItems: 'end',
               style: {
                 borderRadius: 'none',
                 padding: '',
@@ -909,7 +923,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
               elements: [
                 {
                   spacer: 'none',
@@ -938,13 +951,16 @@ export const base = [
                 },
                 {
                   src: 'https://www2.bettyblocks.com/hubfs/RH-images/striped-arrow.svg',
-                  classes: 'm-bottom-md',
+                  classes: '',
+                  hostClasses: 'text-center',
                   alt: 'alt',
                   style: {
                     aspectRatio: 'auto',
                     objectFit: 'initial',
+                    opacity: '',
+                    borderRadius: '',
+                    boxShadow: '',
                   },
-                  hostClasses: 'text-center',
                   animate: {
                     from: {
                       x: 0,
@@ -966,6 +982,8 @@ export const base = [
                     },
                   },
                   type: 'img',
+                  width: 200,
+                  height: 100,
                 },
               ],
             },
@@ -994,7 +1012,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
-              blockClasses: 'p-5',
+              blockClasses: '',
               style: {
                 borderRadius: 'none',
                 padding: '20px',
@@ -1085,7 +1103,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
-              blockClasses: 'p-5',
+              blockClasses: '',
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -1175,7 +1193,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
-              blockClasses: 'p-5',
+              blockClasses: '',
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -1425,32 +1443,7 @@ export const base = [
           type: 'custom-template',
           isAPI: true,
           api: '/api/v1/content',
-          html: `<div class="flex flex-wrap">
-    {{#rows }}
-    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">
-        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">
-            <a href="{{url}}">
-                {{#img}}
-                <img class="object-cover w-full" height="200px" src="{{img}}" /></a>
-                {{/img}}
-                {{^img}}
-                <img class="object-cover w-full" height="200px" src="/assets/images/hero/182.jpg" /></a>
-                {{/img}}
-            <div class="p-5">
-                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>
-                <div class="three-line opacity-90">{{body}}</div>
-                <div class="footer flex items-center mt-5">
-                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />
-                    <div class="flex flex-col">
-                        <div class="font-bold">{{user}}</div>
-                        <div class="small">{{created}}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/rows}}
-</div>`,
+          html: '<div class="flex flex-wrap">\n    {{#rows}}\n    <div class="flex-12/12 sm:flex-6/12 md:flex-4/12">\n        <div class="m-3 shadow-md transition-all flex flex-col break-all rounded-md overflow-hidden hover:shadow-lg">\n            <a href="{{url}}">\n                {{#img}}\n                <img class="object-cover w-full" height="200px" src="{{img}}" /></a>\n                {{/img}}\n                {{^img}}\n                <img class="object-cover w-full" height="200px" src="/assets/images/hero/182.jpg" /></a>\n                {{/img}}\n            <div class="p-5">\n                <a class="!text-black opacity-95 hover:!opacity-80 text-lg one-line" href="{{url}}">{{title}}</a>\n                <div class="three-line opacity-90">{{body}}</div>\n                <div class="footer flex items-center mt-5">\n                    <img class="w-10 h-10 rounded-full mr-3" src="{{picture}}" />\n                    <div class="flex flex-col">\n                        <div class="font-bold">{{user}}</div>\n                        <div class="small">{{created}}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    {{/each}}\n</div>',
         },
       },
     ],
@@ -1509,7 +1502,7 @@ export const base = [
                 lg: 6,
               },
               horizontal: 'start',
-              vertical: 'stretch',
+              vertical: 'start',
               gap: {
                 xs: '4',
                 sm: '4',
@@ -1526,6 +1519,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
               style: {
                 borderRadius: 'none',
               },
@@ -1549,7 +1543,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
               elements: [
                 {
                   style: 'style-v4',
@@ -1626,6 +1619,9 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
+              horizontal: 'center',
+              vertical: 'center',
               style: {
                 borderRadius: 'none',
               },
@@ -1649,7 +1645,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
               elements: [
                 {
                   type: 'spacer',
@@ -1659,17 +1654,17 @@ export const base = [
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: '/assets/images/illustration/08.png',
+                  src: 'https://builder.design/assets/images/illustration/08.png',
                   alt: 'alt',
                   style: {
-                    width: 'auto',
-                    height: 'auto',
-                    opacity: 1,
-                    borderRadius: 0,
+                    opacity: '1',
+                    borderRadius: '0px',
                     boxShadow: 'none',
                     aspectRatio: '2 / 1',
                     objectFit: 'contain',
                   },
+                  width: 600,
+                  height: 300,
                 },
                 {
                   type: 'spacer',
@@ -1749,6 +1744,9 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
+              horizontal: 'center',
+              vertical: 'center',
               style: {
                 borderRadius: 'none',
               },
@@ -1772,7 +1770,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
               elements: [
                 {
                   type: 'spacer',
@@ -1782,17 +1779,17 @@ export const base = [
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: '/assets/images/illustration/08.png',
+                  src: 'https://builder.design/assets/images/illustration/08.png',
                   alt: 'alt',
                   style: {
-                    width: 'auto',
-                    height: 'auto',
-                    opacity: 1,
-                    borderRadius: 0,
+                    opacity: '1',
+                    borderRadius: '0px',
                     boxShadow: 'none',
                     aspectRatio: '2 / 1',
                     objectFit: 'contain',
                   },
+                  width: 600,
+                  height: 300,
                 },
                 {
                   type: 'spacer',
@@ -1807,8 +1804,8 @@ export const base = [
                 md: 6,
                 lg: 6,
               },
-              horizontal: 'flex-start',
-              vertical: 'flex-start',
+              horizontal: 'start',
+              vertical: 'start',
               gap: {
                 xs: '4',
                 sm: '4',
@@ -1825,6 +1822,7 @@ export const base = [
                 classes: 'bg-fill-width',
               },
               classes: '',
+              blockClasses: '',
               style: {
                 borderRadius: 'none',
               },
@@ -1848,7 +1846,6 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
               elements: [
                 {
                   style: 'style-v4',
@@ -1957,10 +1954,10 @@ export const base = [
               horizontal: 'center',
               vertical: 'center',
               gap: {
-                xs: '10',
-                sm: '10',
-                md: '10',
-                lg: '20',
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 0,
               },
               bg: {
                 img: {
@@ -2004,23 +2001,22 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
               elements: [
                 {
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: 'http://localhost:4200/assets/images/illustration/09.png',
+                  src: 'https://builder.design/assets/images/illustration/08.png',
                   alt: 'alt',
                   style: {
-                    width: 'auto',
-                    height: 'auto',
                     opacity: '1',
                     borderRadius: '0px',
                     boxShadow: 'none',
-                    aspectRatio: 'auto',
-                    objectFit: 'initial',
+                    aspectRatio: '4 / 3',
+                    objectFit: 'contain',
                   },
+                  width: 600,
+                  height: 400,
                 },
                 {
                   style: 'style-v1',
@@ -2087,7 +2083,6 @@ export const base = [
               },
               classes: '',
               blockClasses: '',
-              wrap: 'wrap',
               style: {
                 borderRadius: 'none',
               },
@@ -2138,17 +2133,6 @@ export const base = [
                   },
                   type: 'text',
                 },
-              ],
-            },
-            {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 12,
-                lg: 12,
-              },
-              elements: [
                 {
                   type: 'btn',
                   href: '/node/1',
@@ -2180,7 +2164,6 @@ export const base = [
             classes: 'bg-fill-width',
             overlay: '',
           },
-          wrap: 'wrap',
           horizontal: 'center',
           vertical: 'center',
           animate: {
@@ -2206,13 +2189,23 @@ export const base = [
           type: 'layout-builder',
           elements: [
             {
-              classes: '',
               row: {
                 xs: 12,
                 sm: 12,
                 md: 12,
                 lg: 12,
               },
+              bg: {
+                img: {
+                  src: '',
+                },
+                overlay: '',
+                classes: 'bg-fill-width',
+              },
+              classes: '',
+              blockClasses: '',
+              horizontal: 'center',
+              vertical: 'center',
               elements: [
                 {
                   type: 'title',
@@ -2221,34 +2214,12 @@ export const base = [
                   style: 'style-v1',
                   classes: 'mat-headline-3 bold',
                 },
-              ],
-            },
-            {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 12,
-                lg: 12,
-              },
-              elements: [
                 {
                   type: 'text',
                   spacer: 'none',
                   classes: 'md:max-w-3/4 mx-auto',
                   body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
                 },
-              ],
-            },
-            {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 12,
-                lg: 12,
-              },
-              elements: [
                 {
                   type: 'btn',
                   href: '/node/1',
@@ -2257,30 +2228,17 @@ export const base = [
                   mode: 'raised',
                   color: 'primary',
                 },
-              ],
-            },
-            {
-              classes: '',
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 12,
-                lg: 12,
-              },
-              elements: [
                 {
-                  src: '/assets/images/builder/builder-01.png',
-                  classes: 'mt-5',
+                  src: 'https://builder.design/assets/images/builder/builder-01.png',
+                  classes: '',
                   hostClasses: 'text-center',
                   alt: 'alt',
                   style: {
-                    width: '85%',
-                    height: 'auto',
+                    aspectRatio: 'auto',
+                    objectFit: 'contain',
                     opacity: '0.9',
                     borderRadius: '14px',
                     boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px',
-                    aspectRatio: 'auto',
-                    objectFit: 'contain',
                   },
                   animate: {
                     from: {
@@ -2304,6 +2262,8 @@ export const base = [
                     },
                   },
                   type: 'img',
+                  width: 800,
+                  height: 600,
                 },
               ],
             },
@@ -2330,7 +2290,6 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          wrapperClass: 'md:flex-nowrap',
           gap: {
             xs: 0,
             sm: 4,
@@ -2651,7 +2610,6 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          wrapperClass: 'md:flex-nowrap',
           gap: {
             xs: 0,
           },
@@ -3061,7 +3019,7 @@ export const base = [
               row: {
                 xs: 12,
                 sm: 12,
-                md: 6,
+                md: 7,
                 lg: 7,
               },
               horizontal: 'start',
@@ -3187,10 +3145,10 @@ export const base = [
                       horizontal: 'start',
                       vertical: 'stretch',
                       gap: {
-                        xs: '5',
-                        sm: 5,
-                        md: 5,
-                        lg: 5,
+                        xs: 4,
+                        sm: 0,
+                        md: 0,
+                        lg: 0,
                       },
                       bg: {
                         img: {
@@ -3333,10 +3291,10 @@ export const base = [
                       horizontal: 'start',
                       vertical: 'stretch',
                       gap: {
-                        xs: 5,
-                        sm: 5,
-                        md: 5,
-                        lg: 8,
+                        xs: 4,
+                        sm: 0,
+                        md: 0,
+                        lg: 0,
                       },
                       bg: {
                         img: {
@@ -3467,7 +3425,7 @@ export const base = [
               row: {
                 xs: 12,
                 sm: 12,
-                md: 6,
+                md: 5,
                 lg: 5,
               },
               horizontal: 'center',
@@ -3837,7 +3795,6 @@ export const base = [
                           end: 'top 40%',
                         },
                       },
-                      wrap: 'wrap',
                       elements: [
                         {
                           type: 'box',
@@ -3981,23 +3938,22 @@ export const base = [
                   end: 'top 40%',
                 },
               },
-              wrap: 'wrap',
               elements: [
                 {
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: '/assets/images/illustration/11.png',
+                  src: 'https://builder.design/assets/images/illustration/11.png',
                   alt: 'alt',
                   style: {
-                    width: '85%',
-                    height: 'auto',
                     opacity: '1',
                     borderRadius: '0px',
                     boxShadow: 'none',
                     aspectRatio: '2 / 3',
                     objectFit: 'contain',
                   },
+                  width: 500,
+                  height: 600,
                 },
               ],
             },
@@ -4021,15 +3977,15 @@ export const base = [
           title: {
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
-            style: 'style-v1',
             classes: 'mat-headline-3 bold',
+            style: 'style-v1',
           },
           bg: {
             classes: 'bg- bg-fill-width',
           },
           body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
           classes: 'text-center',
-          actionsAlign: 'center center',
+          actionsAlign: 'center',
           actions: [
             {
               type: 'btn-generater',
@@ -4136,6 +4092,15 @@ export const base = [
                       type: 'img',
                       src: '/assets/images/illustration/25.png',
                       alt: '',
+                      style: {
+                        opacity: '',
+                        borderRadius: '',
+                        boxShadow: '',
+                        aspectRatio: '',
+                        objectFit: 'contain',
+                      },
+                      width: 800,
+                      height: 600,
                     },
                   ],
                   right: [
@@ -4236,7 +4201,15 @@ export const base = [
                     {
                       type: 'img',
                       src: '/assets/images/illustration/25.png',
-                      alt: '',
+                      style: {
+                        opacity: '',
+                        borderRadius: '',
+                        boxShadow: '',
+                        aspectRatio: '',
+                        objectFit: 'contain',
+                      },
+                      width: 800,
+                      height: 600,
                     },
                   ],
                   right: [
@@ -4337,7 +4310,15 @@ export const base = [
                     {
                       type: 'img',
                       src: '/assets/images/illustration/29.png',
-                      alt: '',
+                      style: {
+                        opacity: '',
+                        borderRadius: '',
+                        boxShadow: '',
+                        aspectRatio: '',
+                        objectFit: 'contain',
+                      },
+                      width: 800,
+                      height: 600,
                     },
                   ],
                   right: [
@@ -4620,7 +4601,7 @@ export const base = [
               title: {
                 label: 'Storybook 是什么？',
                 style: 'style-v1',
-                classes: 'mat-headline-1',
+                classes: 'mat-headline-3',
               },
               classes: 'text-light',
               elements: [

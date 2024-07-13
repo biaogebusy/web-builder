@@ -469,10 +469,8 @@ export const colorTest: IPage = {
             type: 'media-object',
             img: {
               src: '/assets/images/avatar/01.jpeg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
+              width: 45,
+              height: 45,
               alt: 'logo',
             },
             meta: '2024-01',
@@ -642,6 +640,8 @@ export const colorTest: IPage = {
             img: {
               classes: 'object-fit',
               src: '/assets/images/avatar/01.jpeg',
+              width: 100,
+              height: 100,
             },
             star: 5,
             title: '- Johnson',
