@@ -10,7 +10,18 @@
       </app-formly>
     }
     <mat-divider class="m-y-xs"></mat-divider>
-    <div class="actions m-top-sm flex justify-center">
+    <div class="actions m-top-sm flex justify-center gap-4">
+      <app-btn
+        matTooltip="通常是为了快速全量测试组件"
+        matTooltipPosition="above"
+        (click)="onGenerate('all')"
+        [content]="{
+          label: '极限加载',
+          color: 'warn',
+          mode: 'raised',
+          icon: { svg: 'chart-arc', inline: true },
+        }"
+      ></app-btn>
       <app-btn
         matTooltip="将会覆盖当前页面"
         matTooltipPosition="above"
