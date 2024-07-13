@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-Sitemap: https://admin.zhaobg.com/sitemap.xml
-Sitemap: https://admin.nnitpai.com/sitemap.xml

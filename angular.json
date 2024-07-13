@@ -44,11 +44,6 @@
                 "output": "/"
               },
               {
-                "glob": "robots.txt",
-                "input": "src/",
-                "output": "/"
-              },
-              {
                 "glob": "mdi.svg",
                 "input": "node_modules/@mdi/angular-material",
                 "output": "/assets"
@@ -144,7 +139,6 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "proxyConfig": "config/proxy.config.js",
-            "disableHostCheck": true,
             "buildTarget": "xinshi:build"
           },
           "configurations": {
