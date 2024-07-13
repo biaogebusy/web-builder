@@ -27,11 +27,11 @@ export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
 const BUILDERPATH = '/builder';
 
-export function pageContentFactory(
-  activateRoute: ActivatedRoute,
-  contentService: ContentService,
-  contentState: ContentState,
-): Observable<IPage | object | boolean> {
+export function pageContentFactory(): Observable<IPage | object | boolean> {
+  const activateRoute = inject(ActivatedRoute);
+  const contentService = inject(ContentService);
+  const contentState = inject(ContentState);
+
   const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
   activateRoute.url.subscribe(async (url) => {
     const page = await contentService.loadPageContent().toPromise();
@@ -336,29 +336,12 @@ export function userFactory(): IUser | boolean {
 
 export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   const api = '/api/v2/media';
-  let formValue = {};
   const nodeService = inject(NodeService);
   const contentState = inject(ContentState);
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 
-  // on page change
-  contentState.pageChange$.subscribe((pageIndex) => {
-    const params = nodeService.getApiParams({
-      ...formValue,
-      page: pageIndex - 1,
-      noCache: true,
-    });
-    nodeService.fetch(api, params).subscribe((res) => {
-      assets$.next({
-        rows: res.rows,
-        pager: nodeService.handlerPager(res.pager, res.rows.length),
-      });
-    });
-  });
-
   // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value: any) => {
-    formValue = value;
     const { fromStatic } = value;
     if (fromStatic) {
       assets$.next(mediaAssets);

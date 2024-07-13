@@ -31,6 +31,11 @@
     width: 100%;
     height: 80%;
   }
+  .page {
+    .mat-mdc-paginator {
+      background-color: transparent;
+    }
+  }
 }
 
 .masonry-item {
@@ -53,13 +58,26 @@
   .actions {
     display: none;
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: 2px;
+    top: 2px;
     z-index: 10;
+    ::ng-deep {
+      .mac-icon-button {
+        --mdc-icon-button-state-layer-size: 40px;
+        padding: 8px;
+        .mat-mdc-button-touch-target {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
   }
   &:hover {
     .actions {
-      display: block;
+      display: flex;
+    }
+    .box {
+      opacity: 0.8;
     }
   }
 }

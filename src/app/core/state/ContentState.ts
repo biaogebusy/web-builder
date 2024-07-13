@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { IPage } from '@core/interface/IAppConfig';
-import { PageEvent } from '@angular/material/paginator';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +11,6 @@ export class ContentState {
   public drawerOpened$ = new BehaviorSubject<boolean>(false);
   public drawerLoading$ = new BehaviorSubject<boolean>(false);
   public drawerContent$ = new Subject<IPage>();
-  public pageChange$ = new Subject<number>();
   public mediaAssetsFormChange$ = new Subject<object>();
 
   constructor() {}

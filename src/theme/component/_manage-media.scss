@@ -1,5 +1,5 @@
-@use '@angular/material' as mat;
-
+@use "@angular/material" as mat;
+@import "../mixins/amixin";
 @mixin manage-media-color($theme) {
   $config: mat.get-color-config($theme);
   $foreground: map-get($config, foreground);
@@ -9,6 +9,9 @@
   $warn: map-get($config, warn);
 
   .manage-media {
+    .viewport {
+      @include scrollbar(mat.get-color-from-palette($primary));
+    }
     .masonry-item {
       .selected {
         &:after {
@@ -16,7 +19,16 @@
         }
       }
       .actions {
-        color: mat.get-color-from-palette($warn);
+        .icon-select {
+          &:hover {
+            color: mat.get-color-from-palette($primary);
+          }
+        }
+        .icon-delete {
+          &:hover {
+            color: mat.get-color-from-palette($warn);
+          }
+        }
       }
     }
   }

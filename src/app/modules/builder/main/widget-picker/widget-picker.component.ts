@@ -7,6 +7,7 @@ import {
   Input,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import type { IWidgetPicker } from '@core/interface/IBuilder';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -30,12 +31,12 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   popper: any;
 
   public bcData: any;
+  builder = inject(BuilderState);
+  dialog = inject(MatDialog);
+  storage = inject(LocalStorageService);
 
   constructor(
-    public builder: BuilderState,
-    private dialog: MatDialog,
-    private storage: LocalStorageService,
-    @Inject(WIDGETS) public widgets$: Observable<any[]>,
+    @Inject(WIDGETS) public widgets: any[],
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
   ) {}
 

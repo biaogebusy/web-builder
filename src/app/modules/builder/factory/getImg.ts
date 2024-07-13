@@ -1,6 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getAspectRatio, getObjectFix } from './getCommon';
-import { includes } from 'lodash';
 
 export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
   const fields = [
