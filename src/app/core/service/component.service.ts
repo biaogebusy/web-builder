@@ -1,9 +1,9 @@
 import {
-  Compiler,
   ComponentRef,
   Injectable,
   Injector,
-  NgModuleFactory,
+  createNgModule,
+  inject,
 } from '@angular/core';
 import { BaseModule } from '@uiux/base/base.module';
 
@@ -12,7 +12,7 @@ import { BaseModule } from '@uiux/base/base.module';
 })
 export class ComponentService {
   private moduleLists: { [key: string]: () => Promise<any> } = {};
-  constructor(private injector: Injector) {}
+  injector = inject(Injector);
 
   registerDynamicComponent(): void {
     [
@@ -277,9 +277,8 @@ export class ComponentService {
   async getComponent(
     type: string,
   ): Promise<ComponentRef<unknown> | ComponentRef<any> | undefined> {
-    return this.getModuleFactory(type)
-      .then((factory: any) => {
-        const module = factory.create(this.injector);
+    return this.getModuleRef(type)
+      .then((module: any) => {
         if (module.instance instanceof BaseModule) {
           const componentFactory = module.instance.getComponentFactory(type);
           return componentFactory.create(module.injector, [], null, module);
@@ -290,20 +289,12 @@ export class ComponentService {
       });
   }
 
-  async getModuleFactory(type: string) {
+  async getModuleRef(type: string) {
     if (!this.moduleLists[type]) {
       throw new Error(`组件${type}不存在！`);
     }
-    const ngModuleOrNgModuleFactory = await this.moduleLists[type]();
-    let factory = null;
-    if (ngModuleOrNgModuleFactory instanceof NgModuleFactory) {
-      factory = ngModuleOrNgModuleFactory;
-    } else {
-      factory = await this.injector
-        .get(Compiler)
-        .compileModuleAsync(ngModuleOrNgModuleFactory);
-    }
-
-    return factory;
+    const module = await this.moduleLists[type]();
+    const moduleRef = createNgModule(module, this.injector);
+    return moduleRef;
   }
 }
