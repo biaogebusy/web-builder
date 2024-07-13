@@ -41,7 +41,7 @@ export const tailwind: any[] = [
             </div>
         </div>
     </div>
-    {{/each}}
+    {{/rows}}
 </div>`,
     },
   },
