@@ -10,4 +10,6 @@ export interface IImg {
   alt?: string;
   hostClasses?: string;
   actions?: any[];
+  width?: number;
+  height?: number;
 }
