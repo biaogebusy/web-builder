@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @import "../mixins/amixin";
 @import "./builder/builder-sidebar";
 @import "./builder/builder-list";
@@ -53,96 +53,99 @@ $dark-theme: mat.define-dark-theme(
     }
   }
   .builder {
-    .builder-toolbar {
-      background-color: mat.get-color-from-palette($background, background);
-      color: mat.get-color-from-palette($foreground, text, 0.75);
-      .left {
-        .page-title {
-          border-bottom: 1px solid transparent;
-          &:focus-visible {
-            outline: none;
-            border-bottom-color: mat.get-color-from-palette($primary);
+    .builder-workspace {
+      .builder-toolbar {
+        background-color: mat.get-color-from-palette($background, background);
+        color: mat.get-color-from-palette($foreground, text, 0.75);
+        .left {
+          .page-title {
+            border-bottom: 1px solid transparent;
+            &:focus-visible {
+              outline: none;
+              border-bottom-color: mat.get-color-from-palette($primary);
+            }
           }
         }
-      }
-      .middle {
-        .time {
-          color: mat.get-color-from-palette($foreground, text, 0.45);
+        .middle {
+          .time {
+            color: mat.get-color-from-palette($foreground, text, 0.45);
+          }
+        }
+        &.fixed {
+          @include mat.elevation(
+            2,
+            mat.get-color-from-palette($background, tooltip),
+            0.25
+          );
+        }
+        .right {
+          color: mat.get-color-from-palette($foreground, text, 0.5);
         }
       }
-      &.fixed {
-        @include mat.elevation(
-          2,
-          mat.get-color-from-palette($background, tooltip),
-          0.25
-        );
+      .builder-main {
+        > .sidebar {
+          @include sidebar($background, $foreground, $primary);
+        }
       }
-      .right {
-        color: mat.get-color-from-palette($foreground, text, 0.5);
+      > .mat-drawer-container {
+        background-color: transparent;
+        .builder-list {
+          @include builder-list($background, $foreground, $primary, $warn);
+        }
       }
-    }
-    .builder-main {
-      > .sidebar {
-        @include sidebar($background, $foreground, $primary);
-      }
-    }
-    > .mat-drawer-container {
-      background-color: transparent;
-      .builder-list {
-        @include builder-list($background, $foreground, $primary, $warn);
-      }
-    }
-    .mat-drawer-content {
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
-      @include inline-edit($background, $foreground, $primary);
-      @include scrollbar(mat.get-color-from-palette($primary));
+      .mat-drawer-content {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
+        @include inline-edit($background, $foreground, $primary);
+        @include scrollbar(mat.get-color-from-palette($primary));
 
-      .backdrop {
-        background-color: mat.get-color-from-palette(
-          $foreground,
-          slider-off-active
-        );
-      }
-      .showcase {
-        background-color: mat.get-color-from-palette($background, card);
-        > app-card-1v1 {
-          > .card-1v1 {
-            @include scrollbar(mat.get-color-from-palette($primary));
+        .backdrop {
+          background-color: mat.get-color-from-palette(
+            $foreground,
+            slider-off-active
+          );
+        }
+        .showcase {
+          background-color: mat.get-color-from-palette($background, card);
+          > app-card-1v1 {
+            > .card-1v1 {
+              @include scrollbar(mat.get-color-from-palette($primary));
+            }
+          }
+          .showcase-footer {
+            color: mat.get-color-from-palette($foreground, text);
+            border-top: 1px solid
+              mat.get-color-from-palette($foreground, divider);
+            background: mat.get-color-from-palette($background, background);
+          }
+          .component-toolbar {
+            + app-spacer {
+              background-color: mat.get-color-from-palette($primary, 0.25);
+            }
           }
         }
-        .showcase-footer {
-          color: mat.get-color-from-palette($foreground, text);
-          border-top: 1px solid mat.get-color-from-palette($foreground, divider);
-          background: mat.get-color-from-palette($background, background);
-        }
-        .component-toolbar {
-          + app-spacer {
-            background-color: mat.get-color-from-palette($primary, 0.25);
-          }
-        }
-      }
-      .preview-container {
-        .mat-drawer {
-          .actions {
-            &.expand {
-              background-color: mat.get-color-from-palette($background, card);
-              @include mat.elevation(
-                2,
-                mat.get-color-from-palette($background, hover),
-                0.4
-              );
+        .preview-container {
+          .mat-drawer {
+            .actions {
+              &.expand {
+                background-color: mat.get-color-from-palette($background, card);
+                @include mat.elevation(
+                  2,
+                  mat.get-color-from-palette($background, hover),
+                  0.4
+                );
+              }
             }
           }
         }
       }
-    }
-    .cdk-drag-placeholder {
-      background-color: mat.get-color-from-palette($background, background);
-      border: 3px dotted mat.get-color-from-palette($foreground, divider);
-      width: 100%;
-      &:hover {
-        background-color: mat.get-color-from-palette($primary, 200);
-        border-color: mat.get-color-from-palette($primary);
+      .cdk-drag-placeholder {
+        background-color: mat.get-color-from-palette($background, background);
+        border: 3px dotted mat.get-color-from-palette($foreground, divider);
+        width: 100%;
+        &:hover {
+          background-color: mat.get-color-from-palette($primary, 200);
+          border-color: mat.get-color-from-palette($primary);
+        }
       }
     }
   }
