@@ -1,0 +1,11 @@
+{
+  "menu": [
+    {
+      "label": "监控日志",
+      "href": "logs",
+      "icon": {
+        "svg": "application-brackets-outline"
+      }
+    }
+  ]
+}

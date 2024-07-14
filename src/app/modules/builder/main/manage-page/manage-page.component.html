@@ -1,0 +1,15 @@
+<div class="manage-page p-5 m-5 relative">
+  @if (page$ | async; as page) {
+    @for (item of page; track $index) {
+      <app-dynamic-component
+        [inputs]="{ content: item }"
+      ></app-dynamic-component>
+    }
+  } @else {
+    <mat-spinner
+      class="page-loading"
+      diameter="50"
+      color="primary"
+    ></mat-spinner>
+  }
+</div>

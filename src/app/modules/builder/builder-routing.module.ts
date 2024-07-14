@@ -7,6 +7,7 @@ import { BuilderSampleComponent } from './sidebar/builder-sample/builder-sample.
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 import { PageListComponent } from './sidebar/page-list/page-list.component';
 import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
+import { ManagePageComponent } from './main/manage-page/manage-page.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
             component: BuilderSettingsComponent,
           },
         ],
+      },
+      {
+        path: '**',
+        component: ManagePageComponent,
       },
     ],
   },

@@ -6,7 +6,7 @@
     [builderRightDrawer]="builderRightDrawer"
   ></app-builder-sidebar>
   <div
-    class="builder flex-1"
+    class="builder flex-1 overflow-auto"
     [ngClass]="{ 'has-sidebar': !(builderFullScreen$ | async) }"
   >
     <router-outlet></router-outlet>

@@ -46,6 +46,22 @@
     >
       <app-icon [content]="{ svg: 'cog' }"></app-icon>
     </div>
+    @if (builderConfig$ | async; as config) {
+      @if (config.menu) {
+        @for (item of config.menu; track $index) {
+          <div
+            class="item"
+            [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [matTooltip]="item.label"
+            [matTooltipPosition]="'right'"
+            [routerLink]="item.href"
+          >
+            <app-icon [content]="item.icon"></app-icon>
+          </div>
+        }
+      }
+    }
   </div>
   <div class="bottom">
     @if (branding$ | async; as branding) {
@@ -95,7 +111,7 @@
         ></app-btn>
       }
       <mat-divider></mat-divider>
-      @if (branding.header?.params?.userInfo) {
+      @if (branding.header.params.userInfo) {
         <app-user-menu [content]="branding.header.userMenu"></app-user-menu>
       }
     }

@@ -12,10 +12,8 @@ import {
 import { Observable, Subject } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT } from '@core/token/token-providers';
-import { ActivatedRoute } from '@angular/router';
 import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
-import { ContentService } from '@core/service/content.service';
 import { DOCUMENT } from '@angular/common';
 import { takeUntil } from 'rxjs/operators';
 
@@ -27,17 +25,16 @@ import { takeUntil } from 'rxjs/operators';
     {
       provide: PAGE_CONTENT,
       useFactory: pageContentFactory,
-      deps: [ActivatedRoute, ContentService, ContentState],
     },
   ],
 })
 export class BlockComponent
   implements OnInit, AfterViewInit, AfterContentInit, OnDestroy
 {
+  @Input() isPreview = false;
   drawerLoading: boolean;
   drawerContent: IPage;
   opened: boolean;
-  @Input() isPreview = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   contentState = inject(ContentState);
   zone = inject(NgZone);

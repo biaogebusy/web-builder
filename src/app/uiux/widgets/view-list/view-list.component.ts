@@ -7,6 +7,7 @@ import {
   AfterViewInit,
   Inject,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
@@ -49,15 +50,13 @@ export class ViewListComponent
   destroy$: Subject<boolean> = new Subject<boolean>();
   first = true;
 
-  constructor(
-    private nodeService: NodeService,
-    private cd: ChangeDetectorRef,
-    private formService: FormService,
-    private dialogService: DialogService,
-    private screenService: ScreenService,
-    @Inject(USER) private user: IUser,
-    public userSerivice: UserService,
-  ) {
+  cd = inject(ChangeDetectorRef);
+  nodeService = inject(NodeService);
+  formService = inject(FormService);
+  dialogService = inject(DialogService);
+  screenService = inject(ScreenService);
+  userSerivice = inject(UserService);
+  constructor(@Inject(USER) private user: IUser) {
     super();
   }
 
@@ -166,10 +165,6 @@ export class ViewListComponent
     const mergeValue = merge(value, this.form.getRawValue());
     const options = this.formService.handleRangeDate(mergeValue);
     this.getViews(options);
-  }
-
-  get containerClass(): string {
-    return this.content.fullWidth ? 'container-fluid' : 'container';
   }
 
   onExport(): any {
