@@ -258,7 +258,7 @@ export class ComponentService {
       ),
     );
 
-    ['manage-media', 'manage-block', 'upload-media'].forEach((type) =>
+    ['manage-media', 'upload-media'].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/manage/manage.module').then((m) => m.ManageModule),
       ),
