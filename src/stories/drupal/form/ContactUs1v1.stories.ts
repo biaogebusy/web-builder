@@ -1,25 +1,28 @@
 import {
   moduleMetadata,
   Meta,
-  componentWrapperDecorator,
+  applicationConfig,
   StoryObj,
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { ContactUs1v1Component } from '@uiux/combs/form/contact-us1v1/contact-us1v1.component';
 import { IContactUs1v1 } from '@core/interface/combs/IForm';
+import { importProvidersFrom } from '@angular/core';
+import { FormlyModule } from '@ngx-formly/core';
 
 const meta: Meta<ContactUs1v1Component> = {
   title: 'Drupal/表单/联系我们 1v1',
   id: 'contact-us-1v1',
   component: ContactUs1v1Component,
   decorators: [
-    moduleMetadata({
-      entryComponents: [...StorysModule.forEntryComponents()],
-      declarations: [],
-      imports: [StorysModule.forRoot()],
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    moduleMetadata({
+      declarations: [...StorysModule.forEntryComponents()],
+      imports: [FormlyModule.forRoot()],
+    }),
   ],
   parameters: {
     layout: 'fullscreen',

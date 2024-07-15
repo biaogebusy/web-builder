@@ -75,7 +75,7 @@
           }
           @if (
             user.authenticated &&
-            coreConfig.article?.comment?.enable &&
+            coreConfig.article.comment.enable &&
             content.params?.comment
           ) {
             <app-comment-form [content]="content" [type]="'add'">

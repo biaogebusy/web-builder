@@ -3,21 +3,38 @@
     <div class="container">
       <div class="inner flex flex-wrap">
         @if (content.header) {
-          <app-text class="block flex-12/12" [content]="content.header"></app-text>
+          <app-text
+            class="block flex-12/12"
+            [content]="content.header"
+          ></app-text>
         }
         @if (nodes) {
           <div class="card-list m-y grid grid-cols-12 gap-5">
-            @for (card of nodes | paginate: { itemsPerPage: pager.itemsPerPage, currentPage:
-              pager.currentPage, totalItems: pager.totalItems}; track trackByFn($index, card)) {
-              <app-card-1v1 class="m-bottom-sm m-x-xs col-span-12 md:col-span-{{content.row}}"
-                [content]="card">
+            @for (
+              card of nodes
+                | paginate
+                  : {
+                      itemsPerPage: pager.itemsPerPage,
+                      currentPage: pager.currentPage,
+                      totalItems: pager.totalItems,
+                    };
+              track trackByFn($index, card)
+            ) {
+              <app-card-1v1
+                class="m-bottom-sm m-x-xs col-span-12 md:col-span-{{
+                  content.row
+                }}"
+                [content]="card"
+              >
               </app-card-1v1>
             }
           </div>
         }
         <div class="list-bottom w-full">
-          @if (nodes?.length) {
-            <app-pagination (pageChange)="onPageChange($event)"></app-pagination>
+          @if (nodes.length) {
+            <app-pagination
+              (pageChange)="onPageChange($event)"
+            ></app-pagination>
           } @else {
             <div class="text-center p-y-xl">
               <p>没有数据。</p>

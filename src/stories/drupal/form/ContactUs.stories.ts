@@ -1,25 +1,26 @@
 import {
   moduleMetadata,
   Meta,
-  componentWrapperDecorator,
   StoryObj,
+  applicationConfig,
 } from '@storybook/angular';
 
 import { ContactUsComponent } from '@uiux/combs/form/contact-us/contact-us.component';
 import { StorysModule } from '@core/module/storys.module';
+import { importProvidersFrom } from '@angular/core';
+import { FormlyModule } from '@ngx-formly/core';
 const meta: Meta<ContactUsComponent> = {
   title: 'Drupal/表单/联系我们',
   id: 'contact-us',
   component: ContactUsComponent,
   decorators: [
-    moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
+    applicationConfig({
+      providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    componentWrapperDecorator(
-      (story) => `<div class="relative">${story}</div>`,
-    ),
+    moduleMetadata({
+      declarations: [...StorysModule.forEntryComponents()],
+      imports: [FormlyModule.forRoot()],
+    }),
   ],
 };
 
@@ -87,6 +88,7 @@ Default.args = {
       {
         type: 'input',
         key: 'name',
+        className: 'w-full',
         props: {
           label: '姓名',
           appearance: 'outline',
@@ -96,6 +98,7 @@ Default.args = {
       {
         type: 'input',
         key: 'email',
+        className: 'w-full',
         props: {
           label: '邮箱',
           appearance: 'outline',
@@ -105,6 +108,7 @@ Default.args = {
       {
         type: 'input',
         key: 'subject',
+        className: 'w-full',
         props: {
           label: '主题',
           appearance: 'outline',
@@ -113,6 +117,7 @@ Default.args = {
       {
         type: 'textarea',
         key: 'message',
+        className: 'w-full',
         props: {
           label: '内容',
           placeholder: 'Message',

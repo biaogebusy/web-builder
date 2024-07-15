@@ -1,7 +1,7 @@
 <div class="item-menu" #itemMenu *reqRolesIf="content">
   @if (!isMegaMenu && content.child && content.child.length > 0) {
     <!-- hover open -->
-    @if (params?.menuHoverOpen) {
+    @if (params.menuHoverOpen) {
       <app-hover-menu [content]="content"></app-hover-menu>
     } @else {
       <app-link
@@ -19,9 +19,6 @@
     <app-mega-menu [content]="content"></app-mega-menu>
   }
   @if (!content.child || content.child.length === 0) {
-    <app-link
-      class="top"
-      [content]="content"
-    ></app-link>
+    <app-link class="top" [content]="content"></app-link>
   }
 </div>

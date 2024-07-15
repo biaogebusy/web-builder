@@ -1,7 +1,6 @@
 import {
   moduleMetadata,
   Meta,
-  componentWrapperDecorator,
   StoryObj,
   applicationConfig,
 } from '@storybook/angular';
@@ -12,6 +11,7 @@ import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IShowcase1v3 } from '@core/interface/combs/IShowcase';
 import { importProvidersFrom } from '@angular/core';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 const meta: Meta<Showcase1v3Component> = {
   title: '特色组件/图文 Showcase/1v3',
@@ -24,7 +24,6 @@ const meta: Meta<Showcase1v3Component> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
   ],
   parameters: {
     layout: 'fullscreen',
