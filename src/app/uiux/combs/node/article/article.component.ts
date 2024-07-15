@@ -44,7 +44,6 @@ export class ArticleComponent
   comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   dialogRef: MatDialogRef<any>;
-  fontSize: number;
   fontForm: UntypedFormGroup;
   htmlBody: any;
   isReqRoles = false;
@@ -139,16 +138,12 @@ export class ArticleComponent
       });
   }
 
-  get articleConfig(): IArticle {
-    return this.coreConfig.article;
+  get articleConfig(): IArticle | null {
+    return this.coreConfig.article || null;
   }
 
   get loginConfig(): any {
     return this.articleConfig && this.articleConfig.login;
-  }
-
-  get fontSizeConfig(): any {
-    return this.articleConfig && this.articleConfig.fontSize;
   }
 
   ngOnDestroy(): void {
