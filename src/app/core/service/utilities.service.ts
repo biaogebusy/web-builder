@@ -15,7 +15,7 @@ export class UtilitiesService {
     private snackbar: MatSnackBar,
     private screenService: ScreenService,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
   ) {}
 
   getIndexTitle(title: string): string {
@@ -49,6 +49,9 @@ export class UtilitiesService {
   }
 
   getFileType(href: string): string {
+    if (!href) {
+      return '';
+    }
     const url = href.toLowerCase();
     const pdfReg = /^.+(\.pdf)/;
     const txtReg = /^.+(\.txt)/;
@@ -76,7 +79,7 @@ export class UtilitiesService {
   getDatesInRange(
     startDate: Date,
     endDate: Date,
-    formarDate: string
+    formarDate: string,
   ): string[] {
     const date = new Date(startDate.getTime());
 
@@ -97,7 +100,7 @@ export class UtilitiesService {
   initAnimate(
     inputs: IDynamicInputs,
     animateEle: HTMLElement,
-    triggerEle: HTMLElement
+    triggerEle: HTMLElement,
   ): void {
     if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
       let gsapConfig;
