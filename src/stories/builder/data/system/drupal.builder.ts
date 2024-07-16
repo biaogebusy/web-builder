@@ -179,14 +179,6 @@ export const drupal = [
                 label: '标题',
               },
             },
-            {
-              type: 'input',
-              key: 'page',
-              className: 'hidden',
-              props: {
-                label: '页码',
-              },
-            },
           ],
         },
       ],

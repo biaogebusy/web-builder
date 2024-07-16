@@ -4791,14 +4791,6 @@ export const system: any[] = [
                     label: '标题',
                   },
                 },
-                {
-                  type: 'input',
-                  key: 'page',
-                  className: 'hidden',
-                  props: {
-                    label: '页码',
-                  },
-                },
               ],
             },
           ],

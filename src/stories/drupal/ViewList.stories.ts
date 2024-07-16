@@ -128,14 +128,6 @@ Default.args = {
               },
             ],
           },
-          {
-            type: 'input',
-            key: 'page',
-            className: 'hidden',
-            props: {
-              label: '页码',
-            },
-          },
         ],
       },
     ],
