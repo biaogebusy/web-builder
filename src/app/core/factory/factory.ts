@@ -261,7 +261,6 @@ export function notifyFactory(
 }
 
 export const apiUrlFactory = () => {
-  // can use front url to query backend api, ngxin will proxy
   return environment.apiUrl;
 };
 
