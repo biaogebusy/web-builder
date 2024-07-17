@@ -26,8 +26,8 @@ export class BuilderService extends ApiService {
   util = inject(UtilitiesService);
   builder = inject(BuilderState);
   nodeService = inject(NodeService);
+  dialog = inject(MatDialog);
   constructor(
-    private dialog: MatDialog,
     @Inject(API_URL) public apiBaseUrl: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user: IUser,

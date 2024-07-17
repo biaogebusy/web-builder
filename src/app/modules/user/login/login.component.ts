@@ -4,6 +4,7 @@ import {
   Inject,
   ChangeDetectorRef,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import {
   UntypedFormGroup,
@@ -34,14 +35,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   public countdown: number;
   private subscription: Subscription;
 
+  fb = inject(UntypedFormBuilder);
+  route = inject(ActivatedRoute);
+  screenState = inject(ScreenState);
+  tagsService = inject(TagsService);
+  userService = inject(UserService);
+  screenService = inject(ScreenService);
+  cd = inject(ChangeDetectorRef);
   constructor(
-    private fb: UntypedFormBuilder,
-    private route: ActivatedRoute,
-    public screenState: ScreenState,
-    private tagsService: TagsService,
-    public userService: UserService,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) public user: IUser,
   ) {
