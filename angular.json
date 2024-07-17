@@ -56,7 +56,7 @@
               "src/styles.scss",
               "node_modules/swiper/swiper-bundle.css",
               "node_modules/social-share.js/dist/css/share.min.css",
-              "node_modules/video.js/dist/video-js.css",
+              "node_modules/video.js/dist/video-js.min.css",
               "node_modules/lightgallery/css/lightgallery-bundle.min.css",
               "node_modules/material-design-icons/iconfont/material-icons.css",
               "node_modules/quill/dist/quill.core.css",
