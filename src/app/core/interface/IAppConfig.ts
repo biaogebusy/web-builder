@@ -21,7 +21,7 @@ export interface ICoreConfig {
   apiUrl: IApiUrl;
   loading: boolean;
   loadingBar: boolean;
-  article: IArticle;
+  article?: IArticle;
   editor: IEditor;
   actions: IActions;
   dialog: IDialog;
@@ -161,18 +161,12 @@ export interface Form {
   suffix: string;
 }
 
-export interface FontSize {
-  enable: boolean;
-  form: Form[];
-}
-
 export interface Comment {
   enable: boolean;
 }
 
 export interface IArticle {
-  fontSize: FontSize;
-  comment: Comment;
+  comment?: Comment;
   login: {
     label: string;
   };
