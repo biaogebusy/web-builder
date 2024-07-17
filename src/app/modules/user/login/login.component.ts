@@ -11,7 +11,7 @@ import {
   UntypedFormBuilder,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   fb = inject(UntypedFormBuilder);
+  router = inject(Router);
   route = inject(ActivatedRoute);
   screenState = inject(ScreenState);
   tagsService = inject(TagsService);
@@ -51,9 +52,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         // login
         if (currentUser) {
           setTimeout(() => {
-            window.location.href =
+            const returnUrl =
               this.route.snapshot.queryParams.returnUrl ||
               this.coreConfig.login.loginRedirect;
+            this.router.navigate([returnUrl]);
           }, 2000);
         }
       });
