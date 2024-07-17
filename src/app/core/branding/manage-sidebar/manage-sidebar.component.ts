@@ -4,6 +4,7 @@ import {
   Inject,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import { BRANDING, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -23,20 +24,21 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class ManageSidebarComponent implements OnInit {
   @Input() drawer: MatDrawer;
+
+  userService = inject(UserService);
+  screenService = inject(ScreenService);
+  storage = inject(LocalStorageService);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user: IUser,
+    @Inject(USER) public user$: Observable<IUser>,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
-    public userService: UserService,
-    private screenService: ScreenService,
-    private storage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       // init sidebar style
       this.screenService.initSidebarStyle(
-        this.storage.retrieve('sidebarOpened')
+        this.storage.retrieve('sidebarOpened'),
       );
     }
   }

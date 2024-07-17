@@ -31,6 +31,7 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   avatar: IImg;
+  user: IUser;
 
   cd = inject(ChangeDetectorRef);
   screenService = inject(ScreenService);
@@ -38,8 +39,12 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   contentState = inject(ContentState);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user: IUser,
-  ) {}
+    @Inject(USER) public user$: Observable<IUser>,
+  ) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (!this.content?.avatar?.src) {

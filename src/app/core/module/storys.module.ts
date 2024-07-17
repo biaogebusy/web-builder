@@ -104,7 +104,7 @@ export class StorysModule {
         },
         {
           provide: USER,
-          useValue: {
+          useValue: of({
             csrf_token: 'pUsbILTBk2fdd6dfadafiLmufthxnVJ6hcXBenZuVcYVRQ600cM',
             current_user: {
               uid: '1',
@@ -113,11 +113,11 @@ export class StorysModule {
             },
             id: '029f3488-92ed-4fb5-8fa2-62df6fdaf90bd9d5',
             display_name: '表歌',
-            mail: 'hi@example.com',
+            mail: 'hi@builder.design',
             authenticated: true,
             picture: '/assets/images/avatar/01.jpeg',
             login: new Date(),
-          },
+          }),
         },
         {
           provide: THEME,

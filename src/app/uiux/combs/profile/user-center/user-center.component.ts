@@ -30,6 +30,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
   @Input() content: IUserCenter;
   currentUser: any;
   id: any;
+  user: IUser;
   userConfig$: Observable<IUserConfig>;
   cd = inject(ChangeDetectorRef);
   route = inject(Router);
@@ -37,8 +38,12 @@ export class UserCenterComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) public user: IUser,
-  ) {}
+    @Inject(USER) public user$: Observable<IUser>,
+  ) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

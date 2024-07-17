@@ -27,12 +27,16 @@ export class BuilderService extends ApiService {
   builder = inject(BuilderState);
   nodeService = inject(NodeService);
   dialog = inject(MatDialog);
+  user: IUser;
   constructor(
     @Inject(API_URL) public apiBaseUrl: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user$: Observable<IUser>,
   ) {
     super(apiBaseUrl);
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   getApiLang(langcode?: string): string {

@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   Input,
   Inject,
+  inject,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { IUserConfig } from '@core/interface/IUserConfig';
@@ -20,10 +21,13 @@ import { UserService } from '@core/service/user.service';
 export class UserProfileComponent implements OnInit {
   @Input() content: any;
   @Input() userConfig$: Observable<IUserConfig>;
-  constructor(
-    private userService: UserService,
-    @Inject(USER) private user: IUser
-  ) {}
+  user: IUser;
+  userService = inject(UserService);
+  constructor(@Inject(USER) private user$: Observable<IUser>) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {}
 

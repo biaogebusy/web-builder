@@ -22,7 +22,7 @@ import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty, merge } from 'lodash-es';
-import { of, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -49,6 +49,7 @@ export class ViewListComponent
   canShow = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   first = true;
+  user: IUser;
 
   cd = inject(ChangeDetectorRef);
   nodeService = inject(NodeService);
@@ -56,8 +57,11 @@ export class ViewListComponent
   dialogService = inject(DialogService);
   screenService = inject(ScreenService);
   userSerivice = inject(UserService);
-  constructor(@Inject(USER) private user: IUser) {
+  constructor(@Inject(USER) private user$: Observable<IUser>) {
     super();
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {

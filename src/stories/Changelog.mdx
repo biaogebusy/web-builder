@@ -4,38 +4,39 @@ import { Meta } from "@storybook/blocks";
 
 # 更新日志
 
-## 8.0.2(2024-07-15)
+## 8.0.2(2024-07-17)
 
 - Builder开始转向Manage的职能，添加builder workspace作为编辑空间；
 - Builder添加manage page组件，可以动态添加管理相关的页面；
-- 移除了manage media 路由;
+- 移除了manage media 路由；
 - 删除了manage block组件，已经没有必要，可以在builder中按需配置添加；
+- USER token重构为Observable；
 
 ## 8.0.1(2024-07-13)
 
 - 自定义模块支持Drupal views API分页；
-- 媒体库和Builder管理页面列表使用Views API;
+- 媒体库和Builder管理页面列表使用Views API；
 - 优化多语言，可在builder直接添加编辑对应的语言版本；
-- 添加PageSetting组件，支持对页面属性的更新;
+- 添加PageSetting组件，支持对页面属性的更新；
 - 媒体库支持批量上传图片；
 - 使用NgOptimizedImage对img图片元素优化；
 - Builder可生成所有的组件到页面中，可方便全量测试；
 
 ## 8.0.0(2024-06-20)
 
-- 升级angualr 到v17;
+- 升级angualr 到v17；
 - 使用了新的SSR实现；
-- 使用了esbuild;
+- 使用了esbuild；
 - 使用了新的语法；
 
-- 升级 Angular v14 到 v15;
-- 升级 Angular v15 到 v16;
-- 重构：swiper, countTo, lightbox，Angulartics2Module;
-- 升级Storybook到v8，移除了一些包和组件;
+- 升级 Angular v14 到 v15；
+- 升级 Angular v15 到 v16；
+- 重构：swiper, countTo, lightbox，Angulartics2Module；
+- 升级Storybook到v8，移除了一些包和组件；
 
 ## 6.0.0(2024-06-08)
 
-- 升级 Angular v12 到 v13;
+- 升级 Angular v12 到 v13；
 - 移除 article change, search action,dynamic form,dynamic form control, action 1v1 组件；
 - 升级了 ngx-quill 版本；
 - 升级 Angular v13 到 v14，Material 对应升级版本；
@@ -54,13 +55,13 @@ import { Meta } from "@storybook/blocks";
 ## 5.0.1(2024-05-29)
 
 - 支持多语言；
-- 使用 tailwind 逐渐替换 FlexLayout;
+- 使用 tailwind 逐渐替换 FlexLayout；
 - LayoutBuilder 使用 Tailwind 重构；
 - 修复嵌套 Layout builder 的配置问题；
 - layout builder 的 text 组件支持富文本编辑；
 - 修复用户的登录状态；
 - builder 新增 copy 功能，widget picker 可直接选择 copy 的组件，支持跨页面复制；
-- 更新 web builder 开源协议为 AGPL v3;
+- 更新 web builder 开源协议为 AGPL v3；
 - 新增自定义数据源和模板组件，使用 vs 的 monaco-editor 为 html 模板编辑器；
 - builder 的示例页从应用中移除，转为从后台加载，节省应用的大小；
 - 自定义模板支持 api 数据源；
@@ -69,17 +70,17 @@ import { Meta } from "@storybook/blocks";
 
 ## 5.0.0(2024-04-26)
 
-- 升级 Angular v11 到 v12;
+- 升级 Angular v11 到 v12；
 - 修复了多主题重复样式的问题；
-- 加入 Tailwind Css;
+- 加入 Tailwind Css；
 - 移除了 text 富文本组件默认的动画效果，统一在 layout builder 中配置；
 - 移除了 assets/images 中特定产品的图片资源；
 - 新增了 slider formly 类型，基于 mat-slider 扩展；
-- 重命名 BlockModule 为 RenderModule;
+- 重命名 BlockModule 为 RenderModule；
 - 移除 showcase 3v1，layout builder 替代；
 - builder 已支持发布页面到 Drupal；
 - builder 已支持从 api 读取页面、更新页面；
-- layout builder 可以支持无限嵌套;
+- layout builder 可以支持无限嵌套；
 - builder 中对复制的内容粘贴到可编辑文字时，对复制的内容清除格式，确保不影响当前样式；
 - builder 中新增、删除、移动、复制、更新等操作进行了优化重构；
 - 移除了 polyfills，不再兼容低版本浏览器；
@@ -111,13 +112,13 @@ import { Meta } from "@storybook/blocks";
 
 - web builder 增加了一些 tooltip，更优化提示用户使用体验；
 - web builder 为空时，不可切换设备预览；
-- 简化 text 组件的 action;
+- 简化 text 组件的 action；
 - 移除了 disableToolbar，component toolbar 只在 builder 开启；
 - 统一了 builder 生成组件的 json 数据结构；
 - builder 边栏做了大的优化，统一了 UI，组件预览可以查看和复制 json 组件，以往需要拖动到 builder 区；
 - 新增了 Tour 引导提示，通过后台配置灵活选择提示的元素与信息；
 - 修复已用主题被移除时，已访问用户的主题显示问题；
-- link 组件添加了 tooltip;
+- link 组件添加了 tooltip；
 - 优化了暗黑主题，使结构和层次更清晰；
 - builder 支持快捷键 S 收起边栏；
 - builder 新增页面历史版本，清空、提交等操作会产生新的历史版本；
@@ -143,7 +144,7 @@ import { Meta } from "@storybook/blocks";
 
 - Builder: Storybook 中或者开启了 Builder 的站点可以从页面中选组件添加到预览页面，可复制单个组件或者整个页面的 JSON；
 - 导入组件和 widgets 到 Builder 中，对需要用到 API 的组件进行了测试数据的转换；
-- 添加了 jsoneditor 组件，可以预览和编辑 json;
+- 添加了 jsoneditor 组件，可以预览和编辑 json；
 - Builder 的各类状态使用 Inject 注入，方便测试和维护；
 - Buidler 在移动端的优化；
 - 优化了 Builder 的暗黑主题；
@@ -179,7 +180,7 @@ import { Meta } from "@storybook/blocks";
 
 - 添加了视频播放组件，基于 Video.js；
 - 添加了 btn-video widget，点击弹窗播放视频；
-- Storybook 升级到 6.5.13;
+- Storybook 升级到 6.5.13；
 - 移除了分散在各处的 api 请求缓存，统一在请求拦截处处理请求缓存；
 
 ## 3.0.2(2022-10-19)

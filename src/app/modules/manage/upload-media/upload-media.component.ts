@@ -15,7 +15,7 @@ import {
   FileSystemFileEntry,
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Component({
@@ -31,8 +31,12 @@ export class UploadMediaComponent {
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
-
-  constructor(@Inject(USER) private user: IUser) {}
+  user: IUser;
+  constructor(@Inject(USER) private user$: Observable<IUser>) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   dropped(files: NgxFileDropEntry[]): void {
     this.filesEntry = files;

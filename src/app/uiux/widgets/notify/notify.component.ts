@@ -3,6 +3,7 @@ import {
   Component,
   Inject,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, NOTIFY_CONTENT, USER } from '@core/token/token-providers';
@@ -18,12 +19,17 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotifyComponent implements OnInit {
+  user: IUser;
+  nodeService = inject(NodeService);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user$: Observable<IUser>,
     @Inject(NOTIFY_CONTENT) public notify$: Observable<INotify[]>,
-    private nodeService: NodeService
-  ) {}
+  ) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {}
 

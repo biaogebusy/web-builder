@@ -2,23 +2,30 @@
   <article class="question relative p-y-sm">
     <div class="container">
       <div class="top m-bottom-sm">
-        <app-chip-list [classes]="'mini'" [content]="content.topic"></app-chip-list>
+        <app-chip-list
+          [classes]="'mini'"
+          [content]="content.topic"
+        ></app-chip-list>
       </div>
-      <h2 class="title">{{content.title}}</h2>
-      <div class="question-details" [innerHTML]="content.body|safeHtml"></div>
+      <h2 class="title">{{ content.title }}</h2>
+      <div class="question-details" [innerHTML]="content.body | safeHtml"></div>
       <div class="actions m-y-sm">
-        @if (!user.authenticated) {
+        @if (!(user$ | async)) {
           <button mat-raised-button color="primary" (click)="openLogin()">
             <mat-icon>person</mat-icon> 登录作答
           </button>
         }
-        @if (!isAsked && user.authenticated) {
+        @if (!isAsked && (user$ | async)) {
           <button mat-raised-button color="primary" (click)="onShowEditor()">
             <mat-icon>editor</mat-icon> 回答
           </button>
         }
         @if (isAsked) {
-          <button mat-raised-button color="warn" (click)="checkQuestion(myCommentId)">
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="checkQuestion(myCommentId)"
+          >
             <mat-icon>list</mat-icon> 查看回答
           </button>
         }
@@ -30,8 +37,7 @@
   <div class="container">
     <!-- input params and editor config -->
     @if (showEditor) {
-      <app-comment-form [type]="'add'" [content]="content">
-      </app-comment-form>
+      <app-comment-form [type]="'add'" [content]="content"> </app-comment-form>
     }
     <app-comment-list [comments]="comments" [content]="content">
     </app-comment-list>

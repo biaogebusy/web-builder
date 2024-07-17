@@ -58,12 +58,16 @@ export class ArticleComponent
   tagsService = inject(TagsService);
   userService = inject(UserService);
   contentState = inject(ContentState);
+  user: IUser;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    @Inject(USER) public user: IUser,
+    @Inject(USER) public user$: Observable<IUser>,
   ) {
     super();
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {

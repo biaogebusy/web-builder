@@ -39,7 +39,7 @@
                   <div class="shadow"></div>
                 </div>
               }
-              @if (!user.authenticated) {
+              @if (!(user$ | async)) {
                 <div
                   class="auth line p-y-sm p-x-sm w-full text-center flex justify-center items-center"
                 >
@@ -71,15 +71,13 @@
               }
             </div>
           }
-          @if (
-            user.authenticated &&
-            coreConfig.article?.comment?.enable &&
-            content.params?.comment
-          ) {
-            <app-comment-form [content]="content" [type]="'add'">
-            </app-comment-form>
-          }
-          @if (user.authenticated) {
+          @if (user$ | async) {
+            @if (
+              coreConfig.article?.comment?.enable && content.params?.comment
+            ) {
+              <app-comment-form [content]="content" [type]="'add'">
+              </app-comment-form>
+            }
             <app-comment-list [comments]="comments" [content]="content">
             </app-comment-list>
           }

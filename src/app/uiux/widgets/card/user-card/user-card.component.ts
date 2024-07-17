@@ -12,7 +12,7 @@ import { NodeService } from '@core/service/node.service';
 import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import type { IUser } from '@core/interface/IUser';
 import { USER, CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -28,14 +28,19 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   @Input() content: IUserCard;
   profile: IMediaObject;
   count: IUserCount[];
+  user: IUser;
+
   nodeService = inject(NodeService);
   cd = inject(ChangeDetectorRef);
   dialogService = inject(DialogService);
   constructor(
-    @Inject(USER) public user: IUser,
+    @Inject(USER) public user$: Observable<IUser>,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
   ) {
     super();
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {

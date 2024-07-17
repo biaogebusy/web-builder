@@ -18,7 +18,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -42,8 +42,12 @@ export class PageSettingComponent implements OnInit, OnDestroy {
   nodeService = inject(NodeService);
   util = inject(UtilitiesService);
   dialog = inject(MatDialog);
-
-  constructor(@Inject(USER) public user: IUser) {}
+  user: IUser;
+  constructor(@Inject(USER) public user$: Observable<IUser>) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

@@ -6,6 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IDownload } from '@core/interface/widgets/IDownload';
 import { ScreenService } from '@core/service/screen.service';
@@ -36,15 +37,21 @@ export class DownloadComponent implements OnInit, OnDestroy {
   config: ICoreDownload;
   canAccess: boolean;
   isReqRoles: boolean;
+  user: IUser;
+
+  screenService = inject(ScreenService);
+  dialog = inject(MatDialog);
+  nodeService = inject(NodeService);
+  cd = inject(ChangeDetectorRef);
   constructor(
-    private screenService: ScreenService,
-    private dialog: MatDialog,
-    private nodeService: NodeService,
-    private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    @Inject(USER) public user: IUser
-  ) {}
+    @Inject(USER) public user$: Observable<IUser>,
+  ) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

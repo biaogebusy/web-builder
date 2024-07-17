@@ -6,6 +6,7 @@ import {
   OnDestroy,
   Input,
   Inject,
+  inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { map, takeUntil } from 'rxjs/operators';
@@ -29,14 +30,16 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
   pager = {
     itemsPerPage: 20,
   };
+  user: IUser;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    private cd: ChangeDetectorRef,
-    private nodeService: NodeService,
-    private screenService: ScreenService,
-    @Inject(USER) private user: IUser
-  ) {}
+  nodeService = inject(NodeService);
+  screenService = inject(ScreenService);
+  constructor(@Inject(USER) private user$: Observable<IUser>) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -113,7 +116,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
               ],
             };
           });
-        })
+        }),
       );
   }
 

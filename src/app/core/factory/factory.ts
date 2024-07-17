@@ -1,7 +1,7 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, BehaviorSubject, interval } from 'rxjs';
+import { Observable, BehaviorSubject, interval, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -306,19 +306,20 @@ export function brandingFactory(): Observable<IBranding | object> {
   return contentService.loadBranding();
 }
 
-export function userFactory(): IUser | boolean {
+export function userFactory(): Observable<IUser | boolean> {
   const cryptoJS = inject(CryptoJSService);
   const userService = inject(UserService);
   const cookieService = inject(CookieService);
   const screenService = inject(ScreenService);
   const key = userService.localUserKey;
+  const user$ = new BehaviorSubject<IUser | boolean>(false);
   if (screenService.isPlatformBrowser()) {
     if (cookieService.check(key)) {
       const user: IUser = JSON.parse(cryptoJS.decrypt(cookieService.get(key)));
       if (user) {
-        return user;
+        user$.next(user);
       } else {
-        return false;
+        user$.next(false);
       }
     }
 
@@ -328,9 +329,11 @@ export function userFactory(): IUser | boolean {
         window.location.reload();
       }
     }
-    return false;
   }
-  return false;
+  userService.userSub$.subscribe((user) => {
+    user$.next(user);
+  });
+  return user$;
 }
 
 export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {

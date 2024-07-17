@@ -12,7 +12,7 @@ import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import type { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
@@ -30,6 +30,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   @Input() content: IFlag;
   config: ICoreFlag;
   flagging = false;
+  user: IUser;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   cd = inject(ChangeDetectorRef);
@@ -38,9 +39,12 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   utiltiy = inject(UtilitiesService);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user$: Observable<IUser>,
   ) {
     super();
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {

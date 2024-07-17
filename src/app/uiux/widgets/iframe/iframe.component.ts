@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Inject,
+  inject,
 } from '@angular/core';
 import type { IUser } from '@core/interface/IUser';
 import type { IIframe } from '@core/interface/widgets/IWidgets';
@@ -23,12 +24,17 @@ export class IframeComponent implements OnInit {
   @Input() content: IIframe;
   url: string;
   loading: boolean;
+  user: IUser;
+  cd = inject(ChangeDetectorRef);
+  screenService = inject(ScreenService);
   constructor(
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user$: Observable<IUser>,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    private cd: ChangeDetectorRef,
-    private screenService: ScreenService
-  ) {}
+  ) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -49,7 +55,7 @@ export class IframeComponent implements OnInit {
               this.cd.detectChanges();
             }
           },
-          false
+          false,
         );
       }
     }

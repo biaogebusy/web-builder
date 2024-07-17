@@ -19,10 +19,11 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
-import { Subscription, interval } from 'rxjs';
+import { Observable, Subscription, interval } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  host: { ngSkipHydration: 'true' },
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
@@ -31,7 +32,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   error: string;
   userForm: UntypedFormGroup;
   phoneForm: UntypedFormGroup;
-  currentUser: IUser | false;
   public countdown: number;
   private subscription: Subscription;
 
@@ -44,24 +44,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   cd = inject(ChangeDetectorRef);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user: IUser,
+    @Inject(USER) public user$: Observable<IUser>,
   ) {
     if (this.screenService.isPlatformBrowser()) {
       this.userService.userSub$.subscribe((currentUser: any) => {
         // login
         if (currentUser) {
-          this.currentUser = currentUser;
-          this.cd.detectChanges();
           setTimeout(() => {
             window.location.href =
               this.route.snapshot.queryParams.returnUrl ||
               this.coreConfig.login.loginRedirect;
           }, 2000);
-        }
-        // logout
-        if (!currentUser) {
-          this.currentUser = false;
-          this.cd.detectChanges();
         }
       });
     }
@@ -69,7 +62,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.tagsService.setTitle('欢迎登录！');
-    this.currentUser = this.user;
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       pass: ['', Validators.required],

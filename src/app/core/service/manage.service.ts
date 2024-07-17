@@ -18,11 +18,15 @@ export class ManageService extends ApiService {
     'close-icon-white',
     'manage-media-dialog',
   ];
+  user: IUser;
   constructor(
     @Inject(API_URL) public apiBaseUrl: string,
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user$: Observable<IUser>,
   ) {
     super(apiBaseUrl);
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   getBlock(): Observable<any> {

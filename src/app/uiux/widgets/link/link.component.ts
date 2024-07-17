@@ -19,6 +19,7 @@ import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
 import { Router } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-link',
@@ -31,6 +32,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
   classes: any;
   href: string;
   dialogRef: MatDialogRef<any>;
+  user: IUser;
 
   router = inject(Router);
   routeService = inject(RouteService);
@@ -39,10 +41,13 @@ export class LinkComponent extends BaseComponent implements OnInit {
   contentState = inject(ContentState);
   util = inject(UtilitiesService);
   constructor(
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user$: Observable<IUser>,
     private dialog: MatDialog,
   ) {
     super();
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {

@@ -12,7 +12,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { DialogService } from '@core/service/dialog.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
@@ -43,25 +43,29 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   router = inject(Router);
   storage = inject(LocalStorageService);
-  constructor(@Inject(USER) public user: IUser) {
-    this.currentUser = user;
-    this.userService.userSub$.subscribe((currentUser: any) => {
-      // login
-      if (currentUser) {
-        this.currentUser = currentUser;
-        this.cd.detectChanges();
-      }
-      // logout
-      if (!currentUser) {
-        this.currentUser = false;
-        this.cd.detectChanges();
-      }
+  constructor(@Inject(USER) public user$: Observable<IUser>) {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.currentUser = user;
     });
+    this.userService.userSub$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((currentUser: any) => {
+        // login
+        if (currentUser) {
+          this.currentUser = currentUser;
+          this.cd.detectChanges();
+        }
+        // logout
+        if (!currentUser) {
+          this.currentUser = false;
+          this.cd.detectChanges();
+        }
+      });
   }
 
   ngOnInit(): void {
     if (!environment.drupalProxy) {
-      if (this.user && environment.production) {
+      if (this.currentUser && environment.production) {
         this.userService.getLoginState().subscribe((state) => {
           if (!state) {
             this.userService.logoutUser();

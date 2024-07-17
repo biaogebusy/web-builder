@@ -7,13 +7,14 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import type { IComment, IQuestion } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeComponent } from '@uiux/base/node.widget';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { ContentState } from '@core/state/ContentState';
@@ -38,18 +39,20 @@ export class QuestionComponent
   isAsked = false;
   myCommentId = '';
   dialogRef: MatDialogRef<any>;
+  user: IUser;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    public nodeService: NodeService,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
-    private router: Router,
-    private dialog: MatDialog,
-    public contentState: ContentState,
-    @Inject(USER) public user: IUser
-  ) {
+  nodeService = inject(NodeService);
+  screenService = inject(ScreenService);
+  cd = inject(ChangeDetectorRef);
+  router = inject(Router);
+  dialog = inject(MatDialog);
+  contentState = inject(ContentState);
+  constructor(@Inject(USER) public user$: Observable<IUser>) {
     super();
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {}
