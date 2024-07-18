@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
@@ -32,12 +33,11 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
   selectedId: number;
   loading: boolean;
 
-  constructor(
-    private formService: FormService,
-    private nodeService: NodeService,
-    private amapService: AmapService,
-    private cd: ChangeDetectorRef,
-  ) {
+  formService = inject(FormService);
+  nodeService = inject(NodeService);
+  amapService = inject(AmapService);
+  cd = inject(ChangeDetectorRef);
+  constructor() {
     super();
   }
 
