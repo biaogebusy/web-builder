@@ -1,5 +1,5 @@
-# https://github.com/marketplace/actions/webfactory-ssh-agent
 name: Build app and deploy to ECS
+
 on:
   push:
     branches: [master]
@@ -15,7 +15,7 @@ jobs:
         run: git config --global --add safe.directory *
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3.0.1
 
       - name: use Node.js
         uses: actions/setup-node@v2
@@ -35,10 +35,12 @@ jobs:
         run: npm run build
 
       - name: Deploy to Server
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Copy build files
-        run: |
-          scp -o StrictHostKeyChecking=no -r ./dist ${{ secrets.SSH_USER }}@${{ secrets.HOST }}:/mnt/wwwroot/app/builder
+        uses: AEnterprise/rsync-deploy@v1.0.2
+        env:
+          DEPLOY_KEY: ${{ secrets.KEY }}
+          ARGS: -avz --delete
+          SERVER_PORT: "22"
+          FOLDER: "dist"
+          SERVER_IP: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          SERVER_DESTINATION: "/mnt/wwwroot/app/builder"
