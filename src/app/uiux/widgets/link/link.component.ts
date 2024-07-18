@@ -3,6 +3,7 @@ import {
   Component,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -19,7 +20,8 @@ import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
 import { Router } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-link',
@@ -27,12 +29,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LinkComponent extends BaseComponent implements OnInit {
+export class LinkComponent extends BaseComponent implements OnInit, OnDestroy {
   @Input() content: ILink;
   classes: any;
   href: string;
   dialogRef: MatDialogRef<any>;
   user: IUser;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   router = inject(Router);
   routeService = inject(RouteService);
@@ -45,7 +48,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
     private dialog: MatDialog,
   ) {
     super();
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }
@@ -74,6 +77,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
       this.contentState.drawerLoading$.next(true);
       this.contentService
         .loadPageContent(this.content.href)
+        .pipe(takeUntil(this.destroy$))
         .subscribe((content: IPage) => {
           this.contentState.drawerLoading$.next(false);
           this.contentState.drawerContent$.next(content);
@@ -109,15 +113,18 @@ export class LinkComponent extends BaseComponent implements OnInit {
       },
     });
     if (dialog?.afterClosed) {
-      this.dialogRef.afterClosed().subscribe(() => {
-        const after = dialog.afterClosed;
-        if (after?.success) {
-          this.util.openSnackbar(after?.success?.label, 'Ok');
-        }
-        if (after?.emit) {
-          this.dialogService.closeDialog();
-        }
-      });
+      this.dialogRef
+        .afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          const after = dialog.afterClosed;
+          if (after?.success) {
+            this.util.openSnackbar(after?.success?.label, 'Ok');
+          }
+          if (after?.emit) {
+            this.dialogService.closeDialog();
+          }
+        });
     }
     this.dialogService.handlerIframe(this.dialog);
   }
@@ -132,5 +139,9 @@ export class LinkComponent extends BaseComponent implements OnInit {
       obj[type] = type || false;
     }
     this.classes = obj;
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

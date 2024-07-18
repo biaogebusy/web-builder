@@ -42,7 +42,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
     @Inject(USER) private user$: Observable<IUser>,
   ) {
     super();
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }

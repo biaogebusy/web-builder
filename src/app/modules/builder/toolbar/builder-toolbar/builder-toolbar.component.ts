@@ -59,7 +59,7 @@ export class BuilderToolbarComponent
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
   ) {
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }

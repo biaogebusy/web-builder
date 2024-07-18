@@ -51,7 +51,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user$: Observable<IUser>,
   ) {
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }
@@ -62,17 +62,19 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         this.coreConfig?.editor?.modules || {},
         this.content.editor?.modules,
       );
-      this.contentState.commentQuote$.subscribe((quote: any) => {
-        this.screenService.scrollToAnchor('comment');
-        this.commentContent = `
+      this.contentState.commentQuote$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((quote: any) => {
+          this.screenService.scrollToAnchor('comment');
+          this.commentContent = `
           <br>
           <em style="color: rgb(136, 136, 136);font-style: italic;">
           ====================<br>${quote.author.title}<br>${quote.author.subTitle}<br>
           ${quote.content}
           </em>
           `;
-        this.cd.detectChanges();
-      });
+          this.cd.detectChanges();
+        });
       this.cd.detectChanges();
     }
   }

@@ -13,12 +13,13 @@ import type { IUserCenter } from '@core/interface/IUserCenter';
 import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';
 import { isEmpty } from 'lodash-es';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { IUserConfig } from '../../../../core/interface/IUserConfig';
 import { environment } from 'src/environments/environment';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-center',
@@ -36,11 +37,12 @@ export class UserCenterComponent implements OnInit, OnDestroy {
   route = inject(Router);
   screenService = inject(ScreenService);
   userService = inject(UserService);
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) public user$: Observable<IUser>,
   ) {
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }
@@ -49,18 +51,20 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     if (this.screenService.isPlatformBrowser()) {
       this.userConfig$ = this.userService.getUserConfig();
       this.getUser();
-      this.userService.userSub$.subscribe((user) => {
-        // logout
-        if (!user) {
-          setTimeout(() => {
-            this.route.navigate([
-              environment.drupalProxy ? '/my' : '/me/login',
-            ]);
-          }, 2000);
-        } else {
-          window.location.reload();
-        }
-      });
+      this.userService.userSub$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((user) => {
+          // logout
+          if (!user) {
+            setTimeout(() => {
+              this.route.navigate([
+                environment.drupalProxy ? '/my' : '/me/login',
+              ]);
+            }, 2000);
+          } else {
+            window.location.reload();
+          }
+        });
     }
   }
 
@@ -71,6 +75,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     const people = {};
     this.userService
       .getUserById(this.user.current_user.uid, this.user.csrf_token)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         const info = res.data[0];
         if (!info) {
@@ -123,5 +128,8 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
   Inject,
   inject,
+  OnDestroy,
 } from '@angular/core';
 import type { IUser } from '@core/interface/IUser';
 import { NodeService } from '@core/service/node.service';
@@ -21,7 +22,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./user-pay.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserPayComponent implements OnInit {
+export class UserPayComponent implements OnInit, OnDestroy {
   @Input() content: any;
   lists: any;
   loading: boolean;
@@ -36,7 +37,7 @@ export class UserPayComponent implements OnInit {
   nodeService = inject(NodeService);
   cd = inject(ChangeDetectorRef);
   constructor(@Inject(USER) private user$: Observable<IUser>) {
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }
@@ -130,5 +131,9 @@ export class UserPayComponent implements OnInit {
           console.log(error);
         },
       );
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

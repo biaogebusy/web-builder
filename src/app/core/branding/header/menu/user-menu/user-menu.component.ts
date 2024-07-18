@@ -66,11 +66,14 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!environment.drupalProxy) {
       if (this.currentUser && environment.production) {
-        this.userService.getLoginState().subscribe((state) => {
-          if (!state) {
-            this.userService.logoutUser();
-          }
-        });
+        this.userService
+          .getLoginState()
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((state) => {
+            if (!state) {
+              this.userService.logoutUser();
+            }
+          });
       }
     }
   }

@@ -4,6 +4,7 @@ import {
   Component,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -11,8 +12,8 @@ import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
 import { NodeService } from '@core/service/node.service';
 import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
+import { Observable, Subject, of } from 'rxjs';
 import type { IUser } from '@core/interface/IUser';
 import { USER, CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -24,11 +25,15 @@ import type { IUserCard, IUserCount } from '@core/interface/widgets/ICard';
   styleUrls: ['./user-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserCardComponent extends BaseComponent implements OnInit {
+export class UserCardComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
   @Input() content: IUserCard;
   profile: IMediaObject;
   count: IUserCount[];
   user: IUser;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   nodeService = inject(NodeService);
   cd = inject(ChangeDetectorRef);
@@ -38,7 +43,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
   ) {
     super();
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }
@@ -88,6 +93,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
             rows: [],
           });
         }),
+        takeUntil(this.destroy$),
       )
       .subscribe((res) => {
         this.count = res.rows.map((item: any) => {
@@ -115,5 +121,9 @@ export class UserCardComponent extends BaseComponent implements OnInit {
         }
       });
     }
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

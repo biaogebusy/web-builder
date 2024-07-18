@@ -44,7 +44,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
   dialog = inject(MatDialog);
   user: IUser;
   constructor(@Inject(USER) public user$: Observable<IUser>) {
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }

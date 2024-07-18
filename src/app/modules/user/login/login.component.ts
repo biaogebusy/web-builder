@@ -19,7 +19,8 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
-import { Observable, Subscription, interval } from 'rxjs';
+import { Observable, Subject, Subscription, interval } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   phoneForm: UntypedFormGroup;
   public countdown: number;
   private subscription: Subscription;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   fb = inject(UntypedFormBuilder);
   router = inject(Router);
@@ -48,17 +50,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     @Inject(USER) public user$: Observable<IUser>,
   ) {
     if (this.screenService.isPlatformBrowser()) {
-      this.userService.userSub$.subscribe((currentUser: any) => {
-        // login
-        if (currentUser) {
-          setTimeout(() => {
-            const returnUrl =
-              this.route.snapshot.queryParams.returnUrl ||
-              this.coreConfig.login.loginRedirect;
-            this.router.navigate([returnUrl]);
-          }, 2000);
-        }
-      });
+      this.userService.userSub$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((currentUser: any) => {
+          // login
+          if (currentUser) {
+            setTimeout(() => {
+              const returnUrl =
+                this.route.snapshot.queryParams.returnUrl ||
+                this.coreConfig.login.loginRedirect;
+              this.router.navigate([returnUrl]);
+            }, 2000);
+          }
+        });
     }
   }
 
@@ -98,6 +102,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.userService
       .login(this.userForm.value.name, this.userForm.value.pass)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
         this.onLogin(state, '登录出现问题，请联系管理员！');
       });
@@ -107,6 +112,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.userService
       .loginByPhone(this.phoneForm.value.phone, this.phoneForm.value.code)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
         this.onLogin(state, '请检查手机号或者验证码！');
       });
@@ -131,24 +137,29 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.cd.detectChanges();
       return false;
     }
-    this.userService.getCode(this.phoneForm.value.phone).subscribe(() => {
-      const { leftTime } = this.coreConfig.login.phoneLogin;
-      this.countdown = leftTime;
-      const source = interval(1000);
-      this.subscription = source.subscribe((val) => {
-        if (this.countdown > 0) {
-          this.countdown--;
-        } else {
-          this.subscription.unsubscribe();
-        }
+    this.userService
+      .getCode(this.phoneForm.value.phone)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        const { leftTime } = this.coreConfig.login.phoneLogin;
+        this.countdown = leftTime;
+        const source = interval(1000);
+        this.subscription = source.subscribe((val) => {
+          if (this.countdown > 0) {
+            this.countdown--;
+          } else {
+            this.subscription.unsubscribe();
+          }
+        });
+        this.cd.detectChanges();
       });
-      this.cd.detectChanges();
-    });
   }
 
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

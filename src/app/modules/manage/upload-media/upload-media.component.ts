@@ -15,8 +15,8 @@ import {
   FileSystemFileEntry,
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, Subject, of } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-upload-media',
@@ -27,13 +27,13 @@ import { catchError } from 'rxjs/operators';
 export class UploadMediaComponent {
   files: IMediaAttr[] = [];
   filesEntry: NgxFileDropEntry[];
-
+  destroy$: Subject<boolean> = new Subject<boolean>();
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   user: IUser;
   constructor(@Inject(USER) private user$: Observable<IUser>) {
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }

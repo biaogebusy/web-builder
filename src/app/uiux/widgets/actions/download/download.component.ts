@@ -48,7 +48,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
     @Inject(USER) public user$: Observable<IUser>,
   ) {
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }
@@ -65,6 +65,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
       const entityId = page.config?.node?.entityId || '';
       this.nodeService
         .checkNodeAccess(data, entityId, this.user)
+        .pipe(takeUntil(this.destroy$))
         .subscribe((access) => {
           this.canAccess = access.canAccess;
           this.isReqRoles = access.isReqRoles;

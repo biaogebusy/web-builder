@@ -50,7 +50,7 @@ export class QuestionComponent
   contentState = inject(ContentState);
   constructor(@Inject(USER) public user$: Observable<IUser>) {
     super();
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
     });
   }
@@ -59,12 +59,14 @@ export class QuestionComponent
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$.subscribe((state) => {
-        if (state) {
-          this.checkIsAsked();
-          this.getComments(+new Date());
-        }
-      });
+      this.contentState.commentChange$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((state) => {
+          if (state) {
+            this.checkIsAsked();
+            this.getComments(+new Date());
+          }
+        });
     }
   }
 
