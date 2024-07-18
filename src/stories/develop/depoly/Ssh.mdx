@@ -1,0 +1,41 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="开发/部署/SSH" id="ssh" />
+
+通过SSH来拉取代码库和github actions自动部署
+
+## 复制公钥到ssh
+
+```
+cat ~/.ssh/id_rsa.pub
+```
+
+## 生成新的SSH密匙对
+
+如果没有则需要新生成
+
+```
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+## 添加SSH私钥到ssh-agent中：
+
+```
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+## 检查配置文件
+
+确保你的 SSH 配置文件（通常位于 ~/.ssh/config）正确设置了代码库的主机名和对应的私钥路径。
+
+```
+Host gitlab.com
+       IdentityFile ~/.ssh/id_ed25519
+```
+
+## 测试SSH连接
+
+```
+ssh -T git@gitlab.com
+```
