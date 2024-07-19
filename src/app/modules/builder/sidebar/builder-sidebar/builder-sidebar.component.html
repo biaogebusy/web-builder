@@ -6,46 +6,6 @@
   }
   <mat-divider></mat-divider>
   <div class="menu">
-    <div
-      class="item"
-      [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{ exact: true }"
-      [matTooltip]="'页面编辑'"
-      [matTooltipPosition]="'right'"
-      routerLink="./"
-    >
-      <app-icon [content]="{ svg: 'pencil' }"></app-icon>
-    </div>
-    <div
-      class="item"
-      [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{ exact: true }"
-      [matTooltip]="'管理列表'"
-      [matTooltipPosition]="'right'"
-      routerLink="./page-list"
-    >
-      <app-icon [content]="{ svg: 'format-list-bulleted' }"></app-icon>
-    </div>
-    <div
-      class="item"
-      [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{ exact: true }"
-      [matTooltip]="'示例库'"
-      [matTooltipPosition]="'right'"
-      routerLink="./samples"
-    >
-      <app-icon [content]="{ svg: 'lightbulb-on-30' }"></app-icon>
-    </div>
-    <div
-      class="item"
-      [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{ exact: true }"
-      [matTooltip]="'站点配置'"
-      [matTooltipPosition]="'right'"
-      routerLink="./settings"
-    >
-      <app-icon [content]="{ svg: 'cog' }"></app-icon>
-    </div>
     @if (builderConfig$ | async; as config) {
       @if (config.menu) {
         @for (item of config.menu; track $index) {
@@ -54,10 +14,31 @@
             [routerLinkActive]="['active']"
             [routerLinkActiveOptions]="{ exact: true }"
             [matTooltip]="item.label"
-            [matTooltipPosition]="'right'"
-            [routerLink]="item.href"
+            [matTooltipPosition]="'above'"
           >
-            <app-icon [content]="item.icon"></app-icon>
+            <app-icon [routerLink]="item.href" [content]="item.icon"></app-icon>
+            @if (item.child) {
+              <div class="child">
+                <div class="hover-menu">
+                  <div class="title">{{ item.label }}</div>
+                  <div class="child-menu">
+                    @for (item of item.child; track $index) {
+                      <div class="menu-item">
+                        <a mat-button [routerLink]="item.href">
+                          @if (item.icon) {
+                            <app-icon
+                              class="h-[18px] w-[18px] leading-none"
+                              [content]="item.icon"
+                            ></app-icon>
+                          }
+                          {{ item.label }}
+                        </a>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            }
           </div>
         }
       }

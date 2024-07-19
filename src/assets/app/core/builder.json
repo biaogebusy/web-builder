@@ -1,6 +1,38 @@
 {
   "menu": [
     {
+      "label": "页面编辑",
+      "href": "./",
+      "icon": {
+        "svg": "pencil"
+      },
+      "child": [
+        {
+          "label": "管理列表",
+          "href": "./page-list",
+          "icon": {
+            "svg": "format-list-bulleted",
+            "inline": true
+          }
+        },
+        {
+          "label": "示例库",
+          "href": "./samples",
+          "icon": {
+            "svg": "lightbulb-on-30",
+            "inline": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "站点配置",
+      "href": "./settings",
+      "icon": {
+        "svg": "cog"
+      }
+    },
+    {
       "label": "监控日志",
       "href": "logs",
       "icon": {

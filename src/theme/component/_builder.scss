@@ -50,6 +50,17 @@ $dark-theme: mat.define-dark-theme(
           }
         }
       }
+      .child {
+        background-color: mat.get-color-from-palette($background, card);
+        @include mat.elevation(
+          3,
+          mat.get-color-from-palette($foreground, divider, 0.7)
+        );
+        .hover-menu {
+          background-color: mat.get-color-from-palette($background, card);
+          @include scrollbar(mat.get-color-from-palette($foreground, divider));
+        }
+      }
     }
   }
   .builder {
