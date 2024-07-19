@@ -37,21 +37,26 @@ $dark-theme: mat.define-dark-theme(
       .item {
         &:hover,
         &:focus {
-          color: #fff;
-          &::after {
-            background-color: rgba(#fff, 0.1);
+          > .custom-icon {
+            color: #fff;
+            &::after {
+              background-color: rgba(#fff, 0.1);
+            }
           }
         }
 
         &.active {
-          color: #fff;
-          &::after {
-            background-color: mat.get-color-from-palette($primary);
+          > .custom-icon {
+            color: mat.get-color-from-palette($primary, default-contrast);
+            &::after {
+              background-color: mat.get-color-from-palette($primary);
+            }
           }
         }
       }
       .child {
         background-color: mat.get-color-from-palette($background, card);
+        color: mat.get-color-from-palette($foreground, text, 0.75);
         @include mat.elevation(
           3,
           mat.get-color-from-palette($foreground, divider, 0.7)
@@ -59,6 +64,26 @@ $dark-theme: mat.define-dark-theme(
         .hover-menu {
           background-color: mat.get-color-from-palette($background, card);
           @include scrollbar(mat.get-color-from-palette($foreground, divider));
+          .child-menu {
+            .mdc-list-item {
+              &.active {
+                .mdc-list-item__primary-text {
+                  color: mat.get-color-from-palette($primary);
+                }
+              }
+              .mdc-list-item__primary-text {
+                color: mat.get-color-from-palette($foreground, text, 0.75);
+              }
+              &:hover {
+                &:after {
+                  background-color: mat.get-color-from-palette($primary, 0.1);
+                }
+                .mdc-list-item__primary-text {
+                  color: mat.get-color-from-palette($primary);
+                }
+              }
+            }
+          }
         }
       }
     }

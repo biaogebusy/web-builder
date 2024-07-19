@@ -1,10 +1,16 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
   inject,
 } from '@angular/core';
-import { ActivatedRoute, UrlSegment } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  UrlSegment,
+} from '@angular/router';
 import { ContentService } from '@core/service/content.service';
 import { Observable } from 'rxjs';
 
@@ -19,10 +25,22 @@ export class ManagePageComponent implements OnInit {
   loading: boolean;
   contentService = inject(ContentService);
   activateRoute = inject(ActivatedRoute);
+  router = inject(Router);
+  cd = inject(ChangeDetectorRef);
   ngOnInit(): void {
     const url = this.activateRoute.snapshot.url
       .map((segment) => segment.path)
       .join('/');
     this.page$ = this.contentService.loadBuilderPage(url);
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const url = this.activateRoute.snapshot.url
+          .map((segment) => segment.path)
+          .join('/');
+        this.page$ = this.contentService.loadBuilderPage(url);
+        this.cd.detectChanges();
+      }
+    });
   }
 }

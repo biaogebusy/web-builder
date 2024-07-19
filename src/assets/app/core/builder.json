@@ -1,26 +1,24 @@
 {
   "menu": [
     {
-      "label": "页面编辑",
+      "label": "Builder 工作区",
       "href": "./",
       "icon": {
         "svg": "pencil"
       },
       "child": [
         {
-          "label": "管理列表",
+          "label": "管理着陆页",
           "href": "./page-list",
           "icon": {
-            "svg": "format-list-bulleted",
-            "inline": true
+            "svg": "format-list-bulleted"
           }
         },
         {
-          "label": "示例库",
+          "label": "查看示例库",
           "href": "./samples",
           "icon": {
-            "svg": "lightbulb-on-30",
-            "inline": true
+            "svg": "lightbulb-on-30"
           }
         }
       ]
