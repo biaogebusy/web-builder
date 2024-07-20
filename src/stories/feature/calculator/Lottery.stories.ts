@@ -55,13 +55,13 @@ const content: ILottery = {
     {
       key: 'max',
       className: 'm-bottom-sm',
-      fieldGroupClassName: 'flex flex-wrap',
+      fieldGroupClassName: 'grid grid-cols-12 gap-3',
       fieldGroup: [
         {
           type: 'input',
           key: 'total_money',
           defaultValue: 300,
-          className: 'm-right-sm',
+          className: 'col-span-6',
           props: {
             label: '大额红包总预算',
             appearance: 'outline',
@@ -81,6 +81,7 @@ const content: ILottery = {
         {
           type: 'input',
           key: 'total_number',
+          className: 'col-span-6',
           defaultValue: 10,
           props: {
             label: '大额红包总个数',
@@ -103,13 +104,13 @@ const content: ILottery = {
     {
       key: 'min',
       className: 'm-bottom-sm m-top-sm',
-      fieldGroupClassName: 'flex flex-wrap',
+      fieldGroupClassName: 'grid grid-cols-12 gap-3',
       fieldGroup: [
         {
           type: 'input',
           key: 'total_money',
           defaultValue: 500,
-          className: 'm-right-sm',
+          className: 'col-span-6',
           props: {
             label: '小额红包总预算',
             appearance: 'outline',
@@ -129,6 +130,7 @@ const content: ILottery = {
         {
           type: 'input',
           key: 'total_number',
+          className: 'col-span-6',
           defaultValue: 1,
           props: {
             label: '小额红包总个数',
@@ -150,7 +152,7 @@ const content: ILottery = {
           type: 'input',
           key: 'per_max',
           defaultValue: 1,
-          className: 'm-right-sm',
+          className: 'col-span-6 mt-3',
           props: {
             label: '小额红包单次最大额',
             appearance: 'outline',
@@ -171,6 +173,7 @@ const content: ILottery = {
           type: 'input',
           key: 'per_min',
           defaultValue: 0.3,
+          className: 'col-span-6 mt-3',
           props: {
             label: '小额红包单次最小额',
             appearance: 'outline',
@@ -192,7 +195,7 @@ const content: ILottery = {
     {
       key: 'isPromote',
       type: 'toggle',
-      className: 'w-full m-bottom',
+      className: 'm-bottom',
       props: {
         label: '开启推广提成',
         description: '超过推广次数则推广结束',
@@ -200,13 +203,13 @@ const content: ILottery = {
     },
     {
       key: 'promote',
-      fieldGroupClassName: 'flex flex-wrap',
+      fieldGroupClassName: 'grid grid-cols-12 gap-3',
       fieldGroup: [
         {
           type: 'select',
           key: 'type',
           defaultValue: 'fixed',
-          className: 'm-bottom-sm m-right-sm',
+          className: 'col-span-6',
           props: {
             label: '选择提成方式',
             description: '固定金额或者按比例',
@@ -226,7 +229,7 @@ const content: ILottery = {
           type: 'input',
           key: 'fixed',
           defaultValue: 2,
-          className: 'm-bottom-sm',
+          className: 'col-span-6',
           props: {
             label: '每次推广可得金额/元',
             appearance: 'outline',
@@ -248,6 +251,7 @@ const content: ILottery = {
           type: 'input',
           key: 'percent',
           defaultValue: 80,
+          className: 'col-span-6',
           props: {
             label: '每次推广可得比例%',
             appearance: 'outline',
