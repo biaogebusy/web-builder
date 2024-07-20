@@ -50,65 +50,70 @@ Default.args = {
     },
     form: [
       {
-        key: 'keys',
-        type: 'input',
-        props: {
-          label: '关键词',
-        },
-      },
-      {
-        type: 'select',
-        key: 'type',
-        props: {
-          mutiple: false,
-          label: '内容来源',
-          options: [
-            {
-              label: '文章',
-              value: 'article',
+        fieldGroupClassName: 'flex flex-col',
+        fieldGroup: [
+          {
+            key: 'keys',
+            type: 'input',
+            props: {
+              label: '关键词',
             },
-            {
-              label: '博客',
-              value: 'blog',
+          },
+          {
+            type: 'select',
+            key: 'type',
+            props: {
+              mutiple: false,
+              label: '内容来源',
+              options: [
+                {
+                  label: '文章',
+                  value: 'article',
+                },
+                {
+                  label: '博客',
+                  value: 'blog',
+                },
+                {
+                  label: '会议',
+                  value: 'metting',
+                },
+              ],
             },
-            {
-              label: '会议',
-              value: 'metting',
+          },
+          {
+            type: 'select',
+            key: 'changed',
+            props: {
+              mutiple: false,
+              label: '最新更新',
+              options: [
+                {
+                  label: '文章',
+                  value: 'article',
+                },
+                {
+                  label: '博客',
+                  value: 'blog',
+                },
+                {
+                  label: '会议',
+                  value: 'metting',
+                },
+              ],
             },
-          ],
-        },
-      },
-      {
-        type: 'select',
-        key: 'changed',
-        props: {
-          mutiple: false,
-          label: '最新更新',
-          options: [
-            {
-              label: '文章',
-              value: 'article',
+          },
+          {
+            type: 'datepicker',
+            key: 'date',
+            props: {
+              label: '日期',
+              hint: 'MM/DD/YYYY',
+              placeholder: '请选择日期',
+              value: '',
             },
-            {
-              label: '博客',
-              value: 'blog',
-            },
-            {
-              label: '会议',
-              value: 'metting',
-            },
-          ],
-        },
-      },
-      {
-        type: 'datepicker',
-        key: 'date',
-        props: {
-          label: '日期',
-          hint: 'MM/DD/YYYY',
-          placeholder: '请选择日期',
-          value: '',
-        },
+          },
+        ],
       },
     ],
     calendar: {

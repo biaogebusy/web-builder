@@ -10,5 +10,9 @@
     .container-fluid {
       padding: 0;
     }
+    .container {
+      padding: 0;
+      max-width: none;
+    }
   }
 }
