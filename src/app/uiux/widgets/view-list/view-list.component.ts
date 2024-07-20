@@ -38,7 +38,7 @@ export class ViewListComponent
 {
   @Input() content: IViewList;
   @Input() form = new UntypedFormGroup({
-    page: new UntypedFormControl(),
+    page: new UntypedFormControl(0),
   });
   @Input() model: any = {};
   searchEntry: any;
@@ -83,7 +83,7 @@ export class ViewListComponent
       this.cd.detectChanges();
     }
     if (this.first) {
-      this.getViews();
+      this.getViews(this.form.value);
       this.first = false;
     }
   }
@@ -95,7 +95,7 @@ export class ViewListComponent
       this.cd.detectChanges();
       return;
     }
-    const params = this.getApiParams(options);
+    const params = this.getApiParams({ ...options, noCache: true });
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
     this.loading = true;
     this.nodeService
@@ -165,7 +165,7 @@ export class ViewListComponent
   }
 
   onModelChange(value: any): void {
-    this.form.get('page')?.patchValue(1, { onlySelf: true, emitEvent: false });
+    this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
     const mergeValue = merge(value, this.form.getRawValue());
     const options = this.formService.handleRangeDate(mergeValue);
     this.getViews(options);

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '@core/service/api.service';
@@ -10,7 +14,10 @@ import { formatDate } from '@angular/common';
 })
 export class FormService {
   autoList$: Subject<any[]> = new Subject();
-  constructor(private http: HttpClient, private apiService: ApiService) {}
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService,
+  ) {}
 
   toFormGroup(items: any[]): any {
     const group: any = {};
@@ -65,7 +72,7 @@ export class FormService {
     return this.http.post(
       `${this.apiService.apiUrl}/webform_rest/submit`,
       data,
-      this.apiService.httpOptionsOfCommon
+      this.apiService.httpOptionsOfCommon,
     );
   }
 
@@ -78,9 +85,6 @@ export class FormService {
         value.end = formatDate(value.date.end, 'yyyy-MM-dd', 'en-US');
       }
       delete value.date;
-    }
-    if (value.page) {
-      value.page = value.page - 1;
     }
     return value;
   }
