@@ -435,9 +435,7 @@
           "classes": "bg-fill-width",
           "img": {
             "classes": "object-fit",
-            "src": "/assets/images/bg/bg-01.png",
-            "width": 490,
-            "height": 500
+            "src": "/assets/images/bg/bg-01.png"
           }
         },
         "spacer": "lg",
@@ -449,7 +447,9 @@
           {
             "type": "img",
             "src": "/assets/images/illustration/13.png",
-            "classes": "mover",
+            "classes": "mover object-cover",
+            "width": 490,
+            "height": 500,
             "hostClasses": "relative img-bg-shape",
             "actions": [
               {

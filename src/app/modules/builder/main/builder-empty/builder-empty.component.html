@@ -1,6 +1,8 @@
 <div class="builder-empty" matTooltip="从边栏拖动组件到编辑区">
-  @for (item of coreConfig.builder?.empty; track item) {
-    <app-dynamic-component [inputs]="{content:item}"
-    [isPreview]="true"></app-dynamic-component>
+  @for (item of coreConfig.builder.empty; track item) {
+    <app-dynamic-component
+      [inputs]="{ content: item }"
+      [isPreview]="true"
+    ></app-dynamic-component>
   }
 </div>

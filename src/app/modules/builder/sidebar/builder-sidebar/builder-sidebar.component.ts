@@ -14,6 +14,8 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
+import { IBuilderConfig } from '@core/interface/IBuilder';
+import { ContentService } from '@core/service/content.service';
 
 @Component({
   selector: 'app-builder-sidebar',
@@ -24,7 +26,8 @@ import { ManageService } from '@core/service/manage.service';
 export class BuilderSidebarComponent implements OnInit {
   @Input() builderRightDrawer: MatDrawer;
   showBranding = false;
-
+  builderConfig$: Observable<IBuilderConfig> =
+    inject(ContentService).loadBuilderConfig();
   builder = inject(BuilderState);
   dialog = inject(MatDialog);
   manageService = inject(ManageService);

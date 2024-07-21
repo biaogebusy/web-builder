@@ -20,6 +20,7 @@ import {
   footerLight,
 } from '@modules/builder/data/Branding.json';
 import { ILanguage } from '@core/interface/IEnvironment';
+import { IBuilderConfig } from '@core/interface/IBuilder';
 @Injectable({
   providedIn: 'root',
 })
@@ -181,6 +182,24 @@ export class ContentService {
           console.log('base json not found!');
         },
       );
+  }
+
+  loadBuilderConfig(): Observable<IBuilderConfig> {
+    const { lang } = this.getUrlPath(this.pageUrl);
+    const configPath = environment.production
+      ? `${this.apiUrl}${lang}/api/v1/config?content=/core/builder`
+      : `${this.apiUrl}/assets/app${lang}/core/builder.json`;
+
+    return this.http.get<IBuilderConfig>(configPath);
+  }
+
+  loadBuilderPage(path: string): Observable<any[]> {
+    const { lang } = this.getUrlPath(this.pageUrl);
+    const builderPath = environment.production
+      ? `${this.apiUrl}${lang}/api/v1/config?content=${path}`
+      : `${this.apiUrl}/assets/app${lang}/${path}.json`;
+
+    return this.http.get<any[]>(builderPath);
   }
 
   setBodyClasses(theme: string): void {
