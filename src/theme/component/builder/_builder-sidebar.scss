@@ -1,144 +1,152 @@
 @use "@angular/material" as mat;
-@mixin sidebar($background, $foreground, $primary) {
-  background-color: mat.get-color-from-palette($background, card);
-  .mat-drawer-inner-container {
-    @include scrollbar(mat.get-color-from-palette($foreground, divider));
-  }
-  .mat-mdc-tab-header {
-    background-color: mat.get-color-from-palette($background, background);
-    .mat-mdc-tab {
-      .mdc-tab__text-label {
-        color: mat.get-color-from-palette($foreground, text);
+@mixin builder-sidebar($background, $foreground, $primary) {
+  .builder-sidebar {
+    &.closed {
+      background-color: mat.get-color-from-palette(
+        $foreground,
+        elevation,
+        0.85
+      );
+      color: #f5f5f5;
+      @include mat.elevation(
+        4,
+        mat.get-color-from-palette($background, focused-button),
+        0.4
+      );
+      .mat-divider {
+        border-top-color: rgba(255, 255, 255, 0.2);
       }
-      &.mdc-tab--active {
-        .mdc-tab__text-label {
-          color: mat.get-color-from-palette($primary, text);
-          opacity: 1;
-        }
-      }
-    }
-    .mdc-tab__content {
-      background-color: transparent;
-    }
-  }
+      .icon-menu {
+        .item {
+          &:hover,
+          &:focus {
+            > .custom-icon {
+              color: #fff;
+              &::after {
+                background-color: rgba(#fff, 0.1);
+              }
+            }
+          }
 
-  .mat-expansion-panel {
-    background-color: mat.get-color-from-palette($background, background);
-    color: mat.get-color-from-palette($foreground, text);
-    .mat-expansion-panel-header-title,
-    .mat-expansion-panel-header-description,
-    .mat-expansion-indicator::after {
-      color: mat.get-color-from-palette($foreground, text, 0.75);
-    }
-    .mat-mdc-list-base {
-      .mat-list-option {
-        color: mat.get-color-from-palette($foreground, text, 0.75);
-      }
-    }
-  }
-
-  .builder-version {
-    .mdc-list-item__content {
-      .mat-icon:not(.mat-primary) {
-        color: mat.get-color-from-palette($foreground, text, 0.5);
-      }
-      .title,
-      .time {
-        color: mat.get-color-from-palette($foreground, text, 0.75);
-        &:focus-visible {
-          color: mat.get-color-from-palette($primary);
-          border-bottom-color: mat.get-color-from-palette($foreground, divider);
-        }
-      }
-    }
-    .mat-expansion-panel-body {
-      @include scrollbar(mat.get-color-from-palette($primary));
-    }
-  }
-
-  .page-list {
-    color: mat.get-color-from-palette($foreground, text, 0.75);
-    background-color: mat.get-color-from-palette($background, background);
-    @include mat.elevation(
-      3,
-      mat.get-color-from-palette($foreground, divider),
-      0.4
-    );
-    .form {
-      background-color: mat.get-color-from-palette($background, card);
-    }
-    .lists {
-      @include scrollbar(mat.get-color-from-palette($primary));
-      .item {
-        border-bottom: 1px solid
-          mat.get-color-from-palette($foreground, divider);
-        color: mat.get-color-from-palette($foreground, text, 0.75);
-        .title {
-          border-bottom: 1px solid transparent;
-          &:focus-visible,
-          &[contentEditable="true"] {
-            outline: none;
-            border-bottom-color: mat.get-color-from-palette($primary);
+          &.active {
+            > .custom-icon {
+              color: mat.get-color-from-palette($primary, default-contrast);
+              &::after {
+                background-color: mat.get-color-from-palette($primary);
+              }
+            }
           }
         }
-        a {
+        .child {
+          background-color: mat.get-color-from-palette($background, card);
           color: mat.get-color-from-palette($foreground, text, 0.75);
-          &:hover {
-            color: mat.get-color-from-palette($primary);
-          }
-        }
-
-        &.active {
-          background-color: mat.get-color-from-palette($primary, 0.1);
-          &:after {
-            background-color: mat.get-color-from-palette($primary);
-          }
-        }
-      }
-    }
-  }
-
-  .cards {
-    .group {
-      &:hover {
-        background-color: mat.get-color-from-palette($primary, 0.07);
-        transition: all 0.2s ease;
-      }
-    }
-    .item {
-      .inner {
-        background-color: mat.get-color-from-palette($background, card);
-        transition: background 0.1s ease-in-out;
-        @include mat.elevation(
-          1,
-          mat.get-color-from-palette($background, focused-button),
-          0.2
-        );
-        &:hover {
           @include mat.elevation(
-            1,
-            mat.get-color-from-palette($background, hover),
-            0.2
+            3,
+            mat.get-color-from-palette($foreground, divider, 0.7)
           );
-          background: mat.get-color-from-palette($primary, 0.08);
+          .hover-menu {
+            background-color: mat.get-color-from-palette($background, card);
+            @include scrollbar(
+              mat.get-color-from-palette($foreground, divider)
+            );
+            .child-menu {
+              .mdc-list-item {
+                &.active {
+                  .mdc-list-item__primary-text {
+                    color: mat.get-color-from-palette($primary);
+                  }
+                }
+                .mdc-list-item__primary-text {
+                  color: mat.get-color-from-palette($foreground, text, 0.75);
+                }
+                &:hover {
+                  &:after {
+                    background-color: mat.get-color-from-palette($primary, 0.1);
+                  }
+                  .mdc-list-item__primary-text {
+                    color: mat.get-color-from-palette($primary);
+                  }
+                }
+              }
+            }
+          }
         }
-        .custom-icon {
+        .toggle {
+          .wrapper {
+            .mat-icon {
+              @include mat.elevation(
+                4,
+                mat.get-color-from-palette($foreground, text),
+                0.3
+              );
+              transition: all 0.1s ease;
+            }
+            &:hover {
+              .mat-icon {
+                background-color: mat.get-color-from-palette(
+                  $foreground,
+                  base,
+                  0.85
+                );
+                color: mat.get-color-from-palette($primary, 50);
+              }
+            }
+          }
+        }
+      }
+    }
+    &.opened {
+      .accordion-menu {
+        @include scrollbar(
+          mat.get-color-from-palette($foreground, divider, 0.2)
+        );
+        .icon {
           color: mat.get-color-from-palette($foreground, text, 0.7);
         }
-        &.active {
-          background-color: mat.get-color-from-palette($primary);
-          color: mat.get-color-from-palette($primary, default-contrast);
-          .custom-icon {
-            color: mat.get-color-from-palette($primary, default-contrast);
+        .mat-accordion {
+          > .mat-mdc-list {
+            &.active {
+              &::before {
+                background-color: mat.get-color-from-palette($primary);
+              }
+            }
+          }
+          .mat-expansion-panel {
+            .mat-expansion-panel-header {
+              a {
+                color: mat.get-color-from-palette($foreground, text, 0.75);
+              }
+            }
+            &.active {
+              .mat-expansion-panel-header {
+                &::after {
+                  background-color: mat.get-color-from-palette($primary);
+                }
+              }
+            }
           }
         }
-      }
-    }
-  }
-  .child {
-    .mat-expansion-panel {
-      .mat-expansion-panel-body {
-        background-color: mat.get-color-from-palette($primary, 0.07);
+        .mat-expansion-panel-body {
+          a {
+            color: mat.get-color-from-palette($foreground, text, 0.6);
+          }
+        }
+        .mat-mdc-list {
+          .mat-mdc-list-item {
+            color: mat.get-color-from-palette($foreground, text, 0.5);
+            &:hover {
+              a {
+                &:after {
+                  background-color: mat.get-color-from-palette(
+                    $foreground,
+                    text,
+                    0.05
+                  );
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

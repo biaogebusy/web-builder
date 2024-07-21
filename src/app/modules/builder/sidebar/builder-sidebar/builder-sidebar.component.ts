@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { ContentService } from '@core/service/content.service';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-builder-sidebar',
@@ -23,6 +24,7 @@ import { ContentService } from '@core/service/content.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSidebarComponent implements OnInit {
+  @Input() sidebarDrawer: MatDrawer;
   showBranding = false;
   builderConfig$: Observable<IBuilderConfig> =
     inject(ContentService).loadBuilderConfig();
@@ -61,5 +63,9 @@ export class BuilderSidebarComponent implements OnInit {
       style = 'light';
     }
     this.builder.themeMode.next(style);
+  }
+
+  onToggle(): void {
+    this.sidebarDrawer.toggle();
   }
 }

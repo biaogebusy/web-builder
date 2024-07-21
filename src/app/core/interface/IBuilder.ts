@@ -5,6 +5,7 @@ import { IIcon } from './widgets/IIcon';
 import { IBgImg } from './widgets/IBgImg';
 import { ILink } from './widgets/ILink';
 import { IBtn } from './widgets/IBtn';
+import { IMainMenu } from './branding/IBranding';
 
 export interface IBuilderComponent {
   label: string;
@@ -161,7 +162,7 @@ export interface IPageMeta {
 }
 
 export interface IBuilderConfig {
-  menu: IBuilderMenu[];
+  menu: IMainMenu[];
 }
 
 export interface IBuilderMenu extends ILink {
