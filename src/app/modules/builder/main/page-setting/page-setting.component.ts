@@ -18,7 +18,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -42,8 +42,12 @@ export class PageSettingComponent implements OnInit, OnDestroy {
   nodeService = inject(NodeService);
   util = inject(UtilitiesService);
   dialog = inject(MatDialog);
-
-  constructor(@Inject(USER) public user: IUser) {}
+  user: IUser;
+  constructor(@Inject(USER) public user$: Observable<IUser>) {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -55,6 +59,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
             key: 'title',
             type: 'input',
             defaultValue: content.title.trim(),
+            className: 'w-full',
             props: {
               label: '标题',
               required: true,
@@ -94,6 +99,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
           {
             key: 'alias',
             type: 'input',
+            className: 'w-full',
             defaultValue: content.url,
             props: {
               label: 'url别名',
@@ -130,6 +136,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
           {
             key: 'author',
             type: 'input',
+            className: 'w-full',
             defaultValue: content.author,
             props: {
               label: '作者',
@@ -139,6 +146,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
           {
             key: 'changed',
             type: 'input',
+            className: 'w-full',
             defaultValue: content.changed,
             props: {
               label: '更新时间',
@@ -148,6 +156,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
           {
             key: 'landcode',
             type: 'input',
+            className: 'w-full',
             defaultValue: content.langcode,
             props: {
               label: '语言',
@@ -157,6 +166,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
           {
             key: 'id',
             type: 'input',
+            className: 'w-full',
             defaultValue: content.id,
             props: {
               label: 'ID',

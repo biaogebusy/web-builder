@@ -4,13 +4,14 @@ import {
   Inject,
   ChangeDetectorRef,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import {
   UntypedFormGroup,
   UntypedFormBuilder,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
@@ -18,10 +19,12 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
-import { Subscription, interval } from 'rxjs';
+import { Observable, Subject, Subscription, interval } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  host: { ngSkipHydration: 'true' },
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
@@ -30,45 +33,41 @@ export class LoginComponent implements OnInit, OnDestroy {
   error: string;
   userForm: UntypedFormGroup;
   phoneForm: UntypedFormGroup;
-  currentUser: IUser | false;
   public countdown: number;
   private subscription: Subscription;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
+  fb = inject(UntypedFormBuilder);
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+  screenState = inject(ScreenState);
+  tagsService = inject(TagsService);
+  userService = inject(UserService);
+  screenService = inject(ScreenService);
+  cd = inject(ChangeDetectorRef);
   constructor(
-    private fb: UntypedFormBuilder,
-    private route: ActivatedRoute,
-    public screenState: ScreenState,
-    private tagsService: TagsService,
-    public userService: UserService,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user: IUser,
+    @Inject(USER) public user$: Observable<IUser>,
   ) {
     if (this.screenService.isPlatformBrowser()) {
-      this.userService.userSub$.subscribe((currentUser: any) => {
-        // login
-        if (currentUser) {
-          this.currentUser = currentUser;
-          this.cd.detectChanges();
-          setTimeout(() => {
-            window.location.href =
-              this.route.snapshot.queryParams.returnUrl ||
-              this.coreConfig.login.loginRedirect;
-          }, 2000);
-        }
-        // logout
-        if (!currentUser) {
-          this.currentUser = false;
-          this.cd.detectChanges();
-        }
-      });
+      this.userService.userSub$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((currentUser: any) => {
+          // login
+          if (currentUser) {
+            setTimeout(() => {
+              const returnUrl =
+                this.route.snapshot.queryParams.returnUrl ||
+                this.coreConfig.login.loginRedirect;
+              this.router.navigate([returnUrl]);
+            }, 2000);
+          }
+        });
     }
   }
 
   ngOnInit(): void {
     this.tagsService.setTitle('欢迎登录！');
-    this.currentUser = this.user;
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       pass: ['', Validators.required],
@@ -103,6 +102,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.userService
       .login(this.userForm.value.name, this.userForm.value.pass)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
         this.onLogin(state, '登录出现问题，请联系管理员！');
       });
@@ -112,6 +112,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.userService
       .loginByPhone(this.phoneForm.value.phone, this.phoneForm.value.code)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
         this.onLogin(state, '请检查手机号或者验证码！');
       });
@@ -136,24 +137,29 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.cd.detectChanges();
       return false;
     }
-    this.userService.getCode(this.phoneForm.value.phone).subscribe(() => {
-      const { leftTime } = this.coreConfig.login.phoneLogin;
-      this.countdown = leftTime;
-      const source = interval(1000);
-      this.subscription = source.subscribe((val) => {
-        if (this.countdown > 0) {
-          this.countdown--;
-        } else {
-          this.subscription.unsubscribe();
-        }
+    this.userService
+      .getCode(this.phoneForm.value.phone)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        const { leftTime } = this.coreConfig.login.phoneLogin;
+        this.countdown = leftTime;
+        const source = interval(1000);
+        this.subscription = source.subscribe((val) => {
+          if (this.countdown > 0) {
+            this.countdown--;
+          } else {
+            this.subscription.unsubscribe();
+          }
+        });
+        this.cd.detectChanges();
       });
-      this.cd.detectChanges();
-    });
   }
 
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

@@ -12,11 +12,11 @@
     </div>
     <div
       class="flex flex-col justify-center items-center login-form p-3 z-10 overflow-hidden relative flex-12/12 sm:flex-6/12 box-border"
-      [class.is-login]="currentUser"
+      [class.is-login]="user$ | async"
     >
       @if (!loading) {
         <div class="w-full form-scroll">
-          @if (!currentUser) {
+          @if (!(user$ | async)) {
             @if (error) {
               <div class="error rounded-[4px] p-3 mb-3 text-sm">
                 {{ error }}
@@ -134,7 +134,7 @@
               }
             </mat-tab-group>
           }
-          @if (currentUser) {
+          @if (user$ | async; as currentUser) {
             <h1 class="mat-h1 text-base">Hi, {{ currentUser.display_name }}</h1>
             <mat-divider></mat-divider>
             <p class="text-base !mt-3">欢迎。</p>

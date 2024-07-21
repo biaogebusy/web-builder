@@ -23,7 +23,7 @@ export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>(
 );
 export const LANG = new InjectionToken<ILanguage>('current lang');
 export const THEME = new InjectionToken<string>('current theme');
-export const USER = new InjectionToken<IUser>('user');
+export const USER = new InjectionToken<Observable<IUser | boolean>>('user');
 export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify>>(
   'notify content',
 );

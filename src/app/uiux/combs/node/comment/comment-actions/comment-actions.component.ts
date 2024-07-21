@@ -11,6 +11,8 @@ import type { ICommentConfig } from '@core/interface/node/INode';
 import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-comment-actions',
@@ -27,10 +29,16 @@ export class CommentActionsComponent implements OnInit {
   @Output() update = new EventEmitter();
   @Output() reply = new EventEmitter();
   @Output() delete = new EventEmitter();
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  user: IUser;
   constructor(
     public contentState: ContentState,
-    @Inject(USER) private user: IUser
-  ) {}
+    @Inject(USER) private user$: Observable<IUser>,
+  ) {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {}
 

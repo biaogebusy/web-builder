@@ -6,11 +6,12 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
@@ -35,28 +36,36 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
   currentData: string;
   loading: boolean;
   type: 'reply' | 'update' | 'add';
+
+  cd = inject(ChangeDetectorRef);
+  nodeService = inject(NodeService);
+  utilitiesService = inject(UtilitiesService);
+  screenService = inject(ScreenService);
+  contentState = inject(ContentState);
+  tagsService = inject(TagsService);
+  user: IUser;
   constructor(
-    private cd: ChangeDetectorRef,
-    private nodeService: NodeService,
-    private utilitiesService: UtilitiesService,
-    private screenService: ScreenService,
-    public contentState: ContentState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser,
-    private tagsService: TagsService
-  ) {}
+    @Inject(USER) private user$: Observable<IUser>,
+  ) {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$.subscribe((state) => {
-        if (state) {
-          this.showComment = true;
-          this.showActions = true;
-          this.currentId = '';
-          this.screenService.scrollToAnchor(`q-${this.currentId}`);
-          this.cd.detectChanges();
-        }
-      });
+      this.contentState.commentChange$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((state) => {
+          if (state) {
+            this.showComment = true;
+            this.showActions = true;
+            this.currentId = '';
+            this.screenService.scrollToAnchor(`q-${this.currentId}`);
+            this.cd.detectChanges();
+          }
+        });
     }
   }
 
@@ -107,7 +116,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
         .deleteEntity(
           `${this.coreConfig.apiUrl.commentGetPath}/${this.content.params.comment.attributes.field_name}`,
           id,
-          this.user.csrf_token
+          this.user.csrf_token,
         )
         .pipe(takeUntil(this.destroy$))
         .subscribe(
@@ -118,7 +127,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
           () => {
             this.loading = false;
             this.utilitiesService.openSnackbar('Please check user state.', '√');
-          }
+          },
         );
       this.cd.detectChanges();
     }

@@ -14,6 +14,7 @@ import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -23,6 +24,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserComponent implements OnInit {
   currentUser: any;
+  user: IUser;
   id: any;
 
   route = inject(Router);
@@ -31,8 +33,12 @@ export class UserComponent implements OnInit {
   screenService = inject(ScreenService);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser,
-  ) {}
+    @Inject(USER) private user$: Observable<IUser>,
+  ) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

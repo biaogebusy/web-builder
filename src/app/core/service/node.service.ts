@@ -22,12 +22,16 @@ export class NodeService extends ApiService {
   http = inject(HttpClient);
   storage = inject(LocalStorageService);
   util = inject(UtilitiesService);
+  user: IUser;
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(API_URL) public apiBaseUrl: string,
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user$: Observable<IUser>,
   ) {
     super(apiBaseUrl);
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   get apiUrlConfig(): IApiUrl {

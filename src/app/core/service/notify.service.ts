@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { forkJoin, Observable, of } from 'rxjs';
@@ -10,12 +10,17 @@ import { UserService } from '@core/service/user.service';
   providedIn: 'root',
 })
 export class NotifyService {
+  nodeService = inject(NodeService);
+  userService = inject(UserService);
+  user: IUser;
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    private nodeService: NodeService,
-    private userService: UserService,
-    @Inject(USER) private user: IUser
-  ) {}
+    @Inject(USER) private user$: Observable<IUser>,
+  ) {
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   getWatchList(): Observable<any> {
     if (!this.user) {
@@ -30,7 +35,7 @@ export class NotifyService {
       }
       return this.userService.isMatchCurrentRole(
         api.reqRoles || [],
-        this.user.current_user.roles
+        this.user.current_user.roles,
       );
     });
     if (finalList && finalList?.length > 0) {

@@ -1,45 +1,45 @@
 <div class="user">
-  @if (!currentUser) {
+  @if (!(user$ | async)) {
     <button
       aria-label="user login"
       color="primary"
       (click)="onLogin()"
       mat-mini-fab
-      >
+    >
       <mat-icon>person</mat-icon>
     </button>
   }
-  @if (currentUser) {
-    @if (!currentUser.picture) {
+  @if (user$ | async; as user) {
+    @if (!user.picture) {
       <button
         aria-label="user name"
         mat-mini-fab
         color="primary"
         [matMenuTriggerFor]="menu"
-        >
+      >
         <h3 class="name">
-          {{ utilities.getIndexTitle(currentUser.display_name || "N") }}
+          {{ utilities.getIndexTitle(user.display_name || "N") }}
         </h3>
       </button>
     } @else {
       <img
         class="user-picture"
         [matMenuTriggerFor]="menu"
-        [src]="currentUser.picture"
-        alt="{{ currentUser.display_name }}"
-        />
+        [src]="user.picture"
+        alt="{{ user.display_name }}"
+      />
     }
     <ng-template #picture>
       <img
         class="user-picture"
         [matMenuTriggerFor]="menu"
-        [src]="currentUser.picture"
-        alt="{{ currentUser.display_name }}"
-        />
+        [src]="user.picture"
+        alt="{{ user.display_name }}"
+      />
     </ng-template>
     <mat-menu #menu="matMenu" class="user-dropdown">
       <a mat-menu-item [routerLink]="userService.userPage">
-        <mat-icon>account_circle</mat-icon>{{ currentUser.display_name }}
+        <mat-icon>account_circle</mat-icon>{{ user.display_name }}
       </a>
       @for (item of content; track item) {
         <button aria-label="user link" mat-menu-item *reqRolesIf="item">

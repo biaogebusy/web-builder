@@ -10,38 +10,48 @@
             <app-logo [content]="sidebar.logo"></app-logo>
           } @else {
             <div class="profile">
-              <a class="picture" [routerLink]="userService.userPage">
-                <img [src]="user.picture || coreConfig.defaultAvatar" alt="" />
-              </a>
-              @if (drawer.opened) {
-                <div class="name font-bold pt-[10px]">
-                  <a class="one-line" [routerLink]="userService.userPage">{{
-                    user.display_name
-                  }}</a>
-                </div>
-                @if (user.mail) {
-                  <div class="email one-line">
-                    {{ user.mail }}
+              @if (user$ | async; as user) {
+                <a class="picture" [routerLink]="userService.userPage">
+                  <img
+                    [src]="user.picture || coreConfig.defaultAvatar"
+                    alt=""
+                  />
+                </a>
+                @if (drawer.opened) {
+                  <div class="name font-bold pt-[10px]">
+                    <a class="one-line" [routerLink]="userService.userPage">{{
+                      user.display_name
+                    }}</a>
                   </div>
+                  @if (user.mail) {
+                    <div class="email one-line">
+                      {{ user.mail }}
+                    </div>
+                  }
                 }
               }
             </div>
           }
           <ng-template #profile>
             <div class="profile">
-              <a class="picture" [routerLink]="userService.userPage">
-                <img [src]="user.picture || coreConfig.defaultAvatar" alt="" />
-              </a>
-              @if (drawer.opened) {
-                <div class="name font-bold pt-[10px]">
-                  <a class="one-line" [routerLink]="userService.userPage">{{
-                    user.display_name
-                  }}</a>
-                </div>
-                @if (user.mail) {
-                  <div class="email one-line">
-                    {{ user.mail }}
+              @if (user$ | async; as user) {
+                <a class="picture" [routerLink]="userService.userPage">
+                  <img
+                    [src]="user.picture || coreConfig.defaultAvatar"
+                    alt=""
+                  />
+                </a>
+                @if (drawer.opened) {
+                  <div class="name font-bold pt-[10px]">
+                    <a class="one-line" [routerLink]="userService.userPage">{{
+                      user.display_name
+                    }}</a>
                   </div>
+                  @if (user.mail) {
+                    <div class="email one-line">
+                      {{ user.mail }}
+                    </div>
+                  }
                 }
               }
             </div>

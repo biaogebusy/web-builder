@@ -47,7 +47,6 @@ export class MenuComponent implements OnInit {
 
   onToggle(): void {
     this.screen.toggleDrawer();
-    this.cd.detectChanges();
   }
 
   trackByFn(index: number, item: any): number {

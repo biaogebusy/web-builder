@@ -44,7 +44,6 @@ export class ArticleComponent
   comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   dialogRef: MatDialogRef<any>;
-  fontSize: number;
   fontForm: UntypedFormGroup;
   htmlBody: any;
   isReqRoles = false;
@@ -59,12 +58,16 @@ export class ArticleComponent
   tagsService = inject(TagsService);
   userService = inject(UserService);
   contentState = inject(ContentState);
+  user: IUser;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    @Inject(USER) public user: IUser,
+    @Inject(USER) public user$: Observable<IUser>,
   ) {
     super();
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
@@ -74,7 +77,7 @@ export class ArticleComponent
 
     this.checkAccess();
 
-    this.userService.userSub$.subscribe(() => {
+    this.userService.userSub$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.cd.markForCheck();
     });
   }
@@ -83,7 +86,7 @@ export class ArticleComponent
     if (!environment.production) {
       return;
     }
-    this.pageContent$.subscribe((page) => {
+    this.pageContent$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
       const entityId = page.config?.node?.entityId || '';
       this.nodeService
         .checkNodeAccess(this.content.params, entityId, this.user)
@@ -139,16 +142,12 @@ export class ArticleComponent
       });
   }
 
-  get articleConfig(): IArticle {
-    return this.coreConfig.article;
+  get articleConfig(): IArticle | null {
+    return this.coreConfig.article || null;
   }
 
   get loginConfig(): any {
     return this.articleConfig && this.articleConfig.login;
-  }
-
-  get fontSizeConfig(): any {
-    return this.articleConfig && this.articleConfig.fontSize;
   }
 
   ngOnDestroy(): void {
