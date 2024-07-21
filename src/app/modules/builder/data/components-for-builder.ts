@@ -1395,6 +1395,7 @@ export const components: any[] = [
                     {
                       type: 'input',
                       key: 'name',
+                      className: 'w-full',
                       props: {
                         label: '姓名',
                         appearance: 'outline',
@@ -1404,6 +1405,7 @@ export const components: any[] = [
                     {
                       type: 'input',
                       key: 'email',
+                      className: 'w-full',
                       props: {
                         label: '邮箱',
                         appearance: 'outline',
@@ -1413,6 +1415,7 @@ export const components: any[] = [
                     {
                       type: 'input',
                       key: 'subject',
+                      className: 'w-full',
                       props: {
                         label: '主题',
                         appearance: 'outline',
@@ -1421,6 +1424,7 @@ export const components: any[] = [
                     {
                       type: 'textarea',
                       key: 'message',
+                      className: 'w-full',
                       props: {
                         label: '内容',
                         placeholder: 'Message',
