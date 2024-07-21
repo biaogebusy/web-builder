@@ -32,7 +32,7 @@ export class DynamicMediaListComponent
   constructor(
     public nodeService: NodeService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {
     super();
   }
@@ -62,13 +62,14 @@ export class DynamicMediaListComponent
   updateList(res: any): void {
     this.list = res.data.map((item: any) => {
       const link = this.nodeService.getNodePath(item);
+
       return {
         title: {
           label: item.title,
           href: link,
         },
         spacer: 'none',
-        showImage: this.content.showImage || true,
+        showImage: this.content.showImage ?? true,
         feature: {
           fullIcon: 'fullscreen',
           openIcon: 'open_in_new',
@@ -76,7 +77,7 @@ export class DynamicMediaListComponent
           ratios: this.content.ratios || 'media-16-9',
           img: {
             classes: 'object-fit',
-            src: item.media?.thumbnail?.uri?.url,
+            src: item.media?.field_media_image?.uri?.url,
             alt: item.title,
           },
         },

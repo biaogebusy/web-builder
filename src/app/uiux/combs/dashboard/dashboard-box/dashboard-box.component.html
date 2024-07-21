@@ -15,7 +15,7 @@
             (modelChange)="onModelChange($event)"
           ></app-formly>
         }
-        @if (content?.params?.api) {
+        @if (content.params?.api) {
           <app-icon (click)="reload()" [content]="{ svg: 'reload' }"></app-icon>
         }
       </div>
