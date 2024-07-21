@@ -2,9 +2,7 @@
   class="builder-wrapper relative flex"
   [ngClass]="{ dark: (builder.themeMode | async) === 'dark' }"
 >
-  <app-builder-sidebar
-    [builderRightDrawer]="builderRightDrawer"
-  ></app-builder-sidebar>
+  <app-builder-sidebar></app-builder-sidebar>
   <div
     class="builder flex-1 overflow-auto"
     [ngClass]="{ 'has-sidebar': !(builderFullScreen$ | async) }"

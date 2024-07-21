@@ -11,7 +11,6 @@ import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
@@ -24,7 +23,6 @@ import { ContentService } from '@core/service/content.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSidebarComponent implements OnInit {
-  @Input() builderRightDrawer: MatDrawer;
   showBranding = false;
   builderConfig$: Observable<IBuilderConfig> =
     inject(ContentService).loadBuilderConfig();
