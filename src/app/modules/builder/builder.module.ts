@@ -42,6 +42,8 @@ import { BuilderTemplateComponent } from './main/builder-template/builder-templa
 import { LayoutToolbarComponent } from './layout-builder/layout-toolbar/layout-toolbar.component';
 import { BlockToolbarComponent } from './layout-builder/block-toolbar/block-toolbar.component';
 import { PageSettingComponent } from './main/page-setting/page-setting.component';
+import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
+import { ManagePageComponent } from './main/manage-page/manage-page.component';
 
 const components = [
   BuilderComponent,
@@ -74,6 +76,8 @@ const components = [
     BuilderSidebarComponent,
     LayoutToolbarComponent,
     BlockToolbarComponent,
+    BuilderWorkspaceComponent,
+    ManagePageComponent,
   ],
   imports: [
     ShareModule,

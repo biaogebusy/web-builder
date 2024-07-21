@@ -4,12 +4,27 @@
       <div class="item mb-3">
         <div class="card" (click)="onNewPage(item.page)" matRipple>
           <div class="card-header">
-            <div class="title">{{item.title}}</div>
-            <div class="sub-title">{{item.subTitle}}</div>
+            <div class="title">{{ item.title }}</div>
+            <div class="sub-title">{{ item.subTitle }}</div>
           </div>
-          <app-img class="block rounded-xl overflow-hidden" [content]="{src:item.img}"></app-img>
+          <app-img
+            class="block rounded-xl overflow-hidden"
+            [content]="{
+              src: item.img,
+              height: 160,
+              width: 316,
+              classes: 'object-cover',
+            }"
+          ></app-img>
           <div class="action">
-            <app-btn [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'plus'}}"></app-btn>
+            <app-btn
+              [content]="{
+                label: '',
+                mode: 'icon',
+                color: 'primary',
+                icon: { svg: 'plus' },
+              }"
+            ></app-btn>
           </div>
         </div>
       </div>

@@ -6,12 +6,13 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   Inject,
+  inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import type { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
@@ -29,17 +30,21 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   @Input() content: IFlag;
   config: ICoreFlag;
   flagging = false;
+  user: IUser;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
+  cd = inject(ChangeDetectorRef);
+  screenService = inject(ScreenService);
+  nodeService = inject(NodeService);
+  utiltiy = inject(UtilitiesService);
   constructor(
-    private cd: ChangeDetectorRef,
-    private screenService: ScreenService,
-    public nodeService: NodeService,
-    private utiltiy: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user$: Observable<IUser>,
   ) {
     super();
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
@@ -56,7 +61,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
       `filter[uid.id]=${this.user.id}`,
       `filter[entity_id]=${this.getDeepValue(
         this.content,
-        'params.entity_id'
+        'params.entity_id',
       )}`,
     ].join('&');
     return params;
@@ -71,7 +76,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
         this.coreConfig.apiUrl.flaggingGetPath,
         this.type,
         this.flaggingParams,
-        this.user.csrf_token
+        this.user.csrf_token,
       )
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
@@ -101,7 +106,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
               data: {
                 type: this.getDeepValue(
                   this.content,
-                  'params.relationships.flagged_entity.type'
+                  'params.relationships.flagged_entity.type',
                 ),
                 id: this.nodeId,
               },
@@ -128,17 +133,17 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
         .getNodes(
           this.coreConfig.apiUrl.flaggingGetPath,
           this.type,
-          this.flaggingParams
+          this.flaggingParams,
         )
         .pipe(
           switchMap((res) => {
             return this.nodeService.deleteFlagging(
               this.path,
               res.data,
-              this.user.csrf_token
+              this.user.csrf_token,
             );
           }),
-          takeUntil(this.destroy$)
+          takeUntil(this.destroy$),
         )
         .subscribe(() => {
           this.flagging = false;
@@ -155,7 +160,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   get nodeId(): string {
     return this.getDeepValue(
       this.content,
-      'params.relationships.flagged_entity.id'
+      'params.relationships.flagged_entity.id',
     );
   }
 

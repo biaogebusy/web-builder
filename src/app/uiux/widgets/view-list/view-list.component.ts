@@ -7,6 +7,7 @@ import {
   AfterViewInit,
   Inject,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
@@ -21,7 +22,7 @@ import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty, merge } from 'lodash-es';
-import { of, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -37,7 +38,7 @@ export class ViewListComponent
 {
   @Input() content: IViewList;
   @Input() form = new UntypedFormGroup({
-    page: new UntypedFormControl(),
+    page: new UntypedFormControl(0),
   });
   @Input() model: any = {};
   searchEntry: any;
@@ -48,17 +49,19 @@ export class ViewListComponent
   canShow = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   first = true;
+  user: IUser;
 
-  constructor(
-    private nodeService: NodeService,
-    private cd: ChangeDetectorRef,
-    private formService: FormService,
-    private dialogService: DialogService,
-    private screenService: ScreenService,
-    @Inject(USER) private user: IUser,
-    public userSerivice: UserService,
-  ) {
+  cd = inject(ChangeDetectorRef);
+  nodeService = inject(NodeService);
+  formService = inject(FormService);
+  dialogService = inject(DialogService);
+  screenService = inject(ScreenService);
+  userSerivice = inject(UserService);
+  constructor(@Inject(USER) private user$: Observable<IUser>) {
     super();
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
@@ -80,7 +83,7 @@ export class ViewListComponent
       this.cd.detectChanges();
     }
     if (this.first) {
-      this.getViews();
+      this.getViews(this.form.value);
       this.first = false;
     }
   }
@@ -92,7 +95,7 @@ export class ViewListComponent
       this.cd.detectChanges();
       return;
     }
-    const params = this.getApiParams(options);
+    const params = this.getApiParams({ ...options, noCache: true });
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
     this.loading = true;
     this.nodeService
@@ -162,14 +165,10 @@ export class ViewListComponent
   }
 
   onModelChange(value: any): void {
-    this.form.get('page')?.patchValue(1, { onlySelf: true, emitEvent: false });
+    this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
     const mergeValue = merge(value, this.form.getRawValue());
     const options = this.formService.handleRangeDate(mergeValue);
     this.getViews(options);
-  }
-
-  get containerClass(): string {
-    return this.content.fullWidth ? 'container-fluid' : 'container';
   }
 
   onExport(): any {

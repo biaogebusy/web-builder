@@ -10,7 +10,7 @@
       disableRipple
       #select
     >
-      @if (to?.none) {
+      @if (to && to.none) {
         <mat-option>{{ to.none?.label || "无" }}</mat-option>
       }
       @for (option of matOptions; track option) {
@@ -37,7 +37,7 @@
         >
         </ngx-mat-select-search>
       </mat-option>
-      @if (to?.none) {
+      @if (to && to.none) {
         <mat-option>{{ to.none?.label || "无" }}</mat-option>
       }
       @for (option of filteredOptions | async; track option) {
@@ -56,7 +56,7 @@
       disableRipple
       #select
     >
-      @if (to?.none) {
+      @if (to && to.none) {
         <mat-option>{{ to.none?.label || "无" }}</mat-option>
       }
       @for (option of matOptions; track option) {

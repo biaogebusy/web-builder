@@ -3,6 +3,8 @@ import { ICombsBase } from './combs/ICombsBase';
 import { ICard1v1 } from './widgets/ICard';
 import { IIcon } from './widgets/IIcon';
 import { IBgImg } from './widgets/IBgImg';
+import { ILink } from './widgets/ILink';
+import { IBtn } from './widgets/IBtn';
 
 export interface IBuilderComponent {
   label: string;
@@ -156,4 +158,13 @@ export interface IPageMeta {
   langcode: string;
   title: string;
   url: string;
+}
+
+export interface IBuilderConfig {
+  menu: IBuilderMenu[];
+}
+
+export interface IBuilderMenu extends ILink {
+  icon: IIcon;
+  child?: IBtn[];
 }

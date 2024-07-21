@@ -5,13 +5,16 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Inject,
+  inject,
+  OnDestroy,
 } from '@angular/core';
 import type { IUser } from '@core/interface/IUser';
 import type { IIframe } from '@core/interface/widgets/IWidgets';
 import { PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import { IPage } from '@core/interface/IAppConfig';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-iframe',
@@ -19,16 +22,22 @@ import { Observable } from 'rxjs';
   styleUrls: ['./iframe.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IframeComponent implements OnInit {
+export class IframeComponent implements OnInit, OnDestroy {
   @Input() content: IIframe;
   url: string;
   loading: boolean;
+  user: IUser;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  cd = inject(ChangeDetectorRef);
+  screenService = inject(ScreenService);
   constructor(
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user$: Observable<IUser>,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    private cd: ChangeDetectorRef,
-    private screenService: ScreenService
-  ) {}
+  ) {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -49,7 +58,7 @@ export class IframeComponent implements OnInit {
               this.cd.detectChanges();
             }
           },
-          false
+          false,
         );
       }
     }
@@ -67,7 +76,7 @@ export class IframeComponent implements OnInit {
     }
 
     if (this.content?.url.includes(':nid')) {
-      this.pageContent$.subscribe((page) => {
+      this.pageContent$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
         const nid = page.config?.node?.nid;
         if (nid) {
           // node 的详情页
@@ -79,5 +88,9 @@ export class IframeComponent implements OnInit {
         this.cd.detectChanges();
       });
     }
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

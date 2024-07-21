@@ -19,12 +19,17 @@ import { ScreenService } from '@core/service/screen.service';
   providedIn: 'root',
 })
 export class AuthGuard {
+  user: IUser;
   router = inject(Router);
   userService = inject(UserService);
   nodeService = inject(NodeService);
   screenService = inject(ScreenService);
 
-  constructor(@Inject(USER) private user: IUser) {}
+  constructor(@Inject(USER) private currentUser$: Observable<IUser>) {
+    this.currentUser$.subscribe((user) => {
+      this.user = user;
+    });
+  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,

@@ -1,71 +1,14 @@
 <div
-  class="builder-wrapper"
+  class="builder-wrapper relative flex"
   [ngClass]="{ dark: (builder.themeMode | async) === 'dark' }"
 >
   <app-builder-sidebar
     [builderRightDrawer]="builderRightDrawer"
   ></app-builder-sidebar>
   <div
-    class="builder"
+    class="builder flex-1 overflow-auto"
     [ngClass]="{ 'has-sidebar': !(builderFullScreen$ | async) }"
   >
-    <app-builder-toolbar
-      [builderRightDrawer]="builderRightDrawer"
-    ></app-builder-toolbar>
-    <mat-drawer-container class="builder-main">
-      <mat-drawer
-        #drawer
-        class="sidebar"
-        [mode]="mode"
-        [opened]="!(builderFullScreen$ | async)"
-      >
-        <router-outlet></router-outlet>
-        <app-builder-version></app-builder-version>
-      </mat-drawer>
-      <mat-drawer-content>
-        <mat-drawer-container
-          class="preview-container"
-          [hasBackdrop]="(builder.rightContent$ | async)?.hasBackdrop"
-        >
-          <mat-drawer
-            #builderRightDrawer
-            [ngStyle]="{
-              overflow: builderRightDrawer.opened ? 'visible' : 'auto',
-            }"
-            [mode]="(builder.rightContent$ | async)?.mode || 'over'"
-            position="end"
-          >
-            <div class="actions expand">
-              <app-btn
-                [matTooltip]="'收起'"
-                (click)="onClose()"
-                [content]="{
-                  label: '',
-                  mode: 'icon',
-                  icon: { svg: 'chevron-right' },
-                }"
-              ></app-btn>
-            </div>
-            @if (builder.rightContent$ | async; as dynamic) {
-              <div [ngStyle]="dynamic.style">
-                @for (item of dynamic.elements; track item) {
-                  <app-dynamic-component
-                    [inputs]="item"
-                  ></app-dynamic-component>
-                }
-              </div>
-            }
-          </mat-drawer>
-          <mat-drawer-content class="preview-content">
-            @if (builder.showcase$ | async; as showcase) {
-              <app-builder-showcase [content]="showcase"></app-builder-showcase>
-            }
-            <app-builder-list
-              [builderRightDrawer]="builderRightDrawer"
-            ></app-builder-list>
-          </mat-drawer-content>
-        </mat-drawer-container>
-      </mat-drawer-content>
-    </mat-drawer-container>
+    <router-outlet></router-outlet>
   </div>
 </div>

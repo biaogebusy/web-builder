@@ -7,7 +7,10 @@
       <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
     }
     <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-    <div class="flex flex-col" [ngClass]="containerClass">
+    <div
+      class="flex flex-col"
+      [ngClass]="content.fullWidth ? 'container-fluid' : 'container'"
+    >
       @if (content.text) {
         <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
       }

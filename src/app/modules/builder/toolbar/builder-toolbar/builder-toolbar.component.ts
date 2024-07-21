@@ -52,12 +52,17 @@ export class BuilderToolbarComponent
   builderService = inject(BuilderService);
   dialog = inject(MatDialog);
   router = inject(Router);
+  user: IUser;
   constructor(
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user$: Observable<IUser>,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-  ) {}
+  ) {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     this.currentPage$.pipe(takeUntil(this.destroy$)).subscribe((page) => {

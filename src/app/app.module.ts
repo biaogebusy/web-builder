@@ -95,7 +95,6 @@ import { CookieService } from 'ngx-cookie-service';
     {
       provide: API_URL,
       useFactory: apiUrlFactory,
-      deps: [],
     },
     {
       provide: USER,

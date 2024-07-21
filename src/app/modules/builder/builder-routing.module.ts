@@ -6,6 +6,8 @@ import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.compon
 import { BuilderSampleComponent } from './sidebar/builder-sample/builder-sample.component';
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 import { PageListComponent } from './sidebar/page-list/page-list.component';
+import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
+import { ManagePageComponent } from './main/manage-page/manage-page.component';
 
 const routes: Routes = [
   {
@@ -14,19 +16,29 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: BuilderUiuxComponent,
+        component: BuilderWorkspaceComponent,
+        children: [
+          {
+            path: '',
+            component: BuilderUiuxComponent,
+          },
+          {
+            path: 'samples',
+            component: BuilderSampleComponent,
+          },
+          {
+            path: 'page-list',
+            component: PageListComponent,
+          },
+          {
+            path: 'settings',
+            component: BuilderSettingsComponent,
+          },
+        ],
       },
       {
-        path: 'samples',
-        component: BuilderSampleComponent,
-      },
-      {
-        path: 'page-list',
-        component: PageListComponent,
-      },
-      {
-        path: 'settings',
-        component: BuilderSettingsComponent,
+        path: '**',
+        component: ManagePageComponent,
       },
     ],
   },

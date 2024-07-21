@@ -5,6 +5,7 @@ import {
   Component,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -26,11 +27,12 @@ import { ContentState } from '@core/state/ContentState';
   styleUrls: ['./profile1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Profile1v1Component implements OnInit, AfterViewInit {
+export class Profile1v1Component implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: IProfile1v1;
   comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   avatar: IImg;
+  user: IUser;
 
   cd = inject(ChangeDetectorRef);
   screenService = inject(ScreenService);
@@ -38,8 +40,12 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   contentState = inject(ContentState);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user: IUser,
-  ) {}
+    @Inject(USER) public user$: Observable<IUser>,
+  ) {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if (!this.content?.avatar?.src) {
@@ -56,11 +62,13 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$.subscribe((state) => {
-        if (state) {
-          this.getComments(+new Date());
-        }
-      });
+      this.contentState.commentChange$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((state) => {
+          if (state) {
+            this.getComments(+new Date());
+          }
+        });
     }
   }
 
@@ -76,5 +84,10 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
         this.comments = res;
         this.cd.detectChanges();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

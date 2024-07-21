@@ -348,6 +348,7 @@ export const widgets = [
         {
           type: 'input',
           key: 'name',
+          className: 'w-full',
           props: {
             label: '姓名',
             appearance: 'outline',
@@ -357,6 +358,7 @@ export const widgets = [
         {
           type: 'input',
           key: 'email',
+          className: 'w-full',
           props: {
             label: '邮箱',
             appearance: 'outline',
@@ -366,6 +368,7 @@ export const widgets = [
         {
           type: 'input',
           key: 'subject',
+          className: 'w-full',
           props: {
             label: '主题',
             appearance: 'outline',
@@ -374,6 +377,7 @@ export const widgets = [
         {
           type: 'textarea',
           key: 'message',
+          className: 'w-full',
           props: {
             label: '内容',
             placeholder: 'Message',
@@ -405,9 +409,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 9457, 6542, 5353],
-          ['第二季度', 7284, 4090, 3331],
-          ['第三季度', 7226, 9169, 6697],
+          ['第一季度', 4180, 9056, 7942],
+          ['第二季度', 7908, 9032, 8471],
+          ['第三季度', 4785, 7987, 4172],
         ],
       },
       xAxis: {
@@ -448,9 +452,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 9457, 6542, 5353],
-          ['第二季度', 7284, 4090, 3331],
-          ['第三季度', 7226, 9169, 6697],
+          ['第一季度', 4180, 9056, 7942],
+          ['第二季度', 7908, 9032, 8471],
+          ['第三季度', 4785, 7987, 4172],
         ],
       },
       xAxis: {
@@ -497,9 +501,9 @@ export const widgets = [
       dataset: {
         source: [
           ['预算', '费用'],
-          ['大额红包总金额', 975],
-          ['小额红包总金额', 793],
-          ['提成总额', 720],
+          ['大额红包总金额', 398],
+          ['小额红包总金额', 916],
+          ['提成总额', 370],
         ],
       },
       series: [
@@ -612,25 +616,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 5011,
+          tatol: 2992,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 2876,
+          tatol: 5501,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 9866,
+          tatol: 4438,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 7946,
+          tatol: 8930,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -1112,7 +1116,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-07-13',
+          changed: '2024-07-16',
         },
         {
           link: {
@@ -1123,29 +1127,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-07-13',
+          changed: '2024-07-16',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-07-13',
+            href: '2024-07-16',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-07-13',
+          changed: '2024-07-16',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-07-13',
+            href: '2024-07-16',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-07-13',
+          changed: '2024-07-16',
         },
       ],
     },

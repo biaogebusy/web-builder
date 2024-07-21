@@ -462,7 +462,7 @@
           {
             "type": "img",
             "src": "/assets/images/illustration/13.png",
-            "classes": "mover",
+            "classes": "mover object-cover",
             "width": 490,
             "height": 500,
             "hostClasses": "position-relative img-bg-shape",
