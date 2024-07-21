@@ -9,7 +9,7 @@
               : 'justify-end items-center'
           }}"
         >
-          @if (branding.header?.logo) {
+          @if (branding.header.logo) {
             <div class="header-left one-line">
               <app-logo [content]="branding.header.logo"></app-logo>
             </div>
@@ -17,7 +17,7 @@
           <div
             class="header-right flex flex-row justify-center items-center gap-3 md:gap-5"
           >
-            @if (branding.header?.mainMenu) {
+            @if (branding.header.mainMenu) {
               <div class="menu-inner">
                 <div class="main-menu flex flex-row">
                   @for (
@@ -25,7 +25,7 @@
                     track trackByFn($index, menu)
                   ) {
                     <div class="item">
-                      @if (branding.header?.params) {
+                      @if (branding.header.params) {
                         <app-item-menu
                           [params]="branding.header.params"
                           [content]="menu"
@@ -36,7 +36,7 @@
                 </div>
               </div>
             }
-            @if (branding.header?.search?.enable) {
+            @if (branding.header.search.enable) {
               <app-search-box
                 [content]="branding.header.search"
               ></app-search-box>
@@ -78,11 +78,13 @@
             <mat-icon>close</mat-icon>
           }
         </button>
-        <span class="spacer"></span>
-        <span class="app-name">{{ branding.header.logo?.label }}</span>
-        <span class="spacer"></span>
-        <app-switch-theme></app-switch-theme>
-        <app-user-menu class="m-left-xs"></app-user-menu>
+        @if (!isDrawer) {
+          <span class="spacer"></span>
+          <span class="app-name">{{ branding.header.logo?.label }}</span>
+          <span class="spacer"></span>
+          <app-switch-theme></app-switch-theme>
+          <app-user-menu class="m-left-xs"></app-user-menu>
+        }
       </mat-toolbar>
     }
     <div [hidden]="!(!show && isDrawer)">
