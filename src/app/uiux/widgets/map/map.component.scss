@@ -1,4 +1,4 @@
-@use 'sass:math';
+@use "sass:math";
 @import "/src/theme/variable/variable";
 :host ::ng-deep {
   .amap-marker-content {
@@ -18,15 +18,15 @@
     font-size: 14px;
 
     .media {
-      width: 8rem;
-      height: 8rem;
+      width: 80px;
+      height: 80px;
       padding: 4px;
       border-radius: 6px;
       flex: 0 0 80px;
       box-sizing: border-box;
       img {
-        width: 7rem;
-        height: auto;
+        width: 70px;
+        height: 70px;
         object-fit: contain;
         padding: 4px;
       }

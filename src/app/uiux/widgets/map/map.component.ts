@@ -8,6 +8,7 @@ import {
   OnChanges,
   SimpleChanges,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
@@ -40,14 +41,14 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   currentInfoWindow: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  amapService = inject(AmapService);
+  configService = inject(ConfigService);
+  screenService = inject(ScreenService);
+  contentState = inject(ContentState);
+  contentService = inject(ContentService);
+  utilService = inject(UtilitiesService);
+  cd = inject(ChangeDetectorRef);
   constructor(
-    private amapService: AmapService,
-    private configService: ConfigService,
-    private screenService: ScreenService,
-    private contentState: ContentState,
-    private contentService: ContentService,
-    private utilService: UtilitiesService,
-    private cd: ChangeDetectorRef,
     @Inject(THEME) private theme: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
   ) {}
