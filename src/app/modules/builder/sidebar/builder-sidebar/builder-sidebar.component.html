@@ -121,7 +121,8 @@
       </div>
       <mat-divider></mat-divider>
       <div
-        class="flex flex-row flex-wrap items-center my-3 gap-3 justify-center"
+        class="flex items-center my-3 gap-3 justify-center"
+        [ngClass]="sidebarDrawer.opened ? 'flex-row' : 'flex-col'"
       >
         @if (branding.header.params.userInfo) {
           <app-user-menu [content]="branding.header.userMenu"></app-user-menu>

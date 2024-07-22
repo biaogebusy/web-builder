@@ -1,6 +1,7 @@
 @use "@angular/material" as mat;
 @mixin builder-sidebar($background, $foreground, $primary) {
   .builder-sidebar {
+    background-color: mat.get-color-from-palette($background, background);
     .icon-menu,
     .accordion-menu {
       @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
@@ -76,6 +77,13 @@
           }
         }
       }
+      .bottom {
+        .icon-actions {
+          .mdc-icon-button {
+            color: #fff;
+          }
+        }
+      }
     }
     &.opened {
       .accordion-menu {
@@ -105,8 +113,16 @@
             }
           }
           .mat-expansion-panel {
+            background-color: mat.get-color-from-palette(
+              $background,
+              background
+            );
             .mat-expansion-panel-header {
               a {
+                color: mat.get-color-from-palette($foreground, text, 0.75);
+              }
+              .mat-expansion-panel-header-title,
+              .mat-expansion-indicator {
                 color: mat.get-color-from-palette($foreground, text, 0.75);
               }
             }
@@ -122,6 +138,9 @@
         .mat-mdc-list {
           .mat-mdc-list-item {
             color: mat.get-color-from-palette($foreground, text, 0.5);
+            a {
+              color: mat.get-color-from-palette($foreground, text, 0.75);
+            }
             &:hover {
               a {
                 &:after {
@@ -138,6 +157,11 @@
       }
     }
     .bottom {
+      .icon-actions {
+        .mdc-icon-button {
+          color: mat.get-color-from-palette($foreground, text, 0.75);
+        }
+      }
       .toggle {
         .wrapper {
           .mat-icon {
