@@ -129,13 +129,21 @@
               a {
                 color: mat.get-color-from-palette($foreground, text, 0.75);
               }
-              .mat-expansion-panel-header-title,
-              .mat-expansion-indicator {
+              .mat-expansion-panel-header-title {
                 color: mat.get-color-from-palette($foreground, text, 0.75);
+              }
+              .mat-expansion-indicator {
+                &::after {
+                  color: mat.get-color-from-palette($foreground, text, 0.75);
+                }
               }
             }
             &.active {
               .mat-expansion-panel-header {
+                background-color: mat.get-color-from-palette(
+                  $background,
+                  hover
+                );
                 &::after {
                   background-color: mat.get-color-from-palette($primary);
                 }
@@ -146,7 +154,13 @@
         .mat-mdc-list {
           .mat-mdc-list-item {
             color: mat.get-color-from-palette($foreground, text, 0.5);
-
+            a {
+              color: mat.get-color-from-palette($foreground, text, 0.75);
+              &.active {
+                color: mat.get-color-from-palette($primary);
+                font-weight: bold;
+              }
+            }
             &:hover {
               a {
                 &:after {
