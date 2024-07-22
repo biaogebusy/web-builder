@@ -4,7 +4,11 @@
 >
   @if (branding$ | async; as branding) {
     <a [routerLink]="branding.header.logo?.href" class="logo">
-      <app-logo [content]="branding.header.logo" [isInvert]="true"></app-logo>
+      @if (!sidebarDrawer.opened) {
+        <app-logo [content]="branding.header.logo" [isInvert]="true"></app-logo>
+      } @else {
+        <app-logo [content]="branding.header.logo"></app-logo>
+      }
     </a>
   }
   <mat-divider></mat-divider>
