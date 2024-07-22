@@ -66,7 +66,9 @@
   }
   <div class="bottom">
     @if (branding$ | async; as branding) {
-      <div class="flex flex-row flex-wrap gap-3 justify-center py-5">
+      <div
+        class="flex flex-row flex-wrap gap-3 justify-center py-3 icon-actions"
+      >
         <app-btn
           [matTooltip]="'媒体库'"
           [matTooltipPosition]="'right'"

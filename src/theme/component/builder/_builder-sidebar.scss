@@ -1,6 +1,10 @@
 @use "@angular/material" as mat;
 @mixin builder-sidebar($background, $foreground, $primary) {
   .builder-sidebar {
+    .icon-menu,
+    .accordion-menu {
+      @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
+    }
     &.closed {
       background-color: mat.get-color-from-palette(
         $foreground,
@@ -71,37 +75,26 @@
             }
           }
         }
-        .toggle {
-          .wrapper {
-            .mat-icon {
-              @include mat.elevation(
-                4,
-                mat.get-color-from-palette($foreground, text),
-                0.3
-              );
-              transition: all 0.1s ease;
-            }
-            &:hover {
-              .mat-icon {
-                background-color: mat.get-color-from-palette(
-                  $foreground,
-                  base,
-                  0.85
-                );
-                color: mat.get-color-from-palette($primary, 50);
-              }
-            }
-          }
-        }
       }
     }
     &.opened {
       .accordion-menu {
-        @include scrollbar(
-          mat.get-color-from-palette($foreground, divider, 0.2)
-        );
-        .icon {
+        app-icon {
           color: mat.get-color-from-palette($foreground, text, 0.7);
+        }
+        > .mat-accordion {
+          > .mat-mdc-list {
+            &.no-child {
+              &.active {
+                a {
+                  color: mat.get-color-from-palette($foreground, text, 0.75);
+                }
+                &::after {
+                  background-color: mat.get-color-from-palette($primary);
+                }
+              }
+            }
+          }
         }
         .mat-accordion {
           > .mat-mdc-list {
@@ -126,11 +119,6 @@
             }
           }
         }
-        .mat-expansion-panel-body {
-          a {
-            color: mat.get-color-from-palette($foreground, text, 0.6);
-          }
-        }
         .mat-mdc-list {
           .mat-mdc-list-item {
             color: mat.get-color-from-palette($foreground, text, 0.5);
@@ -144,6 +132,30 @@
                   );
                 }
               }
+            }
+          }
+        }
+      }
+    }
+    .bottom {
+      .toggle {
+        .wrapper {
+          .mat-icon {
+            @include mat.elevation(
+              4,
+              mat.get-color-from-palette($foreground, text),
+              0.3
+            );
+            transition: all 0.1s ease;
+          }
+          &:hover {
+            .mat-icon {
+              background-color: mat.get-color-from-palette(
+                $foreground,
+                base,
+                0.85
+              );
+              color: mat.get-color-from-palette($primary, 50);
             }
           }
         }
