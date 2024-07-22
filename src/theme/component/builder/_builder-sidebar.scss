@@ -83,6 +83,11 @@
             color: #fff;
           }
         }
+        .toggle {
+          .wrapper {
+            color: #fff;
+          }
+        }
       }
     }
     &.opened {
@@ -93,6 +98,9 @@
         > .mat-accordion {
           > .mat-mdc-list {
             &.no-child {
+              a {
+                color: mat.get-color-from-palette($foreground, text, 0.75);
+              }
               &.active {
                 a {
                   color: mat.get-color-from-palette($foreground, text, 0.75);
@@ -138,9 +146,7 @@
         .mat-mdc-list {
           .mat-mdc-list-item {
             color: mat.get-color-from-palette($foreground, text, 0.5);
-            a {
-              color: mat.get-color-from-palette($foreground, text, 0.75);
-            }
+
             &:hover {
               a {
                 &:after {
@@ -164,6 +170,7 @@
       }
       .toggle {
         .wrapper {
+          color: mat.get-color-from-palette($foreground, text, 0.75);
           .mat-icon {
             @include mat.elevation(
               4,
