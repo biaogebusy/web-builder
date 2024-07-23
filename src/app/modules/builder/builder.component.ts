@@ -13,9 +13,16 @@ import { Observable } from 'rxjs';
 export class BuilderComponent {
   @ViewChild('builderRightDrawer', { static: false })
   builderRightDrawer: MatDrawer;
+  sidebarDrawerOpened = false;
   builder = inject(BuilderState);
 
   constructor(
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
   ) {}
+
+  get drawerStyle(): object {
+    return {
+      paddingLeft: this.sidebarDrawerOpened ? '0' : '80px',
+    };
+  }
 }

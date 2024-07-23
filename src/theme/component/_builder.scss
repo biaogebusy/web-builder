@@ -1,5 +1,6 @@
 @use "@angular/material" as mat;
 @import "../mixins/amixin";
+@import "./builder/main-sidebar";
 @import "./builder/builder-sidebar";
 @import "./builder/builder-list";
 @import "./builder/builder-inline-edit";
@@ -21,73 +22,7 @@ $dark-theme: mat.define-dark-theme(
 
 @mixin theme($background, $foreground, $primary, $warn) {
   background-color: mat.get-color-from-palette($background, card);
-
-  .builder-sidebar {
-    background-color: mat.get-color-from-palette($foreground, elevation, 0.85);
-    color: #f5f5f5;
-    @include mat.elevation(
-      4,
-      mat.get-color-from-palette($background, focused-button),
-      0.4
-    );
-    .mat-divider {
-      border-top-color: rgba(255, 255, 255, 0.2);
-    }
-    .menu {
-      .item {
-        &:hover,
-        &:focus {
-          > .custom-icon {
-            color: #fff;
-            &::after {
-              background-color: rgba(#fff, 0.1);
-            }
-          }
-        }
-
-        &.active {
-          > .custom-icon {
-            color: mat.get-color-from-palette($primary, default-contrast);
-            &::after {
-              background-color: mat.get-color-from-palette($primary);
-            }
-          }
-        }
-      }
-      .child {
-        background-color: mat.get-color-from-palette($background, card);
-        color: mat.get-color-from-palette($foreground, text, 0.75);
-        @include mat.elevation(
-          3,
-          mat.get-color-from-palette($foreground, divider, 0.7)
-        );
-        .hover-menu {
-          background-color: mat.get-color-from-palette($background, card);
-          @include scrollbar(mat.get-color-from-palette($foreground, divider));
-          .child-menu {
-            .mdc-list-item {
-              &.active {
-                .mdc-list-item__primary-text {
-                  color: mat.get-color-from-palette($primary);
-                }
-              }
-              .mdc-list-item__primary-text {
-                color: mat.get-color-from-palette($foreground, text, 0.75);
-              }
-              &:hover {
-                &:after {
-                  background-color: mat.get-color-from-palette($primary, 0.1);
-                }
-                .mdc-list-item__primary-text {
-                  color: mat.get-color-from-palette($primary);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  @include builder-sidebar($background, $foreground, $primary);
   .builder {
     .builder-workspace {
       .builder-toolbar {
@@ -120,7 +55,7 @@ $dark-theme: mat.define-dark-theme(
       }
       .builder-main {
         > .sidebar {
-          @include sidebar($background, $foreground, $primary);
+          @include main-sidebar($background, $foreground, $primary);
         }
       }
       > .mat-drawer-container {
