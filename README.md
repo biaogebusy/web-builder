@@ -133,7 +133,6 @@ export const environment: IEnvironment = {
   site: "dist",
   port: 4200,
   cache: false,
-  ssr: false,
   drupalProxy: false,
 };
 ```
@@ -143,7 +142,6 @@ export const environment: IEnvironment = {
 - site: prod 打包时生成的文件夹名称，此设置是为了区分多个 app 项目；
 - port: 自定义应用端口；
 - cache: 是否开启 api 请求缓存；
-- ssr: 是否使用 SSR 服务端渲染方式；
 - drupalProxy: 对应后端为 drupal，统一使用 Drupal 来登录登出；
 
 ## 路由守卫配置
@@ -221,7 +219,7 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.builder.
 
 ## 为生产环境打包
 
-`npm run build:ssr`
+`npm run build`
 
 ## 运行 Storybook
 
