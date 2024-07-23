@@ -1,13 +1,26 @@
-<div class="builder-sidebar">
+<div
+  class="builder-sidebar"
+  [ngClass]="sidebarDrawer.opened ? 'opened' : 'closed'"
+>
   @if (branding$ | async; as branding) {
     <a [routerLink]="branding.header.logo?.href" class="logo">
-      <app-logo [content]="branding.header.logo" [isInvert]="true"></app-logo>
+      @if (!sidebarDrawer.opened) {
+        <app-logo [content]="branding.header.logo" [isInvert]="true"></app-logo>
+      } @else {
+        <app-logo [content]="branding.header.logo"></app-logo>
+      }
     </a>
   }
   <mat-divider></mat-divider>
-  <div class="menu">
-    @if (builderConfig$ | async; as config) {
-      @if (config.menu) {
+  @if (builderConfig$ | async; as config) {
+    @if (config.menu) {
+      <app-accordion
+        class="accordion-menu"
+        [ngClass]="sidebarDrawer.opened ? '' : '!hidden'"
+        [hidden]="!sidebarDrawer.opened"
+        [content]="config.menu"
+      ></app-accordion>
+      <div class="icon-menu" [ngClass]="sidebarDrawer.opened ? '!hidden' : ''">
         @for (item of config.menu; track $index) {
           <div
             class="item"
@@ -17,7 +30,12 @@
             [matTooltipDisabled]="item.child ? true : false"
             matTooltipPosition="right"
           >
-            <app-icon [routerLink]="item.href" [content]="item.icon"></app-icon>
+            @if (item.icon) {
+              <app-icon
+                [routerLink]="item.href"
+                [content]="item.icon"
+              ></app-icon>
+            }
             @if (item.child) {
               <div class="child">
                 <div class="hover-menu">
@@ -47,60 +65,84 @@
             }
           </div>
         }
-      }
+      </div>
     }
-  </div>
+  }
   <div class="bottom">
     @if (branding$ | async; as branding) {
-      <app-btn
-        [matTooltip]="'媒体库'"
-        [matTooltipPosition]="'right'"
-        (click)="onSelectAssets()"
-        [content]="{
-          label: '',
-          mode: 'icon',
-          icon: { svg: 'image-search-outline' },
-        }"
-      ></app-btn>
-      <app-btn
-        [matTooltip]="
-          (builder.showBranding$ | async) ? '隐藏页头页尾' : '显示页头页尾'
-        "
-        [matTooltipPosition]="'right'"
-        (click)="onShowBranding()"
-        [content]="{
-          label: '',
-          color: (builder.showBranding$ | async) ? 'primary' : undefined,
-          mode: 'icon',
-          icon: {
-            svg:
-              (builder.showBranding$ | async)
-                ? 'page-layout-header-footer'
-                : 'page-layout-body',
-          },
-        }"
-      ></app-btn>
-      @if (builder.themeMode | async; as mode) {
+      <div
+        class="flex flex-row flex-wrap gap-3 justify-center py-3 icon-actions"
+      >
         <app-btn
-          [matTooltip]="mode === 'light' ? '切换暗黑风格' : '切换浅色风格'"
+          [matTooltip]="'媒体库'"
           [matTooltipPosition]="'right'"
-          (click)="onToggleBuilderTheme(mode)"
+          (click)="onSelectAssets()"
           [content]="{
             label: '',
             mode: 'icon',
+            icon: { svg: 'image-search-outline' },
+          }"
+        ></app-btn>
+        <app-btn
+          [matTooltip]="
+            (builder.showBranding$ | async) ? '隐藏页头页尾' : '显示页头页尾'
+          "
+          [matTooltipPosition]="'right'"
+          (click)="onShowBranding()"
+          [content]="{
+            label: '',
+            color: (builder.showBranding$ | async) ? 'primary' : undefined,
+            mode: 'icon',
             icon: {
               svg:
-                mode === 'light'
-                  ? 'white-balance-sunny'
-                  : 'moon-waning-crescent',
+                (builder.showBranding$ | async)
+                  ? 'page-layout-header-footer'
+                  : 'page-layout-body',
             },
           }"
         ></app-btn>
-      }
+        @if (builder.themeMode | async; as mode) {
+          <app-btn
+            [matTooltip]="mode === 'light' ? '切换暗黑风格' : '切换浅色风格'"
+            [matTooltipPosition]="'right'"
+            (click)="onToggleBuilderTheme(mode)"
+            [content]="{
+              label: '',
+              mode: 'icon',
+              icon: {
+                svg:
+                  mode === 'light'
+                    ? 'white-balance-sunny'
+                    : 'moon-waning-crescent',
+              },
+            }"
+          ></app-btn>
+        }
+      </div>
       <mat-divider></mat-divider>
-      @if (branding.header.params.userInfo) {
-        <app-user-menu [content]="branding.header.userMenu"></app-user-menu>
-      }
+      <div
+        class="flex items-center my-3 gap-3 justify-center"
+        [ngClass]="sidebarDrawer.opened ? 'flex-row' : 'flex-col'"
+      >
+        @if (branding.header.params.userInfo) {
+          <app-user-menu [content]="branding.header.userMenu"></app-user-menu>
+        }
+        <div class="toggle">
+          <div class="wrapper" (click)="onToggle()">
+            @if (sidebarDrawer.opened) {
+              <app-icon [content]="{ svg: 'chevron-left' }">
+                <div class="text">收起</div>
+              </app-icon>
+            }
+            @if (!sidebarDrawer.opened) {
+              <app-icon
+                matTooltip="展开"
+                [content]="{ svg: 'chevron-right' }"
+              ></app-icon>
+            }
+          </div>
+        </div>
+      </div>
     }
   </div>
 </div>

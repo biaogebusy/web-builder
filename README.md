@@ -38,6 +38,7 @@
 
 项目非常适合初学者学习或者进阶，它涵盖了绝大部分 Angular 技术知识点，但并不仅限于以下内容。
 
+- TailwindCss
 - 服务端渲染（SSR）
 - 懒加载，Inject 依赖注入
 - 路由守卫
@@ -51,7 +52,6 @@
 - 自定义 icon
 - 数据图表
 - Rxjs
-- flex layout
 - Storybook
 - Typescript
 - Provider

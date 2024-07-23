@@ -5,6 +5,7 @@ export function getBtn(widget: any, options?: any[]): FormlyFieldConfig[] {
     {
       key: 'btn',
       type: 'tabs',
+      className: 'w-full',
       fieldGroup: [
         {
           props: {

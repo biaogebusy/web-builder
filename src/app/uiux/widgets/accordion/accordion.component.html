@@ -22,30 +22,30 @@
             [expanded]="item.expanded"
             (opened)="panelOpenState = true"
             (closed)="panelOpenState = false"
-            >
+          >
             <mat-expansion-panel-header>
               @if (!item.href) {
                 <mat-panel-title [ngClass]="item.classes || ''">
                   @if (item.icon) {
-                    <app-icon
-                      class="!mr-3"
-                      [content]="item.icon"
-                      ></app-icon
-                      >
-                      }{{ item.label }}
-                    </mat-panel-title>
+                    <app-icon class="!mr-3" [content]="item.icon"></app-icon>
                   }
-                  @if (item.href) {
-                    <app-link
-                      [ngClass]="item.classes || ''"
-                      [content]="item"
-                    ></app-link>
-                  }
-                </mat-expansion-panel-header>
-                <app-accordion [content]="item.child"></app-accordion>
-              </mat-expansion-panel>
-            }
-          </ng-container>
+                  {{ item.label }}
+                </mat-panel-title>
+              }
+              @if (item.href) {
+                @if (item.icon) {
+                  <app-icon class="!mr-3" [content]="item.icon"></app-icon>
+                }
+                <app-link
+                  [ngClass]="item.classes || ''"
+                  [content]="item"
+                ></app-link>
+              }
+            </mat-expansion-panel-header>
+            <app-accordion [content]="item.child"></app-accordion>
+          </mat-expansion-panel>
         }
-      </mat-accordion>
+      </ng-container>
     }
+  </mat-accordion>
+}

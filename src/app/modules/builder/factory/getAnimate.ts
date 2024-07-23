@@ -42,10 +42,12 @@ export function getAnimate(content: any): FormlyFieldConfig {
     fieldGroup: [
       {
         key: 'animate',
+        fieldGroupClassName: 'w-full',
         fieldGroup: [
           {
             key: 'enable',
             type: 'toggle',
+            className: 'w-full',
             defaultValue: content?.animate?.enable,
             props: {
               label: '开启动画',
@@ -340,6 +342,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
               {
                 key: 'scrub',
                 type: 'toggle',
+                className: 'w-full',
                 defaultValue: content?.animate?.trigger?.scrub ?? false,
                 props: {
                   label: '跟随滚动变化',

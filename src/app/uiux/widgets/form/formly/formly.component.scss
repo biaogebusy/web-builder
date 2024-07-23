@@ -1,7 +1,7 @@
 formly-form {
   ::ng-deep {
     formly-field {
-      display: inline-block;
+      display: block;
       input[type="color"] {
         height: 19px;
       }
