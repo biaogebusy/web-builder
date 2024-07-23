@@ -9,7 +9,7 @@
     }
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       <div class="inner p-y flex flex-wrap">
-        <div class="sidebar p-x-sm flex-12/12 md:flex-3/12">
+        <div class="sidebar p-x-sm flex-12/12 sm:flex-3/12">
           @if (content.text) {
             <app-text [content]="content.text"></app-text>
           }
@@ -24,7 +24,7 @@
         </div>
         <div
           class="main p-x-sm p-y-sm flex-12/12 {{
-            content.form ? 'md:flex-8/12' : ''
+            content.form ? 'sm:flex-8/12' : ''
           }}"
         >
           <div class="calendar w-full">
