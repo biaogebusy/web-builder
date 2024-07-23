@@ -4855,37 +4855,42 @@ export const system: any[] = [
           },
           form: [
             {
-              type: 'input',
-              key: 'title',
-              className: 'm-right-xs width-30',
-              props: {
-                label: '搜索职位',
-              },
-            },
-            {
-              type: 'mat-select',
-              key: 'skill',
-              className: 'm-right-xs width-30',
-              props: {
-                multiple: true,
-                search: true,
-                hideSelected: true,
-                label: '技能',
-                options: [
-                  {
-                    value: 1,
-                    label: 'Angular',
+              fieldGroupClassName: 'grid grid-cols-12 gap-3',
+              fieldGroup: [
+                {
+                  type: 'input',
+                  key: 'title',
+                  className: 'col-span-6',
+                  props: {
+                    label: '搜索职位',
                   },
-                  {
-                    value: 2,
-                    label: 'React',
+                },
+                {
+                  type: 'mat-select',
+                  key: 'skill',
+                  className: 'col-span-6',
+                  props: {
+                    multiple: true,
+                    search: true,
+                    hideSelected: true,
+                    label: '技能',
+                    options: [
+                      {
+                        value: 1,
+                        label: 'Angular',
+                      },
+                      {
+                        value: 2,
+                        label: 'React',
+                      },
+                      {
+                        value: 3,
+                        label: 'Vue',
+                      },
+                    ],
                   },
-                  {
-                    value: 3,
-                    label: 'Vue',
-                  },
-                ],
-              },
+                },
+              ],
             },
           ],
           elements: [
@@ -5025,56 +5030,61 @@ export const system: any[] = [
           },
           form: [
             {
-              type: 'input',
-              key: 'title',
-              className: 'm-right-xs width-30',
-              props: {
-                label: '搜索职位',
-              },
-            },
-            {
-              type: 'mat-select',
-              key: 'skill',
-              className: 'm-right-xs width-30',
-              props: {
-                multiple: true,
-                search: true,
-                hideSelected: true,
-                label: '技能',
-                options: [
-                  {
-                    value: 1,
-                    label: 'Angular',
+              fieldGroupClassName: 'grid grid-cols-12 gap-3',
+              fieldGroup: [
+                {
+                  type: 'input',
+                  key: 'title',
+                  className: 'col-span-4',
+                  props: {
+                    label: '搜索职位',
                   },
-                  {
-                    value: 2,
-                    label: 'React',
+                },
+                {
+                  type: 'mat-select',
+                  key: 'skill',
+                  className: 'col-span-4',
+                  props: {
+                    multiple: true,
+                    search: true,
+                    hideSelected: true,
+                    label: '技能',
+                    options: [
+                      {
+                        value: 1,
+                        label: 'Angular',
+                      },
+                      {
+                        value: 2,
+                        label: 'React',
+                      },
+                      {
+                        value: 3,
+                        label: 'Vue',
+                      },
+                    ],
                   },
-                  {
-                    value: 3,
-                    label: 'Vue',
+                },
+                {
+                  key: 'enableCircle',
+                  type: 'toggle',
+                  className: 'col-span-4',
+                  props: {
+                    label: '开启范围圈',
+                    description: '点击地图获取经纬度',
                   },
-                ],
-              },
+                },
+              ],
             },
-            {
-              key: 'enableCircle',
-              type: 'toggle',
-              className: 'w-full',
-              props: {
-                label: '开启范围圈',
-                description: '开启后点击地图获取经纬度',
-              },
-            },
+
             {
               key: 'circle',
-              className: 'w-full',
-              fieldGroupClassName: 'flex flex-wrap w-full',
+              fieldGroupClassName: 'grid grid-cols-12 gap-3 mt-5',
               fieldGroup: [
                 {
                   type: 'input',
                   key: 'lnglat',
-                  className: 'm-bottom-sm width-20 m-right-xs',
+                  className: 'col-span-3',
                   props: {
                     label: '经纬度',
                     appearance: 'outline',
@@ -5086,7 +5096,7 @@ export const system: any[] = [
                   type: 'input',
                   key: 'radius',
                   defaultValue: 3,
-                  className: 'm-bottom-sm width-20 m-right-xs',
+                  className: 'col-span-3',
                   props: {
                     label: '圆半径/公里',
                     appearance: 'outline',
@@ -5105,7 +5115,7 @@ export const system: any[] = [
                 {
                   type: 'input',
                   key: 'bg',
-                  className: 'm-bottom-sm width-20 m-right-xs',
+                  className: 'col-span-3',
                   defaultValue: '#00a281',
                   props: {
                     label: '圆背景色',
@@ -5118,7 +5128,7 @@ export const system: any[] = [
                   type: 'input',
                   key: 'opacity',
                   defaultValue: 0.1,
-                  className: 'm-bottom-sm width-20',
+                  className: 'col-span-3',
                   props: {
                     label: '不透明度',
                     appearance: 'outline',
