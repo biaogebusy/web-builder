@@ -36,9 +36,11 @@ export const Default: Story = {};
 const content: IImg = {
   type: 'img',
   hostClasses: 'text-center',
-  classes: '',
+  classes: 'object-contain',
   src: '/assets/images/illustration/08.png',
   alt: 'alt',
+  width: 400,
+  height: 300,
 };
 Default.args = {
   content,
