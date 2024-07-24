@@ -6,6 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
@@ -25,11 +26,12 @@ export class LayoutBuilderComponent
   @Input() pageIndex: number;
   @Input() uuid: string;
   destroy$: Subject<boolean> = new Subject<boolean>();
+
+  util = inject(UtilitiesService);
+  ele = inject(ElementRef);
+  builderSerivce = inject(BuilderService);
   constructor(
-    private util: UtilitiesService,
-    private ele: ElementRef,
-    private builderSerivce: BuilderService,
-    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
   ) {}
 
   ngOnInit(): void {}
@@ -46,7 +48,7 @@ export class LayoutBuilderComponent
     this.content.elements.map((item: ILayoutBlock, index) => {
       if (item.animate) {
         const animateEle = this.ele.nativeElement.querySelectorAll(
-          `.layout-${index} .for-animate`
+          `.layout-${index} .for-animate`,
         )[0];
         this.util.initAnimate(item, animateEle, this.ele.nativeElement);
       }

@@ -80,8 +80,8 @@ export class BlockToolbarComponent implements OnInit {
     this.builder.updateComponent(this.pageIndex, this.lbContent);
   }
 
-  onWidgetSetting(widget: any, event: any): void {
-    const path = this.util.generatePath(event.target);
+  onWidgetSetting(widget: any, target: any): void {
+    const path = this.util.generatePath(target);
     let fields: FormlyFieldConfig[] = [];
     const animateConfig = getAnimate(widget);
     switch (widget.type) {

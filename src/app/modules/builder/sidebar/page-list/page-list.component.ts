@@ -60,10 +60,10 @@ export class PageListComponent
   currentPage?: IPage;
   langs = environment.langs;
   builder = inject(BuilderState);
+  cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   builderService = inject(BuilderService);
-  cd = inject(ChangeDetectorRef);
   constructor(
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
   ) {
