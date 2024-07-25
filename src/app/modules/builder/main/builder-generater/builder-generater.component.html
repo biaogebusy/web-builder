@@ -13,6 +13,9 @@
     <div class="actions m-top-sm flex justify-center gap-4">
       <app-btn
         matTooltip="通常是为了快速全量测试组件"
+        *reqRolesIf="{
+          params: { reqRoles: ['administrator'] },
+        }"
         matTooltipPosition="above"
         (click)="onGenerate('all')"
         [content]="{

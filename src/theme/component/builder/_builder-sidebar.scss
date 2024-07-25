@@ -7,11 +7,7 @@
       @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
     }
     &.closed {
-      background-color: mat.get-color-from-palette(
-        $foreground,
-        elevation,
-        0.85
-      );
+      background-color: #363538;
       color: #f5f5f5;
       @include mat.elevation(
         4,
