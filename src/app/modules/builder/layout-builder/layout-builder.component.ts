@@ -40,8 +40,8 @@ export class LayoutBuilderComponent
     this.layoutAnimate();
   }
 
-  addBlock(addType: string, content: any, event: any): void {
-    this.builderSerivce.addBlock(addType, content, event);
+  addBlock(addType: string, content: any, target: any): void {
+    this.builderSerivce.addBlock(addType, content, target);
   }
 
   layoutAnimate(): void {

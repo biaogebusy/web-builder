@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 @mixin layout-builder-color($theme) {
   $config: mat.get-color-config($theme);
@@ -42,6 +42,7 @@
             }
           }
           .placeholder {
+            color: rgba(0, 0, 0, 0.75);
             &:hover {
               color: mat.get-color-from-palette($primary);
             }
@@ -77,6 +78,17 @@
           }
         }
       }
+    }
+  }
+
+  .layout-toolbar-menu {
+    background-color: mat.get-color-from-palette($background, tooltip);
+    .mat-mdc-menu-item,
+    .mat-mdc-menu-item:visited,
+    .mat-mdc-menu-item:link,
+    .mat-mdc-menu-item .mat-icon-no-color,
+    .mat-mdc-menu-item .mat-mdc-menu-submenu-icon {
+      color: mat.get-color-from-palette($primary, default-contrast);
     }
   }
 }
