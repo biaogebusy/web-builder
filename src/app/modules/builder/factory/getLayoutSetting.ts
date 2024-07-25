@@ -70,7 +70,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
   const flexLayout: FormlyFieldConfig[] = [
     {
       className: 'layout-setting w-full',
-      fieldGroupClassName: 'flex flex-wrap w-full',
+      fieldGroupClassName: 'w-full',
       fieldGroup: [...getFlexLayoutConfig(layout)],
     },
   ];
