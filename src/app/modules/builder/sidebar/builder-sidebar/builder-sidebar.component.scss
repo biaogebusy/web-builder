@@ -118,6 +118,7 @@
                 cursor: pointer;
                 padding-left: 30px;
                 padding-right: 30px;
+
                 .mat-icon {
                   height: inherit;
                   width: inherit;
@@ -127,17 +128,18 @@
                   align-items: center;
                   gap: 6px;
                 }
+                &.active,
                 &:hover {
                   &::after {
                     content: "";
                     position: absolute;
-                    height: 100%;
+                    height: 96%;
                     width: calc(100% - 20px);
                     left: 50%;
-                    transform: translateX(-50%);
-                    top: 0;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
                     z-index: 0;
-                    border-radius: 10px;
+                    border-radius: 6px;
                   }
                 }
               }
@@ -201,9 +203,25 @@
         border-bottom: none !important;
         padding: 0;
         .mat-mdc-list-item {
+          overflow: visible;
           height: 56px;
+          &:hover {
+            &::after {
+              content: "";
+              position: absolute;
+              height: 96%;
+              width: 200%;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+              z-index: 0;
+              border-radius: 6px;
+            }
+          }
         }
         .mdc-list-item__content {
+          position: relative;
+          z-index: 10;
           padding-top: 4px;
           padding-bottom: 4px;
           margin-left: 17px;
