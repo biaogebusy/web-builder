@@ -4,7 +4,10 @@ import {
   Component,
   Input,
   OnInit,
+  ViewChild,
+  inject,
 } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -25,22 +28,21 @@ export class LayoutToolbarComponent implements OnInit {
   @Input() layout: any;
   @Input() pageIndex: number;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    private util: UtilitiesService,
-    private builder: BuilderState,
-    private builderService: BuilderService,
-  ) {}
+  util = inject(UtilitiesService);
+  builder = inject(BuilderState);
+  builderService = inject(BuilderService);
+  constructor() {}
 
   ngOnInit(): void {}
 
   onMoveCol(
     direction: 'left' | 'right',
     lists: any[],
-    event: any,
+    target: any,
     index: number,
   ): void {
     const elements = cloneDeep(lists);
-    const path = this.util.generatePath(event.target);
+    const path = this.util.generatePath(target);
     const lastDotIndex = path.lastIndexOf('.');
     const arrayPath = path.slice(0, lastDotIndex);
 
@@ -54,8 +56,8 @@ export class LayoutToolbarComponent implements OnInit {
     this.builder.updatePageContentByPath(arrayPath, elements);
   }
 
-  addBlock(addType: string, content: any, event: any): void {
-    this.builderService.addBlock(addType, content, event);
+  addBlock(addType: string, content: any, target: any): void {
+    this.builderService.addBlock(addType, content, target);
   }
 
   onDeleteRow(index: number): void {
@@ -64,12 +66,12 @@ export class LayoutToolbarComponent implements OnInit {
     this.builder.updateComponent(this.pageIndex, this.lbContent);
   }
 
-  onLayoutSettings(layout: any, event: any): void {
+  onLayoutSettings(layout: any, target: any): void {
     const layoutSetting: ILayoutSetting = {
       type: 'layout-setting',
       fields: getLayoutSetting(layout),
       content: layout,
-      path: this.util.generatePath(event.target),
+      path: this.util.generatePath(target),
     };
     this.builder.rightContent$.next({
       mode: 'push',

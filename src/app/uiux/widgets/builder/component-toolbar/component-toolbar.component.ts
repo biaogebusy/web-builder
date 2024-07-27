@@ -48,7 +48,7 @@ export class ComponentToolbarComponent implements OnInit {
       this.enableBuilderToolbar = state;
     });
 
-    this.storage.observe('bc').subscribe((data) => {
+    this.storage.observe(this.builder.COPYKEY).subscribe((data) => {
       this.bcData = data;
       this.cd.detectChanges();
     });

@@ -23,12 +23,4 @@
     white-space: nowrap;
     top: 0;
   }
-  &:hover {
-    .toggle {
-      display: none;
-    }
-    .actions {
-      display: block;
-    }
-  }
 }

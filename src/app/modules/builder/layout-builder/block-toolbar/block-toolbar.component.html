@@ -1,16 +1,16 @@
-<div class="block-toolbar flex justify-center items-center">
+<div class="block-toolbar flex justify-center items-center" #toolbar>
   <div class="title rounded-xl">{{ block.type }}</div>
   @if (index > 0 && index < layout.elements.length) {
     <app-btn
       matTooltip="上移"
       matTooltipPosition="above"
       (click)="onUpDown('up', i, index)"
-    [content]="{
-      label: '',
-      color: 'primary',
-      mode: 'icon',
-      icon: { svg: 'arrow-collapse-up', inline: true }
-    }"
+      [content]="{
+        label: '',
+        color: 'primary',
+        mode: 'icon',
+        icon: { svg: 'arrow-collapse-up', inline: true },
+      }"
     ></app-btn>
   }
   @if (index > -1 && index < layout.elements.length - 1) {
@@ -18,12 +18,12 @@
       matTooltip="下移"
       matTooltipPosition="above"
       (click)="onUpDown('down', i, index)"
-    [content]="{
-      label: '',
-      color: 'primary',
-      mode: 'icon',
-      icon: { svg: 'arrow-collapse-down', inline: true }
-    }"
+      [content]="{
+        label: '',
+        color: 'primary',
+        mode: 'icon',
+        icon: { svg: 'arrow-collapse-down', inline: true },
+      }"
     ></app-btn>
   }
   <app-btn
@@ -34,18 +34,18 @@
       label: '',
       color: 'primary',
       mode: 'icon',
-      icon: { svg: 'content-copy', inline: true }
+      icon: { svg: 'content-copy', inline: true },
     }"
   ></app-btn>
   <app-btn
     matTooltip="插入组件"
     matTooltipPosition="above"
-    (click)="addBlock('widget', lbContent, $event)"
+    (click)="addBlock('widget', lbContent, toolbar)"
     [content]="{
       label: '',
       color: 'primary',
       mode: 'icon',
-      icon: { svg: 'plus' }
+      icon: { svg: 'plus' },
     }"
   ></app-btn>
   <app-btn
@@ -56,18 +56,18 @@
       label: '',
       color: 'primary',
       mode: 'icon',
-      icon: { svg: 'close', inline: true }
+      icon: { svg: 'close', inline: true },
     }"
   ></app-btn>
   <app-btn
     matTooltip="{{ block.type }}组件配置"
     matTooltipPosition="above"
-    (click)="onWidgetSetting(block, $event)"
+    (click)="onWidgetSetting(block, toolbar)"
     [content]="{
       label: '',
       color: 'primary',
       mode: 'icon',
-      icon: { svg: 'tune-vertical', inline: true }
+      icon: { svg: 'tune-vertical', inline: true },
     }"
   ></app-btn>
 </div>
