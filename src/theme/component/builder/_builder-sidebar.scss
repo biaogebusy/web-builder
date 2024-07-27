@@ -7,11 +7,7 @@
       @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
     }
     &.closed {
-      background-color: mat.get-color-from-palette(
-        $foreground,
-        elevation,
-        0.85
-      );
+      background-color: #363538;
       color: #f5f5f5;
       @include mat.elevation(
         4,
@@ -56,9 +52,13 @@
             );
             .child-menu {
               .mdc-list-item {
-                &.active {
+                &.active,
+                &:hover {
                   .mdc-list-item__primary-text {
                     color: mat.get-color-from-palette($primary);
+                  }
+                  &:after {
+                    background-color: mat.get-color-from-palette($primary, 0.1);
                   }
                 }
                 .mdc-list-item__primary-text {
@@ -67,9 +67,6 @@
                 &:hover {
                   &:after {
                     background-color: mat.get-color-from-palette($primary, 0.1);
-                  }
-                  .mdc-list-item__primary-text {
-                    color: mat.get-color-from-palette($primary);
                   }
                 }
               }
@@ -158,18 +155,14 @@
               color: mat.get-color-from-palette($foreground, text, 0.75);
               &.active {
                 color: mat.get-color-from-palette($primary);
-                font-weight: bold;
               }
             }
             &:hover {
               a {
-                &:after {
-                  background-color: mat.get-color-from-palette(
-                    $foreground,
-                    text,
-                    0.05
-                  );
-                }
+                color: mat.get-color-from-palette($primary);
+              }
+              &:after {
+                background-color: mat.get-color-from-palette($primary, 0.1);
               }
             }
           }

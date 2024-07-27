@@ -67,4 +67,10 @@
       padding: 0;
     }
   }
+
+  .widget-picker-dialog {
+    .mat-mdc-dialog-container .mdc-dialog__content {
+      color: rgba(0, 0, 0, 0.75);
+    }
+  }
 }

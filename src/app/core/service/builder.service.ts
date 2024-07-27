@@ -313,17 +313,18 @@ export class BuilderService extends ApiService {
     return pageTitle;
   }
 
-  addBlock(addType: string, content: any, event: any): void {
+  addBlock(addType: string, content: any, target: any): void {
     this.dialog.open(DialogComponent, {
       width: '800px',
       position: { bottom: '20px' },
+      panelClass: ['close-outside', 'close-icon-white', 'widget-picker-dialog'],
       data: {
         disableCloseButton: true,
         inputData: {
           content: {
             type: 'widget-picker',
             addType,
-            path: this.util.generatePath(event.target),
+            path: this.util.generatePath(target),
             content,
           },
         },

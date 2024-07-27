@@ -47,7 +47,7 @@
   .icon-menu {
     .item {
       position: relative;
-      padding: 20px 0;
+      padding: 16px 0;
       width: 100%;
       height: 56px;
       box-sizing: border-box;
@@ -84,12 +84,12 @@
         text-align: left;
         position: fixed;
         margin-left: 80px;
-        width: 300px;
+        width: 246px;
         height: 100%;
         left: 0;
         top: 0;
         z-index: 999;
-        padding: 20px 0;
+        padding: 4px 0;
         flex-direction: column;
         line-height: 1.5;
         cursor: default;
@@ -118,6 +118,7 @@
                 cursor: pointer;
                 padding-left: 30px;
                 padding-right: 30px;
+
                 .mat-icon {
                   height: inherit;
                   width: inherit;
@@ -127,17 +128,18 @@
                   align-items: center;
                   gap: 6px;
                 }
+                &.active,
                 &:hover {
                   &::after {
                     content: "";
                     position: absolute;
-                    height: 100%;
+                    height: 96%;
                     width: calc(100% - 20px);
                     left: 50%;
-                    transform: translateX(-50%);
-                    top: 0;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
                     z-index: 0;
-                    border-radius: 10px;
+                    border-radius: 6px;
                   }
                 }
               }
@@ -172,6 +174,11 @@
               }
             }
           }
+          .mat-mdc-list-item {
+            &::after {
+              display: none;
+            }
+          }
         }
       }
       .mat-accordion {
@@ -200,10 +207,27 @@
       .mat-mdc-list {
         border-bottom: none !important;
         padding: 0;
+        overflow: hidden;
         .mat-mdc-list-item {
+          overflow: visible;
           height: 56px;
+          &:hover {
+            &::after {
+              content: "";
+              position: absolute;
+              height: 96%;
+              width: 100%;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+              z-index: 0;
+              border-radius: 6px;
+            }
+          }
         }
         .mdc-list-item__content {
+          position: relative;
+          z-index: 10;
           padding-top: 4px;
           padding-bottom: 4px;
           margin-left: 17px;

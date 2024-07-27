@@ -42,7 +42,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.help = this.coreConfig?.builder?.widgetPicker?.help;
-    this.bcData = this.storage.retrieve('bc');
+    this.bcData = this.storage.retrieve(this.builder.COPYKEY);
   }
 
   ngAfterViewInit(): void {}
