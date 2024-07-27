@@ -106,9 +106,11 @@ export const widgets = [
     content: {
       type: 'img',
       hostClasses: 'text-center',
-      classes: '',
+      classes: 'object-contain',
       src: '/assets/images/illustration/08.png',
       alt: 'alt',
+      width: 400,
+      height: 300,
     },
   },
   {
