@@ -12,8 +12,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "bundle-report": "ng build --configuration production --stats-json && webpack-bundle-analyzer dist/browser/stats.json",
-    "storybook": "ng run xinshi:storybook",
-    "build-storybook": "ng run xinshi:build-storybook",
     "serve:ssr:xinshi": "node dist/server/server.mjs"
   },
   "dependencies": {

@@ -90,7 +90,6 @@ export const environment: IEnvironment = {
   site: "dist",
   port: 4200,
   cache: false,
-  ssr: false,
   drupalProxy: false,
 };
 ```
@@ -173,7 +172,7 @@ For base configuration, refer to [Xinshi Messenger Storybook Global Configuratio
 
 ## Build for Production
 
-`npm run build:ssr`
+`npm run build`
 
 ## Run Storybook
 
