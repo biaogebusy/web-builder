@@ -96,7 +96,7 @@ export class BuilderGuard {
                 }),
               );
             } else {
-              return of(false);
+              return of(true);
             }
           }),
         );
