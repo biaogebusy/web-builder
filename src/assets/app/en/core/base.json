@@ -434,6 +434,7 @@
       "update": "/api/v3/landingPage/update",
       "translate": "/api/v3/landingPage/translations"
     },
+    "guard": true,
     "params": {
       "reqRoles": ["administrator"]
     },
