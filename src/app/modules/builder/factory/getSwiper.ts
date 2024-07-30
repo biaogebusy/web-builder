@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { OnInit } from '@angular/core';
 export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
   const fields = [
     {
@@ -153,6 +154,14 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
               },
             },
           ],
+          hooks: {
+            onInit: (formGroup: any) => {
+              const { form, model } = formGroup;
+              form.valueChanges.subscribe((value: any) => {
+                model.breakpoints = value.params.breakpoints;
+              });
+            },
+          },
         },
         {
           key: 'params',
