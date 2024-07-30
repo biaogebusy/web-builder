@@ -50,6 +50,7 @@ export interface ICoreConfig {
   };
   builder: {
     enable: boolean;
+    guard: boolean;
     params: {
       reqRoles: string[];
     };

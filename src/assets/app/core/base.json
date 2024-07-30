@@ -420,6 +420,7 @@
       "translate": "/api/v3/landingPage/translations"
     },
     "params": {
+      "guard": true,
       "reqRoles": ["administrator"]
     },
     "widgetPicker": {

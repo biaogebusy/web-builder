@@ -147,20 +147,13 @@ export class BuilderToolbarComponent
         this.util.openSnackbar('正在更新！', 'ok');
         this.builderService
           .updateLandingPage(this.builder.currentPage)
-          .pipe(
-            takeUntil(this.destroy$),
-            catchError(() => {
-              this.builder.loading$.next(false);
-              return of({ status: false });
-            }),
-          )
+          .pipe(takeUntil(this.destroy$))
           .subscribe((res) => {
+            this.builder.loading$.next(false);
             const { status, message } = res;
+            this.util.openSnackbar(message, 'ok');
             if (status) {
-              this.util.openSnackbar(message, 'ok');
               this.builder.updateSuccess$.next(true);
-            } else {
-              this.util.openSnackbar('更新失败！', 'ok');
             }
           });
       } else {

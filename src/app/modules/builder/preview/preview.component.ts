@@ -2,14 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
-  OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-preview',
@@ -17,12 +17,11 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PreviewComponent implements OnInit, OnDestroy {
-  destroy$: Subject<boolean> = new Subject<boolean>();
+export class PreviewComponent implements OnInit {
+  contentState = inject(ContentState);
+  builder = inject(BuilderState);
   constructor(
-    private contentState: ContentState,
-    public builder: BuilderState,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
   ) {}
 
   ngOnInit(): void {
@@ -31,12 +30,5 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   trackByFn(index: number): number {
     return index;
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }
