@@ -37,14 +37,14 @@ const routes: Routes = [
         ],
       },
       {
+        path: 'preview',
+        component: PreviewComponent,
+      },
+      {
         path: '**',
         component: ManagePageComponent,
       },
     ],
-  },
-  {
-    path: 'preview',
-    component: PreviewComponent,
   },
 ];
 
