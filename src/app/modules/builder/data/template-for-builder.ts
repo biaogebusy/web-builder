@@ -74,7 +74,7 @@ export const templates: any[] = [
               title: {
                 label: '综合搜索',
                 style: 'style-v1',
-                classes: 'mat-headline-1  text-light',
+                classes: 'mat-headline-3  text-light',
               },
               spacer: 'xl',
               'style-': {
@@ -240,7 +240,7 @@ export const templates: any[] = [
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
             style: 'style-v1',
-            classes: 'mat-headline-1 bold',
+            classes: 'mat-headline-3 bold',
           },
           body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
           actionsAlign: 'center center',
@@ -288,7 +288,7 @@ export const templates: any[] = [
               alt: 'beach-01.jpg',
             },
           },
-          title: '联系我们',
+          title: '',
           breadcrumb: [],
         },
         {
@@ -351,7 +351,7 @@ export const templates: any[] = [
               elements: [
                 {
                   style: 'style-v1',
-                  classes: 'mat-headline-1 bold',
+                  classes: 'mat-headline-3 bold',
                   typed: {
                     enable: false,
                     config: {
@@ -539,41 +539,23 @@ export const templates: any[] = [
           classes: '',
           id: '',
           bg: {
-            img: {
-              src: '',
-              classes: 'object-fit',
-              alt: '',
-            },
+            img: { src: '', classes: 'object-fit', alt: '' },
             classes: 'bg-shadow bg-fill-width',
             overlay: '',
           },
           horizontal: 'center',
           vertical: 'stretch',
           layoutAlign: 'center stretch',
-          gap: {
-            xs: 0,
-            sm: 16,
-            md: 32,
-            lg: 48,
-          },
+          gap: { xs: 0, sm: 16, md: 32, lg: 48 },
           type: 'layout-builder',
           elements: [
             {
-              row: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 7,
-              },
+              row: { xs: 12, sm: 6, md: 6, lg: 7 },
               horizontal: 'center',
               vertical: 'center',
               layoutAlign: 'center center',
               bg: {
-                img: {
-                  src: '',
-                  classes: 'object-fit',
-                  alt: '',
-                },
+                img: { src: '', classes: 'object-fit', alt: '' },
                 classes: 'bg-fill-width',
               },
               style: {
@@ -595,9 +577,7 @@ export const templates: any[] = [
                     {
                       title: '组件驱动开发',
                       icon: 'person',
-                      params: {
-                        expanded: true,
-                      },
+                      params: { expanded: true },
                       elements: [
                         {
                           type: 'text',
@@ -644,23 +624,18 @@ export const templates: any[] = [
               ],
             },
             {
-              row: {
-                xs: 12,
-                sm: 12,
-                md: 12,
-                lg: 5,
-              },
+              row: { xs: 12, sm: 12, md: 12, lg: 5 },
               horizontal: 'center',
               vertical: 'center',
-              layoutAlign: 'center center',
               bg: {
-                img: {
-                  src: '',
-                  classes: 'object-fit',
-                  alt: '',
-                },
+                img: { src: '', classes: 'object-fit', alt: '' },
+                overlay: '',
                 classes: 'bg-fill-width',
               },
+              classes: '',
+              blockClasses: '',
+              alignItems: 'center',
+              layoutAlign: 'center center',
               style: {
                 paddingTop: '30px',
                 paddingRight: '30px',
@@ -671,23 +646,22 @@ export const templates: any[] = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              classes: '',
               elements: [
                 {
                   type: 'img',
                   hostClasses: 'text-center',
                   classes: '',
-                  src: '/assets/images/illustration/01.png',
+                  src: 'http://localhost:4200/assets/images/illustration/01.png',
                   alt: 'alt',
                   style: {
-                    width: 'auto',
-                    height: 'auto',
-                    maxWidth: '100%',
-                    maxHeight: '300px',
                     opacity: '1',
-                    borderRadius: 0,
-                    objectFit: 'initial',
+                    borderRadius: '0px',
+                    boxShadow: '',
+                    aspectRatio: '',
+                    objectFit: 'contain',
                   },
+                  width: 500,
+                  height: 400,
                 },
               ],
             },
@@ -733,7 +707,7 @@ export const templates: any[] = [
             label:
               '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
             style: 'style-v1',
-            classes: 'mat-headline-2 bold',
+            classes: 'mat-headline-3 bold',
           },
           body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
           actionsAlign: 'center center',
@@ -787,7 +761,7 @@ export const templates: any[] = [
             title: {
               label: '开源项目使用 Github actions 自动化',
               style: 'none',
-              classes: 'mat-headline-1',
+              classes: 'mat-headline-3',
             },
             spacer: 'none',
             body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
@@ -934,7 +908,7 @@ export const templates: any[] = [
         },
         {
           type: 'showcase-2v1',
-          row: 4,
+          row: 3,
           bg: {
             classes: '',
           },
@@ -943,7 +917,7 @@ export const templates: any[] = [
             title: {
               label: '最新课程',
               style: 'style-v1',
-              classes: 'mat-headline-0 bold',
+              classes: 'mat-headline-3 bold',
             },
             classes: 'text-center',
             body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
@@ -1040,6 +1014,7 @@ export const templates: any[] = [
           title: {
             label: '为什么你将会喜欢这个前端框架？',
             style: 'style-v1',
+            classes: 'mat-headline-3',
           },
           bg: {
             classes: 'bg-fill-width bg-',
@@ -1125,6 +1100,7 @@ export const templates: any[] = [
             title: {
               label: '平台实时数据',
               style: 'style-v1',
+              classes: 'mat-headline-3',
             },
           },
           bg: {
@@ -1184,7 +1160,7 @@ export const templates: any[] = [
             label: '你将喜欢上 Drupal 的原因',
             icon: 'email',
             style: 'style-v2',
-            classes: 'mat-headline-1',
+            classes: 'mat-headline-3',
           },
           classes: '',
           bg: {
