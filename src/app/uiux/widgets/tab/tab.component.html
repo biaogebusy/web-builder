@@ -6,27 +6,22 @@
     <app-spacer [size]="content.spacer || 'md'"></app-spacer>
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       @if (content.text) {
-        <app-text
-          [attr.data-path]="'text'"
-          [content]="content.text"
-        ></app-text>
+        <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
       }
       @switch (content.align) {
-        @case ('center') {
+        @case ("center") {
           <mat-tab-group
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="center"
             [ngClass]="content.classes"
-            >
+          >
             @for (item of content.elements; track item; let i = $index) {
-              <mat-tab
-                label="{{ item.label }}"
-                >
+              <mat-tab label="{{ item.label }}">
                 <div
                   [attr.data-path]="i"
                   class="{{ content.fullWidth ? 'py-5' : 'p-5' }}"
-                  >
+                >
                   @if (content.bg) {
                     <app-bg-img [content]="content.bg"></app-bg-img>
                   }
@@ -41,21 +36,19 @@
             }
           </mat-tab-group>
         }
-        @case ('end') {
+        @case ("end") {
           <mat-tab-group
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="end"
             [ngClass]="content.classes"
-            >
+          >
             @for (item of content.elements; track item; let i = $index) {
-              <mat-tab
-                label="{{ item.label }}"
-                >
+              <mat-tab label="{{ item.label }}">
                 <div
                   [attr.data-path]="i"
                   class="{{ content.fullWidth ? 'py-5' : 'p-5' }}"
-                  >
+                >
                   @if (content.bg) {
                     <app-bg-img [content]="content.bg"></app-bg-img>
                   }
@@ -76,15 +69,13 @@
             [selectedIndex]="selectedIndex"
             mat-align-tabs="start"
             [ngClass]="content.classes"
-            >
+          >
             @for (item of content.elements; track item; let i = $index) {
-              <mat-tab
-                label="{{ item.label }}"
-                >
+              <mat-tab label="{{ item.label }}">
                 <div
                   [attr.data-path]="i"
                   class="{{ content.fullWidth ? 'py-5' : 'p-5' }}"
-                  >
+                >
                   @if (content.bg) {
                     <app-bg-img [content]="content.bg"></app-bg-img>
                   }

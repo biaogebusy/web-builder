@@ -8,11 +8,13 @@ import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-set
 import { PageListComponent } from './sidebar/page-list/page-list.component';
 import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
+import { BuilderGuard } from '@core/guards/builder.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: BuilderComponent,
+    canActivate: [BuilderGuard],
     children: [
       {
         path: '',
@@ -43,6 +45,7 @@ const routes: Routes = [
       {
         path: '**',
         component: ManagePageComponent,
+        canActivate: [BuilderGuard],
       },
     ],
   },
