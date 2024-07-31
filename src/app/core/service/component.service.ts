@@ -252,6 +252,7 @@ export class ComponentService {
       'widget-picker',
       'layout-setting',
       'page-setting',
+      'json',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule),

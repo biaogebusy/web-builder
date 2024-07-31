@@ -98,7 +98,7 @@ export class DynamicComponentComponent
           }
         });
       } else {
-        this.component.instance['content'] = this.inputs;
+        this.component.instance.content = this.inputs;
       }
       this.component.instance.pageIndex = this.index;
     }
