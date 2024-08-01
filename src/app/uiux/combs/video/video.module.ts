@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { VideoBgComponent } from './video-bg/video-bg.component';
 import { ShareModule } from '@share/share.module';
@@ -13,10 +13,6 @@ const components = [VideoBgComponent];
 })
 export class VideoModule extends BaseModule {
   dynamicComponents = [...components];
-
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
 
   static forStorybook(): any {
     return [...components];

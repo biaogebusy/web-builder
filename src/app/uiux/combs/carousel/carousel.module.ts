@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { ShareModule } from '@share/share.module';
 import { Carousel1v1Component } from './carousel1v1/carousel1v1.component';
@@ -23,9 +23,7 @@ const components = [
 })
 export class CarouselModule extends BaseModule {
   dynamicComponents = [...components];
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
+
   static forStorybook(): any {
     return [...components];
   }

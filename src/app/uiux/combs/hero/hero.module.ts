@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { Hero2v1Component } from './hero2v1/hero2v1.component';
@@ -26,9 +26,6 @@ const components = [
 export class HeroModule extends BaseModule {
   dynamicComponents = [...components];
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
   static forStorybook(): any {
     return [...components];
   }

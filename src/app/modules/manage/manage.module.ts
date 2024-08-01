@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { ManageMediaComponent } from './manage-media/manage-media.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -24,9 +24,7 @@ const components = [ManageMediaComponent, UploadMediaComponent];
 })
 export class ManageModule extends BaseModule {
   dynamicComponents = [...components];
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
+
   static forStorybook(): any {
     return [...components];
   }

@@ -1,16 +1,11 @@
-import {
-  ComponentFactory,
-  ComponentFactoryResolver,
-  Type,
-} from '@angular/core';
+import { ComponentFactoryResolver, Type, inject } from '@angular/core';
 
 export abstract class BaseModule {
-  private selectorToFactoryMap: { [key: string]: ComponentFactory<any> };
+  private selectorToFactoryMap: { [key: string]: any };
   protected dynamicComponents: Type<any>[];
+  protected componentFactoryResolver = inject(ComponentFactoryResolver);
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {}
-
-  public getComponentFactory(selector: string): ComponentFactory<any> {
+  public getComponentFactory(selector: string): any {
     if (!this.selectorToFactoryMap) {
       this.populateRegistry();
     }
@@ -21,7 +16,7 @@ export abstract class BaseModule {
   private populateRegistry() {
     this.selectorToFactoryMap = {};
     this.dynamicComponents.forEach((type) => {
-      const componentFactory: ComponentFactory<any> =
+      const componentFactory: any =
         this.componentFactoryResolver.resolveComponentFactory(type);
       this.selectorToFactoryMap[componentFactory.selector] = componentFactory;
     });

@@ -1,4 +1,4 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BuilderComponent } from './builder.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -111,9 +111,6 @@ const components = [
 })
 export class BuilderModule extends BaseModule {
   dynamicComponents = [...components];
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
 
   static forStorybook(): any {
     return [...components];
