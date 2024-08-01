@@ -44,7 +44,6 @@ import { SearchModule } from '@uiux/combs/search/search.module';
 import { ShowcaseModule } from '@uiux/combs/showcase/showcase.module';
 import { TabModule } from '@uiux/combs/tab/tab.module';
 import { VideoModule } from '@uiux/combs/video/video.module';
-import { CombsModule } from '@uiux/combs/combs.module';
 import { CarouselModule } from '@uiux/combs/carousel/carousel.module';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
