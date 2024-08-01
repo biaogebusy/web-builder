@@ -2,9 +2,9 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -12,8 +12,8 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable, Subject, of } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import {
   BRANDING,
   BUILDER_CURRENT_PAGE,
@@ -31,6 +31,7 @@ import { LoginComponent } from '@modules/user/login/login.component';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -38,12 +39,9 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   styleUrls: ['./builder-toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderToolbarComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   @Input() builderRightDrawer: MatDrawer;
   page?: IPage;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   storage = inject(LocalStorageService);
   builder = inject(BuilderState);
   screenState = inject(ScreenState);
@@ -52,6 +50,7 @@ export class BuilderToolbarComponent
   builderService = inject(BuilderService);
   dialog = inject(MatDialog);
   router = inject(Router);
+  private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(
     @Inject(USER) private user$: Observable<IUser>,
@@ -59,22 +58,24 @@ export class BuilderToolbarComponent
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
   ) {
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
 
   ngOnInit(): void {
-    this.currentPage$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
-      this.page = page;
-    });
+    this.currentPage$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((page) => {
+        this.page = page;
+      });
   }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screenState
         .mqAlias$()
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((alia) => {
           if (alia.includes('xs')) {
             this.builder.fullScreen$.next(true);
@@ -147,7 +148,7 @@ export class BuilderToolbarComponent
         this.util.openSnackbar('正在更新！', 'ok');
         this.builderService
           .updateLandingPage(this.builder.currentPage)
-          .pipe(takeUntil(this.destroy$))
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((res) => {
             this.builder.loading$.next(false);
             const { status, message } = res;
@@ -168,7 +169,7 @@ export class BuilderToolbarComponent
           this.builderService
             .createLandingPage(this.builder.currentPage)
             .pipe(
-              takeUntil(this.destroy$),
+              takeUntilDestroyed(this.destroyRef),
               catchError(() => {
                 this.builder.loading$.next(false);
                 return of({ status: false });
@@ -194,10 +195,5 @@ export class BuilderToolbarComponent
     };
     this.router.navigate([], { queryParams });
     this.dialog.open(LoginComponent);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

@@ -5,17 +5,17 @@ import {
   AfterViewInit,
   NgZone,
   Input,
-  OnDestroy,
   AfterContentInit,
   inject,
+  DestroyRef,
 } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 import { DOCUMENT } from '@angular/common';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-block',
@@ -28,16 +28,14 @@ import { takeUntil } from 'rxjs/operators';
     },
   ],
 })
-export class BlockComponent
-  implements OnInit, AfterViewInit, AfterContentInit, OnDestroy
-{
+export class BlockComponent implements OnInit, AfterViewInit, AfterContentInit {
   @Input() isPreview = false;
   drawerLoading: boolean;
   drawerContent: IPage;
   opened: boolean;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   contentState = inject(ContentState);
   zone = inject(NgZone);
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
@@ -52,19 +50,19 @@ export class BlockComponent
 
   ngAfterContentInit(): void {
     this.contentState.drawerOpened$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((state) => {
         this.opened = state;
       });
 
     this.contentState.drawerLoading$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((loading) => {
         this.drawerLoading = loading;
       });
 
     this.contentState.drawerContent$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((content: IPage) => {
         this.drawerContent = content;
       });
@@ -94,12 +92,5 @@ export class BlockComponent
 
   trackByFn(index: number): number {
     return index;
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

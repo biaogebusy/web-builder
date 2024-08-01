@@ -3,11 +3,14 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Input,
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IPage } from '@core/interface/IAppConfig';
 import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { ScreenService } from '@core/service/screen.service';
@@ -22,7 +25,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
   styleUrls: ['./jsoneditor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
+export class JsoneditorComponent implements OnInit, AfterViewInit {
   @Input() content: IJsoneditor;
   public editorOptions: JsonEditorOptions;
   public data: any;
@@ -30,14 +33,13 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
   editor: JsonEditorComponent;
   value: any;
   loadding: boolean;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   valueChange$: Subject<any> = new Subject<any>();
 
-  constructor(
-    private builder: BuilderState,
-    private cd: ChangeDetectorRef,
-    private screenService: ScreenService,
-  ) {
+  private builder = inject(BuilderState);
+  private cd = inject(ChangeDetectorRef);
+  private screenService = inject(ScreenService);
+  private destroyRef = inject(DestroyRef);
+  constructor() {
     if (this.screenService.isPlatformBrowser()) {
       this.editorOptions = new JsonEditorOptions();
       this.editorOptions.mode = 'code'; // set only one mode
@@ -54,7 +56,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(
         debounceTime(1500),
         distinctUntilChanged(),
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((value) => {
         this.value = value;
@@ -85,13 +87,6 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       this.loadding = false;
       this.cd.detectChanges();
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.complete();
     }
   }
 }

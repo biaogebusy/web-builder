@@ -4,14 +4,14 @@ import {
   Input,
   OnInit,
   ChangeDetectorRef,
-  OnDestroy,
+  DestroyRef,
+  inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IDynamicMediaList } from '@core/interface/combs/IList';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dynamic-media-list',
@@ -19,21 +19,17 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./dynamic-media-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicMediaListComponent
-  extends BaseComponent
-  implements OnInit, OnDestroy
-{
+export class DynamicMediaListComponent extends BaseComponent implements OnInit {
   @Input() content: IDynamicMediaList;
   list: any;
   links: any;
   loading = true;
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    public nodeService: NodeService,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
-  ) {
+  private destroyRef = inject(DestroyRef);
+  public nodeService = inject(NodeService);
+  private screenService = inject(ScreenService);
+  private cd = inject(ChangeDetectorRef);
+  constructor() {
     super();
   }
 
@@ -53,7 +49,7 @@ export class DynamicMediaListComponent
     const path = this.nodeService.apiUrlConfig.nodeGetPath;
     this.nodeService
       .getNodes(path, `${this.getParams(this.content, 'type')}`, params)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
         this.updateList(res);
       });
@@ -101,14 +97,9 @@ export class DynamicMediaListComponent
     this.loading = true;
     this.nodeService
       .getNodeByLink(link)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
         this.updateList(res);
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
   }
 }

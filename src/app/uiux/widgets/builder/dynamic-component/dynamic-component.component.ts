@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentRef,
+  DestroyRef,
   ElementRef,
   HostBinding,
   Inject,
@@ -25,6 +26,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dynamic-component',
@@ -41,7 +43,6 @@ export class DynamicComponentComponent
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
   showToolbar: boolean;
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   util = inject(UtilitiesService);
@@ -50,6 +51,7 @@ export class DynamicComponentComponent
   componentService = inject(ComponentService);
   cd = inject(ChangeDetectorRef);
   ele = inject(ElementRef);
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
@@ -69,13 +71,15 @@ export class DynamicComponentComponent
   }
 
   ngAfterContentInit(): void {
-    this.isBuilderMode$.pipe(takeUntil(this.destroy$)).subscribe((state) => {
-      if (!this.inputs?.showToolbar) {
-        this.activeToolbarClass = false;
-        return;
-      }
-      this.activeToolbarClass = state;
-    });
+    this.isBuilderMode$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((state) => {
+        if (!this.inputs?.showToolbar) {
+          this.activeToolbarClass = false;
+          return;
+        }
+        this.activeToolbarClass = state;
+      });
   }
 
   ngAfterViewInit(): void {
@@ -115,10 +119,6 @@ export class DynamicComponentComponent
     this.container.clear();
     if (this.cd && !(this.cd as ViewRef).destroyed) {
       this.cd.detectChanges();
-    }
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
     }
   }
 }

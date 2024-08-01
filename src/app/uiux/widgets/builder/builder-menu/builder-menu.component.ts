@@ -3,10 +3,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Inject,
-  OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 import type { IPage } from '@core/interface/IAppConfig';
@@ -18,7 +20,7 @@ import {
   COLOR_TEST,
   DEBUG_ANIMATE,
 } from '@core/token/token-providers';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -27,14 +29,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./builder-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BuilderMenuComponent implements OnInit, AfterViewInit {
   page: IPage;
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  public contentState = inject(ContentState);
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
   constructor(
-    public contentState: ContentState,
-    private builder: BuilderState,
-    private util: UtilitiesService,
-    private cd: ChangeDetectorRef,
     @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
     @Inject(COLOR_TEST) private colorTestPage: IPage,
@@ -43,13 +45,17 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.debugAnimate$.subscribe((state) => {
-      this.builder.renderMarkers(state);
-    });
-    this.currentPage$.subscribe((page) => {
-      this.page = page;
-      this.cd.detectChanges();
-    });
+    this.debugAnimate$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((state) => {
+        this.builder.renderMarkers(state);
+      });
+    this.currentPage$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((page) => {
+        this.page = page;
+        this.cd.detectChanges();
+      });
   }
 
   onPageJson(): void {
@@ -92,10 +98,5 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   onColorTest(): void {
     this.util.openSnackbar(`正在载入${this.colorTestPage.title}...`, 'ok');
     this.builder.loadNewPage(this.colorTestPage);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

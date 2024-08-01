@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -13,13 +13,13 @@ import type { IUserCenter } from '@core/interface/IUserCenter';
 import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';
 import { isEmpty } from 'lodash-es';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IUserConfig } from '../../../../core/interface/IUserConfig';
 import { environment } from 'src/environments/environment';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-center',
@@ -27,7 +27,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./user-center.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserCenterComponent implements OnInit, OnDestroy {
+export class UserCenterComponent implements OnInit {
   @Input() content: IUserCenter;
   currentUser: any;
   id: any;
@@ -37,12 +37,12 @@ export class UserCenterComponent implements OnInit, OnDestroy {
   route = inject(Router);
   screenService = inject(ScreenService);
   userService = inject(UserService);
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) public user$: Observable<IUser>,
   ) {
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -52,7 +52,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
       this.userConfig$ = this.userService.getUserConfig();
       this.getUser();
       this.userService.userSub$
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((user) => {
           // logout
           if (!user) {
@@ -75,7 +75,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     const people = {};
     this.userService
       .getUserById(this.user.current_user.uid, this.user.csrf_token)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
         const info = res.data[0];
         if (!info) {
@@ -126,10 +126,5 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     return roles.map((rule: any) => {
       return rule.label;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

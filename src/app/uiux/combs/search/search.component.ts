@@ -4,8 +4,8 @@ import {
   Input,
   OnInit,
   ChangeDetectorRef,
-  OnDestroy,
   inject,
+  DestroyRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { omitBy, isEmpty } from 'lodash-es';
@@ -14,10 +14,11 @@ import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '../../base/base.widget';
 import { UntypedFormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import type { ISearch } from '@core/interface/combs/ISearch';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-search',
@@ -25,10 +26,7 @@ import type { ISearch } from '@core/interface/combs/ISearch';
   styleUrls: ['./search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchComponent
-  extends BaseComponent
-  implements OnInit, OnDestroy
-{
+export class SearchComponent extends BaseComponent implements OnInit {
   @Input() content: ISearch;
   page: number;
   pager: any;
@@ -36,7 +34,6 @@ export class SearchComponent
   filterForm: any[];
   nodes: any[];
   loading = false;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   vauleChange$: Subject<any> = new Subject<any>();
 
   nodeService = inject(NodeService);
@@ -45,6 +42,7 @@ export class SearchComponent
   formService = inject(FormService);
   screenService = inject(ScreenService);
   cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
   constructor() {
     super();
   }
@@ -91,7 +89,7 @@ export class SearchComponent
       .pipe(
         debounceTime(1000),
         distinctUntilChanged(),
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((value) => {
         this.onSelectChange(value);
@@ -124,7 +122,7 @@ export class SearchComponent
     const params = this.getApiParams(state);
     this.nodeService
       .fetch(api, params)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         (data) => {
           this.updateList(data, formValue, options);
@@ -157,12 +155,5 @@ export class SearchComponent
     });
     this.routerService.updateQueryParams(this.getUrlQuery(formValues, options));
     this.cd.detectChanges();
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.complete();
-    }
   }
 }

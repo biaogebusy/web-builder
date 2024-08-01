@@ -2,12 +2,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { IPage } from '@core/interface/IAppConfig';
@@ -21,8 +22,8 @@ import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { merge } from 'lodash-es';
-import { Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -31,13 +32,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./page-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageListComponent
-  extends BaseComponent
-  implements OnInit, OnDestroy
-{
+export class PageListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
   content$: Observable<IPageMeta[]>;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   form = new FormGroup({
     page: new FormControl(0),
   });
@@ -64,6 +61,7 @@ export class PageListComponent
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   builderService = inject(BuilderService);
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
   ) {
@@ -72,12 +70,14 @@ export class PageListComponent
 
   ngOnInit(): void {
     this.fetchPage('noCache=1');
-    this.currentPage$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
-      this.currentPage = page;
-      this.cd.detectChanges();
-    });
+    this.currentPage$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((page) => {
+        this.currentPage = page;
+        this.cd.detectChanges();
+      });
     this.builder.updateSuccess$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((state) => {
         if (state) {
           this.onReload();
@@ -136,7 +136,7 @@ export class PageListComponent
     this.content$ = this.nodeService
       .fetch('/api/v2/node/landing-page', params)
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
         map((res) => {
           this.loading = false;
           this.cd.detectChanges();
@@ -179,7 +179,7 @@ export class PageListComponent
         '',
         targetlang,
       )
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
         this.builder.loading$.next(false);
         if (targetlang === page.langcode) {
@@ -206,12 +206,5 @@ export class PageListComponent
 
   onReload(): void {
     this.onModelChange({ title: '', time: +new Date() });
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

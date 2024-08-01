@@ -7,14 +7,14 @@ import {
   ChangeDetectionStrategy,
   Inject,
   inject,
-  OnDestroy,
+  DestroyRef,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IUser } from '@core/interface/IUser';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { USER } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-pay',
@@ -22,7 +22,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./user-pay.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserPayComponent implements OnInit, OnDestroy {
+export class UserPayComponent implements OnInit {
   @Input() content: any;
   lists: any;
   loading: boolean;
@@ -32,12 +32,12 @@ export class UserPayComponent implements OnInit, OnDestroy {
   };
   user: IUser;
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
   screenService = inject(ScreenService);
   nodeService = inject(NodeService);
   cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) private user$: Observable<IUser>) {
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -60,7 +60,7 @@ export class UserPayComponent implements OnInit, OnDestroy {
     ].join('&');
     this.nodeService
       .getNodes(path, 'payment', params, this.user.csrf_token)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         (res) => {
           const lists = res.data.filter((item: any) => {
@@ -131,9 +131,5 @@ export class UserPayComponent implements OnInit, OnDestroy {
           console.log(error);
         },
       );
-  }
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

@@ -5,13 +5,13 @@ import {
   Inject,
   ChangeDetectorRef,
   Input,
-  OnDestroy,
   inject,
   ViewChild,
+  DestroyRef,
 } from '@angular/core';
 import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type {
@@ -20,7 +20,7 @@ import type {
   IManageMedia,
 } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
 import { PageEvent } from '@angular/material/paginator';
@@ -30,6 +30,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { environment } from 'src/environments/environment';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-manage-media',
@@ -37,7 +38,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./manage-media.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ManageMediaComponent implements OnInit, OnDestroy {
+export class ManageMediaComponent implements OnInit {
   @Input() content: IManageMedia;
   form = new UntypedFormGroup({
     page: new FormControl(0),
@@ -47,7 +48,6 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
     noCache: true,
   };
   loading = false;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   selectedId: string;
   dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
@@ -56,6 +56,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
   contentState = inject(ContentState);
   screenService = inject(ScreenService);
   manageService = inject(ManageService);
+  private destroyRef = inject(DestroyRef);
 
   @ViewChild('uploadDrawer', { static: false })
   uploadDrawer: MatDrawer;
@@ -98,7 +99,7 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
       ];
       this.form.valueChanges
         .pipe(
-          takeUntil(this.destroy$),
+          takeUntilDestroyed(this.destroyRef),
           debounceTime(1000),
           distinctUntilChanged(),
         )
@@ -201,16 +202,9 @@ export class ManageMediaComponent implements OnInit, OnDestroy {
 
     dialog
       .afterClosed()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.onSearch(this.form.value);
       });
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

@@ -6,15 +6,14 @@ import {
   Output,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnDestroy,
   Inject,
   inject,
+  DestroyRef,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenService } from '@core/service/screen.service';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import type { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 import { merge } from 'lodash-es';
 import { ContentState } from '@core/state/ContentState';
@@ -22,6 +21,7 @@ import { QuillModule } from 'ngx-quill';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-comment-form',
@@ -29,7 +29,7 @@ import type { IUser } from '@core/interface/IUser';
   styleUrls: ['./comment-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentFormComponent implements OnInit, OnDestroy {
+export class CommentFormComponent implements OnInit {
   @Input() content: IBaseNode;
   @Input() commentContent: any;
   @Input() commentId: string;
@@ -38,7 +38,6 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   loading = false;
   placeholder = '请输入...';
-  destroy$: Subject<boolean> = new Subject<boolean>();
   modules: QuillModule;
 
   cd = inject(ChangeDetectorRef);
@@ -46,12 +45,13 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   screenService = inject(ScreenService);
   utilitiesService = inject(UtilitiesService);
   contentState = inject(ContentState);
+  private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user$: Observable<IUser>,
   ) {
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -63,7 +63,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         this.content.editor?.modules,
       );
       this.contentState.commentQuote$
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((quote: any) => {
           this.screenService.scrollToAnchor('comment');
           this.commentContent = `
@@ -115,7 +115,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     };
     this.nodeService
       .addComment(type, params, token)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         () => {
           this.commentContent = '';
@@ -160,7 +160,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         // catchError(() => {
         //   return of({});
         // }),
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(() => {
         this.commentContent = '';
@@ -199,7 +199,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         // catchError(() => {
         //   return of({});
         // }),
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(
         () => {
@@ -227,10 +227,5 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       'image',
       this.nodeService.imageHandler.bind(this.nodeService, quill),
     );
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
   }
 }

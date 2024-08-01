@@ -5,6 +5,7 @@ import {
   Inject,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IUser } from '@core/interface/IUser';
 import { IMediaAttr } from '@core/interface/manage/IManage';
 import { NodeService } from '@core/service/node.service';
@@ -15,8 +16,8 @@ import {
   FileSystemFileEntry,
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
-import { Observable, Subject, of } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-upload-media',
@@ -27,13 +28,12 @@ import { catchError, takeUntil } from 'rxjs/operators';
 export class UploadMediaComponent {
   files: IMediaAttr[] = [];
   filesEntry: NgxFileDropEntry[];
-  destroy$: Subject<boolean> = new Subject<boolean>();
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   user: IUser;
   constructor(@Inject(USER) private user$: Observable<IUser>) {
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }

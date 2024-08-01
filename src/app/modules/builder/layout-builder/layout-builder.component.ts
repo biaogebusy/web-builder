@@ -4,13 +4,12 @@ import {
   ElementRef,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
 import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
 
@@ -19,13 +18,10 @@ import { BuilderService } from '@core/service/builder.service';
   templateUrl: './layout-builder.component.html',
   styleUrls: ['./layout-builder.component.scss'],
 })
-export class LayoutBuilderComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   @Input() content: ILayoutBuilder;
   @Input() pageIndex: number;
   @Input() uuid: string;
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   util = inject(UtilitiesService);
   ele = inject(ElementRef);
@@ -53,12 +49,5 @@ export class LayoutBuilderComponent
         this.util.initAnimate(item, animateEle, this.ele.nativeElement);
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

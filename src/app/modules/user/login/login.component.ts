@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   inject,
+  DestroyRef,
 } from '@angular/core';
 import {
   UntypedFormGroup,
@@ -19,8 +20,8 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
-import { Observable, Subject, Subscription, interval } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subscription, interval } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,7 +36,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   phoneForm: UntypedFormGroup;
   public countdown: number;
   private subscription: Subscription;
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   fb = inject(UntypedFormBuilder);
   router = inject(Router);
@@ -45,13 +45,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   screenService = inject(ScreenService);
   cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) public user$: Observable<IUser>,
   ) {
     if (this.screenService.isPlatformBrowser()) {
       this.userService.userSub$
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed())
         .subscribe((currentUser: any) => {
           // login
           if (currentUser) {
@@ -102,7 +103,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.userService
       .login(this.userForm.value.name, this.userForm.value.pass)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((state) => {
         this.onLogin(state, '登录出现问题，请联系管理员！');
       });
@@ -112,7 +113,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.userService
       .loginByPhone(this.phoneForm.value.phone, this.phoneForm.value.code)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((state) => {
         this.onLogin(state, '请检查手机号或者验证码！');
       });
@@ -139,7 +140,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     this.userService
       .getCode(this.phoneForm.value.phone)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         const { leftTime } = this.coreConfig.login.phoneLogin;
         this.countdown = leftTime;
@@ -159,7 +160,5 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }
