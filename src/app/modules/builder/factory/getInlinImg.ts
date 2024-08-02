@@ -4,6 +4,19 @@ import { getAspectRatio, getObjectFix } from './getCommon';
 export function getInlineImg(ele: any): FormlyFieldConfig[] {
   return [
     {
+      type: 'img-picker',
+      key: 'src',
+      defaultValue: ele.src,
+      className: 'mb-5',
+      props: {
+        updateLabel: '更新图片',
+        addLabel: '设置图片',
+        deleteLabel: '删除',
+        fileName: ele.getAttribute('src').split('/').pop(),
+        alt: ele.getAttribute('alt'),
+      },
+    },
+    {
       key: 'style',
       fieldGroup: [
         {
@@ -99,18 +112,6 @@ export function getInlineImg(ele: any): FormlyFieldConfig[] {
           },
         },
       ],
-    },
-    {
-      type: 'img-picker',
-      key: 'src',
-      defaultValue: ele.src,
-      props: {
-        updateLabel: '更新图片',
-        addLabel: '设置图片',
-        deleteLabel: '删除',
-        fileName: ele.getAttribute('src').split('/').pop(),
-        alt: ele.getAttribute('alt'),
-      },
     },
   ];
 }
