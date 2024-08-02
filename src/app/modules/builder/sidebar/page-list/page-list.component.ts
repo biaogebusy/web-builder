@@ -22,8 +22,8 @@ import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { merge } from 'lodash-es';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -136,12 +136,12 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.content$ = this.nodeService
       .fetch('/api/v2/node/landing-page', params)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
         map((res) => {
           this.loading = false;
           this.cd.detectChanges();
           return this.getLists(res);
         }),
+        takeUntilDestroyed(this.destroyRef),
       );
   }
 
