@@ -136,6 +136,19 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.content$ = this.nodeService
       .fetch('/api/v2/node/landing-page', params)
       .pipe(
+        catchError((error) => {
+          if (error.status === 404) {
+            this.util.openSnackbar('请检查API是否已配置！', 'ok');
+          }
+          return of({
+            rows: [],
+            pager: {
+              current_page: null,
+              total_pages: 0,
+              total_items: 0,
+            },
+          });
+        }),
         map((res) => {
           this.loading = false;
           this.cd.detectChanges();
