@@ -2,7 +2,6 @@ import {
   Component,
   Inject,
   OnInit,
-  AfterViewInit,
   NgZone,
   Input,
   AfterContentInit,
@@ -21,6 +20,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-block',
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss'],
+  host: { ngSkipHydration: 'true' },
   providers: [
     {
       provide: PAGE_CONTENT,
@@ -28,7 +28,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     },
   ],
 })
-export class BlockComponent implements OnInit, AfterViewInit, AfterContentInit {
+export class BlockComponent implements OnInit, AfterContentInit {
   @Input() isPreview = false;
   drawerLoading: boolean;
   drawerContent: IPage;
@@ -67,8 +67,6 @@ export class BlockComponent implements OnInit, AfterViewInit, AfterContentInit {
         this.drawerContent = content;
       });
   }
-
-  ngAfterViewInit(): void {}
 
   onDrawer(): void {
     this.zone.runOutsideAngular(() => {

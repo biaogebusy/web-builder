@@ -88,7 +88,6 @@ export class DynamicComponentComponent
   async loadComponent(): Promise<void> {
     const type = this.inputs.type ? this.inputs.type : this.inputs.content.type;
     this.container.clear();
-    this.container.remove();
     this.component = await this.componentService.getComponent(type);
     if (!this.component) {
       console.log('无法识别该组件：', this.inputs);
@@ -117,7 +116,6 @@ export class DynamicComponentComponent
 
   ngOnDestroy(): void {
     this.container.clear();
-    this.container.remove();
     if (this.cd && !(this.cd as ViewRef).destroyed) {
       this.cd.detectChanges();
     }
