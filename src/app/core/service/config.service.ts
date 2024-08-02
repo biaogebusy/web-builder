@@ -1,4 +1,4 @@
-import { Inject, Injectable, Injector } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { DialogService } from './dialog.service';
 import { AnalyticsService } from './analytics.service';
 import { QiDianService } from './qidian.service';
@@ -15,36 +15,33 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 })
 export class ConfigService {
   public switchChange$ = new Subject();
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    protected injector: Injector
-  ) {}
+  screenService = inject(ScreenService);
+  analyticsService = inject(AnalyticsService);
+  qiDianService = inject(QiDianService);
+  dialogService = inject(DialogService);
+  clarityService = inject(ClarityService);
+  tourService = inject(TourService);
+  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {}
 
   init(): void {
-    const screenService = this.injector.get(ScreenService);
-    const analyticsService = this.injector.get(AnalyticsService);
-    const qiDianService = this.injector.get(QiDianService);
-    const dialogService = this.injector.get(DialogService);
-    const clarityService = this.injector.get(ClarityService);
-    const tourService = this.injector.get(TourService);
-    if (screenService.isPlatformBrowser()) {
+    if (this.screenService.isPlatformBrowser()) {
       if (this.coreConfig) {
         if (this.coreConfig?.analytics?.ga) {
           const id = this.coreConfig.analytics.ga.id;
-          analyticsService.loadGoogleAnalytics(id);
+          this.analyticsService.loadGoogleAnalytics(id);
         }
         if (this.coreConfig?.qidian) {
           const qdConfig = this.coreConfig.qidian;
-          qiDianService.loadQiDian(qdConfig);
+          this.qiDianService.loadQiDian(qdConfig);
         }
         if (this.coreConfig?.dialog?.forceDialog) {
-          dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
+          this.dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
         }
         if (this.coreConfig?.clarity?.id) {
-          clarityService.init(this.coreConfig.clarity.id);
+          this.clarityService.init(this.coreConfig.clarity.id);
         }
         if (this.coreConfig?.tour?.enable) {
-          tourService.init(this.coreConfig.tour);
+          this.tourService.init(this.coreConfig.tour);
         }
         window.gsap = gsap;
         window.gsap.registerPlugin(ScrollTrigger);

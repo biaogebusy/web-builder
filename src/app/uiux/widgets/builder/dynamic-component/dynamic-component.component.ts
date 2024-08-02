@@ -22,8 +22,7 @@ import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, IS_BUILDER_MODE } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -44,14 +43,14 @@ export class DynamicComponentComponent
   container: ViewContainerRef;
   showToolbar: boolean;
 
-  public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
-  util = inject(UtilitiesService);
-  builder = inject(BuilderState);
-  screenService = inject(ScreenService);
-  componentService = inject(ComponentService);
-  cd = inject(ChangeDetectorRef);
   ele = inject(ElementRef);
+  cd = inject(ChangeDetectorRef);
+  builder = inject(BuilderState);
+  util = inject(UtilitiesService);
+  screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
+  componentService = inject(ComponentService);
+  public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
@@ -89,6 +88,7 @@ export class DynamicComponentComponent
   async loadComponent(): Promise<void> {
     const type = this.inputs.type ? this.inputs.type : this.inputs.content.type;
     this.container.clear();
+    this.container.remove();
     this.component = await this.componentService.getComponent(type);
     if (!this.component) {
       console.log('无法识别该组件：', this.inputs);
@@ -117,6 +117,7 @@ export class DynamicComponentComponent
 
   ngOnDestroy(): void {
     this.container.clear();
+    this.container.remove();
     if (this.cd && !(this.cd as ViewRef).destroyed) {
       this.cd.detectChanges();
     }
