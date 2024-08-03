@@ -2,17 +2,17 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Inject,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-switch-preview',
@@ -20,10 +20,9 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./switch-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SwitchPreviewComponent implements OnInit, OnDestroy {
+export class SwitchPreviewComponent implements OnInit {
   currentPage: IPage;
-  destroy$: Subject<boolean> = new Subject<boolean>();
-
+  private destroyRef = inject(DestroyRef);
   currentPreview = 'none';
   currentIcon = 'cellphone-link';
   previews = [
@@ -65,9 +64,11 @@ export class SwitchPreviewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.currentPage$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
-      this.currentPage = page;
-    });
+    this.currentPage$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((page) => {
+        this.currentPage = page;
+      });
   }
 
   onSwitch(preview: any): void {
@@ -84,12 +85,5 @@ export class SwitchPreviewComponent implements OnInit, OnDestroy {
     this.cd.detectChanges();
     this.builder.closeRightDrawer$.next(true);
     this.builder.switchPreivew$.next(preview.value);
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

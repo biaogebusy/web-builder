@@ -2,9 +2,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Input,
-  OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -12,8 +13,7 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { isEmpty, omitBy } from 'lodash-es';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-tab-1v1',
@@ -21,10 +21,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./tab1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Tab1v1Component
-  extends BaseComponent
-  implements OnInit, OnDestroy
-{
+export class Tab1v1Component extends BaseComponent implements OnInit {
   @Input() content: any;
 
   selectedIndex = 0;
@@ -32,15 +29,14 @@ export class Tab1v1Component
   page: number;
   pager: any;
   currentList: any[] = [];
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(
-    public nodeService: NodeService,
-    public routerService: RouteService,
-    private router: ActivatedRoute,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
-  ) {
+  public nodeService = inject(NodeService);
+  public routerService = inject(RouteService);
+  private router = inject(ActivatedRoute);
+  private screenService = inject(ScreenService);
+  private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
+  constructor() {
     super();
   }
 
@@ -55,9 +51,9 @@ export class Tab1v1Component
             },
             {
               tab: query.get('tab') || 0,
-            }
+            },
           ),
-          isEmpty
+          isEmpty,
         );
         this.initTab(querys);
       });
@@ -77,7 +73,7 @@ export class Tab1v1Component
       const params = this.getApiParams(state);
       this.nodeService
         .fetch(type, params)
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((res) => {
           this.pager = this.handlerPager(res.pager);
           this.currentList = res.rows.map((item: any) => {
@@ -119,10 +115,5 @@ export class Tab1v1Component
     this.initTab(values);
     this.routerService.updateQueryParams(this.getUrlQuery(values));
     this.cd.detectChanges();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
   }
 }

@@ -4,21 +4,22 @@ import {
   Input,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnDestroy,
   Inject,
   inject,
+  DestroyRef,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import type { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, ICoreFlag } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-flag',
@@ -26,23 +27,23 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./flag.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
+export class FlagComponent extends BaseComponent implements OnInit {
   @Input() content: IFlag;
   config: ICoreFlag;
   flagging = false;
   user: IUser;
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
   cd = inject(ChangeDetectorRef);
   screenService = inject(ScreenService);
   nodeService = inject(NodeService);
   utiltiy = inject(UtilitiesService);
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user$: Observable<IUser>,
   ) {
     super();
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -78,7 +79,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
         this.flaggingParams,
         this.user.csrf_token,
       )
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
         if (res.data.length) {
           this.flagging = true;
@@ -122,7 +123,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
       };
       this.nodeService
         .flagging(this.path, JSON.stringify(data), this.user.csrf_token)
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
           this.flagging = true;
           this.utiltiy.openSnackbar('已添加收藏！', 'x');
@@ -143,7 +144,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
               this.user.csrf_token,
             );
           }),
-          takeUntil(this.destroy$),
+          takeUntilDestroyed(this.destroyRef),
         )
         .subscribe(() => {
           this.flagging = false;
@@ -170,12 +171,5 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
 
   get type(): string {
     return this.getParams(this.content, 'type').split('--')[1];
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.complete();
-    }
   }
 }

@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  inject,
 } from '@angular/core';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -21,13 +22,11 @@ import { map } from 'rxjs/operators';
 export class BuilderSampleComponent implements OnInit {
   samplePages$: Observable<any[]>;
   loading = true;
-  constructor(
-    private builder: BuilderState,
-    private util: UtilitiesService,
-    private noderService: NodeService,
-    private builderService: BuilderService,
-    private cd: ChangeDetectorRef,
-  ) {}
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private noderService = inject(NodeService);
+  private builderService = inject(BuilderService);
+  private cd = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     const apiParams = new DrupalJsonApiParams();

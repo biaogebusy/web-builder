@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Inject,
   Input,
   OnDestroy,
@@ -22,6 +23,7 @@ import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-question',
@@ -31,7 +33,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 })
 export class QuestionComponent
   extends NodeComponent
-  implements OnInit, AfterViewInit, OnDestroy
+  implements OnInit, AfterViewInit
 {
   @Input() content: IQuestion;
   comments: IComment[];
@@ -41,16 +43,16 @@ export class QuestionComponent
   dialogRef: MatDialogRef<any>;
   user: IUser;
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
   nodeService = inject(NodeService);
   screenService = inject(ScreenService);
   cd = inject(ChangeDetectorRef);
   router = inject(Router);
   dialog = inject(MatDialog);
   contentState = inject(ContentState);
+  private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) public user$: Observable<IUser>) {
     super();
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -60,7 +62,7 @@ export class QuestionComponent
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((state) => {
           if (state) {
             this.checkIsAsked();
@@ -100,7 +102,7 @@ export class QuestionComponent
     const path = this.nodeService.apiUrlConfig.commentGetPath;
     this.nodeService
       .getNodes(path, entityType, params)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
         if (res.data.length) {
           this.isAsked = true;
@@ -125,7 +127,7 @@ export class QuestionComponent
     }
     this.nodeService
       .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
         this.comments = res;
         this.cd.detectChanges();
@@ -140,16 +142,9 @@ export class QuestionComponent
     this.dialogRef = this.dialog.open(LoginComponent);
     this.dialogRef
       .afterClosed()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.cd.detectChanges();
       });
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.complete();
-    }
   }
 }

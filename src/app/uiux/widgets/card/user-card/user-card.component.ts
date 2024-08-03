@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -12,12 +12,13 @@ import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
 import { NodeService } from '@core/service/node.service';
 import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { catchError, takeUntil } from 'rxjs/operators';
-import { Observable, Subject, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import type { IUser } from '@core/interface/IUser';
 import { USER, CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUserCard, IUserCount } from '@core/interface/widgets/ICard';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-card',
@@ -25,25 +26,22 @@ import type { IUserCard, IUserCount } from '@core/interface/widgets/ICard';
   styleUrls: ['./user-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserCardComponent
-  extends BaseComponent
-  implements OnInit, OnDestroy
-{
+export class UserCardComponent extends BaseComponent implements OnInit {
   @Input() content: IUserCard;
   profile: IMediaObject;
   count: IUserCount[];
   user: IUser;
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   nodeService = inject(NodeService);
   cd = inject(ChangeDetectorRef);
   dialogService = inject(DialogService);
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(USER) public user$: Observable<IUser>,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
   ) {
     super();
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user) => {
       this.user = user;
     });
   }
@@ -93,7 +91,7 @@ export class UserCardComponent
             rows: [],
           });
         }),
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((res) => {
         this.count = res.rows.map((item: any) => {
@@ -121,9 +119,5 @@ export class UserCardComponent
         }
       });
     }
-  }
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

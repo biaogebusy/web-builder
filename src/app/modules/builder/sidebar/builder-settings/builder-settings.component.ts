@@ -2,18 +2,18 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   Inject,
-  OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG, LANG } from '@core/token/token-providers';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { settings } from '@modules/builder/data/settings-for-builder';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-settings',
@@ -21,24 +21,20 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./builder-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderSettingsComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class BuilderSettingsComponent implements OnInit, AfterViewInit {
   content = settings;
   branding: IBranding;
-  destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    private builder: BuilderState,
-    private contentService: ContentService,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-  ) {}
+  private builder = inject(BuilderState);
+  private contentService = inject(ContentService);
+  private destroyRef = inject(DestroyRef);
+  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.contentService
       .loadBranding()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
         this.branding = res;
       });
@@ -75,12 +71,5 @@ export class BuilderSettingsComponent
         },
       ],
     });
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

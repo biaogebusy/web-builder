@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -20,8 +20,8 @@ import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
 import { Router } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-link',
@@ -29,13 +29,12 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LinkComponent extends BaseComponent implements OnInit, OnDestroy {
+export class LinkComponent extends BaseComponent implements OnInit {
   @Input() content: ILink;
   classes: any;
   href: string;
   dialogRef: MatDialogRef<any>;
   user: IUser;
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   router = inject(Router);
   routeService = inject(RouteService);
@@ -43,12 +42,13 @@ export class LinkComponent extends BaseComponent implements OnInit, OnDestroy {
   contentService = inject(ContentService);
   contentState = inject(ContentState);
   util = inject(UtilitiesService);
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(USER) private user$: Observable<IUser>,
     private dialog: MatDialog,
   ) {
     super();
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -77,7 +77,7 @@ export class LinkComponent extends BaseComponent implements OnInit, OnDestroy {
       this.contentState.drawerLoading$.next(true);
       this.contentService
         .loadPageContent(this.content.href)
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((content: IPage) => {
           this.contentState.drawerLoading$.next(false);
           this.contentState.drawerContent$.next(content);
@@ -115,7 +115,7 @@ export class LinkComponent extends BaseComponent implements OnInit, OnDestroy {
     if (dialog?.afterClosed) {
       this.dialogRef
         .afterClosed()
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
           const after = dialog.afterClosed;
           if (after?.success) {
@@ -139,9 +139,5 @@ export class LinkComponent extends BaseComponent implements OnInit, OnDestroy {
       obj[type] = type || false;
     }
     this.classes = obj;
-  }
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

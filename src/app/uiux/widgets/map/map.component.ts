@@ -2,13 +2,13 @@ import {
   Component,
   OnInit,
   Input,
-  OnDestroy,
   ChangeDetectionStrategy,
   Inject,
   OnChanges,
   SimpleChanges,
   ChangeDetectorRef,
   inject,
+  DestroyRef,
 } from '@angular/core';
 import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
@@ -21,15 +21,14 @@ import { isArray } from 'lodash-es';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MapComponent implements OnInit, OnChanges, OnDestroy {
+export class MapComponent implements OnInit, OnChanges {
   @Input() content: IMap;
   AMap: any;
   circle: any;
@@ -39,7 +38,6 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   center: any;
   mapLoading: boolean;
   currentInfoWindow: any;
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   amapService = inject(AmapService);
   configService = inject(ConfigService);
@@ -48,6 +46,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   contentService = inject(ContentService);
   utilService = inject(UtilitiesService);
   cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(THEME) private theme: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
@@ -151,7 +150,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     );
     if (this.configService?.switchChange$) {
       this.configService.switchChange$
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((theme) => {
           const newMapStyle =
             theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
@@ -223,7 +222,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       this.contentState.drawerLoading$.next(true);
       this.contentService
         .loadPageContent(url)
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((content: IPage) => {
           this.contentState.drawerLoading$.next(false);
           this.contentState.drawerContent$.next(content);
@@ -233,7 +232,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
 
   onMarkers(): void {
     this.amapService.markers$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((marker: IMark) => {
         const position = this.map
           .getAllOverlays('marker')
@@ -272,10 +271,5 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       });
       this.map.add(this.circle);
     }
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

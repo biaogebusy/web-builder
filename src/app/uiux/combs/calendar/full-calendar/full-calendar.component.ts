@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  OnDestroy,
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
@@ -12,7 +11,6 @@ import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { EMPTY, Subject } from 'rxjs';
 import { CalendarOptions, DatesSetArg, ViewApi } from '@fullcalendar/core';
 import { CalendarState } from '@core/state/CalendarState';
 import { formatDate } from '@angular/common';
@@ -29,10 +27,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
   styleUrls: ['./full-calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FullCalendarComponent
-  extends BaseComponent
-  implements OnInit, OnDestroy
-{
+export class FullCalendarComponent extends BaseComponent implements OnInit {
   @Input() readonly content: IFullCalendar;
   selected: Date | null;
   options: CalendarOptions;
@@ -43,7 +38,6 @@ export class FullCalendarComponent
   loading: boolean;
   visiable = false;
   viewApi: ViewApi;
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   formService = inject(FormService);
   screenService = inject(ScreenService);
@@ -186,13 +180,6 @@ export class FullCalendarComponent
 
       default:
         this.getEvents({ 'date-type': 'month' });
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.complete();
     }
   }
 }
