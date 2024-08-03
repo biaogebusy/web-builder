@@ -169,3 +169,9 @@ export interface IBuilderMenu extends ILink {
   icon: IIcon;
   child?: IBtn[];
 }
+
+export interface IJSON {
+  type: 'json';
+  name: string;
+  [key: string]: string;
+}
