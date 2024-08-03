@@ -1,8 +1,4 @@
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  ComponentFactoryResolver,
-  NgModule,
-} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -270,10 +266,6 @@ const components = [
 })
 export class WidgetsModule extends BaseModule {
   dynamicComponents = [...components];
-
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
 
   static forStorybook(): any {
     return [...components];

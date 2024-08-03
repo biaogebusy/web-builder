@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { NgJsonEditorModule } from 'ang-jsoneditor';
@@ -31,10 +31,6 @@ const components = [
 })
 export class OtherModule extends BaseModule {
   dynamicComponents = [...components];
-
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
 
   static forStorybook(): any {
     return [...components];

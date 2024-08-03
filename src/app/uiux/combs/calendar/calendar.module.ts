@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FullCalendarComponent } from './full-calendar/full-calendar.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BaseModule } from '@uiux/base/base.module';
@@ -6,21 +6,17 @@ import { ShareModule } from '@share/share.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from './calendar/calendar.component';
 
-const components = [FullCalendarComponent,CalendarComponent];
+const components = [FullCalendarComponent, CalendarComponent];
 
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule,
-    FullCalendarModule,
-  ],
+  imports: [ShareModule, WidgetsModule, FullCalendarModule],
   exports: [...components],
   providers: [],
 })
 export class CalendarModule extends BaseModule {
   dynamicComponents = [FullCalendarComponent];
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
+
   static forStorybook(): any {
     return [...components];
   }

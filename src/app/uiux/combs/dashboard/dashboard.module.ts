@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { DashboardComponent } from './dashboard.component';
 import { ShareModule } from '@share/share.module';
 import { BaseModule } from '@uiux/base/base.module';
@@ -14,9 +14,6 @@ const components = [DashboardComponent, DashboardBoxComponent];
 })
 export class DashboardModule extends BaseModule {
   dynamicComponents = [...components];
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
 
   static forStorybook(): any {
     return [...components];

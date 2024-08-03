@@ -1,4 +1,4 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { UserRoutingModule } from './user-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -14,7 +14,4 @@ const components = [LoginComponent, UserComponent];
 })
 export class UserModule extends BaseModule {
   dynamicComponents = [...components];
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
 }
