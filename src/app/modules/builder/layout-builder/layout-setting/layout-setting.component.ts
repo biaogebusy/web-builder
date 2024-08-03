@@ -6,7 +6,6 @@ import {
   Component,
   Inject,
   Input,
-  OnDestroy,
   inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
@@ -24,7 +23,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./layout-setting.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutSettingComponent implements OnDestroy {
+export class LayoutSettingComponent {
   @Input() content: ILayoutSetting;
   form = new UntypedFormGroup({});
   model: any = {};
@@ -156,10 +155,5 @@ export class LayoutSettingComponent implements OnDestroy {
         this.builder.fullScreen$.next(false);
       });
     }
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

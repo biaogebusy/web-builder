@@ -4,17 +4,14 @@ import {
   Component,
   Input,
   OnInit,
-  ViewChild,
   inject,
 } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { getLayoutSetting } from '@modules/builder/factory/getLayoutSetting';
 import { cloneDeep } from 'lodash-es';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-layout-toolbar',
@@ -27,7 +24,6 @@ export class LayoutToolbarComponent implements OnInit {
   @Input() i: number;
   @Input() layout: any;
   @Input() pageIndex: number;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   util = inject(UtilitiesService);
   builder = inject(BuilderState);
   builderService = inject(BuilderService);

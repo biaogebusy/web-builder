@@ -2,17 +2,17 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-version',
@@ -20,22 +20,21 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./builder-version.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderVersionComponent implements OnInit, OnDestroy {
+export class BuilderVersionComponent implements OnInit {
   public version: IPage[] | undefined;
-
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
   builder = inject(BuilderState);
   storage = inject(LocalStorageService);
+  private destroyRef = inject(DestroyRef);
   constructor() {}
 
   ngOnInit(): void {
     this.version = this.storage.retrieve('version');
     this.storage
       .observe('version')
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((version: IPage[]) => {
         this.version = version;
         this.cd.detectChanges();
@@ -88,13 +87,6 @@ export class BuilderVersionComponent implements OnInit, OnDestroy {
     if (textContent) {
       this.builder.version[index].title = textContent;
       this.builder.saveLocalVersions();
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
     }
   }
 }

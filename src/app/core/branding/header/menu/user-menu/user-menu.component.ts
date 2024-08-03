@@ -2,18 +2,17 @@ import {
   Component,
   Input,
   OnInit,
-  OnDestroy,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Inject,
   inject,
+  DestroyRef,
 } from '@angular/core';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { DialogService } from '@core/service/dialog.service';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
@@ -22,6 +21,7 @@ import { LoginComponent } from '@modules/user/login/login.component';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatDialog } from '@angular/material/dialog';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-menu',
@@ -29,12 +29,11 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./user-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserMenuComponent implements OnInit, OnDestroy {
+export class UserMenuComponent implements OnInit {
   @Input() content: any[];
   dialogRef: any;
   currentUser: IUser | false;
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
   utilities = inject(UtilitiesService);
   screen = inject(ScreenState);
   dialog = inject(MatDialog);
@@ -43,12 +42,13 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   router = inject(Router);
   storage = inject(LocalStorageService);
+  private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) public user$: Observable<IUser>) {
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.currentUser = user;
     });
     this.userService.userSub$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed())
       .subscribe((currentUser: any) => {
         // login
         if (currentUser) {
@@ -68,7 +68,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
       if (this.currentUser && environment.production) {
         this.userService
           .getLoginState()
-          .pipe(takeUntil(this.destroy$))
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((state) => {
             if (!state) {
               this.userService.logoutUser();
@@ -104,10 +104,10 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     });
     this.dialogRef
       .afterClosed()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => console.log('dialog after'));
     this.dialogService.dialogState$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((state) => {
         if (!state) {
           this.dialogRef.close();
@@ -118,10 +118,5 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
   trackByFn(index: number, item: any): number {
     return index;
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

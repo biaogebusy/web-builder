@@ -3,14 +3,16 @@
   [ngClass]="{ dark: (builder.themeMode | async) === 'dark' }"
 >
   <mat-drawer-container class="w-full">
-    <mat-drawer
-      #drawer
-      class="sidebar-drawer"
-      [(opened)]="sidebarDrawerOpened"
-      mode="side"
-    >
-      <app-builder-sidebar [sidebarDrawer]="drawer"></app-builder-sidebar>
-    </mat-drawer>
+    @if (isBuilderMode$ | async) {
+      <mat-drawer
+        #drawer
+        class="sidebar-drawer"
+        [(opened)]="sidebarDrawerOpened"
+        mode="side"
+      >
+        <app-builder-sidebar [sidebarDrawer]="drawer"></app-builder-sidebar>
+      </mat-drawer>
+    }
     <mat-drawer-content [style]="drawerStyle">
       <div
         class="builder flex-1 overflow-auto h-full"

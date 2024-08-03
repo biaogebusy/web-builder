@@ -1,8 +1,12 @@
 import { Component, Inject, ViewChild, inject } from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
-import { BUILDER_FULL_SCREEN } from '@core/token/token-providers';
+import {
+  BUILDER_FULL_SCREEN,
+  IS_BUILDER_MODE,
+} from '@core/token/token-providers';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-builder',
@@ -15,14 +19,26 @@ export class BuilderComponent {
   builderRightDrawer: MatDrawer;
   sidebarDrawerOpened = false;
   builder = inject(BuilderState);
+  isBuilderMode: boolean;
 
   constructor(
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-  ) {}
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
+  ) {
+    this.isBuilderMode$.pipe(takeUntilDestroyed()).subscribe((state) => {
+      this.isBuilderMode = state;
+    });
+  }
 
   get drawerStyle(): object {
-    return {
-      paddingLeft: this.sidebarDrawerOpened ? '0' : '80px',
-    };
+    if (this.isBuilderMode) {
+      return {
+        paddingLeft: this.sidebarDrawerOpened ? '0' : '80px',
+      };
+    } else {
+      return {
+        paddingLeft: 0,
+      };
+    }
   }
 }

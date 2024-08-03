@@ -6,9 +6,10 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
   Inject,
-  OnDestroy,
   inject,
+  DestroyRef,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import type { IUser } from '@core/interface/IUser';
@@ -22,8 +23,8 @@ import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty, merge } from 'lodash-es';
-import { Observable, of, Subject } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-list',
@@ -34,7 +35,7 @@ import { catchError, takeUntil } from 'rxjs/operators';
 })
 export class ViewListComponent
   extends BaseComponent
-  implements OnInit, AfterViewInit, OnDestroy
+  implements OnInit, AfterViewInit
 {
   @Input() content: IViewList;
   @Input() form = new UntypedFormGroup({
@@ -47,7 +48,6 @@ export class ViewListComponent
   pager: IPager;
   noAuth: boolean;
   canShow = false;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   first = true;
   user: IUser;
 
@@ -57,9 +57,10 @@ export class ViewListComponent
   dialogService = inject(DialogService);
   screenService = inject(ScreenService);
   userSerivice = inject(UserService);
+  private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) private user$: Observable<IUser>) {
     super();
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -107,7 +108,7 @@ export class ViewListComponent
           }
           return of(error.status);
         }),
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((res) => {
         if (!res) {
@@ -141,7 +142,7 @@ export class ViewListComponent
   afterClosedDialog(): void {
     if (this.dialogService.dialogState$) {
       this.dialogService.dialogState$
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((state) => {
           if (!state) {
             this.getViews();
@@ -193,12 +194,5 @@ export class ViewListComponent
 
   trackByFn(index: number, item: any): number {
     return index;
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

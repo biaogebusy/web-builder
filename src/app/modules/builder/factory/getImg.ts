@@ -11,10 +11,12 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
           props: {
             label: '图片',
           },
+          fieldGroupClassName: 'grid grid-cols-12 gap-3',
           fieldGroup: [
             {
               key: 'src',
               type: 'img-picker',
+              className: 'col-span-12',
               defaultValue: widget.src ?? '',
               props: {
                 updateLabel: '更新图片',
@@ -25,8 +27,18 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
               },
             },
             {
+              key: 'alt',
+              type: 'input',
+              className: 'col-span-12',
+              defaultValue: widget.alt,
+              props: {
+                label: 'Alt 描述',
+              },
+            },
+            {
               key: 'classes',
               type: 'input',
+              className: 'col-span-6',
               defaultValue: widget.classes,
               props: {
                 label: 'class',
@@ -35,26 +47,41 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'hostClasses',
               type: 'input',
+              className: 'col-span-6',
               defaultValue: widget.hostClasses,
               props: {
                 label: 'Wrapper Class',
               },
             },
             {
-              key: 'alt',
               type: 'input',
-              defaultValue: widget.alt,
+              key: 'width',
+              className: 'col-span-6',
+              defaultValue: widget.width,
               props: {
-                label: 'Alt 描述',
+                label: 'W',
+                type: 'number',
+              },
+            },
+            {
+              type: 'input',
+              key: 'height',
+              className: 'col-span-6',
+              defaultValue: widget.height,
+              props: {
+                label: 'H',
+                type: 'number',
               },
             },
             {
               key: 'style',
+              className: 'col-span-12',
+              fieldGroupClassName: 'grid grid-cols-12 gap-3',
               fieldGroup: [
                 {
                   type: 'select',
                   key: 'aspectRatio',
-                  className: 'w-full',
+                  className: 'col-span-6',
                   defaultValue: widget?.style?.aspectRatio ?? 'auto',
                   props: {
                     label: '宽高比',
@@ -64,7 +91,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
                 {
                   type: 'select',
                   key: 'objectFit',
-                  className: 'w-full',
+                  className: 'col-span-6',
                   defaultValue: widget?.style?.objectFit ?? 'initial',
                   props: {
                     label: '填充方式',
@@ -76,12 +103,14 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
             {
               key: 'isLink',
               type: 'toggle',
+              className: 'col-span-12',
               props: {
                 label: '是否链接',
               },
             },
             {
               key: 'href',
+              className: 'col-span-12',
               defaultValue: widget.href,
               type: 'input',
               props: {
@@ -91,6 +120,7 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
             },
             {
               key: 'target',
+              className: 'col-span-12',
               defaultValue: widget.target,
               type: 'select',
               props: {

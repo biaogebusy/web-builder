@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   Inject,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -11,8 +11,8 @@ import { CORE_CONFIG, NOTIFY_CONTENT, USER } from '@core/token/token-providers';
 import { NodeService } from '@core/service/node.service';
 import type { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-notify',
@@ -20,17 +20,17 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./notify.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotifyComponent implements OnInit, OnDestroy {
+export class NotifyComponent implements OnInit {
   user: IUser;
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   nodeService = inject(NodeService);
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(USER) private user$: Observable<IUser>,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(NOTIFY_CONTENT) public notify$: Observable<INotify[]>,
   ) {
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -40,13 +40,9 @@ export class NotifyComponent implements OnInit, OnDestroy {
   onRead(item: any): void {
     this.nodeService
       .deleteFlagging(item.action, [item], this.user.csrf_token)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
         console.log(res);
       });
-  }
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

@@ -2,27 +2,27 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  ChangeDetectorRef,
-  OnDestroy,
   Input,
   Inject,
   inject,
+  DestroyRef,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
-import { map, takeUntil } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { IListThin } from '@core/interface/combs/IList';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
   styleUrls: ['./user-favorite.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserFavoriteComponent implements OnInit, OnDestroy {
+export class UserFavoriteComponent implements OnInit {
   @Input() content: any;
   lists$: Observable<IListThin[]>;
   id: string;
@@ -32,11 +32,11 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
   };
   user: IUser;
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
   nodeService = inject(NodeService);
   screenService = inject(ScreenService);
+  private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) private user$: Observable<IUser>) {
-    this.user$.subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -59,7 +59,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
     this.lists$ = this.nodeService
       .getNodes(path, 'favorite', params, this.user.csrf_token)
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
         map((res) => {
           const lists = res.data.filter((item: any) => {
             return item.flagged_entity?.status ? true : false;
@@ -118,10 +118,5 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
           });
         }),
       );
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
   }
 }

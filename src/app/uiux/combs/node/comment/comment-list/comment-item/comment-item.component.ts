@@ -2,34 +2,33 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { TagsService } from '@core/service/tags.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-comment-item',
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.scss'],
 })
-export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CommentItemComponent implements OnInit, AfterViewInit {
   @Input() content: IBaseNode;
   @Input() comments: IComment[];
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
   currentId: string;
   showComment = true;
   showActions = true;
@@ -43,12 +42,13 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
   screenService = inject(ScreenService);
   contentState = inject(ContentState);
   tagsService = inject(TagsService);
+  private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user$: Observable<IUser>,
   ) {
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -56,7 +56,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((state) => {
           if (state) {
             this.showComment = true;
@@ -118,7 +118,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
           id,
           this.user.csrf_token,
         )
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed())
         .subscribe(
           () => {
             this.loading = false;
@@ -135,10 +135,5 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   trackByFn(index: number, item: any): number {
     return item.id;
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
   }
 }

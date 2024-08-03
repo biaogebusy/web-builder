@@ -2,12 +2,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IUser } from '@core/interface/IUser';
@@ -18,8 +19,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page-setting',
@@ -27,14 +27,13 @@ import { takeUntil } from 'rxjs/operators';
   styleUrl: './page-setting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageSettingComponent implements OnInit, OnDestroy {
+export class PageSettingComponent implements OnInit {
   @Input() content: any;
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[];
   loading: boolean;
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
   cd = inject(ChangeDetectorRef);
   builder = inject(BuilderState);
   builderService = inject(BuilderService);
@@ -42,9 +41,10 @@ export class PageSettingComponent implements OnInit, OnDestroy {
   nodeService = inject(NodeService);
   util = inject(UtilitiesService);
   dialog = inject(MatDialog);
+  private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(@Inject(USER) public user$: Observable<IUser>) {
-    this.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;
     });
   }
@@ -74,7 +74,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
               onInit: (field: FormlyFieldConfig) => {
                 if (field.formControl) {
                   field.formControl.valueChanges
-                    .pipe(takeUntil(this.destroy$))
+                    .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe((value) => {
                       this.loading = true;
                       this.builderService
@@ -115,12 +115,12 @@ export class PageSettingComponent implements OnInit, OnDestroy {
               onInit: (field: FormlyFieldConfig) => {
                 if (field.formControl) {
                   field.formControl.valueChanges
-                    .pipe(takeUntil(this.destroy$))
+                    .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe((value) => {
                       this.loading = true;
                       this.builderService
                         .updateUrlalias(content, value)
-                        .pipe(takeUntil(this.destroy$))
+                        .pipe(takeUntilDestroyed(this.destroyRef))
                         .subscribe(() => {
                           this.loading = false;
                           this.cd.detectChanges();
@@ -186,7 +186,7 @@ export class PageSettingComponent implements OnInit, OnDestroy {
     this.builder.loading$.next(true);
     this.nodeService
       .deleteEntity(api, uuid, this.user.csrf_token)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.util.openSnackbar(`删除${title}成功`, 'ok');
         this.builder.loading$.next(false);
@@ -196,12 +196,5 @@ export class PageSettingComponent implements OnInit, OnDestroy {
         this.dialog.closeAll();
         this.cd.detectChanges();
       });
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

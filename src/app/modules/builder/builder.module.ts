@@ -1,4 +1,4 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BuilderComponent } from './builder.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -31,7 +31,6 @@ import { LayoutBuilderComponent } from './layout-builder/layout-builder.componen
 import { WidgetPickerComponent } from './main/widget-picker/widget-picker.component';
 import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-setting.component';
 import { widgets } from './data/widgets-for-builder';
-import { of } from 'rxjs';
 import { BrandingModule } from '@core/branding/branding.module';
 import { colorTest } from './data/theme-preview-for-builder';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
@@ -44,8 +43,10 @@ import { BlockToolbarComponent } from './layout-builder/block-toolbar/block-tool
 import { PageSettingComponent } from './main/page-setting/page-setting.component';
 import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
+import { JsonComponent } from './main/json/json.component';
 
 const components = [
+  JsonComponent,
   BuilderComponent,
   BuilderListComponent,
   BuilderGeneraterComponent,
@@ -110,9 +111,6 @@ const components = [
 })
 export class BuilderModule extends BaseModule {
   dynamicComponents = [...components];
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
 
   static forStorybook(): any {
     return [...components];

@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -14,9 +14,6 @@ const components = [ContactUsComponent, ContactUs1v1Component];
 export class FormModule extends BaseModule {
   dynamicComponents = [...components];
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
-  }
   static forStorybook(): any {
     return [...components];
   }

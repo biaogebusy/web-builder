@@ -1,10 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   ElementRef,
   Inject,
   Input,
@@ -12,6 +14,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { IPage } from '@core/interface/IAppConfig';
@@ -21,8 +24,8 @@ import { ContentState } from '@core/state/ContentState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BRANDING, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each } from 'lodash-es';
-import { Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-list',
@@ -37,14 +40,14 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   opened = false;
   showBranding = false;
   previewClass$: Observable<any>;
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  private zone = inject(NgZone);
+  public builder = inject(BuilderState);
+  private cd = inject(ChangeDetectorRef);
+  public screenState = inject(ScreenState);
+  public contentState = inject(ContentState);
+  private destroyRef = inject(DestroyRef);
 
   constructor(
-    public builder: BuilderState,
-    private zone: NgZone,
-    private cd: ChangeDetectorRef,
-    public screenState: ScreenState,
-    public contentState: ContentState,
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
@@ -52,7 +55,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.builder.showBranding$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((state) => {
         this.showBranding = state;
         this.cd.detectChanges();
@@ -78,7 +81,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.previewClass$ = this.builder.switchPreivew$.pipe(
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
       map((media) => {
         return {
           preview: media !== 'none' && media !== undefined,
@@ -95,9 +98,5 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     each(this.markers, (marker) => {
       marker.remove();
     });
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

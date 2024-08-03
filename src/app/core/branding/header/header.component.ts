@@ -7,6 +7,8 @@ import {
   Inject,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  inject,
+  DestroyRef,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
@@ -15,7 +17,7 @@ import { ContentState } from '@core/state/ContentState';
 import { BRANDING, IS_BUILDER_MODE } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -29,21 +31,21 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
   destroy$: Subject<boolean> = new Subject<boolean>();
-
+  private destoryRef = inject(DestroyRef);
+  public screenService = inject(ScreenService);
+  public screenState = inject(ScreenState);
+  private cd = inject(ChangeDetectorRef);
+  public contentState = inject(ContentState);
   constructor(
-    public screenService: ScreenService,
-    public screenState: ScreenState,
-    private cd: ChangeDetectorRef,
-    public contentState: ContentState,
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(IS_BUILDER_MODE)
-    public isBuilderMode$: Observable<boolean>
+    public isBuilderMode$: Observable<boolean>,
   ) {}
 
   ngOnInit(): void {
     this.contentState.pageConfig$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destoryRef))
       .subscribe((config) => {
         this.headerMode = config?.headerMode;
         if (this.headerMode?.transparent) {
@@ -56,18 +58,20 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screenState.scroll$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-        if (this.menu) {
-          this.sticky = this.screenService.isElementOutTopViewport(
-            this.menu.nativeElement
-          );
-        }
-        this.cd.detectChanges();
-        this.listenSticky(this.sticky);
-        if (this.headerMode?.transparent) {
-          this.windowScroll();
-        }
-      });
+      this.screenState.scroll$
+        .pipe(takeUntilDestroyed(this.destoryRef))
+        .subscribe(() => {
+          if (this.menu) {
+            this.sticky = this.screenService.isElementOutTopViewport(
+              this.menu.nativeElement,
+            );
+          }
+          this.cd.detectChanges();
+          this.listenSticky(this.sticky);
+          if (this.headerMode?.transparent) {
+            this.windowScroll();
+          }
+        });
       this.initBanner();
     }
   }
@@ -95,20 +99,22 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   initBanner(): void {
-    this.branding$.pipe(takeUntil(this.destroy$)).subscribe((branding: any) => {
-      const banner = branding.header.banner;
-      if (!banner) {
-        this.showBanner = false;
-      } else {
-        this.screenState
-          .mqAlias$()
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((mq) => {
-            this.showBanner =
-              mq.includes('md') || mq.includes('lg') || mq.includes('xl');
-            this.cd.detectChanges();
-          });
-      }
-    });
+    this.branding$
+      .pipe(takeUntilDestroyed(this.destoryRef))
+      .subscribe((branding: any) => {
+        const banner = branding.header.banner;
+        if (!banner) {
+          this.showBanner = false;
+        } else {
+          this.screenState
+            .mqAlias$()
+            .pipe(takeUntilDestroyed(this.destoryRef))
+            .subscribe((mq) => {
+              this.showBanner =
+                mq.includes('md') || mq.includes('lg') || mq.includes('xl');
+              this.cd.detectChanges();
+            });
+        }
+      });
   }
 }

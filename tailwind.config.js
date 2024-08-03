@@ -12,6 +12,25 @@ function getGapClasses() {
   return gapClasses;
 }
 
+function getSizes(size) {
+  let sizesClasses = [];
+  const array = [
+    ...Array.from({ length: 12 }, (_, i) => `${size}-${i}`),
+    ...Array.from({ length: 5 }, (_, i) => `${size}-${12 + i * 2}`),
+    ...Array.from({ length: 20 }, (_, i) => `${size}-${16 + i * 4}`),
+    `${size}-auto`,
+    `${size}-full`,
+    `${size}-screen`,
+  ];
+  array.map((item) => {
+    sizesClasses.push(item);
+    for (const size of sizes) {
+      sizesClasses.push(`${size}:${item}`);
+    }
+  });
+  return [...new Set(sizesClasses)];
+}
+
 function getLayoutClasses(layout) {
   const prefix = layout === "flex" ? "/12" : "";
   const FlexClasses = [];
@@ -30,6 +49,8 @@ module.exports = {
   content: ["./src/**/*.{html,ts,mdx}"],
   safelist: [
     ...getGapClasses(),
+    ...getSizes("w"),
+    ...getSizes("h"),
     ...getLayoutClasses("flex"),
     ...getLayoutClasses("col-span"),
     "flex-row-reverse",

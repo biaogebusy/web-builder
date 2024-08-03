@@ -2,14 +2,14 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Input,
-  OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IBuilderComponent } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-panel',
@@ -18,18 +18,19 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { ngSkipHydration: 'true' },
 })
-export class BuilderPanelComponent implements OnInit, OnDestroy {
+export class BuilderPanelComponent implements OnInit {
   @Input() content: IBuilderComponent[];
-  destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    public builder: BuilderState,
-    private cd: ChangeDetectorRef,
-  ) {}
+  public builder = inject(BuilderState);
+  private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
+  constructor() {}
 
   ngOnInit(): void {
-    this.builder.fixedChange$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.cd.detectChanges();
-    });
+    this.builder.fixedChange$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.cd.detectChanges();
+      });
   }
 
   onShowcase(content: any): void {
@@ -80,12 +81,5 @@ export class BuilderPanelComponent implements OnInit, OnDestroy {
 
   onAfterExpand(): void {
     this.builder.cancelFixedShowcase();
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

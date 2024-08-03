@@ -2,11 +2,12 @@ import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   Component,
+  DestroyRef,
   Inject,
-  OnDestroy,
   ViewChild,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -14,27 +15,25 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BUILDER_FULL_SCREEN, CORE_CONFIG } from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-builder-workspace',
   templateUrl: './builder-workspace.component.html',
   styleUrl: './builder-workspace.component.scss',
 })
-export class BuilderWorkspaceComponent implements AfterViewInit, OnDestroy {
+export class BuilderWorkspaceComponent implements AfterViewInit {
   @ViewChild('builderRightDrawer', { static: false })
   builderRightDrawer: MatDrawer;
   builderFullScreen: boolean;
   panelOpenState = false;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   mode: 'side' | 'over' | 'push' = 'side';
 
   builder = inject(BuilderState);
   utli = inject(UtilitiesService);
   screenState = inject(ScreenState);
   storage = inject(LocalStorageService);
-
+  private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(DOCUMENT) private doc: Document,
@@ -52,7 +51,7 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnDestroy {
       this.utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
     this.builder.rightContent$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((content) => {
         if (content) {
           setTimeout(() => {
@@ -65,7 +64,7 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.screenState
       .mqAlias$()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((alia) => {
         if (alia.includes('xs')) {
           this.mode = 'over';
@@ -75,7 +74,7 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnDestroy {
       });
 
     this.builder.closeRightDrawer$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.onClose();
       });
@@ -98,12 +97,5 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnDestroy {
 
   onClose(): void {
     this.builderRightDrawer.close();
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }
