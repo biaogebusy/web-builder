@@ -1,5 +1,5 @@
 import { IBuilderComponent } from '@core/interface/IBuilder';
-import { common } from './common.builder';
+import { common } from './common-for-story';
 import { layoutBuilder } from './layout-builder-for-story';
 import { sections } from './sections-for-story';
 import { tailwind } from './custom-for-story';

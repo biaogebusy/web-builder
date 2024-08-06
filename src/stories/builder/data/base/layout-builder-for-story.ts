@@ -184,4 +184,18 @@ export const layoutBuilder: any[] = [
       ],
     },
   },
+  {
+    label: 'JSON',
+    icon: {
+      svg: 'code-json',
+    },
+    content: {
+      type: 'json',
+      name: 'sample',
+      spacer: {
+        x: 'none',
+        y: 'none',
+      },
+    },
+  },
 ];
