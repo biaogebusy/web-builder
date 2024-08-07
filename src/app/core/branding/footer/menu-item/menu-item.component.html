@@ -1,7 +1,5 @@
 @if (content && !showXs) {
-  <div
-    class="footer-main-menu flex flex-row justify-between items-start"
-    >
+  <div class="footer-main-menu flex flex-row justify-between items-start">
     @for (menu of content; track menu) {
       <mat-list class="flex-auto" role="list">
         <div mat-subheader class="bold">{{ menu.label }}</div>
@@ -10,7 +8,7 @@
             <mat-list-item role="listitem">
               @if (subMenu.icon) {
                 <app-icon
-                  class="!mr-3"
+                  class="!mr-3 leading-none"
                   matListItemIcon
                   [content]="subMenu.icon"
                 ></app-icon>
@@ -21,7 +19,7 @@
             <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
               @if (subMenu.icon) {
                 <app-icon
-                  class="!mr-3"
+                  class="!mr-3 leading-none"
                   matListItemIcon
                   [content]="subMenu.icon"
                 ></app-icon>
@@ -36,7 +34,7 @@
             <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
               @if (subMenu.icon) {
                 <app-icon
-                  class="!mr-3"
+                  class="!mr-3 leading-none"
                   matListItemIcon
                   [content]="subMenu.icon"
                 ></app-icon>
