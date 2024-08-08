@@ -17,18 +17,18 @@ img {
   position: relative;
   @media #{$gt-sm} {
     img {
-      margin-left: 4rem;
+      margin-left: 40px;
     }
   }
   &:after {
     content: " ";
     position: absolute;
     z-index: -1;
-    bottom: 5rem;
-    left: 8rem;
-    width: 70rem;
-    height: 50rem;
-    border-radius: 25rem;
+    bottom: 50px;
+    left: 80px;
+    width: 700px;
+    height: 500px;
+    border-radius: 250px;
     opacity: 0.9;
     transform: rotate(130deg);
   }

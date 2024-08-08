@@ -969,7 +969,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-shadow bg-fill-width',
               },
-              row: 3,
+              row: 4,
               classes: '',
               elements: [
                 {

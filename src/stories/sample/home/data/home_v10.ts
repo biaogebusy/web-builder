@@ -31,7 +31,7 @@ export const home_v10 = {
       bg: {
         classes: 'bg-shadow bg-fill-width',
       },
-      row: 3,
+      row: 4,
       classes: '',
       elements: [
         {

@@ -10,7 +10,7 @@
     margin-left: -16px;
     margin-right: -16px;
     .mat-mdc-card-title {
-      padding: 0 0 1rem 0;
+      padding: 0 0 10px 0;
       text-align: center;
     }
     .card-body {
@@ -18,7 +18,7 @@
       overflow: visible;
       text-overflow: inherit;
       display: block !important;
-      padding: 1rem 0;
+      padding: 10px 0;
     }
   }
 }

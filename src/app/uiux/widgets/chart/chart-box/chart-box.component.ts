@@ -3,6 +3,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { defaultsDeep, random } from 'lodash-es';
@@ -22,7 +23,8 @@ export class ChartBoxComponent implements OnInit {
     width: '100%',
   };
   data$: Observable<any>;
-  constructor(private nodeService: NodeService) {}
+  private nodeService = inject(NodeService);
+  constructor() {}
 
   ngOnInit(): void {
     if (this.content?.params?.api) {
@@ -68,10 +70,10 @@ export class ChartBoxComponent implements OnInit {
               ],
             },
           },
-          this.content
+          this.content,
         );
         return data;
-      })
+      }),
     );
   }
 }
