@@ -1,9 +1,9 @@
 .report {
   min-height: 100vh;
-  padding-bottom: 4rem;
+  padding-bottom: 40px;
   ::ng-deep {
     .dynamic-table {
-      padding: 2rem;
+      padding: 20px;
     }
   }
 }

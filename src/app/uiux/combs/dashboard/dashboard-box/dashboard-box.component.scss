@@ -3,10 +3,13 @@
   position: relative;
   border-radius: 4px;
   .box-header {
-    padding: 2rem;
+    padding: 20px;
     ::ng-deep {
       .mat-icon {
         cursor: pointer;
+      }
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
       }
     }
   }

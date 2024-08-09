@@ -1,6 +1,6 @@
 @import "/src/theme/mixins/amixin";
 .card-body {
-  min-height: 4rem;
+  min-height: 40px;
   @include line-clamp(2);
 }
 .mat-mdc-card-title {

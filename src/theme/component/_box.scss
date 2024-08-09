@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 @mixin box-color($theme) {
   $config: mat.get-color-config($theme);
@@ -298,7 +298,7 @@
         }
         img {
           background-color: #fff;
-          padding: 1rem;
+          padding: 10px;
           border-radius: 6px;
         }
       }
