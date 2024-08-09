@@ -350,8 +350,8 @@
   &.style-v3 {
     &.use-image {
       ::ng-deep img {
-        width: 10rem;
-        height: 10rem;
+        width: 100px;
+        height: 100px;
         object-fit: contain;
       }
     }
@@ -484,8 +484,8 @@
       width: 45px;
       height: 45px;
       border-radius: 50%;
-      margin-right: 1rem;
-      margin-bottom: 1rem;
+      margin-right: 10px;
+      margin-bottom: 10px;
       ::ng-deep {
         ::ng-deep .mat-icon {
           font-size: 24px;
@@ -501,7 +501,7 @@
     @media #{$gt-sm} {
       text-align: right;
       .box-icon {
-        margin-left: 1rem;
+        margin-left: 10px;
         order: 2;
       }
     }
@@ -511,7 +511,7 @@
   &.style-v9 {
     border-radius: 10px;
     text-align: center;
-    padding: 1.5rem;
+    padding: 16px;
     transition: all 0.5s ease;
     .box-icon {
       height: 80px;
@@ -525,12 +525,12 @@
       }
     }
     .box-content-wrapper {
-      margin-top: 2rem;
+      margin-top: 20px;
     }
   }
 
   &.use-image {
-    padding: 2rem;
+    padding: 20px;
     &.primary {
       border-radius: 6px;
     }

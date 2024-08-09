@@ -3,8 +3,10 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
+import { ScreenService } from '@core/service/screen.service';
 import { defaultsDeep, random } from 'lodash-es';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -21,8 +23,11 @@ export class ChartBoxComponent implements OnInit {
     minHeight: '50px',
     width: '100%',
   };
+  showChart = false;
   data$: Observable<any>;
-  constructor(private nodeService: NodeService) {}
+  private nodeService = inject(NodeService);
+  private screenService = inject(ScreenService);
+  constructor() {}
 
   ngOnInit(): void {
     if (this.content?.params?.api) {
@@ -30,6 +35,10 @@ export class ChartBoxComponent implements OnInit {
       this.getContent();
     } else {
       this.data$ = of(this.content);
+    }
+
+    if (this.screenService.isPlatformBrowser()) {
+      this.showChart = true;
     }
   }
 
@@ -68,10 +77,10 @@ export class ChartBoxComponent implements OnInit {
               ],
             },
           },
-          this.content
+          this.content,
         );
         return data;
-      })
+      }),
     );
   }
 }

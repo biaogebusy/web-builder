@@ -522,7 +522,6 @@
                 }
               },
               {
-                "disableToolbar": true,
                 "content": {
                   "type": "github-star"
                 }

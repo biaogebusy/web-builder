@@ -43,10 +43,8 @@ export class LinkComponent extends BaseComponent implements OnInit {
   contentState = inject(ContentState);
   util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(USER) private user$: Observable<IUser>,
-    private dialog: MatDialog,
-  ) {
+  private dialog = inject(MatDialog);
+  constructor(@Inject(USER) private user$: Observable<IUser>) {
     super();
     this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
       this.user = user;

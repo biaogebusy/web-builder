@@ -4,10 +4,10 @@
   position: relative;
   z-index: 100;
   .inner {
-    margin: 4rem 0;
+    margin: 40px 0;
     @media #{$gt-sm} {
       margin: 0;
-      height: 8rem;
+      height: 80px;
       ::ng-deep .profile {
         top: -74px;
       }
@@ -23,8 +23,8 @@
   .box {
     position: relative;
     display: block;
-    padding: 2rem;
-    margin-bottom: 2rem;
+    padding: 20px;
+    margin-bottom: 20px;
     border-radius: 4px;
   }
   .left,

@@ -19,11 +19,11 @@
     }
 
     @media #{$xs} {
-      padding: 1rem !important;
+      padding: 10px !important;
 
       .title {
-        margin-bottom: 1rem;
-        font-size: 1.4rem;
+        margin-bottom: 10px;
+        font-size: 14px;
       }
     }
     &.selected {
