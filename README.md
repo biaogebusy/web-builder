@@ -27,7 +27,7 @@
 </p>
 
 <p align="center">
-  <img style="border-radius:10px" src="src/assets/storybook/assets/builder.png" alt="logo" width="80%"/>
+  <img style="border-radius:10px" src="src/assets/storybook/assets/builder.png" alt="logo" width="100%"/>
   <br>
   <br>
 </p>
@@ -82,7 +82,8 @@
 | ------------------- | --------------------------------------------------------------------- |
 | Layout builder      | 动态 layout，基于 TailwindCss 的动态组件，支持静态数据和 API 数据来源 |
 | 组件编辑            | 删除、复制 JSON、编辑组件数据、拖动上下排列                           |
-| 媒体库浏览          | 查看后台上传的媒体资源文件                                            |
+| 媒体库              | 可在前台批量上传、查看、更新媒体库                                    |
+| 小程序数据维护      | 通过builder管理小程序的页面和组件                                     |
 | 边栏可拖拽          | 直接从边栏选择组件放入内容区                                          |
 | 页面历史版本        | 当提交、清空、加载示例等覆盖操作时新增历史版本                        |
 | 选择示例页加载      | 加载示例页面到内容区                                                  |
@@ -90,17 +91,17 @@
 | 切换全宽            | 方便大屏编辑，减少干扰                                                |
 | 快速生成页面        | 根据一定的规则从组件库中生成页面                                      |
 | 多主题切换预览      | 预览在多主题下的组件显示情况                                          |
-| Builder 暗黑风格    | 支持切换浅色风格和暗黑风格，专注内容创作                              |
-| 内容区组件导航      | 边栏可通过导航查看组件，可上下拖动排序                                |
+| 暗黑风格            | 支持切换浅色风格和暗黑风格，专注内容创作                              |
 | 页面预览            | 调转到新窗口查看真实的页面                                            |
 | 响应式预览          | 可切换不同设备尺寸查看页面响应式排版                                  |
 
 ## 相关视频演示
 
 - [Layout 嵌套](https://www.bilibili.com/video/BV1pH4y1L7qk/?vd_source=f65b4e2d70ecc450290b6b1710c0ada5)
-- [GSAP 动画配置](https://www.bilibili.com/video/BV17F4m157uP/?spm_id_from=pageDriver&vd_source=f65b4e2d70ecc450290b6b1710c0ada5)
-- TailwindCss 自定义组件[API 数据来源](https://www.bilibili.com/video/BV1ux4y1n7MA/?spm_id_from=333.999.0.0) | [静态数据来源](https://www.bilibili.com/video/BV1rf421R7He/?spm_id_from=333.999.0.0)
+- [组件动画配置](https://www.bilibili.com/video/BV17F4m157uP/?spm_id_from=pageDriver&vd_source=f65b4e2d70ecc450290b6b1710c0ada5)
+- [API 数据来源](https://www.bilibili.com/video/BV1ux4y1n7MA/?spm_id_from=333.999.0.0) | [静态数据来源](https://www.bilibili.com/video/BV1rf421R7He/?spm_id_from=333.999.0.0) TailwindCss 自定义组件
 - [复制功能快速构建组件](https://www.bilibili.com/video/BV1nF4m1w7cs/?spm_id_from=333.999.0.0)
+- [多语言发布及媒体库管理](https://www.bilibili.com/video/BV1XohfeoEtz/)
 
 ## 对应版本
 
