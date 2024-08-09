@@ -15,14 +15,9 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JsonComponent implements AfterViewInit {
-  isBrowser = false;
   @Input() content: IJSON;
 
   screenSerivce = inject(ScreenService);
 
-  ngAfterViewInit(): void {
-    if (this.screenSerivce.isPlatformBrowser()) {
-      this.isBrowser = false;
-    }
-  }
+  ngAfterViewInit(): void {}
 }

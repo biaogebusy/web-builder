@@ -21,13 +21,14 @@ export class HeaderTopComponent implements OnInit {
   showNoXs: boolean;
   screen = inject(ScreenState);
   screenService = inject(ScreenService);
+  private ele = inject(ElementRef);
 
-  constructor(private ele: ElementRef) {}
+  constructor() {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.mqAlias$().subscribe((mq) => {
-        if (mq.includes('md') || mq.includes('lg')) {
+        if (mq.includes('md') || mq.includes('lg') || mq.includes('xl')) {
           this.ele.nativeElement.classList.remove('hidden');
           this.ele.nativeElement.classList.add('block');
         } else {
