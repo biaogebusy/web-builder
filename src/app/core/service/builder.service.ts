@@ -200,16 +200,22 @@ export class BuilderService extends ApiService {
 
     let prefix = '';
     const lang = this.getApiLang(langcode);
+    let langState = {};
     if (lang) {
       prefix = `/${lang}`;
+    }
+    if (prefix) {
+      langState = {
+        langcode,
+      };
     }
     const data = {
       type: 'path_alias--path_alias',
       id: uuid,
       attributes: {
         alias: alias.replace(prefix, ''),
-        langcode,
         path: `/node/${id}`,
+        ...langState,
       },
     };
     const status$ = new Subject<any>();
