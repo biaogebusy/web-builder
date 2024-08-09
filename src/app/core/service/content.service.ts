@@ -113,7 +113,7 @@ export class ContentService {
           this.logContent(pageUrl);
         }),
         catchError(() => {
-          return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
+          return this.http.get<any>(`${this.apiUrl}${landingPath}/404`);
         }),
       );
     } else {

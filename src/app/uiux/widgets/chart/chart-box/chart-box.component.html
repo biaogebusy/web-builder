@@ -1,13 +1,19 @@
-@if (data$|async; as data) {
+@if (data$ | async; as data) {
   <div class="chart-box p-5 flex justify-center items-end">
     <div class="w-full flex flex-col justify-center items-start">
       <div class="title mat-h3 one-line">
-        {{data.label}}
+        {{ data.label }}
       </div>
       <div class="count one-line">
-        {{data.count}}
+        {{ data.count }}
       </div>
     </div>
-    <app-chart class="w-full" [content]="data.chart" [style]="style"></app-chart>
+    @if (showChart) {
+      <app-chart
+        class="w-full"
+        [content]="data.chart"
+        [style]="style"
+      ></app-chart>
+    }
   </div>
 }

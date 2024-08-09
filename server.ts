@@ -34,6 +34,7 @@ export function app(): express.Express {
       .render({
         bootstrap: AppServerModule,
         documentFilePath: indexHtml,
+        inlineCriticalCss: false,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
         providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],

@@ -86,8 +86,16 @@ export class DynamicComponentComponent
   }
 
   async loadComponent(): Promise<void> {
-    const type = this.inputs.type ? this.inputs.type : this.inputs.content.type;
+    const type = this.inputs.type
+      ? this.inputs.type
+      : this.inputs.content
+        ? this.inputs.content.type
+        : null;
+    if (!type) {
+      return;
+    }
     this.container.clear();
+
     this.component = await this.componentService.getComponent(type);
     if (!this.component) {
       console.log('无法识别该组件：', this.inputs);
