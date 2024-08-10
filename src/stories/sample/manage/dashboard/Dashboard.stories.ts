@@ -55,7 +55,7 @@ const meta: Meta<DashboardComponent> = {
       </mat-drawer>
       <mat-drawer-content id="main-container">
         <app-header *ngIf="!(isBuilderPage$|async)"></app-header>
-        <div class="main" [ngClass]="{'has-manage-sidebar': true}">
+        <div class="main">
           ${story}
         </div>
       </mat-drawer-content>

@@ -12,12 +12,6 @@ export interface IHeader {
   top?: IHeaderTop;
   banner?: any;
   mainMenu: IMainMenu[];
-  sidebar?: {
-    params: any;
-    classes?: any;
-    logo: ILogo;
-    menu: IMainMenu[];
-  };
   search: IHeaderSearch;
   userMenu: IUserMenu[];
   actions: ILink[];

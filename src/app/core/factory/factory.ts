@@ -13,7 +13,6 @@ import { INotify } from '@core/interface/widgets/IWidgets';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { IManageSidebarState } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
@@ -129,87 +128,6 @@ export function debugAnimateFactory(): Observable<boolean> {
   });
 
   return debugAnimate$;
-}
-
-export function manageSidebarStateFactory(
-  branding$: Observable<IBranding>,
-  user: IUser,
-  doc: Document,
-): Observable<IManageSidebarState> {
-  const router = inject(Router);
-  const userService = inject(UserService);
-  const screenService = inject(ScreenService);
-  const storage = inject(LocalStorageService);
-  const state$ = new BehaviorSubject<IManageSidebarState>({
-    enableSidebar: false,
-    sidebarOpened: false,
-  });
-  let enableSidebar = false;
-  const openState = storage.retrieve('sidebarOpened');
-  branding$.subscribe((branding) => {
-    if (userService.checkShow(branding.header?.sidebar, user)) {
-      // init manage sidebar
-      if (
-        doc.location.pathname.split('/').length === 2 ||
-        doc.location.pathname.includes(BUILDERPATH)
-      ) {
-        enableSidebar = false;
-        state$.next({
-          enableSidebar,
-          sidebarOpened: false,
-        });
-      } else {
-        if (openState === null) {
-          state$.next({
-            enableSidebar: true,
-            sidebarOpened: true,
-          });
-          storage.store('sidebarOpened', true);
-        } else {
-          state$.next({
-            enableSidebar: true,
-            sidebarOpened: storage.retrieve('sidebarOpened'),
-          });
-        }
-      }
-
-      // subject manage sidebar
-      router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd) {
-          const url = event.url;
-          if (url.split('/').length === 2 || url.includes(BUILDERPATH)) {
-            if (enableSidebar) {
-              state$.next({
-                enableSidebar: false,
-                sidebarOpened: false,
-              });
-              screenService.initSidebarStyle(true);
-            }
-          } else {
-            if (openState === null) {
-              state$.next({
-                enableSidebar: true,
-                sidebarOpened: true,
-              });
-              storage.store('sidebarOpened', true);
-            } else {
-              state$.next({
-                enableSidebar: true,
-                sidebarOpened: storage.retrieve('sidebarOpened'),
-              });
-            }
-          }
-        }
-      });
-    } else {
-      state$.next({
-        enableSidebar: false,
-        sidebarOpened: false,
-      });
-    }
-  });
-
-  return state$;
 }
 
 export function notifyFactory(

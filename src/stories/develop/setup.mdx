@@ -78,19 +78,6 @@ import { Meta } from "@storybook/blocks";
       deps: [LocalStorageService, BuilderState],
     },
     {
-      provide: MANAGE_SIDEBAR_STATE,
-      useFactory: manageSidebarStateFactory,
-      deps: [
-        Router,
-        BRANDING,
-        UserService,
-        ScreenService,
-        LocalStorageService,
-        [new Inject(USER)],
-        DOCUMENT,
-      ],
-    },
-    {
       provide: IS_BUILDER_MODE,
       useFactory: isBuilderModeFactory,
       deps: [Router],

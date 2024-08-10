@@ -9,7 +9,6 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   builderFullScreenFactory,
   debugAnimateFactory,
-  manageSidebarStateFactory,
   pageContentFactory,
 } from '@core/factory/factory';
 import { ContentState } from '@core/state/ContentState';
@@ -24,7 +23,6 @@ import {
   NOTIFY_CONTENT,
   BUILDER_FULL_SCREEN,
   DEBUG_ANIMATE,
-  MANAGE_SIDEBAR_STATE,
   IS_BUILDER_MODE,
   MEDIA_ASSETS,
   LANG,
@@ -152,19 +150,6 @@ export class StorysModule {
           provide: DEBUG_ANIMATE,
           useFactory: debugAnimateFactory,
           deps: [LocalStorageService, BuilderState],
-        },
-        {
-          provide: MANAGE_SIDEBAR_STATE,
-          useFactory: manageSidebarStateFactory,
-          deps: [
-            Router,
-            BRANDING,
-            UserService,
-            ScreenService,
-            LocalStorageService,
-            [new Inject(USER)],
-            DOCUMENT,
-          ],
         },
         {
           provide: IS_BUILDER_MODE,
