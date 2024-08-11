@@ -9,11 +9,6 @@ import { IThemePreview } from '@core/interface/combs/IThemePreview';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { IManageAssets } from '@core/interface/manage/IManage';
 
-export interface IManageSidebarState {
-  enableSidebar: boolean;
-  sidebarOpened: boolean;
-}
-
 // app state
 export const API_URL = new InjectionToken<string>('api url');
 export const CORE_CONFIG = new InjectionToken<ICoreConfig>('core config');
@@ -46,9 +41,5 @@ export const IS_BUILDER_MODE = new InjectionToken<Observable<boolean>>(
 export const WIDGETS = new InjectionToken<any[]>(
   'builder widgets for popup select',
 );
-
-export const MANAGE_SIDEBAR_STATE = new InjectionToken<
-  Observable<IManageSidebarState>
->('manage sidebar state');
 
 export const COLOR_TEST = new InjectionToken<IThemePreview>('color test');
