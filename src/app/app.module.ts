@@ -21,7 +21,6 @@ import {
   DEBUG_ANIMATE,
   IS_BUILDER_MODE,
   LANG,
-  MANAGE_SIDEBAR_STATE,
   MEDIA_ASSETS,
   NOTIFY_CONTENT,
   USER,
@@ -38,7 +37,6 @@ import {
   debugAnimateFactory,
   isBuilderModeFactory,
   langFactory,
-  manageSidebarStateFactory,
   mediaAssetsFactory,
   notifyFactory,
   themeFactory,
@@ -113,11 +111,6 @@ import { CookieService } from 'ngx-cookie-service';
     {
       provide: DEBUG_ANIMATE,
       useFactory: debugAnimateFactory,
-    },
-    {
-      provide: MANAGE_SIDEBAR_STATE,
-      useFactory: manageSidebarStateFactory,
-      deps: [BRANDING, [new Inject(USER)], DOCUMENT],
     },
     {
       provide: IS_BUILDER_MODE,

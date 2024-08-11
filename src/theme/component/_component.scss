@@ -25,7 +25,6 @@
 @import "./media";
 @import "./user";
 @import "./node/comment";
-@import "./manage-sidebar";
 @import "./view-map";
 @import "./dashboard";
 @import "./chart-box";
@@ -69,7 +68,6 @@
   @include calendar-color($theme);
   @include comment-color($theme);
   @include calculator-color($theme);
-  @include manage-sidebar-color($theme);
   @include view-map-color($theme);
   @include dashboard-color($theme);
   @include chart-box-color($theme);

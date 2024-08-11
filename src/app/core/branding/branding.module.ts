@@ -17,7 +17,6 @@ import { MegaMenuComponent } from './header/menu/item-menu/mega-menu/mega-menu.c
 import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
-import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.component';
 import { LangSwitchComponent } from './header/lang-switch/lang-switch.component';
 
 @NgModule({
@@ -38,7 +37,6 @@ import { LangSwitchComponent } from './header/lang-switch/lang-switch.component'
     FixBarComponent,
     FixBarPopupComponent,
     HoverMenuComponent,
-    ManageSidebarComponent,
     LangSwitchComponent,
   ],
   imports: [ShareModule, WidgetsModule],
@@ -46,7 +44,6 @@ import { LangSwitchComponent } from './header/lang-switch/lang-switch.component'
     HeaderComponent,
     FooterComponent,
     MenuComponent,
-    ManageSidebarComponent,
     UserMenuComponent,
     HeaderBannerComponent,
     HeaderTopComponent,
