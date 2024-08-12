@@ -6,20 +6,15 @@ import {
   applicationConfig,
 } from '@storybook/angular';
 
-import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
-import { BrandingModule } from '@core/branding/branding.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { NodeModule } from '@uiux/combs/node/node.module';
 import { DashboardComponent } from '@uiux/combs/dashboard/dashboard.component';
 import * as calendarStory from '@stories/widgets/Calendar.stories';
 import { random } from 'lodash-es';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { manageHeader } from '@modules/builder/data/Branding.json';
 import { IDashboard } from '@core/interface/combs/IDashboard';
 import { importProvidersFrom } from '@angular/core';
-import { ManageSidebarComponent } from '@core/branding/manage-sidebar/manage-sidebar.component';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 const calendar: any = calendarStory.Default.args;
@@ -35,17 +30,11 @@ const meta: Meta<DashboardComponent> = {
     moduleMetadata({
       declarations: [
         ...StorysModule.forEntryComponents(),
-        ManageSidebarComponent,
         ReqRolesDirective,
         SafeHtmlPipe,
       ],
       imports: [MatSidenavModule],
-      providers: [
-        {
-          provide: BRANDING,
-          useValue: of({ header: manageHeader }),
-        },
-      ],
+      providers: [],
     }),
     componentWrapperDecorator(
       (story) => `
