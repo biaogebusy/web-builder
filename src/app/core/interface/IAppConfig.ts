@@ -282,6 +282,7 @@ export interface IPage {
   time?: Date | string;
   uuid?: string;
   id?: string;
+  changed?: string;
   status?: boolean;
   message?: string;
   current?: boolean;

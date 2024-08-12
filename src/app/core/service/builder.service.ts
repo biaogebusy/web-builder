@@ -17,6 +17,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { IPageMeta } from '@core/interface/IBuilder';
 import { environment } from 'src/environments/environment';
+import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 
 @Injectable({
   providedIn: 'root',
@@ -194,6 +195,19 @@ export class BuilderService extends ApiService {
       );
   }
 
+  getAttrAlias(attr: any) {
+    const {
+      drupal_internal__nid,
+      path: { alias, langcode },
+    } = attr;
+
+    const lang = this.getApiLang(langcode);
+    const url = alias
+      ? `${lang}${alias}`
+      : `${lang}/node/${drupal_internal__nid}`;
+    return url;
+  }
+
   updateUrlalias(page: IPageMeta, alias: string): Observable<any> {
     const { csrf_token } = this.user;
     const { langcode, uuid, id } = page;
@@ -267,6 +281,55 @@ export class BuilderService extends ApiService {
       };
     });
     return currentPage;
+  }
+
+  openPageSetting(page: IPage): void {
+    const { uuid, langcode } = page;
+    const apiParams = new DrupalJsonApiParams();
+    apiParams.addCustomParam({ noCache: true });
+    apiParams.addInclude(['uid', 'group']);
+    const params = apiParams.getQueryString();
+    const lang = this.getApiLang(langcode);
+    this.nodeService
+      .fetch(
+        `/api/v1/node/landing_page/${uuid}`,
+        params,
+        this.user.csrf_token,
+        lang,
+      )
+      .subscribe(({ data, included }) => {
+        const {
+          id,
+          attributes: { changed, drupal_internal__nid, langcode, title, path },
+        } = data;
+        const user = included[0];
+        // TODO: update taxonomy
+        // const group = included[1];
+        const currentPage: IPageMeta = {
+          author: user.attributes.display_name,
+          changed,
+          id: drupal_internal__nid,
+          uuid: id,
+          langcode,
+          title,
+          url: this.getAttrAlias({ drupal_internal__nid, path }),
+        };
+        this.builder.rightContent$.next({
+          mode: 'over',
+          hasBackdrop: false,
+          style: {
+            width: '260px',
+            padding: '14px',
+            'max-width': 'calc(100vw - 50px)',
+          },
+          elements: [
+            {
+              type: 'page-setting',
+              content: currentPage,
+            },
+          ],
+        });
+      });
   }
 
   coverExtraData(page: IPage): any {
