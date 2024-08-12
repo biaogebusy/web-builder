@@ -30,7 +30,6 @@ export class ComponentToolbarComponent implements OnInit {
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
   enableBuilderToolbar: boolean;
-  showGrid = false;
 
   public bcData: any;
 
@@ -85,11 +84,6 @@ export class ComponentToolbarComponent implements OnInit {
     const path = this.util.generatePath(event.target);
     const component = type ? content : content.content;
     this.builder.onComponentSetting(component, pageIndex, path);
-  }
-
-  onShowGrid(): void {
-    this.showGrid = !this.showGrid;
-    this.builder.showGrid$.next(this.showGrid);
   }
 
   onDelete(index: number): void {

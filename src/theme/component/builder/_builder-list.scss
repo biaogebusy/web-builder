@@ -10,14 +10,6 @@
   .wrapper {
     #builder-list {
       @include scrollbar(mat.get-color-from-palette($primary));
-      .layout-preview {
-        .col-item {
-          background-color: mat.get-color-from-palette($warn, 0.2);
-          .span {
-            color: mat.get-color-from-palette($foreground, disabled);
-          }
-        }
-      }
     }
   }
   .preview {

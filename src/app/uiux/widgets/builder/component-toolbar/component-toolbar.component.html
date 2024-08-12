@@ -6,14 +6,14 @@
         (click)="onUpdown(index, 'up')"
         [matTooltip]="'上移'"
         matTooltipPosition="above"
-        >
+      >
         <app-btn
-        [content]="{
-          label: '',
-          color: 'primary',
-          mode: 'icon',
-          icon: { svg: 'arrow-collapse-up', inline: true }
-        }"
+          [content]="{
+            label: '',
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'arrow-collapse-up', inline: true },
+          }"
         ></app-btn>
       </div>
     }
@@ -23,14 +23,14 @@
         (click)="onUpdown(index, 'down')"
         [matTooltip]="'下移'"
         matTooltipPosition="above"
-        >
+      >
         <app-btn
-        [content]="{
-          label: '',
-          color: 'primary',
-          mode: 'icon',
-          icon: { svg: 'arrow-collapse-down', inline: true }
-        }"
+          [content]="{
+            label: '',
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'arrow-collapse-down', inline: true },
+          }"
         ></app-btn>
       </div>
     }
@@ -40,7 +40,7 @@
           label: '',
           color: 'primary',
           mode: 'icon',
-          icon: { svg: 'content-copy', inline: true }
+          icon: { svg: 'content-copy', inline: true },
         }"
       ></app-btn>
     </div>
@@ -49,41 +49,31 @@
         class="item"
         matTooltip="粘贴复制的组件到下面"
         (click)="onPaste($event, bcData)"
-        >
+      >
         <app-btn
-        [content]="{
-          label: '',
-          color: 'primary',
-          mode: 'icon',
-          icon: { svg: 'content-paste', inline: true }
-        }"
+          [content]="{
+            label: '',
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'content-paste', inline: true },
+          }"
         ></app-btn>
       </div>
     }
-    <div class="item" matTooltip="显示网格" (click)="onShowGrid()">
-      <app-btn
-        [content]="{
-          label: '',
-          color: showGrid ? 'warn' : 'primary',
-          mode: 'icon',
-          icon: { svg: 'eye', inline: true }
-        }"
-      ></app-btn>
-    </div>
     @if (isPreview) {
       <div
         class="item"
         (click)="onDelete(index)"
         [matTooltip]="'移除'"
         matTooltipPosition="above"
-        >
+      >
         <app-btn
-        [content]="{
-          label: '',
-          color: 'primary',
-          mode: 'icon',
-          icon: { svg: 'delete', inline: true }
-        }"
+          [content]="{
+            label: '',
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'delete', inline: true },
+          }"
         ></app-btn>
       </div>
     }
@@ -92,13 +82,13 @@
       (click)="onSetting(content, index, $event)"
       [matTooltip]="'编辑组件通用配置'"
       matTooltipPosition="above"
-      >
+    >
       <app-btn
         [content]="{
           label: '',
           color: 'primary',
           mode: 'icon',
-          icon: { svg: 'tune-vertical', inline: true }
+          icon: { svg: 'tune-vertical', inline: true },
         }"
       ></app-btn>
     </div>
