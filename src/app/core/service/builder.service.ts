@@ -57,10 +57,17 @@ export class BuilderService extends ApiService {
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${id}`, 'noCache=1', '', lang)
       .subscribe((page: IPage) => {
-        const { body, status } = page;
+        const { body, status, uuid } = page;
         this.builder.loading$.next(false);
         if (status) {
           this.builder.loadNewPage(this.formatToExtraData(page));
+          if (uuid) {
+            this.openPageSetting({
+              uuid,
+              langcode,
+            });
+          }
+
           if (body.length === 0) {
             this.util.openSnackbar('当前内容为空，已为你初始化一个组件', 'ok');
           }
@@ -124,7 +131,6 @@ export class BuilderService extends ApiService {
                 langcode,
                 id,
               });
-              this.openPageSetting(page);
             }
           } else {
             this.util.openSnackbar('保存失败，请重试', 'ok');
@@ -284,7 +290,7 @@ export class BuilderService extends ApiService {
     return currentPage;
   }
 
-  openPageSetting(page: IPage): void {
+  openPageSetting(page: { uuid: string; langcode?: string }): void {
     const { uuid, langcode } = page;
     const apiParams = new DrupalJsonApiParams();
     apiParams.addCustomParam({ noCache: true });
