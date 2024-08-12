@@ -159,7 +159,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
 
               if (status) {
                 this.builder.updateSuccess$.next(true);
-                this.builderService.openPageSetting(page);
               }
             },
             (error) => {
@@ -193,7 +192,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
               if (status) {
                 this.util.openSnackbar(message, 'ok');
                 this.builder.updateSuccess$.next(true);
-                this.builderService.openPageSetting(page);
               } else {
                 this.util.openSnackbar('新建失败！', 'ok');
               }

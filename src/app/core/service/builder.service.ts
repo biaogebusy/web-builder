@@ -124,6 +124,7 @@ export class BuilderService extends ApiService {
                 langcode,
                 id,
               });
+              this.openPageSetting(page);
             }
           } else {
             this.util.openSnackbar('保存失败，请重试', 'ok');
