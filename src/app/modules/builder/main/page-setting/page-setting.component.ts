@@ -134,6 +134,14 @@ export class PageSettingComponent implements OnInit {
             },
           },
           {
+            key: 'taxonomy',
+            type: 'mat-select',
+            props: {
+              api: '/api/v2/taxonomy_term/page_group',
+              label: '页面分组',
+            },
+          },
+          {
             key: 'author',
             type: 'input',
             className: 'w-full',
