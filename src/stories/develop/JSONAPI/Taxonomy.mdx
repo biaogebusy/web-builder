@@ -55,3 +55,45 @@ apiParams
   .addFilter("status", "1")
   .addFilter("group.name", "示例页", "IS NULL");
 ```
+
+## 更新某个node的分类
+
+api:`/api/v1/node/landing_page/b9f2379e-81f6-4c1f-844c-eec6f41c96fb`
+
+```json
+{
+  "type": "node--landing_page",
+  "id": "b9f2379e-81f6-4c1f-844c-eec6f41c96fb",
+  "attributes": {
+    "title": "视图列表",
+    "is_transparent": false
+  },
+  "relationships": {
+    "uid": {
+      "data": {
+        "type": "user--user",
+        "id": "15765815-07f2-4d7d-8142-cb598f82af2e"
+      }
+    },
+    "group": {
+      "data": {
+        "type": "taxonomy_term--page_group",
+        "id": "927554f4-63e0-4f24-a039-f67b34d2e829"
+      }
+    }
+  }
+}
+```
+
+`attributes`中为常规字段值的更新，比如标题等，类似分类则更新关联的实体：
+
+```json
+"relationships": {
+    "group": {
+      "data": {
+        "type": "taxonomy_term--page_group",
+        "id": "927554f4-63e0-4f24-a039-f67b34d2e829"
+      }
+    }
+  }
+```

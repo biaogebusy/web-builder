@@ -285,14 +285,12 @@ export class PageSettingComponent implements OnInit {
       attributes: { title },
     } = data;
     const api = `/api/v1/node/landing_page`;
-    this.builder.loading$.next(true);
     this.nodeService
       .deleteEntity(api, id, this.user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         () => {
           this.util.openSnackbar(`删除${title}成功`, 'ok');
-          this.builder.loading$.next(false);
           this.builder.updateSuccess$.next(true);
           this.builder.closeRightDrawer$.next(true);
           this.loading = false;
@@ -303,7 +301,6 @@ export class PageSettingComponent implements OnInit {
             error: { message },
           } = error;
           this.loading = false;
-          this.builder.loading$.next(false);
           this.util.openSnackbar(message, 'ok');
         },
       );
