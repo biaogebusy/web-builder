@@ -185,6 +185,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   updatePage(page: IPageMeta): void {
+    this.builder.loading$.next(true);
     this.builderService.openPageSetting(page);
   }
 

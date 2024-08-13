@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -18,6 +19,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -33,12 +35,13 @@ export class PageSettingComponent implements OnInit {
   fields: FormlyFieldConfig[];
   loading: boolean;
 
+  dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
   builder = inject(BuilderState);
-  builderService = inject(BuilderService);
-  screenService = inject(ScreenService);
-  nodeService = inject(NodeService);
   util = inject(UtilitiesService);
+  nodeService = inject(NodeService);
+  screenService = inject(ScreenService);
+  builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(@Inject(USER) public user$: Observable<IUser>) {
@@ -268,13 +271,35 @@ export class PageSettingComponent implements OnInit {
           this.util.openSnackbar(`更新${value.title}成功`, 'ok');
         },
         (error) => {
-          const {
-            error: { message },
-          } = error;
+          const { statusText } = error;
           this.loading = false;
-          this.util.openSnackbar(message, 'ok');
+          this.util.openSnackbar(statusText, 'ok');
         },
       );
+  }
+
+  onPreview(): void {
+    this.dialog.open(DialogComponent, {
+      width: '85vw',
+      height: '85vh',
+      panelClass: [
+        'close-outside',
+        'close-icon-white',
+        'dialog-p-0',
+        'page-preview-dialog',
+      ],
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'iframe',
+            url: `${this.model.alias}?nocache=true`,
+            width: '100%',
+            height: '100%',
+          },
+        },
+      },
+    });
   }
   deletePage(): void {
     this.loading = true;

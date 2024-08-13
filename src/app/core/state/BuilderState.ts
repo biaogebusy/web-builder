@@ -18,7 +18,6 @@ import { ScreenService } from '@core/service/screen.service';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { WIDGETS } from '@core/token/token-providers';
 
 @Injectable({

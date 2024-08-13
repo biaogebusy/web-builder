@@ -47,10 +47,10 @@ export class ContentService {
     const location = this.document.location;
     const path = location.pathname;
     const search = location.search;
-    const allowKey = ['version', 'origin', 'category', 'preview'];
+    const allowKey = ['version', 'preview', 'nocache'];
     if (
       allowKey.some((key) => {
-        return search.indexOf(key) > 0;
+        return search.toLowerCase().indexOf(key) > 0;
       })
     ) {
       const params = search.split('?')[1];
@@ -94,7 +94,6 @@ export class ContentService {
         path = pageUrl.split(lang)[1];
       }
     }
-
     return {
       lang,
       path,

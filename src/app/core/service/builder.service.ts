@@ -302,23 +302,31 @@ export class BuilderService extends ApiService {
         this.user.csrf_token,
         lang,
       )
-      .subscribe((res) => {
-        this.builder.rightContent$.next({
-          mode: 'over',
-          hasBackdrop: false,
-          style: {
-            width: '260px',
-            padding: '14px',
-            'max-width': 'calc(100vw - 50px)',
-          },
-          elements: [
-            {
-              type: 'page-setting',
-              content: res,
+      .subscribe(
+        (res) => {
+          this.builder.loading$.next(false);
+          this.builder.rightContent$.next({
+            mode: 'over',
+            hasBackdrop: true,
+            style: {
+              width: '260px',
+              padding: '14px',
+              'max-width': 'calc(100vw - 50px)',
             },
-          ],
-        });
-      });
+            elements: [
+              {
+                type: 'page-setting',
+                content: res,
+              },
+            ],
+          });
+        },
+        (error) => {
+          this.builder.loading$.next(false);
+          const { statusText } = error;
+          this.util.openSnackbar(statusText, 'ok');
+        },
+      );
   }
 
   coverExtraData(page: IPage): any {

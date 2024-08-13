@@ -10,24 +10,29 @@
       *reqRolesIf="{
         params: { reqRoles: ['administrator'] },
       }"
-      (click)="deletePage()"
+      (click)="onUpdate(model)"
       [content]="{
-        label: '删除页面',
-        color: 'warn',
+        label: '更新',
+        color: 'primary',
+        mode: 'raised',
+      }"
+    ></app-btn>
+    <app-btn
+      (click)="onPreview()"
+      [content]="{
+        label: '预览',
+        color: 'primary',
+        mode: 'stroked',
       }"
     ></app-btn>
     <app-btn
       *reqRolesIf="{
         params: { reqRoles: ['administrator'] },
       }"
-      (click)="onUpdate(model)"
+      (click)="deletePage()"
       [content]="{
-        label: '提交更新',
-        color: 'primary',
-        mode: 'raised',
-        icon: {
-          svg: 'pencil',
-        },
+        label: '删除',
+        color: 'warn',
       }"
     ></app-btn>
   </div>
