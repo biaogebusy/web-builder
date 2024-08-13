@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -40,7 +39,6 @@ export class PageSettingComponent implements OnInit {
   screenService = inject(ScreenService);
   nodeService = inject(NodeService);
   util = inject(UtilitiesService);
-  dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(@Inject(USER) public user$: Observable<IUser>) {
@@ -280,20 +278,34 @@ export class PageSettingComponent implements OnInit {
   }
   deletePage(): void {
     this.loading = true;
-    const { uuid, title } = this.content.content;
+    const { content } = this.content;
+    const { data } = content;
+    const {
+      id,
+      attributes: { title },
+    } = data;
     const api = `/api/v1/node/landing_page`;
     this.builder.loading$.next(true);
     this.nodeService
-      .deleteEntity(api, uuid, this.user.csrf_token)
+      .deleteEntity(api, id, this.user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.util.openSnackbar(`删除${title}成功`, 'ok');
-        this.builder.loading$.next(false);
-        this.builder.updateSuccess$.next(true);
-        this.builder.closeRightDrawer$.next(true);
-        this.loading = false;
-        this.dialog.closeAll();
-        this.cd.detectChanges();
-      });
+      .subscribe(
+        () => {
+          this.util.openSnackbar(`删除${title}成功`, 'ok');
+          this.builder.loading$.next(false);
+          this.builder.updateSuccess$.next(true);
+          this.builder.closeRightDrawer$.next(true);
+          this.loading = false;
+          this.cd.detectChanges();
+        },
+        (error) => {
+          const {
+            error: { message },
+          } = error;
+          this.loading = false;
+          this.builder.loading$.next(false);
+          this.util.openSnackbar(message, 'ok');
+        },
+      );
   }
 }
