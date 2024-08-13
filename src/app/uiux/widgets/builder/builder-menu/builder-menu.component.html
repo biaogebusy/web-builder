@@ -36,6 +36,12 @@
         <app-icon class="opacity-70" [content]="{ svg: 'eye' }"></app-icon>
         <span matListItemTitle>页面预览</span>
       </button>
+      @if (page && page.uuid) {
+        <button mat-menu-item (click)="onPageSetting(page)">
+          <app-icon class="opacity-70" [content]="{ svg: 'cog' }"></app-icon>
+          <span matListItemTitle>页面设置</span>
+        </button>
+      }
     </mat-menu>
   </div>
 </ng-container>

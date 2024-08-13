@@ -15,7 +15,6 @@ import { NodeService } from './node.service';
 import { catchError, tap } from 'rxjs/operators';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { IPageMeta } from '@core/interface/IBuilder';
 import { environment } from 'src/environments/environment';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 
@@ -155,10 +154,11 @@ export class BuilderService extends ApiService {
   }
 
   updateAttributes(
-    page: IPageMeta,
+    page: { uuid: string; langcode?: string },
     api: string,
     type: string,
     attr: any,
+    relationships: any,
   ): Observable<any> {
     const { csrf_token, id } = this.user;
     const { langcode, uuid } = page;
@@ -179,12 +179,7 @@ export class BuilderService extends ApiService {
               ...attr,
             },
             relationships: {
-              uid: {
-                data: {
-                  type: 'user--user',
-                  id,
-                },
-              },
+              ...relationships,
             },
           },
         },
@@ -215,7 +210,10 @@ export class BuilderService extends ApiService {
     return url;
   }
 
-  updateUrlalias(page: IPageMeta, alias: string): Observable<any> {
+  updateUrlalias(
+    page: { langcode?: string; uuid: string; id: string },
+    alias: string,
+  ): Observable<any> {
     const { csrf_token } = this.user;
     const { langcode, uuid, id } = page;
 
@@ -304,23 +302,7 @@ export class BuilderService extends ApiService {
         this.user.csrf_token,
         lang,
       )
-      .subscribe(({ data, included }) => {
-        const {
-          id,
-          attributes: { changed, drupal_internal__nid, langcode, title, path },
-        } = data;
-        const user = included[0];
-        // TODO: update taxonomy
-        // const group = included[1];
-        const currentPage: IPageMeta = {
-          author: user.attributes.display_name,
-          changed,
-          id: drupal_internal__nid,
-          uuid: id,
-          langcode,
-          title,
-          url: this.getAttrAlias({ drupal_internal__nid, path }),
-        };
+      .subscribe((res) => {
         this.builder.rightContent$.next({
           mode: 'over',
           hasBackdrop: false,
@@ -332,7 +314,7 @@ export class BuilderService extends ApiService {
           elements: [
             {
               type: 'page-setting',
-              content: currentPage,
+              content: res,
             },
           ],
         });

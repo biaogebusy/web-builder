@@ -137,22 +137,6 @@ export class BuilderState {
     }, 600);
   }
 
-  pageSetting(page: IPageMeta): void {
-    this.dialog.open(DialogComponent, {
-      width: '500px',
-      panelClass: ['close-outside', 'close-icon-white'],
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'page-setting',
-            content: page,
-          },
-        },
-      },
-    });
-  }
-
   get currentPage(): IPage {
     const currentIndex = this.version.findIndex(
       (page) => page.current === true,

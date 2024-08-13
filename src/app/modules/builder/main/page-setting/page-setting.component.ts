@@ -53,54 +53,76 @@ export class PageSettingComponent implements OnInit {
     if (this.screenService.isPlatformBrowser()) {
       this.loading = true;
       const { content } = this.content;
+      console.log(content);
+      const { data, included } = content;
+      const {
+        id,
+        attributes: {
+          changed,
+          drupal_internal__nid,
+          langcode,
+          title,
+          path,
+          is_transparent,
+          transparent_style,
+        },
+      } = data;
+      const user = included[0];
+      const pageGroup = included[1];
       if (content) {
         this.fields = [
           {
             key: 'title',
             type: 'input',
-            defaultValue: content.title.trim(),
+            defaultValue: title.trim(),
             className: 'w-full',
             props: {
               label: '标题',
               required: true,
             },
-            modelOptions: {
-              updateOn: 'blur',
-            },
+            // modelOptions: {
+            //   updateOn: 'blur',
+            // },
             expressions: {
               'props.disabled': 'formState.disabled',
             },
             hooks: {
-              onInit: (field: FormlyFieldConfig) => {
-                if (field.formControl) {
-                  field.formControl.valueChanges
-                    .pipe(takeUntilDestroyed(this.destroyRef))
-                    .subscribe((value) => {
-                      this.loading = true;
-                      this.builderService
-                        .updateAttributes(
-                          content,
-                          '/api/v1/node/landing_page',
-                          'node--landing_page',
-                          {
-                            title: value,
-                          },
-                        )
-                        .subscribe((res) => {
-                          this.loading = false;
-                          this.cd.detectChanges();
-                          this.util.openSnackbar(`更新标题${value}成功`, 'ok');
-                        });
-                    });
-                }
-              },
+              // onInit: (field: FormlyFieldConfig) => {
+              //   if (field.formControl) {
+              //     field.formControl.valueChanges
+              //       .pipe(takeUntilDestroyed(this.destroyRef))
+              //       .subscribe((value) => {
+              //         this.loading = true;
+              //         this.builderService
+              //           .updateAttributes(
+              //             {
+              //               uuid: id,
+              //               langcode,
+              //             },
+              //             '/api/v1/node/landing_page',
+              //             'node--landing_page',
+              //             {
+              //               title: value,
+              //             },
+              //           )
+              //           .subscribe((res) => {
+              //             this.loading = false;
+              //             this.cd.detectChanges();
+              //             this.util.openSnackbar(`更新标题${value}成功`, 'ok');
+              //           });
+              //       });
+              //   }
+              // },
             },
           },
           {
             key: 'alias',
             type: 'input',
             className: 'w-full',
-            defaultValue: content.url,
+            defaultValue: this.builderService.getAttrAlias({
+              drupal_internal__nid,
+              path,
+            }),
             props: {
               label: 'url别名',
               disabled: false,
@@ -119,7 +141,14 @@ export class PageSettingComponent implements OnInit {
                     .subscribe((value) => {
                       this.loading = true;
                       this.builderService
-                        .updateUrlalias(content, value)
+                        .updateUrlalias(
+                          {
+                            uuid: id,
+                            langcode,
+                            id: drupal_internal__nid,
+                          },
+                          value,
+                        )
                         .pipe(takeUntilDestroyed(this.destroyRef))
                         .subscribe(() => {
                           this.loading = false;
@@ -134,18 +163,50 @@ export class PageSettingComponent implements OnInit {
             },
           },
           {
-            key: 'taxonomy',
+            key: 'page_group',
             type: 'mat-select',
+            defaultValue: pageGroup ? pageGroup.id : '',
             props: {
               api: '/api/v2/taxonomy_term/page_group',
               label: '页面分组',
             },
           },
           {
+            key: 'is_transparent',
+            type: 'toggle',
+            defaultValue: is_transparent,
+            props: {
+              label: '页头背景是否透明',
+            },
+          },
+          {
+            key: 'transparent_style',
+            type: 'mat-select',
+            defaultValue: transparent_style,
+            props: {
+              label: '透明风格',
+              options: [
+                {
+                  label: '明亮',
+                  value: 'light',
+                },
+                {
+                  label: '暗黑',
+                  value: 'dark',
+                },
+              ],
+            },
+            expressions: {
+              hide: (field: FormlyFieldConfig) => {
+                return !field.parent?.model.is_transparent;
+              },
+            },
+          },
+          {
             key: 'author',
             type: 'input',
             className: 'w-full',
-            defaultValue: content.author,
+            defaultValue: user.attributes.display_name,
             props: {
               label: '作者',
               disabled: true,
@@ -155,7 +216,7 @@ export class PageSettingComponent implements OnInit {
             key: 'changed',
             type: 'input',
             className: 'w-full',
-            defaultValue: content.changed,
+            defaultValue: changed,
             props: {
               label: '更新时间',
               disabled: true,
@@ -165,7 +226,7 @@ export class PageSettingComponent implements OnInit {
             key: 'landcode',
             type: 'input',
             className: 'w-full',
-            defaultValue: content.langcode,
+            defaultValue: langcode,
             props: {
               label: '语言',
               disabled: true,
@@ -175,7 +236,7 @@ export class PageSettingComponent implements OnInit {
             key: 'id',
             type: 'input',
             className: 'w-full',
-            defaultValue: content.id,
+            defaultValue: drupal_internal__nid,
             props: {
               label: 'ID',
               disabled: true,
@@ -186,6 +247,56 @@ export class PageSettingComponent implements OnInit {
         this.cd.detectChanges();
       }
     }
+  }
+
+  onUpdate(value: any): void {
+    const { title, is_transparent, transparent_style } = value;
+    console.log(value);
+    if (!this.user) {
+      this.util.openSnackbar('请先登录！', 'ok');
+    }
+    const { content } = this.content;
+    const { data } = content;
+    const {
+      id,
+      attributes: { langcode },
+    } = data;
+    this.loading = true;
+    this.builderService
+      .updateAttributes(
+        {
+          uuid: id,
+          langcode,
+        },
+        '/api/v1/node/landing_page',
+        'node--landing_page',
+        {
+          title,
+          is_transparent,
+          transparent_style,
+        },
+        {
+          uid: {
+            data: {
+              type: 'user--user',
+              id: this.user.id,
+            },
+          },
+          group: {
+            data: value.page_group
+              ? {
+                  type: 'taxonomy_term--page_group',
+                  id: value.page_group,
+                }
+              : null,
+          },
+        },
+      )
+      .subscribe((res) => {
+        this.loading = false;
+        this.cd.detectChanges();
+        this.util.openSnackbar(`更新${value.title}成功`, 'ok');
+      });
   }
   deletePage(): void {
     this.loading = true;

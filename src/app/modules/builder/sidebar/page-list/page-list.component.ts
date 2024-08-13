@@ -13,16 +13,17 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
+import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { merge } from 'lodash-es';
-import { EMPTY, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -62,10 +63,15 @@ export class PageListComponent extends BaseComponent implements OnInit {
   nodeService = inject(NodeService);
   builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
+  user: IUser;
   constructor(
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+    @Inject(USER) private user$: Observable<IUser>,
   ) {
     super();
+    this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
@@ -119,6 +125,14 @@ export class PageListComponent extends BaseComponent implements OnInit {
               {
                 title: textContent,
               },
+              {
+                uid: {
+                  data: {
+                    type: 'user--user',
+                    id: this.user.id,
+                  },
+                },
+              },
             )
             .subscribe((res) => {
               this.builder.loading$.next(false);
@@ -171,7 +185,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   updatePage(page: IPageMeta): void {
-    this.builder.pageSetting(page);
+    this.builderService.openPageSetting(page);
   }
 
   onPageChange(page: PageEvent): void {

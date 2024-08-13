@@ -19,5 +19,19 @@
         },
       }"
     ></app-btn>
+    <app-btn
+      *reqRolesIf="{
+        params: { reqRoles: ['administrator'] },
+      }"
+      (click)="onUpdate(model)"
+      [content]="{
+        label: '提交更新',
+        color: 'primary',
+        mode: 'raised',
+        icon: {
+          svg: 'send',
+        },
+      }"
+    ></app-btn>
   </div>
 </div>
