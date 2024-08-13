@@ -53,8 +53,9 @@ export class MatSelectComponent
   }
 
   getOptionsFromApi(): void {
+    const { api, options } = this.fieldConfig.props;
     this.nodeService
-      .fetch(this.fieldConfig.props.api || '', '')
+      .fetch(api || '', '')
       .pipe(
         catchError(() => {
           return of({
@@ -63,7 +64,7 @@ export class MatSelectComponent
         }),
       )
       .subscribe((res) => {
-        this.matOptions = res.rows;
+        this.matOptions = [...options, ...res.rows];
         // load the initial options
         this.filteredOptions.next(this.matOptions.slice());
         this.cd.detectChanges();

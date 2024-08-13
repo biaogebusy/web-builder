@@ -53,7 +53,6 @@ export class PageSettingComponent implements OnInit {
     if (this.screenService.isPlatformBrowser()) {
       this.loading = true;
       const { content } = this.content;
-      console.log(content);
       const { data, included } = content;
       const {
         id,
@@ -80,39 +79,8 @@ export class PageSettingComponent implements OnInit {
               label: '标题',
               required: true,
             },
-            // modelOptions: {
-            //   updateOn: 'blur',
-            // },
             expressions: {
               'props.disabled': 'formState.disabled',
-            },
-            hooks: {
-              // onInit: (field: FormlyFieldConfig) => {
-              //   if (field.formControl) {
-              //     field.formControl.valueChanges
-              //       .pipe(takeUntilDestroyed(this.destroyRef))
-              //       .subscribe((value) => {
-              //         this.loading = true;
-              //         this.builderService
-              //           .updateAttributes(
-              //             {
-              //               uuid: id,
-              //               langcode,
-              //             },
-              //             '/api/v1/node/landing_page',
-              //             'node--landing_page',
-              //             {
-              //               title: value,
-              //             },
-              //           )
-              //           .subscribe((res) => {
-              //             this.loading = false;
-              //             this.cd.detectChanges();
-              //             this.util.openSnackbar(`更新标题${value}成功`, 'ok');
-              //           });
-              //       });
-              //   }
-              // },
             },
           },
           {
@@ -153,9 +121,7 @@ export class PageSettingComponent implements OnInit {
                         .subscribe(() => {
                           this.loading = false;
                           this.cd.detectChanges();
-                          this.util.openSnackbar(
-                            `${content.title}已更新别名${value}`,
-                          );
+                          this.util.openSnackbar(`已更新别名:${value}`);
                         });
                     });
                 }
@@ -168,7 +134,13 @@ export class PageSettingComponent implements OnInit {
             defaultValue: pageGroup ? pageGroup.id : '',
             props: {
               api: '/api/v2/taxonomy_term/page_group',
-              label: '页面分组',
+              label: '页面分类',
+              options: [
+                {
+                  label: '无',
+                  value: null,
+                },
+              ],
             },
           },
           {
@@ -251,7 +223,6 @@ export class PageSettingComponent implements OnInit {
 
   onUpdate(value: any): void {
     const { title, is_transparent, transparent_style } = value;
-    console.log(value);
     if (!this.user) {
       this.util.openSnackbar('请先登录！', 'ok');
     }
@@ -292,11 +263,20 @@ export class PageSettingComponent implements OnInit {
           },
         },
       )
-      .subscribe((res) => {
-        this.loading = false;
-        this.cd.detectChanges();
-        this.util.openSnackbar(`更新${value.title}成功`, 'ok');
-      });
+      .subscribe(
+        (res) => {
+          this.loading = false;
+          this.cd.detectChanges();
+          this.util.openSnackbar(`更新${value.title}成功`, 'ok');
+        },
+        (error) => {
+          const {
+            error: { message },
+          } = error;
+          this.loading = false;
+          this.util.openSnackbar(message, 'ok');
+        },
+      );
   }
   deletePage(): void {
     this.loading = true;
