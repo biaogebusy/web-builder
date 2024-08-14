@@ -3,6 +3,7 @@ import * as textHeroStory from '@stories/base/TextHero.stories';
 import * as spacerStory from '@stories/theme/Spacer.stories';
 import * as tabStory from '@stories/widgets/Tab.stories';
 import * as panelStory from '@stories/widgets/Panel.stories';
+import * as videoStory from '@stories/feature/media/Video.stories';
 import * as swiperStory from '@stories/widgets/Swiper.stories';
 import * as videoBgStory from '@stories/components/video/videoBg.stories';
 import * as contactStory from '@stories/drupal/form/ContactUs.stories';
@@ -48,6 +49,13 @@ export const common = [
       svg: 'format-line-weight',
     },
     content: panelStory.Default?.args?.content,
+  },
+  {
+    label: '视频',
+    icon: {
+      svg: 'play-circle-outline',
+    },
+    content: videoStory.Default?.args?.content,
   },
   {
     label: '背景视频',

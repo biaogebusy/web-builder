@@ -4595,6 +4595,26 @@ export const base = [
         },
       },
       {
+        label: '视频',
+        icon: {
+          svg: 'play-circle-outline',
+        },
+        content: {
+          type: 'video',
+          options: {
+            controls: true,
+            aspectRatio: '16:9',
+            poster: '/assets/video/poster01.png',
+            sources: [
+              {
+                src: '/assets/video/storybook.mp4',
+                type: 'video/mp4',
+              },
+            ],
+          },
+        },
+      },
+      {
         label: '背景视频',
         icon: {
           svg: 'movie-outline',

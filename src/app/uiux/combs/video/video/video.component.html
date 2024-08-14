@@ -1,1 +1,8 @@
-<video #target class="video-js vjs-big-play-centered w-full h-full" controls playsinline preload="none"></video>
+<video
+  #target
+  class="video-js vjs-big-play-centered w-full h-full"
+  [class]="content.options.mode ? 'object-' + content.options.mode : ''"
+  controls
+  playsinline
+  preload="none"
+></video>

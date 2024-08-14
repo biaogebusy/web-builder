@@ -25,6 +25,7 @@ import { getTitle } from '@modules/builder/factory/getTitle';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getBuilder } from '@modules/builder/factory/getBuilder';
 import { LocalStorageService } from 'ngx-webstorage';
+import { getVideo } from '@modules/builder/factory/getVideo';
 
 @Component({
   selector: 'app-block-toolbar',
@@ -87,6 +88,9 @@ export class BlockToolbarComponent implements OnInit {
     switch (widget.type) {
       case 'title':
         fields = getTitle(widget, [animateConfig]);
+        break;
+      case 'video':
+        fields = getVideo(widget, [animateConfig]);
         break;
       case 'btn-video':
         fields = getBtnVideo(widget, [animateConfig]);

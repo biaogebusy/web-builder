@@ -9,6 +9,7 @@ import {
   getOverlay,
   getSpacerOptions,
 } from './getCommon';
+import { getVideo } from './getVideo';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
@@ -221,6 +222,15 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           fieldGroup: getSwiper(content)[0].fieldGroup,
         },
       ],
+    });
+  }
+
+  if (content.type === 'video') {
+    fields[0].fieldGroup?.push({
+      props: {
+        label: '视频',
+      },
+      fieldGroup: getVideo(content)[0].fieldGroup,
     });
   }
 
