@@ -51,7 +51,6 @@
                     class="masonry-item aspect-[4/3] box-border col-span-6 sm:col-span-4 md:col-span-{{
                       coreConfig.manageMedia.row
                     }}"
-                    trackBy="trackByFn"
                   >
                     <div class="actions opacity-90">
                       <app-btn
@@ -86,7 +85,7 @@
                     >
                       <img
                         class="w-full h-full object-contain"
-                        ngSrc="{{ item.thumb || item.src }}"
+                        ngSrc="{{ item.thumb || item.src || item.source }}"
                         priority
                         width="480"
                         height="360"
