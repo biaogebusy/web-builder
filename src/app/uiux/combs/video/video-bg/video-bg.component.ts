@@ -1,11 +1,10 @@
 import {
   Component,
   Input,
-  OnDestroy,
-  OnInit,
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import type { IVideoBg } from '@core/interface/combs/IVideoBg';
 import type { IPlayer } from '@core/interface/widgets/IPlayer';
@@ -16,15 +15,12 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrls: ['./video-bg.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
+export class VideoBgComponent implements AfterViewInit {
   @Input() content: IVideoBg;
   @Input() options: any;
   video: IPlayer;
-  constructor(
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
-  ) {}
-  ngOnInit(): void {}
+  private screenService = inject(ScreenService);
+  private cd = inject(ChangeDetectorRef);
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -48,6 +44,4 @@ export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
       this.cd.detectChanges();
     }
   }
-
-  ngOnDestroy(): void {}
 }
