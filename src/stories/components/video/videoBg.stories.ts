@@ -80,6 +80,7 @@ const content: IVideoBg = {
             {
               label: '回到官网',
               type: 'btn',
+              classes: '!text-white',
               href: '#',
               icon: {
                 inline: true,

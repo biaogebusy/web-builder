@@ -163,7 +163,7 @@ export const home_v7 = {
               color: 'primary',
               type: 'btn-video',
               video: {
-                type: 'player',
+                type: 'video',
                 options: {
                   controls: true,
                   aspectRatio: '16:9',

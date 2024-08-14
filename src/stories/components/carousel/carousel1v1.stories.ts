@@ -331,7 +331,7 @@ Video.args = {
               color: 'primary',
               type: 'btn-video',
               video: {
-                type: 'player',
+                type: 'video',
                 options: {
                   controls: true,
                   aspectRatio: '16:9',
@@ -357,7 +357,7 @@ Video.args = {
               color: 'primary',
               type: 'btn-video',
               video: {
-                type: 'player',
+                type: 'video',
                 options: {
                   controls: true,
                   aspectRatio: '16:9',
@@ -383,7 +383,7 @@ Video.args = {
               color: 'primary',
               type: 'btn-video',
               video: {
-                type: 'player',
+                type: 'video',
                 options: {
                   controls: true,
                   aspectRatio: '16:9',
@@ -409,7 +409,7 @@ Video.args = {
               color: 'primary',
               type: 'btn-video',
               video: {
-                type: 'player',
+                type: 'video',
                 options: {
                   controls: true,
                   aspectRatio: '16:9',

@@ -8,7 +8,7 @@ import {
 } from '@storybook/angular';
 
 import { BtnVideoComponent } from '@uiux/widgets/actions/btn-video/btn-video.component';
-import * as playerStory from '../feature/media/Player.stories';
+import * as playerStory from '../feature/media/Video.stories';
 import { IBtnVideo } from '@core/interface/widgets/IBtn';
 import { importProvidersFrom } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';

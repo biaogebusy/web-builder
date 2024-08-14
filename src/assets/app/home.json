@@ -48,7 +48,7 @@
                 "width": "900px"
               },
               "video": {
-                "type": "player",
+                "type": "video",
                 "options": {
                   "controls": true,
                   "aspectRatio": "16:9",

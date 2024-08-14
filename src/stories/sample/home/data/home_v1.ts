@@ -41,7 +41,7 @@ export const home_v1 = {
                 height: '800',
               },
               video: {
-                type: 'player',
+                type: 'video',
                 options: {
                   controls: true,
                   aspectRatio: '16:9',

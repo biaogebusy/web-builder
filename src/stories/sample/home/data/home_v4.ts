@@ -114,7 +114,7 @@ export const home_v4 = {
               color: 'primary',
               type: 'btn-video',
               video: {
-                type: 'player',
+                type: 'video',
                 options: {
                   controls: true,
                   aspectRatio: '16:9',
@@ -319,7 +319,7 @@ export const home_v4 = {
               type: 'btn-video',
               color: 'primary',
               video: {
-                type: 'player',
+                type: 'video',
                 options: {
                   controls: true,
                   aspectRatio: '16:9',

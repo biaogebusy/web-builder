@@ -7,14 +7,14 @@ import {
 } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
-import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
-import { IPlayer } from '@core/interface/widgets/IPlayer';
+import { VideoComponent } from '@uiux/combs/video/video/video.component';
+import { IVideo } from '@core/interface/widgets/IVideo';
 import { importProvidersFrom } from '@angular/core';
 
-const meta: Meta<PlayerComponent> = {
-  title: '特色组件/媒体/播放器',
-  id: 'player',
-  component: PlayerComponent,
+const meta: Meta<VideoComponent> = {
+  title: '特色组件/媒体/视频',
+  id: 'video',
+  component: VideoComponent,
   decorators: [
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
@@ -30,10 +30,10 @@ const meta: Meta<PlayerComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<PlayerComponent>;
+type Story = StoryObj<VideoComponent>;
 export const Default: Story = {};
-const content: IPlayer = {
-  type: 'player',
+const content: IVideo = {
+  type: 'video',
   options: {
     controls: true,
     aspectRatio: '16:9',

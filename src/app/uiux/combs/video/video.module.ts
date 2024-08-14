@@ -3,8 +3,9 @@ import { WidgetsModule } from '../../widgets/widgets.module';
 import { VideoBgComponent } from './video-bg/video-bg.component';
 import { ShareModule } from '@share/share.module';
 import { BaseModule } from '@uiux/base/base.module';
+import { VideoComponent } from './video/video.component';
 
-const components = [VideoBgComponent];
+const components = [VideoBgComponent, VideoComponent];
 
 @NgModule({
   declarations: [...components],

@@ -74,6 +74,7 @@ const content: IShowcase1v3 = {
           label: '回到官网',
           type: 'btn',
           href: '#',
+          classes: '!text-white',
           icon: {
             inline: true,
             svg: 'home',

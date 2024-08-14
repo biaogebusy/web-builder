@@ -384,7 +384,7 @@ export const home_v5 = {
               type: 'btn-video',
               color: 'primary',
               video: {
-                type: 'player',
+                type: 'video',
                 options: {
                   controls: true,
                   aspectRatio: '16:9',
