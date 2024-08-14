@@ -197,7 +197,7 @@ export class BuilderService extends ApiService {
       );
   }
 
-  getAttrAlias(attr: any) {
+  getAttrAlias(attr: any): string {
     const {
       drupal_internal__nid,
       path: { alias, langcode },
@@ -219,14 +219,8 @@ export class BuilderService extends ApiService {
 
     let prefix = '';
     const lang = this.getApiLang(langcode);
-    let langState = {};
     if (lang) {
       prefix = `/${lang}`;
-    }
-    if (prefix) {
-      langState = {
-        langcode,
-      };
     }
     const data = {
       type: 'path_alias--path_alias',
@@ -234,7 +228,7 @@ export class BuilderService extends ApiService {
       attributes: {
         alias: alias.replace(prefix, ''),
         path: `/node/${id}`,
-        ...langState,
+        langcode: langcode ?? 'und',
       },
     };
     const status$ = new Subject<any>();

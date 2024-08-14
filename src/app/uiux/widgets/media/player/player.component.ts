@@ -6,6 +6,7 @@ import {
   ElementRef,
   ViewEncapsulation,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import type { IPlayer } from '@core/interface/widgets/IPlayer';
 import { ScreenService } from '@core/service/screen.service';
@@ -25,10 +26,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   player: any;
 
-  constructor(
-    private elementRef: ElementRef,
-    private screenSerivce: ScreenService
-  ) {}
+  private screenSerivce = inject(ScreenService);
+  constructor() {}
 
   ngOnInit(): void {
     if (this.screenSerivce.isPlatformBrowser()) {
