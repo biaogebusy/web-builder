@@ -29,7 +29,7 @@ export const home_v12 = {
         },
       },
       classes: '',
-      body: {
+      content: {
         type: 'text',
         title: {
           label:

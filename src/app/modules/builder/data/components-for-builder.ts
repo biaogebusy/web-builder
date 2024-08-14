@@ -500,7 +500,7 @@ export const components: any[] = [
                 },
               },
               classes: '',
-              body: {
+              content: {
                 type: 'text',
                 title: {
                   label: '开源项目使用 Github actions 自动化',

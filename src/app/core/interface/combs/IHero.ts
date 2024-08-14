@@ -25,7 +25,7 @@ export interface IHero1v4 extends ICombsBase {
 }
 
 export interface IHero2v2 extends ICombsBase {
-  body: IText;
+  content: IText;
 }
 
 export interface IHero2v3 extends ICombsBase {
