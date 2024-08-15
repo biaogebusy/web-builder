@@ -1,0 +1,15 @@
+.video {
+  min-width: 200px;
+  min-height: 100px;
+}
+.cover {
+  video {
+    object-fit: cover;
+  }
+}
+
+.contain {
+  video {
+    object-fit: contain;
+  }
+}

@@ -8,6 +8,9 @@ export function getVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
       fieldGroup: [
         {
           key: 'options',
+          props: {
+            label: '视频',
+          },
           fieldGroup: [
             {
               type: 'select',
@@ -33,16 +36,24 @@ export function getVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
             },
             {
               type: 'toggle',
-              key: 'controls',
-              defaultValue: widget.options.controls,
+              key: 'loop',
+              defaultValue: widget.options.loop ?? false,
               props: {
-                label: '显示控制条',
+                label: '循环播放',
+              },
+            },
+            {
+              type: 'toggle',
+              key: 'controls',
+              defaultValue: widget.options.controls ?? true,
+              props: {
+                label: '控制条',
               },
             },
             // {
             //   type: 'input',
             //   key: 'width',
-            //   defaultValue: widget.options.width,
+            //   defaultValue: widget.options.width ?? 200,
             //   props: {
             //     label: 'W',
             //     type: 'number',
@@ -51,7 +62,7 @@ export function getVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
             // {
             //   type: 'input',
             //   key: 'height',
-            //   defaultValue: widget.options.height,
+            //   defaultValue: widget.options.height ?? 100,
             //   props: {
             //     label: 'H',
             //     type: 'number',
@@ -115,15 +126,14 @@ export function getVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
               },
             },
             {
-              template: `<img class="m-bottom-sm" src="${widget.options.poster}" height="50" width="auto" >`,
-            },
-            {
               key: 'poster',
-              type: 'input',
+              type: 'img-picker',
               className: 'w-full',
               defaultValue: widget.options.poster,
               props: {
-                label: '视频封面',
+                updateLabel: '更新封面',
+                addLabel: '设置封面',
+                deleteLabel: '删除',
               },
             },
             {
