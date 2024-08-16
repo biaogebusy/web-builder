@@ -61,13 +61,23 @@
     right: 2px;
     top: 2px;
     z-index: 10;
+    border-radius: 0 0 0 4px;
     ::ng-deep {
-      .mac-icon-button {
-        --mdc-icon-button-state-layer-size: 40px;
-        padding: 8px;
+      .mdc-icon-button {
+        --mdc-icon-button-state-layer-size: 30px;
+        padding: 0px;
+        .mat-icon {
+          height: 20px;
+          width: 20px;
+          line-height: 1;
+          svg {
+            width: 18px;
+            height: 18px;
+          }
+        }
         .mat-mdc-button-touch-target {
-          width: 40px;
-          height: 40px;
+          width: 30px;
+          height: 30px;
         }
       }
     }

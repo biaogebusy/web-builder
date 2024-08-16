@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -28,8 +27,6 @@ export class BuilderVersionComponent implements OnInit {
   builder = inject(BuilderState);
   storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
-  constructor() {}
-
   ngOnInit(): void {
     this.version = this.storage.retrieve('version');
     this.storage
@@ -42,10 +39,7 @@ export class BuilderVersionComponent implements OnInit {
   }
 
   onDelete(index: number): void {
-    this.builder.version.splice(index, 1);
-    this.builder.version[0].current = true;
-    this.builder.closeRightDrawer$.next(true);
-    this.builder.saveLocalVersions();
+    this.builder.deleteLocalPage(index);
   }
 
   onDeleteAll(): void {

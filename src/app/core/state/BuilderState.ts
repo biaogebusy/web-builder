@@ -90,6 +90,13 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
+  deleteLocalPage(index: number): void {
+    this.version.splice(index, 1);
+    this.version[0].current = true;
+    this.closeRightDrawer$.next(true);
+    this.saveLocalVersions();
+  }
+
   clearAllVersion(): void {
     this.version = [
       {

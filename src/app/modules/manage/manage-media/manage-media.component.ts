@@ -161,6 +161,11 @@ export class ManageMediaComponent implements OnInit {
     });
   }
 
+  onCopy(item: IManageImg): void {
+    this.util.copy(item.source || item.src || '');
+    this.util.openSnackbar('图片路径已复制', 'ok');
+  }
+
   onPreview(item: IManageImg): void {
     this.dialog.open(DialogComponent, {
       panelClass: [

@@ -59,6 +59,7 @@
                         }"
                         class="hidden sm:block icon-delete"
                         [matTooltip]="'删除'"
+                        matTooltipPosition="above"
                         (click)="onDelete(item.uuid)"
                         [content]="{
                           label: '',
@@ -67,8 +68,9 @@
                         }"
                       ></app-btn>
                       <app-btn
-                        class="hidden sm:block icon-select"
+                        class="hidden sm:block"
                         [matTooltip]="'大图'"
+                        matTooltipPosition="above"
                         (click)="onPreview(item)"
                         [content]="{
                           label: '',
@@ -76,11 +78,31 @@
                           icon: { svg: 'magnify-scan' },
                         }"
                       ></app-btn>
+                      <app-btn
+                        class="hidden sm:block"
+                        [matTooltip]="'复制路径'"
+                        matTooltipPosition="above"
+                        (click)="onCopy(item)"
+                        [content]="{
+                          label: '',
+                          mode: 'icon',
+                          icon: { svg: 'content-copy' },
+                        }"
+                      ></app-btn>
+                      <app-btn
+                        class="hidden sm:block"
+                        [matTooltip]="'选择'"
+                        matTooltipPosition="above"
+                        (click)="onSelect(item)"
+                        [content]="{
+                          label: '',
+                          mode: 'icon',
+                          icon: { svg: 'checkbox-marked-outline' },
+                        }"
+                      ></app-btn>
                     </div>
                     <div
                       class="box w-full h-full bg-gray-200 p-1 box-border"
-                      [matTooltip]="'选择'"
-                      (click)="onSelect(item)"
                       [ngClass]="{ selected: isSelected(item) }"
                     >
                       <img
