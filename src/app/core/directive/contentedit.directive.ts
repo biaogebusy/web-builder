@@ -6,6 +6,7 @@ import {
   Input,
   NgZone,
   OnInit,
+  inject,
 } from '@angular/core';
 import { IMetaEdit } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -18,12 +19,10 @@ import { getInlineText } from '@modules/builder/factory/getInlineText';
 })
 export class ContenteditDirective implements AfterViewInit, OnInit {
   private componentItem: Element | null = null;
-  constructor(
-    private el: ElementRef,
-    private builder: BuilderState,
-    private util: UtilitiesService,
-    private zone: NgZone,
-  ) {}
+  private el = inject(ElementRef);
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private zone = inject(NgZone);
 
   ngOnInit(): void {
     this.componentItem = this.el.nativeElement.closest('.component-item');
@@ -135,7 +134,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
       hasBackdrop: false,
       style: {
         width: '300px',
-        'max-width': 'calc(100vw - 50px)',
+        'max-width': 'calc(100vw - 140px)',
       },
       elements: [meta],
     });
