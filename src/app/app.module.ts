@@ -7,7 +7,7 @@ import {
   provideHttpClient,
   withFetch,
 } from '@angular/common/http';
-import { CommonModule, DOCUMENT, registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxWebstorageModule, LocalStorageService } from 'ngx-webstorage';

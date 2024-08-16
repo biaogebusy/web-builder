@@ -4,6 +4,7 @@ import {
   OnInit,
   ViewChild,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
@@ -29,14 +30,15 @@ export class MatSelectComponent
   public filteredOptions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   matOptions: any;
   fieldConfig: any;
-  constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {
+  private nodeService = inject(NodeService);
+  private cd = inject(ChangeDetectorRef);
+  constructor() {
     super();
   }
 
   ngOnInit(): void {
     this.fieldConfig = this.field;
-
-    if (this.fieldConfig.api) {
+    if (this.fieldConfig.props.api) {
       this.getOptionsFromApi();
     } else {
       this.matOptions = this.to.options || [];
@@ -51,17 +53,18 @@ export class MatSelectComponent
   }
 
   getOptionsFromApi(): void {
+    const { api, options } = this.fieldConfig.props;
     this.nodeService
-      .fetch(this.fieldConfig.api || '', '')
+      .fetch(api || '', '')
       .pipe(
         catchError(() => {
           return of({
             rows: [],
           });
-        })
+        }),
       )
       .subscribe((res) => {
-        this.matOptions = res.rows;
+        this.matOptions = [...options, ...res.rows];
         // load the initial options
         this.filteredOptions.next(this.matOptions.slice());
         this.cd.detectChanges();
@@ -98,8 +101,8 @@ export class MatSelectComponent
     // filter the options
     this.filteredOptions.next(
       this.matOptions.filter(
-        (bank: any) => bank.label.toLowerCase().indexOf(search) > -1
-      )
+        (bank: any) => bank.label.toLowerCase().indexOf(search) > -1,
+      ),
     );
   }
 }

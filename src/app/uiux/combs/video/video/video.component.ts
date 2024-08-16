@@ -6,29 +6,28 @@ import {
   ElementRef,
   ViewEncapsulation,
   OnDestroy,
+  inject,
 } from '@angular/core';
-import type { IPlayer } from '@core/interface/widgets/IPlayer';
+import type { IVideo } from '@core/interface/widgets/IVideo';
 import { ScreenService } from '@core/service/screen.service';
 import videojs from 'video.js';
 
 @Component({
-  selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss'],
+  selector: 'app-video',
+  templateUrl: './video.component.html',
+  styleUrls: ['./video.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PlayerComponent implements OnInit, OnDestroy {
+export class VideoComponent implements OnInit, OnDestroy {
   @ViewChild('target', { static: true }) target: ElementRef;
   // See options: https://videojs.com/guides/options
   // https://videojs.com/guides/angular/
-  @Input() content: IPlayer;
+  @Input() content: IVideo;
 
   player: any;
 
-  constructor(
-    private elementRef: ElementRef,
-    private screenSerivce: ScreenService
-  ) {}
+  private screenSerivce = inject(ScreenService);
+  constructor() {}
 
   ngOnInit(): void {
     if (this.screenSerivce.isPlatformBrowser()) {

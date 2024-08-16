@@ -12,6 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 import type { IPage } from '@core/interface/IAppConfig';
+import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
@@ -36,6 +37,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   private util = inject(UtilitiesService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
+  private builderService = inject(BuilderService);
   constructor(
     @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
@@ -93,6 +95,13 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
     }
     const url = window.location.origin;
     window.open(`${url}/builder/preview`, '_blank');
+  }
+
+  onPageSetting(page: IPage): void {
+    const { uuid, langcode } = page;
+    if (uuid) {
+      this.builderService.openPageSetting({ uuid, langcode });
+    }
   }
 
   onColorTest(): void {

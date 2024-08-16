@@ -32,7 +32,7 @@
       </div>
       <div
         id="toolbar-right"
-        class="right gap-1 flex justify-center items-center"
+        class="right sm:gap-1 flex justify-center items-center"
       >
         <mat-slide-toggle
           [checked]="builderFullScreen$ | async"
@@ -50,6 +50,7 @@
         ></app-btn-generater>
         @if (page) {
           <app-btn
+            class="hidden sm:flex"
             (click)="onSubmit(page)"
             [content]="{
               label: page.translation

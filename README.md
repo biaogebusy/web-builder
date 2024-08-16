@@ -3,7 +3,7 @@
 <p align="center">
   <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
   <br>
-  <i>信使 Web builder 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>通过拖拽快速构建响应式、多主题、多语言的 Web 页面。
+  <i>信使 Web builder 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>通过拖拽可视化配置快速构建现代化响应式UI、多主题、多语言的 Web 页面，包含美观的后台管理主题，拥有完整的前端解决方案。
     </i>
   <br>
 </p>

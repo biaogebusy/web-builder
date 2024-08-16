@@ -73,4 +73,15 @@
       color: rgba(0, 0, 0, 0.75);
     }
   }
+
+  .page-preview-dialog {
+    .dialog {
+      height: 100%;
+      .mat-mdc-dialog-content {
+        max-height: none;
+        height: 100%;
+        overflow: hidden;
+      }
+    }
+  }
 }

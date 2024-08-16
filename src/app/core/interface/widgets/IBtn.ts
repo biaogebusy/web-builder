@@ -1,6 +1,6 @@
 import { ThemePalette } from '@angular/material/core';
 import { IIcon } from './IIcon';
-import { IPlayer } from '@core/interface/widgets/IPlayer';
+import { IVideo } from '@core/interface/widgets/IVideo';
 import { IIframe } from './IWidgets';
 import { MatDialogConfig } from '@angular/material/dialog';
 export interface IBtn {
@@ -21,6 +21,6 @@ export interface IBtnVideo {
   type: 'btn-video';
   color: 'primary' | 'accent' | 'warn';
   dialog?: MatDialogConfig;
-  video: IPlayer | IIframe;
+  video: IVideo | IIframe;
   classes?: string | object;
 }

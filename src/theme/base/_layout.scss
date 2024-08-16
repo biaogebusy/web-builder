@@ -326,3 +326,20 @@ a.anchor {
 .dark-theme .builder.dark > .mat-drawer-container .builder-list {
   background-color: transparent !important;
 }
+
+.video {
+  &.cover {
+    .vjs-poster {
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+  &.contain {
+    .vjs-poster {
+      img {
+        object-fit: contain;
+      }
+    }
+  }
+}

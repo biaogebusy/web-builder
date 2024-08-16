@@ -5,11 +5,12 @@
     <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   }
   <div class="{{ content.fullWidth ? 'relative' : 'container relative' }} flex">
-    <div
-      class="inner md:left-2/4 flex-12/12 md:flex-7/12 relative"
-      >
+    <div class="inner md:left-2/4 flex-12/12 md:flex-7/12 relative">
       <div class="box p-x">
-        <app-text [attr.data-path]="'body'" [content]="content.body"></app-text>
+        <app-text
+          [attr.data-path]="'content'"
+          [content]="content.content"
+        ></app-text>
       </div>
     </div>
   </div>

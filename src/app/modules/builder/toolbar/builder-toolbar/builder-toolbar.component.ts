@@ -32,6 +32,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NodeService } from '@core/service/node.service';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -42,14 +43,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   @Input() builderRightDrawer: MatDrawer;
   page?: IPage;
-  storage = inject(LocalStorageService);
-  builder = inject(BuilderState);
-  screenState = inject(ScreenState);
-  screenService = inject(ScreenService);
-  util = inject(UtilitiesService);
-  builderService = inject(BuilderService);
-  dialog = inject(MatDialog);
   router = inject(Router);
+  dialog = inject(MatDialog);
+  builder = inject(BuilderState);
+  util = inject(UtilitiesService);
+  screenState = inject(ScreenState);
+  storage = inject(LocalStorageService);
+  screenService = inject(ScreenService);
+  builderService = inject(BuilderService);
+  nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(
@@ -149,14 +151,24 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
         this.builderService
           .updateLandingPage(this.builder.currentPage)
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((res) => {
-            this.builder.loading$.next(false);
-            const { status, message } = res;
-            this.util.openSnackbar(message, 'ok');
-            if (status) {
-              this.builder.updateSuccess$.next(true);
-            }
-          });
+          .subscribe(
+            (res) => {
+              this.builder.loading$.next(false);
+              const { status, message } = res;
+              this.util.openSnackbar(message, 'ok');
+
+              if (status) {
+                this.builder.updateSuccess$.next(true);
+              }
+            },
+            (error) => {
+              const {
+                error: { message },
+              } = error;
+              this.builder.loading$.next(false);
+              this.util.openSnackbar(message, 'ok');
+            },
+          );
       } else {
         if (page.body.length === 0) {
           this.onNewPage();
