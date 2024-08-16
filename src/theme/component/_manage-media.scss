@@ -19,15 +19,16 @@
         }
       }
       .actions {
-        .icon-select {
-          &:hover {
-            color: mat.get-color-from-palette($primary);
-          }
-        }
+        background-color: mat.get-color-from-palette($background, tooltip, 0.6);
         .icon-delete {
           &:hover {
-            color: mat.get-color-from-palette($warn);
+            .mat-icon {
+              color: mat.get-color-from-palette($warn);
+            }
           }
+        }
+        .mat-icon {
+          color: mat.get-color-from-palette($background, card);
         }
       }
     }
