@@ -411,7 +411,7 @@ export class BuilderService extends ApiService {
           type: 'text',
           title: {
             label:
-              '<p style="display: inline-block; margin-bottom: 0px;">免费试用 <strong class="text-primary">Web Builder</strong> 快速构建页面</p>',
+              '<p style="display: inline-block; margin-bottom: 0px;">使用开源 <strong class="text-primary">Web Builder</strong> 快速构建页面</p>',
             style: 'style-v1',
             classes: 'mat-headline-3 bold',
           },

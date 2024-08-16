@@ -80,7 +80,7 @@
           "type": "text",
           "spacer": "sm",
           "title": {
-            "label": "免费试用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
+            "label": "使用开源 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
             "style": "style-v4",
             "classes": "mat-display-3 bold",
             "typed": {
