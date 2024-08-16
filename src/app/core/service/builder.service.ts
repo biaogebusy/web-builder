@@ -15,8 +15,8 @@ import { NodeService } from './node.service';
 import { catchError, tap } from 'rxjs/operators';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { IPageMeta } from '@core/interface/IBuilder';
 import { environment } from 'src/environments/environment';
+import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 
 @Injectable({
   providedIn: 'root',
@@ -56,10 +56,17 @@ export class BuilderService extends ApiService {
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${id}`, 'noCache=1', '', lang)
       .subscribe((page: IPage) => {
-        const { body, status } = page;
+        const { body, status, uuid } = page;
         this.builder.loading$.next(false);
         if (status) {
           this.builder.loadNewPage(this.formatToExtraData(page));
+          if (uuid) {
+            this.openPageSetting({
+              uuid,
+              langcode,
+            });
+          }
+
           if (body.length === 0) {
             this.util.openSnackbar('当前内容为空，已为你初始化一个组件', 'ok');
           }
@@ -147,10 +154,11 @@ export class BuilderService extends ApiService {
   }
 
   updateAttributes(
-    page: IPageMeta,
+    page: { uuid: string; langcode?: string },
     api: string,
     type: string,
     attr: any,
+    relationships: any,
   ): Observable<any> {
     const { csrf_token, id } = this.user;
     const { langcode, uuid } = page;
@@ -171,12 +179,7 @@ export class BuilderService extends ApiService {
               ...attr,
             },
             relationships: {
-              uid: {
-                data: {
-                  type: 'user--user',
-                  id,
-                },
-              },
+              ...relationships,
             },
           },
         },
@@ -194,20 +197,30 @@ export class BuilderService extends ApiService {
       );
   }
 
-  updateUrlalias(page: IPageMeta, alias: string): Observable<any> {
+  getAttrAlias(attr: any): string {
+    const {
+      drupal_internal__nid,
+      path: { alias, langcode },
+    } = attr;
+
+    const lang = this.getApiLang(langcode);
+    const url = alias
+      ? `${lang}${alias}`
+      : `${lang}/node/${drupal_internal__nid}`;
+    return url;
+  }
+
+  updateUrlalias(
+    page: { langcode?: string; uuid: string; id: string },
+    alias: string,
+  ): Observable<any> {
     const { csrf_token } = this.user;
     const { langcode, uuid, id } = page;
 
     let prefix = '';
     const lang = this.getApiLang(langcode);
-    let langState = {};
     if (lang) {
       prefix = `/${lang}`;
-    }
-    if (prefix) {
-      langState = {
-        langcode,
-      };
     }
     const data = {
       type: 'path_alias--path_alias',
@@ -215,7 +228,7 @@ export class BuilderService extends ApiService {
       attributes: {
         alias: alias.replace(prefix, ''),
         path: `/node/${id}`,
-        ...langState,
+        langcode: langcode ?? 'und',
       },
     };
     const status$ = new Subject<any>();
@@ -267,6 +280,47 @@ export class BuilderService extends ApiService {
       };
     });
     return currentPage;
+  }
+
+  openPageSetting(page: { uuid: string; langcode?: string }): void {
+    const { uuid, langcode } = page;
+    const apiParams = new DrupalJsonApiParams();
+    apiParams.addCustomParam({ noCache: true });
+    apiParams.addInclude(['uid', 'group']);
+    const params = apiParams.getQueryString();
+    const lang = this.getApiLang(langcode);
+    this.nodeService
+      .fetch(
+        `/api/v1/node/landing_page/${uuid}`,
+        params,
+        this.user.csrf_token,
+        lang,
+      )
+      .subscribe(
+        (res) => {
+          this.builder.loading$.next(false);
+          this.builder.rightContent$.next({
+            mode: 'over',
+            hasBackdrop: true,
+            style: {
+              width: '260px',
+              padding: '14px',
+              'max-width': 'calc(100vw - 50px)',
+            },
+            elements: [
+              {
+                type: 'page-setting',
+                content: res,
+              },
+            ],
+          });
+        },
+        (error) => {
+          this.builder.loading$.next(false);
+          const { statusText } = error;
+          this.util.openSnackbar(statusText, 'ok');
+        },
+      );
   }
 
   coverExtraData(page: IPage): any {

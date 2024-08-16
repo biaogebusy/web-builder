@@ -18,7 +18,6 @@ import { ScreenService } from '@core/service/screen.service';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { WIDGETS } from '@core/token/token-providers';
 
 @Injectable({
@@ -35,7 +34,6 @@ export class BuilderState {
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
-  public showGrid$ = new Subject<boolean>();
   public selectedMedia$ = new Subject<ISelectedMedia>();
   public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'xs-md' | 'none'>();
 
@@ -92,6 +90,13 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
+  deleteLocalPage(index: number): void {
+    this.version.splice(index, 1);
+    this.version[0].current = true;
+    this.closeRightDrawer$.next(true);
+    this.saveLocalVersions();
+  }
+
   clearAllVersion(): void {
     this.version = [
       {
@@ -136,22 +141,6 @@ export class BuilderState {
       }
       this.loading$.next(false);
     }, 600);
-  }
-
-  pageSetting(page: IPageMeta): void {
-    this.dialog.open(DialogComponent, {
-      width: '500px',
-      panelClass: ['close-outside', 'close-icon-white'],
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'page-setting',
-            content: page,
-          },
-        },
-      },
-    });
   }
 
   get currentPage(): IPage {

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -13,11 +18,9 @@ import { templates } from '@modules/builder/data/template-for-builder';
 })
 export class BuilderTemplateComponent implements OnInit {
   content: any[];
-  constructor(
-    private builder: BuilderState,
-    private dialog: MatDialog,
-    private util: UtilitiesService
-  ) {}
+  private builder = inject(BuilderState);
+  private dialog = inject(MatDialog);
+  private util = inject(UtilitiesService);
 
   ngOnInit(): void {
     this.content = templates;
