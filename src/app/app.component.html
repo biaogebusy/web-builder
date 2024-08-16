@@ -4,7 +4,11 @@
   </div>
 }
 @if (coreConfig.loadingBar) {
-  <ngx-loading-bar [includeSpinner]="false"></ngx-loading-bar>
+  <ngx-loading-bar
+    [includeSpinner]="false"
+    height="4px"
+    color="#2962ff"
+  ></ngx-loading-bar>
 }
 @if (coreConfig && branding$ | async) {
   <mat-drawer-container>
