@@ -31,7 +31,6 @@ export class ComponentService {
       'panel',
       'title',
       'share',
-      'player',
       'swiper',
       'divider',
       'spacer',
@@ -229,7 +228,7 @@ export class ComponentService {
       ),
     );
 
-    ['video-bg'].forEach((type) =>
+    ['video-bg', 'video'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/video/video.module').then((m) => m.VideoModule),
       ),
@@ -290,7 +289,7 @@ export class ComponentService {
       });
   }
 
-  async getModuleRef(type: string) {
+  async getModuleRef(type: string): Promise<any> {
     if (!this.moduleLists[type]) {
       throw new Error(`组件${type}不存在！`);
     }

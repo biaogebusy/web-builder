@@ -500,7 +500,7 @@ export const components: any[] = [
                 },
               },
               classes: '',
-              body: {
+              content: {
                 type: 'text',
                 title: {
                   label: '开源项目使用 Github actions 自动化',
@@ -1302,6 +1302,7 @@ export const components: any[] = [
                     {
                       label: '回到官网',
                       type: 'btn',
+                      classes: '!text-white',
                       href: '#',
                       icon: {
                         inline: true,
@@ -1473,7 +1474,7 @@ export const components: any[] = [
                       type: 'btn-video',
                       color: 'primary',
                       video: {
-                        type: 'player',
+                        type: 'video',
                         options: {
                           controls: true,
                           aspectRatio: '16:9',
@@ -3373,7 +3374,7 @@ export const components: any[] = [
                       color: 'primary',
                       type: 'btn-video',
                       video: {
-                        type: 'player',
+                        type: 'video',
                         options: {
                           controls: true,
                           aspectRatio: '16:9',
@@ -3858,7 +3859,7 @@ export const components: any[] = [
                         color: 'primary',
                         type: 'btn-video',
                         video: {
-                          type: 'player',
+                          type: 'video',
                           options: {
                             controls: true,
                             aspectRatio: '16:9',
@@ -3884,7 +3885,7 @@ export const components: any[] = [
                         color: 'primary',
                         type: 'btn-video',
                         video: {
-                          type: 'player',
+                          type: 'video',
                           options: {
                             controls: true,
                             aspectRatio: '16:9',
@@ -3910,7 +3911,7 @@ export const components: any[] = [
                         color: 'primary',
                         type: 'btn-video',
                         video: {
-                          type: 'player',
+                          type: 'video',
                           options: {
                             controls: true,
                             aspectRatio: '16:9',
@@ -3936,7 +3937,7 @@ export const components: any[] = [
                         color: 'primary',
                         type: 'btn-video',
                         video: {
-                          type: 'player',
+                          type: 'video',
                           options: {
                             controls: true,
                             aspectRatio: '16:9',

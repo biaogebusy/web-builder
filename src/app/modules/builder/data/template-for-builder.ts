@@ -1279,4 +1279,20 @@ export const templates: any[] = [
       ],
     },
   },
+  {
+    title: '空白JSON',
+    subTitle: '新建一个默认JSON组件，小程序应用',
+    img: '/assets/images/builder/template/blank.png',
+    page: {
+      title: '空白页面',
+      current: true,
+      time: new Date(),
+      body: [
+        {
+          type: 'json',
+          name: 'sample',
+        },
+      ],
+    },
+  },
 ];

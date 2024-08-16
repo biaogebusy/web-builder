@@ -84,7 +84,6 @@ import { ChartComponent } from './chart/chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
-import { PlayerComponent } from './media/player/player.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
 
 import { BaseModule } from '@uiux/base/base.module';
@@ -182,7 +181,6 @@ const components = [
   RichTextComponent,
   TabsTypeComponent,
   ImgPickerComponent,
-  PlayerComponent,
   BtnVideoComponent,
   AccordionComponent,
   DropdownMenuComponent,
