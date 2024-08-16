@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import type { IImg } from '@core/interface/widgets/IImg';
@@ -23,13 +24,12 @@ export class FeatureBoxComponent implements OnInit {
   type: string;
   isHoverIcon = true;
   title: string;
-  constructor(
-    private utli: UtilitiesService,
-    private cd: ChangeDetectorRef,
-    private routerService: RouteService,
-    private util: UtilitiesService,
-    private dialog: MatDialog,
-  ) {}
+
+  private dialog = inject(MatDialog);
+  private cd = inject(ChangeDetectorRef);
+  private utli = inject(UtilitiesService);
+  private util = inject(UtilitiesService);
+  private routerService = inject(RouteService);
 
   ngOnInit(): void {
     this.type = this.utli.getFileType(this.content.img.src);
