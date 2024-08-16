@@ -319,6 +319,7 @@ export class PageSettingComponent implements OnInit {
           this.builder.updateSuccess$.next(true);
           this.builder.closeRightDrawer$.next(true);
           this.loading = false;
+          this.deleteLocalPage(id);
           this.cd.detectChanges();
         },
         (error) => {
@@ -329,5 +330,11 @@ export class PageSettingComponent implements OnInit {
           this.util.openSnackbar(message, 'ok');
         },
       );
+  }
+
+  deleteLocalPage(uuid: string): void {
+    const versions = this.builder.version;
+    const index = versions.findIndex((item) => item.uuid === uuid);
+    this.builder.deleteLocalPage(index);
   }
 }
