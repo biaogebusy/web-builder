@@ -59,6 +59,7 @@
                         disabled="{{ formPhone.phone.errors ? true : false }}"
                         (click)="getCode($event)"
                         class="right-4"
+                        [class]="countdown ? 'pointer-events-none' : ''"
                         matSuffix
                         color="primary"
                         mat-raised-button
