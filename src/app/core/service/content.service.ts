@@ -104,7 +104,7 @@ export class ContentService {
     const { lang, path } = this.getUrlPath(pageUrl);
 
     if (environment.production) {
-      const landingPath = '/api/v1/landingPage?content=';
+      const landingPath = '/api/v3/landingPage?content=';
       const pageUrlParams = `${this.apiUrl}${lang}${landingPath}${path}`;
       return this.http.get<any>(pageUrlParams).pipe(
         tap((page) => {
@@ -149,7 +149,7 @@ export class ContentService {
     };
     if (environment.production) {
       return this.http.get<IBranding>(
-        `${this.apiUrl}${lang}/api/v1/config?content=/core/branding`,
+        `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`,
       );
     } else {
       if (lang === '/en') {
@@ -162,7 +162,7 @@ export class ContentService {
   loadConfig(coreConfig: object): any {
     const { lang } = this.getUrlPath(this.pageUrl);
     const configPath = environment.production
-      ? `${this.apiUrl}${lang}/api/v1/config?content=/core/base`
+      ? `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/base`
       : `${this.apiUrl}/assets/app${lang}/core/base.json`;
     return this.http
       .get(configPath)
@@ -186,7 +186,7 @@ export class ContentService {
   loadBuilderConfig(): Observable<IBuilderConfig> {
     const { lang } = this.getUrlPath(this.pageUrl);
     const configPath = environment.production
-      ? `${this.apiUrl}${lang}/api/v1/config?content=/core/builder`
+      ? `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/builder`
       : `${this.apiUrl}/assets/app${lang}/core/builder.json`;
 
     return this.http.get<IBuilderConfig>(configPath);
@@ -195,7 +195,7 @@ export class ContentService {
   loadBuilderPage(path: string): Observable<any[]> {
     const { lang } = this.getUrlPath(this.pageUrl);
     const builderPath = environment.production
-      ? `${this.apiUrl}${lang}/api/v1/config?content=${path}`
+      ? `${this.apiUrl}${lang}/api/v3/landingPage?content=${path}`
       : `${this.apiUrl}/assets/app${lang}/${path}.json`;
 
     return this.http.get<any[]>(builderPath);

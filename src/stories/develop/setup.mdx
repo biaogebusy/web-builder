@@ -94,12 +94,12 @@ export class AppModule {}
 ```
 
 读取全局配置信息
-`/api/v1/config?content=/core/base`
+`/api/v3/landingPage?content=/core/base`
 
 ```ts
 loadConfig(coreConfig: object): any {
     const configPath = environment.production
-      ? `${this.apiUrl}/api/v1/config?content=/core/base`
+      ? `${this.apiUrl}/api/v3/landingPage?content=/core/base`
       : `${this.apiUrl}/assets/app/core/base.json`;
     return this.http
       .get(configPath)
@@ -139,7 +139,7 @@ loadConfig(coreConfig: object): any {
 ```
 
 读取 Branding 页头页脚
-`/api/v1/config?content=/core/branding`
+`/api/v3/landingPage?content=/core/branding`
 
 ```ts
  loadBranding(): Observable<IBranding> {
@@ -149,7 +149,7 @@ loadConfig(coreConfig: object): any {
     };
     if (environment.production) {
       return this.http.get<IBranding>(
-        `${this.apiUrl}/api/v1/config?content=/core/branding`
+        `${this.apiUrl}/api/v3/landingPage?content=/core/branding`
       );
     } else {
       return of(localBranding);
@@ -300,7 +300,7 @@ export function pageContentFactory(
 ```ts
 loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
     if (environment.production) {
-      const landingPath = '/api/v1/landingPage?content=';
+      const landingPath = '/api/v3/landingPage?content=';
       const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
       return this.http.get<any>(pageUrlParams).pipe(
         tap((page) => {
@@ -352,7 +352,7 @@ export class AuthGuard implements CanActivate {
     // return true;
     if (environment.production) {
       return this.nodeService
-        .fetch(`/api/v1/config`, "content=/core/base")
+        .fetch(`/api/v3/landingPage`, "content=/core/base")
         .pipe(
           switchMap((config: ICoreConfig) => {
             const guardConfig = config.guard;
