@@ -200,7 +200,8 @@ export class BuilderService extends ApiService {
   getAttrAlias(attr: any): string {
     const {
       drupal_internal__nid,
-      path: { alias, langcode },
+      langcode,
+      path: { alias },
     } = attr;
 
     const lang = this.getApiLang(langcode);
