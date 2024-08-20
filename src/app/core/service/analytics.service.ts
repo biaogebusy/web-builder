@@ -1,6 +1,5 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { DOCUMENT } from '@angular/common';
 
 declare var gtag: any;
 declare var window: any;
@@ -10,7 +9,7 @@ declare var window: any;
 })
 export class AnalyticsService {
   utility = inject(UtilitiesService);
-  constructor(@Inject(DOCUMENT) private doc: Document) {}
+  constructor() {}
 
   loadGoogleAnalytics(id: string): void {
     // injecting GA main script asynchronously
@@ -22,7 +21,7 @@ export class AnalyticsService {
     window.gtag = () => {
       window.dataLayer.push(arguments);
     };
-    gtag('js', new Date());
-    gtag('config', id);
+    window.gtag('js', new Date());
+    window.gtag('config', id);
   }
 }

@@ -45,7 +45,7 @@ export class UtilitiesService {
     if (id) {
       script.id = id;
     }
-    this.document.body.appendChild(script);
+    this.document.head.appendChild(script);
   }
 
   getFileType(href: string): string {
