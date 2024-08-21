@@ -215,6 +215,7 @@ export class BuilderService extends ApiService {
     page: { langcode?: string; uuid: string; id: string },
     alias: string,
   ): Observable<any> {
+    const { multiLang } = environment;
     const { csrf_token } = this.user;
     const { langcode, uuid, id } = page;
 
@@ -223,15 +224,22 @@ export class BuilderService extends ApiService {
     if (lang) {
       prefix = `/${lang}`;
     }
+    let langObj = {};
+    if (multiLang) {
+      langObj = {
+        langcode: langcode ?? 'und',
+      };
+    }
     const data = {
       type: 'path_alias--path_alias',
       id: uuid,
       attributes: {
         alias: alias.replace(prefix, ''),
         path: `/node/${id}`,
-        langcode: langcode ?? 'und',
+        ...langObj,
       },
     };
+
     const status$ = new Subject<any>();
     this.http
       .patch(
