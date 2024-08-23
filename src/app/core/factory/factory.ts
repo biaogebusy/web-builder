@@ -34,8 +34,10 @@ export function pageContentFactory(): Observable<IPage | object | boolean> {
   const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
   activateRoute.url.subscribe(async (url) => {
     const page = await contentService.loadPageContent().toPromise();
-    $pageContent.next(page);
-    contentState.pageConfig$.next(page.config);
+    if (page) {
+      $pageContent.next(page);
+      contentState.pageConfig$.next(page.config);
+    }
   });
   return $pageContent;
 }

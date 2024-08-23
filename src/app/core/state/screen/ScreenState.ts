@@ -55,8 +55,8 @@ export class ScreenState {
             }
           }
           return ['unknown'];
-        })
-    );
+        }),
+      );
   }
 
   eq(targetPoint: string): boolean {
@@ -79,6 +79,6 @@ export class ScreenState {
   }
 
   toggleDrawer(): any {
-    this.drawer$.next();
+    this.drawer$.next(true);
   }
 }
