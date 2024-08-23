@@ -36,7 +36,7 @@ const content: IVideo = {
   type: 'video',
   options: {
     controls: true,
-    aspectRatio: '16:9',
+    aspectRatio: '1:1',
     poster: '/assets/video/poster01.png',
     sources: [
       {
