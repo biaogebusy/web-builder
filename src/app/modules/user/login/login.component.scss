@@ -24,6 +24,9 @@
   max-height: 600px;
 
   .login-form {
+    .mat-mdc-raised-button {
+      height: 40px;
+    }
     .form-scroll {
       position: relative;
     }
@@ -60,11 +63,6 @@
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
   }
-}
-
-input.example-right-align::-webkit-outer-spin-button,
-input.example-right-align::-webkit-inner-spin-button {
-  display: none;
 }
 
 .mark-bg {

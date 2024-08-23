@@ -7,12 +7,12 @@
   z-index: 200;
 }
 .showcase {
-  position: fixed;
+  position: absolute;
   width: 1000px;
   margin: 20px;
   z-index: 9999;
-  left: 350px;
-  top: 75px;
+  left: 0;
+  top: 0;
   padding-bottom: 60px;
   border-radius: 4px;
   overflow: hidden;
