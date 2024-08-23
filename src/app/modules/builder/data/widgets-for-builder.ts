@@ -44,7 +44,7 @@ export const widgets = [
     },
   },
   {
-    label: '自定义',
+    label: 'Tailwind',
     icon: {
       svg: 'code-json',
     },
@@ -122,7 +122,7 @@ export const widgets = [
       type: 'video',
       options: {
         controls: true,
-        aspectRatio: '16:9',
+        aspectRatio: '1:1',
         poster: '/assets/video/poster01.png',
         sources: [
           {

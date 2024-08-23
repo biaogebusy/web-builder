@@ -27,7 +27,6 @@ export class VideoComponent implements OnInit, OnDestroy {
   player: any;
 
   private screenSerivce = inject(ScreenService);
-  constructor() {}
 
   ngOnInit(): void {
     if (this.screenSerivce.isPlatformBrowser()) {
