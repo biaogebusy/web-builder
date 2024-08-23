@@ -44,7 +44,7 @@ export const widgets = [
     },
   },
   {
-    label: '自定义',
+    label: 'Tailwind',
     icon: {
       svg: 'code-json',
     },

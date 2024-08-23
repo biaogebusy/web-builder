@@ -74,7 +74,7 @@ export const widgets: any[] = [
     },
   },
   {
-    label: '自定义',
+    label: 'Tailwind',
     icon: {
       svg: 'code-json',
     },
