@@ -83,7 +83,7 @@ export class UserService extends ApiService {
     const sesstion = this.http.get('/session/token', {
       responseType: 'text',
     });
-    const profile = this.http.get('/api/v1/accountProfile', options);
+    const profile = this.http.get('/api/v3/accountProfile', options);
     let tokenUser = {};
     forkJoin({
       csrf_token: sesstion,
@@ -217,7 +217,9 @@ export class UserService extends ApiService {
 
   getUserConfig(): Observable<any> {
     if (environment.production) {
-      return this.http.get(`${this.apiUrl}/api/v1/config?content=/core/user`);
+      return this.http.get(
+        `${this.apiUrl}/api/v3/landingPage?content=/core/user`,
+      );
     } else {
       return this.http.get(`${this.apiUrl}/assets/app/core/user.json`);
     }
@@ -241,7 +243,7 @@ export class UserService extends ApiService {
 
   getCurrentUserProfile(crsfToken: string): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}/api/v1/accountProfile?noCache=1`,
+      `${this.apiUrl}/api/v3/accountProfile?noCache=1`,
       this.optionsWithCookieAndToken(crsfToken),
     );
   }
@@ -261,7 +263,7 @@ export class UserService extends ApiService {
       .pipe(
         catchError((error: any) => {
           return this.http.get<any>(
-            `${this.apiUrl}/api/v1/personalProfile?noCache=1`,
+            `${this.apiUrl}/api/v3/personalProfile?noCache=1`,
             this.optionsWithCookieAndToken(token),
           );
         }),

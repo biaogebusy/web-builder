@@ -99,30 +99,13 @@ export function getVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
               },
             },
             {
-              type: 'select',
+              type: 'input',
               key: 'aspectRatio',
               className: 'w-full',
               defaultValue: widget.options.aspectRatio,
               props: {
                 label: '播放比例',
-                options: [
-                  {
-                    label: '16:9',
-                    value: '16:9',
-                  },
-                  {
-                    label: '6:19',
-                    value: '6:19',
-                  },
-                  {
-                    label: '4:3',
-                    value: '4:3',
-                  },
-                  {
-                    label: '1:1',
-                    value: '1:1',
-                  },
-                ],
+                placeholder: '例如：16:9 | 1068:720',
               },
             },
             {

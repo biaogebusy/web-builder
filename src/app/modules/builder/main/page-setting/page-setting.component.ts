@@ -91,6 +91,7 @@ export class PageSettingComponent implements OnInit {
             defaultValue: this.builderService.getAttrAlias({
               drupal_internal__nid,
               path,
+              langcode,
             }),
             props: {
               label: 'url别名',

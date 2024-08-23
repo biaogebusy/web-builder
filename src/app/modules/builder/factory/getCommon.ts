@@ -192,40 +192,6 @@ export const getObjectFix = [
   },
 ];
 
-export const getDirectionOption = [
-  {
-    label: 'Row',
-    value: 'row',
-  },
-  {
-    label: 'Column',
-    value: 'col',
-  },
-  {
-    label: 'Row reverse',
-    value: 'row-reverse',
-  },
-  {
-    label: 'Column reverse',
-    value: 'col-reverse',
-  },
-];
-
-export const getWrapOption = [
-  {
-    label: 'Wrap',
-    value: 'wrap',
-  },
-  {
-    label: 'Wrap reverse',
-    value: 'wrap-reverse',
-  },
-  {
-    label: 'Nowrap',
-    value: 'nowrap',
-  },
-];
-
 export const getHorizontalOption = [
   {
     label: 'None',
@@ -259,7 +225,7 @@ export const getHorizontalOption = [
 
 export const getVerticalOption = [
   {
-    label: 'None',
+    label: 'stretch',
     value: 'stretch',
   },
   {
@@ -277,10 +243,6 @@ export const getVerticalOption = [
   {
     label: 'baseline',
     value: 'baseline',
-  },
-  {
-    label: 'stretch',
-    value: 'stretch',
   },
 ];
 

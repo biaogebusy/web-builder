@@ -200,7 +200,8 @@ export class BuilderService extends ApiService {
   getAttrAlias(attr: any): string {
     const {
       drupal_internal__nid,
-      path: { alias, langcode },
+      langcode,
+      path: { alias },
     } = attr;
 
     const lang = this.getApiLang(langcode);
@@ -214,6 +215,7 @@ export class BuilderService extends ApiService {
     page: { langcode?: string; uuid: string; id: string },
     alias: string,
   ): Observable<any> {
+    const { multiLang } = environment;
     const { csrf_token } = this.user;
     const { langcode, uuid, id } = page;
 
@@ -222,15 +224,22 @@ export class BuilderService extends ApiService {
     if (lang) {
       prefix = `/${lang}`;
     }
+    let langObj = {};
+    if (multiLang) {
+      langObj = {
+        langcode: langcode ?? 'und',
+      };
+    }
     const data = {
       type: 'path_alias--path_alias',
       id: uuid,
       attributes: {
         alias: alias.replace(prefix, ''),
         path: `/node/${id}`,
-        langcode: langcode ?? 'und',
+        ...langObj,
       },
     };
+
     const status$ = new Subject<any>();
     this.http
       .patch(
@@ -411,7 +420,7 @@ export class BuilderService extends ApiService {
           type: 'text',
           title: {
             label:
-              '<p style="display: inline-block; margin-bottom: 0px;">免费试用 <strong class="text-primary">Web Builder</strong> 快速构建页面</p>',
+              '<p style="display: inline-block; margin-bottom: 0px;">使用开源 <strong class="text-primary">Web Builder</strong> 快速构建页面</p>',
             style: 'style-v1',
             classes: 'mat-headline-3 bold',
           },
