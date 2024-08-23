@@ -41,7 +41,7 @@ export class BuilderGuard {
     // return true;
     if (this.screenService.isPlatformBrowser() && environment.production) {
       return this.nodeService
-        .fetch(`/api/v1/config`, 'content=/core/base')
+        .fetch(`/api/v3/landingPage`, 'content=/core/base')
         .pipe(
           switchMap((config: ICoreConfig) => {
             const {
