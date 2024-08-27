@@ -43,7 +43,7 @@
               <mat-spinner diameter="50" color="accent"></mat-spinner>
             </div>
           }
-          @if (progress > 0 && progress <= 100) {
+          @if (progress > 0 && progress < 100) {
             <div class="absolute top-0 left-0 right-0 w-full z-100">
               <mat-progress-bar
                 mode="determinate"
@@ -54,16 +54,17 @@
             </div>
           }
           @if (deletedLists.length) {
-            <app-btn
-              class="absolute left-5 bottom-4"
-              (click)="bulkDelete(deletedLists)"
-              matTooltip="批量删除"
-              [content]="{
-                color: 'warn',
-                mode: 'mini-fab',
-                icon: { svg: 'trash-can-outline' },
-              }"
-            ></app-btn>
+            <div class="flex absolute left-5 bottom-4">
+              <app-btn
+                (click)="bulkDelete(deletedLists)"
+                matTooltip="批量删除"
+                [content]="{
+                  color: 'warn',
+                  mode: 'mini-fab',
+                  icon: { svg: 'trash-can-outline' },
+                }"
+              ></app-btn>
+            </div>
           }
           @if (mediaAssets$ | async; as assets) {
             @if (assets.rows.length) {

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
-import { Observable, forkJoin, from, of } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type {
@@ -25,8 +25,6 @@ import {
   concatMap,
   debounceTime,
   distinctUntilChanged,
-  map,
-  mergeMap,
   scan,
   tap,
 } from 'rxjs/operators';
