@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type {
@@ -49,6 +49,7 @@ export class ManageMediaComponent implements OnInit {
   };
   loading = false;
   selectedId: string;
+  deletedLists: string[] = [];
   dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
   builder = inject(BuilderState);
@@ -129,14 +130,46 @@ export class ManageMediaComponent implements OnInit {
   onDelete(uuid: string): void {
     if (uuid) {
       this.loading = true;
-      this.manageService.deleteMedia(uuid).subscribe((res) => {
-        this.loading = false;
-        this.onSearch(this.form.value);
-        this.cd.detectChanges();
-      });
+      this.manageService
+        .deleteMedia(uuid)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((res) => {
+          this.loading = false;
+          this.onSearch(this.form.value);
+          this.cd.detectChanges();
+        });
     } else {
       this.util.openSnackbar('是否忘记了配置UUID？', 'ok');
     }
+  }
+
+  onChange(checked: boolean, uuid: string): void {
+    if (checked) {
+      this.deletedLists = [...this.deletedLists, uuid];
+    } else {
+      const index = this.deletedLists.findIndex((item) => item === uuid);
+      if (index >= 0) {
+        this.deletedLists.splice(index, 1);
+      }
+    }
+    this.cd.detectChanges();
+  }
+
+  bulkDelete(lists: string[]): void {
+    this.loading = true;
+    const object: any = {};
+    lists.forEach((uuid) => {
+      object[uuid] = this.manageService.deleteMedia(uuid);
+    });
+
+    forkJoin(object)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((res) => {
+        this.loading = false;
+        this.deletedLists = [];
+        this.util.openSnackbar('批量删成功！', 'ok');
+        this.cd.detectChanges();
+      });
   }
 
   isSelected(item: IManageImg): boolean {
