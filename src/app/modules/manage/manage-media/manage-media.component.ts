@@ -191,7 +191,7 @@ export class ManageMediaComponent implements OnInit {
     from(lists)
       .pipe(
         concatMap((file) => this.handleDelete(file)), // 使用 concatMap 保证顺序执行
-        scan((acc, curr) => acc + (curr === true ? 1 : 0), 0),
+        scan((acc, curr) => acc + (curr === false ? 0 : 1), 0),
         tap((deletedCount) => this.calculateProgress(deletedCount, totalFiles)),
       )
       .subscribe({
