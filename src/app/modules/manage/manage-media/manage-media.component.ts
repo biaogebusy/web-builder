@@ -22,6 +22,7 @@ import type {
 import { ContentState } from '@core/state/ContentState';
 import {
   catchError,
+  concatMap,
   debounceTime,
   distinctUntilChanged,
   map,
@@ -164,31 +165,34 @@ export class ManageMediaComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  bulkDelete(lists: string[]) {
+  handleDelete(file: string): Observable<boolean> {
+    return this.manageService.deleteMedia(file).pipe(
+      catchError((error) => {
+        console.error(`Failed to delete file: ${file}`, error);
+        return of(false);
+      }),
+    );
+  }
+
+  calculateProgress(deletedCount: number, totalFiles: number): void {
+    const progress = (deletedCount / totalFiles) * 100;
+    console.log(`Progress: ${progress}%`);
+    this.progress = progress;
+    if (progress === 100) {
+      console.log('All files have been processed.');
+      this.util.openSnackbar('已全部删除', 'ok');
+    }
+    this.cd.detectChanges();
+  }
+
+  bulkDelete(lists: string[]): void {
     const totalFiles = lists.length;
 
     from(lists)
       .pipe(
-        mergeMap(
-          (file) =>
-            this.manageService.deleteMedia(file).pipe(
-              catchError((error) => {
-                console.error(`Failed to delete file: ${file}`, error);
-                return of(null);
-              }),
-            ),
-          5, // 控制并发数量，5 表示同时最多进行 5 个请求
-        ),
-        scan((acc, curr) => acc + (curr !== null ? 1 : 0), 0),
-        tap((deletedCount) => {
-          const progress = (deletedCount / totalFiles) * 100;
-          console.log(`Progress: ${progress}%`);
-          this.progress = progress;
-          if (progress === 100) {
-            this.util.openSnackbar('已全部删除', 'ok');
-          }
-          this.cd.detectChanges();
-        }),
+        concatMap((file) => this.handleDelete(file)), // 使用 concatMap 保证顺序执行
+        scan((acc, curr) => acc + (curr === true ? 1 : 0), 0),
+        tap((deletedCount) => this.calculateProgress(deletedCount, totalFiles)),
       )
       .subscribe({
         complete: () => {
