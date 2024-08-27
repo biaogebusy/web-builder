@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, from, of } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type {
@@ -20,7 +20,15 @@ import type {
   IManageMedia,
 } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  mergeMap,
+  scan,
+  tap,
+} from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
 import { PageEvent } from '@angular/material/paginator';
@@ -49,6 +57,8 @@ export class ManageMediaComponent implements OnInit {
   };
   loading = false;
   selectedId: string;
+  deletedLists: string[] = [];
+  progress = 0;
   dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
   builder = inject(BuilderState);
@@ -129,14 +139,66 @@ export class ManageMediaComponent implements OnInit {
   onDelete(uuid: string): void {
     if (uuid) {
       this.loading = true;
-      this.manageService.deleteMedia(uuid).subscribe((res) => {
-        this.loading = false;
-        this.onSearch(this.form.value);
-        this.cd.detectChanges();
-      });
+      this.manageService
+        .deleteMedia(uuid)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((res) => {
+          this.loading = false;
+          this.onSearch(this.form.value);
+          this.cd.detectChanges();
+        });
     } else {
       this.util.openSnackbar('是否忘记了配置UUID？', 'ok');
     }
+  }
+
+  onChange(checked: boolean, uuid: string): void {
+    if (checked) {
+      this.deletedLists = [...this.deletedLists, uuid];
+    } else {
+      const index = this.deletedLists.findIndex((item) => item === uuid);
+      if (index >= 0) {
+        this.deletedLists.splice(index, 1);
+      }
+    }
+    this.cd.detectChanges();
+  }
+
+  bulkDelete(lists: string[]) {
+    const totalFiles = lists.length;
+
+    from(lists)
+      .pipe(
+        mergeMap(
+          (file) =>
+            this.manageService.deleteMedia(file).pipe(
+              catchError((error) => {
+                console.error(`Failed to delete file: ${file}`, error);
+                return of(null);
+              }),
+            ),
+          5, // 控制并发数量，5 表示同时最多进行 5 个请求
+        ),
+        scan((acc, curr) => acc + (curr !== null ? 1 : 0), 0),
+        tap((deletedCount) => {
+          const progress = (deletedCount / totalFiles) * 100;
+          console.log(`Progress: ${progress}%`);
+          this.progress = progress;
+          if (progress === 100) {
+            this.util.openSnackbar('已全部删除', 'ok');
+          }
+          this.cd.detectChanges();
+        }),
+      )
+      .subscribe({
+        complete: () => {
+          this.loading = false;
+          this.deletedLists = [];
+          this.onSearch(this.form.value);
+          this.cd.detectChanges();
+        },
+        error: (err) => console.error('Error deleting files', err),
+      });
   }
 
   isSelected(item: IManageImg): boolean {
