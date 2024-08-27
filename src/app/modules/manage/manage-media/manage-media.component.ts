@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, from, of } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type {
@@ -20,7 +20,15 @@ import type {
   IManageMedia,
 } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
-import { debounceTime, distinctUntilChanged, map, scan } from 'rxjs/operators';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  mergeMap,
+  scan,
+  tap,
+} from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
 import { PageEvent } from '@angular/material/paginator';
@@ -156,32 +164,40 @@ export class ManageMediaComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  bulkDelete(lists: string[]): void {
-    this.loading = true;
-    const object: any = {};
-    const total = lists.length;
-    lists.forEach((uuid) => {
-      object[uuid] = this.manageService.deleteMedia(uuid);
-    });
+  bulkDelete(lists: string[]) {
+    const totalFiles = lists.length;
 
-    forkJoin(object)
+    from(lists)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        // 使用scan来累计已完成的删除操作数
-        scan((acc, val) => acc + (val ? 1 : 0), 0),
-        // 计算进度
-        map((completed) => (completed / total) * 100),
+        mergeMap(
+          (file) =>
+            this.manageService.deleteMedia(file).pipe(
+              catchError((error) => {
+                console.error(`Failed to delete file: ${file}`, error);
+                return of(null);
+              }),
+            ),
+          5, // 控制并发数量，5 表示同时最多进行 5 个请求
+        ),
+        scan((acc, curr) => acc + (curr !== null ? 1 : 0), 0),
+        tap((deletedCount) => {
+          const progress = (deletedCount / totalFiles) * 100;
+          console.log(`Progress: ${progress}%`);
+          this.progress = progress;
+          if (progress === 100) {
+            this.util.openSnackbar('已全部删除', 'ok');
+          }
+          this.cd.detectChanges();
+        }),
       )
-      .subscribe((progress) => {
-        this.progress = progress;
-        this.cd.detectChanges();
-        if (progress === 100) {
+      .subscribe({
+        complete: () => {
           this.loading = false;
           this.deletedLists = [];
-          this.util.openSnackbar('批量删成功！', 'ok');
           this.onSearch(this.form.value);
           this.cd.detectChanges();
-        }
+        },
+        error: (err) => console.error('Error deleting files', err),
       });
   }
 
