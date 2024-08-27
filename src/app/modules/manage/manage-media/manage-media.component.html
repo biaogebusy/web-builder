@@ -43,6 +43,16 @@
               <mat-spinner diameter="50" color="accent"></mat-spinner>
             </div>
           }
+          @if (progress > 0 && progress <= 100) {
+            <div class="absolute top-0 left-0 right-0 w-full z-100">
+              <mat-progress-bar
+                mode="determinate"
+                color="primary"
+                [value]="progress"
+              >
+              </mat-progress-bar>
+            </div>
+          }
           @if (deletedLists.length) {
             <app-btn
               class="absolute left-5 bottom-4"
@@ -102,6 +112,7 @@
                         }"
                       ></app-btn>
                     </div>
+
                     <div class="delete absolute left-2 bottom-1 z-10">
                       <mat-checkbox
                         (change)="onChange($event.checked, item.uuid)"

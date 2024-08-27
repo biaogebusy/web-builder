@@ -20,7 +20,7 @@ import type {
   IManageMedia,
 } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, scan } from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
 import { PageEvent } from '@angular/material/paginator';
@@ -50,6 +50,7 @@ export class ManageMediaComponent implements OnInit {
   loading = false;
   selectedId: string;
   deletedLists: string[] = [];
+  progress = 0;
   dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
   builder = inject(BuilderState);
@@ -158,17 +159,29 @@ export class ManageMediaComponent implements OnInit {
   bulkDelete(lists: string[]): void {
     this.loading = true;
     const object: any = {};
+    const total = lists.length;
     lists.forEach((uuid) => {
       object[uuid] = this.manageService.deleteMedia(uuid);
     });
 
     forkJoin(object)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
-        this.loading = false;
-        this.deletedLists = [];
-        this.util.openSnackbar('批量删成功！', 'ok');
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        // 使用scan来累计已完成的删除操作数
+        scan((acc, val) => acc + (val ? 1 : 0), 0),
+        // 计算进度
+        map((completed) => (completed / total) * 100),
+      )
+      .subscribe((progress) => {
+        this.progress = progress;
         this.cd.detectChanges();
+        if (progress === 100) {
+          this.loading = false;
+          this.deletedLists = [];
+          this.util.openSnackbar('批量删成功！', 'ok');
+          this.onSearch(this.form.value);
+          this.cd.detectChanges();
+        }
       });
   }
 
