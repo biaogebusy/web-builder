@@ -174,10 +174,8 @@ export class ManageMediaComponent implements OnInit {
 
   calculateProgress(deletedCount: number, totalFiles: number): void {
     const progress = (deletedCount / totalFiles) * 100;
-    console.log(`Progress: ${progress}%`);
     this.progress = progress;
     if (progress === 100) {
-      console.log('All files have been processed.');
       this.util.openSnackbar('已全部删除', 'ok');
     }
     this.cd.detectChanges();
