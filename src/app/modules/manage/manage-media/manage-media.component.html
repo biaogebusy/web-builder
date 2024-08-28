@@ -54,13 +54,14 @@
             </div>
           }
           @if (deletedLists.length) {
-            <div class="flex absolute left-5 bottom-4">
+            <div class="flex absolute left-[20px] bottom-[40px]">
               <app-btn
                 (click)="bulkDelete(deletedLists)"
                 matTooltip="批量删除"
                 [content]="{
                   color: 'warn',
-                  mode: 'mini-fab',
+                  mode: 'raised',
+                  label: '批量删除',
                   icon: { svg: 'trash-can-outline' },
                 }"
               ></app-btn>
