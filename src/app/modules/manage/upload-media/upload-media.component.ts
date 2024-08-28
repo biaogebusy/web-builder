@@ -16,7 +16,6 @@ import {
   FileSystemFileEntry,
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
-import { resolve } from 'node:path';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
