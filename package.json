@@ -9,7 +9,6 @@
     "build:nnit": "ng build --configuration nnit",
     "build:sanziqi": "ng build --configuration sanziqi",
     "test": "ng test",
-    "lint": "ng lint",
     "e2e": "ng e2e",
     "bundle-report": "ng build --configuration production --stats-json && webpack-bundle-analyzer dist/browser/stats.json",
     "storybook": "ng run xinshi:storybook",
