@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Inject,
   inject,
 } from '@angular/core';
@@ -17,7 +18,7 @@ import {
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-upload-media',
@@ -31,6 +32,7 @@ export class UploadMediaComponent {
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
+  private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(@Inject(USER) private user$: Observable<IUser>) {
     this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
@@ -64,6 +66,8 @@ export class UploadMediaComponent {
                       );
                       return of(false);
                     }),
+                    retry(2),
+                    takeUntilDestroyed(this.destroyRef),
                   )
                   .toPromise();
 

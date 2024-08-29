@@ -169,6 +169,7 @@ export class ManageMediaComponent implements OnInit {
         console.error(`Failed to delete file: ${file}`, error);
         return of(false);
       }),
+      takeUntilDestroyed(this.destroyRef),
     );
   }
 
