@@ -5,13 +5,19 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import type { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
+import { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG, UIUX } from '@core/token/token-providers';
+import { CORE_CONFIG, UIUX, USER } from '@core/token/token-providers';
+import { LoginComponent } from '@modules/user/login/login.component';
 import { map, shuffle } from 'lodash-es';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-builder-generater',
@@ -22,16 +28,32 @@ import { map, shuffle } from 'lodash-es';
 export class BuilderGeneraterComponent implements OnInit {
   form = new UntypedFormGroup({});
   model: any = {};
+  user: IUser;
+  dialog = inject(MatDialog);
+  router = inject(Router);
   builder = inject(BuilderState);
   util = inject(UtilitiesService);
   constructor(
     @Inject(UIUX) public uiux: IUiux[],
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-  ) {}
+    @Inject(USER) private user$: Observable<IUser>,
+  ) {
+    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {}
 
   onGenerate(value: any): void {
+    if (!this.user) {
+      const queryParams = {
+        returnUrl: 'builder',
+      };
+      this.router.navigate([], { queryParams });
+      this.dialog.open(LoginComponent);
+      return;
+    }
     const items: IBuilderComponent[] = [];
     let blocks: any[] = [];
     const page: IPage = {

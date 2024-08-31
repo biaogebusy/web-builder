@@ -22,7 +22,7 @@
           }
 
           @if (!model.fromStatic) {
-            <div class="flex justify-center my-5">
+            <div class="flex flex-col gap-3 justify-center items-center my-5">
               <app-btn
                 (click)="onUpload()"
                 [content]="{
@@ -41,6 +41,30 @@
           @if (loading) {
             <div class="load">
               <mat-spinner diameter="50" color="accent"></mat-spinner>
+            </div>
+          }
+          @if (progress > 0 && progress < 100) {
+            <div class="absolute top-0 left-0 right-0 w-full z-100">
+              <mat-progress-bar
+                mode="determinate"
+                color="primary"
+                [value]="progress"
+              >
+              </mat-progress-bar>
+            </div>
+          }
+          @if (deletedLists.length) {
+            <div class="flex absolute left-[20px] bottom-[40px]">
+              <app-btn
+                (click)="bulkDelete(deletedLists)"
+                matTooltip="批量删除"
+                [content]="{
+                  color: 'warn',
+                  mode: 'raised',
+                  label: '批量删除',
+                  icon: { svg: 'trash-can-outline' },
+                }"
+              ></app-btn>
             </div>
           }
           @if (mediaAssets$ | async; as assets) {
@@ -69,17 +93,6 @@
                       ></app-btn>
                       <app-btn
                         class="hidden sm:block"
-                        [matTooltip]="'大图'"
-                        matTooltipPosition="above"
-                        (click)="onPreview(item)"
-                        [content]="{
-                          label: '',
-                          mode: 'icon',
-                          icon: { svg: 'magnify-scan' },
-                        }"
-                      ></app-btn>
-                      <app-btn
-                        class="hidden sm:block"
                         [matTooltip]="'复制路径'"
                         matTooltipPosition="above"
                         (click)="onCopy(item)"
@@ -101,7 +114,14 @@
                         }"
                       ></app-btn>
                     </div>
+
+                    <div class="delete absolute left-2 bottom-1 z-10">
+                      <mat-checkbox
+                        (change)="onChange($event.checked, item.uuid)"
+                      ></mat-checkbox>
+                    </div>
                     <div
+                      (click)="onPreview(item)"
                       class="box w-full h-full bg-gray-200 p-1 box-border"
                       [ngClass]="{ selected: isSelected(item) }"
                     >
