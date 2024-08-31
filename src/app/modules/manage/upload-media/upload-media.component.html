@@ -9,22 +9,38 @@
       ngx-file-drop-content-tmp
       let-openFileSelector="openFileSelector"
     >
-      <div class="flex flex-col gap-5 justify-center items-center">
-        <app-icon
-          class="opacity-80 upload-icon"
-          [content]="{ svg: 'cloud-arrow-up-outline' }"
-        ></app-icon>
-        <span class="text-sm">选择媒体批量上传</span>
-        <app-btn
-          (click)="openFileSelector()"
-          [content]="{
-            label: '选择图片',
-            mode: 'raised',
-            color: 'primary',
-            icon: { svg: 'selection-search' },
-          }"
-        ></app-btn>
-      </div>
+      @if (files.length) {
+        <div class="grid grid-cols-12 gap-2 w-full">
+          @for (item of filesEntry; track $index) {
+            @if (files[$index]) {
+              <div class="col-span-3">
+                <img
+                  class="w-full aspect-[4/3] object-cover rounded"
+                  [src]="files[$index].uri.url"
+                  alt=""
+                />
+              </div>
+            }
+          }
+        </div>
+      } @else {
+        <div class="flex flex-col gap-5 justify-center items-center">
+          <app-icon
+            class="opacity-80 upload-icon"
+            [content]="{ svg: 'cloud-arrow-up-outline' }"
+          ></app-icon>
+          <span class="text-sm">选择媒体批量上传</span>
+          <app-btn
+            (click)="openFileSelector()"
+            [content]="{
+              label: '选择图片',
+              mode: 'raised',
+              color: 'primary',
+              icon: { svg: 'selection-search' },
+            }"
+          ></app-btn>
+        </div>
+      }
     </ng-template>
   </ngx-file-drop>
   <div class="upload-table w-full box-border my-5 text-sm text-gray-500">
