@@ -32,8 +32,10 @@
                 <img [src]="item.img" [alt]="item.title" />
               </div>
               <div class="content flex flex-col flex-[0_1_100%]">
-                <div class="head flex items-center">
-                  <div class="title font-bold m-bottom-0">{{ item.title }}</div>
+                <div class="head flex items-center gap-2">
+                  <div class="title font-bold m-bottom-0 flex-auto">
+                    {{ item.title }}
+                  </div>
                   <div class="badge" [innerHTML]="item.badge_1"></div>
                 </div>
                 <div class="inner flex flex-row justify-between items-end">
