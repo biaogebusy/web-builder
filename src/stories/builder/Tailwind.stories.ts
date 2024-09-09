@@ -12,7 +12,7 @@ import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custo
 import { importProvidersFrom } from '@angular/core';
 const meta: Meta<CustomTemplateComponent> = {
   title: '低代码/Layout builder/Tailwind 自定义组件',
-  id: 'custom-template',
+  id: 'tailwind-template',
   component: CustomTemplateComponent,
   decorators: [
     applicationConfig({
@@ -1548,6 +1548,345 @@ Step.args = {
                     <p class="mt-4 text-base text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+`,
+  },
+};
+
+export const HeroV2: Story = {};
+HeroV2.args = {
+  content: {
+    type: 'custom-template',
+    json: '',
+    html: `<div class="relative">
+    <header class="absolute inset-x-0 top-0 z-10 w-full">
+        <div class="px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" title="" class="flex">
+                        <img class="w-auto h-8" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/logo.svg" alt="" />
+                    </a>
+                </div>
+
+                <button type="button" class="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
+                    <!-- Menu open: "hidden", Menu closed: "block" -->
+                    <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+
+                    <!-- Menu open: "block", Menu closed: "hidden" -->
+                    <svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <div class="hidden ml-auto lg:flex lg:items-center lg:justify-center lg:space-x-10">
+                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Features </a>
+
+                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Solutions </a>
+
+                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Resources </a>
+
+                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Pricing </a>
+
+                    <a href="#" title="" class="inline-flex items-center justify-center px-5 py-2.5 text-base font-semibold transition-all duration-200 rounded-full bg-orange-500 text-white hover:bg-orange-600 focus:bg-orange-600" role="button"> Try for free </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-yellow-50 overflow-hidden">
+        <div class="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[800px]">
+            <div class="relative flex items-center justify-center w-full lg:order-2 lg:w-7/12">
+                <div class="absolute bottom-0 right-0 hidden lg:block">
+                    <img class="object-contain w-auto h-48" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/curved-lines.png" alt="" />
+                </div>
+
+                <div class="relative px-4 pt-24 pb-16 text-center sm:px-6 md:px-24 2xl:px-32 lg:py-24 lg:text-left">
+                    <h1 class="text-4xl font-bold text-black sm:text-6xl xl:text-8xl">
+                        Get it done.<br />
+                        Fast, Easy.
+                    </h1>
+                    <p class="mt-8 text-xl text-black">We help you to make your remote work life easier. Build a distruction free working experience.</p>
+
+                    <form action="#" method="POST" class="max-w-xl mx-auto mt-8 bg-white lg:mx-0 sm:bg-transparent lg:mt-12 rounded-xl">
+                        <div class="p-4 sm:p-2 sm:bg-white sm:border-2 sm:border-transparent sm:rounded-full sm:focus-within:border-orange-500 sm:focus-within:ring-1 sm:focus-within:ring-orange-500">
+                            <div class="flex flex-col items-start sm:flex-row">
+                                <div class="flex-1 w-full min-w-0">
+                                    <div class="relative text-gray-400 focus-within:text-gray-600">
+                                        <label for="email" class="sr-only"></label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            placeholder="Enter email to get started"
+                                            class="block w-full px-4 py-4 text-base text-center text-black placeholder-gray-500 transition-all duration-200 border-transparent rounded-full sm:text-left focus:border-transparent focus:ring-0 caret-orange-500"
+                                            required=""
+                                        />
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="inline-flex items-center justify-center w-full px-4 py-4 mt-4 font-semibold text-white transition-all duration-200 bg-orange-500 border border-transparent rounded-full sm:w-auto sm:ml-4 sm:mt-0 hover:bg-orange-600 focus:bg-orange-600">
+                                    Try 14 days free
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="mt-5 text-base text-black">Instant access . No credit card required</p>
+                </div>
+
+                <div class="absolute right-0 z-10 -bottom-16 lg:top-24 lg:-left-20">
+                    <img class="w-32 h-32 md:w-40 md:h-40" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/circular-text.png" alt="" />
+                </div>
+            </div>
+
+            <div class="relative w-full overflow-hidden lg:order-1 h-96 lg:h-auto lg:w-5/12">
+                <div class="absolute inset-0">
+                    <img class="object-cover w-full h-full scale-150" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/man-working-on-laptop.jpg" alt="" />
+                </div>
+
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+
+                <div class="absolute bottom-0 left-0">
+                    <div class="p-4 sm:p-6 lg:p-8">
+                        <div class="flex items-center">
+                            <svg class="w-10 h-10 text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+                            </svg>
+                            <h2 class="font-bold text-white text-7xl ml-2.5">395</h2>
+                        </div>
+                        <p class="max-w-xs mt-1.5 text-xl text-white">Professionals have organized their desk via PostCra</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+`,
+  },
+};
+
+export const Contact: Story = {};
+Contact.args = {
+  content: {
+    type: 'custom-template',
+    json: '',
+    html: `<section class="py-10 bg-gray-100 sm:py-16 lg:py-24">
+    <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl">Contact us</h2>
+            <p class="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-500">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.</p>
+        </div>
+
+        <div class="max-w-5xl mx-auto mt-12 sm:mt-16">
+            <div class="grid grid-cols-1 gap-6 px-8 text-center md:px-0 md:grid-cols-3">
+                <div class="overflow-hidden bg-white rounded-xl">
+                    <div class="p-6">
+                        <svg class="flex-shrink-0 w-10 h-10 mx-auto text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1"
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                            />
+                        </svg>
+                        <p class="mt-6 text-lg font-medium text-gray-900">+1-316-555-0116</p>
+                        <p class="mt-1 text-lg font-medium text-gray-900">+1-446-526-0117</p>
+                    </div>
+                </div>
+
+                <div class="overflow-hidden bg-white rounded-xl">
+                    <div class="p-6">
+                        <svg class="flex-shrink-0 w-10 h-10 mx-auto text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <p class="mt-6 text-lg font-medium text-gray-900">contact@example.com</p>
+                        <p class="mt-1 text-lg font-medium text-gray-900">hr@example.com</p>
+                    </div>
+                </div>
+
+                <div class="overflow-hidden bg-white rounded-xl">
+                    <div class="p-6">
+                        <svg class="flex-shrink-0 w-10 h-10 mx-auto text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p class="mt-6 text-lg font-medium leading-relaxed text-gray-900">8502 Preston Rd. Ingle, Maine 98380, USA</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 overflow-hidden bg-white rounded-xl">
+                <div class="px-6 py-12 sm:p-12">
+                    <h3 class="text-3xl font-semibold text-center text-gray-900">Send us a message</h3>
+
+                    <form action="#" method="POST" class="mt-14">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
+                            <div>
+                                <label for="" class="text-base font-medium text-gray-900"> Your name </label>
+                                <div class="mt-2.5 relative">
+                                    <input type="text" name="" id="" placeholder="Enter your full name" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="" class="text-base font-medium text-gray-900"> Email address </label>
+                                <div class="mt-2.5 relative">
+                                    <input type="email" name="" id="" placeholder="Enter your full name" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="" class="text-base font-medium text-gray-900"> Phone number </label>
+                                <div class="mt-2.5 relative">
+                                    <input type="tel" name="" id="" placeholder="Enter your full name" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="" class="text-base font-medium text-gray-900"> Company name </label>
+                                <div class="mt-2.5 relative">
+                                    <input type="text" name="" id="" placeholder="Enter your full name" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <label for="" class="text-base font-medium text-gray-900"> Message </label>
+                                <div class="mt-2.5 relative">
+                                    <textarea name="" id="" placeholder="" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md resize-y focus:outline-none focus:border-blue-600 caret-blue-600" rows="4"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <button type="submit" class="inline-flex items-center justify-center w-full px-4 py-4 mt-2 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700">
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+`,
+  },
+};
+
+export const ShowcaseV2: Story = {};
+ShowcaseV2.args = {
+  content: {
+    type: 'custom-template',
+    json: '',
+    html: `<section class="py-10 bg-gray-50 sm:py-16 lg:py-24">
+    <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Integrate with apps</h2>
+            <p class="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 mt-12 lg:mt-16 xl:gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="overflow-hidden bg-white rounded shadow">
+                <div class="p-8">
+                    <div class="flex items-center">
+                        <img class="flex-shrink-0 w-12 h-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/integration/3/gmail-logo.png" alt="" />
+                        <div class="ml-5 mr-auto">
+                            <p class="text-xl font-semibold text-black">Gmail</p>
+                            <p class="mt-px text-sm text-gray-600">Direct Integration</p>
+                        </div>
+                        <svg class="hidden w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                    <p class="text-base leading-relaxed text-gray-600 mt-7">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </div>
+
+            <div class="overflow-hidden bg-white rounded shadow">
+                <div class="p-8">
+                    <div class="flex items-center">
+                        <img class="flex-shrink-0 w-12 h-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/integration/3/slack-logo.png" alt="" />
+                        <div class="ml-5 mr-auto">
+                            <p class="text-xl font-semibold text-black">Slack</p>
+                            <p class="mt-px text-sm text-gray-600">Direct Integration</p>
+                        </div>
+                        <svg class="block w-6 h-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                    <p class="text-base leading-relaxed text-gray-600 mt-7">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </div>
+
+            <div class="overflow-hidden bg-white rounded shadow">
+                <div class="p-8">
+                    <div class="flex items-center">
+                        <img class="flex-shrink-0 w-12 h-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/integration/3/shopify-logo.png" alt="" />
+                        <div class="ml-5 mr-auto">
+                            <p class="text-xl font-semibold text-black">Shopify</p>
+                            <p class="mt-px text-sm text-gray-600">Direct Integration</p>
+                        </div>
+                        <svg class="hidden w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                    <p class="text-base leading-relaxed text-gray-600 mt-7">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </div>
+
+            <div class="overflow-hidden bg-white rounded shadow">
+                <div class="p-8">
+                    <div class="flex items-center">
+                        <img class="flex-shrink-0 w-12 h-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/integration/3/intercom-logo.png" alt="" />
+                        <div class="ml-5 mr-auto">
+                            <p class="text-xl font-semibold text-black">Intercom</p>
+                            <p class="mt-px text-sm text-gray-600">Direct Integration</p>
+                        </div>
+                        <svg class="hidden w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                    <p class="text-base leading-relaxed text-gray-600 mt-7">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </div>
+
+            <div class="overflow-hidden bg-white rounded shadow">
+                <div class="p-8">
+                    <div class="flex items-center">
+                        <img class="flex-shrink-0 w-12 h-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/integration/3/twitter-logo.png" alt="" />
+                        <div class="ml-5 mr-auto">
+                            <p class="text-xl font-semibold text-black">Twitter</p>
+                            <p class="mt-px text-sm text-gray-600">Direct Integration</p>
+                        </div>
+                        <svg class="hidden w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                    <p class="text-base leading-relaxed text-gray-600 mt-7">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </div>
+
+            <div class="overflow-hidden bg-white rounded shadow">
+                <div class="p-8">
+                    <div class="flex items-center">
+                        <img class="flex-shrink-0 w-12 h-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/integration/3/sketch-logo.png" alt="" />
+                        <div class="ml-5 mr-auto">
+                            <p class="text-xl font-semibold text-black">Sketch</p>
+                            <p class="mt-px text-sm text-gray-600">Direct Integration</p>
+                        </div>
+                        <svg class="hidden w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                    <p class="text-base leading-relaxed text-gray-600 mt-7">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <a href="#" title="" class="inline-flex p-3 font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"> Check all 1,593 applications </a>
         </div>
     </div>
 </section>

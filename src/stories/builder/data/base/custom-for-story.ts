@@ -1,4 +1,4 @@
-import { Default as CustomTeplate } from '@stories/builder/CustomTemplate.stories';
+import { Default as CustomTeplate } from '@stories/builder/Tailwind.stories';
 
 export const tailwind: any[] = [
   {
