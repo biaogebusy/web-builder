@@ -3,7 +3,7 @@
     ::ng-deep {
       .container,
       .container-fluid {
-        padding: 0;
+        @apply p-0;
       }
     }
 
@@ -12,32 +12,31 @@
         max-width: 100%;
         &.item-divider,
         &.item-layout-builder {
-          width: 100%;
+          @apply w-full;
         }
 
         &:hover {
           > app-block-toolbar {
-            display: block;
+            @apply block;
           }
         }
       }
     }
     > app-layout-toolbar {
-      right: -2px;
-      top: -2px;
+      @apply -right-[2px] -left-[2px];
     }
   }
 }
 
 :host-context(.builder-list) {
   .layout-builder {
-    padding-top: 30px;
+    @apply pt-[30px];
     .layout {
-      padding: 0;
+      @apply p-0;
       &:hover {
         outline-offset: 2px;
         > app-layout-toolbar {
-          display: block;
+          @apply block;
         }
       }
     }

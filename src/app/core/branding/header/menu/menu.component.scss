@@ -1,13 +1,12 @@
 @import "/src/theme/variable/variable";
 
 .header {
-  position: relative;
-  margin-bottom: 2px;
+  @apply relative mb-[2px];
 }
 
 :host-context(.header-inverse) {
   .header {
-    margin-bottom: 0;
+    @apply mb-0;
   }
 }
 
