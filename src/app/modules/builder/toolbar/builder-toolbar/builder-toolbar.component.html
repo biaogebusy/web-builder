@@ -11,7 +11,7 @@
     <div class="wrapper flex justify-between items-center">
       @if (currentPage$ | async; as page) {
         <div
-          class="left flex flex-col flex-auto md:flex-4/12 justify-center items-start"
+          class="left flex flex-col justify-center items-start flex-[0_1_33.33%]"
         >
           <div
             class="page-title flex items-center"
@@ -25,14 +25,14 @@
         </div>
       }
       <div
-        class="middle text-primary justify-center items-center hidden md:flex"
+        class="middle text-primary justify-center items-center hidden md:flex flex-[0_1_33.33%]"
       >
         <app-switch-preview></app-switch-preview>
         <app-switch-theme></app-switch-theme>
       </div>
       <div
         id="toolbar-right"
-        class="right sm:gap-1 flex justify-center items-center"
+        class="right sm:gap-1 flex justify-end items-center flex-[0_1_33.33%]"
       >
         <mat-slide-toggle
           [checked]="builderFullScreen$ | async"
