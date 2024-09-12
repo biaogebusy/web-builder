@@ -159,6 +159,7 @@ export interface IPageMeta {
   langcode: string;
   title: string;
   url: string;
+  cover?: string;
 }
 
 export interface IBuilderConfig {
