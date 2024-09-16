@@ -14,7 +14,7 @@
   </div>
   <div class="form">
     <app-formly
-      [fields]="fields"
+      [fields]="content.form"
       [form]="form"
       [model]="model"
       (modelChange)="onModelChange($event)"
@@ -24,7 +24,7 @@
     @if (loading) {
       <mat-spinner diameter="50" color="primary"></mat-spinner>
     }
-    <div class="grid grid-cols-5 gap-1 md:gap-5">
+    <div class="grid grid-cols-5 gap-1 md:gap-6">
       @if (content$ | async; as content) {
         @for (page of content; track page.id; let i = $index) {
           <div
@@ -33,7 +33,7 @@
                 page.id === currentPage?.id &&
                 page.langcode === currentPage?.langcode,
             }"
-            class="col-span-5 md:col-span-1 overflow-hidden item flex flex-col gap-2 relative mb-3 group"
+            class="col-span-5 md:col-span-1 overflow-hidden item flex flex-col gap-2 relative mb-5 group"
           >
             <div class="relative rounded-md shadow-md overflow-hidden">
               <img
@@ -80,7 +80,7 @@
               </div>
             </div>
             <div
-              class="text mr-[62px] inline-flex items-start gap-1 group flex-[1_1_auto]"
+              class="text inline-flex items-start gap-1 group flex-[1_1_auto]"
             >
               <span
                 class="title line-clamp-2"

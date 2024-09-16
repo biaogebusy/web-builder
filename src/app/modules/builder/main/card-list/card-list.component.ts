@@ -45,16 +45,6 @@ export class CardListComponent extends BaseComponent implements OnInit {
   loading = false;
   pager: IPager;
   currentEditeTitle: string;
-  fields: FormlyFieldConfig[] = [
-    {
-      key: 'title',
-      type: 'input',
-      props: {
-        label: '关键词',
-        type: 'search',
-      },
-    },
-  ];
   currentPage?: IPage;
   langs = environment.langs;
   builder = inject(BuilderState);
