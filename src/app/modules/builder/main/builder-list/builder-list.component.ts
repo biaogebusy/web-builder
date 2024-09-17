@@ -8,14 +8,12 @@ import {
   DestroyRef,
   ElementRef,
   Inject,
-  Input,
   NgZone,
   OnDestroy,
   OnInit,
   ViewChild,
   inject,
 } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
@@ -32,7 +30,6 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() builderRightDrawer: MatDrawer;
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
   markers: NodeListOf<Element>;
   opened = false;

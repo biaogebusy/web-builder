@@ -70,7 +70,7 @@ export class LayoutToolbarComponent implements OnInit {
       path: this.util.generatePath(target),
     };
     this.builder.rightContent$.next({
-      mode: 'push',
+      mode: 'over',
       hasBackdrop: false,
       style: {
         width: '318px',

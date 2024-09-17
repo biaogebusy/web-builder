@@ -4,11 +4,9 @@ import {
   Component,
   DestroyRef,
   Inject,
-  ViewChild,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MatDrawer } from '@angular/material/sidenav';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -23,8 +21,6 @@ import { Observable } from 'rxjs';
   styleUrl: './builder-workspace.component.scss',
 })
 export class BuilderWorkspaceComponent implements AfterViewInit {
-  @ViewChild('builderRightDrawer', { static: false })
-  builderRightDrawer: MatDrawer;
   builderFullScreen: boolean;
   panelOpenState = false;
   mode: 'side' | 'over' | 'push' = 'side';
@@ -50,15 +46,6 @@ export class BuilderWorkspaceComponent implements AfterViewInit {
     } else {
       this.utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
-    this.builder.rightContent$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((content) => {
-        if (content) {
-          setTimeout(() => {
-            this.builderRightDrawer.open();
-          }, 100);
-        }
-      });
   }
 
   ngAfterViewInit(): void {
@@ -71,12 +58,6 @@ export class BuilderWorkspaceComponent implements AfterViewInit {
         } else {
           this.mode = 'side';
         }
-      });
-
-    this.builder.closeRightDrawer$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.onClose();
       });
 
     this.doc.addEventListener('keydown', (event: any) => {
@@ -93,9 +74,5 @@ export class BuilderWorkspaceComponent implements AfterViewInit {
         this.builder.fullScreen$.next(!isFull);
       }
     });
-  }
-
-  onClose(): void {
-    this.builderRightDrawer.close();
   }
 }
