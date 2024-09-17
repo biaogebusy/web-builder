@@ -292,7 +292,7 @@ export class BuilderService extends ApiService {
     const { uuid, langcode } = page;
     const apiParams = new DrupalJsonApiParams();
     apiParams.addCustomParam({ noCache: true });
-    apiParams.addInclude(['uid', 'group']);
+    apiParams.addInclude(['uid', 'group', 'cover']);
     const params = apiParams.getQueryString();
     const lang = this.getApiLang(langcode);
     this.nodeService

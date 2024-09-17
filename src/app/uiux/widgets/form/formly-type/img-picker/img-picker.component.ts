@@ -26,13 +26,17 @@ export class ImgPickerComponent extends FieldType implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ img, time }) => {
         if (this.time && this.time === time) {
-          const { src } = img;
+          const { src, uuid } = img;
           this.dialog.closeAll();
           this.field.props = {
             ...this.field.props,
             ...img,
           };
-          this.formControl.patchValue(src);
+          if (this.field.props.valueIsUUID) {
+            this.formControl.patchValue(uuid);
+          } else {
+            this.formControl.patchValue(src);
+          }
         }
       });
   }
