@@ -68,7 +68,7 @@ export class PageSettingComponent implements OnInit {
         },
       } = data;
       const user = included.find((item: any) => item.type === 'user--user');
-      const cover = included.find((item: any) => item.type === 'file--file');
+      const cover = included.find((item: any) => item.type === 'media--image');
       const pageGroup = included.find(
         (item: any) => item.type === 'taxonomy_term--page_group',
       );
