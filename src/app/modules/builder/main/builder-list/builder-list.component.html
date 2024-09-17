@@ -14,68 +14,6 @@
         [cdkDropListData]="page.body"
         (cdkDropListDropped)="drop($event)"
       >
-        @if (showBranding) {
-          @if (branding$ | async; as branding) {
-            @if (!(contentState.pageConfig$ | async)?.headerMode?.transparent) {
-              <header>
-                <div
-                  class="static"
-                  [class.header-inverse]="branding?.header?.params?.inverse"
-                >
-                  <app-header-banner [content]="branding?.header?.banner">
-                  </app-header-banner>
-                  @if (branding?.header?.top) {
-                    <app-header-top
-                      [content]="branding?.header?.top"
-                    ></app-header-top>
-                  }
-                  @if (branding?.header) {
-                    <app-menu #menu></app-menu>
-                  }
-                </div>
-              </header>
-            } @else {
-              <header
-                #header
-                id="transparent-mode"
-                class="transparent-mode"
-                [class.header-inverse]="branding.header.params.inverse"
-                [ngClass]="
-                  (contentState.pageConfig$ | async)?.headerMode?.style
-                "
-              >
-                <div class="static">
-                  @if (branding.header.top) {
-                    <app-header-top
-                      [content]="branding.header.top"
-                    ></app-header-top>
-                  }
-                  <app-menu #menu></app-menu>
-                </div>
-              </header>
-            }
-            <ng-template #transparent>
-              <header
-                #header
-                id="transparent-mode"
-                class="transparent-mode"
-                [class.header-inverse]="branding.header.params.inverse"
-                [ngClass]="
-                  (contentState.pageConfig$ | async)?.headerMode?.style
-                "
-              >
-                <div class="static">
-                  @if (branding.header.top) {
-                    <app-header-top
-                      [content]="branding.header.top"
-                    ></app-header-top>
-                  }
-                  <app-menu #menu></app-menu>
-                </div>
-              </header>
-            </ng-template>
-          }
-        }
         @if (!page.body.length) {
           <app-builder-empty></app-builder-empty>
         }
@@ -98,22 +36,6 @@
           </div>
         }
         <app-gotop></app-gotop>
-        @if (showBranding) {
-          @if (branding$ | async; as branding) {
-            <div class="footer">
-              @if (branding.footer?.params?.mode === "light") {
-                <app-light [content]="branding.footer"></app-light>
-              }
-              @if (branding.footer?.params?.mode === "inverse") {
-                <app-inverse [content]="branding.footer"> </app-inverse>
-              }
-              @if (branding.footer?.fixBar) {
-                <app-fix-bar [content]="branding.footer?.fixBar"></app-fix-bar>
-              }
-              <app-gotop></app-gotop>
-            </div>
-          }
-        }
       </div>
       @if (builder.switchPreivew$ | async) {
         <div class="iframe-wrapper">

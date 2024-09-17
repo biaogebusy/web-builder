@@ -25,7 +25,6 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class BuilderSidebarComponent implements OnInit {
   @Input() sidebarDrawer: MatDrawer;
-  showBranding = false;
   builderConfig$: Observable<IBuilderConfig> =
     inject(ContentService).loadBuilderConfig();
   builder = inject(BuilderState);
@@ -34,11 +33,6 @@ export class BuilderSidebarComponent implements OnInit {
   constructor(@Inject(BRANDING) public branding$: Observable<IBranding>) {}
 
   ngOnInit(): void {}
-
-  onShowBranding(): void {
-    this.showBranding = !this.showBranding;
-    this.builder.showBranding$.next(this.showBranding);
-  }
 
   onSelectAssets(): void {
     this.dialog.open(DialogComponent, {
