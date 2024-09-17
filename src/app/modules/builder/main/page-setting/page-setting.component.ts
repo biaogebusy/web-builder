@@ -164,6 +164,9 @@ export class PageSettingComponent implements OnInit {
                 field.formControl?.valueChanges
                   .pipe(takeUntilDestroyed(this.destroyRef))
                   .subscribe((cover) => {
+                    if (!cover) {
+                      return;
+                    }
                     this.loading = true;
                     this.builderService
                       .updateAttributes(

@@ -25,8 +25,8 @@
       <mat-spinner diameter="50" color="primary"></mat-spinner>
     }
     <div class="grid grid-cols-5 gap-1 md:gap-6">
-      @if (content$ | async; as content) {
-        @for (page of content; track page.id; let i = $index) {
+      @if (content$ | async; as lists) {
+        @for (page of lists; track page.id; let i = $index) {
           <div
             [ngClass]="{
               active:
@@ -38,8 +38,7 @@
             <div class="relative rounded-md shadow-md overflow-hidden">
               <img
                 class="aspect-[4/3] w-full"
-                *ngIf="page.cover"
-                src="{{ page.cover }}"
+                src="{{ page.cover || content.params.defaultImg }}"
                 alt=""
               />
               <div
