@@ -174,7 +174,7 @@ export class PageSettingComponent implements OnInit {
                         {
                           cover: {
                             data: {
-                              type: 'file--file',
+                              type: 'media--image',
                               id: cover,
                             },
                           },
