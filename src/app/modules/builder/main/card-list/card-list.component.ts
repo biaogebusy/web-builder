@@ -12,7 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { IPage } from '@core/interface/IAppConfig';
-import { IPageList, IPageMeta } from '@core/interface/IBuilder';
+import { ICardList, IPageList, IPageMeta } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
@@ -20,7 +20,6 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
-import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { merge } from 'lodash-es';
 import { Observable, of } from 'rxjs';
@@ -34,7 +33,7 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardListComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ICardList;
   content$: Observable<IPageMeta[]>;
   form = new FormGroup({
     page: new FormControl(0),
@@ -99,6 +98,11 @@ export class CardListComponent extends BaseComponent implements OnInit {
 
   onTitle(event: any, page: IPageMeta): void {
     const { target } = event;
+    const {
+      params: {
+        update: { api, type },
+      },
+    } = this.content;
     if (target) {
       target.contentEditable = 'false';
       if (this.currentEditeTitle !== target.textContent.trim()) {
@@ -110,8 +114,8 @@ export class CardListComponent extends BaseComponent implements OnInit {
           this.builderService
             .updateAttributes(
               page,
-              '/api/v1/node/landing_page',
-              'node--landing_page',
+              api,
+              type,
               {
                 title: textContent,
               },
@@ -136,30 +140,31 @@ export class CardListComponent extends BaseComponent implements OnInit {
   }
 
   fetchPage(params: string): void {
+    const {
+      params: { api },
+    } = this.content;
     this.loading = true;
-    this.content$ = this.nodeService
-      .fetch('/api/v2/node/landing-page', params)
-      .pipe(
-        catchError((error) => {
-          if (error.status === 404) {
-            this.util.openSnackbar('请检查API是否已配置！', 'ok');
-          }
-          return of({
-            rows: [],
-            pager: {
-              current_page: null,
-              total_pages: 0,
-              total_items: 0,
-            },
-          });
-        }),
-        map((res) => {
-          this.loading = false;
-          this.cd.detectChanges();
-          return this.getLists(res);
-        }),
-        takeUntilDestroyed(this.destroyRef),
-      );
+    this.content$ = this.nodeService.fetch(api, params).pipe(
+      catchError((error) => {
+        if (error.status === 404) {
+          this.util.openSnackbar('请检查API是否已配置！', 'ok');
+        }
+        return of({
+          rows: [],
+          pager: {
+            current_page: null,
+            total_pages: 0,
+            total_items: 0,
+          },
+        });
+      }),
+      map((res) => {
+        this.loading = false;
+        this.cd.detectChanges();
+        return this.getLists(res);
+      }),
+      takeUntilDestroyed(this.destroyRef),
+    );
   }
 
   getLists(res: IPageList): any[] {

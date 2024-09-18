@@ -176,3 +176,15 @@ export interface IJSON {
   name: string;
   [key: string]: string;
 }
+
+export interface ICardList {
+  params: {
+    api: string;
+    defaultImg: string;
+    update: {
+      api: string;
+      type: string;
+    };
+  };
+  form: FormlyFieldConfig[];
+}
