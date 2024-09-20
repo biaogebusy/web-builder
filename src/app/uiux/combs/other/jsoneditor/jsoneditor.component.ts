@@ -17,7 +17,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-jsoneditor',
