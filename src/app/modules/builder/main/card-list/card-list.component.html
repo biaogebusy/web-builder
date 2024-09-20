@@ -1,24 +1,20 @@
-<div class="card-list p-5">
-  <div class="reload">
-    @if (!loading) {
-      <app-btn
-        (click)="onReload()"
-        [content]="{
-          label: '',
-          mode: 'icon',
-          color: 'primary',
-          icon: { svg: 'reload' },
-        }"
-      ></app-btn>
-    }
-  </div>
-  <div class="form">
+<div class="card-list">
+  <div class="form flex flex-wrap items-center">
     <app-formly
       [fields]="content.form"
       [form]="form"
       [model]="model"
       (modelChange)="onModelChange($event)"
     ></app-formly>
+    <app-btn
+      (click)="onReload()"
+      [content]="{
+        label: '',
+        mode: 'icon',
+        color: 'primary',
+        icon: { svg: 'reload' },
+      }"
+    ></app-btn>
   </div>
   <div class="lists">
     @if (loading) {
@@ -35,9 +31,11 @@
             }"
             class="col-span-5 md:col-span-1 overflow-hidden item flex flex-col gap-2 relative mb-5 group"
           >
-            <div class="relative rounded-md shadow-md overflow-hidden">
+            <div
+              class="relative rounded-md shadow-md overflow-hidden border border-solid border-neutral-200"
+            >
               <img
-                class="aspect-[4/3] w-full"
+                class="aspect-[16/9] w-full object-cover"
                 src="{{ page.cover || content.params.defaultImg }}"
                 alt=""
               />
