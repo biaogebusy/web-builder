@@ -67,8 +67,11 @@ export class PageSettingComponent implements OnInit {
           transparent_style,
         },
       } = data;
-      const user = included[0];
-      const pageGroup = included[1];
+      const user = included.find((item: any) => item.type === 'user--user');
+      const cover = included.find((item: any) => item.type === 'file--file');
+      const pageGroup = included.find(
+        (item: any) => item.type === 'taxonomy_term--page_group',
+      );
       if (content) {
         this.fields = [
           {
@@ -143,6 +146,56 @@ export class PageSettingComponent implements OnInit {
                   value: null,
                 },
               ],
+            },
+          },
+          {
+            key: 'cover',
+            type: 'img-picker',
+            defaultValue: cover ? cover.attributes.uri.url : '',
+            props: {
+              valueIsUUID: true,
+              updateLabel: '更新封面',
+              addLabel: '设置封面',
+              deleteLabel: '删除',
+              fileName: cover ? cover.attributes.uri.url.split('/').pop() : '',
+            },
+            hooks: {
+              onInit: (field: FormlyFieldConfig) => {
+                field.formControl?.valueChanges
+                  .pipe(takeUntilDestroyed(this.destroyRef))
+                  .subscribe((cover) => {
+                    if (!cover) {
+                      return;
+                    }
+                    this.loading = true;
+                    this.builderService
+                      .updateAttributes(
+                        { uuid: id, langcode },
+                        '/api/v1/node/landing_page',
+                        'node--landing_page',
+                        {},
+                        {
+                          cover: {
+                            data: {
+                              type: 'media--image',
+                              id: cover,
+                            },
+                          },
+                          uid: {
+                            data: {
+                              type: 'user--user',
+                              id: this.user.id,
+                            },
+                          },
+                        },
+                      )
+                      .subscribe(() => {
+                        this.loading = false;
+                        this.cd.detectChanges();
+                        this.util.openSnackbar(`已更新封面`);
+                      });
+                  });
+              },
             },
           },
           {

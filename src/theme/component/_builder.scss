@@ -94,20 +94,6 @@ $dark-theme: mat.define-dark-theme(
             }
           }
         }
-        .preview-container {
-          .mat-drawer {
-            .actions {
-              &.expand {
-                background-color: mat.get-color-from-palette($background, card);
-                @include mat.elevation(
-                  2,
-                  mat.get-color-from-palette($background, hover),
-                  0.4
-                );
-              }
-            }
-          }
-        }
       }
       .cdk-drag-placeholder {
         background-color: mat.get-color-from-palette($background, background);
@@ -116,6 +102,18 @@ $dark-theme: mat.define-dark-theme(
         &:hover {
           background-color: mat.get-color-from-palette($primary, 200);
           border-color: mat.get-color-from-palette($primary);
+        }
+      }
+    }
+    .mat-drawer {
+      .actions {
+        &.expand {
+          background-color: mat.get-color-from-palette($background, card);
+          @include mat.elevation(
+            2,
+            mat.get-color-from-palette($background, hover),
+            0.4
+          );
         }
       }
     }
@@ -150,12 +148,10 @@ $dark-theme: mat.define-dark-theme(
       #builder-list {
         background-color: #fafafa !important;
       }
-      .preview-container {
-        .mat-drawer {
-          .actions {
-            &.expand {
-              color: #fafafa;
-            }
+      .mat-drawer {
+        .actions {
+          &.expand {
+            color: #fafafa;
           }
         }
       }

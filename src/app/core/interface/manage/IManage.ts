@@ -24,6 +24,7 @@ export interface IMediaSelect {
   alt: string;
   fileName: string;
   tag: 'img';
+  uuid: string;
 }
 
 export interface ISelectedMedia {

@@ -12,3 +12,22 @@
     }
   }
 }
+
+.actions {
+  &.expand {
+    position: absolute;
+    left: 0;
+    top: 35px;
+    width: 48px;
+    height: 48px;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+  }
+}
+.mat-drawer-opened {
+  .actions {
+    &.expand {
+      left: -48px;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.actions {
+  transform: translate(-50%, -50%);
+}
+
+.lists {
+  position: relative;
+  .mat-mdc-progress-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

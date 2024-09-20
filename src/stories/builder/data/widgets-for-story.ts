@@ -26,7 +26,7 @@ import * as spacerStory from '@stories/theme/Spacer.stories';
 import * as contactStory from '@stories/drupal/form/ContactUs.stories';
 import * as panelStory from '@stories/widgets/Panel.stories';
 import * as videoStory from '@stories/feature/media/Video.stories';
-import { Default as CustomTeplate } from '@stories/builder/Tailwind.stories';
+import { Default as CustomTeplate } from '@stories/builder/tailwind/Hero.stories';
 
 export const widgets: any[] = [
   {

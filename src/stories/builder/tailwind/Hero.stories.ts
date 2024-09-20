@@ -11,8 +11,8 @@ import { of } from 'rxjs';
 import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custom-template.component';
 import { importProvidersFrom } from '@angular/core';
 const meta: Meta<CustomTemplateComponent> = {
-  title: '低代码/Layout builder/Tailwind 自定义组件',
-  id: 'tailwind-template',
+  title: 'Tailwind/Hero',
+  id: 'tailwind-hero',
   component: CustomTemplateComponent,
   decorators: [
     applicationConfig({
@@ -34,8 +34,322 @@ const meta: Meta<CustomTemplateComponent> = {
 };
 
 export default meta;
-
 type Story = StoryObj<CustomTemplateComponent>;
+
+export const HeroV1: Story = {};
+HeroV1.storyName = 'V1';
+HeroV1.args = {
+  content: {
+    type: 'custom-template',
+    json: '',
+    html: `<div class="bg-gradient-to-b from-[#101212] relative to-[#08201D]">
+    <header class="absolute inset-x-0 top-0 z-10 w-full">
+        <div class="px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" title="" class="flex">
+                        <img class="w-auto h-8" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/5/logo.svg" alt="" />
+                    </a>
+                </div>
+
+                <div class="hidden lg:flex lg:items-center lg:justify-center lg:space-x-10">
+                    <a href="#" title="" class="text-base text-white transition-all duration-200 hover:text-opacity-80"> Features </a>
+
+                    <a href="#" title="" class="text-base text-white transition-all duration-200 hover:text-opacity-80"> Solutions </a>
+
+                    <a href="#" title="" class="text-base text-white transition-all duration-200 hover:text-opacity-80"> Resources </a>
+
+                    <a href="#" title="" class="text-base text-white transition-all duration-200 hover:text-opacity-80"> Pricing </a>
+                </div>
+
+                <div class="lg:flex lg:items-center lg:justify-end lg:space-x-6 sm:ml-auto">
+                    <a href="#" title="" class="hidden text-base text-white transition-all duration-200 lg:inline-flex hover:text-opacity-80"> Log in </a>
+
+                    <a href="#" title="" class="inline-flex items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white bg-white/20 hover:bg-white/40 focus:bg-white/40 rounded-lg" role="button"> Apply for free </a>
+                </div>
+
+                <button type="button" class="inline-flex p-2 ml-1 text-white transition-all duration-200 rounded-md sm:ml-4 lg:hidden focus:bg-gray-800 hover:bg-gray-800">
+                    <!-- Menu open: "hidden", Menu closed: "block" -->
+                    <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+
+                    <!-- Menu open: "block", Menu closed: "hidden" -->
+                    <svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative lg:min-h-[1000px] pt-24 pb-10 sm:pt-32 sm:pb-16 lg:pb-24">
+        <div class="absolute inset-x-0 bottom-0 z-10 hidden lg:flex">
+            <img class="hidden w-full lg:block" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/5/credit-cards.png" alt="" />
+            <img class="block w-full lg:hidden" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/5/credit-cards-mobile.png" alt="" />
+        </div>
+
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative z-20">
+            <div class="max-w-xl mx-auto text-center">
+                <h1 class="text-4xl font-bold sm:text-6xl">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-white"> Simplified credit cards for students </span>
+                </h1>
+                <p class="mt-5 text-base text-white sm:text-xl">No more hassle taking loans and making payments. Try Postcrats credit card, make your life simple.</p>
+
+                <a href="#" title="" class="inline-flex items-center px-6 py-4 mt-8 font-semibold text-white transition-all duration-200 bg-blue-600 rounded-lg sm:mt-16 hover:bg-blue-700 focus:bg-blue-700" role="button">
+                    Apply for free
+                    <svg class="w-6 h-6 ml-8 -mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </a>
+
+                <div class="grid grid-cols-1 px-20 mt-12 text-left gap-x-12 gap-y-8 sm:grid-cols-3 sm:px-0">
+                    <div class="flex items-center">
+                        <svg class="flex-shrink-0" width="31" height="25" viewBox="0 0 31 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M25.1667 14.187H20.3333C17.6637 14.187 15.5 16.3507 15.5 19.0203V19.8258C15.5 19.8258 18.0174 20.6314 22.75 20.6314C27.4826 20.6314 30 19.8258 30 19.8258V19.0203C30 16.3507 27.8363 14.187 25.1667 14.187Z"
+                                stroke="#28CC9D"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M18.7227 6.9369C18.7227 4.71276 20.5263 2.90912 22.7504 2.90912C24.9746 2.90912 26.7782 4.71276 26.7782 6.9369C26.7782 9.16104 24.9746 11.7702 22.7504 11.7702C20.5263 11.7702 18.7227 9.16104 18.7227 6.9369Z"
+                                stroke="#28CC9D"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M13.2231 15.8512H7.11157C3.73595 15.8512 1 18.5871 1 21.9628V22.9814C1 22.9814 4.18311 24 10.1674 24C16.1516 24 19.3347 22.9814 19.3347 22.9814V21.9628C19.3347 18.5871 16.5988 15.8512 13.2231 15.8512Z"
+                                fill="#0B1715"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M5.07422 6.68386C5.07422 3.87152 7.35485 1.59088 10.1672 1.59088C12.9795 1.59088 15.2602 3.87152 15.2602 6.68386C15.2602 9.4962 12.9795 12.7954 10.1672 12.7954C7.35485 12.7954 5.07422 9.4962 5.07422 6.68386Z"
+                                fill="#0B1715"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                        <p class="ml-3 text-sm text-white">Over 12,000 students joined</p>
+                    </div>
+
+                    <div class="flex items-center">
+                        <svg class="flex-shrink-0" width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19.8335 21.9166H3.16683C2.6143 21.9166 2.08439 21.6972 1.69369 21.3065C1.30299 20.9158 1.0835 20.3858 1.0835 19.8333V3.16665C1.0835 2.61411 1.30299 2.08421 1.69369 1.69351C2.08439 1.30281 2.6143 1.08331 3.16683 1.08331H19.8335C20.386 1.08331 20.9159 1.30281 21.3066 1.69351C21.6973 2.08421 21.9168 2.61411 21.9168 3.16665V19.8333C21.9168 20.3858 21.6973 20.9158 21.3066 21.3065C20.9159 21.6972 20.386 21.9166 19.8335 21.9166Z"
+                                stroke="white"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path d="M7 12.6667L9.25 15L16 8" stroke="#28CC9D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <p class="ml-3 text-sm text-white">No yearly charges, maximum limits</p>
+                    </div>
+
+                    <div class="flex items-center">
+                        <svg class="flex-shrink-0" width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 11H3C1.89543 11 1 11.8954 1 13V21C1 22.1046 1.89543 23 3 23H17C18.1046 23 19 22.1046 19 21V13C19 11.8954 18.1046 11 17 11Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M10 19C11.1046 19 12 18.1046 12 17C12 15.8954 11.1046 15 10 15C8.89543 15 8 15.8954 8 17C8 18.1046 8.89543 19 10 19Z" stroke="#28CC9D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M15 7V6C15.0131 4.68724 14.5042 3.42303 13.5853 2.48539C12.6664 1.54776 11.4128 1.01346 10.1 1H10C8.68724 0.986939 7.42303 1.4958 6.48539 2.41469C5.54776 3.33357 5.01346 4.58724 5 5.9V7"
+                                stroke="#28CC9D"
+                                stroke-width="1.5"
+                                stroke-miterlimit="10"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                        <p class="ml-3 text-sm text-white">Secured & safe online payment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+`,
+  },
+};
+
+export const HeroV2: Story = {};
+HeroV2.name = 'V2';
+HeroV2.args = {
+  content: {
+    type: 'custom-template',
+    json: '',
+    html: `<div class="relative">
+    <header class="absolute inset-x-0 top-0 z-10 w-full">
+        <div class="px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" title="" class="flex">
+                        <img class="w-auto h-8" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/logo.svg" alt="" />
+                    </a>
+                </div>
+
+                <button type="button" class="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
+                    <!-- Menu open: "hidden", Menu closed: "block" -->
+                    <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+
+                    <!-- Menu open: "block", Menu closed: "hidden" -->
+                    <svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <div class="hidden ml-auto lg:flex lg:items-center lg:justify-center lg:space-x-10">
+                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Features </a>
+
+                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Solutions </a>
+
+                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Resources </a>
+
+                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Pricing </a>
+
+                    <a href="#" title="" class="inline-flex items-center justify-center px-5 py-2.5 text-base font-semibold transition-all duration-200 rounded-full bg-orange-500 text-white hover:bg-orange-600 focus:bg-orange-600" role="button"> Try for free </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-yellow-50 overflow-hidden">
+        <div class="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[800px]">
+            <div class="relative flex items-center justify-center w-full lg:order-2 lg:w-7/12">
+                <div class="absolute bottom-0 right-0 hidden lg:block">
+                    <img class="object-contain w-auto h-48" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/curved-lines.png" alt="" />
+                </div>
+
+                <div class="relative px-4 pt-24 pb-16 text-center sm:px-6 md:px-24 2xl:px-32 lg:py-24 lg:text-left">
+                    <h1 class="text-4xl font-bold text-black sm:text-6xl xl:text-8xl">
+                        Get it done.<br />
+                        Fast, Easy.
+                    </h1>
+                    <p class="mt-8 text-xl text-black">We help you to make your remote work life easier. Build a distruction free working experience.</p>
+
+                    <form action="#" method="POST" class="max-w-xl mx-auto mt-8 bg-white lg:mx-0 sm:bg-transparent lg:mt-12 rounded-xl">
+                        <div class="p-4 sm:p-2 sm:bg-white sm:border-2 sm:border-transparent sm:rounded-full sm:focus-within:border-orange-500 sm:focus-within:ring-1 sm:focus-within:ring-orange-500">
+                            <div class="flex flex-col items-start sm:flex-row">
+                                <div class="flex-1 w-full min-w-0">
+                                    <div class="relative text-gray-400 focus-within:text-gray-600">
+                                        <label for="email" class="sr-only"></label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            placeholder="Enter email to get started"
+                                            class="block w-full px-4 py-4 text-base text-center text-black placeholder-gray-500 transition-all duration-200 border-transparent rounded-full sm:text-left focus:border-transparent focus:ring-0 caret-orange-500"
+                                            required=""
+                                        />
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="inline-flex items-center justify-center w-full px-4 py-4 mt-4 font-semibold text-white transition-all duration-200 bg-orange-500 border border-transparent rounded-full sm:w-auto sm:ml-4 sm:mt-0 hover:bg-orange-600 focus:bg-orange-600">
+                                    Try 14 days free
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="mt-5 text-base text-black">Instant access . No credit card required</p>
+                </div>
+
+                <div class="absolute right-0 z-10 -bottom-16 lg:top-24 lg:-left-20">
+                    <img class="w-32 h-32 md:w-40 md:h-40" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/circular-text.png" alt="" />
+                </div>
+            </div>
+
+            <div class="relative w-full overflow-hidden lg:order-1 h-96 lg:h-auto lg:w-5/12">
+                <div class="absolute inset-0">
+                    <img class="object-cover w-full h-full scale-150" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/man-working-on-laptop.jpg" alt="" />
+                </div>
+
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+
+                <div class="absolute bottom-0 left-0">
+                    <div class="p-4 sm:p-6 lg:p-8">
+                        <div class="flex items-center">
+                            <svg class="w-10 h-10 text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+                            </svg>
+                            <h2 class="font-bold text-white text-7xl ml-2.5">395</h2>
+                        </div>
+                        <p class="max-w-xs mt-1.5 text-xl text-white">Professionals have organized their desk via PostCra</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+`,
+  },
+};
+
+export const HeroV3: Story = {};
+HeroV3.storyName = 'V3';
+HeroV3.args = {
+  content: {
+    type: 'custom-template',
+    json: '',
+    html: `<section class="relative py-10 overflow-hidden bg-black sm:py-16 lg:py-24 xl:py-32">
+    <div class="absolute inset-0">
+        <img class="object-cover w-full h-full md:object-left md:scale-150 md:origin-top-left" src="https://cdn.rareblocks.xyz/collection/celebration/images/cta/5/girl-working-on-laptop.jpg" alt="" />
+    </div>
+
+    <div class="absolute inset-0 hidden bg-gradient-to-r md:block from-black to-transparent"></div>
+
+    <div class="absolute inset-0 block bg-black/60 md:hidden"></div>
+
+    <div class="relative px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+        <div class="text-center md:w-2/3 lg:w-1/2 xl:w-1/3 md:text-left">
+            <h2 class="text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">Get full access to Celebration</h2>
+            <p class="mt-4 text-base text-gray-200">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam.</p>
+
+            <form action="#" method="POST" class="mt-8 lg:mt-12">
+                <div class="flex flex-col items-center sm:flex-row sm:justify-center">
+                    <div class="flex-1 w-full min-w-0 px-4 sm:px-0">
+                        <div class="relative text-gray-400 focus-within:text-gray-600">
+                            <label for="email" class="sr-only"></label>
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                                </svg>
+                            </div>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Enter email address"
+                                class="block w-full py-4 pl-10 pr-4 text-base text-black placeholder-gray-500 transition-all duration-200 border-gray-200 rounded-md sm:rounded-r-none caret-blue-600 focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="inline-flex items-center justify-center flex-shrink-0 w-auto px-4 py-4 mt-4 font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md sm:mt-0 sm:rounded-l-none sm:w-auto hover:bg-blue-700 focus:bg-blue-700">
+                        Get instant access
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+`,
+  },
+};
+
 export const Default: Story = {};
 Default.storyName = '默认';
 Default.args = {
@@ -479,176 +793,6 @@ State.args = {
   },
 };
 
-export const Hero: Story = {};
-Hero.storyName = 'Testimonial';
-Hero.args = {
-  content: {
-    type: 'custom-template',
-    json: {},
-    html: `<section class="py-12 bg-gray-50 sm:py-16 lg:py-20">
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="flex flex-col items-center">
-            <div class="text-center">
-                <p class="text-lg font-medium text-gray-600 font-pj">2,157 people have said how good Rareblocks</p>
-                <h2 class="mt-4 text-3xl font-bold text-gray-900 sm:text-4xl xl:text-5xl font-pj">Our happy clients say about us</h2>
-            </div>
-
-            <div class="mt-8 text-center md:mt-16 md:order-3">
-                <a href="#" title="" class="pb-2 text-base font-bold leading-7 text-gray-900 transition-all duration-200 border-b-2 border-gray-900 hover:border-gray-600 font-pj focus:outline-none focus:ring-1 focus:ring-gray-900 focus:ring-offset-2 hover:text-gray-600"> Check all 2,157 reviews </a>
-            </div>
-
-            <div class="relative mt-10 md:mt-24 md:order-2">
-                <div class="absolute -inset-x-1 inset-y-16 md:-inset-x-2 md:-inset-y-6">
-                    <div class="w-full h-full max-w-5xl mx-auto rounded-3xl opacity-30 blur-lg filter" style="background: linear-gradient(90deg, #44ff9a -0.55%, #44b0ff 22.86%, #8b44ff 48.36%, #ff6644 73.33%, #ebff70 99.34%)"></div>
-                </div>
-
-                <div class="relative grid max-w-lg grid-cols-1 gap-6 mx-auto md:max-w-none lg:gap-10 md:grid-cols-3">
-                    <div class="flex flex-col overflow-hidden shadow-xl">
-                        <div class="flex flex-col justify-between flex-1 p-6 bg-white lg:py-8 lg:px-7">
-                            <div class="flex-1">
-                                <div class="flex items-center">
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                </div>
-
-                                <blockquote class="flex-1 mt-8">
-                                    <p class="text-lg leading-relaxed text-gray-900 font-pj">“You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change.”</p>
-                                </blockquote>
-                            </div>
-
-                            <div class="flex items-center mt-8">
-                                <img class="flex-shrink-0 object-cover rounded-full w-11 h-11" src="https://cdn.rareblocks.xyz/collection/clarity/images/testimonial/4/avatar-male-1.png" alt="" />
-                                <div class="ml-4">
-                                    <p class="text-base font-bold text-gray-900 font-pj">Leslie Alexander</p>
-                                    <p class="mt-0.5 text-sm font-pj text-gray-600">Freelance React Developer</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col overflow-hidden shadow-xl">
-                        <div class="flex flex-col justify-between flex-1 p-6 bg-white lg:py-8 lg:px-7">
-                            <div class="flex-1">
-                                <div class="flex items-center">
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                </div>
-
-                                <blockquote class="flex-1 mt-8">
-                                    <p class="text-lg leading-relaxed text-gray-900 font-pj">“Simply the best. Better than all the rest. I’d recommend this product to beginners and advanced users.”</p>
-                                </blockquote>
-                            </div>
-
-                            <div class="flex items-center mt-8">
-                                <img class="flex-shrink-0 object-cover rounded-full w-11 h-11" src="https://cdn.rareblocks.xyz/collection/clarity/images/testimonial/4/avatar-male-2.png" alt="" />
-                                <div class="ml-4">
-                                    <p class="text-base font-bold text-gray-900 font-pj">Jacob Jones</p>
-                                    <p class="mt-0.5 text-sm font-pj text-gray-600">Digital Marketer</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col overflow-hidden shadow-xl">
-                        <div class="flex flex-col justify-between flex-1 p-6 bg-white lg:py-8 lg:px-7">
-                            <div class="flex-1">
-                                <div class="flex items-center">
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                    <svg class="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        />
-                                    </svg>
-                                </div>
-
-                                <blockquote class="flex-1 mt-8">
-                                    <p class="text-lg leading-relaxed text-gray-900 font-pj">“I cannot believe that I have got a brand new landing page after getting Omega. It was super easy to edit and publish.”</p>
-                                </blockquote>
-                            </div>
-
-                            <div class="flex items-center mt-8">
-                                <img class="flex-shrink-0 object-cover rounded-full w-11 h-11" src="https://cdn.rareblocks.xyz/collection/clarity/images/testimonial/4/avatar-female.png" alt="" />
-                                <div class="ml-4">
-                                    <p class="text-base font-bold text-gray-900 font-pj">Jenny Wilson</p>
-                                    <p class="mt-0.5 text-sm font-pj text-gray-600">Graphic Designer</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-`,
-  },
-};
-
 export const Product: Story = {};
 Product.args = {
   content: {
@@ -863,61 +1007,6 @@ Product.args = {
   },
 };
 
-export const Feature: Story = {};
-Feature.storyName = 'Feature';
-Feature.args = {
-  content: {
-    type: 'custom-template',
-    json: {},
-    html: `<div class="overflow-hidden bg-white py-24 sm:py-32">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-      <div class="lg:pr-8 lg:pt-4">
-        <div class="lg:max-w-lg">
-          <h2 class="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2>
-          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">A better workflow</p>
-          <p class="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</p>
-          <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
-            <div class="relative pl-9">
-              <dt class="inline font-semibold text-gray-900">
-                <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 01-1.44-8.765 4.5 4.5 0 018.302-3.046 3.5 3.5 0 014.504 4.272A4 4 0 0115 17H5.5zm3.75-2.75a.75.75 0 001.5 0V9.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0l-3.25 3.5a.75.75 0 101.1 1.02l1.95-2.1v4.59z" clip-rule="evenodd" />
-                </svg>
-                Push to deploy.
-              </dt>
-              <dd class="inline">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</dd>
-            </div>
-            <div class="relative pl-9">
-              <dt class="inline font-semibold text-gray-900">
-                <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
-                </svg>
-                SSL certificates.
-              </dt>
-              <dd class="inline">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.</dd>
-            </div>
-            <div class="relative pl-9">
-              <dt class="inline font-semibold text-gray-900">
-                <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path d="M4.632 3.533A2 2 0 016.577 2h6.846a2 2 0 011.945 1.533l1.976 8.234A3.489 3.489 0 0016 11.5H4c-.476 0-.93.095-1.344.267l1.976-8.234z" />
-                  <path fill-rule="evenodd" d="M4 13a2 2 0 100 4h12a2 2 0 100-4H4zm11.24 2a.75.75 0 01.75-.75H16a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75h-.01a.75.75 0 01-.75-.75V15zm-2.25-.75a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 00.75-.75V15a.75.75 0 00-.75-.75h-.01z" clip-rule="evenodd" />
-                </svg>
-                Database backups.
-              </dt>
-              <dd class="inline">Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-      <img src="/assets/images/illustration/29.png" alt="Product screenshot" class="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0">
-    </div>
-  </div>
-</div>
-
-`,
-  },
-};
-
 export const TwoGrid: Story = {};
 TwoGrid.storyName = 'TwoGrid';
 TwoGrid.args = {
@@ -1024,446 +1113,6 @@ Action.args = {
   },
 };
 
-export const Pricing: Story = {};
-Pricing.storyName = 'Pricing';
-Pricing.args = {
-  content: {
-    type: 'custom-template',
-    json: {},
-    html: `<section class="py-10 bg-white sm:py-16 lg:py-24">
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="max-w-xl mx-auto text-center">
-            <h2 class="text-4xl font-bold text-black lg:text-5xl sm:text-5xl">Pricing &amp; Plans</h2>
-            <p class="mt-4 text-lg leading-relaxed text-gray-600">Amet minim mollit non deserunt ullam co est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-        </div>
-
-        <!-- lg+ -->
-        <div class="hidden mt-16 lg:block">
-            <table class="w-full">
-                <thead>
-                    <tr>
-                        <th class="py-8 pr-4"></th>
-
-                        <th class="px-4 py-8 text-center">
-                            <span class="text-base font-medium text-blue-600"> Free </span>
-                            <p class="mt-6 text-6xl font-bold">$0</p>
-                            <p class="mt-2 text-base font-normal text-gray-500">Per month</p>
-                        </th>
-
-                        <th class="px-4 py-8 text-center">
-                            <span class="text-base font-medium text-blue-600"> Team </span>
-                            <p class="mt-6 text-6xl font-bold">$99</p>
-                            <p class="mt-2 text-base font-normal text-gray-500">Per month</p>
-                        </th>
-
-                        <th class="px-4 py-8 text-center bg-gray-900 rounded-t-xl">
-                            <span class="px-4 py-2 text-base font-medium text-white bg-blue-600 rounded-full"> Popular </span>
-                            <p class="mt-6 text-6xl font-bold text-white">$150</p>
-                            <p class="mt-2 text-base font-normal text-gray-200">Per month</p>
-                        </th>
-
-                        <th class="px-4 py-8 text-center">
-                            <span class="text-base font-medium text-blue-600"> Enterprise </span>
-                            <p class="mt-6 text-6xl font-bold">$490</p>
-                            <p class="mt-2 text-base font-normal text-gray-500">Per month</p>
-                        </th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td class="py-4 pr-4 font-medium border-b border-gray-200">Website number</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">01</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">10</td>
-
-                        <td class="px-4 py-4 text-center text-white bg-gray-900 border-b border-white/20">50</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">Unlimited</td>
-                    </tr>
-
-                    <tr>
-                        <td class="py-4 pr-4 font-medium border-b border-gray-200">Server storage</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">100 GB</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">500 GB</td>
-
-                        <td class="px-4 py-4 text-center text-white bg-gray-900 border-b border-white/20">1 TB</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">Unlimited</td>
-                    </tr>
-
-                    <tr>
-                        <td class="py-4 pr-4 font-medium border-b border-gray-200">Database</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">15</td>
-
-                        <td class="px-4 py-4 text-center text-white bg-gray-900 border-b border-white/20">Unlimited</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">Unlimited</td>
-                    </tr>
-
-                    <tr>
-                        <td class="py-4 pr-4 font-medium border-b border-gray-200">Unmetered Bandwidth</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-
-                        <td class="px-4 py-4 text-center text-white bg-gray-900 border-b border-white/20">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="py-4 pr-4 font-medium border-b border-gray-200">SSD Disk</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center text-white bg-gray-900 border-b border-white/20">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="py-4 pr-4 font-medium border-b border-gray-200">VCPUS Fontworld</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center text-white bg-gray-900 border-b border-white/20">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="py-4 pr-4 font-medium border-b border-gray-200">WordPress install</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center text-white bg-gray-900 border-b border-white/20">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="py-4 pr-4 font-medium border-b border-gray-200">Server speed</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">-</td>
-
-                        <td class="px-4 py-4 text-center text-white bg-gray-900 border-b border-white/20">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-
-                        <td class="px-4 py-4 text-center border-b border-gray-200">
-                            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="py-6 pr-4"></td>
-
-                        <td class="px-4 py-6 text-center">
-                            <a href="#" title="" class="inline-flex items-center font-semibold text-blue-600 hover:text-blue-700">
-                                Get Started
-                                <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                </svg>
-                            </a>
-                        </td>
-
-                        <td class="px-4 py-6 text-center">
-                            <a href="#" title="" class="inline-flex items-center font-semibold text-blue-600 hover:text-blue-700">
-                                Get Started
-                                <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                </svg>
-                            </a>
-                        </td>
-
-                        <td class="px-4 py-6 text-center text-white bg-yellow-500 rounded-b-xl">
-                            <a href="#" title="" class="inline-flex items-center font-semibold text-white">
-                                Get Started
-                                <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                </svg>
-                            </a>
-                        </td>
-
-                        <td class="px-4 py-6 text-center">
-                            <a href="#" title="" class="inline-flex items-center font-semibold text-blue-600 hover:text-blue-700">
-                                Get Started
-                                <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                </svg>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- xs to lg -->
-    <div class="block mt-12 border-t border-b border-gray-200 divide-y divide-gray-200 lg:hidden">
-        <div class="grid grid-cols-4 text-center divide-x divide-gray-200">
-            <div class="px-2 py-2">
-                <span class="text-sm font-medium text-blue-600"> Free </span>
-                <p class="mt-2 text-xl font-bold">$0</p>
-                <span class="mt-1 text-sm font-normal text-gray-500"> Per month </span>
-            </div>
-
-            <div class="px-2 py-2">
-                <span class="text-sm font-medium text-blue-600"> Team </span>
-                <p class="mt-2 text-xl font-bold">$99</p>
-                <span class="mt-1 text-sm font-normal text-gray-500"> Per month </span>
-            </div>
-
-            <div class="px-2 py-2">
-                <span class="text-sm font-medium text-blue-600"> Popular </span>
-                <p class="mt-2 text-xl font-bold">$150</p>
-                <span class="mt-1 text-sm font-normal text-gray-500"> Per month </span>
-            </div>
-
-            <div class="px-2 py-2">
-                <span class="text-sm font-medium text-blue-600"> Enterprise </span>
-                <p class="mt-2 text-xl font-bold">$490</p>
-                <span class="mt-1 text-sm font-normal text-gray-500"> Per month </span>
-            </div>
-        </div>
-
-        <div class="px-2 py-4 sm:px-4">
-            <p class="font-semibold">Website number</p>
-        </div>
-
-        <div class="grid grid-cols-4 text-center divide-x divide-gray-200">
-            <div class="px-2 py-2">01</div>
-
-            <div class="px-2 py-2">10</div>
-
-            <div class="px-2 py-2">100</div>
-
-            <div class="px-2 py-2">Unlimited</div>
-        </div>
-
-        <div class="px-2 py-4 sm:px-4">
-            <p class="font-semibold">Server storage</p>
-        </div>
-
-        <div class="grid grid-cols-4 text-center divide-x divide-gray-200">
-            <div class="px-2 py-2">100 GB</div>
-
-            <div class="px-2 py-2">500 GB</div>
-
-            <div class="px-2 py-2">1 TB</div>
-
-            <div class="px-2 py-2">Unlimited</div>
-        </div>
-
-        <div class="px-2 py-4 sm:px-4">
-            <p class="font-semibold">Database</p>
-        </div>
-
-        <div class="grid grid-cols-4 text-center divide-x divide-gray-200">
-            <div class="px-2 py-2">-</div>
-
-            <div class="px-2 py-2">15</div>
-
-            <div class="px-2 py-2">Unlimited</div>
-
-            <div class="px-2 py-2">Unlimited</div>
-        </div>
-
-        <div class="px-2 py-4 sm:px-4">
-            <p class="font-semibold">Unmetered bandwidth</p>
-        </div>
-
-        <div class="grid grid-cols-4 text-center divide-x divide-gray-200">
-            <div class="px-2 py-2">-</div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-        </div>
-
-        <div class="px-2 py-4 sm:px-4">
-            <p class="font-semibold">SSD Disk</p>
-        </div>
-
-        <div class="grid grid-cols-4 text-center divide-x divide-gray-200">
-            <div class="px-2 py-2">-</div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-        </div>
-
-        <div class="px-2 py-4 sm:px-4">
-            <p class="font-semibold">VCPUS Fontworld</p>
-        </div>
-
-        <div class="grid grid-cols-4 text-center divide-x divide-gray-200">
-            <div class="px-2 py-2">-</div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-        </div>
-
-        <div class="px-2 py-4 sm:px-4">
-            <p class="font-semibold">WordPress install</p>
-        </div>
-
-        <div class="grid grid-cols-4 text-center divide-x divide-gray-200">
-            <div class="px-2 py-2">-</div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-
-            <div class="px-2 py-2">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-4 text-center divide-x divide-gray-200">
-            <div class="px-1 py-2 sm:px-4">
-                <span class="text-sm font-medium text-blue-600"> Free </span>
-                <p class="mt-2 text-xl font-bold">$0</p>
-                <span class="mt-1 text-sm font-normal text-gray-500"> Per month </span>
-                <a href="#" title="" class="flex items-center justify-center w-full px-1 py-2 mt-5 text-sm text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md hover:bg-blue-700" role="button"> Get Started </a>
-            </div>
-
-            <div class="px-1 py-2 sm:px-4">
-                <span class="text-sm font-medium text-blue-600"> Team </span>
-                <p class="mt-2 text-xl font-bold">$99</p>
-                <span class="mt-1 text-sm font-normal text-gray-500"> Per month </span>
-                <a href="#" title="" class="flex items-center justify-center w-full px-1 py-2 mt-5 text-sm text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md hover:bg-blue-700" role="button"> Get Started </a>
-            </div>
-
-            <div class="px-1 py-2 sm:px-4">
-                <span class="text-sm font-medium text-blue-600"> Popular </span>
-                <p class="mt-2 text-xl font-bold">$150</p>
-                <span class="mt-1 text-sm font-normal text-gray-500"> Per month </span>
-                <a href="#" title="" class="flex items-center justify-center w-full px-1 py-2 mt-5 text-sm text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md hover:bg-blue-700" role="button"> Get Started </a>
-            </div>
-
-            <div class="px-1 pt-2 pb-4 sm:px-4">
-                <span class="text-sm font-medium text-blue-600"> Enterprise </span>
-                <p class="mt-2 text-xl font-bold">$490</p>
-                <span class="mt-1 text-sm font-normal text-gray-500"> Per month </span>
-                <a href="#" title="" class="flex items-center justify-center w-full px-1 py-2 mt-5 text-sm text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md hover:bg-blue-700" role="button"> Get Started </a>
-            </div>
-        </div>
-    </div>
-</section>
-`,
-  },
-};
-
 export const Showcase: Story = {};
 Showcase.storyName = 'Showcase';
 Showcase.args = {
@@ -1492,179 +1141,6 @@ Showcase.args = {
             </div>
           </div>
         </div>`,
-  },
-};
-
-export const Step: Story = {};
-Step.storyName = 'Step';
-Step.args = {
-  content: {
-    type: 'custom-template',
-    json: {
-      title: 'web builder',
-      subTitle: '是一款通过拖拽组件构建页面的低代码',
-      img: '/assets/images/showcase/6.jpg',
-      content:
-        '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
-      more: {
-        href: '/',
-        label: '了解更多',
-      },
-    },
-    html: `<section class="py-10 bg-white sm:py-16 lg:py-24">
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto text-center">
-            <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">How does it work?</h2>
-            <p class="max-w-lg mx-auto mt-4 text-base leading-relaxed text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.</p>
-        </div>
-
-        <div class="relative mt-12 lg:mt-20">
-            <div class="absolute inset-x-0 hidden xl:px-44 top-2 md:block md:px-20 lg:px-28">
-                <img class="w-full" src="https://cdn.rareblocks.xyz/collection/celebration/images/steps/2/curved-dotted-line.svg" alt="" />
-            </div>
-
-            <div class="relative grid grid-cols-1 text-center gap-y-12 md:grid-cols-3 gap-x-12">
-                <div>
-                    <div class="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
-                        <span class="text-xl font-semibold text-gray-700"> 1 </span>
-                    </div>
-                    <h3 class="mt-6 text-xl font-semibold leading-tight text-black md:mt-10">Create a free account</h3>
-                    <p class="mt-4 text-base text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                </div>
-
-                <div>
-                    <div class="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
-                        <span class="text-xl font-semibold text-gray-700"> 2 </span>
-                    </div>
-                    <h3 class="mt-6 text-xl font-semibold leading-tight text-black md:mt-10">Build your website</h3>
-                    <p class="mt-4 text-base text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                </div>
-
-                <div>
-                    <div class="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
-                        <span class="text-xl font-semibold text-gray-700"> 3 </span>
-                    </div>
-                    <h3 class="mt-6 text-xl font-semibold leading-tight text-black md:mt-10">Release & Launch</h3>
-                    <p class="mt-4 text-base text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-`,
-  },
-};
-
-export const HeroV2: Story = {};
-HeroV2.args = {
-  content: {
-    type: 'custom-template',
-    json: '',
-    html: `<div class="relative">
-    <header class="absolute inset-x-0 top-0 z-10 w-full">
-        <div class="px-4 mx-auto sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 lg:h-20">
-                <div class="flex-shrink-0">
-                    <a href="#" title="" class="flex">
-                        <img class="w-auto h-8" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/logo.svg" alt="" />
-                    </a>
-                </div>
-
-                <button type="button" class="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
-                    <!-- Menu open: "hidden", Menu closed: "block" -->
-                    <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-
-                    <!-- Menu open: "block", Menu closed: "hidden" -->
-                    <svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-
-                <div class="hidden ml-auto lg:flex lg:items-center lg:justify-center lg:space-x-10">
-                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Features </a>
-
-                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Solutions </a>
-
-                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Resources </a>
-
-                    <a href="#" title="" class="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"> Pricing </a>
-
-                    <a href="#" title="" class="inline-flex items-center justify-center px-5 py-2.5 text-base font-semibold transition-all duration-200 rounded-full bg-orange-500 text-white hover:bg-orange-600 focus:bg-orange-600" role="button"> Try for free </a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="bg-yellow-50 overflow-hidden">
-        <div class="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[800px]">
-            <div class="relative flex items-center justify-center w-full lg:order-2 lg:w-7/12">
-                <div class="absolute bottom-0 right-0 hidden lg:block">
-                    <img class="object-contain w-auto h-48" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/curved-lines.png" alt="" />
-                </div>
-
-                <div class="relative px-4 pt-24 pb-16 text-center sm:px-6 md:px-24 2xl:px-32 lg:py-24 lg:text-left">
-                    <h1 class="text-4xl font-bold text-black sm:text-6xl xl:text-8xl">
-                        Get it done.<br />
-                        Fast, Easy.
-                    </h1>
-                    <p class="mt-8 text-xl text-black">We help you to make your remote work life easier. Build a distruction free working experience.</p>
-
-                    <form action="#" method="POST" class="max-w-xl mx-auto mt-8 bg-white lg:mx-0 sm:bg-transparent lg:mt-12 rounded-xl">
-                        <div class="p-4 sm:p-2 sm:bg-white sm:border-2 sm:border-transparent sm:rounded-full sm:focus-within:border-orange-500 sm:focus-within:ring-1 sm:focus-within:ring-orange-500">
-                            <div class="flex flex-col items-start sm:flex-row">
-                                <div class="flex-1 w-full min-w-0">
-                                    <div class="relative text-gray-400 focus-within:text-gray-600">
-                                        <label for="email" class="sr-only"></label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            id="email"
-                                            placeholder="Enter email to get started"
-                                            class="block w-full px-4 py-4 text-base text-center text-black placeholder-gray-500 transition-all duration-200 border-transparent rounded-full sm:text-left focus:border-transparent focus:ring-0 caret-orange-500"
-                                            required=""
-                                        />
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="inline-flex items-center justify-center w-full px-4 py-4 mt-4 font-semibold text-white transition-all duration-200 bg-orange-500 border border-transparent rounded-full sm:w-auto sm:ml-4 sm:mt-0 hover:bg-orange-600 focus:bg-orange-600">
-                                    Try 14 days free
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    <p class="mt-5 text-base text-black">Instant access . No credit card required</p>
-                </div>
-
-                <div class="absolute right-0 z-10 -bottom-16 lg:top-24 lg:-left-20">
-                    <img class="w-32 h-32 md:w-40 md:h-40" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/circular-text.png" alt="" />
-                </div>
-            </div>
-
-            <div class="relative w-full overflow-hidden lg:order-1 h-96 lg:h-auto lg:w-5/12">
-                <div class="absolute inset-0">
-                    <img class="object-cover w-full h-full scale-150" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/3/man-working-on-laptop.jpg" alt="" />
-                </div>
-
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-
-                <div class="absolute bottom-0 left-0">
-                    <div class="p-4 sm:p-6 lg:p-8">
-                        <div class="flex items-center">
-                            <svg class="w-10 h-10 text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
-                            </svg>
-                            <h2 class="font-bold text-white text-7xl ml-2.5">395</h2>
-                        </div>
-                        <p class="max-w-xs mt-1.5 text-xl text-white">Professionals have organized their desk via PostCra</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-`,
   },
 };
 

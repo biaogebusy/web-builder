@@ -16,23 +16,30 @@ export class ImgPickerComponent extends FieldType implements OnInit {
   dialog = inject(MatDialog);
   builder = inject(BuilderState);
   manageService = inject(ManageService);
+  src: string;
   private destroyRef = inject(DestroyRef);
   constructor() {
     super();
   }
 
   ngOnInit(): void {
+    this.src = this.formControl.value;
     this.builder.selectedMedia$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ img, time }) => {
         if (this.time && this.time === time) {
-          const { src } = img;
+          const { src, uuid } = img;
+          this.src = src;
           this.dialog.closeAll();
           this.field.props = {
             ...this.field.props,
             ...img,
           };
-          this.formControl.patchValue(src);
+          if (this.field.props.valueIsUUID) {
+            this.formControl.patchValue(uuid);
+          } else {
+            this.formControl.patchValue(src);
+          }
         }
       });
   }
