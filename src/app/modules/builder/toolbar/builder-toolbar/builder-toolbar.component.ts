@@ -4,7 +4,6 @@ import {
   Component,
   DestroyRef,
   Inject,
-  Input,
   OnInit,
   inject,
 } from '@angular/core';
@@ -41,7 +40,6 @@ import { NodeService } from '@core/service/node.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
-  @Input() builderRightDrawer: MatDrawer;
   page?: IPage;
   router = inject(Router);
   dialog = inject(MatDialog);
@@ -81,7 +79,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
         .subscribe((alia) => {
           if (alia.includes('xs')) {
             this.builder.fullScreen$.next(true);
-            this.builderRightDrawer.close();
           }
         });
     }

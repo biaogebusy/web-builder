@@ -1,7 +1,7 @@
 <div class="img-picker">
   @if (formControl.value) {
     <div class="meta mt-3 flex flex-row justify-start items-center">
-      <img src="{{ formControl.value }}" alt="" />
+      <img src="{{ src }}" alt="" />
       <div class="content flex flex-col">
         <div class="title">{{ field.props?.fileName }}</div>
         <div class="desc">{{ field.props?.alt }}</div>

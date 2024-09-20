@@ -1,4 +1,12 @@
-import { Component, Inject, ViewChild, inject } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  Inject,
+  OnInit,
+  ViewChild,
+  inject,
+  AfterViewInit,
+} from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
 import {
   BUILDER_FULL_SCREEN,
@@ -14,12 +22,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./builder.component.scss'],
   host: { ngSkipHydration: 'true' },
 })
-export class BuilderComponent {
+export class BuilderComponent implements OnInit, AfterViewInit {
   @ViewChild('builderRightDrawer', { static: false })
   builderRightDrawer: MatDrawer;
   sidebarDrawerOpened = false;
   builder = inject(BuilderState);
   isBuilderMode: boolean;
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
@@ -28,6 +37,26 @@ export class BuilderComponent {
     this.isBuilderMode$.pipe(takeUntilDestroyed()).subscribe((state) => {
       this.isBuilderMode = state;
     });
+  }
+
+  ngOnInit(): void {
+    this.builder.rightContent$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((content) => {
+        if (content) {
+          setTimeout(() => {
+            this.builderRightDrawer.open();
+          }, 100);
+        }
+      });
+  }
+
+  ngAfterViewInit(): void {
+    this.builder.closeRightDrawer$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.onClose();
+      });
   }
 
   get drawerStyle(): object {
@@ -40,5 +69,9 @@ export class BuilderComponent {
         paddingLeft: 0,
       };
     }
+  }
+
+  onClose(): void {
+    this.builderRightDrawer.close();
   }
 }

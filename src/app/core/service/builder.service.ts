@@ -13,8 +13,6 @@ import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
 import { catchError, tap } from 'rxjs/operators';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 
@@ -26,7 +24,6 @@ export class BuilderService extends ApiService {
   util = inject(UtilitiesService);
   builder = inject(BuilderState);
   nodeService = inject(NodeService);
-  dialog = inject(MatDialog);
   user: IUser;
   constructor(
     @Inject(API_URL) public apiBaseUrl: string,
@@ -295,7 +292,7 @@ export class BuilderService extends ApiService {
     const { uuid, langcode } = page;
     const apiParams = new DrupalJsonApiParams();
     apiParams.addCustomParam({ noCache: true });
-    apiParams.addInclude(['uid', 'group']);
+    apiParams.addInclude(['uid', 'group', 'cover', 'cover.field_media_image']);
     const params = apiParams.getQueryString();
     const lang = this.getApiLang(langcode);
     this.nodeService
@@ -383,21 +380,20 @@ export class BuilderService extends ApiService {
   }
 
   addBlock(addType: string, content: any, target: any): void {
-    this.dialog.open(DialogComponent, {
-      width: '800px',
-      position: { bottom: '20px' },
-      panelClass: ['close-outside', 'close-icon-white', 'widget-picker-dialog'],
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'widget-picker',
-            addType,
-            path: this.util.generatePath(target),
-            content,
-          },
-        },
+    this.builder.rightContent$.next({
+      mode: 'over',
+      hasBackdrop: false,
+      style: {
+        width: '308px',
       },
+      elements: [
+        {
+          type: 'widget-picker',
+          addType,
+          path: this.util.generatePath(target),
+          content,
+        },
+      ],
     });
   }
 

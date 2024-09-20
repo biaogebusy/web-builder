@@ -1,25 +1,24 @@
 .mega-menu {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  background-color: #fff;
-  display: none;
+  @apply absolute left-0 w-full bg-white hidden overflow-auto;
   z-index: -1;
   max-height: 85vh;
-  overflow: auto;
+
   &.active {
     display: block;
   }
+
   .inner {
     padding: 2rem 4rem;
   }
 }
+
 .label {
   font-weight: bold;
 }
 
 .item {
-  padding-right: 30px;
+  @apply pr-8;
+
   ::ng-deep {
     a {
       font-size: 15px;

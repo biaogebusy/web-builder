@@ -1,7 +1,7 @@
 .layout-setting {
   ::ng-deep {
     h2.title-header {
-      text-transform: capitalize;
+      @apply capitalize;
     }
     input.mat-mdc-input-element,
     .mat-mdc-form-field {
@@ -9,31 +9,24 @@
     }
 
     .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-      background-color: transparent;
+      @apply bg-transparent;
     }
 
     .none-description {
-      font-size: 14px;
-      padding: 12px;
-      border-radius: 4px;
-      opacity: 0.7;
+      @apply text-sm p-3 rounded-[4px] opacity-70;
     }
   }
   .mat-mdc-list-item {
+    @apply opacity-80 rounded-[5px];
     margin: 4px 0;
-    border-radius: 5px;
-    opacity: 0.8;
     &.cdk-drag {
-      cursor: move;
+      @apply cursor-move;
     }
     .title {
-      font-size: 14px;
+      @apply text-sm;
     }
     .actions {
-      display: none;
-      position: absolute;
-      top: 50%;
-      right: 0;
+      @apply hidden absolute top-1/2 right-0;
       transform: translateY(-50%);
     }
 
@@ -52,14 +45,14 @@
           }
         }
         &:hover {
-          opacity: 1;
+          @apply opacity-100;
         }
       }
     }
     &:hover {
-      opacity: 1;
+      @apply opacity-100;
       .actions {
-        display: block;
+        @apply block;
       }
     }
   }

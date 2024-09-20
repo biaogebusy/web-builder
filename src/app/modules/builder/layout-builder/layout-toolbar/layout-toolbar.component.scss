@@ -16,11 +16,7 @@
     border-bottom-left-radius: 4px;
   }
   .actions {
-    display: none;
-    position: absolute;
     border-radius: 0 0 0 4px;
-    z-index: 10;
-    white-space: nowrap;
-    top: 0;
+    @apply hidden absolute z-10 whitespace-normal top-0;
   }
 }

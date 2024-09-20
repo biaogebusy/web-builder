@@ -159,6 +159,7 @@ export interface IPageMeta {
   langcode: string;
   title: string;
   url: string;
+  cover?: string;
 }
 
 export interface IBuilderConfig {
@@ -174,4 +175,16 @@ export interface IJSON {
   type: 'json';
   name: string;
   [key: string]: string;
+}
+
+export interface ICardList {
+  params: {
+    api: string;
+    defaultImg: string;
+    update: {
+      api: string;
+      type: string;
+    };
+  };
+  form: FormlyFieldConfig[];
 }

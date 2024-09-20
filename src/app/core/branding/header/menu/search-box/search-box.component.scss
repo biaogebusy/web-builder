@@ -1,44 +1,30 @@
 @import "/src/theme/mixins/amixin";
 @import "/src/theme/variable/breakpoint";
 .search-box {
-  width: 150px;
+  @apply w-[150px];
   form {
-    height: 38px;
-    position: relative;
-    width: 100%;
+    @apply relative w-full h-[38px] overflow-hidden box-border;
     @include border-radius(200px, 200px, 200px, 200px);
-    overflow: hidden;
-    box-sizing: border-box;
     > .js-form-type-search {
-      height: 36px;
-      margin: 0;
+      @apply h-9 m-0;
     }
   }
 
   input[type="search"] {
+    @apply h-full w-full text-sm;
     border: medium none;
-    height: 100%;
-    width: 100%;
     padding: 1px 20px 0 40px;
-    font-size: 14px;
     @include border-radius(200px, 200px, 200px, 200px);
     &:active,
     &:focus {
-      box-shadow: none;
-      outline: none;
+      @apply shadow-none outline-none;
     }
   }
+
   .mat-icon {
-    padding: 0;
-    position: absolute;
-    left: 11px;
-    top: 10px;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    font-size: 20px;
+    @apply p-0 absolute left-[11px] top-[11px] cursor-pointer w-5 h-5 text-xl leading-none;
   }
   @media #{$gt-md} {
-    width: 180px;
+    @apply w-[180px];
   }
 }

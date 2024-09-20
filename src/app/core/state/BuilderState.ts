@@ -39,7 +39,6 @@ export class BuilderState {
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public updateSuccess$ = new Subject<boolean>();
-  public showBranding$ = new Subject<boolean>();
   public COPYKEY = 'bc';
 
   private page: IPage = {
