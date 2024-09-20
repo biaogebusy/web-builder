@@ -13,7 +13,7 @@ import type { IWidgetPicker } from '@core/interface/IBuilder';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, WIDGETS } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatDialog } from '@angular/material/dialog';
@@ -93,7 +93,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     if (this.popup?.nativeElement) {
       this.widget$.next(widget);
       this.popper = createPopper(ele, this.popup.nativeElement, {
-        placement: 'top',
+        placement: 'left',
         strategy: 'fixed',
         modifiers: [
           {

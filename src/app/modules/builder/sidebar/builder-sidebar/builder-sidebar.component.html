@@ -83,24 +83,6 @@
             icon: { svg: 'image-search-outline' },
           }"
         ></app-btn>
-        <app-btn
-          [matTooltip]="
-            (builder.showBranding$ | async) ? '隐藏页头页尾' : '显示页头页尾'
-          "
-          [matTooltipPosition]="sidebarDrawer.opened ? 'above' : 'right'"
-          (click)="onShowBranding()"
-          [content]="{
-            label: '',
-            color: (builder.showBranding$ | async) ? 'primary' : undefined,
-            mode: 'icon',
-            icon: {
-              svg:
-                (builder.showBranding$ | async)
-                  ? 'page-layout-header-footer'
-                  : 'page-layout-body',
-            },
-          }"
-        ></app-btn>
         @if (builder.themeMode | async; as mode) {
           <app-btn
             [matTooltip]="mode === 'light' ? '切换暗黑风格' : '切换浅色风格'"

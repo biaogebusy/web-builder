@@ -34,6 +34,7 @@
 @import "./manage-media";
 @import "./layout-builder";
 @import "./builder/layout-setting";
+@import "./card-list";
 
 // material custom
 @import "./mat/card";
@@ -77,6 +78,7 @@
   @include manage-media-color($theme);
   @include layout-builder-color($theme);
   @include layout-setting($theme);
+  @include card-list-color($theme);
 
   // material custom ui
   @include card-color($theme);

@@ -1,16 +1,10 @@
 .user {
   ::ng-deep {
     .name {
-      margin: 0;
-      text-transform: uppercase;
-      font-weight: normal;
+      @apply m-0 uppercase font-normal;
     }
   }
 }
 .user-picture {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  object-fit: contain;
+  @apply h-[30px] w-[30px] rounded-full cursor-pointer object-contain;
 }

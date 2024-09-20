@@ -9,7 +9,6 @@ import {
   ActivatedRoute,
   NavigationEnd,
   Router,
-  UrlSegment,
 } from '@angular/router';
 import { ContentService } from '@core/service/content.service';
 import { Observable } from 'rxjs';

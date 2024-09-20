@@ -4,10 +4,10 @@
 }
 .hotline {
   .item {
-    font-size: 14px;
+    @apply text-sm;
     .mat-icon,
     .custom-icon {
-      margin-right: 5px;
+      @apply mr-1;
     }
   }
 }
@@ -116,7 +116,7 @@
 .right {
   .link {
     ::ng-deep a {
-      font-size: 12px;
+      @apply text-xs;
     }
   }
 }

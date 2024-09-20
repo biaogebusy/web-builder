@@ -1,0 +1,18 @@
+@use "@angular/material" as mat;
+
+@mixin card-list-color($theme) {
+  $config: mat.get-color-config($theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .card-list {
+    .lists {
+      min-height: calc(100vh - 350px);
+    }
+    .item {
+    }
+  }
+}

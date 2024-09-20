@@ -218,6 +218,7 @@ export class ManageMediaComponent implements OnInit {
         alt: item.title,
         fileName: item.title,
         tag: 'img',
+        uuid: item.uuid ?? '',
       },
       value: this.content,
       time: this.content.time,
