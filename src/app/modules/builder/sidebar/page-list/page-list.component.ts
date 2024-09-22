@@ -11,6 +11,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
@@ -61,6 +62,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
+  router = inject(ActivatedRoute);
   builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   user: IUser;
@@ -89,6 +91,15 @@ export class PageListComponent extends BaseComponent implements OnInit {
           this.onReload();
         }
       });
+
+    this.router.queryParams.subscribe((query) => {
+      const { id, langcode } = query;
+      this.loadPage({
+        id,
+        langcode,
+        title: '页面',
+      });
+    });
   }
 
   onModelChange(value: any): void {
@@ -178,7 +189,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     return res.rows;
   }
 
-  loadPage(page: IPageMeta): void {
+  loadPage(page: any): void {
     this.util.openSnackbar(`正在加载${page.title}`, 'ok');
     this.builder.loading$.next(true);
     this.builderService.loadPage({ langcode: page.langcode, id: page.id });

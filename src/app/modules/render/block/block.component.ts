@@ -10,11 +10,13 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
-import { CORE_CONFIG, PAGE_CONTENT } from '@core/token/token-providers';
+import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 import { DOCUMENT } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ContentService } from '@core/service/content.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-block',
@@ -33,9 +35,12 @@ export class BlockComponent implements OnInit, AfterContentInit {
   drawerLoading: boolean;
   drawerContent: IPage;
   opened: boolean;
-  contentState = inject(ContentState);
   zone = inject(NgZone);
+  user$ = inject(USER);
+  contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
+  contentService = inject(ContentService);
+  router = inject(Router);
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
@@ -88,7 +93,14 @@ export class BlockComponent implements OnInit, AfterContentInit {
     });
   }
 
-  trackByFn(index: number): number {
-    return index;
+  onEdit(id: string): void {
+    const url = this.doc.location.pathname;
+    const { lang } = this.contentService.getUrlPath(url);
+    this.router.navigate(['builder/page-list'], {
+      queryParams: {
+        id,
+        langcode: lang,
+      },
+    });
   }
 }
