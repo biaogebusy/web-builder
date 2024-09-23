@@ -94,11 +94,13 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
     this.router.queryParams.subscribe((query) => {
       const { nid, langcode } = query;
-      this.loadPage({
-        nid,
-        langcode,
-        title: '页面',
-      });
+      if (nid) {
+        this.loadPage({
+          nid,
+          langcode,
+          title: '页面',
+        });
+      }
     });
   }
 

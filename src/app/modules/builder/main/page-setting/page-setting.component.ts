@@ -265,7 +265,7 @@ export class PageSettingComponent implements OnInit {
             className: 'w-full',
             defaultValue: drupal_internal__nid,
             props: {
-              label: 'ID',
+              label: 'nid',
               disabled: true,
             },
           },
