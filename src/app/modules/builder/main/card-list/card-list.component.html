@@ -22,11 +22,11 @@
     }
     <div class="grid grid-cols-5 gap-1 md:gap-6">
       @if (content$ | async; as lists) {
-        @for (page of lists; track page.id; let i = $index) {
+        @for (page of lists; track page.nid; let i = $index) {
           <div
             [ngClass]="{
               active:
-                page.id === currentPage?.id &&
+                page.nid === currentPage?.nid &&
                 page.langcode === currentPage?.langcode,
             }"
             class="col-span-5 md:col-span-1 overflow-hidden item flex flex-col gap-2 relative mb-5 group"

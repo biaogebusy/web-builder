@@ -178,7 +178,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
   loadPage(page: IPageMeta): void {
     this.router.navigate(['builder/page-list'], {
       queryParams: {
-        id: page.id,
+        nid: page.nid,
         langcode: page.langcode,
       },
     });
@@ -202,7 +202,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
     this.builder.loading$.next(true);
     this.nodeService
       .fetch(
-        `/api/v3/landingPage/json/${currentPage.id}`,
+        `/api/v3/landingPage/json/${currentPage.nid}`,
         'noCache=1',
         '',
         targetlang,

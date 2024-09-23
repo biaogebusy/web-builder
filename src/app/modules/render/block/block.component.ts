@@ -93,12 +93,12 @@ export class BlockComponent implements OnInit, AfterContentInit {
     });
   }
 
-  onEdit(id: string): void {
+  onEdit(nid: string): void {
     const url = this.doc.location.pathname;
     const { lang } = this.contentService.getUrlPath(url);
     this.router.navigate(['builder/page-list'], {
       queryParams: {
-        id,
+        nid,
         langcode: lang,
       },
     });

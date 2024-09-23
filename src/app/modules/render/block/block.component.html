@@ -1,11 +1,11 @@
 @if (pageContent$ | async; as page) {
   <div class="block">
-    @if ((user$ | async) && page.id) {
+    @if ((user$ | async) && page.nid) {
       <div
         class="page-toolbar fixed right-5 top-20 md:right-10 md:top-40 z-[1000]"
       >
         <app-btn
-          (click)="onEdit(page.id)"
+          (click)="onEdit(page.nid)"
           [content]="{
             mode: 'mini-fab',
             color: 'primary',

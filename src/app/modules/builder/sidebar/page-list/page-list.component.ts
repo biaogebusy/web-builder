@@ -11,7 +11,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
@@ -93,9 +93,9 @@ export class PageListComponent extends BaseComponent implements OnInit {
       });
 
     this.router.queryParams.subscribe((query) => {
-      const { id, langcode } = query;
+      const { nid, langcode } = query;
       this.loadPage({
-        id,
+        nid,
         langcode,
         title: '页面',
       });
@@ -192,7 +192,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   loadPage(page: any): void {
     this.util.openSnackbar(`正在加载${page.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.builderService.loadPage({ langcode: page.langcode, id: page.id });
+    this.builderService.loadPage({ langcode: page.langcode, nid: page.nid });
   }
 
   updatePage(page: IPageMeta): void {
@@ -213,7 +213,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builder.loading$.next(true);
     this.nodeService
       .fetch(
-        `/api/v3/landingPage/json/${currentPage.id}`,
+        `/api/v3/landingPage/json/${currentPage.nid}`,
         'noCache=1',
         '',
         targetlang,
