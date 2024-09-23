@@ -5,7 +5,7 @@ import { getText } from './getText';
 import { getAnimate } from './getAnimate';
 import {
   getBgClasses,
-  getFlexLayoutConfig,
+  getGridLayoutConfig,
   getOverlay,
   getSpacerOptions,
 } from './getCommon';
@@ -195,7 +195,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           label: '布局',
         },
         fieldGroup: [
-          ...getFlexLayoutConfig(content),
+          ...getGridLayoutConfig(content),
           {
             type: 'input',
             key: 'wrapperClass',
