@@ -53,20 +53,6 @@
               </mat-progress-bar>
             </div>
           }
-          @if (deletedLists.length) {
-            <div class="flex absolute left-[20px] bottom-[40px]">
-              <app-btn
-                (click)="bulkDelete(deletedLists)"
-                matTooltip="批量删除"
-                [content]="{
-                  color: 'warn',
-                  mode: 'raised',
-                  label: '批量删除',
-                  icon: { svg: 'trash-can-outline' },
-                }"
-              ></app-btn>
-            </div>
-          }
           @if (mediaAssets$ | async; as assets) {
             @if (assets.rows.length) {
               <div class="viewport grid grid-cols-12 gap-1 overflow-auto">
@@ -76,7 +62,10 @@
                       coreConfig.manageMedia.row
                     }}"
                   >
-                    <div class="actions opacity-90">
+                    <div
+                      class="actions opacity-90 right-1 top-1"
+                      [matTooltip]="item.title"
+                    >
                       <app-btn
                         *reqRolesIf="{
                           params: { reqRoles: ['administrator'] },
@@ -151,22 +140,38 @@
               </div>
             }
           }
-          @if (mediaAssets$ | async; as assets) {
-            <div class="page">
-              @if (assets.pager && assets.rows.length) {
-                <mat-paginator
-                  (page)="onPageChange($event)"
-                  [length]="assets.pager.totalItems"
-                  [pageSize]="assets.pager.itemsPerPage"
-                  [showFirstLastButtons]="true"
-                  [hidePageSize]="true"
-                  [pageIndex]="assets.pager.currentPage"
-                  aria-label="Select page"
-                >
-                </mat-paginator>
-              }
-            </div>
-          }
+          <div class="flex justify-between items-center">
+            @if (deletedLists.length) {
+              <div class="flex left-[20px] bottom-[40px]">
+                <app-btn
+                  (click)="bulkDelete(deletedLists)"
+                  matTooltip="批量删除"
+                  [content]="{
+                    color: 'warn',
+                    mode: 'raised',
+                    label: '批量删除',
+                    icon: { svg: 'trash-can-outline' },
+                  }"
+                ></app-btn>
+              </div>
+            }
+            @if (mediaAssets$ | async; as assets) {
+              <div class="page flex-auto">
+                @if (assets.pager && assets.rows.length) {
+                  <mat-paginator
+                    (page)="onPageChange($event)"
+                    [length]="assets.pager.totalItems"
+                    [pageSize]="assets.pager.itemsPerPage"
+                    [showFirstLastButtons]="true"
+                    [hidePageSize]="true"
+                    [pageIndex]="assets.pager.currentPage"
+                    aria-label="Select page"
+                  >
+                  </mat-paginator>
+                }
+              </div>
+            }
+          </div>
         </div>
       </mat-drawer-content>
     </mat-drawer-container>
