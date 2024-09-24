@@ -281,7 +281,7 @@ export interface IPage {
   body: any[];
   time?: Date | string;
   uuid?: string;
-  id?: string;
+  nid?: string;
   changed?: string;
   status?: boolean;
   message?: string;

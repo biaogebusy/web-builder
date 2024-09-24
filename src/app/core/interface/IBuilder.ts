@@ -154,7 +154,7 @@ export interface IPageList {
 export interface IPageMeta {
   author: string;
   changed: string;
-  id: string;
+  nid: string;
   uuid: string;
   langcode: string;
   title: string;

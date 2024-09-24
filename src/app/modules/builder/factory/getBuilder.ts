@@ -1,5 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { getFlexLayoutConfig, getSpacerOptions } from './getCommon';
+import { getGridLayoutConfig, getSpacerOptions } from './getCommon';
 export function getBuilder(widget: any, options?: any[]): FormlyFieldConfig[] {
   const fields = [
     {
@@ -11,7 +11,7 @@ export function getBuilder(widget: any, options?: any[]): FormlyFieldConfig[] {
             label: '布局',
           },
           fieldGroup: [
-            ...getFlexLayoutConfig(widget),
+            ...getGridLayoutConfig(widget),
             {
               type: 'input',
               key: 'wrapperClass',

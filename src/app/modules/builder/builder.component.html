@@ -22,6 +22,7 @@
           [hasBackdrop]="(builder.rightContent$ | async)?.hasBackdrop"
         >
           <mat-drawer
+            class="!fixed"
             #builderRightDrawer
             [ngStyle]="{
               overflow: builderRightDrawer.opened ? 'visible' : 'auto',

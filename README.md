@@ -61,7 +61,7 @@
 
 ## 技术选型
 
-- 前端：Angular + Material + FlexLayout + TailwindCss
+- 前端：Angular + Material + TailwindCss
 - 动态表单：ngx-formly
 - web 动画：gsap
 - 图表：Echarts

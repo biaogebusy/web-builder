@@ -47,11 +47,11 @@ export class BuilderService extends ApiService {
     return lang;
   }
 
-  loadPage(page: { langcode?: string; id: string }): void {
-    const { langcode, id } = page;
+  loadPage(page: { langcode?: string; nid: string }): void {
+    const { langcode, nid } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${id}`, 'noCache=1', '', lang)
+      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
       .subscribe((page: IPage) => {
         const { body, status, uuid } = page;
         this.builder.loading$.next(false);
@@ -90,15 +90,15 @@ export class BuilderService extends ApiService {
       .pipe(
         tap((res: any) => {
           const {
-            data: { id },
+            data: { nid },
           } = res;
-          this.loadPage({ id });
+          this.loadPage({ nid });
         }),
       );
   }
 
   updateLandingPage(page: IPage): Observable<any> {
-    const { langcode, id } = page;
+    const { langcode, nid } = page;
 
     let prefix = '';
     const lang = this.getApiLang(langcode);
@@ -114,7 +114,7 @@ export class BuilderService extends ApiService {
     this.builder.loading$.next(true);
     return this.http
       .patch(
-        `${this.apiUrl}${prefix}${update}/${id}`,
+        `${this.apiUrl}${prefix}${update}/${nid}`,
         this.coverExtraData(page),
         this.optionsWithCookieAndToken(csrf_token),
       )
@@ -122,10 +122,10 @@ export class BuilderService extends ApiService {
         tap((res: any) => {
           const { status } = res;
           if (status) {
-            if (langcode && id) {
+            if (langcode && nid) {
               this.loadPage({
                 langcode,
-                id,
+                nid,
               });
             }
           } else {
@@ -136,7 +136,7 @@ export class BuilderService extends ApiService {
   }
 
   addTranslation(page: IPage): Observable<any> {
-    const { id, target, langcode } = page;
+    const { nid, target, langcode } = page;
     const {
       builder: {
         api: { translate },
@@ -144,7 +144,7 @@ export class BuilderService extends ApiService {
     } = this.coreConfig;
     const { csrf_token } = this.user;
     return this.http.post(
-      `${this.apiUrl}${translate}/add/${id}/${langcode}/${target}`,
+      `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
       this.formatPage(page),
       this.optionsWithCookieAndToken(csrf_token),
     );

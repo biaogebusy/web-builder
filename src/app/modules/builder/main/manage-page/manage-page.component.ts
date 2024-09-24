@@ -5,11 +5,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ContentService } from '@core/service/content.service';
 import { Observable } from 'rxjs';
 
@@ -30,14 +26,14 @@ export class ManagePageComponent implements OnInit {
     const url = this.activateRoute.snapshot.url
       .map((segment) => segment.path)
       .join('/');
-    this.page$ = this.contentService.loadBuilderPage(url);
+    this.page$ = this.contentService.loadJSON(url);
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = this.activateRoute.snapshot.url
           .map((segment) => segment.path)
           .join('/');
-        this.page$ = this.contentService.loadBuilderPage(url);
+        this.page$ = this.contentService.loadJSON(url);
         this.cd.detectChanges();
       }
     });
