@@ -145,11 +145,10 @@
               <div class="flex left-[20px] bottom-[40px]">
                 <app-btn
                   (click)="bulkDelete(deletedLists)"
-                  matTooltip="批量删除"
                   [content]="{
                     color: 'warn',
                     mode: 'raised',
-                    label: '批量删除',
+                    label: '批量删除（' + deletedLists.length + '）',
                     icon: { svg: 'trash-can-outline' },
                   }"
                 ></app-btn>
