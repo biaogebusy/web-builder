@@ -1,5 +1,19 @@
 @if (pageContent$ | async; as page) {
   <div class="block">
+    @if ((user$ | async) && page.nid) {
+      <div
+        class="page-toolbar fixed right-5 top-20 md:right-10 md:top-40 z-[1000]"
+      >
+        <app-btn
+          (click)="onEdit(page.nid)"
+          [content]="{
+            mode: 'mini-fab',
+            color: 'primary',
+            icon: { svg: 'pencil' },
+          }"
+        ></app-btn>
+      </div>
+    }
     <mat-drawer-container (backdropClick)="onBackdrop()">
       <mat-drawer-content>
         <div
@@ -39,7 +53,7 @@
 
 <ng-template let-content="content" let-isPreview="isPreview" #block>
   @if (!isPreview) {
-    @for (item of content; track trackByFn(i); let i = $index) {
+    @for (item of content; track i; let i = $index) {
       <app-dynamic-component
         [inputs]="item"
         [index]="i"

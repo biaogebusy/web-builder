@@ -129,16 +129,16 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
           });
           this.builder.loading$.next(false);
           this.builder.updateSuccess$.next(true);
-          if (page.id) {
+          if (page.nid) {
             this.builderService.loadPage({
               langcode: page.target,
-              id: page.id,
+              nid: page.nid,
             });
           }
         }
       });
     } else {
-      if (page.uuid && page.id) {
+      if (page.uuid && page.nid) {
         if (!this.user) {
           this.openLogin();
           return;

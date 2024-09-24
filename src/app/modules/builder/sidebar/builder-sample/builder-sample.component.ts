@@ -62,6 +62,6 @@ export class BuilderSampleComponent implements OnInit {
   loadSample(item: any): void {
     this.util.openSnackbar(`正在加载${item.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.builderService.loadPage({ id: item.nid });
+    this.builderService.loadPage({ nid: item.nid });
   }
 }

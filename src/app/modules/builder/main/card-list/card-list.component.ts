@@ -11,6 +11,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { IPage } from '@core/interface/IAppConfig';
 import { ICardList, IPageList, IPageMeta } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
@@ -51,6 +52,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   builderService = inject(BuilderService);
+  router = inject(Router);
   private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(
@@ -174,9 +176,12 @@ export class CardListComponent extends BaseComponent implements OnInit {
   }
 
   loadPage(page: IPageMeta): void {
-    this.util.openSnackbar(`正在加载${page.title}`, 'ok');
-    this.builder.loading$.next(true);
-    this.builderService.loadPage({ langcode: page.langcode, id: page.id });
+    this.router.navigate(['builder/page-list'], {
+      queryParams: {
+        nid: page.nid,
+        langcode: page.langcode,
+      },
+    });
   }
 
   updatePage(page: IPageMeta): void {
@@ -197,7 +202,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
     this.builder.loading$.next(true);
     this.nodeService
       .fetch(
-        `/api/v3/landingPage/json/${currentPage.id}`,
+        `/api/v3/landingPage/json/${currentPage.nid}`,
         'noCache=1',
         '',
         targetlang,

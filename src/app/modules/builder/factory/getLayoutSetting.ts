@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getAnimate } from './getAnimate';
-import { getBgClasses, getFlexLayoutConfig, getOverlay } from './getCommon';
+import { getBgClasses, getGridLayoutConfig, getOverlay } from './getCommon';
 
 export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
   const responsive: FormlyFieldConfig[] = [
@@ -71,7 +71,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
     {
       className: 'layout-setting w-full',
       fieldGroupClassName: 'w-full',
-      fieldGroup: [...getFlexLayoutConfig(layout)],
+      fieldGroup: [...getGridLayoutConfig(layout)],
     },
   ];
   const bgImg: FormlyFieldConfig = {

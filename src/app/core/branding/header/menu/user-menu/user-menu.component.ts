@@ -12,7 +12,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { DialogService } from '@core/service/dialog.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';

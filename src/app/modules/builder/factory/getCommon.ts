@@ -194,8 +194,8 @@ export const getObjectFix = [
 
 export const getHorizontalOption = [
   {
-    label: 'None',
-    value: 'start',
+    label: 'stretch',
+    value: 'stretch',
   },
   {
     label: 'start',
@@ -295,7 +295,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
   ];
 }
 
-export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
+export function getGridLayoutConfig(content: any): FormlyFieldConfig[] {
   return [
     {
       type: 'select',
@@ -303,7 +303,7 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       className: 'w-full',
       defaultValue: content.horizontal,
       props: {
-        label: '主轴对齐',
+        label: '整个内容区域对齐',
         options: getHorizontalOption,
       },
     },
@@ -313,7 +313,7 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       className: 'w-full',
       defaultValue: content.vertical,
       props: {
-        label: 'Y轴对齐',
+        label: '单元格水平对齐',
         options: getVerticalOption,
       },
     },
@@ -323,7 +323,7 @@ export function getFlexLayoutConfig(content: any): FormlyFieldConfig[] {
       className: 'w-full',
       defaultValue: content.alignItems,
       props: {
-        label: 'X轴对齐',
+        label: '单元格垂直对齐',
         options: getVerticalOption,
       },
     },

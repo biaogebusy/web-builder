@@ -51,7 +51,6 @@ This open-source project is very suitable for beginners to learn or advance thei
 - Custom Icons
 - Data Visualization and Charts
 - RxJS
-- Flex Layout
 - Storybook
 - TypeScript
 - Provider
@@ -61,7 +60,7 @@ This open-source project is very suitable for beginners to learn or advance thei
 
 ## Technology Stack
 
-- Front-end: Angular + Material + FlexLayout
+- Front-end: Angular + Material + Tailwind
 - Dynamic Forms: ngx-formly
 - Web Animation: gsap
 - Charts: Echarts
