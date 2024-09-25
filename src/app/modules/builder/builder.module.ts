@@ -45,6 +45,7 @@ import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-work
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { JsonComponent } from './main/json/json.component';
 import { CardListComponent } from './main/card-list/card-list.component';
+import { CardPageComponent } from './main/card-list/card-page/card-page.component';
 
 const components = [
   JsonComponent,
@@ -59,6 +60,7 @@ const components = [
   BuilderTemplateComponent,
   PageSettingComponent,
   CardListComponent,
+  CardPageComponent,
 ];
 
 @NgModule({

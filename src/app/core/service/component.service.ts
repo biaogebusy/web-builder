@@ -253,6 +253,7 @@ export class ComponentService {
       'page-setting',
       'json',
       'card-list',
+      'card-page',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule),
