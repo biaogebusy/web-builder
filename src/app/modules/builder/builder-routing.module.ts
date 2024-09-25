@@ -3,12 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { BuilderComponent } from './builder.component';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
-import { BuilderSampleComponent } from './sidebar/builder-sample/builder-sample.component';
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 import { PageListComponent } from './sidebar/page-list/page-list.component';
 import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { BuilderGuard } from '@core/guards/builder.guard';
+import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
 
 const routes: Routes = [
   {
@@ -25,8 +25,8 @@ const routes: Routes = [
             component: BuilderUiuxComponent,
           },
           {
-            path: 'samples',
-            component: BuilderSampleComponent,
+            path: 'pages/:name',
+            component: BuilderPageComponent,
           },
           {
             path: 'page-list',

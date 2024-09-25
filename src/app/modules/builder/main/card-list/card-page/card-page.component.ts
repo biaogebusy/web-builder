@@ -15,7 +15,6 @@ import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { USER } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-card-page',
