@@ -1,9 +1,7 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
 } from '@angular/core';
@@ -21,25 +19,23 @@ import { map } from 'rxjs/operators';
   selector: 'app-builder-page',
   templateUrl: './builder-page.component.html',
   styleUrls: ['./builder-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderPageComponent implements OnInit {
   pages$: Observable<any[]>;
   loading = true;
   name: string | null;
   private builder = inject(BuilderState);
-  private util = inject(UtilitiesService);
-  private noderService = inject(NodeService);
-  private builderService = inject(BuilderService);
   private cd = inject(ChangeDetectorRef);
-  private activateRoute = inject(ActivatedRoute);
+  private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
+  private noderService = inject(NodeService);
+  private activateRoute = inject(ActivatedRoute);
+  private builderService = inject(BuilderService);
 
   ngOnInit(): void {
-    this.activateRoute.paramMap.subscribe((paramsMap) => {
+    this.activateRoute.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((paramsMap) => {
       this.name = paramsMap.get('name');
       this.loading = true;
-      console.log(this.name);
       this.cd.detectChanges();
       const apiParams = new DrupalJsonApiParams();
       apiParams
@@ -47,7 +43,7 @@ export class BuilderPageComponent implements OnInit {
         .addSort('changed', 'DESC')
         .addFilter('status', '1')
         .addFilter('group.name', this.name)
-        .addCustomParam({ noCache: new Date() });
+        .addCustomParam({ noCache: true });
 
       const params = apiParams.getQueryString();
       this.pages$ = this.noderService
