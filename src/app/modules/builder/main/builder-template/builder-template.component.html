@@ -1,10 +1,14 @@
-@if (content$ | async; as content) {
-  <div class="builder-template flex flex-wrap gap-5">
+<div class="builder-template flex flex-wrap gap-5">
+  @if (loading) {
+    <mat-spinner class="spinner" diameter="50" color="primary"></mat-spinner>
+  }
+  @if (content$ | async; as content) {
     @for (item of content; track item) {
       <div class="item mb-3">
-        <div class="card" (click)="onNewPage(item.page)" matRipple>
+        <div class="card" (click)="onNewPage(item)" matRipple>
           <div class="card-header">
             <div class="title">{{ item.title }}</div>
+            <div class="sub-title">{{ item.description }}</div>
           </div>
           <app-img
             class="block rounded-xl overflow-hidden"
@@ -28,5 +32,5 @@
         </div>
       </div>
     }
-  </div>
-}
+  }
+</div>

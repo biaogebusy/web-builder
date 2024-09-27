@@ -1,4 +1,12 @@
 .builder-template {
+  min-height: 50vh;
+  position: relative;
+  .spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
   .item {
     flex: 0 0 calc(100% / 3 - 20px);
   }

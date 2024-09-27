@@ -188,13 +188,13 @@ export class ContentService {
     return this.loadJSON(`${lang}/core/builder`);
   }
 
-  loadJSON(path: string): Observable<any> {
-    const { lang } = this.getUrlPath(this.pageUrl);
-    const jsonPath = environment.production
+  loadJSON(jsonPath: string): Observable<any> {
+    const { lang, path } = this.getUrlPath(jsonPath);
+    const apiPath = environment.production
       ? `${this.apiUrl}${lang}/api/v3/landingPage?content=${path}`
-      : `${this.apiUrl}/assets/app${lang}/${path}.json`;
+      : `${this.apiUrl}/assets/app${lang}${path}.json`;
 
-    return this.http.get<any>(jsonPath);
+    return this.http.get<any>(apiPath);
   }
 
   setBodyClasses(theme: string): void {
