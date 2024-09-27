@@ -11,16 +11,13 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { Router } from '@angular/router';
-import { IPage } from '@core/interface/IAppConfig';
 import { ICardList, IPageList, IPageMeta } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
-import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
+import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { merge } from 'lodash-es';
 import { Observable, of } from 'rxjs';
@@ -44,21 +41,14 @@ export class CardListComponent extends BaseComponent implements OnInit {
   };
   loading = false;
   pager: IPager;
-  currentEditeTitle: string;
-  currentPage?: IPage;
   langs = environment.langs;
   builder = inject(BuilderState);
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
-  builderService = inject(BuilderService);
-  router = inject(Router);
   private destroyRef = inject(DestroyRef);
   user: IUser;
-  constructor(
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(USER) private user$: Observable<IUser>,
-  ) {
+  constructor(@Inject(USER) private user$: Observable<IUser>) {
     super();
     this.user$.subscribe((user) => {
       this.user = user;
@@ -67,12 +57,6 @@ export class CardListComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPage('noCache=1');
-    this.currentPage$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((page) => {
-        this.currentPage = page;
-        this.cd.detectChanges();
-      });
     this.builder.updateSuccess$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((state) => {
@@ -87,58 +71,6 @@ export class CardListComponent extends BaseComponent implements OnInit {
     const formValue = merge(value, this.form.getRawValue());
     const params = this.getApiParams({ ...formValue, noCache: 1 });
     this.fetchPage(params);
-  }
-
-  enableEditor(event: any): void {
-    const { currentTarget } = event;
-    if (currentTarget) {
-      const title = currentTarget.previousElementSibling;
-      this.currentEditeTitle = title.textContent.trim();
-      title.contentEditable = 'true';
-    }
-  }
-
-  onTitle(event: any, page: IPageMeta): void {
-    const { target } = event;
-    const {
-      params: {
-        update: { api, type },
-      },
-    } = this.content;
-    if (target) {
-      target.contentEditable = 'false';
-      if (this.currentEditeTitle !== target.textContent.trim()) {
-        this.builder.loading$.next(true);
-        const {
-          target: { textContent },
-        } = event;
-        if (textContent) {
-          this.builderService
-            .updateAttributes(
-              page,
-              api,
-              type,
-              {
-                title: textContent,
-              },
-              {
-                uid: {
-                  data: {
-                    type: 'user--user',
-                    id: this.user.id,
-                  },
-                },
-              },
-            )
-            .subscribe((res) => {
-              this.builder.loading$.next(false);
-              this.util.openSnackbar(`已更新标题为${textContent}`, 'ok');
-              this.builder.currentPage.title = textContent;
-              this.builder.saveLocalVersions();
-            });
-        }
-      }
-    }
   }
 
   fetchPage(params: string): void {
@@ -175,20 +107,6 @@ export class CardListComponent extends BaseComponent implements OnInit {
     return res.rows;
   }
 
-  loadPage(page: IPageMeta): void {
-    this.router.navigate(['builder/page-list'], {
-      queryParams: {
-        nid: page.nid,
-        langcode: page.langcode,
-      },
-    });
-  }
-
-  updatePage(page: IPageMeta): void {
-    this.builder.loading$.next(true);
-    this.builderService.openPageSetting(page);
-  }
-
   onPageChange(page: PageEvent): void {
     this.form
       .get('page')
@@ -196,40 +114,6 @@ export class CardListComponent extends BaseComponent implements OnInit {
     const value = merge(this.model, this.form.getRawValue());
     const params = this.getApiParams(value);
     this.fetchPage(params);
-  }
-
-  createLangVersion(currentPage: IPageMeta, targetlang: string): void {
-    this.builder.loading$.next(true);
-    this.nodeService
-      .fetch(
-        `/api/v3/landingPage/json/${currentPage.nid}`,
-        'noCache=1',
-        '',
-        targetlang,
-      )
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((page: IPage) => {
-        this.builder.loading$.next(false);
-        if (targetlang === page.langcode) {
-          // 已有翻译
-          this.util.openSnackbar(`已有${page.label}语言页面，正在载入`, 'ok');
-          this.builder.loadNewPage(this.builderService.formatToExtraData(page));
-        } else {
-          // 复制一份，新建翻译
-          this.util.openSnackbar(
-            `正在载入${currentPage.title}，请修改页面内容为${targetlang}语言`,
-            'ok',
-          );
-          this.builder.loadNewPage(
-            this.builderService.formatToExtraData({
-              langcode: currentPage.langcode,
-              ...page,
-              translation: true,
-              target: targetlang,
-            }),
-          );
-        }
-      });
   }
 
   onReload(): void {

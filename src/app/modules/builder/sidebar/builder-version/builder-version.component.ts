@@ -52,7 +52,7 @@ export class BuilderVersionComponent implements OnInit {
     this.dialog.open(DialogComponent, {
       width: '1200px',
       data: {
-        title: '新增页面',
+        title: '选择模板创建页面',
         disableCloseButton: true,
         inputData: {
           content: {

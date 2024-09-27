@@ -26,14 +26,14 @@ export class ManagePageComponent implements OnInit {
     const url = this.activateRoute.snapshot.url
       .map((segment) => segment.path)
       .join('/');
-    this.page$ = this.contentService.loadJSON(url);
+    this.page$ = this.contentService.loadJSON(`/${url}`);
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = this.activateRoute.snapshot.url
           .map((segment) => segment.path)
           .join('/');
-        this.page$ = this.contentService.loadJSON(url);
+        this.page$ = this.contentService.loadJSON(`/${url}`);
         this.cd.detectChanges();
       }
     });

@@ -1,8 +1,8 @@
-<div class="sample">
+<div class="page">
   <mat-accordion multi>
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
-        <mat-panel-title>示例页面</mat-panel-title>
+        <mat-panel-title>{{ name }}</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
         @if (loading) {
@@ -12,17 +12,17 @@
             color="primary"
           ></mat-spinner>
         }
-        @if (samplePages$ | async; as samples) {
+        @if (pages$ | async; as pages) {
           <div class="cards grid grid-cols-12 gap-1">
-            @for (item of samples; track item; let i = $index) {
+            @for (item of pages; track item; let i = $index) {
               <div
                 class="item col-span-6 sm:col-span-4"
                 [matTooltip]="item.title"
-                (click)="loadSample(item)"
-                >
+                (click)="loadPage(item)"
+              >
                 <div
                   class="inner flex flex-col justify-center items-center overflow-hidden"
-                  >
+                >
                   <div class="font-mono">{{ i + 1 }}</div>
                   <div class="title">{{ item.title }}</div>
                 </div>
