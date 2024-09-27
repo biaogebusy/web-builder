@@ -7,7 +7,6 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -98,7 +97,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     this.dialog.open(DialogComponent, {
       width: '1200px',
       data: {
-        title: '新增页面',
+        title: '选择模板创建页面',
         disableCloseButton: true,
         inputData: {
           content: {

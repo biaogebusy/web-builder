@@ -47,8 +47,12 @@ export class BuilderService extends ApiService {
     return lang;
   }
 
-  loadPage(page: { langcode?: string; nid: string }): void {
-    const { langcode, nid } = page;
+  loadPage(page: {
+    langcode?: string;
+    nid: string;
+    isTemplate?: boolean;
+  }): void {
+    const { langcode, nid, isTemplate } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
@@ -56,8 +60,8 @@ export class BuilderService extends ApiService {
         const { body, status, uuid } = page;
         this.builder.loading$.next(false);
         if (status) {
-          this.builder.loadNewPage(this.formatToExtraData(page));
-          if (uuid) {
+          this.builder.loadNewPage(this.formatToExtraData(page, isTemplate));
+          if (uuid && !isTemplate) {
             this.openPageSetting({
               uuid,
               langcode,
@@ -358,12 +362,21 @@ export class BuilderService extends ApiService {
     return currentPage;
   }
 
-  formatToExtraData(page: IPage): IPage {
-    return {
-      ...page,
-      title: this.getTitle(page.title),
-      body: this.initExtraBody(page.body),
-    };
+  formatToExtraData(page: IPage, isTemplate?: boolean): IPage {
+    if (isTemplate) {
+      return {
+        title: this.getTitle(page.title),
+        current: true,
+        time: new Date(),
+        body: this.initExtraBody(page.body, true),
+      };
+    } else {
+      return {
+        ...page,
+        title: this.getTitle(page.title),
+        body: this.initExtraBody(page.body),
+      };
+    }
   }
 
   getTitle(title: string): string {
@@ -397,18 +410,24 @@ export class BuilderService extends ApiService {
     });
   }
 
-  initExtraBody(body: any[]): any[] {
+  initExtraBody(body: any[], isTemplate?: boolean): any[] {
     let components = [];
     if (body.length) {
       components = body.map((item) => {
-        return {
-          extra: {
-            uuid: item.uuid,
-            id: item.id,
-            type: item.type,
-          },
-          ...item.attributes.body,
-        };
+        if (isTemplate) {
+          return {
+            ...item.attributes.body,
+          };
+        } else {
+          return {
+            extra: {
+              uuid: item.uuid,
+              id: item.id,
+              type: item.type,
+            },
+            ...item.attributes.body,
+          };
+        }
       });
     } else {
       components = [

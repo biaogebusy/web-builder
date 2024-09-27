@@ -179,6 +179,7 @@ export interface IJSON {
 
 export interface ICardList {
   params: {
+    use: string;
     api: string;
     defaultImg: string;
     update: {

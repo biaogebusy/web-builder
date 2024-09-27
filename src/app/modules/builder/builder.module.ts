@@ -8,7 +8,7 @@ import { BuilderRoutingModule } from './builder-routing.module';
 import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
 import { BuilderPanelComponent } from './sidebar/builder-panel/builder-panel.component';
 import { BuilderGeneraterComponent } from './main/builder-generater/builder-generater.component';
-import { BuilderSampleComponent } from './sidebar/builder-sample/builder-sample.component';
+import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
 import { BuilderListComponent } from './main/builder-list/builder-list.component';
 import { BuilderEmptyComponent } from './main/builder-empty/builder-empty.component';
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
@@ -45,6 +45,7 @@ import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-work
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { JsonComponent } from './main/json/json.component';
 import { CardListComponent } from './main/card-list/card-list.component';
+import { CardPageComponent } from './main/card-list/card-page/card-page.component';
 
 const components = [
   JsonComponent,
@@ -59,6 +60,7 @@ const components = [
   BuilderTemplateComponent,
   PageSettingComponent,
   CardListComponent,
+  CardPageComponent,
 ];
 
 @NgModule({
@@ -69,7 +71,7 @@ const components = [
     BuilderShowcaseComponent,
     BuilderPanelComponent,
     SwitchPreviewComponent,
-    BuilderSampleComponent,
+    BuilderPageComponent,
     PreviewComponent,
     BuilderVersionComponent,
     InlineEditComponent,
