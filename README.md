@@ -102,6 +102,7 @@
 - [API 数据来源](https://www.bilibili.com/video/BV1ux4y1n7MA/?spm_id_from=333.999.0.0) | [静态数据来源](https://www.bilibili.com/video/BV1rf421R7He/?spm_id_from=333.999.0.0) TailwindCss 自定义组件
 - [复制功能快速构建组件](https://www.bilibili.com/video/BV1nF4m1w7cs/?spm_id_from=333.999.0.0)
 - [多语言发布及媒体库管理](https://www.bilibili.com/video/BV1XohfeoEtz/)
+- [自定义示例和模板库](https://www.bilibili.com/video/BV1wExPeBEdn)
 
 ## 对应版本
 
