@@ -77,6 +77,32 @@ export class BuilderService extends ApiService {
       });
   }
 
+  loadNodeJson(page: { langcode?: string; nid: string }): void {
+    this.builder.loading$.next(true);
+    const { langcode, nid } = page;
+    const lang = this.getApiLang(langcode);
+    this.nodeService
+      .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
+      .subscribe((page: any) => {
+        this.builder.loading$.next(false);
+        this.builder.rightContent$.next({
+          mode: 'over',
+          hasBackdrop: true,
+          style: {
+            width: '800px',
+          },
+          elements: [
+            {
+              type: 'jsoneditor',
+              isPreview: true,
+              data: page,
+              isPage: false,
+            },
+          ],
+        });
+      });
+  }
+
   createLandingPage(page: IPage): Observable<any> {
     const {
       builder: {
