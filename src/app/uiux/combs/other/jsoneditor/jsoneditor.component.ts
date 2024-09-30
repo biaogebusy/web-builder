@@ -96,7 +96,6 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
   }
 
   onUpdateAttr(action: any): void {
-    debugger;
     if (this.value) {
       const { isSetting } = this.content;
       const { uuid, langcode, api, type } = action.params;
@@ -110,10 +109,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
             api,
             type,
             {
-              body: {
-                processed: this.value,
-                value: this.value,
-              },
+              body: JSON.stringify(this.value),
             },
             {},
           )
