@@ -44,7 +44,6 @@ export class BuilderShowcaseComponent implements OnInit {
           content: {
             type: 'jsoneditor',
             data: component,
-            isPreview: true,
           },
         },
       },

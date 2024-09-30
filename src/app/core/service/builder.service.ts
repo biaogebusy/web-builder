@@ -77,9 +77,9 @@ export class BuilderService extends ApiService {
       });
   }
 
-  loadNodeJson(page: { langcode?: string; nid: string }): void {
+  loadNodeJson(page: { langcode?: string; nid: string; uuid: string }): void {
     this.builder.loading$.next(true);
-    const { langcode, nid } = page;
+    const { langcode, nid, uuid } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
@@ -94,9 +94,20 @@ export class BuilderService extends ApiService {
           elements: [
             {
               type: 'jsoneditor',
-              isPreview: true,
               data: page,
-              isPage: false,
+              isSetting: true,
+              actions: [
+                {
+                  type: 'update',
+                  label: '更新配置',
+                  params: {
+                    uuid,
+                    langcode,
+                    api: '/api/v1/node/json',
+                    type: 'node--json',
+                  },
+                },
+              ],
             },
           ],
         });
@@ -187,7 +198,7 @@ export class BuilderService extends ApiService {
     attr: any,
     relationships: any,
   ): Observable<any> {
-    const { csrf_token, id } = this.user;
+    const { csrf_token } = this.user;
     const { langcode, uuid } = page;
     let prefix = '';
     const lang = this.getApiLang(langcode);

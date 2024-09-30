@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
@@ -15,6 +17,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NodeService } from '@core/service/node.service';
 import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
@@ -33,12 +36,14 @@ export class CodeEditorComponent implements OnInit {
   model: any = {};
   fields: FormlyFieldConfig[];
   MonacoOptions = { theme: 'vs-dark', language: 'html' };
-  constructor(
-    public screenService: ScreenService,
-    private builder: BuilderState,
-    private nodeService: NodeService,
-    private cd: ChangeDetectorRef
-  ) {
+
+  private builder = inject(BuilderState);
+  private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
+  private nodeService = inject(NodeService);
+  public screenService = inject(ScreenService);
+
+  constructor() {
     if (this.screenService.isPlatformBrowser()) {
       this.editorOptions = new JsonEditorOptions();
       this.editorOptions.mode = 'code'; // set only one mode
@@ -80,10 +85,13 @@ export class CodeEditorComponent implements OnInit {
     ];
 
     if (this.isAPI && this.api) {
-      this.nodeService.fetch(this.api, '').subscribe((res) => {
-        this.json = res;
-        this.cd.detectChanges();
-      });
+      this.nodeService
+        .fetch(this.api, '')
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((res) => {
+          this.json = res;
+          this.cd.detectChanges();
+        });
     }
     this.onFormChange();
     this.onHTMLChange();
@@ -91,7 +99,11 @@ export class CodeEditorComponent implements OnInit {
 
   onHTMLChange(): void {
     this.htmlForm.valueChanges
-      .pipe(debounceTime(3000), distinctUntilChanged())
+      .pipe(
+        debounceTime(3000),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe((html) => {
         const { path } = this.content;
         if (path) {
@@ -106,7 +118,11 @@ export class CodeEditorComponent implements OnInit {
 
   onFormChange(): void {
     this.form.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged())
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe((value) => {
         const { isAPI, api } = value;
         const { path } = this.content;
@@ -120,7 +136,8 @@ export class CodeEditorComponent implements OnInit {
                 return of({
                   message: err.message ?? '404',
                 });
-              })
+              }),
+              takeUntilDestroyed(this.destroyRef),
             )
             .subscribe((res) => {
               this.json = Object.assign({}, res);

@@ -53,6 +53,7 @@ export class BuilderSettingsComponent implements OnInit {
         const { data } = res;
         return data.map((item: any) => {
           const {
+            id,
             attributes: { title, drupal_internal__nid, langcode },
           } = item;
           this.loading = false;
@@ -60,6 +61,7 @@ export class BuilderSettingsComponent implements OnInit {
             title,
             nid: drupal_internal__nid,
             langcode,
+            uuid: id,
           };
         });
       }),
@@ -71,6 +73,7 @@ export class BuilderSettingsComponent implements OnInit {
     this.builderService.loadNodeJson({
       langcode: page.langcode,
       nid: page.nid,
+      uuid: page.uuid,
     });
   }
 }
