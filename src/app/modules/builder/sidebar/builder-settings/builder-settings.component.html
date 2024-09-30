@@ -15,7 +15,7 @@
         @if (content$ | async; as content) {
           <div class="cards grid grid-cols-12 gap-1">
             @for (item of content; track item; let i = $index) {
-              <div class="item col-span-6" matRipple>
+              <div class="item col-span-6 cursor-pointer" matRipple>
                 <div (click)="onJson(item)">
                   <div
                     class="inner flex flex-col justify-center items-center overflow-hidden"

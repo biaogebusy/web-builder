@@ -114,8 +114,8 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
             {},
           )
           .subscribe((res) => {
-            console.log(res);
             this.util.openSnackbar('更新成功！', 'ok');
+            this.builder.closeRightDrawer$.next(true);
           });
       }
     }
