@@ -1,9 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   OnInit,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -29,6 +31,7 @@ export class BuilderTemplateComponent implements OnInit {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private builderService = inject(BuilderService);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     if (environment.production) {
@@ -71,6 +74,7 @@ export class BuilderTemplateComponent implements OnInit {
           this.loading = false;
           return pages;
         }),
+        takeUntilDestroyed(this.destroyRef),
       );
   }
 
