@@ -99,8 +99,9 @@
                 color: mat.get-color-from-palette($foreground, text, 0.75);
               }
               &.active {
-                a {
-                  color: mat.get-color-from-palette($foreground, text, 0.75);
+                a,
+                .mat-icon {
+                  color: mat.get-color-from-palette($primary);
                 }
                 &::after {
                   background-color: mat.get-color-from-palette($primary);

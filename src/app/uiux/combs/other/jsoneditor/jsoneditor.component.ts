@@ -5,7 +5,6 @@ import {
   Component,
   DestroyRef,
   Input,
-  OnDestroy,
   OnInit,
   ViewChild,
   inject,
@@ -13,7 +12,9 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IPage } from '@core/interface/IAppConfig';
 import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { Subject } from 'rxjs';
@@ -37,8 +38,10 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
 
   private builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
-  private screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
+  private screenService = inject(ScreenService);
+  private builderService = inject(BuilderService);
+  private util = inject(UtilitiesService);
   constructor() {
     if (this.screenService.isPlatformBrowser()) {
       this.editorOptions = new JsonEditorOptions();
@@ -60,7 +63,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
       )
       .subscribe((value) => {
         this.value = value;
-        this.onSave();
+        this.updateCurrentPage();
       });
   }
 
@@ -73,7 +76,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
     this.cd.detectChanges();
   }
 
-  onSave(): void {
+  updateCurrentPage(): void {
     if (this.value) {
       const { isPage, path } = this.content;
       // for page json
@@ -82,11 +85,39 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
         this.builder.setCurrentPage(page);
       }
 
+      // for component json
       if (path) {
         this.builder.updatePageContentByPath(path, this.value);
       }
+
       this.loadding = false;
       this.cd.detectChanges();
+    }
+  }
+
+  onUpdateAttr(action: any): void {
+    if (this.value) {
+      const { isSetting } = this.content;
+      const { uuid, langcode, api, type } = action.params;
+      if (isSetting) {
+        this.builderService
+          .updateAttributes(
+            {
+              uuid,
+              langcode,
+            },
+            api,
+            type,
+            {
+              body: JSON.stringify(this.value),
+            },
+            {},
+          )
+          .subscribe((res) => {
+            this.util.openSnackbar('更新成功！', 'ok');
+            this.builder.closeRightDrawer$.next(true);
+          });
+      }
     }
   }
 }

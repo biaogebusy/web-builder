@@ -302,11 +302,18 @@ export class UserService extends ApiService {
       this.localUserKey,
       this.cryptoJS.encrypt(JSON.stringify(user)),
       {
-        expires: 5,
+        expires: this.getCookieExpirationDate(200000),
         path: '/',
         sameSite: 'Lax',
       },
     );
+  }
+
+  getCookieExpirationDate(seconds: number): Date {
+    const now = new Date();
+    const expirationTime = new Date(now.getTime() + seconds * 1000);
+
+    return expirationTime;
   }
 
   getLoginState(): Observable<boolean> {

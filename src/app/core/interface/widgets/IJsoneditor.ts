@@ -3,7 +3,8 @@ export interface IJsoneditor {
   data: any;
   actions?: any[];
   actionsAlign?: string;
-  isPage?: boolean;
   tooltip?: string;
-  path?: string;
+  isPage?: boolean; // load from page
+  isSetting?: boolean; // load from setting page
+  path?: string; // load from component or widget
 }

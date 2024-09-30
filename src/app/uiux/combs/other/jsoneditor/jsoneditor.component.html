@@ -14,16 +14,25 @@
     <div
       #actions
       class="actions m-top pb-[10px] flex justify-center items-center"
-      >
+    >
       @for (action of content.actions; track action) {
         @switch (action.type) {
-          @case ('closeDialog') {
+          @case ("closeDialog") {
             <button
-              (click)="onSave()"
+              (click)="updateCurrentPage()"
               mat-raised-button
               mat-dialog-close
               color="{{ action.color || 'primary' }}"
-              >
+            >
+              {{ action.label }}
+            </button>
+          }
+          @case ("update") {
+            <button
+              (click)="onUpdateAttr(action)"
+              mat-raised-button
+              color="{{ action.color || 'primary' }}"
+            >
               {{ action.label }}
             </button>
           }

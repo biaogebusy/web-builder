@@ -1,19 +1,18 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  Inject,
   OnInit,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IBranding } from '@core/interface/branding/IBranding';
-import { ContentService } from '@core/service/content.service';
+import { BuilderService } from '@core/service/builder.service';
+import { NodeService } from '@core/service/node.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { settings } from '@modules/builder/data/settings-for-builder';
+import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-settings',
@@ -21,55 +20,60 @@ import { settings } from '@modules/builder/data/settings-for-builder';
   styleUrls: ['./builder-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderSettingsComponent implements OnInit, AfterViewInit {
-  content = settings;
+export class BuilderSettingsComponent implements OnInit {
+  content$: Observable<any>;
+  loading: boolean;
   branding: IBranding;
   private builder = inject(BuilderState);
-  private contentService = inject(ContentService);
   private destroyRef = inject(DestroyRef);
-  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {}
+  private nodeService = inject(NodeService);
+  private builderService = inject(BuilderService);
+  constructor() {}
 
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    this.contentService
-      .loadBranding()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
-        this.branding = res;
-      });
+  ngOnInit(): void {
+    this.getNodeJson();
   }
+
   onAfterExpand(): void {
     this.builder.cancelFixedShowcase();
   }
 
-  onJson(content: any): void {
-    const { provide } = content;
-    let data = {};
-    switch (provide) {
-      case 'CORE_CONFIG':
-        data = this.coreConfig;
-        break;
-      case 'BRANDING':
-        data = this.branding;
-        break;
-      default:
-        data = {};
-    }
-    this.builder.rightContent$.next({
-      mode: 'over',
-      hasBackdrop: true,
-      style: {
-        width: '800px',
-      },
-      elements: [
-        {
-          type: 'jsoneditor',
-          isPreview: true,
-          data,
-          isPage: false,
-        },
-      ],
+  getNodeJson(): void {
+    this.loading = true;
+    const apiParams = new DrupalJsonApiParams();
+    apiParams
+      .addPageLimit(20)
+      .addSort('changed', 'DESC')
+      .addFilter('status', '1')
+      .addCustomParam({ noCache: true });
+
+    const params = apiParams.getQueryString();
+    this.content$ = this.nodeService.fetch('/api/v1/node/json', params).pipe(
+      map((res) => {
+        const { data } = res;
+        return data.map((item: any) => {
+          const {
+            id,
+            attributes: { title, drupal_internal__nid, langcode },
+          } = item;
+          this.loading = false;
+          return {
+            title,
+            nid: drupal_internal__nid,
+            langcode,
+            uuid: id,
+          };
+        });
+      }),
+      takeUntilDestroyed(this.destroyRef),
+    );
+  }
+
+  onJson(page: any): void {
+    this.builderService.loadNodeJson({
+      langcode: page.langcode,
+      nid: page.nid,
+      uuid: page.uuid,
     });
   }
 }
