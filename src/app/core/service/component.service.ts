@@ -234,7 +234,7 @@ export class ComponentService {
       ),
     );
 
-    ['dashboard'].forEach((type) =>
+    ['dashboard', 'dashboard-box'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/dashboard/dashboard.module').then(
           (m) => m.DashboardModule,

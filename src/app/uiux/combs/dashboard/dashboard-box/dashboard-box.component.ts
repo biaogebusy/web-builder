@@ -2,16 +2,19 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import type { IDashboardBox } from '@core/interface/combs/IDashboard';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { defaultsDeep, random } from 'lodash-es';
-import { Observable, defer, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, delay, map } from 'rxjs/operators';
 
 @Component({
@@ -26,11 +29,12 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
   @Input() model: any = {};
   widget$: Observable<any>;
   loading = true;
-  constructor(
-    private formService: FormService,
-    private nodeService: NodeService,
-    private cd: ChangeDetectorRef
-  ) {
+
+  formService = inject(FormService);
+  nodeService = inject(NodeService);
+  cd = inject(ChangeDetectorRef);
+  destroyRef = inject(DestroyRef);
+  constructor() {
     super();
   }
 
@@ -131,7 +135,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
                   },
                 ],
               },
-              this.content.widget
+              this.content.widget,
             );
             break;
           case 'dynamic-table':
@@ -139,14 +143,15 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
               {
                 elements: rows,
               },
-              this.content.widget
+              this.content.widget,
             );
             break;
         }
         this.loading = false;
         this.cd.detectChanges();
         return data;
-      })
+      }),
+      takeUntilDestroyed(this.destroyRef),
     );
     this.cd.detectChanges();
   }
