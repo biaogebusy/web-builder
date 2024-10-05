@@ -29,6 +29,7 @@
           }
           @case ("update") {
             <button
+              *reqRolesIf="action"
               (click)="onUpdateAttr(action)"
               mat-raised-button
               color="{{ action.color || 'primary' }}"
