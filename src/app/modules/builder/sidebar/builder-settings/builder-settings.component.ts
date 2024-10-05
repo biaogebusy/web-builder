@@ -40,33 +40,7 @@ export class BuilderSettingsComponent implements OnInit {
 
   getNodeJson(): void {
     this.loading = true;
-    const apiParams = new DrupalJsonApiParams();
-    apiParams
-      .addPageLimit(20)
-      .addSort('changed', 'DESC')
-      .addFilter('status', '1')
-      .addCustomParam({ noCache: true });
-
-    const params = apiParams.getQueryString();
-    this.content$ = this.nodeService.fetch('/api/v1/node/json', params).pipe(
-      map((res) => {
-        const { data } = res;
-        return data.map((item: any) => {
-          const {
-            id,
-            attributes: { title, drupal_internal__nid, langcode },
-          } = item;
-          this.loading = false;
-          return {
-            title,
-            nid: drupal_internal__nid,
-            langcode,
-            uuid: id,
-          };
-        });
-      }),
-      takeUntilDestroyed(this.destroyRef),
-    );
+    this.content$ = this.nodeService.fetch('/api/v2/node/core', 'noCache=1');
   }
 
   onJson(page: any): void {
