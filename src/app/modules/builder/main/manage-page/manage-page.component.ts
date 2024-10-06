@@ -1,12 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { ContentService } from '@core/service/content.service';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { IPage } from '@core/interface/IAppConfig';
+import { PAGE_CONTENT } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,27 +9,6 @@ import { Observable } from 'rxjs';
   styleUrl: './manage-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ManagePageComponent implements OnInit {
-  page$: Observable<any[]>;
-  loading: boolean;
-  contentService = inject(ContentService);
-  activateRoute = inject(ActivatedRoute);
-  router = inject(Router);
-  cd = inject(ChangeDetectorRef);
-  ngOnInit(): void {
-    const url = this.activateRoute.snapshot.url
-      .map((segment) => segment.path)
-      .join('/');
-    this.page$ = this.contentService.loadJSON(`/${url}`);
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        const url = this.activateRoute.snapshot.url
-          .map((segment) => segment.path)
-          .join('/');
-        this.page$ = this.contentService.loadJSON(`/${url}`);
-        this.cd.detectChanges();
-      }
-    });
-  }
+export class ManagePageComponent {
+  constructor(@Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>) {}
 }
