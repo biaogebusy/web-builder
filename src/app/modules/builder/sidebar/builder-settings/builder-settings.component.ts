@@ -11,6 +11,7 @@ import { IPageList } from '@core/interface/IBuilder';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
+import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -33,9 +34,11 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   private builderService = inject(BuilderService);
   private cd = inject(ChangeDetectorRef);
   private util = inject(UtilitiesService);
+  private tagsService = inject(TagsService);
 
   constructor() {
     super();
+    this.tagsService.setTitle('应用全局配置管理');
   }
 
   ngOnInit(): void {
