@@ -1,18 +1,21 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  DestroyRef,
+  Input,
   OnInit,
   inject,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import type { IBranding } from '@core/interface/branding/IBranding';
+import { PageEvent } from '@angular/material/paginator';
+import { IPageList } from '@core/interface/IBuilder';
+import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BaseComponent } from '@uiux/base/base.widget';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-settings',
@@ -20,27 +23,57 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./builder-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderSettingsComponent implements OnInit {
-  content$: Observable<any>;
+export class BuilderSettingsComponent extends BaseComponent implements OnInit {
+  @Input() content: any;
+  content$: Observable<any[]>;
   loading: boolean;
-  branding: IBranding;
+  pager: IPager;
   private builder = inject(BuilderState);
-  private destroyRef = inject(DestroyRef);
   private nodeService = inject(NodeService);
   private builderService = inject(BuilderService);
-  constructor() {}
+  private cd = inject(ChangeDetectorRef);
+  private util = inject(UtilitiesService);
+
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
-    this.getNodeJson();
+    this.getNodeJson(`noCache=true`);
   }
 
   onAfterExpand(): void {
     this.builder.cancelFixedShowcase();
   }
 
-  getNodeJson(): void {
+  getNodeJson(params: string): void {
     this.loading = true;
-    this.content$ = this.nodeService.fetch('/api/v2/node/core', 'noCache=1');
+    this.content$ = this.nodeService.fetch('/api/v2/node/core', params).pipe(
+      catchError((error) => {
+        if (error.status === 404) {
+          this.util.openSnackbar('请检查API是否已配置！', 'ok');
+        }
+        return of({
+          rows: [],
+          pager: {
+            current_page: null,
+            total_pages: 0,
+            total_items: 0,
+          },
+        });
+      }),
+      map((res) => {
+        this.loading = false;
+        this.cd.detectChanges();
+        return this.getLists(res);
+      }),
+    );
+  }
+
+  getLists(res: IPageList): any[] {
+    this.pager = this.handlerPager(res.pager, res.rows.length);
+    this.cd.detectChanges();
+    return res.rows;
   }
 
   onJson(page: any): void {
@@ -49,5 +82,13 @@ export class BuilderSettingsComponent implements OnInit {
       nid: page.nid,
       uuid: page.uuid,
     });
+  }
+
+  onPageChange(page: PageEvent): void {
+    this.getNodeJson(`page=${page.pageIndex}`);
+  }
+
+  reload(): void {
+    this.getNodeJson('page=0');
   }
 }

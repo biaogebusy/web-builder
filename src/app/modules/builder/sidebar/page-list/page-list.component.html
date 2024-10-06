@@ -107,7 +107,6 @@
   @if (pager) {
     <div class="pager">
       <mat-paginator
-        class="demo-paginator"
         (page)="onPageChange($event)"
         [length]="pager.totalItems"
         [pageSize]="pager.itemsPerPage"

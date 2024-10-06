@@ -1,6 +1,6 @@
 <div class="positon-relative">
-  @if (loadding) {
-    <div class="loadding">
+  @if (loading) {
+    <div class="loader">
       <mat-spinner diameter="20" color="primary"></mat-spinner>
     </div>
   }
@@ -33,6 +33,7 @@
               (click)="onUpdateAttr(action)"
               mat-raised-button
               color="{{ action.color || 'primary' }}"
+              [disabled]="!value"
             >
               {{ action.label }}
             </button>

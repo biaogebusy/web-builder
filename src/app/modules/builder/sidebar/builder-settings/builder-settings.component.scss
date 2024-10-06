@@ -1,6 +1,7 @@
 .builder-settings {
   padding: 10px;
   .cards {
+    position: relative;
     height: 450px;
     overflow: auto;
     .group {
@@ -21,6 +22,20 @@
             cursor: pointer;
           }
         }
+      }
+    }
+  }
+  mat-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+  .pager {
+    ::ng-deep {
+      .mat-mdc-paginator-range-label {
+        display: none;
       }
     }
   }

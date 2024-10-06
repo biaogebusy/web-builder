@@ -5,9 +5,16 @@
         <mat-panel-title> 配置 </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
-        @if (content$ | async; as content) {
-          <div class="cards grid grid-cols-12 gap-1">
-            @for (item of content.rows; track item; let i = $index) {
+        <div class="cards grid grid-cols-12 gap-1">
+          @if (loading) {
+            <mat-spinner
+              class="mx-auto my-10"
+              diameter="50"
+              color="primary"
+            ></mat-spinner>
+          }
+          @if (content$ | async; as content) {
+            @for (item of content; track item; let i = $index) {
               <div class="item col-span-12 cursor-pointer">
                 <div (click)="onJson(item)" class="overflow-hidden">
                   <div class="inner flex flex-col p-4 gap-1" matRipple>
@@ -30,15 +37,33 @@
                 </div>
               </div>
             }
+          }
+        </div>
+        @if (pager) {
+          <div class="pager">
+            <mat-paginator
+              (page)="onPageChange($event)"
+              [length]="pager.totalItems"
+              [pageSize]="pager.itemsPerPage"
+              [showFirstLastButtons]="true"
+              [hidePageSize]="true"
+              [pageIndex]="pager.currentPage"
+              aria-label="Select page"
+            >
+            </mat-paginator>
           </div>
-        } @else {
-          <mat-spinner
-            class="mx-auto my-10"
-            diameter="50"
-            color="primary"
-          ></mat-spinner>
         }
       </mat-list>
+      <mat-action-row>
+        <app-btn
+          (click)="reload()"
+          [content]="{
+            label: '刷新',
+            color: 'primary',
+            icon: { svg: 'reload', inline: true },
+          }"
+        ></app-btn>
+      </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

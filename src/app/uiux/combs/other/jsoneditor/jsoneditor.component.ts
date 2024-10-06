@@ -17,8 +17,8 @@ import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject, of, throwError } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-jsoneditor',
@@ -33,7 +33,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
   @ViewChild(JsonEditorComponent, { static: false })
   editor: JsonEditorComponent;
   value: any;
-  loadding: boolean;
+  loading: boolean;
   valueChange$: Subject<any> = new Subject<any>();
 
   private builder = inject(BuilderState);
@@ -71,7 +71,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
     if (event.timeStamp) {
       return;
     }
-    this.loadding = true;
+    this.loading = true;
     this.valueChange$.next(event);
     this.cd.detectChanges();
   }
@@ -90,7 +90,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
         this.builder.updatePageContentByPath(path, this.value);
       }
 
-      this.loadding = false;
+      this.loading = false;
       this.cd.detectChanges();
     }
   }
@@ -98,6 +98,8 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
   onUpdateAttr(action: any): void {
     if (this.value) {
       const { isSetting } = this.content;
+      this.loading = true;
+      this.cd.detectChanges();
       const { uuid, langcode, api, type } = action.params;
       if (isSetting) {
         this.builderService
@@ -113,9 +115,21 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
             },
             {},
           )
+          .pipe(
+            catchError((err) => {
+              return of(false);
+            }),
+            takeUntilDestroyed(this.destroyRef),
+          )
           .subscribe((res) => {
-            this.util.openSnackbar('更新成功！', 'ok');
-            this.builder.closeRightDrawer$.next(true);
+            if (!res) {
+              this.util.openSnackbar('更新失败！', 'ok');
+            } else {
+              this.util.openSnackbar('更新成功！', 'ok');
+              this.builder.closeRightDrawer$.next(true);
+            }
+            this.loading = false;
+            this.cd.detectChanges();
           });
       }
     }
