@@ -88,6 +88,7 @@ export class BuilderService extends ApiService {
         this.builder.rightContent$.next({
           mode: 'over',
           hasBackdrop: true,
+          classes: 'json-setting',
           style: {
             width: '800px',
           },

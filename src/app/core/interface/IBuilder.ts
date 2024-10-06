@@ -40,6 +40,7 @@ export interface IBuilderDynamicContent {
   hasBackdrop?: any;
   elements: any[];
   style?: any;
+  classes?: string;
 }
 
 export interface IBuilderSamplePage {
