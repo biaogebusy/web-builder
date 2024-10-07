@@ -15,14 +15,17 @@ import { NodeService } from './node.service';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
   http = inject(HttpClient);
-  util = inject(UtilitiesService);
+  dialog = inject(MatDialog);
   builder = inject(BuilderState);
+  util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   user: IUser;
   constructor(
@@ -98,33 +101,32 @@ export class BuilderService extends ApiService {
       .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
       .subscribe((page: any) => {
         this.builder.loading$.next(false);
-        this.builder.rightContent$.next({
-          mode: 'over',
-          hasBackdrop: true,
-          classes: 'json-setting',
-          style: {
-            width: '800px',
-          },
-          elements: [
-            {
-              type: 'jsoneditor',
-              data: page,
-              isSetting: true,
-              actions: [
-                {
-                  type: 'update',
-                  label: '更新配置',
-                  params: {
-                    reqRoles: ['administrator'],
-                    uuid,
-                    langcode,
-                    api: '/api/v1/node/json',
-                    type: 'node--json',
+        this.dialog.open(DialogComponent, {
+          width: '1000px',
+          panelClass: ['close-outside', 'close-icon-white'],
+          data: {
+            disableCloseButton: true,
+            inputData: {
+              content: {
+                type: 'jsoneditor',
+                data: page,
+                isSetting: true,
+                actions: [
+                  {
+                    type: 'update',
+                    label: '更新配置',
+                    params: {
+                      reqRoles: ['administrator'],
+                      uuid,
+                      langcode,
+                      api: '/api/v1/node/json',
+                      type: 'node--json',
+                    },
                   },
-                },
-              ],
+                ],
+              },
             },
-          ],
+          },
         });
       });
   }

@@ -80,11 +80,12 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   }
 
   onJson(page: any): void {
-    this.builderService.loadNodeJson({
-      langcode: page.langcode,
-      nid: page.nid,
-      uuid: page.uuid,
-    });
+    this.builder.loading$.next(true);
+    this.builderService.openPageSetting(
+      { uuid: page.uuid, langcode: page.langcode },
+      '/api/v1/node/json',
+      '',
+    );
   }
 
   onPageChange(page: PageEvent): void {
