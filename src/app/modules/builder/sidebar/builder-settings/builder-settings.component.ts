@@ -88,10 +88,10 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   }
 
   onPageChange(page: PageEvent): void {
-    this.getNodeJson(`page=${page.pageIndex}`);
+    this.getNodeJson(`page=${page.pageIndex}&nocache=true`);
   }
 
   reload(): void {
-    this.getNodeJson('page=0');
+    this.getNodeJson('page=0&nocache=true');
   }
 }
