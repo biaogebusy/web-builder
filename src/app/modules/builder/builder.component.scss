@@ -13,6 +13,16 @@
   }
 }
 
+.mat-drawer {
+  &.json-setting {
+    ::ng-deep {
+      .ace_editor {
+        min-height: 85vh;
+      }
+    }
+  }
+}
+
 .actions {
   &.expand {
     position: absolute;

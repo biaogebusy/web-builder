@@ -17,19 +17,31 @@
         mode: 'raised',
       }"
     ></app-btn>
-    <app-btn
-      (click)="onPreview()"
-      [content]="{
-        label: '预览',
-        color: 'primary',
-        mode: 'stroked',
-      }"
-    ></app-btn>
+    @if (type === "node--json") {
+      <app-btn
+        (click)="onJson()"
+        [content]="{
+          label: '编辑JSON',
+          color: 'primary',
+          mode: 'stroked',
+        }"
+      ></app-btn>
+    }
+    @if (type === "node--landing_page") {
+      <app-btn
+        (click)="onPreview()"
+        [content]="{
+          label: '预览',
+          color: 'primary',
+          mode: 'stroked',
+        }"
+      ></app-btn>
+    }
     <app-btn
       *reqRolesIf="{
         params: { reqRoles: ['administrator'] },
       }"
-      (click)="deletePage()"
+      (click)="deletePage(model)"
       [content]="{
         label: '删除',
         color: 'warn',

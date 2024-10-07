@@ -191,7 +191,7 @@ export class ContentService {
   loadJSON(jsonPath: string): Observable<any> {
     const { lang, path } = this.getUrlPath(jsonPath);
     const apiPath = environment.production
-      ? `${this.apiUrl}${lang}/api/v3/landingPage?content=${path}`
+      ? `${this.apiUrl}${lang}/api/v3/landingPage?content=${path}&nocache=true`
       : `${this.apiUrl}/assets/app${lang}${path}.json`;
 
     return this.http.get<any>(apiPath);

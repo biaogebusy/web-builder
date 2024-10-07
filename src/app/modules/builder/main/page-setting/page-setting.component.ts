@@ -34,6 +34,7 @@ export class PageSettingComponent implements OnInit {
   model: any = {};
   fields: FormlyFieldConfig[];
   loading: boolean;
+  type: 'node--landing_page' | 'node--json';
 
   dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
@@ -57,6 +58,7 @@ export class PageSettingComponent implements OnInit {
       const { data, included } = content;
       const {
         id,
+        type,
         attributes: {
           changed,
           drupal_internal__nid,
@@ -67,217 +69,269 @@ export class PageSettingComponent implements OnInit {
           transparent_style,
         },
       } = data;
-      const user = included.find((item: any) => item.type === 'user--user');
-      const cover = included.find((item: any) => item.type === 'file--file');
-      const pageGroup = included.find(
-        (item: any) => item.type === 'taxonomy_term--page_group',
-      );
-      if (content) {
-        this.fields = [
-          {
-            key: 'title',
-            type: 'input',
-            defaultValue: title.trim(),
-            className: 'w-full',
-            props: {
-              label: '标题',
-              required: true,
+      this.type = type;
+      if (type === 'node--landing_page') {
+        const user = included.find((item: any) => item.type === 'user--user');
+        const cover = included.find((item: any) => item.type === 'file--file');
+        const pageGroup = included.find(
+          (item: any) => item.type === 'taxonomy_term--page_group',
+        );
+        if (content) {
+          this.fields = [
+            this.getCommonField('title', title.trim()),
+            {
+              key: 'alias',
+              type: 'input',
+              className: 'w-full',
+              defaultValue: this.builderService.getAttrAlias({
+                drupal_internal__nid,
+                path,
+                langcode,
+              }),
+              props: {
+                label: 'url别名',
+                disabled: false,
+              },
+              modelOptions: {
+                updateOn: 'blur',
+              },
+              expressions: {
+                'props.disabled': 'formState.disabled',
+              },
+              hooks: {
+                onInit: (field: FormlyFieldConfig) => {
+                  if (field.formControl) {
+                    field.formControl.valueChanges
+                      .pipe(takeUntilDestroyed(this.destroyRef))
+                      .subscribe((value) => {
+                        this.loading = true;
+                        this.builderService
+                          .updateUrlalias(
+                            {
+                              uuid: id,
+                              langcode,
+                              id: drupal_internal__nid,
+                            },
+                            value,
+                          )
+                          .pipe(takeUntilDestroyed(this.destroyRef))
+                          .subscribe(() => {
+                            this.loading = false;
+                            this.cd.detectChanges();
+                            this.util.openSnackbar(`已更新别名:${value}`);
+                          });
+                      });
+                  }
+                },
+              },
             },
-            expressions: {
-              'props.disabled': 'formState.disabled',
+            {
+              key: 'page_group',
+              type: 'mat-select',
+              defaultValue: pageGroup ? pageGroup.id : '',
+              props: {
+                api: '/api/v2/taxonomy_term/page_group',
+                label: '页面分类',
+                options: [
+                  {
+                    label: '无',
+                    value: null,
+                  },
+                ],
+              },
             },
-          },
-          {
-            key: 'alias',
-            type: 'input',
-            className: 'w-full',
-            defaultValue: this.builderService.getAttrAlias({
-              drupal_internal__nid,
-              path,
-              langcode,
-            }),
-            props: {
-              label: 'url别名',
-              disabled: false,
-            },
-            modelOptions: {
-              updateOn: 'blur',
-            },
-            expressions: {
-              'props.disabled': 'formState.disabled',
-            },
-            hooks: {
-              onInit: (field: FormlyFieldConfig) => {
-                if (field.formControl) {
-                  field.formControl.valueChanges
+            {
+              key: 'cover',
+              type: 'img-picker',
+              defaultValue: cover ? cover.attributes.uri.url : '',
+              props: {
+                valueIsUUID: true,
+                updateLabel: '更新封面',
+                addLabel: '设置封面',
+                deleteLabel: '删除',
+                fileName: cover
+                  ? cover.attributes.uri.url.split('/').pop()
+                  : '',
+              },
+              hooks: {
+                onInit: (field: FormlyFieldConfig) => {
+                  field.formControl?.valueChanges
                     .pipe(takeUntilDestroyed(this.destroyRef))
-                    .subscribe((value) => {
+                    .subscribe((cover) => {
+                      if (!cover) {
+                        return;
+                      }
                       this.loading = true;
                       this.builderService
-                        .updateUrlalias(
+                        .updateAttributes(
+                          { uuid: id, langcode },
+                          '/api/v1/node/landing_page',
+                          'node--landing_page',
+                          {},
                           {
-                            uuid: id,
-                            langcode,
-                            id: drupal_internal__nid,
+                            cover: {
+                              data: {
+                                type: 'media--image',
+                                id: cover,
+                              },
+                            },
+                            uid: {
+                              data: {
+                                type: 'user--user',
+                                id: this.user.id,
+                              },
+                            },
                           },
-                          value,
                         )
-                        .pipe(takeUntilDestroyed(this.destroyRef))
                         .subscribe(() => {
                           this.loading = false;
                           this.cd.detectChanges();
-                          this.util.openSnackbar(`已更新别名:${value}`);
+                          this.util.openSnackbar(`已更新封面`);
                         });
                     });
-                }
+                },
               },
             },
-          },
-          {
-            key: 'page_group',
-            type: 'mat-select',
-            defaultValue: pageGroup ? pageGroup.id : '',
-            props: {
-              api: '/api/v2/taxonomy_term/page_group',
-              label: '页面分类',
-              options: [
-                {
-                  label: '无',
-                  value: null,
-                },
-              ],
-            },
-          },
-          {
-            key: 'cover',
-            type: 'img-picker',
-            defaultValue: cover ? cover.attributes.uri.url : '',
-            props: {
-              valueIsUUID: true,
-              updateLabel: '更新封面',
-              addLabel: '设置封面',
-              deleteLabel: '删除',
-              fileName: cover ? cover.attributes.uri.url.split('/').pop() : '',
-            },
-            hooks: {
-              onInit: (field: FormlyFieldConfig) => {
-                field.formControl?.valueChanges
-                  .pipe(takeUntilDestroyed(this.destroyRef))
-                  .subscribe((cover) => {
-                    if (!cover) {
-                      return;
-                    }
-                    this.loading = true;
-                    this.builderService
-                      .updateAttributes(
-                        { uuid: id, langcode },
-                        '/api/v1/node/landing_page',
-                        'node--landing_page',
-                        {},
-                        {
-                          cover: {
-                            data: {
-                              type: 'media--image',
-                              id: cover,
-                            },
-                          },
-                          uid: {
-                            data: {
-                              type: 'user--user',
-                              id: this.user.id,
-                            },
-                          },
-                        },
-                      )
-                      .subscribe(() => {
-                        this.loading = false;
-                        this.cd.detectChanges();
-                        this.util.openSnackbar(`已更新封面`);
-                      });
-                  });
+            {
+              key: 'is_transparent',
+              type: 'toggle',
+              defaultValue: is_transparent,
+              props: {
+                label: '页头背景是否透明',
               },
             },
-          },
-          {
-            key: 'is_transparent',
-            type: 'toggle',
-            defaultValue: is_transparent,
-            props: {
-              label: '页头背景是否透明',
-            },
-          },
-          {
-            key: 'transparent_style',
-            type: 'mat-select',
-            defaultValue: transparent_style,
-            props: {
-              label: '透明风格',
-              options: [
-                {
-                  label: '明亮',
-                  value: 'light',
+            {
+              key: 'transparent_style',
+              type: 'mat-select',
+              defaultValue: transparent_style,
+              props: {
+                label: '透明风格',
+                options: [
+                  {
+                    label: '明亮',
+                    value: 'light',
+                  },
+                  {
+                    label: '暗黑',
+                    value: 'dark',
+                  },
+                ],
+              },
+              expressions: {
+                hide: (field: FormlyFieldConfig) => {
+                  return !field.parent?.model.is_transparent;
                 },
-                {
-                  label: '暗黑',
-                  value: 'dark',
-                },
-              ],
-            },
-            expressions: {
-              hide: (field: FormlyFieldConfig) => {
-                return !field.parent?.model.is_transparent;
               },
             },
-          },
-          {
-            key: 'author',
-            type: 'input',
-            className: 'w-full',
-            defaultValue: user.attributes.display_name,
-            props: {
-              label: '作者',
-              disabled: true,
+            {
+              key: 'author',
+              type: 'input',
+              className: 'w-full',
+              defaultValue: user.attributes.display_name,
+              props: {
+                label: '作者',
+                disabled: true,
+              },
             },
-          },
-          {
-            key: 'changed',
-            type: 'input',
-            className: 'w-full',
-            defaultValue: changed,
-            props: {
-              label: '更新时间',
-              disabled: true,
-            },
-          },
-          {
-            key: 'landcode',
-            type: 'input',
-            className: 'w-full',
-            defaultValue: langcode,
-            props: {
-              label: '语言',
-              disabled: true,
-            },
-          },
-          {
-            key: 'id',
-            type: 'input',
-            className: 'w-full',
-            defaultValue: drupal_internal__nid,
-            props: {
-              label: 'nid',
-              disabled: true,
-            },
-          },
-        ];
-        this.loading = false;
-        this.cd.detectChanges();
+            this.getCommonField('changed', changed),
+            this.getCommonField('type', type),
+            this.getCommonField('langcode', langcode),
+            this.getCommonField('nid', drupal_internal__nid),
+          ];
+        }
       }
+
+      if (type === 'node--json') {
+        this.fields = [
+          this.getCommonField('title', title.trim()),
+          this.getCommonField('changed', changed),
+          this.getCommonField('type', type),
+          this.getCommonField('langcode', langcode),
+          this.getCommonField('nid', drupal_internal__nid),
+        ];
+      }
+      this.loading = false;
+      this.cd.detectChanges();
+    }
+  }
+
+  getCommonField(key: string, defaultValue: string): FormlyFieldConfig {
+    switch (key) {
+      case 'title':
+        return {
+          key: 'title',
+          type: 'input',
+          defaultValue,
+          className: 'w-full',
+          props: {
+            label: '标题',
+            required: true,
+          },
+          expressions: {
+            'props.disabled': 'formState.disabled',
+          },
+        };
+      case 'changed':
+        return {
+          key: 'changed',
+          type: 'input',
+          className: 'w-full',
+          defaultValue,
+          props: {
+            label: '更新时间',
+            disabled: true,
+          },
+        };
+      case 'langcode':
+        return {
+          key: 'landcode',
+          type: 'input',
+          className: 'w-full',
+          defaultValue,
+          props: {
+            label: '语言',
+            disabled: true,
+          },
+        };
+      case 'nid':
+        return {
+          key: 'id',
+          type: 'input',
+          className: 'w-full',
+          defaultValue,
+          props: {
+            label: 'nid',
+            disabled: true,
+          },
+        };
+      case 'type':
+        return {
+          key: 'type',
+          type: 'input',
+          className: 'w-full',
+          defaultValue,
+          props: {
+            label: '内容类型',
+            disabled: true,
+          },
+        };
+      default:
+        return {
+          key,
+          type: 'input',
+          defaultValue,
+          className: 'w-full',
+          props: {
+            label: key,
+          },
+        };
     }
   }
 
   onUpdate(value: any): void {
-    const { title, is_transparent, transparent_style } = value;
+    const { type } = value;
+    const nodeType = type.split('--')[1];
+    const api = `/api/v1/node/${nodeType}`;
     if (!this.user) {
       this.util.openSnackbar('请先登录！', 'ok');
     }
@@ -294,28 +348,13 @@ export class PageSettingComponent implements OnInit {
           uuid: id,
           langcode,
         },
-        '/api/v1/node/landing_page',
-        'node--landing_page',
+        api,
+        type,
         {
-          title,
-          is_transparent,
-          transparent_style,
+          ...this.getAttributesParams(value),
         },
         {
-          uid: {
-            data: {
-              type: 'user--user',
-              id: this.user.id,
-            },
-          },
-          group: {
-            data: value.page_group
-              ? {
-                  type: 'taxonomy_term--page_group',
-                  id: value.page_group,
-                }
-              : null,
-          },
+          ...this.getRelationshiopParams(value),
         },
       )
       .subscribe(
@@ -330,6 +369,60 @@ export class PageSettingComponent implements OnInit {
           this.util.openSnackbar(statusText, 'ok');
         },
       );
+  }
+
+  getAttributesParams(value: any): object {
+    const { title, is_transparent, transparent_style, type } = value;
+    if (type === 'node--landing_page') {
+      return {
+        title,
+        is_transparent,
+        transparent_style,
+      };
+    }
+
+    if (type === 'node--json') {
+      return {
+        title,
+      };
+    }
+
+    return {};
+  }
+
+  getRelationshiopParams(value: any): object {
+    const { page_group, type } = value;
+    if (type === 'node--landing_page') {
+      return {
+        uid: {
+          data: {
+            type: 'user--user',
+            id: this.user.id,
+          },
+        },
+        group: {
+          data: page_group
+            ? {
+                type: 'taxonomy_term--page_group',
+                id: page_group,
+              }
+            : null,
+        },
+      };
+    }
+
+    if (type === 'node--json') {
+      return {
+        uid: {
+          data: {
+            type: 'user--user',
+            id: this.user.id,
+          },
+        },
+      };
+    }
+
+    return {};
   }
 
   onPreview(): void {
@@ -355,7 +448,26 @@ export class PageSettingComponent implements OnInit {
       },
     });
   }
-  deletePage(): void {
+
+  onJson(): void {
+    const {
+      content: {
+        data: {
+          id,
+          attributes: { drupal_internal__nid, langcode },
+        },
+      },
+    } = this.content;
+    this.builderService.loadNodeJson({
+      langcode,
+      nid: drupal_internal__nid,
+      uuid: id,
+    });
+  }
+  deletePage(value: any): void {
+    const { type } = value;
+    const nodeType = type.split('--')[1];
+    const api = `/api/v1/node/${nodeType}`;
     this.loading = true;
     const { content } = this.content;
     const { data } = content;
@@ -363,7 +475,6 @@ export class PageSettingComponent implements OnInit {
       id,
       attributes: { title },
     } = data;
-    const api = `/api/v1/node/landing_page`;
     this.nodeService
       .deleteEntity(api, id, this.user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
