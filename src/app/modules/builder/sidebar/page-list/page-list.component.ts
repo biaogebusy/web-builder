@@ -24,6 +24,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { merge } from 'lodash-es';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -200,9 +201,14 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builderService.loadPage({ langcode: page.langcode, nid: page.nid });
   }
 
-  updatePage(page: IPageMeta): void {
+  updatePageSetting(page: IPageMeta): void {
     this.builder.loading$.next(true);
-    this.builderService.openPageSetting(page);
+
+    this.builderService.openPageSetting(
+      page,
+      '/api/v1/node/landing_page',
+      this.builderService.getPageParams(),
+    );
   }
 
   onPageChange(page: PageEvent): void {

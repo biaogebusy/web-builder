@@ -47,6 +47,15 @@ export class BuilderService extends ApiService {
     return lang;
   }
 
+  getPageParams(): string {
+    const apiParams = new DrupalJsonApiParams();
+    apiParams.addCustomParam({ noCache: true });
+    apiParams.addInclude(['uid', 'group', 'cover', 'cover.field_media_image']);
+    const params = apiParams.getQueryString();
+
+    return params;
+  }
+
   loadPage(page: {
     langcode?: string;
     nid: string;
@@ -62,10 +71,14 @@ export class BuilderService extends ApiService {
         if (status) {
           this.builder.loadNewPage(this.formatToExtraData(page, isTemplate));
           if (uuid && !isTemplate) {
-            this.openPageSetting({
-              uuid,
-              langcode,
-            });
+            this.openPageSetting(
+              {
+                uuid,
+                langcode,
+              },
+              '/api/v1/node/landing_page',
+              this.getPageParams(),
+            );
           }
 
           if (body.length === 0) {
@@ -331,20 +344,15 @@ export class BuilderService extends ApiService {
     return currentPage;
   }
 
-  openPageSetting(page: { uuid: string; langcode?: string }): void {
+  openPageSetting(
+    page: { uuid: string; langcode?: string },
+    api: string,
+    params: string,
+  ): void {
     const { uuid, langcode } = page;
-    const apiParams = new DrupalJsonApiParams();
-    apiParams.addCustomParam({ noCache: true });
-    apiParams.addInclude(['uid', 'group', 'cover', 'cover.field_media_image']);
-    const params = apiParams.getQueryString();
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(
-        `/api/v1/node/landing_page/${uuid}`,
-        params,
-        this.user.csrf_token,
-        lang,
-      )
+      .fetch(`${api}/${uuid}`, params, this.user.csrf_token, lang)
       .subscribe(
         (res) => {
           this.builder.loading$.next(false);
