@@ -23,6 +23,7 @@
         >
           <mat-drawer
             class="!fixed"
+            [class]="(builder.rightContent$ | async)?.classes"
             #builderRightDrawer
             [ngStyle]="{
               overflow: builderRightDrawer.opened ? 'visible' : 'auto',

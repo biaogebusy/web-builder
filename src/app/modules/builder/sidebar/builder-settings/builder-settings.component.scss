@@ -1,6 +1,9 @@
 .builder-settings {
   padding: 10px;
   .cards {
+    position: relative;
+    height: 450px;
+    overflow: auto;
     .group {
       border-radius: 6px;
       padding: 6px;
@@ -9,21 +12,30 @@
       position: relative;
       .title {
         font-size: 14px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         width: 100%;
-        text-align: center;
       }
       .inner {
         margin: 2px;
-        padding: 16px 6px;
         border-radius: 4px;
         &.show {
           &:hover {
             cursor: pointer;
           }
         }
+      }
+    }
+  }
+  mat-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+  .pager {
+    ::ng-deep {
+      .mat-mdc-paginator-range-label {
+        display: none;
       }
     }
   }

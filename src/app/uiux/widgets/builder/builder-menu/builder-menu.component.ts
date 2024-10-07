@@ -100,7 +100,11 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   onPageSetting(page: IPage): void {
     const { uuid, langcode } = page;
     if (uuid) {
-      this.builderService.openPageSetting({ uuid, langcode });
+      this.builderService.openPageSetting(
+        { uuid, langcode },
+        '/api/v1/node/landing_page',
+        this.builderService.getPageParams(),
+      );
     }
   }
 

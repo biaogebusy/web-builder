@@ -82,7 +82,11 @@ export class CardPageComponent {
 
   updatePage(page: IPageMeta): void {
     this.builder.loading$.next(true);
-    this.builderService.openPageSetting(page);
+    this.builderService.openPageSetting(
+      page,
+      '/api/v1/node/landing_page',
+      this.builderService.getPageParams(),
+    );
   }
 
   onTitle(event: any, page: IPageMeta): void {

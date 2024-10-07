@@ -47,7 +47,7 @@ export class ComponentToolbarComponent implements OnInit {
       this.enableBuilderToolbar = state;
     });
 
-    this.storage.observe(this.builder.COPYKEY).subscribe((data) => {
+    this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe((data) => {
       this.bcData = data;
       this.cd.detectChanges();
     });
@@ -69,14 +69,14 @@ export class ComponentToolbarComponent implements OnInit {
       this.util.openSnackbar(`已复制${content.type}JSON`, 'ok', {
         verticalPosition: 'bottom',
       });
-      this.storage.store(this.builder.COPYKEY, content);
+      this.storage.store(this.builder.COPYCOMPONENTKEY, content);
     }
   }
 
   onPaste(event: any, content: any): void {
     const path = this.util.generatePath(event.target);
     this.builder.updatePageContentByPath(path, content, 'add');
-    this.storage.clear(this.builder.COPYKEY);
+    this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
   onSetting(content: any, pageIndex: number, event: any): void {

@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnInit,
+  inject,
 } from '@angular/core';
-import { IUiux } from '@core/interface/IBuilder';
+import { TagsService } from '@core/service/tags.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { UIUX } from '@core/token/token-providers';
 
@@ -15,12 +15,13 @@ import { UIUX } from '@core/token/token-providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderUiuxComponent implements OnInit {
-  constructor(
-    public builder: BuilderState,
-    @Inject(UIUX) readonly uiux: IUiux[]
-  ) {}
+  builder = inject(BuilderState);
+  uiux = inject(UIUX);
+  tagService = inject(TagsService);
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.tagService.setTitle('页面编辑工作区');
+  }
 
   onTabChange(): void {
     this.builder.cancelFixedShowcase();
