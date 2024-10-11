@@ -39,6 +39,7 @@ const routes: Routes = [
       scrollPositionRestoration: 'enabled',
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: PreloadAllModules,
+      onSameUrlNavigation: 'reload',
     }),
   ],
   exports: [RouterModule],

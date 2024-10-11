@@ -14,6 +14,7 @@ import { ScreenState } from '@core/state/screen/ScreenState';
 import { BUILDER_FULL_SCREEN, CORE_CONFIG } from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
+import { TagsService } from '@core/service/tags.service';
 
 @Component({
   selector: 'app-builder-workspace',
@@ -30,11 +31,14 @@ export class BuilderWorkspaceComponent implements AfterViewInit {
   screenState = inject(ScreenState);
   storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
+  tagService = inject(TagsService);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-  ) {}
+  ) {
+    this.tagService.setTitle('工作区');
+  }
 
   ngOnInit(): void {
     if (this.coreConfig.builder?.enable) {

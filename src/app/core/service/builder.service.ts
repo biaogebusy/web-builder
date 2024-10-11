@@ -15,14 +15,17 @@ import { NodeService } from './node.service';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
   http = inject(HttpClient);
-  util = inject(UtilitiesService);
+  dialog = inject(MatDialog);
   builder = inject(BuilderState);
+  util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   user: IUser;
   constructor(
@@ -47,6 +50,15 @@ export class BuilderService extends ApiService {
     return lang;
   }
 
+  getPageParams(): string {
+    const apiParams = new DrupalJsonApiParams();
+    apiParams.addCustomParam({ noCache: true });
+    apiParams.addInclude(['uid', 'group', 'cover', 'cover.field_media_image']);
+    const params = apiParams.getQueryString();
+
+    return params;
+  }
+
   loadPage(page: {
     langcode?: string;
     nid: string;
@@ -62,10 +74,14 @@ export class BuilderService extends ApiService {
         if (status) {
           this.builder.loadNewPage(this.formatToExtraData(page, isTemplate));
           if (uuid && !isTemplate) {
-            this.openPageSetting({
-              uuid,
-              langcode,
-            });
+            this.openPageSetting(
+              {
+                uuid,
+                langcode,
+              },
+              '/api/v1/node/landing_page',
+              this.getPageParams(),
+            );
           }
 
           if (body.length === 0) {
@@ -85,31 +101,32 @@ export class BuilderService extends ApiService {
       .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
       .subscribe((page: any) => {
         this.builder.loading$.next(false);
-        this.builder.rightContent$.next({
-          mode: 'over',
-          hasBackdrop: true,
-          style: {
-            width: '800px',
-          },
-          elements: [
-            {
-              type: 'jsoneditor',
-              data: page,
-              isSetting: true,
-              actions: [
-                {
-                  type: 'update',
-                  label: '更新配置',
-                  params: {
-                    uuid,
-                    langcode,
-                    api: '/api/v1/node/json',
-                    type: 'node--json',
+        this.dialog.open(DialogComponent, {
+          width: '1000px',
+          panelClass: ['close-outside', 'close-icon-white'],
+          data: {
+            disableCloseButton: true,
+            inputData: {
+              content: {
+                type: 'jsoneditor',
+                data: page,
+                isSetting: true,
+                actions: [
+                  {
+                    type: 'update',
+                    label: '更新配置',
+                    params: {
+                      reqRoles: ['administrator'],
+                      uuid,
+                      langcode,
+                      api: '/api/v1/node/json',
+                      type: 'node--json',
+                    },
                   },
-                },
-              ],
+                ],
+              },
             },
-          ],
+          },
         });
       });
   }
@@ -329,20 +346,15 @@ export class BuilderService extends ApiService {
     return currentPage;
   }
 
-  openPageSetting(page: { uuid: string; langcode?: string }): void {
+  openPageSetting(
+    page: { uuid: string; langcode?: string },
+    api: string,
+    params: string,
+  ): void {
     const { uuid, langcode } = page;
-    const apiParams = new DrupalJsonApiParams();
-    apiParams.addCustomParam({ noCache: true });
-    apiParams.addInclude(['uid', 'group', 'cover', 'cover.field_media_image']);
-    const params = apiParams.getQueryString();
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(
-        `/api/v1/node/landing_page/${uuid}`,
-        params,
-        this.user.csrf_token,
-        lang,
-      )
+      .fetch(`${api}/${uuid}`, params, this.user.csrf_token, lang)
       .subscribe(
         (res) => {
           this.builder.loading$.next(false);

@@ -72,7 +72,7 @@ export class BlockToolbarComponent implements OnInit {
   onCopy(widget: any): any {
     this.util.openSnackbar(`已复制${widget.type}的JSON`);
     this.util.copy(JSON.stringify(widget));
-    this.storage.store(this.builder.COPYKEY, widget);
+    this.storage.store(this.builder.COPYWIDGETKEY, widget);
   }
 
   deleteBlock(i: number, index: number): void {

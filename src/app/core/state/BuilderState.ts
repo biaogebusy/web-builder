@@ -39,7 +39,8 @@ export class BuilderState {
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public updateSuccess$ = new Subject<boolean>();
-  public COPYKEY = 'bc';
+  public COPYCOMPONENTKEY = 'cck';
+  public COPYWIDGETKEY = 'cwk';
 
   private page: IPage = {
     title: '着陆页',

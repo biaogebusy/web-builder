@@ -5,30 +5,65 @@
         <mat-panel-title> 配置 </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
-        @if (loading) {
-          <mat-spinner
-            class="mx-auto my-10"
-            diameter="50"
-            color="primary"
-          ></mat-spinner>
-        }
-        @if (content$ | async; as content) {
-          <div class="cards grid grid-cols-12 gap-1">
+        <div class="cards grid grid-cols-12 gap-1">
+          @if (loading) {
+            <mat-spinner
+              class="mx-auto my-10"
+              diameter="50"
+              color="primary"
+            ></mat-spinner>
+          }
+          @if (content$ | async; as content) {
             @for (item of content; track item; let i = $index) {
-              <div class="item col-span-6" matRipple>
-                <div (click)="onJson(item)">
-                  <div
-                    class="inner flex flex-col justify-center items-center overflow-hidden"
-                  >
-                    <div class="font-mono">{{ i + 1 }}</div>
-                    <div class="title">{{ item.title }}</div>
+              <div class="item col-span-12 cursor-pointer">
+                <div (click)="onJson(item)" class="overflow-hidden">
+                  <div class="inner flex flex-col p-4 gap-1" matRipple>
+                    <div class="title flex justify-between items-center">
+                      {{ item.title }}
+                      <div
+                        class="text-xs bg-primary py-1 px-2 rounded-full opacity-95"
+                      >
+                        {{ item.langcode }}
+                      </div>
+                    </div>
+                    <div class="opacity-50">{{ item.url }}</div>
+                    <div
+                      class="opacity-50 flex justify-between items-center text-xs"
+                    >
+                      <div class="font-mono">{{ item.author }}</div>
+                      <div>{{ item.changed }}</div>
+                    </div>
                   </div>
                 </div>
               </div>
             }
+          }
+        </div>
+        @if (pager) {
+          <div class="pager">
+            <mat-paginator
+              (page)="onPageChange($event)"
+              [length]="pager.totalItems"
+              [pageSize]="pager.itemsPerPage"
+              [showFirstLastButtons]="true"
+              [hidePageSize]="true"
+              [pageIndex]="pager.currentPage"
+              aria-label="Select page"
+            >
+            </mat-paginator>
           </div>
         }
       </mat-list>
+      <mat-action-row>
+        <app-btn
+          (click)="reload()"
+          [content]="{
+            label: '刷新',
+            color: 'primary',
+            icon: { svg: 'reload', inline: true },
+          }"
+        ></app-btn>
+      </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

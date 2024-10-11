@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import type { IPage } from '@core/interface/IAppConfig';
 import hljs from 'highlight.js/lib/core';
@@ -13,11 +13,9 @@ import { DOCUMENT } from '@angular/common';
   providedIn: 'root',
 })
 export class TagsService {
-  constructor(
-    private titleService: Title,
-    private meta: Meta,
-    @Inject(DOCUMENT) private document: Document
-  ) {}
+  private titleService = inject(Title);
+  private meta = inject(Meta);
+  private document = inject(DOCUMENT);
 
   public setTitle(newTitle: string): void {
     this.titleService.setTitle(newTitle);

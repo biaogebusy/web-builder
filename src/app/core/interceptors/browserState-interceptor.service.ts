@@ -5,9 +5,8 @@ import {
   HttpRequest,
   HttpResponse,
 } from '@angular/common/http';
-import { Inject, Injectable, makeStateKey, TransferState } from '@angular/core';
+import { inject, Injectable, makeStateKey, TransferState } from '@angular/core';
 
-import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ApiService } from '@core/service/api.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { Observable, of } from 'rxjs';
@@ -19,11 +18,9 @@ import { environment } from 'src/environments/environment';
 export class BrowserStateInterceptor implements HttpInterceptor {
   public responseCache = new Map();
 
-  constructor(
-    private transferState: TransferState,
-    private apiService: ApiService,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-  ) {}
+  private transferState = inject(TransferState);
+  private apiService = inject(ApiService);
+  public coreConfig = inject(CORE_CONFIG);
 
   intercept(
     req: HttpRequest<any>,

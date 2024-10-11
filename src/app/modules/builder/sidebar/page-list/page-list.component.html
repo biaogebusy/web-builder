@@ -94,7 +94,7 @@
                   }
                 }
               }
-              <button mat-menu-item (click)="updatePage(page)">
+              <button mat-menu-item (click)="updatePageSetting(page)">
                 <app-icon [content]="{ svg: 'cog' }"></app-icon>
                 <span>页面属性</span>
               </button>
@@ -107,7 +107,6 @@
   @if (pager) {
     <div class="pager">
       <mat-paginator
-        class="demo-paginator"
         (page)="onPageChange($event)"
         [length]="pager.totalItems"
         [pageSize]="pager.itemsPerPage"
