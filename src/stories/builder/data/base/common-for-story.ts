@@ -1,3 +1,4 @@
+import * as titleStory from '@stories/base/Title.stories';
 import * as textStory from '@stories/base/Text.stories';
 import * as textHeroStory from '@stories/base/TextHero.stories';
 import * as spacerStory from '@stories/theme/Spacer.stories';
@@ -9,6 +10,14 @@ import * as videoBgStory from '@stories/components/video/videoBg.stories';
 import * as contactStory from '@stories/drupal/form/ContactUs.stories';
 
 export const common = [
+  {
+    label: '标题',
+    id: 'title',
+    icon: {
+      svg: 'format-size',
+    },
+    content: titleStory?.TitleV1.args?.content,
+  },
   {
     label: '富文本',
     id: 'text',
