@@ -53,7 +53,7 @@
                 outline: 1px solid mat.get-color-from-palette($primary);
                 z-index: 10;
               }
-              > app-block-toolbar {
+              > .toolbar {
                 background-color: #333;
 
                 @include mat.elevation(

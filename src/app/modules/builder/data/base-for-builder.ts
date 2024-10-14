@@ -3981,6 +3981,20 @@ export const base = [
     id: 'base',
     elements: [
       {
+        label: '标题',
+        id: 'title',
+        icon: {
+          svg: 'format-size',
+        },
+        content: {
+          type: 'title',
+          label:
+            '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
+          classes: 'mat-headline-3 bold',
+          style: 'style-v4',
+        },
+      },
+      {
         label: '富文本',
         id: 'text',
         icon: {

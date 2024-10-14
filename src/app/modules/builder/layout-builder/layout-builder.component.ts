@@ -27,7 +27,7 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   ele = inject(ElementRef);
   builderSerivce = inject(BuilderService);
   constructor(
-    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {}
@@ -44,7 +44,7 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
     this.content.elements.map((item: ILayoutBlock, index) => {
       if (item.animate) {
         const animateEle = this.ele.nativeElement.querySelectorAll(
-          `.layout-${index} .for-animate`,
+          `.layout-${index} .for-animate`
         )[0];
         this.util.initAnimate(item, animateEle, this.ele.nativeElement);
       }

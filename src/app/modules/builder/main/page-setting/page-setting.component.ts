@@ -79,52 +79,17 @@ export class PageSettingComponent implements OnInit {
         if (content) {
           this.fields = [
             this.getCommonField('title', title.trim()),
-            {
-              key: 'alias',
-              type: 'input',
-              className: 'w-full',
-              defaultValue: this.builderService.getAttrAlias({
+            this.getCommonField(
+              'alias',
+              this.builderService.getAttrAlias({
                 drupal_internal__nid,
                 path,
                 langcode,
               }),
-              props: {
-                label: 'url别名',
-                disabled: false,
-              },
-              modelOptions: {
-                updateOn: 'blur',
-              },
-              expressions: {
-                'props.disabled': 'formState.disabled',
-              },
-              hooks: {
-                onInit: (field: FormlyFieldConfig) => {
-                  if (field.formControl) {
-                    field.formControl.valueChanges
-                      .pipe(takeUntilDestroyed(this.destroyRef))
-                      .subscribe((value) => {
-                        this.loading = true;
-                        this.builderService
-                          .updateUrlalias(
-                            {
-                              uuid: id,
-                              langcode,
-                              id: drupal_internal__nid,
-                            },
-                            value,
-                          )
-                          .pipe(takeUntilDestroyed(this.destroyRef))
-                          .subscribe(() => {
-                            this.loading = false;
-                            this.cd.detectChanges();
-                            this.util.openSnackbar(`已更新别名:${value}`);
-                          });
-                      });
-                  }
-                },
-              },
-            },
+              drupal_internal__nid,
+              id,
+              langcode,
+            ),
             {
               key: 'page_group',
               type: 'mat-select',
@@ -244,6 +209,17 @@ export class PageSettingComponent implements OnInit {
       if (type === 'node--json') {
         this.fields = [
           this.getCommonField('title', title.trim()),
+          this.getCommonField(
+            'alias',
+            this.builderService.getAttrAlias({
+              drupal_internal__nid,
+              path,
+              langcode,
+            }),
+            drupal_internal__nid,
+            id,
+            langcode,
+          ),
           this.getCommonField('changed', changed),
           this.getCommonField('type', type),
           this.getCommonField('langcode', langcode),
@@ -255,7 +231,13 @@ export class PageSettingComponent implements OnInit {
     }
   }
 
-  getCommonField(key: string, defaultValue: string): FormlyFieldConfig {
+  getCommonField(
+    key: string,
+    defaultValue: string,
+    nid?: string,
+    id?: string,
+    langcode?: string,
+  ): FormlyFieldConfig {
     switch (key) {
       case 'title':
         return {
@@ -313,6 +295,49 @@ export class PageSettingComponent implements OnInit {
           props: {
             label: '内容类型',
             disabled: true,
+          },
+        };
+      case 'alias':
+        return {
+          key: 'alias',
+          type: 'input',
+          className: 'w-full',
+          defaultValue,
+          props: {
+            label: 'url别名',
+            disabled: false,
+          },
+          modelOptions: {
+            updateOn: 'blur',
+          },
+          expressions: {
+            'props.disabled': 'formState.disabled',
+          },
+          hooks: {
+            onInit: (field: FormlyFieldConfig) => {
+              if (field.formControl) {
+                field.formControl.valueChanges
+                  .pipe(takeUntilDestroyed(this.destroyRef))
+                  .subscribe((value) => {
+                    this.loading = true;
+                    this.builderService
+                      .updateUrlalias(
+                        {
+                          uuid: id || '',
+                          langcode,
+                          id: nid || '',
+                        },
+                        value,
+                      )
+                      .pipe(takeUntilDestroyed(this.destroyRef))
+                      .subscribe(() => {
+                        this.loading = false;
+                        this.cd.detectChanges();
+                        this.util.openSnackbar(`已更新别名:${value}`);
+                      });
+                  });
+              }
+            },
           },
         };
       default:
