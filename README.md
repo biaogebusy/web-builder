@@ -34,7 +34,45 @@
 
 > 奥陌陌是已知的第一颗经过太阳系的星际天体，意为"远方信使"。
 
-#### 开源目的
+## web builder
+
+| 功能点               | 说明                                                                  |
+| -------------------- | --------------------------------------------------------------------- |
+| Layout builder       | 动态 layout，基于 TailwindCss 的动态组件，支持静态数据和 API 数据来源 |
+| 组件编辑             | 删除、复制 JSON、编辑组件数据、拖动上下排列                           |
+| 媒体库               | 可在前台批量上传、查看、更新媒体库                                    |
+| 小程序数据维护       | 通过 builder 管理小程序的页面和组件                                   |
+| 边栏可拖拽           | 直接从边栏选择组件放入内容区                                          |
+| 页面历史版本         | 当提交、清空、加载示例等覆盖操作时新增历史版本                        |
+| 丰富的模板库、示例库 | 基于模板库选择模板，快速生成页面                                      |
+| 复制整个页面的 JSON  | 可直接复制 json，部署到后台发布                                       |
+| 切换全宽             | 方便大屏编辑，减少干扰                                                |
+| 快速生成页面         | 根据一定的规则从组件库中生成页面                                      |
+| 多主题切换预览       | 预览在多主题下的组件显示情况                                          |
+| 暗黑风格             | 支持切换浅色风格和暗黑风格，专注内容创作                              |
+| 页面预览             | 调转到新窗口查看真实的页面                                            |
+| 响应式预览           | 可切换不同设备尺寸查看页面响应式排版                                  |
+
+## 相关视频演示
+
+- [Layout 嵌套](https://www.bilibili.com/video/BV1pH4y1L7qk)
+- [组件动画配置](https://www.bilibili.com/video/BV17F4m157uP)
+- [API 数据来源](https://www.bilibili.com/video/BV1ux4y1n7MA/) | [静态数据来源](https://www.bilibili.com/video/BV1rf421R7He/) TailwindCss 自定义组件
+- [复制功能快速构建组件](https://www.bilibili.com/video/BV1nF4m1w7cs/)
+- [多语言发布及媒体库管理](https://www.bilibili.com/video/BV1XohfeoEtz/)
+- [自定义示例和模板库](https://www.bilibili.com/video/BV1wExPeBEdn)
+
+## 对应版本
+
+| Web builder | Angular | Node |
+| :---------- | :------ | :--- |
+| v8          | v17     | v18+ |
+| v7          | v16     | v16+ |
+| v6          | v14     | v14  |
+| v5          | v12     | v14  |
+| <=v4        | v11     | v14  |
+
+## 开源目的
 
 项目非常适合初学者学习或者进阶，它涵盖了绝大部分 Angular 技术知识点，但并不仅限于以下内容。
 
@@ -76,44 +114,6 @@
 - web 服务：Nginx
 - 后端：Drupal(推荐)，通过 Drupal 的 views 视图可灵活配置动态组件、动态 api；
 
-## web builder
-
-| 功能点              | 说明                                                                  |
-| ------------------- | --------------------------------------------------------------------- |
-| Layout builder      | 动态 layout，基于 TailwindCss 的动态组件，支持静态数据和 API 数据来源 |
-| 组件编辑            | 删除、复制 JSON、编辑组件数据、拖动上下排列                           |
-| 媒体库              | 可在前台批量上传、查看、更新媒体库                                    |
-| 小程序数据维护      | 通过builder管理小程序的页面和组件                                     |
-| 边栏可拖拽          | 直接从边栏选择组件放入内容区                                          |
-| 页面历史版本        | 当提交、清空、加载示例等覆盖操作时新增历史版本                        |
-| 选择示例页加载      | 加载示例页面到内容区                                                  |
-| 复制整个页面的 JSON | 可直接复制 json，部署到后台发布                                       |
-| 切换全宽            | 方便大屏编辑，减少干扰                                                |
-| 快速生成页面        | 根据一定的规则从组件库中生成页面                                      |
-| 多主题切换预览      | 预览在多主题下的组件显示情况                                          |
-| 暗黑风格            | 支持切换浅色风格和暗黑风格，专注内容创作                              |
-| 页面预览            | 调转到新窗口查看真实的页面                                            |
-| 响应式预览          | 可切换不同设备尺寸查看页面响应式排版                                  |
-
-## 相关视频演示
-
-- [Layout 嵌套](https://www.bilibili.com/video/BV1pH4y1L7qk/?vd_source=f65b4e2d70ecc450290b6b1710c0ada5)
-- [组件动画配置](https://www.bilibili.com/video/BV17F4m157uP/?spm_id_from=pageDriver&vd_source=f65b4e2d70ecc450290b6b1710c0ada5)
-- [API 数据来源](https://www.bilibili.com/video/BV1ux4y1n7MA/?spm_id_from=333.999.0.0) | [静态数据来源](https://www.bilibili.com/video/BV1rf421R7He/?spm_id_from=333.999.0.0) TailwindCss 自定义组件
-- [复制功能快速构建组件](https://www.bilibili.com/video/BV1nF4m1w7cs/?spm_id_from=333.999.0.0)
-- [多语言发布及媒体库管理](https://www.bilibili.com/video/BV1XohfeoEtz/)
-- [自定义示例和模板库](https://www.bilibili.com/video/BV1wExPeBEdn)
-
-## 对应版本
-
-| Web builder | Angular | Node |
-| :---------- | :------ | :--- |
-| v8          | v17     | v18+ |
-| v7          | v16     | v16+ |
-| v6          | v14     | v14  |
-| v5          | v12     | v14  |
-| <=v4        | v11     | v14  |
-
 ## 开发指南
 
 ## 安装 npm install
@@ -132,19 +132,32 @@
 export const environment: IEnvironment = {
   apiUrl: "http://localhost:4200",
   production: false,
-  site: "dist",
   port: 4200,
   cache: false,
   drupalProxy: false,
+  multiLang: true,
+  langs: [
+    {
+      label: "中文",
+      langCode: "zh-hans",
+      prefix: "/",
+      default: true,
+    },
+    {
+      label: "EN",
+      langCode: "en",
+      prefix: "/en",
+    },
+  ],
 };
 ```
 
 - apiUrl: 是整个应用的 Base api 参数；
-- production: 为 false 时，页面的内容 api 将调用本地 json 文件，true 时将会调用`${this.apiUrl}/api/v1/landingPage?content=${this.pageUrl}`接口；
-- site: prod 打包时生成的文件夹名称，此设置是为了区分多个 app 项目；
-- port: 自定义应用端口；
+- production: 为 false 时，页面的内容 api 将调用本地 json 文件，true 时将会调用线上接口；
+- port: 自定义 Node 端口；
 - cache: 是否开启 api 请求缓存；
 - drupalProxy: 对应后端为 drupal，统一使用 Drupal 来登录登出；
+- multiLang: 应用是否是多语言；
 
 ## 路由守卫配置
 
@@ -172,13 +185,8 @@ module.exports = PROXY_CONFIG;
 页面在浏览器打开访问时，应用会订阅 url 的变化，根据`url`进行接口的数据读取，根据接口返回的数据渲染页面组件，本地环境和生产环境返回做了判断：
 
 ```js
-export function pageContentFactory(
-  activateRoute: ActivatedRoute,
-  contentService: ContentService,
-  contentState: ContentState
-): Observable<IPage | object | boolean> {
-  const $pageContent =
-    (new BehaviorSubject() < IPage) | object | (boolean > false);
+export function pageContentFactory(activateRoute: ActivatedRoute, contentService: ContentService, contentState: ContentState): Observable<IPage | object | boolean> {
+  const $pageContent = (new BehaviorSubject() < IPage) | object | (boolean > false);
   activateRoute.url.subscribe(async (url) => {
     const page = await contentService.loadPageContent().toPromise();
     $pageContent.next(page);
@@ -190,29 +198,31 @@ export function pageContentFactory(
 
 ```js
 loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
+    const { lang, path } = this.getUrlPath(pageUrl);
+
     if (environment.production) {
-      const landingPath = '/api/v1/landingPage?content=';
-      const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
+      const landingPath = '/api/v3/landingPage?content=';
+      const pageUrlParams = `${this.apiUrl}${lang}${landingPath}${path}`;
       return this.http.get<any>(pageUrlParams).pipe(
         tap((page) => {
           this.updatePage(page);
           this.logContent(pageUrl);
         }),
         catchError(() => {
-          return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
-        })
+          return this.http.get<any>(`${this.apiUrl}${landingPath}/404`);
+        }),
       );
     } else {
-      const sample = pageUrl.split('/')[1];
-      const samplePage = samples.elements.filter(
-        (item) => item.id === sample
-      )[0];
-      if (samplePage) {
-        this.updatePage(samplePage.page);
-        return of(samplePage.page);
-      } else {
-        return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-      }
+      return this.http
+        .get<any>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`)
+        .pipe(
+          tap((page) => {
+            this.updatePage(page);
+          }),
+          catchError(() => {
+            return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
+          }),
+        );
     }
   }
 ```

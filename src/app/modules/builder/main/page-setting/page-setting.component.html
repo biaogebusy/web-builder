@@ -1,15 +1,12 @@
 <div class="page-setting relative">
   @if (loading) {
-    <div class="load absolute z-10 top-1/2 left-1/2">
-      <mat-spinner diameter="50" color="accent"></mat-spinner>
-    </div>
+  <div class="load absolute z-10 top-1/2 left-1/2">
+    <mat-spinner diameter="50" color="accent"></mat-spinner>
+  </div>
   }
   <app-formly [fields]="fields" [model]="model"></app-formly>
   <div class="actions flex justify-center items-center gap-3 my-5">
     <app-btn
-      *reqRolesIf="{
-        params: { reqRoles: ['administrator'] },
-      }"
       (click)="onUpdate(model)"
       [content]="{
         label: '更新',
@@ -18,29 +15,25 @@
       }"
     ></app-btn>
     @if (type === "node--json") {
-      <app-btn
-        (click)="onJson()"
-        [content]="{
+    <app-btn
+      (click)="onJson()"
+      [content]="{
           label: '编辑JSON',
           color: 'primary',
           mode: 'stroked',
         }"
-      ></app-btn>
-    }
-    @if (type === "node--landing_page") {
-      <app-btn
-        (click)="onPreview()"
-        [content]="{
+    ></app-btn>
+    } @if (type === "node--landing_page") {
+    <app-btn
+      (click)="onPreview()"
+      [content]="{
           label: '预览',
           color: 'primary',
           mode: 'stroked',
         }"
-      ></app-btn>
+    ></app-btn>
     }
     <app-btn
-      *reqRolesIf="{
-        params: { reqRoles: ['administrator'] },
-      }"
       (click)="deletePage(model)"
       [content]="{
         label: '删除',

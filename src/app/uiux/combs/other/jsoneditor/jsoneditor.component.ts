@@ -17,7 +17,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import { Subject, of, throwError } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
@@ -59,7 +59,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
       .pipe(
         debounceTime(1500),
         distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((value) => {
         this.value = value;
@@ -113,13 +113,13 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
             {
               body: JSON.stringify(this.value),
             },
-            {},
+            {}
           )
           .pipe(
             catchError((err) => {
               return of(false);
             }),
-            takeUntilDestroyed(this.destroyRef),
+            takeUntilDestroyed(this.destroyRef)
           )
           .subscribe((res) => {
             if (!res) {

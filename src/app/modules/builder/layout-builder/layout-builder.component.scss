@@ -14,15 +14,14 @@
         &.item-layout-builder {
           @apply w-full;
         }
-
-        &:hover {
-          > app-block-toolbar {
-            @apply block;
-          }
+        > .toolbar {
+          left: 50%;
+          bottom: 100%;
+          transform: translateX(-50%);
         }
       }
     }
-    > app-layout-toolbar {
+    > .toolbar {
       @apply -right-[2px] -top-[2px];
     }
   }
@@ -35,8 +34,17 @@
       @apply p-0;
       &:hover {
         outline-offset: 2px;
-        > app-layout-toolbar {
-          @apply block;
+        > .toolbar {
+          display: block;
+        }
+      }
+      .blocks {
+        > .item {
+          &:hover {
+            > .toolbar {
+              display: block;
+            }
+          }
         }
       }
     }
