@@ -7,34 +7,64 @@ import { Meta } from "@storybook/blocks";
 
 ## Drupal CORS 跨域的配置
 
-在站点的`services.yml`中，配置 cors:
+在站点的`services.yml`中：
+
+- 不同二级域名 cookies 不共用，确保前台和后台域名不共用 cookies；
+- 配置 cors 跨域，allowedOrigins 可以在开发环境中添加`http://localhost:4200`
 
 ```yml
-cors.config:
-  enabled: true
-  # Specify allowed headers, like 'x-allowed-header'.
-  allowedHeaders:
-    [
-      "x-csrf-token",
-      "authorization",
-      "content-type",
-      "accept",
-      "origin",
-      "x-requested-with",
-    ]
-  # Specify allowed request methods, specify ['*'] to allow all possible ones.
-  allowedMethods: ["*"]
-  # Configure requests allowed from specific origins.
-  allowedOrigins: ["https://yourdomain.com", "http://localhost:4200"]
-  # Sets the Access-Control-Expose-Headers header.
-  exposedHeaders: true
-  # Sets the Access-Control-Max-Age header.
-  maxAge: 1000
-  # Sets the Access-Control-Allow-Credentials header.
-  supportsCredentials: true
+parameters:
+  session.storage.options:
+    gc_probability: 1
+    gc_divisor: 100
+    gc_maxlifetime: 200000
+    cookie_lifetime: 200000
+    cookie_domain: none
+  twig.config:
+    debug: false
+    auto_reload: null
+    cache: true
+  renderer.config:
+    required_cache_contexts:
+      ["languages:language_interface", "theme", "user.permissions"]
+    auto_placeholder_conditions:
+      max-age: 0
+      contexts: ["session", "user"]
+      tags: []
+  http.response.debug_cacheability_headers: false
+  factory.keyvalue: {}
+  factory.keyvalue.expirable: {}
+  filter_protocols:
+    - http
+    - https
+    - ftp
+    - news
+    - nntp
+    - tel
+    - telnet
+    - mailto
+    - irc
+    - ssh
+    - sftp
+    - webcal
+    - rtsp
+  cors.config:
+    enabled: true
+    allowedHeaders:
+      [
+        "x-csrf-token",
+        "authorization",
+        "content-type",
+        "accept",
+        "origin",
+        "x-requested-with",
+      ]
+    allowedMethods: ["*"]
+    allowedOrigins: ["https://yourdomain.com", "http://localhost:4200"]
+    exposedHeaders: true
+    maxAge: 1000
+    supportsCredentials: true
 ```
-
-允许你的前台域名调用 drupal api，如果需要本地 localhost 访问调式，也可以加上，生产环境记得去掉。
 
 ## Proxy 代理配置
 
@@ -54,9 +84,8 @@ server
     #root /sdc/www/app/dist;
 
 
-
    location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([^/]+)/([^/]+)/edit|autocomplete|media-library|history|quickedit|webform_rest|session|contextual|themes|shs-term-data|modules|libraries|core|api|user|admin|manage|system|print|export|sites/([^/]+)/files){
-      proxy_pass https://api.zhaobg.com;
+      proxy_pass http://127.0.0.1:8080;
       proxy_redirect      off;
       proxy_set_header    X-Real-IP $remote_addr;
       proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -109,7 +138,7 @@ server
 }
 ```
 
-当访客在访问 drupal 的 api 或者页面时代理转发给 drupal 的域名，Drupal 接收到请求后，需要对 proxy 进行一些设置：
+当访客在访问 drupal 的 api 或者页面时代理转发给 drupal 的应用，以上设置为`http://127.0.0.1:8080`，是因为 Drupal 是 Docker 的一个内部端口，当然你也可以直接设置为具体的后台域名，Drupal 接收到请求后，需要对 proxy 进行一些设置：
 在`settings.php`文件中，添加：
 
 ```php
