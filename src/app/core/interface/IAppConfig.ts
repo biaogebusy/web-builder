@@ -17,6 +17,7 @@ export interface ICoreConfig {
   defaultLogo: string;
   defaultAvatar: string;
   defaultThumb: string;
+  cookieLifetime?: number;
   amap: IAmap;
   apiUrl: IApiUrl;
   loading: boolean;
