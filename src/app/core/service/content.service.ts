@@ -17,23 +17,21 @@ import {
   defaultHeader,
   enDefaultHeader,
   enFooterInverse,
-  footerLight,
 } from '@modules/builder/data/Branding.json';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 @Injectable({
   providedIn: 'root',
 })
-export class ContentService {
+export class ContentService extends ApiService {
   http = inject(HttpClient);
   tagsService = inject(TagsService);
   screenState = inject(ScreenState);
   apiService = inject(ApiService);
-  constructor(
-    @Inject(API_URL) private apiUrl: string,
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-  ) {}
+  coreConfig = inject(CORE_CONFIG);
+  constructor() {
+    super();
+  }
 
   updatePage(pageValue: IPage): void {
     if (isArray(pageValue)) {
@@ -41,63 +39,6 @@ export class ContentService {
     }
     this.tagsService.updateTages(pageValue);
     this.screenState.scroll$.next(true);
-  }
-
-  get pageUrl(): string {
-    const location = this.document.location;
-    const path = location.pathname;
-    const search = location.search;
-    const allowKey = ['version', 'preview', 'nocache'];
-    if (
-      allowKey.some((key) => {
-        return search.toLowerCase().indexOf(key) > 0;
-      })
-    ) {
-      const params = search.split('?')[1];
-      return `${path}&${params}`;
-    } else {
-      return path;
-    }
-  }
-
-  getLang(path: string): ILanguage | undefined {
-    const { multiLang, langs } = environment;
-
-    if (!multiLang) {
-      return undefined;
-    }
-    if (multiLang && langs) {
-      const lang = path.split('/')[1];
-      const currentLang = langs.find((item) => item.langCode === lang);
-      if (currentLang) {
-        return currentLang;
-      } else {
-        // default language
-        const defLang = langs.find((item) => item.default);
-        if (!defLang) {
-          return undefined;
-        }
-        return defLang;
-      }
-    }
-
-    return undefined;
-  }
-
-  getUrlPath(pageUrl: string): { lang: string; path: string } {
-    const currentLang = this.getLang(pageUrl);
-    let lang = '';
-    let path = pageUrl;
-    if (currentLang && !currentLang.default) {
-      lang = currentLang.prefix;
-      if (lang) {
-        path = pageUrl.split(lang)[1];
-      }
-    }
-    return {
-      lang,
-      path,
-    };
   }
 
   loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
@@ -113,7 +54,7 @@ export class ContentService {
         }),
         catchError(() => {
           return this.http.get<any>(`${this.apiUrl}${landingPath}/404`);
-        }),
+        })
       );
     } else {
       return this.http
@@ -124,7 +65,7 @@ export class ContentService {
           }),
           catchError(() => {
             return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-          }),
+          })
         );
     }
   }
@@ -149,7 +90,7 @@ export class ContentService {
     };
     if (environment.production) {
       return this.http.get<IBranding>(
-        `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`,
+        `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`
       );
     } else {
       if (lang === '/en') {
@@ -169,7 +110,7 @@ export class ContentService {
       .pipe(
         tap((config: any) => {
           Object.assign(coreConfig, config);
-        }),
+        })
       )
       .toPromise()
       .then(
@@ -179,7 +120,7 @@ export class ContentService {
         (error) => {
           console.log(error);
           console.log('base json not found!');
-        },
+        }
       );
   }
 
@@ -221,7 +162,7 @@ export class ContentService {
             html_url: '',
             stargazers_count: 0,
           });
-        }),
+        })
       );
   }
 }

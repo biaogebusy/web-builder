@@ -65,7 +65,6 @@ export interface ICoreConfig {
       };
     };
     generater: FormlyFieldConfig[];
-    empty: any;
   };
   access: {
     check: true;

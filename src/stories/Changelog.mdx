@@ -8,57 +8,58 @@ import { Meta } from "@storybook/blocks";
 
 - widget picker 从页面底部弹窗改为侧边栏；
 - 着陆页添加封面字段，可选择媒体库图片更新封面；
-- builder中移除页头页尾的预览；
-- builder right drawer 移到builder最外层，长远考虑应该是通用的；
-- 前台页面添加了可以跳转到该页面的builder工作区；
-- 重构了buidler sample组件，改为builer page，能够根据url过来对应分类的页面列表；
-- 优化了builder提供的模板示例，不再从内置中获取，从后台模板分类获取；
-- 修改了用户登录后的cookies过期日期，过期日期为200000秒，与Drupal的默认值一致；
-- core 配置支持从builder更新；
-- builder的页面在着陆页的builder分类维护，不再使用json内容类型维护；
-- 修复toolbar copy类型不同导致的问题；
+- builder 中移除页头页尾的预览；
+- builder right drawer 移到 builder 最外层，长远考虑应该是通用的；
+- 前台页面添加了可以跳转到该页面的 builder 工作区；
+- 重构了 buidler sample 组件，改为 builer page，能够根据 url 过来对应分类的页面列表；
+- 优化了 builder 提供的模板示例，不再从内置中获取，从后台模板分类获取；
+- 修改了用户登录后的 cookies 过期日期，过期日期为 200000 秒，与 Drupal 的默认值一致；
+- core 配置支持从 builder 更新；
+- builder 的页面在着陆页的 builder 分类维护，不再使用 json 内容类型维护；
+- 修复 toolbar copy 类型不同导致的问题；
+- builder 欢迎默认页面不再在全局配置中维护，使用着陆页 builder 分类的`/builder/default-page`维护；
 
 ## 8.0.2(2024-08-27)
 
-- Builder开始转向Manage的职能，添加builder workspace作为编辑空间；
-- Builder添加manage page组件，可以动态添加管理相关的页面；
-- 移除了manage media 路由；
-- 删除了manage block组件，已经没有必要，可以在builder中按需配置添加；
-- USER token重构为Observable；
+- Builder 开始转向 Manage 的职能，添加 builder workspace 作为编辑空间；
+- Builder 添加 manage page 组件，可以动态添加管理相关的页面；
+- 移除了 manage media 路由；
+- 删除了 manage block 组件，已经没有必要，可以在 builder 中按需配置添加；
+- USER token 重构为 Observable；
 - Builder sidebar 支持多级菜单；
-- 修复builder swiper可视化配置问题；
+- 修复 builder swiper 可视化配置问题；
 - Builder 添加路由守卫；
-- 解决动态组件在新版SSR模式下重复渲染的问题；
-- 新增json组件，用以支持微信小程序的组件管理；
-- 移除Branding的manageSidebar，统一使用Builder 的侧边栏做管理边栏；
-- mat-select在api的形式下，可以设置额外的options，比如"无"类似选项；
-- 更名player组件为video组件，添加自定义播放比例；
-- 修复单语言时jsonapi别名更新；
-- 升级quill到v2.0.2；
-- 升级typescript到7.0.0；
+- 解决动态组件在新版 SSR 模式下重复渲染的问题；
+- 新增 json 组件，用以支持微信小程序的组件管理；
+- 移除 Branding 的 manageSidebar，统一使用 Builder 的侧边栏做管理边栏；
+- mat-select 在 api 的形式下，可以设置额外的 options，比如"无"类似选项；
+- 更名 player 组件为 video 组件，添加自定义播放比例；
+- 修复单语言时 jsonapi 别名更新；
+- 升级 quill 到 v2.0.2；
+- 升级 typescript 到 7.0.0；
 - 媒体库支持批量删除；
 
 ## 8.0.1(2024-07-13)
 
-- 自定义模块支持Drupal views API分页；
-- 媒体库和Builder管理页面列表使用Views API；
-- 优化多语言，可在builder直接添加编辑对应的语言版本；
-- 添加PageSetting组件，支持对页面属性的更新；
+- 自定义模块支持 Drupal views API 分页；
+- 媒体库和 Builder 管理页面列表使用 Views API；
+- 优化多语言，可在 builder 直接添加编辑对应的语言版本；
+- 添加 PageSetting 组件，支持对页面属性的更新；
 - 媒体库支持批量上传图片；
-- 使用NgOptimizedImage对img图片元素优化；
-- Builder可生成所有的组件到页面中，可方便全量测试；
+- 使用 NgOptimizedImage 对 img 图片元素优化；
+- Builder 可生成所有的组件到页面中，可方便全量测试；
 
 ## 8.0.0(2024-06-20)
 
-- 升级angualr 到v17；
-- 使用了新的SSR实现；
-- 使用了esbuild；
+- 升级 angualr 到 v17；
+- 使用了新的 SSR 实现；
+- 使用了 esbuild；
 - 使用了新的语法；
 
 - 升级 Angular v14 到 v15；
 - 升级 Angular v15 到 v16；
 - 重构：swiper, countTo, lightbox，Angulartics2Module；
-- 升级Storybook到v8，移除了一些包和组件；
+- 升级 Storybook 到 v8，移除了一些包和组件；
 
 ## 6.0.0(2024-06-08)
 

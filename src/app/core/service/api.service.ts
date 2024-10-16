@@ -1,17 +1,20 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { ILanguage } from '@core/interface/IEnvironment';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { API_URL } from '@core/token/token-providers';
 import { camelCase, isArray, remove, result } from 'lodash-es';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   public configLoadDone$ = new Subject();
-
-  constructor(@Inject(API_URL) public apiBaseUrl: string) {}
+  document = inject(DOCUMENT);
+  apiBaseUrl = inject(API_URL);
 
   get apiUrl(): string {
     return this.apiBaseUrl;
@@ -42,6 +45,63 @@ export class ApiService {
         'X-CSRF-Token': csrfToken,
       }),
       withCredentials: true,
+    };
+  }
+
+  get pageUrl(): string {
+    const location = this.document.location;
+    const path = location.pathname;
+    const search = location.search;
+    const allowKey = ['version', 'preview', 'nocache'];
+    if (
+      allowKey.some((key) => {
+        return search.toLowerCase().indexOf(key) > 0;
+      })
+    ) {
+      const params = search.split('?')[1];
+      return `${path}&${params}`;
+    } else {
+      return path;
+    }
+  }
+
+  getLang(path: string): ILanguage | undefined {
+    const { multiLang, langs } = environment;
+
+    if (!multiLang) {
+      return undefined;
+    }
+    if (multiLang && langs) {
+      const lang = path.split('/')[1];
+      const currentLang = langs.find((item) => item.langCode === lang);
+      if (currentLang) {
+        return currentLang;
+      } else {
+        // default language
+        const defLang = langs.find((item) => item.default);
+        if (!defLang) {
+          return undefined;
+        }
+        return defLang;
+      }
+    }
+
+    return undefined;
+  }
+
+  getUrlPath(pageUrl: string): { lang: string; path: string } {
+    const currentLang = this.getLang(pageUrl);
+    let lang = '';
+    let path = pageUrl;
+    if (currentLang && !currentLang.default) {
+      lang = currentLang.prefix;
+      if (lang) {
+        path = pageUrl.split(lang)[1];
+      }
+    }
+    return {
+      lang,
+      path,
     };
   }
 
