@@ -11,9 +11,8 @@
 .builder-sidebar {
   display: flex;
   flex-direction: column;
-  width: 80px;
+  width: 60px;
   height: 100%;
-  flex: 0 0 80px;
   .mat-divider {
     width: 100%;
   }
@@ -83,7 +82,7 @@
         display: none;
         text-align: left;
         position: fixed;
-        margin-left: 80px;
+        margin-left: 60px;
         width: 246px;
         height: 100%;
         left: 0;
