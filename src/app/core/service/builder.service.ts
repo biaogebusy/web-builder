@@ -296,7 +296,7 @@ export class BuilderService extends ApiService {
     const url = alias
       ? `${lang}${alias}`
       : `${lang}/node/${drupal_internal__nid}`;
-    return url;
+    return lang ? `/${url}` : url;
   }
 
   updateUrlalias(
