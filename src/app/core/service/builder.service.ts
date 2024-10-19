@@ -322,7 +322,7 @@ export class BuilderService extends ApiService {
         langcode: langcode ?? 'und',
       };
     }
-    const data = {
+    const paramsData = {
       type: 'path_alias--path_alias',
       attributes: {
         alias: alias.replace(prefix, ''),
@@ -344,7 +344,7 @@ export class BuilderService extends ApiService {
             .patch(
               `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
               {
-                ...data,
+                ...paramsData,
                 id: uuid,
               },
               this.optionsWithCookieAndToken(csrf_token),
@@ -366,7 +366,7 @@ export class BuilderService extends ApiService {
         .post(
           `${prefix}/api/v1/path_alias/path_alias`,
           {
-            data,
+            data: paramsData,
           },
           this.optionsWithCookieAndToken(csrf_token),
         )
