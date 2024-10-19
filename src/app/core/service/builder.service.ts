@@ -300,12 +300,16 @@ export class BuilderService extends ApiService {
   }
 
   updateUrlalias(
-    page: { langcode?: string; uuid: string; id: string },
+    page: { langcode?: string; id: string; path: any },
     alias: string,
   ): Observable<any> {
     const { multiLang } = environment;
     const { csrf_token } = this.user;
-    const { langcode, uuid, id } = page;
+    const {
+      langcode,
+      id,
+      path: { pid },
+    } = page;
 
     let prefix = '';
     const lang = this.getApiLang(langcode);
@@ -328,40 +332,48 @@ export class BuilderService extends ApiService {
     };
 
     const status$ = new Subject<any>();
-    this.http
-      .patch(
-        `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
-        {
-          ...data,
-          id: uuid,
-        },
-        this.optionsWithCookieAndToken(csrf_token),
-      )
-      .pipe(
-        catchError((res: any) => {
-          const {
-            error: { errors },
-          } = res;
-          return of(errors[0].status);
-        }),
-      )
-      .subscribe((status) => {
-        if (status === '404') {
+    if (pid) {
+      this.http
+        .get(
+          `${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`,
+        )
+        .subscribe((res: any) => {
+          const { data } = res;
+          const uuid = data[0].id;
           this.http
-            .post(
-              `${prefix}/api/v1/path_alias/path_alias`,
+            .patch(
+              `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
               {
-                data,
+                ...data,
+                id: uuid,
               },
               this.optionsWithCookieAndToken(csrf_token),
             )
-            .subscribe((res) => {
-              status$.next(res);
+            .pipe(
+              catchError((res: any) => {
+                const {
+                  error: { errors },
+                } = res;
+                return of(errors[0].status);
+              }),
+            )
+            .subscribe((status) => {
+              status$.next(status);
             });
-        } else {
-          status$.next(status);
-        }
-      });
+        });
+    } else {
+      this.http
+        .post(
+          `${prefix}/api/v1/path_alias/path_alias`,
+          {
+            data,
+          },
+          this.optionsWithCookieAndToken(csrf_token),
+        )
+        .subscribe((res) => {
+          status$.next(res);
+        });
+    }
 
     return status$;
   }
