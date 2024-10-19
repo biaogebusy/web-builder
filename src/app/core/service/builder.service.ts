@@ -344,8 +344,10 @@ export class BuilderService extends ApiService {
             .patch(
               `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
               {
-                ...paramsData,
-                id: uuid,
+                data: {
+                  ...paramsData,
+                  id: uuid,
+                },
               },
               this.optionsWithCookieAndToken(csrf_token),
             )
