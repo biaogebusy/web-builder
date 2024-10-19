@@ -60,14 +60,14 @@
     }"
   ></app-btn>
   <app-btn
-    matTooltip="{{ block.type }}组件配置"
+    matTooltip="编辑{{ block.type }}组件"
     matTooltipPosition="above"
     (click)="onWidgetSetting(block, toolbar)"
     [content]="{
       label: '',
       color: 'primary',
       mode: 'icon',
-      icon: { svg: 'tune-vertical', inline: true },
+      icon: { svg: 'pencil', inline: true },
     }"
   ></app-btn>
 </div>
