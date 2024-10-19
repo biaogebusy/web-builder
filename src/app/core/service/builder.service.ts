@@ -320,7 +320,6 @@ export class BuilderService extends ApiService {
     }
     const data = {
       type: 'path_alias--path_alias',
-      id: uuid,
       attributes: {
         alias: alias.replace(prefix, ''),
         path: `/node/${id}`,
@@ -333,7 +332,8 @@ export class BuilderService extends ApiService {
       .patch(
         `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
         {
-          data,
+          ...data,
+          id: uuid,
         },
         this.optionsWithCookieAndToken(csrf_token),
       )
