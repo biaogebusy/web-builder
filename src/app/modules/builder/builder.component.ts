@@ -32,7 +32,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
   constructor(
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {
     this.isBuilderMode$.pipe(takeUntilDestroyed()).subscribe((state) => {
       this.isBuilderMode = state;
@@ -62,7 +62,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   get drawerStyle(): object {
     if (this.isBuilderMode) {
       return {
-        paddingLeft: this.sidebarDrawerOpened ? '0' : '80px',
+        paddingLeft: this.sidebarDrawerOpened ? '0' : '60px',
       };
     } else {
       return {

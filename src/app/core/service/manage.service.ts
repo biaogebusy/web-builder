@@ -2,7 +2,7 @@ import { Inject, Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
-import { API_URL, USER } from '@core/token/token-providers';
+import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
@@ -19,11 +19,8 @@ export class ManageService extends ApiService {
     'manage-media-dialog',
   ];
   user: IUser;
-  constructor(
-    @Inject(API_URL) public apiBaseUrl: string,
-    @Inject(USER) private user$: Observable<IUser>,
-  ) {
-    super(apiBaseUrl);
+  constructor(@Inject(USER) private user$: Observable<IUser>) {
+    super();
     this.user$.subscribe((user) => {
       this.user = user;
     });
@@ -32,14 +29,14 @@ export class ManageService extends ApiService {
   getBlock(): Observable<any> {
     return this.http.get(
       `${this.apiUrl}/api/v1/block_content_type/block_content_type`,
-      this.optionsWithCookieAndToken(this.user.csrf_token),
+      this.optionsWithCookieAndToken(this.user.csrf_token)
     );
   }
 
   deleteMedia(uuid: string): Observable<any> {
     return this.http.delete<any>(
       `${this.apiUrl}/api/v1/media/image/${uuid}`,
-      this.optionsWithCookieAndToken(this.user.csrf_token),
+      this.optionsWithCookieAndToken(this.user.csrf_token)
     );
   }
 
@@ -88,8 +85,8 @@ export class ManageService extends ApiService {
             type === 'pdf'
               ? `${iconPath}/file-pdf.svg`
               : type === 'excel'
-                ? `${iconPath}/file-excel.svg`
-                : `${iconPath}/file-word.svg`,
+              ? `${iconPath}/file-excel.svg`
+              : `${iconPath}/file-word.svg`,
           alt: fileName,
         },
       };

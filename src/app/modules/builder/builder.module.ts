@@ -10,7 +10,6 @@ import { BuilderPanelComponent } from './sidebar/builder-panel/builder-panel.com
 import { BuilderGeneraterComponent } from './main/builder-generater/builder-generater.component';
 import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
 import { BuilderListComponent } from './main/builder-list/builder-list.component';
-import { BuilderEmptyComponent } from './main/builder-empty/builder-empty.component';
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
 import { BaseModule } from '@uiux/base/base.module';
 import {
@@ -46,6 +45,7 @@ import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { JsonComponent } from './main/json/json.component';
 import { CardListComponent } from './main/card-list/card-list.component';
 import { CardPageComponent } from './main/card-list/card-page/card-page.component';
+import { DefaultPageComponent } from './main/default-page/default-page.component';
 
 const components = [
   JsonComponent,
@@ -67,7 +67,6 @@ const components = [
   declarations: [
     ...components,
     BuilderToolbarComponent,
-    BuilderEmptyComponent,
     BuilderShowcaseComponent,
     BuilderPanelComponent,
     SwitchPreviewComponent,
@@ -83,6 +82,7 @@ const components = [
     BlockToolbarComponent,
     BuilderWorkspaceComponent,
     ManagePageComponent,
+    DefaultPageComponent,
   ],
   imports: [
     ShareModule,

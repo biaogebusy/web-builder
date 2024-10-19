@@ -9,7 +9,6 @@ import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { environment } from 'src/environments/environment';
-import { API_URL } from '@core/token/token-providers';
 import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
 import { UtilitiesService } from './utilities.service';
@@ -24,11 +23,8 @@ export class UserService extends ApiService {
   cryptoJS = inject(CryptoJSService);
   cookieService = inject(CookieService);
   util = inject(UtilitiesService);
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(API_URL) public apiBaseUrl: string
-  ) {
-    super(apiBaseUrl);
+  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {
+    super();
   }
 
   get userApiPath(): string {

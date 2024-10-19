@@ -24,7 +24,6 @@ import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { merge } from 'lodash-es';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -53,8 +52,11 @@ export class PageListComponent extends BaseComponent implements OnInit {
       key: 'title',
       type: 'input',
       props: {
-        label: '关键词',
+        label: '搜索标题',
         type: 'search',
+      },
+      modelOptions: {
+        updateOn: 'submit',
       },
     },
   ];

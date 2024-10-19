@@ -89,6 +89,7 @@ export class PageSettingComponent implements OnInit {
               drupal_internal__nid,
               id,
               langcode,
+              path,
             ),
             {
               key: 'page_group',
@@ -237,6 +238,7 @@ export class PageSettingComponent implements OnInit {
     nid?: string,
     id?: string,
     langcode?: string,
+    path?: any,
   ): FormlyFieldConfig {
     switch (key) {
       case 'title':
@@ -323,9 +325,9 @@ export class PageSettingComponent implements OnInit {
                     this.builderService
                       .updateUrlalias(
                         {
-                          uuid: id || '',
                           langcode,
                           id: nid || '',
+                          path,
                         },
                         value,
                       )
