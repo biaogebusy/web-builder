@@ -22,7 +22,7 @@
                 {{ error }}
               </div>
             }
-            <mat-tab-group animationDuration="0ms" [disablePagination]="true">
+            <mat-tab-group>
               @if (coreConfig.login.phoneLogin.enable) {
                 <mat-tab
                   label="{{
@@ -56,7 +56,7 @@
                       <mat-label>验证码</mat-label>
                       <input matInput type="text" formControlName="code" />
                       <button
-                        disabled="{{ formPhone.phone.errors ? true : false }}"
+                        disabled="{{ countdown > 0 }}"
                         (click)="getCode($event)"
                         class="right-4"
                         [class]="countdown ? 'pointer-events-none' : ''"

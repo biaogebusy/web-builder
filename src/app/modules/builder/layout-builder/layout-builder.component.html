@@ -44,26 +44,25 @@
             [layout]="layout"
             [pageIndex]="pageIndex"
           ></app-layout-toolbar>
-          @if (layout.elements.length === 0) {
-          <div
-            class="placeholder opacity-50 hover:opacity-100 p-10 flex justify-center items-center"
-            [attr.data-path]="'elements.' + i"
-            #target
-          >
-            <app-btn
-              matTooltip="插入组件"
-              matTooltipPosition="above"
-              (click)="addBlock('widget', content, target)"
-              [content]="{
-                        label: '',
-                        mode: 'icon',
-                        icon: { svg: 'plus' },
-                      }"
-            ></app-btn>
-          </div>
-          }
         </div>
-        }
+        @if (layout.elements.length === 0) {
+        <div
+          class="placeholder opacity-50 hover:opacity-100 p-10 flex justify-center items-center"
+          [attr.data-path]="'elements.' + i"
+          #target
+        >
+          <app-btn
+            matTooltip="插入组件"
+            matTooltipPosition="above"
+            (click)="addBlock('widget', content, target)"
+            [content]="{
+                      label: '',
+                      mode: 'icon',
+                      icon: { svg: 'plus' },
+                    }"
+          ></app-btn>
+        </div>
+        } }
         <div class="for-animate">
           <div
             [ngClass]="layout.blockClasses"

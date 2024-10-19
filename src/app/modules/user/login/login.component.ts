@@ -111,8 +111,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginByPhone(): void {
     this.loading = true;
+    const { phone, code } = this.phoneForm.value;
     this.userService
-      .loginByPhone(this.phoneForm.value.phone, this.phoneForm.value.code)
+      .loginByPhone(phone, code)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((state) => {
         this.onLogin(state, '请检查手机号或者验证码！');
@@ -133,13 +134,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   getCode(event: any): any {
     event.preventDefault();
-    if (!this.phoneForm.value.phone) {
+    const { phone } = this.phoneForm.value;
+    if (!phone) {
       this.error = '请输入手机号码';
       this.cd.detectChanges();
       return false;
     }
     this.userService
-      .getCode(this.phoneForm.value.phone)
+      .getCode(phone)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         const { leftTime } = this.coreConfig.login.phoneLogin;

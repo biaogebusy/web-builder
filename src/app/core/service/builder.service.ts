@@ -1,6 +1,6 @@
 import { Inject, Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type {
   ICoreConfig,
   IPage,
@@ -17,6 +17,8 @@ import { environment } from 'src/environments/environment';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { ContentService } from './content.service';
+import { isArray } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',
@@ -27,13 +29,13 @@ export class BuilderService extends ApiService {
   builder = inject(BuilderState);
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
+  contentService = inject(ContentService);
   user: IUser;
   constructor(
-    @Inject(API_URL) public apiBaseUrl: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user$: Observable<IUser>,
   ) {
-    super(apiBaseUrl);
+    super();
     this.user$.subscribe((user) => {
       this.user = user;
     });
@@ -193,6 +195,37 @@ export class BuilderService extends ApiService {
       );
   }
 
+  getDefaultPage(): Observable<IPage> {
+    const { apiUrl, production } = environment;
+    const pathname = window.location.pathname;
+    const { lang } = this.getUrlPath(pathname);
+    if (!production) {
+      return this.http.get<IPage>(
+        `${apiUrl}/assets/app${lang}/builder/default-page.json`,
+      );
+    } else {
+      this.builder.loading$.next(true);
+      return this.contentService
+        .loadPageContent(`${lang}/builder/default-page`)
+        .pipe(
+          tap((res) => {
+            this.builder.loading$.next(false);
+            if (isArray(res) || !res) {
+              this.util.openSnackbar('请配置默认页面！', 'OK');
+            }
+          }),
+          catchError(() => {
+            this.builder.loading$.next(false);
+            this.util.openSnackbar('请配置默认页面！', 'OK');
+            return of({
+              title: '',
+              body: [],
+            });
+          }),
+        );
+    }
+  }
+
   addTranslation(page: IPage): Observable<any> {
     const { nid, target, langcode } = page;
     const {
@@ -263,16 +296,20 @@ export class BuilderService extends ApiService {
     const url = alias
       ? `${lang}${alias}`
       : `${lang}/node/${drupal_internal__nid}`;
-    return url;
+    return lang ? `/${url}` : url;
   }
 
   updateUrlalias(
-    page: { langcode?: string; uuid: string; id: string },
+    page: { langcode?: string; id: string; path: any },
     alias: string,
   ): Observable<any> {
     const { multiLang } = environment;
     const { csrf_token } = this.user;
-    const { langcode, uuid, id } = page;
+    const {
+      langcode,
+      id,
+      path: { pid },
+    } = page;
 
     let prefix = '';
     const lang = this.getApiLang(langcode);
@@ -285,9 +322,8 @@ export class BuilderService extends ApiService {
         langcode: langcode ?? 'und',
       };
     }
-    const data = {
+    const paramsData = {
       type: 'path_alias--path_alias',
-      id: uuid,
       attributes: {
         alias: alias.replace(prefix, ''),
         path: `/node/${id}`,
@@ -296,39 +332,50 @@ export class BuilderService extends ApiService {
     };
 
     const status$ = new Subject<any>();
-    this.http
-      .patch(
-        `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
-        {
-          data,
-        },
-        this.optionsWithCookieAndToken(csrf_token),
-      )
-      .pipe(
-        catchError((res: any) => {
-          const {
-            error: { errors },
-          } = res;
-          return of(errors[0].status);
-        }),
-      )
-      .subscribe((status) => {
-        if (status === '404') {
+    if (pid) {
+      this.http
+        .get(
+          `${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`,
+        )
+        .subscribe((res: any) => {
+          const { data } = res;
+          const uuid = data[0].id;
           this.http
-            .post(
-              `${prefix}/api/v1/path_alias/path_alias`,
+            .patch(
+              `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
               {
-                data,
+                data: {
+                  ...paramsData,
+                  id: uuid,
+                },
               },
               this.optionsWithCookieAndToken(csrf_token),
             )
-            .subscribe((res) => {
-              status$.next(res);
+            .pipe(
+              catchError((res: any) => {
+                const {
+                  error: { errors },
+                } = res;
+                return of(errors[0].status);
+              }),
+            )
+            .subscribe((status) => {
+              status$.next(status);
             });
-        } else {
-          status$.next(status);
-        }
-      });
+        });
+    } else {
+      this.http
+        .post(
+          `${prefix}/api/v1/path_alias/path_alias`,
+          {
+            data: paramsData,
+          },
+          this.optionsWithCookieAndToken(csrf_token),
+        )
+        .subscribe((res) => {
+          status$.next(res);
+        });
+    }
 
     return status$;
   }
