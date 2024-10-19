@@ -324,7 +324,6 @@ export class BuilderService extends ApiService {
       attributes: {
         alias: alias.replace(prefix, ''),
         path: `/node/${id}`,
-        pid: null,
         ...langObj,
       },
     };
