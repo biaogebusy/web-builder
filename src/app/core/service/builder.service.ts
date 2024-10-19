@@ -33,7 +33,7 @@ export class BuilderService extends ApiService {
   user: IUser;
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>
+    @Inject(USER) private user$: Observable<IUser>,
   ) {
     super();
     this.user$.subscribe((user) => {
@@ -82,7 +82,7 @@ export class BuilderService extends ApiService {
                 langcode,
               },
               '/api/v1/node/landing_page',
-              this.getPageParams()
+              this.getPageParams(),
             );
           }
 
@@ -145,7 +145,7 @@ export class BuilderService extends ApiService {
       .post(
         `${this.apiUrl}${create}`,
         this.formatPage(page),
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         tap((res: any) => {
@@ -153,7 +153,7 @@ export class BuilderService extends ApiService {
             data: { nid },
           } = res;
           this.loadPage({ nid });
-        })
+        }),
       );
   }
 
@@ -176,7 +176,7 @@ export class BuilderService extends ApiService {
       .patch(
         `${this.apiUrl}${prefix}${update}/${nid}`,
         this.coverExtraData(page),
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         tap((res: any) => {
@@ -191,7 +191,7 @@ export class BuilderService extends ApiService {
           } else {
             this.util.openSnackbar('保存失败，请重试', 'ok');
           }
-        })
+        }),
       );
   }
 
@@ -201,7 +201,7 @@ export class BuilderService extends ApiService {
     const { lang } = this.getUrlPath(pathname);
     if (!production) {
       return this.http.get<IPage>(
-        `${apiUrl}/assets/app${lang}/builder/default-page.json`
+        `${apiUrl}/assets/app${lang}/builder/default-page.json`,
       );
     } else {
       this.builder.loading$.next(true);
@@ -221,7 +221,7 @@ export class BuilderService extends ApiService {
               title: '',
               body: [],
             });
-          })
+          }),
         );
     }
   }
@@ -237,7 +237,7 @@ export class BuilderService extends ApiService {
     return this.http.post(
       `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
       this.formatPage(page),
-      this.optionsWithCookieAndToken(csrf_token)
+      this.optionsWithCookieAndToken(csrf_token),
     );
   }
 
@@ -246,7 +246,7 @@ export class BuilderService extends ApiService {
     api: string,
     type: string,
     attr: any,
-    relationships: any
+    relationships: any,
   ): Observable<any> {
     const { csrf_token } = this.user;
     const { langcode, uuid } = page;
@@ -271,7 +271,7 @@ export class BuilderService extends ApiService {
             },
           },
         },
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         catchError((res: any) => {
@@ -281,7 +281,7 @@ export class BuilderService extends ApiService {
           } = res;
           this.util.openSnackbar(errors[0].detail, 'ok');
           return throwError(errors[0]);
-        })
+        }),
       );
   }
 
@@ -301,7 +301,7 @@ export class BuilderService extends ApiService {
 
   updateUrlalias(
     page: { langcode?: string; uuid: string; id: string },
-    alias: string
+    alias: string,
   ): Observable<any> {
     const { multiLang } = environment;
     const { csrf_token } = this.user;
@@ -324,6 +324,7 @@ export class BuilderService extends ApiService {
       attributes: {
         alias: alias.replace(prefix, ''),
         path: `/node/${id}`,
+        pid: null,
         ...langObj,
       },
     };
@@ -335,7 +336,7 @@ export class BuilderService extends ApiService {
         {
           data,
         },
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithCookieAndToken(csrf_token),
       )
       .pipe(
         catchError((res: any) => {
@@ -343,7 +344,7 @@ export class BuilderService extends ApiService {
             error: { errors },
           } = res;
           return of(errors[0].status);
-        })
+        }),
       )
       .subscribe((status) => {
         if (status === '404') {
@@ -353,7 +354,7 @@ export class BuilderService extends ApiService {
               {
                 data,
               },
-              this.optionsWithCookieAndToken(csrf_token)
+              this.optionsWithCookieAndToken(csrf_token),
             )
             .subscribe((res) => {
               status$.next(res);
@@ -382,7 +383,7 @@ export class BuilderService extends ApiService {
   openPageSetting(
     page: { uuid: string; langcode?: string },
     api: string,
-    params: string
+    params: string,
   ): void {
     const { uuid, langcode } = page;
     const lang = this.getApiLang(langcode);
@@ -411,7 +412,7 @@ export class BuilderService extends ApiService {
           this.builder.loading$.next(false);
           const { statusText } = error;
           this.util.openSnackbar(statusText, 'ok');
-        }
+        },
       );
   }
 
