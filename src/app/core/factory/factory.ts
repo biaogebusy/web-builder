@@ -1,7 +1,7 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, BehaviorSubject, interval, of } from 'rxjs';
+import { Observable, BehaviorSubject, interval } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -16,7 +16,6 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
-import { mediaAssets } from '@modules/builder/data/mediaAssets';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
@@ -264,11 +263,6 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
 
   // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value: any) => {
-    const { fromStatic } = value;
-    if (fromStatic) {
-      assets$.next(mediaAssets);
-      return;
-    }
     const params = nodeService.getApiParams({ ...value, noCache: true });
     nodeService.fetch(api, params).subscribe((res) => {
       assets$.next({

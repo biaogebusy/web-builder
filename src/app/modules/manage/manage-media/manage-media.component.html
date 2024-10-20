@@ -2,10 +2,7 @@
   <div class="manage-media relative">
     <mat-drawer-container>
       <mat-drawer mode="side" [opened]="true">
-        <div
-          class="sidebar flex flex-col"
-          [class]="{ 'from-static': model.fromStatic }"
-        >
+        <div class="sidebar flex flex-col">
           <mat-slider max="12" min="3" step="1"
             ><input matSliderThumb [(ngModel)]="coreConfig.manageMedia.row" />
           </mat-slider>
@@ -20,20 +17,17 @@
               </app-formly>
             </form>
           }
-
-          @if (!model.fromStatic) {
-            <div class="flex flex-col gap-3 justify-center items-center my-5">
-              <app-btn
-                (click)="onUpload()"
-                [content]="{
-                  label: '上传媒体',
-                  color: 'primary',
-                  mode: 'raised',
-                  icon: { svg: 'upload-outline' },
-                }"
-              ></app-btn>
-            </div>
-          }
+          <div class="flex flex-col gap-3 justify-center items-center my-5">
+            <app-btn
+              (click)="onUpload()"
+              [content]="{
+                label: '上传媒体',
+                color: 'primary',
+                mode: 'raised',
+                icon: { svg: 'upload-outline' },
+              }"
+            ></app-btn>
+          </div>
         </div>
       </mat-drawer>
       <mat-drawer-content>
