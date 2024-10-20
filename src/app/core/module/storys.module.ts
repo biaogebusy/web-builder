@@ -1,4 +1,4 @@
-import { Inject, ModuleWithProviders, NgModule, inject } from '@angular/core';
+import { ModuleWithProviders, NgModule, inject } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -51,9 +51,6 @@ import {
   defaultHeader,
   footerInverse,
 } from '@modules/builder/data/Branding.json';
-import { DOCUMENT } from '@angular/common';
-import { UserService } from '@core/service/user.service';
-import { ScreenService } from '@core/service/screen.service';
 import { BuilderModule } from '@modules/builder/builder.module';
 import { ManageModule } from '@modules/manage/manage.module';
 import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
