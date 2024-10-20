@@ -352,11 +352,8 @@ export class BuilderService extends ApiService {
               this.optionsWithCookieAndToken(csrf_token),
             )
             .pipe(
-              catchError((res: any) => {
-                const {
-                  error: { errors },
-                } = res;
-                return of(errors[0].status);
+              catchError(() => {
+                return of(false);
               }),
             )
             .subscribe((status) => {
@@ -371,6 +368,11 @@ export class BuilderService extends ApiService {
             data: paramsData,
           },
           this.optionsWithCookieAndToken(csrf_token),
+        )
+        .pipe(
+          catchError(() => {
+            return of(false);
+          }),
         )
         .subscribe((res) => {
           status$.next(res);
