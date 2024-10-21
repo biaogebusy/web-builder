@@ -7,6 +7,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   selector: 'app-inverse',
   templateUrl: './inverse.component.html',
   styleUrls: ['./inverse.component.scss'],
+  host: { ngSkipHydration: 'true' },
 })
 export class InverseComponent implements OnInit {
   @Input() content: any;

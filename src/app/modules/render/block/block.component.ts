@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
   selector: 'app-block',
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss'],
+  host: { ngSkipHydration: 'true' },
   providers: [
     {
       provide: PAGE_CONTENT,
