@@ -1,10 +1,4 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { inject, Injectable, makeStateKey, TransferState } from '@angular/core';
 
 import { ApiService } from '@core/service/api.service';

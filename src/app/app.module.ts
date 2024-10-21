@@ -3,9 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, NgModule, Inject } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
 import {
-  HttpClientModule,
   provideHttpClient,
   withFetch,
+  withInterceptorsFromDi,
 } from '@angular/common/http';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
@@ -49,8 +49,8 @@ import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [AppComponent],
+  bootstrap: [AppComponent],
   imports: [
-    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CommonModule,
@@ -121,7 +121,7 @@ import { CookieService } from 'ngx-cookie-service';
       provide: MEDIA_ASSETS,
       useFactory: mediaAssetsFactory,
     },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
