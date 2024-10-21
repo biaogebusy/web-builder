@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
 @mixin banner-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -9,27 +9,27 @@
   $warn: map-get($config, warn);
 
   .banner-simple {
-    @include mat.elevation(1, mat.get-color-from-palette($accent), 0.25);
+    @include mat.elevation(1, mat.m2-get-color-from-palette($accent), 0.25);
     &.no-bg {
-      background-color: mat.get-color-from-palette($background, "app-bar", 0.8);
-      color: mat.get-color-from-palette($foreground, text, 0.75);
+      background-color: mat.m2-get-color-from-palette($background, "app-bar", 0.8);
+      color: mat.m2-get-color-from-palette($foreground, text, 0.75);
       a {
-        color: mat.get-color-from-palette($foreground, text, 0.75);
+        color: mat.m2-get-color-from-palette($foreground, text, 0.75);
         &:hover {
-          color: mat.get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary);
         }
       }
       .page-title,
       .sub-title {
-        color: mat.get-color-from-palette($foreground, text);
+        color: mat.m2-get-color-from-palette($foreground, text);
       }
     }
     &:not(.no-bg) {
-      color: mat.get-color-from-palette($foreground, text, 0.5);
+      color: mat.m2-get-color-from-palette($foreground, text, 0.5);
       .page-title,
       .sub-title,
       .breadcrumb {
-        color: mat.get-color-from-palette($primary, default-contrast);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
       }
     }
   }

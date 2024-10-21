@@ -1,18 +1,18 @@
 @use '@angular/material' as mat;
 
 @mixin dropdown-menu-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-color: mat.get-color-from-palette($foreground, text, 0.75);
+  $text-color: mat.m2-get-color-from-palette($foreground, text, 0.75);
   .mat-accordion {
     .mat-expansion-panel-header,
     .mat-mdc-list {
-      border-color: mat.get-color-from-palette($foreground, divider) !important;
+      border-color: mat.m2-get-color-from-palette($foreground, divider) !important;
     }
     .mat-expansion-panel-header-title {
       color: $text-color;
@@ -21,7 +21,7 @@
       a {
         color: $text-color;
         &.active {
-          color: mat.get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary);
         }
       }
     }
@@ -32,29 +32,29 @@
       a {
         color: $text-color;
         &.active {
-          color: mat.get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary);
         }
       }
     }
   }
 
   .notify-menu {
-    @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
+    @include scrollbar(mat.m2-get-color-from-palette($foreground, divider, 0.2));
 
     .mat-mdc-menu-content {
       .mat-mdc-list-item {
         &:hover {
-          background-color: mat.get-color-from-palette($background, background);
+          background-color: mat.m2-get-color-from-palette($background, background);
         }
         .mat-line:nth-child(n + 2) {
-          color: mat.get-color-from-palette($foreground, text, 0.5);
+          color: mat.m2-get-color-from-palette($foreground, text, 0.5);
         }
       }
       .mat-line {
         a {
           color: $text-color;
           &:hover {
-            color: mat.get-color-from-palette($primary);
+            color: mat.m2-get-color-from-palette($primary);
           }
         }
       }

@@ -1,23 +1,23 @@
 @use '@angular/material' as mat;
 
 @mixin calculator-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
   .lottery {
-    background-color: mat.get-color-from-palette($primary, 400, 0.07);
+    background-color: mat.m2-get-color-from-palette($primary, 400, 0.07);
     .result {
-      background-color: mat.get-color-from-palette($primary, default-contrast);
-      @include mat.elevation(6, mat.get-color-from-palette($primary), 0.3);
+      background-color: mat.m2-get-color-from-palette($primary, default-contrast);
+      @include mat.elevation(6, mat.m2-get-color-from-palette($primary), 0.3);
       .total {
-        color: mat.get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary);
       }
       .result-footer {
         .label {
-          color: mat.get-color-from-palette($primary, 0.75);
+          color: mat.m2-get-color-from-palette($primary, 0.75);
         }
       }
     }

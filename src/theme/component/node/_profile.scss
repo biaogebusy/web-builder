@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
 @mixin profile-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -12,11 +12,11 @@
 
   .profile-1v1 {
     .left {
-      background-color: mat.get-color-from-palette($background, card);
+      background-color: mat.m2-get-color-from-palette($background, card);
       // border: 1px solid mat-color($foreground, divider);
       @include mat.elevation(
         4,
-        mat.get-color-from-palette($foreground, divider),
+        mat.m2-get-color-from-palette($foreground, divider),
         0.35
       );
     }

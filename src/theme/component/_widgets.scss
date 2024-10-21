@@ -3,21 +3,21 @@
 @import "../../theme/mixins/amixin";
 
 @mixin widgets-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $bg-color: mat.get-color-from-palette($background, background);
-  $divider-color: mat.get-color-from-palette($foreground, divider);
+  $bg-color: mat.m2-get-color-from-palette($background, background);
+  $divider-color: mat.m2-get-color-from-palette($foreground, divider);
 
   .wave-wrapper {
     background: linear-gradient(
       -74deg,
-      mat.get-color-from-palette($primary, 50) 0%,
-      mat.get-color-from-palette($primary, 100) 100%
+      mat.m2-get-color-from-palette($primary, 50) 0%,
+      mat.m2-get-color-from-palette($primary, 100) 100%
     );
 
     .wave {
@@ -28,13 +28,13 @@
   .breadcrumb {
     ul {
       li {
-        color: mat.get-color-from-palette($foreground, text, 0.75);
+        color: mat.m2-get-color-from-palette($foreground, text, 0.75);
 
         a {
-          color: mat.get-color-from-palette($foreground, text, 0.75);
+          color: mat.m2-get-color-from-palette($foreground, text, 0.75);
 
           &:hover {
-            color: mat.get-color-from-palette($primary);
+            color: mat.m2-get-color-from-palette($primary);
           }
         }
       }
@@ -51,15 +51,15 @@
 
       .testimonial-detail {
         .info {
-          color: mat.get-color-from-palette($foreground, secondary-text);
+          color: mat.m2-get-color-from-palette($foreground, secondary-text);
         }
 
         .sub-title {
-          color: mat.get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary);
         }
 
         .desc {
-          color: mat.get-color-from-palette($foreground, secondary-text);
+          color: mat.m2-get-color-from-palette($foreground, secondary-text);
         }
       }
     }
@@ -87,22 +87,22 @@
     .btns {
       > a {
         background: $bg-color;
-        color: mat.get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary);
 
         &.icon-link {
           background: rgba(0, 0, 0, 0.8);
-          color: mat.get-color-from-palette($primary, default-contrast);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
         }
       }
     }
 
     .feature-inner-ling {
       .media {
-        background-color: mat.get-color-from-palette($background, background);
+        background-color: mat.m2-get-color-from-palette($background, background);
       }
 
       .title {
-        color: mat.get-color-from-palette($primary, default-contrast);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
       }
 
       &:before {
@@ -112,15 +112,15 @@
       }
 
       &:after {
-        background: mat.get-color-from-palette($primary);
+        background: mat.m2-get-color-from-palette($primary);
       }
     }
   }
 
   .feature-float {
     .title {
-      background-color: mat.get-color-from-palette($foreground, elevation, 0.7);
-      color: mat.get-color-from-palette($primary, default-contrast, 0.8);
+      background-color: mat.m2-get-color-from-palette($foreground, elevation, 0.7);
+      color: mat.m2-get-color-from-palette($primary, default-contrast, 0.8);
     }
 
     .btns {
@@ -129,33 +129,33 @@
       }
 
       .btn-full {
-        color: mat.get-color-from-palette($primary);
-        border: 1px solid mat.get-color-from-palette($primary, 0.4);
-        background-color: mat.get-color-from-palette($primary, 0.2);
-        @include mat.elevation(3, mat.get-color-from-palette($primary), 0.5);
+        color: mat.m2-get-color-from-palette($primary);
+        border: 1px solid mat.m2-get-color-from-palette($primary, 0.4);
+        background-color: mat.m2-get-color-from-palette($primary, 0.2);
+        @include mat.elevation(3, mat.m2-get-color-from-palette($primary), 0.5);
 
         &:hover {
-          background-color: mat.get-color-from-palette($primary);
-          color: mat.get-color-from-palette($primary, default-contrast);
+          background-color: mat.m2-get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
         }
       }
 
       .btn-open {
-        color: mat.get-color-from-palette($warn);
-        border: 1px solid mat.get-color-from-palette($warn, 0.4);
-        background-color: mat.get-color-from-palette($warn, 0.2);
-        @include mat.elevation(3, mat.get-color-from-palette($warn), 0.5);
+        color: mat.m2-get-color-from-palette($warn);
+        border: 1px solid mat.m2-get-color-from-palette($warn, 0.4);
+        background-color: mat.m2-get-color-from-palette($warn, 0.2);
+        @include mat.elevation(3, mat.m2-get-color-from-palette($warn), 0.5);
 
         &:hover {
-          background-color: mat.get-color-from-palette($warn);
-          color: mat.get-color-from-palette($primary, default-contrast);
+          background-color: mat.m2-get-color-from-palette($warn);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
         }
       }
     }
 
     .media {
       img {
-        background-color: mat.get-color-from-palette($background, "app-bar");
+        background-color: mat.m2-get-color-from-palette($background, "app-bar");
       }
     }
   }
@@ -168,8 +168,8 @@
 
   .pagination {
     button.current {
-      background-color: mat.get-color-from-palette($primary) !important;
-      color: mat.get-color-from-palette($primary, default-contrast) !important;
+      background-color: mat.m2-get-color-from-palette($primary) !important;
+      color: mat.m2-get-color-from-palette($primary, default-contrast) !important;
       border-radius: 4px;
     }
   }
@@ -177,8 +177,8 @@
   .list-done {
     li {
       &:before {
-        color: mat.get-color-from-palette($primary);
-        background-color: mat.get-color-from-palette($primary, text, 0.6);
+        color: mat.m2-get-color-from-palette($primary);
+        background-color: mat.m2-get-color-from-palette($primary, text, 0.6);
       }
     }
   }
@@ -186,8 +186,8 @@
   .list-clear {
     li {
       &:before {
-        color: mat.get-color-from-palette($warn, text);
-        background-color: mat.get-color-from-palette($warn, 0.25);
+        color: mat.m2-get-color-from-palette($warn, text);
+        background-color: mat.m2-get-color-from-palette($warn, 0.25);
       }
     }
   }
@@ -195,18 +195,18 @@
   .search-action {
     @media #{$gt-sm} {
       form {
-        background-color: mat.get-color-from-palette($background, card);
+        background-color: mat.m2-get-color-from-palette($background, card);
         @include mat.elevation(
           4,
-          mat.get-color-from-palette($foreground, text),
+          mat.m2-get-color-from-palette($foreground, text),
           0.2
         );
-        border: 1px solid mat.get-color-from-palette($foreground, divider, 0.1);
+        border: 1px solid mat.m2-get-color-from-palette($foreground, divider, 0.1);
 
         &:hover,
         &:focus {
-          @include mat.elevation(4, mat.get-color-from-palette($primary), 0.5);
-          border: 1px solid mat.get-color-from-palette($primary, 0.1);
+          @include mat.elevation(4, mat.m2-get-color-from-palette($primary), 0.5);
+          border: 1px solid mat.m2-get-color-from-palette($primary, 0.1);
         }
       }
     }
@@ -217,30 +217,30 @@
 
     .top,
     .middle {
-      color: mat.get-color-from-palette($foreground, text, 0.3);
+      color: mat.m2-get-color-from-palette($foreground, text, 0.3);
     }
   }
 
   quill-editor {
-    background-color: mat.get-color-from-palette($background, background);
+    background-color: mat.m2-get-color-from-palette($background, background);
 
     .ql-toolbar,
     .ql-container {
-      border-color: mat.get-color-from-palette($foreground, divider);
+      border-color: mat.m2-get-color-from-palette($foreground, divider);
     }
 
     .ql-container {
-      background-color: mat.get-color-from-palette($background, card);
+      background-color: mat.m2-get-color-from-palette($background, card);
     }
   }
 
   .view-list {
     .sidebar {
       > .inner {
-        background-color: mat.get-color-from-palette($background, card);
+        background-color: mat.m2-get-color-from-palette($background, card);
         @include mat.elevation(
           4,
-          mat.get-color-from-palette($foreground, divider),
+          mat.m2-get-color-from-palette($foreground, divider),
           0.5
         );
       }
@@ -249,69 +249,69 @@
     .view {
       @include mat.elevation(
         6,
-        mat.get-color-from-palette($foreground, divider),
+        mat.m2-get-color-from-palette($foreground, divider),
         0.25
       );
     }
   }
 
   .dynamic-table {
-    background-color: mat.get-color-from-palette($background, card);
+    background-color: mat.m2-get-color-from-palette($background, card);
 
     .mat-mdc-header-cell {
-      color: mat.get-color-from-palette($foreground, text);
+      color: mat.m2-get-color-from-palette($foreground, text);
     }
 
     tbody {
       > tr {
         &:hover {
-          background-color: mat.get-color-from-palette($background, background);
+          background-color: mat.m2-get-color-from-palette($background, background);
         }
       }
 
       td {
         .marker {
-          color: mat.get-color-from-palette($warn);
+          color: mat.m2-get-color-from-palette($warn);
         }
       }
     }
   }
 
   .border-primary {
-    border: 1px solid mat.get-color-from-palette($primary) !important;
-    background-color: mat.get-color-from-palette($background, card);
+    border: 1px solid mat.m2-get-color-from-palette($primary) !important;
+    background-color: mat.m2-get-color-from-palette($background, card);
   }
 
   .border-warn {
-    border: 1px solid mat.get-color-from-palette($warn) !important;
-    background-color: mat.get-color-from-palette($background, card);
+    border: 1px solid mat.m2-get-color-from-palette($warn) !important;
+    background-color: mat.m2-get-color-from-palette($background, card);
   }
 
   .border-accent {
-    border: 1px solid mat.get-color-from-palette($accent) !important;
-    background-color: mat.get-color-from-palette($background, card);
+    border: 1px solid mat.m2-get-color-from-palette($accent) !important;
+    background-color: mat.m2-get-color-from-palette($background, card);
   }
 
   .inline-lightbox {
     .inline {
-      color: mat.get-color-from-palette($primary);
+      color: mat.m2-get-color-from-palette($primary);
     }
   }
 
   .panel {
     .mat-expanded .mat-expansion-panel-header-title {
       .badge {
-        color: mat.get-color-from-palette($primary, default-contrast);
-        background-color: mat.get-color-from-palette($primary, 400, 0.85);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
+        background-color: mat.m2-get-color-from-palette($primary, 400, 0.85);
       }
     }
   }
 
   .chart {
-    border: 1px solid mat.get-color-from-palette($foreground, divider);
+    border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
     @include mat.elevation(
       2,
-      mat.get-color-from-palette($foreground, divider),
+      mat.m2-get-color-from-palette($foreground, divider),
       0.07
     );
   }
@@ -319,50 +319,50 @@
   .tab {
     &.pills {
       .mat-mdc-tab {
-        background-color: mat.get-color-from-palette($primary, 0.06);
+        background-color: mat.m2-get-color-from-palette($primary, 0.06);
       }
       .mdc-tab--active {
-        background-color: mat.get-color-from-palette($primary);
+        background-color: mat.m2-get-color-from-palette($primary);
         opacity: 1;
         .mdc-tab__text-label {
-          color: mat.get-color-from-palette($primary, default-contrast);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
         }
       }
     }
   }
 
   .github-star {
-    background-color: mat.get-color-from-palette($background, card);
-    border: 1px solid mat.get-color-from-palette($foreground, divider);
+    background-color: mat.m2-get-color-from-palette($background, card);
+    border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
 
     a {
-      color: mat.get-color-from-palette($foreground, text, 0.75);
+      color: mat.m2-get-color-from-palette($foreground, text, 0.75);
     }
 
     .right {
-      border-left: 1px solid mat.get-color-from-palette($foreground, divider);
+      border-left: 1px solid mat.m2-get-color-from-palette($foreground, divider);
     }
   }
 
   .mat-mdc-outlined-button:not(.mat-button-disabled) {
-    border-color: mat.get-color-from-palette($primary);
+    border-color: mat.m2-get-color-from-palette($primary);
   }
 
   .jsoneditor {
-    border-color: mat.get-color-from-palette($primary);
+    border-color: mat.m2-get-color-from-palette($primary);
 
     .jsoneditor-menu {
-      background-color: mat.get-color-from-palette($primary);
-      border-bottom-color: mat.get-color-from-palette($primary);
+      background-color: mat.m2-get-color-from-palette($primary);
+      border-bottom-color: mat.m2-get-color-from-palette($primary);
     }
   }
 
   .code-editor {
     .box {
-      border: 1px solid mat.get-color-from-palette($foreground, divider);
+      border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
       @include mat.elevation(
         2,
-        mat.get-color-from-palette($foreground, divider),
+        mat.m2-get-color-from-palette($foreground, divider),
         0.07
       );
 
@@ -374,10 +374,10 @@
 
   .upload-media {
     .ngx-file-drop__drop-zone {
-      border: 2px dotted mat.get-color-from-palette($primary, 0.75);
+      border: 2px dotted mat.m2-get-color-from-palette($primary, 0.75);
 
       .ngx-file-drop__content {
-        color: mat.get-color-from-palette($foreground, text, 0.5);
+        color: mat.m2-get-color-from-palette($foreground, text, 0.5);
       }
     }
   }

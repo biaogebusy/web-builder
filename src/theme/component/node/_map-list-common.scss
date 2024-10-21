@@ -2,7 +2,7 @@
 @import "../../mixins/amixin";
 
 @mixin map-list-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -10,14 +10,14 @@
   $warn: map-get($config, warn);
 
   .map-list-common {
-    background-color: mat.get-color-from-palette($background, background);
+    background-color: mat.m2-get-color-from-palette($background, background);
     @include mat.elevation(4, #000, 0.35);
     .sidebar {
-      background-color: mat.get-color-from-palette($background, background);
+      background-color: mat.m2-get-color-from-palette($background, background);
     }
     .sidebar-right {
       @include mat.elevation(4, #000, 0.35);
-      background-color: mat.get-color-from-palette($background, background);
+      background-color: mat.m2-get-color-from-palette($background, background);
     }
   }
 }

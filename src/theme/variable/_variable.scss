@@ -8,9 +8,9 @@ $color-theme: (
     bg: #dff0d8,
   ),
   shadow: (
-    text: mat.get-color-from-palette(mat.$grey-palette, 700),
-    border: mat.get-color-from-palette(mat.$grey-palette, 400),
-    bg: mat.get-color-from-palette(mat.$grey-palette, 100),
+    text: mat.m2-get-color-from-palette(mat.$m2-grey-palette, 700),
+    border: mat.m2-get-color-from-palette(mat.$m2-grey-palette, 400),
+    bg: mat.m2-get-color-from-palette(mat.$m2-grey-palette, 100),
   ),
   light: (
     text: #fff,
@@ -24,22 +24,22 @@ $font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
 
 // custom typography
 // https://material.angular.io/guide/typography
-$custom-typography: mat.define-typography-config(
+$custom-typography: mat.m2-define-typography-config(
   $font-family: $font-family,
   $headline-1:
-    mat.define-typography-level(60px, 1.25, 600, $font-family: $font-family),
+    mat.m2-define-typography-level(60px, 1.25, 600, $font-family: $font-family),
   $headline-2:
-    mat.define-typography-level(48px, 1.25, 600, $font-family: $font-family),
+    mat.m2-define-typography-level(48px, 1.25, 600, $font-family: $font-family),
   $headline-3:
-    mat.define-typography-level(40px, 1.25, 600, $font-family: $font-family),
+    mat.m2-define-typography-level(40px, 1.25, 600, $font-family: $font-family),
   $headline-4:
-    mat.define-typography-level(30px, 1.5, 600, $font-family: $font-family),
+    mat.m2-define-typography-level(30px, 1.5, 600, $font-family: $font-family),
   $headline-5:
-    mat.define-typography-level(25px, 1.618, 600, $font-family: $font-family),
+    mat.m2-define-typography-level(25px, 1.618, 600, $font-family: $font-family),
   $headline-6:
-    mat.define-typography-level(20px, 1.618, 500, $font-family: $font-family),
-  $body-2: mat.define-typography-level(16px, 1.618, 400),
-  $subtitle-2: mat.define-typography-level(14px, 1.618, 500),
+    mat.m2-define-typography-level(20px, 1.618, 500, $font-family: $font-family),
+  $body-2: mat.m2-define-typography-level(16px, 1.618, 400),
+  $subtitle-2: mat.m2-define-typography-level(14px, 1.618, 500),
 );
 
 $spacer: 40px;
