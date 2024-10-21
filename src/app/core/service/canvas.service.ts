@@ -1,4 +1,4 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import html2canvas from 'html2canvas';
 import { DialogService } from '@core/service/dialog.service';
 import { UtilitiesService } from './utilities.service';
@@ -7,15 +7,14 @@ import { UtilitiesService } from './utilities.service';
   providedIn: 'root',
 })
 export class CanvasService {
-  constructor(private injector: Injector) {}
+  utli = inject(UtilitiesService);
+  dialogService = inject(DialogService);
 
   openDialog(element: HTMLElement, options = {}): void {
-    const util = this.injector.get(UtilitiesService);
-    const dialogService = this.injector.get(DialogService);
-    util.openSnackbar('切换全屏，浏览到底部再点击下载', 'ok');
+    this.utli.openSnackbar('切换全屏，浏览到底部再点击下载', 'ok');
     html2canvas(element, options).then((canvas) => {
       console.log(canvas);
-      dialogService.openDynamicDialog({
+      this.dialogService.openDynamicDialog({
         content: [
           {
             type: 'img',

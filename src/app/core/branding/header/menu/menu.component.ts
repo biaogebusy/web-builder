@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(BRANDING) public branding$: Observable<IBranding>,
+    @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {
     this.router.events.subscribe((event: Event) => {
       if (this.isDrawer && event instanceof NavigationStart) {

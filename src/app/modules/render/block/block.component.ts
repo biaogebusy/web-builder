@@ -22,7 +22,6 @@ import { Router } from '@angular/router';
   selector: 'app-block',
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss'],
-  host: { ngSkipHydration: 'true' },
   providers: [
     {
       provide: PAGE_CONTENT,
@@ -44,7 +43,7 @@ export class BlockComponent implements OnInit, AfterContentInit {
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {}
