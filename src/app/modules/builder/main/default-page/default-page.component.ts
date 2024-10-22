@@ -3,17 +3,11 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   inject,
-  DestroyRef,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
-import { Observable, of } from 'rxjs';
-import { ContentService } from '../../../../core/service/content.service';
-import { catchError, map, tap } from 'rxjs/operators';
-import { isArray } from 'lodash-es';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { UtilitiesService } from '@core/service/utilities.service';
+import { Observable } from 'rxjs';
 import { BuilderService } from '@core/service/builder.service';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-default-page',
@@ -24,7 +18,10 @@ import { BuilderService } from '@core/service/builder.service';
 export class DefaultPageComponent implements OnInit {
   content$: Observable<IPage>;
   builderService = inject(BuilderService);
+  screenSerivce = inject(ScreenService);
   ngOnInit(): void {
-    this.content$ = this.builderService.getDefaultPage();
+    if (this.screenSerivce.isPlatformBrowser()) {
+      this.content$ = this.builderService.getDefaultPage();
+    }
   }
 }

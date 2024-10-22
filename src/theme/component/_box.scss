@@ -1,16 +1,16 @@
 @use "@angular/material" as mat;
 
 @mixin box-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: mat.get-color-from-palette($foreground, text, 0.75);
-  $text-primary: mat.get-color-from-palette($primary);
-  $bg-card-color: mat.get-color-from-palette($background, card);
+  $text-base: mat.m2-get-color-from-palette($foreground, text, 0.75);
+  $text-primary: mat.m2-get-color-from-palette($primary);
+  $bg-card-color: mat.m2-get-color-from-palette($background, card);
   .inv-builder-box {
     .box-icon {
       .mat-icon {
@@ -24,7 +24,7 @@
       }
     }
     .box-content {
-      color: mat.get-color-from-palette($foreground, text, 0.6);
+      color: mat.m2-get-color-from-palette($foreground, text, 0.6);
     }
     &:hover {
       .box-title {
@@ -83,18 +83,18 @@
     &.style-v1,
     &.style-v2 {
       .box-icon {
-        background: mat.get-color-from-palette($background, background);
+        background: mat.m2-get-color-from-palette($background, background);
         .mat-icon {
           background: $text-primary;
-          color: mat.get-color-from-palette($primary, default-contrast);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
         }
       }
       .box-content-wrapper {
-        border: 1px solid mat.get-color-from-palette($foreground, divider);
-        background: mat.get-color-from-palette($background, background);
-        color: mat.get-color-from-palette($foreground, text);
+        border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
+        background: mat.m2-get-color-from-palette($background, background);
+        color: mat.m2-get-color-from-palette($foreground, text);
         &:before {
-          border: 1px solid mat.get-color-from-palette($foreground, divider);
+          border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
         }
       }
     }
@@ -106,7 +106,7 @@
     &.style-v5 {
       .read-more {
         background: $bg-card-color;
-        border: 1px solid mat.get-color-from-palette($foreground, divider);
+        border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
 
         span {
           background: #c4c2c2;
@@ -246,7 +246,7 @@
     &.style-v8,
     &.style-v10 {
       .box-icon {
-        background-color: mat.get-color-from-palette($primary, 0.1);
+        background-color: mat.m2-get-color-from-palette($primary, 0.1);
         .mat-icon {
           color: $text-primary;
         }
@@ -256,14 +256,14 @@
         }
       }
       .box-content {
-        color: mat.get-color-from-palette($foreground, text, 0.5);
+        color: mat.m2-get-color-from-palette($foreground, text, 0.5);
       }
     }
     &.style-v9 {
       background-color: $bg-card-color;
-      box-shadow: 0 0 3px mat.get-color-from-palette($foreground, divider, 0.1);
+      box-shadow: 0 0 3px mat.m2-get-color-from-palette($foreground, divider, 0.1);
       .box-icon {
-        background: mat.get-color-from-palette($primary, 0.1);
+        background: mat.m2-get-color-from-palette($primary, 0.1);
         color: $text-primary;
         .mat-icon {
           color: $text-primary;
@@ -276,7 +276,7 @@
       }
       &:hover {
         box-shadow: 0 10px 25px
-          mat.get-color-from-palette($foreground, divider, 0.1);
+          mat.m2-get-color-from-palette($foreground, divider, 0.1);
         .box-icon {
           .mat-icon {
             color: #fff;
@@ -287,11 +287,11 @@
 
     &.use-image {
       &.primary {
-        background-color: mat.get-color-from-palette($primary);
-        color: mat.get-color-from-palette($primary, default-contrast);
+        background-color: mat.m2-get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
         a,
         .box-content {
-          color: mat.get-color-from-palette($primary, default-contrast);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
         }
         .box-content {
           opacity: 0.7;

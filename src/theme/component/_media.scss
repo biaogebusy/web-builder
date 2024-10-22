@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
 @mixin media-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -11,7 +11,7 @@
   .media-object {
     .meta,
     .media-body > div:not(.title) {
-      color: mat.get-color-from-palette($foreground, text, 0.5);
+      color: mat.m2-get-color-from-palette($foreground, text, 0.5);
     }
     &.box-animate {
       box-shadow: 0 0 3px rgb(60 72 88 / 15%);
@@ -19,25 +19,25 @@
         background: linear-gradient(
           45deg,
           transparent,
-          mat.get-color-from-palette($primary, 0.2)
+          mat.m2-get-color-from-palette($primary, 0.2)
         );
         .mat-icon {
-          color: mat.get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary);
         }
       }
       a {
-        color: mat.get-color-from-palette($foreground, text, 0.75);
+        color: mat.m2-get-color-from-palette($foreground, text, 0.75);
         &:hover {
-          color: mat.get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary);
         }
       }
       &:hover {
-        box-shadow: 0 5px 13px mat.get-color-from-palette($foreground, divider);
+        box-shadow: 0 5px 13px mat.m2-get-color-from-palette($foreground, divider);
       }
     }
     app-icon {
-      background-color: mat.get-color-from-palette($background, status-bar);
-      color: mat.get-color-from-palette($foreground, text, 0.7);
+      background-color: mat.m2-get-color-from-palette($background, status-bar);
+      color: mat.m2-get-color-from-palette($foreground, text, 0.7);
     }
   }
 }

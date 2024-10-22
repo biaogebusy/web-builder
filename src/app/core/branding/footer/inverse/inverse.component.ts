@@ -18,7 +18,7 @@ export class InverseComponent implements OnInit {
   constructor(
     private cd: ChangeDetectorRef,
     public formService: FormService,
-    private utilitiesService: UtilitiesService,
+    private utilitiesService: UtilitiesService
   ) {}
 
   ngOnInit(): void {}
@@ -30,7 +30,7 @@ export class InverseComponent implements OnInit {
     this.submited = true;
     const data = this.formService.getwebFormData(
       this.content.footerNewsletter.params,
-      this.form.value,
+      this.form.value
     );
     this.formService.submitWebForm(data).subscribe(
       () => {
@@ -42,7 +42,7 @@ export class InverseComponent implements OnInit {
       (error) => {
         this.submited = false;
         this.utilitiesService.openSnackbar(`Error: ${error.message}`);
-      },
+      }
     );
   }
 }

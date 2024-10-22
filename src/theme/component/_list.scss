@@ -2,7 +2,7 @@
 @import "../mixins/amixin";
 
 @mixin list-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -11,21 +11,21 @@
 
   .taxonomy-thin-list {
     .thin-sidebar {
-      background-color: mat.get-color-from-palette($background, card);
+      background-color: mat.m2-get-color-from-palette($background, card);
       @include mat.elevation(
         4,
-        mat.get-color-from-palette($foreground, text),
+        mat.m2-get-color-from-palette($foreground, text),
         0.1
       );
-      @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
+      @include scrollbar(mat.m2-get-color-from-palette($foreground, divider, 0.2));
     }
   }
   .list-thin {
     .item {
-      background-color: mat.get-color-from-palette($background, card);
+      background-color: mat.m2-get-color-from-palette($background, card);
       @include mat.elevation(
         4,
-        mat.get-color-from-palette($foreground, text),
+        mat.m2-get-color-from-palette($foreground, text),
         0.1
       );
     }

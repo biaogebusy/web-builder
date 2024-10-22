@@ -11,11 +11,9 @@ import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { templates } from '@modules/builder/data/template-for-builder';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-builder-template',
@@ -34,11 +32,7 @@ export class BuilderTemplateComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    if (environment.production) {
-      this.getTemplates();
-    } else {
-      this.content$ = of(templates);
-    }
+    this.getTemplates();
   }
 
   getTemplates(): void {

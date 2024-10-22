@@ -1,27 +1,27 @@
 @use '@angular/material' as mat;
 
 @mixin showcase-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: mat.get-color-from-palette($foreground, text);
+  $text-base: mat.m2-get-color-from-palette($foreground, text);
 
   .showcase-2v1 {
     .mat-mdc-card {
       transition: all 0.4s ease;
-      border-bottom-color: mat.get-color-from-palette($foreground, divider);
+      border-bottom-color: mat.m2-get-color-from-palette($foreground, divider);
       a {
         color: inherit;
       }
       &:hover {
         a {
-          color: mat.get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary);
         }
-        border-bottom-color: mat.get-color-from-palette($primary);
+        border-bottom-color: mat.m2-get-color-from-palette($primary);
       }
     }
   }
@@ -30,7 +30,7 @@
     .mat-mdc-card-content {
       .mat-mdc-card-title {
         border-bottom: 1px solid
-          mat.get-color-from-palette($foreground, divider, 0.1);
+          mat.m2-get-color-from-palette($foreground, divider, 0.1);
       }
     }
   }
@@ -38,25 +38,25 @@
   .showcase-3-v3 {
     .showcase-inner {
       ul.post-meta-info {
-        color: mat.get-color-from-palette($foreground, text, 0.5);
+        color: mat.m2-get-color-from-palette($foreground, text, 0.5);
       }
       .shortdesc {
-        color: mat.get-color-from-palette($foreground, text);
+        color: mat.m2-get-color-from-palette($foreground, text);
       }
       &.teaser {
         border-bottom: 1px dotted
-          mat.get-color-from-palette($foreground, divider);
+          mat.m2-get-color-from-palette($foreground, divider);
         .title {
           a {
-            color: mat.get-color-from-palette($foreground, text, 0.75);
+            color: mat.m2-get-color-from-palette($foreground, text, 0.75);
             &:hover {
-              color: mat.get-color-from-palette($primary);
+              color: mat.m2-get-color-from-palette($primary);
             }
           }
         }
         .post-meta-info {
           border-bottom: 1px dotted
-            mat.get-color-from-palette($foreground, divider);
+            mat.m2-get-color-from-palette($foreground, divider);
         }
       }
     }
@@ -65,7 +65,7 @@
   .showcase-4v1 {
     .inv-stats {
       .mat-icon {
-        color: mat.get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary);
       }
     }
   }
@@ -73,26 +73,26 @@
   .showcase-3-v7 {
     .box-title {
       a {
-        color: mat.get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary);
       }
     }
   }
 
   .showcase-3-v8 {
     .media {
-      background-color: mat.get-color-from-palette($background, card);
+      background-color: mat.m2-get-color-from-palette($background, card);
     }
     .middle {
       .media {
-        background-color: mat.get-color-from-palette($primary, 400);
-        color: mat.get-color-from-palette($primary, default-contrast);
+        background-color: mat.m2-get-color-from-palette($primary, 400);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
         .sub-title {
-          color: mat.get-color-from-palette($primary, default-contrast);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
         }
         a {
-          color: mat.get-color-from-palette($primary, default-contrast);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
           &:hover {
-            color: mat.get-color-from-palette($primary, default-contrast);
+            color: mat.m2-get-color-from-palette($primary, default-contrast);
             opacity: 0.85;
           }
         }

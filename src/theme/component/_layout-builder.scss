@@ -1,7 +1,7 @@
 @use "@angular/material" as mat;
 
 @mixin layout-builder-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -13,13 +13,13 @@
       .layout-inner {
         > .layout {
           &:hover {
-            outline: 1px dashed mat.get-color-from-palette($primary);
+            outline: 1px dashed mat.m2-get-color-from-palette($primary);
             z-index: 10;
           }
           .layout-toolbar {
             .toggle {
               background-color: #333;
-              color: mat.get-color-from-palette(
+              color: mat.m2-get-color-from-palette(
                 $primary,
                 default-contrast,
                 0.8
@@ -29,11 +29,11 @@
               background-color: #333;
               @include mat.elevation(
                 2,
-                mat.get-color-from-palette($background, tooltip),
+                mat.m2-get-color-from-palette($background, tooltip),
                 0.25
               );
               .mat-mdc-button-base {
-                color: mat.get-color-from-palette(
+                color: mat.m2-get-color-from-palette(
                   $primary,
                   default-contrast,
                   0.8
@@ -44,13 +44,13 @@
           .placeholder {
             color: rgba(0, 0, 0, 0.75);
             &:hover {
-              color: mat.get-color-from-palette($primary);
+              color: mat.m2-get-color-from-palette($primary);
             }
           }
           .blocks {
             > .item {
               &:hover {
-                outline: 1px solid mat.get-color-from-palette($primary);
+                outline: 1px solid mat.m2-get-color-from-palette($primary);
                 z-index: 10;
               }
               > .toolbar {
@@ -58,13 +58,13 @@
 
                 @include mat.elevation(
                   2,
-                  mat.get-color-from-palette($background, tooltip),
+                  mat.m2-get-color-from-palette($background, tooltip),
                   0.25
                 );
 
                 .mat-mdc-button-base,
                 .title {
-                  color: mat.get-color-from-palette(
+                  color: mat.m2-get-color-from-palette(
                     $primary,
                     default-contrast,
                     0.8
@@ -82,13 +82,13 @@
   }
 
   .layout-toolbar-menu {
-    background-color: mat.get-color-from-palette($background, tooltip);
+    background-color: mat.m2-get-color-from-palette($background, tooltip);
     .mat-mdc-menu-item,
     .mat-mdc-menu-item:visited,
     .mat-mdc-menu-item:link,
     .mat-mdc-menu-item .mat-icon-no-color,
     .mat-mdc-menu-item .mat-mdc-menu-submenu-icon {
-      color: mat.get-color-from-palette($primary, default-contrast);
+      color: mat.m2-get-color-from-palette($primary, default-contrast);
     }
   }
 }

@@ -29,7 +29,7 @@ const PROXY_CONFIG = [
       "/wechat",
       "/media",
     ],
-    target: "https://api.yourdomain.com",
+    target: "https://builder.design",
     secure: false,
     changeOrigin: true,
   },

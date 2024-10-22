@@ -15,67 +15,67 @@
 }
 
 @mixin base-colors($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
 
-  $contrast: mat.get-color-from-palette($primary, default-contrast);
+  $contrast: mat.m2-get-color-from-palette($primary, default-contrast);
 
   .loading {
-    background-color: mat.get-color-from-palette($primary);
+    background-color: mat.m2-get-color-from-palette($primary);
   }
 
   a {
-    color: mat.get-color-from-palette($accent);
+    color: mat.m2-get-color-from-palette($accent);
 
     &:hover,
     &:focus,
     &.active {
-      color: mat.get-color-from-palette($accent);
+      color: mat.m2-get-color-from-palette($accent);
     }
   }
 
   blockquote {
-    color: mat.get-color-from-palette($foreground, text, 0.45);
-    border-left: 3px solid mat.get-color-from-palette($foreground, divider);
+    color: mat.m2-get-color-from-palette($foreground, text, 0.45);
+    border-left: 3px solid mat.m2-get-color-from-palette($foreground, divider);
   }
 
   body,
   .mat-drawer-container {
-    color: mat.get-color-from-palette($foreground, text, 0.75);
-    background-color: mat.get-color-from-palette($background, background);
+    color: mat.m2-get-color-from-palette($foreground, text, 0.75);
+    background-color: mat.m2-get-color-from-palette($background, background);
     .mat-drawer-inner-container {
-      @include scrollbar(mat.get-color-from-palette($primary));
+      @include scrollbar(mat.m2-get-color-from-palette($primary));
     }
   }
 
   .text-primary {
-    color: mat.get-color-from-palette($primary);
+    color: mat.m2-get-color-from-palette($primary);
   }
 
   .text-accent {
-    color: mat.get-color-from-palette($accent);
+    color: mat.m2-get-color-from-palette($accent);
   }
 
   .text-warn {
-    color: mat.get-color-from-palette($warn);
+    color: mat.m2-get-color-from-palette($warn);
   }
 
   .bg-primary {
-    background-color: mat.get-color-from-palette($primary);
+    background-color: mat.m2-get-color-from-palette($primary);
     color: $contrast;
   }
 
   .bg-accent {
-    background-color: mat.get-color-from-palette($accent);
+    background-color: mat.m2-get-color-from-palette($accent);
     color: $contrast;
   }
 
   .bg-warn {
-    background-color: mat.get-color-from-palette($warn);
+    background-color: mat.m2-get-color-from-palette($warn);
     color: $contrast;
   }
 
@@ -194,44 +194,44 @@
   }
 
   .bg-grey-50 {
-    background-color: map-get(mat.$grey-palette, 50);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 50);
+    background-color: map-get(mat.$m2-grey-palette, 50);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 50);
   }
   .bg-grey-100 {
-    background-color: map-get(mat.$grey-palette, 100);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 100);
+    background-color: map-get(mat.$m2-grey-palette, 100);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 100);
   }
   .bg-grey-200 {
-    background-color: map-get(mat.$grey-palette, 200);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 200);
+    background-color: map-get(mat.$m2-grey-palette, 200);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 200);
   }
   .bg-grey-300 {
-    background-color: map-get(mat.$grey-palette, 300);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 300);
+    background-color: map-get(mat.$m2-grey-palette, 300);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 300);
   }
   .bg-grey-400 {
-    background-color: map-get(mat.$grey-palette, 400);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 400);
+    background-color: map-get(mat.$m2-grey-palette, 400);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 400);
   }
   .bg-grey-500 {
-    background-color: map-get(mat.$grey-palette, 500);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 500);
+    background-color: map-get(mat.$m2-grey-palette, 500);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 500);
   }
   .bg-grey-600 {
-    background-color: map-get(mat.$grey-palette, 600);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 600);
+    background-color: map-get(mat.$m2-grey-palette, 600);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 600);
   }
   .bg-grey-700 {
-    background-color: map-get(mat.$grey-palette, 700);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 700);
+    background-color: map-get(mat.$m2-grey-palette, 700);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 700);
   }
   .bg-grey-800 {
-    background-color: map-get(mat.$grey-palette, 800);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 800);
+    background-color: map-get(mat.$m2-grey-palette, 800);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 800);
   }
   .bg-grey-900 {
-    background-color: map-get(mat.$grey-palette, 900);
-    color: mat.get-contrast-color-from-palette(mat.$grey-palette, 900);
+    background-color: map-get(mat.$m2-grey-palette, 900);
+    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 900);
   }
 
   .text-grey {
@@ -239,11 +239,11 @@
   }
 
   .ngx-bar {
-    background-color: mat.get-color-from-palette($primary) !important;
+    background-color: mat.m2-get-color-from-palette($primary) !important;
   }
 
   hr {
-    background: mat.get-color-from-palette($foreground, divider);
+    background: mat.m2-get-color-from-palette($foreground, divider);
   }
 }
 

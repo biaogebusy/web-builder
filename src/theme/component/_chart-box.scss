@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
 @mixin chart-box-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -11,7 +11,7 @@
   $light: map-get($background, card);
   .chart-box {
     .title {
-      color: mat.get-color-from-palette($foreground, text, 0.4);
+      color: mat.m2-get-color-from-palette($foreground, text, 0.4);
     }
   }
 }

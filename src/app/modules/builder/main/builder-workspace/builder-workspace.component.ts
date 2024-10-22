@@ -11,10 +11,17 @@ import { ICoreConfig } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
-import { BUILDER_FULL_SCREEN, CORE_CONFIG } from '@core/token/token-providers';
+import {
+  BUILDER_CONFIG,
+  BUILDER_FULL_SCREEN,
+  CORE_CONFIG,
+} from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable } from 'rxjs';
+import { Observable, delay } from 'rxjs';
 import { TagsService } from '@core/service/tags.service';
+import { ScreenService } from '@core/service/screen.service';
+import { TourService } from '@core/service/tour.service';
+import { IBuilderConfig } from '@core/interface/IBuilder';
 
 @Component({
   selector: 'app-builder-workspace',
@@ -32,10 +39,13 @@ export class BuilderWorkspaceComponent implements AfterViewInit {
   storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
   tagService = inject(TagsService);
+  private tourService = inject(TourService);
+  private screenSerivce = inject(ScreenService);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(DOCUMENT) private doc: Document,
-    @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
+    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>,
+    @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>
   ) {
     this.tagService.setTitle('工作区');
   }
@@ -53,6 +63,16 @@ export class BuilderWorkspaceComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    if (this.screenSerivce.isPlatformBrowser()) {
+      this.builderConfig$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((config: IBuilderConfig) => {
+          const { tour } = config;
+          if (tour?.enable) {
+            this.tourService.init(tour);
+          }
+        });
+    }
     this.screenState
       .mqAlias$()
       .pipe(takeUntilDestroyed(this.destroyRef))
