@@ -10,17 +10,6 @@
 .sidebar {
   width: 180px;
   padding: 0 10px 10px 0;
-  &.from-static {
-    ::ng-deep {
-      formly-form {
-        formly-group {
-          formly-field:not(.static-item) {
-            display: none !important;
-          }
-        }
-      }
-    }
-  }
 }
 
 .inner {

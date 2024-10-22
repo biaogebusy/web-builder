@@ -36,7 +36,6 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { environment } from 'src/environments/environment';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -71,18 +70,6 @@ export class ManageMediaComponent implements OnInit {
   uploadDrawer: MatDrawer;
 
   defaultField: FormlyFieldConfig[] = [
-    {
-      type: 'toggle',
-      key: 'fromStatic',
-      className: 'static-item',
-      defaultValue: environment.production ? false : true,
-      props: {
-        label: '切换资源库',
-      },
-      expressions: {
-        'props.label': "model.fromStatic?'静态资源':'后台媒体库'",
-      },
-    },
     {
       type: 'input',
       key: 'name',

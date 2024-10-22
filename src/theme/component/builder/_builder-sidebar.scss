@@ -1,17 +1,17 @@
 @use "@angular/material" as mat;
 @mixin builder-sidebar($background, $foreground, $primary) {
   .builder-sidebar {
-    background-color: mat.get-color-from-palette($background, background);
+    background-color: mat.m2-get-color-from-palette($background, background);
     .icon-menu,
     .accordion-menu {
-      @include scrollbar(mat.get-color-from-palette($foreground, divider, 0.2));
+      @include scrollbar(mat.m2-get-color-from-palette($foreground, divider, 0.2));
     }
     &.closed {
       background-color: #363538;
       color: #f5f5f5;
       @include mat.elevation(
         4,
-        mat.get-color-from-palette($background, focused-button),
+        mat.m2-get-color-from-palette($background, focused-button),
         0.4
       );
       .mat-divider {
@@ -31,42 +31,42 @@
 
           &.active {
             > .custom-icon {
-              color: mat.get-color-from-palette($primary, default-contrast);
+              color: mat.m2-get-color-from-palette($primary, default-contrast);
               &::after {
-                background-color: mat.get-color-from-palette($primary);
+                background-color: mat.m2-get-color-from-palette($primary);
               }
             }
           }
         }
         .child {
-          background-color: mat.get-color-from-palette($background, card);
-          color: mat.get-color-from-palette($foreground, text, 0.75);
+          background-color: mat.m2-get-color-from-palette($background, card);
+          color: mat.m2-get-color-from-palette($foreground, text, 0.75);
           @include mat.elevation(
             3,
-            mat.get-color-from-palette($foreground, divider, 0.7)
+            mat.m2-get-color-from-palette($foreground, divider, 0.7)
           );
           .hover-menu {
-            background-color: mat.get-color-from-palette($background, card);
+            background-color: mat.m2-get-color-from-palette($background, card);
             @include scrollbar(
-              mat.get-color-from-palette($foreground, divider)
+              mat.m2-get-color-from-palette($foreground, divider)
             );
             .child-menu {
               .mdc-list-item {
                 &.active,
                 &:hover {
                   .mdc-list-item__primary-text {
-                    color: mat.get-color-from-palette($primary);
+                    color: mat.m2-get-color-from-palette($primary);
                   }
                   &:after {
-                    background-color: mat.get-color-from-palette($primary, 0.1);
+                    background-color: mat.m2-get-color-from-palette($primary, 0.1);
                   }
                 }
                 .mdc-list-item__primary-text {
-                  color: mat.get-color-from-palette($foreground, text, 0.75);
+                  color: mat.m2-get-color-from-palette($foreground, text, 0.75);
                 }
                 &:hover {
                   &:after {
-                    background-color: mat.get-color-from-palette($primary, 0.1);
+                    background-color: mat.m2-get-color-from-palette($primary, 0.1);
                   }
                 }
               }
@@ -90,21 +90,21 @@
     &.opened {
       .accordion-menu {
         app-icon {
-          color: mat.get-color-from-palette($foreground, text, 0.7);
+          color: mat.m2-get-color-from-palette($foreground, text, 0.7);
         }
         > .mat-accordion {
           > .mat-mdc-list {
             &.no-child {
               a {
-                color: mat.get-color-from-palette($foreground, text, 0.75);
+                color: mat.m2-get-color-from-palette($foreground, text, 0.75);
               }
               &.active {
                 a,
                 .mat-icon {
-                  color: mat.get-color-from-palette($primary);
+                  color: mat.m2-get-color-from-palette($primary);
                 }
                 &::after {
-                  background-color: mat.get-color-from-palette($primary);
+                  background-color: mat.m2-get-color-from-palette($primary);
                 }
               }
             }
@@ -114,36 +114,36 @@
           > .mat-mdc-list {
             &.active {
               &::before {
-                background-color: mat.get-color-from-palette($primary);
+                background-color: mat.m2-get-color-from-palette($primary);
               }
             }
           }
           .mat-expansion-panel {
-            background-color: mat.get-color-from-palette(
+            background-color: mat.m2-get-color-from-palette(
               $background,
               background
             );
             .mat-expansion-panel-header {
               a {
-                color: mat.get-color-from-palette($foreground, text, 0.75);
+                color: mat.m2-get-color-from-palette($foreground, text, 0.75);
               }
               .mat-expansion-panel-header-title {
-                color: mat.get-color-from-palette($foreground, text, 0.75);
+                color: mat.m2-get-color-from-palette($foreground, text, 0.75);
               }
               .mat-expansion-indicator {
                 &::after {
-                  color: mat.get-color-from-palette($foreground, text, 0.75);
+                  color: mat.m2-get-color-from-palette($foreground, text, 0.75);
                 }
               }
             }
             &.active {
               .mat-expansion-panel-header {
-                background-color: mat.get-color-from-palette(
+                background-color: mat.m2-get-color-from-palette(
                   $background,
                   hover
                 );
                 &::after {
-                  background-color: mat.get-color-from-palette($primary);
+                  background-color: mat.m2-get-color-from-palette($primary);
                 }
               }
             }
@@ -151,19 +151,19 @@
         }
         .mat-mdc-list {
           .mat-mdc-list-item {
-            color: mat.get-color-from-palette($foreground, text, 0.5);
+            color: mat.m2-get-color-from-palette($foreground, text, 0.5);
             a {
-              color: mat.get-color-from-palette($foreground, text, 0.75);
+              color: mat.m2-get-color-from-palette($foreground, text, 0.75);
               &.active {
-                color: mat.get-color-from-palette($primary);
+                color: mat.m2-get-color-from-palette($primary);
               }
             }
             &:hover {
               a {
-                color: mat.get-color-from-palette($primary);
+                color: mat.m2-get-color-from-palette($primary);
               }
               &:after {
-                background-color: mat.get-color-from-palette($primary, 0.1);
+                background-color: mat.m2-get-color-from-palette($primary, 0.1);
               }
             }
           }
@@ -173,28 +173,28 @@
     .bottom {
       .icon-actions {
         .mdc-icon-button {
-          color: mat.get-color-from-palette($foreground, text, 0.75);
+          color: mat.m2-get-color-from-palette($foreground, text, 0.75);
         }
       }
       .toggle {
         .wrapper {
-          color: mat.get-color-from-palette($foreground, text, 0.75);
+          color: mat.m2-get-color-from-palette($foreground, text, 0.75);
           .mat-icon {
             @include mat.elevation(
               4,
-              mat.get-color-from-palette($foreground, text),
+              mat.m2-get-color-from-palette($foreground, text),
               0.3
             );
             transition: all 0.1s ease;
           }
           &:hover {
             .mat-icon {
-              background-color: mat.get-color-from-palette(
+              background-color: mat.m2-get-color-from-palette(
                 $foreground,
                 base,
                 0.85
               );
-              color: mat.get-color-from-palette($primary, 50);
+              color: mat.m2-get-color-from-palette($primary, 50);
             }
           }
         }

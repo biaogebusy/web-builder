@@ -17,13 +17,17 @@ import {
   WIDGETS,
   UIUX,
   COLOR_TEST,
+  BUILDER_CONFIG,
 } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-builder';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
 import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.component';
 import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
-import { builderCurrentPageFactory } from '@core/factory/factory';
+import {
+  builderCurrentPageFactory,
+  getBuilderConfig,
+} from '@core/factory/factory';
 import { LocalStorageService } from 'ngx-webstorage';
 import { InlineEditComponent } from './main/inline-editor/inline-editor.component';
 import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
@@ -93,6 +97,10 @@ const components = [
     BuilderRoutingModule,
   ],
   providers: [
+    {
+      provide: BUILDER_CONFIG,
+      useFactory: getBuilderConfig,
+    },
     {
       provide: UIUX,
       useValue: uiux,

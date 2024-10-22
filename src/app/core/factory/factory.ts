@@ -1,7 +1,7 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, BehaviorSubject, interval, of } from 'rxjs';
+import { Observable, BehaviorSubject, interval } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -16,11 +16,11 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
-import { mediaAssets } from '@modules/builder/data/mediaAssets';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
 import { inject } from '@angular/core';
+import { IBuilderConfig } from '@core/interface/IBuilder';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -45,7 +45,7 @@ export function pageContentFactory(): Observable<IPage | object | boolean> {
 export function builderFullScreenFactory(
   router: Router,
   storage: LocalStorageService,
-  builder: BuilderState,
+  builder: BuilderState
 ): Observable<boolean> {
   const isFull$ = new BehaviorSubject<boolean>(false);
   const isFull = storage.retrieve('builderFullScreen');
@@ -64,14 +64,14 @@ export function builderFullScreenFactory(
 }
 
 export function builderCurrentPageFactory(
-  storage: LocalStorageService,
+  storage: LocalStorageService
 ): Observable<IPage | object | boolean> {
   const versionKey = 'version';
   const currentPage$ = new BehaviorSubject<IPage | object | boolean>(false);
   const localVersion = storage.retrieve(versionKey);
   if (localVersion) {
     const currentPage = localVersion.find(
-      (page: IPage) => page.current === true,
+      (page: IPage) => page.current === true
     );
     currentPage$.next(currentPage);
   }
@@ -133,7 +133,7 @@ export function debugAnimateFactory(): Observable<boolean> {
 }
 
 export function notifyFactory(
-  coreConfig: ICoreConfig,
+  coreConfig: ICoreConfig
 ): Observable<INotify[] | object | boolean> {
   const notifyService = inject(NotifyService);
   const $notify = new BehaviorSubject<INotify[] | object | boolean>(false);
@@ -168,7 +168,7 @@ export function notifyFactory(
             lists = [...message];
           });
           return lists;
-        }),
+        })
       )
       .subscribe((res: INotify[]) => {
         $notify.next(res);
@@ -203,14 +203,14 @@ export function langFactory(): ILanguage | undefined {
 
 export function themeFactory(
   coreConfig: ICoreConfig,
-  storage: LocalStorageService,
+  storage: LocalStorageService
 ): string {
   const defaultTheme = coreConfig.defaultTheme || 'blue-theme';
   const localTheme = storage.retrieve(THEMKEY);
   if (localTheme && coreConfig.theme) {
     // checkout the theme is removed
     const isInThemeList = coreConfig.theme.filter(
-      (item) => item.style === localTheme,
+      (item) => item.style === localTheme
     );
     if (isInThemeList.length) {
       return localTheme;
@@ -264,11 +264,6 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
 
   // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value: any) => {
-    const { fromStatic } = value;
-    if (fromStatic) {
-      assets$.next(mediaAssets);
-      return;
-    }
     const params = nodeService.getApiParams({ ...value, noCache: true });
     nodeService.fetch(api, params).subscribe((res) => {
       assets$.next({
@@ -279,4 +274,8 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   });
 
   return assets$;
+}
+
+export function getBuilderConfig(): Observable<IBuilderConfig> {
+  return inject(ContentService).loadBuilderConfig();
 }

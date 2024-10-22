@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 @mixin tour-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
@@ -171,7 +171,7 @@
     box-sizing: content-box;
     position: absolute;
     visibility: visible;
-    background-color: mat.get-color-from-palette($background, card);
+    background-color: mat.m2-get-color-from-palette($background, card);
     min-width: 250px;
     max-width: 300px;
     border-radius: 5px;
@@ -181,7 +181,7 @@
 
   .introjs-tooltiptext {
     padding: 20px;
-    color: mat.get-color-from-palette($foreground, text, 0.75);
+    color: mat.m2-get-color-from-palette($foreground, text, 0.75);
   }
 
   .introjs-dontShowAgain {
@@ -248,16 +248,16 @@
     overflow: visible;
     text-decoration: none;
     font-size: 14px;
-    color: mat.get-color-from-palette($primary, default-contrast);
+    color: mat.m2-get-color-from-palette($primary, default-contrast);
     @include mat.elevation(
       4,
-      mat.get-color-from-palette($foreground, text),
+      mat.m2-get-color-from-palette($foreground, text),
       0.35
     );
     white-space: nowrap;
     cursor: pointer;
     outline: none;
-    background-color: mat.get-color-from-palette($primary);
+    background-color: mat.m2-get-color-from-palette($primary);
     border-radius: 4px;
     zoom: 1;
     display: inline;
@@ -271,9 +271,9 @@
     &:focus {
       outline: none;
       text-decoration: none;
-      border-color: mat.get-color-from-palette($primary);
-      background-color: mat.get-color-from-palette($primary);
-      color: mat.get-color-from-palette($primary, default-contrast);
+      border-color: mat.m2-get-color-from-palette($primary);
+      background-color: mat.m2-get-color-from-palette($primary);
+      color: mat.m2-get-color-from-palette($primary, default-contrast);
     }
 
     &::-moz-focus-inner {

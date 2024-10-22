@@ -1,32 +1,32 @@
 @use "@angular/material" as mat;
 @mixin builder-list($background, $foreground, $primary, $warn) {
-  background-color: mat.get-color-from-palette($background, card);
+  background-color: mat.m2-get-color-from-palette($background, card);
   .component-item {
     &:hover {
-      outline: 1px dashed mat.get-color-from-palette($primary);
+      outline: 1px dashed mat.m2-get-color-from-palette($primary);
       z-index: 10;
     }
   }
   .wrapper {
     #builder-list {
-      @include scrollbar(mat.get-color-from-palette($primary));
+      @include scrollbar(mat.m2-get-color-from-palette($primary));
     }
   }
   .preview {
-    background-color: mat.get-color-from-palette($foreground, elevation, 0.85);
+    background-color: mat.m2-get-color-from-palette($foreground, elevation, 0.85);
     #builder-list {
-      background-color: mat.get-color-from-palette($background, card);
+      background-color: mat.m2-get-color-from-palette($background, card);
     }
     .preview-iframe {
       &:after {
-        background-color: mat.get-color-from-palette(
+        background-color: mat.m2-get-color-from-palette(
           $foreground,
           elevation,
           0.95
         );
         @include mat.elevation(
           2,
-          mat.get-color-from-palette($foreground, elevation),
+          mat.m2-get-color-from-palette($foreground, elevation),
           0.5
         );
       }
@@ -45,18 +45,18 @@
   }
   [contenteditable="true"] {
     cursor: text;
-    background-color: mat.get-color-from-palette($primary, 0.1);
+    background-color: mat.m2-get-color-from-palette($primary, 0.1);
   }
   .component-toolbar {
     .actions {
       background-color: #333;
       @include mat.elevation(
         2,
-        mat.get-color-from-palette($background, tooltip),
+        mat.m2-get-color-from-palette($background, tooltip),
         0.25
       );
       .mat-mdc-button-base {
-        color: mat.get-color-from-palette($primary, default-contrast, 0.8);
+        color: mat.m2-get-color-from-palette($primary, default-contrast, 0.8);
       }
     }
   }

@@ -1,37 +1,37 @@
 @use '@angular/material' as mat;
 
 @mixin comment-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-color: mat.get-color-from-palette($foreground, text, 0.75);
+  $text-color: mat.m2-get-color-from-palette($foreground, text, 0.75);
   .comment-list {
     .comment-count {
-      border-bottom: 1px solid mat.get-color-from-palette($foreground, divider);
+      border-bottom: 1px solid mat.m2-get-color-from-palette($foreground, divider);
     }
     .item {
       &:after {
         border-bottom: 1px solid
-          mat.get-color-from-palette($foreground, divider, 0.08);
+          mat.m2-get-color-from-palette($foreground, divider, 0.08);
       }
       &:last-child:after {
         border-bottom: 0;
       }
       .item-child {
-        background-color: mat.get-color-from-palette($background, app-bar);
+        background-color: mat.m2-get-color-from-palette($background, app-bar);
       }
     }
     .inline-editor {
-      background-color: mat.get-color-from-palette($background, background);
+      background-color: mat.m2-get-color-from-palette($background, background);
     }
     .actions {
       .mat-primary {
         .mat-mdc-progress-spinner circle {
-          stroke: mat.get-color-from-palette($primary, default-contrast);
+          stroke: mat.m2-get-color-from-palette($primary, default-contrast);
         }
       }
     }

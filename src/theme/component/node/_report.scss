@@ -2,34 +2,34 @@
 @import "../../mixins/amixin";
 
 @mixin report-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-color: mat.get-color-from-palette($foreground, text, 0.75);
+  $text-color: mat.m2-get-color-from-palette($foreground, text, 0.75);
   .report {
-    background-color: mat.get-color-from-palette($primary, 0.07);
+    background-color: mat.m2-get-color-from-palette($primary, 0.07);
     .box {
-      background-color: mat.get-color-from-palette($background, card);
+      background-color: mat.m2-get-color-from-palette($background, card);
       @include mat.elevation(
         3,
-        mat.get-color-from-palette($foreground, divider),
+        mat.m2-get-color-from-palette($foreground, divider),
         0.4
       );
       .item {
-        @include scrollbar(mat.get-color-from-palette($primary));
+        @include scrollbar(mat.m2-get-color-from-palette($primary));
         &:nth-child(2) {
-          border: 10px solid mat.get-color-from-palette($primary, 0.1);
+          border: 10px solid mat.m2-get-color-from-palette($primary, 0.1);
         }
       }
     }
     .dynamic-table {
       @include mat.elevation(
         3,
-        mat.get-color-from-palette($foreground, divider),
+        mat.m2-get-color-from-palette($foreground, divider),
         0.4
       );
     }

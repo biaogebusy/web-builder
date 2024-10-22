@@ -11,35 +11,35 @@
   }
 }
 @mixin calendar-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-primary: mat.get-color-from-palette($primary);
+  $text-primary: mat.m2-get-color-from-palette($primary);
   .full-calendar {
-    background-color: mat.get-color-from-palette($primary, 0.1);
+    background-color: mat.m2-get-color-from-palette($primary, 0.1);
     .main {
-      background-color: mat.get-color-from-palette($background, card);
+      background-color: mat.m2-get-color-from-palette($background, card);
     }
   }
 
   // widget
   .calendar {
     .fc-theme-standard .fc-scrollgrid {
-      border-color: mat.get-color-from-palette($foreground, divider);
+      border-color: mat.m2-get-color-from-palette($foreground, divider);
     }
     .fc-theme-standard td,
     .fc-scrollgrid th {
-      border-color: mat.get-color-from-palette($foreground, divider, 0.1);
+      border-color: mat.m2-get-color-from-palette($foreground, divider, 0.1);
     }
     .fc {
       .fc-header-toolbar {
         .fc-toolbar-chunk {
           &:last-child {
-            background-color: mat.get-color-from-palette($primary, 0.2);
+            background-color: mat.m2-get-color-from-palette($primary, 0.2);
             border-radius: 4px;
             transform: scale(1.08);
             button {
@@ -50,59 +50,59 @@
       }
       .fc-daygrid-day-top {
         a {
-          color: mat.get-color-from-palette($foreground, text, 0.75);
+          color: mat.m2-get-color-from-palette($foreground, text, 0.75);
         }
       }
       .fc-button-primary {
-        background-color: mat.get-color-from-palette($primary, 0.2);
+        background-color: mat.m2-get-color-from-palette($primary, 0.2);
         border: 0;
-        color: mat.get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary);
         box-shadow: none !important;
         &:disabled {
-          background-color: mat.get-color-from-palette($primary, 0.2);
-          border-color: mat.get-color-from-palette($primary, 0.2);
-          color: mat.get-color-from-palette($primary, 0.5);
+          background-color: mat.m2-get-color-from-palette($primary, 0.2);
+          border-color: mat.m2-get-color-from-palette($primary, 0.2);
+          color: mat.m2-get-color-from-palette($primary, 0.5);
         }
         &:hover,
         &:active,
         &:focus {
-          background-color: mat.get-color-from-palette($primary);
-          border-color: mat.get-color-from-palette($primary);
-          color: mat.get-color-from-palette($primary, default-contrast);
+          background-color: mat.m2-get-color-from-palette($primary);
+          border-color: mat.m2-get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
           opacity: 0.85;
         }
         &:not(:disabled).fc-button-active,
         &:not(:disabled):active,
         &:not(:disabled).fc-button-active:focus,
         &:not(:disabled):active:focus {
-          background-color: mat.get-color-from-palette(
+          background-color: mat.m2-get-color-from-palette(
             $primary,
             default-contrast
           );
-          color: mat.get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary);
         }
       }
       .fc-daygrid-day {
         &.fc-day-today {
-          background-color: mat.get-color-from-palette($primary, 0.1);
+          background-color: mat.m2-get-color-from-palette($primary, 0.1);
         }
       }
       .fc-h-event .fc-event-main {
-        color: mat.get-color-from-palette($primary, default-contrast);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
       }
       // default color
       .fc-h-event {
-        background-color: mat.get-color-from-palette($primary);
-        border-color: mat.get-color-from-palette($primary);
+        background-color: mat.m2-get-color-from-palette($primary);
+        border-color: mat.m2-get-color-from-palette($primary);
       }
       .bg-primary {
-        @include bg-calendar(mat.get-color-from-palette($primary));
+        @include bg-calendar(mat.m2-get-color-from-palette($primary));
       }
       .bg-accent {
-        @include bg-calendar(mat.get-color-from-palette($accent));
+        @include bg-calendar(mat.m2-get-color-from-palette($accent));
       }
       .bg-warn {
-        @include bg-calendar(mat.get-color-from-palette($warn));
+        @include bg-calendar(mat.m2-get-color-from-palette($warn));
       }
 
       // theme color from material theme config

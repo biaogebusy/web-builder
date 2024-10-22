@@ -1,7 +1,7 @@
 @use "@angular/material" as mat;
 
 @mixin card-list-color($theme) {
-  $config: mat.get-color-config($theme);
+  $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);

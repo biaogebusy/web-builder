@@ -332,10 +332,14 @@ export class PageSettingComponent implements OnInit {
                         value,
                       )
                       .pipe(takeUntilDestroyed(this.destroyRef))
-                      .subscribe(() => {
+                      .subscribe((status) => {
                         this.loading = false;
                         this.cd.detectChanges();
-                        this.util.openSnackbar(`已更新别名:${value}`);
+                        if (status) {
+                          this.util.openSnackbar(`已更新别名:${value}`);
+                        } else {
+                          this.util.openSnackbar(`更新失败，请联系管理员！`);
+                        }
                       });
                   });
               }

@@ -44,7 +44,7 @@ export class BlockComponent implements OnInit, AfterContentInit {
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {}

@@ -31,8 +31,8 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
 
   constructor(
-    @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
+    @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>
   ) {
     this.isBuilderMode$.pipe(takeUntilDestroyed()).subscribe((state) => {
       this.isBuilderMode = state;
