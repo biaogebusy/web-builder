@@ -36,12 +36,7 @@ export interface ICoreConfig {
     id: string;
   };
   guard: Guard;
-  tour: {
-    enable: boolean;
-    path: string;
-    delay: number;
-    steps: any[];
-  };
+
   manageMedia: IManageMedia;
   log: {
     content: {

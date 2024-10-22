@@ -58,5 +58,51 @@
         "svg": "cog-outline"
       }
     }
-  ]
+  ],
+  "tour": {
+    "enable": true,
+    "delay": 2000,
+    "dontShowAgain": true,
+    "dontShowAgainLabel": "不再显示此引导",
+    "nextLabel": "继续",
+    "prevLabel": "返回",
+    "doneLabel": "完成",
+    "steps": [
+      {
+        "intro": "欢迎来到信使 Web builder!"
+      },
+      {
+        "element": ".builder-sidebar",
+        "intro": "主要边栏，切换功能页面，查看列表、示例页、页头页脚配置等"
+      },
+      {
+        "element": ".mat-tab-labels",
+        "intro": "切换选项、预览基础组件、复合组件和系统组件，可拖动进去编辑区"
+      },
+      {
+        "element": ".mat-tab-body-wrapper",
+        "intro": "鼠标经过可预览组件，点击可固定预览，方便查看预览组件的JSON。"
+      },
+      {
+        "element": ".builder-version",
+        "intro": "清空、提交、加载示例等覆盖当前页面的操作会生成历史版本。"
+      },
+      {
+        "element": ".preview-content",
+        "intro": "页面编辑区，从边栏选择组件拖拽到这里，点击文本或者工具栏编辑组件相关信息。"
+      },
+      {
+        "element": ".builder-toolbar .middle",
+        "intro": "切换响应式预览，切换不同的主题。"
+      },
+      {
+        "element": "#toolbar-right",
+        "intro": "切换界面风格、新建页面或者生成页面等主要操作功能。"
+      },
+      {
+        "element": ".play-video",
+        "intro": "如何使用有疑惑，可以查看演示视频。"
+      }
+    ]
+  }
 }

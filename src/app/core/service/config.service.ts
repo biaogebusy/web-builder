@@ -7,7 +7,6 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { Subject } from 'rxjs';
 import { ClarityService } from './clarity.service';
-import { TourService } from './tour.service';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 @Injectable({
@@ -20,7 +19,6 @@ export class ConfigService {
   qiDianService = inject(QiDianService);
   dialogService = inject(DialogService);
   clarityService = inject(ClarityService);
-  tourService = inject(TourService);
   constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {}
 
   init(): void {
@@ -39,9 +37,6 @@ export class ConfigService {
         }
         if (this.coreConfig?.clarity?.id) {
           this.clarityService.init(this.coreConfig.clarity.id);
-        }
-        if (this.coreConfig?.tour?.enable) {
-          this.tourService.init(this.coreConfig.tour);
         }
         window.gsap = gsap;
         window.gsap.registerPlugin(ScrollTrigger);

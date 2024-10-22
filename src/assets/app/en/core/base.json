@@ -364,53 +364,6 @@
     }
   },
   "animate": true,
-  "tour": {
-    "enable": true,
-    "path": "/en/builder",
-    "delay": 2000,
-    "dontShowAgain": true,
-    "dontShowAgainLabel": "Don't show this again",
-    "nextLabel": "Next",
-    "prevLabel": "Back",
-    "doneLabel": "Done",
-    "steps": [
-      {
-        "intro": "Welcome to experience Web builder!"
-      },
-      {
-        "element": ".builder-sidebar",
-        "intro": "Main sidebar, switch function pages, view lists, sample pages, header and footer configurations, etc"
-      },
-      {
-        "element": ".mat-tab-labels",
-        "intro": "Switch options, preview basic components, composite components, and system components, which can be dragged into the editing area"
-      },
-      {
-        "element": ".mat-tab-body-wrapper",
-        "intro": "Mouse over the preview component, click to fix the preview, making it convenient to view the JSON of the preview component"
-      },
-      {
-        "element": ".builder-version",
-        "intro": "Operations such as clearing, submitting, and loading examples that overwrite the current page will generate historical versions."
-      },
-      {
-        "element": ".preview-content",
-        "intro": "In the page editing area, select the component from the sidebar and drag it here. Click on the text or toolbar to edit component related information."
-      },
-      {
-        "element": ".builder-toolbar .middle",
-        "intro": "Switch between responsive previews and different themes."
-      },
-      {
-        "element": "#toolbar-right",
-        "intro": "The main operational functions include switching interface styles, creating new pages, or generating pages."
-      },
-      {
-        "element": ".play-video",
-        "intro": "If you have any doubts about how to use it, you can check the demonstration video."
-      }
-    ]
-  },
   "manageMedia": {
     "row": 5,
     "sidebar": {

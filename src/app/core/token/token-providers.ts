@@ -4,7 +4,7 @@ import { IUser } from '@core/interface/IUser';
 import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
-import { IUiux } from '@core/interface/IBuilder';
+import { IBuilderConfig, IUiux } from '@core/interface/IBuilder';
 import { IThemePreview } from '@core/interface/combs/IThemePreview';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { IManageAssets } from '@core/interface/manage/IManage';
@@ -28,6 +28,9 @@ export const MEDIA_ASSETS = new InjectionToken<Observable<IManageAssets>>(
 );
 
 // builder
+export const BUILDER_CONFIG = new InjectionToken<IBuilderConfig>(
+  'builder config'
+);
 export const BUILDER_CURRENT_PAGE = new InjectionToken<IPage>('builder page');
 export const DEBUG_ANIMATE = new InjectionToken<boolean>('debug animate');
 export const BUILDER_FULL_SCREEN = new InjectionToken<Observable<boolean>>(

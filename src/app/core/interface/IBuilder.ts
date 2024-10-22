@@ -7,6 +7,15 @@ import { ILink } from './widgets/ILink';
 import { IBtn } from './widgets/IBtn';
 import { IMainMenu } from './branding/IBranding';
 
+export interface IBuilderConfig {
+  menu: IMainMenu[];
+  tour: {
+    enable: boolean;
+    delay: number;
+    steps: any[];
+  };
+}
+
 export interface IBuilderComponent {
   label: string;
   description?: string;
@@ -161,10 +170,6 @@ export interface IPageMeta {
   title: string;
   url: string;
   cover?: string;
-}
-
-export interface IBuilderConfig {
-  menu: IMainMenu[];
 }
 
 export interface IBuilderMenu extends ILink {

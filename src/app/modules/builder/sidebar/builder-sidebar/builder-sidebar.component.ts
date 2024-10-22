@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
-import { BRANDING } from '@core/token/token-providers';
+import { BRANDING, BUILDER_CONFIG } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,12 +25,13 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class BuilderSidebarComponent implements OnInit {
   @Input() sidebarDrawer: MatDrawer;
-  builderConfig$: Observable<IBuilderConfig> =
-    inject(ContentService).loadBuilderConfig();
   builder = inject(BuilderState);
   dialog = inject(MatDialog);
   manageService = inject(ManageService);
-  constructor(@Inject(BRANDING) public branding$: Observable<IBranding>) {}
+  constructor(
+    @Inject(BRANDING) public branding$: Observable<IBranding>,
+    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
+  ) {}
 
   ngOnInit(): void {}
 
