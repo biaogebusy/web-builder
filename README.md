@@ -16,6 +16,8 @@
 <p align="center">
   <a href="https://builder.design/builder">Web Builder </a>
   ·
+  <a href="https://github.com/biaogebusy/xinshi-mini">信使小程序</a>
+  ·
   <a href="https://ui.builder.design"> UI Storybook </a>
   ·
   <a href="https://www.zhihu.com/people/biaogebusy"> 知乎 </a>
