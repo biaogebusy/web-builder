@@ -61,12 +61,11 @@
   <i>信使小程序是基于 Taro+NutUI 的小程序，Vue3拥有更好的编辑开发体验，<br>在<strong>Web builder</strong>中通过拖拽可视化配置，小程序可动态构建页面。
     </i>
   <br>
+  <a href="https://github.com/biaogebusy/xinshi-mini">Github 开源地址</a>
 </p>
 
-信使微信小程序开源地址：https://github.com/biaogebusy/xinshi-mini
-
 <p align="center">
-  <img style="border-radius:10px" src="src/assets/images/mini/xinshi-mini.png" alt="logo" width="100%"/>
+  <img style="border-radius:10px" src="src/assets/images/mini/xinshi-mini.png" alt="logo" width="80%"/>
 </p>
 
 ## 相关视频演示
