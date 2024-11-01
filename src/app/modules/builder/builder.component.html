@@ -4,14 +4,14 @@
 >
   <mat-drawer-container class="w-full">
     @if (isBuilderMode$ | async) {
-      <mat-drawer
-        #drawer
-        class="sidebar-drawer"
-        [(opened)]="sidebarDrawerOpened"
-        mode="side"
-      >
-        <app-builder-sidebar [sidebarDrawer]="drawer"></app-builder-sidebar>
-      </mat-drawer>
+    <mat-drawer
+      #drawer
+      class="sidebar-drawer"
+      [(opened)]="sidebarDrawerOpened"
+      mode="side"
+    >
+      <app-builder-sidebar [sidebarDrawer]="drawer"></app-builder-sidebar>
+    </mat-drawer>
     }
     <mat-drawer-content [style]="drawerStyle">
       <div
@@ -43,13 +43,11 @@
               ></app-btn>
             </div>
             @if (builder.rightContent$ | async; as dynamic) {
-              <div [ngStyle]="dynamic.style">
-                @for (item of dynamic.elements; track item) {
-                  <app-dynamic-component
-                    [inputs]="item"
-                  ></app-dynamic-component>
-                }
-              </div>
+            <div [ngStyle]="dynamic.style">
+              @for (item of dynamic.elements; track item) {
+              <app-dynamic-component [inputs]="item"></app-dynamic-component>
+              }
+            </div>
             }
           </mat-drawer>
           <mat-drawer-content>

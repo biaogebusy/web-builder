@@ -5,20 +5,8 @@
   box-sizing: border-box;
   width: 100%;
   margin: 0 auto;
-  padding: 0 15px;
-
-  // @media #{$md} {
-  //   padding: 0 4rem;
-  // }
-
-  // @media #{$gt-md} {
-  //   padding: 0 4rem;
-  //   max-width: 1200px;
-  // }
-
-  max-width: 1470px;
-  @media #{$gt-lg} {
-  }
+  padding-left: 1rem;
+  padding-right: 1rem;
   .container {
     padding: 0;
   }
