@@ -7,6 +7,11 @@
     visibility: visible !important;
     transform: none !important;
     display: block;
+    ::ng-deep {
+      > .mat-drawer-inner-container {
+        overflow: hidden;
+      }
+    }
     &.mat-drawer-opened {
       width: 200px;
     }

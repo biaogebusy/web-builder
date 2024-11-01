@@ -16,6 +16,8 @@
 <p align="center">
   <a href="https://builder.design/builder">Web Builder </a>
   ·
+  <a href="https://github.com/biaogebusy/xinshi-mini">信使小程序</a>
+  ·
   <a href="https://ui.builder.design"> UI Storybook </a>
   ·
   <a href="https://www.zhihu.com/people/biaogebusy"> 知乎 </a>
@@ -52,6 +54,19 @@
 | 暗黑风格             | 支持切换浅色风格和暗黑风格，专注内容创作                              |
 | 页面预览             | 调转到新窗口查看真实的页面                                            |
 | 响应式预览           | 可切换不同设备尺寸查看页面响应式排版                                  |
+
+## Web builder 管理微信小程序的页面和组件
+
+<p align="center">
+  <i>信使小程序是基于 Taro+NutUI 的小程序，Vue3拥有更好的编辑开发体验，<br>在<strong>Web builder</strong>中通过拖拽可视化配置，小程序可动态构建页面。
+    </i>
+  <br>
+  <a href="https://github.com/biaogebusy/xinshi-mini">Github 开源地址</a>
+</p>
+
+<p align="center">
+  <img style="border-radius:10px" src="src/assets/images/mini/xinshi-mini.png" alt="logo" width="80%"/>
+</p>
 
 ## 相关视频演示
 
