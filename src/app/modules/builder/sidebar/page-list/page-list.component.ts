@@ -73,7 +73,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   user: IUser;
   constructor(
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(USER) private user$: Observable<IUser>,
+    @Inject(USER) private user$: Observable<IUser>
   ) {
     super();
     this.user$.subscribe((user) => {
@@ -151,7 +151,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
                     id: this.user.id,
                   },
                 },
-              },
+              }
             )
             .subscribe((res) => {
               this.builder.loading$.next(false);
@@ -187,7 +187,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
           this.cd.detectChanges();
           return this.getLists(res);
         }),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       );
   }
 
@@ -209,7 +209,12 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builderService.openPageSetting(
       page,
       '/api/v1/node/landing_page',
-      this.builderService.getPageParams(),
+      this.builderService.getPageParams([
+        'uid',
+        'group',
+        'cover',
+        'cover.field_media_image',
+      ])
     );
   }
 
@@ -229,7 +234,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
         `/api/v3/landingPage/json/${currentPage.nid}`,
         'noCache=1',
         '',
-        targetlang,
+        targetlang
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
@@ -242,7 +247,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
           // 复制一份，新建翻译
           this.util.openSnackbar(
             `正在载入${currentPage.title}，请修改页面内容为${targetlang}语言`,
-            'ok',
+            'ok'
           );
           this.builder.loadNewPage(
             this.builderService.formatToExtraData({
@@ -250,7 +255,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
               ...page,
               translation: true,
               target: targetlang,
-            }),
+            })
           );
         }
       });

@@ -65,16 +65,17 @@ export class PageSettingComponent implements OnInit {
           langcode,
           title,
           path,
+          meta_tags,
           is_transparent,
           transparent_style,
         },
       } = data;
       this.type = type;
+      const user = included.find((item: any) => item.type === 'user--user');
       if (type === 'node--landing_page') {
-        const user = included.find((item: any) => item.type === 'user--user');
         const cover = included.find((item: any) => item.type === 'file--file');
         const pageGroup = included.find(
-          (item: any) => item.type === 'taxonomy_term--page_group',
+          (item: any) => item.type === 'taxonomy_term--page_group'
         );
         if (content) {
           this.fields = [
@@ -87,9 +88,8 @@ export class PageSettingComponent implements OnInit {
                 langcode,
               }),
               drupal_internal__nid,
-              id,
               langcode,
-              path,
+              path
             ),
             {
               key: 'page_group',
@@ -147,7 +147,7 @@ export class PageSettingComponent implements OnInit {
                                 id: this.user.id,
                               },
                             },
-                          },
+                          }
                         )
                         .subscribe(() => {
                           this.loading = false;
@@ -218,9 +218,19 @@ export class PageSettingComponent implements OnInit {
               langcode,
             }),
             drupal_internal__nid,
-            id,
             langcode,
+            path
           ),
+          {
+            key: 'author',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: user.attributes.display_name,
+            props: {
+              label: '作者',
+              disabled: true,
+            },
+          },
           this.getCommonField('changed', changed),
           this.getCommonField('type', type),
           this.getCommonField('langcode', langcode),
@@ -236,9 +246,8 @@ export class PageSettingComponent implements OnInit {
     key: string,
     defaultValue: string,
     nid?: string,
-    id?: string,
     langcode?: string,
-    path?: any,
+    path?: any
   ): FormlyFieldConfig {
     switch (key) {
       case 'title':
@@ -329,7 +338,7 @@ export class PageSettingComponent implements OnInit {
                           id: nid || '',
                           path,
                         },
-                        value,
+                        value
                       )
                       .pipe(takeUntilDestroyed(this.destroyRef))
                       .subscribe((status) => {
@@ -386,7 +395,7 @@ export class PageSettingComponent implements OnInit {
         },
         {
           ...this.getRelationshiopParams(value),
-        },
+        }
       )
       .subscribe(
         (res) => {
@@ -398,7 +407,7 @@ export class PageSettingComponent implements OnInit {
           const { statusText } = error;
           this.loading = false;
           this.util.openSnackbar(statusText, 'ok');
-        },
+        }
       );
   }
 
@@ -524,7 +533,7 @@ export class PageSettingComponent implements OnInit {
           } = error;
           this.loading = false;
           this.util.openSnackbar(message, 'ok');
-        },
+        }
       );
   }
 
