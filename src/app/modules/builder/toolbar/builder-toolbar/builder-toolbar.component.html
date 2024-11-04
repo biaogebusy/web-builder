@@ -1,7 +1,7 @@
 @if (builderFullScreen$ | async) {
-  <div
-    *ngTemplateOutlet="toolbar; context: { isFull: builderFullScreen$ | async }"
-  ></div>
+<div
+  *ngTemplateOutlet="toolbar; context: { isFull: builderFullScreen$ | async }"
+></div>
 }
 <!-- placeholder for fixed -->
 <div *ngTemplateOutlet="toolbar; context: { isFull: false }"></div>
@@ -10,19 +10,19 @@
   <div class="builder-toolbar" [ngClass]="{ fixed: isFull }">
     <div class="wrapper flex justify-between items-center">
       @if (currentPage$ | async; as page) {
+      <div
+        class="left flex flex-col justify-center items-start flex-[0_1_33.33%]"
+      >
         <div
-          class="left flex flex-col justify-center items-start flex-[0_1_33.33%]"
+          class="page-title flex items-center"
+          contenteditable="true"
+          (blur)="onTitle($event)"
         >
-          <div
-            class="page-title flex items-center"
-            contenteditable="true"
-            (blur)="onTitle($event)"
-          >
-            {{ page.title }}
-            <app-icon [content]="{ svg: 'pencil-outline' }"></app-icon>
-          </div>
-          <div class="time">{{ page.time | date: "YYYY-MM-dd HH:mm" }}</div>
+          {{ page.title }}
+          <app-icon [content]="{ svg: 'pencil-outline' }"></app-icon>
         </div>
+        <div class="time">{{ page.time | date : "YYYY-MM-dd HH:mm" }}</div>
+      </div>
       }
       <div
         class="middle text-primary justify-center items-center hidden md:flex flex-[0_1_33.33%]"
@@ -49,10 +49,10 @@
           }"
         ></app-btn-generater>
         @if (page) {
-          <app-btn
-            class="hidden sm:flex"
-            (click)="onSubmit(page)"
-            [content]="{
+        <app-btn
+          class="hidden sm:flex whitespace-nowrap"
+          (click)="onSubmit(page)"
+          [content]="{
               label: page.translation
                 ? '更新翻译'
                 : page.uuid
@@ -64,7 +64,7 @@
                 svg: page.uuid ? 'navigation-variant' : 'pencil-plus',
               },
             }"
-          ></app-btn>
+        ></app-btn>
         }
         <app-lang-switch></app-lang-switch>
         <app-builder-menu></app-builder-menu>
