@@ -47,7 +47,10 @@
         color: mat.m2-get-color-from-palette($foreground, text, 0.75);
         &:focus-visible {
           color: mat.m2-get-color-from-palette($primary);
-          border-bottom-color: mat.m2-get-color-from-palette($foreground, divider);
+          border-bottom-color: mat.m2-get-color-from-palette(
+            $foreground,
+            divider
+          );
         }
       }
     }
@@ -95,6 +98,12 @@
           }
         }
       }
+    }
+  }
+
+  .builder-settings {
+    .cards {
+      @include scrollbar(mat.m2-get-color-from-palette($primary));
     }
   }
 
