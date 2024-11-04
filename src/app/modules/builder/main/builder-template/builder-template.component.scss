@@ -7,9 +7,6 @@
     top: 50%;
     transform: translate(-50%, -50%);
   }
-  .item {
-    flex: 0 0 calc(100% / 3 - 20px);
-  }
 }
 .card {
   position: relative;
@@ -31,8 +28,8 @@
   .action {
     position: absolute;
     display: none;
-    right: 20px;
-    top: 20px;
+    right: 0px;
+    top: 0px;
   }
 
   &:hover {
