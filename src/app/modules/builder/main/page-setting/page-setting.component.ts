@@ -402,11 +402,10 @@ export class PageSettingComponent implements OnInit {
   }
 
   getAttributesParams(value: any): object {
-    const { title, is_transparent, transparent_style, type, description } =
-      value;
+    const { title, is_transparent, transparent_style, type, meta_tags } = value;
     const common = {
       title,
-      description,
+      meta_tags,
     };
     if (type === 'node--landing_page') {
       return {
