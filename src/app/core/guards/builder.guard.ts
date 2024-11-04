@@ -32,7 +32,7 @@ export class BuilderGuard {
   }
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
+    state: RouterStateSnapshot
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -69,14 +69,14 @@ export class BuilderGuard {
                     this.userService.logoutUser();
                     if (environment?.drupalProxy) {
                       window.location.href =
-                        defaultDrupalLoginPage || '/user/login';
+                        defaultDrupalLoginPage ?? '/user/login';
                       return false;
                     } else {
                       this.router.navigate(
-                        [defaultFrontLoginPage || '/me/login'],
+                        [defaultFrontLoginPage ?? '/me/login'],
                         {
                           queryParams: { returnUrl: state.url },
-                        },
+                        }
                       );
                       return false;
                     }
@@ -85,20 +85,20 @@ export class BuilderGuard {
                 catchError(() => {
                   if (environment?.drupalProxy) {
                     window.location.href =
-                      defaultDrupalLoginPage || '/user/login';
+                      defaultDrupalLoginPage ?? '/user/login';
                     return of(false);
                   } else {
                     this.router.navigate([
-                      defaultFrontLoginPage || '/me/login',
+                      defaultFrontLoginPage ?? '/me/login',
                     ]);
                     return of(false);
                   }
-                }),
+                })
               );
             } else {
               return of(true);
             }
-          }),
+          })
         );
     } else {
       return of(true);

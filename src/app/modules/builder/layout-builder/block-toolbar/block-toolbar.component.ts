@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
+  inject,
 } from '@angular/core';
 import { ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
@@ -33,21 +33,20 @@ import { getVideo } from '@modules/builder/factory/getVideo';
   styleUrls: ['./block-toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BlockToolbarComponent implements OnInit {
+export class BlockToolbarComponent {
   @Input() layout: any;
   @Input() block: any;
   @Input() index: number;
   @Input() i: number;
   @Input() lbContent: any;
   @Input() pageIndex: number;
-  constructor(
-    private builder: BuilderState,
-    private builderSerivce: BuilderService,
-    private util: UtilitiesService,
-    private storage: LocalStorageService,
-  ) {}
 
-  ngOnInit(): void {}
+  private builder = inject(BuilderState)
+  private builderSerivce = inject(BuilderService)
+  private util = inject(UtilitiesService)
+  private storage = inject(LocalStorageService)
+
+
 
   onUpDown(direction: string, i: number, index: number): void {
     const { elements } = this.lbContent;

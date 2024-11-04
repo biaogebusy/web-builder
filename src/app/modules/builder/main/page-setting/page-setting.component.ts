@@ -310,7 +310,7 @@ export class PageSettingComponent implements OnInit {
                       .updateUrlalias(
                         {
                           langcode,
-                          id: nid || '',
+                          id: nid ?? '',
                           path,
                         },
                         value
@@ -341,6 +341,7 @@ export class PageSettingComponent implements OnInit {
               props: {
                 label: '页面描述',
                 rows: 2,
+                disabled: true,
               },
             },
           ],
@@ -402,10 +403,9 @@ export class PageSettingComponent implements OnInit {
   }
 
   getAttributesParams(value: any): object {
-    const { title, is_transparent, transparent_style, type, meta_tags } = value;
+    const { title, is_transparent, transparent_style, type } = value;
     const common = {
       title,
-      meta_tags,
     };
     if (type === 'node--landing_page') {
       return {

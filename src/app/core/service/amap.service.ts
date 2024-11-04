@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, Subject, of, BehaviorSubject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import type { IAmap, IMark, IMarkInfo } from '../interface/IAmap';
 import { ScreenService } from './screen.service';
 

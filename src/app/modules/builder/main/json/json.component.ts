@@ -3,7 +3,6 @@ import {
   Component,
   Input,
   inject,
-  AfterViewInit,
 } from '@angular/core';
 import { IJSON } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
@@ -14,10 +13,8 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrl: './json.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JsonComponent implements AfterViewInit {
+export class JsonComponent {
   @Input() content: IJSON;
 
   screenSerivce = inject(ScreenService);
-
-  ngAfterViewInit(): void {}
 }

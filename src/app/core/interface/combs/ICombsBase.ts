@@ -1,4 +1,3 @@
-import { IBg } from '../widgets/IBg';
 import { IBgImg } from '../widgets/IBgImg';
 import { IText } from '../widgets/IText';
 

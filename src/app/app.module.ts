@@ -15,19 +15,20 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
 import {
-  BRANDING,
-  BUILDER_FULL_SCREEN,
-  CORE_CONFIG,
-  DEBUG_ANIMATE,
-  IS_BUILDER_MODE,
-  LANG,
-  MEDIA_ASSETS,
-  NOTIFY_CONTENT,
   USER,
+  LANG,
+  THEME,
+  API_URL,
+  BRANDING,
+  CORE_CONFIG,
+  MEDIA_ASSETS,
+  DEBUG_ANIMATE,
+  NOTIFY_CONTENT,
+  IS_BUILDER_MODE,
+  BUILDER_FULL_SCREEN,
 } from '@core/token/token-providers';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
-import { API_URL, THEME } from '@core/token/token-providers';
 import { RenderModule } from '@modules/render/render.module';
 import {
   apiUrlFactory,

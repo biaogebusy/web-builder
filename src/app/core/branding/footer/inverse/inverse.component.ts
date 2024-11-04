@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -9,19 +9,15 @@ import { UtilitiesService } from '@core/service/utilities.service';
   styleUrls: ['./inverse.component.scss'],
   host: { ngSkipHydration: 'true' },
 })
-export class InverseComponent implements OnInit {
+export class InverseComponent {
   @Input() content: any;
   form: UntypedFormGroup = new UntypedFormGroup({});
   success = false;
   submited = false;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    public formService: FormService,
-    private utilitiesService: UtilitiesService
-  ) {}
-
-  ngOnInit(): void {}
+  private cd = inject(ChangeDetectorRef);
+  public formService = inject(FormService);
+  private util = inject(UtilitiesService);
 
   onSubmit(): void {
     if (this.form.invalid) {
@@ -36,12 +32,12 @@ export class InverseComponent implements OnInit {
       () => {
         this.submited = false;
         this.success = true;
-        this.utilitiesService.openSnackbar('成功订阅！');
+        this.util.openSnackbar('成功订阅！');
         this.cd.detectChanges();
       },
       (error) => {
         this.submited = false;
-        this.utilitiesService.openSnackbar(`Error: ${error.message}`);
+        this.util.openSnackbar(`Error: ${error.message}`);
       }
     );
   }

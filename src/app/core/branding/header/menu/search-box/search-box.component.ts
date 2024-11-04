@@ -29,9 +29,7 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
   nodeService = inject(NodeService);
   formService = inject(FormService);
   router = inject(Router);
-  constructor(private cd: ChangeDetectorRef) {
-    super();
-  }
+  private cd = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.initForm(this.content);
@@ -52,9 +50,9 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
               page: '0',
               loading: 0,
             },
-            value,
+            value
           ),
-          isEmpty,
+          isEmpty
         );
 
         this.nodeService

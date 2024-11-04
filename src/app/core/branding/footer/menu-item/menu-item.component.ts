@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
@@ -18,11 +19,9 @@ export class MenuItemComponent implements OnInit {
   @Input() content: any;
   @Input() mobileMenu: any;
   showXs: boolean;
-  constructor(
-    private screen: ScreenState,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
-  ) {}
+  private screen = inject(ScreenState);
+  private cd = inject(ChangeDetectorRef);
+  private screenService = inject(ScreenService);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
