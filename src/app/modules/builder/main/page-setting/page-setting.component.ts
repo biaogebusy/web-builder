@@ -72,25 +72,44 @@ export class PageSettingComponent implements OnInit {
       } = data;
       this.type = type;
       const user = included.find((item: any) => item.type === 'user--user');
+      this.fields = [
+        this.getCommonField('title', title.trim()),
+        this.getCommonField(
+          'alias',
+          this.builderService.getAttrAlias({
+            drupal_internal__nid,
+            path,
+            langcode,
+          }),
+          drupal_internal__nid,
+          langcode,
+          path
+        ),
+        {
+          key: 'author',
+          type: 'input',
+          className: 'w-full',
+          defaultValue: user.attributes.display_name,
+          props: {
+            label: '作者',
+            disabled: true,
+          },
+        },
+        this.getCommonField('changed', changed),
+        this.getCommonField('type', type),
+        this.getCommonField('langcode', langcode),
+        this.getCommonField('nid', drupal_internal__nid),
+        this.getCommonField('description', meta_tags?.description),
+      ];
       if (type === 'node--landing_page') {
         const cover = included.find((item: any) => item.type === 'file--file');
         const pageGroup = included.find(
           (item: any) => item.type === 'taxonomy_term--page_group'
         );
         if (content) {
-          this.fields = [
-            this.getCommonField('title', title.trim()),
-            this.getCommonField(
-              'alias',
-              this.builderService.getAttrAlias({
-                drupal_internal__nid,
-                path,
-                langcode,
-              }),
-              drupal_internal__nid,
-              langcode,
-              path
-            ),
+          this.fields.splice(
+            2,
+            0,
             {
               key: 'page_group',
               type: 'mat-select',
@@ -188,55 +207,11 @@ export class PageSettingComponent implements OnInit {
                   return !field.parent?.model.is_transparent;
                 },
               },
-            },
-            {
-              key: 'author',
-              type: 'input',
-              className: 'w-full',
-              defaultValue: user.attributes.display_name,
-              props: {
-                label: '作者',
-                disabled: true,
-              },
-            },
-            this.getCommonField('changed', changed),
-            this.getCommonField('type', type),
-            this.getCommonField('langcode', langcode),
-            this.getCommonField('nid', drupal_internal__nid),
-          ];
+            }
+          );
         }
       }
 
-      if (type === 'node--json') {
-        this.fields = [
-          this.getCommonField('title', title.trim()),
-          this.getCommonField(
-            'alias',
-            this.builderService.getAttrAlias({
-              drupal_internal__nid,
-              path,
-              langcode,
-            }),
-            drupal_internal__nid,
-            langcode,
-            path
-          ),
-          {
-            key: 'author',
-            type: 'input',
-            className: 'w-full',
-            defaultValue: user.attributes.display_name,
-            props: {
-              label: '作者',
-              disabled: true,
-            },
-          },
-          this.getCommonField('changed', changed),
-          this.getCommonField('type', type),
-          this.getCommonField('langcode', langcode),
-          this.getCommonField('nid', drupal_internal__nid),
-        ];
-      }
       this.loading = false;
       this.cd.detectChanges();
     }
@@ -355,6 +330,21 @@ export class PageSettingComponent implements OnInit {
             },
           },
         };
+      case 'description':
+        return {
+          key: 'meta_tags',
+          fieldGroup: [
+            {
+              key: 'description',
+              type: 'textarea',
+              defaultValue,
+              props: {
+                label: '页面描述',
+                rows: 2,
+              },
+            },
+          ],
+        };
       default:
         return {
           key,
@@ -412,10 +402,15 @@ export class PageSettingComponent implements OnInit {
   }
 
   getAttributesParams(value: any): object {
-    const { title, is_transparent, transparent_style, type } = value;
+    const { title, is_transparent, transparent_style, type, description } =
+      value;
+    const common = {
+      title,
+      description,
+    };
     if (type === 'node--landing_page') {
       return {
-        title,
+        ...common,
         is_transparent,
         transparent_style,
       };
@@ -423,7 +418,7 @@ export class PageSettingComponent implements OnInit {
 
     if (type === 'node--json') {
       return {
-        title,
+        ...common,
       };
     }
 
