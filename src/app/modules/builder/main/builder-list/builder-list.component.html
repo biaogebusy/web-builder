@@ -29,6 +29,14 @@
           [index]="i"
           [isPreview]="true"
         ></app-dynamic-component>
+        <div class="add-new-section">
+          <button mat-raised-button (click)="showComponents()">
+            <div class="flex">
+              <app-icon class="mr-1" [content]="{ svg: 'plus' }"></app-icon>
+              <span>新增组件</span>
+            </div>
+          </button>
+        </div>
         }
       </div>
       }@empty {

@@ -22,6 +22,7 @@ import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-builder-list',
@@ -34,6 +35,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   markers: NodeListOf<Element>;
   opened = false;
   previewClass$: Observable<any>;
+  router = inject(Router);
   private zone = inject(NgZone);
   public builder = inject(BuilderState);
   public screenState = inject(ScreenState);
@@ -42,7 +44,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     @Inject(DOCUMENT) private doc: Document,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
   ngOnInit(): void {}
@@ -75,8 +77,12 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
           'preview-md': media === 'md',
           'preview-xs-md': media === 'xs-md',
         };
-      }),
+      })
     );
+  }
+
+  showComponents(): void {
+    this.router.navigate(['/builder']);
   }
 
   ngOnDestroy(): void {

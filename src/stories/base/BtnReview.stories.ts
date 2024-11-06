@@ -7,20 +7,12 @@ import {
 } from '@storybook/angular';
 
 import { BlockComponent } from '@modules/render/block/block.component';
-import { RenderModule } from '@modules/render/render.module';
 import { StorysModule } from '@core/module/storys.module';
-import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
-import { BRANDING } from '@core/token/token-providers';
-import {
-  defaultHeader,
-  footerInverse,
-} from '@modules/builder/data/Branding.json';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { importProvidersFrom } from '@angular/core';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
-import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { MatIcon } from '@angular/material/icon';
 
@@ -48,7 +40,7 @@ const meta: Meta<BlockComponent> = {
       ${story}
       </div>
       <app-footer></app-footer>
-    `,
+    `
     ),
   ],
   parameters: {
