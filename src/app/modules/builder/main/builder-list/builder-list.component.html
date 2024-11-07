@@ -29,15 +29,19 @@
           [index]="i"
           [isPreview]="true"
         ></app-dynamic-component>
-        <div class="add-new-section">
-          <button mat-raised-button (click)="showComponents()">
+        @if (builderConfig$ | async; as builderConfig) {
+        <div class="add-new-section" [attr.data-path]="i">
+          <button
+            mat-raised-button
+            (click)="showComponents($event, builderConfig.newSection)"
+          >
             <div class="flex">
               <app-icon class="mr-1" [content]="{ svg: 'plus' }"></app-icon>
-              <span>新增组件</span>
+              <span>新增布局</span>
             </div>
           </button>
         </div>
-        }
+        } }
       </div>
       }@empty {
       <app-default-page></app-default-page>

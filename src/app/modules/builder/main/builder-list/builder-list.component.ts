@@ -18,11 +18,16 @@ import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { ScreenState } from '@core/state/screen/ScreenState';
-import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import {
+  BUILDER_CONFIG,
+  BUILDER_CURRENT_PAGE,
+} from '@core/token/token-providers';
 import { map as each } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { IBuilderConfig } from '@core/interface/IBuilder';
 
 @Component({
   selector: 'app-builder-list',
@@ -39,12 +44,14 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private zone = inject(NgZone);
   public builder = inject(BuilderState);
   public screenState = inject(ScreenState);
-  public contentState = inject(ContentState);
+  private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
+  public contentState = inject(ContentState);
 
   constructor(
     @Inject(DOCUMENT) private doc: Document,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
   ) {}
 
   ngOnInit(): void {}
@@ -81,8 +88,10 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  showComponents(): void {
+  showComponents(event: any, newSection: any): void {
     this.router.navigate(['/builder']);
+    const path = this.util.generatePath(event.target);
+    this.builder.updatePageContentByPath(path, newSection, 'add');
   }
 
   ngOnDestroy(): void {

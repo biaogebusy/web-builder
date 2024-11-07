@@ -22,6 +22,7 @@
     position: relative;
     .add-new-section {
       position: absolute;
+      z-index: 999;
       display: none;
       left: 50%;
       bottom: -18px;
