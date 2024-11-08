@@ -28,6 +28,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
+import { BuilderService } from '@core/service/builder.service';
 
 @Component({
   selector: 'app-builder-list',
@@ -47,11 +48,12 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   public contentState = inject(ContentState);
+  private builderService = inject(BuilderService);
 
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
+    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>,
   ) {}
 
   ngOnInit(): void {}
@@ -84,14 +86,20 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
           'preview-md': media === 'md',
           'preview-xs-md': media === 'xs-md',
         };
-      })
+      }),
     );
   }
 
-  showComponents(event: any, newSection: any): void {
+  addNewSection(event: any, type: 'widget' | 'section', newSection: any): void {
     this.router.navigate(['/builder']);
     const path = this.util.generatePath(event.target);
-    this.builder.updatePageContentByPath(path, newSection, 'add');
+    if (type === 'section') {
+      this.builder.updatePageContentByPath(path, newSection, 'add');
+    }
+
+    if (type === 'widget') {
+      this.builderService.addBlock(type, {}, event.target);
+    }
   }
 
   ngOnDestroy(): void {
