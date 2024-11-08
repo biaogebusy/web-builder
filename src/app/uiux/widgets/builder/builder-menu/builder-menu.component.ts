@@ -41,7 +41,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   constructor(
     @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(COLOR_TEST) private colorTestPage: IPage,
+    @Inject(COLOR_TEST) private colorTestPage: IPage
   ) {}
 
   ngOnInit(): void {}
@@ -103,7 +103,12 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
       this.builderService.openPageSetting(
         { uuid, langcode },
         '/api/v1/node/landing_page',
-        this.builderService.getPageParams(),
+        this.builderService.getPageParams([
+          'uid',
+          'group',
+          'cover',
+          'cover.field_media_image',
+        ])
       );
     }
   }

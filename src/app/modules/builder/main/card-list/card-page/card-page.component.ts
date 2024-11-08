@@ -53,7 +53,7 @@ export class CardPageComponent {
         `/api/v3/landingPage/json/${currentPage.nid}`,
         'noCache=1',
         '',
-        targetlang,
+        targetlang
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
@@ -66,7 +66,7 @@ export class CardPageComponent {
           // 复制一份，新建翻译
           this.util.openSnackbar(
             `正在载入${currentPage.title}，请修改页面内容为${targetlang}语言`,
-            'ok',
+            'ok'
           );
           this.builder.loadNewPage(
             this.builderService.formatToExtraData({
@@ -74,7 +74,7 @@ export class CardPageComponent {
               ...page,
               translation: true,
               target: targetlang,
-            }),
+            })
           );
         }
       });
@@ -85,7 +85,12 @@ export class CardPageComponent {
     this.builderService.openPageSetting(
       page,
       '/api/v1/node/landing_page',
-      this.builderService.getPageParams(),
+      this.builderService.getPageParams([
+        'uid',
+        'group',
+        'cover',
+        'cover.field_media_image',
+      ])
     );
   }
 
@@ -117,7 +122,7 @@ export class CardPageComponent {
                     id: this.user.id,
                   },
                 },
-              },
+              }
             )
             .subscribe((res) => {
               this.builder.loading$.next(false);

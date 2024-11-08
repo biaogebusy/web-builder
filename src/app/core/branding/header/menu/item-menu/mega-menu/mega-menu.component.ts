@@ -3,9 +3,9 @@ import {
   Input,
   OnInit,
   ElementRef,
-  OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
@@ -19,15 +19,13 @@ import type { IMainMenu } from '@core/interface/branding/IBranding';
   styleUrls: ['./mega-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MegaMenuComponent implements OnInit, OnDestroy {
+export class MegaMenuComponent implements OnInit {
   @Input() content: IMainMenu;
   active: boolean;
-  constructor(
-    private eleRef: ElementRef,
-    private screenState: ScreenState,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
-  ) {}
+  private eleRef = inject(ElementRef);
+  private screenState = inject(ScreenState);
+  private screenService = inject(ScreenService);
+  private cd = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -73,6 +71,4 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
   trackByFn(index: number, item: any): number {
     return index;
   }
-
-  ngOnDestroy(): void {}
 }

@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
   ViewChild,
 } from '@angular/core';
 
@@ -12,10 +11,7 @@ import {
   styleUrls: ['./sub-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SubMenuComponent implements OnInit {
+export class SubMenuComponent {
   @Input() content: any;
   @ViewChild('childMenu', { static: true }) public childMenu: any;
-  constructor() {}
-
-  ngOnInit(): void {}
 }

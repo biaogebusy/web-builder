@@ -6,7 +6,6 @@ import {
   IBuilderDynamicContent,
   IBuilderShowcase,
   ILayoutSetting,
-  IPageMeta,
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -58,7 +57,7 @@ export class BuilderState {
   storage = inject(LocalStorageService);
   constructor(
     @Inject(DOCUMENT) private doc: Document,
-    @Inject(WIDGETS) public widgets: any[],
+    @Inject(WIDGETS) public widgets: any[]
   ) {
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion) {
@@ -145,14 +144,14 @@ export class BuilderState {
 
   get currentPage(): IPage {
     const currentIndex = this.version.findIndex(
-      (page) => page.current === true,
+      (page) => page.current === true
     );
     return this.version[currentIndex] || this.version[0];
   }
 
   setCurrentPage(page: IPage): void {
     const currentIndex = this.version.findIndex(
-      (item: IPage) => item.current === true,
+      (item: IPage) => item.current === true
     );
     this.version[currentIndex] = page;
     this.storage.store(this.versionKey, Object.assign([], this.version));
@@ -301,7 +300,7 @@ export class BuilderState {
   getRandomElements(
     data: IBuilderComponent[],
     id: string,
-    count: number,
+    count: number
   ): any[] {
     const elements = data.find((item) => item.id === id)?.elements || [];
     // 如果元素中包含 content.child，则将其元素也添加到结果中

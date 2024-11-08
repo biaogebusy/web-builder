@@ -1,7 +1,6 @@
 import { ILink } from './ILink';
 import { IImg } from './IImg';
 import { IRatios } from './IWidgets';
-import { IText } from './IText';
 
 export interface IContentBox extends IRatios {
   type: 'content-box';

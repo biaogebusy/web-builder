@@ -12,7 +12,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -68,7 +68,7 @@ export class BuilderTemplateComponent implements OnInit {
           this.loading = false;
           return pages;
         }),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       );
   }
 

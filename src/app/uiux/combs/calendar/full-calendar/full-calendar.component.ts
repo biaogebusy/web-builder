@@ -79,7 +79,7 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
     }
     const state = this.getParamsState(this.form.value, options);
     const params = this.getApiParams(state);
-    const api = this.content?.calendar?.api || '';
+    const api = this.content?.calendar?.api ?? '';
     this.initCalendar();
     if (this.content.calendar?.options?.events) {
       this.options.events = this.content.calendar.options.events;

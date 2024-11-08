@@ -1,36 +1,33 @@
-<div class="builder-template flex flex-wrap gap-5">
+<div class="builder-template grid grid-cols-12 gap-5">
   @if (loading) {
-    <mat-spinner class="spinner" diameter="50" color="primary"></mat-spinner>
-  }
-  @if (content$ | async; as content) {
-    @for (item of content; track item) {
-      <div class="item mb-3">
-        <div class="card" (click)="onNewPage(item)" matRipple>
-          <div class="card-header">
-            <div class="title">{{ item.title }}</div>
-            <div class="sub-title">{{ item.description }}</div>
-          </div>
-          <app-img
-            class="block rounded-xl overflow-hidden"
-            [content]="{
+  <mat-spinner class="spinner" diameter="50" color="primary"></mat-spinner>
+  } @if (content$ | async; as content) { @for (item of content; track item) {
+  <div class="item mb-3 col-span-12 sm:col-span-6 md:col-span-3">
+    <div class="card" (click)="onNewPage(item)" matRipple>
+      <div class="card-header">
+        <div class="title">{{ item.title }}</div>
+        <div class="sub-title line-clamp-1">{{ item.description }}</div>
+      </div>
+      <app-img
+        class="block rounded-xl overflow-hidden"
+        [content]="{
               src: item.img,
               height: 160,
               width: 316,
               classes: 'object-cover',
             }"
-          ></app-img>
-          <div class="action">
-            <app-btn
-              [content]="{
+      ></app-img>
+      <div class="action">
+        <app-btn
+          [content]="{
                 label: '',
                 mode: 'icon',
                 color: 'primary',
                 icon: { svg: 'plus' },
               }"
-            ></app-btn>
-          </div>
-        </div>
+        ></app-btn>
       </div>
-    }
-  }
+    </div>
+  </div>
+  } }
 </div>
