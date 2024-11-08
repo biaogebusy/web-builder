@@ -20,6 +20,7 @@
   }
   .component-item {
     position: relative;
+    min-height: 66px;
     .add-new-section {
       position: absolute;
       z-index: 999;
