@@ -69,7 +69,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
         this.loading = false;
         this.cd.detectChanges();
         return this.getLists(res);
-      }),
+      })
     );
   }
 
@@ -84,7 +84,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
     this.builderService.openPageSetting(
       { uuid: page.uuid, langcode: page.langcode },
       '/api/v1/node/json',
-      '',
+      this.builderService.getPageParams(['uid'])
     );
   }
 

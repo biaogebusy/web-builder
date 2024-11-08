@@ -1,15 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { UtilitiesService } from '@core/service/utilities.service';
 
-declare var gtag: any;
-declare var window: any;
+declare let gtag: any;
+declare let window: any;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnalyticsService {
   utility = inject(UtilitiesService);
-  constructor() {}
 
   loadGoogleAnalytics(id: string): void {
     // injecting GA main script asynchronously

@@ -26,7 +26,10 @@ $dark-theme: mat.m2-define-dark-theme(
   .builder {
     .builder-workspace {
       .builder-toolbar {
-        background-color: mat.m2-get-color-from-palette($background, background);
+        background-color: mat.m2-get-color-from-palette(
+          $background,
+          background
+        );
         color: mat.m2-get-color-from-palette($foreground, text, 0.75);
         .left {
           .page-title {
@@ -96,7 +99,10 @@ $dark-theme: mat.m2-define-dark-theme(
         }
       }
       .cdk-drag-placeholder {
-        background-color: mat.m2-get-color-from-palette($background, background);
+        background-color: mat.m2-get-color-from-palette(
+          $background,
+          background
+        );
         border: 3px dotted mat.m2-get-color-from-palette($foreground, divider);
         width: 100%;
         &:hover {

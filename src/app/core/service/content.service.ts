@@ -4,8 +4,7 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -52,7 +51,7 @@ export class ContentService extends ApiService {
         }),
         catchError(() => {
           return this.http.get<any>(`${this.apiUrl}${landingPath}/404`);
-        }),
+        })
       );
     } else {
       return this.http
@@ -63,7 +62,7 @@ export class ContentService extends ApiService {
           }),
           catchError(() => {
             return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-          }),
+          })
         );
     }
   }
@@ -88,7 +87,7 @@ export class ContentService extends ApiService {
     };
     if (environment.production) {
       return this.http.get<IBranding>(
-        `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`,
+        `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`
       );
     } else {
       if (lang === '/en') {
@@ -108,7 +107,7 @@ export class ContentService extends ApiService {
       .pipe(
         tap((config: any) => {
           Object.assign(coreConfig, config);
-        }),
+        })
       )
       .toPromise()
       .then(
@@ -118,7 +117,7 @@ export class ContentService extends ApiService {
         (error) => {
           console.log(error);
           console.log('base json not found!');
-        },
+        }
       );
   }
 
@@ -160,7 +159,7 @@ export class ContentService extends ApiService {
             html_url: '',
             stargazers_count: 0,
           });
-        }),
+        })
       );
   }
 }

@@ -23,7 +23,6 @@ export class BuilderPanelComponent implements OnInit {
   public builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  constructor() {}
 
   ngOnInit(): void {
     this.builder.fixedChange$
@@ -60,7 +59,6 @@ export class BuilderPanelComponent implements OnInit {
     if (!this.builder.fixedShowcase) {
       this.builder.fixedShowcase = true;
       this.builder.showcase(content);
-      return;
     }
   }
 

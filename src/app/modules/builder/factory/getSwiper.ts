@@ -1,5 +1,4 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { OnInit } from '@angular/core';
 export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
   const fields = [
     {

@@ -117,6 +117,7 @@
                 cursor: pointer;
                 padding-left: 30px;
                 padding-right: 30px;
+                height: 56px;
 
                 .mat-icon {
                   height: inherit;
@@ -231,13 +232,22 @@
               border-radius: 6px;
             }
           }
+          &.mdc-list-item--with-leading-icon {
+            padding-left: 16px;
+            .mat-mdc-list-item-icon {
+              margin-left: 0;
+            }
+            .mdc-list-item__content {
+              margin-left: 0;
+            }
+          }
         }
         .mdc-list-item__content {
           position: relative;
           z-index: 10;
           padding-top: 4px;
           padding-bottom: 4px;
-          margin-left: 17px;
+          margin-left: 18px;
         }
       }
     }

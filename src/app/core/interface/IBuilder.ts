@@ -9,6 +9,7 @@ import { IMainMenu } from './branding/IBranding';
 
 export interface IBuilderConfig {
   menu: IMainMenu[];
+  newSection: any;
   tour: {
     enable: boolean;
     delay: number;

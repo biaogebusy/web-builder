@@ -12,6 +12,8 @@
   }
 }
 
-.loading-container {
-  background-color: rgba(255, 255, 255, 1);
+.app-loading {
+  .app-loader {
+    position: absolute;
+  }
 }

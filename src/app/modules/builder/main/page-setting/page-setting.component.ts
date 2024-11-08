@@ -65,32 +65,51 @@ export class PageSettingComponent implements OnInit {
           langcode,
           title,
           path,
+          meta_tags,
           is_transparent,
           transparent_style,
         },
       } = data;
       this.type = type;
+      const user = included.find((item: any) => item.type === 'user--user');
+      this.fields = [
+        this.getCommonField('title', title.trim()),
+        this.getCommonField(
+          'alias',
+          this.builderService.getAttrAlias({
+            drupal_internal__nid,
+            path,
+            langcode,
+          }),
+          drupal_internal__nid,
+          langcode,
+          path
+        ),
+        {
+          key: 'author',
+          type: 'input',
+          className: 'w-full',
+          defaultValue: user.attributes.display_name,
+          props: {
+            label: '作者',
+            disabled: true,
+          },
+        },
+        this.getCommonField('changed', changed),
+        this.getCommonField('type', type),
+        this.getCommonField('langcode', langcode),
+        this.getCommonField('nid', drupal_internal__nid),
+        this.getCommonField('description', meta_tags?.description),
+      ];
       if (type === 'node--landing_page') {
-        const user = included.find((item: any) => item.type === 'user--user');
         const cover = included.find((item: any) => item.type === 'file--file');
         const pageGroup = included.find(
-          (item: any) => item.type === 'taxonomy_term--page_group',
+          (item: any) => item.type === 'taxonomy_term--page_group'
         );
         if (content) {
-          this.fields = [
-            this.getCommonField('title', title.trim()),
-            this.getCommonField(
-              'alias',
-              this.builderService.getAttrAlias({
-                drupal_internal__nid,
-                path,
-                langcode,
-              }),
-              drupal_internal__nid,
-              id,
-              langcode,
-              path,
-            ),
+          this.fields.splice(
+            2,
+            0,
             {
               key: 'page_group',
               type: 'mat-select',
@@ -147,7 +166,7 @@ export class PageSettingComponent implements OnInit {
                                 id: this.user.id,
                               },
                             },
-                          },
+                          }
                         )
                         .subscribe(() => {
                           this.loading = false;
@@ -188,45 +207,11 @@ export class PageSettingComponent implements OnInit {
                   return !field.parent?.model.is_transparent;
                 },
               },
-            },
-            {
-              key: 'author',
-              type: 'input',
-              className: 'w-full',
-              defaultValue: user.attributes.display_name,
-              props: {
-                label: '作者',
-                disabled: true,
-              },
-            },
-            this.getCommonField('changed', changed),
-            this.getCommonField('type', type),
-            this.getCommonField('langcode', langcode),
-            this.getCommonField('nid', drupal_internal__nid),
-          ];
+            }
+          );
         }
       }
 
-      if (type === 'node--json') {
-        this.fields = [
-          this.getCommonField('title', title.trim()),
-          this.getCommonField(
-            'alias',
-            this.builderService.getAttrAlias({
-              drupal_internal__nid,
-              path,
-              langcode,
-            }),
-            drupal_internal__nid,
-            id,
-            langcode,
-          ),
-          this.getCommonField('changed', changed),
-          this.getCommonField('type', type),
-          this.getCommonField('langcode', langcode),
-          this.getCommonField('nid', drupal_internal__nid),
-        ];
-      }
       this.loading = false;
       this.cd.detectChanges();
     }
@@ -236,9 +221,8 @@ export class PageSettingComponent implements OnInit {
     key: string,
     defaultValue: string,
     nid?: string,
-    id?: string,
     langcode?: string,
-    path?: any,
+    path?: any
   ): FormlyFieldConfig {
     switch (key) {
       case 'title':
@@ -326,10 +310,10 @@ export class PageSettingComponent implements OnInit {
                       .updateUrlalias(
                         {
                           langcode,
-                          id: nid || '',
+                          id: nid ?? '',
                           path,
                         },
-                        value,
+                        value
                       )
                       .pipe(takeUntilDestroyed(this.destroyRef))
                       .subscribe((status) => {
@@ -345,6 +329,22 @@ export class PageSettingComponent implements OnInit {
               }
             },
           },
+        };
+      case 'description':
+        return {
+          key: 'meta_tags',
+          fieldGroup: [
+            {
+              key: 'description',
+              type: 'textarea',
+              defaultValue,
+              props: {
+                label: '页面描述',
+                rows: 2,
+                disabled: true,
+              },
+            },
+          ],
         };
       default:
         return {
@@ -386,7 +386,7 @@ export class PageSettingComponent implements OnInit {
         },
         {
           ...this.getRelationshiopParams(value),
-        },
+        }
       )
       .subscribe(
         (res) => {
@@ -398,15 +398,18 @@ export class PageSettingComponent implements OnInit {
           const { statusText } = error;
           this.loading = false;
           this.util.openSnackbar(statusText, 'ok');
-        },
+        }
       );
   }
 
   getAttributesParams(value: any): object {
     const { title, is_transparent, transparent_style, type } = value;
+    const common = {
+      title,
+    };
     if (type === 'node--landing_page') {
       return {
-        title,
+        ...common,
         is_transparent,
         transparent_style,
       };
@@ -414,7 +417,7 @@ export class PageSettingComponent implements OnInit {
 
     if (type === 'node--json') {
       return {
-        title,
+        ...common,
       };
     }
 
@@ -524,7 +527,7 @@ export class PageSettingComponent implements OnInit {
           } = error;
           this.loading = false;
           this.util.openSnackbar(message, 'ok');
-        },
+        }
       );
   }
 

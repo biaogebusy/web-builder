@@ -18,11 +18,21 @@
       padding-bottom: 150px;
     }
   }
-  ::ng-deep {
-    .component-item {
-      position: relative;
-      &:hover {
-        outline-offset: -1px;
+  .component-item {
+    position: relative;
+    min-height: 66px;
+    .add-new-section {
+      position: absolute;
+      z-index: 999;
+      display: none;
+      left: 50%;
+      bottom: -18px;
+      transform: translateX(-50%);
+    }
+    &:hover {
+      outline-offset: -1px;
+      .add-new-section {
+        display: flex;
       }
     }
   }

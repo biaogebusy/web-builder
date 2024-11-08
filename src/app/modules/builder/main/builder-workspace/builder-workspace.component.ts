@@ -17,7 +17,7 @@ import {
   CORE_CONFIG,
 } from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable, delay } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { TourService } from '@core/service/tour.service';

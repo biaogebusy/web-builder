@@ -32,7 +32,7 @@ export class AuthGuard {
   }
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
+    state: RouterStateSnapshot
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -65,14 +65,14 @@ export class AuthGuard {
                     this.userService.logoutUser();
                     if (environment?.drupalProxy) {
                       window.location.href =
-                        defaultDrupalLoginPage || '/user/login';
+                        defaultDrupalLoginPage ?? '/user/login';
                       return false;
                     } else {
                       this.router.navigate(
-                        [defaultFrontLoginPage || '/me/login'],
+                        [defaultFrontLoginPage ?? '/me/login'],
                         {
                           queryParams: { returnUrl: state.url },
-                        },
+                        }
                       );
                       return false;
                     }
@@ -81,15 +81,15 @@ export class AuthGuard {
                 catchError(() => {
                   if (environment?.drupalProxy) {
                     window.location.href =
-                      defaultDrupalLoginPage || '/user/login';
+                      defaultDrupalLoginPage ?? '/user/login';
                     return of(false);
                   } else {
                     this.router.navigate([
-                      defaultFrontLoginPage || '/me/login',
+                      defaultFrontLoginPage ?? '/me/login',
                     ]);
                     return of(false);
                   }
-                }),
+                })
               );
             } else {
               if (checkUserState) {
@@ -104,13 +104,13 @@ export class AuthGuard {
                       if (status && !this.user) {
                         this.userService.updateUserBySession();
                       }
-                    }),
+                    })
                   )
                   .subscribe();
               }
               return of(true);
             }
-          }),
+          })
         );
     } else {
       return of(true);

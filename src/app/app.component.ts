@@ -21,7 +21,7 @@ import { ThemeService } from '@core/service/theme.service';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   mobileMenuOpened: boolean;
-  loading = false;
+  loading = true;
   screen = inject(ScreenState);
   activateRouter = inject(ActivatedRoute);
   configService = inject(ConfigService);
@@ -38,6 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.loading = false;
       this.themeService.initTheme();
       this.screen.drawer$.subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;

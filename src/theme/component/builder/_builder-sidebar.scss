@@ -174,11 +174,19 @@
               }
             }
             &:hover {
-              a {
+              a,
+              .mat-mdc-list-item-icon {
                 color: mat.m2-get-color-from-palette($primary);
               }
               &:after {
                 background-color: mat.m2-get-color-from-palette($primary, 0.1);
+              }
+            }
+          }
+          &.active {
+            .mat-mdc-list-item {
+              .mat-mdc-list-item-icon {
+                color: mat.m2-get-color-from-palette($primary);
               }
             }
           }
