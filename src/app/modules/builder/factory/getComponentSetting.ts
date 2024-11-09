@@ -74,9 +74,9 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             },
             {
               type: 'input',
-              key: 'classes',
+              key: 'containerClasses',
               className: 'col-span-6',
-              defaultValue: content.classes ?? '',
+              defaultValue: content.containerClasses ?? '',
               props: {
                 label: 'Classes',
                 description: '组件 class',

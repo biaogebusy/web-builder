@@ -1,8 +1,8 @@
 @if (showToolbar) {
   <app-component-toolbar #toolbar [content]="inputs" [isPreview]="isPreview" [index]="index" />
 }
-<div class="relative overflow-hidden">
-  @let content = component?.instance?.content;
+@let content = component?.instance?.content;
+<div class="relative overflow-hidden" [ngClass]="content?.containerClasses">
   @if (content?.id) {
     <a class="anchor" [id]="content.id"></a>
   }

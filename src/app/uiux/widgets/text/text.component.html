@@ -1,68 +1,52 @@
 @if (content) {
   <div [id]="content.id || ''" class="base-text relative">
-    <app-spacer [size]="content.spacer || 'md'" />
-    @if (content.bg) {
-      <app-bg-img #bg [attr.data-path]="'bg'" [content]="content.bg" />
-    }
-    <div class="container">
-      <div #inner class="inner" [class]="content.classes" [style]="content.style">
-        @if (content.title) {
-          <app-title [attr.data-path]="'title'" #title [content]="content.title" />
-        }
-        @if (content.body) {
-          <div
-            #body
-            class="text-body"
-            contentedit="body"
-            [innerHTML]="content.body | safeHtml"
-          ></div>
-        }
-        @if (content.lists?.elements) {
-          <ul
-            #list
-            class="lists my-5 flex flex-col"
-            [class.list-done]="content.lists?.params?.icon"
-          >
-            @for (list of content.lists?.elements; track list) {
-              <li class="flex justify-start items-center">
-                @if (!list.href) {
-                  <span [innerHTML]="list.label"></span>
-                } @else {
-                  <app-link [content]="list" />
-                }
-              </li>
-            }
-          </ul>
-        }
-        @if (content.actions) {
-          <div
-            [attr.data-path]="'actions'"
-            #actions
-            class="actions mt-10 pb-3 gap-3 flex flex-wrap justify-{{
-              content.actionsAlign ?? 'center'
-            }} items-center"
-          >
-            @for (action of content.actions; track action; let i = $index) {
-              @switch (action.type) {
-                @case ('closeDialog') {
-                  <button
-                    [attr.data-path]="i"
-                    mat-raised-button
-                    mat-dialog-close
-                    color="{{ action.color || 'primary' }}"
-                  >
-                    {{ action.label }}
-                  </button>
-                }
-                @default {
-                  <app-dynamic-component [attr.data-path]="i" [inputs]="action" />
-                }
+    <div #inner class="inner" [class]="content.classes" [style]="content.style">
+      @if (content.title) {
+        <app-title [attr.data-path]="'title'" #title [content]="content.title" />
+      }
+      @if (content.body) {
+        <div #body class="text-body" contentedit="body" [innerHTML]="content.body | safeHtml"></div>
+      }
+      @if (content.lists?.elements) {
+        <ul #list class="lists my-5 flex flex-col" [class.list-done]="content.lists?.params?.icon">
+          @for (list of content.lists?.elements; track list) {
+            <li class="flex justify-start items-center">
+              @if (!list.href) {
+                <span [innerHTML]="list.label"></span>
+              } @else {
+                <app-link [content]="list" />
+              }
+            </li>
+          }
+        </ul>
+      }
+      @if (content.actions) {
+        <div
+          [attr.data-path]="'actions'"
+          #actions
+          class="actions mt-10 pb-3 gap-3 flex flex-wrap justify-{{
+            content.actionsAlign ?? 'center'
+          }} items-center"
+        >
+          @for (action of content.actions; track action; let i = $index) {
+            @switch (action.type) {
+              @case ('closeDialog') {
+                <button
+                  [attr.data-path]="i"
+                  mat-raised-button
+                  mat-dialog-close
+                  color="{{ action.color || 'primary' }}"
+                >
+                  {{ action.label }}
+                </button>
+              }
+              @default {
+                <app-dynamic-component [attr.data-path]="i" [inputs]="action" />
               }
             }
-          </div>
-        }
-      </div>
+          }
+        </div>
+      }
     </div>
-    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

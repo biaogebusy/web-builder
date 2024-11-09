@@ -71,6 +71,7 @@ module.exports = {
     'items-stretch',
     'order-1',
     'order-0',
+    '!overflow-visible',
   ],
   theme: {
     screens: {
@@ -93,12 +94,12 @@ module.exports = {
       '10/12': '0 0 83.33%',
       '11/12': '0 0 91.66%',
       '12/12': '0 0 100%',
-      1: '1 1 0%',
-      auto: '1 1 auto',
-      initial: '0 1 auto',
-      inherit: 'inherit',
-      none: 'none',
-      2: '2 2 0%',
+      '1': '1 1 0%',
+      'auto': '1 1 auto',
+      'initial': '0 1 auto',
+      'inherit': 'inherit',
+      'none': 'none',
+      '2': '2 2 0%',
     },
     maxWidth: {
       '1/4': '25%',
