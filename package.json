@@ -13,7 +13,10 @@
     "bundle-report": "ng build --configuration production --stats-json && webpack-bundle-analyzer dist/browser/stats.json",
     "storybook": "ng run xinshi:storybook",
     "build-storybook": "ng run xinshi:build-storybook",
-    "serve:ssr:xinshi": "node dist/server/server.mjs"
+    "serve:ssr:xinshi": "node dist/server/server.mjs",
+    "lint": "ng lint",
+    "prepare": "husky",
+    "pre-commit": "lint-staged --no-stash"
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
@@ -118,13 +121,18 @@
     "@types/packery": "^1.4.32",
     "@types/video.js": "^7.3.49",
     "@types/webpack-dev-server": "^4.7.2",
+    "angular-eslint": "18.4.0",
     "autoprefixer": "^10.4.19",
     "body-parser": "^1.19.2",
     "browser-sync": "^3.0.0",
     "bufferutil": "^4.0.5",
     "codelyzer": "^6.0.0",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "express": "^4.17.2",
     "helmet": "^5.0.2",
+    "husky": "^9.1.6",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.16",
@@ -132,7 +140,9 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "lint-staged": "^15.2.10",
     "postcss": "^8.4.38",
+    "prettier": "^3.3.3",
     "protractor": "~7.0.0",
     "storybook": "^8.3.5",
     "svgo": "^2.8.0",
@@ -141,6 +151,7 @@
     "tslib": "^2.3.1",
     "tslint": "~6.1.0",
     "typescript": "^5.4.5",
+    "typescript-eslint": "8.10.0",
     "utf-8-validate": "^5.0.7",
     "webpack": "^5.91.0",
     "webpack-bundle-analyzer": "^4.5.0",
@@ -149,5 +160,13 @@
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
+  },
+  "lint-staged": {
+    "*.{ts,html}": [
+      "eslint --fix"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
   }
 }
