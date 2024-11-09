@@ -57,6 +57,7 @@ export class LayoutToolbarComponent implements OnInit {
       fields: getLayoutSetting(layout),
       content: layout,
       path: this.util.generatePath(target),
+      fullWidth: true
     };
     this.builder.rightContent$.next({
       mode: 'over',

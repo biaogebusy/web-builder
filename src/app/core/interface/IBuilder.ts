@@ -116,6 +116,7 @@ export interface ILayoutSetting {
   pageIndex?: number;
   content?: any;
   path?: string;
+  fullWidth: boolean;
 }
 
 export interface IWidgetPicker {

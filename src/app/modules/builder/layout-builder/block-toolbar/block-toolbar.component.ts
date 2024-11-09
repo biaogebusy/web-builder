@@ -136,6 +136,7 @@ export class BlockToolbarComponent {
       path,
       fields,
       content: widget,
+      fullWidth: true
     };
     this.builder.rightContent$.next({
       mode: 'over',

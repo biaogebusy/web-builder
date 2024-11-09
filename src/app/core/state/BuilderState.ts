@@ -257,12 +257,13 @@ export class BuilderState {
       pageIndex,
       content,
       path,
+      fullWidth: true
     };
     this.rightContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {
-        'width': '318px',
+        width: '318px',
         'max-width': 'calc(100vw - 50px)',
       },
       elements: [data],

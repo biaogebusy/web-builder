@@ -108,6 +108,7 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
         inputData: {
           content: {
             type: 'manage-media',
+            fullWidth: true
           },
         },
       },
