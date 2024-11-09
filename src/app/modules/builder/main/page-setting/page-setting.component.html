@@ -12,7 +12,8 @@
         label: '更新',
         color: 'primary',
         mode: 'raised',
-      }" />
+      }"
+    />
     @if (type === 'node--json') {
       <app-btn
         (click)="onJson()"
@@ -20,7 +21,8 @@
           label: '编辑JSON',
           color: 'primary',
           mode: 'stroked',
-        }" />
+        }"
+      />
     }
     @if (type === 'node--landing_page') {
       <app-btn
@@ -29,13 +31,15 @@
           label: '预览',
           color: 'primary',
           mode: 'stroked',
-        }" />
+        }"
+      />
     }
     <app-btn
       (click)="deletePage(model)"
       [content]="{
         label: '删除',
         color: 'warn',
-      }" />
+      }"
+    />
   </div>
 </div>

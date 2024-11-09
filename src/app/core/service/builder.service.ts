@@ -424,6 +424,7 @@ export class BuilderService extends ApiService {
               {
                 type: 'page-setting',
                 content: res,
+                fullWidth: true
               },
             ],
           });
