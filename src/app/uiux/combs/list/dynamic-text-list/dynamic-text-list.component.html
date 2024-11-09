@@ -2,22 +2,17 @@
   <div class="dynamic-text-list my-5">
     <div class="container">
       @if (loading) {
-        <ngx-skeleton-loader
-          count="20"
-          appearance="line"
-        ></ngx-skeleton-loader>
+        <ngx-skeleton-loader count="20" appearance="line" />
       }
       @for (item of lists; track trackByFn($index, item); let isLast = $last) {
-        <div
-          class="item"
-          >
+        <div class="item">
           <div class="meta mb-3 flex justify-start items-center gap-3">
-            <app-img [content]="item.picture"></app-img>
+            <app-img [content]="item.picture" />
             <div class="name text-lighter">{{ item.name }}</div>
-            <div class="time text-lighter">{{ item.time | date: "y-M-d" }}</div>
+            <div class="time text-lighter">{{ item.time | date: 'y-M-d' }}</div>
           </div>
           <h2 class="title mat-h2">
-            <app-link [content]="item.link"></app-link>
+            <app-link [content]="item.link" />
           </h2>
           <div class="action">
             <a [routerLink]="item.link.href" mat-raised-button color="primary">
@@ -29,14 +24,13 @@
             </button>
           </div>
           @if (!isLast) {
-            <mat-divider class="!my-5"></mat-divider>
+            <mat-divider class="!my-5" />
           }
         </div>
       }
       <app-pagination-links
         (pageChange)="onPageChange($event)"
-        [links]="links"
-      ></app-pagination-links>
+        [links]="links" />
     </div>
   </div>
 }

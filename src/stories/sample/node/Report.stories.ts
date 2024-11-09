@@ -24,7 +24,7 @@ const meta: Meta<ReportComponent> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(story => `${story}`),
   ],
   parameters: {
     docs: {

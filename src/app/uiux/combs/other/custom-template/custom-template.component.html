@@ -2,12 +2,12 @@
   @if (content.id) {
     <a class="anchor" [id]="content.id"></a>
   }
-  <app-spacer [size]="content.spacer || 'none'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'none'" />
   @if (content.bg) {
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
   }
   <div class="template {{ content.fullWidth ? '' : 'container' }}"></div>
-  <app-spacer [size]="content.spacer || 'none'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'none'" />
 </div>
 @if (pager && pager.totalItems !== 0) {
   <div class="pager">
@@ -19,8 +19,6 @@
       [showFirstLastButtons]="true"
       [hidePageSize]="true"
       [pageIndex]="pager.currentPage"
-      aria-label="Select page"
-    >
-    </mat-paginator>
+      aria-label="Select page" />
   </div>
 }

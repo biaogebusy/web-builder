@@ -24,7 +24,7 @@ export class SwitchThemeComponent implements OnInit {
   storage = inject(LocalStorageService);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(THEME) public theme: string,
+    @Inject(THEME) public theme: string
   ) {}
 
   ngOnInit(): void {

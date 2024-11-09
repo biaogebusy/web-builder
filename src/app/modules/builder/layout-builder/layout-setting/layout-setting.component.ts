@@ -37,7 +37,7 @@ export class LayoutSettingComponent {
   onModelChange(value: any): void {
     const { path } = this.content;
     let content: any = {};
-    Object.keys(value).forEach((config) => {
+    Object.keys(value).forEach(config => {
       if (config) {
         content = defaultsDeep(value[config], this.content.content);
       }
@@ -49,11 +49,7 @@ export class LayoutSettingComponent {
 
   drop(event: CdkDragDrop<string[]>): void {
     const { path, content } = this.content;
-    moveItemInArray(
-      this.content.content.elements,
-      event.previousIndex,
-      event.currentIndex,
-    );
+    moveItemInArray(this.content.content.elements, event.previousIndex, event.currentIndex);
     if (path) {
       this.builder.updatePageContentByPath(path, content);
     }

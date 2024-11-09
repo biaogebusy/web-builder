@@ -12,12 +12,8 @@
   "editor.wordWrap": "on",
   "editor.wrappingIndent": "indent",
   "html.format.enable": true,
-  "eslint.options": {
-    "configFile": "./.vscode/.eslintrc.json"
-  },
   "workbench.colorTheme": "One Monokai",
   "workbench.iconTheme": "vscode-icons",
-  "eslint.run": "onSave",
   "editor.accessibilitySupport": "off",
   "git.ignoreMissingGitWarning": true,
   "git.enableSmartCommit": true,
@@ -26,5 +22,23 @@
   "files.eol": "\n",
   "gitlens.currentLine.enabled": false,
   "prettier.singleAttributePerLine": false,
-  "prettier.bracketSameLine": true
+  "prettier.bracketSameLine": true,
+  "eslint.options": {
+    "extensions": [".ts", ".html"]
+  },
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html"],
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.formatOnSave": false
+  }
 }

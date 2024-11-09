@@ -21,7 +21,7 @@ const meta: Meta<SwitchThemeComponent> = {
     moduleMetadata({
       declarations: [],
     }),
-    componentWrapperDecorator((story) => {
+    componentWrapperDecorator(story => {
       return `<div classs="widget">${story}</div>`;
     }),
   ],

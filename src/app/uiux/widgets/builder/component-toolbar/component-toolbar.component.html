@@ -5,16 +5,14 @@
         class="item"
         (click)="onUpdown(index, 'up')"
         [matTooltip]="'上移'"
-        matTooltipPosition="above"
-      >
+        matTooltipPosition="above">
         <app-btn
           [content]="{
             label: '',
             color: 'primary',
             mode: 'icon',
             icon: { svg: 'arrow-collapse-up', inline: true },
-          }"
-        ></app-btn>
+          }" />
       </div>
     }
     @if (isPreview) {
@@ -22,16 +20,14 @@
         class="item"
         (click)="onUpdown(index, 'down')"
         [matTooltip]="'下移'"
-        matTooltipPosition="above"
-      >
+        matTooltipPosition="above">
         <app-btn
           [content]="{
             label: '',
             color: 'primary',
             mode: 'icon',
             icon: { svg: 'arrow-collapse-down', inline: true },
-          }"
-        ></app-btn>
+          }" />
       </div>
     }
     <div class="item" matTooltip="复制JSON" (click)="onCopy()">
@@ -41,23 +37,20 @@
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'content-copy', inline: true },
-        }"
-      ></app-btn>
+        }" />
     </div>
     @if (bcData) {
       <div
         class="item"
         matTooltip="粘贴复制的组件到下面"
-        (click)="onPaste($event, bcData)"
-      >
+        (click)="onPaste($event, bcData)">
         <app-btn
           [content]="{
             label: '',
             color: 'primary',
             mode: 'icon',
             icon: { svg: 'content-paste', inline: true },
-          }"
-        ></app-btn>
+          }" />
       </div>
     }
     @if (isPreview) {
@@ -65,32 +58,28 @@
         class="item"
         (click)="onDelete(index)"
         [matTooltip]="'移除'"
-        matTooltipPosition="above"
-      >
+        matTooltipPosition="above">
         <app-btn
           [content]="{
             label: '',
             color: 'primary',
             mode: 'icon',
             icon: { svg: 'delete', inline: true },
-          }"
-        ></app-btn>
+          }" />
       </div>
     }
     <div
       class="item"
       (click)="onSetting(content, index, $event)"
       [matTooltip]="'编辑组件通用配置'"
-      matTooltipPosition="above"
-    >
+      matTooltipPosition="above">
       <app-btn
         [content]="{
           label: '',
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'tune-vertical', inline: true },
-        }"
-      ></app-btn>
+        }" />
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="开发/JSONAPI/更新用户头像" id="user-picture" />
 
@@ -20,24 +20,24 @@ POST 方法已经封装：
 
 ```js
 export function updateUserPicture(uuid, avatarPath) {
-  const uid = userStore.profile.uid || "user";
+  const uid = userStore.profile.uid || 'user';
   const imageData = wx.getFileSystemManager().readFileSync(avatarPath);
   return POST(`/api/v1/user/user/${uuid}/user_picture`, {
     header: {
-      Accept: "application/vnd.api+json",
-      "Content-Type": "application/octet-stream",
-      "Content-Disposition": 'file; filename="' + uid + '-picture.jpg"',
+      Accept: 'application/vnd.api+json',
+      'Content-Type': 'application/octet-stream',
+      'Content-Disposition': 'file; filename="' + uid + '-picture.jpg"',
     },
     data: imageData,
   });
 }
 
 // 调用
-updateUserPicture(uuid, avatarUrl.value).then((res) => {
+updateUserPicture(uuid, avatarUrl.value).then(res => {
   // do something
   showToast({
-    icon: "success",
-    title: "头像更新成功",
+    icon: 'success',
+    title: '头像更新成功',
   });
 });
 ```

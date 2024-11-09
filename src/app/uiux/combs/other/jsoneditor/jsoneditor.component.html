@@ -1,45 +1,41 @@
 <div class="positon-relative">
   @if (loading) {
     <div class="loader">
-      <mat-spinner diameter="20" color="primary"></mat-spinner>
+      <mat-spinner diameter="20" color="primary" />
     </div>
   }
   <json-editor
     [matTooltip]="content.tooltip || ''"
     [options]="editorOptions"
     [data]="data"
-    (change)="onChange($event)"
-  ></json-editor>
+    (change)="onChange($event)" />
   @if (content.actions) {
     <div
       #actions
-      class="actions m-top pb-[10px] flex justify-center items-center"
-    >
+      class="actions m-top pb-[10px] flex justify-center items-center">
       @for (action of content.actions; track action) {
         @switch (action.type) {
-          @case ("closeDialog") {
+          @case ('closeDialog') {
             <button
               (click)="updateCurrentPage()"
               mat-raised-button
               mat-dialog-close
-              color="{{ action.color || 'primary' }}"
-            >
+              color="{{ action.color || 'primary' }}">
               {{ action.label }}
             </button>
           }
-          @case ("update") {
+          @case ('update') {
             <button
               *reqRolesIf="action"
               (click)="onUpdateAttr(action)"
               mat-raised-button
               color="{{ action.color || 'primary' }}"
-              [disabled]="!value"
-            >
+              [disabled]="!value">
               {{ action.label }}
             </button>
           }
           @default {
-            <app-dynamic-component [inputs]="action"></app-dynamic-component>
+            <app-dynamic-component [inputs]="action" />
           }
         }
       }

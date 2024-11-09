@@ -29,8 +29,7 @@ const meta: Meta<ContentBoxComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div style="width:40%" class="widget relative">${story}</div>`,
+      story => `<div style="width:40%" class="widget relative">${story}</div>`
     ),
   ],
 };

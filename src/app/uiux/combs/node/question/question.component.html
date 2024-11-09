@@ -4,8 +4,7 @@
       <div class="top m-bottom-sm">
         <app-chip-list
           [classes]="'mini'"
-          [content]="content.topic"
-        ></app-chip-list>
+          [content]="content.topic" />
       </div>
       <h2 class="title">{{ content.title }}</h2>
       <div class="question-details" [innerHTML]="content.body | safeHtml"></div>
@@ -24,8 +23,7 @@
           <button
             mat-raised-button
             color="warn"
-            (click)="checkQuestion(myCommentId)"
-          >
+            (click)="checkQuestion(myCommentId)">
             <mat-icon>list</mat-icon> 查看回答
           </button>
         }
@@ -37,9 +35,8 @@
   <div class="container">
     <!-- input params and editor config -->
     @if (showEditor) {
-      <app-comment-form [type]="'add'" [content]="content"> </app-comment-form>
+      <app-comment-form [type]="'add'" [content]="content" />
     }
-    <app-comment-list [comments]="comments" [content]="content">
-    </app-comment-list>
+    <app-comment-list [comments]="comments" [content]="content" />
   </div>
 </article>

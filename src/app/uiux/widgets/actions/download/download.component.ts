@@ -46,9 +46,9 @@ export class DownloadComponent implements OnInit {
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    @Inject(USER) public user$: Observable<IUser>,
+    @Inject(USER) public user$: Observable<IUser>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -61,12 +61,12 @@ export class DownloadComponent implements OnInit {
   }
 
   checkAccess(data: any): void {
-    this.pageContent$.subscribe((page) => {
+    this.pageContent$.subscribe(page => {
       const entityId = page.config?.node?.entityId || '';
       this.nodeService
         .checkNodeAccess(data, entityId, this.user)
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((access) => {
+        .subscribe(access => {
           this.canAccess = access.canAccess;
           this.isReqRoles = access.isReqRoles;
           this.cd.detectChanges();

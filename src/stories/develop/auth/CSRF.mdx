@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="开发/用户接口/仿跨站伪造请求" id="csrf" />
 
@@ -24,35 +24,35 @@ CSRF 令牌是一种随机生成的、唯一的值，用于验证请求的来源
    前端应用在用户登录后或页面加载时，首先获取 CSRF 令牌：
 
 ```js
-fetch("https://your-drupal-site.com/session/token", {
-  credentials: "include", // 确保会话 cookie 被发送
+fetch('https://your-drupal-site.com/session/token', {
+  credentials: 'include', // 确保会话 cookie 被发送
 })
-  .then((response) => response.text())
-  .then((token) => {
+  .then(response => response.text())
+  .then(token => {
     // 存储 CSRF 令牌，稍后在发送请求时使用
-    sessionStorage.setItem("csrfToken", token);
+    sessionStorage.setItem('csrfToken', token);
   })
-  .catch((error) => console.error("Error fetching CSRF token:", error));
+  .catch(error => console.error('Error fetching CSRF token:', error));
 ```
 
 2. 发送包含 CSRF 令牌的请求
    在发送任何需要保护的请求时，包括 CSRF 令牌：
 
 ```js
-const csrfToken = sessionStorage.getItem("csrfToken");
+const csrfToken = sessionStorage.getItem('csrfToken');
 
-fetch("https://your-drupal-site.com/some-endpoint", {
-  method: "POST",
+fetch('https://your-drupal-site.com/some-endpoint', {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
-    "X-CSRF-Token": csrfToken, // 包括 CSRF 令牌
+    'Content-Type': 'application/json',
+    'X-CSRF-Token': csrfToken, // 包括 CSRF 令牌
   },
-  credentials: "include", // 确保会话 cookie 被发送
-  body: JSON.stringify({ data: "your data" }),
+  credentials: 'include', // 确保会话 cookie 被发送
+  body: JSON.stringify({ data: 'your data' }),
 })
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error("Error:", error));
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
 ```
 
 ## 服务器端的配置

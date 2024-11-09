@@ -5,14 +5,12 @@
         <app-list
           class="block md:mr-5"
           [content]="content.elements"
-          [pager]="content.pager"
-        ></app-list>
+          [pager]="content.pager" />
       </div>
       @if (content.sidebar) {
         <app-sidebar
           class="flex-12/12 md:flex-3/12"
-          [content]="content.sidebar"
-        ></app-sidebar>
+          [content]="content.sidebar" />
       }
     </div>
   </div>

@@ -40,10 +40,10 @@ export class FlagComponent extends BaseComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>,
+    @Inject(USER) private user$: Observable<IUser>
   ) {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -62,7 +62,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
       `filter[uid.id]=${this.user.id}`,
       `filter[entity_id]=${this.getDeepValue(
         this.content,
-        'params.entity_id',
+        'params.entity_id'
       )}`,
     ].join('&');
     return params;
@@ -77,10 +77,10 @@ export class FlagComponent extends BaseComponent implements OnInit {
         this.coreConfig.apiUrl.flaggingGetPath,
         this.type,
         this.flaggingParams,
-        this.user.csrf_token,
+        this.user.csrf_token
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
+      .subscribe(res => {
         if (res.data.length) {
           this.flagging = true;
           this.cd.detectChanges();
@@ -107,7 +107,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
               data: {
                 type: this.getDeepValue(
                   this.content,
-                  'params.relationships.flagged_entity.type',
+                  'params.relationships.flagged_entity.type'
                 ),
                 id: this.nodeId,
               },
@@ -134,17 +134,17 @@ export class FlagComponent extends BaseComponent implements OnInit {
         .getNodes(
           this.coreConfig.apiUrl.flaggingGetPath,
           this.type,
-          this.flaggingParams,
+          this.flaggingParams
         )
         .pipe(
-          switchMap((res) => {
+          switchMap(res => {
             return this.nodeService.deleteFlagging(
               this.path,
               res.data,
-              this.user.csrf_token,
+              this.user.csrf_token
             );
           }),
-          takeUntilDestroyed(this.destroyRef),
+          takeUntilDestroyed(this.destroyRef)
         )
         .subscribe(() => {
           this.flagging = false;
@@ -161,7 +161,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
   get nodeId(): string {
     return this.getDeepValue(
       this.content,
-      'params.relationships.flagged_entity.id',
+      'params.relationships.flagged_entity.id'
     );
   }
 

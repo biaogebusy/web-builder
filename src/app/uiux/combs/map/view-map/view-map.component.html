@@ -1,8 +1,7 @@
 @if (content) {
   <div class="view-map relativen">
     <div
-      class="sidebar p-x-xs p-y-xs flex flex-col w-full md:w-[430px] box-border"
-    >
+      class="sidebar p-x-xs p-y-xs flex flex-col w-full md:w-[430px] box-border">
       <div class="sidebar-wrapper">
         <mat-expansion-panel [expanded]="false">
           <mat-expansion-panel-header>
@@ -19,15 +18,14 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
-            <mat-divider class="m-y-sm"></mat-divider>
+            <mat-divider class="m-y-sm" />
             <div
               class="list m-y-sm p-y-xs m-x-xs p-x-xs flex flex-row"
-              [class.selected]="i == selectedId"
+              [class.selected]="i === selectedId"
               matRipple
               [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
               *cdkVirtualFor="let item of lists$ | async as lists; index as i"
-              (click)="onCard(item, i)"
-            >
+              (click)="onCard(item, i)">
               <div class="media">
                 <img [src]="item.img" [alt]="item.title" />
               </div>
@@ -63,16 +61,14 @@
             <div class="view-map-header relative">展开</div>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-divider class="m-y-sm"></mat-divider>
+        <mat-divider class="m-y-sm" />
         <app-formly
           [classes]="'form-field-width-auto'"
           [form]="form"
           [fields]="content.form"
           [model]="model"
-          (modelChange)="onModelChange($event)"
-        >
-        </app-formly>
-        <mat-divider class="m-y-sm"></mat-divider>
+          (modelChange)="onModelChange($event)" />
+        <mat-divider class="m-y-sm" />
         <div class="actions flex justify-end items-center gap-3">
           <button mat-raised-button color="primary" (click)="clear()">
             <mat-icon>clear</mat-icon>清空
@@ -88,8 +84,7 @@
           elements: lists$ | async,
           model: model,
           form: form,
-        }"
-      ></app-map>
+        }" />
     </div>
   </div>
 }

@@ -3,9 +3,9 @@
     @if (content.id) {
       <a class="anchor" [id]="content.id"></a>
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
     @if (content.bg) {
-      <app-bg-img [content]="content.bg"> </app-bg-img>
+      <app-bg-img [content]="content.bg" />
     }
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       <form class="flex flex-col justify-center items-center">
@@ -15,8 +15,7 @@
               @for (item of content.contact; track item; let i = $index) {
                 <app-box
                   [attr.data-path]="'contact.' + i"
-                  [content]="item"
-                ></app-box>
+                  [content]="item" />
               }
             </div>
           </div>
@@ -26,9 +25,7 @@
                 class="w-full"
                 [form]="form"
                 [fields]="content.form"
-                [model]="model"
-              >
-              </app-formly>
+                [model]="model" />
             </div>
           </div>
         </div>
@@ -38,20 +35,18 @@
             type="submit"
             mat-raised-button
             color="primary"
-            (click)="onSubmit()"
-          >
+            (click)="onSubmit()">
             {{ content.action.label }}
           </button>
         }
         <div class="flex flex-12/12 justify-center items-center">
           @if (submited) {
             <app-spinner
-              [content]="{ color: 'primary', size: 40 }"
-            ></app-spinner>
+              [content]="{ color: 'primary', size: 40 }" />
           }
         </div>
       </form>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

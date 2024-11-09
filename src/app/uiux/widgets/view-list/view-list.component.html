@@ -4,39 +4,33 @@
       <a class="anchor" [id]="content.id"></a>
     }
     @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
     <div
       class="flex flex-col"
-      [ngClass]="content.fullWidth ? 'container-fluid' : 'container'"
-    >
+      [ngClass]="content.fullWidth ? 'container-fluid' : 'container'">
       @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
+        <app-text [attr.data-path]="'text'" [content]="content.text" />
       }
       @if (content.form) {
         <div
-          class="filter flex flex-col md:flex-row justify-between items-center"
-        >
+          class="filter flex flex-col md:flex-row justify-between items-center">
           <div class="filter-item flex flex-col md:flex-row flex-wrap gap-3">
             <app-formly
               [form]="form"
               [fields]="content.form"
               [model]="model"
-              (modelChange)="onModelChange($event)"
-            >
-            </app-formly>
+              (modelChange)="onModelChange($event)" />
           </div>
           <div class="actions flex justify-center items-center gap-3">
             @if (
               content.params.export?.enable &&
-              content.params.export?.position === "top"
+              content.params.export?.position === 'top'
             ) {
               <app-btn
                 (click)="onExport()"
-                [content]="content.params.export.btn"
-              >
-              </app-btn>
+                [content]="content.params.export.btn" />
             }
             <button mat-button (click)="clear()">
               <mat-icon>clear</mat-icon>清空
@@ -44,24 +38,22 @@
           </div>
         </div>
       }
-      <mat-divider></mat-divider>
+      <mat-divider />
       <div class="view">
         @if (loading) {
           <ngx-skeleton-loader
             count="10"
-            appearance="line"
-          ></ngx-skeleton-loader>
+            appearance="line" />
         }
         @if (table && !loading) {
-          <app-dynamic-table [content]="table"> </app-dynamic-table>
+          <app-dynamic-table [content]="table" />
         }
         <div class="actions m-y p-x flex justify-end items-center">
           @if (
             content.params.export?.enable &&
-            content.params.export?.position !== "top"
+            content.params.export?.position !== 'top'
           ) {
-            <app-btn (click)="onExport()" [content]="content.params.export.btn">
-            </app-btn>
+            <app-btn (click)="onExport()" [content]="content.params.export.btn" />
           }
         </div>
         @if (noAuth) {
@@ -77,13 +69,11 @@
               [showFirstLastButtons]="true"
               [hidePageSize]="true"
               [pageIndex]="pager.currentPage"
-              aria-label="Select page"
-            >
-            </mat-paginator>
+              aria-label="Select page" />
           </div>
         }
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

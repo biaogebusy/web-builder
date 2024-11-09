@@ -8,8 +8,7 @@
         [ngSrc]="content.src || coreConfig.defaultThumb"
         [alt]="content.alt || ''"
         [width]="content.width || 400"
-        [height]="content.height || 300"
-      />
+        [height]="content.height || 300" />
     } @else {
       <a href="{{ content.href }}" target="{{ content.target }}">
         <img
@@ -19,16 +18,17 @@
           [ngStyle]="content.style"
           [alt]="content.alt || ''"
           [width]="content.width || 400"
-          [height]="content.height || 300"
-        />
+          [height]="content.height || 300" />
       </a>
     }
     @if (content.actions) {
       <div class="actions flex justify-center items-center gap-3">
         @for (action of content.actions; track action) {
           <app-dynamic-component
-            [inputs]="{ content: action, disableToolbar: true }"
-          ></app-dynamic-component>
+            [inputs]="{
+              content: action,
+              disableToolbar: true,
+            }" />
         }
       </div>
     }

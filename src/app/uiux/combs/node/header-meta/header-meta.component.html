@@ -1,12 +1,14 @@
 @if (content) {
   <div class="header-meta relative flex flex-wrap justify-between items-center">
-    <app-text class="flex-12/12 md:flex-8/12" [content]="content.text"></app-text>
+    <app-text
+      class="flex-12/12 md:flex-8/12"
+      [content]="content.text" />
     <div
       class="meta flex justify-center items-center md:justify-end flex-12/12 md:flex-4/12">
       @for (item of content.meta; track item) {
         <div class="item flex flex-col justify-center items-center">
-          <span class="label">{{item.label}}</span>
-          <span class="value mat-headline-3 m-bottom-0">{{item.value}}</span>
+          <span class="label">{{ item.label }}</span>
+          <span class="value mat-headline-3 m-bottom-0">{{ item.value }}</span>
         </div>
       }
     </div>

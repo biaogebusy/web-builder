@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta
   title="编程指南/重复代码"
@@ -15,7 +15,7 @@ import { Meta } from "@storybook/blocks";
 
 ```javascript
 function showDeveloperList(developers) {
-  developers.forEach((developer) => {
+  developers.forEach(developer => {
     const expectedSalary = developer.calculateExpectedSalary();
     const experience = developer.getExperience();
     const githubLink = developer.getGithubLink();
@@ -28,7 +28,7 @@ function showDeveloperList(developers) {
   });
 }
 function showManagerList(managers) {
-  managers.forEach((manager) => {
+  managers.forEach(manager => {
     const expectedSalary = manager.calculateExpectedSalary();
     const experience = manager.getExperience();
     const portfolio = manager.getMBAProjects();
@@ -46,7 +46,7 @@ function showManagerList(managers) {
 
 ```javascript
 function showEmployeeList(employees) {
-  employees.forEach((employee) => {
+  employees.forEach(employee => {
     const expectedSalary = employee.calculateExpectedSalary();
     const experience = employee.getExperience();
     const data = {
@@ -54,10 +54,10 @@ function showEmployeeList(employees) {
       experience,
     };
     switch (employee.type) {
-      case "manager":
+      case 'manager':
         data.portfolio = employee.getMBAProjects();
         break;
-      case "developer":
+      case 'developer':
         data.githubLink = employee.getGithubLink();
         break;
     }

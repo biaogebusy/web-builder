@@ -20,11 +20,11 @@ export class TabComponent implements OnInit {
   selectedIndex: number | null;
   constructor(
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((qp) => {
+    this.route.queryParams.subscribe(qp => {
       const { activeTabId } = qp;
       if (!activeTabId) {
         return;

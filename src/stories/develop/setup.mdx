@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="开发/页面渲染流程" id="setup" />
 
@@ -15,7 +15,7 @@ import { Meta } from "@storybook/blocks";
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: "xinshi" }),
+    BrowserModule.withServerTransition({ appId: 'xinshi' }),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -168,28 +168,28 @@ loadConfig(coreConfig: object): any {
 ```ts
 const routes: Routes = [
   {
-    path: "",
-    redirectTo: "home",
-    pathMatch: "full",
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
-    path: "me",
+    path: 'me',
     loadChildren: () =>
-      import("./modules/user/user.module").then((m) => m.UserModule),
+      import('./modules/user/user.module').then(m => m.UserModule),
   },
   {
-    path: "super",
+    path: 'super',
     canActivate: [ManageGuard],
     loadChildren: () =>
-      import("./modules/manage/manage.module").then((m) => m.ManageModule),
+      import('./modules/manage/manage.module').then(m => m.ManageModule),
   },
   {
-    path: "builder",
+    path: 'builder',
     loadChildren: () =>
-      import("./modules/builder/builder.module").then((m) => m.BuilderModule),
+      import('./modules/builder/builder.module').then(m => m.BuilderModule),
   },
   {
-    path: "**",
+    path: '**',
     component: BlockComponent,
     canActivate: [AuthGuard],
   },
@@ -198,8 +198,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      scrollPositionRestoration: "enabled",
-      initialNavigation: "enabled",
+      scrollPositionRestoration: 'enabled',
+      initialNavigation: 'enabled',
       preloadingStrategy: PreloadAllModules,
       // enableTracing: true,
     }),
@@ -216,23 +216,20 @@ export class AppRoutingModule {}
   <mat-drawer-container (backdropClick)="onBackdrop()">
     <mat-drawer-content>
       <div
-        *ngTemplateOutlet="block; context: {content:page.body, isPreview: isPreview}"
-      ></div>
+        *ngTemplateOutlet="block; context: {content:page.body, isPreview: isPreview}"></div>
     </mat-drawer-content>
     <mat-drawer
       (openedChange)="onDrawer()"
       class="drawer-right"
       [mode]="'over'"
       [opened]="opened"
-      position="end"
-    >
+      position="end">
       <div class="drawer-loading" *ngIf="drawerLoading">
         <mat-spinner diameter="50" color="accent"></mat-spinner>
       </div>
       <ng-container *ngIf="!drawerLoading && opened">
         <div
-          *ngTemplateOutlet="block; context: {content:drawerContent?.body,isPreview:coreConfig?.builder?.enable}; "
-        ></div>
+          *ngTemplateOutlet="block; context: {content:drawerContent?.body,isPreview:coreConfig?.builder?.enable}; "></div>
       </ng-container>
     </mat-drawer>
   </mat-drawer-container>
@@ -243,8 +240,7 @@ export class AppRoutingModule {}
     <app-dynamic-component
       *ngFor="let item of content;index as i; trackBy: trackByFn"
       [inputs]="item"
-      [index]="i"
-    ></app-dynamic-component>
+      [index]="i"></app-dynamic-component>
   </ng-container>
 
   <ng-container \*ngIf="isPreview">
@@ -283,10 +279,10 @@ export class RenderModule {}
 export function pageContentFactory(
   activateRoute: ActivatedRoute,
   contentService: ContentService,
-  contentState: ContentState,
+  contentState: ContentState
 ): Observable<IPage | object | boolean> {
   const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
-  activateRoute.url.subscribe(async (url) => {
+  activateRoute.url.subscribe(async url => {
     const page = await contentService.loadPageContent().toPromise();
     $pageContent.next(page);
     contentState.pageConfig$.next(page.config);
@@ -332,18 +328,18 @@ loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
 
 ```ts
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private userService: UserService,
     private nodeService: NodeService,
-    @Inject(USER) private user: IUser,
+    @Inject(USER) private user: IUser
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
+    state: RouterStateSnapshot
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -352,13 +348,13 @@ export class AuthGuard implements CanActivate {
     // return true;
     if (environment.production) {
       return this.nodeService
-        .fetch(`/api/v3/landingPage`, "content=/core/base")
+        .fetch(`/api/v3/landingPage`, 'content=/core/base')
         .pipe(
           switchMap((config: ICoreConfig) => {
             const guardConfig = config.guard;
-            if (state.url.startsWith("/my") || guardConfig?.authGuard) {
+            if (state.url.startsWith('/my') || guardConfig?.authGuard) {
               return this.userService.getLoginState().pipe(
-                map((status) => {
+                map(status => {
                   // console.log('userState:', status);
                   if (status) {
                     if (environment?.drupalProxy) {
@@ -371,14 +367,14 @@ export class AuthGuard implements CanActivate {
                     this.userService.logoutLocalUser();
                     if (environment?.drupalProxy) {
                       window.location.href =
-                        guardConfig.defaultDrupalLoginPage || "/user/login";
+                        guardConfig.defaultDrupalLoginPage || '/user/login';
                       return false;
                     } else {
                       this.router.navigate(
-                        [guardConfig.defaultFrontLoginPage || "/me/login"],
+                        [guardConfig.defaultFrontLoginPage || '/me/login'],
                         {
                           queryParams: { returnUrl: state.url },
-                        },
+                        }
                       );
                       return false;
                     }
@@ -387,19 +383,19 @@ export class AuthGuard implements CanActivate {
                 catchError(() => {
                   if (environment?.drupalProxy) {
                     window.location.href =
-                      guardConfig.defaultDrupalLoginPage || "/user/login";
+                      guardConfig.defaultDrupalLoginPage || '/user/login';
                     return of(false);
                   } else {
                     this.router.navigate([
-                      guardConfig.defaultFrontLoginPage || "/me/login",
+                      guardConfig.defaultFrontLoginPage || '/me/login',
                     ]);
                     return of(false);
                   }
-                }),
+                })
               );
             }
             return of(true);
-          }),
+          })
         );
     } else {
       return of(true);

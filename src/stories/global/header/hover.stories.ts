@@ -34,12 +34,12 @@ const meta: Meta<HeaderComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
       ${story}
         <div style="min-height:100vh">
         </div>
         <app-footer></app-footer>
-    `,
+    `
     ),
   ],
   parameters: {

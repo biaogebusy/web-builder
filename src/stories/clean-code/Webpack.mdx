@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta
   title="编程指南/Webpack 案例"
@@ -20,9 +20,9 @@ Webpack 需要一个配置文件`webpack.config.js`：
 ```js
 // webpack.config.js
 module.exports = {
-  entry: "./main.js",
+  entry: './main.js',
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
 };
 ```
@@ -38,7 +38,7 @@ Webpack 的常用参数：
 
 ```js
 // main.js
-document.write("<h1>Hello World</h1>");
+document.write('<h1>Hello World</h1>');
 ```
 
 index.html
@@ -56,9 +56,9 @@ index.html
 ```js
 // webpack.config.js
 module.exports = {
-  entry: "./main.js",
+  entry: './main.js',
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
 };
 ```
@@ -67,10 +67,10 @@ module.exports = {
 
 ```js
 // main1.js
-document.write("<h1>Hello World</h1>");
+document.write('<h1>Hello World</h1>');
 
 // main2.js
-document.write("<h2>Hello Webpack</h2>");
+document.write('<h2>Hello Webpack</h2>');
 ```
 
 index.html
@@ -90,11 +90,11 @@ index.html
 // webpack.config.js
 module.exports = {
   entry: {
-    bundle1: "./main1.js",
-    bundle2: "./main2.js",
+    bundle1: './main1.js',
+    bundle2: './main2.js',
   },
   output: {
-    filename: "[name].js",
+    filename: '[name].js',
   },
 };
 ```
@@ -105,10 +105,10 @@ module.exports = {
 
 ```js
 // main.jsx
-const React = require("react");
-const ReactDOM = require("react-dom");
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-ReactDOM.render(<h1>Hello, world!</h1>, document.querySelector("#wrapper"));
+ReactDOM.render(<h1>Hello, world!</h1>, document.querySelector('#wrapper'));
 ```
 
 index.html
@@ -127,9 +127,9 @@ index.html
 ```js
 // webpack.config.js
 module.exports = {
-  entry: "./main.jsx",
+  entry: './main.jsx',
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -137,9 +137,9 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["es2015", "react"],
+            presets: ['es2015', 'react'],
           },
         },
       },
@@ -154,7 +154,7 @@ module.exports = {
 
 ```js
 // main.js
-require("./app.css");
+require('./app.css');
 ```
 
 app.css
@@ -183,15 +183,15 @@ index.html
 ```js
 // webpack.config.js
 module.exports = {
-  entry: "./main.js",
+  entry: './main.js',
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
@@ -217,12 +217,12 @@ webpack 把一切都看成模块，引入图片也不例外
 
 ```js
 // main.jsx
-var img1 = document.createElement("img");
-img1.src = require("./small.png");
+var img1 = document.createElement('img');
+img1.src = require('./small.png');
 document.body.appendChild(img1);
 
-var img2 = document.createElement("img");
-img2.src = require("./big.png");
+var img2 = document.createElement('img');
+img2.src = require('./big.png');
 document.body.appendChild(img2);
 ```
 
@@ -241,9 +241,9 @@ index.html
 ```js
 // webpack.config.js
 module.exports = {
-  entry: "./main.js",
+  entry: './main.js',
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -251,7 +251,7 @@ module.exports = {
         test: /\.(png|jpg)$/,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
               limit: 8192,
             },
@@ -289,16 +289,16 @@ url loader 将会把图片转换成 base64，如果尺寸超过 8192k，则不�
 
 ```js
 // main.jsx
-var React = require("react");
-var ReactDOM = require("react-dom");
-var style = require("./app.css");
+var React = require('react');
+var ReactDOM = require('react-dom');
+var style = require('./app.css');
 
 ReactDOM.render(
   <div>
     <h1 className={style.h1}>Hello World</h1>
     <h2 className="h2">Hello Webpack</h2>
   </div>,
-  document.getElementById("example")
+  document.getElementById('example')
 );
 ```
 
@@ -320,9 +320,9 @@ index.html
 ```js
 // webpack.config.js
 module.exports = {
-  entry: "./main.jsx",
+  entry: './main.jsx',
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -330,9 +330,9 @@ module.exports = {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["es2015", "react"],
+            presets: ['es2015', 'react'],
           },
         },
       },
@@ -340,10 +340,10 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: "style-loader",
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: true,
             },
@@ -361,9 +361,9 @@ Webpack 有 plugin 插件系统，对输出的代码进行处理
 
 ```js
 // main.js
-var longVariableName = "Hello";
-longVariableName += " World";
-document.write("<h1>" + longVariableName + "</h1>");
+var longVariableName = 'Hello';
+longVariableName += ' World';
+document.write('<h1>' + longVariableName + '</h1>');
 ```
 
 index.html
@@ -380,13 +380,13 @@ index.html
 
 ```js
 // webpack.config.js
-var webpack = require("webpack");
-var UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+var webpack = require('webpack');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  entry: "./main.js",
+  entry: './main.js',
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
   plugins: [new UglifyJsPlugin()],
 };
@@ -398,7 +398,7 @@ module.exports = {
 
 ```js
 // main.js
-document.write("<h1>Hello World</h1>");
+document.write('<h1>Hello World</h1>');
 
 if (__DEV__) {
   document.write(new Date());
@@ -419,16 +419,16 @@ index.html
 
 ```js
 // webpack.config.js
-var webpack = require("webpack");
+var webpack = require('webpack');
 
 var devFlagPlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || "false")),
+  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
 });
 
 module.exports = {
-  entry: "./main.js",
+  entry: './main.js',
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
   plugins: [devFlagPlugin],
 };
@@ -451,16 +451,16 @@ module.exports = {
 
 ```js
 // main1.jsx
-var React = require("react");
-var ReactDOM = require("react-dom");
+var React = require('react');
+var ReactDOM = require('react-dom');
 
-ReactDOM.render(<h1>Hello World</h1>, document.getElementById("a"));
+ReactDOM.render(<h1>Hello World</h1>, document.getElementById('a'));
 
 // main2.jsx
-var React = require("react");
-var ReactDOM = require("react-dom");
+var React = require('react');
+var ReactDOM = require('react-dom');
 
-ReactDOM.render(<h2>Hello Webpack</h2>, document.getElementById("b"));
+ReactDOM.render(<h2>Hello Webpack</h2>, document.getElementById('b'));
 ```
 
 index.html
@@ -481,15 +481,15 @@ index.html
 
 ```js
 // webpack.config.js
-var webpack = require("webpack");
+var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    bundle1: "./main1.jsx",
-    bundle2: "./main2.jsx",
+    bundle1: './main1.jsx',
+    bundle2: './main2.jsx',
   },
   output: {
-    filename: "[name].js",
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -497,9 +497,9 @@ module.exports = {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["es2015", "react"],
+            presets: ['es2015', 'react'],
           },
         },
       },
@@ -507,10 +507,10 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      name: "commons",
+      name: 'commons',
       // (the commons chunk name)
 
-      filename: "commons.js",
+      filename: 'commons.js',
       // (the filename of the commons chunk)
     }),
   ],
@@ -523,8 +523,8 @@ module.exports = {
 
 ```js
 // main.js
-var $ = require("jquery");
-$("h1").text("Hello World");
+var $ = require('jquery');
+$('h1').text('Hello World');
 ```
 
 index.html
@@ -543,20 +543,20 @@ index.html
 
 ```js
 // webpack.config.js
-var webpack = require("webpack");
+var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: "./main.js",
-    vendor: ["jquery"],
+    app: './main.js',
+    vendor: ['jquery'],
   },
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      name: "vendor",
-      filename: "vendor.js",
+      name: 'vendor',
+      filename: 'vendor.js',
     }),
   ],
 };
@@ -566,22 +566,22 @@ module.exports = {
 
 ```js
 // main.js
-$("h1").text("Hello World");
+$('h1').text('Hello World');
 
 // webpack.config.js
-var webpack = require("webpack");
+var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: "./main.js",
+    app: './main.js',
   },
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
   },
   plugins: [
     new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
+      $: 'jquery',
+      jQuery: 'jquery',
     }),
   ],
 };

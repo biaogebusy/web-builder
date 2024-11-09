@@ -74,7 +74,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     this.form = this.formService.toFormGroup(items);
     this.form.valueChanges
       .pipe(debounceTime(1000), distinctUntilChanged())
-      .subscribe((value) => {
+      .subscribe(value => {
         const params = Object.assign({ page: 0 }, value);
         this.onSelectChange(params);
       });
@@ -87,12 +87,12 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     this.nodeService
       .fetch(this.getParams(this.content, 'type'), params)
       .subscribe(
-        (data) => {
+        data => {
           this.updateList(data, this.form.value, options);
           this.loading = false;
           this.cd.detectChanges();
         },
-        (error) => {
+        error => {
           this.loading = false;
           this.cd.detectChanges();
         }

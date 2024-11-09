@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta
   title="编程指南/变量"
@@ -14,13 +14,13 @@ import { Meta } from "@storybook/blocks";
 **不好**
 
 ```js
-const yyymmdstr = moment().format("YYYY/MM/DD");
+const yyymmdstr = moment().format('YYYY/MM/DD');
 ```
 
 **推荐**
 
 ```js
-const currentDate = moment().format("YYYY/MM/DD");
+const currentDate = moment().format('YYYY/MM/DD');
 ```
 
 ### 使用可搜索的名字
@@ -43,7 +43,7 @@ setTimeout(blastOff, MILLISECONDS_PER_DAY);
 **不好**
 
 ```javascript
-const address = "One Infinite Loop, Cupertino 95014";
+const address = 'One Infinite Loop, Cupertino 95014';
 const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
 saveCityZipCode(
   address.match(cityZipCodeRegex)[1],
@@ -54,7 +54,7 @@ saveCityZipCode(
 **推荐**
 
 ```javascript
-const address = "One Infinite Loop, Cupertino 95014";
+const address = 'One Infinite Loop, Cupertino 95014';
 const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
 const [_, city, zipCode] = address.match(cityZipCodeRegex) || [];
 saveCityZipCode(city, zipCode);
@@ -66,9 +66,9 @@ saveCityZipCode(city, zipCode);
 
 ```javascript
 const Car = {
-  carMake: "Honda",
-  carModel: "Accord",
-  carColor: "Blue",
+  carMake: 'Honda',
+  carModel: 'Accord',
+  carColor: 'Blue',
 };
 function paintCar(car, color) {
   car.carColor = color;
@@ -79,9 +79,9 @@ function paintCar(car, color) {
 
 ```javascript
 const Car = {
-  make: "Honda",
-  model: "Accord",
-  color: "Blue",
+  make: 'Honda',
+  model: 'Accord',
+  color: 'Blue',
 };
 function paintCar(car, color) {
   car.color = color;
@@ -96,7 +96,7 @@ function paintCar(car, color) {
 
 ```javascript
 function createMicrobrewery(name) {
-  const breweryName = name || "Hipster Brew Co.";
+  const breweryName = name || 'Hipster Brew Co.';
   // ...
 }
 ```
@@ -104,7 +104,7 @@ function createMicrobrewery(name) {
 **推荐**
 
 ```javascript
-function createMicrobrewery(name = "Hipster Brew Co.") {
+function createMicrobrewery(name = 'Hipster Brew Co.') {
   // ...
 }
 ```

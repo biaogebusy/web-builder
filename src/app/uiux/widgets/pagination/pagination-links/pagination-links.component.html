@@ -1,11 +1,19 @@
 @if (links) {
   <div class="pagination-simple relative">
     <div class="inner flex justify-center items-center">
-      <button [disabled]="!links.prev" (click)="loadPage(links.prev.href)" mat-icon-button matTooltip="上一页"
+      <button
+        [disabled]="!links.prev"
+        (click)="loadPage(links.prev.href)"
+        mat-icon-button
+        matTooltip="上一页"
         matTooltipPosition="above">
         <mat-icon>chevron_left</mat-icon>
       </button>
-      <button [disabled]="!links.next" (click)="loadPage(links.next.href)" mat-icon-button matTooltip="下一页"
+      <button
+        [disabled]="!links.next"
+        (click)="loadPage(links.next.href)"
+        mat-icon-button
+        matTooltip="下一页"
         matTooltipPosition="above">
         <mat-icon>chevron_right</mat-icon>
       </button>

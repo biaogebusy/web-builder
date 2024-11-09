@@ -28,7 +28,7 @@ const meta: Meta<FeatureBoxComponent> = {
       imports: [MatIconModule, MatDialogModule],
     }),
     componentWrapperDecorator(
-      (story) => `<div classs="widget" style="width:33%">${story}</div>`,
+      story => `<div classs="widget" style="width:33%">${story}</div>`
     ),
   ],
 };

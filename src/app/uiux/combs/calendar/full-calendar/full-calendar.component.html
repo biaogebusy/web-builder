@@ -3,43 +3,39 @@
     @if (content.id) {
       <a class="anchor" [id]="content.id"></a>
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
     @if (content.bg) {
-      <app-bg-img [content]="content.bg"></app-bg-img>
+      <app-bg-img [content]="content.bg" />
     }
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       <div class="inner p-y flex flex-wrap">
         <div class="sidebar p-x-sm flex-12/12 sm:flex-3/12">
           @if (content.text) {
-            <app-text [content]="content.text"></app-text>
+            <app-text [content]="content.text" />
           }
           @if (content.form) {
             <app-formly
               [form]="form"
               [fields]="content.form"
               [model]="model"
-              (modelChange)="onChange($event)"
-            ></app-formly>
+              (modelChange)="onChange($event)" />
           }
         </div>
         <div
           class="main p-x-sm p-y-sm flex-12/12 {{
             content.form ? 'sm:flex-8/12' : ''
-          }}"
-        >
+          }}">
           <div class="calendar w-full">
             @if (visiable) {
               <app-calendar
                 [content]="content.calendar.options"
                 [loading]="loading"
-                [options]="options"
-              >
-              </app-calendar>
+                [options]="options" />
             }
           </div>
         </div>
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

@@ -22,7 +22,7 @@ const meta: Meta<ChipListComponent> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(story => `${story}`),
   ],
 };
 
@@ -66,5 +66,5 @@ const mini = {
 };
 Mini.args = {
   classes: 'mini',
-  content: content,
+  content,
 };

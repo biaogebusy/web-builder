@@ -21,7 +21,7 @@ const meta: Meta<InlineLightboxComponent> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => {
+    componentWrapperDecorator(story => {
       return `<div classs="widget">${story}</div>`;
     }),
   ],

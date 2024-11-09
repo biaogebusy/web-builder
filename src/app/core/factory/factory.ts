@@ -32,7 +32,7 @@ export function pageContentFactory(): Observable<IPage | object | boolean> {
   const contentState = inject(ContentState);
 
   const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
-  activateRoute.url.subscribe(async (url) => {
+  activateRoute.url.subscribe(async url => {
     const page = await contentService.loadPageContent().toPromise();
     if (page) {
       $pageContent.next(page);
@@ -50,14 +50,14 @@ export function builderFullScreenFactory(
   const isFull$ = new BehaviorSubject<boolean>(false);
   const isFull = storage.retrieve('builderFullScreen');
 
-  router.events.subscribe((event) => {
+  router.events.subscribe(event => {
     if (event instanceof NavigationEnd) {
       if (event.url.includes(BUILDERPATH) && isFull !== false) {
         isFull$.next(false);
       }
     }
   });
-  builder.fullScreen$.subscribe((state) => {
+  builder.fullScreen$.subscribe(state => {
     isFull$.next(state);
   });
   return isFull$;
@@ -94,7 +94,7 @@ export function isBuilderModeFactory(router: Router): Observable<boolean> {
   } else {
     isBuilderMode$.next(false);
   }
-  router.events.subscribe((event) => {
+  router.events.subscribe(event => {
     if (event instanceof NavigationEnd) {
       if (
         router.url.includes(BUILDERPATH) &&
@@ -124,7 +124,7 @@ export function debugAnimateFactory(): Observable<boolean> {
     builder.renderMarkers(isDebugAnimate);
   }, 2000);
 
-  builder.debugeAnimate$.subscribe((state) => {
+  builder.debugeAnimate$.subscribe(state => {
     storage.store(DEBUG_ANIMATE_KEY, state);
     debugAnimate$.next(state);
   });
@@ -147,7 +147,7 @@ export function notifyFactory(
       .pipe(
         startWith(0),
         switchMap(() => notifyService.getWatchList()),
-        map((res) => {
+        map(res => {
           let lists: INotify[] = [];
           Object.keys(res).forEach((item: any) => {
             const message = res[item].rows.map((list: any) => ({
@@ -210,7 +210,7 @@ export function themeFactory(
   if (localTheme && coreConfig.theme) {
     // checkout the theme is removed
     const isInThemeList = coreConfig.theme.filter(
-      (item) => item.style === localTheme
+      item => item.style === localTheme
     );
     if (isInThemeList.length) {
       return localTheme;
@@ -250,7 +250,7 @@ export function userFactory(): Observable<IUser | boolean> {
       }
     }
   }
-  userService.userSub$.subscribe((user) => {
+  userService.userSub$.subscribe(user => {
     user$.next(user);
   });
   return user$;
@@ -265,7 +265,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value: any) => {
     const params = nodeService.getApiParams({ ...value, noCache: true });
-    nodeService.fetch(api, params).subscribe((res) => {
+    nodeService.fetch(api, params).subscribe(res => {
       assets$.next({
         rows: res.rows,
         pager: nodeService.handlerPager(res.pager, res.rows.length),

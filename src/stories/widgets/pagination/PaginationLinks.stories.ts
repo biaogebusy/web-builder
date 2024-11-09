@@ -23,7 +23,7 @@ const meta: Meta<PaginationLinksComponent> = {
     moduleMetadata({
       declarations: [],
     }),
-    componentWrapperDecorator((story) => {
+    componentWrapperDecorator(story => {
       return `<div classs="widget">${story}</div>`;
     }),
   ],

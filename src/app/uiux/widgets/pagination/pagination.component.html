@@ -3,8 +3,7 @@
   #p="paginationApi"
   (pageChange)="onPageChange($event)"
   [id]="id"
-  (pageBoundsCorrection)="onPageBoundsCorrection($event)"
->
+  (pageBoundsCorrection)="onPageBoundsCorrection($event)">
   <button
     class="pagination-previous"
     color="primary"
@@ -13,8 +12,7 @@
     [matTooltipPosition]="'above'"
     (click)="p.previous()"
     mat-icon-button
-    aria-label="Prev Page"
-  >
+    aria-label="Prev Page">
     <mat-icon width="16px">navigate_before</mat-icon>
   </button>
   @for (page of p.pages; track page) {
@@ -22,8 +20,7 @@
       <button
         [class.current]="p.getCurrent() === page.value"
         (click)="p.setCurrent(page.value)"
-        mat-icon-button
-      >
+        mat-icon-button>
         <a class="text-base">{{ page.label }}</a>
       </button>
     }
@@ -31,8 +28,7 @@
       <button
         disabled
         [class.current]="p.getCurrent() === page.value"
-        mat-mini-fab
-      >
+        mat-mini-fab>
         <span class="text-base">{{ page.label }}</span>
       </button>
     }
@@ -45,8 +41,7 @@
     [matTooltipPosition]="'above'"
     (click)="p.next()"
     mat-icon-button
-    aria-label="Next Page"
-  >
+    aria-label="Next Page">
     <mat-icon>navigate_next</mat-icon>
   </button>
 </pagination-template>

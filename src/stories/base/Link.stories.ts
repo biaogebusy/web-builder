@@ -30,7 +30,7 @@ const meta: Meta<LinkComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="widget relative p-x-md p-y-md">${story}</div>`,
+      story => `<div class="widget relative p-x-md p-y-md">${story}</div>`
     ),
   ],
 };

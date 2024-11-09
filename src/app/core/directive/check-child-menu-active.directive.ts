@@ -16,7 +16,7 @@ export class CheckChildMenuActiveDirective implements AfterViewInit {
       this.updateClasses();
     }, 0);
 
-    this.router.events.subscribe((event) => {
+    this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         setTimeout(() => {
           this.updateClasses();

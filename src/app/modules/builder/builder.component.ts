@@ -34,7 +34,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>
   ) {
-    this.isBuilderMode$.pipe(takeUntilDestroyed()).subscribe((state) => {
+    this.isBuilderMode$.pipe(takeUntilDestroyed()).subscribe(state => {
       this.isBuilderMode = state;
     });
   }
@@ -42,7 +42,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.builder.rightContent$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((content) => {
+      .subscribe(content => {
         if (content) {
           setTimeout(() => {
             this.builderRightDrawer.open();

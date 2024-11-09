@@ -22,8 +22,8 @@ const meta: Meta<SpinnerComponent> = {
       declarations: [],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="widget relative p-x p-y" style="z-index:1">${story}</div>`,
+      story =>
+        `<div class="widget relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
 };

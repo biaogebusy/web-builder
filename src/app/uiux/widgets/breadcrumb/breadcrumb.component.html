@@ -3,8 +3,8 @@
     <ul class="flex">
       @for (link of content; track link) {
         <li class="flex justify-center items-center">
-          <app-link [content]="link"></app-link>
-          <app-icon [content]="{svg:'chevron-right'}"></app-icon>
+          <app-link [content]="link" />
+          <app-icon [content]="{ svg: 'chevron-right' }" />
         </li>
       }
     </ul>

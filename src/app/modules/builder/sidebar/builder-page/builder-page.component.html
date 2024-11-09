@@ -9,8 +9,7 @@
           <mat-spinner
             class="mx-auto my-10"
             diameter="50"
-            color="primary"
-          ></mat-spinner>
+            color="primary" />
         }
         @if (pages$ | async; as pages) {
           <div class="cards grid grid-cols-12 gap-1">
@@ -18,11 +17,9 @@
               <div
                 class="item col-span-6 sm:col-span-4"
                 [matTooltip]="item.title"
-                (click)="loadPage(item)"
-              >
+                (click)="loadPage(item)">
                 <div
-                  class="inner flex flex-col justify-center items-center overflow-hidden"
-                >
+                  class="inner flex flex-col justify-center items-center overflow-hidden">
                   <div class="font-mono">{{ i + 1 }}</div>
                   <div class="title">{{ item.title }}</div>
                 </div>

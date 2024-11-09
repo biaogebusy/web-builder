@@ -43,9 +43,9 @@ const meta: Meta<LoginComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
       ${story}
-    `,
+    `
     ),
   ],
   parameters: {

@@ -1,4 +1,4 @@
-@import "/src/theme/mixins/amixin";
+@import '/src/theme/mixins/amixin';
 .recent-posts {
   .block-title {
     font-size: 15px;
@@ -24,7 +24,7 @@
         overflow: hidden;
         position: relative;
         &:before {
-          content: "";
+          content: '';
           width: 100%;
           height: 100%;
           position: absolute;

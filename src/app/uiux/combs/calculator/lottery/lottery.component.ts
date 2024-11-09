@@ -47,7 +47,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
       total_number: min_total_number,
     } = min;
     this.minTotalMoney = Number(
-      (((min_per_max + min_per_min) / 2) * min_total_number).toFixed(2),
+      (((min_per_max + min_per_min) / 2) * min_total_number).toFixed(2)
     );
     if (isPromote) {
       // 固定金额
@@ -69,7 +69,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
       this.promoteMoney = '0';
     }
     this.total = Math.round(
-      max.total_money + this.minTotalMoney + Number(this.promoteMoney),
+      max.total_money + this.minTotalMoney + Number(this.promoteMoney)
     );
 
     const data = {

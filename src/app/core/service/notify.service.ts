@@ -15,9 +15,9 @@ export class NotifyService {
   user: IUser;
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>,
+    @Inject(USER) private user$: Observable<IUser>
   ) {
-    this.user$.subscribe((user) => {
+    this.user$.subscribe(user => {
       this.user = user;
     });
   }
@@ -29,13 +29,13 @@ export class NotifyService {
     const obj: any = {};
     const params = `noCache=1`;
     const apiList = this.coreConfig?.notify?.api;
-    const finalList = apiList?.filter((api) => {
+    const finalList = apiList?.filter(api => {
       if (!api.reqRoles || api.reqRoles.length === 0) {
         return true;
       }
       return this.userService.isMatchCurrentRole(
         api.reqRoles || [],
-        this.user.current_user.roles,
+        this.user.current_user.roles
       );
     });
     if (finalList && finalList?.length > 0) {

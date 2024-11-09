@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   themeService = inject(ThemeService);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(BRANDING) public branding$: Observable<IBranding>,
+    @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });
 
-      this.activateRouter.fragment.subscribe((fragment) => {
+      this.activateRouter.fragment.subscribe(fragment => {
         if (fragment) {
           this.screenService.scrollToAnchor(fragment);
         }

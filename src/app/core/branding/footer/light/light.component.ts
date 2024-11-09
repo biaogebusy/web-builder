@@ -10,5 +10,8 @@ import { ScreenState } from '../../../state/screen/ScreenState';
 })
 export class LightComponent {
   @Input() content: any;
-  constructor(public screen: ScreenState, public utilities: UtilitiesService) {}
+  constructor(
+    public screen: ScreenState,
+    public utilities: UtilitiesService
+  ) {}
 }

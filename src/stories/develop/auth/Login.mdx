@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="开发/用户接口/登录退出" id="login-out" />
 
@@ -31,27 +31,27 @@ import { Meta } from "@storybook/blocks";
 在用户登录时，前端应用发送一个请求到 /user/login 端点，并从响应中获取 logout_token。示例代码如下：
 
 ```javascript
-fetch("https://your-drupal-site.com/user/login?_format=json", {
-  method: "POST",
+fetch('https://your-drupal-site.com/user/login?_format=json', {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    name: "username",
-    pass: "password",
+    name: 'username',
+    pass: 'password',
   }),
-  credentials: "include", // 确保会话 cookie 被发送
+  credentials: 'include', // 确保会话 cookie 被发送
 })
-  .then((response) => response.json())
-  .then((data) => {
+  .then(response => response.json())
+  .then(data => {
     if (data.current_user) {
-      console.log("Logged in as:", data.current_user.name);
+      console.log('Logged in as:', data.current_user.name);
       // 存储 CSRF 令牌和 logout_token
-      sessionStorage.setItem("csrfToken", data.csrf_token);
-      sessionStorage.setItem("logoutToken", data.logout_token);
+      sessionStorage.setItem('csrfToken', data.csrf_token);
+      sessionStorage.setItem('logoutToken', data.logout_token);
     }
   })
-  .catch((error) => console.error("Error:", error));
+  .catch(error => console.error('Error:', error));
 ```
 
 ## 2. 发送注销请求时包含 logout_token
@@ -62,34 +62,34 @@ fetch("https://your-drupal-site.com/user/login?_format=json", {
 
 ```javascript
 function logout() {
-  const csrfToken = sessionStorage.getItem("csrfToken");
-  const logoutToken = sessionStorage.getItem("logoutToken");
+  const csrfToken = sessionStorage.getItem('csrfToken');
+  const logoutToken = sessionStorage.getItem('logoutToken');
 
   fetch(
     `https://your-drupal-site.com/user/logout?_format=json&token=${logoutToken}`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": csrfToken, // 包括 CSRF 令牌
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken, // 包括 CSRF 令牌
       },
-      credentials: "include", // 确保会话 cookie 被发送
-    },
+      credentials: 'include', // 确保会话 cookie 被发送
+    }
   )
-    .then((response) => {
+    .then(response => {
       if (response.ok) {
         // 成功注销，清除前端状态
-        sessionStorage.removeItem("csrfToken"); // 移除存储的 CSRF 令牌
-        sessionStorage.removeItem("logoutToken"); // 移除存储的 logout_token
+        sessionStorage.removeItem('csrfToken'); // 移除存储的 CSRF 令牌
+        sessionStorage.removeItem('logoutToken'); // 移除存储的 logout_token
         // 清除其他与用户相关的状态，例如用户信息
-        localStorage.removeItem("userInfo"); // 示例，视实际情况而定
+        localStorage.removeItem('userInfo'); // 示例，视实际情况而定
         // 重定向到登录页或首页
-        window.location.href = "/login"; // 或其他页面
+        window.location.href = '/login'; // 或其他页面
       } else {
-        console.error("Logout failed:", response.statusText);
+        console.error('Logout failed:', response.statusText);
       }
     })
-    .catch((error) => console.error("Error during logout:", error));
+    .catch(error => console.error('Error during logout:', error));
 }
 ```
 

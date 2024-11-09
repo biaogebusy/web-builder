@@ -26,7 +26,7 @@ export class NodeService extends ApiService {
     @Inject(USER) private user$: Observable<IUser>
   ) {
     super();
-    this.user$.subscribe((user) => {
+    this.user$.subscribe(user => {
       this.user = user;
     });
   }
@@ -62,7 +62,7 @@ export class NodeService extends ApiService {
     // search for role
     const searchForRole = this.coreConfig?.apiUrl?.search;
     if (searchForRole && apiParams.indexOf('/api/v1/content')) {
-      Object.keys(searchForRole).some((role) => {
+      Object.keys(searchForRole).some(role => {
         if (!this.user || this.user.current_user.roles.includes(role)) {
           apiParams = apiParams.replace('/api/v1/content', searchForRole[role]);
           return true;
@@ -85,8 +85,8 @@ export class NodeService extends ApiService {
   getNodes(
     path: string,
     type: string,
-    params: string = '',
-    token: string = ''
+    params = '',
+    token = ''
   ): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${path}/${type}?${params}`,
@@ -328,7 +328,7 @@ export class NodeService extends ApiService {
 
   deleteFlagging(path: string, items: any[], token: string): Observable<any> {
     const obj: any = {};
-    items.forEach((item) => {
+    items.forEach(item => {
       const id = item.uuid || item.id;
       obj[id] = this.http.delete<any>(
         `${this.apiUrl}${path}/${id}`,
@@ -347,7 +347,7 @@ export class NodeService extends ApiService {
         return true;
       } else {
         const isRule =
-          currentUserRule.filter((role) => reqRules.includes(role)).length > 0;
+          currentUserRule.filter(role => reqRules.includes(role)).length > 0;
         return isRule;
       }
     }
@@ -363,7 +363,7 @@ export class NodeService extends ApiService {
       `filter[entity_id]=${entityId}`,
     ].join('&');
     return this.getFlaging(this.apiUrlConfig?.paymentPath, params, token).pipe(
-      map((res) => {
+      map(res => {
         if (res.data.length > 0) {
           return true;
         }
@@ -411,7 +411,7 @@ export class NodeService extends ApiService {
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
-          Accept: 'application/vnd.api+json',
+          'Accept': 'application/vnd.api+json',
           'Content-Type': 'application/octet-stream',
           'Content-Disposition': `file; filename="${fileName}"`,
           'X-CSRF-Token': csrfToken,
@@ -419,7 +419,7 @@ export class NodeService extends ApiService {
         withCredentials: true,
       })
       .pipe(
-        catchError((errror) => {
+        catchError(errror => {
           return throwError(errror);
         }),
         map((res: any) => {
@@ -459,7 +459,7 @@ export class NodeService extends ApiService {
         mediaData,
         this.optionsWithCookieAndToken(this.user.csrf_token)
       )
-      .subscribe((res) => {
+      .subscribe(res => {
         console.log('image upload done.');
       });
   }

@@ -1,12 +1,14 @@
 @if (getParams(content, 'mode') === 'horizontal') {
-  <mat-horizontal-stepper [linear]="getParams(content,'linear')" [labelPosition]="getParams(content, 'labelPosition')"
+  <mat-horizontal-stepper
+    [linear]="getParams(content, 'linear')"
+    [labelPosition]="getParams(content, 'labelPosition')"
     #stepper>
     @for (step of content.steps; track step) {
       <mat-step [color]="step.color" [completed]="step.completed">
-        <ng-template matStepLabel>{{step.label}}</ng-template>
+        <ng-template matStepLabel>{{ step.label }}</ng-template>
         @if (step.elements) {
           @for (item of step.elements; track item) {
-            <app-dynamic-component [inputs]="item"></app-dynamic-component>
+            <app-dynamic-component [inputs]="item" />
           }
         }
       </mat-step>
@@ -15,13 +17,13 @@
 }
 
 @if (getParams(content, 'mode') === 'vertical') {
-  <mat-vertical-stepper [linear]="getParams(content,'linear')" #stepper>
+  <mat-vertical-stepper [linear]="getParams(content, 'linear')" #stepper>
     @for (step of content.steps; track step) {
       <mat-step [color]="step.color" [completed]="step.completed">
-        <ng-template matStepLabel>{{step.label}}</ng-template>
+        <ng-template matStepLabel>{{ step.label }}</ng-template>
         @if (step.elements) {
           @for (item of step.elements; track item) {
-            <app-dynamic-component [inputs]="item"></app-dynamic-component>
+            <app-dynamic-component [inputs]="item" />
           }
         }
       </mat-step>

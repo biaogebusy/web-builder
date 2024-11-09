@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta
   title="编程指南/错误处理"
@@ -45,10 +45,10 @@ try {
 
 ```javascript
 getdata()
-  .then((data) => {
+  .then(data => {
     functionThatMightThrow(data);
   })
-  .catch((error) => {
+  .catch(error => {
     console.log(error);
   });
 ```
@@ -57,10 +57,10 @@ getdata()
 
 ```javascript
 getdata()
-  .then((data) => {
+  .then(data => {
     functionThatMightThrow(data);
   })
-  .catch((error) => {
+  .catch(error => {
     // One option (more noisy than console.log):
     console.error(error);
     // Another option:

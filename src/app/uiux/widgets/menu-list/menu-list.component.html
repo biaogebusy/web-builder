@@ -1,23 +1,24 @@
 @if (content) {
   <div class="menu-list">
     @if (content.title | isString) {
-      <h2 class="block-title">{{content.title}}</h2>
+      <h2 class="block-title">{{ content.title }}</h2>
     }
-    <mat-divider></mat-divider>
+    <mat-divider />
     @if (list) {
       <div class="list">
         @for (item of list; track item) {
           <div class="item flex justify-between items-center">
-            <app-link [content]="item.link"></app-link>
+            <app-link [content]="item.link" />
             @if (item.label) {
               <div class="num-posts">
-                {{item.label}}
+                {{ item.label }}
               </div>
             }
           </div>
         }
-        @if (initList && (initList.length > row)) {
-          <div class="action py-5 flex justify-center items-center"
+        @if (initList && initList.length > row) {
+          <div
+            class="action py-5 flex justify-center items-center"
             (click)="onExpand()">
             @if (expand) {
               <button mat-icon-button>

@@ -21,7 +21,7 @@ const meta: Meta<ViewListComponent> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(story => `${story}`),
   ],
   parameters: {
     docs: {

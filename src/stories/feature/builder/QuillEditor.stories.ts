@@ -21,10 +21,10 @@ const meta: Meta<any> = {
       imports: [QuillModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
      <quill-editor  [styles]="{height:content.editor?.height || '250px'}">
     </quill-editor>
-    `,
+    `
     ),
   ],
   parameters: {

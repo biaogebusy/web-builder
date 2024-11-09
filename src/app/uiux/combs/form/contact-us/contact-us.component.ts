@@ -40,14 +40,14 @@ export class ContactUsComponent implements OnInit {
       this.form.value
     );
     this.formService.submitWebForm(data).subscribe(
-      (res) => {
+      res => {
         this.submited = false;
         this.success = true;
         this.utilitiesService.openSnackbar('成功提交！');
         this.form.reset();
         this.cd.detectChanges();
       },
-      (error) => {
+      error => {
         this.submited = false;
         this.utilitiesService.openSnackbar(`Error: ${error.message}`);
         this.cd.detectChanges();

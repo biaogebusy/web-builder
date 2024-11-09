@@ -38,10 +38,10 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(USER) public user$: Observable<IUser>,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super();
-    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.user = user;
     });
   }
@@ -91,9 +91,9 @@ export class UserCardComponent extends BaseComponent implements OnInit {
             rows: [],
           });
         }),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((res) => {
+      .subscribe(res => {
         this.count = res.rows.map((item: any) => {
           return {
             digit: {
@@ -113,7 +113,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
 
   handleDialogClosed(api: string): void {
     if (this.dialogService.dialogState$) {
-      this.dialogService.dialogState$.subscribe((state) => {
+      this.dialogService.dialogState$.subscribe(state => {
         if (!state) {
           this.getContentFormApi(api);
         }

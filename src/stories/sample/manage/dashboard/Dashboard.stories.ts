@@ -37,7 +37,7 @@ const meta: Meta<DashboardComponent> = {
       providers: [],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
       <mat-drawer-container>
       <mat-drawer #manageDrawer id="sidebar" class="sidebar" mode="side" [opened]="true">
         <app-manage-sidebar [drawer]="manageDrawer"></app-manage-sidebar>
@@ -49,7 +49,7 @@ const meta: Meta<DashboardComponent> = {
         </div>
       </mat-drawer-content>
     </mat-drawer-container>
-    `,
+    `
     ),
   ],
   parameters: {

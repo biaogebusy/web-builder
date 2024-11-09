@@ -24,9 +24,9 @@ const meta: Meta<BgImgComponent> = {
       declarations: [ImgComponent],
     }),
     componentWrapperDecorator(
-      (story) =>
+      story =>
         `<div class="widget relative" style="z-index:1;height:400px;overflow:hidden">
-        ${story}</div>`,
+        ${story}</div>`
     ),
   ],
 };

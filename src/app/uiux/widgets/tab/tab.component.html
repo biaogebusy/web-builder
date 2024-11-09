@@ -3,60 +3,54 @@
     @if (content.id) {
       <a class="anchor" [id]="content.id"></a>
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
+        <app-text [attr.data-path]="'text'" [content]="content.text" />
       }
       @switch (content.align) {
-        @case ("center") {
+        @case ('center') {
           <mat-tab-group
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="center"
-            [ngClass]="content.classes"
-          >
+            [ngClass]="content.classes">
             @for (item of content.elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
                 <div
                   [attr.data-path]="i"
-                  class="{{ content.fullWidth ? 'py-5' : 'p-5' }}"
-                >
+                  class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
                   @if (content.bg) {
-                    <app-bg-img [content]="content.bg"></app-bg-img>
+                    <app-bg-img [content]="content.bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
                     <app-dynamic-component
                       [attr.data-path]="'elements.' + i"
-                      [inputs]="{ content: item }"
-                    ></app-dynamic-component>
+                      [inputs]="{ content: item }" />
                   }
                 </div>
               </mat-tab>
             }
           </mat-tab-group>
         }
-        @case ("end") {
+        @case ('end') {
           <mat-tab-group
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="end"
-            [ngClass]="content.classes"
-          >
+            [ngClass]="content.classes">
             @for (item of content.elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
                 <div
                   [attr.data-path]="i"
-                  class="{{ content.fullWidth ? 'py-5' : 'p-5' }}"
-                >
+                  class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
                   @if (content.bg) {
-                    <app-bg-img [content]="content.bg"></app-bg-img>
+                    <app-bg-img [content]="content.bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
                     <app-dynamic-component
                       [attr.data-path]="'elements.' + i"
-                      [inputs]="{ content: item }"
-                    ></app-dynamic-component>
+                      [inputs]="{ content: item }" />
                   }
                 </div>
               </mat-tab>
@@ -68,22 +62,19 @@
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="start"
-            [ngClass]="content.classes"
-          >
+            [ngClass]="content.classes">
             @for (item of content.elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
                 <div
                   [attr.data-path]="i"
-                  class="{{ content.fullWidth ? 'py-5' : 'p-5' }}"
-                >
+                  class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
                   @if (content.bg) {
-                    <app-bg-img [content]="content.bg"></app-bg-img>
+                    <app-bg-img [content]="content.bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
                     <app-dynamic-component
                       [attr.data-path]="'elements.' + i"
-                      [inputs]="{ content: item }"
-                    ></app-dynamic-component>
+                      [inputs]="{ content: item }" />
                   }
                 </div>
               </mat-tab>
@@ -92,6 +83,6 @@
         }
       }
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

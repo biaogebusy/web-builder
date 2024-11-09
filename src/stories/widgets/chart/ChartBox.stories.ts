@@ -22,7 +22,7 @@ const meta: Meta<ChartBoxComponent> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="relative p-x p-y" >${story}</div>`,
+      story => `<div class="relative p-x p-y" >${story}</div>`
     ),
   ],
 };

@@ -1,11 +1,5 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import { ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -31,12 +25,7 @@ export class LayoutToolbarComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onMoveCol(
-    direction: 'left' | 'right',
-    lists: any[],
-    target: any,
-    index: number,
-  ): void {
+  onMoveCol(direction: 'left' | 'right', lists: any[], target: any, index: number): void {
     const elements = cloneDeep(lists);
     const path = this.util.generatePath(target);
     const lastDotIndex = path.lastIndexOf('.');

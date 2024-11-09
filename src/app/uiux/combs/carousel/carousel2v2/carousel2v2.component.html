@@ -4,21 +4,19 @@
       <a class="anchor" [id]="content.id"></a>
     }
     @if (content.bg) {
-      <app-bg-img [content]="content.bg"> </app-bg-img>
+      <app-bg-img [content]="content.bg" />
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       @if (content.title) {
         <app-title
           [attr.data-path]="'title'"
-          [content]="content.title"
-        ></app-title>
+          [content]="content.title" />
       }
       <app-swiper
         [attr.data-path]="'sliders'"
-        [content]="content.sliders"
-      ></app-swiper>
+        [content]="content.sliders" />
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

@@ -1,12 +1,16 @@
 @if (content) {
   <div class="inline-lightbox">
     <lightgallery [settings]="settings">
-      @for (item of content.label; track item; let isFirst = $first; let i = $index) {
+      @for (
+        item of content.label;
+        track item;
+        let isFirst = $first;
+        let i = $index
+      ) {
         <a
           class="inline"
           [ngClass]="isFirst ? '' : 'px-3'"
-          [href]="content.elements[i].src"
-          >
+          [href]="content.elements[i].src">
           <span [innerHTML]="item | safeHtml"></span>
         </a>
       }

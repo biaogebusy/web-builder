@@ -23,7 +23,7 @@ const meta: Meta<TaxonomyThinListComponent> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(story => `${story}`),
   ],
 };
 

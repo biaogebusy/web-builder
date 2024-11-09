@@ -25,7 +25,7 @@ import { WIDGETS } from '@core/token/token-providers';
 export class BuilderState {
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
-  public showcase$: Subject<IBuilderShowcase | false> = new Subject();
+  public showcase$ = new Subject<IBuilderShowcase | false>();
   public themeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public rightContent$ = new Subject<IBuilderDynamicContent>();
   public closeRightDrawer$ = new Subject<boolean>();
@@ -123,7 +123,7 @@ export class BuilderState {
     this.loading$.next(true);
     setTimeout(() => {
       // reset current
-      this.version.forEach((item) => (item.current = false));
+      this.version.forEach(item => (item.current = false));
       this.version[index].current = true;
 
       this.storage.store(this.versionKey, Object.assign([], this.version));
@@ -131,7 +131,7 @@ export class BuilderState {
     }, 600);
   }
 
-  updatePage(index: number = 0): void {
+  updatePage(index = 0): void {
     setTimeout(() => {
       this.storage.store(this.versionKey, Object.assign([], this.version));
 
@@ -143,9 +143,7 @@ export class BuilderState {
   }
 
   get currentPage(): IPage {
-    const currentIndex = this.version.findIndex(
-      (page) => page.current === true
-    );
+    const currentIndex = this.version.findIndex(page => page.current === true);
     return this.version[currentIndex] || this.version[0];
   }
 
@@ -246,7 +244,7 @@ export class BuilderState {
   }
 
   loadNewPage(page: IPage): void {
-    this.version.forEach((version) => (version.current = false));
+    this.version.forEach(version => (version.current = false));
     this.version.unshift({ ...page, current: true, time: new Date() });
     this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
@@ -264,7 +262,7 @@ export class BuilderState {
       mode: 'over',
       hasBackdrop: false,
       style: {
-        width: '318px',
+        'width': '318px',
         'max-width': 'calc(100vw - 50px)',
       },
       elements: [data],
@@ -280,7 +278,7 @@ export class BuilderState {
 
   getAllComponents(data: IBuilderComponent[]): any[] {
     const components: any[] = [];
-    data.forEach((item) => {
+    data.forEach(item => {
       components.push(...item.elements);
     });
     components.push(...this.widgets);
@@ -302,7 +300,7 @@ export class BuilderState {
     id: string,
     count: number
   ): any[] {
-    const elements = data.find((item) => item.id === id)?.elements || [];
+    const elements = data.find(item => item.id === id)?.elements || [];
     // 如果元素中包含 content.child，则将其元素也添加到结果中
     const result = elements.reduce((acc: any[], element: any) => {
       if (typeof element === 'object' && element.child) {
@@ -333,13 +331,13 @@ export class BuilderState {
     const markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
     if (!isDebugAnimate) {
       // hidden marker
-      map(markers, (marker) => {
+      map(markers, marker => {
         marker.classList.remove('block');
         marker.classList.add('hidden');
       });
     } else {
       if (markers.length) {
-        map(markers, (marker) => {
+        map(markers, marker => {
           marker.classList.add('block');
           marker.classList.remove('hidden');
         });

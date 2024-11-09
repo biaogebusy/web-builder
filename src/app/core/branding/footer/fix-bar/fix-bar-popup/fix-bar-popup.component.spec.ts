@@ -8,9 +8,8 @@ describe('FixBarPopupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FixBarPopupComponent ]
-    })
-    .compileComponents();
+      declarations: [FixBarPopupComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

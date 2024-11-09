@@ -3,27 +3,29 @@
     @if (content.id) {
       <a class="anchor" [id]="content.id"></a>
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
     @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
     }
-    <div class="{{content.fullWidth?'':'container'}}">
+    <div class="{{ content.fullWidth ? '' : 'container' }}">
       @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
+        <app-text [attr.data-path]="'text'" [content]="content.text" />
       }
       @for (item of content.elements; track item; let i = $index) {
-        <app-dynamic-component [attr.data-path]="'elements.'+i"
-        [inputs]="item"></app-dynamic-component>
+        <app-dynamic-component
+          [attr.data-path]="'elements.' + i"
+          [inputs]="item" />
       }
       @if (content.actions) {
         <div class="mt-5 flex justify-center items-center gap-3">
           @for (item of content.actions; track item; let i = $index) {
-            <app-dynamic-component [attr.data-path]="'actions.'+i" [inputs]="item"
-            ></app-dynamic-component>
+            <app-dynamic-component
+              [attr.data-path]="'actions.' + i"
+              [inputs]="item" />
           }
         </div>
       }
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

@@ -23,7 +23,7 @@ const meta: Meta<NotifyComponent> = {
       declarations: [],
       imports: [BrandingModule],
     }),
-    componentWrapperDecorator((story) => {
+    componentWrapperDecorator(story => {
       return `<div classs="widget">${story}</div>`;
     }),
   ],

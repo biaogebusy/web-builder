@@ -20,7 +20,7 @@
         <button mat-button color="primary" (click)="onDelete(item.id)">
           <div class="flex justify-center items-center">
             @if (loading) {
-              <mat-spinner diameter="20"></mat-spinner>
+              <mat-spinner diameter="20" />
             }
             @if (!loading) {
               <mat-icon inline="true">delete</mat-icon>
@@ -34,33 +34,33 @@
     <div class="mt-5 flex items-start md:ml-5 pl-3">
       @for (action of config.actions; track action) {
         @switch (action) {
-          @case ("update") {
+          @case ('update') {
             @if (isMy()) {
               <button mat-button color="primary" (click)="onUpdate()">
                 <mat-icon inline="true">editor</mat-icon> 修改
               </button>
             }
           }
-          @case ("reply") {
+          @case ('reply') {
             @if (item.level === 1) {
               <button mat-button color="primary" (click)="onReply()">
                 <mat-icon inline="true">reply</mat-icon> 回复
               </button>
             }
           }
-          @case ("quote") {
+          @case ('quote') {
             @if (item.level === 1) {
               <button mat-button color="primary" (click)="onQuote()">
                 <mat-icon inline="true">repeat</mat-icon> 引用
               </button>
             }
           }
-          @case ("delete") {
+          @case ('delete') {
             @if (isMy()) {
               <button mat-button color="primary" (click)="onDelete(item.id)">
                 <div class="flex justify-center items-center">
                   @if (loading) {
-                    <mat-spinner diameter="20"></mat-spinner>
+                    <mat-spinner diameter="20" />
                   }
                   @if (!loading) {
                     <mat-icon inline="true">delete</mat-icon>

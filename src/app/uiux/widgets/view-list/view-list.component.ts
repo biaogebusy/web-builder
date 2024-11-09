@@ -60,7 +60,7 @@ export class ViewListComponent
   private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) private user$: Observable<IUser>) {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -108,9 +108,9 @@ export class ViewListComponent
           }
           return of(error.status);
         }),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((res) => {
+      .subscribe(res => {
         if (!res) {
           this.noAuth = true;
           this.loading = false;
@@ -143,7 +143,7 @@ export class ViewListComponent
     if (this.dialogService.dialogState$) {
       this.dialogService.dialogState$
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((state) => {
+        .subscribe(state => {
           if (!state) {
             this.getViews();
           }

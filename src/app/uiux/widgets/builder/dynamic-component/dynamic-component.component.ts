@@ -53,7 +53,7 @@ export class DynamicComponentComponent
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
+    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +72,7 @@ export class DynamicComponentComponent
   ngAfterContentInit(): void {
     this.isBuilderMode$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((state) => {
+      .subscribe(state => {
         if (!this.inputs?.showToolbar) {
           this.activeToolbarClass = false;
           return;
@@ -103,7 +103,7 @@ export class DynamicComponentComponent
     }
     if (this.component.instance && this.inputs) {
       if (!this.inputs.type && this.inputs.content) {
-        Object.keys(this.inputs).forEach((key) => {
+        Object.keys(this.inputs).forEach(key => {
           if (this.component) {
             this.component.instance[key] = this.inputs[key];
           }
@@ -117,7 +117,7 @@ export class DynamicComponentComponent
     this.util.initAnimate(
       this.inputs,
       this.ele.nativeElement.lastElementChild,
-      this.ele.nativeElement,
+      this.ele.nativeElement
     );
     this.component.changeDetectorRef.markForCheck();
   }

@@ -20,7 +20,7 @@ jobs:
       - name: use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20"
+          node-version: '20'
 
       - name: Cache verify
         run: npm cache verify
@@ -39,8 +39,8 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.KEY }}
           ARGS: -avz --delete
-          SERVER_PORT: "22"
-          FOLDER: "dist"
+          SERVER_PORT: '22'
+          FOLDER: 'dist'
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: "/mnt/wwwroot/app/builder"
+          SERVER_DESTINATION: '/mnt/wwwroot/app/builder'

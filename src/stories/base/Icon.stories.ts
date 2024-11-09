@@ -26,7 +26,7 @@ const meta: Meta<IconComponent> = {
       imports: [MatIconModule],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="widget relative p-x-md p-y-md">${story}</div>`,
+      story => `<div class="widget relative p-x-md p-y-md">${story}</div>`
     ),
   ],
   parameters: {

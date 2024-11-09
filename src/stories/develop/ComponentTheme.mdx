@@ -1,4 +1,4 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
 
 <Meta title="开发/组件主题" id="create-theme" />
 
@@ -11,7 +11,7 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
 2. 最佳实践
 
 ```scss
-@use "~@angular/material" as mat;
+@use '~@angular/material' as mat;
 
 @mixin hero-color($theme) {
   $config: mat.get-color-config($theme);
@@ -75,7 +75,7 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
 使用 mat.get-color-from-palette(palette,hue: default, $opacity: null) :从调色盘获取特定的颜色，可以指定色调和透明度。
 
 ```scss
-@import "~@angular/material/theming";
+@import '~@angular/material/theming';
 
 @mixin hero-color($theme) {
   $config: mat.get-color-config($theme);
@@ -96,7 +96,7 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
     outline-color: mat.get-color-from-palette($accent, lighter);
 
     // 添加 `-contrast` 获取指定色盘的对比度颜色
-    border-color: mat.get-color-from-palette($primary, "100-contrast");
+    border-color: mat.get-color-from-palette($primary, '100-contrast');
   }
 }
 ```

@@ -1,14 +1,13 @@
 @if (content) {
   @if (img) {
     <div class="logo flex justify-start items-end">
-      <app-img [content]="img"></app-img>
+      <app-img [content]="img" />
     </div>
   } @else {
     <a
       class="site-name mat-h2"
       [routerLink]="content.href"
-      [innerHTML]="content.label | safeHtml"
-    ></a>
+      [innerHTML]="content.label | safeHtml"></a>
   }
   @if (content.version) {
     <span class="pl-3 version">v8.0.0</span>

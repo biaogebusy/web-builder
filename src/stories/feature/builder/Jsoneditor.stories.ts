@@ -40,11 +40,11 @@ const meta: Meta<JsoneditorComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
       <app-header></app-header>
       ${story}
       <app-footer></app-footer>
-    `,
+    `
     ),
   ],
   parameters: {

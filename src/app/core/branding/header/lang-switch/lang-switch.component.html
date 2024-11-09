@@ -3,17 +3,15 @@
     <button
       aria-label="switch language"
       mat-icon-button
-      [mat-menu-trigger-for]="menu"
-    >
-      <app-icon [content]="{ svg: 'translate', inline: true }"></app-icon>
+      [mat-menu-trigger-for]="menu">
+      <app-icon [content]="{ svg: 'translate', inline: true }" />
     </button>
     <mat-menu #menu="matMenu">
       @for (lang of langs; track lang) {
         <button
           (click)="onSwitchLanguage(lang)"
           aria-label="switch lang item"
-          mat-menu-item
-        >
+          mat-menu-item>
           @if (currentLang.langCode !== lang.langCode) {
             <mat-icon>radio_button_unchecked</mat-icon>
           }

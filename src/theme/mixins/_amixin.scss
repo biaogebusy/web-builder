@@ -113,7 +113,7 @@
 
 // @include responsive-ratio(16, 9)
 @mixin responsive-ratio($x, $y, $pseudo: false) {
-  $padding: unquote(($y / $x) * 100 + "%");
+  $padding: unquote(($y / $x) * 100 + '%');
 
   @if $pseudo {
     &:before {

@@ -8,9 +8,8 @@ describe('NumberAnimateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NumberAnimateComponent ]
-    })
-    .compileComponents();
+      declarations: [NumberAnimateComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

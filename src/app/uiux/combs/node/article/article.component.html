@@ -1,30 +1,28 @@
 @if (content) {
   <div class="article m-bottom">
     @if (content.banner) {
-      <app-article-banner [content]="content.banner"></app-article-banner>
+      <app-article-banner [content]="content.banner" />
     }
     <div class="container">
       <div class="article-inner m-top-sm flex flex-col md:flex-row md:gap-5">
         <div
           class="article-node flex-12/12 md:flex-{{
             content.sidebar ? '9' : '12'
-          }}/12"
-        >
+          }}/12">
           <h2 class="title">
             {{ content.title }}
           </h2>
           <div class="article-meta m-y-xs flex justify-between items-center">
             @if (content.meta) {
-              <app-article-meta [content]="content.meta"></app-article-meta>
+              <app-article-meta [content]="content.meta" />
             }
           </div>
-          <mat-divider></mat-divider>
+          <mat-divider />
           <div class="article-body relative">
             @if (canAccess) {
               <div
                 class="article-body m-y-sm"
-                [innerHTML]="content.body | safeHtml"
-              ></div>
+                [innerHTML]="content.body | safeHtml"></div>
             } @else {
               @if (content.body) {
                 <div class="article-body m-y-sm relative">
@@ -34,20 +32,17 @@
                         | stripTags: 'p'
                         | trim
                         | shorten: 1000 : '...'
-                    "
-                  ></div>
+                    "></div>
                   <div class="shadow"></div>
                 </div>
               }
               @if (!(user$ | async)) {
                 <div
-                  class="auth line p-y-sm p-x-sm w-full text-center flex justify-center items-center"
-                >
+                  class="auth line p-y-sm p-x-sm w-full text-center flex justify-center items-center">
                   <a
                     href="javascript:void(0)"
                     (click)="openLogin()"
-                    [innerHTML]="loginConfig?.label | safeHtml"
-                  ></a>
+                    [innerHTML]="loginConfig?.label | safeHtml"></a>
                 </div>
               }
             }
@@ -56,8 +51,7 @@
             <div class="article-bottom m-y">
               @for (action of content.bottom; track action) {
                 <app-dynamic-component
-                  [inputs]="action"
-                ></app-dynamic-component>
+                  [inputs]="action" />
               }
             </div>
           }
@@ -65,9 +59,7 @@
             <div class="ations m-y">
               @for (action of content.actions; track action) {
                 <app-dynamic-component
-                  [inputs]="{ content: action, data: content.params }"
-                >
-                </app-dynamic-component>
+                  [inputs]="{ content: action, data: content.params }" />
               }
             </div>
           }
@@ -75,18 +67,15 @@
             @if (
               coreConfig.article?.comment?.enable && content.params?.comment
             ) {
-              <app-comment-form [content]="content" [type]="'add'">
-              </app-comment-form>
+              <app-comment-form [content]="content" [type]="'add'" />
             }
-            <app-comment-list [comments]="comments" [content]="content">
-            </app-comment-list>
+            <app-comment-list [comments]="comments" [content]="content" />
           }
         </div>
         @if (content.sidebar) {
           <app-sidebar
             class="flex-12/12 md:flex-3/12"
-            [content]="content.sidebar"
-          ></app-sidebar>
+            [content]="content.sidebar" />
         }
       </div>
     </div>

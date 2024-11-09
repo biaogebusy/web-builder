@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="开发/用户接口/流程" id="authentication" />
 
@@ -43,37 +43,37 @@ cors.config:
    使用 fetch 或 axios 发送 POST 请求到 /user/login 端点。登录成功后，服务器会在响应中设置一个会话 cookie，前端应用可以使用这个会话 cookie 进行后续的认证。
 
 ```javascript
-fetch("https://your-drupal-site.com/user/login?_format=json", {
-  method: "POST",
+fetch('https://your-drupal-site.com/user/login?_format=json', {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    name: "username",
-    pass: "password",
+    name: 'username',
+    pass: 'password',
   }),
-  credentials: "include", // 确保会话 cookie 被发送
+  credentials: 'include', // 确保会话 cookie 被发送
 })
-  .then((response) => response.json())
-  .then((data) => {
+  .then(response => response.json())
+  .then(data => {
     if (data.current_user) {
-      console.log("Logged in as:", data.current_user.name);
+      console.log('Logged in as:', data.current_user.name);
     }
   })
-  .catch((error) => console.error("Error:", error));
+  .catch(error => console.error('Error:', error));
 ```
 
 2. 使用会话进行认证
    之后的请求将自动包含会话 cookie，无需手动添加。确保在每个请求中包含 credentials: 'include' 以便发送和接收会话 cookie。
 
 ```javascript
-fetch("https://your-drupal-site.com/some-endpoint", {
-  method: "GET",
-  credentials: "include", // 确保会话 cookie 被发送
+fetch('https://your-drupal-site.com/some-endpoint', {
+  method: 'GET',
+  credentials: 'include', // 确保会话 cookie 被发送
 })
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error("Error:", error));
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
 ```
 
 ## 6. CSRF 保护
@@ -81,20 +81,20 @@ fetch("https://your-drupal-site.com/some-endpoint", {
 在使用会话认证时，确保前端应用在发送请求时包括 CSRF 令牌。首先在前端应用中获取 CSRF 令牌：
 
 ```javascript
-fetch("https://your-drupal-site.com/session/token", {
-  credentials: "include", // 确保会话 cookie 被发送
+fetch('https://your-drupal-site.com/session/token', {
+  credentials: 'include', // 确保会话 cookie 被发送
 })
-  .then((response) => response.text())
-  .then((token) => {
+  .then(response => response.text())
+  .then(token => {
     // 在后续请求中包含这个 token
-    fetch("https://your-drupal-site.com/some-endpoint", {
-      method: "POST",
+    fetch('https://your-drupal-site.com/some-endpoint', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": token,
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': token,
       },
-      credentials: "include", // 确保会话 cookie 被发送
-      body: JSON.stringify({ data: "your data" }),
+      credentials: 'include', // 确保会话 cookie 被发送
+      body: JSON.stringify({ data: 'your data' }),
     });
   });
 ```

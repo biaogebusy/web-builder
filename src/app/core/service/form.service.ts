@@ -13,10 +13,10 @@ import { formatDate } from '@angular/common';
   providedIn: 'root',
 })
 export class FormService {
-  autoList$: Subject<any[]> = new Subject();
+  autoList$ = new Subject<any[]>();
   constructor(
     private http: HttpClient,
-    private apiService: ApiService,
+    private apiService: ApiService
   ) {}
 
   toFormGroup(items: any[]): any {
@@ -72,7 +72,7 @@ export class FormService {
     return this.http.post(
       `${this.apiService.apiUrl}/webform_rest/submit`,
       data,
-      this.apiService.httpOptionsOfCommon,
+      this.apiService.httpOptionsOfCommon
     );
   }
 

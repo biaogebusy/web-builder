@@ -65,7 +65,7 @@ export class ChartBoxComponent implements OnInit {
           ],
         });
       }),
-      map((res) => {
+      map(res => {
         const data = defaultsDeep(
           {
             count: res.count,
@@ -77,10 +77,10 @@ export class ChartBoxComponent implements OnInit {
               ],
             },
           },
-          this.content,
+          this.content
         );
         return data;
-      }),
+      })
     );
   }
 }

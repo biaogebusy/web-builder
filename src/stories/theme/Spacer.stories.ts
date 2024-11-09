@@ -22,7 +22,7 @@ const meta: Meta<SpacerComponent> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) =>
+      story =>
         `<div class="widget relative bg-shadow p-y p-x" style="z-index:1;">
 
           <app-title [content]="{ 'label': 'xs', 'style': 'style-v4', 'classes': 'mat-headline-1' }"></app-title>
@@ -49,7 +49,7 @@ const meta: Meta<SpacerComponent> = {
           <div class="bg-primary">
            <app-spacer [size]="'xl'"></app-spacer>
           </div>
-        </div>`,
+        </div>`
     ),
   ],
   parameters: {

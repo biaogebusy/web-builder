@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 @mixin chip-list-color($theme) {
   $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);

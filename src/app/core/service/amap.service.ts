@@ -13,14 +13,14 @@ import { ScreenService } from './screen.service';
 })
 export class AmapService {
   position$ = new Subject();
-  markers$: Subject<IMark> = new Subject();
+  markers$ = new Subject<IMark>();
   screenSerivce = inject(ScreenService);
   constructor() {}
 
   load(config: IAmap): Observable<any> {
     const $map = new BehaviorSubject<object | boolean>(false);
     if (this.screenSerivce.isPlatformBrowser()) {
-      import('@amap/amap-jsapi-loader').then((AMapLoader) => {
+      import('@amap/amap-jsapi-loader').then(AMapLoader => {
         const {
           default: { load },
         } = AMapLoader;
@@ -33,7 +33,7 @@ export class AmapService {
             plugins: [],
           },
           Loca: {},
-        }).then((amap) => {
+        }).then(amap => {
           $map.next(amap);
         });
       });

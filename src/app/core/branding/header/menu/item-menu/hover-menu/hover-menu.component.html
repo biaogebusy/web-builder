@@ -1,7 +1,9 @@
-<app-link class="top {{content.href ? 'is-link':'not-link'}}" [content]="content"></app-link>
+<app-link
+  class="top {{ content.href ? 'is-link' : 'not-link' }}"
+  [content]="content" />
 @if (content.child && content.child.length > 0) {
   <div class="hover-menu" [class.active]="active">
-    <div *ngTemplateOutlet="child;context:{content: content}"></div>
+    <div *ngTemplateOutlet="child; context: { content: content }"></div>
   </div>
 }
 
@@ -10,11 +12,11 @@
     <div class="sub-menu">
       <ng-container *reqRolesIf="item">
         <button mat-button [class.has-child]="item.child ? true : false">
-          <app-link [content]="item"></app-link>
+          <app-link [content]="item" />
         </button>
         @if (item.child && item.child.length > 0) {
           <div class="child">
-            <div *ngTemplateOutlet="child;context:{content: item}"></div>
+            <div *ngTemplateOutlet="child; context: { content: item }"></div>
           </div>
         }
       </ng-container>

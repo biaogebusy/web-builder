@@ -13,7 +13,7 @@ export class TabsTypeComponent extends FieldType {
     }
 
     return field.fieldGroup
-      ? field.fieldGroup.every((f) => this.isValid(f))
+      ? field.fieldGroup.every(f => this.isValid(f))
       : true;
   }
 }

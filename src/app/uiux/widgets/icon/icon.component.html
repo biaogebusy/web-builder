@@ -4,8 +4,7 @@
       [ngStyle]="content.style"
       [color]="content.color"
       [inline]="content.inline ?? false"
-      [fontIcon]="content.name || ''"
-    ></mat-icon>
+      [fontIcon]="content.name || ''" />
   }
   @if (content.svg) {
     <mat-icon
@@ -13,8 +12,7 @@
       class="custom"
       [color]="content.color"
       [inline]="content.inline ?? false"
-      [svgIcon]="content.svg"
-    ></mat-icon>
+      [svgIcon]="content.svg" />
   }
-  <ng-content></ng-content>
+  <ng-content />
 }

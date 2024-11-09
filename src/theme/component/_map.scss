@@ -48,7 +48,9 @@
       .arrow {
         &.top {
           &:after {
-            border-top-color: mat.m2-get-color-from-palette($primary) !important;
+            border-top-color: mat.m2-get-color-from-palette(
+              $primary
+            ) !important;
           }
         }
       }

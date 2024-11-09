@@ -12,8 +12,7 @@
     @if (formControl.value) {
       <app-btn
         (click)="remove()"
-        [content]="{ label: to.deleteLabel, color: 'warn' }"
-      ></app-btn>
+        [content]="{ label: to.deleteLabel, color: 'warn' }" />
     }
     <app-btn
       (click)="openMedias()"
@@ -21,7 +20,6 @@
         label: formControl.value ? to.updateLabel : to.addLabel,
         color: to.color || 'primary',
         mode: to.mode || 'stroked',
-      }"
-    ></app-btn>
+      }" />
   </div>
 </div>

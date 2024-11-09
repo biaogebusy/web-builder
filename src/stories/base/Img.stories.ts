@@ -23,8 +23,8 @@ const meta: Meta<ImgComponent> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="widget relative  w-[300px]"  style="height:300px">${story}</div>`,
+      story =>
+        `<div class="widget relative  w-[300px]"  style="height:300px">${story}</div>`
     ),
   ],
 };

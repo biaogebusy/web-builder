@@ -34,7 +34,7 @@ const meta: Meta<BlockComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
       <app-header></app-header>
       <div class="widget" style="overflow:hidden">
       ${story}

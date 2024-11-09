@@ -1,27 +1,24 @@
 <div
   class="card-1v1 relative rounded-md overflow-hidden top-0 hover:-top-3 transition-all ease-in duration-300"
-  [ngClass]="content.classes"
->
+  [ngClass]="content.classes">
   @if (content.feature) {
     <app-feature-box
       [attr.data-path]="'feature'"
-      [content]="content.feature"
-    ></app-feature-box>
+      [content]="content.feature" />
   }
   @if (content.components) {
     <div class="components">
       @for (item of content.components; track item; let i = $index) {
         <app-dynamic-component
           [attr.data-path]="'components.' + i"
-          [inputs]="item"
-        ></app-dynamic-component>
+          [inputs]="item" />
       }
     </div>
   }
   <div class="card-body p-y-sm p-x-sm">
     @if (content.link) {
       <div class="title mat-h2 two-line">
-        <app-link [attr.data-path]="'link'" [content]="content.link"></app-link>
+        <app-link [attr.data-path]="'link'" [content]="content.link" />
       </div>
     }
     @if (content.moreLabel) {
@@ -29,12 +26,10 @@
         @if (content.link) {
           <a
             [href]="content.link.href"
-            class="text-muted readmore flex items-center"
-          >
+            class="text-muted readmore flex items-center">
             <span
               contentedit="moreLabel"
-              [innerHTML]="content.moreLabel | safeHtml"
-            ></span>
+              [innerHTML]="content.moreLabel | safeHtml"></span>
             <mat-icon>navigate_next</mat-icon>
           </a>
         }
@@ -42,8 +37,7 @@
     }
   </div>
   <div
-    class="flex flex-col author absolute z-10 opacity-0 top-[5%] left-[5%] transition-all duration-300 ease-in"
-  >
+    class="flex flex-col author absolute z-10 opacity-0 top-[5%] left-[5%] transition-all duration-300 ease-in">
     @if (content.user) {
       <small class="user">
         <mat-icon inline="true">person</mat-icon> {{ content.user }}

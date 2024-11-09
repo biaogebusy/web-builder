@@ -49,12 +49,12 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.debugAnimate$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((state) => {
+      .subscribe(state => {
         this.builder.renderMarkers(state);
       });
     this.currentPage$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((page) => {
+      .subscribe(page => {
         this.page = page;
         this.cd.detectChanges();
       });

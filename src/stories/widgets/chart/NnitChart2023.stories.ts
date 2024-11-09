@@ -28,8 +28,7 @@ const meta: Meta<ChartComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="relative p-x p-y" style="z-index:1">${story}</div>`,
+      story => `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
   parameters: {

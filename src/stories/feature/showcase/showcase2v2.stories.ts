@@ -22,7 +22,7 @@ const meta: Meta<Showcase2v2Component> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(story => `${story}`),
   ],
   parameters: {
     layout: 'fullscreen',

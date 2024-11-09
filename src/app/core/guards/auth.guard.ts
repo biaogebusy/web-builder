@@ -26,7 +26,7 @@ export class AuthGuard {
   screenService = inject(ScreenService);
 
   constructor(@Inject(USER) private currentUser$: Observable<IUser>) {
-    this.currentUser$.subscribe((user) => {
+    this.currentUser$.subscribe(user => {
       this.user = user;
     });
   }
@@ -52,7 +52,7 @@ export class AuthGuard {
             } = config.guard;
             if (state.url.startsWith('/my') || authGuard) {
               return this.userService.getLoginState().pipe(
-                map((status) => {
+                map(status => {
                   // console.log('userState:', status);
                   if (status) {
                     if (environment?.drupalProxy) {
@@ -97,7 +97,7 @@ export class AuthGuard {
                 this.userService
                   .getLoginState()
                   .pipe(
-                    tap((status) => {
+                    tap(status => {
                       if (!status) {
                         this.userService.logoutUser();
                       }

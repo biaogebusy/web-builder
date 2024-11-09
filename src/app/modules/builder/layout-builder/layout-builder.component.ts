@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Inject,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, Input, OnInit, inject } from '@angular/core';
 import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
@@ -26,9 +18,7 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   util = inject(UtilitiesService);
   ele = inject(ElementRef);
   builderSerivce = inject(BuilderService);
-  constructor(
-    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
-  ) {}
+  constructor(@Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>) {}
 
   ngOnInit(): void {}
 

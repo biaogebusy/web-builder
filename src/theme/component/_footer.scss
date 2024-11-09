@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
 @mixin inverse($primary, $bg, $text, $contrast, $form) {
   background: $bg;
@@ -26,7 +26,7 @@
       background-color: transparent;
       color: $text;
     }
-    .mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"])
+    .mat-expansion-panel:not(.mat-expanded):not([aria-disabled='true'])
       .mat-expansion-panel-header:hover {
       background-color: transparent;
     }
@@ -96,7 +96,11 @@
   $inverse-text-contrast: #fff;
   $inverse-form: #4c4c4c;
 
-  $inverse-bg-light: mat.m2-get-color-from-palette($background, status-bar, 0.6);
+  $inverse-bg-light: mat.m2-get-color-from-palette(
+    $background,
+    status-bar,
+    0.6
+  );
   $inverse-text-light: $text-base;
   $inverse-text-contrast-light: mat.m2-get-color-from-palette(
     $foreground,
@@ -120,7 +124,10 @@
       .footer-bottom {
         position: relative;
         color: mat.m2-get-color-from-palette($foreground, text, 0.6);
-        background-color: mat.m2-get-color-from-palette($background, background);
+        background-color: mat.m2-get-color-from-palette(
+          $background,
+          background
+        );
         z-index: 10;
       }
 
@@ -144,11 +151,11 @@
         color: $text-base !important;
       }
 
-      .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+      .mat-expansion-panel:not([class*='mat-elevation-z']) {
         box-shadow: none !important;
       }
 
-      .mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"])
+      .mat-expansion-panel:not(.mat-expanded):not([aria-disabled='true'])
         .mat-expansion-panel-header:hover {
         background-color: transparent !important;
       }

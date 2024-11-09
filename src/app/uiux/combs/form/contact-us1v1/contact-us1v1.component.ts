@@ -39,11 +39,11 @@ export class ContactUs1v1Component extends BaseComponent implements OnInit {
       value.form
     );
     this.formService.submitWebForm(data).subscribe(
-      (res) => {
+      res => {
         this.util.openSnackbar('成功提交！');
         this.form.reset();
       },
-      (error) => {
+      error => {
         this.util.openSnackbar(`提交失败！`);
       }
     );

@@ -8,13 +8,12 @@
             <a [href]="item.link.href" class="post-img">
               <app-img
                 [attr.data-path]="'elements.' + i + '.img'"
-                [content]="item.img"
-              ></app-img>
+                [content]="item.img" />
               <mat-icon>open_in_new</mat-icon>
             </a>
           }
           <div class="blog-title">
-            <app-link [content]="item.link"></app-link>
+            <app-link [content]="item.link" />
             <div class="blog-date" [innerHTML]="item.changed | safeHtml"></div>
           </div>
         </div>

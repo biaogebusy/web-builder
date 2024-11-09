@@ -135,7 +135,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
                   },
                 ],
               },
-              this.content.widget,
+              this.content.widget
             );
             break;
           case 'dynamic-table':
@@ -143,7 +143,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
               {
                 elements: rows,
               },
-              this.content.widget,
+              this.content.widget
             );
             break;
         }
@@ -151,7 +151,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
         this.cd.detectChanges();
         return data;
       }),
-      takeUntilDestroyed(this.destroyRef),
+      takeUntilDestroyed(this.destroyRef)
     );
     this.cd.detectChanges();
   }

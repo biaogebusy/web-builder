@@ -1,15 +1,15 @@
-@use "@angular/material" as mat;
-@import "./variable/variable";
-@import "./mixins/base-color";
-@import "./base/base";
-@import "./drupal";
+@use '@angular/material' as mat;
+@import './variable/variable';
+@import './mixins/base-color';
+@import './base/base';
+@import './drupal';
 
 @include reset-styles();
 
 @include mat.all-component-typographies($custom-typography);
 @include mat.core();
 
-@include branding(map-get($color-theme, shadow), "shadow");
-@include branding(map-get($color-theme, light), "light");
+@include branding(map-get($color-theme, shadow), 'shadow');
+@include branding(map-get($color-theme, light), 'light');
 
 @include custom-overide();

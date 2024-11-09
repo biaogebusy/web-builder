@@ -23,7 +23,7 @@ const meta: Meta<Card1v5Component> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="widget relative w-[370px]">${story}</div>`,
+      story => `<div class="widget relative w-[370px]">${story}</div>`
     ),
   ],
 };

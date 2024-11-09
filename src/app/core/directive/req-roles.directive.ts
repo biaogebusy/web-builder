@@ -21,7 +21,7 @@ export class ReqRolesDirective {
 
   user: IUser;
   constructor(@Inject(USER) private currentUser$: Observable<IUser>) {
-    this.currentUser$.subscribe((user) => {
+    this.currentUser$.subscribe(user => {
       this.user = user;
     });
   }

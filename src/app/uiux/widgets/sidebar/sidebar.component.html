@@ -1,7 +1,7 @@
 @if (content) {
   <div class="sidebar">
     @for (item of content; track item) {
-      <app-dynamic-component [inputs]="item"></app-dynamic-component>
+      <app-dynamic-component [inputs]="item" />
     }
   </div>
 }

@@ -3,17 +3,15 @@
     <button
       aria-label="switch theme"
       mat-icon-button
-      [mat-menu-trigger-for]="menu"
-    >
-      <app-icon [content]="{ svg: 'palette', inline: true }"></app-icon>
+      [mat-menu-trigger-for]="menu">
+      <app-icon [content]="{ svg: 'palette', inline: true }" />
     </button>
     <mat-menu #menu="matMenu">
       @for (theme of coreConfig.theme; track theme) {
         <button
           aria-label="switch theme item"
           mat-menu-item
-          (click)="onSwitchTheme(theme.style)"
-        >
+          (click)="onSwitchTheme(theme.style)">
           @if (currentTheme !== theme.style) {
             <mat-icon matListItemIcon>radio_button_unchecked</mat-icon>
           }

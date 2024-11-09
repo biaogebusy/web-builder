@@ -1,18 +1,24 @@
 @if (content) {
   <div class="card-1-v2 relative pb-5 px-5 md:pb-16 md:px-16">
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
     <div class="card-content relative z-10">
       @if (content.img) {
-        <app-img [attr.data-path]="'img'" class="media -top-5 overflow-hidden" [content]="content.img"
-        ></app-img>
+        <app-img
+          [attr.data-path]="'img'"
+          class="media -top-5 overflow-hidden"
+          [content]="content.img" />
       }
       <div class="card-bottom m-top-xs">
         @if (content.subTitle) {
-          <p contentedit="subTitle" [innerHTML]="content.subTitle|safeHtml"></p>
+          <p
+            contentedit="subTitle"
+            [innerHTML]="content.subTitle | safeHtml"></p>
         }
         @if (content.link) {
-          <app-link [attr.data-path]="'link'" class="title text-base" [content]="content.link"
-          ></app-link>
+          <app-link
+            [attr.data-path]="'link'"
+            class="title text-base"
+            [content]="content.link" />
         }
       </div>
     </div>

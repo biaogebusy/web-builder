@@ -76,7 +76,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     @Inject(USER) private user$: Observable<IUser>
   ) {
     super();
-    this.user$.subscribe((user) => {
+    this.user$.subscribe(user => {
       this.user = user;
     });
     this.tagService.setTitle('着陆页管理');
@@ -86,19 +86,19 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.fetchPage('noCache=1');
     this.currentPage$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((page) => {
+      .subscribe(page => {
         this.currentPage = page;
         this.cd.detectChanges();
       });
     this.builder.updateSuccess$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((state) => {
+      .subscribe(state => {
         if (state) {
           this.onReload();
         }
       });
 
-    this.router.queryParams.subscribe((query) => {
+    this.router.queryParams.subscribe(query => {
       const { nid, langcode } = query;
       if (nid) {
         this.loadPage({
@@ -153,7 +153,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
                 },
               }
             )
-            .subscribe((res) => {
+            .subscribe(res => {
               this.builder.loading$.next(false);
               this.util.openSnackbar(`已更新标题为${textContent}`, 'ok');
               this.builder.currentPage.title = textContent;
@@ -169,7 +169,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.content$ = this.nodeService
       .fetch('/api/v2/node/landing-page', params)
       .pipe(
-        catchError((error) => {
+        catchError(error => {
           if (error.status === 404) {
             this.util.openSnackbar('请检查API是否已配置！', 'ok');
           }
@@ -182,7 +182,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
             },
           });
         }),
-        map((res) => {
+        map(res => {
           this.loading = false;
           this.cd.detectChanges();
           return this.getLists(res);

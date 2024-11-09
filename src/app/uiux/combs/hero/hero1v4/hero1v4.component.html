@@ -3,36 +3,32 @@
     <a class="anchor" [id]="content.id"></a>
   }
   @if (content.bg) {
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
   }
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'" />
   <div
     class="{{ content.fullWidth ? '' : 'container' }}"
-    [ngStyle]="content.style"
-    >
+    [ngStyle]="content.style">
     <div class="inner flex flex-wrap justify-center items-center">
       @if (content.text) {
         <app-text
           [attr.data-path]="'text'"
           class="basis-full"
-          [content]="content.text"
-        ></app-text>
+          [content]="content.text" />
       }
       @if (content.widget) {
         <div
-        class="basis-full order-{{
-          content.order
-        }} flex justify-center items-center"
-          >
+          class="basis-full order-{{
+            content.order
+          }} flex justify-center items-center">
           @for (item of content.widget; track item; let i = $index) {
             <app-dynamic-component
               [attr.data-path]="'widget.' + i"
-              [inputs]="{ content: item }"
-            ></app-dynamic-component>
+              [inputs]="{ content: item }" />
           }
         </div>
       }
     </div>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'" />
 </div>

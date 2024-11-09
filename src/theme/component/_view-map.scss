@@ -22,10 +22,16 @@
     }
     .viewport {
       border-right: 1px solid rgb(97 97 97 / 8%);
-      @include scrollbar(mat.m2-get-color-from-palette($foreground, divider, 0.2));
+      @include scrollbar(
+        mat.m2-get-color-from-palette($foreground, divider, 0.2)
+      );
       .list {
         @include mat.elevation(4, #000, 0.35);
-        background-color: mat.m2-get-color-from-palette($background, card, 0.85);
+        background-color: mat.m2-get-color-from-palette(
+          $background,
+          card,
+          0.85
+        );
         .media {
           img {
             box-shadow: 0 4px 10px 1px rgb(0 0 0 / 7%);

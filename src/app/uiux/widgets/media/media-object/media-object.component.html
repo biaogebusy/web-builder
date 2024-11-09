@@ -3,31 +3,29 @@
     <div class="media-left mr-3 text-center basis-auto">
       @if (content.img) {
         @if (content.img.src) {
-          <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
+          <app-img [attr.data-path]="'img'" [content]="content.img" />
         }
       }
       @if (content.icon) {
-        <app-icon [content]="content.icon"></app-icon>
+        <app-icon [content]="content.icon" />
       }
       @if (content.meta) {
         <div
           contentedit="meta"
           class="meta mt-3 whitespace-nowrap"
-          [innerHTML]="content.meta | safeHtml"
-        ></div>
+          [innerHTML]="content.meta | safeHtml"></div>
       }
     </div>
     <div class="media-body flex flex-col justify-center">
       @if (content.title) {
         <div
           contentedit="title"
-          class="title line-height-1 font-bold mat-h3 mb-3"
-        >
+          class="title line-height-1 font-bold mat-h3 mb-3">
           {{ content.title }}
         </div>
       }
       @if (content.link) {
-        <app-link [attr.data-path]="'link'" [content]="content.link"></app-link>
+        <app-link [attr.data-path]="'link'" [content]="content.link" />
       }
       @if (content.subTitle) {
         <div contentedit="subTitle" class="sub-title">
@@ -38,8 +36,7 @@
         <div
           contentedit="content"
           class="media-content"
-          [innerHTML]="content.content | safeHtml"
-        ></div>
+          [innerHTML]="content.content | safeHtml"></div>
       }
     </div>
   </div>

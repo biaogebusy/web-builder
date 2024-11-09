@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta
   title="编程指南/并发性"
@@ -14,20 +14,20 @@ import { Meta } from "@storybook/blocks";
 **不好**
 
 ```javascript
-import { get } from "request";
-import { writeFile } from "fs";
+import { get } from 'request';
+import { writeFile } from 'fs';
 
 get(
-  "https://en.wikipedia.org/wiki/Robert_Cecil_Martin",
+  'https://en.wikipedia.org/wiki/Robert_Cecil_Martin',
   (requestErr, response, body) => {
     if (requestErr) {
       console.error(requestErr);
     } else {
-      writeFile("article.html", body, (writeErr) => {
+      writeFile('article.html', body, writeErr => {
         if (writeErr) {
           console.error(writeErr);
         } else {
-          console.log("File written");
+          console.log('File written');
         }
       });
     }
@@ -38,17 +38,17 @@ get(
 **推荐**
 
 ```javascript
-import { get } from "request-promise";
-import { writeFile } from "fs-extra";
+import { get } from 'request-promise';
+import { writeFile } from 'fs-extra';
 
-get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
-  .then((body) => {
-    return writeFile("article.html", body);
+get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
+  .then(body => {
+    return writeFile('article.html', body);
   })
   .then(() => {
-    console.log("File written");
+    console.log('File written');
   })
-  .catch((err) => {
+  .catch(err => {
     console.error(err);
   });
 ```
@@ -60,17 +60,17 @@ ES2017/ES8 提供了更加简洁的解决方案，条件允许的情况下可使
 **不好**
 
 ```javascript
-import { get } from "request-promise";
-import { writeFile } from "fs-extra";
+import { get } from 'request-promise';
+import { writeFile } from 'fs-extra';
 
-get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
-  .then((body) => {
-    return writeFile("article.html", body);
+get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
+  .then(body => {
+    return writeFile('article.html', body);
   })
   .then(() => {
-    console.log("File written");
+    console.log('File written');
   })
-  .catch((err) => {
+  .catch(err => {
     console.error(err);
   });
 ```
@@ -78,14 +78,14 @@ get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
 **推荐**
 
 ```javascript
-import { get } from "request-promise";
-import { writeFile } from "fs-extra";
+import { get } from 'request-promise';
+import { writeFile } from 'fs-extra';
 
 async function getCleanCodeArticle() {
   try {
-    const body = await get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin");
-    await writeFile("article.html", body);
-    console.log("File written");
+    const body = await get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin');
+    await writeFile('article.html', body);
+    console.log('File written');
   } catch (err) {
     console.error(err);
   }

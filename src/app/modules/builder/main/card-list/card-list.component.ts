@@ -50,7 +50,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
   user: IUser;
   constructor(@Inject(USER) private user$: Observable<IUser>) {
     super();
-    this.user$.subscribe((user) => {
+    this.user$.subscribe(user => {
       this.user = user;
     });
   }
@@ -59,7 +59,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
     this.fetchPage('noCache=1');
     this.builder.updateSuccess$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((state) => {
+      .subscribe(state => {
         if (state) {
           this.onReload();
         }
@@ -79,7 +79,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
     } = this.content;
     this.loading = true;
     this.content$ = this.nodeService.fetch(api, params).pipe(
-      catchError((error) => {
+      catchError(error => {
         if (error.status === 404) {
           this.util.openSnackbar('请检查API是否已配置！', 'ok');
         }
@@ -92,12 +92,12 @@ export class CardListComponent extends BaseComponent implements OnInit {
           },
         });
       }),
-      map((res) => {
+      map(res => {
         this.loading = false;
         this.cd.detectChanges();
         return this.getLists(res);
       }),
-      takeUntilDestroyed(this.destroyRef),
+      takeUntilDestroyed(this.destroyRef)
     );
   }
 

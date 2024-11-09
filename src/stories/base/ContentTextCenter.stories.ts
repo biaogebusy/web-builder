@@ -29,8 +29,8 @@ const meta: Meta<ContentTextCenterComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div style="width:40%" class="widget relative text-light">${story}</div>`,
+      story =>
+        `<div style="width:40%" class="widget relative text-light">${story}</div>`
     ),
   ],
 };

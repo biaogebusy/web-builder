@@ -2,10 +2,12 @@
   @for (widget of uiux; track widget) {
     <mat-tab>
       <ng-template mat-tab-label>
-        <app-icon [content]="widget.icon" [matTooltip]="widget.label"></app-icon>
+        <app-icon
+          [content]="widget.icon"
+          [matTooltip]="widget.label" />
       </ng-template>
       <div class="p-x-xs p-y-xs">
-        <app-builder-panel [content]="widget.elements"></app-builder-panel>
+        <app-builder-panel [content]="widget.elements" />
       </div>
     </mat-tab>
   }

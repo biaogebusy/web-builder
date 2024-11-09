@@ -52,7 +52,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   getNodeJson(params: string): void {
     this.loading = true;
     this.content$ = this.nodeService.fetch('/api/v2/node/core', params).pipe(
-      catchError((error) => {
+      catchError(error => {
         if (error.status === 404) {
           this.util.openSnackbar('请检查API是否已配置！', 'ok');
         }
@@ -65,7 +65,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
           },
         });
       }),
-      map((res) => {
+      map(res => {
         this.loading = false;
         this.cd.detectChanges();
         return this.getLists(res);

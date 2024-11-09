@@ -52,7 +52,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   fetchContent(params: string): void {
     const { html, api } = this.content;
     if (api) {
-      this.nodeService.fetch(api, params).subscribe((res) => {
+      this.nodeService.fetch(api, params).subscribe(res => {
         const { rows, pager } = res;
         this.renderView(res, html);
         if (rows && pager) {

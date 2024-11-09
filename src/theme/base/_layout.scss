@@ -1,5 +1,5 @@
-@import "../mixins/amixin";
-@import "../variable/breakpoint";
+@import '../mixins/amixin';
+@import '../variable/breakpoint';
 
 .container {
   box-sizing: border-box;
@@ -116,7 +116,7 @@ img {
 .clearfix {
   &:before,
   &:after {
-    content: " ";
+    content: ' ';
     display: table;
   }
   &:after {
@@ -169,7 +169,7 @@ img {
       height: 0;
     }
     &:before {
-      content: "";
+      content: '';
       display: inline-block;
       vertical-align: middle;
       width: 16px;
@@ -194,7 +194,7 @@ img {
       height: 0;
     }
     &:before {
-      content: "";
+      content: '';
       display: inline-block;
       vertical-align: middle;
       width: 16px;
@@ -269,7 +269,7 @@ a.anchor {
   background-position: center;
   z-index: 1;
   &:before {
-    content: "";
+    content: '';
     display: block;
   }
   &.media-2-1 {

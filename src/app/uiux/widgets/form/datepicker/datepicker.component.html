@@ -1,17 +1,30 @@
 <!-- range -->
 @if (content?.range) {
   @if (content) {
-    <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" [formGroup]="form">
+    <mat-form-field
+      class="w-full"
+      [appearance]="content.appearance || 'fill'"
+      [formGroup]="form">
       @if (content.label) {
-        <mat-label>{{content.label}}</mat-label>
+        <mat-label>{{ content.label }}</mat-label>
       }
       <mat-date-range-input [rangePicker]="pickerRange">
-        <input matStartDate formControlName="start" [placeholder]="content.props?.placeholder?.start || '开始'">
-        <input matEndDate formControlName="end" [placeholder]="content?.props?.placeholder?.end || '结束'">
+        <input
+          matStartDate
+          formControlName="start"
+          [placeholder]="content.props?.placeholder?.start || '开始'" />
+        <input
+          matEndDate
+          formControlName="end"
+          [placeholder]="content?.props?.placeholder?.end || '结束'" />
       </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="pickerRange"></mat-datepicker-toggle>
-      <mat-date-range-picker [dateClass]="content?.classes" [opened]="content?.opened" #pickerRange>
-      </mat-date-range-picker>
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="pickerRange" />
+      <mat-date-range-picker
+        [dateClass]="content?.classes"
+        [opened]="content?.opened"
+        #pickerRange />
     </mat-form-field>
   }
 }
@@ -19,19 +32,29 @@
 <!-- key -->
 @if (!content?.range && content?.key && !content.inline) {
   @if (content) {
-    <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" [formGroup]="form">
+    <mat-form-field
+      class="w-full"
+      [appearance]="content.appearance || 'fill'"
+      [formGroup]="form">
       @if (content.label) {
-        <mat-label>{{content.label}}</mat-label>
+        <mat-label>{{ content.label }}</mat-label>
       }
-      <input matInput formControlName="{{content.key}}" [matDatepicker]="datepicker"
-        [placeholder]="content?.placeholder || ''">
-      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-      <mat-datepicker [dateClass]="content?.classes" #datepicker></mat-datepicker>
+      <input
+        matInput
+        formControlName="{{ content.key }}"
+        [matDatepicker]="datepicker"
+        [placeholder]="content?.placeholder || ''" />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="datepicker" />
+      <mat-datepicker
+        [dateClass]="content?.classes"
+        #datepicker />
       @if (content.hint) {
-        <mat-hint>{{content.hint}}</mat-hint>
+        <mat-hint>{{ content.hint }}</mat-hint>
       }
       @if (!isValid) {
-        <mat-error>{{content.errorMes}}</mat-error>
+        <mat-error>{{ content.errorMes }}</mat-error>
       }
     </mat-form-field>
   }
@@ -40,6 +63,8 @@
 <!-- inline -->
 @if (content?.inline) {
   <mat-card appearance="outlined" class="inline-calendar-card">
-    <mat-calendar (selectedChange)="onSelectedChange($event)" [(selected)]="content.value"></mat-calendar>
+    <mat-calendar
+      (selectedChange)="onSelectedChange($event)"
+      [(selected)]="content.value" />
   </mat-card>
 }

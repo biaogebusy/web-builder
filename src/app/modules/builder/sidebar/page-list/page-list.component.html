@@ -8,8 +8,7 @@
           mode: 'icon',
           color: 'primary',
           icon: { svg: 'reload' },
-        }"
-      ></app-btn>
+        }" />
     }
   </div>
   <app-title
@@ -17,19 +16,17 @@
       label: '管理列表',
       style: 'style-v4',
       classes: 'p-y-xs !mb-2 bold',
-    }"
-  ></app-title>
+    }" />
   <div class="form">
     <app-formly
       [fields]="fields"
       [form]="form"
       [model]="model"
-      (modelChange)="onModelChange($event)"
-    ></app-formly>
+      (modelChange)="onModelChange($event)" />
   </div>
   <div class="lists">
     @if (loading) {
-      <mat-spinner diameter="50" color="primary"></mat-spinner>
+      <mat-spinner diameter="50" color="primary" />
     }
     @if (content$ | async; as content) {
       @for (page of content; track page.nid; let i = $index) {
@@ -39,24 +36,21 @@
               page.nid === currentPage?.nid &&
               page.langcode === currentPage?.langcode,
           }"
-          class="item flex flex-col gap-2 relative p-2"
-        >
+          class="item flex flex-col gap-2 relative p-2">
           <div class="text-sm mr-[62px] inline-flex items-center gap-1 group">
             <span
               class="title"
               (blur)="onTitle($event, page)"
-              contenteditable="false"
-            >
+              contenteditable="false">
               {{ page.title }}
             </span>
             <app-icon
               (click)="enableEditor($event)"
               class="group-hover:!inline-block !hidden w-[16px] h-[16px] cursor-pointer"
-              [content]="{ svg: 'pencil-outline', inline: true }"
-            ></app-icon>
+              [content]="{ svg: 'pencil-outline', inline: true }" />
           </div>
           <div class="meta text-xs font-mono">
-            {{ page.author | shorten: 6 : "**" }}
+            {{ page.author | shorten: 6 : '**' }}
             <div class="flex justify-between mt-2">
               <a
                 class="truncate"
@@ -66,7 +60,7 @@
                 >{{ page.url }}</a
               >
               <span class="whitespace-nowrap">{{
-                page.changed | date: "yyyy/MM/dd HH:mm"
+                page.changed | date: 'yyyy/MM/dd HH:mm'
               }}</span>
             </div>
           </div>
@@ -74,11 +68,14 @@
             <app-btn
               class="block"
               [matMenuTriggerFor]="menu"
-              [content]="{ label: '编辑', mode: 'stroked', color: 'primary' }"
-            ></app-btn>
+              [content]="{
+                label: '编辑',
+                mode: 'stroked',
+                color: 'primary',
+              }" />
             <mat-menu #menu="matMenu" class="overlay-btn-icon">
               <button mat-menu-item (click)="loadPage(page)">
-                <app-icon [content]="{ svg: 'pencil' }"></app-icon>
+                <app-icon [content]="{ svg: 'pencil' }" />
                 <span>载入编辑</span>
               </button>
               @if (langs) {
@@ -86,16 +83,15 @@
                   @if (!item.default && item.langCode !== page.langcode) {
                     <button
                       mat-menu-item
-                      (click)="createLangVersion(page, item.langCode)"
-                    >
-                      <app-icon [content]="{ svg: 'translate' }"></app-icon>
+                      (click)="createLangVersion(page, item.langCode)">
+                      <app-icon [content]="{ svg: 'translate' }" />
                       <span>编辑{{ item.label }}</span>
                     </button>
                   }
                 }
               }
               <button mat-menu-item (click)="updatePageSetting(page)">
-                <app-icon [content]="{ svg: 'cog' }"></app-icon>
+                <app-icon [content]="{ svg: 'cog' }" />
                 <span>页面属性</span>
               </button>
             </mat-menu>
@@ -113,9 +109,7 @@
         [showFirstLastButtons]="true"
         [hidePageSize]="true"
         [pageIndex]="pager.currentPage"
-        aria-label="Select page"
-      >
-      </mat-paginator>
+        aria-label="Select page" />
     </div>
   }
 </div>

@@ -3,19 +3,15 @@
     @if (content.id) {
       <a class="anchor" [id]="content.id"></a>
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
     @if (content.bg) {
-      <app-bg-img
-        [attr.data-path]="'bg'"
-        [content]="content.bg"
-      ></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
     }
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       <app-swiper
         [attr.data-path]="'sliders'"
-        [content]="content.sliders"
-      ></app-swiper>
+        [content]="content.sliders" />
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

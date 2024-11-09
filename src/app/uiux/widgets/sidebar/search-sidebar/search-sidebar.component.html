@@ -17,29 +17,27 @@
       </div>
       <div class="item m-3">
         <button mat-button (click)="clear()">
-          <mat-icon>clear</mat-icon>{{ label.clear || "清空" }}
+          <mat-icon>clear</mat-icon>{{ label.clear || '清空' }}
         </button>
       </div>
     </div>
-    <mat-divider></mat-divider>
+    <mat-divider />
     <form [formGroup]="form">
       <mat-accordion>
         <mat-expansion-panel
           expanded="true"
           (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-        >
+          (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <strong>{{ label.filter || "过滤条件" }}</strong>
+              <strong>{{ label.filter || '过滤条件' }}</strong>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <app-formly
             [form]="form"
             [fields]="content"
             [model]="model"
-            (modelChange)="onModelChange($event)"
-          ></app-formly>
+            (modelChange)="onModelChange($event)" />
         </mat-expansion-panel>
       </mat-accordion>
     </form>

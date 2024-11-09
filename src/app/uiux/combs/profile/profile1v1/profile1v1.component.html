@@ -1,6 +1,6 @@
 <div class="profile-banner relative">
   @if (content.bannerBg) {
-    <app-bg-img [content]="content.bannerBg"></app-bg-img>
+    <app-bg-img [content]="content.bannerBg" />
   }
 </div>
 <div class="profile-1v1 relative m-y">
@@ -8,7 +8,7 @@
     <div class="profile grid grid-cols-12 justify-between items-start gap-8">
       <div class="left m-bottom col-span-12 md:col-span-3">
         <div class="box p-y-sm p-x text-center">
-          <app-img [content]="avatar"></app-img>
+          <app-img [content]="avatar" />
           <h2 class="mat-h2 m-bottom-0 m-top-xs two-line">
             {{ content.name }}
           </h2>
@@ -18,34 +18,31 @@
               <button
                 mat-icon-button
                 aria-label="menu"
-                [matMenuTriggerFor]="menu"
-              >
+                [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" class="actions-menu">
                 @for (action of content.actions; track action) {
                   <button mat-menu-item>
-                    <app-dynamic-component [inputs]="action">
-                    </app-dynamic-component>
+                    <app-dynamic-component [inputs]="action" />
                   </button>
                 }
               </mat-menu>
             </div>
           }
         </div>
-        <mat-divider></mat-divider>
+        <mat-divider />
         @if (content.details) {
           <div class="left-item p-y-sm p-x-xs">
             <app-title
               [content]="{
                 label: content.details.label,
                 style: 'style-v4',
-              }"
-            ></app-title>
+              }" />
             <div class="list">
               @for (item of content.details.elements; track item) {
                 <div class="flex">
-                  <app-icon [content]="item.icon"></app-icon>
+                  <app-icon [content]="item.icon" />
                   <div class="label m-right-xs bold">{{ item.label }}:</div>
                   <div class="one-line">{{ item.content }}</div>
                 </div>
@@ -58,10 +55,9 @@
             <div class="content">
               @for (item of content.leftBottom; track item) {
                 <div class="item m-bottom">
-                  <app-title [content]="item.title"></app-title>
+                  <app-title [content]="item.title" />
                   <app-dynamic-component
-                    [inputs]="item"
-                  ></app-dynamic-component>
+                    [inputs]="item" />
                 </div>
               }
             </div>
@@ -77,9 +73,8 @@
                   [content]="{
                     label: item.label,
                     style: 'style-v4',
-                  }"
-                ></app-title>
-                <app-dynamic-component [inputs]="item"></app-dynamic-component>
+                  }" />
+                <app-dynamic-component [inputs]="item" />
               }
             </div>
           }
@@ -89,11 +84,9 @@
     @if (content.params?.comment) {
       <div class="comment-wrapper my-3 p-3 md:my-5 md:p-5">
         @if (content.params?.comment) {
-          <app-comment-form [content]="content" [type]="'add'">
-          </app-comment-form>
+          <app-comment-form [content]="content" [type]="'add'" />
         }
-        <app-comment-list [comments]="comments" [content]="content">
-        </app-comment-list>
+        <app-comment-list [comments]="comments" [content]="content" />
       </div>
     }
   </div>

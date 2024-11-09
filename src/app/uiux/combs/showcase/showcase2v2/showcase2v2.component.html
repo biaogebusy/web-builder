@@ -3,33 +3,23 @@
     @if (content.id) {
       <a class="anchor" [id]="content.id"></a>
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
     @if (content.bg) {
-      <app-bg-img
-        [attr.data-path]="'bg'"
-        [content]="content.bg"
-      ></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
     }
     <div class="{{ content.fullWidth ? '' : 'container' }} flex flex-col">
       @if (content.text) {
-        <app-text
-          [attr.data-path]="'text'"
-          [content]="content.text"
-        ></app-text>
+        <app-text [attr.data-path]="'text'" [content]="content.text" />
       }
-      <div
-        class="m-y grid grid-cols-12 gap-8 justify-center items-start"
-        >
+      <div class="m-y grid grid-cols-12 gap-8 justify-center items-start">
         @for (case of content.elements; track case; let i = $index) {
           <app-card
             [attr.data-path]="'elements.' + i"
-            class="m-bottom-sm col-span-12 md:col-span-{{content.row}}"
-            [content]="case"
-            >
-          </app-card>
+            class="m-bottom-sm col-span-12 md:col-span-{{ content.row }}"
+            [content]="case" />
         }
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

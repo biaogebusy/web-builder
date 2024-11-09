@@ -11,7 +11,7 @@ import type { ICoreConfig, ICoreShare } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { DOCUMENT } from '@angular/common';
-declare var window: any;
+declare let window: any;
 
 @Component({
   selector: 'app-share',
@@ -28,7 +28,7 @@ export class ShareComponent implements OnInit {
     private screenService: ScreenService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(DOCUMENT) private doc: Document,
-    private cd: ChangeDetectorRef,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {

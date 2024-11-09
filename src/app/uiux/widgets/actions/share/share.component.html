@@ -4,8 +4,7 @@
     extended
     [matMenuTriggerFor]="menu"
     #menuTriggercv
-    (menuOpened)="open()"
-  >
+    (menuOpened)="open()">
     <mat-icon>{{ config.button.icon }}</mat-icon>
     <span>{{ config.button.label }}</span>
   </button>
@@ -13,7 +12,6 @@
     <div
       class="share-components"
       [attr.data-url]="url"
-      data-disabled="qzone,tencent,douban,linkedin,diandian,google,twitter,facebook"
-    ></div>
+      data-disabled="qzone,tencent,douban,linkedin,diandian,google,twitter,facebook"></div>
   </mat-menu>
 }

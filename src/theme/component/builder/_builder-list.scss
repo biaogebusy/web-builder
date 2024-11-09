@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 @mixin builder-list($background, $foreground, $primary, $warn) {
   background-color: mat.m2-get-color-from-palette($background, card);
   .component-item {
@@ -13,7 +13,11 @@
     }
   }
   .preview {
-    background-color: mat.m2-get-color-from-palette($foreground, elevation, 0.85);
+    background-color: mat.m2-get-color-from-palette(
+      $foreground,
+      elevation,
+      0.85
+    );
     #builder-list {
       background-color: mat.m2-get-color-from-palette($background, card);
     }
@@ -36,14 +40,14 @@
     outline: none;
   }
   img {
-    &[contenteditable="false"] {
+    &[contenteditable='false'] {
       &:hover {
         cursor: pointer;
         opacity: 0.85;
       }
     }
   }
-  [contenteditable="true"] {
+  [contenteditable='true'] {
     cursor: text;
     background-color: mat.m2-get-color-from-palette($primary, 0.1);
   }

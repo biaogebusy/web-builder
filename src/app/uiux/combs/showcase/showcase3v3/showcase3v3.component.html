@@ -3,9 +3,9 @@
     @if (content.id) {
       <a class="anchor" [id]="content.id"></a>
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
     @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
     }
     <div class="{{ content.fullWidth ? '' : 'container' }}">
       <div class="showcase-inner teaser grid grid-cols-12 sm:gap-5">
@@ -14,9 +14,7 @@
             <app-feature-box
               class="col-span-12 md:col-span-4"
               [attr.data-path]="'feature'"
-              [content]="content.feature"
-            >
-            </app-feature-box>
+              [content]="content.feature" />
           }
         }
         <div
@@ -24,19 +22,17 @@
             content.showImage && content.feature
               ? 'md:col-span-8'
               : 'md:col-span-12'
-          }}"
-        >
+          }}">
           <h2 class="title">
             <app-link
               [attr.data-path]="'title'"
-              [content]="content.title"
-            ></app-link>
+              [content]="content.title" />
           </h2>
           <ul class="post-meta-info flex">
             @if (content.date) {
               <li class="flex justify-center items-center">
                 <mat-icon>schedule</mat-icon>
-                <div>{{ content.date | date: "YYYY-MM-dd" }}</div>
+                <div>{{ content.date | date: 'YYYY-MM-dd' }}</div>
               </li>
             }
             @if (content.commentCount) {
@@ -54,19 +50,19 @@
           </ul>
           <div
             class="shortdesc"
-            [innerHTML]="content.body | stripTags | trim | shorten: 150 : '...'"
-          ></div>
+            [innerHTML]="
+              content.body | stripTags | trim | shorten: 150 : '...'
+            "></div>
           @if (content.details) {
             <div class="m-top-sm">
               <app-btn
                 [attr.data-path]="'details'"
-                [content]="content.details"
-              ></app-btn>
+                [content]="content.details" />
             </div>
           }
         </div>
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

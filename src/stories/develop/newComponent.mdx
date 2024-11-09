@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="开发/开发组件" id="develop/newComponent" />
 
@@ -33,12 +33,12 @@ import {
   Component,
   Input,
   OnInit,
-} from "@angular/core";
+} from '@angular/core';
 
 @Component({
-  selector: "app-card-sample",
-  templateUrl: "./card-sample.component.html",
-  styleUrls: ["./card-sample.component.scss"],
+  selector: 'app-card-sample',
+  templateUrl: './card-sample.component.html',
+  styleUrls: ['./card-sample.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardSampleComponent implements OnInit {
@@ -93,13 +93,13 @@ const components = [
 2. 在对应的目录找到一个 card 组件复制新建，例如`src/stories/widgets/card/Card.stories.ts`=》`src/stories/widgets/card/CardSample.stories.ts`
 
 ```ts
-import { moduleMetadata, Meta } from "@storybook/angular";
-import { Story } from "@storybook/angular/types-6-0";
-import { StorysModule } from "@core/module/storys.module";
-import { CardSampleComponent } from "@uiux/widgets/card/card-sample/card-sample.component";
+import { moduleMetadata, Meta } from '@storybook/angular';
+import { Story } from '@storybook/angular/types-6-0';
+import { StorysModule } from '@core/module/storys.module';
+import { CardSampleComponent } from '@uiux/widgets/card/card-sample/card-sample.component';
 const meta: Meta<MyComponent> = {
-  title: "基础组件/卡片/卡片sample",
-  id: "card-sample",
+  title: '基础组件/卡片/卡片sample',
+  id: 'card-sample',
   component: CardSampleComponent,
   decorators: [
     moduleMetadata({
@@ -113,7 +113,7 @@ const meta: Meta<MyComponent> = {
 export default meta;
 type Story = StoryObj<MyComponent>;
 export const Default: Story = {};
-Default.storyName = "sample";
+Default.storyName = 'sample';
 
 Default.args = {
   content: {},
@@ -135,10 +135,10 @@ Default.args = {
 ```js
 Default.args = {
   content: {
-    type: "card-sample",
-    title: "信使 Web builder",
+    type: 'card-sample',
+    title: '信使 Web builder',
     subTitle:
-      "信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。",
+      '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
   },
 };
 ```

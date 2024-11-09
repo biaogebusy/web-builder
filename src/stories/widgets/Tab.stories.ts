@@ -23,7 +23,7 @@ const meta: Meta<TabComponent> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="relative" style="z-index:1">${story}</div>`,
+      story => `<div class="relative" style="z-index:1">${story}</div>`
     ),
   ],
 };

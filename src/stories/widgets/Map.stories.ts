@@ -26,8 +26,8 @@ const meta: Meta<MapComponent> = {
       providers: [AmapService, ConfigService],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="widget relative p-x p-y" style="z-index:1;height:500px;">${story}</div>`,
+      story =>
+        `<div class="widget relative p-x p-y" style="z-index:1;height:500px;">${story}</div>`
     ),
   ],
 };

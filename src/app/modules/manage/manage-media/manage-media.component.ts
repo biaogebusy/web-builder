@@ -83,7 +83,7 @@ export class ManageMediaComponent implements OnInit {
   ];
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>,
+    @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>
   ) {}
 
   ngOnInit(): void {
@@ -97,9 +97,9 @@ export class ManageMediaComponent implements OnInit {
         .pipe(
           takeUntilDestroyed(this.destroyRef),
           debounceTime(1000),
-          distinctUntilChanged(),
+          distinctUntilChanged()
         )
-        .subscribe((value) => {
+        .subscribe(value => {
           this.onSearch(value);
         });
 
@@ -128,7 +128,7 @@ export class ManageMediaComponent implements OnInit {
       this.manageService
         .deleteMedia(uuid)
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((res) => {
+        .subscribe(res => {
           this.loading = false;
           this.onSearch(this.form.value);
           this.cd.detectChanges();
@@ -142,7 +142,7 @@ export class ManageMediaComponent implements OnInit {
     if (checked) {
       this.deletedLists = [...this.deletedLists, uuid];
     } else {
-      const index = this.deletedLists.findIndex((item) => item === uuid);
+      const index = this.deletedLists.findIndex(item => item === uuid);
       if (index >= 0) {
         this.deletedLists.splice(index, 1);
       }
@@ -152,11 +152,11 @@ export class ManageMediaComponent implements OnInit {
 
   handleDelete(file: string): Observable<boolean> {
     return this.manageService.deleteMedia(file).pipe(
-      catchError((error) => {
+      catchError(error => {
         console.error(`Failed to delete file: ${file}`, error);
         return of(false);
       }),
-      takeUntilDestroyed(this.destroyRef),
+      takeUntilDestroyed(this.destroyRef)
     );
   }
 
@@ -174,9 +174,9 @@ export class ManageMediaComponent implements OnInit {
 
     from(lists)
       .pipe(
-        concatMap((file) => this.handleDelete(file)), // 使用 concatMap 保证顺序执行
+        concatMap(file => this.handleDelete(file)), // 使用 concatMap 保证顺序执行
         scan((acc, curr) => acc + (curr === false ? 0 : 1), 0),
-        tap((deletedCount) => this.calculateProgress(deletedCount, totalFiles)),
+        tap(deletedCount => this.calculateProgress(deletedCount, totalFiles))
       )
       .subscribe({
         complete: () => {
@@ -185,7 +185,7 @@ export class ManageMediaComponent implements OnInit {
           this.onSearch(this.form.value);
           this.cd.detectChanges();
         },
-        error: (err) => console.error('Error deleting files', err),
+        error: err => console.error('Error deleting files', err),
       });
   }
 

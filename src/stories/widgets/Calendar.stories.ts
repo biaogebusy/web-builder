@@ -22,7 +22,7 @@ const meta: Meta<CalendarComponent> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="widget relative text-light">${story}</div>`,
+      story => `<div class="widget relative text-light">${story}</div>`
     ),
   ],
 };

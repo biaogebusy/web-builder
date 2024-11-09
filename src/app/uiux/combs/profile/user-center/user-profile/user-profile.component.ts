@@ -25,7 +25,7 @@ export class UserProfileComponent implements OnInit {
   user: IUser;
   userService = inject(UserService);
   constructor(@Inject(USER) private user$: Observable<IUser>) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }

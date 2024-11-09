@@ -25,7 +25,7 @@ const meta: Meta<BtnVideoComponent> = {
       entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [MatIcon],
     }),
-    componentWrapperDecorator((story) => {
+    componentWrapperDecorator(story => {
       return `<div classs="widget">${story}</div>`;
     }),
   ],

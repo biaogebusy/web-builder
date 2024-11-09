@@ -1,18 +1,19 @@
-<app-bg [content]="{'classes':'bg-fill-width bg-shadow'}"></app-bg>
+<app-bg [content]="{ classes: 'bg-fill-width bg-shadow' }" />
 @if (content) {
   <div class="taxonomy-thin-list relative">
     <div class="container">
       <div class="p-y-md grid grid-cols-12 gap-5 justify-center items-start">
         @if (content.sidebar) {
-          <div class="thin-sidebar p-3 col-sapn-12 md:col-span-3" >
+          <div class="thin-sidebar p-3 col-sapn-12 md:col-span-3">
             @for (item of content.sidebar; track item) {
-              <app-dynamic-component [inputs]="{content:item}">
-              </app-dynamic-component>
+              <app-dynamic-component [inputs]="{ content: item }" />
             }
           </div>
         }
         <div class="list col-span-12 md:col-span-9">
-          <app-list-thin [content]="content.elements" [pager]="content.pager"></app-list-thin>
+          <app-list-thin
+            [content]="content.elements"
+            [pager]="content.pager" />
         </div>
       </div>
     </div>

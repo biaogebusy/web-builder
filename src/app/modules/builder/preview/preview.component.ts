@@ -23,7 +23,7 @@ export class PreviewComponent implements OnInit {
   builder = inject(BuilderState);
   tagsService = inject(TagsService);
   constructor(
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {
     this.tagsService.setTitle(`${this.builder.currentPage.title}草稿预览`);
   }

@@ -33,10 +33,10 @@ type Story = StoryObj<Showcase1v1Component>;
 export const Default: Story = {};
 Default.decorators = [
   componentWrapperDecorator(
-    (story) =>
+    story =>
       `<div class="relative p-top-xl m-top-xl" style="z-index:1">
         ${story}
-        </div>`,
+        </div>`
   ),
 ];
 const content: IShowcase1v1 = {

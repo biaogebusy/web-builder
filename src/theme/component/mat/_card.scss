@@ -76,7 +76,9 @@
 
   .card-1-v3 {
     .viewport {
-      @include scrollbar(mat.m2-get-color-from-palette($foreground, divider, 0.2));
+      @include scrollbar(
+        mat.m2-get-color-from-palette($foreground, divider, 0.2)
+      );
     }
     .item {
       @include mat.elevation(4, #000, 0.35);

@@ -8,9 +8,8 @@ describe('BuilderGeneraterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BuilderGeneraterComponent ]
-    })
-    .compileComponents();
+      declarations: [BuilderGeneraterComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -29,7 +29,7 @@ const meta: Meta<TextComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="relative p-10 z-10">${story}</div>`,
+      story => `<div class="relative p-10 z-10">${story}</div>`
     ),
   ],
   parameters: {

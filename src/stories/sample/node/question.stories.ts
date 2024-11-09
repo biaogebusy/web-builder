@@ -29,7 +29,7 @@ const meta: Meta<QuestionComponent> = {
         SafeHtmlPipe,
       ],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(story => `${story}`),
   ],
   parameters: {
     layout: 'fullscreen',

@@ -6,21 +6,18 @@
           @if (userConfig$) {
             <app-user-profile
               [content]="currentUser"
-              [userConfig$]="userConfig$"
-            >
-            </app-user-profile>
+              [userConfig$]="userConfig$" />
           }
         </div>
       </div>
     }
     <div
-      class="{{ content.main?.fullWidth ? 'container-fluid' : 'container' }}"
-    >
-      <app-spacer [size]="content.main?.spacer || 'md'"></app-spacer>
+      class="{{ content.main?.fullWidth ? 'container-fluid' : 'container' }}">
+      <app-spacer [size]="content.main?.spacer || 'md'" />
       @if (content.main?.bg) {
         <app-bg [content]="content.main.bg">
           @if (content.main?.bg?.img) {
-            <app-img [content]="content.main.bg.img"></app-img>
+            <app-img [content]="content.main.bg.img" />
           }
         </app-bg>
       }
@@ -31,9 +28,7 @@
               <app-dynamic-component
                 *reqRolesIf="item"
                 class="box"
-                [inputs]="item"
-              >
-              </app-dynamic-component>
+                [inputs]="item" />
             }
           </div>
         }
@@ -43,14 +38,12 @@
               <app-dynamic-component
                 *reqRolesIf="item"
                 class="box"
-                [inputs]="{ content: item }"
-              >
-              </app-dynamic-component>
+                [inputs]="{ content: item }" />
             }
           </div>
         }
       </div>
-      <app-spacer [size]="content.main?.spacer || 'md'"></app-spacer>
+      <app-spacer [size]="content.main?.spacer || 'md'" />
     </div>
   </div>
 }

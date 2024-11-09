@@ -23,8 +23,8 @@ const meta: Meta<ProgressBarComponent> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="widget relative p-x p-y" style="z-index:1">${story}</div>`,
+      story =>
+        `<div class="widget relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
 };

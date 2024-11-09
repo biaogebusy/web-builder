@@ -55,9 +55,9 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     @Inject(USER) private user$: Observable<IUser>,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -65,7 +65,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.currentPage$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((page) => {
+      .subscribe(page => {
         this.page = page;
       });
   }
@@ -75,7 +75,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
       this.screenState
         .mqAlias$()
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((alia) => {
+        .subscribe(alia => {
           if (alia.includes('xs')) {
             this.builder.fullScreen$.next(true);
           }
@@ -121,7 +121,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
         return;
       }
       this.builder.loading$.next(true);
-      this.builderService.addTranslation(page).subscribe((res) => {
+      this.builderService.addTranslation(page).subscribe(res => {
         if (res.status) {
           this.util.openSnackbar(`翻译${page.target}成功`, '关闭', {
             duration: 2000,
@@ -148,7 +148,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
           .updateLandingPage(this.builder.currentPage)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(
-            (res) => {
+            res => {
               this.builder.loading$.next(false);
               const { status, message } = res;
               this.util.openSnackbar(message, 'ok');
@@ -157,13 +157,13 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
                 this.builder.updateSuccess$.next(true);
               }
             },
-            (error) => {
+            error => {
               const {
                 error: { message },
               } = error;
               this.builder.loading$.next(false);
               this.util.openSnackbar(message, 'ok');
-            },
+            }
           );
       } else {
         if (page.body.length === 0) {
@@ -181,9 +181,9 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
               catchError(() => {
                 this.builder.loading$.next(false);
                 return of({ status: false });
-              }),
+              })
             )
-            .subscribe((res) => {
+            .subscribe(res => {
               const { status, message } = res;
               if (status) {
                 this.util.openSnackbar(message, 'ok');

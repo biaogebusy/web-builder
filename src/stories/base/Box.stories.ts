@@ -28,8 +28,8 @@ const meta: Meta<BoxComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="widget p-y flex w-[300px] justify-center items-center">${story}</div>`,
+      story =>
+        `<div class="widget p-y flex w-[300px] justify-center items-center">${story}</div>`
     ),
   ],
   parameters: {

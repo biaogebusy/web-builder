@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="开发/用户接口/会话认证" id="session" />
 
@@ -38,24 +38,24 @@ import { Meta } from "@storybook/blocks";
 客户端（使用 JavaScript）发送登录请求：
 
 ```javascript
-fetch("https://your-drupal-site.com/user/login?_format=json", {
-  method: "POST",
+fetch('https://your-drupal-site.com/user/login?_format=json', {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    name: "username",
-    pass: "password",
+    name: 'username',
+    pass: 'password',
   }),
-  credentials: "include", // 确保会话 cookie 被发送
+  credentials: 'include', // 确保会话 cookie 被发送
 })
-  .then((response) => response.json())
-  .then((data) => {
+  .then(response => response.json())
+  .then(data => {
     if (data.current_user) {
-      console.log("Logged in as:", data.current_user.name);
+      console.log('Logged in as:', data.current_user.name);
     }
   })
-  .catch((error) => console.error("Error:", error));
+  .catch(error => console.error('Error:', error));
 ```
 
 ## 后续请求
@@ -63,13 +63,13 @@ fetch("https://your-drupal-site.com/user/login?_format=json", {
 在用户登录后，客户端可以发送带有会话 cookie 的请求：
 
 ```javascript
-fetch("https://your-drupal-site.com/some-endpoint", {
-  method: "GET",
-  credentials: "include", // 确保会话 cookie 被发送
+fetch('https://your-drupal-site.com/some-endpoint', {
+  method: 'GET',
+  credentials: 'include', // 确保会话 cookie 被发送
 })
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error("Error:", error));
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
 ```
 
 ## 优点和缺点

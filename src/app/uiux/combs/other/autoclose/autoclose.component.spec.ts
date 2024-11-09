@@ -8,9 +8,8 @@ describe('AutocloseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AutocloseComponent ]
-    })
-    .compileComponents();
+      declarations: [AutocloseComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

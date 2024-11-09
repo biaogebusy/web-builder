@@ -35,12 +35,12 @@ const meta: Meta<FooterComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
         <app-header></app-header>
         <div style="min-height:50vh">
         </div>
         ${story}
-    `,
+    `
     ),
   ],
   parameters: {

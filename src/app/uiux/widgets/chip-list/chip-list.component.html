@@ -3,18 +3,17 @@
     @for (item of content.elements; track item) {
       <mat-chip-option
         color="{{ item?.color || 'primary' }}"
-        selected="{{ item?.selected ? true : false }}"
-        >
+        selected="{{ item?.selected ? true : false }}">
         @if (!item.link) {
           {{ item.label }}
         } @else {
           @if (item.link) {
-            <app-link [content]="item.link"></app-link>
+            <app-link [content]="item.link" />
           }
         }
         <ng-template #link>
           @if (item.link) {
-            <app-link [content]="item.link"></app-link>
+            <app-link [content]="item.link" />
           }
         </ng-template>
       </mat-chip-option>

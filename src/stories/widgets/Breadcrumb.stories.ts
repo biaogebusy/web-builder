@@ -23,8 +23,8 @@ const meta: Meta<BreadcrumbComponent> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="widget bg-primary bg-fill-width p-x p-y">${story}</div>`,
+      story =>
+        `<div class="widget bg-primary bg-fill-width p-x p-y">${story}</div>`
     ),
   ],
 };

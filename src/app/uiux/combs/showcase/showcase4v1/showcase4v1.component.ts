@@ -50,7 +50,7 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
           });
         })
       )
-      .subscribe((res) => {
+      .subscribe(res => {
         this.elements = res.rows.map((item: any) => {
           return {
             icon: item.icon,
@@ -68,7 +68,7 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
 
   handleDialogClosed(api: string): void {
     if (this.dialogService.dialogState$) {
-      this.dialogService.dialogState$.subscribe((state) => {
+      this.dialogService.dialogState$.subscribe(state => {
         if (!state) {
           this.getContentFormApi(api);
         }

@@ -2,23 +2,22 @@
   @if (!isMegaMenu && content.child && content.child.length > 0) {
     <!-- hover open -->
     @if (params.menuHoverOpen) {
-      <app-hover-menu [content]="content"></app-hover-menu>
+      <app-hover-menu [content]="content" />
     } @else {
       <app-link
         class="top"
         [content]="content"
-        [matMenuTriggerFor]="menu.childMenu"
-      ></app-link>
-      <app-sub-menu #menu [content]="content"></app-sub-menu>
+        [matMenuTriggerFor]="menu.childMenu" />
+      <app-sub-menu #menu [content]="content" />
     }
     <!-- click open -->
   }
 
   <!-- mega menu -->
   @if (isMegaMenu && content.child && content.child.length > 0) {
-    <app-mega-menu [content]="content"></app-mega-menu>
+    <app-mega-menu [content]="content" />
   }
   @if (!content.child || content.child.length === 0) {
-    <app-link class="top" [content]="content"></app-link>
+    <app-link class="top" [content]="content" />
   }
 </div>

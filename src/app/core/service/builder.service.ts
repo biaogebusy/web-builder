@@ -36,7 +36,7 @@ export class BuilderService extends ApiService {
     @Inject(USER) private user$: Observable<IUser>
   ) {
     super();
-    this.user$.subscribe((user) => {
+    this.user$.subscribe(user => {
       this.user = user;
     });
   }
@@ -45,7 +45,7 @@ export class BuilderService extends ApiService {
     const { langs } = environment;
     let lang = '';
     if (langs && langcode && langs.length > 0) {
-      const defaultLang = langs.find((item) => item.default === true);
+      const defaultLang = langs.find(item => item.default === true);
       lang = defaultLang?.langCode === langcode ? '' : langcode;
     }
 
@@ -213,7 +213,7 @@ export class BuilderService extends ApiService {
       return this.contentService
         .loadPageContent(`${lang}/builder/default-page`)
         .pipe(
-          tap((res) => {
+          tap(res => {
             this.builder.loading$.next(false);
             if (isArray(res) || !res) {
               this.util.openSnackbar('请配置默认页面！', 'OK');
@@ -361,7 +361,7 @@ export class BuilderService extends ApiService {
                 return of(false);
               })
             )
-            .subscribe((status) => {
+            .subscribe(status => {
               status$.next(status);
             });
         });
@@ -379,7 +379,7 @@ export class BuilderService extends ApiService {
             return of(false);
           })
         )
-        .subscribe((res) => {
+        .subscribe(res => {
           status$.next(res);
         });
     }
@@ -389,7 +389,7 @@ export class BuilderService extends ApiService {
 
   formatPage(page: IPage): IPageForJSONAPI {
     const currentPage: IPage = { ...page };
-    currentPage.body = page.body.map((item) => {
+    currentPage.body = page.body.map(item => {
       return {
         type: 'json',
         attributes: {
@@ -410,14 +410,14 @@ export class BuilderService extends ApiService {
     this.nodeService
       .fetch(`${api}/${uuid}`, params, this.user.csrf_token, lang)
       .subscribe(
-        (res) => {
+        res => {
           this.builder.loading$.next(false);
           this.builder.rightContent$.next({
             mode: 'over',
             hasBackdrop: true,
             style: {
-              width: '260px',
-              padding: '14px',
+              'width': '260px',
+              'padding': '14px',
               'max-width': 'calc(100vw - 50px)',
             },
             elements: [
@@ -428,7 +428,7 @@ export class BuilderService extends ApiService {
             ],
           });
         },
-        (error) => {
+        error => {
           this.builder.loading$.next(false);
           const { statusText } = error;
           this.util.openSnackbar(statusText, 'ok');
@@ -439,7 +439,7 @@ export class BuilderService extends ApiService {
   coverExtraData(page: IPage): any {
     const currentPage: IPage = { ...page };
     currentPage.label = page.title;
-    currentPage.body = page.body.map((item) => {
+    currentPage.body = page.body.map(item => {
       if (item.extra) {
         // 修改已有组件
         const { uuid, id, type } = item.extra;
@@ -516,7 +516,7 @@ export class BuilderService extends ApiService {
   initExtraBody(body: any[], isTemplate?: boolean): any[] {
     let components = [];
     if (body.length) {
-      components = body.map((item) => {
+      components = body.map(item => {
         if (isTemplate) {
           return {
             ...item.attributes.body,

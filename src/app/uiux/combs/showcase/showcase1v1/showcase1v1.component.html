@@ -1,41 +1,26 @@
 @if (content) {
   <div class="showcase-1-v1 relative">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-    }
-    <div class="{{ content.fullWidth ? '' : 'container' }}">
-      <div [ngClass]="content.classes">
-        @if (content.title) {
-          <app-title
-            [attr.data-path]="'title'"
-            class="block"
-            #title
-            [content]="content.title"
-          ></app-title>
+    <div [ngClass]="content.classes">
+      @if (content.title) {
+        <app-title
+          [attr.data-path]="'title'"
+          class="block"
+          #title
+          [content]="content.title" />
+      }
+      @if (content.subTitle) {
+        <app-text
+          [attr.data-path]="'subTitle'"
+          [content]="content.subTitle" />
+      }
+      <div class="mt-md grid grid-cols-12 gap-5 justify-center items-center">
+        @for (item of content.elements; track item; let i = $index) {
+          <app-dynamic-component
+            [attr.data-path]="'elements.' + i"
+            class="col-span-12 sm:col-span-6 md:col-span-{{ content.row }} box"
+            [inputs]="item" />
         }
-        @if (content.subTitle) {
-          <app-text
-            [attr.data-path]="'subTitle'"
-            [content]="content.subTitle"
-          ></app-text>
-        }
-        <div class="mt-md grid grid-cols-12 gap-5 justify-center items-center">
-          @for (item of content.elements; track item; let i = $index) {
-            <app-dynamic-component
-              [attr.data-path]="'elements.' + i"
-              class="col-span-12 sm:col-span-6 md:col-span-{{
-                content.row
-              }} box"
-              [inputs]="item"
-            ></app-dynamic-component>
-          }
-        </div>
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
 }

@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="开发/部署/Nginx 配置" id="nginx" />
 
@@ -22,7 +22,7 @@ export const environment: IEnvironment = {
 在 server.ts 文件中：
 
 ```js
-server.get("*", (req, res, next) => {
+server.get('*', (req, res, next) => {
   const { protocol, originalUrl, baseUrl, headers } = req;
   commonEngine
     .render({
@@ -32,8 +32,8 @@ server.get("*", (req, res, next) => {
       publicPath: browserDistFolder,
       providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
     })
-    .then((html) => res.send(html))
-    .catch((err) => next(err));
+    .then(html => res.send(html))
+    .catch(err => next(err));
 });
 ```
 

@@ -25,13 +25,13 @@ const meta: Meta<FormlyComponent> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
       ${story}
       <mat-divider></mat-divider>
       <p class="widget m-5 bg-shadow">
       {{model|json}}
       </p>
-    `,
+    `
     ),
   ],
   parameters: {
@@ -619,7 +619,7 @@ const use: FormlyFieldConfig[] = [
       label: '理由?',
     },
     expressionProperties: {
-      'props.label': "'为什么选择 ' + model.color + '?'",
+      'props.label': '\'为什么选择 \' + model.color + \'?\'',
     },
     hideExpression: '!model.color',
   },

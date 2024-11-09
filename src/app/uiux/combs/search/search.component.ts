@@ -62,9 +62,9 @@ export class SearchComponent extends BaseComponent implements OnInit {
             {
               page: this.page,
             },
-            query,
+            query
           ),
-          isEmpty,
+          isEmpty
         );
         if (this.content.sidebar) {
           this.initFilterForm(querys, this.content.sidebar);
@@ -89,9 +89,9 @@ export class SearchComponent extends BaseComponent implements OnInit {
       .pipe(
         debounceTime(1000),
         distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((value) => {
+      .subscribe(value => {
         this.onSelectChange(value);
       });
   }
@@ -124,15 +124,15 @@ export class SearchComponent extends BaseComponent implements OnInit {
       .fetch(api, params)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
-        (data) => {
+        data => {
           this.updateList(data, formValue, options);
           this.loading = false;
           this.cd.detectChanges();
         },
-        (error) => {
+        error => {
           this.loading = false;
           this.cd.detectChanges();
-        },
+        }
       );
   }
 

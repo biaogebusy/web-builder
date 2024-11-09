@@ -8,9 +8,8 @@ describe('TaxonomyThinListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TaxonomyThinListComponent ]
-    })
-    .compileComponents();
+      declarations: [TaxonomyThinListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

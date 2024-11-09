@@ -29,9 +29,9 @@ const meta: Meta<LayoutBuilderComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
       ${story}
-    `,
+    `
     ),
   ],
   parameters: {

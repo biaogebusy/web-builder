@@ -2,7 +2,7 @@
   <div class="list-thin">
     @if (loading) {
       <div class="my-5 flex justify-center items-center">
-        <app-spinner [content]="{ color: 'primary', size: 40 }"></app-spinner>
+        <app-spinner [content]="{ color: 'primary', size: 40 }" />
       </div>
     }
     @if (content.length) {
@@ -13,7 +13,7 @@
         track trackByFn($index, item)
       ) {
         <div class="flex flex-col item mb-3 py-3 px-3">
-          <app-link [content]="item.link"></app-link>
+          <app-link [content]="item.link" />
           <div class="item-bottom flex flex-wrap justify-start items-center">
             <div class="meta mr-3 flex gap-3">
               @for (item of item.meta; track item) {
@@ -26,16 +26,14 @@
               <div class="actions flex flex-row">
                 @for (action of item.actions; track action) {
                   <app-dynamic-component
-                    [inputs]="{ content: action, data: action?.params }"
-                  >
-                  </app-dynamic-component>
+                    [inputs]="{ content: action, data: action?.params }" />
                 }
               </div>
             }
           </div>
         </div>
       }
-      <app-pagination (pageChange)="p = $event"></app-pagination>
+      <app-pagination (pageChange)="p = $event" />
     } @else {
       <div class="flex justify-center items-center py-5 my-5">没有数据</div>
     }

@@ -46,11 +46,11 @@ const meta: Meta<BlockComponent> = {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `
+      story => `
       <app-header></app-header>
       ${story}
       <app-footer></app-footer>
-    `,
+    `
     ),
   ],
   parameters: {

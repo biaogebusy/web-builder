@@ -60,7 +60,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ComponentService } from '@core/service/component.service';
 export function sleep(ms: number): Promise<any> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 @NgModule({

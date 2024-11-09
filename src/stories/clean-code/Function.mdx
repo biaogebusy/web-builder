@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta
   title="编程指南/函数"
@@ -23,7 +23,7 @@ import { Meta } from "@storybook/blocks";
 function createMenu(title, body, buttonText, cancellable) {
   // ...
 }
-createMenu("Foo", "Bar", "Baz", true);
+createMenu('Foo', 'Bar', 'Baz', true);
 ```
 
 **推荐**
@@ -33,9 +33,9 @@ function createMenu({ title, body, buttonText, cancellable }) {
   // ...
 }
 createMenu({
-  title: "Foo",
-  body: "Bar",
-  buttonText: "Baz",
+  title: 'Foo',
+  body: 'Bar',
+  buttonText: 'Baz',
   cancellable: true,
 });
 ```
@@ -48,7 +48,7 @@ createMenu({
 
 ```javascript
 function emailClients(clients) {
-  clients.forEach((client) => {
+  clients.forEach(client => {
     const clientRecord = database.lookup(client);
     if (clientRecord.isActive()) {
       email(client);
@@ -103,18 +103,18 @@ function parseBetterJSAlternative(code) {
   const REGEXES = [
     // ...
   ];
-  const statements = code.split(" ");
+  const statements = code.split(' ');
   const tokens = [];
-  REGEXES.forEach((REGEX) => {
-    statements.forEach((statement) => {
+  REGEXES.forEach(REGEX => {
+    statements.forEach(statement => {
       // ...
     });
   });
   const ast = [];
-  tokens.forEach((token) => {
+  tokens.forEach(token => {
     // lex...
   });
-  ast.forEach((node) => {
+  ast.forEach(node => {
     // parse...
   });
 }
@@ -126,7 +126,7 @@ function parseBetterJSAlternative(code) {
 function parseBetterJSAlternative(code) {
   const tokens = tokenize(code);
   const syntaxTree = parse(tokens);
-  syntaxTree.forEach((node) => {
+  syntaxTree.forEach(node => {
     // parse...
   });
 }
@@ -134,10 +134,10 @@ function tokenize(code) {
   const REGEXES = [
     // ...
   ];
-  const statements = code.split(" ");
+  const statements = code.split(' ');
   const tokens = [];
-  REGEXES.forEach((REGEX) => {
-    statements.forEach((statement) => {
+  REGEXES.forEach(REGEX => {
+    statements.forEach(statement => {
       tokens.push(/* ... */);
     });
   });
@@ -145,7 +145,7 @@ function tokenize(code) {
 }
 function parse(tokens) {
   const syntaxTree = [];
-  tokens.forEach((token) => {
+  tokens.forEach(token => {
     syntaxTree.push(/* ... */);
   });
   return syntaxTree;
@@ -186,10 +186,10 @@ function createTempFile(name) {
 ```javascript
 // Global variable referenced by following function.
 // If we had another function that used this name, now it'd be an array and it could break it.
-let name = "Ryan McDermott";
+let name = 'Ryan McDermott';
 
 function splitIntoFirstAndLastName() {
-  name = name.split(" ");
+  name = name.split(' ');
 }
 
 splitIntoFirstAndLastName();
@@ -201,10 +201,10 @@ console.log(name); // ['Ryan', 'McDermott'];
 
 ```javascript
 function splitIntoFirstAndLastName(name) {
-  return name.split(" ");
+  return name.split(' ');
 }
 
-const name = "Ryan McDermott";
+const name = 'Ryan McDermott';
 const newName = splitIntoFirstAndLastName(name);
 
 console.log(name); // 'Ryan McDermott';
@@ -234,7 +234,7 @@ const addItemToCart = (cart, item) => {
 ```javascript
 Array.prototype.diff = function diff(comparisonArray) {
   const hash = new Set(comparisonArray);
-  return this.filter((elem) => !hash.has(elem));
+  return this.filter(elem => !hash.has(elem));
 };
 ```
 
@@ -244,7 +244,7 @@ Array.prototype.diff = function diff(comparisonArray) {
 class SuperArray extends Array {
   diff(comparisonArray) {
     const hash = new Set(comparisonArray);
-    return this.filter((elem) => !hash.has(elem));
+    return this.filter(elem => !hash.has(elem));
   }
 }
 ```
@@ -256,19 +256,19 @@ class SuperArray extends Array {
 ```javascript
 const programmerOutput = [
   {
-    name: "Uncle Bobby",
+    name: 'Uncle Bobby',
     linesOfCode: 500,
   },
   {
-    name: "Suzie Q",
+    name: 'Suzie Q',
     linesOfCode: 1500,
   },
   {
-    name: "Jimmy Gosling",
+    name: 'Jimmy Gosling',
     linesOfCode: 150,
   },
   {
-    name: "Gracie Hopper",
+    name: 'Gracie Hopper',
     linesOfCode: 1000,
   },
 ];
@@ -285,19 +285,19 @@ for (let i = 0; i < programmerOutput.length; i++) {
 ```javascript
 const programmerOutput = [
   {
-    name: "Uncle Bobby",
+    name: 'Uncle Bobby',
     linesOfCode: 500,
   },
   {
-    name: "Suzie Q",
+    name: 'Suzie Q',
     linesOfCode: 1500,
   },
   {
-    name: "Jimmy Gosling",
+    name: 'Jimmy Gosling',
     linesOfCode: 150,
   },
   {
-    name: "Gracie Hopper",
+    name: 'Gracie Hopper',
     linesOfCode: 1000,
   },
 ];
@@ -313,7 +313,7 @@ const totalOutput = programmerOutput.reduce(
 **不好**
 
 ```javascript
-if (fsm.state === "fetching" && isEmpty(listNode)) {
+if (fsm.state === 'fetching' && isEmpty(listNode)) {
   // ...
 }
 ```
@@ -322,7 +322,7 @@ if (fsm.state === "fetching" && isEmpty(listNode)) {
 
 ```javascript
 function shouldShowSpinner(fsm, listNode) {
-  return fsm.state === "fetching" && isEmpty(listNode);
+  return fsm.state === 'fetching' && isEmpty(listNode);
 }
 
 if (shouldShowSpinner(fsmInstance, listNodeInstance)) {
@@ -367,11 +367,11 @@ class Airplane {
   // ...
   getCruisingAltitude() {
     switch (this.type) {
-      case "777":
+      case '777':
         return this.getMaxAltitude() - this.getPassengerCount();
-      case "Air Force One":
+      case 'Air Force One':
         return this.getMaxAltitude();
-      case "Cessna":
+      case 'Cessna':
         return this.getMaxAltitude() - this.getFuelExpenditure();
     }
   }
@@ -416,9 +416,9 @@ class Cessna extends Airplane {
 ```javascript
 function travelToTexas(vehicle) {
   if (vehicle instanceof Bicycle) {
-    vehicle.pedal(this.currentLocation, new Location("texas"));
+    vehicle.pedal(this.currentLocation, new Location('texas'));
   } else if (vehicle instanceof Car) {
-    vehicle.drive(this.currentLocation, new Location("texas"));
+    vehicle.drive(this.currentLocation, new Location('texas'));
   }
 }
 ```
@@ -427,7 +427,7 @@ function travelToTexas(vehicle) {
 
 ```javascript
 function travelToTexas(vehicle) {
-  vehicle.move(this.currentLocation, new Location("texas"));
+  vehicle.move(this.currentLocation, new Location('texas'));
 }
 ```
 
@@ -436,13 +436,13 @@ function travelToTexas(vehicle) {
 ```javascript
 function combine(val1, val2) {
   if (
-    (typeof val1 === "number" && typeof val2 === "number") ||
-    (typeof val1 === "string" && typeof val2 === "string")
+    (typeof val1 === 'number' && typeof val2 === 'number') ||
+    (typeof val1 === 'string' && typeof val2 === 'string')
   ) {
     return val1 + val2;
   }
 
-  throw new Error("Must be of type String or Number");
+  throw new Error('Must be of type String or Number');
 }
 ```
 

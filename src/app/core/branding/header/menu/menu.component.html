@@ -7,16 +7,14 @@
             branding.header.logo
               ? 'justify-between items-center'
               : 'justify-end items-center'
-          }}"
-        >
+          }}">
           @if (branding.header.logo) {
             <div class="header-left one-line">
-              <app-logo [content]="branding.header.logo"></app-logo>
+              <app-logo [content]="branding.header.logo" />
             </div>
           }
           <div
-            class="header-right flex flex-row justify-center items-center gap-3 md:gap-5"
-          >
+            class="header-right flex flex-row justify-center items-center gap-3 md:gap-5">
             @if (branding.header.mainMenu) {
               <div class="menu-inner">
                 <div class="main-menu flex flex-row">
@@ -28,8 +26,7 @@
                       @if (branding.header.params) {
                         <app-item-menu
                           [params]="branding.header.params"
-                          [content]="menu"
-                        ></app-item-menu>
+                          [content]="menu" />
                       }
                     </div>
                   }
@@ -38,30 +35,28 @@
             }
             @if (branding.header.search.enable) {
               <app-search-box
-                [content]="branding.header.search"
-              ></app-search-box>
+                [content]="branding.header.search" />
             }
             @if (branding.header.actions) {
               <div class="actions">
                 @for (action of branding.header.actions; track action) {
                   <button color="primary" mat-raised-button>
-                    <app-link [content]="action"></app-link>
+                    <app-link [content]="action" />
                   </button>
                 }
               </div>
             }
             @if (coreConfig.notify?.enable) {
-              <app-notify class="has-icon"></app-notify>
+              <app-notify class="has-icon" />
             }
             @if (branding.header.params.themeSwitch) {
-              <app-switch-theme class="has-icon"></app-switch-theme>
+              <app-switch-theme class="has-icon" />
             }
             @if (branding.header.params.userInfo) {
               <app-user-menu
-                [content]="branding.header.userMenu"
-              ></app-user-menu>
+                [content]="branding.header.userMenu" />
             }
-            <app-lang-switch></app-lang-switch>
+            <app-lang-switch />
           </div>
         </div>
       </div>
@@ -82,14 +77,14 @@
           <span class="spacer"></span>
           <span class="app-name">{{ branding.header.logo?.label }}</span>
           <span class="spacer"></span>
-          <app-switch-theme></app-switch-theme>
-          <app-user-menu class="m-left-xs"></app-user-menu>
+          <app-switch-theme />
+          <app-user-menu class="m-left-xs" />
         }
       </mat-toolbar>
     }
     <div [hidden]="!(!show && isDrawer)">
       @if (branding.header.mainMenu) {
-        <app-accordion [content]="branding.header.mainMenu"></app-accordion>
+        <app-accordion [content]="branding.header.mainMenu" />
       }
     </div>
   </div>

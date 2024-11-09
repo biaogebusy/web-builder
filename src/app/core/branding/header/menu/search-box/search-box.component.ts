@@ -43,7 +43,7 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
   onFormChange(): void {
     this.form.valueChanges
       .pipe(debounceTime(1000), distinctUntilChanged())
-      .subscribe((value) => {
+      .subscribe(value => {
         const params = omitBy(
           Object.assign(
             {
@@ -57,7 +57,7 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
 
         this.nodeService
           .fetch('content', this.getApiParams(params))
-          .subscribe((data) => {
+          .subscribe(data => {
             this.options = data.rows.map((item: any) => {
               return {
                 label: item.title,

@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="编程指南/Classes" />
 
@@ -13,7 +13,7 @@ import { Meta } from "@storybook/blocks";
 ```javascript
 const Animal = function (age) {
   if (!(this instanceof Animal)) {
-    throw new Error("Instantiate Animal with `new`");
+    throw new Error('Instantiate Animal with `new`');
   }
 
   this.age = age;
@@ -23,7 +23,7 @@ Animal.prototype.move = function move() {};
 
 const Mammal = function (age, furColor) {
   if (!(this instanceof Mammal)) {
-    throw new Error("Instantiate Mammal with `new`");
+    throw new Error('Instantiate Mammal with `new`');
   }
 
   Animal.call(this, age);
@@ -36,7 +36,7 @@ Mammal.prototype.liveBirth = function liveBirth() {};
 
 const Human = function (age, furColor, languageSpoken) {
   if (!(this instanceof Human)) {
-    throw new Error("Instantiate Human with `new`");
+    throw new Error('Instantiate Human with `new`');
   }
 
   Mammal.call(this, age, furColor);
@@ -113,8 +113,8 @@ class Car {
   }
 }
 
-const car = new Car("Ford", "F-150", "red");
-car.setColor("pink");
+const car = new Car('Ford', 'F-150', 'red');
+car.setColor('pink');
 car.save();
 ```
 
@@ -153,5 +153,5 @@ class Car {
   }
 }
 
-const car = new Car("Ford", "F-150", "red").setColor("pink").save();
+const car = new Car('Ford', 'F-150', 'red').setColor('pink').save();
 ```

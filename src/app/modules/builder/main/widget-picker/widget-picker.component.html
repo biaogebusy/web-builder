@@ -7,12 +7,10 @@
           class="item col-span-4"
           (click)="onPasteData()"
           (mouseenter)="onHover({ content: bcData }, copy)"
-          matRipple
-        >
+          matRipple>
           <div
-            class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700"
-          >
-            <app-icon [content]="{ svg: 'content-paste' }"></app-icon>
+            class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700">
+            <app-icon [content]="{ svg: 'content-paste' }" />
             <div class="title">粘贴组件</div>
           </div>
         </div>
@@ -23,13 +21,11 @@
           #item
           (mouseenter)="onHover(widget, item)"
           (click)="onSelect(widget.content)"
-          matRipple
-        >
+          matRipple>
           <div
-            class="inner flex flex-col justify-center items-center m-[2px] p-[6px]"
-          >
+            class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
             @if (widget.icon) {
-              <app-icon [content]="widget.icon"></app-icon>
+              <app-icon [content]="widget.icon" />
             }
             <div class="title" title="{{ widget.label }}">
               {{ widget.label }}
@@ -42,14 +38,12 @@
   <div class="popup p-4 z-10 w-[560px] h-[300px]" #popup>
     @if (widget$ | async; as widget) {
       <div
-        class="hover-show w-full h-full flex justify-center items-center relative"
-      >
+        class="hover-show w-full h-full flex justify-center items-center relative">
         @if (widget.preview) {
           <img [src]="widget.preview" alt="" />
         } @else {
           <app-dynamic-component
-            [inputs]="widget.content"
-          ></app-dynamic-component>
+            [inputs]="widget.content" />
         }
       </div>
     }
@@ -64,8 +58,7 @@
           href: help.link,
           target: '_blank',
           icon: { svg: 'help-circle', inline: true },
-        }"
-      ></app-btn>
+        }" />
     </div>
   }
 </div>

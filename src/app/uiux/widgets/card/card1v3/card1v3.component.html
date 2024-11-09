@@ -2,16 +2,14 @@
   @if (content) {
     <cdk-virtual-scroll-viewport
       [itemSize]="5"
-      class="viewport overflow-auto h-[500px]"
-    >
+      class="viewport overflow-auto h-[500px]">
       <div
         class="list item m-5 p-3 rounded-xl flex flex-col"
         [class.selected]="i == selectedId"
         matRipple
         [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
         *cdkVirtualFor="let item of content.elements; index as i"
-        (click)="onCard(item, i)"
-      >
+        (click)="onCard(item, i)">
         <h3 class="mb-3 bold">{{ item.title }}</h3>
         @if (item.address) {
           <div class="address">{{ item.address }}</div>
@@ -20,7 +18,7 @@
           @for (meta of item.meta; track meta) {
             <div class="li flex">
               @if (meta.icon) {
-                <app-icon [content]="meta.icon"></app-icon>
+                <app-icon [content]="meta.icon" />
               }
               <span class="label font-bold mr-3">{{ meta.label }}:</span>
               <span>{{ meta.value }}</span>

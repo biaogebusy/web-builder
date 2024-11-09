@@ -24,7 +24,7 @@ const meta: Meta<VideoBgComponent> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(story => `${story}`),
   ],
   parameters: {
     docs: {
@@ -63,9 +63,9 @@ const content: IVideoBg = {
           type: 'text',
           spacer: 'none',
           style: {
-            margin: '0 auto',
+            'margin': '0 auto',
             'text-align': 'center',
-            width: '600px',
+            'width': '600px',
           },
           body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文，Storybook是一个用于开发和展示UI组件的工具。',
           actionsAlign: 'center center',

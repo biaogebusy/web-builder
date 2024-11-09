@@ -1,23 +1,22 @@
 @if (content) {
   <div class="relate relative">
     @if (content.bg) {
-      <app-bg [content]="content.bg"></app-bg>
+      <app-bg [content]="content.bg" />
     }
     <div class="container">
       <div class="head m-y-md flex justify-between items-center">
         @if (content.title) {
-          <app-title [content]="content.title"></app-title>
+          <app-title [content]="content.title" />
         }
         @for (action of content.actions; track action) {
           <app-dynamic-component
-            [inputs]="{ content: action }"
-          ></app-dynamic-component>
+            [inputs]="{ content: action }" />
         }
       </div>
-      <app-summary [content]="content.summary"></app-summary>
-      <app-spacer [size]="'md'"></app-spacer>
-      <app-relate-showcase [content]="content.showcase"></app-relate-showcase>
+      <app-summary [content]="content.summary" />
+      <app-spacer [size]="'md'" />
+      <app-relate-showcase [content]="content.showcase" />
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

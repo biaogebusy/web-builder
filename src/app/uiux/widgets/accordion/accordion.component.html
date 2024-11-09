@@ -9,10 +9,9 @@
                 <app-icon
                   matListItemIcon
                   class="!mr-3"
-                  [content]="item.icon"
-                ></app-icon>
+                  [content]="item.icon" />
               }
-              <app-link [content]="item"></app-link>
+              <app-link [content]="item" />
             </mat-list-item>
           </mat-list>
         }
@@ -21,28 +20,26 @@
             checkChildMenuActive
             [expanded]="item.expanded"
             (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"
-          >
+            (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               @if (!item.href) {
                 <mat-panel-title [ngClass]="item.classes || ''">
                   @if (item.icon) {
-                    <app-icon class="!mr-3" [content]="item.icon"></app-icon>
+                    <app-icon class="!mr-3" [content]="item.icon" />
                   }
                   {{ item.label }}
                 </mat-panel-title>
               }
               @if (item.href) {
                 @if (item.icon) {
-                  <app-icon class="!mr-3" [content]="item.icon"></app-icon>
+                  <app-icon class="!mr-3" [content]="item.icon" />
                 }
                 <app-link
                   [ngClass]="item.classes || ''"
-                  [content]="item"
-                ></app-link>
+                  [content]="item" />
               }
             </mat-expansion-panel-header>
-            <app-accordion [content]="item.child"></app-accordion>
+            <app-accordion [content]="item.child" />
           </mat-expansion-panel>
         }
       </ng-container>

@@ -12,7 +12,7 @@ export class CanvasService {
 
   openDialog(element: HTMLElement, options = {}): void {
     this.utli.openSnackbar('切换全屏，浏览到底部再点击下载', 'ok');
-    html2canvas(element, options).then((canvas) => {
+    html2canvas(element, options).then(canvas => {
       console.log(canvas);
       this.dialogService.openDynamicDialog({
         content: [

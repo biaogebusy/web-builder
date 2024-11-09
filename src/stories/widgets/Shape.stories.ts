@@ -22,11 +22,11 @@ const meta: Meta<ShapeComponent> = {
       declarations: [...StorysModule.forEntryComponents()],
     }),
     componentWrapperDecorator(
-      (story) =>
+      story =>
         `<div class="widget shape-inner relative p-y-lg m-top-lg bg-primary">
          ${story}
          </div>
-        `,
+        `
     ),
   ],
 };
