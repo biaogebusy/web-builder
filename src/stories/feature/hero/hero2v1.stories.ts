@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Hero2v1Component } from '@uiux/combs/hero/hero2v1/hero2v1.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -41,6 +36,13 @@ const content: ITextHero = {
   params: {
     height: '750px',
   },
+  bg: {
+    classes: 'bg-shadow overlay overlay-80',
+    img: {
+      src: '/assets/images/hero/1-6.jpg',
+      mobile: '/assets/images/mobile/mobile-03.jpg',
+    },
+  },
   text: {
     title: {
       label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
@@ -49,13 +51,6 @@ const content: ITextHero = {
     },
     spacer: 'xl',
     classes: 'xy-center text-center',
-    bg: {
-      classes: 'bg-shadow overlay overlay-80',
-      img: {
-        src: '/assets/images/hero/1-6.jpg',
-        mobile: '/assets/images/mobile/mobile-03.jpg',
-      },
-    },
     body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-">Storybook</strong> 页面时添加组件到预览页面。',
     actionsAlign: 'center center',
     actions: [
@@ -81,6 +76,13 @@ const yContent: ITextHero = {
   params: {
     height: '750px',
   },
+  bg: {
+    classes: 'bg-shadow overlay overlay-80',
+    img: {
+      src: '/assets/images/hero/329.jpg',
+      mobile: '/assets/images/mobile/mobile-04.jpg',
+    },
+  },
   text: {
     title: {
       label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
@@ -92,13 +94,6 @@ const yContent: ITextHero = {
       width: '50%',
     },
     classes: 'y-center',
-    bg: {
-      classes: 'bg-shadow overlay overlay-80',
-      img: {
-        src: '/assets/images/hero/329.jpg',
-        mobile: '/assets/images/mobile/mobile-04.jpg',
-      },
-    },
     body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-">Storybook</strong> 页面时添加组件到预览页面。',
     actionsAlign: 'start center',
     actions: [
@@ -124,10 +119,16 @@ const yCxCustom: ITextHero = {
   params: {
     height: '750px',
   },
+  bg: {
+    classes: 'bg-shadow overlay overlay-20',
+    img: {
+      src: '/assets/images/hero/light-bg.jpeg',
+      mobile: '/assets/images/mobile/follower-04.jpg',
+    },
+  },
   text: {
     title: {
-      label:
-        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+      label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
       style: 'style-v4',
       classes: 'mat-headline-3',
     },
@@ -137,13 +138,6 @@ const yCxCustom: ITextHero = {
       left: '50%',
     },
     classes: 'y-center',
-    bg: {
-      classes: 'bg-shadow overlay overlay-20',
-      img: {
-        src: '/assets/images/hero/light-bg.jpeg',
-        mobile: '/assets/images/mobile/follower-04.jpg',
-      },
-    },
     body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
     actionsAlign: 'start center',
     actions: [
@@ -169,10 +163,16 @@ const xyCustom: ITextHero = {
   params: {
     height: '750px',
   },
+  bg: {
+    classes: 'bg-shadow overlay overlay-80',
+    img: {
+      src: '/assets/images/hero/light-bg.jpeg',
+      mobile: '/assets/images/mobile/mobile-02.jpg',
+    },
+  },
   text: {
     title: {
-      label:
-        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+      label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
       style: 'style-v4',
       classes: 'mat-headline-3',
     },
@@ -183,13 +183,6 @@ const xyCustom: ITextHero = {
       top: '10%',
     },
     classes: 'absolute',
-    bg: {
-      classes: 'bg-shadow overlay overlay-80',
-      img: {
-        src: '/assets/images/hero/light-bg.jpeg',
-        mobile: '/assets/images/mobile/mobile-02.jpg',
-      },
-    },
     body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
     actionsAlign: 'start center',
     actions: [

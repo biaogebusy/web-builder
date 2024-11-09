@@ -300,8 +300,7 @@ export const components: any[] = [
               classes: '',
               text: {
                 title: {
-                  label:
-                    '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
                   classes: 'mat-headline-2 bold',
                   style: 'style-v1',
                 },
@@ -371,22 +370,21 @@ export const components: any[] = [
               params: {
                 height: '750px',
               },
+              bg: {
+                classes: 'bg-shadow overlay overlay-80',
+                img: {
+                  src: '/assets/images/hero/1-6.jpg',
+                  mobile: '/assets/images/mobile/mobile-03.jpg',
+                },
+              },
               text: {
                 title: {
-                  label:
-                    '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
+                  label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
                   style: 'style-v1',
                   classes: 'mat-headline-2',
                 },
                 spacer: 'xl',
                 classes: 'xy-center text-center',
-                bg: {
-                  classes: 'bg-shadow overlay overlay-80',
-                  img: {
-                    src: '/assets/images/hero/1-6.jpg',
-                    mobile: '/assets/images/mobile/mobile-03.jpg',
-                  },
-                },
                 body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-">Storybook</strong> 页面时添加组件到预览页面。',
                 actionsAlign: 'center center',
                 actions: [
@@ -409,10 +407,16 @@ export const components: any[] = [
               params: {
                 height: '750px',
               },
+               bg: {
+                  classes: 'bg-shadow overlay overlay-20',
+                  img: {
+                    src: '/assets/images/hero/light-bg.jpeg',
+                    mobile: '/assets/images/mobile/follower-04.jpg',
+                  },
+                },
               text: {
                 title: {
-                  label:
-                    '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
                   style: 'style-v4',
                   classes: 'mat-headline-3',
                 },
@@ -422,13 +426,6 @@ export const components: any[] = [
                   left: '50%',
                 },
                 classes: 'y-center',
-                bg: {
-                  classes: 'bg-shadow overlay overlay-20',
-                  img: {
-                    src: '/assets/images/hero/light-bg.jpeg',
-                    mobile: '/assets/images/mobile/follower-04.jpg',
-                  },
-                },
                 body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
                 actionsAlign: 'start center',
                 actions: [
@@ -451,10 +448,16 @@ export const components: any[] = [
               params: {
                 height: '750px',
               },
+              bg: {
+                  classes: 'bg-shadow overlay overlay-80',
+                  img: {
+                    src: '/assets/images/hero/light-bg.jpeg',
+                    mobile: '/assets/images/mobile/mobile-02.jpg',
+                  },
+                },
               text: {
                 title: {
-                  label:
-                    '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
                   style: 'style-v4',
                   classes: 'mat-headline-3',
                 },
@@ -465,13 +468,6 @@ export const components: any[] = [
                   top: '10%',
                 },
                 classes: 'absolute',
-                bg: {
-                  classes: 'bg-shadow overlay overlay-80',
-                  img: {
-                    src: '/assets/images/hero/light-bg.jpeg',
-                    mobile: '/assets/images/mobile/mobile-02.jpg',
-                  },
-                },
                 body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
                 actionsAlign: 'start center',
                 actions: [
@@ -706,8 +702,7 @@ export const components: any[] = [
             content: {
               type: 'showcase-1v1',
               title: {
-                label:
-                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+                label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
                 classes: 'mat-headline-3',
               },
@@ -789,8 +784,7 @@ export const components: any[] = [
             content: {
               type: 'showcase-1v1',
               title: {
-                label:
-                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+                label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v2',
                 icon: 'mail',
                 classes: 'mat-headline-3',
@@ -873,8 +867,7 @@ export const components: any[] = [
             content: {
               type: 'showcase-1v1',
               title: {
-                label:
-                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+                label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v3',
                 classes: 'mat-headline-3',
               },
@@ -983,8 +976,7 @@ export const components: any[] = [
                     href: '#',
                     label: '高性能',
                   },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                  content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
                 },
                 {
                   type: 'box',
@@ -997,8 +989,7 @@ export const components: any[] = [
                     href: '#',
                     label: '易用的编辑器',
                   },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+                  content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
                 },
                 {
                   type: 'box',
@@ -1011,8 +1002,7 @@ export const components: any[] = [
                     href: '#',
                     label: '多语言',
                   },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+                  content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
                 },
               ],
             },
@@ -1022,8 +1012,7 @@ export const components: any[] = [
             content: {
               type: 'showcase-1v1',
               title: {
-                label:
-                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+                label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v4',
                 classes: 'mat-headline-3',
               },
@@ -1105,8 +1094,7 @@ export const components: any[] = [
             content: {
               type: 'showcase-1v1',
               title: {
-                label:
-                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+                label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v5',
                 classes: 'mat-headline-3',
               },
@@ -1117,8 +1105,7 @@ export const components: any[] = [
               classes: '',
               elements: [
                 {
-                  label:
-                    '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+                  label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                   icon: {
                     name: 'verified_user',
                   },
@@ -1196,8 +1183,7 @@ export const components: any[] = [
                     href: '#',
                     label: '高性能',
                   },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                  content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
                   more: {
                     href: '#',
                     label: '+',
@@ -1214,8 +1200,7 @@ export const components: any[] = [
                     href: '#',
                     label: '易用的编辑器',
                   },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+                  content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
                   more: {
                     href: '#',
                     label: '+',
@@ -1232,8 +1217,7 @@ export const components: any[] = [
                     href: '#',
                     label: '多语言',
                   },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+                  content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
                   more: {
                     href: '#',
                     label: '+',
@@ -1250,8 +1234,7 @@ export const components: any[] = [
                     href: '#',
                     label: '更有弹性',
                   },
-                  content:
-                    '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
+                  content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
                   more: {
                     href: '#',
                     label: '+',
@@ -1285,9 +1268,9 @@ export const components: any[] = [
                   type: 'text',
                   spacer: 'none',
                   style: {
-                    margin: '0 auto',
+                    'margin': '0 auto',
                     'text-align': 'center',
-                    width: '600px',
+                    'width': '600px',
                   },
                   body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文，Storybook是一个用于开发和展示UI组件的工具。',
                   actionsAlign: 'center center',
@@ -1463,9 +1446,9 @@ export const components: any[] = [
                   type: 'text',
                   spacer: 'none',
                   style: {
-                    margin: '0 auto',
+                    'margin': '0 auto',
                     'text-align': 'center',
-                    width: '600px',
+                    'width': '600px',
                   },
                   body: 'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。',
                   actionsAlign: 'center center',
@@ -1505,8 +1488,7 @@ export const components: any[] = [
               classes: '',
               text: {
                 title: {
-                  label:
-                    '使用 <strong class="text-primary">Storybook</strong> 开发组件',
+                  label: '使用 <strong class="text-primary">Storybook</strong> 开发组件',
                   style: 'style-v1',
                   classes: 'mat-headline-2 bold',
                 },
@@ -2250,8 +2232,7 @@ export const components: any[] = [
               type: 'showcase-2v2',
               text: {
                 title: {
-                  label:
-                    '本年度<strong class="text-primary">艺术作品</strong>代表作',
+                  label: '本年度<strong class="text-primary">艺术作品</strong>代表作',
                   style: 'style-v1',
                   classes: 'mat-headline-2 bold',
                 },
@@ -2409,8 +2390,7 @@ export const components: any[] = [
               type: 'showcase-2v4',
               text: {
                 title: {
-                  label:
-                    '本年度<strong class="text-primary">艺术作品</strong>代表作',
+                  label: '本年度<strong class="text-primary">艺术作品</strong>代表作',
                   style: 'style-v1',
                   classes: 'mat-headline-2 bold',
                 },
@@ -2433,8 +2413,7 @@ export const components: any[] = [
                     href: '/search',
                   },
                   title: {
-                    label:
-                      '展现了作者内心深处的黑暗情绪，让观者深陷其中，感受到无尽的绝望与孤独。',
+                    label: '展现了作者内心深处的黑暗情绪，让观者深陷其中，感受到无尽的绝望与孤独。',
                     href: '/search',
                   },
                   img: {
@@ -2452,8 +2431,7 @@ export const components: any[] = [
                     href: '/search',
                   },
                   title: {
-                    label:
-                      '如同一幅绚丽的画卷，色彩的交织与流动呈现出动感和活力，令人心旷神怡。',
+                    label: '如同一幅绚丽的画卷，色彩的交织与流动呈现出动感和活力，令人心旷神怡。',
                     href: '/search',
                   },
                   img: {
@@ -2490,8 +2468,7 @@ export const components: any[] = [
               type: 'showcase-2v6',
               text: {
                 title: {
-                  label:
-                    '<strong class="text-primary">Storybook</strong> 是什么？',
+                  label: '<strong class="text-primary">Storybook</strong> 是什么？',
                   style: 'style-v1',
                   classes: 'mat-headline-3 blod',
                 },
@@ -2669,8 +2646,7 @@ export const components: any[] = [
                     href: '/',
                     label: '多语言',
                   },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
+                  content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
                   more: {
                     href: '#',
                     label: '更多',
@@ -2686,8 +2662,7 @@ export const components: any[] = [
                     href: '/',
                     label: '高性能',
                   },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+                  content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
                   more: {
                     href: '#',
                     label: '更多',
@@ -2703,8 +2678,7 @@ export const components: any[] = [
                     href: '/',
                     label: '易用的编辑器',
                   },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
+                  content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
                   more: {
                     href: '#',
                     label: '更多',
@@ -2770,8 +2744,7 @@ export const components: any[] = [
                     href: '/',
                     label: '多语言',
                   },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
+                  content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
                 },
                 {
                   type: 'box',
@@ -2783,8 +2756,7 @@ export const components: any[] = [
                     href: '/',
                     label: '高性能',
                   },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+                  content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
                 },
                 {
                   type: 'box',
@@ -2796,8 +2768,7 @@ export const components: any[] = [
                     href: '/',
                     label: '易用的编辑器',
                   },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
+                  content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
                 },
                 {
                   type: 'box',
@@ -2809,8 +2780,7 @@ export const components: any[] = [
                     href: '#',
                     label: '更有弹性',
                   },
-                  content:
-                    '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
+                  content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
                 },
                 {
                   type: 'box',
@@ -2822,8 +2792,7 @@ export const components: any[] = [
                     href: '#',
                     label: '安全性',
                   },
-                  content:
-                    '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
+                  content: '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
                 },
               ],
             },
@@ -3102,8 +3071,7 @@ export const components: any[] = [
                     href: '/',
                     label: '多语言',
                   },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
+                  content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
                 },
                 {
                   type: 'box',
@@ -3115,8 +3083,7 @@ export const components: any[] = [
                     href: '/',
                     label: '高性能',
                   },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+                  content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
                 },
               ],
               right: [
@@ -3130,8 +3097,7 @@ export const components: any[] = [
                     href: '/',
                     label: '易用的编辑器',
                   },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
+                  content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
                 },
                 {
                   type: 'box',
@@ -3143,8 +3109,7 @@ export const components: any[] = [
                     href: '#',
                     label: '更有弹性',
                   },
-                  content:
-                    '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
+                  content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
                 },
                 {
                   type: 'box',
@@ -3156,8 +3121,7 @@ export const components: any[] = [
                     href: '#',
                     label: '安全性',
                   },
-                  content:
-                    '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
+                  content: '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
                 },
               ],
             },
@@ -4000,28 +3964,29 @@ export const components: any[] = [
                       height: '750px',
                     },
                     text: {
-                      title: {
+                      'title': {
                         label: '组件驱动开发',
                         style: 'style-v1',
                         classes: 'mat-headline-4',
                       },
-                      spacer: 'xl',
-                      classes: 'xy-center',
+                      'spacer': 'xl',
+                      'classes': 'xy-center',
                       'style-': {
                         width: '50%',
                         left: '0%',
                         top: '5%',
                       },
-                      bg: {
+                      'bg': {
                         classes: 'bg-shadow overlay overlay-80',
                         img: {
                           src: '/assets/images/hero/1-6.jpg',
                           mobile: '/assets/images/mobile/mobile-03.jpg',
                         },
                       },
-                      body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
-                      actionsAlign: 'center center',
-                      actions: [
+                      'body':
+                        'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
+                      'actionsAlign': 'center center',
+                      'actions': [
                         {
                           href: '#',
                           label: '马上体验',
@@ -4286,8 +4251,7 @@ export const components: any[] = [
                     classes: '',
                     text: {
                       title: {
-                        label:
-                          '使用 <strong class="text-primary">Storybook</strong> 开发组件',
+                        label: '使用 <strong class="text-primary">Storybook</strong> 开发组件',
                         style: 'style-v1',
                         classes: 'mat-headline-2 bold',
                       },
@@ -4396,8 +4360,7 @@ export const components: any[] = [
                           href: '/',
                           label: '多语言',
                         },
-                        content:
-                          'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
+                        content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
                         more: {
                           href: '#',
                           label: '更多',
@@ -4413,8 +4376,7 @@ export const components: any[] = [
                           href: '/',
                           label: '高性能',
                         },
-                        content:
-                          '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+                        content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
                         more: {
                           href: '#',
                           label: '更多',
@@ -4430,8 +4392,7 @@ export const components: any[] = [
                           href: '/',
                           label: '易用的编辑器',
                         },
-                        content:
-                          '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
+                        content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
                         more: {
                           href: '#',
                           label: '更多',
@@ -4475,8 +4436,7 @@ export const components: any[] = [
                           href: '/',
                           label: '多语言',
                         },
-                        content:
-                          'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
+                        content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
                         more: {},
                       },
                       {
@@ -4489,8 +4449,7 @@ export const components: any[] = [
                           href: '/',
                           label: '高性能',
                         },
-                        content:
-                          '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+                        content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
                         more: {},
                       },
                       {
@@ -4503,8 +4462,7 @@ export const components: any[] = [
                           href: '/',
                           label: '易用的编辑器',
                         },
-                        content:
-                          '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
+                        content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
                         more: {},
                       },
                       {
@@ -4516,8 +4474,7 @@ export const components: any[] = [
                           href: '#',
                           label: '更有弹性',
                         },
-                        content:
-                          '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
+                        content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
                       },
                       {
                         icon: {
@@ -4528,8 +4485,7 @@ export const components: any[] = [
                           href: '#',
                           label: '安全性',
                         },
-                        content:
-                          '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
+                        content: '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
                       },
                     ],
                   },
@@ -4568,8 +4524,7 @@ export const components: any[] = [
                           href: '/',
                           label: '多语言',
                         },
-                        content:
-                          'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
+                        content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
                         more: {},
                       },
                       {
@@ -4582,8 +4537,7 @@ export const components: any[] = [
                           href: '/',
                           label: '高性能',
                         },
-                        content:
-                          '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+                        content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
                         more: {},
                       },
                     ],
@@ -4598,8 +4552,7 @@ export const components: any[] = [
                           href: '/',
                           label: '易用的编辑器',
                         },
-                        content:
-                          '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
+                        content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
                         more: {},
                       },
                       {
@@ -4611,8 +4564,7 @@ export const components: any[] = [
                           href: '#',
                           label: '更有弹性',
                         },
-                        content:
-                          '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
+                        content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
                       },
                       {
                         icon: {
@@ -4623,8 +4575,7 @@ export const components: any[] = [
                           href: '#',
                           label: '安全性',
                         },
-                        content:
-                          '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
+                        content: '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
                       },
                     ],
                   },
