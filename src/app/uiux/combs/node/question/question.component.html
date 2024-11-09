@@ -2,9 +2,7 @@
   <article class="question relative p-y-sm">
     <div class="container">
       <div class="top m-bottom-sm">
-        <app-chip-list
-          [classes]="'mini'"
-          [content]="content.topic" />
+        <app-chip-list [classes]="'mini'" [content]="content.topic" />
       </div>
       <h2 class="title">{{ content.title }}</h2>
       <div class="question-details" [innerHTML]="content.body | safeHtml"></div>
@@ -20,10 +18,7 @@
           </button>
         }
         @if (isAsked) {
-          <button
-            mat-raised-button
-            color="warn"
-            (click)="checkQuestion(myCommentId)">
+          <button mat-raised-button color="warn" (click)="checkQuestion(myCommentId)">
             <mat-icon>list</mat-icon> 查看回答
           </button>
         }

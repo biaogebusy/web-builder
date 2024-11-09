@@ -15,10 +15,7 @@
           <div class="subTitle">{{ content.subTitle }}</div>
           @if (content.actions) {
             <div class="actions">
-              <button
-                mat-icon-button
-                aria-label="menu"
-                [matMenuTriggerFor]="menu">
+              <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" class="actions-menu">
@@ -38,7 +35,8 @@
               [content]="{
                 label: content.details.label,
                 style: 'style-v4',
-              }" />
+              }"
+            />
             <div class="list">
               @for (item of content.details.elements; track item) {
                 <div class="flex">
@@ -56,8 +54,7 @@
               @for (item of content.leftBottom; track item) {
                 <div class="item m-bottom">
                   <app-title [content]="item.title" />
-                  <app-dynamic-component
-                    [inputs]="item" />
+                  <app-dynamic-component [inputs]="item" />
                 </div>
               }
             </div>
@@ -73,7 +70,8 @@
                   [content]="{
                     label: item.label,
                     style: 'style-v4',
-                  }" />
+                  }"
+                />
                 <app-dynamic-component [inputs]="item" />
               }
             </div>

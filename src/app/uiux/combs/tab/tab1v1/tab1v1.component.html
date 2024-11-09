@@ -1,40 +1,32 @@
 @if (content) {
   <div class="tab-1v1 pt-5">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'" />
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
-    }
     @if (content.tab && pager) {
-      <div class="{{ content.fullWidth ? '' : 'container' }}">
-        @if (content.text) {
-          <app-text [content]="content.text" />
+      @if (content.text) {
+        <app-text [content]="content.text" />
+      }
+      <mat-tab-group
+        [selectedIndex]="selectedIndex"
+        (selectedIndexChange)="onSelectChange($event)"
+        mat-align-tabs="center"
+        animationDuration="0ms"
+      >
+        @for (tab of tabs; track tab) {
+          <mat-tab label="{{ tab.label }}">
+            <ng-template matTabContent>
+              @for (item of currentList | paginate: pager; track item) {
+                <app-media-meta [content]="item" />
+              }
+            </ng-template>
+          </mat-tab>
         }
-        <mat-tab-group
-          [selectedIndex]="selectedIndex"
-          (selectedIndexChange)="onSelectChange($event)"
-          mat-align-tabs="center"
-          animationDuration="0ms">
-          @for (tab of tabs; track tab) {
-            <mat-tab label="{{ tab.label }}">
-              <ng-template matTabContent>
-                @for (item of currentList | paginate: pager; track item) {
-                  <app-media-meta [content]="item" />
-                }
-              </ng-template>
-            </mat-tab>
-          }
-        </mat-tab-group>
-        @if (currentList.length > 0) {
-          <app-pagination (pageChange)="onPageChange($event)" />
-        } @else {
-          <div class="text-center p-y-xl">
-            <p>没有数据。</p>
-          </div>
-        }
-      </div>
+      </mat-tab-group>
+      @if (currentList.length > 0) {
+        <app-pagination (pageChange)="onPageChange($event)" />
+      } @else {
+        <div class="text-center p-y-xl">
+          <p>没有数据。</p>
+        </div>
+      }
     }
   </div>
 }

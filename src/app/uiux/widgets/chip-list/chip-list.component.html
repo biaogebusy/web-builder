@@ -3,7 +3,8 @@
     @for (item of content.elements; track item) {
       <mat-chip-option
         color="{{ item?.color || 'primary' }}"
-        selected="{{ item?.selected ? true : false }}">
+        selected="{{ item?.selected ? true : false }}"
+      >
         @if (!item.link) {
           {{ item.label }}
         } @else {

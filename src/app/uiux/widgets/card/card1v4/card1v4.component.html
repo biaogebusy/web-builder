@@ -9,20 +9,15 @@
           <app-icon [content]="{ svg: 'star' }" />
         }
       </div>
-      <div
-        contentedit="body"
-        class="content my-3"
-        [innerHTML]="content.body | safeHtml"></div>
+      <div contentedit="body" class="content my-3" [innerHTML]="content.body | safeHtml"></div>
       <div class="flex">
-        <div
-          contentedit="title"
-          class="title mr-3"
-          [innerHTML]="content.title | safeHtml"></div>
+        <div contentedit="title" class="title mr-3" [innerHTML]="content.title | safeHtml"></div>
         @if (content.subTitle) {
           <div
             contentedit="subTitle"
             class="sub-title"
-            [innerHTML]="content.subTitle | safeHtml"></div>
+            [innerHTML]="content.subTitle | safeHtml"
+          ></div>
         }
       </div>
     </div>

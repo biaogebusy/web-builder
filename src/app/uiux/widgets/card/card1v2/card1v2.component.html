@@ -6,19 +6,15 @@
         <app-img
           [attr.data-path]="'img'"
           class="media -top-5 overflow-hidden"
-          [content]="content.img" />
+          [content]="content.img"
+        />
       }
       <div class="card-bottom m-top-xs">
         @if (content.subTitle) {
-          <p
-            contentedit="subTitle"
-            [innerHTML]="content.subTitle | safeHtml"></p>
+          <p contentedit="subTitle" [innerHTML]="content.subTitle | safeHtml"></p>
         }
         @if (content.link) {
-          <app-link
-            [attr.data-path]="'link'"
-            class="title text-base"
-            [content]="content.link" />
+          <app-link [attr.data-path]="'link'" class="title text-base" [content]="content.link" />
         }
       </div>
     </div>

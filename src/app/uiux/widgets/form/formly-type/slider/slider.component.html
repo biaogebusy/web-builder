@@ -6,15 +6,13 @@
     [min]="to.min"
     [max]="to.max"
     [step]="to.step"
-    [discrete]="to.thumbLabel">
-    <input
-      [id]="id"
-      [formlyAttributes]="field"
-      [formControl]="formControl"
-      matSliderThumb />
+    [discrete]="to.thumbLabel"
+  >
+    <input [id]="id" [formlyAttributes]="field" [formControl]="formControl" matSliderThumb />
   </mat-slider>
   <div
-    class="value flex text-center justify-center items-center rounded-md box-border opacity-70 whitespace-nowrap">
+    class="value flex text-center justify-center items-center rounded-md box-border opacity-70 whitespace-nowrap"
+  >
     <input matInput [formlyAttributes]="field" [formControl]="formControl" />
     <span class="suffix">{{ to.unit || '' }}</span>
   </div>

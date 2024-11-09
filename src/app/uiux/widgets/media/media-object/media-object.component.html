@@ -13,14 +13,13 @@
         <div
           contentedit="meta"
           class="meta mt-3 whitespace-nowrap"
-          [innerHTML]="content.meta | safeHtml"></div>
+          [innerHTML]="content.meta | safeHtml"
+        ></div>
       }
     </div>
     <div class="media-body flex flex-col justify-center">
       @if (content.title) {
-        <div
-          contentedit="title"
-          class="title line-height-1 font-bold mat-h3 mb-3">
+        <div contentedit="title" class="title line-height-1 font-bold mat-h3 mb-3">
           {{ content.title }}
         </div>
       }
@@ -36,7 +35,8 @@
         <div
           contentedit="content"
           class="media-content"
-          [innerHTML]="content.content | safeHtml"></div>
+          [innerHTML]="content.content | safeHtml"
+        ></div>
       }
     </div>
   </div>

@@ -4,29 +4,24 @@
       aria-label="builder page"
       [matTooltip]="'更多'"
       mat-icon-button
-      [mat-menu-trigger-for]="menu">
+      [mat-menu-trigger-for]="menu"
+    >
       <app-icon [content]="{ svg: 'dots-vertical', inline: true }" />
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onPageJson()">
-        <app-icon
-          class="opacity-70"
-          [content]="{ svg: 'code-json' }" />
+        <app-icon class="opacity-70" [content]="{ svg: 'code-json' }" />
         <span matListItemTitle>页面 JSON</span>
       </button>
       @if (canShow) {
         <button mat-menu-item>
-          <mat-slide-toggle
-            [checked]="debugAnimate$ | async"
-            (change)="onDebugAnimate($event)"
+          <mat-slide-toggle [checked]="debugAnimate$ | async" (change)="onDebugAnimate($event)"
             ><span class="text-base">动画调式</span></mat-slide-toggle
           >
         </button>
       }
       <button mat-menu-item (click)="onColorTest()">
-        <app-icon
-          class="opacity-70"
-          [content]="{ svg: 'marker-check' }" />
+        <app-icon class="opacity-70" [content]="{ svg: 'marker-check' }" />
         <span matListItemTitle>颜色检查</span>
       </button>
       <button mat-menu-item (click)="onPreview()">

@@ -1,36 +1,23 @@
 @if (content) {
   <div class="showcase-1-v4 relative" [ngClass]="content.classes">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
+    @if (content.text) {
+      <app-text [attr.data-path]="'text'" [content]="content.text" />
     }
-    <app-spacer [size]="content.spacer || 'md'" />
-    @if (content.bg) {
-      <app-bg-img [content]="content.bg" />
-    }
-    <div class="{{ content.fullWidth ? '' : 'container' }}">
-      @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text" />
-      }
-      <div class="grid grid-cols-12 justify-center items-center">
-        @for (item of content.elements; track item; let i = $index) {
-          <app-dynamic-component
-            [attr.data-path]="'elements.' + i"
-            class="box p-3 col-span-12 sm:col-span-6 md:col-span-{{
-              content.row
-            }}"
-            [inputs]="item" />
-        }
-      </div>
-      @if (content.actions) {
-        <div class="actions m-top pb-[10px] flex justify-center">
-          @for (action of content.actions; track action; let i = $index) {
-            <app-dynamic-component
-              [attr.data-path]="'actions.' + i"
-              [inputs]="action" />
-          }
-        </div>
+    <div class="grid grid-cols-12 justify-center items-center">
+      @for (item of content.elements; track item; let i = $index) {
+        <app-dynamic-component
+          [attr.data-path]="'elements.' + i"
+          class="box p-3 col-span-12 sm:col-span-6 md:col-span-{{ content.row }}"
+          [inputs]="item"
+        />
       }
     </div>
-    <app-spacer [size]="content.spacer || 'md'" />
+    @if (content.actions) {
+      <div class="actions m-top pb-[10px] flex justify-center">
+        @for (action of content.actions; track action; let i = $index) {
+          <app-dynamic-component [attr.data-path]="'actions.' + i" [inputs]="action" />
+        }
+      </div>
+    }
   </div>
 }

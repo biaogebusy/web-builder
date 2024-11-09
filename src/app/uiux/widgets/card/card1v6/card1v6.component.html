@@ -1,40 +1,40 @@
 @if (content) {
   <div
     class="card-1v6 rounded-md transition-all p-6 duration-300 ease-in-out hover:scale-105 hover:z-10"
-    [ngClass]="content.classes">
+    [ngClass]="content.classes"
+  >
     <div class="card-inner flex flex-col gap-5">
       <h2
         class="title bold"
         [contentedit]="'title.label'"
         [ngClass]="content.title.classes"
-        [innerHTML]="content.title.label | safeHtml"></h2>
+        [innerHTML]="content.title.label | safeHtml"
+      ></h2>
       <div class="meta font-bold flex">
         <div
           [contentedit]="'prefix'"
           class="mat-headline-4 !mb-0"
-          [innerHTML]="content.prefix | safeHtml"></div>
+          [innerHTML]="content.prefix | safeHtml"
+        ></div>
         <div
           [contentedit]="'number'"
           class="mat-headline-2 !mb-0"
-          [innerHTML]="content.number | safeHtml"></div>
+          [innerHTML]="content.number | safeHtml"
+        ></div>
         <div
           [contentedit]="'suffix'"
           class="flex items-end mat-headline-4 !mb-0"
-          [innerHTML]="content.suffix | safeHtml"></div>
+          [innerHTML]="content.suffix | safeHtml"
+        ></div>
       </div>
-      <div
-        [contentedit]="'body'"
-        class="content"
-        [innerHTML]="content.body | safeHtml"></div>
+      <div [contentedit]="'body'" class="content" [innerHTML]="content.body | safeHtml"></div>
       @if (content.actions) {
-        <div
-          class="actions gap-3 flex justify-{{
-            content.actionsAlign
-          }} items-center">
+        <div class="actions gap-3 flex justify-{{ content.actionsAlign }} items-center">
           @for (action of content.actions; track action; let i = $index) {
             <app-dynamic-component
               [attr.data-path]="'actions.' + i"
-              [inputs]="{ content: action }" />
+              [inputs]="{ content: action }"
+            />
           }
         </div>
       }

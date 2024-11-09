@@ -2,7 +2,8 @@
   <mat-horizontal-stepper
     [linear]="getParams(content, 'linear')"
     [labelPosition]="getParams(content, 'labelPosition')"
-    #stepper>
+    #stepper
+  >
     @for (step of content.steps; track step) {
       <mat-step [color]="step.color" [completed]="step.completed">
         <ng-template matStepLabel>{{ step.label }}</ng-template>

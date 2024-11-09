@@ -2,23 +2,18 @@
   <div class="showcase-1-v1 relative">
     <div [ngClass]="content.classes">
       @if (content.title) {
-        <app-title
-          [attr.data-path]="'title'"
-          class="block"
-          #title
-          [content]="content.title" />
+        <app-title [attr.data-path]="'title'" class="block" #title [content]="content.title" />
       }
       @if (content.subTitle) {
-        <app-text
-          [attr.data-path]="'subTitle'"
-          [content]="content.subTitle" />
+        <app-text [attr.data-path]="'subTitle'" [content]="content.subTitle" />
       }
       <div class="mt-md grid grid-cols-12 gap-5 justify-center items-center">
         @for (item of content.elements; track item; let i = $index) {
           <app-dynamic-component
             [attr.data-path]="'elements.' + i"
             class="col-span-12 sm:col-span-6 md:col-span-{{ content.row }} box"
-            [inputs]="item" />
+            [inputs]="item"
+          />
         }
       </div>
     </div>

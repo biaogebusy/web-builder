@@ -1,13 +1,9 @@
 <div class="container-fluid map-list-common">
-  <div
-    class="map-list-v1 relativen flex flex-col md:flex-row justify-start items-stretch relative">
-    <div
-      class="sidebar relative p-x-x flex flex-col flex-12/12 md:flex-[0_1_500px]">
+  <div class="map-list-v1 relativen flex flex-col md:flex-row justify-start items-stretch relative">
+    <div class="sidebar relative p-x-x flex flex-col flex-12/12 md:flex-[0_1_500px]">
       @if (loading) {
         <div class="m-y flex justify-center items-center">
-          <app-spinner
-            class="m-y"
-            [content]="{ color: 'primary', size: 40 }" />
+          <app-spinner class="m-y" [content]="{ color: 'primary', size: 40 }" />
         </div>
       }
       @if (elements.length == 0) {
@@ -32,28 +28,21 @@
         }
       </div>
       <div class="map-lists">
-        <app-card-1v3
-          [content]="{ elements: elements }"
-          (selected)="onMap($event)" />
+        <app-card-1v3 [content]="{ elements: elements }" (selected)="onMap($event)" />
       </div>
     </div>
     <div class="map-wrapper relative flex flex-auto">
       @if (content.map) {
-        <app-map
-          class="flex-12/12"
-          [content]="{ city: content.map.city, elements: elements }" />
+        <app-map class="flex-12/12" [content]="{ city: content.map.city, elements: elements }" />
       }
       @if (loading) {
         <div class="m-y flex justify-center items-center absolute">
-          <app-spinner
-            class="m-y"
-            [content]="{ color: 'primary', size: 40 }" />
+          <app-spinner class="m-y" [content]="{ color: 'primary', size: 40 }" />
         </div>
       }
     </div>
     @if (content.sidebarRight) {
-      <div
-        class="sidebar-right p-5 flex-[0_1_400px] md:flex-[0_1_600px] md:absolute">
+      <div class="sidebar-right p-5 flex-[0_1_400px] md:flex-[0_1_600px] md:absolute">
         @for (item of content.sidebarRight; track item) {
           <app-dynamic-component [inputs]="item" />
         }

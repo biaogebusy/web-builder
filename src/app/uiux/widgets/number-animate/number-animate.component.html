@@ -1,10 +1,6 @@
 <div class="animated-digit">
-  <span [contentedit]="'value'" [ngStyle]="content.style || null">
-    {{ content.value }}</span
-  >
+  <span [contentedit]="'value'" [ngStyle]="content.style || null"> {{ content.value }}</span>
   @if (content.label) {
-    <span [contentedit]="'label'" class="pl-3 suffix font-light">{{
-      content.label
-    }}</span>
+    <span [contentedit]="'label'" class="pl-3 suffix font-light">{{ content.label }}</span>
   }
 </div>

@@ -10,15 +10,14 @@
           <div class="list m-y-xs flex">
             @for (item of list; track item; let i = $index) {
               <div class="item flex-[0_1_100%]">
-                <span
-                  [contentedit]="'meta.' + i + '.label'"
-                  class="label m-right-xs"
+                <span [contentedit]="'meta.' + i + '.label'" class="label m-right-xs"
                   >{{ item.label }}:</span
                 >
                 <span
                   [contentedit]="'meta.' + i + '.value'"
                   class="value"
-                  [innerHTML]="item.value | safeHtml"></span>
+                  [innerHTML]="item.value | safeHtml"
+                ></span>
               </div>
             }
           </div>
@@ -27,9 +26,7 @@
     </div>
     <div class="bottom flex-12/12">
       @for (item of content.content; track item; let i = $index) {
-        <app-dynamic-component
-          [attr.data-path]="'content.' + i"
-          [inputs]="item" />
+        <app-dynamic-component [attr.data-path]="'content.' + i" [inputs]="item" />
       }
     </div>
   </div>

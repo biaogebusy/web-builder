@@ -1,13 +1,6 @@
 @if (content) {
   <div class="showcase-2v2 relative">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'" />
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
-    }
-    <div class="{{ content.fullWidth ? '' : 'container' }} flex flex-col">
+    <div class="flex flex-col">
       @if (content.text) {
         <app-text [attr.data-path]="'text'" [content]="content.text" />
       }
@@ -16,10 +9,10 @@
           <app-card
             [attr.data-path]="'elements.' + i"
             class="m-bottom-sm col-span-12 md:col-span-{{ content.row }}"
-            [content]="case" />
+            [content]="case"
+          />
         }
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

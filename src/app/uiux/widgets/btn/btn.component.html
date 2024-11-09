@@ -8,14 +8,14 @@
           [disabled]="content.disabled"
           mat-raised-button
           *ngIf="!content.href; else link"
-          [color]="content.color">
+          [color]="content.color"
+        >
           <app-icon
             class="mr-1"
             *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon" />
-          <span
-            contentedit="label"
-            [innerHTML]="content.label | safeHtml"></span>
+            [content]="content.icon"
+          />
+          <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
         </button>
         <ng-template #link>
           <a
@@ -26,14 +26,14 @@
             (click)="onNav($event, content)"
             [href]="content.href"
             [target]="content.target || ''"
-            [color]="content.color">
+            [color]="content.color"
+          >
             <app-icon
               class="mr-1"
               *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon" />
-            <span
-              contentedit="label"
-              [innerHTML]="content.label | safeHtml"></span>
+              [content]="content.icon"
+            />
+            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
           </a>
         </ng-template>
       </ng-container>
@@ -44,14 +44,14 @@
           [disabled]="content.disabled"
           mat-stroked-button
           *ngIf="!content.href; else link"
-          [color]="content.color">
+          [color]="content.color"
+        >
           <app-icon
             class="mr-1"
             *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon" />
-          <span
-            contentedit="label"
-            [innerHTML]="content.label | safeHtml"></span>
+            [content]="content.icon"
+          />
+          <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
         </button>
         <ng-template #link>
           <a
@@ -62,14 +62,14 @@
             (click)="onNav($event, content)"
             [href]="content.href"
             [target]="content.target || ''"
-            [color]="content.color">
+            [color]="content.color"
+          >
             <app-icon
               class="mr-1"
               *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon" />
-            <span
-              contentedit="label"
-              [innerHTML]="content.label | safeHtml"></span>
+              [content]="content.icon"
+            />
+            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
           </a>
         </ng-template>
       </ng-container>
@@ -80,14 +80,14 @@
           [disabled]="content.disabled"
           mat-flat-button
           *ngIf="!content.href; else link"
-          [color]="content.color">
+          [color]="content.color"
+        >
           <app-icon
             class="mr-1"
             *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon" />
-          <span
-            contentedit="label"
-            [innerHTML]="content.label | safeHtml"></span>
+            [content]="content.icon"
+          />
+          <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
         </button>
         <ng-template #link>
           <a
@@ -98,14 +98,14 @@
             (click)="onNav($event, content)"
             [href]="content.href"
             [target]="content.target || ''"
-            [color]="content.color">
+            [color]="content.color"
+          >
             <app-icon
               class="mr-1"
               *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon" />
-            <span
-              contentedit="label"
-              [innerHTML]="content.label | safeHtml"></span>
+              [content]="content.icon"
+            />
+            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
           </a>
         </ng-template>
       </ng-container>
@@ -115,11 +115,13 @@
           [ngClass]="content.classes || ''"
           [disabled]="content.disabled"
           mat-icon-button
-          [color]="content.color">
+          [color]="content.color"
+        >
           <app-icon
             class="mr-1"
             *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon" />
+            [content]="content.icon"
+          />
         </button>
         <ng-template #link>
           <a
@@ -129,11 +131,13 @@
             (click)="onNav($event, content)"
             [href]="content.href"
             [target]="content.target || ''"
-            [color]="content.color">
+            [color]="content.color"
+          >
             <app-icon
               class="mr-1"
               *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon" />
+              [content]="content.icon"
+            />
           </a>
         </ng-template>
       </ng-container>
@@ -143,7 +147,8 @@
           [ngClass]="content.classes || ''"
           [disabled]="content.disabled"
           mat-fab
-          [color]="content.color">
+          [color]="content.color"
+        >
           <app-icon [content]="content.icon" />
         </button>
       </ng-container>
@@ -153,7 +158,8 @@
           [ngClass]="content.classes || ''"
           [disabled]="content.disabled"
           mat-mini-fab
-          [color]="content.color">
+          [color]="content.color"
+        >
           <app-icon [content]="content.icon" />
         </button>
       </ng-container>
@@ -163,14 +169,14 @@
           [disabled]="content.disabled"
           mat-button
           *ngIf="!content.href; else link"
-          [color]="content.color">
+          [color]="content.color"
+        >
           <app-icon
             class="mr-1"
             *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon" />
-          <span
-            contentedit="label"
-            [innerHTML]="content.label | safeHtml"></span>
+            [content]="content.icon"
+          />
+          <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
         </button>
         <ng-template #link>
           <a
@@ -180,14 +186,14 @@
             (click)="onNav($event, content)"
             [href]="content.href"
             [target]="content.target || ''"
-            [color]="content.color">
+            [color]="content.color"
+          >
             <app-icon
               class="mr-1"
               *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon" />
-            <span
-              contentedit="label"
-              [innerHTML]="content.label | safeHtml"></span>
+              [content]="content.icon"
+            />
+            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
           </a>
         </ng-template>
       </ng-container>

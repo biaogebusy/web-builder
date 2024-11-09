@@ -1,27 +1,10 @@
 @if (content) {
   <div class="user-favorite relative">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
+    @if (content.text) {
+      <app-text [content]="content.text" />
     }
-    <app-spacer [size]="content.spacer || 'md'" />
-    @if (content.bg) {
-      <app-bg [content]="content.bg">
-        @if (content.bg?.img) {
-          <app-img [content]="content.bg.img" />
-        }
-      </app-bg>
+    @if (lists) {
+      <app-list-thin [pager]="pager" [content]="lists" [loading]="loading" />
     }
-    <div class="container">
-      @if (content.text) {
-        <app-text [content]="content.text" />
-      }
-      @if (lists) {
-        <app-list-thin
-          [pager]="pager"
-          [content]="lists"
-          [loading]="loading" />
-      }
-    </div>
-    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

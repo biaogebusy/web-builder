@@ -1,17 +1,9 @@
 <div class="hero-2-v2 relative p-y-xl">
-  <a class="anchor" [id]="content.id || ''"></a>
-  <app-spacer [size]="content.spacer || 'md'" />
-  @if (content.bg) {
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
-  }
-  <div class="{{ content.fullWidth ? 'relative' : 'container relative' }} flex">
+  <div class="relative flex">
     <div class="inner md:left-2/4 flex-12/12 md:flex-7/12 relative">
       <div class="box p-x">
-        <app-text
-          [attr.data-path]="'content'"
-          [content]="content.content" />
+        <app-text [attr.data-path]="'content'" [content]="content.content" />
       </div>
     </div>
   </div>
-  <app-spacer [size]="content.spacer || 'md'" />
 </div>

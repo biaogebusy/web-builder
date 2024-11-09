@@ -1,18 +1,10 @@
 @if (content) {
   <div class="relative">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'" />
     @if (content.title) {
       <app-title [content]="content.title" />
     }
     @if (content) {
-      <app-map
-        class="block m-top-md"
-        [ngStyle]="content.style"
-        [content]="content" />
+      <app-map class="block m-top-md" [ngStyle]="content.style" [content]="content" />
     }
-    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

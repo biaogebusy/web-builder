@@ -3,7 +3,8 @@
     class="mb-5"
     (change)="onChange($event)"
     name="switchChart"
-    aria-label="switch chart">
+    aria-label="switch chart"
+  >
     @for (item of data.toggle; track item) {
       <mat-button-toggle value="{{ item.value }}">
         @if (item.icon) {
@@ -19,4 +20,5 @@
   [options]="content"
   [theme]="theme"
   class="chart rounded-md p-5 box-border min-w-[400px] min-h-[400px]"
-  [ngStyle]="style"></div>
+  [ngStyle]="style"
+></div>

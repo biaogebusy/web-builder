@@ -1,16 +1,11 @@
 @if (coreConfig.github?.enable) {
   @if (repo$ | async; as repo) {
     <div class="github-star overflow-hidden flex justify-center items-center">
-      <a
-        class="item flex justify-center items-center gap-1"
-        [href]="repo.html_url"
-        target="_blank">
+      <a class="item flex justify-center items-center gap-1" [href]="repo.html_url" target="_blank">
         <app-icon [content]="{ svg: 'github', inline: true }" />
         <span>Star</span>
       </a>
-      <a class="item right" [href]="repo.html_url" target="_blank">{{
-        repo.stargazers_count
-      }}</a>
+      <a class="item right" [href]="repo.html_url" target="_blank">{{ repo.stargazers_count }}</a>
     </div>
   }
 }

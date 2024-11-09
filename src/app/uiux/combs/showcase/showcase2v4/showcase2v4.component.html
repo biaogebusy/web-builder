@@ -1,11 +1,4 @@
 <div class="showcase-2v4 relative">
-  @if (content.id) {
-    <a class="anchor" [id]="content.id"></a>
-  }
-  @if (content.bg) {
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
-  }
-  <app-spacer [size]="content.spacer || 'md'" />
   @if (content.text) {
     <app-text [attr.data-path]="'text'" [content]="content.text" />
   }
@@ -15,9 +8,9 @@
         <app-dynamic-component
           [attr.data-path]="'elements.' + i"
           class="item flex-12/12 md:flex-4/12"
-          [inputs]="item" />
+          [inputs]="item"
+        />
       }
     </div>
   </div>
-  <app-spacer [size]="content.spacer || 'md'" />
 </div>

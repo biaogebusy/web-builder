@@ -4,14 +4,10 @@
       <div class="key m-3">
         <mat-chip-listbox>
           @if (model.title) {
-            <mat-chip-option color="primary" selected
-              >{{ model.title }}
-            </mat-chip-option>
+            <mat-chip-option color="primary" selected>{{ model.title }} </mat-chip-option>
           }
           @if (model.keys) {
-            <mat-chip-option color="primary" selected
-              >{{ model.keys }}
-            </mat-chip-option>
+            <mat-chip-option color="primary" selected>{{ model.keys }} </mat-chip-option>
           }
         </mat-chip-listbox>
       </div>
@@ -27,7 +23,8 @@
         <mat-expansion-panel
           expanded="true"
           (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false">
+          (closed)="panelOpenState = false"
+        >
           <mat-expansion-panel-header>
             <mat-panel-title>
               <strong>{{ label.filter || '过滤条件' }}</strong>
@@ -37,7 +34,8 @@
             [form]="form"
             [fields]="content"
             [model]="model"
-            (modelChange)="onModelChange($event)" />
+            (modelChange)="onModelChange($event)"
+          />
         </mat-expansion-panel>
       </mat-accordion>
     </form>

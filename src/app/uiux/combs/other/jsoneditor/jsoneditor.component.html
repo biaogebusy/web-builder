@@ -8,11 +8,10 @@
     [matTooltip]="content.tooltip || ''"
     [options]="editorOptions"
     [data]="data"
-    (change)="onChange($event)" />
+    (change)="onChange($event)"
+  />
   @if (content.actions) {
-    <div
-      #actions
-      class="actions m-top pb-[10px] flex justify-center items-center">
+    <div #actions class="actions m-top pb-[10px] flex justify-center items-center">
       @for (action of content.actions; track action) {
         @switch (action.type) {
           @case ('closeDialog') {
@@ -20,7 +19,8 @@
               (click)="updateCurrentPage()"
               mat-raised-button
               mat-dialog-close
-              color="{{ action.color || 'primary' }}">
+              color="{{ action.color || 'primary' }}"
+            >
               {{ action.label }}
             </button>
           }
@@ -30,7 +30,8 @@
               (click)="onUpdateAttr(action)"
               mat-raised-button
               color="{{ action.color || 'primary' }}"
-              [disabled]="!value">
+              [disabled]="!value"
+            >
               {{ action.label }}
             </button>
           }

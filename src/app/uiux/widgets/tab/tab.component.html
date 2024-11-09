@@ -14,19 +14,19 @@
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="center"
-            [ngClass]="content.classes">
+            [ngClass]="content.classes"
+          >
             @for (item of content.elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
-                <div
-                  [attr.data-path]="i"
-                  class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
+                <div [attr.data-path]="i" class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
                   @if (content.bg) {
                     <app-bg-img [content]="content.bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
                     <app-dynamic-component
                       [attr.data-path]="'elements.' + i"
-                      [inputs]="{ content: item }" />
+                      [inputs]="{ content: item }"
+                    />
                   }
                 </div>
               </mat-tab>
@@ -38,19 +38,19 @@
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="end"
-            [ngClass]="content.classes">
+            [ngClass]="content.classes"
+          >
             @for (item of content.elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
-                <div
-                  [attr.data-path]="i"
-                  class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
+                <div [attr.data-path]="i" class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
                   @if (content.bg) {
                     <app-bg-img [content]="content.bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
                     <app-dynamic-component
                       [attr.data-path]="'elements.' + i"
-                      [inputs]="{ content: item }" />
+                      [inputs]="{ content: item }"
+                    />
                   }
                 </div>
               </mat-tab>
@@ -62,19 +62,19 @@
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="start"
-            [ngClass]="content.classes">
+            [ngClass]="content.classes"
+          >
             @for (item of content.elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
-                <div
-                  [attr.data-path]="i"
-                  class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
+                <div [attr.data-path]="i" class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
                   @if (content.bg) {
                     <app-bg-img [content]="content.bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
                     <app-dynamic-component
                       [attr.data-path]="'elements.' + i"
-                      [inputs]="{ content: item }" />
+                      [inputs]="{ content: item }"
+                    />
                   }
                 </div>
               </mat-tab>

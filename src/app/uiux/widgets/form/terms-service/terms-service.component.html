@@ -1,11 +1,9 @@
 <section class="flex justify-start items-center" [formGroup]="form">
-  <mat-checkbox
-    class="mr-3"
-    formControlName="{{ content.key }}"
-    [(ngModel)]="content.value" />
+  <mat-checkbox class="mr-3" formControlName="{{ content.key }}" [(ngModel)]="content.value" />
   <a
     (click)="openTermService(content?.params)"
     href="javascript:void(0)"
     class="flex justify-between items-center line-height-1"
-    [innerHTML]="content.label | safeHtml"></a>
+    [innerHTML]="content.label | safeHtml"
+  ></a>
 </section>

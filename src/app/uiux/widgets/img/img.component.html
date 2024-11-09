@@ -8,7 +8,8 @@
         [ngSrc]="content.src || coreConfig.defaultThumb"
         [alt]="content.alt || ''"
         [width]="content.width || 400"
-        [height]="content.height || 300" />
+        [height]="content.height || 300"
+      />
     } @else {
       <a href="{{ content.href }}" target="{{ content.target }}">
         <img
@@ -18,7 +19,8 @@
           [ngStyle]="content.style"
           [alt]="content.alt || ''"
           [width]="content.width || 400"
-          [height]="content.height || 300" />
+          [height]="content.height || 300"
+        />
       </a>
     }
     @if (content.actions) {
@@ -28,7 +30,8 @@
             [inputs]="{
               content: action,
               disableToolbar: true,
-            }" />
+            }"
+          />
         }
       </div>
     }

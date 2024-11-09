@@ -1,21 +1,15 @@
 @if (content) {
   <div class="node-summary flex flex-wrap">
-    <div
-      class="left flex flex-col justify-center items-center flex-12/12 md:flex-4/12">
+    <div class="left flex flex-col justify-center items-center flex-12/12 md:flex-4/12">
       @for (item of content.left; track item) {
-        <app-dynamic-component
-          [inputs]="{ content: item }" />
+        <app-dynamic-component [inputs]="{ content: item }" />
       }
     </div>
     <div class="middle flex-12/12 md:flex-4/12">
-      <app-summary-item
-        class="block p-x-sm p-y-sm"
-        [content]="content.middle" />
+      <app-summary-item class="block p-x-sm p-y-sm" [content]="content.middle" />
     </div>
     <div class="right middle flex-12/12 md:flex-4/12">
-      <app-summary-item
-        class="block p-x-sm p-y-sm"
-        [content]="content.right" />
+      <app-summary-item class="block p-x-sm p-y-sm" [content]="content.right" />
     </div>
   </div>
 }

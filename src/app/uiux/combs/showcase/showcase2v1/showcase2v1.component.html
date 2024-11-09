@@ -1,13 +1,6 @@
 @if (content) {
   <div class="showcase-2v1">
-    @if (content.bg) {
-      <app-bg-img [content]="content.bg" />
-    }
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'" />
-    <div class="{{ content.fullWidth ? '' : 'container' }} flex flex-col">
+    <div class="flex flex-col">
       @if (content.text) {
         <app-text [attr.data-path]="'text'" [content]="content.text" />
       }
@@ -15,13 +8,11 @@
         @for (item of elements; track item; let i = $index) {
           <app-dynamic-component
             [attr.data-path]="'elements.' + i"
-            class="m-bottom-sm col-span-12 sm:col-span-6 md:col-span-{{
-              content.row
-            }}"
-            [inputs]="item" />
+            class="m-bottom-sm col-span-12 sm:col-span-6 md:col-span-{{ content.row }}"
+            [inputs]="item"
+          />
         }
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

@@ -1,21 +1,9 @@
 @if (content) {
-  <div class="carousel-1-v3 relative" [ngClass]="content.classes">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
+  <div class="carousel-1-v3" [ngClass]="content.classes">
+    @if (content.text) {
+      <app-text [attr.data-path]="'text'" [content]="content.text" />
     }
-    <app-spacer [size]="content.spacer || 'md'" />
-    @if (content.bg) {
-      <app-bg-img [content]="content.bg" />
-    }
-    <div class="{{ content.fullWidth ? '' : 'container' }}">
-      @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text" />
-      }
-      <app-spacer [size]="'sm'" />
-      <app-swiper
-        [attr.data-path]="'sliders'"
-        [content]="content.sliders" />
-    </div>
-    <app-spacer [size]="content.spacer || 'md'" />
+    <app-spacer [size]="'sm'" />
+    <app-swiper [attr.data-path]="'sliders'" [content]="content.sliders" />
   </div>
 }

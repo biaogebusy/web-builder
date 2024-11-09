@@ -2,9 +2,7 @@
   <div class="search-header relative bg-shadow p-y-xl">
     @if (content.bg) {
       <app-bg [content]="content.bg">
-        <app-img
-          [attr.data-path]="'bg.img'"
-          [content]="content.bg.img" />
+        <app-img [attr.data-path]="'bg.img'" [content]="content.bg.img" />
       </app-bg>
     }
     <div class="container relative">
@@ -23,7 +21,8 @@
                     type="search"
                     size="15"
                     maxlength="128"
-                    class="form-search" />
+                    class="form-search"
+                  />
                 }
               }
             }

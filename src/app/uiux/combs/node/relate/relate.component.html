@@ -1,22 +1,15 @@
 @if (content) {
   <div class="relate relative">
-    @if (content.bg) {
-      <app-bg [content]="content.bg" />
-    }
-    <div class="container">
-      <div class="head m-y-md flex justify-between items-center">
-        @if (content.title) {
-          <app-title [content]="content.title" />
-        }
-        @for (action of content.actions; track action) {
-          <app-dynamic-component
-            [inputs]="{ content: action }" />
-        }
-      </div>
-      <app-summary [content]="content.summary" />
-      <app-spacer [size]="'md'" />
-      <app-relate-showcase [content]="content.showcase" />
+    <div class="head m-y-md flex justify-between items-center">
+      @if (content.title) {
+        <app-title [content]="content.title" />
+      }
+      @for (action of content.actions; track action) {
+        <app-dynamic-component [inputs]="{ content: action }" />
+      }
     </div>
-    <app-spacer [size]="content.spacer || 'md'" />
+    <app-summary [content]="content.summary" />
+    <app-spacer [size]="'md'" />
+    <app-relate-showcase [content]="content.showcase" />
   </div>
 }

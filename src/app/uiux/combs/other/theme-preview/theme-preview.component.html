@@ -8,7 +8,8 @@
         @for (color of content.bgColors.lists; track color) {
           <div
             class="box col-span-4 md:col-span-{{ content.bgColors.row }}"
-            [ngClass]="color.classes">
+            [ngClass]="color.classes"
+          >
             <div class="label">{{ color.label }}</div>
           </div>
         }
@@ -16,20 +17,15 @@
       <mat-divider class="m-y-lg" />
       <div class="row grid grid-cols-12 gap-5">
         @for (item of content.row; track item) {
-          <app-dynamic-component
-            class="item col-span-12 sm:col-span-4"
-            [inputs]="item" />
+          <app-dynamic-component class="item col-span-12 sm:col-span-4" [inputs]="item" />
         }
       </div>
       <div class="columns">
         <div class="wrapper grid grid-cols-12 gap-5">
           @for (column of content.columns; track column) {
-            <div
-              class="item flex flex-col col-span-12 sm:col-span-4 overflow-hidden">
+            <div class="item flex flex-col col-span-12 sm:col-span-4 overflow-hidden">
               @for (item of column; track item) {
-                <app-dynamic-component
-                  class="box"
-                  [inputs]="item" />
+                <app-dynamic-component class="box" [inputs]="item" />
               }
             </div>
           }

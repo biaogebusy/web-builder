@@ -1,17 +1,5 @@
 @if (content) {
-  <div class="hero-1-v1 relative" [ngClass]="content.classes">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'" />
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
-    }
-    <div class="{{ content.fullWidth ? '' : 'container' }}">
-      <app-swiper
-        [attr.data-path]="'sliders'"
-        [content]="content.sliders" />
-    </div>
-    <app-spacer [size]="content.spacer || 'md'" />
+  <div class="hero-1-v1" [ngClass]="content.classes">
+    <app-swiper [attr.data-path]="'sliders'" [content]="content.sliders" />
   </div>
 }

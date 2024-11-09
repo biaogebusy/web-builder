@@ -17,14 +17,14 @@
       [innerHTML]="content.label | safeHtml"
       title="{{ content.label }}"
       rel="noopener"
-      (click)="nav($event)"></a>
+      (click)="nav($event)"
+    ></a>
 
     <!-- relative link /node/1 -->
     <ng-template #relative>
       <ng-container *ngIf="content.href; else void">
         <!-- drawer -->
-        <ng-container
-          *ngIf="content.rel && content.rel === 'drawer'; else default">
+        <ng-container *ngIf="content.rel && content.rel === 'drawer'; else default">
           <div *ngTemplateOutlet="action; context: { link: content }"></div>
         </ng-container>
         <!-- router link -->
@@ -42,7 +42,8 @@
             [ngClass]="classes"
             [innerHTML]="content.label | safeHtml"
             [title]="content.label"
-            (click)="nav($event)">
+            (click)="nav($event)"
+          >
           </a>
         </ng-template>
       </ng-container>
@@ -65,5 +66,6 @@
     title="{{ link.label }}"
     rel="{{ link.rel }}"
     [attr.data-href]="link.href"
-    (click)="nav($event)"></a>
+    (click)="nav($event)"
+  ></a>
 </ng-template>

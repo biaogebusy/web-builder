@@ -1,25 +1,23 @@
 @if (showToolbar) {
-  <app-component-toolbar
-    #toolbar
-    [content]="inputs"
-    [isPreview]="isPreview"
-    [index]="index" />
+  <app-component-toolbar #toolbar [content]="inputs" [isPreview]="isPreview" [index]="index" />
 }
-@let content = component?.instance?.content;
-@if (content?.id) {
-  <a class="anchor" [id]="content.id"></a>
-}
-@if (content?.spacer) {
-  <app-spacer [size]="content.spacer || 'md'" />
-}
-@if (content?.bg) {
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
-}
+<div class="relative overflow-hidden">
+  @let content = component?.instance?.content;
+  @if (content?.id) {
+    <a class="anchor" [id]="content.id"></a>
+  }
+  @if (content?.spacer) {
+    <app-spacer [size]="content.spacer || 'md'" />
+  }
+  @if (content?.bg) {
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
+  }
 
-<div class="{{ content?.fullWidth ? '' : 'container' }}">
-  <ng-template #componentContainer />
+  <div class="{{ content?.fullWidth ? '' : 'container' }}">
+    <ng-template #componentContainer />
+  </div>
+
+  @if (content?.spacer) {
+    <app-spacer [size]="content.spacer || 'md'" />
+  }
 </div>
-
-@if (content?.spacer) {
-  <app-spacer [size]="content.spacer || 'md'" />
-}

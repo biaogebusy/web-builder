@@ -9,15 +9,11 @@
       @for (item of content; track trackByFn(i, item); let i = $index) {
         <app-showcase-3v3 [attr.data-path]="i" [content]="item" />
       }
-      <app-pagination-links
-        (pageChange)="onPageChange($event)"
-        [links]="links" />
+      <app-pagination-links (pageChange)="onPageChange($event)" [links]="links" />
     }
     @if (pager) {
       @for (
-        item of content
-          | paginate
-            : { itemsPerPage: pager.itemsPerPage || 20, currentPage: p };
+        item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p };
         track trackByFn(i, item);
         let i = $index
       ) {

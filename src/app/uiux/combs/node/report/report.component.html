@@ -1,13 +1,13 @@
 <div class="report" [ngStyle]="content.style">
   <div class="container">
     <app-header-meta [content]="content.header" />
-    <div
-      class="box filter p-x-sm p-y-sm m-bottom-sm flex flex-wrap justify-between items-center">
+    <div class="box filter p-x-sm p-y-sm m-bottom-sm flex flex-wrap justify-between items-center">
       <app-formly
         [form]="form"
         [model]="model"
         [fields]="content.form"
-        (modelChange)="onModelChange($event)" />
+        (modelChange)="onModelChange($event)"
+      />
       <div class="actions">
         <button mat-raised-button color="primary" (click)="clear()">
           <mat-icon>clear</mat-icon>重置
@@ -15,10 +15,10 @@
       </div>
     </div>
     <div
-      class="box details p-x-sm p-y-sm relative grid grid-cols-12 justify-between items-start gap-5">
+      class="box details p-x-sm p-y-sm relative grid grid-cols-12 justify-between items-start gap-5"
+    >
       @if (loading) {
-        <div
-          class="loading-inner absolute w-full h-full justify-center items-center">
+        <div class="loading-inner absolute w-full h-full justify-center items-center">
           <mat-spinner diameter="50" />
         </div>
       }
@@ -26,7 +26,8 @@
         @for (item of box; track item) {
           <app-dynamic-component
             class="item block m-bottom col-span-12 md:col-span-6"
-            [inputs]="{ content: item.content }" />
+            [inputs]="{ content: item.content }"
+          />
         }
       }
     </div>

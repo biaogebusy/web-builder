@@ -5,7 +5,8 @@
       contentedit="label"
       class="title-header {{ content.style === 'none' ? '!mb-0' : '' }}"
       [ngClass]="content.classes || 'mat-h2'"
-      [innerHTML]="content.label | safeHtml"></h2>
+      [innerHTML]="content.label | safeHtml"
+    ></h2>
     <div class="line-style" [class.m-top-sm]="content.icon">
       @if (content.icon && content.style) {
         <mat-icon>{{ content.icon }}</mat-icon>

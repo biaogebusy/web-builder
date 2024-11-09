@@ -22,15 +22,11 @@
       }
       <mat-accordion multi [attr.data-path]="'elements'">
         @for (item of content.elements; track item; let i = $index) {
-          <mat-expansion-panel
-            [attr.data-path]="i"
-            [expanded]="item?.params?.expanded">
+          <mat-expansion-panel [attr.data-path]="i" [expanded]="item?.params?.expanded">
             <mat-expansion-panel-header>
               @if (item.title) {
                 <mat-panel-title>
-                  <span
-                    contentedit="title"
-                    [innerHTML]="item.title | safeHtml"></span>
+                  <span contentedit="title" [innerHTML]="item.title | safeHtml"></span>
                 </mat-panel-title>
               }
               @if (item.description) {
@@ -45,7 +41,8 @@
             @for (item of item.elements; track item; let i = $index) {
               <app-dynamic-component
                 [attr.data-path]="'elements.' + i"
-                [inputs]="{ content: item }" />
+                [inputs]="{ content: item }"
+              />
             }
           </mat-expansion-panel>
         }

@@ -13,25 +13,20 @@
     <div class="box-content-wrapper">
       @if (content.title.label) {
         <h3 class="box-title one-line">
-          <app-link
-            [attr.data-path]="'title'"
-            [content]="content.title" />
+          <app-link [attr.data-path]="'title'" [content]="content.title" />
         </h3>
       }
       @if (content.content) {
         <div
           contentedit="content"
           class="box-content"
-          [innerHTML]="content.content | safeHtml"></div>
+          [innerHTML]="content.content | safeHtml"
+        ></div>
       }
       @if (content.more) {
         <div class="read-more">
-          <a
-            href="{{ content.more.href }}"
-            target="{{ content.more.target || '_blank' }}"
-            ><span
-              contentedit="more.label"
-              [innerHTML]="content.more.label | safeHtml"></span
+          <a href="{{ content.more.href }}" target="{{ content.more.target || '_blank' }}"
+            ><span contentedit="more.label" [innerHTML]="content.more.label | safeHtml"></span
           ></a>
         </div>
       }

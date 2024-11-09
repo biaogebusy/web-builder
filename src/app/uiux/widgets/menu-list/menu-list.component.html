@@ -17,9 +17,7 @@
           </div>
         }
         @if (initList && initList.length > row) {
-          <div
-            class="action py-5 flex justify-center items-center"
-            (click)="onExpand()">
+          <div class="action py-5 flex justify-center items-center" (click)="onExpand()">
             @if (expand) {
               <button mat-icon-button>
                 <mat-icon>expand_less</mat-icon>

@@ -2,9 +2,7 @@
   <div class="inner flex flex-col justify-center items-start">
     <app-media-object class="w-full" [content]="profile" />
     @if (count) {
-      <app-user-card-count
-        class="w-full my-5"
-        [content]="count" />
+      <app-user-card-count class="w-full my-5" [content]="count" />
     }
     @if (user.login) {
       <div class="time text-xs mt-3">
@@ -12,9 +10,7 @@
       </div>
     }
     @for (item of content.content; track item) {
-      <app-dynamic-component
-        class="w-full mt-5"
-        [inputs]="item" />
+      <app-dynamic-component class="w-full mt-5" [inputs]="item" />
     }
     @if (content.menu) {
       <div class="menus absolute">

@@ -9,7 +9,8 @@
           [modules]="modules"
           [placeholder]="content.editor?.placeholder || placeholder"
           [(ngModel)]="commentContent"
-          [styles]="{ height: content.editor?.height || '250px' }" />
+          [styles]="{ height: content.editor?.height || '250px' }"
+        />
       }
     </div>
     <div class="actions p-y-sm p-x-sm">
@@ -17,14 +18,13 @@
         (click)="onSubmit(commentContent)"
         mat-raised-button
         color="primary"
-        [disabled]="!commentContent">
+        [disabled]="!commentContent"
+      >
         <div class="flex justify-center items-center">
           @if (loading) {
             <mat-spinner diameter="14" />
           }
-          <span class="px-3">{{
-            content.editor?.action?.label || '提交'
-          }}</span>
+          <span class="px-3">{{ content.editor?.action?.label || '提交' }}</span>
         </div>
       </button>
       <button class="ml-3" (click)="onCancel()" mat-button>取消</button>

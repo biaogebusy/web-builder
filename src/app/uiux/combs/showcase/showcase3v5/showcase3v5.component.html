@@ -1,37 +1,21 @@
 @if (content) {
   <div class="showcase-3-v5 relative">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'" />
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
-    }
     @if (content) {
-      <div class="{{ content.fullWidth ? '' : 'container' }}">
-        <app-text
-          [attr.data-path]="'title'"
-          [content]="content.title" />
-        <div
-          class="showcase-inner flex flex-col md:flex-row justify-center items-center">
-          <div class="flex flex-wrap flex-12/12 md:flex-8/12">
-            @for (item of content.elements; track item; let i = $index) {
-              <app-box
-                [attr.data-path]="'elements.' + i"
-                class="flex flex-12/12 md:flex-6/12"
-                [content]="item" />
-            }
-          </div>
-          <div
-            class="flex flex-col justify-center items-center flex-12/12 md:flex-4/12">
-            <app-img
-              [attr.data-path]="'img'"
-              class="p-x-sm max-w-1/2"
-              [content]="content.img" />
-          </div>
+      <app-text [attr.data-path]="'title'" [content]="content.title" />
+      <div class="showcase-inner flex flex-col md:flex-row justify-center items-center">
+        <div class="flex flex-wrap flex-12/12 md:flex-8/12">
+          @for (item of content.elements; track item; let i = $index) {
+            <app-box
+              [attr.data-path]="'elements.' + i"
+              class="flex flex-12/12 md:flex-6/12"
+              [content]="item"
+            />
+          }
+        </div>
+        <div class="flex flex-col justify-center items-center flex-12/12 md:flex-4/12">
+          <app-img [attr.data-path]="'img'" class="p-x-sm max-w-1/2" [content]="content.img" />
         </div>
       </div>
     }
-    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

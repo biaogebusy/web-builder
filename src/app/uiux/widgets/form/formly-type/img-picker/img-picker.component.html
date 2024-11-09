@@ -10,9 +10,7 @@
   }
   <div class="actions my-3 flex justify-center items-center gap-3">
     @if (formControl.value) {
-      <app-btn
-        (click)="remove()"
-        [content]="{ label: to.deleteLabel, color: 'warn' }" />
+      <app-btn (click)="remove()" [content]="{ label: to.deleteLabel, color: 'warn' }" />
     }
     <app-btn
       (click)="openMedias()"
@@ -20,6 +18,7 @@
         label: formControl.value ? to.updateLabel : to.addLabel,
         color: to.color || 'primary',
         mode: to.mode || 'stroked',
-      }" />
+      }"
+    />
   </div>
 </div>

@@ -1,17 +1,10 @@
-@for (
-  item of comments;
-  track trackByFn(i, item);
-  let i = $index;
-  let isLast = $last
-) {
+@for (item of comments; track trackByFn(i, item); let i = $index; let isLast = $last) {
   <div class="item p-y-sm p-x-sm">
     <a class="anchor" [id]="'q-' + item.id"></a>
     <div class="comment-box">
       <app-media-object [content]="item.author" />
       @if (onShow(item)) {
-        <div
-          class="comment-body m-top-xs"
-          [innerHTML]="item.content | safeHtml"></div>
+        <div class="comment-body m-top-xs" [innerHTML]="item.content | safeHtml"></div>
         @if (content.comment) {
           @if (showActions && item.level === 1) {
             <app-comment-actions
@@ -22,7 +15,8 @@
               [loading]="loading"
               (update)="onUpdate($event)"
               (delete)="onDelete($event)"
-              (reply)="onReply($event)" />
+              (reply)="onReply($event)"
+            />
           }
         }
       }
@@ -34,14 +28,13 @@
           (cancel)="onCancel()"
           [commentContent]="currentData"
           [commentId]="item.id"
-          [type]="type" />
+          [type]="type"
+        />
       </div>
     }
     @if (item?.child && item?.child?.length) {
       <div class="item-child m-y-xs">
-        <app-comment-item
-          [comments]="item.child"
-          [content]="content" />
+        <app-comment-item [comments]="item.child" [content]="content" />
       </div>
     }
   </div>

@@ -6,10 +6,7 @@
           <mat-list class="no-child" checkChildMenuActive>
             <mat-list-item>
               @if (item.icon) {
-                <app-icon
-                  matListItemIcon
-                  class="!mr-3"
-                  [content]="item.icon" />
+                <app-icon matListItemIcon class="!mr-3" [content]="item.icon" />
               }
               <app-link [content]="item" />
             </mat-list-item>
@@ -20,7 +17,8 @@
             checkChildMenuActive
             [expanded]="item.expanded"
             (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false">
+            (closed)="panelOpenState = false"
+          >
             <mat-expansion-panel-header>
               @if (!item.href) {
                 <mat-panel-title [ngClass]="item.classes || ''">
@@ -34,9 +32,7 @@
                 @if (item.icon) {
                   <app-icon class="!mr-3" [content]="item.icon" />
                 }
-                <app-link
-                  [ngClass]="item.classes || ''"
-                  [content]="item" />
+                <app-link [ngClass]="item.classes || ''" [content]="item" />
               }
             </mat-expansion-panel-header>
             <app-accordion [content]="item.child" />

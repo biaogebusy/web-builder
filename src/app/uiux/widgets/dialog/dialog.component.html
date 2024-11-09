@@ -2,26 +2,23 @@
   <app-btn
     class="absolute right-0 top-[-66px] dialog-colse-outside-btn"
     [content]="{ icon: { svg: 'close' }, mode: 'icon', color: 'primary' }"
-    mat-dialog-close="true" />
+    mat-dialog-close="true"
+  />
   @if (data.title) {
     <h2 mat-dialog-title>{{ data.title }}</h2>
   }
   <mat-dialog-content>
     @if (data.inputData | isArray) {
       @for (widget of data.inputData; track widget) {
-        <app-dynamic-component
-          [inputs]="{ content: widget }" />
+        <app-dynamic-component [inputs]="{ content: widget }" />
       }
     } @else {
-      <app-dynamic-component
-        [inputs]="{ content: data.inputData.content }" />
+      <app-dynamic-component [inputs]="{ content: data.inputData.content }" />
     }
   </mat-dialog-content>
   @if (!data.disableCloseButton) {
     <div class="flex !justify-center !items-center" mat-dialog-actions>
-      <button mat-raised-button color="primary" [mat-dialog-close]="true">
-        关闭
-      </button>
+      <button mat-raised-button color="primary" [mat-dialog-close]="true">关闭</button>
     </div>
   }
 </div>
