@@ -7,7 +7,7 @@
     <a class="anchor" [id]="content.id"></a>
   }
   @if (content?.spacer) {
-    <app-spacer [size]="content.spacer || 'md'" />
+    <app-spacer [size]="content.spacer" />
   }
   @if (content?.bg) {
     <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
@@ -18,6 +18,6 @@
   </div>
 
   @if (content?.spacer) {
-    <app-spacer [size]="content.spacer || 'md'" />
+    <app-spacer [size]="content.spacer" />
   }
 </div>

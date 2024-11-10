@@ -16,11 +16,7 @@ import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
-import {
-  BUILDER_CURRENT_PAGE,
-  COLOR_TEST,
-  DEBUG_ANIMATE,
-} from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE, COLOR_TEST, DEBUG_ANIMATE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -47,17 +43,13 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.debugAnimate$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        this.builder.renderMarkers(state);
-      });
-    this.currentPage$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(page => {
-        this.page = page;
-        this.cd.detectChanges();
-      });
+    this.debugAnimate$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+      this.builder.renderMarkers(state);
+    });
+    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+      this.page = page;
+      this.cd.detectChanges();
+    });
   }
 
   onPageJson(): void {
@@ -73,6 +65,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
           isPreview: true,
           data: this.page,
           isPage: true,
+          classes: 'full-height',
         },
       ],
     });
@@ -103,12 +96,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
       this.builderService.openPageSetting(
         { uuid, langcode },
         '/api/v1/node/landing_page',
-        this.builderService.getPageParams([
-          'uid',
-          'group',
-          'cover',
-          'cover.field_media_image',
-        ])
+        this.builderService.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
       );
     }
   }

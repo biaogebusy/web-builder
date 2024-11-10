@@ -1,6 +1,7 @@
 export interface IJsoneditor {
   type: string;
   data: any;
+  classes?: any;
   actions?: any[];
   actionsAlign?: string;
   tooltip?: string;

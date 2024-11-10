@@ -12,7 +12,8 @@
     }
   }
 }
-:host-context(.preview-container) {
+:host-context(.preview-container),
+.full-height {
   ::ng-deep json-editor,
   ::ng-deep json-editor .jsoneditor,
   ::ng-deep json-editor > div,
