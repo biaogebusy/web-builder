@@ -1,5 +1,5 @@
 import { DOCUMENT, formatDate } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -10,14 +10,11 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class UtilitiesService {
-  constructor(
-    private clipboard: Clipboard,
-    private snackbar: MatSnackBar,
-    private screenService: ScreenService,
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
-  ) {}
-
+  private clipboard = inject(Clipboard)
+  private snackbar = inject(MatSnackBar)
+  private screenService = inject(ScreenService)
+  private document = inject(DOCUMENT)
+  private coreConfig = inject(CORE_CONFIG)
   getIndexTitle(title: string): string {
     return title.substring(0, 1);
   }

@@ -65,7 +65,7 @@
 </p>
 
 <p align="center">
-  <img style="border-radius:10px" src="src/assets/images/mini/xinshi-mini.png" alt="logo" width="80%"/>
+  <img style="border-radius:10px" src="src/assets/images/mini/xinshi-mini.png" alt="logo" width="70%"/>
 </p>
 
 ## 相关视频演示
@@ -76,6 +76,11 @@
 - [复制功能快速构建组件](https://www.bilibili.com/video/BV1nF4m1w7cs/)
 - [多语言发布及媒体库管理](https://www.bilibili.com/video/BV1XohfeoEtz/)
 - [自定义示例和模板库](https://www.bilibili.com/video/BV1wExPeBEdn)
+
+<p>
+  <img style="border-radius:10px" src="src/assets/images/mini/wechat-video.jpg" alt="logo" width="160px"/>
+  <p>微信扫码查看更多视频</p>
+</p>
 
 ## 对应版本
 
