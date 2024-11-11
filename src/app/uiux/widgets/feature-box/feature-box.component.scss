@@ -1,7 +1,7 @@
-@import "/src/theme/mixins/amixin";
+@import '/src/theme/mixins/amixin';
 .feature-cover {
   &:before {
-    content: "";
+    content: '';
     height: 16px;
     left: 10px;
     position: absolute;
@@ -12,7 +12,7 @@
     @include transition(all, 0.4s, ease);
   }
   &:after {
-    content: "";
+    content: '';
     height: 1px;
     left: 10px;
     position: absolute;
@@ -23,7 +23,7 @@
   }
   .feature-inner {
     &:before {
-      content: "";
+      content: '';
       height: 16px;
       right: 10px;
       position: absolute;
@@ -34,7 +34,7 @@
       @include transition(all, 0.4s, ease);
     }
     &:after {
-      content: "";
+      content: '';
       height: 1px;
       right: 10px;
       position: absolute;
@@ -73,7 +73,7 @@
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     &:before {
-      content: "";
+      content: '';
       height: 100%;
       left: -15%;
       position: absolute;
@@ -87,7 +87,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      content: "";
+      content: '';
       opacity: 0;
       @include transition(all, 0.4s, ease);
     }
@@ -126,7 +126,7 @@
       > a {
         @include scale(1);
         @include transition(all, 0.4s, ease);
-        &:not([class*="download"]):hover {
+        &:not([class*='download']):hover {
           z-index: 1;
           @include transform(45deg, 1.2, 0, 0);
           @include transition(all, 0.4s, ease);

@@ -1,5 +1,5 @@
-@use "sass:math";
-@import "/src/theme/variable/variable";
+@use 'sass:math';
+@import '/src/theme/variable/variable';
 :host ::ng-deep {
   .amap-marker-content {
     line-height: 1;
@@ -67,7 +67,7 @@
         &:after {
           bottom: 1px;
           margin-left: -10px;
-          content: " ";
+          content: ' ';
           border-bottom-width: 0;
         }
       }
@@ -86,7 +86,7 @@
     .media-body {
       width: 100%;
 
-      div[class^="mat-h"] {
+      div[class^='mat-h'] {
         line-height: 1;
       }
 
@@ -122,7 +122,7 @@
     position: relative;
 
     &:after {
-      content: "";
+      content: '';
       display: block;
       width: 13px;
       height: 13px;

@@ -3,48 +3,51 @@
     @if (content.id) {
       <a class="anchor" [id]="content.id"></a>
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
+    <app-spacer [size]="content.spacer || 'md'" />
+    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
     <div class="container">
       @if (content?.params?.enableActions) {
         <div class="actions flex justify-end items-center my-3">
           @if (!isAll) {
-            <button mat-button
-            (click)="accordion.openAll(); isAll =!isAll">{{content.params?.actions?.openAll||'全部展开'}}</button>
+            <button mat-button (click)="accordion.openAll(); isAll = !isAll">
+              {{ content.params?.actions?.openAll || '全部展开' }}
+            </button>
           }
           @if (isAll) {
-            <button mat-button
-            (click)="accordion.closeAll(); isAll =!isAll">{{content.params?.actions?.closeAll||'全部收起'}}</button>
+            <button mat-button (click)="accordion.closeAll(); isAll = !isAll">
+              {{ content.params?.actions?.closeAll || '全部收起' }}
+            </button>
           }
         </div>
       }
       <mat-accordion multi [attr.data-path]="'elements'">
         @for (item of content.elements; track item; let i = $index) {
-          <mat-expansion-panel [attr.data-path]="i" [expanded]="item?.params?.expanded"
-            >
+          <mat-expansion-panel [attr.data-path]="i" [expanded]="item?.params?.expanded">
             <mat-expansion-panel-header>
               @if (item.title) {
                 <mat-panel-title>
-                  <span contentedit="title" [innerHTML]="item.title|safeHtml"></span>
+                  <span contentedit="title" [innerHTML]="item.title | safeHtml"></span>
                 </mat-panel-title>
               }
               @if (item.description) {
                 <mat-panel-description contentedit="description">
-                  {{item.description}}
+                  {{ item.description }}
                   @if (item.icon) {
-                    <mat-icon>{{item.icon}}</mat-icon>
+                    <mat-icon>{{ item.icon }}</mat-icon>
                   }
                 </mat-panel-description>
               }
             </mat-expansion-panel-header>
             @for (item of item.elements; track item; let i = $index) {
-              <app-dynamic-component [attr.data-path]="'elements.'+i"
-              [inputs]="{content:item}"></app-dynamic-component>
+              <app-dynamic-component
+                [attr.data-path]="'elements.' + i"
+                [inputs]="{ content: item }"
+              />
             }
           </mat-expansion-panel>
         }
       </mat-accordion>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }

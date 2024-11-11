@@ -1,15 +1,15 @@
 <div class="dropdown-menu">
-  <app-btn [content]="content.btn" [matMenuTriggerFor]="menu"></app-btn>
+  <app-btn [content]="content.btn" [matMenuTriggerFor]="menu" />
   <mat-menu #menu="matMenu">
     @for (item of content.child; track item) {
       <button mat-menu-item>
         @if (item.icon) {
-          <app-icon [content]="item.icon"></app-icon>
+          <app-icon [content]="item.icon" />
         }
         @if (item.type) {
-          <app-dynamic-component [inputs]="item"></app-dynamic-component>
+          <app-dynamic-component [inputs]="item" />
         } @else {
-          <app-link [content]="item"></app-link>
+          <app-link [content]="item" />
         }
       </button>
     }

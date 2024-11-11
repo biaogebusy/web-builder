@@ -50,12 +50,12 @@ export class DynamicCardList1v1Component
     this.nodeService
       .fetch(this.getParams(this.content, 'type'), params)
       .subscribe(
-        (data) => {
+        data => {
           this.updateList(data);
           this.loading = false;
           this.cd.detectChanges();
         },
-        (error) => {
+        error => {
           console.log(error);
           this.loading = false;
           this.cd.detectChanges();

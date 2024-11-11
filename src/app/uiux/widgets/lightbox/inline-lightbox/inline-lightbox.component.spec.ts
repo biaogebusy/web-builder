@@ -8,9 +8,8 @@ describe('InlineLightboxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InlineLightboxComponent ]
-    })
-    .compileComponents();
+      declarations: [InlineLightboxComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

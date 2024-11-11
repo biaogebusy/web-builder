@@ -1,20 +1,5 @@
-<div
-  class="video relative"
-  [class]="content.options.mode ? content.options.mode : ''"
->
-  @if (content.id) {
-    <a class="anchor" [id]="content.id"></a>
-  }
-  @if (content.spacer) {
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  }
-  @if (content.bg) {
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  }
-  <div
-    class="{{ content.fullWidth ? '' : 'container' }}"
-    [class]="content.classes"
-  >
+<div class="video relative" [class]="content.options.mode ? content.options.mode : ''">
+  <div class="{{ content.fullWidth ? '' : 'container' }}" [class]="content.classes">
     <video
       #target
       class="video-js vjs-big-play-centered"
@@ -23,7 +8,4 @@
       preload="none"
     ></video>
   </div>
-  @if (content.spacer) {
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  }
 </div>

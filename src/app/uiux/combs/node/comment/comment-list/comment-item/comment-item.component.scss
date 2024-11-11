@@ -1,7 +1,7 @@
-@import "../../../../../../../theme/variable/breakpoint";
+@import '../../../../../../../theme/variable/breakpoint';
 .item {
   &:after {
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     position: relative;

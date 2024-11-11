@@ -3,38 +3,26 @@
   [ngClass]="content.classes"
 >
   @if (content.feature) {
-    <app-feature-box
-      [attr.data-path]="'feature'"
-      [content]="content.feature"
-    ></app-feature-box>
+    <app-feature-box [attr.data-path]="'feature'" [content]="content.feature" />
   }
   @if (content.components) {
     <div class="components">
       @for (item of content.components; track item; let i = $index) {
-        <app-dynamic-component
-          [attr.data-path]="'components.' + i"
-          [inputs]="item"
-        ></app-dynamic-component>
+        <app-dynamic-component [attr.data-path]="'components.' + i" [inputs]="item" />
       }
     </div>
   }
   <div class="card-body p-y-sm p-x-sm">
     @if (content.link) {
       <div class="title mat-h2 two-line">
-        <app-link [attr.data-path]="'link'" [content]="content.link"></app-link>
+        <app-link [attr.data-path]="'link'" [content]="content.link" />
       </div>
     }
     @if (content.moreLabel) {
       <div class="post-meta flex justify-between items-center">
         @if (content.link) {
-          <a
-            [href]="content.link.href"
-            class="text-muted readmore flex items-center"
-          >
-            <span
-              contentedit="moreLabel"
-              [innerHTML]="content.moreLabel | safeHtml"
-            ></span>
+          <a [href]="content.link.href" class="text-muted readmore flex items-center">
+            <span contentedit="moreLabel" [innerHTML]="content.moreLabel | safeHtml"></span>
             <mat-icon>navigate_next</mat-icon>
           </a>
         }
@@ -45,9 +33,7 @@
     class="flex flex-col author absolute z-10 opacity-0 top-[5%] left-[5%] transition-all duration-300 ease-in"
   >
     @if (content.user) {
-      <small class="user">
-        <mat-icon inline="true">person</mat-icon> {{ content.user }}
-      </small>
+      <small class="user"> <mat-icon inline="true">person</mat-icon> {{ content.user }} </small>
     }
     @if (content.time) {
       <small class="date flex justify-center items-center">

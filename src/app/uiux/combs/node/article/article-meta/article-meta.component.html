@@ -2,15 +2,15 @@
   @for (item of content; track item) {
     <div class="flex justify-center items-center">
       @if (item.icon) {
-        <app-icon [content]="{svg:item.icon}"></app-icon>
-        <div>{{item.value || item.label}}</div>
+        <app-icon [content]="{ svg: item.icon }" />
+        <div>{{ item.value || item.label }}</div>
       } @else {
-        <div class="label">{{item.label}}:&nbsp;</div>
-        <div [innerHTML]="item.value|safeHtml"></div>
+        <div class="label">{{ item.label }}:&nbsp;</div>
+        <div [innerHTML]="item.value | safeHtml"></div>
       }
       <ng-template #value>
-        <div class="label">{{item.label}}:&nbsp;</div>
-        <div [innerHTML]="item.value|safeHtml"></div>
+        <div class="label">{{ item.label }}:&nbsp;</div>
+        <div [innerHTML]="item.value | safeHtml"></div>
       </ng-template>
     </div>
   }

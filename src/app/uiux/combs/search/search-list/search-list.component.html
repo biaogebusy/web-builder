@@ -1,43 +1,30 @@
 @if (loading) {
   <div class="m-y flex justify-center items-center">
-    <app-spinner
-      class="m-y"
-      [content]="{ color: 'primary', size: 40 }"
-    ></app-spinner>
+    <app-spinner class="m-y" [content]="{ color: 'primary', size: 40 }" />
   </div>
 }
 @if (content && pager) {
   <div class="search-list">
     <div class="container">
       <div class="md:px-3 md:mt-[40px]">
-        <div class="results m-bottom-sm">
-          找到 {{ pager?.totalItems }} 个结果
-        </div>
-        <mat-divider></mat-divider>
-        @for (
-          item of content | paginate: pager;
-          track trackByFn($index, item)
-        ) {
+        <div class="results m-bottom-sm">找到 {{ pager?.totalItems }} 个结果</div>
+        <mat-divider />
+        @for (item of content | paginate: pager; track trackByFn($index, item)) {
           <div class="list p-y-sm p-x-sm m-y-sm flex flex-col sm:flex-row">
             @if (item?.img?.src) {
-              <div
-                class="object-left relative m-right-sm flex-12/12 sm:flex-[0_0_30%]"
-              >
-                <app-img [content]="item.img"></app-img>
+              <div class="object-left relative m-right-sm flex-12/12 sm:flex-[0_0_30%]">
+                <app-img [content]="item.img" />
               </div>
             }
             <div class="content w-full">
               <h2 class="title">
-                <app-link [content]="item.link"></app-link>
+                <app-link [content]="item.link" />
               </h2>
               @if (item.body) {
                 <div
                   class="content"
                   [innerHTML]="
-                    item.body
-                      | stripTags: 'strong' : 'a' : 'em'
-                      | shorten: 150 : '...'
-                      | safeHtml
+                    item.body | stripTags: 'strong' : 'a' : 'em' | shorten: 150 : '...' | safeHtml
                   "
                 ></div>
               }
@@ -53,9 +40,7 @@
                   }
                   <div class="actions flex">
                     @for (action of item.actions; track action) {
-                      <app-dynamic-component
-                        [inputs]="{ content: action }"
-                      ></app-dynamic-component>
+                      <app-dynamic-component [inputs]="{ content: action }" />
                     }
                   </div>
                 </div>
@@ -76,8 +61,7 @@
                 [hidePageSize]="true"
                 [pageIndex]="pager.currentPage"
                 aria-label="Select page"
-              >
-              </mat-paginator>
+              />
             </div>
           }
         } @else {

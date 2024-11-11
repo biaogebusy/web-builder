@@ -23,7 +23,10 @@ export class Card1v3Component implements OnInit {
   @Output() selected = new EventEmitter();
   selectedId: number;
 
-  constructor(private dialog: MatDialog, private cd: ChangeDetectorRef) {}
+  constructor(
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {}
 

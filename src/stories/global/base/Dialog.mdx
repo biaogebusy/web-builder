@@ -1,0 +1,44 @@
+import { Meta, Story } from '@storybook/blocks';
+
+<Meta title="全局配置/通用/强制弹窗" id="dialog-config" />
+
+## 弹窗配置
+
+当用户从其他网址进入本站时，可开启强制弹窗，可配置只弹第一次。
+
+```json
+{
+  //..
+  "dialog": {
+    "forceDialog": {
+      "params": {
+        "width": "500px",
+        "path": "home",
+        "first": true
+      },
+      "text": {
+        "title": {
+          "label": "WARNING",
+          "style": "style-v1"
+        },
+        "spacer": "none",
+        "body": "尊敬的访问者，欢迎来到我们的网站。为了保护您的健康和工作效率，我们建议您每天只在我们的网站上浏览一个小时。这样可以避免长时间的屏幕时间对您的眼睛和身体造成不必要的负担。同时，也可以让您更加专注地浏览我们的内容，获得更好的体验和收获。感谢您的理解和支持！ ",
+        "actions": [
+          {
+            "type": "closeDialog",
+            "label": "好的",
+            "color": "primary"
+          },
+          {
+            "type": "link",
+            "label": "离开",
+            "href": "http://www.google.com",
+            "color": "warn"
+          }
+        ],
+        "actionsAlign": "center center"
+      }
+    }
+  }
+}
+```

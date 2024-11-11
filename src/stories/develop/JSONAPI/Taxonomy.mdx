@@ -1,0 +1,101 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="开发/JSONAPI/分类" id="jsonapi-taxonomy" />
+
+## 获取文章分类列表
+
+```
+/jsonapi/taxonomy_term/article_category
+```
+
+## 过滤
+
+查询名称为“最新动态”的分类项
+
+```
+/jsonapi/taxonomy_term/article_category?filter[name]=最新动态
+```
+
+## 获取单个分类
+
+```
+/jsonapi/taxonomy_term/category_article/[id]
+```
+
+## 过滤某个分类下的 node
+
+```
+GET {{apiUrl}}/api/v1/node/landing_page?filter[taxonomy_term--tags][condition][path]=group.name&filter[taxonomy_term--tags][condition][operator]=IN&filter[taxonomy_term--tags][condition][value]=示例页&noCache=1
+```
+
+taxonomy_term--tags 为 group，过滤分类名称为"示例页"的所有着陆页
+
+使用 `DrupalJsonApiParams`
+
+```js
+const apiParams = new DrupalJsonApiParams();
+apiParams
+  .addPageLimit(20)
+  .addSort('changed', 'DESC')
+  .addFilter('status', '1')
+  .addFilter('group.name', '示例页')
+  .addCustomParam({ noCache: true });
+```
+
+## 排除某个分类
+
+```js
+const apiParams = new DrupalJsonApiParams();
+apiParams.addCustomParam({ noCache: true });
+
+apiParams
+  .addPageLimit(10)
+  .addInclude(['uid', 'revision_uid', 'group'])
+  .addSort('changed', 'DESC')
+  .addFilter('status', '1')
+  .addFilter('group.name', '示例页', 'IS NULL');
+```
+
+## 更新某个node的分类
+
+api:`/api/v1/node/landing_page/b9f2379e-81f6-4c1f-844c-eec6f41c96fb`
+
+```json
+{
+  "type": "node--landing_page",
+  "id": "b9f2379e-81f6-4c1f-844c-eec6f41c96fb",
+  "attributes": {
+    "title": "视图列表",
+    "is_transparent": false
+  },
+  "relationships": {
+    "uid": {
+      "data": {
+        "type": "user--user",
+        "id": "15765815-07f2-4d7d-8142-cb598f82af2e"
+      }
+    },
+    "group": {
+      "data": {
+        "type": "taxonomy_term--page_group",
+        "id": "927554f4-63e0-4f24-a039-f67b34d2e829"
+      }
+    }
+  }
+}
+```
+
+`attributes`中为常规字段值的更新，比如标题等，类似分类则更新关联的实体：
+
+```json
+{
+  "relationships": {
+    "group": {
+      "data": {
+        "type": "taxonomy_term--page_group",
+        "id": "927554f4-63e0-4f24-a039-f67b34d2e829"
+      }
+    }
+  }
+}
+```

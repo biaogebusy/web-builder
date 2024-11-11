@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -41,12 +36,10 @@ export class BlockToolbarComponent {
   @Input() lbContent: any;
   @Input() pageIndex: number;
 
-  private builder = inject(BuilderState)
-  private builderSerivce = inject(BuilderService)
-  private util = inject(UtilitiesService)
-  private storage = inject(LocalStorageService)
-
-
+  private builder = inject(BuilderState);
+  private builderSerivce = inject(BuilderService);
+  private util = inject(UtilitiesService);
+  private storage = inject(LocalStorageService);
 
   onUpDown(direction: string, i: number, index: number): void {
     const { elements } = this.lbContent;
@@ -136,17 +129,14 @@ export class BlockToolbarComponent {
     }
   }
 
-  showWidgetSetting(
-    widget: any,
-    fields: FormlyFieldConfig[],
-    path: string,
-  ): void {
+  showWidgetSetting(widget: any, fields: FormlyFieldConfig[], path: string): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
       pageIndex: this.pageIndex,
       path,
       fields,
       content: widget,
+      fullWidth: true
     };
     this.builder.rightContent$.next({
       mode: 'over',

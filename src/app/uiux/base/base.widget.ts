@@ -25,7 +25,7 @@ export abstract class BaseComponent {
   }
 
   initFormValueWithUrlQuery(query: any, controls: any[]): any {
-    return controls.map((control) => {
+    return controls.map(control => {
       if (control.key in query) {
         control.value = query[control.key];
         return control;
@@ -42,7 +42,7 @@ export abstract class BaseComponent {
   getFormParams(state: any): Params {
     const formParams: any = {};
     if (state) {
-      Object.keys(state).forEach((key) => {
+      Object.keys(state).forEach(key => {
         const val = state[key];
         if (val !== '') {
           if (isArray(val)) {

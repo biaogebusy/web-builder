@@ -12,19 +12,19 @@ const routes: Routes = [
   {
     path: 'me',
     loadChildren: () =>
-      import('./modules/user/user.module').then((m) => m.UserModule),
+      import('./modules/user/user.module').then(m => m.UserModule),
   },
   {
     path: 'builder',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./modules/builder/builder.module').then((m) => m.BuilderModule),
+      import('./modules/builder/builder.module').then(m => m.BuilderModule),
   },
   {
     path: 'en/builder',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./modules/builder/builder.module').then((m) => m.BuilderModule),
+      import('./modules/builder/builder.module').then(m => m.BuilderModule),
   },
   {
     path: '**',

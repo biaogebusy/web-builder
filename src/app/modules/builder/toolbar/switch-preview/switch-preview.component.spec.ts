@@ -8,9 +8,8 @@ describe('SwitchPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SwitchPreviewComponent ]
-    })
-    .compileComponents();
+      declarations: [SwitchPreviewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

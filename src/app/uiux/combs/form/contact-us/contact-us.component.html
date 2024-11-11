@@ -1,57 +1,30 @@
 @if (content) {
-  <div class="contact-us relative">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-    @if (content.bg) {
-      <app-bg-img [content]="content.bg"> </app-bg-img>
-    }
-    <div class="{{ content.fullWidth ? '' : 'container' }}">
-      <form class="flex flex-col justify-center items-center">
-        <div class="inner flex flex-wrap justify-center items-center w-full">
-          <div class="flex flex-col flex-12/12 sm:flex-6/12">
-            <div class="p-x-sm">
-              @for (item of content.contact; track item; let i = $index) {
-                <app-box
-                  [attr.data-path]="'contact.' + i"
-                  [content]="item"
-                ></app-box>
-              }
-            </div>
-          </div>
-          <div class="flex flex-col flex-12/12 sm:flex-6/12">
-            <div class="px-3 flex flex-wrap justify-start items-center">
-              <app-formly
-                class="w-full"
-                [form]="form"
-                [fields]="content.form"
-                [model]="model"
-              >
-              </app-formly>
-            </div>
+  <div class="contact-us">
+    <form class="flex flex-col justify-center items-center">
+      <div class="inner flex flex-wrap justify-center items-center w-full">
+        <div class="flex flex-col flex-12/12 sm:flex-6/12">
+          <div class="p-x-sm">
+            @for (item of content.contact; track item; let i = $index) {
+              <app-box [attr.data-path]="'contact.' + i" [content]="item" />
+            }
           </div>
         </div>
-        @if (content.action) {
-          <button
-            class="m-top"
-            type="submit"
-            mat-raised-button
-            color="primary"
-            (click)="onSubmit()"
-          >
-            {{ content.action.label }}
-          </button>
+        <div class="flex flex-col flex-12/12 sm:flex-6/12">
+          <div class="px-3 flex flex-wrap justify-start items-center">
+            <app-formly class="w-full" [form]="form" [fields]="content.form" [model]="model" />
+          </div>
+        </div>
+      </div>
+      @if (content.action) {
+        <button class="m-top" type="submit" mat-raised-button color="primary" (click)="onSubmit()">
+          {{ content.action.label }}
+        </button>
+      }
+      <div class="flex flex-12/12 justify-center items-center">
+        @if (submited) {
+          <app-spinner [content]="{ color: 'primary', size: 40 }" />
         }
-        <div class="flex flex-12/12 justify-center items-center">
-          @if (submited) {
-            <app-spinner
-              [content]="{ color: 'primary', size: 40 }"
-            ></app-spinner>
-          }
-        </div>
-      </form>
-    </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+      </div>
+    </form>
   </div>
 }

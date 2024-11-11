@@ -32,9 +32,9 @@ export class IframeComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(USER) private user$: Observable<IUser>,
-    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
+    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -45,7 +45,7 @@ export class IframeComponent implements OnInit {
         this.loading = true;
         window.addEventListener(
           'message',
-          (event) => {
+          event => {
             if (event.data === 'ready') {
               this.loading = false;
               console.log('ready');
@@ -58,7 +58,7 @@ export class IframeComponent implements OnInit {
               this.cd.detectChanges();
             }
           },
-          false,
+          false
         );
       }
     }
@@ -78,7 +78,7 @@ export class IframeComponent implements OnInit {
     if (this.content?.url.includes(':nid')) {
       this.pageContent$
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((page) => {
+        .subscribe(page => {
           const nid = page.config?.node?.nid;
           if (nid) {
             // node 的详情页

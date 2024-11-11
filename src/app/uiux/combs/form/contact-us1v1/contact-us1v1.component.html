@@ -1,39 +1,20 @@
 @if (content) {
   <div class="contact-us-1v1" [ngClass]="content.classes">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
+    @if (content.text) {
+      <app-text [attr.data-path]="'text'" [content]="content.text" />
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-    }
-    <div class="{{ content.fullWidth ? '' : 'container' }}">
-      @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
-      }
-      <div class="box grid grid-cols-12 gap-4">
-        <div class="form p-5 col-span-12 md:col-span-8">
-          <form [formGroup]="form">
-            <app-formly [fields]="content.form" [model]="model"></app-formly>
-          </form>
-          <app-btn
-            [content]="content.action"
-            (click)="onSubmit(model)"
-          ></app-btn>
-        </div>
-        <div
-          class="content p-5 col-span-12 md:col-span-4"
-          [ngStyle]="content.contentStyle"
-        >
-          @for (item of content.content; track item; let i = $index) {
-            <app-dynamic-component
-              [attr.data-path]="'content.' + i"
-              [inputs]="item"
-            ></app-dynamic-component>
-          }
-        </div>
+    <div class="box grid grid-cols-12 gap-4">
+      <div class="form p-5 col-span-12 md:col-span-8">
+        <form [formGroup]="form">
+          <app-formly [fields]="content.form" [model]="model" />
+        </form>
+        <app-btn [content]="content.action" (click)="onSubmit(model)" />
+      </div>
+      <div class="content p-5 col-span-12 md:col-span-4" [ngStyle]="content.contentStyle">
+        @for (item of content.content; track item; let i = $index) {
+          <app-dynamic-component [attr.data-path]="'content.' + i" [inputs]="item" />
+        }
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
 }

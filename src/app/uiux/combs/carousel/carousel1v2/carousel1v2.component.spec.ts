@@ -8,9 +8,8 @@ describe('Carousel1v2Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Carousel1v2Component ]
-    })
-    .compileComponents();
+      declarations: [Carousel1v2Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {

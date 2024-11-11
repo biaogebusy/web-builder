@@ -35,17 +35,17 @@ export class Showcase1v1Component
     private screenService: ScreenService,
     private contentState: ContentState,
     private builder: BuilderState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super();
   }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.drawerOpened$.subscribe((state) => {
+      this.contentState.drawerOpened$.subscribe(state => {
         this.disableAnimate = state;
       });
-      this.builder.animateDisable$.subscribe((state) => {
+      this.builder.animateDisable$.subscribe(state => {
         this.disableAnimate = state;
       });
     }

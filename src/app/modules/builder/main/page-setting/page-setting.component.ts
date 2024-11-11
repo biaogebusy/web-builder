@@ -46,7 +46,7 @@ export class PageSettingComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(@Inject(USER) public user$: Observable<IUser>) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -142,7 +142,7 @@ export class PageSettingComponent implements OnInit {
                 onInit: (field: FormlyFieldConfig) => {
                   field.formControl?.valueChanges
                     .pipe(takeUntilDestroyed(this.destroyRef))
-                    .subscribe((cover) => {
+                    .subscribe(cover => {
                       if (!cover) {
                         return;
                       }
@@ -304,7 +304,7 @@ export class PageSettingComponent implements OnInit {
               if (field.formControl) {
                 field.formControl.valueChanges
                   .pipe(takeUntilDestroyed(this.destroyRef))
-                  .subscribe((value) => {
+                  .subscribe(value => {
                     this.loading = true;
                     this.builderService
                       .updateUrlalias(
@@ -316,7 +316,7 @@ export class PageSettingComponent implements OnInit {
                         value
                       )
                       .pipe(takeUntilDestroyed(this.destroyRef))
-                      .subscribe((status) => {
+                      .subscribe(status => {
                         this.loading = false;
                         this.cd.detectChanges();
                         if (status) {
@@ -389,12 +389,12 @@ export class PageSettingComponent implements OnInit {
         }
       )
       .subscribe(
-        (res) => {
+        res => {
           this.loading = false;
           this.cd.detectChanges();
           this.util.openSnackbar(`更新${value.title}成功`, 'ok');
         },
-        (error) => {
+        error => {
           const { statusText } = error;
           this.loading = false;
           this.util.openSnackbar(statusText, 'ok');
@@ -521,7 +521,7 @@ export class PageSettingComponent implements OnInit {
           this.deleteLocalPage(id);
           this.cd.detectChanges();
         },
-        (error) => {
+        error => {
           const {
             error: { message },
           } = error;
@@ -533,7 +533,7 @@ export class PageSettingComponent implements OnInit {
 
   deleteLocalPage(uuid: string): void {
     const versions = this.builder.version;
-    const index = versions.findIndex((item) => item.uuid === uuid);
+    const index = versions.findIndex(item => item.uuid === uuid);
     this.builder.deleteLocalPage(index);
   }
 }

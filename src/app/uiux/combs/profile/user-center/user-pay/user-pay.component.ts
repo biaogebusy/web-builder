@@ -37,7 +37,7 @@ export class UserPayComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) private user$: Observable<IUser>) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -62,7 +62,7 @@ export class UserPayComponent implements OnInit {
       .getNodes(path, 'payment', params, this.user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
-        (res) => {
+        res => {
           const lists = res.data.filter((item: any) => {
             return item.flagged_entity?.status ? true : false;
           });
@@ -127,9 +127,9 @@ export class UserPayComponent implements OnInit {
           this.loading = false;
           this.cd.detectChanges();
         },
-        (error) => {
+        error => {
           console.log(error);
-        },
+        }
       );
   }
 }

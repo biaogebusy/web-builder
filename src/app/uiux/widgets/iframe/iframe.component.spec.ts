@@ -8,9 +8,8 @@ describe('IframeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IframeComponent ]
-    })
-    .compileComponents();
+      declarations: [IframeComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

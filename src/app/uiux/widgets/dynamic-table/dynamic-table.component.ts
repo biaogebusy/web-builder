@@ -73,9 +73,7 @@ export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     if (this.content.elements) {
-      this.isExpand = this.content.elements.some((item) =>
-        isArray(item.expand)
-      );
+      this.isExpand = this.content.elements.some(item => isArray(item.expand));
       this.displayedColumns = this.content.header.map((item: any) => item.key);
       if (this.isExpand) {
         this.columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];

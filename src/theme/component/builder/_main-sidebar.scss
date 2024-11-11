@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 @mixin main-sidebar($background, $foreground, $primary) {
   background-color: mat.m2-get-color-from-palette($background, card);
   .mat-drawer-inner-container {
@@ -79,7 +79,7 @@
         .title {
           border-bottom: 1px solid transparent;
           &:focus-visible,
-          &[contentEditable="true"] {
+          &[contentEditable='true'] {
             outline: none;
             border-bottom-color: mat.m2-get-color-from-palette($primary);
           }

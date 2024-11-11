@@ -1,7 +1,7 @@
-<div class="positon-relative">
+<div class="relative" [ngClass]="content.classes">
   @if (loading) {
     <div class="loader">
-      <mat-spinner diameter="20" color="primary"></mat-spinner>
+      <mat-spinner diameter="20" color="primary" />
     </div>
   }
   <json-editor
@@ -9,15 +9,12 @@
     [options]="editorOptions"
     [data]="data"
     (change)="onChange($event)"
-  ></json-editor>
+  />
   @if (content.actions) {
-    <div
-      #actions
-      class="actions m-top pb-[10px] flex justify-center items-center"
-    >
+    <div #actions class="actions m-top pb-[10px] flex justify-center items-center">
       @for (action of content.actions; track action) {
         @switch (action.type) {
-          @case ("closeDialog") {
+          @case ('closeDialog') {
             <button
               (click)="updateCurrentPage()"
               mat-raised-button
@@ -27,7 +24,7 @@
               {{ action.label }}
             </button>
           }
-          @case ("update") {
+          @case ('update') {
             <button
               *reqRolesIf="action"
               (click)="onUpdateAttr(action)"
@@ -39,7 +36,7 @@
             </button>
           }
           @default {
-            <app-dynamic-component [inputs]="action"></app-dynamic-component>
+            <app-dynamic-component [inputs]="action" />
           }
         }
       }

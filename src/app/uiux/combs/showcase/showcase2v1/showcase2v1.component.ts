@@ -24,7 +24,10 @@ export class Showcase2v1Component
 {
   @Input() content: IShowcase2v1;
   elements: ICard1v1[];
-  constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {
+  constructor(
+    private nodeService: NodeService,
+    private cd: ChangeDetectorRef
+  ) {
     super();
   }
 
@@ -49,7 +52,7 @@ export class Showcase2v1Component
             ]);
           })
         )
-        .subscribe((res) => {
+        .subscribe(res => {
           if (type === 'card-1v1') {
             this.elements = res.map((item: any) => {
               return {

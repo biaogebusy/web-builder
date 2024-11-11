@@ -45,7 +45,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             {
               type: 'select',
               key: 'spacer',
-              defaultValue: content.spacer ?? 'md',
+              defaultValue: content.spacer ?? 'none',
               className: 'col-span-6',
               props: {
                 label: '上下间距',
@@ -74,9 +74,9 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
             },
             {
               type: 'input',
-              key: 'classes',
+              key: 'containerClasses',
               className: 'col-span-6',
-              defaultValue: content.classes ?? '',
+              defaultValue: content.containerClasses ?? '',
               props: {
                 label: 'Classes',
                 description: '组件 class',

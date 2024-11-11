@@ -46,9 +46,9 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
   user: IUser;
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>,
+    @Inject(USER) private user$: Observable<IUser>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -57,7 +57,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((state) => {
+        .subscribe(state => {
           if (state) {
             this.showComment = true;
             this.showActions = true;
@@ -116,7 +116,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
         .deleteEntity(
           `${this.coreConfig.apiUrl.commentGetPath}/${this.content.params.comment.attributes.field_name}`,
           id,
-          this.user.csrf_token,
+          this.user.csrf_token
         )
         .pipe(takeUntilDestroyed())
         .subscribe(
@@ -127,7 +127,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
           () => {
             this.loading = false;
             this.utilitiesService.openSnackbar('Please check user state.', '√');
-          },
+          }
         );
       this.cd.detectChanges();
     }

@@ -1,4 +1,4 @@
-@import "/src/theme/mixins/amixin";
+@import '/src/theme/mixins/amixin';
 .card-body {
   min-height: 40px;
   @include line-clamp(2);

@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, Type, inject } from '@angular/core';
 
 export abstract class BaseModule {
-  private selectorToFactoryMap: { [key: string]: any };
+  private selectorToFactoryMap: Record<string, any>;
   protected dynamicComponents: Type<any>[];
   protected componentFactoryResolver = inject(ComponentFactoryResolver);
 
@@ -15,7 +15,7 @@ export abstract class BaseModule {
 
   private populateRegistry() {
     this.selectorToFactoryMap = {};
-    this.dynamicComponents.forEach((type) => {
+    this.dynamicComponents.forEach(type => {
       const componentFactory: any =
         this.componentFactoryResolver.resolveComponentFactory(type);
       this.selectorToFactoryMap[componentFactory.selector] = componentFactory;

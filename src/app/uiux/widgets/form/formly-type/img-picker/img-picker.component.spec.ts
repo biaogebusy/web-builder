@@ -8,9 +8,8 @@ describe('ImgPickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ImgPickerComponent ]
-    })
-    .compileComponents();
+      declarations: [ImgPickerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

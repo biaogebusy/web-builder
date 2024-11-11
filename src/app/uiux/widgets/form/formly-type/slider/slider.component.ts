@@ -27,7 +27,7 @@ export class SliderComponent
   }
 
   ngOnInit(): void {
-    this.formControl.valueChanges.subscribe((value) => {
+    this.formControl.valueChanges.subscribe(value => {
       this.formControl.patchValue(value, { emitEvent: false });
     });
   }

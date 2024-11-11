@@ -136,7 +136,7 @@ export class ShareModule {
    */
   constructor(
     private iconService: IconService,
-    @Optional() @SkipSelf() parentModule: ShareModule,
+    @Optional() @SkipSelf() parentModule: ShareModule
   ) {
     this.iconService.loadSvgResources();
     if (parentModule) {

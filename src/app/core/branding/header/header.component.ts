@@ -40,13 +40,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(IS_BUILDER_MODE)
-    public isBuilderMode$: Observable<boolean>,
+    public isBuilderMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
     this.contentState.pageConfig$
       .pipe(takeUntilDestroyed(this.destoryRef))
-      .subscribe((config) => {
+      .subscribe(config => {
         this.headerMode = config?.headerMode;
         if (this.headerMode?.transparent) {
           this.doc
@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         .subscribe(() => {
           if (this.menu) {
             this.sticky = this.screenService.isElementOutTopViewport(
-              this.menu.nativeElement,
+              this.menu.nativeElement
             );
           }
           this.cd.detectChanges();
@@ -109,7 +109,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           this.screenState
             .mqAlias$()
             .pipe(takeUntilDestroyed(this.destoryRef))
-            .subscribe((mq) => {
+            .subscribe(mq => {
               this.showBanner =
                 mq.includes('md') || mq.includes('lg') || mq.includes('xl');
               this.cd.detectChanges();

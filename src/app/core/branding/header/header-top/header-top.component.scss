@@ -1,4 +1,4 @@
-@import "/src/theme/mixins/amixin";
+@import '/src/theme/mixins/amixin';
 .header-top {
   padding: 3px 0;
 }
@@ -41,7 +41,7 @@
       @include border-radius(5px, 5px, 5px, 5px);
       &:before,
       &:after {
-        content: "";
+        content: '';
         display: block;
         height: 32px;
         position: absolute;
@@ -62,7 +62,7 @@
     span.soc-icon-bg {
       @include border-radius(3px, 3px, 3px, 3px);
       display: block;
-      content: "";
+      content: '';
       width: 32px;
       height: 32px;
       line-height: 32px;

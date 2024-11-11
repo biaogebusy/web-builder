@@ -8,9 +8,8 @@ describe('ArticleMetaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArticleMetaComponent ]
-    })
-    .compileComponents();
+      declarations: [ArticleMetaComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

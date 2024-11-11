@@ -1,6 +1,6 @@
 :host ::ng-deep .mat-mdc-card {
   border-radius: 0;
-  &:not([class*="mat-elevation-z"]) {
+  &:not([class*='mat-elevation-z']) {
     box-shadow: none;
   }
   &:hover {

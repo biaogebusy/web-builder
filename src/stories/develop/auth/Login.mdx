@@ -1,0 +1,102 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="开发/用户接口/登录退出" id="login-out" />
+
+## 前提条件
+
+在Drupal作为CMS后端的情况下，默认依赖`Require Login`模块，该模块可以方便对路径是否需要用户认证的配置，有些接口需要配置不需要认证，才能返回正确的响应数据，进入页面`/admin/config/people/login-requirements`，在请求路径中，填写：
+
+```text
+/api/v1/*
+/api/v3/*
+/api/v2/*
+/webform_rest/submit
+/user/login_status
+/user/signin
+/user/login
+/api/v3/landingPage
+/wechat
+```
+
+勾选条件取反，以上接口路径不需要用户认证。
+
+## 用户登录
+
+在 Drupal 中，当用户登录时，服务器会返回一个 logout_token。这个 logout_token 用于确保在用户退出登录时，只有经过身份验证的用户才能执行注销操作，从而增强安全性。在前端应用中，注销请求确实需要包含这个 logout_token。
+
+以下是详细的步骤：
+
+## 1. 登录请求和获取 logout_token
+
+在用户登录时，前端应用发送一个请求到 /user/login 端点，并从响应中获取 logout_token。示例代码如下：
+
+```javascript
+fetch('https://your-drupal-site.com/user/login?_format=json', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: 'username',
+    pass: 'password',
+  }),
+  credentials: 'include', // 确保会话 cookie 被发送
+})
+  .then(response => response.json())
+  .then(data => {
+    if (data.current_user) {
+      console.log('Logged in as:', data.current_user.name);
+      // 存储 CSRF 令牌和 logout_token
+      sessionStorage.setItem('csrfToken', data.csrf_token);
+      sessionStorage.setItem('logoutToken', data.logout_token);
+    }
+  })
+  .catch(error => console.error('Error:', error));
+```
+
+## 2. 发送注销请求时包含 logout_token
+
+在用户点击“注销”按钮时，前端应用需要发送一个请求到 /user/logout 端点，并在请求中包含 logout_token 和 CSRF 令牌。
+
+示例代码如下：
+
+```javascript
+function logout() {
+  const csrfToken = sessionStorage.getItem('csrfToken');
+  const logoutToken = sessionStorage.getItem('logoutToken');
+
+  fetch(
+    `https://your-drupal-site.com/user/logout?_format=json&token=${logoutToken}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken, // 包括 CSRF 令牌
+      },
+      credentials: 'include', // 确保会话 cookie 被发送
+    }
+  )
+    .then(response => {
+      if (response.ok) {
+        // 成功注销，清除前端状态
+        sessionStorage.removeItem('csrfToken'); // 移除存储的 CSRF 令牌
+        sessionStorage.removeItem('logoutToken'); // 移除存储的 logout_token
+        // 清除其他与用户相关的状态，例如用户信息
+        localStorage.removeItem('userInfo'); // 示例，视实际情况而定
+        // 重定向到登录页或首页
+        window.location.href = '/login'; // 或其他页面
+      } else {
+        console.error('Logout failed:', response.statusText);
+      }
+    })
+    .catch(error => console.error('Error during logout:', error));
+}
+```
+
+## 3. 服务器端处理注销请求
+
+服务器端的 /user/logout 端点需要处理 logout_token 和 CSRF 令牌，以确保请求的合法性。在 Drupal 中，默认配置的 /user/logout 端点会进行这些检查并销毁会话。
+
+## 总结
+
+在使用 Drupal 的会话认证时，前端在发送注销请求时确实需要包含 logout_token 和 CSRF 令牌。这样可以确保只有合法用户才能执行注销操作，增强应用的安全性。通过以上步骤，可以确保用户安全地退出登录并清除相关的前端状态。

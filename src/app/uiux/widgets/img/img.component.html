@@ -27,8 +27,11 @@
       <div class="actions flex justify-center items-center gap-3">
         @for (action of content.actions; track action) {
           <app-dynamic-component
-            [inputs]="{ content: action, disableToolbar: true }"
-          ></app-dynamic-component>
+            [inputs]="{
+              content: action,
+              disableToolbar: true,
+            }"
+          />
         }
       </div>
     }

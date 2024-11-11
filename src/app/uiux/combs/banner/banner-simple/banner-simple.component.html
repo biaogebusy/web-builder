@@ -3,41 +3,26 @@
     @if (content.bannerBg) {
       <app-bg-img
         [attr.data-path]="'bannerBg'"
-        [content]="content.bannerBg"
-      ></app-bg-img>
+        [content]="content.bannerBg" />
     }
     <div class="container">
       <div
-      class="
-        banner-inner
-        relative
-        flex flex-col
-        md:flex-row
-        justify-start
-        items-start
-        md:justify-between
-        md:items-center
-      "
-        >
+        class="banner-inner relative flex flex-col md:flex-row justify-start items-start md:justify-between md:items-center">
         <div class="title flex flex-col">
           @if (content.title) {
             <h2
               class="page-title"
               contentedit="title"
-              [innerHTML]="content.title | safeHtml"
-            ></h2>
+              [innerHTML]="content.title | safeHtml"></h2>
           }
           @if (content.subTitle) {
             <div
               class="sub-title"
-              [innerHTML]="content.subTitle | safeHtml"
-            ></div>
+              [innerHTML]="content.subTitle | safeHtml"></div>
           }
         </div>
         @if (content.breadcrumb) {
-          <app-breadcrumb
-            [content]="content.breadcrumb"
-          ></app-breadcrumb>
+          <app-breadcrumb [content]="content.breadcrumb" />
         }
       </div>
     </div>

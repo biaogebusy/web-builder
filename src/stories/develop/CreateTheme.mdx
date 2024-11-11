@@ -1,0 +1,94 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
+
+<Meta title="开发/新建主题" id="custom-theme" />
+
+### 如何新建自定义主题
+
+1. 复制以下示例新建主题配置文件：`_xxx-config.scss` 在`src/theme/theme-config`文件夹中;
+
+```sass
+@import "~@angular/material/theming";
+$yourTheme-color: (
+  //
+  50: #e7e9ff,
+  100: #c2c8fe,
+  200: #96a4fe,
+  300: #6280ff,
+  400: #2962ff,
+  500: #0044fc,
+  600: #003bf0,
+  700: #002fe3,
+  800: #0022d9,
+  900: #0001c0,
+  A100: #c2c8fe,
+  A200: #96a4fe,
+  A400: #2962ff,
+  A700: #002fe3,
+  contrast: (
+    //
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+
+// user material mat blue
+$yourTheme-primary: mat-palette($yourTheme-color, 400);
+$yourTheme-accent: mat-palette($yourTheme-color, A400);
+$yourTheme-warn: mat-palette($mat-red, A200, A100, A400);
+$yourTheme-theme: mat-light-theme($yourTheme-primary, $yourTheme-accent, $yourTheme-warn);
+```
+
+2. 使用 Material 主题[调色板生成器](https://material.io/design/color/the-color-system.html#tools-for-picking-colors)生成并更新主题颜色值;
+   ![tool](/assets/storybook/assets/tool.png)
+3. 导入到入口文件：`src/theme/theme-config/_theme-config.scss`;
+4. 在主题入口文件添加对应的 class:
+
+```css
+.yourTheme-theme {
+  @include angular-material-theme($green-theme);
+  @include base-colors($green-theme);
+  @include component-theme($green-theme);
+}
+```
+
+5. 在 base.json（src/assets/app/core/base.json）配置文件中，添加新的主题：
+
+```json
+"theme": [{
+    "name": "Pink 主题",
+    "style": "pink-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "Blue 主题",
+    "style": "blue-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "Green 主题",
+    "style": "green-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "Red 主题",
+    "style": "red-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "King 主题",
+    "style": "king-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "暗黑主题",
+    "style": "dark-theme",
+    "svgIcon": "dark_mode"
+  }]
+```

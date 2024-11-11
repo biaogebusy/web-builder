@@ -17,8 +17,9 @@
       mat.m2-get-color-from-palette($foreground, text),
       0.35
     );
-    .mat-expansion-panel:not([class*="mat-elevation-z"]) {
-      border-bottom: 1px solid mat.m2-get-color-from-palette($foreground, divider);
+    .mat-expansion-panel:not([class*='mat-elevation-z']) {
+      border-bottom: 1px solid
+        mat.m2-get-color-from-palette($foreground, divider);
     }
   }
   .search-list {

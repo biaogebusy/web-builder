@@ -32,7 +32,7 @@ export class TagsService {
   public updateTages(pageValue: IPage): void {
     this.setTitle(pageValue.title);
     if (pageValue.meta) {
-      pageValue.meta.forEach((item) => {
+      pageValue.meta.forEach(item => {
         this.updateMeta(item);
       });
     } else {
@@ -53,7 +53,7 @@ export class TagsService {
     hljs.registerLanguage('scss', scss);
     hljs.registerLanguage('xml', xml);
     hljs.registerLanguage('json', json);
-    this.document.querySelectorAll('pre').forEach((block) => {
+    this.document.querySelectorAll('pre').forEach(block => {
       // then highlight each
       if (block) {
         hljs.highlightElement(block);

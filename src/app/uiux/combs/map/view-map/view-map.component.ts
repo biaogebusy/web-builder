@@ -75,7 +75,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
         });
         this.loading = false;
         return [...rows];
-      }),
+      })
     );
   }
 

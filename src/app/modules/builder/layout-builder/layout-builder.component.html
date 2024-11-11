@@ -1,115 +1,95 @@
 @if (content) {
-<div
-  class="layout-builder relative"
-  [ngClass]="content.classes"
-  [ngStyle]="content.style"
->
-  @if (content.id) {
-  <a class="anchor" [id]="content.id"></a>
-  }
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  @if (content.bg) {
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  } @if (content) {
-  <div class="{{ content.fullWidth ? '' : 'container' }}">
-    <div
-      id="layout"
-      class="layout-inner {{
-        content.wrapperClass
-      }} grid grid-cols-12 grid-flow-row  justify-{{
-        content.horizontal
-      }} justify-items-{{ content.vertical }} items-{{
-        content.alignItems
-      }}  gap-{{ content.gap?.xs || 'none' }} sm:gap-{{
-        content.gap?.sm || 'none'
-      }} md:gap-{{ content.gap?.md || 'none' }} lg:gap-{{
-        content.gap?.lg || 'none'
-      }}"
-    >
-      @for (layout of content.elements; track layout; let i = $index) {
+  <div class="layout-builder relative" [ngClass]="content.classes" [ngStyle]="content.style">
+    @if (content) {
       <div
-        [ngClass]="layout.classes"
-        class="layout relative layout-{{ i }} col-span-{{
-          layout.row.xs || '12'
-        }}  sm:col-span-{{ layout.row.sm }} md:col-span-{{
-          layout.row.md
-        }} lg:col-span-{{ layout.row.lg }}"
-        [attr.data-path]="'elements.' + i"
+        id="layout"
+        class="layout-inner {{ content.wrapperClass }} grid grid-cols-12 grid-flow-row  justify-{{
+          content.horizontal
+        }} justify-items-{{ content.vertical }} items-{{ content.alignItems }}  gap-{{
+          content.gap?.xs || 'none'
+        }} sm:gap-{{ content.gap?.sm || 'none' }} md:gap-{{ content.gap?.md || 'none' }} lg:gap-{{
+          content.gap?.lg || 'none'
+        }}"
       >
-        @if (isBuilderMode$ | async) {
-        <div class="toolbar hidden absolute z-50">
-          <app-layout-toolbar
-            [lbContent]="content"
-            [i]="i"
-            [layout]="layout"
-            [pageIndex]="pageIndex"
-          ></app-layout-toolbar>
-        </div>
-        @if (layout.elements.length === 0) {
-        <div
-          class="placeholder opacity-50 hover:opacity-100 p-10 flex justify-center items-center"
-          [attr.data-path]="'elements.' + i"
-          #target
-        >
-          <app-btn
-            matTooltip="插入组件"
-            matTooltipPosition="above"
-            (click)="addBlock('widget', content, target)"
-            [content]="{
+        @for (layout of content.elements; track layout; let i = $index) {
+          <div
+            [ngClass]="layout.classes"
+            class="layout relative layout-{{ i }} col-span-{{
+              layout.row.xs || '12'
+            }}  sm:col-span-{{ layout.row.sm }} md:col-span-{{ layout.row.md }} lg:col-span-{{
+              layout.row.lg
+            }}"
+            [attr.data-path]="'elements.' + i"
+          >
+            @if (isBuilderMode$ | async) {
+              <div class="toolbar hidden absolute z-50">
+                <app-layout-toolbar
+                  [lbContent]="content"
+                  [i]="i"
+                  [layout]="layout"
+                  [pageIndex]="pageIndex"
+                />
+              </div>
+              @if (layout.elements.length === 0) {
+                <div
+                  class="placeholder opacity-50 hover:opacity-100 p-10 flex justify-center items-center"
+                  [attr.data-path]="'elements.' + i"
+                  #target
+                >
+                  <app-btn
+                    matTooltip="插入组件"
+                    matTooltipPosition="above"
+                    (click)="addBlock('widget', content, target)"
+                    [content]="{
                       label: '',
                       mode: 'icon',
                       icon: { svg: 'plus' },
                     }"
-          ></app-btn>
-        </div>
-        } }
-        <div class="for-animate">
-          <div
-            [ngClass]="layout.blockClasses"
-            class="blocks box-border relative w-full h-full grid grid-cols-12 grid-flow-row  justify-{{
-              layout.horizontal
-            }} justify-items-{{ layout.vertical }} items-{{
-              layout.alignItems
-            }} gap-{{ layout.gap?.xs || 'none' }} sm:gap-{{
-              layout.gap?.sm || 'none'
-            }} md:gap-{{ layout.gap?.md || 'none' }} lg:gap-{{
-              layout.gap?.lg || 'none'
-            }}"
-          >
-            @if (layout.bg) {
-            <app-bg-img
-              [attr.data-path]="'bg'"
-              [content]="layout.bg"
-            ></app-bg-img>
-            } @for ( item of layout.elements; track item; let index = $index ) {
-            <div
-              class="item relative box-border item-{{ item.type }} col-span-12"
-              [attr.data-path]="'elements.' + index"
-            >
-              @if (isBuilderMode$ | async) {
-              <div
-                class="toolbar absolute z-10 whitespace-nowrap rounded-tl-[4px] rounded-tr-[4px] hidden"
-              >
-                <app-block-toolbar
-                  [layout]="layout"
-                  [block]="item"
-                  [index]="index"
-                  [i]="i"
-                  [lbContent]="content"
-                  [pageIndex]="pageIndex"
-                ></app-block-toolbar>
-              </div>
+                  />
+                </div>
               }
-              <app-dynamic-component [inputs]="item"></app-dynamic-component>
-            </div>
             }
+            <div class="for-animate">
+              <div
+                [ngClass]="layout.blockClasses"
+                class="blocks box-border relative w-full h-full grid grid-cols-12 grid-flow-row  justify-{{
+                  layout.horizontal
+                }} justify-items-{{ layout.vertical }} items-{{ layout.alignItems }} gap-{{
+                  layout.gap?.xs || 'none'
+                }} sm:gap-{{ layout.gap?.sm || 'none' }} md:gap-{{
+                  layout.gap?.md || 'none'
+                }} lg:gap-{{ layout.gap?.lg || 'none' }}"
+              >
+                @if (layout.bg) {
+                  <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" />
+                }
+                @for (item of layout.elements; track item; let index = $index) {
+                  <div
+                    class="item relative box-border item-{{ item.type }} col-span-12"
+                    [attr.data-path]="'elements.' + index"
+                  >
+                    @if (isBuilderMode$ | async) {
+                      <div
+                        class="toolbar absolute z-10 whitespace-nowrap rounded-tl-[4px] rounded-tr-[4px] hidden"
+                      >
+                        <app-block-toolbar
+                          [layout]="layout"
+                          [block]="item"
+                          [index]="index"
+                          [i]="i"
+                          [lbContent]="content"
+                          [pageIndex]="pageIndex"
+                        />
+                      </div>
+                    }
+                    <app-dynamic-component [inputs]="item" />
+                  </div>
+                }
+              </div>
+            </div>
           </div>
-        </div>
+        }
       </div>
-      }
-    </div>
+    }
   </div>
-  }
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-</div>
 }

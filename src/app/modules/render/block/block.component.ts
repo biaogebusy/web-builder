@@ -56,13 +56,13 @@ export class BlockComponent implements OnInit, AfterContentInit {
   ngAfterContentInit(): void {
     this.contentState.drawerOpened$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((state) => {
+      .subscribe(state => {
         this.opened = state;
       });
 
     this.contentState.drawerLoading$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((loading) => {
+      .subscribe(loading => {
         this.drawerLoading = loading;
       });
 

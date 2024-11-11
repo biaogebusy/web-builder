@@ -26,7 +26,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @Input() content: IWidgetPicker;
   @ViewChild('popup', { static: false }) popup: ElementRef;
-  public widget$: Subject<any> = new Subject();
+  public widget$ = new Subject<any>();
   help: any;
   popper: any;
 
@@ -37,7 +37,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   constructor(
     @Inject(WIDGETS) public widgets: any[],
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +66,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       this.builder.updatePageContentByPath(
         path,
         this.copyLayoutLastChild(content.elements, widget),
-        'add',
+        'add'
       );
       this.dialog.closeAll();
       return;

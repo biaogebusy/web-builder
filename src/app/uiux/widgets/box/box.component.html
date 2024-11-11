@@ -2,28 +2,32 @@
   <div [ngClass]="content.style" class="inv-builder-box m-bottom-sm">
     @if (content.icon) {
       <div class="box-icon">
-        <app-icon [content]="content.icon"></app-icon>
+        <app-icon [content]="content.icon" />
       </div>
     }
     @if (content.img) {
       <div class="box-image">
-        <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
+        <app-img [attr.data-path]="'img'" [content]="content.img" />
       </div>
     }
     <div class="box-content-wrapper">
       @if (content.title.label) {
         <h3 class="box-title one-line">
-          <app-link [attr.data-path]="'title'" [content]="content.title"></app-link>
+          <app-link [attr.data-path]="'title'" [content]="content.title" />
         </h3>
       }
       @if (content.content) {
-        <div contentedit="content" class="box-content" [innerHTML]="content.content | safeHtml">
-        </div>
+        <div
+          contentedit="content"
+          class="box-content"
+          [innerHTML]="content.content | safeHtml"
+        ></div>
       }
       @if (content.more) {
         <div class="read-more">
-          <a href="{{content.more.href}}" target="{{content.more.target||'_blank'}}"><span contentedit="more.label"
-          [innerHTML]="content.more.label | safeHtml"></span></a>
+          <a href="{{ content.more.href }}" target="{{ content.more.target || '_blank' }}"
+            ><span contentedit="more.label" [innerHTML]="content.more.label | safeHtml"></span
+          ></a>
         </div>
       }
     </div>

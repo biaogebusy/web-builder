@@ -49,9 +49,9 @@ export class CommentFormComponent implements OnInit {
   user: IUser;
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>,
+    @Inject(USER) private user$: Observable<IUser>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -60,7 +60,7 @@ export class CommentFormComponent implements OnInit {
     if (this.screenService.isPlatformBrowser()) {
       this.modules = Object.assign(
         this.coreConfig?.editor?.modules || {},
-        this.content.editor?.modules,
+        this.content.editor?.modules
       );
       this.contentState.commentQuote$
         .pipe(takeUntilDestroyed(this.destroyRef))
@@ -106,7 +106,7 @@ export class CommentFormComponent implements OnInit {
     value: string,
     params: ICommentParams,
     type: string,
-    token: string,
+    token: string
   ): void {
     // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types
     params.attributes.comment_body = {
@@ -126,7 +126,7 @@ export class CommentFormComponent implements OnInit {
           this.loading = false;
           this.utilitiesService.openSnackbar('提交失败！');
           this.cd.detectChanges();
-        },
+        }
       );
   }
 
@@ -134,7 +134,7 @@ export class CommentFormComponent implements OnInit {
     value: string,
     params: ICommentParams,
     type: string,
-    token: string,
+    token: string
   ): void {
     const entity = {
       type: params.type,
@@ -160,7 +160,7 @@ export class CommentFormComponent implements OnInit {
         // catchError(() => {
         //   return of({});
         // }),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => {
         this.commentContent = '';
@@ -173,7 +173,7 @@ export class CommentFormComponent implements OnInit {
     value: string,
     params: ICommentParams,
     type: string,
-    token: string,
+    token: string
   ): void {
     const entity: ICommentParams = {
       type: params.type,
@@ -199,16 +199,16 @@ export class CommentFormComponent implements OnInit {
         // catchError(() => {
         //   return of({});
         // }),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(
         () => {
           this.done('更新成功！');
         },
-        (error) => {
+        error => {
           console.log(error);
           this.done('更新失败！');
-        },
+        }
       );
   }
 
@@ -217,7 +217,7 @@ export class CommentFormComponent implements OnInit {
     this.cd.detectChanges();
     this.contentState.commentChange$.next(true);
     this.utilitiesService.openSnackbar(
-      snack || this.content?.editor?.succes?.label,
+      snack || this.content?.editor?.succes?.label
     );
   }
 
@@ -225,7 +225,7 @@ export class CommentFormComponent implements OnInit {
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler(
       'image',
-      this.nodeService.imageHandler.bind(this.nodeService, quill),
+      this.nodeService.imageHandler.bind(this.nodeService, quill)
     );
   }
 }

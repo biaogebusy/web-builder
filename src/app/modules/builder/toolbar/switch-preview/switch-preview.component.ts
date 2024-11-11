@@ -60,13 +60,13 @@ export class SwitchPreviewComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
   constructor(
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
   ngOnInit(): void {
     this.currentPage$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((page) => {
+      .subscribe(page => {
         this.currentPage = page;
       });
   }

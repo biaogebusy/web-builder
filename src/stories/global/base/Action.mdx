@@ -1,0 +1,40 @@
+import { Meta, Story } from '@storybook/blocks';
+
+<Meta title="全局配置/通用/页面动作" id="page-action-config" />
+
+## 动作配置
+
+动作这里主要用在文章等页面，包含：
+
+- 标记：收藏，喜欢等等
+- 分享
+- 下载
+
+```json
+{
+  "actions": {
+    "flag": {
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "enable": true
+    },
+    "share": {
+      "button": {
+        "icon": "share",
+        "label": "分享"
+      },
+      "enable": true
+    },
+    "download": {
+      "label": "下载",
+      "icon": {
+        "name": "file_download",
+        "inline": true
+      },
+      "enable": true
+    }
+  }
+}
+```

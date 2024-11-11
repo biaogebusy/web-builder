@@ -1,39 +1,32 @@
 @if (content) {
   <div class="shuffle-container">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
+    @if (content.title) {
+      <app-title [attr.data-path]="'title'" [content]="content.title" />
     }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-    }
-    <div class="{{content.fullWidth?'':'container'}}">
-      @if (content.title) {
-        <app-title [attr.data-path]="'title'" [content]="content.title"></app-title>
-      }
-      @if (content.filter) {
-        <div class="filter">
-          <mat-button-toggle-group name="toggle group" aria-label="toggle group" (change)="onChange($event)">
-            @for (item of content.filter; track item) {
-              @if (item.value) {
-                <mat-button-toggle value="{{item.value}}">
-                  {{item.label}}
-                </mat-button-toggle>
-              }
+    @if (content.filter) {
+      <div class="filter">
+        <mat-button-toggle-group
+          name="toggle group"
+          aria-label="toggle group"
+          (change)="onChange($event)"
+        >
+          @for (item of content.filter; track item) {
+            @if (item.value) {
+              <mat-button-toggle value="{{ item.value }}">
+                {{ item.label }}
+              </mat-button-toggle>
             }
-          </mat-button-toggle-group>
+          }
+        </mat-button-toggle-group>
+      </div>
+    }
+    <div class="shuffle-inner flex w-full h-full flex-wrap">
+      @for (item of content.elements; track item) {
+        <div class="item w-[100%] sm:w-[50%] md:w-[25%]" [attr.data-groups]="item.category">
+          <app-dynamic-component [inputs]="{ content: item }" />
         </div>
       }
-      <div class="shuffle-inner flex w-full h-full flex-wrap">
-        @for (item of content.elements; track item) {
-          <div class="item w-[100%] sm:w-[50%] md:w-[25%]"
-            [attr.data-groups]="item.category">
-            <app-dynamic-component [inputs]="{content:item}"></app-dynamic-component>
-          </div>
-        }
-        <div class="sizer w-[100%] sm:w-[50%] md:w-[25%]"></div>
-      </div>
+      <div class="sizer w-[100%] sm:w-[50%] md:w-[25%]"></div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
 }

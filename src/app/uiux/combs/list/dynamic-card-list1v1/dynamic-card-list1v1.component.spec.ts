@@ -8,9 +8,8 @@ describe('DynamicCardList1v1Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicCardList1v1Component ]
-    })
-    .compileComponents();
+      declarations: [DynamicCardList1v1Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {

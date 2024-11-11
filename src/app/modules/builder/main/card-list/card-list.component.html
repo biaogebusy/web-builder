@@ -4,8 +4,7 @@
       [fields]="content.form"
       [form]="form"
       [model]="model"
-      (modelChange)="onModelChange($event)"
-    ></app-formly>
+      (modelChange)="onModelChange($event)" />
     <app-btn
       (click)="onReload()"
       [content]="{
@@ -13,12 +12,11 @@
         mode: 'icon',
         color: 'primary',
         icon: { svg: 'reload' },
-      }"
-    ></app-btn>
+      }" />
   </div>
   <div class="lists">
     @if (loading) {
-      <mat-spinner diameter="50" color="primary"></mat-spinner>
+      <mat-spinner diameter="50" color="primary" />
     }
     @if (content$ | async; as lists) {
       <app-dynamic-component
@@ -30,8 +28,7 @@
           params: content.params,
           langs: langs,
           user: user,
-        }"
-      ></app-dynamic-component>
+        }" />
     }
   </div>
   @if (pager) {
@@ -44,9 +41,7 @@
         [showFirstLastButtons]="true"
         [hidePageSize]="true"
         [pageIndex]="pager.currentPage"
-        aria-label="Select page"
-      >
-      </mat-paginator>
+        aria-label="Select page" />
     </div>
   }
 </div>

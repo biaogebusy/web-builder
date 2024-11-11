@@ -34,7 +34,7 @@ export class UserService extends ApiService {
   login(userName: string, passWord: string): Observable<boolean> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json',
         'Content-type': 'application/vnd.api+json',
       }),
       withCredentials: false,
@@ -50,7 +50,7 @@ export class UserService extends ApiService {
         httpOptions
       )
       .pipe(
-        map((user) => {
+        map(user => {
           this.updateUser(user);
           return true;
         }),
@@ -62,7 +62,7 @@ export class UserService extends ApiService {
 
   updateUser(data: TokenUser): any {
     this.getCurrentUserById(data.current_user.uid, data.csrf_token).subscribe(
-      (user) => {
+      user => {
         this.loginUser(data, user);
       }
     );
@@ -71,7 +71,7 @@ export class UserService extends ApiService {
   updateUserBySession(): void {
     const options = {
       headers: new HttpHeaders({
-        Accept: 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
       }),
       withCredentials: true,
@@ -98,7 +98,7 @@ export class UserService extends ApiService {
           return of(null);
         })
       )
-      .subscribe((user) => {
+      .subscribe(user => {
         console.log('get session user done!');
         this.loginUser(tokenUser, user);
       });
@@ -174,7 +174,7 @@ export class UserService extends ApiService {
         httpOptions
       )
       .pipe(
-        catchError((error) => {
+        catchError(error => {
           if (error.status === 403) {
             // false: logout
             return of(false);
@@ -201,7 +201,7 @@ export class UserService extends ApiService {
         code,
       })
       .pipe(
-        map((user) => {
+        map(user => {
           this.updateUser(user);
           return true;
         }),
@@ -328,7 +328,7 @@ export class UserService extends ApiService {
         httpOptions
       )
       .pipe(
-        map((state) => {
+        map(state => {
           if (state) {
             return true;
           }

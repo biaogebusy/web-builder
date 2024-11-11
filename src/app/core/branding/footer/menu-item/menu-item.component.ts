@@ -25,7 +25,7 @@ export class MenuItemComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screen.mqAlias$().subscribe((alia) => {
+      this.screen.mqAlias$().subscribe(alia => {
         this.showXs = alia.includes('xs');
         this.cd.detectChanges();
       });

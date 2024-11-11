@@ -1,18 +1,13 @@
 @if (screenService.isPlatformBrowser()) {
   <div class="code-editor flex gap-2">
     <div class="box flex-4/12 flex flex-col">
-      <app-formly
-        class="block px-3"
-        [form]="form"
-        [fields]="fields"
-        [model]="model"
-      ></app-formly>
+      <app-formly class="block px-3" [form]="form" [fields]="fields" [model]="model" />
       <json-editor
         class="block flex-auto"
         [options]="editorOptions"
         [data]="json"
         (change)="onJsonChange($event)"
-      ></json-editor>
+      />
     </div>
     <div class="box flex-8/12">
       <ngx-monaco-editor
@@ -20,7 +15,7 @@
         [options]="MonacoOptions"
         [ngModel]="html"
         [formControl]="htmlForm"
-      ></ngx-monaco-editor>
+      />
     </div>
   </div>
 }

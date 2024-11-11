@@ -21,7 +21,10 @@ export class InlineLightboxComponent implements OnInit {
   settings = {
     counter: false,
   };
-  constructor(private util: UtilitiesService, private dialog: MatDialog) {}
+  constructor(
+    private util: UtilitiesService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {}
 

@@ -61,7 +61,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((value) => {
+      .subscribe(value => {
         this.value = value;
         this.updateCurrentPage();
       });
@@ -116,12 +116,12 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
             {}
           )
           .pipe(
-            catchError((err) => {
+            catchError(err => {
               return of(false);
             }),
             takeUntilDestroyed(this.destroyRef)
           )
-          .subscribe((res) => {
+          .subscribe(res => {
             if (!res) {
               this.util.openSnackbar('更新失败！', 'ok');
             } else {

@@ -6,21 +6,20 @@ import { FieldArrayType } from '@ngx-formly/core';
   template: `
     @for (field of field.fieldGroup; track field; let i = $index) {
       <div class="row">
-        <formly-field class="w-full" [field]="field"></formly-field>
+        <formly-field class="w-full" [field]="field" />
         <div class="flex justify-center items-center">
           <app-btn
             (click)="remove(i)"
-          [content]="{
-            label: '删除',
-            color: 'warn',
-            icon: {
-              svg: 'delete',
-              inline: true
-            }
-          }"
-        ></app-btn>
+            [content]="{
+              label: '删除',
+              color: 'warn',
+              icon: {
+                svg: 'delete',
+                inline: true,
+              },
+            }" />
+        </div>
       </div>
-    </div>
     }
     <div class="mt-5">
       <app-btn
@@ -31,11 +30,10 @@ import { FieldArrayType } from '@ngx-formly/core';
           color: 'primary',
           icon: {
             inline: true,
-            svg: 'plus'
-          }
-        }"
-    ></app-btn>
+            svg: 'plus',
+          },
+        }" />
     </div>
-    `,
+  `,
 })
 export class RepeatTypeComponent extends FieldArrayType {}

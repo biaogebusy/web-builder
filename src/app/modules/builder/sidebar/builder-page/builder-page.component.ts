@@ -37,7 +37,7 @@ export class BuilderPageComponent implements OnInit {
   ngOnInit(): void {
     this.activateRoute.paramMap
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((paramsMap) => {
+      .subscribe(paramsMap => {
         this.name = paramsMap.get('name');
         this.loading = true;
         this.cd.detectChanges();
@@ -69,7 +69,7 @@ export class BuilderPageComponent implements OnInit {
               this.tagService.setTitle(`${this.name}管理`);
               return [...pages];
             }),
-            takeUntilDestroyed(this.destroyRef),
+            takeUntilDestroyed(this.destroyRef)
           );
       });
   }

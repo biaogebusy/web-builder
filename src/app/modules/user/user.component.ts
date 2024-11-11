@@ -33,9 +33,9 @@ export class UserComponent implements OnInit {
   screenService = inject(ScreenService);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>,
+    @Inject(USER) private user$: Observable<IUser>
   ) {
-    this.user$.subscribe((user) => {
+    this.user$.subscribe(user => {
       this.user = user;
     });
   }
@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.getUser();
-      this.userService.userSub$.subscribe((user) => {
+      this.userService.userSub$.subscribe(user => {
         if (!user) {
           setTimeout(() => {
             this.route.navigate([
@@ -61,7 +61,7 @@ export class UserComponent implements OnInit {
     const people = {};
     this.userService
       .getUserById(this.user.current_user.uid, this.user.csrf_token)
-      .subscribe((res) => {
+      .subscribe(res => {
         const info = res.data[0];
         if (!info) {
           return;

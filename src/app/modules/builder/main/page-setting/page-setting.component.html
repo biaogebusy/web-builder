@@ -1,10 +1,10 @@
 <div class="page-setting relative">
   @if (loading) {
-  <div class="load absolute z-10 top-1/2 left-1/2">
-    <mat-spinner diameter="50" color="accent"></mat-spinner>
-  </div>
+    <div class="load absolute z-10 top-1/2 left-1/2">
+      <mat-spinner diameter="50" color="accent" />
+    </div>
   }
-  <app-formly [form]="form" [fields]="fields" [model]="model"></app-formly>
+  <app-formly [form]="form" [fields]="fields" [model]="model" />
   <div class="actions flex justify-center items-center gap-3 my-5">
     <app-btn
       (click)="onUpdate(model)"
@@ -13,25 +13,26 @@
         color: 'primary',
         mode: 'raised',
       }"
-    ></app-btn>
-    @if (type === "node--json") {
-    <app-btn
-      (click)="onJson()"
-      [content]="{
+    />
+    @if (type === 'node--json') {
+      <app-btn
+        (click)="onJson()"
+        [content]="{
           label: '编辑JSON',
           color: 'primary',
           mode: 'stroked',
         }"
-    ></app-btn>
-    } @if (type === "node--landing_page") {
-    <app-btn
-      (click)="onPreview()"
-      [content]="{
+      />
+    }
+    @if (type === 'node--landing_page') {
+      <app-btn
+        (click)="onPreview()"
+        [content]="{
           label: '预览',
           color: 'primary',
           mode: 'stroked',
         }"
-    ></app-btn>
+      />
     }
     <app-btn
       (click)="deletePage(model)"
@@ -39,6 +40,6 @@
         label: '删除',
         color: 'warn',
       }"
-    ></app-btn>
+    />
   </div>
 </div>

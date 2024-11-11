@@ -8,9 +8,8 @@ describe('ShuffleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShuffleComponent ]
-    })
-    .compileComponents();
+      declarations: [ShuffleComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

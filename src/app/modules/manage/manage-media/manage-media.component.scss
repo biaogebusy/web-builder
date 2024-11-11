@@ -1,4 +1,4 @@
-@import "../../../../theme//mixins/amixin";
+@import '../../../../theme//mixins/amixin';
 .manage-media {
   height: 65vh;
   overflow: hidden;
@@ -34,7 +34,7 @@
   .selected {
     position: relative;
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;

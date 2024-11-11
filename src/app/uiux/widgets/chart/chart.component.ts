@@ -33,7 +33,7 @@ export class ChartComponent implements OnInit {
 
   onChange(chart: any): void {
     if (isArray(this.content.series)) {
-      this.content.series.forEach((item) => {
+      this.content.series.forEach(item => {
         item.type = chart.value;
       });
       this.content = { ...this.content };

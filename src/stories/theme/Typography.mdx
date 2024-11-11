@@ -1,0 +1,191 @@
+{/* Typography.stories.mdx */}
+
+import { Meta, Typeset } from '@storybook/blocks';
+
+<Meta
+  title="主题/文字排版"
+  id="typography"
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: 'fullscreen',
+  }}
+/>
+
+### Material 字体排版配置及应用
+
+<table>
+  <thead>
+    <tr>
+      <th>Class 类名</th>
+      <th>对应变量名</th>
+      <th>应用 HTML 元素</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>.mat-headline-4</td>
+      <td>$display-4</td>
+      <td>Hero 标题</td>
+    </tr>
+    <tr>
+      <td>.mat-headline-3</td>
+      <td>$display-3</td>
+      <td>Hero 标题</td>
+    </tr>
+    <tr>
+      <td>.mat-headline-2</td>
+      <td>$display-2</td>
+      <td>Hero 标题</td>
+    </tr>
+    <tr>
+      <td>.mat-headline-1</td>
+      <td>$display-1</td>
+      <td>Hero 标题</td>
+    </tr>
+    <tr>
+      <td>.mat-h1 or .mat-headline</td>
+      <td>$headline</td>
+      <td>&lt;h1&gt;</td>
+    </tr>
+    <tr>
+      <td>.mat-h2 or .mat-title</td>
+      <td>$title</td>
+      <td>&lt;h2&gt;</td>
+    </tr>
+    <tr>
+      <td>.mat-h3 or .mat-subheading-2</td>
+      <td>$subheading-2</td>
+      <td>&lt;h3&gt;</td>
+    </tr>
+    <tr>
+      <td>.mat-h4 or .mat-subheading-1</td>
+      <td>$subheading-1</td>
+      <td>&lt;h4&gt;</td>
+    </tr>
+    <tr>
+      <td>.mat-h5</td>
+      <td>none</td>
+      <td>&lt;h5&gt;</td>
+    </tr>
+    <tr>
+      <td>.mat-h6</td>
+      <td>none</td>
+      <td>&lt;h6&gt;</td>
+    </tr>
+    <tr>
+      <td>.mat-body or .mat-body-1</td>
+      <td>body-1</td>
+      <td>body text</td>
+    </tr>
+    <tr>
+      <td>.mat-body-strong or .mat-body-2</td>
+      <td>body-2</td>
+      <td>none</td>
+    </tr>
+    <tr>
+      <td>.mat-small or .mat-caption</td>
+      <td>caption</td>
+      <td>none</td>
+    </tr>
+  </tbody>
+</table>
+
+自定义字体配置生成
+
+```ts
+$custom-typography: mat-typography-config(
+  $font-family: $font-family,
+  $display-4: mat-typography-level(61px, 1.5, 300, $font-family: $font-family),
+  $display-3: mat-typography-level(48px, 1.5, 400, $font-family: $font-family),
+  $display-2: mat-typography-level(39px, 1.5, 400, $font-family: $font-family),
+  $display-1: mat-typography-level(31px, 1.5, 400, $font-family: $font-family),
+  $headline: mat-typography-level(25px, 1.618, 400, $font-family: $font-family),
+  $title: mat-typography-level(20px, 1.618, 500, $font-family: $font-family),
+  $body-1: mat-typography-level(16px, 1.618, 400),
+  $body-2: mat-typography-level(16px, 1.618, 500),
+);
+```
+
+export const typography = {
+  type: {
+    primary: `"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+  "Microsoft YaHei", "微软雅黑", Arial, sans-serif`,
+  },
+  weight: {
+    regular: '400',
+    bold: '700',
+    extrabold: '800',
+    black: '900',
+  },
+  size: {
+    h1: 25,
+    h2: 20,
+    body: 16,
+  },
+  display: {
+    d1: 31,
+    d2: 39,
+    d3: 48,
+    d4: 61,
+  },
+};
+
+export const SampleText = '千山鸟飞绝，万径人踪灭。孤舟蓑笠翁，独钓寒江雪。';
+
+### 文字排版预览
+
+**字体:** "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+"Microsoft YaHei", "微软雅黑", Arial, sans-serif
+
+**Weights:** 400(regular), 700(bold), 800(extrabold), 900(black)
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.h1),
+    Number(typography.size.h2),
+    Number(typography.size.body),
+  ]}
+  fontWeight={typography.weight.black}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+/>
+
+# Hero 页面大标题
+
+<Typeset
+  fontSizes={[
+    Number(typography.display.d1),
+    Number(typography.display.d2),
+    Number(typography.display.d3),
+    Number(typography.display.d4),
+  ]}
+  fontWeight={typography.weight.black}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+/>
+
+## tailwind 字体
+
+<ul class="w-full space-y-6 px-4 py-6 sm:p-8 lg:p-6 xl:p-8">
+  <li>
+    <h4 class="!font-mono text-xs leading-5 text-gray-600">font-sans</h4>
+    <p class="text-sm sm:text-lg sm:leading-6 text-purple-900 !font-sans">
+      ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 1234567890
+    </p>
+  </li>
+  <li>
+    <h4 class="!font-mono text-xs leading-5 text-gray-600">font-serif</h4>
+    <p class="text-sm sm:text-lg sm:leading-6 text-purple-900 !font-serif">
+      ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 1234567890
+    </p>
+  </li>
+  <li>
+    <h4 class="!font-mono text-xs leading-5 text-gray-600">font-mono</h4>
+    <p class="text-sm sm:text-lg sm:leading-6 text-purple-900 !font-mono">
+      ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 1234567890
+    </p>
+  </li>
+</ul>

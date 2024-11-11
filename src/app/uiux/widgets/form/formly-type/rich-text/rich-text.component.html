@@ -19,8 +19,12 @@
     matTooltip="富文本编辑"
     (click)="openRichText()"
     class="absolute right-0 bottom-1"
-    [content]="{ icon: { svg: 'pencil' }, mode: 'mini-fab', color: 'primary' }"
-  ></app-btn>
+    [content]="{
+      icon: { svg: 'pencil' },
+      mode: 'mini-fab',
+      color: 'primary',
+    }"
+  />
 </mat-form-field>
 <div
   class="popup rounded-lg hidden flex-col justify-center items-center gap-5 p-5 bg-white shadow-2xl"
@@ -32,13 +36,9 @@
     [modules]="modules"
     (onContentChanged)="onContentChanged($event)"
     [styles]="{ height: '100%' }"
-  >
-  </quill-editor>
+  />
   <div class="flex justify-center items-center gap-5 mt-5">
-    <app-btn (click)="onCancel()" [content]="{ label: '取消' }"></app-btn>
-    <app-btn
-      (click)="onSave()"
-      [content]="{ label: '保存', mode: 'raised', color: 'primary' }"
-    ></app-btn>
+    <app-btn (click)="onCancel()" [content]="{ label: '取消' }" />
+    <app-btn (click)="onSave()" [content]="{ label: '保存', mode: 'raised', color: 'primary' }" />
   </div>
 </div>

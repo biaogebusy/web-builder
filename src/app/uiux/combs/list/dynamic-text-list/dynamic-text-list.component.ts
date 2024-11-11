@@ -30,7 +30,7 @@ export class DynamicTextListComponent
   implements OnInit, OnDestroy
 {
   @Input() content: IDynamicTextList;
-  @Output() pageChange: EventEmitter<string> = new EventEmitter();
+  @Output() pageChange = new EventEmitter<string>();
 
   lists: any[];
   links: IPaginationLinks;
@@ -65,7 +65,7 @@ export class DynamicTextListComponent
         )}&page[limit]=20`
       )
       .pipe(takeUntil(this.destory$))
-      .subscribe((res) => {
+      .subscribe(res => {
         this.updateList(res);
       });
   }
@@ -75,7 +75,7 @@ export class DynamicTextListComponent
     this.nodeService
       .getNodeByLink(link)
       .pipe(takeUntil(this.destory$))
-      .subscribe((res) => {
+      .subscribe(res => {
         this.updateList(res);
       });
   }

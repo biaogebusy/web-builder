@@ -1,45 +1,30 @@
 @if (content) {
-  <div class="full-calendar relative">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-    @if (content.bg) {
-      <app-bg-img [content]="content.bg"></app-bg-img>
-    }
-    <div class="{{ content.fullWidth ? '' : 'container' }}">
-      <div class="inner p-y flex flex-wrap">
-        <div class="sidebar p-x-sm flex-12/12 sm:flex-3/12">
-          @if (content.text) {
-            <app-text [content]="content.text"></app-text>
+  <div class="full-calendar">
+    <div class="inner p-y flex flex-wrap">
+      <div class="sidebar p-x-sm flex-12/12 sm:flex-3/12">
+        @if (content.text) {
+          <app-text [content]="content.text" />
+        }
+        @if (content.form) {
+          <app-formly
+            [form]="form"
+            [fields]="content.form"
+            [model]="model"
+            (modelChange)="onChange($event)"
+          />
+        }
+      </div>
+      <div class="main p-x-sm p-y-sm flex-12/12 {{ content.form ? 'sm:flex-8/12' : '' }}">
+        <div class="calendar w-full">
+          @if (visiable) {
+            <app-calendar
+              [content]="content.calendar.options"
+              [loading]="loading"
+              [options]="options"
+            />
           }
-          @if (content.form) {
-            <app-formly
-              [form]="form"
-              [fields]="content.form"
-              [model]="model"
-              (modelChange)="onChange($event)"
-            ></app-formly>
-          }
-        </div>
-        <div
-          class="main p-x-sm p-y-sm flex-12/12 {{
-            content.form ? 'sm:flex-8/12' : ''
-          }}"
-        >
-          <div class="calendar w-full">
-            @if (visiable) {
-              <app-calendar
-                [content]="content.calendar.options"
-                [loading]="loading"
-                [options]="options"
-              >
-              </app-calendar>
-            }
-          </div>
         </div>
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
 }

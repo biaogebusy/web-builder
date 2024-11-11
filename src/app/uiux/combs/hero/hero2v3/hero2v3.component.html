@@ -1,54 +1,32 @@
 <div class="hero-2-v3 relative p-y-md">
-  @if (content.id) {
-    <a class="anchor" [id]="content.id"></a>
-  }
-  @if ((pageContent$ | async)?.config?.headerMode?.transparent) {
-    <app-spacer [size]="'xl'"></app-spacer>
-  }
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  @if (content.bg) {
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  }
-  <div class="{{ content.fullWidth ? 'relative' : 'container relative' }}">
-    <div
-      class="hero-body text-center flex flex-wrap justify-center items-center"
-    >
-      @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
-      }
-      <div
-        class="box m-top-md flex flex-wrap justify-center items-center basis-full"
-      >
-        @for (item of content.elements; track item; let i = $index) {
-          <div class="item basis-1/2 sm:basis-4/12 md:basis-2/12">
-            <div
-              class="card m-y-xs m-x-xs flex flex-col justify-center items-center"
-            >
-              <div class="card-inner p-y-sm p-x-sm">
-                <div class="card-media flex justify-center items-center">
-                  <app-img
-                    [attr.data-path]="'elements.' + i + '.img'"
-                    [content]="item.img"
-                  ></app-img>
-                </div>
-                <div class="card-content m-top-sm">
-                  <h3 class="title mat-h3 font-bold m-bottom-0 text-center">
-                    <app-link
-                      [attr.data-path]="'elements.' + i"
-                      [content]="item.link"
-                      class="line-clamp-1"
-                    ></app-link>
-                  </h3>
-                </div>
+  <div class="hero-body text-center flex flex-wrap justify-center items-center">
+    @if (content.text) {
+      <app-text [attr.data-path]="'text'" [content]="content.text" />
+    }
+    <div class="box m-top-md flex flex-wrap justify-center items-center basis-full">
+      @for (item of content.elements; track item; let i = $index) {
+        <div class="item basis-1/2 sm:basis-4/12 md:basis-2/12">
+          <div class="card m-y-xs m-x-xs flex flex-col justify-center items-center">
+            <div class="card-inner p-y-sm p-x-sm">
+              <div class="card-media flex justify-center items-center">
+                <app-img [attr.data-path]="'elements.' + i + '.img'" [content]="item.img" />
+              </div>
+              <div class="card-content m-top-sm">
+                <h3 class="title mat-h3 font-bold m-bottom-0 text-center">
+                  <app-link
+                    [attr.data-path]="'elements.' + i"
+                    [content]="item.link"
+                    class="line-clamp-1"
+                  />
+                </h3>
               </div>
             </div>
           </div>
-        }
-      </div>
+        </div>
+      }
     </div>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   @if (content.shape) {
-    <app-shape></app-shape>
+    <app-shape />
   }
 </div>

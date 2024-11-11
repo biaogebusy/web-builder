@@ -8,9 +8,8 @@ describe('BlockToolbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BlockToolbarComponent ]
-    })
-    .compileComponents();
+      declarations: [BlockToolbarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

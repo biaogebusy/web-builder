@@ -1,17 +1,17 @@
 <div class="content-box relative overflow-hidden h-full">
   <div class="media" [ngClass]="content.ratios || 'media-4-3'">
     @if (content.img) {
-      <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
+      <app-img [attr.data-path]="'img'" [content]="content.img" />
     }
   </div>
   <div class="inner absolute left-0 bottom-0 z-10 p-5">
     @if (content.subTitle) {
       <div class="sub-title">
-        <app-link [attr.data-path]="'subTitle'" [content]="content.subTitle"></app-link>
+        <app-link [attr.data-path]="'subTitle'" [content]="content.subTitle" />
       </div>
     }
     <h2 class="title leading-normal two-line mb-0">
-      <app-link [attr.data-path]="'title'" [content]="content.title"></app-link>
+      <app-link [attr.data-path]="'title'" [content]="content.title" />
     </h2>
   </div>
 </div>

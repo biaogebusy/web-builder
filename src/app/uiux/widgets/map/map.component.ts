@@ -49,7 +49,7 @@ export class MapComponent implements OnInit, OnChanges {
   private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(THEME) private theme: string,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
@@ -104,9 +104,9 @@ export class MapComponent implements OnInit, OnChanges {
           this.renderMap();
         }
       },
-      (error) => {
+      error => {
         console.log(error);
-      },
+      }
     );
   }
 
@@ -146,12 +146,12 @@ export class MapComponent implements OnInit, OnChanges {
     };
     this.map = new this.AMap.Map(
       'map',
-      Object.assign({}, defaultOptions, options),
+      Object.assign({}, defaultOptions, options)
     );
     if (this.configService?.switchChange$) {
       this.configService.switchChange$
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((theme) => {
+        .subscribe(theme => {
           const newMapStyle =
             theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
           this.map.setMapStyle(newMapStyle);

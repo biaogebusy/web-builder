@@ -88,7 +88,7 @@ export class CodeEditorComponent implements OnInit {
       this.nodeService
         .fetch(this.api, '')
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((res) => {
+        .subscribe(res => {
           this.json = res;
           this.cd.detectChanges();
         });
@@ -102,9 +102,9 @@ export class CodeEditorComponent implements OnInit {
       .pipe(
         debounceTime(3000),
         distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((html) => {
+      .subscribe(html => {
         const { path } = this.content;
         if (path) {
           const content = { ...get(this.builder.currentPage.body, path), html };
@@ -121,9 +121,9 @@ export class CodeEditorComponent implements OnInit {
       .pipe(
         debounceTime(1000),
         distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((value) => {
+      .subscribe(value => {
         const { isAPI, api } = value;
         const { path } = this.content;
         this.isAPI = isAPI;
@@ -132,14 +132,14 @@ export class CodeEditorComponent implements OnInit {
           this.nodeService
             .fetch(api, '')
             .pipe(
-              catchError((err) => {
+              catchError(err => {
                 return of({
                   message: err.message ?? '404',
                 });
               }),
-              takeUntilDestroyed(this.destroyRef),
+              takeUntilDestroyed(this.destroyRef)
             )
-            .subscribe((res) => {
+            .subscribe(res => {
               this.json = Object.assign({}, res);
               const content = {
                 ...get(this.builder.currentPage.body, path),

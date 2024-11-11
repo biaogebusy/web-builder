@@ -40,9 +40,9 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user$: Observable<IUser>,
+    @Inject(USER) public user$: Observable<IUser>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -64,7 +64,7 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((state) => {
+        .subscribe(state => {
           if (state) {
             this.getComments(+new Date());
           }
@@ -80,7 +80,7 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
     this.nodeService
       .getCustomApiComment(uuid, timeStamp, this.user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
+      .subscribe(res => {
         this.comments = res;
         this.cd.detectChanges();
       });

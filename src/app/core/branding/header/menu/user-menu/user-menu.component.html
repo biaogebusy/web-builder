@@ -4,8 +4,7 @@
       aria-label="user login"
       color="primary"
       (click)="onLogin()"
-      mat-mini-fab
-    >
+      mat-mini-fab>
       <mat-icon>person</mat-icon>
     </button>
   }
@@ -15,10 +14,9 @@
         aria-label="user name"
         mat-mini-fab
         color="primary"
-        [matMenuTriggerFor]="menu"
-      >
+        [matMenuTriggerFor]="menu">
         <h3 class="name">
-          {{ utilities.getIndexTitle(user.display_name || "N") }}
+          {{ utilities.getIndexTitle(user.display_name || 'N') }}
         </h3>
       </button>
     } @else {
@@ -26,16 +24,14 @@
         class="user-picture"
         [matMenuTriggerFor]="menu"
         [src]="user.picture"
-        alt="{{ user.display_name }}"
-      />
+        alt="{{ user.display_name }}" />
     }
     <ng-template #picture>
       <img
         class="user-picture"
         [matMenuTriggerFor]="menu"
         [src]="user.picture"
-        alt="{{ user.display_name }}"
-      />
+        alt="{{ user.display_name }}" />
     </ng-template>
     <mat-menu #menu="matMenu" class="user-dropdown">
       <a mat-menu-item [routerLink]="userService.userPage">
@@ -43,8 +39,8 @@
       </a>
       @for (item of content; track item) {
         <button aria-label="user link" mat-menu-item *reqRolesIf="item">
-          <app-icon [content]="item.icon"></app-icon>
-          <app-link [content]="item"></app-link>
+          <app-icon [content]="item.icon" />
+          <app-link [content]="item" />
         </button>
       }
       <button aria-label="logout" mat-menu-item (click)="logout()">

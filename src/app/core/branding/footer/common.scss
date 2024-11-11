@@ -48,7 +48,7 @@
     ::ng-deep a {
       font-size: 12px;
       &:after {
-        content: "/";
+        content: '/';
         padding-left: 20px;
       }
     }
@@ -58,7 +58,7 @@
     &:last-child {
       padding-right: 0px;
       ::ng-deep a:after {
-        content: "";
+        content: '';
         padding-left: 0px;
       }
     }

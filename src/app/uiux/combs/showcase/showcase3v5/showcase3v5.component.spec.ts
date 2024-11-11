@@ -8,9 +8,8 @@ describe('Showcase3v5Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Showcase3v5Component ]
-    })
-    .compileComponents();
+      declarations: [Showcase3v5Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {

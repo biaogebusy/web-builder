@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
 @mixin box-color($theme) {
   $config: mat.m2-get-color-config($theme);
@@ -261,7 +261,8 @@
     }
     &.style-v9 {
       background-color: $bg-card-color;
-      box-shadow: 0 0 3px mat.m2-get-color-from-palette($foreground, divider, 0.1);
+      box-shadow: 0 0 3px
+        mat.m2-get-color-from-palette($foreground, divider, 0.1);
       .box-icon {
         background: mat.m2-get-color-from-palette($primary, 0.1);
         color: $text-primary;

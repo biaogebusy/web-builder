@@ -8,9 +8,8 @@ describe('LayoutToolbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LayoutToolbarComponent ]
-    })
-    .compileComponents();
+      declarations: [LayoutToolbarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

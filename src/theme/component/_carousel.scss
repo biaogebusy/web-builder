@@ -80,7 +80,7 @@
     .bullets-custom-style-active {
       position: relative;
       &::after {
-        content: "";
+        content: '';
         width: calc(100% + 4px);
         height: calc(100% + 4px);
         display: block;

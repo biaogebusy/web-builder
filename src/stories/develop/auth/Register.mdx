@@ -1,0 +1,46 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="开发/用户接口/注册" id="register" />
+
+## 使用 Drupal REST API 注册用户
+
+1. 开启四个 web services 核心模块：
+
+- HAL
+- HTTP Basic Authentication
+- RESTful web service
+- Serialization
+  ![module](/assets/storybook/assets/drupal/rest-module.png)
+
+2. 确保已经安装 [Rest UI](https://www.drupal.org/project/restui)
+
+- 进入配置页面： /admin/config/services/rest 开启用户注册并配置：
+  ![module](/assets/storybook/assets/drupal/user-register.png)
+  ![module](/assets/storybook/assets/drupal/setting-user-register.png)
+- 给匿名用户和注册用户权限：/admin/people/permissions#module-rest
+  ![module](/assets/storybook/assets/drupal/drupal-rest-perms.png)
+- 确保账户设置中允许访客创建账户：/admin/config/people/accounts
+  ![module](/assets/storybook/assets/drupal/acount-setting.png)
+  需要注意：如果勾选了【访客，但须要管理员批准】提交后需要审核；【访客创建帐号需要电子邮件确认】在 api 提交账户信息时不需要提交密码，提交会提示："A Password cannot be specified. It will be generated on login."
+
+3. api
+
+```
+### REST 注册用户
+POST {{apiUrl}}/user/register?_format=hal_json
+Content-Type: application/hal+json
+
+{
+  "_links": {
+    "type": {
+     "href": "{{apiUrl}}/rest/type/user/user"
+  }
+  },
+  "name":[{ "value" : "johnson" }],
+  "mail":[{ "value" : "johnson@qq.com" }],
+  "pass":[{"value":"123456"}]
+}
+
+```
+
+![module](/assets/storybook/assets/drupal/register-success.png)

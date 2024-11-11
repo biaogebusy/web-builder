@@ -1,0 +1,292 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="开发/JSONAPI/媒体" id="jsonapi-media" />
+
+# 使用 JSONAPI 对图片进行操作
+
+给文章添加图片的流程：
+
+- 创建媒体
+- 根据返回的媒体，上传文件进行关联
+
+## 创建媒体
+
+```
+POST /jsonapi/media/image
+Header:
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token:获取的x-csrf-token
+
+{
+    "data": {
+        "type": "media--image",
+        "attributes": {
+            "name": "图片名称"
+        },
+        "relationships": {
+            "bundle": {
+                "data": {
+                    "type": "media_type--media_type",
+                    "id": "e62df192-02d0-48a2-92f6-758f111f8b00"
+                }
+            }
+        }
+    }
+}
+```
+
+## 上传文件
+
+```
+POST /jsonapi/media/image/{创建媒体返回的ID}/field_media_image
+Header:
+Accept: application/vnd.api+json
+Content-Type: application/octet-stream
+X-CSRF-Token:获取的x-csrf-token
+Content-Disposition: file; filename="图片名"'
+参数：图片流
+
+```
+
+## 创建文章附件
+
+```
+POST /jsonapi/media/document
+Header:
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token:获取的x-csrf-token
+参数：
+{
+    "data": {
+        "type": "media--document",
+        "attributes": {
+            "name": "附件名"
+        },
+        "relationships": {
+            "bundle": {
+                "data": {
+                    "type": "media_type--media_type",
+                    "id": "b9b0a2f4-4cfd-42de-858b-e6f1ec6899c2"
+                }
+            }
+        }
+    }
+}
+```
+
+## 上传附件
+
+```
+POST /jsonapi/media/document /{创建媒体返回的ID}/field_media_document
+Header:
+Accept: application/vnd.api+json
+Content-Type: application/octet-stream
+X-CSRF-Token:获取的x-csrf-token
+Content-Disposition: file; filename="附件名"'
+参数：图片流
+
+```
+
+## 创建文章并关联媒体
+
+```
+POST /jsonapi/node/article
+Header:
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token:获取的x-csrf-token
+{
+    "data": {
+        "type": "node--article",
+        "attributes": {
+            "title": "文章标题",
+            "created": "2015-05-13T00:00:00+00:00",
+            "promote": false,
+            "sticky": false,
+            "auditor": "审核人",
+            "editor": "编辑",
+            "origin": "来源",
+            "original_author": "原文作者",
+            "reviewer": "审定人",
+            "body": {
+                "value": "文章详情",
+                "format": "full_html"
+            }
+        },
+        "relationships": {
+            "node_type": {
+                "data": {
+                    "type": "node_type--node_type",
+                    "id": "b4363247-3fdc-460c-94df-fc6b684882c3"
+                }
+            },
+            "attached_media": {
+                "data": [
+                    {
+                        "type": "media--document",
+                        "id": "35d4006a-92c0-4698-926a-12a7e41c3abd"
+                    },
+                    {
+                        "type": "media--document",
+                        "id": "f5275fae-4497-49af-9caa-fc19ac9180d4"
+                    }
+                ]
+            },
+            "featured_media": {
+                "data": {
+                    "type": "media--image",
+                    "id": "e63d3a09-773b-4961-a371-e049b2f9df86"
+                }
+            },
+            "category": {
+                "data": {
+                    "type": "taxonomy_term--article_category",
+                    "id": "94b6d35a-122b-498e-806c-a4827b54a390"
+                }
+            },
+            "department": {
+                "data": {
+                    "type": "taxonomy_term--department",
+                    "id": "98736aa9-7e85-41f9-9891-94bbe21b0f83"
+                }
+            }
+        }
+    }
+}
+```
+
+## 获取文件列表
+
+```
+GET /jsonapi/file/file
+```
+
+## 使用 JSONAPI 上传图片
+
+以 quill 编辑器选择图片上传为例，模板中：
+
+```html
+<quill-editor
+  (onEditorCreated)="editorCreated($event)"
+  [modules]="modules"
+  [ngModel]="content.data.innerHTML"
+  (onContentChanged)="contentChanged($event)"
+  [styles]="{height:'180px'}">
+</quill-editor>
+```
+
+监听图片的加载并获取图片数据
+
+```js
+editorCreated(quill: any) {
+    const toolbar = quill.getModule('toolbar');
+    toolbar.addHandler('image', this.imageHandler.bind(this));
+    this.editor = quill;
+  }
+
+  imageHandler() {
+    const Imageinput: any = document.createElement('input');
+    Imageinput.setAttribute('type', 'file');
+    Imageinput.setAttribute(
+      'accept',
+      'image/png, image/gif, image/jpeg, image/bmp, image/x-icon'
+    );
+    Imageinput.classList.add('ql-image');
+    if (Imageinput.files) {
+      Imageinput.addEventListener('change', () => {
+        const file = Imageinput.files[0];
+        if (file) {
+          let reader = new FileReader();
+          reader.onload = (e: any) => {
+            const data = e.target.result;
+            this.nodeService
+              .uploadImage(file.name, data, this.user.csrf_token)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe((img) => {
+                const range = this.editor.getSelection(true);
+                this.editor.insertEmbed(range.index, 'image', img);
+              });
+          };
+          reader.readAsArrayBuffer(file);
+        }
+      });
+      Imageinput.click();
+    }
+  }
+```
+
+图片上传
+使用了 Drupal 的 JSONAPI: /media/image/field_media_image 接口，需要注意的是，该接口上传后图片还只是临时文件，因为没有任何实体跟该文件关联，超过临时文件的期限，Drupal 执行 cron 会被删除，所以还需要使用/media/image 建立新的媒体文件进行关联。
+
+需要注意，接受的数据格式是 ArrayBuffer，具体在这里获取：reader.readAsArrayBuffer(file);
+
+```js
+uploadImage(
+    fileName: string,
+    imageData: any,
+    csrfToken: string
+  ): Observable<any> {
+    return this.http
+      .post('/jsonapi/media/image/field_media_image', imageData, {
+        headers: new HttpHeaders({
+          Accept: 'application/vnd.api+json',
+          'Content-Type': 'application/octet-stream',
+          'Content-Disposition': `file; filename="${fileName}"`,
+          'X-CSRF-Token': csrfToken,
+        }),
+        withCredentials: true,
+      })
+      .pipe(
+        map((res: any) => {
+          const {
+            data: {
+              attributes: { uri },
+            },
+          } = res;
+          this.createMediaImage(res.data);
+          return uri.url;
+        }),
+        catchError(() => {
+          return '';
+        })
+      );
+  }
+```
+
+新建图片媒体进行关联
+
+```js
+createMediaImage(data: any): void {
+    const {
+      id,
+      attributes: { filename },
+    } = data;
+    const mediaData = {
+      data: {
+        type: 'media--image',
+        attributes: {
+          name: filename,
+        },
+        relationships: {
+          field_media_image: {
+            data: {
+              type: 'file--file',
+              id,
+            },
+          },
+        },
+      },
+    };
+    this.http
+      .post(
+        `/jsonapi/media/image`,
+        mediaData,
+        this.optionsWithCookieAndToken(this.user.csrf_token)
+      )
+      .subscribe((res) => {
+        console.log('image upload done.');
+      });
+  }
+```

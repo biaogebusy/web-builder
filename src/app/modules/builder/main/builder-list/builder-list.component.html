@@ -3,7 +3,7 @@
     <div id="gsap-scroller" class="wrapper" [ngClass]="previewClass$ | async">
       @if (builder.loading$ | async) {
         <div class="load">
-          <mat-spinner diameter="50" color="accent"></mat-spinner>
+          <mat-spinner diameter="50" color="accent" />
         </div>
       }
       <div
@@ -12,39 +12,33 @@
         cdkDropList
         [cdkDropListConnectedTo]="['widgets']"
         [cdkDropListData]="page.body"
-        (cdkDropListDropped)="drop($event)"
-      >
+        (cdkDropListDropped)="drop($event)">
         @for (item of page.body; track trackByFn(i, item); let i = $index) {
           <div
             id="item-{{ i }}"
             class="component-item"
             cdkDrag
             [cdkDragDisabled]="true"
-            [cdkDragData]="item"
-          >
+            [cdkDragData]="item">
             @if (item) {
               <app-dynamic-component
                 [attr.data-path]="i"
                 [inputs]="{ content: item, showToolbar: true }"
                 [index]="i"
-                [isPreview]="true"
-              ></app-dynamic-component>
+                [isPreview]="true" />
               @if (builderConfig$ | async; as builderConfig) {
                 <div
                   class="add-new-section gap-2 items-center"
-                  [attr.data-path]="i"
-                >
+                  [attr.data-path]="i">
                   <button
                     mat-raised-button
                     (click)="
                       addNewSection($event, 'section', builderConfig.newSection)
-                    "
-                  >
+                    ">
                     <div class="flex">
                       <app-icon
                         class="mr-1"
-                        [content]="{ svg: 'plus' }"
-                      ></app-icon>
+                        [content]="{ svg: 'plus' }" />
                       <span>新增布局</span>
                     </div>
                   </button>
@@ -54,24 +48,22 @@
                     mat-icon-button
                     (click)="
                       addNewSection($event, 'widget', builderConfig.newSection)
-                    "
-                  >
-                    <app-icon [content]="{ svg: 'chevron-down' }"></app-icon>
+                    ">
+                    <app-icon [content]="{ svg: 'chevron-down' }" />
                   </button>
                 </div>
               }
             }
           </div>
         } @empty {
-          <app-default-page></app-default-page>
+          <app-default-page />
         }
       </div>
       @if (builder.switchPreivew$ | async) {
         <div class="iframe-wrapper">
           <app-iframe
             class="preview-iframe"
-            [content]="{ url: '/builder/preview' }"
-          ></app-iframe>
+            [content]="{ url: '/builder/preview' }" />
         </div>
       }
     </div>

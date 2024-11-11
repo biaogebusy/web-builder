@@ -52,7 +52,7 @@ export class QuestionComponent
   private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) public user$: Observable<IUser>) {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -63,7 +63,7 @@ export class QuestionComponent
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((state) => {
+        .subscribe(state => {
           if (state) {
             this.checkIsAsked();
             this.getComments(+new Date());
@@ -103,7 +103,7 @@ export class QuestionComponent
     this.nodeService
       .getNodes(path, entityType, params)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
+      .subscribe(res => {
         if (res.data.length) {
           this.isAsked = true;
           this.showEditor = false;
@@ -128,7 +128,7 @@ export class QuestionComponent
     this.nodeService
       .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
+      .subscribe(res => {
         this.comments = res;
         this.cd.detectChanges();
       });

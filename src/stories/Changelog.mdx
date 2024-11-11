@@ -1,0 +1,245 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="更新日志" />
+
+# 更新日志
+
+## 9.0.1(2024-11-09)
+
+- 优化了 builder 边栏菜单 icon 的样式；
+- 编辑区中，当 hover 最外层组件时，显示新增布局或者新增基组件的入口，优化用户编辑体验；
+- 优化 app 页面 loading 效果；
+- 对所有的组件进行了重构，所有组件包括基组件都有是否全屏、间隔、背景色、蒙版、class、ID通用属性；
+- 添加了eslint，husky，统一了格式化；
+
+## 9.0.0(2024-10-30)
+
+- angular 升级到 v18，material 升级到 v18;
+- 默认提供体验站的 API 访问权限，方便在本地开发测试时更好的体验，可查看 proxy.config.js 文件；
+- 媒体库移除切换本地静态图片的功能，静态图片适时将从包中删除；
+- 重构 builder 引导提示，从全局 config 移到 builder config;
+- 页面的布局 container 在大屏的最大宽度改为 1470px；
+
+## 8.0.3(2024-10-07)
+
+- widget picker 从页面底部弹窗改为侧边栏；
+- 着陆页添加封面字段，可选择媒体库图片更新封面；
+- builder 中移除页头页尾的预览；
+- builder right drawer 移到 builder 最外层，长远考虑应该是通用的；
+- 前台页面添加了可以跳转到该页面的 builder 工作区；
+- 重构了 buidler sample 组件，改为 builer page，能够根据 url 过来对应分类的页面列表；
+- 优化了 builder 提供的模板示例，不再从内置中获取，从后台模板分类获取；
+- 修改了用户登录后的 cookies 过期日期，过期日期为 200000 秒，与 Drupal 的默认值一致；
+- core 配置支持从 builder 更新；
+- builder 的页面在着陆页的 builder 分类维护，不再使用 json 内容类型维护；
+- 修复 toolbar copy 类型不同导致的问题；
+- builder 欢迎默认页面不再在全局配置中维护，使用着陆页 builder 分类的`/builder/default-page`维护；
+
+## 8.0.2(2024-08-27)
+
+- Builder 开始转向 Manage 的职能，添加 builder workspace 作为编辑空间；
+- Builder 添加 manage page 组件，可以动态添加管理相关的页面；
+- 移除了 manage media 路由；
+- 删除了 manage block 组件，已经没有必要，可以在 builder 中按需配置添加；
+- USER token 重构为 Observable；
+- Builder sidebar 支持多级菜单；
+- 修复 builder swiper 可视化配置问题；
+- Builder 添加路由守卫；
+- 解决动态组件在新版 SSR 模式下重复渲染的问题；
+- 新增 json 组件，用以支持微信小程序的组件管理；
+- 移除 Branding 的 manageSidebar，统一使用 Builder 的侧边栏做管理边栏；
+- mat-select 在 api 的形式下，可以设置额外的 options，比如"无"类似选项；
+- 更名 player 组件为 video 组件，添加自定义播放比例；
+- 修复单语言时 jsonapi 别名更新；
+- 升级 quill 到 v2.0.2；
+- 升级 typescript 到 7.0.0；
+- 媒体库支持批量删除；
+
+## 8.0.1(2024-07-13)
+
+- 自定义模块支持 Drupal views API 分页；
+- 媒体库和 Builder 管理页面列表使用 Views API；
+- 优化多语言，可在 builder 直接添加编辑对应的语言版本；
+- 添加 PageSetting 组件，支持对页面属性的更新；
+- 媒体库支持批量上传图片；
+- 使用 NgOptimizedImage 对 img 图片元素优化；
+- Builder 可生成所有的组件到页面中，可方便全量测试；
+
+## 8.0.0(2024-06-20)
+
+- 升级 angualr 到 v17；
+- 使用了新的 SSR 实现；
+- 使用了 esbuild；
+- 使用了新的语法；
+
+- 升级 Angular v14 到 v15；
+- 升级 Angular v15 到 v16；
+- 重构：swiper, countTo, lightbox，Angulartics2Module；
+- 升级 Storybook 到 v8，移除了一些包和组件；
+
+## 6.0.0(2024-06-08)
+
+- 升级 Angular v12 到 v13；
+- 移除 article change, search action,dynamic form,dynamic form control, action 1v1 组件；
+- 升级了 ngx-quill 版本；
+- 升级 Angular v13 到 v14，Material 对应升级版本；
+- fullcalendar 升级到 v6；
+- tailwindCss 升级到 v3.4.3；
+- ngx-localstorage 升级到 v10；
+- ngx-cookie-service 升级到 v14；
+- ngx-formly 升级到 v6；
+- 移除了 tree,tree-list 组件和包，其中包含 mobx 依赖；
+- img 去掉了 flexLayout 依赖；
+- Layout builder 使用 grid，flex 有局限性，配置也少很多；
+- 移除了 packpery 模块；
+- 完全移除了 flex-layout 模块，所有的组件依赖该模块都已替换；
+- text 组件去除了限制只对 pc 断点的样式，会影响到 Hero 个别组件在移动端的样式；
+
+## 5.0.1(2024-05-29)
+
+- 支持多语言；
+- 使用 tailwind 逐渐替换 FlexLayout；
+- LayoutBuilder 使用 Tailwind 重构；
+- 修复嵌套 Layout builder 的配置问题；
+- layout builder 的 text 组件支持富文本编辑；
+- 修复用户的登录状态；
+- builder 新增 copy 功能，widget picker 可直接选择 copy 的组件，支持跨页面复制；
+- 更新 web builder 开源协议为 AGPL v3；
+- 新增自定义数据源和模板组件，使用 vs 的 monaco-editor 为 html 模板编辑器；
+- builder 的示例页从应用中移除，转为从后台加载，节省应用的大小；
+- 自定义模板支持 api 数据源；
+- 支持百度统计；
+- 用户登录状态和资料使用 cookie 保存；
+
+## 5.0.0(2024-04-26)
+
+- 升级 Angular v11 到 v12；
+- 修复了多主题重复样式的问题；
+- 加入 Tailwind Css；
+- 移除了 text 富文本组件默认的动画效果，统一在 layout builder 中配置；
+- 移除了 assets/images 中特定产品的图片资源；
+- 新增了 slider formly 类型，基于 mat-slider 扩展；
+- 重命名 BlockModule 为 RenderModule；
+- 移除 showcase 3v1，layout builder 替代；
+- builder 已支持发布页面到 Drupal；
+- builder 已支持从 api 读取页面、更新页面；
+- layout builder 可以支持无限嵌套；
+- builder 中对复制的内容粘贴到可编辑文字时，对复制的内容清除格式，确保不影响当前样式；
+- builder 中新增、删除、移动、复制、更新等操作进行了优化重构；
+- 移除了 polyfills，不再兼容低版本浏览器；
+- login 页面改用弹窗形式，returnUrl 根据场景对应返回；
+- 升级@fullcalendar 到 v6，已还原，v6 SSR 有问题；
+
+## 4.2.4(2024-03-02)
+
+- web builder 新增了对后台 landingPage 列表的预览、加载
+- web builder 新增了主边栏，调整了菜单位置；
+- web builder 支持 wiget 基础的可视化参数配置；
+- web builder 新建页面可选择经典的示例；
+- web builder 支持 gsap 动画的配置；
+- 移除了 dat.gui 轻量属性编辑库，使用 formly 重构；
+- formly 新增了 img picker 图片选择器；
+- 移除了不需要的 list2v1 组件；
+
+## 4.2.3(2024-01-11)
+
+- web builder 支持组件的文字双击原地编辑；
+- web builder 支持组件图片点击选择更新；
+- quill 支持图片的上传；
+- web builder 添加属性编辑面板；
+- web builder 支持 layout builder 动态构建组件；
+- 解决 fsevents 依赖问题，lodash 引用问题；
+- 媒体资源库可切换静态资源和后台媒体库，优化了媒体库显示性能；
+
+## 4.2.2(2023-12-14)
+
+- web builder 增加了一些 tooltip，更优化提示用户使用体验；
+- web builder 为空时，不可切换设备预览；
+- 简化 text 组件的 action；
+- 移除了 disableToolbar，component toolbar 只在 builder 开启；
+- 统一了 builder 生成组件的 json 数据结构；
+- builder 边栏做了大的优化，统一了 UI，组件预览可以查看和复制 json 组件，以往需要拖动到 builder 区；
+- 新增了 Tour 引导提示，通过后台配置灵活选择提示的元素与信息；
+- 修复已用主题被移除时，已访问用户的主题显示问题；
+- link 组件添加了 tooltip；
+- 优化了暗黑主题，使结构和层次更清晰；
+- builder 支持快捷键 S 收起边栏；
+- builder 新增页面历史版本，清空、提交等操作会产生新的历史版本；
+
+## 4.2.1(2023-10-13)
+
+- 移除了 dynamic-widgets 组件，使用 dynamic-component 代替；
+- 移除了 loop-widgets，dynamic-component 可替换功能；
+- 移除了 search-status, search-top 搜索相关用不到的组件；
+- 优化了 page drawer 的样式，修复图片和 iframe 的显示问题；
+- 增加了 Drupal 媒体库管理，在 builder 中可使用媒体库，点击可复制；
+- 更新了 stories 中组件的 interface；
+- 重构了搜索组件，使用 formly 动态表单；
+- Builder 可预览整个页面的 JSON 并修改；
+- Builder 新增响应式切换预览；
+- Builder 新增浅色和黑暗主题；
+- btn video 支持播放 iframe 类型的外部视频；
+- Manage sidebar 边栏样式更新；
+- 更新了 Builder toolbar 样式；
+- 添加了 Clarity，在 base config 配置即可开启，在 clarity 后台查看用户真实的使用情况；
+
+## 4.2.0(2023-06-24)
+
+- Builder: Storybook 中或者开启了 Builder 的站点可以从页面中选组件添加到预览页面，可复制单个组件或者整个页面的 JSON；
+- 导入组件和 widgets 到 Builder 中，对需要用到 API 的组件进行了测试数据的转换；
+- 添加了 jsoneditor 组件，可以预览和编辑 json；
+- Builder 的各类状态使用 Inject 注入，方便测试和维护；
+- Buidler 在移动端的优化；
+- 优化了 Builder 的暗黑主题；
+- 修复了 gsap 在 overflow auto 容器中的显示问题；
+- story 中的 home 实例，统一在 builder stories 中维护；
+- Builder 构建的预览可下载图片到本地；
+- Builder 添加了页面预览；
+
+## 4.1.0(2023-04-27)
+
+- 主题运行时动态加入，大量减少了多主题时打包的样式文件大小；
+- quill 编辑器支持使用 drupal jsonapi 上传图片；
+- 新增了 Dashboard 组件，完善了中台页面；
+
+## 4.0.0(2022-12-27)
+
+- 动态导入模块组件；
+- 添加了 Manage sidebar 管理边栏，[示例](?path=/story/manage-sidebar--page)；
+- 添加了 View Map 通用型地图映射组件，通过 Drupal view 即可配置出数据来源，[示例](?path=/story/viewmap--default)；
+
+## 3.0.5(2022-11-11)
+
+- 表格默认可以单元格 Sort 排序；
+- 应用可通过 Drawer 参数开启点击链接内容从右侧切出；
+- link 组件、View list 组件设置`rel="drawer"`可以调用 drawer 切出`href`的数据；
+
+## 3.0.4(2022-10-31)
+
+- 使用 MDI 扩展了 icons 库；
+- 添加了 gsap 动画库，[示例](?path=/story/product-v2--page)；
+
+## 3.0.3(2022-10-25)
+
+- 添加了视频播放组件，基于 Video.js；
+- 添加了 btn-video widget，点击弹窗播放视频；
+- Storybook 升级到 6.5.13；
+- 移除了分散在各处的 api 请求缓存，统一在请求拦截处处理请求缓存；
+
+## 3.0.2(2022-10-19)
+
+- 添加了 Storybook 的 play function，定义 action 更好的做演示；
+
+## 3.0.1(2022-10-13)
+
+- 优化了 Storybook import 和 provider，新建了 StoryModule 统一处理；
+
+## 3.0.0(2022-10-09)
+
+- 移除 mobx-angular；
+- 移除了 ngx-swiper-wrapper 模块依赖；
+- coreConfig, branding, theme, apiUrl, user 通过 useFactory provider 注入；
+- 更新了 storybook 文档；
+- 添加`"@types/express-serve-static-core": "^4.17.21"` 修复打包报错的问题；
+- 升级 angular 至 11.2.14 版本；
+- 降级 storybook 版本为 6.5.10，修复最新版无法 build 的问题；

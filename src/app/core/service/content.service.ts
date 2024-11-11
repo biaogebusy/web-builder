@@ -45,7 +45,7 @@ export class ContentService extends ApiService {
       const landingPath = '/api/v3/landingPage?content=';
       const pageUrlParams = `${this.apiUrl}${lang}${landingPath}${path}`;
       return this.http.get<any>(pageUrlParams).pipe(
-        tap((page) => {
+        tap(page => {
           this.updatePage(page);
           this.logContent(pageUrl);
         }),
@@ -57,7 +57,7 @@ export class ContentService extends ApiService {
       return this.http
         .get<any>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`)
         .pipe(
-          tap((page) => {
+          tap(page => {
             this.updatePage(page);
           }),
           catchError(() => {
@@ -114,7 +114,7 @@ export class ContentService extends ApiService {
         (config: ICoreConfig) => {
           this.apiService.configLoadDone$.next(true);
         },
-        (error) => {
+        error => {
           console.log(error);
           console.log('base json not found!');
         }
@@ -142,7 +142,7 @@ export class ContentService extends ApiService {
 
   getRepository(owner: string, repo: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
 
@@ -154,7 +154,7 @@ export class ContentService extends ApiService {
         map((rep: any) => {
           return rep;
         }),
-        catchError((err) => {
+        catchError(err => {
           return of({
             html_url: '',
             stargazers_count: 0,
