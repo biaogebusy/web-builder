@@ -55,7 +55,6 @@
   &.style-v1,
   &.style-v2,
   &.style-v3 {
-    // Center title
     text-align: center;
     .line-style {
       left: 50%;
@@ -79,8 +78,6 @@
         position: absolute;
         top: -5px;
         width: 10px;
-        -webkit-border-radius: 100% 100% 100% 100%;
-        -moz-border-radius: 100% 100% 100% 100%;
         border-radius: 100% 100% 100% 100%;
         left: 50%;
         @include translateX(-50%);
@@ -98,13 +95,10 @@
     .line-style {
       span {
         display: block;
-
         height: 10px;
         position: absolute;
         top: -5px;
         width: 10px;
-        -webkit-border-radius: 100% 100% 100% 100%;
-        -moz-border-radius: 100% 100% 100% 100%;
         border-radius: 100% 100% 100% 100%;
       }
     }
