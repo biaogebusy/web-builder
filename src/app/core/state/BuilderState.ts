@@ -244,8 +244,18 @@ export class BuilderState {
   }
 
   loadNewPage(page: IPage): void {
+    const currentPage = { ...page, current: true, time: new Date() }
+    let somePageIndex = -1;
     this.version.forEach(version => (version.current = false));
-    this.version.unshift({ ...page, current: true, time: new Date() });
+    somePageIndex = this.version.findIndex(item => {
+      return item.uuid === page.uuid && item.langcode === page.langcode;
+    })
+    if(somePageIndex > -1){
+      this.version[somePageIndex] = currentPage
+    }else{
+      this.version.unshift(currentPage);
+    }
+
     this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
   }

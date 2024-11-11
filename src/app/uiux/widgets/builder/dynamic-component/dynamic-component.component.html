@@ -4,7 +4,7 @@
 @let content = component?.instance?.content;
 <div class="relative overflow-hidden" [ngClass]="content?.containerClasses">
   @if (content?.id) {
-    <a class="anchor" [id]="content.id"></a>
+    <span class="anchor" [id]="content.id"></span>
   }
   @if (content?.spacer) {
     <app-spacer [size]="content.spacer" />
