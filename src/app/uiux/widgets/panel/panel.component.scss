@@ -1,4 +1,4 @@
-@import "/src/theme/mixins/amixin";
+@import '/src/theme/mixins/amixin';
 .panel ::ng-deep {
   .mat-expansion-panel-header-title .badge {
     padding: 4px 10px;
@@ -6,7 +6,9 @@
     font-size: small;
     display: inline-block;
     font-weight: bold;
-    transition: color 0.1s ease, background-color 0.1s ease;
+    transition:
+      color 0.1s ease,
+      background-color 0.1s ease;
     @include line-clamp();
     &:empty {
       display: none !important;

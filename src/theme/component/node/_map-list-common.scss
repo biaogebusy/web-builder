@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@import "../../mixins/amixin";
+@import '../../mixins/amixin';
 
 @mixin map-list-color($theme) {
   $config: mat.m2-get-color-config($theme);

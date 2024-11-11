@@ -1,0 +1,407 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="开发/页面渲染流程" id="setup" />
+
+## 应用启动初始化到页面渲染的完整流程
+
+1. 在应用初始化声明周期读取 core 接口，拿到全局配置信息；
+2. 通过 Branding 接口获取 Header，footer 的配置信息，初始化页头页脚；
+3. 拿到当前页面的 url，作为页面的接口获取页面的组件，渲染页面；
+4. 当路由发生变化时，根据 url 读取页面的组件，动态渲染页面；
+
+## app 初始化时获取 core 配置信息
+
+```ts
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'xinshi' }),
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    BrowserTransferStateModule,
+    CommonModule,
+    MatSidenavModule,
+    NgxWebstorageModule.forRoot(),
+    Angulartics2Module.forRoot(),
+    RenderModule,
+    BrandingModule,
+    LoadingBarHttpClientModule,
+    LoadingBarModule,
+  ],
+  providers: [
+    Title,
+    httpInterceptorProviders,
+    {
+      provide: CORE_CONFIG,
+      useValue: {},
+    },
+    {
+      provide: BRANDING,
+      useFactory: brandingFactory,
+      deps: [ContentService],
+    },
+    {
+      provide: THEME,
+      useFactory: themeFactory,
+      deps: [[new Inject(CORE_CONFIG)], LocalStorageService],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      deps: [ContentService, [new Inject(CORE_CONFIG)]],
+      multi: true,
+    },
+    {
+      provide: API_URL,
+      useFactory: apiUrlFactory,
+      deps: [],
+    },
+    {
+      provide: USER,
+      useFactory: userFactory,
+      deps: [LocalStorageService, CryptoJSService, UserService],
+    },
+    {
+      provide: NOTIFY_CONTENT,
+      useFactory: notifyFactory,
+      deps: [[new Inject(CORE_CONFIG)], NotifyService],
+    },
+    {
+      provide: BUILDER_FULL_SCREEN,
+      useFactory: builderFullScreenFactory,
+      deps: [Router, LocalStorageService, BuilderState],
+    },
+    {
+      provide: DEBUG_ANIMATE,
+      useFactory: debugAnimateFactory,
+      deps: [LocalStorageService, BuilderState],
+    },
+    {
+      provide: IS_BUILDER_MODE,
+      useFactory: isBuilderModeFactory,
+      deps: [Router],
+    },
+    {
+      provide: MEDIA_ASSETS,
+      useFactory: mediaAssetsFactory,
+      deps: [NodeService, ManageService, ContentState],
+    },
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+读取全局配置信息
+`/api/v3/landingPage?content=/core/base`
+
+```ts
+loadConfig(coreConfig: object): any {
+    const configPath = environment.production
+      ? `${this.apiUrl}/api/v3/landingPage?content=/core/base`
+      : `${this.apiUrl}/assets/app/core/base.json`;
+    return this.http
+      .get(configPath)
+      .pipe(
+        tap((config: any) => {
+          Object.assign(coreConfig, config);
+        })
+      )
+      .toPromise()
+      .then(
+        (config: ICoreConfig) => {
+          this.apiService.configLoadDone$.next(true);
+        },
+        (error) => {
+          console.log(error);
+          console.log('base json not found!');
+        }
+      );
+  }
+```
+
+<img src="assets/storybook/assets/base.png" />
+
+如果是本地环境，则返回 `base.json` 本地数据。
+此时，应用依赖的各项 Token 已经注入。
+
+## 获取页头页脚的配置信息
+
+在以上的文件中可以看到，注入了`BRANDING`：
+
+```js
+{
+      provide: BRANDING,
+      useFactory: brandingFactory,
+      deps: [ContentService],
+    }
+```
+
+读取 Branding 页头页脚
+`/api/v3/landingPage?content=/core/branding`
+
+```ts
+ loadBranding(): Observable<IBranding> {
+    const localBranding: IBranding = {
+      header: manageHeader,
+      footer: footerInverse,
+    };
+    if (environment.production) {
+      return this.http.get<IBranding>(
+        `${this.apiUrl}/api/v3/landingPage?content=/core/branding`
+      );
+    } else {
+      return of(localBranding);
+    }
+  }
+```
+
+<img src="assets/storybook/assets/branding.png" />
+
+如果是本地环境，则使用本地配置 `localBranding`
+
+## 根据当前页面 url 获取当前页面的组件数据
+
+根据路由配置信息：
+
+```ts
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'me',
+    loadChildren: () =>
+      import('./modules/user/user.module').then(m => m.UserModule),
+  },
+  {
+    path: 'super',
+    canActivate: [ManageGuard],
+    loadChildren: () =>
+      import('./modules/manage/manage.module').then(m => m.ManageModule),
+  },
+  {
+    path: 'builder',
+    loadChildren: () =>
+      import('./modules/builder/builder.module').then(m => m.BuilderModule),
+  },
+  {
+    path: '**',
+    component: BlockComponent,
+    canActivate: [AuthGuard],
+  },
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+      initialNavigation: 'enabled',
+      preloadingStrategy: PreloadAllModules,
+      // enableTracing: true,
+    }),
+  ],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
+```
+
+除了应用的路由，其他都使用 BlockComponent 来渲染：
+
+```html
+<div class="block" *ngIf="pageContent$ | async as page">
+  <mat-drawer-container (backdropClick)="onBackdrop()">
+    <mat-drawer-content>
+      <div
+        *ngTemplateOutlet="block; context: {content:page.body, isPreview: isPreview}"></div>
+    </mat-drawer-content>
+    <mat-drawer
+      (openedChange)="onDrawer()"
+      class="drawer-right"
+      [mode]="'over'"
+      [opened]="opened"
+      position="end">
+      <div class="drawer-loading" *ngIf="drawerLoading">
+        <mat-spinner diameter="50" color="accent"></mat-spinner>
+      </div>
+      <ng-container *ngIf="!drawerLoading && opened">
+        <div
+          *ngTemplateOutlet="block; context: {content:drawerContent?.body,isPreview:coreConfig?.builder?.enable}; "></div>
+      </ng-container>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>
+
+<ng-template let-content="content" let-isPreview="isPreview" #block>
+  <ng-container *ngIf="!isPreview">
+    <app-dynamic-component
+      *ngFor="let item of content;index as i; trackBy: trackByFn"
+      [inputs]="item"
+      [index]="i"></app-dynamic-component>
+  </ng-container>
+
+  <ng-container \*ngIf="isPreview">
+    <app-builder-list></app-builder-list>
+  </ng-container>
+</ng-template>
+```
+
+而`pageContent$`是 Observable 对象，在模块中注入：
+
+```ts
+@NgModule({
+  declarations: [BlockComponent],
+  imports: [
+    ShareModule,
+    WidgetsModule,
+    MatSidenavModule,
+    MatProgressSpinnerModule,
+    BuilderModule,
+  ],
+  providers: [
+    {
+      provide: PAGE_CONTENT,
+      useFactory: pageContentFactory,
+      deps: [ActivatedRoute, ContentService, ContentState],
+    },
+  ],
+  exports: [BlockComponent],
+})
+export class RenderModule {}
+```
+
+再来看看`pageContentFactory`的逻辑：
+
+```ts
+export function pageContentFactory(
+  activateRoute: ActivatedRoute,
+  contentService: ContentService,
+  contentState: ContentState
+): Observable<IPage | object | boolean> {
+  const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
+  activateRoute.url.subscribe(async url => {
+    const page = await contentService.loadPageContent().toPromise();
+    $pageContent.next(page);
+    contentState.pageConfig$.next(page.config);
+  });
+  return $pageContent;
+}
+```
+
+当 url 路由发生变化时，根据 url 拼接 api 获取页面组件：
+
+```ts
+loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
+    if (environment.production) {
+      const landingPath = '/api/v3/landingPage?content=';
+      const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
+      return this.http.get<any>(pageUrlParams).pipe(
+        tap((page) => {
+          this.updatePage(page);
+          this.logContent(pageUrl);
+        }),
+        catchError(() => {
+          return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
+        })
+      );
+    } else {
+      const sample = pageUrl.split('/')[1];
+      const samplePage = samples.elements.filter(
+        (item) => item.id === sample
+      )[0];
+      if (samplePage) {
+        this.updatePage(samplePage.page);
+        return of(samplePage.page);
+      } else {
+        return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
+      }
+    }
+  }
+```
+
+## 路由守卫
+
+通过上面的路由配置信息可以看到页面有路由守卫：
+
+```ts
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthGuard implements CanActivate {
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private nodeService: NodeService,
+    @Inject(USER) private user: IUser
+  ) {}
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    // return true;
+    if (environment.production) {
+      return this.nodeService
+        .fetch(`/api/v3/landingPage`, 'content=/core/base')
+        .pipe(
+          switchMap((config: ICoreConfig) => {
+            const guardConfig = config.guard;
+            if (state.url.startsWith('/my') || guardConfig?.authGuard) {
+              return this.userService.getLoginState().pipe(
+                map(status => {
+                  // console.log('userState:', status);
+                  if (status) {
+                    if (environment?.drupalProxy) {
+                      if (!this.user.csrf_token) {
+                        this.userService.updateUserBySession();
+                      }
+                    }
+                    return true;
+                  } else {
+                    this.userService.logoutLocalUser();
+                    if (environment?.drupalProxy) {
+                      window.location.href =
+                        guardConfig.defaultDrupalLoginPage || '/user/login';
+                      return false;
+                    } else {
+                      this.router.navigate(
+                        [guardConfig.defaultFrontLoginPage || '/me/login'],
+                        {
+                          queryParams: { returnUrl: state.url },
+                        }
+                      );
+                      return false;
+                    }
+                  }
+                }),
+                catchError(() => {
+                  if (environment?.drupalProxy) {
+                    window.location.href =
+                      guardConfig.defaultDrupalLoginPage || '/user/login';
+                    return of(false);
+                  } else {
+                    this.router.navigate([
+                      guardConfig.defaultFrontLoginPage || '/me/login',
+                    ]);
+                    return of(false);
+                  }
+                })
+              );
+            }
+            return of(true);
+          })
+        );
+    } else {
+      return of(true);
+    }
+  }
+}
+```
+
+在生产环境下读取全局配置文件，获取是否开启路由守卫，开启则判断用户的状态是否登录，根据环境变量来做下一步的流程，这里依赖了 Drupal，根据各自的项目情况来更新修改。

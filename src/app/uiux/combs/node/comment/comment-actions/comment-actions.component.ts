@@ -32,9 +32,9 @@ export class CommentActionsComponent implements OnInit {
   user: IUser;
   constructor(
     public contentState: ContentState,
-    @Inject(USER) private user$: Observable<IUser>,
+    @Inject(USER) private user$: Observable<IUser>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }

@@ -31,7 +31,7 @@ export class ApiService {
   get httpOptionsOfCommon(): any {
     return {
       headers: new HttpHeaders({
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       }),
     };
@@ -40,7 +40,7 @@ export class ApiService {
   optionsWithCookieAndToken(csrfToken: string): any {
     return {
       headers: new HttpHeaders({
-        Accept: 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
         'X-CSRF-Token': csrfToken,
       }),
@@ -54,7 +54,7 @@ export class ApiService {
     const search = location.search;
     const allowKey = ['version', 'preview', 'nocache'];
     if (
-      allowKey.some((key) => {
+      allowKey.some(key => {
         return search.toLowerCase().indexOf(key) > 0;
       })
     ) {
@@ -73,12 +73,12 @@ export class ApiService {
     }
     if (multiLang && langs) {
       const lang = path.split('/')[1];
-      const currentLang = langs.find((item) => item.langCode === lang);
+      const currentLang = langs.find(item => item.langCode === lang);
       if (currentLang) {
         return currentLang;
       } else {
         // default language
-        const defLang = langs.find((item) => item.default);
+        const defLang = langs.find(item => item.default);
         if (!defLang) {
           return undefined;
         }
@@ -117,11 +117,11 @@ export class ApiService {
   getApiParams(state: any): string {
     const params: string[] = [];
     if (state) {
-      Object.keys(state).forEach((key) => {
+      Object.keys(state).forEach(key => {
         const val = state[key];
         if (val) {
           if (isArray(val)) {
-            const final = remove(val, (item) => item !== undefined);
+            const final = remove(val, item => item !== undefined);
             if (final.length > 0) {
               params.push(`${key}=${final.join('+')}`);
             } else {

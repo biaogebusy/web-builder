@@ -36,9 +36,9 @@ export class BuilderGeneraterComponent implements OnInit {
   constructor(
     @Inject(UIUX) public uiux: IUiux[],
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>,
+    @Inject(USER) private user$: Observable<IUser>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -63,7 +63,7 @@ export class BuilderGeneraterComponent implements OnInit {
       time: new Date(),
     };
     if (value === 'all') {
-      map(this.uiux, (item) => {
+      map(this.uiux, item => {
         items.push(...item.elements);
       });
       blocks = this.builder.getAllComponents(items);
@@ -74,11 +74,11 @@ export class BuilderGeneraterComponent implements OnInit {
           horizontalPosition: 'center',
           verticalPosition: 'top',
           duration: 5000,
-        },
+        }
       );
       page.title = '组件全量测试';
     } else {
-      map(this.uiux, (item) => {
+      map(this.uiux, item => {
         if (item.type === 'component') {
           items.push(...item.elements);
         }
@@ -87,19 +87,19 @@ export class BuilderGeneraterComponent implements OnInit {
       const showcases = this.builder.getRandomElements(
         items,
         'showcase',
-        value.showcase,
+        value.showcase
       );
       const layout = this.builder.getRandomElements(items, 'layout', 1);
       const section = this.builder.getRandomElements(items, 'section', 2);
       const carousel = this.builder.getRandomElements(
         items,
         'carousel',
-        value.carousel,
+        value.carousel
       );
       const masonry = this.builder.getRandomElements(
         items,
         'masonry',
-        value.masonry,
+        value.masonry
       );
       const shuffleComponents = shuffle([
         ...layout,
@@ -109,8 +109,8 @@ export class BuilderGeneraterComponent implements OnInit {
       ]);
       const action = [];
       const text = items
-        .filter((item) => item.id === 'base')[0]
-        .elements.find((item) => item.id === 'text');
+        .filter(item => item.id === 'base')[0]
+        .elements.find(item => item.id === 'text');
       action.push(text);
 
       blocks = [...heros, ...shuffleComponents, ...masonry, ...action];
@@ -122,9 +122,9 @@ export class BuilderGeneraterComponent implements OnInit {
       page.title = '快速生成';
     }
 
-    this.builder.version.forEach((page) => (page.current = false));
+    this.builder.version.forEach(page => (page.current = false));
 
-    page.body = blocks.map((item) => {
+    page.body = blocks.map(item => {
       if (item.type) {
         return item;
       } else {

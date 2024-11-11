@@ -1,9 +1,4 @@
-<app-search-header
-  [content]="content.header"
-  [filterForm]="filterForm"
-  [form]="form"
->
-</app-search-header>
+<app-search-header [content]="content.header" [filterForm]="filterForm" [form]="form" />
 <div class="container">
   <div class="search-body grid grid-cols-12">
     @if (filterForm) {
@@ -13,8 +8,7 @@
         [content]="content.sidebar"
         [form]="form"
         (modelChange)="onSearch($event)"
-      >
-      </app-search-sidebar>
+      />
     }
     <app-search-list
       class="block col-span-12 sm:col-span-{{ content.sidebar ? '9' : '12' }}"
@@ -22,7 +16,6 @@
       [loading]="loading"
       [pager]="pager"
       (pageChange)="onPageChange($event)"
-    >
-    </app-search-list>
+    />
   </div>
 </div>

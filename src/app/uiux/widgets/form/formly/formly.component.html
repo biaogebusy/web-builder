@@ -1,5 +1,10 @@
 <form [formGroup]="form">
-  <formly-form [ngClass]="classes" [options]="options" [form]="form" [fields]="fields" [model]="model"
-    (modelChange)="onModelChange($event)">
-  </formly-form>
+  <formly-form
+    [ngClass]="classes"
+    [options]="options"
+    [form]="form"
+    [fields]="fields"
+    [model]="model"
+    (modelChange)="onModelChange($event)"
+  />
 </form>

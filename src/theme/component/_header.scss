@@ -1,5 +1,5 @@
-@use "@angular/material" as mat;
-@import "../../theme/mixins/amixin";
+@use '@angular/material' as mat;
+@import '../../theme/mixins/amixin';
 
 @mixin header-color($theme) {
   $config: mat.m2-get-color-config($theme);
@@ -10,11 +10,15 @@
   $warn: map-get($config, warn);
 
   $primary-contrast: mat.m2-get-color-from-palette($primary, default-contrast);
-  $second: mat.m2-get-color-from-palette($foreground, "secondary-text");
+  $second: mat.m2-get-color-from-palette($foreground, 'secondary-text');
   $bg-card-color: mat.m2-get-color-from-palette($background, card);
 
   .header-top {
-    background-color: mat.m2-get-color-from-palette($background, status-bar, 0.75);
+    background-color: mat.m2-get-color-from-palette(
+      $background,
+      status-bar,
+      0.75
+    );
     @include mat.elevation(
       1,
       mat.m2-get-color-from-palette($background, tooltip),
@@ -231,7 +235,7 @@
     form {
       border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
     }
-    input[type="search"] {
+    input[type='search'] {
       color: mat.m2-get-color-from-palette($foreground, text);
       caret-color: mat.m2-get-color-from-palette($foreground, text, 0.5);
       background-color: $bg-card-color;

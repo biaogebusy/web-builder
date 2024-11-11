@@ -5,11 +5,9 @@
         [classes]="'form-field-width-auto'"
         [form]="form"
         [fields]="coreConfig.builder.generater"
-        [model]="model"
-      >
-      </app-formly>
+        [model]="model" />
     }
-    <mat-divider class="m-y-xs"></mat-divider>
+    <mat-divider class="m-y-xs" />
     <div class="actions m-top-sm flex justify-center gap-4">
       <app-btn
         matTooltip="通常是为了快速全量测试组件"
@@ -23,8 +21,7 @@
           color: 'warn',
           mode: 'raised',
           icon: { svg: 'chart-arc', inline: true },
-        }"
-      ></app-btn>
+        }" />
       <app-btn
         matTooltip="将会覆盖当前页面"
         matTooltipPosition="above"
@@ -34,8 +31,7 @@
           mode: 'raised',
           label: '立即生成',
           icon: { svg: 'lightning-bolt', inline: true },
-        }"
-      ></app-btn>
+        }" />
     </div>
   </div>
 }

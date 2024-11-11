@@ -18,7 +18,10 @@ import Shuffle from 'shufflejs';
 export class ShuffleComponent implements OnInit, AfterViewInit {
   @Input() content: IShuffle;
   shuffle: any;
-  constructor(private el: ElementRef, private screenService: ScreenService) {}
+  constructor(
+    private el: ElementRef,
+    private screenService: ScreenService
+  ) {}
 
   ngOnInit(): void {}
 

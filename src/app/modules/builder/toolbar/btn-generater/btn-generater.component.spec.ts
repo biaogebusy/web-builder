@@ -8,9 +8,8 @@ describe('BtnGeneraterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BtnGeneraterComponent ]
-    })
-    .compileComponents();
+      declarations: [BtnGeneraterComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

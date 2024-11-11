@@ -8,9 +8,8 @@ describe('HoverMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HoverMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [HoverMenuComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

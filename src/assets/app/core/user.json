@@ -1,5 +1,6 @@
 {
-  "menu": [{
+  "menu": [
+    {
       "label": "收藏",
       "href": "/my/favorite",
       "icon": {

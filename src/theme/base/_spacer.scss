@@ -1,4 +1,4 @@
-@import "../variable/variable";
+@import '../variable/variable';
 @mixin spacer($pre, $region, $sizes, $pos, $axis, $spacer) {
   @each $p in $pos {
     .#{$pre}-#{$p}-0 {
@@ -55,6 +55,8 @@ $sizes: (
   // 100px
 );
 $pos: left, top, right, bottom;
-$axis: x left right, y top bottom;
+$axis:
+  x left right,
+  y top bottom;
 @include spacer(p, padding, $sizes, $pos, $axis, 16px);
 @include spacer(m, margin, $sizes, $pos, $axis, 16px);

@@ -8,9 +8,8 @@ describe('DynamicCardListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicCardListComponent ]
-    })
-    .compileComponents();
+      declarations: [DynamicCardListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

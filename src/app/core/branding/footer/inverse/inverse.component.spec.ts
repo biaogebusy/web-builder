@@ -8,9 +8,8 @@ describe('InverseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InverseComponent ]
-    })
-    .compileComponents();
+      declarations: [InverseComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

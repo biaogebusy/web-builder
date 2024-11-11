@@ -1,4 +1,4 @@
-@import "../../../../../theme/variable/breakpoint";
+@import '../../../../../theme/variable/breakpoint';
 .view-map {
   height: calc(100vh - 100px);
   .sidebar {
@@ -78,7 +78,7 @@
   .selected {
     &:after,
     &:before {
-      content: "";
+      content: '';
       position: absolute;
       width: 4px;
       height: 50%;

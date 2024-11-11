@@ -1,17 +1,23 @@
 @if (content) {
   <div class="relate-showcase p-x-sm p-y-sm flex flex-wrap">
     <div class="media p-x-sm p-y-sm flex-12/12 md:flex-1/12">
-      <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
+      <app-img [attr.data-path]="'img'" [content]="content.img" />
     </div>
     <div class="right flex-12/12 md:flex-11/12">
       <div class="meta p-x-sm p-y-sm">
-        <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
+        <app-text [attr.data-path]="'text'" [content]="content.text" />
         @for (list of content.meta; track list) {
           <div class="list m-y-xs flex">
             @for (item of list; track item; let i = $index) {
               <div class="item flex-[0_1_100%]">
-                <span [contentedit]="'meta.'+i+'.label'" class="label m-right-xs">{{item.label}}:</span>
-                <span [contentedit]="'meta.'+i+'.value'" class="value" [innerHTML]="item.value|safeHtml"></span>
+                <span [contentedit]="'meta.' + i + '.label'" class="label m-right-xs"
+                  >{{ item.label }}:</span
+                >
+                <span
+                  [contentedit]="'meta.' + i + '.value'"
+                  class="value"
+                  [innerHTML]="item.value | safeHtml"
+                ></span>
               </div>
             }
           </div>
@@ -20,7 +26,7 @@
     </div>
     <div class="bottom flex-12/12">
       @for (item of content.content; track item; let i = $index) {
-        <app-dynamic-component [attr.data-path]="'content.'+i" [inputs]="item"></app-dynamic-component>
+        <app-dynamic-component [attr.data-path]="'content.' + i" [inputs]="item" />
       }
     </div>
   </div>

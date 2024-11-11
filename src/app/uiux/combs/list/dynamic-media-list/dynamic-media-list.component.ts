@@ -50,7 +50,7 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
     this.nodeService
       .getNodes(path, `${this.getParams(this.content, 'type')}`, params)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
+      .subscribe(res => {
         this.updateList(res);
       });
   }
@@ -98,7 +98,7 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
     this.nodeService
       .getNodeByLink(link)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
+      .subscribe(res => {
         this.updateList(res);
       });
   }

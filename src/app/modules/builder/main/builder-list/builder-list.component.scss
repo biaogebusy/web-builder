@@ -1,4 +1,4 @@
-@import "../../../../../theme//mixins/amixin";
+@import '../../../../../theme//mixins/amixin';
 .builder-list {
   height: 100%;
   overflow-x: hidden !important;
@@ -65,7 +65,7 @@
     }
     .preview-iframe {
       &:after {
-        content: "";
+        content: '';
         position: absolute;
         display: block;
         border-radius: 54px;

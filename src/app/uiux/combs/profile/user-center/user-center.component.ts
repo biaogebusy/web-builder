@@ -40,9 +40,9 @@ export class UserCenterComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) public user$: Observable<IUser>,
+    @Inject(USER) public user$: Observable<IUser>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -53,7 +53,7 @@ export class UserCenterComponent implements OnInit {
       this.getUser();
       this.userService.userSub$
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((user) => {
+        .subscribe(user => {
           // logout
           if (!user) {
             setTimeout(() => {
@@ -76,7 +76,7 @@ export class UserCenterComponent implements OnInit {
     this.userService
       .getUserById(this.user.current_user.uid, this.user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
+      .subscribe(res => {
         const info = res.data[0];
         if (!info) {
           return;

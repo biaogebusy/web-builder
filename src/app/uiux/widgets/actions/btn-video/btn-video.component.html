@@ -1,3 +1,9 @@
-<button [ngClass]="content.classes||''" mat-fab color="{{content.color}}" aria-label="play video" (click)="openVideo()">
+<button
+  [ngClass]="content.classes || ''"
+  mat-fab
+  color="{{ content.color }}"
+  aria-label="play video"
+  (click)="openVideo()"
+>
   <mat-icon>play_arrow</mat-icon>
 </button>

@@ -2,16 +2,14 @@
   <div class="block">
     @if ((user$ | async) && page.nid) {
       <div
-        class="page-toolbar fixed right-5 top-20 md:right-10 md:top-40 z-[1000]"
-      >
+        class="page-toolbar fixed right-5 top-20 md:right-10 md:top-40 z-[1000]">
         <app-btn
           (click)="onEdit(page.nid)"
           [content]="{
             mode: 'mini-fab',
             color: 'primary',
             icon: { svg: 'pencil' },
-          }"
-        ></app-btn>
+          }" />
       </div>
     }
     <mat-drawer-container (backdropClick)="onBackdrop()">
@@ -20,19 +18,17 @@
           *ngTemplateOutlet="
             block;
             context: { content: page.body, isPreview: isPreview }
-          "
-        ></div>
+          "></div>
       </mat-drawer-content>
       <mat-drawer
         (openedChange)="onDrawer()"
         class="drawer-right"
         [mode]="'over'"
         [opened]="opened"
-        position="end"
-      >
+        position="end">
         @if (drawerLoading) {
           <div class="drawer-loading">
-            <mat-spinner diameter="50" color="accent"></mat-spinner>
+            <mat-spinner diameter="50" color="accent" />
           </div>
         }
         @if (!drawerLoading && opened) {
@@ -43,8 +39,7 @@
                 content: drawerContent?.body,
                 isPreview: coreConfig?.builder?.enable,
               }
-            "
-          ></div>
+            "></div>
         }
       </mat-drawer>
     </mat-drawer-container>
@@ -56,12 +51,11 @@
     @for (item of content; track i; let i = $index) {
       <app-dynamic-component
         [inputs]="item"
-        [index]="i"
-      ></app-dynamic-component>
+        [index]="i" />
     }
   }
 
   @if (isPreview) {
-    <app-builder-list></app-builder-list>
+    <app-builder-list />
   }
 </ng-template>

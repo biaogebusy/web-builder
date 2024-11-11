@@ -35,7 +35,7 @@ export class UploadMediaComponent {
   private destroyRef = inject(DestroyRef);
   user: IUser;
   constructor(@Inject(USER) private user$: Observable<IUser>) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -46,28 +46,28 @@ export class UploadMediaComponent {
     if (!this.user) {
       this.util.openSnackbar('请先登录', 'ok');
     }
-    let uploadQueue: Promise<void>[] = [];
+    const uploadQueue: Promise<void>[] = [];
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
           if (file) {
-            const uploadPromise = new Promise<void>((resolve) => {
+            const uploadPromise = new Promise<void>(resolve => {
               const reader = new FileReader();
               reader.onload = async (e: any) => {
                 const data = e.target.result;
                 const imgAttr = await this.nodeService
                   .uploadImage(file.name, data, this.user.csrf_token)
                   .pipe(
-                    catchError((error) => {
+                    catchError(error => {
                       this.util.openSnackbar(
                         `上传异常：${error.statusText}`,
-                        'ok',
+                        'ok'
                       );
                       return of(false);
                     }),
                     retry(2),
-                    takeUntilDestroyed(this.destroyRef),
+                    takeUntilDestroyed(this.destroyRef)
                   )
                   .toPromise();
 

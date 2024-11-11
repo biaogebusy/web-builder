@@ -8,9 +8,8 @@ describe('ViewMapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewMapComponent ]
-    })
-    .compileComponents();
+      declarations: [ViewMapComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

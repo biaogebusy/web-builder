@@ -26,7 +26,7 @@ export class BuilderGuard {
   screenService = inject(ScreenService);
 
   constructor(@Inject(USER) private currentUser$: Observable<IUser>) {
-    this.currentUser$.subscribe((user) => {
+    this.currentUser$.subscribe(user => {
       this.user = user;
     });
   }
@@ -54,7 +54,7 @@ export class BuilderGuard {
             } = config;
             if (guard) {
               return this.userService.getLoginState().pipe(
-                map((status) => {
+                map(status => {
                   if (status) {
                     if (environment?.drupalProxy) {
                       if (!this.user.csrf_token) {

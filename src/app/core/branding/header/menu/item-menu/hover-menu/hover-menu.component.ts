@@ -43,27 +43,27 @@ export class HoverMenuComponent extends BaseComponent implements OnInit {
 
     enter
       .pipe(
-        mergeMap((event) => {
+        mergeMap(event => {
           return of(event).pipe(delay(100), takeUntil(leave));
         })
       )
-      .subscribe((event) => {
+      .subscribe(event => {
         this.active = true;
         this.cd.detectChanges();
       });
 
     leave
       .pipe(
-        mergeMap((event) => {
+        mergeMap(event => {
           return of(event).pipe(delay(100), takeUntil(enter));
         })
       )
-      .subscribe((event) => {
+      .subscribe(event => {
         this.active = false;
         this.cd.detectChanges();
       });
 
-    this.screenState.stickyMenu$.subscribe((sticky) => {
+    this.screenState.stickyMenu$.subscribe(sticky => {
       if (!sticky) {
         return;
       }

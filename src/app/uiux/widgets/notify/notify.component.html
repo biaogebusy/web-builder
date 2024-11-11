@@ -12,48 +12,34 @@
           matBadgeSize="small"
           matBadgeColor="warn"
           [content]="{ svg: 'bell-outline' }"
-        ></app-icon>
+        />
       </button>
     }
     @if (notify$ | async; as lists) {
-      <button
-        aria-label="show notify"
-        mat-icon-button
-        [mat-menu-trigger-for]="menu"
-      >
+      <button aria-label="show notify" mat-icon-button [mat-menu-trigger-for]="menu">
         <app-icon
           [matBadge]="lists.length"
           matBadgeSize="small"
           matBadgeColor="warn"
           [content]="{ svg: 'bell-outline', color: 'primary' }"
-        ></app-icon>
+        />
       </button>
       <mat-menu #menu="matMenu" [class]="'notify-menu'">
         <mat-list>
           <div mat-subheader>通知</div>
-          <mat-divider></mat-divider>
+          <mat-divider />
           @for (item of lists; track item) {
             <mat-list-item>
-              <app-icon matListItemIcon [content]="item.icon"></app-icon>
+              <app-icon matListItemIcon [content]="item.icon" />
               <div matListItemLine>
-                <app-link
-                  (click)="onRead(item)"
-                  [content]="item.link"
-                ></app-link>
+                <app-link (click)="onRead(item)" [content]="item.link" />
               </div>
               @if (item.message) {
-                <div
-                  matListItemLine
-                  [innerHTML]="item.message | stripTags"
-                ></div>
+                <div matListItemLine [innerHTML]="item.message | stripTags"></div>
               }
               @if (item.date) {
                 <div matListItemLine>
-                  {{
-                    item.date
-                      | date
-                        : coreConfig.notify?.params?.dateFormat || "YYYY-MM-dd"
-                  }}
+                  {{ item.date | date: coreConfig.notify?.params?.dateFormat || 'YYYY-MM-dd' }}
                 </div>
               }
             </mat-list-item>

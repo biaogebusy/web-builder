@@ -3,44 +3,30 @@
     @for (meta of content; track meta) {
       <div class="item flex justify-start items-start">
         @if (meta.label) {
-          <span
-            class="flex-initial font-bold mr-3 whitespace-nowrap"
-            >{{ meta.label }}:
-          </span>
+          <span class="flex-initial font-bold mr-3 whitespace-nowrap">{{ meta.label }}: </span>
         }
         <!-- params -->
         @if (meta?.params) {
-          <div
-            class="right w-full flex justify-start items-center"
-            >
+          <div class="right w-full flex justify-start items-center">
             @if (meta.value | isString) {
               <span
                 class="{{ meta?.params?.line || 'two' }}-line pr-[10px]"
-        [innerHTML]="
-          meta.value | stripTags | shorten: meta.params?.shorten || 200
-        "
+                [innerHTML]="meta.value | stripTags | shorten: meta.params?.shorten || 200"
               ></span>
             }
             <!-- dialog -->
             @if (meta?.params?.dialog) {
               <button class="custom-btn" mat-icon-button (click)="onDialog(meta)">
-                <span
-                  class="text-xs"
-                  [innerHTML]="meta.params?.dialog?.label | safeHtml"
-                ></span>
+                <span class="text-xs" [innerHTML]="meta.params?.dialog?.label | safeHtml"></span>
               </button>
             }
             <!-- dynamic component -->
             @if (meta?.params?.dynamic) {
               <div class="inner w-full flex flex-col'">
                 @for (items of meta.value; track items) {
-                  <div
-                    class="li flex flex-row justify-between items-center"
-                    >
+                  <div class="li flex flex-row justify-between items-center">
                     @for (widget of items.elements; track widget) {
-                      <app-dynamic-component
-                        [inputs]="widget"
-                      ></app-dynamic-component>
+                      <app-dynamic-component [inputs]="widget" />
                     }
                   </div>
                 }
@@ -50,10 +36,7 @@
         }
         <!-- no params, just label, value -->
         @if (!meta?.params) {
-          <span
-            class="normal"
-            [innerHTML]="meta.value | safeHtml"
-          ></span>
+          <span class="normal" [innerHTML]="meta.value | safeHtml"></span>
         }
       </div>
     }

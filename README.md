@@ -186,8 +186,8 @@ export const environment: IEnvironment = {
 ```javascript
 const PROXY_CONFIG = [
   {
-    context: ["/api", "/user", "/sites"],
-    target: "https://yourdomain.com",
+    context: ['/api', '/user', '/sites'],
+    target: 'https://yourdomain.com',
     secure: false,
     changeOrigin: true,
   },

@@ -40,7 +40,7 @@ export class MegaMenuComponent implements OnInit {
 
     enter
       .pipe(
-        mergeMap((event) => {
+        mergeMap(event => {
           return of(event).pipe(delay(100), takeUntil(leave));
         })
       )
@@ -51,7 +51,7 @@ export class MegaMenuComponent implements OnInit {
 
     leave
       .pipe(
-        mergeMap((event) => {
+        mergeMap(event => {
           return of(event).pipe(delay(100), takeUntil(enter));
         })
       )
@@ -60,7 +60,7 @@ export class MegaMenuComponent implements OnInit {
         this.cd.detectChanges();
       });
 
-    this.screenState.stickyMenu$.subscribe((sticky) => {
+    this.screenState.stickyMenu$.subscribe(sticky => {
       if (!sticky) {
         return;
       }

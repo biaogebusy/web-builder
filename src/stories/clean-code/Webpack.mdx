@@ -1,0 +1,588 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta
+  title="编程指南/Webpack 案例"
+
+/>
+
+## Webpack 是什么？
+
+Webpack 是一款用于构建打包前端代码的工具。
+
+```shell
+$ browserify main.js > bundle.js
+# 等同于
+$ webpack main.js bundle.js
+```
+
+Webpack 需要一个配置文件`webpack.config.js`：
+
+```js
+// webpack.config.js
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js',
+  },
+};
+```
+
+Webpack 的常用参数：
+
+- `webpack` - 用于开发环境
+- `webpack -p` - 用于生产环境（代码压缩）
+- `webpack --watch` - 监听文件变动，自动构建
+- `webpack -d` - 构建包含源码映射
+
+### Demo01: 入口文件
+
+```js
+// main.js
+document.write('<h1>Hello World</h1>');
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <script type="text/javascript" src="bundle.js"></script>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js',
+  },
+};
+```
+
+### Demo02: 多个入口文件
+
+```js
+// main1.js
+document.write('<h1>Hello World</h1>');
+
+// main2.js
+document.write('<h2>Hello Webpack</h2>');
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <script src="bundle1.js"></script>
+    <script src="bundle2.js"></script>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+module.exports = {
+  entry: {
+    bundle1: './main1.js',
+    bundle2: './main2.js',
+  },
+  output: {
+    filename: '[name].js',
+  },
+};
+```
+
+### Demo03: Bable-loader
+
+转换 jsx/es6 到浏览器正常运行的代码
+
+```js
+// main.jsx
+const React = require('react');
+const ReactDOM = require('react-dom');
+
+ReactDOM.render(<h1>Hello, world!</h1>, document.querySelector('#wrapper'));
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <div id="wrapper"></div>
+    <script src="bundle.js"></script>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+module.exports = {
+  entry: './main.jsx',
+  output: {
+    filename: 'bundle.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react'],
+          },
+        },
+      },
+    ],
+  },
+};
+```
+
+### Demo04: Css-loader
+
+可以在 js 中引入 css，loader 会单独打包到一个 css 文件中
+
+```js
+// main.js
+require('./app.css');
+```
+
+app.css
+
+```css
+body {
+  background-color: blue;
+}
+```
+
+index.html
+
+```html
+<html>
+  <head>
+    <script type="text/javascript" src="bundle.js"></script>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+};
+```
+
+先使用 css-loader 去处理 css，再使用 style-loader 去处理 css，style-loader 会把 css 插入到`style`中。
+
+```html
+<head>
+  <script type="text/javascript" src="bundle.js"></script>
+  <style type="text/css">
+    body {
+      background-color: blue;
+    }
+  </style>
+</head>
+```
+
+### Demo05: Url-loader
+
+webpack 把一切都看成模块，引入图片也不例外
+
+```js
+// main.jsx
+var img1 = document.createElement('img');
+img1.src = require('./small.png');
+document.body.appendChild(img1);
+
+var img2 = document.createElement('img');
+img2.src = require('./big.png');
+document.body.appendChild(img2);
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <script type="text/javascript" src="bundle.js"></script>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
+url loader 将会把图片转换成 base64，如果尺寸超过 8192k，则不处理：
+
+```html
+<img src="data:image/png;base64,iVBOR...uQmCC" />
+<img src="4853ca667a2b8b8844eb2693ac1b2578.png" />
+```
+
+### Demo06: Css Module
+
+可以给 css-loader 开启 module 参数，类似于作用域
+
+```css
+// app.css
+/* local scope */
+.h1 {
+  color: red;
+}
+
+/* global scope */
+:global(.h2) {
+  color: blue;
+}
+```
+
+```js
+// main.jsx
+var React = require('react');
+var ReactDOM = require('react-dom');
+var style = require('./app.css');
+
+ReactDOM.render(
+  <div>
+    <h1 className={style.h1}>Hello World</h1>
+    <h2 className="h2">Hello Webpack</h2>
+  </div>,
+  document.getElementById('example')
+);
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <h1 class="h1">Hello World</h1>
+    <h2 class="h2">Hello Webpack</h2>
+    <div id="example"></div>
+    <script src="./bundle.js"></script>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+module.exports = {
+  entry: './main.jsx',
+  output: {
+    filename: 'bundle.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react'],
+          },
+        },
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
+### Demo07: UglifyJs plugin
+
+Webpack 有 plugin 插件系统，对输出的代码进行处理
+
+```js
+// main.js
+var longVariableName = 'Hello';
+longVariableName += ' World';
+document.write('<h1>' + longVariableName + '</h1>');
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <script src="bundle.js"></script>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+var webpack = require('webpack');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js',
+  },
+  plugins: [new UglifyJsPlugin()],
+};
+```
+
+### Demo08: 环境变量
+
+定义环境变量，在构建时注入变量
+
+```js
+// main.js
+document.write('<h1>Hello World</h1>');
+
+if (__DEV__) {
+  document.write(new Date());
+}
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <script src="bundle.js"></script>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+var webpack = require('webpack');
+
+var devFlagPlugin = new webpack.DefinePlugin({
+  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
+});
+
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js',
+  },
+  plugins: [devFlagPlugin],
+};
+```
+
+```json
+// package.json
+{
+  // ...
+  "scripts": {
+    "dev": "cross-env DEBUG=true webpack-dev-server --open"
+  }
+  // ...
+}
+```
+
+### Demo08: Commone chunk
+
+多个模块依赖共同的基础公共包时，可以把公共部分拆分出来
+
+```js
+// main1.jsx
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+ReactDOM.render(<h1>Hello World</h1>, document.getElementById('a'));
+
+// main2.jsx
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+ReactDOM.render(<h2>Hello Webpack</h2>, document.getElementById('b'));
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <div id="a"></div>
+    <div id="b"></div>
+    <script src="commons.js"></script>
+    <script src="bundle1.js"></script>
+    <script src="bundle2.js"></script>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+var webpack = require('webpack');
+
+module.exports = {
+  entry: {
+    bundle1: './main1.jsx',
+    bundle2: './main2.jsx',
+  },
+  output: {
+    filename: '[name].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react'],
+          },
+        },
+      },
+    ],
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'commons',
+      // (the commons chunk name)
+
+      filename: 'commons.js',
+      // (the filename of the commons chunk)
+    }),
+  ],
+};
+```
+
+### Demo09: Vendor chunk
+
+可以把第三方的资源库放入 vendor 中
+
+```js
+// main.js
+var $ = require('jquery');
+$('h1').text('Hello World');
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <h1></h1>
+    <script src="vendor.js"></script>
+    <script src="bundle.js"></script>
+  </body>
+</html>
+```
+
+配置：
+
+```js
+// webpack.config.js
+var webpack = require('webpack');
+
+module.exports = {
+  entry: {
+    app: './main.js',
+    vendor: ['jquery'],
+  },
+  output: {
+    filename: 'bundle.js',
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js',
+    }),
+  ],
+};
+```
+
+或者这样
+
+```js
+// main.js
+$('h1').text('Hello World');
+
+// webpack.config.js
+var webpack = require('webpack');
+
+module.exports = {
+  entry: {
+    app: './main.js',
+  },
+  output: {
+    filename: 'bundle.js',
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
+  ],
+};
+```

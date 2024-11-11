@@ -1,0 +1,75 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="开发/本地环境" id="dev-setup" />
+
+## 安装本地环境
+
+1. 代码下载或者 clone 项目到本地：`git clone git@github.com:biaogebusy/web-builder.git`
+2. 进入到项目根目录：`npm install`
+
+> 注意：因为当前 angular 版本为 v11 请使用 npm install 安装，严格安装 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
+
+## 启动开发环境
+
+`npm start`
+
+## 开发环境设置
+
+```javascript
+// src/environments/environment.ts
+export const environment: IEnvironment = {
+  apiUrl: "http://localhost:4200",
+  production: false,
+  port: 4200,
+  cache: false,
+  drupalProxy: false,
+};
+```
+
+- apiUrl: 是整个应用的 Base api 参数；
+- production: 为 false 时，页面的内容 api 将调用本地 json 文件，true 时将会调用`${this.apiUrl}/api/v3/landingPage?content=${this.pageUrl}`接口；
+- port: 自定义应用端口；
+- cache: 是否开启 api 请求缓存；
+- drupalProxy: 对应后端为 drupal，统一使用 Drupal 来登录登出；
+
+## 配置代理
+
+默认已配置体验站点的api，方便完整体验，配置文件`config/proxy.config.js`，本地开发时，会根据对应的 api url 前缀进行代理转发，根据实际情况进行配置；
+
+```javascript
+const PROXY_CONFIG = [
+  {
+    context: ['/api', '/user', '/sites'],
+    target: 'https://builder.design',
+    secure: false,
+    changeOrigin: true,
+  },
+];
+
+module.exports = PROXY_CONFIG;
+```
+
+## 为生产环境打包
+
+根据实际情况确认好你的生产环境变量：
+
+```js
+// src/environments/environment.prod.ts
+
+export const environment: IEnvironment = {
+  apiUrl: 'https://youdomain.com',
+  production: true,
+  site: 'dist',
+  port: 4200,
+  cache: true,
+  drupalProxy: false,
+};
+
+```
+
+然后打包，发布到正式环境：
+`npm run build`
+
+## 运行 Storybook
+
+`npm run storybook`

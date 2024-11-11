@@ -1,6 +1,6 @@
 // import all css on anuglar.json
 // https://swiperjs.com/angular
-@import "../../../../theme/mixins/amixin";
+@import '../../../../theme/mixins/amixin';
 :host ::ng-deep {
   .swiper-button-next,
   .swiper-button-prev {

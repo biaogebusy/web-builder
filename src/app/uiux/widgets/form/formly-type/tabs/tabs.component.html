@@ -3,9 +3,11 @@
     <mat-tab-group>
       @for (tab of field.fieldGroup; track tab; let i = $index; let last = $last) {
         <mat-tab
-          [label]="tab.props?.label || ''" [disabled]="i !== 0 && !isValid(field.fieldGroup[i - 1])">
+          [label]="tab.props?.label || ''"
+          [disabled]="i !== 0 && !isValid(field.fieldGroup[i - 1])"
+        >
           <div class="my-5">
-            <formly-field [field]="tab"></formly-field>
+            <formly-field [field]="tab" />
           </div>
         </mat-tab>
       }

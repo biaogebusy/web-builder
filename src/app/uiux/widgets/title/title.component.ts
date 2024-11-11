@@ -35,7 +35,7 @@ export class TitleComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.content?.typed?.enable) {
         const typedEle = this.title.nativeElement.querySelectorAll('strong')[0];
         this.typed = new Typed(typedEle, {
-          strings: this.content.typed.strings.map((item) => item.label),
+          strings: this.content.typed.strings.map(item => item.label),
           ...this.content.typed.config,
         });
       }

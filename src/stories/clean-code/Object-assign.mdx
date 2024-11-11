@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta
+  title="编程指南/设置默认对象"
+
+/>
+
+编写可读可复用可重构的代码指南，并非这里的每一项都必须严格遵守，但至少这些原则得到了普通的社区认可，是集体经验的结晶。
+
+### 使用 Object.assign 设置默认对象
+
+**不好**
+
+```javascript
+const menuConfig = {
+  title: null,
+  body: 'Bar',
+  buttonText: null,
+  cancellable: true,
+};
+function createMenu(config) {
+  config.title = config.title || 'Foo';
+  config.body = config.body || 'Bar';
+  config.buttonText = config.buttonText || 'Baz';
+  config.cancellable =
+    config.cancellable !== undefined ? config.cancellable : true;
+}
+createMenu(menuConfig);
+```
+
+**推荐**
+
+```javascript
+const menuConfig = {
+  title: 'Order',
+  // User did not include 'body' key
+  buttonText: 'Send',
+  cancellable: true,
+};
+function createMenu(config) {
+  let finalConfig = Object.assign(
+    {
+      title: 'Foo',
+      body: 'Bar',
+      buttonText: 'Baz',
+      cancellable: true,
+    },
+    config
+  );
+  return finalConfig;
+  // config now equals: {title: "Order", body: "Bar", buttonText: "Send", cancellable: true}
+  // ...
+}
+createMenu(menuConfig);
+```

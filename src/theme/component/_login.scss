@@ -23,7 +23,7 @@
 
     .error {
       background-color: mat.m2-get-color-from-palette($warn);
-      color: mat.m2-get-color-from-palette($warn, "500-contrast");
+      color: mat.m2-get-color-from-palette($warn, '500-contrast');
     }
   }
 

@@ -1,5 +1,5 @@
-@use "@angular/material" as mat;
-@import "../mixins/amixin";
+@use '@angular/material' as mat;
+@import '../mixins/amixin';
 @mixin manage-media-color($theme) {
   $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
@@ -19,7 +19,11 @@
         }
       }
       .actions {
-        background-color: mat.m2-get-color-from-palette($background, tooltip, 0.6);
+        background-color: mat.m2-get-color-from-palette(
+          $background,
+          tooltip,
+          0.6
+        );
         .icon-delete {
           &:hover {
             .mat-icon {

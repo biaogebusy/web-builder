@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@import "./amixin";
+@import './amixin';
 @mixin branding($colors, $suffix) {
   .text-#{$suffix} {
     color: map-get($colors, text) !important;

@@ -14,6 +14,7 @@
     "shanoor.vscode-nginx",
     "MariusAlchimavicius.json-to-ts",
     "formulahendry.auto-rename-tag",
-    "lukasz-wronski.ftp-sync"
+    "lukasz-wronski.ftp-sync",
+    "dbaeumer.vscode-eslint"
   ]
 }

@@ -1,8 +1,7 @@
 @if (content) {
-  @if (content.elements.length>0) {
+  @if (content.elements.length > 0) {
     @for (item of content.elements; track item) {
-      <app-media-object class="block mb-10" [content]="item">
-      </app-media-object>
+      <app-media-object class="block mb-10" [content]="item" />
     }
   } @else {
     暂无数据

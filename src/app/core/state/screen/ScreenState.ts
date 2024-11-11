@@ -23,7 +23,7 @@ export class ScreenState {
 
   constructor(
     public breakpointObserver: BreakpointObserver,
-    private screenService: ScreenService,
+    private screenService: ScreenService
   ) {
     if (this.screenService.isPlatformBrowser()) {
       this.initScreen();
@@ -32,7 +32,7 @@ export class ScreenState {
   }
 
   initScreen(): any {
-    this.mqAlias$().subscribe((mq) => {
+    this.mqAlias$().subscribe(mq => {
       this.viewPort = mq;
     });
   }
@@ -48,14 +48,14 @@ export class ScreenState {
       ])
       .pipe(
         distinctUntilChanged(),
-        map((result) => {
+        map(result => {
           for (const query of Object.keys(result.breakpoints)) {
             if (result.breakpoints[query]) {
               return [this.displayNameMap.get(query) ?? 'Unknown'];
             }
           }
           return ['unknown'];
-        }),
+        })
       );
   }
 

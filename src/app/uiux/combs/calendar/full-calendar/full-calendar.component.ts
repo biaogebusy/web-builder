@@ -63,7 +63,7 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
       this.content.calendar.options,
       {
         datesSet: this.handleDates.bind(this),
-      },
+      }
     );
     this.theme = this.content?.calendar?.theme || {};
     this.cd.detectChanges();
@@ -88,7 +88,7 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
       return;
     }
     if (api || params || this.options?.events) {
-      this.nodeService.fetch(api, params).subscribe((data) => {
+      this.nodeService.fetch(api, params).subscribe(data => {
         if (this.options) {
           let events = [];
           if (data.rows && data.pager) {
@@ -151,7 +151,7 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
       case 'dayGridMonth':
         this.form.patchValue({
           'date-type': 'month',
-          date: `${formatDate(dates.view.currentStart, 'y-MM-dd', 'en-US')}`,
+          'date': `${formatDate(dates.view.currentStart, 'y-MM-dd', 'en-US')}`,
         });
         break;
 
@@ -160,21 +160,21 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
         console.log(endDate);
         this.form.patchValue({
           'date-type': 'week',
-          date: `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}`,
+          'date': `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}`,
         });
         break;
 
       case 'timeGridDay':
         this.form.patchValue({
           'date-type': 'day',
-          date: formatDate(dates.startStr, 'y-MM-dd', 'en-US'),
+          'date': formatDate(dates.startStr, 'y-MM-dd', 'en-US'),
         });
         break;
 
       case 'listWeek':
         this.form.patchValue({
           'date-type': 'week',
-          date: `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}`,
+          'date': `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}`,
         });
         break;
 

@@ -112,8 +112,8 @@ Configuration file `config/proxy.config.js`. During local development, it will f
 ```javascript
 const PROXY_CONFIG = [
   {
-    context: ["/api", "/user", "/sites"],
-    target: "https://yourdomain.com",
+    context: ['/api', '/user', '/sites'],
+    target: 'https://yourdomain.com',
     secure: false,
     changeOrigin: true,
   },

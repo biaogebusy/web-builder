@@ -1,5 +1,5 @@
-@import "/src/theme/mixins/amixin";
-@import "/src/theme/variable/breakpoint";
+@import '/src/theme/mixins/amixin';
+@import '/src/theme/variable/breakpoint';
 .inv-builder-box {
   position: relative;
   .box-icon {
@@ -152,7 +152,7 @@
       padding: 55px 15px 45px;
       position: relative;
       &:before {
-        content: "";
+        content: '';
         display: block;
         height: 80px;
         position: absolute;
@@ -205,7 +205,7 @@
         top: 11px;
         width: 1px;
         &:after {
-          content: "";
+          content: '';
           display: block;
           height: 1px;
           left: -5px;
@@ -318,7 +318,7 @@
         height: 30px;
       }
       &:before {
-        content: "";
+        content: '';
         display: block;
         margin: 0 auto;
         height: 100%;
@@ -369,7 +369,7 @@
         line-height: 70px;
         width: 74px;
         &:after {
-          content: "";
+          content: '';
           display: block;
           height: 100%;
           left: 50%;
@@ -404,7 +404,7 @@
     .box-content-wrapper {
       text-align: center;
       &:after {
-        content: "";
+        content: '';
         display: table;
         clear: both;
       }
@@ -454,7 +454,7 @@
         span {
           &:before,
           &:after {
-            content: "";
+            content: '';
             display: block;
             height: 6px;
             left: 0;

@@ -1,25 +1,14 @@
 @if (content) {
   <div class="video-bg relative">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-    @if (content.bg) {
-      <app-bg [content]="content.bg"></app-bg>
-    }
     @if (video) {
-      <app-video [content]="video"></app-video>
+      <app-video [content]="video" />
     }
     <div class="inner relative xy-center">
       <div class="wrapper">
         @for (item of content.elements; track item; let i = $index) {
-          <app-dynamic-component
-            [attr.data-path]="'elements.' + i"
-            [inputs]="item"
-          ></app-dynamic-component>
+          <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
         }
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   </div>
 }

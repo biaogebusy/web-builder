@@ -659,8 +659,7 @@ export const base = [
                     href: '#',
                     label: '高性能',
                   },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                  content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
                 },
               ],
             },
@@ -732,8 +731,7 @@ export const base = [
                     href: '#',
                     label: '易用的编辑器',
                   },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+                  content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
                 },
               ],
             },
@@ -806,8 +804,7 @@ export const base = [
                     href: '#',
                     label: '多语言',
                   },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+                  content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
                 },
               ],
             },
@@ -3821,8 +3818,7 @@ export const base = [
                             href: '#',
                             label: '易用的编辑器',
                           },
-                          content:
-                            '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+                          content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
                         },
                       ],
                     },
@@ -3886,8 +3882,7 @@ export const base = [
                             href: '#',
                             label: '多语言',
                           },
-                          content:
-                            'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+                          content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
                         },
                       ],
                     },
@@ -3988,8 +3983,7 @@ export const base = [
         },
         content: {
           type: 'title',
-          label:
-            '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
+          label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
           classes: 'mat-headline-3 bold',
           style: 'style-v4',
         },
@@ -4003,8 +3997,7 @@ export const base = [
         content: {
           type: 'text',
           title: {
-            label:
-              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+            label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
             classes: 'mat-headline-3 bold',
             style: 'style-v1',
           },
@@ -4042,35 +4035,43 @@ export const base = [
           svg: 'image-text',
         },
         content: {
-          type: 'text-hero',
+          fullWidth: false,
+          spacer: 'none',
+          bgClasses: 'bg- bg-fill-width',
+          overlay: '',
+          containerClasses: '',
+          id: '',
+          bg: {
+            img: {
+              src: '/sites/default/files/2021-05/1-10.jpg',
+              alt: '1-10',
+              classes: 'bg-cover',
+            },
+            classes: 'bg- bg-fill-width',
+            overlay: '',
+          },
+          type: 'hero-2v1',
           theme: 'text-light',
           params: {
             height: '750px',
           },
           text: {
             title: {
-              label: '为所有开发者、所有应用场景而设计',
-              style: 'style-v4',
-              classes: 'mat-headline-2 bold',
+              label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
+              style: 'style-v1',
+              classes: 'mat-headline-2',
             },
-            classes: 'y-center',
-            style: [],
-            bg: {
-              classes: '',
-              img: {
-                src: '/assets/images/16-9/nature-08.jpg',
-                hostClasses: '',
-              },
-            },
-            body: '<p>Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。它的目标是提高开发效率、组件质量和团队协作，是一个广泛应用于前端开发的工具。</p>',
-            actionsAlign: 'start center',
+            spacer: 'xl',
+            classes: 'xy-center text-center',
+            body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-">Storybook</strong> 页面时添加组件到预览页面。',
+            actionsAlign: 'center center',
             actions: [
               {
                 type: 'btn',
                 mode: 'raised',
                 color: 'primary',
-                href: '',
-                label: '了解更多',
+                href: '#',
+                label: '立刻体验',
               },
             ],
           },
@@ -4657,9 +4658,9 @@ export const base = [
                   type: 'text',
                   spacer: 'none',
                   style: {
-                    margin: '0 auto',
+                    'margin': '0 auto',
                     'text-align': 'center',
-                    width: '600px',
+                    'width': '600px',
                   },
                   body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文，Storybook是一个用于开发和展示UI组件的工具。',
                   actionsAlign: 'center center',

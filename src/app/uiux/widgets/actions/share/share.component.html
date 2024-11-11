@@ -1,11 +1,5 @@
 @if (content && config && config.enable) {
-  <button
-    mat-button
-    extended
-    [matMenuTriggerFor]="menu"
-    #menuTriggercv
-    (menuOpened)="open()"
-  >
+  <button mat-button extended [matMenuTriggerFor]="menu" #menuTriggercv (menuOpened)="open()">
     <mat-icon>{{ config.button.icon }}</mat-icon>
     <span>{{ config.button.label }}</span>
   </button>

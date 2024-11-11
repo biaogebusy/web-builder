@@ -1,4 +1,4 @@
-@import "/src/theme/variable/breakpoint";
+@import '/src/theme/variable/breakpoint';
 .bg-fill-width {
   position: absolute;
   left: 50%;
@@ -7,7 +7,6 @@
   width: 100vw;
   max-width: 100%;
   transform: translateX(-50%);
-  z-index: -1;
 }
 
 .overlay {
@@ -19,7 +18,7 @@
     bottom: 0;
     opacity: 0;
     z-index: 1;
-    content: "";
+    content: '';
     pointer-events: none;
   }
   &.overlay-20 {

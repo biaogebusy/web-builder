@@ -2,8 +2,7 @@
   <form
     (ngSubmit)="search(form.value)"
     [formGroup]="form"
-    matTooltip="{{ content.tooltip }}"
-    >
+    matTooltip="{{ content.tooltip }}">
     <div class="js-form-type-search">
       <a href="{{ content.link }}" target="_blank" title="Search">
         <mat-icon>search</mat-icon>
@@ -17,18 +16,14 @@
         value="{{ content.value }}"
         class="form-search"
         [matAutocomplete]="auto"
-        placeholder="{{ content.placeholder }}"
-        />
+        placeholder="{{ content.placeholder }}" />
       <mat-autocomplete
         class="search-box-list"
         #auto="matAutocomplete"
-        (optionSelected)="onSelected($event)"
-        >
+        (optionSelected)="onSelected($event)">
         @for (option of options; track trackByFn($index, option)) {
-          <mat-option
-            [value]="option.href"
-            >
-            <app-link [content]="option"></app-link>
+          <mat-option [value]="option.href">
+            <app-link [content]="option" />
           </mat-option>
         }
       </mat-autocomplete>

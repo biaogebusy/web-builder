@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private destroyRef = inject(DestroyRef);
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user$: Observable<IUser>,
+    @Inject(USER) public user$: Observable<IUser>
   ) {
     if (this.screenService.isPlatformBrowser()) {
       this.userService.userSub$
@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.userService
       .login(this.userForm.value.name, this.userForm.value.pass)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((state) => {
+      .subscribe(state => {
         this.onLogin(state, '登录出现问题，请联系管理员！');
       });
   }
@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.userService
       .loginByPhone(phone, code)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((state) => {
+      .subscribe(state => {
         this.onLogin(state, '请检查手机号或者验证码！');
       });
   }
@@ -147,7 +147,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         const { leftTime } = this.coreConfig.login.phoneLogin;
         this.countdown = leftTime;
         const source = interval(1000);
-        this.subscription = source.subscribe((val) => {
+        this.subscription = source.subscribe(val => {
           if (this.countdown > 0) {
             this.countdown--;
           } else {

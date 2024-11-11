@@ -36,7 +36,7 @@ export class UserFavoriteComponent implements OnInit {
   screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) private user$: Observable<IUser>) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -60,7 +60,7 @@ export class UserFavoriteComponent implements OnInit {
       .getNodes(path, 'favorite', params, this.user.csrf_token)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        map((res) => {
+        map(res => {
           const lists = res.data.filter((item: any) => {
             return item.flagged_entity?.status ? true : false;
           });
@@ -116,7 +116,7 @@ export class UserFavoriteComponent implements OnInit {
               ],
             };
           });
-        }),
+        })
       );
   }
 }

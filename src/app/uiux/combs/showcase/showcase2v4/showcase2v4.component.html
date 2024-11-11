@@ -1,16 +1,6 @@
 <div class="showcase-2v4 relative">
-  @if (content.id) {
-    <a class="anchor" [id]="content.id"></a>
-  }
-  @if (content.bg) {
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  }
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   @if (content.text) {
-    <app-text
-      [attr.data-path]="'text'"
-      [content]="content.text"
-    ></app-text>
+    <app-text [attr.data-path]="'text'" [content]="content.text" />
   }
   <div class="{{ content.fullWidth ? '' : 'container' }}">
     <div class="inner flex flex-wrap">
@@ -19,9 +9,8 @@
           [attr.data-path]="'elements.' + i"
           class="item flex-12/12 md:flex-4/12"
           [inputs]="item"
-        ></app-dynamic-component>
+        />
       }
     </div>
   </div>
-  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

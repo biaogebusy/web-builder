@@ -32,7 +32,7 @@ export class SwiperComponent
   @Input() content: ISwiper;
   @Input() index: number;
   @Input() navigationSub: Subject<any>;
-  @Output() slideChange: EventEmitter<Swiper> = new EventEmitter();
+  @Output() slideChange = new EventEmitter<Swiper>();
   @ViewChild('swiper', { static: false }) swiper: any;
   screenService = inject(ScreenService);
   constructor() {}
@@ -61,7 +61,7 @@ export class SwiperComponent
     this.config = Object.assign(
       this.defaultConfig,
       this.content.params,
-      customPagination,
+      customPagination
     );
   }
   ngAfterViewInit(): void {
@@ -73,10 +73,10 @@ export class SwiperComponent
         (event: any) => {
           const [swiper] = event.detail;
           this.slideChange.emit(swiper);
-        },
+        }
       );
       if (this.navigationSub) {
-        this.navigationSub.subscribe((action) => {
+        this.navigationSub.subscribe(action => {
           if (action > 0) {
             this.swiper.swiperRef.slideNext();
           } else {
@@ -101,7 +101,7 @@ export class SwiperComponent
         pagination: { bullets },
       } = swiper;
       this.content.custom.pagination.bulletsStyle.forEach((item, index) => {
-        Object.keys(item).forEach((key) => {
+        Object.keys(item).forEach(key => {
           if (bullets[index]) {
             bullets[index].style[key] =
               typeof item[key] === 'string' ? item[key] : item[key].toString();

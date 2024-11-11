@@ -1,18 +1,13 @@
 @if (content) {
-  <div class="hero-1-v2 relative pt-20 md:mb-20">
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-    }
-    <div
-      class="!z-10 {{ content.fullWidth ? 'relative' : 'container relative' }}"
-    >
+  <div class="hero-1-v2 pt-20 md:mb-20">
+    <div class="!z-10 relative">
       <div class="swiper-media">
         <app-swiper
           [index]="index"
           [attr.data-path]="'right'"
           (slideChange)="onSlideChange($event)"
           [content]="content.right"
-        ></app-swiper>
+        />
       </div>
       <div class="swiper-text p-5">
         <app-swiper
@@ -20,7 +15,7 @@
           (slideChange)="onSlideChange($event)"
           [content]="content.left"
           [attr.data-path]="'left'"
-        ></app-swiper>
+        />
       </div>
     </div>
   </div>

@@ -27,7 +27,5 @@ export class Hero2v3Component extends BaseComponent implements OnInit {
     super();
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 }

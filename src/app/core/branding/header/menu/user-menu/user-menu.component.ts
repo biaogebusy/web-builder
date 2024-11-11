@@ -44,7 +44,7 @@ export class UserMenuComponent implements OnInit {
   storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) public user$: Observable<IUser>) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.currentUser = user;
     });
     this.userService.userSub$
@@ -69,7 +69,7 @@ export class UserMenuComponent implements OnInit {
         this.userService
           .getLoginState()
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((state) => {
+          .subscribe(state => {
             if (!state) {
               this.userService.logoutUser();
             }
@@ -108,7 +108,7 @@ export class UserMenuComponent implements OnInit {
       .subscribe(() => console.log('dialog after'));
     this.dialogService.dialogState$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((state) => {
+      .subscribe(state => {
         if (!state) {
           this.dialogRef.close();
         }

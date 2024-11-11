@@ -1,4 +1,10 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
 import { inject, Injectable, makeStateKey, TransferState } from '@angular/core';
 
 import { ApiService } from '@core/service/api.service';
@@ -18,7 +24,7 @@ export class BrowserStateInterceptor implements HttpInterceptor {
 
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler,
+    next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const cacheKey = req.url;
     const cache = this.responseCache.get(cacheKey);
@@ -52,7 +58,7 @@ export class BrowserStateInterceptor implements HttpInterceptor {
     }
 
     return next.handle(req).pipe(
-      tap((event) => {
+      tap(event => {
         if (
           event instanceof HttpResponse &&
           environment.cache &&
@@ -64,7 +70,7 @@ export class BrowserStateInterceptor implements HttpInterceptor {
         ) {
           this.responseCache.set(cacheKey, event.body);
         }
-      }),
+      })
     );
   }
 }

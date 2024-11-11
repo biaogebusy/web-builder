@@ -35,7 +35,7 @@ export class InverseComponent {
         this.util.openSnackbar('成功订阅！');
         this.cd.detectChanges();
       },
-      (error) => {
+      error => {
         this.submited = false;
         this.util.openSnackbar(`Error: ${error.message}`);
       }

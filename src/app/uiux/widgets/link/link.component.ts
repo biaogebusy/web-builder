@@ -46,7 +46,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
   private dialog = inject(MatDialog);
   constructor(@Inject(USER) private user$: Observable<IUser>) {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }

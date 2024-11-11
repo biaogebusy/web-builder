@@ -4,7 +4,7 @@ import {
   Component,
   DestroyRef,
   Inject,
-  inject,
+  inject, OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ICoreConfig } from '@core/interface/IAppConfig';
@@ -28,7 +28,7 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
   templateUrl: './builder-workspace.component.html',
   styleUrl: './builder-workspace.component.scss',
 })
-export class BuilderWorkspaceComponent implements AfterViewInit {
+export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
   builderFullScreen: boolean;
   panelOpenState = false;
   mode: 'side' | 'over' | 'push' = 'side';
@@ -76,7 +76,7 @@ export class BuilderWorkspaceComponent implements AfterViewInit {
     this.screenState
       .mqAlias$()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((alia) => {
+      .subscribe(alia => {
         if (alia.includes('xs')) {
           this.mode = 'over';
         } else {

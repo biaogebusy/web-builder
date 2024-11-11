@@ -82,7 +82,7 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
       this.viewHTML.removeAttribute('style');
       this.builder.updatePageContentByPath(
         this.content.path,
-        this.viewHTML.outerHTML,
+        this.viewHTML.outerHTML
       );
     }
 
@@ -108,6 +108,7 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
         inputData: {
           content: {
             type: 'manage-media',
+            fullWidth: true
           },
         },
       },
@@ -147,12 +148,12 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
       this.builder.updatePageContentByPath(`${imgPath}.src`, src);
       this.builder.updatePageContentByPath(
         `${imgPath}.width`,
-        parseInt(style.width),
+        parseInt(style.width)
       );
       delete style.width;
       this.builder.updatePageContentByPath(
         `${imgPath}.height`,
-        parseInt(style.height),
+        parseInt(style.height)
       );
       delete style.height;
     }

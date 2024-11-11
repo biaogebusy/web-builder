@@ -1,20 +1,19 @@
 <div class="builder-workspace">
-  <app-builder-toolbar></app-builder-toolbar>
+  <app-builder-toolbar />
   <mat-drawer-container class="builder-main">
     <mat-drawer
       #drawer
       class="sidebar"
       [mode]="mode"
-      [opened]="!(builderFullScreen$ | async)"
-    >
-      <router-outlet></router-outlet>
-      <app-builder-version></app-builder-version>
+      [opened]="!(builderFullScreen$ | async)">
+      <router-outlet />
+      <app-builder-version />
     </mat-drawer>
     <mat-drawer-content class="preview-content">
       @if (builder.showcase$ | async; as showcase) {
-        <app-builder-showcase [content]="showcase"></app-builder-showcase>
+        <app-builder-showcase [content]="showcase" />
       }
-      <app-builder-list></app-builder-list>
+      <app-builder-list />
     </mat-drawer-content>
   </mat-drawer-container>
 </div>

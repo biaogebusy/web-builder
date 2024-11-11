@@ -8,9 +8,8 @@ describe('DateRangeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DateRangeComponent ]
-    })
-    .compileComponents();
+      declarations: [DateRangeComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

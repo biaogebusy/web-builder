@@ -74,7 +74,7 @@ export class RichTextComponent
       {
         placement: 'left',
         strategy: 'fixed',
-      },
+      }
     );
   }
 
@@ -82,7 +82,7 @@ export class RichTextComponent
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler(
       'image',
-      this.nodeService.imageHandler.bind(this.nodeService, quill),
+      this.nodeService.imageHandler.bind(this.nodeService, quill)
     );
   }
 

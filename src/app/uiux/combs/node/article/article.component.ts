@@ -62,10 +62,10 @@ export class ArticleComponent
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    @Inject(USER) public user$: Observable<IUser>,
+    @Inject(USER) public user$: Observable<IUser>
   ) {
     super();
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -90,11 +90,11 @@ export class ArticleComponent
     }
     this.pageContent$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((page) => {
+      .subscribe(page => {
         const entityId = page.config?.node?.entityId || '';
         this.nodeService
           .checkNodeAccess(this.content.params, entityId, this.user)
-          .subscribe((access) => {
+          .subscribe(access => {
             this.canAccess = access.canAccess;
             this.isReqRoles = access.isReqRoles;
             this.cd.detectChanges();
@@ -110,7 +110,7 @@ export class ArticleComponent
       if (this.screenService.isPlatformBrowser()) {
         this.contentState.commentChange$
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((state) => {
+          .subscribe(state => {
             if (state) {
               this.getComments(+new Date());
             }
@@ -126,7 +126,7 @@ export class ArticleComponent
     this.nodeService
       .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
+      .subscribe(res => {
         this.comments = res;
         this.cd.detectChanges();
       });

@@ -8,9 +8,8 @@ describe('RelateShowcaseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RelateShowcaseComponent ]
-    })
-    .compileComponents();
+      declarations: [RelateShowcaseComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

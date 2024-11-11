@@ -1,36 +1,25 @@
 <div class="list">
   @if (loading) {
     <div class="m-y flex justify-center items-center">
-      <app-spinner [content]="{ color: 'primary', size: 40 }"></app-spinner>
+      <app-spinner [content]="{ color: 'primary', size: 40 }" />
     </div>
   }
   @if (!loading) {
     @if (links) {
       @for (item of content; track trackByFn(i, item); let i = $index) {
-        <app-showcase-3v3
-          [attr.data-path]="i"
-          [content]="item"
-          >
-        </app-showcase-3v3>
+        <app-showcase-3v3 [attr.data-path]="i" [content]="item" />
       }
-      <app-pagination-links
-        (pageChange)="onPageChange($event)"
-        [links]="links"
-      ></app-pagination-links>
+      <app-pagination-links (pageChange)="onPageChange($event)" [links]="links" />
     }
     @if (pager) {
       @for (
-        item of content
-        | paginate
-        : { itemsPerPage: pager.itemsPerPage || 20, currentPage: p }; track trackByFn(i,
-        item); let i = $index) {
-        <app-showcase-3v3
-          [attr.data-path]="i"
-          [content]="item"
-          >
-        </app-showcase-3v3>
+        item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p };
+        track trackByFn(i, item);
+        let i = $index
+      ) {
+        <app-showcase-3v3 [attr.data-path]="i" [content]="item" />
       }
-      <app-pagination (pageChange)="p = $event"></app-pagination>
+      <app-pagination (pageChange)="p = $event" />
     }
   }
 </div>

@@ -21,7 +21,7 @@ export class ManageService extends ApiService {
   user: IUser;
   constructor(@Inject(USER) private user$: Observable<IUser>) {
     super();
-    this.user$.subscribe((user) => {
+    this.user$.subscribe(user => {
       this.user = user;
     });
   }
@@ -85,8 +85,8 @@ export class ManageService extends ApiService {
             type === 'pdf'
               ? `${iconPath}/file-pdf.svg`
               : type === 'excel'
-              ? `${iconPath}/file-excel.svg`
-              : `${iconPath}/file-word.svg`,
+                ? `${iconPath}/file-excel.svg`
+                : `${iconPath}/file-word.svg`,
           alt: fileName,
         },
       };
@@ -95,7 +95,7 @@ export class ManageService extends ApiService {
 
   getUrlIncluded(item: any, included: any[]): string {
     const id = item.relationships.field_media_image.data.id;
-    const obj = included.find((media) => media.id === id);
+    const obj = included.find(media => media.id === id);
 
     return obj.attributes.uri.url;
   }

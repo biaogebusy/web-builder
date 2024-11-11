@@ -124,7 +124,7 @@ export class CardPageComponent {
                 },
               }
             )
-            .subscribe((res) => {
+            .subscribe(res => {
               this.builder.loading$.next(false);
               this.util.openSnackbar(`已更新标题为${textContent}`, 'ok');
               this.builder.currentPage.title = textContent;

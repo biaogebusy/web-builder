@@ -56,6 +56,7 @@ export class ImgPickerComponent extends FieldType implements OnInit {
           content: {
             type: 'manage-media',
             time: this.time,
+            fullWidth: true
           },
         },
       },

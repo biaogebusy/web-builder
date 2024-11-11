@@ -22,7 +22,7 @@ export class MapListV1Component implements OnInit {
   constructor(private amapService: AmapService) {}
 
   ngOnInit(): void {
-    this.elements = this.content.map.elements.map((item) => {
+    this.elements = this.content.map.elements.map(item => {
       return {
         ...item,
         subTitle: item.address,

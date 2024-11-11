@@ -21,7 +21,7 @@ export class LangSwitchComponent implements OnInit {
   multiLang = environment?.multiLang;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(LANG) public lang: ILanguage,
+    @Inject(LANG) public lang: ILanguage
   ) {}
 
   ngOnInit(): void {
@@ -38,8 +38,8 @@ export class LangSwitchComponent implements OnInit {
   removeLangPrefix(urlPath: string): string {
     const pathParts = urlPath.split('/');
     // check if the path is like /en/some/path
-    const isLangPage = this.langs?.find((lang) =>
-      urlPath.startsWith(`/${lang.langCode}`),
+    const isLangPage = this.langs?.find(lang =>
+      urlPath.startsWith(`/${lang.langCode}`)
     );
 
     if (isLangPage) {

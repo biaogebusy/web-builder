@@ -8,16 +8,13 @@
           [content]="list"
           [links]="links"
           [loading]="loading"
-          (pageChange)="loadContent($event)"
-          >
-        </app-list>
+          (pageChange)="loadContent($event)" />
       </div>
       @if (content.sidebar) {
         <app-sidebar
           class="flex-12/12 md:flex-3/12"
           [attr.data-path]="'sidebar'"
-          [content]="content.sidebar"
-        ></app-sidebar>
+          [content]="content.sidebar" />
       }
     </div>
   </div>

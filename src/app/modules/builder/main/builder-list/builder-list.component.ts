@@ -53,7 +53,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>,
+    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
   ) {}
 
   ngOnInit(): void {}
@@ -70,7 +70,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.zone.runOutsideAngular(() => {
       setTimeout(() => {
         this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
-        Array.from(this.markers).forEach((marker) => {
+        Array.from(this.markers).forEach(marker => {
           this.builderList.nativeElement.append(marker);
         });
       }, 0);
@@ -78,15 +78,15 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.previewClass$ = this.builder.switchPreivew$.pipe(
       takeUntilDestroyed(this.destroyRef),
-      map((media) => {
+      map(media => {
         return {
-          preview: media !== 'none' && media !== undefined,
+          'preview': media !== 'none' && media !== undefined,
           'preview-xs': media === 'xs',
           'preview-sm': media === 'sm',
           'preview-md': media === 'md',
           'preview-xs-md': media === 'xs-md',
         };
-      }),
+      })
     );
   }
 
@@ -103,7 +103,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    each(this.markers, (marker) => {
+    each(this.markers, marker => {
       marker.remove();
     });
   }

@@ -9,11 +9,7 @@
       </div>
     </div>
     @if (showChart) {
-      <app-chart
-        class="w-full"
-        [content]="data.chart"
-        [style]="style"
-      ></app-chart>
+      <app-chart class="w-full" [content]="data.chart" [style]="style" />
     }
   </div>
 }

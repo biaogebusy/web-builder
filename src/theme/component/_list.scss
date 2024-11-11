@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@import "../mixins/amixin";
+@import '../mixins/amixin';
 
 @mixin list-color($theme) {
   $config: mat.m2-get-color-config($theme);
@@ -17,7 +17,9 @@
         mat.m2-get-color-from-palette($foreground, text),
         0.1
       );
-      @include scrollbar(mat.m2-get-color-from-palette($foreground, divider, 0.2));
+      @include scrollbar(
+        mat.m2-get-color-from-palette($foreground, divider, 0.2)
+      );
     }
   }
   .list-thin {

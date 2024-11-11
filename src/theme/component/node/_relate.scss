@@ -21,7 +21,8 @@
     }
     .summary-item {
       .list {
-        border-top: 1px solid mat.m2-get-color-from-palette($foreground, divider);
+        border-top: 1px solid
+          mat.m2-get-color-from-palette($foreground, divider);
         .item {
           .label {
             color: mat.m2-get-color-from-palette($foreground, base, 0.4);

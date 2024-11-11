@@ -12,21 +12,19 @@
             [form]="form"
             [model]="model"
             [fields]="content.form"
-            (modelChange)="onModelChange($event)"
-          ></app-formly>
+            (modelChange)="onModelChange($event)" />
         }
         @if (content.params?.api) {
-          <app-icon (click)="reload()" [content]="{ svg: 'reload' }"></app-icon>
+          <app-icon (click)="reload()" [content]="{ svg: 'reload' }" />
         }
       </div>
     </div>
   }
   <app-dynamic-component
-    [inputs]="{ content: widget$ | async }"
-  ></app-dynamic-component>
+    [inputs]="{ content: widget$ | async }" />
   @if (loading) {
     <div class="loading-inner">
-      <mat-spinner diameter="50"></mat-spinner>
+      <mat-spinner diameter="50" />
     </div>
   }
 </div>

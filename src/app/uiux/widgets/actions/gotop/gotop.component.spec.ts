@@ -8,9 +8,8 @@ describe('GotopComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GotopComponent ]
-    })
-    .compileComponents();
+      declarations: [GotopComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

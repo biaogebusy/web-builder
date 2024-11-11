@@ -28,9 +28,9 @@ export class NotifyComponent implements OnInit {
   constructor(
     @Inject(USER) private user$: Observable<IUser>,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(NOTIFY_CONTENT) public notify$: Observable<INotify[]>,
+    @Inject(NOTIFY_CONTENT) public notify$: Observable<INotify[]>
   ) {
-    this.user$.pipe(takeUntilDestroyed()).subscribe((user) => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
@@ -41,7 +41,7 @@ export class NotifyComponent implements OnInit {
     this.nodeService
       .deleteFlagging(item.action, [item], this.user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
+      .subscribe(res => {
         console.log(res);
       });
   }

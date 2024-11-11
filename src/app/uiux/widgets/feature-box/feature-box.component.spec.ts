@@ -8,9 +8,8 @@ describe('FeatureBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FeatureBoxComponent ]
-    })
-    .compileComponents();
+      declarations: [FeatureBoxComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

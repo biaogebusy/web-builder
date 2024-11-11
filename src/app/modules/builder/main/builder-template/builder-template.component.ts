@@ -50,7 +50,7 @@ export class BuilderTemplateComponent implements OnInit {
     this.content$ = this.nodeService
       .fetch(`/api/v1/node/landing_page`, params)
       .pipe(
-        map((res) => {
+        map(res => {
           const { data, included } = res;
           const pages = data.map((page: any) => {
             const {
@@ -73,9 +73,9 @@ export class BuilderTemplateComponent implements OnInit {
   }
 
   getCover(id: string, included: any[]): string {
-    const media = included.find((item) => item.id === id);
+    const media = included.find(item => item.id === id);
     const mediaId = media.relationships.field_media_image.data.id;
-    const img = included.find((item) => item.id === mediaId);
+    const img = included.find(item => item.id === mediaId);
 
     return img.attributes.uri.url;
   }

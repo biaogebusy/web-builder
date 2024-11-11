@@ -61,9 +61,9 @@ export class MatSelectComponent
           return of({
             rows: [],
           });
-        }),
+        })
       )
-      .subscribe((res) => {
+      .subscribe(res => {
         this.matOptions = [...options, ...res.rows];
         // load the initial options
         this.filteredOptions.next(this.matOptions.slice());
@@ -101,8 +101,8 @@ export class MatSelectComponent
     // filter the options
     this.filteredOptions.next(
       this.matOptions.filter(
-        (bank: any) => bank.label.toLowerCase().indexOf(search) > -1,
-      ),
+        (bank: any) => bank.label.toLowerCase().indexOf(search) > -1
+      )
     );
   }
 }

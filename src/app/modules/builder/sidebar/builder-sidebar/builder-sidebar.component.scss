@@ -1,5 +1,5 @@
 @mixin activeStyle() {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -60,7 +60,7 @@
       &:focus {
         .custom-icon {
           &::after {
-            content: "";
+            content: '';
             position: absolute;
             z-index: -1;
             left: 50%;
@@ -131,7 +131,7 @@
                 &.active,
                 &:hover {
                   &::after {
-                    content: "";
+                    content: '';
                     position: absolute;
                     height: 96%;
                     width: calc(100% - 20px);
@@ -221,7 +221,7 @@
           height: 56px;
           &:hover {
             &::after {
-              content: "";
+              content: '';
               position: absolute;
               height: 96%;
               width: 100%;

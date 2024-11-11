@@ -1,0 +1,79 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="全局配置/通用/主题" id="theme-config" />
+
+## 主题配置
+
+页面初始化的主题，和可供切换的主题，切换主题的功能需要在 header 配置中开启。
+
+```json
+// branding.json
+{
+  //...
+  "header": {
+    "params": {
+      "themeSwitch": true
+    }
+  }
+}
+```
+
+```json
+// base.json
+{
+  //...
+  "defaultTheme": "blue-theme",
+  "theme": [
+    {
+      "name": "Pink 主题",
+      "style": "pink-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Blue 主题",
+      "style": "blue-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Green 主题",
+      "style": "green-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "暗黑主题",
+      "style": "dark-theme",
+      "svgIcon": "dark_mode"
+    }
+  ]
+}
+```
+
+主题根据自己的需要去新建配置，详见新建主题页面，每个主题都是独立去构建的，可以减少加载包的大小，见`angular.json`中：
+
+```json
+{
+  //..
+  "theme": [
+    {
+      "name": "Pink 主题",
+      "style": "pink-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Blue 主题",
+      "style": "blue-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Green 主题",
+      "style": "green-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "暗黑主题",
+      "style": "dark-theme",
+      "svgIcon": "dark_mode"
+    }
+  ]
+}
+```

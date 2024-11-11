@@ -39,15 +39,15 @@ export class ComponentToolbarComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   constructor(
     @Inject(IS_BUILDER_MODE)
-    public isBDMode$: Observable<boolean>,
+    public isBDMode$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
-    this.isBDMode$.subscribe((state) => {
+    this.isBDMode$.subscribe(state => {
       this.enableBuilderToolbar = state;
     });
 
-    this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe((data) => {
+    this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
       this.bcData = data;
       this.cd.detectChanges();
     });

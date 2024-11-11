@@ -6,10 +6,7 @@
   >
     @if (content.header?.meta) {
       <mat-card-content>
-        <app-card-meta
-          [attr.data-path]="'header.meta'"
-          [content]="content.header?.meta"
-        ></app-card-meta>
+        <app-card-meta [attr.data-path]="'header.meta'" [content]="content.header?.meta" />
       </mat-card-content>
     }
     @if (content.header) {
@@ -19,7 +16,7 @@
             <app-img
               [attr.data-path]="'header.avatar'"
               [content]="content.header.avatar || { src: '' }"
-            ></app-img>
+            />
           </div>
         }
         @if (content.header.title) {
@@ -27,53 +24,42 @@
             contentedit="header.title"
             contentedit="title"
             [innerHTML]="content.header.title || '' | safeHtml"
-          ></mat-card-title>
+          />
         }
         @if (content.header.subTitle) {
           <mat-card-subtitle
             contentedit="header.subTitle"
             [innerHTML]="content.header.subTitle || '' | safeHtml"
-          >
-          </mat-card-subtitle>
+          />
         }
       </mat-card-header>
     }
     <div class="card-header">
       @if (content.carousel) {
         @if (content.carousel?.elements.length > 1) {
-          <app-swiper
-            [attr.data-path]="'carousel'"
-            [content]="content.carousel"
-          >
-          </app-swiper>
+          <app-swiper [attr.data-path]="'carousel'" [content]="content.carousel" />
         } @else {
           <app-feature-box
             [attr.data-path]="'carousel.elements.0'"
             [content]="content.carousel.elements[0]"
-          ></app-feature-box>
+          />
         }
         <ng-template #feature>
           <app-feature-box
             [attr.data-path]="'carousel.elements.0'"
             [content]="content.carousel.elements[0]"
-          ></app-feature-box>
+          />
         </ng-template>
       }
       @if (!content.carousel && content.feature) {
-        <app-feature-box
-          [attr.data-path]="'feature'"
-          [content]="content.feature"
-        ></app-feature-box>
+        <app-feature-box [attr.data-path]="'feature'" [content]="content.feature" />
       }
     </div>
     <mat-card-content>
       <div class="flex flex-row py-3">
         @if (content.avatar) {
           <div mat-card-avatar class="m-right-xs">
-            <app-img
-              [attr.data-path]="'img'"
-              [content]="content.avatar"
-            ></app-img>
+            <app-img [attr.data-path]="'img'" [content]="content.avatar" />
           </div>
         }
         <div class="flex flex-wrap basis-full">
@@ -84,20 +70,14 @@
           } @else {
             @if (content.link) {
               <mat-card-title class="basis-full">
-                <app-link
-                  [attr.data-path]="'link'"
-                  [content]="content.link"
-                ></app-link>
+                <app-link [attr.data-path]="'link'" [content]="content.link" />
               </mat-card-title>
             }
           }
           <ng-template #link>
             @if (content.link) {
               <mat-card-title class="basis-full">
-                <app-link
-                  [attr.data-path]="'link'"
-                  [content]="content.link"
-                ></app-link>
+                <app-link [attr.data-path]="'link'" [content]="content.link" />
               </mat-card-title>
             }
           </ng-template>
@@ -109,11 +89,7 @@
         </div>
       </div>
       @if (content.body) {
-        <div
-          contentedit="body"
-          class="card-body"
-          [innerHTML]="content.body | safeHtml"
-        ></div>
+        <div contentedit="body" class="card-body" [innerHTML]="content.body | safeHtml"></div>
       }
     </mat-card-content>
     @if (content.actions) {
@@ -128,14 +104,11 @@
     <mat-card-footer>
       @if (content.footer) {
         <div class="footer">
-          <app-card-meta
-            [attr.data-path]="'footer.meta'"
-            [content]="content.footer.meta"
-          ></app-card-meta>
+          <app-card-meta [attr.data-path]="'footer.meta'" [content]="content.footer.meta" />
         </div>
       }
       @if (content.progressBar) {
-        <app-progress-bar [content]="content.progressBar"></app-progress-bar>
+        <app-progress-bar [content]="content.progressBar" />
       }
     </mat-card-footer>
   </mat-card>

@@ -1,7 +1,7 @@
 @if (content) {
   <div class="comment-form m-bottom">
     <a class="anchor" id="comment"></a>
-    <app-title [content]="content.editor?.title"></app-title>
+    <app-title [content]="content.editor?.title" />
     <div class="editor">
       @if (screenService.isPlatformBrowser()) {
         <quill-editor
@@ -10,8 +10,7 @@
           [placeholder]="content.editor?.placeholder || placeholder"
           [(ngModel)]="commentContent"
           [styles]="{ height: content.editor?.height || '250px' }"
-          >
-        </quill-editor>
+        />
       }
     </div>
     <div class="actions p-y-sm p-x-sm">
@@ -20,12 +19,12 @@
         mat-raised-button
         color="primary"
         [disabled]="!commentContent"
-        >
+      >
         <div class="flex justify-center items-center">
           @if (loading) {
-            <mat-spinner diameter="14"></mat-spinner>
+            <mat-spinner diameter="14" />
           }
-          <span class="px-3">{{ content.editor?.action?.label || "提交" }}</span>
+          <span class="px-3">{{ content.editor?.action?.label || '提交' }}</span>
         </div>
       </button>
       <button class="ml-3" (click)="onCancel()" mat-button>取消</button>

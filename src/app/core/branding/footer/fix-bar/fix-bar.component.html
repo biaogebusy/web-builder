@@ -6,22 +6,20 @@
           @case ('link') {
             <div
               class="item flex flex-col justify-center items-center"
-              [attr.id]="item.id"
-              >
+              [attr.id]="item.id">
               <a href="{{ item.href }}" target="{{ item.target }}">
-                <app-icon [content]="item.icon"></app-icon>
+                <app-icon [content]="item.icon" />
               </a>
-              <app-link class="label" [content]="item"></app-link>
+              <app-link class="label" [content]="item" />
             </div>
           }
           @case ('popup') {
             <div
               class="item item-popup flex flex-col justify-center items-center"
-              [attr.id]="item.id"
-              >
-              <app-icon [content]="item.icon"></app-icon>
+              [attr.id]="item.id">
+              <app-icon [content]="item.icon" />
               <span class="label">{{ item.label }}</span>
-              <app-fix-bar-popup [content]="item.content"></app-fix-bar-popup>
+              <app-fix-bar-popup [content]="item.content" />
             </div>
           }
         }

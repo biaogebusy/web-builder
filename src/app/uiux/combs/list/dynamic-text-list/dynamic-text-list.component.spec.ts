@@ -8,9 +8,8 @@ describe('DynamicTextListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicTextListComponent ]
-    })
-    .compileComponents();
+      declarations: [DynamicTextListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

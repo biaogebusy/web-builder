@@ -28,11 +28,7 @@
       </button>
     }
     @if (p.getCurrent() === page.value) {
-      <button
-        disabled
-        [class.current]="p.getCurrent() === page.value"
-        mat-mini-fab
-      >
+      <button disabled [class.current]="p.getCurrent() === page.value" mat-mini-fab>
         <span class="text-base">{{ page.label }}</span>
       </button>
     }

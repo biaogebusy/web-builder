@@ -1,0 +1,69 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="开发/用户接口/仿跨站伪造请求" id="csrf" />
+
+# CSRF 仿跨站伪造请求
+
+在使用会话认证时，获取并包括 CSRF 令牌是为了防范跨站请求伪造（CSRF，Cross-Site Request Forgery）攻击。CSRF 是一种利用已认证用户的身份，在未授权的情况下执行不被期望的操作的攻击。通过使用 CSRF 令牌，可以有效防止此类攻击。以下是详细解释：
+
+## 什么是 CSRF 攻击？
+
+CSRF 攻击是指恶意网站在用户不知情的情况下，利用用户在另一个网站上的已登录身份，向该网站发送伪造的请求，从而执行用户未授权的操作。例如，用户登录了银行网站并保留了会话，在此期间访问了一个恶意网站，该网站可以利用用户的银行网站会话发送转账请求。
+
+## CSRF 令牌的作用
+
+CSRF 令牌是一种随机生成的、唯一的值，用于验证请求的来源是否可信。每次用户请求受保护的操作时，服务器会检查请求中包含的 CSRF 令牌是否有效，以确定请求是否是从合法的来源发起的。
+
+## 获取 CSRF 令牌的步骤
+
+1. 客户端获取 CSRF 令牌：客户端在发送任何需要保护的请求之前，先从服务器获取一个 CSRF 令牌。
+2. 发送请求时包括 CSRF 令牌：客户端在发送请求时，将 CSRF 令牌包含在请求头或请求体中。
+3. 服务器验证 CSRF 令牌：服务器在处理请求时，验证请求中的 CSRF 令牌是否匹配。如果匹配，才处理请求，否则拒绝请求。
+   实现步骤
+4. 获取 CSRF 令牌
+   前端应用在用户登录后或页面加载时，首先获取 CSRF 令牌：
+
+```js
+fetch('https://your-drupal-site.com/session/token', {
+  credentials: 'include', // 确保会话 cookie 被发送
+})
+  .then(response => response.text())
+  .then(token => {
+    // 存储 CSRF 令牌，稍后在发送请求时使用
+    sessionStorage.setItem('csrfToken', token);
+  })
+  .catch(error => console.error('Error fetching CSRF token:', error));
+```
+
+2. 发送包含 CSRF 令牌的请求
+   在发送任何需要保护的请求时，包括 CSRF 令牌：
+
+```js
+const csrfToken = sessionStorage.getItem('csrfToken');
+
+fetch('https://your-drupal-site.com/some-endpoint', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRF-Token': csrfToken, // 包括 CSRF 令牌
+  },
+  credentials: 'include', // 确保会话 cookie 被发送
+  body: JSON.stringify({ data: 'your data' }),
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+```
+
+## 服务器端的配置
+
+确保在服务器端配置了 CSRF 令牌的生成和验证。Drupal 通常已经默认配置了 CSRF 保护机制，但可以根据需要进行调整。
+
+### 优点
+
+- 安全性增强：有效防止 CSRF 攻击，确保请求是由合法用户发起的。
+- 会话保护：即使攻击者获取了会话 cookie，没有有效的 CSRF 令牌也无法伪造请求。
+
+### 总结
+
+在会话认证中使用 CSRF 令牌是一个重要的安全措施，可以有效防止跨站请求伪造攻击。通过在每个请求中包括 CSRF 令牌，并在服务器端进行验证，可以确保请求的合法性，保护用户的数据和操作安全。

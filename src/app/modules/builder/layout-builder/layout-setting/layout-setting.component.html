@@ -3,21 +3,14 @@
     [fields]="content.fields"
     [model]="model"
     (modelChange)="onModelChange($event)"
-  ></app-formly>
+  />
   @if (content.content?.elements?.length) {
     <div class="loop-elements">
       <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
         <div mat-subheader>子项</div>
-        @for (
-          widget of content.content.elements;
-          track widget;
-          let i = $index
-        ) {
+        @for (widget of content.content.elements; track widget; let i = $index) {
           <mat-list-item cdkDrag>
-            <app-icon
-              matListItemIcon
-              [content]="{ svg: 'dots-vertical' }"
-            ></app-icon>
+            <app-icon matListItemIcon [content]="{ svg: 'dots-vertical' }" />
             <div matListItemTitle>{{ i + 1 }}.{{ widget?.type }}</div>
             @if (widget.title | isString) {
               <div matListItemLine class="title">
@@ -27,8 +20,12 @@
             <div class="actions">
               <app-btn
                 (click)="onDelete(content.content.elements, i)"
-                [content]="{ label: '', mode: 'icon', icon: { svg: 'delete' } }"
-              ></app-btn>
+                [content]="{
+                  label: '',
+                  mode: 'icon',
+                  icon: { svg: 'delete' },
+                }"
+              />
               <app-btn
                 (click)="onCopy(content.content.elements, i)"
                 [content]="{
@@ -36,7 +33,7 @@
                   mode: 'icon',
                   icon: { svg: 'content-copy' },
                 }"
-              ></app-btn>
+              />
             </div>
           </mat-list-item>
         }
@@ -49,7 +46,7 @@
                 icon: { svg: 'plus' },
                 color: 'primary',
               }"
-            ></app-btn>
+            />
           </div>
         }
       </mat-list>
@@ -58,9 +55,13 @@
   <div class="actions flex justify-center items-center gap-3 my-5">
     <app-btn
       (click)="editorJSON()"
-      [content]="{ label: '编辑 JSON', color: 'primary', mode: 'stroked' }"
-    ></app-btn>
-    @if (content.content.type === "custom-template") {
+      [content]="{
+        label: '编辑 JSON',
+        color: 'primary',
+        mode: 'stroked',
+      }"
+    />
+    @if (content.content.type === 'custom-template') {
       <app-btn
         (click)="editorCode()"
         [content]="{
@@ -68,7 +69,7 @@
           color: 'primary',
           mode: 'raised',
         }"
-      ></app-btn>
+      />
     }
   </div>
 </div>

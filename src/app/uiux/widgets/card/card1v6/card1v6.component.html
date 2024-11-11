@@ -27,22 +27,14 @@
           [innerHTML]="content.suffix | safeHtml"
         ></div>
       </div>
-      <div
-        [contentedit]="'body'"
-        class="content"
-        [innerHTML]="content.body | safeHtml"
-      ></div>
+      <div [contentedit]="'body'" class="content" [innerHTML]="content.body | safeHtml"></div>
       @if (content.actions) {
-        <div
-          class="actions gap-3 flex justify-{{
-            content.actionsAlign
-          }} items-center"
-        >
+        <div class="actions gap-3 flex justify-{{ content.actionsAlign }} items-center">
           @for (action of content.actions; track action; let i = $index) {
             <app-dynamic-component
               [attr.data-path]="'actions.' + i"
               [inputs]="{ content: action }"
-            ></app-dynamic-component>
+            />
           }
         </div>
       }

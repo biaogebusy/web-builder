@@ -1,1 +1,9 @@
-<app-text-hero [content]="content"></app-text-hero>
+@if (content) {
+  <div
+    class="text-hero relative overflow-hidden"
+    [style]="content.params"
+    [ngClass]="content.theme"
+  >
+    <app-text [attr.data-path]="'text'" [content]="content.text" />
+  </div>
+}
