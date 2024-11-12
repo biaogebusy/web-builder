@@ -7,7 +7,6 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  afterRender,
   inject,
 } from '@angular/core';
 import type { ITitle } from '@core/interface/widgets/ITitle';
@@ -21,14 +20,11 @@ import Typed from 'typed.js';
   host: { ngSkipHydration: 'true' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TitleComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TitleComponent implements AfterViewInit, OnDestroy {
   @Input() content: ITitle;
   @ViewChild('title', { static: false }) title: ElementRef;
   typed: any;
   screenService = inject(ScreenService);
-  constructor() {}
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
