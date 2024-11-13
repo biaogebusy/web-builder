@@ -1,12 +1,5 @@
-@if (content && canShow) {
+@if (content) {
   <div class="view-list relative">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
-    }
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
-    }
-    <app-spacer [size]="content.spacer || 'md'" />
     <div class="flex flex-col" [ngClass]="content.fullWidth ? 'container-fluid' : 'container'">
       @if (content.text) {
         <app-text [attr.data-path]="'text'" [content]="content.text" />
@@ -34,7 +27,7 @@
         @if (loading) {
           <ngx-skeleton-loader count="10" appearance="line" />
         }
-        @if (table && !loading) {
+        @if (table && canShow && !loading) {
           <app-dynamic-table [content]="table" />
         }
         <div class="actions m-y p-x flex justify-end items-center">
@@ -61,6 +54,5 @@
         }
       </div>
     </div>
-    <app-spacer [size]="content.spacer || 'md'" />
   </div>
 }
