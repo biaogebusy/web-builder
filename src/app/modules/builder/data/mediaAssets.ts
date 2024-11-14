@@ -911,12 +911,6 @@ export const mediaAssets: IManageAssets = {
     {
       id: '',
       uuid: '',
-      src: '/assets/images/builder/builder-06.png',
-      title: 'builder-06.png',
-    },
-    {
-      id: '',
-      uuid: '',
       src: '/assets/images/builder/builder-07.png',
       title: 'builder-07.png',
     },

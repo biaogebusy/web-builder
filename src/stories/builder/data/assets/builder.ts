@@ -54,13 +54,6 @@ export const images_builder = [
     ...featureBox,
     img: {
       classes: 'object-contain',
-      src: '/assets/images/builder/builder-06.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-contain',
       src: '/assets/images/builder/builder-07.png',
     },
   },
