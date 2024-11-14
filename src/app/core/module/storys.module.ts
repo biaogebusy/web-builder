@@ -1,7 +1,6 @@
 import { ModuleWithProviders, NgModule, inject } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import base from '@assets/app/core/base.json';
@@ -62,14 +61,8 @@ export function sleep(ms: number): Promise<any> {
 
 @NgModule({
   declarations: [],
-  imports: [
-    ShareModule,
-    RouterModule,
-    HttpClientModule,
-    NgxWebstorageModule.forRoot(),
-    BrowserAnimationsModule,
-  ],
-  exports: [ShareModule, RouterModule, HttpClientModule, BrowserAnimationsModule],
+  imports: [ShareModule, RouterModule, NgxWebstorageModule.forRoot(), BrowserAnimationsModule],
+  exports: [ShareModule, RouterModule, BrowserAnimationsModule],
 })
 export class StorysModule {
   static forRoot(): ModuleWithProviders<StorysModule> {
