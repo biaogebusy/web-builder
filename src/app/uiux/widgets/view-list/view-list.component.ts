@@ -33,10 +33,7 @@ import { catchError } from 'rxjs/operators';
   host: { ngSkipHydration: 'true' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewListComponent
-  extends BaseComponent
-  implements OnInit, AfterViewInit
-{
+export class ViewListComponent extends BaseComponent implements OnInit, AfterViewInit {
   @Input() content: IViewList;
   @Input() form = new UntypedFormGroup({
     page: new UntypedFormControl(0),
@@ -44,7 +41,7 @@ export class ViewListComponent
   @Input() model: any = {};
   searchEntry: any;
   table: any;
-  loading: boolean;
+  loading = true;
   pager: IPager;
   noAuth: boolean;
   canShow = false;
@@ -141,13 +138,11 @@ export class ViewListComponent
 
   afterClosedDialog(): void {
     if (this.dialogService.dialogState$) {
-      this.dialogService.dialogState$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(state => {
-          if (!state) {
-            this.getViews();
-          }
-        });
+      this.dialogService.dialogState$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+        if (!state) {
+          this.getViews();
+        }
+      });
     }
   }
 
@@ -157,9 +152,7 @@ export class ViewListComponent
 
   onPageChange(pageEvent: PageEvent): void {
     const { pageIndex } = pageEvent;
-    this.form
-      .get('page')
-      ?.patchValue(pageIndex, { onlySelf: true, emitEvent: false });
+    this.form.get('page')?.patchValue(pageIndex, { onlySelf: true, emitEvent: false });
     const value = merge(this.model, this.form.getRawValue());
     const options = this.formService.handleRangeDate(value);
     this.getViews(options);

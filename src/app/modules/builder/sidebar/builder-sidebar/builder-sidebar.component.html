@@ -1,7 +1,7 @@
-<div
-  class="builder-sidebar"
-  [ngClass]="sidebarDrawer.opened ? 'opened' : 'closed'">
-  @if (branding$ | async; as branding) {
+@let branding = branding$ | async;
+@let config = builderConfig$ | async;
+<div class="builder-sidebar" [ngClass]="sidebarDrawer.opened ? 'opened' : 'closed'">
+  @if (branding) {
     <a [routerLink]="branding.header.logo?.href" class="logo">
       @if (!sidebarDrawer.opened) {
         <app-logo [content]="branding.header.logo" [isInvert]="true" />
@@ -11,63 +11,63 @@
     </a>
   }
   <mat-divider />
-  @if (builderConfig$ | async; as config) {
+  @if (config) {
     @if (config.menu) {
       <app-accordion
         class="accordion-menu"
         [ngClass]="sidebarDrawer.opened ? '' : '!hidden'"
         [hidden]="!sidebarDrawer.opened"
-        [content]="config.menu" />
-      <div class="icon-menu" [ngClass]="sidebarDrawer.opened ? '!hidden' : ''">
-        @for (item of config.menu; track $index) {
-          <div
-            class="item"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            [matTooltip]="item.label"
-            [matTooltipDisabled]="item.child ? true : false"
-            matTooltipPosition="right">
-            @if (item.icon) {
-              <app-icon
-                [routerLink]="item.href"
-                [content]="item.icon" />
-            }
-            @if (item.child) {
-              <div class="child">
-                <div class="hover-menu">
-                  <div class="title">{{ item.label }}</div>
-                  <div class="child-menu">
-                    <mat-list>
-                      @for (item of item.child; track $index) {
-                        <a
-                          mat-list-item
-                          [routerLink]="item.href"
-                          [routerLinkActive]="['active']"
-                          [routerLinkActiveOptions]="{ exact: true }">
-                          @if (item.icon) {
-                            <app-icon
-                              class="h-[24px] w-[24px] leading-none"
-                              [content]="item.icon" />
-                          }
-                          {{ item.label }}
-                        </a>
-                      }
-                    </mat-list>
-                  </div>
+        [content]="config.menu"
+      />
+    }
+  }
+
+  <div class="icon-menu" [ngClass]="sidebarDrawer.opened ? '!hidden' : ''">
+    @if (config) {
+      @for (item of config.menu; track $index) {
+        <div
+          class="item"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [matTooltip]="item.label"
+          [matTooltipDisabled]="item.child ? true : false"
+          matTooltipPosition="right"
+        >
+          @if (item.icon) {
+            <app-icon [routerLink]="item.href" [content]="item.icon" />
+          }
+          @if (item.child) {
+            <div class="child">
+              <div class="hover-menu">
+                <div class="title">{{ item.label }}</div>
+                <div class="child-menu">
+                  <mat-list>
+                    @for (item of item.child; track $index) {
+                      <a
+                        mat-list-item
+                        [routerLink]="item.href"
+                        [routerLinkActive]="['active']"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                      >
+                        @if (item.icon) {
+                          <app-icon class="h-[24px] w-[24px] leading-none" [content]="item.icon" />
+                        }
+                        {{ item.label }}
+                      </a>
+                    }
+                  </mat-list>
                 </div>
               </div>
-            }
-          </div>
-        }
-      </div>
+            </div>
+          }
+        </div>
+      }
     }
-  } @else {
-    <mat-divider />
-  }
+  </div>
+
   <div class="bottom">
-    @if (branding$ | async; as branding) {
-      <div
-        class="flex flex-row flex-wrap gap-3 justify-center py-3 icon-actions">
+    @if (branding) {
+      <div class="flex flex-row flex-wrap gap-3 justify-center py-3 icon-actions">
         <app-btn
           [matTooltip]="'媒体库'"
           [matTooltipPosition]="sidebarDrawer.opened ? 'above' : 'right'"
@@ -76,7 +76,8 @@
             label: '',
             mode: 'icon',
             icon: { svg: 'image-search-outline' },
-          }" />
+          }"
+        />
         @if (builder.themeMode | async; as mode) {
           <app-btn
             [matTooltip]="mode === 'light' ? '切换暗黑风格' : '切换浅色风格'"
@@ -86,18 +87,17 @@
               label: '',
               mode: 'icon',
               icon: {
-                svg:
-                  mode === 'light'
-                    ? 'white-balance-sunny'
-                    : 'moon-waning-crescent',
+                svg: mode === 'light' ? 'white-balance-sunny' : 'moon-waning-crescent',
               },
-            }" />
+            }"
+          />
         }
       </div>
       <mat-divider />
       <div
         class="flex items-center my-3 gap-3 justify-center"
-        [ngClass]="sidebarDrawer.opened ? 'flex-row' : 'flex-col'">
+        [ngClass]="sidebarDrawer.opened ? 'flex-row' : 'flex-col'"
+      >
         @if (branding.header.params.userInfo) {
           <app-user-menu [content]="branding.header.userMenu" />
         }
@@ -109,9 +109,7 @@
               </app-icon>
             }
             @if (!sidebarDrawer.opened) {
-              <app-icon
-                matTooltip="展开"
-                [content]="{ svg: 'chevron-right' }" />
+              <app-icon matTooltip="展开" [content]="{ svg: 'chevron-right' }" />
             }
           </div>
         </div>
