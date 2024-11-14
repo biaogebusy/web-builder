@@ -3,7 +3,5 @@
     @for (item of content.body; track item) {
       <app-dynamic-component [inputs]="{ content: item }" />
     }
-  } @else {
-    <mat-spinner diameter="50" color="primary" />
   }
 </div>
