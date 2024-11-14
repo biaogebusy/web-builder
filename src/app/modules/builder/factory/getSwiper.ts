@@ -43,8 +43,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                       key: 'slidesPerView',
                       type: 'slider',
                       className: 'w-full',
-                      defaultValue:
-                        widget.params?.breakpoints?.[600]?.slidesPerView,
+                      defaultValue: widget.params?.breakpoints?.[600]?.slidesPerView,
                       props: {
                         min: 1,
                         max: 10,
@@ -57,8 +56,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                       key: 'spaceBetween',
                       type: 'slider',
                       className: 'w-full',
-                      defaultValue:
-                        widget.params?.breakpoints?.[600]?.spaceBetween || 0,
+                      defaultValue: widget.params?.breakpoints?.[600]?.spaceBetween || 0,
                       props: {
                         min: 1,
                         max: 100,
@@ -79,8 +77,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                       key: 'slidesPerView',
                       type: 'slider',
                       className: 'w-full',
-                      defaultValue:
-                        widget.params.breakpoints?.[960].slidesPerView,
+                      defaultValue: widget.params.breakpoints?.[960].slidesPerView,
                       props: {
                         min: 1,
                         max: 10,
@@ -93,8 +90,7 @@ export function getSwiper(widget: any, options?: any[]): FormlyFieldConfig[] {
                       key: 'spaceBetween',
                       type: 'slider',
                       className: 'w-full',
-                      defaultValue:
-                        widget.params?.breakpoints?.[960]?.spaceBetween || 0,
+                      defaultValue: widget.params?.breakpoints?.[960]?.spaceBetween || 0,
                       props: {
                         min: 1,
                         max: 100,

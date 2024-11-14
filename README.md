@@ -184,15 +184,15 @@ export const environment: IEnvironment = {
 
 默认会读取 `/api/v1/config` 的全局配置信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true;`；
 
-## 配置代理
+## 本地开发环境 Proxy 代理
 
-如果你的应用需要调用后台接口，可以配置代理访问，配置文件`config/proxy.config.js`，本地开发时，会根据对应的 api url 前缀进行代理转发，根据实际情况进行配置；
+为了体验一致，本地默认配置体验站的API代理，配置文件`config/proxy.config.js`，根据实际情况进行配置；
 
 ```javascript
 const PROXY_CONFIG = [
   {
     context: ['/api', '/user', '/sites'],
-    target: 'https://yourdomain.com',
+    target: 'https://builder.design',
     secure: false,
     changeOrigin: true,
   },
@@ -203,7 +203,7 @@ module.exports = PROXY_CONFIG;
 
 ## 页面数据加载逻辑
 
-页面在浏览器打开访问时，应用会订阅 url 的变化，根据`url`进行接口的数据读取，根据接口返回的数据渲染页面组件，本地环境和生产环境返回做了判断：
+页面在浏览器打开访问时，应用会订阅 url 的变化，根据`url`进行接口的数据读取，根据接口返回的数据渲染页面组件：
 
 ```js
 export function pageContentFactory(activateRoute: ActivatedRoute, contentService: ContentService, contentState: ContentState): Observable<IPage | object | boolean> {
@@ -260,17 +260,14 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.builder.
 
 更多开发移步[开发指南](https://ui.builder.design/?path=/docs/guide--page)
 
-## 预览
+## Builder 预览
 
- <img style="border-radius:10px" src="src/assets/images/builder/builder-01.png" alt="web builder" />
- <img style="border-radius:10px" src="src/assets/images/builder/builder-02.png" alt="web builder" />
- <img style="border-radius:10px" src="src/assets/images/builder/builder-03.png" alt="web builder" />
- <img style="border-radius:10px" src="src/assets/images/builder/builder-04.png" alt="web builder" />
- <img style="border-radius:10px" src="src/assets/images/builder/builder-05.png" alt="web builder" />
- <img style="border-radius:10px" src="src/assets/images/builder/builder-06.png" alt="web builder" />
- <img style="border-radius:10px" src="src/assets/images/builder/builder-07.png" alt="web builder" />
- <img style="border-radius:10px" src="src/assets/images/builder/builder-08.png" alt="web builder" />
- <img style="border-radius:10px" src="src/assets/images/builder/builder-09.png" alt="web builder" />
+|                                                      |                                                     |
+| ---------------------------------------------------- | --------------------------------------------------- |
+| ![swiper](src/assets/images/builder/builder-01.png)  | ![layout](src/assets/images/builder/builder-02.png) |
+| ![title](src/assets/images/builder/builder-03.png)   | ![widget](src/assets/images/builder/builder-04.png) |
+| ![animate](src/assets/images/builder/builder-05.png) | ![layout](src/assets/images/builder/builder-09.png) |
+| ![swiper](src/assets/images/builder/builder-07.png)  | ![layout](src/assets/images/builder/builder-08.png) |
 
 ## 最后
 
