@@ -1,25 +1,15 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { BuilderComponent } from 'src/app/modules/builder/builder.component';
 import { components } from './data/combs/export-for-story';
 import { environment } from 'src/environments/environment';
 import { systems } from './data/system/system-fot-story';
-import {
-  BUILDER_CURRENT_PAGE,
-  IS_BUILDER_MODE,
-  UIUX,
-} from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE, IS_BUILDER_MODE, UIUX } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-story';
 import { of } from 'rxjs';
 import { widgets } from './data/widgets-for-story';
 import { base } from './data/base/export-for-story';
-import { mediaAssets } from './data/assets/media-assets-for-story';
 import { importProvidersFrom } from '@angular/core';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { builderCurrentPageFactory } from '@core/factory/factory';
@@ -65,5 +55,4 @@ if (!environment.production) {
   console.log('Comps:', components);
   console.log('Widgets:', widgets);
   console.log('System:', systems);
-  console.log('Media:', mediaAssets);
 }

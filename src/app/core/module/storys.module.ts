@@ -9,6 +9,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   builderFullScreenFactory,
   debugAnimateFactory,
+  mediaAssetsFactory,
   pageContentFactory,
 } from '@core/factory/factory';
 import { ContentState } from '@core/state/ContentState';
@@ -47,13 +48,9 @@ import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
 import { notify } from './data/notify';
 import { BuilderState } from '@core/state/BuilderState';
-import {
-  defaultHeader,
-  footerInverse,
-} from '@modules/builder/data/Branding.json';
+import { defaultHeader, footerInverse } from '@modules/builder/data/Branding.json';
 import { BuilderModule } from '@modules/builder/builder.module';
 import { ManageModule } from '@modules/manage/manage.module';
-import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
 import { ThemeService } from '@core/service/theme.service';
 import { FormModule } from '@uiux/combs/form/form.module';
 import { gsap } from 'gsap';
@@ -72,12 +69,7 @@ export function sleep(ms: number): Promise<any> {
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
   ],
-  exports: [
-    ShareModule,
-    RouterModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-  ],
+  exports: [ShareModule, RouterModule, HttpClientModule, BrowserAnimationsModule],
 })
 export class StorysModule {
   static forRoot(): ModuleWithProviders<StorysModule> {
@@ -154,7 +146,7 @@ export class StorysModule {
         },
         {
           provide: MEDIA_ASSETS,
-          useValue: of(mediaAssets),
+          useValue: mediaAssetsFactory,
         },
       ],
     };
