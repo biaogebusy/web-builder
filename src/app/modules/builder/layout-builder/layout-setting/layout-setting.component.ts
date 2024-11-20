@@ -12,6 +12,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { cloneDeep, defaultsDeep, get } from 'lodash-es';
@@ -32,6 +33,7 @@ export class LayoutSettingComponent {
   builder = inject(BuilderState);
   dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
+  builderService = inject(BuilderService);
   constructor(@Inject(DOCUMENT) private doc: Document) {}
 
   onModelChange(value: any): void {

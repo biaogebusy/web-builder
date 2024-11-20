@@ -1,11 +1,7 @@
 import { Inject, Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type {
-  ICoreConfig,
-  IPage,
-  IPageForJSONAPI,
-} from '@core/interface/IAppConfig';
+import type { ICoreConfig, IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
 import { Observable, Subject, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import type { IUser } from '@core/interface/IUser';
@@ -61,11 +57,7 @@ export class BuilderService extends ApiService {
     return params;
   }
 
-  loadPage(page: {
-    langcode?: string;
-    nid: string;
-    isTemplate?: boolean;
-  }): void {
+  loadPage(page: { langcode?: string; nid: string; isTemplate?: boolean }): void {
     const { langcode, nid, isTemplate } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
@@ -82,12 +74,7 @@ export class BuilderService extends ApiService {
                 langcode,
               },
               '/api/v1/node/landing_page',
-              this.getPageParams([
-                'uid',
-                'group',
-                'cover',
-                'cover.field_media_image',
-              ])
+              this.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
             );
           }
 
@@ -205,29 +192,25 @@ export class BuilderService extends ApiService {
     const pathname = window.location.pathname;
     const { lang } = this.getUrlPath(pathname);
     if (!production) {
-      return this.http.get<IPage>(
-        `${apiUrl}/assets/app${lang}/builder/default-page.json`
-      );
+      return this.http.get<IPage>(`${apiUrl}/assets/app${lang}/builder/default-page.json`);
     } else {
       this.builder.loading$.next(true);
-      return this.contentService
-        .loadPageContent(`${lang}/builder/default-page`)
-        .pipe(
-          tap(res => {
-            this.builder.loading$.next(false);
-            if (isArray(res) || !res) {
-              this.util.openSnackbar('请配置默认页面！', 'OK');
-            }
-          }),
-          catchError(() => {
-            this.builder.loading$.next(false);
+      return this.contentService.loadPageContent(`${lang}/builder/default-page`).pipe(
+        tap(res => {
+          this.builder.loading$.next(false);
+          if (isArray(res) || !res) {
             this.util.openSnackbar('请配置默认页面！', 'OK');
-            return of({
-              title: '',
-              body: [],
-            });
-          })
-        );
+          }
+        }),
+        catchError(() => {
+          this.builder.loading$.next(false);
+          this.util.openSnackbar('请配置默认页面！', 'OK');
+          return of({
+            title: '',
+            body: [],
+          });
+        })
+      );
     }
   }
 
@@ -298,9 +281,7 @@ export class BuilderService extends ApiService {
     } = attr;
 
     const lang = this.getApiLang(langcode);
-    const url = alias
-      ? `${lang}${alias}`
-      : `${lang}/node/${drupal_internal__nid}`;
+    const url = alias ? `${lang}${alias}` : `${lang}/node/${drupal_internal__nid}`;
     return lang ? `/${url}` : url;
   }
 
@@ -339,9 +320,7 @@ export class BuilderService extends ApiService {
     const status$ = new Subject<any>();
     if (pid) {
       this.http
-        .get(
-          `${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`
-        )
+        .get(`${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`)
         .subscribe((res: any) => {
           const { data } = res;
           const uuid = data[0].id;
@@ -400,41 +379,35 @@ export class BuilderService extends ApiService {
     return currentPage;
   }
 
-  openPageSetting(
-    page: { uuid: string; langcode?: string },
-    api: string,
-    params: string
-  ): void {
+  openPageSetting(page: { uuid: string; langcode?: string }, api: string, params: string): void {
     const { uuid, langcode } = page;
     const lang = this.getApiLang(langcode);
-    this.nodeService
-      .fetch(`${api}/${uuid}`, params, this.user.csrf_token, lang)
-      .subscribe(
-        res => {
-          this.builder.loading$.next(false);
-          this.builder.rightContent$.next({
-            mode: 'over',
-            hasBackdrop: true,
-            style: {
-              'width': '260px',
-              'padding': '14px',
-              'max-width': 'calc(100vw - 50px)',
+    this.nodeService.fetch(`${api}/${uuid}`, params, this.user.csrf_token, lang).subscribe(
+      res => {
+        this.builder.loading$.next(false);
+        this.builder.rightContent$.next({
+          mode: 'over',
+          hasBackdrop: true,
+          style: {
+            'width': '260px',
+            'padding': '14px',
+            'max-width': 'calc(100vw - 50px)',
+          },
+          elements: [
+            {
+              type: 'page-setting',
+              content: res,
+              fullWidth: true,
             },
-            elements: [
-              {
-                type: 'page-setting',
-                content: res,
-                fullWidth: true
-              },
-            ],
-          });
-        },
-        error => {
-          this.builder.loading$.next(false);
-          const { statusText } = error;
-          this.util.openSnackbar(statusText, 'ok');
-        }
-      );
+          ],
+        });
+      },
+      error => {
+        this.builder.loading$.next(false);
+        const { statusText } = error;
+        this.util.openSnackbar(statusText, 'ok');
+      }
+    );
   }
 
   coverExtraData(page: IPage): any {
@@ -496,7 +469,7 @@ export class BuilderService extends ApiService {
     return pageTitle;
   }
 
-  addBlock(addType: string, content: any, target: any): void {
+  addBlock(addType: string, content: any, path: string): void {
     this.builder.rightContent$.next({
       mode: 'over',
       hasBackdrop: false,
@@ -507,7 +480,7 @@ export class BuilderService extends ApiService {
         {
           type: 'widget-picker',
           addType,
-          path: this.util.generatePath(target),
+          path,
           content,
         },
       ],

@@ -42,7 +42,7 @@ export class LayoutToolbarComponent implements OnInit {
   }
 
   addBlock(addType: string, content: any, target: any): void {
-    this.builderService.addBlock(addType, content, target);
+    this.builderService.addBlock(addType, content, this.util.generatePath(target));
   }
 
   onDeleteRow(index: number): void {
@@ -57,7 +57,7 @@ export class LayoutToolbarComponent implements OnInit {
       fields: getLayoutSetting(layout),
       content: layout,
       path: this.util.generatePath(target),
-      fullWidth: true
+      fullWidth: true,
     };
     this.builder.rightContent$.next({
       mode: 'over',

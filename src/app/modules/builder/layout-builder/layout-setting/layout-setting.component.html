@@ -1,14 +1,11 @@
 <div class="layout-setting p-5">
-  <app-formly
-    [fields]="content.fields"
-    [model]="model"
-    (modelChange)="onModelChange($event)"
-  />
-  @if (content.content?.elements?.length) {
+  <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)" />
+  @let elements = content.content?.elements;
+  @if (elements?.length) {
     <div class="loop-elements">
       <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
         <div mat-subheader>子项</div>
-        @for (widget of content.content.elements; track widget; let i = $index) {
+        @for (widget of elements; track widget; let i = $index) {
           <mat-list-item cdkDrag>
             <app-icon matListItemIcon [content]="{ svg: 'dots-vertical' }" />
             <div matListItemTitle>{{ i + 1 }}.{{ widget?.type }}</div>
@@ -19,7 +16,7 @@
             }
             <div class="actions">
               <app-btn
-                (click)="onDelete(content.content.elements, i)"
+                (click)="onDelete(elements, i)"
                 [content]="{
                   label: '',
                   mode: 'icon',
@@ -27,7 +24,7 @@
                 }"
               />
               <app-btn
-                (click)="onCopy(content.content.elements, i)"
+                (click)="onCopy(elements, i)"
                 [content]="{
                   label: '',
                   mode: 'icon',
@@ -37,7 +34,7 @@
             </div>
           </mat-list-item>
         }
-        @if (content.content.elements[0]?.type | isString) {
+        @if (elements[0]?.type | isString) {
           <div class="actions my-5 flex justify-center">
             <app-btn
               (click)="onWidgetPicker()"
