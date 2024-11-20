@@ -1,12 +1,8 @@
 @if (content) {
   <div class="inline-editor">
-    <app-title
-      [content]="{ label: content.data.tag, style: 'style-v5' }" />
+    <app-title [content]="{ label: content.data.tag, style: 'style-v5' }" />
     @if (content.fields) {
-      <app-formly
-        [fields]="content.fields"
-        [model]="model"
-        (modelChange)="onModelChange($event)" />
+      <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)" />
     }
     <div class="actions m-top-sm flex flex-row justify-center">
       <app-btn
@@ -15,7 +11,8 @@
           label: '清空样式',
           color: 'warn',
           icon: { svg: 'format-clear' },
-        }" />
+        }"
+      />
     </div>
   </div>
 }

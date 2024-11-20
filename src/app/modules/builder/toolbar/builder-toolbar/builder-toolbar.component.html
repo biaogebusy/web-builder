@@ -1,9 +1,5 @@
 @if (builderFullScreen$ | async) {
-  <div
-    *ngTemplateOutlet="
-      toolbar;
-      context: { isFull: builderFullScreen$ | async }
-    "></div>
+  <div *ngTemplateOutlet="toolbar; context: { isFull: builderFullScreen$ | async }"></div>
 }
 <!-- placeholder for fixed -->
 <div *ngTemplateOutlet="toolbar; context: { isFull: false }"></div>
@@ -12,32 +8,27 @@
   <div class="builder-toolbar" [ngClass]="{ fixed: isFull }">
     <div class="wrapper flex justify-between items-center">
       @if (currentPage$ | async; as page) {
-        <div
-          class="left flex flex-col justify-center items-start flex-[0_1_33.33%]">
-          <div
-            class="page-title flex items-center"
-            contenteditable="true"
-            (blur)="onTitle($event)">
+        <div class="left flex flex-col justify-center items-start flex-[0_1_33.33%]">
+          <div class="page-title flex items-center" contenteditable="true" (blur)="onTitle($event)">
             {{ page.title }}
             <app-icon [content]="{ svg: 'pencil-outline' }" />
           </div>
           <div class="time">{{ page.time | date: 'YYYY-MM-dd HH:mm' }}</div>
         </div>
       }
-      <div
-        class="middle text-primary justify-center items-center hidden md:flex flex-[0_1_33.33%]">
+      <div class="middle text-primary justify-center items-center hidden md:flex flex-[0_1_33.33%]">
         <app-switch-preview />
         <app-switch-theme />
       </div>
       <div
         id="toolbar-right"
-        class="right sm:gap-1 flex justify-end items-center flex-[0_1_33.33%]">
+        class="right sm:gap-1 flex justify-end items-center flex-[0_1_33.33%]"
+      >
         <mat-slide-toggle
           [checked]="builderFullScreen$ | async"
           (change)="onFullScreen($event)"
-          [matTooltip]="
-            (builderFullScreen$ | async) ? '显示边栏' : '切换全宽'
-          " />
+          [matTooltip]="(builderFullScreen$ | async) ? '显示边栏' : '切换全宽'"
+        />
         <app-btn-generater
           matTooltip="快速生成页面"
           [content]="{
@@ -45,23 +36,21 @@
             color: 'primary',
             mode: 'icon',
             icon: { svg: 'lightning-bolt' },
-          }" />
+          }"
+        />
         @if (page) {
           <app-btn
             class="hidden sm:flex whitespace-nowrap"
             (click)="onSubmit(page)"
             [content]="{
-              label: page.translation
-                ? '更新翻译'
-                : page.uuid
-                  ? '更新页面'
-                  : '新建页面',
+              label: page.translation ? '更新翻译' : page.uuid ? '更新页面' : '新建页面',
               color: 'primary',
               mode: 'raised',
               icon: {
                 svg: page.uuid ? 'navigation-variant' : 'pencil-plus',
               },
-            }" />
+            }"
+          />
         }
         <app-lang-switch />
         <app-builder-menu />

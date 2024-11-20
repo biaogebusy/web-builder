@@ -18,18 +18,18 @@
           cdkDropList
           cdkDropListSortingDisabled="true"
           [cdkDropListData]="item.elements"
-          [cdkDropListConnectedTo]="['builder-list']">
+          [cdkDropListConnectedTo]="['builder-list']"
+        >
           @for (widget of item.elements; track widget) {
             @if (!widget.child) {
               <div
                 class="item col-span-6 sm:col-span-4"
                 matRipple
                 [matTooltip]="
-                  builder.fixedContent === widget.content
-                    ? '已锁定预览，可查看复制组件JSON'
-                    : ''
+                  builder.fixedContent === widget.content ? '已锁定预览，可查看复制组件JSON' : ''
                 "
-                matTooltipPosition="above">
+                matTooltipPosition="above"
+              >
                 <div
                   class="w-full"
                   [cdkDragData]="widget.content"
@@ -38,12 +38,12 @@
                   (cdkDragMoved)="onMoved()"
                   (mouseenter)="onShowcase(widget.content)"
                   (mouseleave)="hideShowcase()"
-                  (click)="onFixed(widget.content)">
+                  (click)="onFixed(widget.content)"
+                >
                   <div
                     class="inner move flex flex-col justify-center items-center"
-                    [ngClass]="
-                      builder.fixedContent === widget.content ? 'active' : ''
-                    ">
+                    [ngClass]="builder.fixedContent === widget.content ? 'active' : ''"
+                  >
                     @if (widget.icon) {
                       <app-icon [content]="widget.icon" />
                     }
@@ -55,19 +55,16 @@
               </div>
             }
             @if (widget.child) {
-              <div
-                class="group col-span-12 grid grid-cols-12 gap-1"
-                matTooltipPosition="above">
+              <div class="group col-span-12 grid grid-cols-12 gap-1" matTooltipPosition="above">
                 @for (item of widget.child; track item) {
                   <div
                     class="item col-span-6 sm:col-span-4"
                     matRipple
                     [matTooltip]="
-                      builder.fixedContent === item.content
-                        ? '已锁定预览，可查看复制组件JSON'
-                        : ''
+                      builder.fixedContent === item.content ? '已锁定预览，可查看复制组件JSON' : ''
                     "
-                    matTooltipPosition="above">
+                    matTooltipPosition="above"
+                  >
                     <div
                       class="w-full"
                       [cdkDragData]="item.content"
@@ -76,12 +73,12 @@
                       (cdkDragMoved)="onMoved()"
                       (mouseenter)="onShowcase(item.content)"
                       (mouseleave)="hideShowcase()"
-                      (click)="onFixed(item.content)">
+                      (click)="onFixed(item.content)"
+                    >
                       <div
                         class="inner move flex flex-col justify-center items-center"
-                        [ngClass]="
-                          builder.fixedContent === item.content ? 'active' : ''
-                        ">
+                        [ngClass]="builder.fixedContent === item.content ? 'active' : ''"
+                      >
                         @if (item.icon) {
                           <app-icon [content]="item.icon" />
                         }

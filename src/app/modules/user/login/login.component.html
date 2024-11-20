@@ -1,15 +1,17 @@
+@let loginConfig = coreConfig.login;
 <div class="login-container flex justify-center items-center">
-  <div
-    class="login-wrapper relative flex justify-center items-center rounded-xl">
+  <div class="login-wrapper relative flex justify-center items-center rounded-xl">
     <div
-      class="hidden sm:flex justify-center items-center login-second relative p-5 flex-12/12 sm:flex-6/12 box-border">
-      @if (coreConfig.login.left) {
-        <app-dynamic-component [inputs]="coreConfig.login.left" />
+      class="hidden sm:flex justify-center items-center login-second relative p-5 flex-12/12 sm:flex-6/12 box-border"
+    >
+      @if (loginConfig.left) {
+        <app-dynamic-component [inputs]="loginConfig.left" />
       }
     </div>
     <div
       class="flex flex-col justify-center items-center login-form p-3 z-10 overflow-hidden relative flex-12/12 sm:flex-6/12 box-border"
-      [class.is-login]="user$ | async">
+      [class.is-login]="user$ | async"
+    >
       @if (!loading) {
         <div class="w-full form-scroll">
           @if (!(user$ | async)) {
@@ -19,15 +21,13 @@
               </div>
             }
             <mat-tab-group>
-              @if (coreConfig.login.phoneLogin.enable) {
-                <mat-tab
-                  label="{{
-                    coreConfig.login.phoneLogin.tabLabel || '手机登录'
-                  }}">
+              @if (loginConfig.phoneLogin.enable) {
+                <mat-tab label="{{ loginConfig.phoneLogin.tabLabel || '手机登录' }}">
                   <form
                     class="flex flex-col py-5"
                     [formGroup]="phoneForm"
-                    (ngSubmit)="loginByPhone()">
+                    (ngSubmit)="loginByPhone()"
+                  >
                     <mat-form-field appearance="fill">
                       <mat-label>请输入手机号码</mat-label>
                       <mat-icon matSuffix>phone_iphone</mat-icon>
@@ -35,13 +35,11 @@
                         placeholder="请输入手机号码"
                         type="text"
                         matInput
-                        formControlName="phone" />
+                        formControlName="phone"
+                      />
                       @if (formPhone.phone.errors?.pattern) {
                         <mat-error>
-                          {{
-                            coreConfig.login.phoneLogin.error ||
-                              '请输入正确的手机号码'
-                          }}</mat-error
+                          {{ loginConfig.phoneLogin.error || '请输入正确的手机号码' }}</mat-error
                         >
                       }
                     </mat-form-field>
@@ -56,7 +54,8 @@
                         matSuffix
                         color="primary"
                         mat-raised-button
-                        aria-label="code">
+                        aria-label="code"
+                      >
                         <small class="whitespace-nowrap">
                           发送验证码
                           @if (countdown) {
@@ -65,32 +64,19 @@
                         </small>
                       </button>
                     </mat-form-field>
-                    <button
-                      class="mt-5"
-                      type="submit"
-                      mat-raised-button
-                      color="primary">
-                      {{ coreConfig.login.phoneLogin.submitLabel }}
+                    <button class="mt-5" type="submit" mat-raised-button color="primary">
+                      {{ loginConfig.phoneLogin.submitLabel }}
                     </button>
                   </form>
                 </mat-tab>
               }
-              @if (coreConfig.login.pswLogin.enable) {
-                <mat-tab
-                  label="{{
-                    coreConfig.login.pswLogin.tabLabel || '密码登录'
-                  }}">
-                  <form
-                    class="flex flex-col py-5"
-                    [formGroup]="userForm"
-                    (ngSubmit)="login()">
+              @if (loginConfig.pswLogin.enable) {
+                <mat-tab label="{{ loginConfig.pswLogin.tabLabel || '密码登录' }}">
+                  <form class="flex flex-col py-5" [formGroup]="userForm" (ngSubmit)="login()">
                     <mat-form-field appearance="fill">
                       <mat-label>用户名</mat-label>
                       <mat-icon matSuffix>person</mat-icon>
-                      <input
-                        matInput
-                        formControlName="name"
-                        autocomplete="username" />
+                      <input matInput formControlName="name" autocomplete="username" />
                     </mat-form-field>
                     <mat-form-field appearance="fill">
                       <mat-label>密码</mat-label>
@@ -98,24 +84,20 @@
                         matInput
                         [type]="hide ? 'password' : 'text'"
                         formControlName="pass"
-                        autocomplete="current-password" />
+                        autocomplete="current-password"
+                      />
                       <button
                         mat-icon-button
                         matSuffix
                         (click)="hide = !hide"
                         [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide">
-                        <mat-icon>{{
-                          hide ? 'visibility_off' : 'visibility'
-                        }}</mat-icon>
+                        [attr.aria-pressed]="hide"
+                      >
+                        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
                       </button>
                     </mat-form-field>
-                    <button
-                      class="mt-5"
-                      type="submit"
-                      mat-raised-button
-                      color="primary">
-                      {{ coreConfig.login.pswLogin.submitLabel }}
+                    <button class="mt-5" type="submit" mat-raised-button color="primary">
+                      {{ loginConfig.pswLogin.submitLabel }}
                     </button>
                   </form>
                 </mat-tab>

@@ -3,12 +3,7 @@ import { getSwiper } from './getSwiper';
 import { getTitle } from './getTitle';
 import { getText } from './getText';
 import { getAnimate } from './getAnimate';
-import {
-  getBgClasses,
-  getGridLayoutConfig,
-  getOverlay,
-  getSpacerOptions,
-} from './getCommon';
+import { getBgClasses, getGridLayoutConfig, getOverlay, getSpacerOptions } from './getCommon';
 import { getVideo } from './getVideo';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
@@ -113,12 +108,10 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
                           const { form } = formGroup;
                           form.valueChanges.subscribe((value: any) => {
                             const srcArr = value.src.split(/\/|(?=\.\w+$)/);
-                            form
-                              .get('alt')
-                              .patchValue(srcArr[srcArr.length - 2], {
-                                onlySelf: true,
-                                emitEvent: true,
-                              });
+                            form.get('alt').patchValue(srcArr[srcArr.length - 2], {
+                              onlySelf: true,
+                              emitEvent: true,
+                            });
                           });
                         },
                       },

@@ -296,8 +296,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'onEnterBack',
                     type: 'select',
                     className: 'col-span-6',
-                    defaultValue:
-                      content?.animate?.trigger?.onEnterBack ?? 'none',
+                    defaultValue: content?.animate?.trigger?.onEnterBack ?? 'none',
                     props: {
                       label: '再进入视线',
                       options: actionsOptions,
@@ -307,8 +306,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'onLeaveBack',
                     type: 'select',
                     className: 'col-span-6',
-                    defaultValue:
-                      content?.animate?.trigger?.onLeaveBack ?? 'none',
+                    defaultValue: content?.animate?.trigger?.onLeaveBack ?? 'none',
                     props: {
                       label: '再进入后离开',
                       options: actionsOptions,

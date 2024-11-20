@@ -3,13 +3,15 @@
     [ngClass]="currentPreview"
     aria-label="switch preview"
     mat-icon-button
-    [mat-menu-trigger-for]="menu">
+    [mat-menu-trigger-for]="menu"
+  >
     <app-icon
       [content]="{
         svg: currentIcon,
         color: 'primary',
         inline: true,
-      }" />
+      }"
+    />
   </button>
 
   <mat-menu #menu="matMenu" aria-label="switch theme item">
