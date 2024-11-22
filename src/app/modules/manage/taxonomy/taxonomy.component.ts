@@ -1,4 +1,11 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  OnInit,
+  inject,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IUser } from '@core/interface/IUser';
 import { ITaxonomy } from '@core/interface/manage/ITaxonomy';
@@ -6,7 +13,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-taxonomy',
@@ -17,9 +24,11 @@ import { Observable } from 'rxjs';
 export class TaxonomyComponent implements OnInit {
   @Input() content: ITaxonomy;
   items$: Observable<any>;
-
+  loading = false;
+  showForm = false;
   nodeService = inject(NodeService);
   util = inject(UtilitiesService);
+  cd = inject(ChangeDetectorRef);
   user$ = inject(USER);
   form = new FormGroup({});
   model: any = {};
@@ -40,10 +49,16 @@ export class TaxonomyComponent implements OnInit {
   }
 
   getItems(params: string): void {
+    this.loading = true;
     const {
       params: { api },
     } = this.content;
-    this.items$ = this.nodeService.fetch(api, params);
+    this.items$ = this.nodeService.fetch(api, params).pipe(
+      tap(() => {
+        this.loading = false;
+        this.cd.detectChanges();
+      })
+    );
   }
 
   onNew(value: any, user: any): void {
@@ -57,6 +72,9 @@ export class TaxonomyComponent implements OnInit {
     this.nodeService.addEntify(api, value, user.csrf_token).subscribe(res => {
       console.log(res);
       this.getItems('noCache=true');
+      this.form.reset();
+      this.showForm = false;
+      this.cd.detectChanges();
     });
   }
 
