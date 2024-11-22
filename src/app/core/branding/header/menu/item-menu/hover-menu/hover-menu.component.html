@@ -1,6 +1,4 @@
-<app-link
-  class="top {{ content.href ? 'is-link' : 'not-link' }}"
-  [content]="content" />
+<app-link class="top {{ content.href ? 'is-link' : 'not-link' }}" [content]="content" />
 @if (content.child && content.child.length > 0) {
   <div class="hover-menu" [class.active]="active">
     <div *ngTemplateOutlet="child; context: { content: content }"></div>

@@ -18,10 +18,7 @@
           <app-github-star class="github mx-4" />
           @for (item of content.banner.right; track item) {
             @if (item?.svg) {
-              <a
-                class="inv-icon style-v1"
-                href="{{ item.href }}"
-                target="_blank">
+              <a class="inv-icon style-v1" href="{{ item.href }}" target="_blank">
                 <span class="soc-name">{{ item.label }}</span>
                 <span class="soc-icon-bg"></span>
                 @if (item.svg) {
