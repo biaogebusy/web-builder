@@ -1,0 +1,12 @@
+.taxonomy {
+  .mat-mdc-list {
+    .mat-mdc-list-item {
+      .actions {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

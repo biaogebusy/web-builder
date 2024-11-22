@@ -1,0 +1,50 @@
+<div class="taxonomy">
+  @let items = items$ | async;
+  @let user = user$ | async;
+
+  <mat-list>
+    <div mat-subheader>{{ content.title }}</div>
+    @if (items) {
+      @for (item of items.data; track item.id) {
+        @let attr = item.attributes;
+        <mat-list-item>
+          <mat-icon matListItemIcon>folder</mat-icon>
+          <div matListItemTitle>{{ attr.name }}</div>
+          <div matListItemLine>{{ attr.drupal_internal__tid }}</div>
+          <div class="actions">
+            <app-btn
+              [content]="{
+                label: '编辑',
+                color: 'primary',
+                icon: { svg: 'pencil-plus', inline: true },
+              }"
+            />
+            <app-btn
+              (click)="onDelete(item, user)"
+              [content]="{
+                label: '删除',
+                color: 'warn',
+                icon: { svg: 'delete-empty-outline' },
+              }"
+            />
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      }
+    }
+  </mat-list>
+  <div class="new my-5 flex flex-col gap-5">
+    <app-formly class="w-12/12 sm:w-3/12" [form]="form" [fields]="fields" [model]="model" />
+    <app-btn
+      (click)="onNew(model, user)"
+      [content]="{
+        label: form.valid ? '提交分类' : '新建分类',
+        color: 'primary',
+        mode: 'raised',
+        icon: {
+          svg: 'pencil-plus',
+        },
+      }"
+    />
+  </div>
+</div>
