@@ -295,8 +295,7 @@ const footerMainMenu = [
         icon: {
           svg: 'offiaccount',
         },
-        popup:
-          '<img width="112px" src="./assets/images/qrcode-official.jpg" alt="">',
+        popup: '<img width="112px" src="./assets/images/qrcode-official.jpg" alt="">',
       },
       {
         label: 'Drupal 主题开发',
