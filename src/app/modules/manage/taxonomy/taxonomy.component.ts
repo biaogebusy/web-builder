@@ -27,7 +27,6 @@ export class TaxonomyComponent implements OnInit {
   @Input() content: ITaxonomy;
   items$: Observable<any>;
   loading = false;
-  showForm = false;
   nodeService = inject(NodeService);
   util = inject(UtilitiesService);
   cd = inject(ChangeDetectorRef);
@@ -81,7 +80,6 @@ export class TaxonomyComponent implements OnInit {
         console.log(res);
         this.getItems('noCache=true');
         this.form.reset();
-        this.showForm = false;
         this.cd.detectChanges();
       });
   }
@@ -98,6 +96,7 @@ export class TaxonomyComponent implements OnInit {
       .deleteEntity(api, item.id, user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
+        this.form.reset();
         this.util.openSnackbar('删除成功！', 'ok');
         this.getItems('noCache=true');
       });
@@ -140,6 +139,7 @@ export class TaxonomyComponent implements OnInit {
         this.loading = false;
         this.cd.detectChanges();
         if (res) {
+          this.form.reset();
           editing.classList.remove('flex');
           editing.classList.add('hidden');
 
