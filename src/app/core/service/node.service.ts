@@ -35,12 +35,7 @@ export class NodeService extends ApiService {
     return this.coreConfig.apiUrl;
   }
 
-  fetch(
-    api: string,
-    params: string,
-    token?: string,
-    langCode?: string
-  ): Observable<any> {
+  fetch(api: string, params: string, token?: string, langCode?: string): Observable<any> {
     let apiParams = '';
     let lang = '';
     if (!api) {
@@ -82,12 +77,7 @@ export class NodeService extends ApiService {
   }
 
   // params can use for noCache
-  getNodes(
-    path: string,
-    type: string,
-    params = '',
-    token = ''
-  ): Observable<any> {
+  getNodes(path: string, type: string, params = '', token = ''): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${path}/${type}?${params}`,
       token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
@@ -101,10 +91,26 @@ export class NodeService extends ApiService {
     );
   }
 
+  // path: /api/v1/taxonomy_term/page_group
+  addEntify(path: string, attr: any, token: string): Observable<any> {
+    const arr = path.split('/');
+    const post = {
+      data: {
+        type: `${arr[arr.length - 2]}--${arr[arr.length - 1]}`,
+        attributes: {
+          ...attr,
+        },
+      },
+    };
+    return this.http.post<any>(
+      `${this.apiUrl}${path}`,
+      JSON.stringify(post),
+      this.optionsWithCookieAndToken(token)
+    );
+  }
+
   getNodePath(attr: any): string {
-    return attr?.path?.alias
-      ? attr.path.alias
-      : `/node/${attr.drupal_internal__nid}`;
+    return attr?.path?.alias ? attr.path.alias : `/node/${attr.drupal_internal__nid}`;
   }
 
   addNode(type: string, attr: any, token: string): Observable<any> {
@@ -138,12 +144,7 @@ export class NodeService extends ApiService {
     );
   }
 
-  updateComment(
-    type: string,
-    entityData: any,
-    uuid: string,
-    token: string
-  ): Observable<any> {
+  updateComment(type: string, entityData: any, uuid: string, token: string): Observable<any> {
     const entity = {
       data: entityData,
     };
@@ -216,9 +217,7 @@ export class NodeService extends ApiService {
     return {
       author: {
         img: {
-          src:
-            comment.uid?.user_picture?.uri?.url ||
-            this.coreConfig?.defaultAvatar,
+          src: comment.uid?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar,
           style: {
             borderRadius: '50%',
           },
@@ -229,11 +228,7 @@ export class NodeService extends ApiService {
         align: 'center start',
         id: comment.uid.id,
         title: comment.uid.name,
-        subTitle: formatDate(
-          comment.changed || comment.created,
-          'yyyy-MM-dd HH:mm:ss',
-          'en-US'
-        ),
+        subTitle: formatDate(comment.changed || comment.created, 'yyyy-MM-dd HH:mm:ss', 'en-US'),
       },
       time: comment.changed,
       id: comment.id,
@@ -244,11 +239,7 @@ export class NodeService extends ApiService {
   }
 
   // api 在有权限的时候会有很大的性能开销，可使用自定义api
-  getCommentsWitchChild(
-    content: any,
-    token = '',
-    timeStamp = 1
-  ): Observable<any> {
+  getCommentsWitchChild(content: any, token = '', timeStamp = 1): Observable<any> {
     const path = this.apiUrlConfig.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);
@@ -298,11 +289,7 @@ export class NodeService extends ApiService {
   }
 
   // custom get comment api
-  getCustomApiComment(
-    uuid: string,
-    timeStamp = 1,
-    token?: string
-  ): Observable<any> {
+  getCustomApiComment(uuid: string, timeStamp = 1, token?: string): Observable<any> {
     const params = [`timeStamp=${timeStamp}`].join('&');
 
     return this.http.get<IComment[]>(
@@ -346,22 +333,14 @@ export class NodeService extends ApiService {
       if (currentUserRule.includes('administrator')) {
         return true;
       } else {
-        const isRule =
-          currentUserRule.filter(role => reqRules.includes(role)).length > 0;
+        const isRule = currentUserRule.filter(role => reqRules.includes(role)).length > 0;
         return isRule;
       }
     }
   }
 
-  checkCurrentUserPayed(
-    uid: string,
-    entityId: string,
-    token: string
-  ): Observable<boolean> {
-    const params = [
-      `filter[uid.id]=${uid}`,
-      `filter[entity_id]=${entityId}`,
-    ].join('&');
+  checkCurrentUserPayed(uid: string, entityId: string, token: string): Observable<boolean> {
+    const params = [`filter[uid.id]=${uid}`, `filter[entity_id]=${entityId}`].join('&');
     return this.getFlaging(this.apiUrlConfig?.paymentPath, params, token).pipe(
       map(res => {
         if (res.data.length > 0) {
@@ -373,11 +352,7 @@ export class NodeService extends ApiService {
     );
   }
 
-  checkNodeAccess(
-    params: any,
-    entityId: string,
-    user: IUser
-  ): Observable<IArticleAccess> {
+  checkNodeAccess(params: any, entityId: string, user: IUser): Observable<IArticleAccess> {
     const reqRule = params?.require_rule;
     if (!isEmpty(reqRule)) {
       // 非公开浏览
@@ -403,11 +378,7 @@ export class NodeService extends ApiService {
     }
   }
 
-  uploadImage(
-    fileName: string,
-    imageData: any,
-    csrfToken: string
-  ): Observable<IMediaAttr> {
+  uploadImage(fileName: string, imageData: any, csrfToken: string): Observable<IMediaAttr> {
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
@@ -454,11 +425,7 @@ export class NodeService extends ApiService {
       },
     };
     this.http
-      .post(
-        `/api/v1/media/image`,
-        mediaData,
-        this.optionsWithCookieAndToken(this.user.csrf_token)
-      )
+      .post(`/api/v1/media/image`, mediaData, this.optionsWithCookieAndToken(this.user.csrf_token))
       .subscribe(res => {
         console.log('image upload done.');
       });
@@ -471,10 +438,7 @@ export class NodeService extends ApiService {
     }
     const Imageinput: any = document.createElement('input');
     Imageinput.setAttribute('type', 'file');
-    Imageinput.setAttribute(
-      'accept',
-      'image/png, image/gif, image/jpeg, image/bmp, image/x-icon'
-    );
+    Imageinput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
     Imageinput.classList.add('ql-image');
     if (Imageinput.files) {
       Imageinput.addEventListener('change', () => {
@@ -483,12 +447,10 @@ export class NodeService extends ApiService {
           const reader = new FileReader();
           reader.onload = (e: any) => {
             const data = e.target.result;
-            this.uploadImage(file.name, data, this.user.csrf_token).subscribe(
-              (img: IMediaAttr) => {
-                const range = editor.getSelection(true);
-                editor.insertEmbed(range.index, 'image', img.uri.url);
-              }
-            );
+            this.uploadImage(file.name, data, this.user.csrf_token).subscribe((img: IMediaAttr) => {
+              const range = editor.getSelection(true);
+              editor.insertEmbed(range.index, 'image', img.uri.url);
+            });
           };
           reader.readAsArrayBuffer(file);
         }

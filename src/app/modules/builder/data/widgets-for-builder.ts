@@ -75,14 +75,27 @@ export const widgets = [
     },
   },
   {
+    label: 'JSON',
+    icon: {
+      svg: 'code-json',
+    },
+    content: {
+      type: 'json',
+      name: 'sample',
+      spacer: {
+        x: 'none',
+        y: 'none',
+      },
+    },
+  },
+  {
     label: '标题',
     icon: {
       svg: 'format-header-2',
     },
     content: {
       type: 'title',
-      label:
-        '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
+      label: '欢迎使用<strong class="text-primary">Web Builder</strong>构建页面',
       classes: 'mat-headline-3 bold',
       style: 'style-v4',
     },
@@ -709,8 +722,7 @@ export const widgets = [
         href: '#',
         label: '高性能',
       },
-      content:
-        '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+      content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
     },
   },
   {

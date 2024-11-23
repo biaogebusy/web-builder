@@ -1,20 +1,12 @@
 <div class="user">
   @if (!(user$ | async)) {
-    <button
-      aria-label="user login"
-      color="primary"
-      (click)="onLogin()"
-      mat-mini-fab>
+    <button aria-label="user login" color="primary" (click)="onLogin()" mat-mini-fab>
       <mat-icon>person</mat-icon>
     </button>
   }
   @if (user$ | async; as user) {
     @if (!user.picture) {
-      <button
-        aria-label="user name"
-        mat-mini-fab
-        color="primary"
-        [matMenuTriggerFor]="menu">
+      <button aria-label="user name" mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
         <h3 class="name">
           {{ utilities.getIndexTitle(user.display_name || 'N') }}
         </h3>
@@ -24,14 +16,16 @@
         class="user-picture"
         [matMenuTriggerFor]="menu"
         [src]="user.picture"
-        alt="{{ user.display_name }}" />
+        alt="{{ user.display_name }}"
+      />
     }
     <ng-template #picture>
       <img
         class="user-picture"
         [matMenuTriggerFor]="menu"
         [src]="user.picture"
-        alt="{{ user.display_name }}" />
+        alt="{{ user.display_name }}"
+      />
     </ng-template>
     <mat-menu #menu="matMenu" class="user-dropdown">
       <a mat-menu-item [routerLink]="userService.userPage">

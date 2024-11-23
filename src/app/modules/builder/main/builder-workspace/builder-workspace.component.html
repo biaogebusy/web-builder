@@ -1,11 +1,7 @@
 <div class="builder-workspace">
   <app-builder-toolbar />
   <mat-drawer-container class="builder-main">
-    <mat-drawer
-      #drawer
-      class="sidebar"
-      [mode]="mode"
-      [opened]="!(builderFullScreen$ | async)">
+    <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$ | async)">
       <router-outlet />
       <app-builder-version />
     </mat-drawer>

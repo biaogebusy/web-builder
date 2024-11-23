@@ -1,45 +1,40 @@
 @if (branding$ | async; as branding) {
+  @let header = branding.header;
   @if (show) {
     <header class="header">
       <div class="container">
         <div
-          class="header-container flex flex-row {{
-            branding.header.logo
-              ? 'justify-between items-center'
-              : 'justify-end items-center'
-          }}">
-          @if (branding.header.logo) {
-            <div class="header-left one-line">
-              <app-logo [content]="branding.header.logo" />
+          class="header-container flex flex-row gap-5 {{
+            header.logo ? 'justify-between items-center' : 'justify-end items-center'
+          }}"
+        >
+          @if (header.logo) {
+            <div class="header-left one-line flex-[0_0_auto]">
+              <app-logo [content]="header.logo" />
             </div>
           }
           <div
-            class="header-right flex flex-row justify-center items-center gap-3 md:gap-5">
-            @if (branding.header.mainMenu) {
+            class="header-right flex flex-row justify-center items-center gap-2 md:gap-3 xl:gap-5"
+          >
+            @if (header.mainMenu) {
               <div class="menu-inner">
                 <div class="main-menu flex flex-row">
-                  @for (
-                    menu of branding.header.mainMenu;
-                    track trackByFn($index, menu)
-                  ) {
+                  @for (menu of header.mainMenu; track trackByFn($index, menu)) {
                     <div class="item">
-                      @if (branding.header.params) {
-                        <app-item-menu
-                          [params]="branding.header.params"
-                          [content]="menu" />
+                      @if (header.params) {
+                        <app-item-menu [params]="header.params" [content]="menu" />
                       }
                     </div>
                   }
                 </div>
               </div>
             }
-            @if (branding.header.search.enable) {
-              <app-search-box
-                [content]="branding.header.search" />
+            @if (header.search.enable) {
+              <app-search-box [content]="header.search" />
             }
-            @if (branding.header.actions) {
+            @if (header.actions) {
               <div class="actions">
-                @for (action of branding.header.actions; track action) {
+                @for (action of header.actions; track action) {
                   <button color="primary" mat-raised-button>
                     <app-link [content]="action" />
                   </button>
@@ -49,12 +44,11 @@
             @if (coreConfig.notify?.enable) {
               <app-notify class="has-icon" />
             }
-            @if (branding.header.params.themeSwitch) {
+            @if (header.params.themeSwitch) {
               <app-switch-theme class="has-icon" />
             }
-            @if (branding.header.params.userInfo) {
-              <app-user-menu
-                [content]="branding.header.userMenu" />
+            @if (header.params.userInfo) {
+              <app-user-menu [content]="header.userMenu" />
             }
             <app-lang-switch />
           </div>
@@ -75,7 +69,7 @@
         </button>
         @if (!isDrawer) {
           <span class="spacer"></span>
-          <span class="app-name">{{ branding.header.logo?.label }}</span>
+          <span class="app-name">{{ header.logo?.label }}</span>
           <span class="spacer"></span>
           <app-switch-theme />
           <app-user-menu class="m-left-xs" />
@@ -83,8 +77,8 @@
       </mat-toolbar>
     }
     <div [hidden]="!(!show && isDrawer)">
-      @if (branding.header.mainMenu) {
-        <app-accordion [content]="branding.header.mainMenu" />
+      @if (header.mainMenu) {
+        <app-accordion [content]="header.mainMenu" />
       }
     </div>
   </div>

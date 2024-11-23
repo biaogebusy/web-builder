@@ -34,21 +34,19 @@
               </div>
             </div>
           }
-          <div
-            class="currentUser-menu p-x-sm m-bottom flex flex-wrap justify-between">
+          <div class="currentUser-menu p-x-sm m-bottom flex flex-wrap justify-between">
             <div class="item flex-12/12 md:flex-5/12">
               <a
                 class="p-y-sm p-x-sm flex flex-col justify-center items-center"
                 [routerLink]="['favorite']"
-                [routerLinkActive]="['active']">
+                [routerLinkActive]="['active']"
+              >
                 <mat-icon class="pb-[10px]">favorite</mat-icon>
                 <span>收藏</span>
               </a>
             </div>
             <div class="item flex-12/12 md:flex-5/12">
-              <a
-                class="p-y-sm p-x-sm flex flex-col justify-center items-center"
-                (click)="logout()">
+              <a class="p-y-sm p-x-sm flex flex-col justify-center items-center" (click)="logout()">
                 <mat-icon class="pb-[10px]">exit_to_app</mat-icon>
                 <span>退出</span>
               </a>

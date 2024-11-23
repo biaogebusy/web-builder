@@ -35,10 +35,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IconService } from '@core/service/icon.service';
-import {
-  MatPaginatorIntl,
-  MatPaginatorModule,
-} from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { throwError } from 'rxjs';
@@ -48,11 +45,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 
 @NgModule({
-  declarations: [
-    ReqRolesDirective,
-    CheckChildMenuActiveDirective,
-    ContenteditDirective,
-  ],
+  declarations: [ReqRolesDirective, CheckChildMenuActiveDirective, ContenteditDirective],
   imports: [
     CommonModule,
     MatToolbarModule,

@@ -8,7 +8,8 @@
           mode: 'icon',
           color: 'primary',
           icon: { svg: 'reload' },
-        }" />
+        }"
+      />
     }
   </div>
   <app-title
@@ -16,13 +17,15 @@
       label: '管理列表',
       style: 'style-v4',
       classes: 'p-y-xs !mb-2 bold',
-    }" />
+    }"
+  />
   <div class="form">
     <app-formly
       [fields]="fields"
       [form]="form"
       [model]="model"
-      (modelChange)="onModelChange($event)" />
+      (modelChange)="onModelChange($event)"
+    />
   </div>
   <div class="lists">
     @if (loading) {
@@ -32,22 +35,19 @@
       @for (page of content; track page.nid; let i = $index) {
         <div
           [ngClass]="{
-            active:
-              page.nid === currentPage?.nid &&
-              page.langcode === currentPage?.langcode,
+            active: page.nid === currentPage?.nid && page.langcode === currentPage?.langcode,
           }"
-          class="item flex flex-col gap-2 relative p-2">
+          class="item flex flex-col gap-2 relative p-2"
+        >
           <div class="text-sm mr-[62px] inline-flex items-center gap-1 group">
-            <span
-              class="title"
-              (blur)="onTitle($event, page)"
-              contenteditable="false">
+            <span class="title" (blur)="onTitle($event, page)" contenteditable="false">
               {{ page.title }}
             </span>
             <app-icon
               (click)="enableEditor($event)"
               class="group-hover:!inline-block !hidden w-[16px] h-[16px] cursor-pointer"
-              [content]="{ svg: 'pencil-outline', inline: true }" />
+              [content]="{ svg: 'pencil-outline', inline: true }"
+            />
           </div>
           <div class="meta text-xs font-mono">
             {{ page.author | shorten: 6 : '**' }}
@@ -59,9 +59,7 @@
                 target="_blank"
                 >{{ page.url }}</a
               >
-              <span class="whitespace-nowrap">{{
-                page.changed | date: 'yyyy/MM/dd HH:mm'
-              }}</span>
+              <span class="whitespace-nowrap">{{ page.changed | date: 'yyyy/MM/dd HH:mm' }}</span>
             </div>
           </div>
           <div class="actions absolute right-2 top-2">
@@ -72,7 +70,8 @@
                 label: '编辑',
                 mode: 'stroked',
                 color: 'primary',
-              }" />
+              }"
+            />
             <mat-menu #menu="matMenu" class="overlay-btn-icon">
               <button mat-menu-item (click)="loadPage(page)">
                 <app-icon [content]="{ svg: 'pencil' }" />
@@ -81,9 +80,7 @@
               @if (langs) {
                 @for (item of langs; track $index) {
                   @if (!item.default && item.langCode !== page.langcode) {
-                    <button
-                      mat-menu-item
-                      (click)="createLangVersion(page, item.langCode)">
+                    <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
                       <app-icon [content]="{ svg: 'translate' }" />
                       <span>编辑{{ item.label }}</span>
                     </button>
@@ -109,7 +106,8 @@
         [showFirstLastButtons]="true"
         [hidePageSize]="true"
         [pageIndex]="pager.currentPage"
-        aria-label="Select page" />
+        aria-label="Select page"
+      />
     </div>
   }
 </div>
