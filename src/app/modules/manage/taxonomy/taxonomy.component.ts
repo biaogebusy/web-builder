@@ -73,6 +73,10 @@ export class TaxonomyComponent implements OnInit {
     const {
       params: { api },
     } = this.content;
+    if (this.form.valid) {
+      this.util.openSnackbar('请填写分类名');
+      return;
+    }
     this.nodeService
       .addEntify(api, value, user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -140,6 +144,7 @@ export class TaxonomyComponent implements OnInit {
         this.cd.detectChanges();
         if (res) {
           this.form.reset();
+          this.getItems('noCache=true');
           editing.classList.remove('flex');
           editing.classList.add('hidden');
 
