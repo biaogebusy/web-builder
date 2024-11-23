@@ -45,6 +45,20 @@ export class TaxonomyComponent implements OnInit {
         required: true,
       },
     },
+    {
+      key: 'description',
+      fieldGroup: [
+        {
+          key: 'value',
+          type: 'textarea',
+          props: {
+            label: '描述',
+            placeholder: '请输入描述',
+            rows: 3,
+          },
+        },
+      ],
+    },
   ];
 
   ngOnInit(): void {

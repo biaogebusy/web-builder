@@ -18,6 +18,9 @@
               <mat-icon matListItemIcon>folder</mat-icon>
               <div matListItemTitle>{{ attr.name }}</div>
               <div matListItemLine>{{ attr.drupal_internal__tid }}</div>
+              @if (attr.description) {
+                <div matListItemLine>{{ attr.description.value | stripTags }}</div>
+              }
               <div class="actions">
                 <div class="flex gap-3">
                   <div class="editing gap-3 hidden" #editing>
