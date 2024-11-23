@@ -16,10 +16,11 @@
             @let attr = item.attributes;
             <mat-list-item>
               <mat-icon matListItemIcon>folder</mat-icon>
-              <div matListItemTitle>{{ attr.name }}</div>
-              <div matListItemLine>{{ attr.drupal_internal__tid }}</div>
+              <div matListItemTitle data-id="{{ attr.drupal_internal__tid }}">
+                {{ attr.name | trim }}
+              </div>
               @if (attr.description) {
-                <div matListItemLine>{{ attr.description.value | stripTags }}</div>
+                <div class="ml-1" matListItemLine>{{ attr.description.value | stripTags }}</div>
               }
               <div class="actions">
                 <div class="flex gap-3">
