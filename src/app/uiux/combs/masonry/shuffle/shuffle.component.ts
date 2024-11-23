@@ -5,6 +5,7 @@ import {
   ElementRef,
   AfterViewInit,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import type { IShuffle } from '@core/interface/combs/IMasonry';
 import { ScreenService } from '@core/service/screen.service';
@@ -18,18 +19,15 @@ import Shuffle from 'shufflejs';
 export class ShuffleComponent implements OnInit, AfterViewInit {
   @Input() content: IShuffle;
   shuffle: any;
-  constructor(
-    private el: ElementRef,
-    private screenService: ScreenService
-  ) {}
+  private el = inject(ElementRef);
+  private screenService = inject(ScreenService);
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       const sizer = this.el.nativeElement.querySelectorAll('.sizer')[0];
-      const shuffleEl =
-        this.el.nativeElement.querySelectorAll('.shuffle-inner')[0];
+      const shuffleEl = this.el.nativeElement.querySelectorAll('.shuffle-inner')[0];
       setTimeout(() => {
         this.shuffle = new Shuffle(shuffleEl, {
           itemSelector: '.item',

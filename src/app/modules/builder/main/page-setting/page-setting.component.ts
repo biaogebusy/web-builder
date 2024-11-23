@@ -103,9 +103,7 @@ export class PageSettingComponent implements OnInit {
       ];
       if (type === 'node--landing_page') {
         const cover = included.find((item: any) => item.type === 'file--file');
-        const pageGroup = included.find(
-          (item: any) => item.type === 'taxonomy_term--page_group'
-        );
+        const pageGroup = included.find((item: any) => item.type === 'taxonomy_term--page_group');
         if (content) {
           this.fields.splice(
             2,
@@ -134,9 +132,7 @@ export class PageSettingComponent implements OnInit {
                 updateLabel: '更新封面',
                 addLabel: '设置封面',
                 deleteLabel: '删除',
-                fileName: cover
-                  ? cover.attributes.uri.url.split('/').pop()
-                  : '',
+                fileName: cover ? cover.attributes.uri.url.split('/').pop() : '',
               },
               hooks: {
                 onInit: (field: FormlyFieldConfig) => {
@@ -151,7 +147,6 @@ export class PageSettingComponent implements OnInit {
                         .updateAttributes(
                           { uuid: id, langcode },
                           '/api/v1/node/landing_page',
-                          'node--landing_page',
                           {},
                           {
                             cover: {
@@ -380,7 +375,6 @@ export class PageSettingComponent implements OnInit {
           langcode,
         },
         api,
-        type,
         {
           ...this.getAttributesParams(value),
         },
@@ -463,12 +457,7 @@ export class PageSettingComponent implements OnInit {
     this.dialog.open(DialogComponent, {
       width: '85vw',
       height: '85vh',
-      panelClass: [
-        'close-outside',
-        'close-icon-white',
-        'dialog-p-0',
-        'page-preview-dialog',
-      ],
+      panelClass: ['close-outside', 'close-icon-white', 'dialog-p-0', 'page-preview-dialog'],
       data: {
         disableCloseButton: true,
         inputData: {

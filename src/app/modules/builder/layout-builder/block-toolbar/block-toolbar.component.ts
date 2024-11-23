@@ -57,8 +57,8 @@ export class BlockToolbarComponent {
     this.builder.updateComponent(this.pageIndex, this.lbContent);
   }
 
-  addBlock(addType: string, content: any, event: any): void {
-    this.builderSerivce.addBlock(addType, content, event);
+  addBlock(addType: string, content: any, target: any): void {
+    this.builderSerivce.addBlock(addType, content, this.util.generatePath(target));
   }
 
   onCopy(widget: any): any {
@@ -136,7 +136,7 @@ export class BlockToolbarComponent {
       path,
       fields,
       content: widget,
-      fullWidth: true
+      fullWidth: true,
     };
     this.builder.rightContent$.next({
       mode: 'over',

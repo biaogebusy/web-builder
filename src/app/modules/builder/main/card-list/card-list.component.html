@@ -4,7 +4,8 @@
       [fields]="content.form"
       [form]="form"
       [model]="model"
-      (modelChange)="onModelChange($event)" />
+      (modelChange)="onModelChange($event)"
+    />
     <app-btn
       (click)="onReload()"
       [content]="{
@@ -12,7 +13,8 @@
         mode: 'icon',
         color: 'primary',
         icon: { svg: 'reload' },
-      }" />
+      }"
+    />
   </div>
   <div class="lists">
     @if (loading) {
@@ -28,7 +30,8 @@
           params: content.params,
           langs: langs,
           user: user,
-        }" />
+        }"
+      />
     }
   </div>
   @if (pager) {
@@ -41,7 +44,8 @@
         [showFirstLastButtons]="true"
         [hidePageSize]="true"
         [pageIndex]="pager.currentPage"
-        aria-label="Select page" />
+        aria-label="Select page"
+      />
     </div>
   }
 </div>

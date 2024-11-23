@@ -7,10 +7,7 @@
       <mat-list>
         <div class="cards grid grid-cols-12 gap-1">
           @if (loading) {
-            <mat-spinner
-              class="mx-auto my-10"
-              diameter="50"
-              color="primary" />
+            <mat-spinner class="mx-auto my-10" diameter="50" color="primary" />
           }
           @if (content$ | async; as content) {
             @for (item of content; track item; let i = $index) {
@@ -20,13 +17,13 @@
                     <div class="title flex justify-between items-center">
                       {{ item.title }}
                       <div
-                        class="text-xs bg-primary py-1 px-2 rounded-full opacity-95 whitespace-nowrap">
+                        class="text-xs bg-gray-300 py-1 px-2 rounded-full opacity-95 whitespace-nowrap"
+                      >
                         {{ item.langcode }}
                       </div>
                     </div>
                     <div class="opacity-50">{{ item.url }}</div>
-                    <div
-                      class="opacity-50 flex justify-between items-center text-xs">
+                    <div class="opacity-50 flex justify-between items-center text-xs">
                       <div class="font-mono">{{ item.author }}</div>
                       <div>{{ item.changed }}</div>
                     </div>
@@ -45,7 +42,8 @@
               [showFirstLastButtons]="true"
               [hidePageSize]="true"
               [pageIndex]="pager.currentPage"
-              aria-label="Select page" />
+              aria-label="Select page"
+            />
           </div>
         }
       </mat-list>
@@ -56,7 +54,8 @@
             label: '刷新',
             color: 'primary',
             icon: { svg: 'reload', inline: true },
-          }" />
+          }"
+        />
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

@@ -1,0 +1,89 @@
+<div class="taxonomy sm:max-w-[1000px] relative p-5">
+  @let items = items$ | async;
+  @let user = user$ | async;
+
+  <div class="grid grid-cols-12 gap-5">
+    <div class="col-span-12 sm:col-span-8 bg-gray-100 p-5 shadow rounded-xl">
+      @if (loading) {
+        <div class="load">
+          <mat-spinner diameter="50" color="accent" />
+        </div>
+      }
+      <mat-list>
+        <div mat-subheader>{{ content.title }}</div>
+        @if (items) {
+          @for (item of items.data; track item.id) {
+            @let attr = item.attributes;
+            <mat-list-item>
+              <mat-icon matListItemIcon>folder</mat-icon>
+              <div matListItemTitle data-id="{{ attr.drupal_internal__tid }}">
+                {{ attr.name | trim }}
+              </div>
+              @if (attr.description) {
+                <div class="ml-1" matListItemLine>{{ attr.description.value | stripTags }}</div>
+              }
+              <div class="actions">
+                <div class="flex gap-3">
+                  <div class="editing gap-3 hidden" #editing>
+                    <input
+                      class="border-gray-300 border-1 border-solid rounded"
+                      type="text"
+                      #name
+                      [value]="attr.name"
+                    />
+                    <app-btn
+                      (click)="onSave(item, name.value, editing, editBtn)"
+                      [content]="{
+                        label: '保存',
+                        color: 'primary',
+                        icon: { svg: 'pencil', inline: true },
+                      }"
+                    />
+                  </div>
+                  <div (click)="onEdit(editing, editBtn)" #editBtn>
+                    <app-btn
+                      [content]="{
+                        label: '编辑',
+                        color: 'primary',
+                        icon: { svg: 'pencil', inline: true },
+                      }"
+                    />
+                  </div>
+                  <app-btn
+                    (click)="onDelete(item, user)"
+                    [content]="{
+                      label: '删除',
+                      color: 'warn',
+                      icon: { svg: 'delete-empty-outline' },
+                    }"
+                  />
+                </div>
+              </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          }
+        }
+      </mat-list>
+    </div>
+    <div class="col-span-12 sm:col-span-4 bg-white p-5 shadow rounded-xl">
+      <div class="new my-5">
+        <div class="flex flex-col gap-5">
+          <app-formly [form]="form" [fields]="fields" [model]="model" />
+          <div>
+            <app-btn
+              (click)="onNew(model, user)"
+              [content]="{
+                label: '新建分类',
+                color: 'primary',
+                mode: 'raised',
+                icon: {
+                  svg: 'pencil-plus',
+                },
+              }"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

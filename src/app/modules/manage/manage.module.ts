@@ -9,7 +9,8 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { BaseModule } from '@uiux/base/base.module';
 import { UploadMediaComponent } from './upload-media/upload-media.component';
 import { NgOptimizedImage } from '@angular/common';
-const components = [ManageMediaComponent, UploadMediaComponent];
+import { TaxonomyComponent } from './taxonomy/taxonomy.component';
+const components = [ManageMediaComponent, UploadMediaComponent, TaxonomyComponent];
 
 @NgModule({
   declarations: [...components],

@@ -14,16 +14,15 @@
                 <mat-icon matListItemIcon>radio_button_unchecked</mat-icon>
               }
               @if (version.current) {
-                <mat-icon matListItemIcon color="primary">
-                  radio_button_checked
-                </mat-icon>
+                <mat-icon matListItemIcon color="primary"> radio_button_checked </mat-icon>
               }
               <div
                 class="title"
                 (blur)="onUpdateTitle($event, i)"
                 (click)="onClickTitle($event)"
                 matListItemTitle
-                contenteditable="true">
+                contenteditable="true"
+              >
                 <span class="text-sm">
                   {{ version.title }}
                 </span>
@@ -40,7 +39,8 @@
                     mode: 'icon',
                     color: 'warn',
                     icon: { svg: 'trash-can-outline' },
-                  }" />
+                  }"
+                />
               }
             </mat-list-item>
           }
@@ -53,14 +53,16 @@
             label: '清空所有',
             color: 'warn',
             icon: { svg: 'delete-empty-outline' },
-          }" />
+          }"
+        />
         <app-btn
           (click)="onNewPage()"
           [content]="{
             label: '新建页面',
             color: 'primary',
             icon: { svg: 'pencil-plus', inline: true },
-          }" />
+          }"
+        />
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

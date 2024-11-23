@@ -84,19 +84,15 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPage('noCache=1');
-    this.currentPage$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(page => {
-        this.currentPage = page;
-        this.cd.detectChanges();
-      });
-    this.builder.updateSuccess$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        if (state) {
-          this.onReload();
-        }
-      });
+    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+      this.currentPage = page;
+      this.cd.detectChanges();
+    });
+    this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+      if (state) {
+        this.onReload();
+      }
+    });
 
     this.router.queryParams.subscribe(query => {
       const { nid, langcode } = query;
@@ -140,7 +136,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
             .updateAttributes(
               page,
               '/api/v1/node/landing_page',
-              'node--landing_page',
               {
                 title: textContent,
               },
@@ -166,29 +161,27 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   fetchPage(params: string): void {
     this.loading = true;
-    this.content$ = this.nodeService
-      .fetch('/api/v2/node/landing-page', params)
-      .pipe(
-        catchError(error => {
-          if (error.status === 404) {
-            this.util.openSnackbar('请检查API是否已配置！', 'ok');
-          }
-          return of({
-            rows: [],
-            pager: {
-              current_page: null,
-              total_pages: 0,
-              total_items: 0,
-            },
-          });
-        }),
-        map(res => {
-          this.loading = false;
-          this.cd.detectChanges();
-          return this.getLists(res);
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      );
+    this.content$ = this.nodeService.fetch('/api/v2/node/landing-page', params).pipe(
+      catchError(error => {
+        if (error.status === 404) {
+          this.util.openSnackbar('请检查API是否已配置！', 'ok');
+        }
+        return of({
+          rows: [],
+          pager: {
+            current_page: null,
+            total_pages: 0,
+            total_items: 0,
+          },
+        });
+      }),
+      map(res => {
+        this.loading = false;
+        this.cd.detectChanges();
+        return this.getLists(res);
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    );
   }
 
   getLists(res: IPageList): any[] {
@@ -209,19 +202,12 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builderService.openPageSetting(
       page,
       '/api/v1/node/landing_page',
-      this.builderService.getPageParams([
-        'uid',
-        'group',
-        'cover',
-        'cover.field_media_image',
-      ])
+      this.builderService.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
     );
   }
 
   onPageChange(page: PageEvent): void {
-    this.form
-      .get('page')
-      ?.patchValue(page.pageIndex, { onlySelf: true, emitEvent: false });
+    this.form.get('page')?.patchValue(page.pageIndex, { onlySelf: true, emitEvent: false });
     const value = merge(this.model, this.form.getRawValue());
     const params = this.getApiParams(value);
     this.fetchPage(params);
@@ -230,12 +216,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
     this.builder.loading$.next(true);
     this.nodeService
-      .fetch(
-        `/api/v3/landingPage/json/${currentPage.nid}`,
-        'noCache=1',
-        '',
-        targetlang
-      )
+      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', '', targetlang)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
         this.builder.loading$.next(false);

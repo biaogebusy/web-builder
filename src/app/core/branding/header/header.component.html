@@ -2,9 +2,7 @@
   @if (branding$ | async; as branding) {
     @if (!(contentState.pageConfig$ | async)?.headerMode?.transparent) {
       <header>
-        <div
-          class="static"
-          [class.header-inverse]="branding?.header?.params?.inverse">
+        <div class="static" [class.header-inverse]="branding?.header?.params?.inverse">
           @if (showBanner) {
             <app-header-banner [content]="branding?.header?.banner" />
           }
@@ -18,7 +16,8 @@
         <app-menu
           class="sticky"
           [class.sticking]="sticky"
-          [class.header-inverse]="branding?.header?.params?.inverse" />
+          [class.header-inverse]="branding?.header?.params?.inverse"
+        />
       </header>
     } @else {
       <header
@@ -26,7 +25,8 @@
         id="transparent-mode"
         class="transparent-mode"
         [class.header-inverse]="branding.header.params.inverse"
-        [ngClass]="(contentState.pageConfig$ | async)?.headerMode?.style">
+        [ngClass]="(contentState.pageConfig$ | async)?.headerMode?.style"
+      >
         <div class="static">
           @if (branding.header.top) {
             <app-header-top [content]="branding.header.top" />
@@ -41,7 +41,8 @@
         id="transparent-mode"
         class="transparent-mode"
         [class.header-inverse]="branding.header.params.inverse"
-        [ngClass]="(contentState.pageConfig$ | async)?.headerMode?.style">
+        [ngClass]="(contentState.pageConfig$ | async)?.headerMode?.style"
+      >
         <div class="static">
           @if (branding.header.top) {
             <app-header-top [content]="branding.header.top" />

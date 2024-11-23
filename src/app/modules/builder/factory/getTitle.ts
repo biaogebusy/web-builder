@@ -119,16 +119,13 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
                 {
                   key: 'strings',
                   type: 'repeat',
-                  defaultValue: widget?.typed?.strings ?? [
-                    { label: 'web builder' },
-                  ],
+                  defaultValue: widget?.typed?.strings ?? [{ label: 'web builder' }],
                   fieldArray: {
                     fieldGroup: [
                       {
                         key: 'label',
                         type: 'input',
-                        defaultValue:
-                          widget?.typed?.strings[0]['label'] ?? 'web builder',
+                        defaultValue: widget?.typed?.strings[0]['label'] ?? 'web builder',
                         modelOptions: {
                           debounce: {
                             default: 2000,

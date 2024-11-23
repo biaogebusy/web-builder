@@ -11,11 +11,12 @@
       icon: { svg: 'tune-vertical-variant', inline: true },
     }"
   ></app-btn>
+  @let elements = lbContent.elements;
   <mat-menu #menu="matMenu" class="layout-toolbar-menu">
     <button
-      [disabled]="!(i > 0 && i < lbContent.elements.length)"
+      [disabled]="!(i > 0 && i < elements.length)"
       mat-menu-item
-      (click)="onMoveCol('left', lbContent.elements, toolbar, i)"
+      (click)="onMoveCol('left', elements, toolbar, i)"
     >
       <div class="flex items-center">
         <app-icon [content]="{ svg: 'chevron-left', inline: true }"></app-icon>
@@ -24,8 +25,8 @@
     </button>
     <button
       mat-menu-item
-      [disabled]="!(i > -1 && i < lbContent.elements.length - 1)"
-      (click)="onMoveCol('right', lbContent.elements, toolbar, i)"
+      [disabled]="!(i > -1 && i < elements.length - 1)"
+      (click)="onMoveCol('right', elements, toolbar, i)"
     >
       <div class="flex items-center">
         <app-icon [content]="{ svg: 'chevron-right', inline: true }"></app-icon>

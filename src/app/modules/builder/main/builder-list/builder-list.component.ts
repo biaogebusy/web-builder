@@ -18,10 +18,7 @@ import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { ScreenState } from '@core/state/screen/ScreenState';
-import {
-  BUILDER_CONFIG,
-  BUILDER_CURRENT_PAGE,
-} from '@core/token/token-providers';
+import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -98,7 +95,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     if (type === 'widget') {
-      this.builderService.addBlock(type, {}, event.target);
+      this.builderService.addBlock(type, {}, this.util.generatePath(event.target));
     }
   }
 
