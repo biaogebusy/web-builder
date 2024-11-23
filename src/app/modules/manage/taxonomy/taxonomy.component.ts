@@ -48,7 +48,7 @@ export class TaxonomyComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.getItems('');
+    this.getItems('onCache=true');
   }
 
   getItems(params: string): void {
@@ -73,17 +73,25 @@ export class TaxonomyComponent implements OnInit {
     const {
       params: { api },
     } = this.content;
-    if (this.form.valid) {
+    if (!this.form.valid) {
       this.util.openSnackbar('请填写分类名');
       return;
     }
     this.nodeService
       .addEntify(api, value, user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        catchError(() => {
+          return of(false);
+        })
+      )
       .subscribe(res => {
-        console.log(res);
-        this.getItems('noCache=true');
-        this.form.reset();
+        if (res) {
+          this.getItems('noCache=true');
+          this.form.reset();
+        } else {
+          this.util.openSnackbar('添加失败');
+        }
         this.cd.detectChanges();
       });
   }
