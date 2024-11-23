@@ -56,11 +56,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.valueChange$
-      .pipe(
-        debounceTime(1500),
-        distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef)
-      )
+      .pipe(debounceTime(1500), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
         this.value = value;
         this.updateCurrentPage();
@@ -109,7 +105,6 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
               langcode,
             },
             api,
-            type,
             {
               body: JSON.stringify(this.value),
             },

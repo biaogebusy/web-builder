@@ -5,15 +5,17 @@ import {
   OnInit,
   inject,
   ChangeDetectorRef,
+  DestroyRef,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
-import { IUser } from '@core/interface/IUser';
 import { ITaxonomy } from '@core/interface/manage/ITaxonomy';
+import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-taxonomy',
@@ -29,6 +31,8 @@ export class TaxonomyComponent implements OnInit {
   nodeService = inject(NodeService);
   util = inject(UtilitiesService);
   cd = inject(ChangeDetectorRef);
+  builderSerivce = inject(BuilderService);
+  private destroyRef = inject(DestroyRef);
   user$ = inject(USER);
   form = new FormGroup({});
   model: any = {};
@@ -57,7 +61,8 @@ export class TaxonomyComponent implements OnInit {
       tap(() => {
         this.loading = false;
         this.cd.detectChanges();
-      })
+      }),
+      takeUntilDestroyed(this.destroyRef)
     );
   }
 
@@ -69,13 +74,16 @@ export class TaxonomyComponent implements OnInit {
     const {
       params: { api },
     } = this.content;
-    this.nodeService.addEntify(api, value, user.csrf_token).subscribe(res => {
-      console.log(res);
-      this.getItems('noCache=true');
-      this.form.reset();
-      this.showForm = false;
-      this.cd.detectChanges();
-    });
+    this.nodeService
+      .addEntify(api, value, user.csrf_token)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(res => {
+        console.log(res);
+        this.getItems('noCache=true');
+        this.form.reset();
+        this.showForm = false;
+        this.cd.detectChanges();
+      });
   }
 
   onDelete(item: any, user: any): void {
@@ -86,9 +94,61 @@ export class TaxonomyComponent implements OnInit {
     const {
       params: { api },
     } = this.content;
-    this.nodeService.deleteEntity(api, item.id, user.csrf_token).subscribe(res => {
-      this.util.openSnackbar('删除成功！', 'ok');
-      this.getItems('noCache=true');
-    });
+    this.nodeService
+      .deleteEntity(api, item.id, user.csrf_token)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(res => {
+        this.util.openSnackbar('删除成功！', 'ok');
+        this.getItems('noCache=true');
+      });
+  }
+
+  onEdit(target: any, btn: any): void {
+    target.classList.remove('hidden');
+    target.classList.add('flex');
+
+    btn.classList.remove('block');
+    btn.classList.add('hidden');
+  }
+
+  onSave(item: any, value: any, editing: any, btn: any): void {
+    const {
+      id,
+      attributes: { langcode },
+    } = item;
+    const {
+      params: { api },
+    } = this.content;
+    console.log(value);
+    this.loading = true;
+    this.builderSerivce
+      .updateAttributes(
+        { uuid: id, langcode },
+        api,
+        {
+          name: value,
+        },
+        {}
+      )
+      .pipe(
+        catchError(() => {
+          return of(false);
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(res => {
+        this.loading = false;
+        this.cd.detectChanges();
+        if (res) {
+          editing.classList.remove('flex');
+          editing.classList.add('hidden');
+
+          btn.classList.remove('hidden');
+          btn.classList.add('block');
+          this.util.openSnackbar('更新成功！');
+        } else {
+          this.util.openSnackbar('更新失败！');
+        }
+      });
   }
 }

@@ -19,21 +19,41 @@
               <div matListItemTitle>{{ attr.name }}</div>
               <div matListItemLine>{{ attr.drupal_internal__tid }}</div>
               <div class="actions">
-                <app-btn
-                  [content]="{
-                    label: '编辑',
-                    color: 'primary',
-                    icon: { svg: 'pencil-plus', inline: true },
-                  }"
-                />
-                <app-btn
-                  (click)="onDelete(item, user)"
-                  [content]="{
-                    label: '删除',
-                    color: 'warn',
-                    icon: { svg: 'delete-empty-outline' },
-                  }"
-                />
+                <div class="flex gap-3">
+                  <div class="editing gap-3 hidden" #editing>
+                    <input
+                      class="border-gray-300 border-1 border-solid rounded"
+                      type="text"
+                      #name
+                      [value]="attr.name"
+                    />
+                    <app-btn
+                      (click)="onSave(item, name.value, editing, editBtn)"
+                      [content]="{
+                        label: '保存',
+                        color: 'primary',
+                        icon: { svg: 'pencil', inline: true },
+                      }"
+                    />
+                  </div>
+                  <div (click)="onEdit(editing, editBtn)" #editBtn>
+                    <app-btn
+                      [content]="{
+                        label: '编辑',
+                        color: 'primary',
+                        icon: { svg: 'pencil', inline: true },
+                      }"
+                    />
+                  </div>
+                  <app-btn
+                    (click)="onDelete(item, user)"
+                    [content]="{
+                      label: '删除',
+                      color: 'warn',
+                      icon: { svg: 'delete-empty-outline' },
+                    }"
+                  />
+                </div>
               </div>
             </mat-list-item>
             <mat-divider></mat-divider>
