@@ -14,33 +14,19 @@
         @if (items) {
           @for (item of items.data; track item.id) {
             @let attr = item.attributes;
-            <mat-list-item>
+            <mat-list-item lines="3">
               <mat-icon matListItemIcon>folder</mat-icon>
               <div matListItemTitle data-id="{{ attr.drupal_internal__tid }}">
                 {{ attr.name | trim }}
               </div>
               @if (attr.description) {
-                <div class="ml-1" matListItemLine>{{ attr.description.value | stripTags }}</div>
+                <span class="pl-1 pr-[160px] inline-block">
+                  {{ attr.description.value | stripTags }}
+                </span>
               }
               <div class="actions">
                 <div class="flex gap-3">
-                  <div class="editing gap-3 hidden" #editing>
-                    <input
-                      class="border-gray-300 border-1 border-solid rounded"
-                      type="text"
-                      #name
-                      [value]="attr.name"
-                    />
-                    <app-btn
-                      (click)="onSave(item, name.value, editing, editBtn)"
-                      [content]="{
-                        label: '保存',
-                        color: 'primary',
-                        icon: { svg: 'pencil', inline: true },
-                      }"
-                    />
-                  </div>
-                  <div (click)="onEdit(editing, editBtn)" #editBtn>
+                  <div (click)="onEdit(item)">
                     <app-btn
                       [content]="{
                         label: '编辑',
@@ -69,16 +55,22 @@
       <div class="new my-5">
         <div class="flex flex-col gap-5">
           <app-formly [form]="form" [fields]="fields" [model]="model" />
-          <div>
+          <div class="flex gap-4">
             <app-btn
-              (click)="onNew(model, user)"
+              (click)="onUpdate(model, user)"
               [content]="{
-                label: '新建分类',
+                label: selectedItem ? '保存分类' : '新建分类',
                 color: 'primary',
                 mode: 'raised',
                 icon: {
                   svg: 'pencil-plus',
                 },
+              }"
+            />
+            <app-btn
+              (click)="onReset()"
+              [content]="{
+                label: '重置',
               }"
             />
           </div>
