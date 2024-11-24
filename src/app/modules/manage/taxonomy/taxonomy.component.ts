@@ -15,12 +15,14 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { StripTagsPipe } from 'ngx-pipes';
 import { Observable, catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-taxonomy',
   templateUrl: './taxonomy.component.html',
   styleUrl: './taxonomy.component.scss',
+  providers: [StripTagsPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaxonomyComponent implements OnInit {
@@ -32,9 +34,12 @@ export class TaxonomyComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   builderSerivce = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
+  private stripTags = inject(StripTagsPipe);
+
   user$ = inject(USER);
   form = new FormGroup({});
   model: any = {};
+  selectedItem: any;
   fields: FormlyFieldConfig[] = [
     {
       key: 'name',
@@ -59,6 +64,16 @@ export class TaxonomyComponent implements OnInit {
         },
       ],
     },
+    {
+      key: 'weight',
+      type: 'input',
+      defaultValue: 0,
+      props: {
+        label: '权重',
+        type: 'number',
+        placeholder: '越小越靠前',
+      },
+    },
   ];
 
   ngOnInit(): void {
@@ -79,7 +94,7 @@ export class TaxonomyComponent implements OnInit {
     );
   }
 
-  onNew(value: any, user: any): void {
+  onUpdate(value: any, user: any): void {
     if (!user) {
       this.util.openSnackbar('请登录！', 'ok');
       return;
@@ -91,23 +106,27 @@ export class TaxonomyComponent implements OnInit {
       this.util.openSnackbar('请填写分类名');
       return;
     }
-    this.nodeService
-      .addEntify(api, value, user.csrf_token)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .pipe(
-        catchError(() => {
-          return of(false);
-        })
-      )
-      .subscribe(res => {
-        if (res) {
-          this.getItems('noCache=true');
-          this.form.reset();
-        } else {
-          this.util.openSnackbar('添加失败');
-        }
-        this.cd.detectChanges();
-      });
+    if (!this.selectedItem) {
+      this.nodeService
+        .addEntify(api, value, user.csrf_token)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .pipe(
+          catchError(() => {
+            return of(false);
+          })
+        )
+        .subscribe(res => {
+          if (res) {
+            this.getItems('noCache=true');
+            this.form.reset();
+          } else {
+            this.util.openSnackbar('添加失败');
+          }
+          this.cd.detectChanges();
+        });
+    } else {
+      this.onSave(this.selectedItem, value);
+    }
   }
 
   onDelete(item: any, user: any): void {
@@ -128,15 +147,21 @@ export class TaxonomyComponent implements OnInit {
       });
   }
 
-  onEdit(target: any, btn: any): void {
-    target.classList.remove('hidden');
-    target.classList.add('flex');
-
-    btn.classList.remove('block');
-    btn.classList.add('hidden');
+  onEdit(item: any): void {
+    const {
+      id,
+      attributes: { name, description },
+    } = item;
+    this.selectedItem = item;
+    this.form.patchValue({
+      name,
+      description: {
+        value: description ? this.stripTags.transform(description.value) : '',
+      },
+    });
   }
 
-  onSave(item: any, value: any, editing: any, btn: any): void {
+  onSave(item: any, value: any): void {
     const {
       id,
       attributes: { langcode },
@@ -151,7 +176,7 @@ export class TaxonomyComponent implements OnInit {
         { uuid: id, langcode },
         api,
         {
-          name: value,
+          ...value,
         },
         {}
       )
@@ -167,15 +192,15 @@ export class TaxonomyComponent implements OnInit {
         if (res) {
           this.form.reset();
           this.getItems('noCache=true');
-          editing.classList.remove('flex');
-          editing.classList.add('hidden');
-
-          btn.classList.remove('hidden');
-          btn.classList.add('block');
           this.util.openSnackbar('更新成功！');
         } else {
           this.util.openSnackbar('更新失败！');
         }
       });
+  }
+
+  onReset(): void {
+    this.form.reset();
+    this.selectedItem = null;
   }
 }
