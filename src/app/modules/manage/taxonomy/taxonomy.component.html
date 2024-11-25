@@ -12,7 +12,7 @@
       <mat-list>
         <div mat-subheader>{{ content.title }}</div>
         @if (items) {
-          @for (item of items.data; track item.id) {
+          @for (item of items.data; track item.id; let last = $last) {
             @let attr = item.attributes;
             <mat-list-item lines="3">
               <mat-icon matListItemIcon>folder</mat-icon>
@@ -46,7 +46,9 @@
                 </div>
               </div>
             </mat-list-item>
-            <mat-divider></mat-divider>
+            @if (!last) {
+              <mat-divider></mat-divider>
+            }
           }
         }
       </mat-list>
