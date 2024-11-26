@@ -172,6 +172,7 @@ export interface IPageMeta {
   title: string;
   url: string;
   cover?: string;
+  taxonomy?: string;
 }
 
 export interface IBuilderMenu extends ILink {

@@ -12,7 +12,8 @@
             [form]="form"
             [model]="model"
             [fields]="content.form"
-            (modelChange)="onModelChange($event)" />
+            (modelChange)="onModelChange($event)"
+          />
         }
         @if (content.params?.api) {
           <app-icon (click)="reload()" [content]="{ svg: 'reload' }" />
@@ -20,8 +21,7 @@
       </div>
     </div>
   }
-  <app-dynamic-component
-    [inputs]="{ content: widget$ | async }" />
+  <app-dynamic-component [inputs]="{ content: widget$ | async }" />
   @if (loading) {
     <div class="loading-inner">
       <mat-spinner diameter="50" />

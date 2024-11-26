@@ -50,7 +50,14 @@
             />
           </div>
           <div class="meta text-xs font-mono">
-            {{ page.author | shorten: 6 : '**' }}
+            <div class="flex justify-between my-2 items-center">
+              {{ page.author | shorten: 6 : '**' }}
+              @if (page.taxonomy) {
+                <span class="bg-gray-300 rounded-2xl py-1 px-2 leading-none">{{
+                  page.taxonomy
+                }}</span>
+              }
+            </div>
             <div class="flex justify-between mt-2">
               <a
                 class="truncate"

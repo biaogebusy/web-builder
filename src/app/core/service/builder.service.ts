@@ -247,13 +247,14 @@ export class BuilderService extends ApiService {
   updateAttributes(
     page: { uuid: string; langcode?: string },
     api: string,
-    type: string,
     attr: any,
     relationships: any
   ): Observable<any> {
     const { csrf_token } = this.user;
     const { langcode, uuid } = page;
     let prefix = '';
+    const arr = api.split('/');
+    const type = `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
     const lang = this.getApiLang(langcode);
     if (lang) {
       prefix = `/${lang}`;

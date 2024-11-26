@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  Input,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, Input, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { IPage } from '@core/interface/IAppConfig';
@@ -49,12 +43,7 @@ export class CardPageComponent {
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
     this.builder.loading$.next(true);
     this.nodeService
-      .fetch(
-        `/api/v3/landingPage/json/${currentPage.nid}`,
-        'noCache=1',
-        '',
-        targetlang
-      )
+      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', '', targetlang)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
         this.builder.loading$.next(false);
@@ -85,12 +74,7 @@ export class CardPageComponent {
     this.builderService.openPageSetting(
       page,
       '/api/v1/node/landing_page',
-      this.builderService.getPageParams([
-        'uid',
-        'group',
-        'cover',
-        'cover.field_media_image',
-      ])
+      this.builderService.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
     );
   }
 
@@ -111,7 +95,6 @@ export class CardPageComponent {
             .updateAttributes(
               page,
               api,
-              type,
               {
                 title: textContent,
               },
