@@ -87,6 +87,21 @@ export class BuilderService extends ApiService {
       });
   }
 
+  checkIsLatestPage(page: IPage): void {
+    const { langcode, nid, changed, uuid, title } = page;
+    if (nid && changed && uuid) {
+      const lang = this.getApiLang(langcode);
+      this.nodeService
+        .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
+        .subscribe((page: IPage) => {
+          console.log(page);
+          if (Number(changed) < Number(page.changed)) {
+            this.util.openSnackbar(`当前${title}页面不是最新版本！`, 'ok');
+          }
+        });
+    }
+  }
+
   loadNodeJson(page: { langcode?: string; nid: string; uuid: string }): void {
     this.builder.loading$.next(true);
     const { langcode, nid, uuid } = page;

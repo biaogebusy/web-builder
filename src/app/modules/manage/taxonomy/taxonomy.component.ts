@@ -1,6 +1,13 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  OnInit,
+  inject,
+  DestroyRef,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
-import { IUser } from '@core/interface/IUser';
 import { ITaxonomy } from '@core/interface/manage/ITaxonomy';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -21,6 +28,8 @@ export class TaxonomyComponent implements OnInit {
   nodeService = inject(NodeService);
   util = inject(UtilitiesService);
   user$ = inject(USER);
+  destroyRef = inject(DestroyRef);
+
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[] = [
@@ -43,7 +52,7 @@ export class TaxonomyComponent implements OnInit {
     const {
       params: { api },
     } = this.content;
-    this.items$ = this.nodeService.fetch(api, params);
+    this.items$ = this.nodeService.fetch(api, params).pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   onNew(value: any, user: any): void {
@@ -54,10 +63,13 @@ export class TaxonomyComponent implements OnInit {
     const {
       params: { api },
     } = this.content;
-    this.nodeService.addEntify(api, value, user.csrf_token).subscribe(res => {
-      console.log(res);
-      this.getItems('noCache=true');
-    });
+    this.nodeService
+      .addEntify(api, value, user.csrf_token)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(res => {
+        console.log(res);
+        this.getItems('noCache=true');
+      });
   }
 
   onDelete(item: any, user: any): void {
@@ -68,9 +80,12 @@ export class TaxonomyComponent implements OnInit {
     const {
       params: { api },
     } = this.content;
-    this.nodeService.deleteEntity(api, item.id, user.csrf_token).subscribe(res => {
-      this.util.openSnackbar('删除成功！', 'ok');
-      this.getItems('noCache=true');
-    });
+    this.nodeService
+      .deleteEntity(api, item.id, user.csrf_token)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(res => {
+        this.util.openSnackbar('删除成功！', 'ok');
+        this.getItems('noCache=true');
+      });
   }
 }
