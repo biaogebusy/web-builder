@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, inject } from '@angular/core';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING, BUILDER_CONFIG } from '@core/token/token-providers';
@@ -14,7 +7,6 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
-import { ContentService } from '@core/service/content.service';
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
@@ -44,7 +36,7 @@ export class BuilderSidebarComponent implements OnInit {
         inputData: {
           content: {
             type: 'manage-media',
-            fullWidth: true
+            fullWidth: true,
           },
         },
       },

@@ -148,9 +148,7 @@ export class BuilderState {
   }
 
   setCurrentPage(page: IPage): void {
-    const currentIndex = this.version.findIndex(
-      (item: IPage) => item.current === true
-    );
+    const currentIndex = this.version.findIndex((item: IPage) => item.current === true);
     this.version[currentIndex] = page;
     this.storage.store(this.versionKey, Object.assign([], this.version));
   }
@@ -244,15 +242,15 @@ export class BuilderState {
   }
 
   loadNewPage(page: IPage): void {
-    const currentPage = { ...page, current: true, time: new Date() }
+    const currentPage = { ...page, current: true, time: new Date() };
     let somePageIndex = -1;
     this.version.forEach(version => (version.current = false));
     somePageIndex = this.version.findIndex(item => {
       return item.uuid === page.uuid && item.langcode === page.langcode;
-    })
-    if(somePageIndex > -1){
-      this.version[somePageIndex] = currentPage
-    }else{
+    });
+    if (somePageIndex > -1) {
+      this.version[somePageIndex] = currentPage;
+    } else {
       this.version.unshift(currentPage);
     }
 
@@ -267,13 +265,13 @@ export class BuilderState {
       pageIndex,
       content,
       path,
-      fullWidth: true
+      fullWidth: true,
     };
     this.rightContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {
-        width: '318px',
+        'width': '318px',
         'max-width': 'calc(100vw - 50px)',
       },
       elements: [data],
@@ -306,11 +304,7 @@ export class BuilderState {
     return result;
   }
 
-  getRandomElements(
-    data: IBuilderComponent[],
-    id: string,
-    count: number
-  ): any[] {
+  getRandomElements(data: IBuilderComponent[], id: string, count: number): any[] {
     const elements = data.find(item => item.id === id)?.elements || [];
     // 如果元素中包含 content.child，则将其元素也添加到结果中
     const result = elements.reduce((acc: any[], element: any) => {

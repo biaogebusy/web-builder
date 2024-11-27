@@ -8,10 +8,7 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
-import {
-  BUILDER_FULL_SCREEN,
-  IS_BUILDER_MODE,
-} from '@core/token/token-providers';
+import { BUILDER_FULL_SCREEN, IS_BUILDER_MODE } from '@core/token/token-providers';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -40,23 +37,19 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.builder.rightContent$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(content => {
-        if (content) {
-          setTimeout(() => {
-            this.builderRightDrawer.open();
-          }, 100);
-        }
-      });
+    this.builder.rightContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {
+      if (content) {
+        setTimeout(() => {
+          this.builderRightDrawer.open();
+        }, 100);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
-    this.builder.closeRightDrawer$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.onClose();
-      });
+    this.builder.closeRightDrawer$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.onClose();
+    });
   }
 
   get drawerStyle(): object {
