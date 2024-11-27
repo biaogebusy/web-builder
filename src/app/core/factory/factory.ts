@@ -21,6 +21,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
 import { inject } from '@angular/core';
 import { IBuilderConfig } from '@core/interface/IBuilder';
+import { BuilderService } from '@core/service/builder.service';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -69,17 +70,16 @@ export function builderCurrentPageFactory(
   const versionKey = 'version';
   const currentPage$ = new BehaviorSubject<IPage | object | boolean>(false);
   const localVersion = storage.retrieve(versionKey);
+  const builderService = inject(BuilderService);
   if (localVersion) {
-    const currentPage = localVersion.find(
-      (page: IPage) => page.current === true
-    );
+    const currentPage = localVersion.find((page: IPage) => page.current === true);
+    builderService.checkIsLatestPage(currentPage);
     currentPage$.next(currentPage);
   }
 
   storage.observe(versionKey).subscribe((version: IPage[]) => {
     if (version.length > 0) {
-      const current =
-        version.find((page: IPage) => page.current === true) || version[0];
+      const current = version.find((page: IPage) => page.current === true) || version[0];
       currentPage$.next(current);
     }
   });
@@ -96,10 +96,7 @@ export function isBuilderModeFactory(router: Router): Observable<boolean> {
   }
   router.events.subscribe(event => {
     if (event instanceof NavigationEnd) {
-      if (
-        router.url.includes(BUILDERPATH) &&
-        router.url !== '/builder/preview'
-      ) {
+      if (router.url.includes(BUILDERPATH) && router.url !== '/builder/preview') {
         isBuilderMode$.next(true);
       } else {
         isBuilderMode$.next(false);
@@ -132,9 +129,7 @@ export function debugAnimateFactory(): Observable<boolean> {
   return debugAnimate$;
 }
 
-export function notifyFactory(
-  coreConfig: ICoreConfig
-): Observable<INotify[] | object | boolean> {
+export function notifyFactory(coreConfig: ICoreConfig): Observable<INotify[] | object | boolean> {
   const notifyService = inject(NotifyService);
   const $notify = new BehaviorSubject<INotify[] | object | boolean>(false);
   const apis = coreConfig?.notify?.api;
@@ -201,17 +196,12 @@ export function langFactory(): ILanguage | undefined {
   }
 }
 
-export function themeFactory(
-  coreConfig: ICoreConfig,
-  storage: LocalStorageService
-): string {
+export function themeFactory(coreConfig: ICoreConfig, storage: LocalStorageService): string {
   const defaultTheme = coreConfig.defaultTheme || 'blue-theme';
   const localTheme = storage.retrieve(THEMKEY);
   if (localTheme && coreConfig.theme) {
     // checkout the theme is removed
-    const isInThemeList = coreConfig.theme.filter(
-      item => item.style === localTheme
-    );
+    const isInThemeList = coreConfig.theme.filter(item => item.style === localTheme);
     if (isInThemeList.length) {
       return localTheme;
     } else {

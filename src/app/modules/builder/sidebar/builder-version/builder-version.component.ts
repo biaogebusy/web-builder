@@ -9,6 +9,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
+import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -27,6 +28,7 @@ export class BuilderVersionComponent implements OnInit {
   builder = inject(BuilderState);
   storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
+  builderService = inject(BuilderService);
   ngOnInit(): void {
     this.version = this.storage.retrieve('version');
     this.storage
@@ -68,6 +70,7 @@ export class BuilderVersionComponent implements OnInit {
     this.builder.closeRightDrawer$.next(true);
     this.builder.fixedShowcase = false;
     this.builder.showcase$.next(false);
+    this.builderService.checkIsLatestPage(page);
   }
 
   onClickTitle(event: MouseEvent): any {
