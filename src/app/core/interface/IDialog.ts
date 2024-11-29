@@ -3,4 +3,5 @@ export interface IDialog {
   title?: string;
   inputData: any;
   renderInputComponent: any;
+  closeLabel?: string;
 }
