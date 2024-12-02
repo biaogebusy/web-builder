@@ -18,7 +18,9 @@
   </mat-dialog-content>
   @if (!data.disableCloseButton) {
     <div class="flex !justify-center !items-center" mat-dialog-actions>
-      <button mat-raised-button color="primary" [mat-dialog-close]="true">关闭</button>
+      <button mat-raised-button color="primary" [mat-dialog-close]="true">
+        {{ data.closeLabel ?? '关闭' }}
+      </button>
     </div>
   }
 </div>

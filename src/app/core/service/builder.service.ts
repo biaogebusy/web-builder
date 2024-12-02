@@ -94,9 +94,27 @@ export class BuilderService extends ApiService {
       this.nodeService
         .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
         .subscribe((page: IPage) => {
-          console.log(page);
           if (Number(changed) < Number(page.changed)) {
-            this.util.openSnackbar(`当前${title}页面不是最新版本！`, 'ok');
+            const dialogRef = this.dialog.open(DialogComponent, {
+              width: '340px',
+              data: {
+                title: `当前页面不是最新版本`,
+                closeLabel: '确认',
+                inputData: {
+                  content: {
+                    type: 'text',
+                    fullWidth: true,
+                    body: `是否要拉取<strong class="text-primary">[${title}]</strong>最新的更新覆盖当前页面？`,
+                  },
+                },
+              },
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              if (result) {
+                this.builder.loadNewPage(this.formatToExtraData(page));
+              }
+            });
           }
         });
     }
