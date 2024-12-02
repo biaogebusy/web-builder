@@ -16,8 +16,8 @@
   $black100: #f4f4f4;
   $white: #ffffff;
 
-  $font_family: 'Helvetica Neue', Inter, ui-sans-serif, 'Apple Color Emoji',
-    Helvetica, Arial, sans-serif;
+  $font_family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    '微软雅黑', Arial, sans-serif;
   $background_color_9: #08c;
   $background_color_10: rgba(136, 136, 136, 0.24);
 
@@ -249,11 +249,7 @@
     text-decoration: none;
     font-size: 14px;
     color: mat.m2-get-color-from-palette($primary, default-contrast);
-    @include mat.elevation(
-      4,
-      mat.m2-get-color-from-palette($foreground, text),
-      0.35
-    );
+    @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.35);
     white-space: nowrap;
     cursor: pointer;
     outline: none;
@@ -309,6 +305,8 @@
 
   .introjs-prevbutton {
     float: left;
+    background-color: #fff;
+    color: mat.m2-get-color-from-palette($foreground, text);
   }
 
   .introjs-nextbutton {
