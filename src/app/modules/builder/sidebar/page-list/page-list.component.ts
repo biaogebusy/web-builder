@@ -47,21 +47,8 @@ export class PageListComponent extends BaseComponent implements OnInit {
   loading = false;
   pager: IPager;
   currentEditeTitle: string;
-  fields: FormlyFieldConfig[] = [
-    {
-      key: 'title',
-      type: 'input',
-      props: {
-        label: '搜索标题',
-        type: 'search',
-      },
-      modelOptions: {
-        updateOn: 'submit',
-      },
-    },
-  ];
-  currentPage?: IPage;
   langs = environment.langs;
+  currentPage?: IPage;
   builder = inject(BuilderState);
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
@@ -71,12 +58,54 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private tagService = inject(TagsService);
   user: IUser;
+
+  fields: FormlyFieldConfig[] = [
+    {
+      fieldGroupClassName: 'grid grid-cols-12 gap-2',
+      fieldGroup: [
+        {
+          key: 'title',
+          type: 'input',
+          className: 'col-span-7',
+          props: {
+            label: '搜索标题',
+            type: 'search',
+          },
+          modelOptions: {
+            updateOn: 'submit',
+          },
+        },
+        {
+          key: 'langcode',
+          type: 'select',
+          className: 'col-span-5',
+          props: {
+            label: '语言',
+            options: [
+              {
+                label: '全部',
+                value: '',
+              },
+              ...(this.langs
+                ? this.langs.map(lang => {
+                    return {
+                      label: lang.label,
+                      value: lang.langCode,
+                    };
+                  })
+                : []),
+            ],
+          },
+        },
+      ],
+    },
+  ];
   constructor(
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
     @Inject(USER) private user$: Observable<IUser>
   ) {
     super();
-    this.user$.subscribe(user => {
+    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
     this.tagService.setTitle('着陆页管理');
@@ -94,7 +123,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
       }
     });
 
-    this.router.queryParams.subscribe(query => {
+    this.router.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(query => {
       const { nid, langcode } = query;
       if (nid) {
         this.loadPage({
@@ -148,6 +177,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
                 },
               }
             )
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(res => {
               this.builder.loading$.next(false);
               this.util.openSnackbar(`已更新标题为${textContent}`, 'ok');
