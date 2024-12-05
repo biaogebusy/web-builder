@@ -8,6 +8,11 @@
 }
 
 :host ::ng-deep {
+  app-video {
+    > .video {
+      position: static;
+    }
+  }
   .bg-fill-width.overlay {
     z-index: 2;
   }
