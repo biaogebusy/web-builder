@@ -1,5 +1,8 @@
 @if (content) {
   <div class="video-bg relative">
+    @if (content.bg) {
+      <app-bg [content]="content.bg" />
+    }
     @if (video) {
       <app-video [content]="video" />
     }
