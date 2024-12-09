@@ -69,10 +69,12 @@ export class UserService extends ApiService {
   editingUser(user: IUser, data: any): any {
     const {
       current_user: { uid },
+      csrf_token,
     } = user;
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/hal+json',
+        'X-CSRF-Token': csrf_token,
       }),
       withCredentials: true,
     };
