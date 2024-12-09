@@ -13,7 +13,6 @@ export interface IHeader {
   banner?: any;
   mainMenu: IMainMenu[];
   search: IHeaderSearch;
-  userMenu: IUserMenu[];
   actions: ILink[];
 }
 
@@ -107,29 +106,6 @@ interface Social {
 interface FooterParams {
   mode: 'light' | 'inverse';
   shape?: boolean;
-}
-
-export interface IUserMenu {
-  label: string;
-  icon: {
-    name: string;
-  };
-  dialog?: Dialog;
-  href?: string;
-}
-
-interface Dialog {
-  content: any;
-  actions: Action[];
-}
-
-interface Action {
-  label: string;
-  color: string;
-  params: {
-    type: string;
-    snackMes: string;
-  };
 }
 
 export interface IHeaderSearch {

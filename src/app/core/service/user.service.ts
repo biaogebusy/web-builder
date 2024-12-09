@@ -61,10 +61,22 @@ export class UserService extends ApiService {
   }
 
   updateUser(data: TokenUser): any {
-    this.getCurrentUserById(data.current_user.uid, data.csrf_token).subscribe(
-      user => {
-        this.loginUser(data, user);
-      }
+    this.getCurrentUserById(data.current_user.uid, data.csrf_token).subscribe(user => {
+      this.loginUser(data, user);
+    });
+  }
+
+  edtingUser(user: IUser, data: any): any {
+    const {
+      current_user: { uid },
+      csrf_token,
+    } = user;
+    return this.http.patch(
+      `${this.apiUrl}/user/${uid}`,
+      {
+        data,
+      },
+      this.optionsWithCookieAndToken(csrf_token)
     );
   }
 
@@ -88,10 +100,7 @@ export class UserService extends ApiService {
       .pipe(
         switchMap((data: any) => {
           tokenUser = data;
-          return this.getCurrentUserById(
-            data.current_user.uid,
-            data.csrf_token
-          );
+          return this.getCurrentUserById(data.current_user.uid, data.csrf_token);
         }),
         catchError((error: any) => {
           console.log(error);
@@ -168,11 +177,7 @@ export class UserService extends ApiService {
     }
     const params = ['_format=json', `token=${logoutToken}`].join('&');
     return this.http
-      .post(
-        `${this.apiUrl}${this.coreConfig.apiUrl.logoutPath}?${params}`,
-        null,
-        httpOptions
-      )
+      .post(`${this.apiUrl}${this.coreConfig.apiUrl.logoutPath}?${params}`, null, httpOptions)
       .pipe(
         catchError(error => {
           if (error.status === 403) {
@@ -213,15 +218,13 @@ export class UserService extends ApiService {
 
   getUserConfig(): Observable<any> {
     if (environment.production) {
-      return this.http.get(
-        `${this.apiUrl}/api/v3/landingPage?content=/core/user`
-      );
+      return this.http.get(`${this.apiUrl}/api/v3/landingPage?content=/core/user`);
     } else {
       return this.http.get(`${this.apiUrl}/assets/app/core/user.json`);
     }
   }
 
-  getUserById(id: string, crsfToken: string): Observable<any> {
+  getUserById(id: string, csrfToken: string): Observable<any> {
     const params = [
       `filter[drupal_internal__uid]=${id}`,
       `include=user_picture,roles`,
@@ -229,7 +232,7 @@ export class UserService extends ApiService {
     ].join('&');
     return this.http.get<any>(
       `${this.userApiPath}?${params}`,
-      this.optionsWithCookieAndToken(crsfToken)
+      this.optionsWithCookieAndToken(csrfToken)
     );
   }
 
@@ -237,10 +240,10 @@ export class UserService extends ApiService {
     return this.http.get<any>(`${this.userApiPath}?${params}`);
   }
 
-  getCurrentUserProfile(crsfToken: string): Observable<any> {
+  getCurrentUserProfile(csrfToken: string): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}/api/v3/accountProfile?noCache=1`,
-      this.optionsWithCookieAndToken(crsfToken)
+      this.optionsWithCookieAndToken(csrfToken)
     );
   }
 
@@ -252,10 +255,7 @@ export class UserService extends ApiService {
       `noCache=1`,
     ].join('&');
     return this.http
-      .get<any>(
-        `${this.userApiPath}?${params}`,
-        this.optionsWithCookieAndToken(token)
-      )
+      .get<any>(`${this.userApiPath}?${params}`, this.optionsWithCookieAndToken(token))
       .pipe(
         catchError((error: any) => {
           return this.http.get<any>(
@@ -272,10 +272,7 @@ export class UserService extends ApiService {
               display_name: detail?.display_name || '',
               mail: detail?.mail || '',
               authenticated: true,
-              picture:
-                detail?.user_picture?.uri?.url ||
-                this.coreConfig?.defaultAvatar ||
-                '',
+              picture: detail?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
               login: detail.login,
             };
           } else {
@@ -295,17 +292,11 @@ export class UserService extends ApiService {
   setUserCookie(user: IUser): void {
     // console.log(user);
     // Druapl default cookie_lifetime 2000000，if change, need to keep same
-    this.cookieService.set(
-      this.localUserKey,
-      this.cryptoJS.encrypt(JSON.stringify(user)),
-      {
-        expires: this.getCookieExpirationDate(
-          this.coreConfig.cookieLifetime ?? 2000000
-        ),
-        path: '/',
-        sameSite: 'Lax',
-      }
-    );
+    this.cookieService.set(this.localUserKey, this.cryptoJS.encrypt(JSON.stringify(user)), {
+      expires: this.getCookieExpirationDate(this.coreConfig.cookieLifetime ?? 2000000),
+      path: '/',
+      sameSite: 'Lax',
+    });
   }
 
   getCookieExpirationDate(seconds: number): Date {
@@ -323,10 +314,7 @@ export class UserService extends ApiService {
       withCredentials: true,
     };
     return this.http
-      .get<any>(
-        `${this.apiUrl}/user/login_status?_format=json&noCache=1`,
-        httpOptions
-      )
+      .get<any>(`${this.apiUrl}/user/login_status?_format=json&noCache=1`, httpOptions)
       .pipe(
         map(state => {
           if (state) {

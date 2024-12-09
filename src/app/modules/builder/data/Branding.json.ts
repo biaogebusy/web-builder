@@ -82,15 +82,6 @@ export const defaultHeader: IHeader = {
     type: 'input',
     key: 'title',
   },
-  userMenu: [
-    {
-      label: '问题列表',
-      href: '/questions',
-      icon: {
-        name: 'list',
-      },
-    },
-  ],
   actions: [
     {
       label: '发布职位',
@@ -181,15 +172,6 @@ export const enDefaultHeader: IHeader = {
     type: 'input',
     key: 'title',
   },
-  userMenu: [
-    {
-      label: 'questions list',
-      href: '/questions',
-      icon: {
-        name: 'list',
-      },
-    },
-  ],
   actions: [
     {
       label: 'Creat Jobs',
@@ -209,7 +191,6 @@ export const HoverHeader: IHeader = {
   top: defaultHeader.top,
   mainMenu: defaultHeader.mainMenu,
   search: defaultHeader.search,
-  userMenu: defaultHeader.userMenu,
   actions: defaultHeader.actions,
 };
 
@@ -224,7 +205,6 @@ export const megaHeader: IHeader = {
   top: defaultHeader.top,
   mainMenu: defaultHeader.mainMenu,
   search: defaultHeader.search,
-  userMenu: defaultHeader.userMenu,
   actions: defaultHeader.actions,
 };
 
