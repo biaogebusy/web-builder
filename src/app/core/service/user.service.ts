@@ -66,7 +66,7 @@ export class UserService extends ApiService {
     });
   }
 
-  edtingUser(user: IUser, data: any): any {
+  editingUser(user: IUser, data: any): any {
     const {
       current_user: { uid },
       csrf_token,
@@ -74,7 +74,14 @@ export class UserService extends ApiService {
     return this.http.patch(
       `${this.apiUrl}/user/${uid}`,
       {
-        data,
+        data: {
+          _links: {
+            type: {
+              href: `${this.apiUrl}/rest/type/user/user`,
+            },
+          },
+          ...data,
+        },
       },
       this.optionsWithCookieAndToken(csrf_token)
     );

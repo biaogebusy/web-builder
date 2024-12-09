@@ -73,15 +73,9 @@ export class UserSettingComponent implements OnInit {
   }
 
   onUpdate(value: any, user: IUser): void {
-    console.log(value);
     this.loading = true;
     const { name, mail } = value;
     const data = {
-      _links: {
-        type: {
-          href: '{{apiUrl}}/rest/type/user/user',
-        },
-      },
       name: [
         {
           value: name,
@@ -94,7 +88,7 @@ export class UserSettingComponent implements OnInit {
       ],
     };
     this.userService
-      .edtingUser(user, data)
+      .editingUser(user, data)
       .pipe(
         catchError(error => {
           return of(false);
