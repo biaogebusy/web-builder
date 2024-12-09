@@ -44,7 +44,17 @@ export class UserSettingComponent implements OnInit {
         {
           key: 'name',
           type: 'input',
-          defaultValue: user.display_name,
+          defaultValue: user.current_user.name,
+          props: {
+            label: '用户名',
+            placeholder: '输入用户名',
+            min: 2,
+          },
+        },
+        {
+          key: 'full_name',
+          type: 'input',
+          defaultValue: user.display_name ?? '',
           props: {
             label: '昵称',
             placeholder: '输入昵称',

@@ -67,30 +67,19 @@ export class UserService extends ApiService {
   }
 
   editingUser(user: IUser, data: any): any {
-    const {
-      current_user: { uid },
-      csrf_token,
-    } = user;
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/hal+json',
-        'X-CSRF-Token': csrf_token,
-      }),
-      withCredentials: true,
-    };
+    const { id, csrf_token } = user;
     return this.http.patch(
-      `${this.apiUrl}/user/${uid}?_format=hal_json`,
+      `${this.apiUrl}/api/v1/user/user/${id}`,
       {
         data: {
-          _links: {
-            type: {
-              href: `${this.apiUrl}/rest/type/user/user`,
-            },
+          type: 'user--user',
+          id,
+          attributes: {
+            ...data,
           },
-          ...data,
         },
       },
-      options
+      this.optionsWithCookieAndToken(csrf_token)
     );
   }
 
