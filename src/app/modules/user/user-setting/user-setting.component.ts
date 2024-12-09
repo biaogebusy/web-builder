@@ -84,21 +84,8 @@ export class UserSettingComponent implements OnInit {
 
   onUpdate(value: any, user: IUser): void {
     this.loading = true;
-    const { name, mail } = value;
-    const data = {
-      name: [
-        {
-          value: name,
-        },
-      ],
-      mail: [
-        {
-          value: mail,
-        },
-      ],
-    };
     this.userService
-      .editingUser(user, data)
+      .editingUser(user, value)
       .pipe(
         catchError(error => {
           return of(false);
