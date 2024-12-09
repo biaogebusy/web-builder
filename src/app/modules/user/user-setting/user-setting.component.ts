@@ -40,46 +40,47 @@ export class UserSettingComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user: IUser) => {
-      console.log(user);
       this.loading = false;
-      this.fields = [
-        {
-          key: 'name',
-          type: 'input',
-          defaultValue: user.current_user.name,
-          props: {
-            label: '用户名',
-            placeholder: '输入用户名',
-            min: 2,
-          },
-        },
-        {
-          key: 'full_name',
-          type: 'input',
-          defaultValue: user.display_name ?? '',
-          props: {
-            label: '昵称',
-            placeholder: '输入昵称',
-            min: 2,
-          },
-        },
-        {
-          key: 'mail',
-          type: 'input',
-          defaultValue: user.mail,
-          props: {
-            label: '邮箱',
-            placeholder: '输入邮箱',
-          },
-          validators: {
-            email: {
-              expression: (control: any) =>
-                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(control.value),
-              message: (_: any, field: any) => `"${field.formControl?.value}"不是有效的邮箱格式`,
+      if (user) {
+        this.fields = [
+          {
+            key: 'name',
+            type: 'input',
+            defaultValue: user.current_user.name,
+            props: {
+              label: '用户名',
+              placeholder: '输入用户名',
+              min: 2,
             },
           },
-        },
-      ];
+          {
+            key: 'full_name',
+            type: 'input',
+            defaultValue: user.display_name ?? '',
+            props: {
+              label: '昵称',
+              placeholder: '输入昵称',
+              min: 2,
+            },
+          },
+          {
+            key: 'mail',
+            type: 'input',
+            defaultValue: user.mail,
+            props: {
+              label: '邮箱',
+              placeholder: '输入邮箱',
+            },
+            validators: {
+              email: {
+                expression: (control: any) =>
+                  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(control.value),
+                message: (_: any, field: any) => `"${field.formControl?.value}"不是有效的邮箱格式`,
+              },
+            },
+          },
+        ];
+      }
       this.cd.detectChanges();
     });
   }
@@ -95,7 +96,6 @@ export class UserSettingComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((res: any) => {
-        console.log(res);
         if (res) {
           this.userService.updateUserBySession();
           this.util.openSnackbar('更新成功！', 'ok');
