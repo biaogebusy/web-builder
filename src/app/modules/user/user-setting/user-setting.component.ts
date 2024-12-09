@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -29,6 +30,7 @@ export class UserSettingComponent implements OnInit {
   fields: FormlyFieldConfig[];
   loading = true;
 
+  dialog = inject(MatDialog);
   userService = inject(UserService);
   util = inject(UtilitiesService);
   storage = inject(LocalStorageService);
@@ -95,6 +97,7 @@ export class UserSettingComponent implements OnInit {
       .subscribe((res: any) => {
         console.log(res);
         if (res) {
+          this.userService.updateUserBySession();
           this.util.openSnackbar('更新成功！', 'ok');
         } else {
           this.util.openSnackbar('更新失败！', 'ok');
@@ -105,7 +108,14 @@ export class UserSettingComponent implements OnInit {
   }
 
   onLogout(): void {
+    this.loading = true;
     const logoutToken = this.storage.retrieve(this.userService.logoutToken);
     this.userService.logout(logoutToken);
+    this.userService.userSub$.subscribe(user => {
+      if (!user) {
+        this.loading = false;
+        this.dialog.closeAll();
+      }
+    });
   }
 }
