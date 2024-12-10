@@ -6,7 +6,7 @@
           [label]="tab.props?.label || ''"
           [disabled]="i !== 0 && !isValid(field.fieldGroup[i - 1])"
         >
-          <div class="my-5">
+          <div class="item my-5">
             <formly-field [field]="tab" />
           </div>
         </mat-tab>

@@ -4,18 +4,12 @@
     background-color: mat.m2-get-color-from-palette($background, background);
     .icon-menu,
     .accordion-menu {
-      @include scrollbar(
-        mat.m2-get-color-from-palette($foreground, divider, 0.2)
-      );
+      @include scrollbar(mat.m2-get-color-from-palette($foreground, divider, 0.2));
     }
     &.closed {
       background-color: #272727;
       color: #f5f5f5;
-      @include mat.elevation(
-        4,
-        mat.m2-get-color-from-palette($background, focused-button),
-        0.4
-      );
+      @include mat.elevation(4, mat.m2-get-color-from-palette($background, focused-button), 0.4);
       a.logo {
         background-color: #373737;
         transition: background-color 0.2s ease-in-out;
@@ -50,15 +44,10 @@
         .child {
           background-color: mat.m2-get-color-from-palette($background, card);
           color: mat.m2-get-color-from-palette($foreground, text, 0.75);
-          @include mat.elevation(
-            3,
-            mat.m2-get-color-from-palette($foreground, divider, 0.7)
-          );
+          @include mat.elevation(3, mat.m2-get-color-from-palette($foreground, divider, 0.7));
           .hover-menu {
             background-color: mat.m2-get-color-from-palette($background, card);
-            @include scrollbar(
-              mat.m2-get-color-from-palette($foreground, divider)
-            );
+            @include scrollbar(mat.m2-get-color-from-palette($foreground, divider));
             .child-menu {
               .mdc-list-item {
                 &.active,
@@ -67,10 +56,7 @@
                     color: mat.m2-get-color-from-palette($primary);
                   }
                   &:after {
-                    background-color: mat.m2-get-color-from-palette(
-                      $primary,
-                      0.1
-                    );
+                    background-color: mat.m2-get-color-from-palette($primary, 0.1);
                   }
                 }
                 .mdc-list-item__primary-text {
@@ -78,10 +64,7 @@
                 }
                 &:hover {
                   &:after {
-                    background-color: mat.m2-get-color-from-palette(
-                      $primary,
-                      0.1
-                    );
+                    background-color: mat.m2-get-color-from-palette($primary, 0.1);
                   }
                 }
               }
@@ -134,10 +117,7 @@
             }
           }
           .mat-expansion-panel {
-            background-color: mat.m2-get-color-from-palette(
-              $background,
-              background
-            );
+            background-color: mat.m2-get-color-from-palette($background, background);
             .mat-expansion-panel-header {
               a {
                 color: mat.m2-get-color-from-palette($foreground, text, 0.75);
@@ -153,10 +133,7 @@
             }
             &.active {
               .mat-expansion-panel-header {
-                background-color: mat.m2-get-color-from-palette(
-                  $background,
-                  hover
-                );
+                background-color: mat.m2-get-color-from-palette($background, hover);
                 &::after {
                   background-color: mat.m2-get-color-from-palette($primary);
                 }
@@ -203,20 +180,12 @@
         .wrapper {
           color: mat.m2-get-color-from-palette($foreground, text, 0.75);
           .mat-icon {
-            @include mat.elevation(
-              4,
-              mat.m2-get-color-from-palette($foreground, text),
-              0.3
-            );
+            @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.3);
             transition: all 0.1s ease;
           }
           &:hover {
             .mat-icon {
-              background-color: mat.m2-get-color-from-palette(
-                $foreground,
-                base,
-                0.85
-              );
+              background-color: mat.m2-get-color-from-palette($foreground, base, 0.85);
               color: mat.m2-get-color-from-palette($primary, 50);
             }
           }
