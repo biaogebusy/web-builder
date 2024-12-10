@@ -44,64 +44,121 @@ export class UserSettingComponent implements OnInit {
       if (user) {
         this.fields = [
           {
-            key: 'name',
-            type: 'input',
-            defaultValue: user.current_user.name,
-            props: {
-              label: '用户名',
-              placeholder: '输入用户名',
-              min: 2,
-            },
-          },
-          {
-            key: 'full_name',
-            type: 'input',
-            defaultValue: user.display_name ?? '',
-            props: {
-              label: '昵称',
-              placeholder: '输入昵称',
-              min: 2,
-            },
-          },
-          {
-            key: 'mail',
-            type: 'input',
-            defaultValue: user.mail,
-            props: {
-              label: '邮箱',
-              placeholder: '请输入邮箱',
-            },
-            validators: {
-              email: {
-                expression: (control: any) =>
-                  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(control.value),
-                message: (_: any, field: any) => `"${field.formControl?.value}"不是有效的邮箱格式`,
-              },
-            },
-          },
-          {
-            key: 'pass',
+            type: 'tabs',
             fieldGroup: [
               {
-                key: 'existing',
-                type: 'input',
+                props: {
+                  label: '基础信息',
+                },
+                fieldGroup: [
+                  {
+                    key: 'name',
+                    type: 'input',
+                    defaultValue: user.current_user.name,
+                    props: {
+                      label: '用户名',
+                      placeholder: '输入用户名',
+                      min: 2,
+                      max: 20,
+                    },
+                  },
+                  {
+                    key: 'full_name',
+                    type: 'input',
+                    defaultValue: user.display_name ?? '',
+                    props: {
+                      label: '昵称',
+                      placeholder: '输入昵称',
+                      min: 2,
+                    },
+                  },
+                  {
+                    key: 'mail',
+                    type: 'input',
+                    defaultValue: user.mail,
+                    props: {
+                      label: '邮箱',
+                      placeholder: '请输入邮箱',
+                    },
+                    validators: {
+                      email: {
+                        expression: (control: any) =>
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(control.value),
+                        message: (_: any, field: any) =>
+                          `"${field.formControl?.value}"不是有效的邮箱格式`,
+                      },
+                    },
+                  },
+                  {
+                    key: 'pass',
+                    fieldGroup: [
+                      {
+                        key: 'existing',
+                        type: 'input',
+                        props: {
+                          label: '当前密码',
+                          placeholder: '请输入当前密码',
+                          required: true,
+                        },
+                        validation: {
+                          messages: {
+                            required: '修改以上信息要求验证密码',
+                          },
+                        },
+                      },
+                    ],
+                    expressions: {
+                      hide: (field: FormlyFieldConfig) => {
+                        return field.parent?.model?.mail === user.mail;
+                      },
+                    },
+                  },
+                ],
+              },
+              {
                 props: {
                   label: '密码',
-                  placeholder: '请输入密码',
-                  required: true,
                 },
-                validation: {
-                  messages: {
-                    required: '修改以上信息要求验证密码',
+                fieldGroup: [
+                  {
+                    key: 'pass',
+                    fieldGroup: [
+                      {
+                        key: 'value',
+                        type: 'input',
+                        props: {
+                          label: '新密码',
+                          placeholder: '请输入新密码',
+                          type: 'password',
+                        },
+                      },
+                      {
+                        key: 'confirm',
+                        type: 'input',
+                        props: {
+                          label: '确认密码',
+                          placeholder: '请再次输入新密码',
+                        },
+                      },
+                      {
+                        key: 'existing',
+                        type: 'input',
+                        props: {
+                          label: '当前密码',
+                          placeholder: '请输入当前密码',
+                          required: true,
+                        },
+                        validation: {
+                          messages: {
+                            required: '修改以上信息要求验证密码',
+                          },
+                        },
+                      },
+                    ],
                   },
-                },
+                ],
               },
             ],
-            expressions: {
-              hide: (field: FormlyFieldConfig) => {
-                return field.parent?.model?.mail === user.mail;
-              },
-            },
           },
         ];
       }

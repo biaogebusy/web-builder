@@ -91,6 +91,7 @@ export class UserMenuComponent implements OnInit {
         inputData: {
           content: {
             type: 'user-setting',
+            fullWidth: true,
           },
         },
       },
