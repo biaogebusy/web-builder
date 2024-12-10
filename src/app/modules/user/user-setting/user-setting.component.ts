@@ -99,7 +99,6 @@ export class UserSettingComponent implements OnInit {
             ],
             expressions: {
               hide: (field: FormlyFieldConfig) => {
-                console.log(field);
                 return field.parent?.model?.mail === user.mail;
               },
             },

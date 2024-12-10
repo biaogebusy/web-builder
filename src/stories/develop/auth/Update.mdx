@@ -2,7 +2,69 @@ import { Meta } from '@storybook/blocks';
 
 <Meta title="开发/用户接口/更新" id="update" />
 
-## 使用 Drupal REST API 更新用户
+## 使用 JSONAPI 更新用户信息
+
+```
+PATCH {{apiUrl}}/api/v1/user/user/{{uuid}}
+'Accept': 'application/vnd.api+json'
+'Content-Type': 'application/vnd.api+json'
+'X-CSRF-Token': {{csrfToken}}
+
+{
+    "data": {
+        "type": "user--user",
+        "id":{{uuid}},
+        "attributes": {
+            "name": "johnson",
+            "full_name": "johnson"
+        }
+    }
+}
+```
+
+需要注意的是，如果需要更新类似邮箱等信息时，需要提供当前的用户密码，否则会返回：
+
+```
+[
+    {
+        "title": "Unprocessable Entity",
+        "status": "422",
+        "detail": "pass: 你当前的密码丢失或不正确，要求更改 密码。",
+        "source": {
+            "pointer": "/data/attributes/pass"
+        }
+    },
+    {
+        "title": "Unprocessable Entity",
+        "status": "422",
+        "detail": "mail: 你当前的密码丢失或不正确，要求更改 电子邮件。",
+        "source": {
+            "pointer": "/data/attributes/mail"
+        }
+    }
+]
+```
+
+而提供当前的用户密码的格式是：
+
+```
+{
+    "data": {
+        "type": "user--user",
+        "id": {{uuid}},
+        "attributes": {
+            "name": "johnson",
+            "full_name": "johnson",
+            "mail": "youremail@domain.com",
+            "pass": {
+                "existing": "xxx"
+            }
+        }
+    }
+}
+```
+
+## 使用 Drupal REST API 更新用户(D10将弃用 HAL)
 
 进入：/admin/config/services/rest 开启用户并根据需要配置：
 ![module](/assets/storybook/assets/drupal/user-update.png)
