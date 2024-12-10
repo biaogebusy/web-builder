@@ -69,13 +69,27 @@ export class UserSettingComponent implements OnInit {
             defaultValue: user.mail,
             props: {
               label: '邮箱',
-              placeholder: '输入邮箱',
+              placeholder: '请输入邮箱',
             },
             validators: {
               email: {
                 expression: (control: any) =>
                   /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(control.value),
                 message: (_: any, field: any) => `"${field.formControl?.value}"不是有效的邮箱格式`,
+              },
+            },
+          },
+          {
+            key: 'pass',
+            type: 'input',
+            props: {
+              label: '密码',
+              placeholder: '请输入密码',
+            },
+            expressions: {
+              hide: (field: FormlyFieldConfig) => {
+                console.log(field);
+                return field.parent?.model?.mail === user.mail;
               },
             },
           },

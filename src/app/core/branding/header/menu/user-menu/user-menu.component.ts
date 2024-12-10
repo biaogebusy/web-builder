@@ -83,7 +83,7 @@ export class UserMenuComponent implements OnInit {
 
   openDialog(): void {
     this.dialogRef = this.dialog.open(DialogComponent, {
-      width: '360px',
+      width: '380px',
       panelClass: ['close-outside', 'close-icon-white'],
       data: {
         title: '账户设置',
