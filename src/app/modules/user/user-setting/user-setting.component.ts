@@ -81,17 +81,22 @@ export class UserSettingComponent implements OnInit {
           },
           {
             key: 'pass',
-            type: 'input',
-            props: {
-              label: '密码',
-              placeholder: '请输入密码',
-              required: true,
-            },
-            validation: {
-              messages: {
-                required: '修改以上信息要求验证密码',
+            fieldGroup: [
+              {
+                key: 'existing',
+                type: 'input',
+                props: {
+                  label: '密码',
+                  placeholder: '请输入密码',
+                  required: true,
+                },
+                validation: {
+                  messages: {
+                    required: '修改以上信息要求验证密码',
+                  },
+                },
               },
-            },
+            ],
             expressions: {
               hide: (field: FormlyFieldConfig) => {
                 console.log(field);
