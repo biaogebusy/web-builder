@@ -6,18 +6,20 @@
       </div>
     }
     <div class="user-info">
-      <div class="user-avatar flex flex-col gap-2 justify-center items-center">
+      <div class="user-avatar flex gap-2 items-center">
         @if (user.picture) {
           <img
-            width="90"
-            height="90"
+            width="80"
+            height="80"
             class="object-contain rounded-full"
             src="{{ user.picture }}"
             alt=""
           />
         }
-        <div class="name font-bold">{{ user.display_name }}</div>
-        <div class="mail text-gray-500">{{ user.mail }}</div>
+        <div class="flex flex-col">
+          <div class="name font-bold">{{ user.display_name }}</div>
+          <div class="mail text-gray-500">{{ user.mail }}</div>
+        </div>
       </div>
     </div>
     <div class="form my-4">
@@ -25,9 +27,15 @@
     </div>
     <div class="actions flex justify-center items-center gap-4">
       <app-btn
+        (click)="form.reset()"
+        [content]="{
+          label: '重置',
+        }"
+      />
+      <app-btn
         (click)="onLogout()"
         [content]="{
-          label: '退出登录',
+          label: '退出',
           color: 'warn',
           icon: { svg: 'logout' },
         }"

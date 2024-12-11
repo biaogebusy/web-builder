@@ -2,11 +2,8 @@
   @if (field.fieldGroup) {
     <mat-tab-group>
       @for (tab of field.fieldGroup; track tab; let i = $index; let last = $last) {
-        <mat-tab
-          [label]="tab.props?.label || ''"
-          [disabled]="i !== 0 && !isValid(field.fieldGroup[i - 1])"
-        >
-          <div class="item my-5">
+        <mat-tab [label]="tab.props?.label || ''">
+          <div class="my-5">
             <formly-field [field]="tab" />
           </div>
         </mat-tab>
