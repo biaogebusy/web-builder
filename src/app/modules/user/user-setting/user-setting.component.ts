@@ -151,8 +151,7 @@ export class UserSettingComponent implements OnInit {
                         },
                         expressions: {
                           'props.required': (field: FormlyFieldConfig) => {
-                            console.log(field);
-                            return field.parent?.model?.value;
+                            return !!field.parent?.model?.value;
                           },
                         },
                         validators: {
@@ -177,7 +176,7 @@ export class UserSettingComponent implements OnInit {
                         },
                         expressions: {
                           'props.required': (field: FormlyFieldConfig) => {
-                            return field.parent?.model?.value;
+                            return !!field.parent?.model?.value;
                           },
                         },
                       },
@@ -196,9 +195,10 @@ export class UserSettingComponent implements OnInit {
   onUpdate(value: any, user: IUser): void {
     this.loading = true;
     // remove confirm value
-    const { confirm, ...payload } = value;
+    const formData = Object.assign({}, value);
+    delete formData.pass.confirm;
     this.userService
-      .editingUser(user, payload)
+      .editingUser(user, formData)
       .pipe(
         catchError(error => {
           return of(false);
