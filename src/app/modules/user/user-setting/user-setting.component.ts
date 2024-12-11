@@ -75,7 +75,7 @@ export class UserSettingComponent implements OnInit {
                   {
                     key: 'mail',
                     type: 'input',
-                    defaultValue: user.mail,
+                    defaultValue: user.mail ?? '',
                     props: {
                       label: '邮箱',
                       placeholder: '请输入邮箱',
@@ -98,11 +98,16 @@ export class UserSettingComponent implements OnInit {
                         props: {
                           label: '当前密码',
                           placeholder: '请输入当前密码',
-                          required: true,
+                          type: 'password',
                         },
                         validation: {
                           messages: {
                             required: '修改以上信息要求验证密码',
+                          },
+                        },
+                        expressions: {
+                          'props.required': (field: FormlyFieldConfig) => {
+                            return !(field.parent?.parent?.model?.mail === user.mail);
                           },
                         },
                       },
@@ -130,6 +135,10 @@ export class UserSettingComponent implements OnInit {
                           label: '新密码',
                           placeholder: '请输入新密码',
                           type: 'password',
+                          minLength: 6,
+                        },
+                        modelOptions: {
+                          updateOn: 'blur',
                         },
                       },
                       {
@@ -138,6 +147,19 @@ export class UserSettingComponent implements OnInit {
                         props: {
                           label: '确认密码',
                           placeholder: '请再次输入新密码',
+                          type: 'password',
+                        },
+                        expressions: {
+                          'props.required': (field: FormlyFieldConfig) => {
+                            console.log(field);
+                            return field.parent?.model?.value;
+                          },
+                        },
+                        validators: {
+                          fieldMatch: {
+                            expression: (control: any) => control.value === this.model.pass?.value,
+                            message: '确认密码与新密码不一致。',
+                          },
                         },
                       },
                       {
@@ -146,11 +168,16 @@ export class UserSettingComponent implements OnInit {
                         props: {
                           label: '当前密码',
                           placeholder: '请输入当前密码',
-                          required: true,
+                          type: 'password',
                         },
                         validation: {
                           messages: {
                             required: '修改以上信息要求验证密码',
+                          },
+                        },
+                        expressions: {
+                          'props.required': (field: FormlyFieldConfig) => {
+                            return field.parent?.model?.value;
                           },
                         },
                       },
