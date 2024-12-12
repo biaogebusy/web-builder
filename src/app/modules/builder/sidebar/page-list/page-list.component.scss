@@ -44,6 +44,9 @@
       }
       .meta {
         opacity: 0.5;
+        .taxonomy {
+          font-size: 10px;
+        }
       }
       ::ng-deep {
         .mat-mdc-button-base {
