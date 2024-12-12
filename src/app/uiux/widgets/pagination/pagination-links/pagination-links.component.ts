@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 
 @Component({
@@ -14,12 +7,9 @@ import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks'
   styleUrls: ['./pagination-links.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginationLinksComponent implements OnInit {
+export class PaginationLinksComponent {
   @Input() links: IPaginationLinks;
   @Output() pageChange: EventEmitter<string> = new EventEmitter();
-  constructor() {}
-
-  ngOnInit(): void {}
 
   loadPage(link: string): void {
     this.pageChange.emit(link);

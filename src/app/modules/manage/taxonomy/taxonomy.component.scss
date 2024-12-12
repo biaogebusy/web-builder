@@ -1,5 +1,7 @@
 .taxonomy {
   .mat-mdc-list {
+    max-height: 560px;
+    overflow: auto;
     .mat-mdc-list-item {
       .actions {
         position: absolute;
