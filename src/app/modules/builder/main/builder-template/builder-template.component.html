@@ -1,10 +1,16 @@
-<div class="builder-template grid grid-cols-12 gap-5">
+<div class="builder-template grid grid-cols-12 gap-5 pb-10">
+  <div class="guide absolute right-0 bottom-0">
+    <app-icon
+      matTooltip="设置页面分类为模板即可加入到这里"
+      [content]="{ svg: 'help-circle-outline' }"
+    ></app-icon>
+  </div>
   @if (loading) {
     <mat-spinner class="spinner" diameter="50" color="primary" />
   }
   @if (content$ | async; as content) {
     @for (item of content; track item) {
-      <div class="item mb-3 col-span-12 sm:col-span-6 md:col-span-3">
+      <div class="item col-span-12 sm:col-span-6 md:col-span-3">
         <div class="card" (click)="onNewPage(item)" matRipple>
           <div class="card-header">
             <div class="title">{{ item.title }}</div>
