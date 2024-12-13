@@ -4,7 +4,7 @@ import { Meta } from '@storybook/blocks';
 
 ## 使用 JSONAPI 更新用户信息
 
-```
+```json
 PATCH {{apiUrl}}/api/v1/user/user/{{uuid}}
 'Accept': 'application/vnd.api+json'
 'Content-Type': 'application/vnd.api+json'
@@ -24,30 +24,30 @@ PATCH {{apiUrl}}/api/v1/user/user/{{uuid}}
 
 需要注意的是，如果需要更新类似邮箱等信息时，需要提供当前的用户密码，否则会返回：
 
-```
+```json
 [
-    {
-        "title": "Unprocessable Entity",
-        "status": "422",
-        "detail": "pass: 你当前的密码丢失或不正确，要求更改 密码。",
-        "source": {
-            "pointer": "/data/attributes/pass"
-        }
-    },
-    {
-        "title": "Unprocessable Entity",
-        "status": "422",
-        "detail": "mail: 你当前的密码丢失或不正确，要求更改 电子邮件。",
-        "source": {
-            "pointer": "/data/attributes/mail"
-        }
+  {
+    "title": "Unprocessable Entity",
+    "status": "422",
+    "detail": "pass: 你当前的密码丢失或不正确，要求更改 密码。",
+    "source": {
+      "pointer": "/data/attributes/pass"
     }
+  },
+  {
+    "title": "Unprocessable Entity",
+    "status": "422",
+    "detail": "mail: 你当前的密码丢失或不正确，要求更改 电子邮件。",
+    "source": {
+      "pointer": "/data/attributes/mail"
+    }
+  }
 ]
 ```
 
 而提供当前的用户密码的格式是：
 
-```
+```json
 {
     "data": {
         "type": "user--user",
@@ -64,12 +64,29 @@ PATCH {{apiUrl}}/api/v1/user/user/{{uuid}}
 }
 ```
 
+修改密码：
+
+```json
+{
+    "data": {
+        "type": "user--user",
+        "id": {{uuid}},
+        "attributes": {
+            "pass": {
+                "value":"newPass"
+                "existing": "xxx"
+            }
+        }
+    }
+}
+```
+
 ## 使用 Drupal REST API 更新用户(D10将弃用 HAL)
 
 进入：/admin/config/services/rest 开启用户并根据需要配置：
 ![module](/assets/storybook/assets/drupal/user-update.png)
 
-```
+```json
 ### update user
 PATCH {{apiUrl}}/user/119?_format=hal_json
 Content-Type: application/hal+json
@@ -99,7 +116,7 @@ content-type: application/json
 
 2. 携带 token 和 cookies 更新对应的用户信息，更新哪项就提交哪项：
 
-```
+```json
 ### update user
 PATCH {{apiUrl}}/user/119?_format=hal_json
 Content-Type: application/hal+json
@@ -120,7 +137,7 @@ X-CSRF-Token: 0tqSQmpQKzfOu43U5ufO6dTU9hGdajPXmCKRbKuvTi8
 3. 更新微信用户的资料
    和 drupal 用户一样，也是需要 token 和 cookies：
 
-```
+```json
 ### update wechat user
 PATCH {{apiUrl}}/entity/wechat_user/15?_format=hal_json
 Content-Type: application/hal+json
