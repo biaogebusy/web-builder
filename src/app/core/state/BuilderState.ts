@@ -18,6 +18,23 @@ import { getComponentSetting } from '@modules/builder/factory/getComponentSettin
 import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
 import { WIDGETS } from '@core/token/token-providers';
+import { getAnimate } from '@modules/builder/factory/getAnimate';
+import { getBtn } from '@modules/builder/factory/getBtn';
+import { getBtnVideo } from '@modules/builder/factory/getBtnVideo';
+import { getBuilder } from '@modules/builder/factory/getBuilder';
+import { getChart } from '@modules/builder/factory/getChart';
+import { getContact } from '@modules/builder/factory/getContact';
+import { getDivider } from '@modules/builder/factory/getDivider';
+import { getIcon } from '@modules/builder/factory/getIcon';
+import { getImg } from '@modules/builder/factory/getImg';
+import { getLink } from '@modules/builder/factory/getLink';
+import { getNone } from '@modules/builder/factory/getNone';
+import { getSpacer } from '@modules/builder/factory/getSpacer';
+import { getSwiper } from '@modules/builder/factory/getSwiper';
+import { getText } from '@modules/builder/factory/getText';
+import { getTitle } from '@modules/builder/factory/getTitle';
+import { getVideo } from '@modules/builder/factory/getVideo';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Injectable({
   providedIn: 'root',
@@ -273,6 +290,80 @@ export class BuilderState {
       style: {
         'width': '318px',
         'max-width': 'calc(100vw - 50px)',
+      },
+      elements: [data],
+    });
+  }
+
+  onWidgetSetting(widget: any, index: number, path: string): void {
+    let fields: FormlyFieldConfig[] = [];
+    const animateConfig = getAnimate(widget);
+    switch (widget.type) {
+      case 'title':
+        fields = getTitle(widget, [animateConfig]);
+        break;
+      case 'video':
+        fields = getVideo(widget, [animateConfig]);
+        break;
+      case 'btn-video':
+        fields = getBtnVideo(widget, [animateConfig]);
+        break;
+      case 'swiper':
+        fields = getSwiper(widget, [animateConfig]);
+        break;
+      case 'link':
+        fields = getLink(widget, [animateConfig]);
+        break;
+      case 'btn':
+        fields = getBtn(widget, [animateConfig]);
+        break;
+      case 'spacer':
+        fields = getSpacer(widget);
+        break;
+      case 'chart':
+        fields = getChart(widget, [animateConfig]);
+        break;
+      case 'contact-us':
+        fields = getContact(widget, [animateConfig]);
+        break;
+      case 'text':
+        fields = getText(widget, [animateConfig]);
+        break;
+      case 'img':
+        fields = getImg(widget, [animateConfig]);
+        break;
+      case 'icon':
+        fields = getIcon(widget, [animateConfig]);
+        break;
+      case 'layout-builder':
+        fields = getBuilder(widget, [animateConfig]);
+        break;
+      case 'divider':
+        fields = getDivider(widget);
+        break;
+      default:
+        fields = getNone(widget, [animateConfig]);
+    }
+
+    if (fields.length > 0) {
+      this.showWidgetSetting(widget, fields, path, index);
+    }
+  }
+
+  showWidgetSetting(widget: any, fields: FormlyFieldConfig[], path: string, index: number): void {
+    const data: ILayoutSetting = {
+      type: 'layout-setting',
+      pageIndex: index,
+      path,
+      fields,
+      content: widget,
+      fullWidth: true,
+    };
+    this.rightContent$.next({
+      mode: 'over',
+      hasBackdrop: false,
+      style: {
+        width: '308px',
       },
       elements: [data],
     });
