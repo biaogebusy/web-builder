@@ -114,6 +114,7 @@ export class PageSettingComponent implements OnInit {
               defaultValue: pageGroup ? pageGroup.id : '',
               props: {
                 api: '/api/v2/taxonomy_term/page_group',
+                nocache: true,
                 label: '页面分类',
                 options: [
                   {

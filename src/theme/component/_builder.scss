@@ -26,10 +26,7 @@ $dark-theme: mat.m2-define-dark-theme(
   .builder {
     .builder-workspace {
       .builder-toolbar {
-        background-color: mat.m2-get-color-from-palette(
-          $background,
-          background
-        );
+        background-color: mat.m2-get-color-from-palette($background, background);
         color: mat.m2-get-color-from-palette($foreground, text, 0.75);
         .left {
           .page-title {
@@ -46,11 +43,7 @@ $dark-theme: mat.m2-define-dark-theme(
           }
         }
         &.fixed {
-          @include mat.elevation(
-            2,
-            mat.m2-get-color-from-palette($background, tooltip),
-            0.25
-          );
+          @include mat.elevation(2, mat.m2-get-color-from-palette($background, tooltip), 0.25);
         }
         .right {
           color: mat.m2-get-color-from-palette($foreground, text, 0.5);
@@ -73,10 +66,7 @@ $dark-theme: mat.m2-define-dark-theme(
         @include scrollbar(mat.m2-get-color-from-palette($primary));
 
         .backdrop {
-          background-color: mat.m2-get-color-from-palette(
-            $foreground,
-            slider-off-active
-          );
+          background-color: mat.m2-get-color-from-palette($foreground, slider-off-active);
         }
         .showcase {
           background-color: mat.m2-get-color-from-palette($background, card);
@@ -87,8 +77,7 @@ $dark-theme: mat.m2-define-dark-theme(
           }
           .showcase-footer {
             color: mat.m2-get-color-from-palette($foreground, text);
-            border-top: 1px solid
-              mat.m2-get-color-from-palette($foreground, divider);
+            border-top: 1px solid mat.m2-get-color-from-palette($foreground, divider);
             background: mat.m2-get-color-from-palette($background, background);
           }
           .component-toolbar {
@@ -99,10 +88,7 @@ $dark-theme: mat.m2-define-dark-theme(
         }
       }
       .cdk-drag-placeholder {
-        background-color: mat.m2-get-color-from-palette(
-          $background,
-          background
-        );
+        background-color: mat.m2-get-color-from-palette($background, background);
         border: 3px dotted mat.m2-get-color-from-palette($foreground, divider);
         width: 100%;
         &:hover {
@@ -115,11 +101,7 @@ $dark-theme: mat.m2-define-dark-theme(
       .actions {
         &.expand {
           background-color: mat.m2-get-color-from-palette($background, card);
-          @include mat.elevation(
-            2,
-            mat.m2-get-color-from-palette($background, hover),
-            0.4
-          );
+          @include mat.elevation(2, mat.m2-get-color-from-palette($background, hover), 0.4);
         }
       }
     }
@@ -191,11 +173,7 @@ $dark-theme: mat.m2-define-dark-theme(
 
   .widget-picker {
     .popup {
-      @include mat.elevation(
-        2,
-        mat.m2-get-color-from-palette($background, hover),
-        0.4
-      );
+      @include mat.elevation(2, mat.m2-get-color-from-palette($background, hover), 0.4);
       background-color: mat.m2-get-color-from-palette($background, card);
       border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
       .hover-show {
@@ -220,11 +198,7 @@ $dark-theme: mat.m2-define-dark-theme(
       border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
       background-color: mat.m2-get-color-from-palette($background, card);
       transition: all 0.1s ease-in;
-      @include mat.elevation(
-        4,
-        mat.m2-get-color-from-palette($foreground, divider),
-        0.4
-      );
+      @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, divider), 0.4);
       &:hover {
         border-color: mat.m2-get-color-from-palette($primary);
       }

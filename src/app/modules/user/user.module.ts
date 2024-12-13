@@ -6,7 +6,8 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { UserComponent } from './user.component';
 import { BaseModule } from '@uiux/base/base.module';
-const components = [LoginComponent, UserComponent];
+import { UserSettingComponent } from './user-setting/user-setting.component';
+const components = [LoginComponent, UserComponent, UserSettingComponent];
 @NgModule({
   declarations: [...components],
   imports: [ShareModule, WidgetsModule, ListModule, UserRoutingModule],

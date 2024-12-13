@@ -13,26 +13,14 @@
     }
   }
   .preview {
-    background-color: mat.m2-get-color-from-palette(
-      $foreground,
-      elevation,
-      0.85
-    );
+    background-color: mat.m2-get-color-from-palette($foreground, elevation, 0.85);
     #builder-list {
       background-color: mat.m2-get-color-from-palette($background, card);
     }
     .preview-iframe {
       &:after {
-        background-color: mat.m2-get-color-from-palette(
-          $foreground,
-          elevation,
-          0.95
-        );
-        @include mat.elevation(
-          2,
-          mat.m2-get-color-from-palette($foreground, elevation),
-          0.5
-        );
+        background-color: mat.m2-get-color-from-palette($foreground, elevation, 0.95);
+        @include mat.elevation(2, mat.m2-get-color-from-palette($foreground, elevation), 0.5);
       }
     }
   }
@@ -54,11 +42,7 @@
   .component-toolbar {
     .actions {
       background-color: #333;
-      @include mat.elevation(
-        2,
-        mat.m2-get-color-from-palette($background, tooltip),
-        0.25
-      );
+      @include mat.elevation(2, mat.m2-get-color-from-palette($background, tooltip), 0.25);
       .mat-mdc-button-base {
         color: mat.m2-get-color-from-palette($primary, default-contrast, 0.8);
       }

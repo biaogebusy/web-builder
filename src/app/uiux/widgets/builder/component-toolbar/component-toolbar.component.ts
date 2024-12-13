@@ -12,6 +12,8 @@ import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
+import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 
@@ -79,11 +81,12 @@ export class ComponentToolbarComponent implements OnInit {
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
-  onSetting(content: any, pageIndex: number, event: any): void {
+  onSetting(content: any, event: any): void {
     const { type } = content;
     const path = this.util.generatePath(event.target);
     const component = type ? content : content.content;
-    this.builder.onComponentSetting(component, pageIndex, path);
+    const fields: FormlyFieldConfig[] = getComponentSetting(component);
+    this.builder.showComponentSetting(component, fields, path);
   }
 
   onDelete(index: number): void {

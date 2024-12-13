@@ -206,7 +206,7 @@ export class ComponentService {
     ['manage-media', 'upload-media', 'taxonomy'].forEach(type =>
       this.setModule(type, () => import('@modules/manage/manage.module').then(m => m.ManageModule))
     );
-    ['login'].forEach(type =>
+    ['login', 'user-setting'].forEach(type =>
       this.setModule(type, () => import('@modules/user/user.module').then(m => m.UserModule))
     );
   }

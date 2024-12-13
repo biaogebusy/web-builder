@@ -61,41 +61,81 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
   fields: FormlyFieldConfig[] = [
     {
-      fieldGroupClassName: 'grid grid-cols-12 gap-2',
+      type: 'tabs',
       fieldGroup: [
         {
-          key: 'title',
-          type: 'input',
-          className: 'col-span-7',
           props: {
-            label: '搜索标题',
-            type: 'search',
+            label: '基础',
           },
-          modelOptions: {
-            updateOn: 'submit',
-          },
+          fieldGroup: [
+            {
+              fieldGroupClassName: 'grid grid-cols-12 gap-1',
+              fieldGroup: [
+                {
+                  key: 'title',
+                  type: 'input',
+                  className: 'col-span-12',
+                  props: {
+                    label: '搜索标题',
+                    type: 'search',
+                  },
+                  modelOptions: {
+                    updateOn: 'submit',
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
-          key: 'langcode',
-          type: 'select',
-          className: 'col-span-5',
           props: {
-            label: '语言',
-            options: [
-              {
-                label: '全部',
-                value: '',
-              },
-              ...(this.langs
-                ? this.langs.map(lang => {
-                    return {
-                      label: lang.label,
-                      value: lang.langCode,
-                    };
-                  })
-                : []),
-            ],
+            label: '高级',
           },
+          fieldGroup: [
+            {
+              fieldGroupClassName: 'grid grid-cols-12 gap-1',
+              fieldGroup: [
+                {
+                  key: 'group',
+                  type: 'mat-select',
+                  className: 'col-span-7',
+                  props: {
+                    api: '/api/v2/taxonomy/page_group',
+                    nocache: true,
+                    label: '分类',
+                    options: [
+                      {
+                        label: '全部',
+                        value: null,
+                      },
+                    ],
+                  },
+                },
+                {
+                  key: 'langcode',
+                  type: 'select',
+                  className: 'col-span-5',
+                  props: {
+                    label: '语言',
+                    options: [
+                      {
+                        label: '全部',
+                        value: '',
+                      },
+                      ...(this.langs
+                        ? this.langs.map(lang => {
+                            return {
+                              label: lang.label,
+                              value: lang.langCode,
+                            };
+                          })
+                        : []),
+                    ],
+                  },
+                },
+              ],
+            },
+          ],
         },
       ],
     },

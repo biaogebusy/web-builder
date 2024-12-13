@@ -18,6 +18,11 @@
       .mat-mdc-form-field-subscript-wrapper {
         display: none;
       }
+      .tabs-type {
+        .item {
+          margin: 10px 0 0 0;
+        }
+      }
     }
   }
   app-title {
@@ -39,6 +44,9 @@
       }
       .meta {
         opacity: 0.5;
+        .taxonomy {
+          font-size: 10px;
+        }
       }
       ::ng-deep {
         .mat-mdc-button-base {

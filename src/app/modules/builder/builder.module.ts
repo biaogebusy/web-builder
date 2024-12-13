@@ -12,22 +12,13 @@ import { BuilderPageComponent } from './sidebar/builder-page/builder-page.compon
 import { BuilderListComponent } from './main/builder-list/builder-list.component';
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
 import { BaseModule } from '@uiux/base/base.module';
-import {
-  BUILDER_CURRENT_PAGE,
-  WIDGETS,
-  UIUX,
-  COLOR_TEST,
-  BUILDER_CONFIG,
-} from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE, WIDGETS, UIUX, BUILDER_CONFIG } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-builder';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
 import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.component';
 import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
-import {
-  builderCurrentPageFactory,
-  getBuilderConfig,
-} from '@core/factory/factory';
+import { builderCurrentPageFactory, getBuilderConfig } from '@core/factory/factory';
 import { LocalStorageService } from 'ngx-webstorage';
 import { InlineEditComponent } from './main/inline-editor/inline-editor.component';
 import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
@@ -35,7 +26,6 @@ import { WidgetPickerComponent } from './main/widget-picker/widget-picker.compon
 import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-setting.component';
 import { widgets } from './data/widgets-for-builder';
 import { BrandingModule } from '@core/branding/branding.module';
-import { colorTest } from './data/theme-preview-for-builder';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 import { PageListComponent } from './sidebar/page-list/page-list.component';
@@ -113,10 +103,6 @@ const components = [
       provide: BUILDER_CURRENT_PAGE,
       useFactory: builderCurrentPageFactory,
       deps: [LocalStorageService],
-    },
-    {
-      provide: COLOR_TEST,
-      useValue: colorTest,
     },
   ],
   exports: [...components],

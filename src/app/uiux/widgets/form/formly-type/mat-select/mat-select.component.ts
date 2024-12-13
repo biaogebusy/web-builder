@@ -19,10 +19,7 @@ import { catchError, take } from 'rxjs/operators';
   styleUrls: ['./mat-select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MatSelectComponent
-  extends FieldType<FieldTypeConfig>
-  implements OnInit
-{
+export class MatSelectComponent extends FieldType<FieldTypeConfig> implements OnInit {
   @ViewChild('select') select: MatSelect;
   /** control for the MatSelect filter keyword multi-selection */
   public searchCtrl: UntypedFormControl = new UntypedFormControl();
@@ -53,9 +50,9 @@ export class MatSelectComponent
   }
 
   getOptionsFromApi(): void {
-    const { api, options } = this.fieldConfig.props;
+    const { api, nocache, options } = this.fieldConfig.props;
     this.nodeService
-      .fetch(api || '', '')
+      .fetch(api || '', nocache ? 'noCache=true' : '')
       .pipe(
         catchError(() => {
           return of({
@@ -81,8 +78,7 @@ export class MatSelectComponent
       // the form control (i.e. _initializeSelection())
       // this needs to be done after the filteredBanks are loaded initially
       // and after the mat-option elements are available
-      this.select.compareWith = (a: any, b: any) =>
-        a && b && a.label === b.label;
+      this.select.compareWith = (a: any, b: any) => a && b && a.label === b.label;
     });
   }
 
@@ -100,9 +96,7 @@ export class MatSelectComponent
     }
     // filter the options
     this.filteredOptions.next(
-      this.matOptions.filter(
-        (bank: any) => bank.label.toLowerCase().indexOf(search) > -1
-      )
+      this.matOptions.filter((bank: any) => bank.label.toLowerCase().indexOf(search) > -1)
     );
   }
 }

@@ -14,10 +14,12 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { cloneDeep, get, map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
-import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
 import { WIDGETS } from '@core/token/token-providers';
+import { getAnimate } from '@modules/builder/factory/getAnimate';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+import { getWidgetSetting } from '@modules/builder/factory/getWidgetSetting';
 
 @Injectable({
   providedIn: 'root',
@@ -258,13 +260,20 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  onComponentSetting(content: any, pageIndex: number, path: string): void {
+  onWidgetSetting(widget: any, path: string): void {
+    const animateConfig = getAnimate(widget);
+    const fields = getWidgetSetting(widget);
+
+    fields.fieldGroup?.push(animateConfig);
+    this.showComponentSetting(widget, [fields], path);
+  }
+
+  showComponentSetting(widget: any, fields: FormlyFieldConfig[], path: string): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
-      fields: getComponentSetting(content),
-      pageIndex,
-      content,
       path,
+      fields,
+      content: widget,
       fullWidth: true,
     };
     this.rightContent$.next({

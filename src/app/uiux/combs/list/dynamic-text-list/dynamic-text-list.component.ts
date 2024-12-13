@@ -8,6 +8,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   Inject,
+  inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -25,10 +26,7 @@ import type { IDynamicTextList } from '@core/interface/combs/IList';
   styleUrls: ['./dynamic-text-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicTextListComponent
-  extends BaseComponent
-  implements OnInit, OnDestroy
-{
+export class DynamicTextListComponent extends BaseComponent implements OnInit, OnDestroy {
   @Input() content: IDynamicTextList;
   @Output() pageChange = new EventEmitter<string>();
 
@@ -37,12 +35,11 @@ export class DynamicTextListComponent
   loading: boolean;
 
   destory$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    public nodeService: NodeService,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
-  ) {
+
+  private cd = inject(ChangeDetectorRef);
+  public nodeService = inject(NodeService);
+  private screenService = inject(ScreenService);
+  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {
     super();
   }
 

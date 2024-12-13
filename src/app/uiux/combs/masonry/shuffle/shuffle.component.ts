@@ -1,14 +1,12 @@
 import {
   Component,
   Input,
-  OnInit,
   ElementRef,
-  AfterViewInit,
   ChangeDetectionStrategy,
   inject,
+  afterNextRender,
 } from '@angular/core';
 import type { IShuffle } from '@core/interface/combs/IMasonry';
-import { ScreenService } from '@core/service/screen.service';
 import Shuffle from 'shufflejs';
 @Component({
   selector: 'app-shuffle',
@@ -16,16 +14,12 @@ import Shuffle from 'shufflejs';
   styleUrls: ['./shuffle.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShuffleComponent implements OnInit, AfterViewInit {
+export class ShuffleComponent {
   @Input() content: IShuffle;
   shuffle: any;
   private el = inject(ElementRef);
-  private screenService = inject(ScreenService);
-
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
+  constructor() {
+    afterNextRender(() => {
       const sizer = this.el.nativeElement.querySelectorAll('.sizer')[0];
       const shuffleEl = this.el.nativeElement.querySelectorAll('.shuffle-inner')[0];
       setTimeout(() => {
@@ -36,9 +30,10 @@ export class ShuffleComponent implements OnInit, AfterViewInit {
           easing: 'ease-out',
           delimiter: ',',
         });
-      }, 0);
-    }
+      }, 500);
+    });
   }
+
   onChange(category: any): void {
     this.shuffle.filter(category.value);
   }

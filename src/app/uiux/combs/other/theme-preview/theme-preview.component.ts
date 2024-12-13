@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import type { IThemePreview } from '@core/interface/combs/IThemePreview';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { IPage } from '@core/interface/IAppConfig';
+import { BuilderService } from '@core/service/builder.service';
+import { ScreenService } from '@core/service/screen.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-theme-preview',
@@ -7,8 +10,13 @@ import type { IThemePreview } from '@core/interface/combs/IThemePreview';
   styleUrls: ['./theme-preview.component.scss'],
 })
 export class ThemePreviewComponent implements OnInit {
-  @Input() content: IThemePreview;
-  constructor() {}
+  page$: Observable<IPage>;
+  builderService = inject(BuilderService);
+  screenSerivce = inject(ScreenService);
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.screenSerivce.isPlatformBrowser()) {
+      this.page$ = this.builderService.getDefaultPage('/builder/theme-preview');
+    }
+  }
 }
