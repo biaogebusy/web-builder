@@ -75,6 +75,6 @@ export class BlockToolbarComponent {
 
   onWidgetSetting(widget: any, target: any): void {
     const path = this.util.generatePath(target);
-    this.builder.onWidgetSetting(widget, this.pageIndex, path);
+    this.builder.onWidgetSetting(widget, path);
   }
 }

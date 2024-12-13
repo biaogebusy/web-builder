@@ -275,27 +275,7 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  onComponentSetting(content: any, pageIndex: number, path: string): void {
-    const data: ILayoutSetting = {
-      type: 'layout-setting',
-      fields: getComponentSetting(content),
-      pageIndex,
-      content,
-      path,
-      fullWidth: true,
-    };
-    this.rightContent$.next({
-      mode: 'over',
-      hasBackdrop: false,
-      style: {
-        'width': '318px',
-        'max-width': 'calc(100vw - 50px)',
-      },
-      elements: [data],
-    });
-  }
-
-  onWidgetSetting(widget: any, index: number, path: string): void {
+  onWidgetSetting(widget: any, path: string): void {
     let fields: FormlyFieldConfig[] = [];
     const animateConfig = getAnimate(widget);
     switch (widget.type) {
@@ -346,14 +326,13 @@ export class BuilderState {
     }
 
     if (fields.length > 0) {
-      this.showWidgetSetting(widget, fields, path, index);
+      this.showComponentSetting(widget, fields, path);
     }
   }
 
-  showWidgetSetting(widget: any, fields: FormlyFieldConfig[], path: string, index: number): void {
+  showComponentSetting(widget: any, fields: FormlyFieldConfig[], path: string): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
-      pageIndex: index,
       path,
       fields,
       content: widget,
@@ -363,7 +342,8 @@ export class BuilderState {
       mode: 'over',
       hasBackdrop: false,
       style: {
-        width: '308px',
+        'width': '318px',
+        'max-width': 'calc(100vw - 50px)',
       },
       elements: [data],
     });
