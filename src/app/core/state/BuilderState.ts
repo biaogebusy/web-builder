@@ -275,7 +275,7 @@ export class BuilderState {
   }
 
   onWidgetSetting(widget: any, path: string): void {
-    let fields: FormlyFieldConfig[] = [];
+    let fields: FormlyFieldConfig;
     const animateConfig = getAnimate(widget);
     switch (widget.type) {
       case 'title':
@@ -324,10 +324,8 @@ export class BuilderState {
         fields = getNone(widget);
     }
 
-    fields[0].fieldGroup?.push(animateConfig);
-    if (fields.length > 0) {
-      this.showComponentSetting(widget, fields, path);
-    }
+    fields.fieldGroup?.push(animateConfig);
+    this.showComponentSetting(widget, [fields], path);
   }
 
   showComponentSetting(widget: any, fields: FormlyFieldConfig[], path: string): void {

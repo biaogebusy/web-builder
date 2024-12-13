@@ -30,11 +30,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
 
   @HostListener('blur', ['$event']) onBlur(event: any): void {
     const { currentTarget } = event;
-    if (
-      this.componentItem &&
-      currentTarget &&
-      currentTarget.contentEditable === 'true'
-    ) {
+    if (this.componentItem && currentTarget && currentTarget.contentEditable === 'true') {
       currentTarget.contentEditable = 'false';
       const path = this.generatePath(currentTarget);
       this.builder.updatePageContentByPath(path, currentTarget.innerHTML);
@@ -102,7 +98,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
             mode: 'push',
             hasBackdrop: false,
             style: {
-              width: '260px',
+              'width': '260px',
               'max-width': 'calc(100vw - 50px)',
             },
             elements: [meta],
@@ -123,7 +119,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
       mode: 'text',
       path,
       ele,
-      fields: getInlineText(ele),
+      fields: [getInlineText(ele)],
       data: {
         innerHTML: ele.innerHTML,
         tag: ele.tagName,
@@ -133,7 +129,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
       mode: 'push',
       hasBackdrop: false,
       style: {
-        width: '300px',
+        'width': '300px',
         'max-width': 'calc(100vw - 140px)',
       },
       elements: [meta],

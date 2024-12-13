@@ -211,7 +211,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         fieldGroup: [
           {
             type: 'tabs',
-            fieldGroup: getSwiper(content)[0].fieldGroup,
+            fieldGroup: getSwiper(content).fieldGroup,
           },
         ],
       });
@@ -222,7 +222,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         props: {
           label: '视频',
         },
-        fieldGroup: getVideo(content)[0].fieldGroup,
+        fieldGroup: getVideo(content).fieldGroup,
       });
       break;
 
@@ -232,7 +232,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           label: '文本',
         },
         fieldGroup: [
-          ...getTitle(content.title),
+          getTitle(content.title),
           {
             key: 'body',
             type: 'rich-text',
@@ -276,7 +276,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           props: {
             label: '标题',
           },
-          fieldGroup: [...getText(content.text)],
+          fieldGroup: [getText(content.text)],
         };
         tabsGroup?.push(textConfig);
       }
@@ -286,7 +286,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         },
         fieldGroup: [
           {
-            ...getSwiper(content.sliders)[0],
+            ...getSwiper(content.sliders),
             key: 'sliders',
           },
         ],
@@ -301,7 +301,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           props: {
             label: '标题',
           },
-          fieldGroup: [...getTitle(content.title)],
+          fieldGroup: [getTitle(content.title)],
         };
         tabsGroup?.push(titleConfig);
       }
@@ -312,7 +312,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         },
         fieldGroup: [
           {
-            ...getSwiper(content.sliders)[0],
+            ...getSwiper(content.sliders),
             key: 'sliders',
           },
         ],
@@ -330,7 +330,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           props: {
             label: '标题',
           },
-          fieldGroup: [...getTitle(content.title)],
+          fieldGroup: [getTitle(content.title)],
         };
         tabsGroup?.push(titleConfig);
       }
@@ -341,7 +341,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         },
         fieldGroup: [
           {
-            ...getSwiper(content.sliders)[0],
+            ...getSwiper(content.sliders),
             key: 'sliders',
           },
         ],

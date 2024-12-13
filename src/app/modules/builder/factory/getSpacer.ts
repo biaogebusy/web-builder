@@ -1,20 +1,18 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getSpacer(widget: any): FormlyFieldConfig[] {
-  return [
-    {
-      key: 'spacer',
-      fieldGroup: [
-        {
-          key: 'size',
-          type: 'select',
-          className: 'w-full',
-          defaultValue: widget.size || 'sm',
-          props: spacerOption,
-        },
-      ],
-    },
-  ];
+export function getSpacer(widget: any): FormlyFieldConfig {
+  return {
+    key: 'spacer',
+    fieldGroup: [
+      {
+        key: 'size',
+        type: 'select',
+        className: 'w-full',
+        defaultValue: widget.size || 'sm',
+        props: spacerOption,
+      },
+    ],
+  };
 }
 
 export const spacerOption = {
