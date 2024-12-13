@@ -10,13 +10,12 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-
 import type { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
-import { BUILDER_CURRENT_PAGE, COLOR_TEST, DEBUG_ANIMATE } from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE, DEBUG_ANIMATE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -36,8 +35,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   private builderService = inject(BuilderService);
   constructor(
     @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(COLOR_TEST) private colorTestPage: IPage
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
   ngOnInit(): void {}
@@ -102,7 +100,15 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   }
 
   onColorTest(): void {
-    this.util.openSnackbar(`正在载入${this.colorTestPage.title}...`, 'ok');
-    this.builder.loadNewPage(this.colorTestPage);
+    this.util.openSnackbar(`正在载入...`, 'ok');
+    this.builder.loadNewPage({
+      title: '主题色彩检查',
+      body: [
+        {
+          type: 'theme-preview',
+          fullWidth: true,
+        },
+      ],
+    });
   }
 }

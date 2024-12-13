@@ -4,7 +4,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Inject,
   Input,
   inject,
 } from '@angular/core';
@@ -34,7 +33,7 @@ export class LayoutSettingComponent {
   dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
   builderService = inject(BuilderService);
-  constructor(@Inject(DOCUMENT) private doc: Document) {}
+  doc = inject(DOCUMENT);
 
   onModelChange(value: any): void {
     const { path } = this.content;

@@ -10,6 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { ITaxonomy } from '@core/interface/manage/ITaxonomy';
+import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -40,6 +41,7 @@ export class TaxonomyComponent implements OnInit {
   form = new FormGroup({});
   model: any = {};
   selectedItem: any;
+  links: IPaginationLinks;
   fields: FormlyFieldConfig[] = [
     {
       key: 'name',
@@ -86,6 +88,16 @@ export class TaxonomyComponent implements OnInit {
       params: { api },
     } = this.content;
     this.items$ = this.nodeService.fetch(api, params).pipe(
+      tap(res => {
+        this.loading = false;
+        this.cd.detectChanges();
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    );
+  }
+
+  onPageChange(link: string): void {
+    this.items$ = this.nodeService.getNodeByLink(link).pipe(
       tap(() => {
         this.loading = false;
         this.cd.detectChanges();

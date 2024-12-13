@@ -99,7 +99,7 @@
         [ngClass]="sidebarDrawer.opened ? 'flex-row' : 'flex-col'"
       >
         @if (branding.header.params.userInfo) {
-          <app-user-menu [content]="branding.header.userMenu" />
+          <app-user-menu />
         }
         <div class="toggle">
           <div class="wrapper" (click)="onToggle()">

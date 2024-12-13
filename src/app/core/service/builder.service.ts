@@ -220,15 +220,15 @@ export class BuilderService extends ApiService {
       );
   }
 
-  getDefaultPage(): Observable<IPage> {
+  getDefaultPage(url: string): Observable<IPage> {
     const { apiUrl, production } = environment;
     const pathname = window.location.pathname;
     const { lang } = this.getUrlPath(pathname);
     if (!production) {
-      return this.http.get<IPage>(`${apiUrl}/assets/app${lang}/builder/default-page.json`);
+      return this.http.get<IPage>(`${apiUrl}/assets/app${lang}${url}.json`);
     } else {
       this.builder.loading$.next(true);
-      return this.contentService.loadPageContent(`${lang}/builder/default-page`).pipe(
+      return this.contentService.loadPageContent(`${lang}${url}`).pipe(
         tap(res => {
           this.builder.loading$.next(false);
           if (isArray(res) || !res) {

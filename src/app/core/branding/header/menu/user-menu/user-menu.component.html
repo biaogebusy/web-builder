@@ -6,7 +6,7 @@
   }
   @if (user$ | async; as user) {
     @if (!user.picture) {
-      <button aria-label="user name" mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+      <button aria-label="user name" mat-mini-fab color="primary" (click)="openDialog()">
         <h3 class="name">
           {{ utilities.getIndexTitle(user.display_name || 'N') }}
         </h3>
@@ -14,32 +14,10 @@
     } @else {
       <img
         class="user-picture"
-        [matMenuTriggerFor]="menu"
+        (click)="openDialog()"
         [src]="user.picture"
         alt="{{ user.display_name }}"
       />
     }
-    <ng-template #picture>
-      <img
-        class="user-picture"
-        [matMenuTriggerFor]="menu"
-        [src]="user.picture"
-        alt="{{ user.display_name }}"
-      />
-    </ng-template>
-    <mat-menu #menu="matMenu" class="user-dropdown">
-      <a mat-menu-item [routerLink]="userService.userPage">
-        <mat-icon>account_circle</mat-icon>{{ user.display_name }}
-      </a>
-      @for (item of content; track item) {
-        <button aria-label="user link" mat-menu-item *reqRolesIf="item">
-          <app-icon [content]="item.icon" />
-          <app-link [content]="item" />
-        </button>
-      }
-      <button aria-label="logout" mat-menu-item (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon>退出
-      </button>
-    </mat-menu>
   }
 </div>

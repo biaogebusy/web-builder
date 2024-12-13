@@ -1,0 +1,57 @@
+@if (user$ | async; as user) {
+  <div class="user-setting">
+    @if (loading) {
+      <div class="load">
+        <mat-spinner diameter="50" color="accent" />
+      </div>
+    }
+    <div class="user-info">
+      <div class="user-avatar flex gap-2 items-center">
+        @if (user.picture) {
+          <img
+            width="80"
+            height="80"
+            class="object-contain rounded-full"
+            src="{{ user.picture }}"
+            alt=""
+          />
+        }
+        <div class="flex flex-col">
+          <div class="name font-bold">{{ user.display_name }}</div>
+          <div class="mail text-gray-500">{{ user.mail }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="form my-4">
+      <app-formly [form]="form" [fields]="fields" [model]="model"></app-formly>
+    </div>
+    <div class="actions flex justify-center items-center gap-4">
+      <app-btn
+        (click)="form.reset()"
+        [content]="{
+          label: '重置',
+        }"
+      />
+      <app-btn
+        (click)="onLogout()"
+        [content]="{
+          label: '退出',
+          color: 'warn',
+          icon: { svg: 'logout' },
+        }"
+      />
+      <app-btn
+        (click)="onUpdate(model, user)"
+        [content]="{
+          label: '更新账户',
+          color: 'primary',
+          mode: 'raised',
+          disabled: !form.valid,
+          icon: {
+            svg: 'pencil',
+          },
+        }"
+      ></app-btn>
+    </div>
+  </div>
+}

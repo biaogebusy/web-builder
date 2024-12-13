@@ -5,6 +5,7 @@ import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { getLayoutSetting } from '@modules/builder/factory/getLayoutSetting';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { cloneDeep } from 'lodash-es';
 
 @Component({
@@ -67,5 +68,8 @@ export class LayoutToolbarComponent implements OnInit {
       },
       elements: [layoutSetting],
     });
+    const path = this.util.generatePath(target);
+    const fields: FormlyFieldConfig[] = getLayoutSetting(layout);
+    this.builder.showComponentSetting(layout, fields, path);
   }
 }

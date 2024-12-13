@@ -1,26 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
-import { ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { getAnimate } from '@modules/builder/factory/getAnimate';
-import { getBtn } from '@modules/builder/factory/getBtn';
-import { getBtnVideo } from '@modules/builder/factory/getBtnVideo';
-import { getChart } from '@modules/builder/factory/getChart';
-import { getContact } from '@modules/builder/factory/getContact';
-import { getDivider } from '@modules/builder/factory/getDivider';
-import { getIcon } from '@modules/builder/factory/getIcon';
-import { getImg } from '@modules/builder/factory/getImg';
-import { getLink } from '@modules/builder/factory/getLink';
-import { getNone } from '@modules/builder/factory/getNone';
-import { getSpacer } from '@modules/builder/factory/getSpacer';
-import { getSwiper } from '@modules/builder/factory/getSwiper';
-import { getText } from '@modules/builder/factory/getText';
-import { getTitle } from '@modules/builder/factory/getTitle';
-import { FormlyFieldConfig } from '@ngx-formly/core';
-import { getBuilder } from '@modules/builder/factory/getBuilder';
 import { LocalStorageService } from 'ngx-webstorage';
-import { getVideo } from '@modules/builder/factory/getVideo';
 
 @Component({
   selector: 'app-block-toolbar',
@@ -75,76 +57,6 @@ export class BlockToolbarComponent {
 
   onWidgetSetting(widget: any, target: any): void {
     const path = this.util.generatePath(target);
-    let fields: FormlyFieldConfig[] = [];
-    const animateConfig = getAnimate(widget);
-    switch (widget.type) {
-      case 'title':
-        fields = getTitle(widget, [animateConfig]);
-        break;
-      case 'video':
-        fields = getVideo(widget, [animateConfig]);
-        break;
-      case 'btn-video':
-        fields = getBtnVideo(widget, [animateConfig]);
-        break;
-      case 'swiper':
-        fields = getSwiper(widget, [animateConfig]);
-        break;
-      case 'link':
-        fields = getLink(widget, [animateConfig]);
-        break;
-      case 'btn':
-        fields = getBtn(widget, [animateConfig]);
-        break;
-      case 'spacer':
-        fields = getSpacer(widget);
-        break;
-      case 'chart':
-        fields = getChart(widget, [animateConfig]);
-        break;
-      case 'contact-us':
-        fields = getContact(widget, [animateConfig]);
-        break;
-      case 'text':
-        fields = getText(widget, [animateConfig]);
-        break;
-      case 'img':
-        fields = getImg(widget, [animateConfig]);
-        break;
-      case 'icon':
-        fields = getIcon(widget, [animateConfig]);
-        break;
-      case 'layout-builder':
-        fields = getBuilder(widget, [animateConfig]);
-        break;
-      case 'divider':
-        fields = getDivider(widget);
-        break;
-      default:
-        fields = getNone(widget, [animateConfig]);
-    }
-
-    if (fields.length > 0) {
-      this.showWidgetSetting(widget, fields, path);
-    }
-  }
-
-  showWidgetSetting(widget: any, fields: FormlyFieldConfig[], path: string): void {
-    const data: ILayoutSetting = {
-      type: 'layout-setting',
-      pageIndex: this.pageIndex,
-      path,
-      fields,
-      content: widget,
-      fullWidth: true,
-    };
-    this.builder.rightContent$.next({
-      mode: 'over',
-      hasBackdrop: false,
-      style: {
-        width: '308px',
-      },
-      elements: [data],
-    });
+    this.builder.onWidgetSetting(widget, path);
   }
 }

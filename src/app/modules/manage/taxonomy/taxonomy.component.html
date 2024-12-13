@@ -4,12 +4,12 @@
 
   <div class="grid grid-cols-12 gap-5">
     <div class="col-span-12 sm:col-span-8 bg-gray-100 p-5 shadow rounded-xl">
-      @if (loading) {
-        <div class="load">
-          <mat-spinner diameter="50" color="accent" />
-        </div>
-      }
-      <mat-list>
+      <mat-list class="relative">
+        @if (loading) {
+          <div class="load">
+            <mat-spinner diameter="50" color="accent" />
+          </div>
+        }
         <div mat-subheader>{{ content.title }}</div>
         @if (items) {
           @for (item of items.data; track item.id; let last = $last) {
@@ -52,6 +52,9 @@
           }
         }
       </mat-list>
+      @if (items?.links) {
+        <app-pagination-links (pageChange)="onPageChange($event)" [links]="items.links" />
+      }
     </div>
     <div class="col-span-12 sm:col-span-4 bg-white p-5 shadow rounded-xl">
       <div class="new my-5">

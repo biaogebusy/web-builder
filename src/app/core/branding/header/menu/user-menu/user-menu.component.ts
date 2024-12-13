@@ -8,10 +8,8 @@ import {
   inject,
   DestroyRef,
 } from '@angular/core';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { DialogService } from '@core/service/dialog.service';
 import { Observable } from 'rxjs';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
@@ -19,9 +17,9 @@ import { UserService } from '@core/service/user.service';
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from '@modules/user/login/login.component';
 import { Router } from '@angular/router';
-import { LocalStorageService } from 'ngx-webstorage';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -34,33 +32,29 @@ export class UserMenuComponent implements OnInit {
   dialogRef: any;
   currentUser: IUser | false;
 
-  utilities = inject(UtilitiesService);
   screen = inject(ScreenState);
   dialog = inject(MatDialog);
-  dialogService = inject(DialogService);
   cd = inject(ChangeDetectorRef);
   userService = inject(UserService);
   router = inject(Router);
-  storage = inject(LocalStorageService);
+  utilities = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   constructor(@Inject(USER) public user$: Observable<IUser>) {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.currentUser = user;
     });
-    this.userService.userSub$
-      .pipe(takeUntilDestroyed())
-      .subscribe((currentUser: any) => {
-        // login
-        if (currentUser) {
-          this.currentUser = currentUser;
-          this.cd.detectChanges();
-        }
-        // logout
-        if (!currentUser) {
-          this.currentUser = false;
-          this.cd.detectChanges();
-        }
-      });
+    this.userService.userSub$.pipe(takeUntilDestroyed()).subscribe((currentUser: any) => {
+      // login
+      if (currentUser) {
+        this.currentUser = currentUser;
+        this.cd.detectChanges();
+      }
+      // logout
+      if (!currentUser) {
+        this.currentUser = false;
+        this.cd.detectChanges();
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -78,11 +72,6 @@ export class UserMenuComponent implements OnInit {
     }
   }
 
-  logout(): void {
-    const logoutToken = this.storage.retrieve(this.userService.logoutToken);
-    this.userService.logout(logoutToken);
-  }
-
   onLogin(): void {
     const { pathname } = window.location;
     const queryParams = {
@@ -92,31 +81,20 @@ export class UserMenuComponent implements OnInit {
     this.dialog.open(LoginComponent);
   }
 
-  openDialog(dialog: any): void {
+  openDialog(): void {
     this.dialogRef = this.dialog.open(DialogComponent, {
-      width: dialog.width || '600px',
+      width: '380px',
+      panelClass: ['close-outside', 'close-icon-white'],
       data: {
+        title: '账户设置',
+        disableCloseButton: true,
         inputData: {
-          content: dialog.content,
-          actions: dialog.actions,
+          content: {
+            type: 'user-setting',
+            fullWidth: true,
+          },
         },
       },
     });
-    this.dialogRef
-      .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => console.log('dialog after'));
-    this.dialogService.dialogState$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        if (!state) {
-          this.dialogRef.close();
-        }
-      });
-    this.dialogService.handlerIframe(this.dialog);
-  }
-
-  trackByFn(index: number, item: any): number {
-    return index;
   }
 }
