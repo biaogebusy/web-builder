@@ -7,179 +7,179 @@ import { getBgClasses, getGridLayoutConfig, getOverlay, getSpacerOptions } from 
 import { getVideo } from './getVideo';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
-  const fields: FormlyFieldConfig[] = [
-    {
-      type: 'tabs',
-      key: 'component',
-      fieldGroup: [
-        {
-          props: {
-            label: '通用',
-          },
-          fieldGroupClassName: 'grid grid-cols-12 gap-3',
-          fieldGroup: [
-            {
-              type: 'select',
-              key: 'fullWidth',
-              className: 'col-span-6',
-              defaultValue: content.fullWidth ?? false,
-              props: {
-                label: '全屏宽',
-                options: [
-                  {
-                    label: '全屏',
-                    value: true,
-                  },
-                  {
-                    label: '非全屏',
-                    value: false,
-                  },
-                ],
-              },
-            },
-            {
-              type: 'select',
-              key: 'spacer',
-              defaultValue: content.spacer ?? 'none',
-              className: 'col-span-6',
-              props: {
-                label: '上下间距',
-                options: getSpacerOptions,
-              },
-            },
-            {
-              type: 'select',
-              key: 'bgClasses',
-              className: 'col-span-6',
-              defaultValue: content?.bg?.classes ?? 'bg- bg-fill-width',
-              props: {
-                label: '背景色',
-                options: getBgClasses,
-              },
-            },
-            {
-              type: 'select',
-              key: 'overlay',
-              className: 'col-span-6',
-              defaultValue: content?.bg?.overlay ?? '',
-              props: {
-                label: '蒙版',
-                options: getOverlay,
-              },
-            },
-            {
-              type: 'input',
-              key: 'containerClasses',
-              className: 'col-span-6',
-              defaultValue: content.containerClasses ?? '',
-              props: {
-                label: 'Classes',
-                description: '组件 class',
-              },
-            },
-            {
-              type: 'input',
-              key: 'id',
-              className: 'col-span-6',
-              defaultValue: content.id ?? '',
-              props: {
-                label: 'ID',
-                description: 'HTML ID',
-              },
-            },
-            {
-              key: 'bg',
-              className: 'col-span-12 mt-3',
-              fieldGroup: [
+  const fields: FormlyFieldConfig = {
+    type: 'tabs',
+    key: 'component',
+    fieldGroup: [
+      {
+        props: {
+          label: '通用',
+        },
+        fieldGroupClassName: 'grid grid-cols-12 gap-3',
+        fieldGroup: [
+          {
+            type: 'select',
+            key: 'fullWidth',
+            className: 'col-span-6',
+            defaultValue: content.fullWidth ?? false,
+            props: {
+              label: '全屏宽',
+              options: [
                 {
-                  key: 'img',
-                  fieldGroup: [
-                    {
-                      key: 'src',
-                      type: 'img-picker',
-                      defaultValue: content?.bg?.img?.src ?? '',
-                      props: {
-                        updateLabel: '更新背景图',
-                        addLabel: '设置背景图',
-                        deleteLabel: '删除',
-                      },
-                      hooks: {
-                        onInit: (formGroup: any) => {
-                          const { form } = formGroup;
-                          form.valueChanges.subscribe((value: any) => {
-                            const srcArr = value.src.split(/\/|(?=\.\w+$)/);
-                            form.get('alt').patchValue(srcArr[srcArr.length - 2], {
-                              onlySelf: true,
-                              emitEvent: true,
-                            });
-                          });
-                        },
-                      },
-                    },
-                    {
-                      key: 'classes',
-                      type: 'select',
-                      defaultValue: content?.bg?.img?.classes ?? 'bg-cover',
-                      props: {
-                        label: '背景填充方式',
-                        options: [
-                          {
-                            label: '按比例铺满 cover',
-                            value: 'bg-cover',
-                          },
-                          {
-                            label: '按比例完整显示 contain',
-                            value: 'bg-contain',
-                          },
-                          {
-                            label: '拉伸铺满 fill',
-                            value: 'bg-fill',
-                          },
-                        ],
-                      },
-                      hideExpression: '!model.src',
-                    },
-                    {
-                      key: 'alt',
-                      type: 'input',
-                      defaultValue: content?.bg?.img?.alt ?? '',
-                      props: {
-                        label: 'alt',
-                      },
-                    },
-                  ],
+                  label: '全屏',
+                  value: true,
                 },
                 {
-                  key: 'classes',
-                  type: 'input',
-                  defaultValue: content?.bg?.classes ?? 'bg-fill-width',
-                  props: {
-                    label: 'Bg Class',
-                  },
-                  hideExpression: '!model.src',
+                  label: '非全屏',
+                  value: false,
                 },
               ],
             },
-          ],
-        },
-      ],
-      hooks: {
-        onInit: (formGroup: any) => {
-          const { form, model } = formGroup;
-          form.valueChanges.subscribe((value: any) => {
-            const { component } = value;
-            model.bg = {
-              ...model.bg,
-              ...{
-                classes: component.bgClasses,
-                overlay: component.overlay,
+          },
+          {
+            type: 'select',
+            key: 'spacer',
+            defaultValue: content.spacer ?? 'none',
+            className: 'col-span-6',
+            props: {
+              label: '上下间距',
+              options: getSpacerOptions,
+            },
+          },
+          {
+            type: 'select',
+            key: 'bgClasses',
+            className: 'col-span-6',
+            defaultValue: content?.bg?.classes ?? 'bg- bg-fill-width',
+            props: {
+              label: '背景色',
+              options: getBgClasses,
+            },
+          },
+          {
+            type: 'select',
+            key: 'overlay',
+            className: 'col-span-6',
+            defaultValue: content?.bg?.overlay ?? '',
+            props: {
+              label: '蒙版',
+              options: getOverlay,
+            },
+          },
+          {
+            type: 'input',
+            key: 'containerClasses',
+            className: 'col-span-6',
+            defaultValue: content.containerClasses ?? '',
+            props: {
+              label: 'Classes',
+              description: '组件 class',
+            },
+          },
+          {
+            type: 'input',
+            key: 'id',
+            className: 'col-span-6',
+            defaultValue: content.id ?? '',
+            props: {
+              label: 'ID',
+              description: 'HTML ID',
+            },
+          },
+          {
+            key: 'bg',
+            className: 'col-span-12 mt-3',
+            fieldGroup: [
+              {
+                key: 'img',
+                fieldGroup: [
+                  {
+                    key: 'src',
+                    type: 'img-picker',
+                    defaultValue: content?.bg?.img?.src ?? '',
+                    props: {
+                      updateLabel: '更新背景图',
+                      addLabel: '设置背景图',
+                      deleteLabel: '删除',
+                    },
+                    hooks: {
+                      onInit: (formGroup: any) => {
+                        const { form } = formGroup;
+                        form.valueChanges.subscribe((value: any) => {
+                          const srcArr = value.src.split(/\/|(?=\.\w+$)/);
+                          form.get('alt').patchValue(srcArr[srcArr.length - 2], {
+                            onlySelf: true,
+                            emitEvent: true,
+                          });
+                        });
+                      },
+                    },
+                  },
+                  {
+                    key: 'classes',
+                    type: 'select',
+                    defaultValue: content?.bg?.img?.classes ?? 'bg-cover',
+                    props: {
+                      label: '背景填充方式',
+                      options: [
+                        {
+                          label: '按比例铺满 cover',
+                          value: 'bg-cover',
+                        },
+                        {
+                          label: '按比例完整显示 contain',
+                          value: 'bg-contain',
+                        },
+                        {
+                          label: '拉伸铺满 fill',
+                          value: 'bg-fill',
+                        },
+                      ],
+                    },
+                    hideExpression: '!model.src',
+                  },
+                  {
+                    key: 'alt',
+                    type: 'input',
+                    defaultValue: content?.bg?.img?.alt ?? '',
+                    props: {
+                      label: 'alt',
+                    },
+                  },
+                ],
               },
-            };
-          });
-        },
+              {
+                key: 'classes',
+                type: 'input',
+                defaultValue: content?.bg?.classes ?? 'bg-fill-width',
+                props: {
+                  label: 'Bg Class',
+                },
+                hideExpression: '!model.src',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    hooks: {
+      onInit: (formGroup: any) => {
+        const { form, model } = formGroup;
+        form.valueChanges.subscribe((value: any) => {
+          const { component } = value;
+          model.bg = {
+            ...model.bg,
+            ...{
+              classes: component.bgClasses,
+              overlay: component.overlay,
+            },
+          };
+        });
       },
     },
-  ];
+  };
+
+  const tabsGroup = fields.fieldGroup;
   switch (content.type) {
     case 'layout-builder':
       const flexConfig: FormlyFieldConfig[] = [
@@ -201,10 +201,10 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           ],
         },
       ];
-      fields[0].fieldGroup?.push(...flexConfig);
+      tabsGroup?.push(...flexConfig);
       break;
     case 'swiper':
-      fields[0].fieldGroup?.push({
+      tabsGroup?.push({
         props: {
           label: '幻灯片',
         },
@@ -218,7 +218,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
       break;
 
     case 'video':
-      fields[0].fieldGroup?.push({
+      tabsGroup?.push({
         props: {
           label: '视频',
         },
@@ -227,7 +227,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
       break;
 
     case 'text':
-      fields[0].fieldGroup?.push({
+      tabsGroup?.push({
         props: {
           label: '文本',
         },
@@ -278,7 +278,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           },
           fieldGroup: [...getText(content.text)],
         };
-        fields[0].fieldGroup?.push(textConfig);
+        tabsGroup?.push(textConfig);
       }
       const swiperConfig1v3: FormlyFieldConfig = {
         props: {
@@ -292,7 +292,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         ],
       };
 
-      fields[0].fieldGroup?.push(swiperConfig1v3);
+      tabsGroup?.push(swiperConfig1v3);
       break;
 
     case 'carousel-2v1':
@@ -303,7 +303,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           },
           fieldGroup: [...getTitle(content.title)],
         };
-        fields[0].fieldGroup?.push(titleConfig);
+        tabsGroup?.push(titleConfig);
       }
 
       const swiperConfig2v1: FormlyFieldConfig = {
@@ -318,7 +318,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         ],
       };
 
-      fields[0].fieldGroup?.push(swiperConfig2v1);
+      tabsGroup?.push(swiperConfig2v1);
       break;
 
     case 'carousel-1v1':
@@ -332,7 +332,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
           },
           fieldGroup: [...getTitle(content.title)],
         };
-        fields[0].fieldGroup?.push(titleConfig);
+        tabsGroup?.push(titleConfig);
       }
 
       const swiperConfig: FormlyFieldConfig = {
@@ -347,10 +347,10 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         ],
       };
 
-      fields[0].fieldGroup?.push(swiperConfig);
+      tabsGroup?.push(swiperConfig);
       break;
   }
 
-  fields[0].fieldGroup?.push(getAnimate(content));
-  return fields;
+  tabsGroup?.push(getAnimate(content));
+  return [fields];
 }
