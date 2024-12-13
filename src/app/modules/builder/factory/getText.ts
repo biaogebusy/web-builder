@@ -1,7 +1,7 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { spacerOption } from './getSpacer';
 
-export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getText(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'text',
@@ -43,10 +43,6 @@ export function getText(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }

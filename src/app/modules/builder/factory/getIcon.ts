@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getIcon(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getIcon(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'icon',
@@ -54,10 +54,6 @@ export function getIcon(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }

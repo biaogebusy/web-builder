@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getTitle(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'title',
@@ -145,10 +145,6 @@ export function getTitle(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }

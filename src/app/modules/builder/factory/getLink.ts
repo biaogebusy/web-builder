@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getLink(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'link',
@@ -79,10 +79,6 @@ export function getLink(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }

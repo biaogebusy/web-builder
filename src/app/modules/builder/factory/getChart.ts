@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getChart(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getChart(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'chart',
@@ -38,10 +38,6 @@ export function getChart(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }

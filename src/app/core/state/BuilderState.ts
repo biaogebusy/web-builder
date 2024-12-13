@@ -14,7 +14,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { cloneDeep, get, map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
-import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
 import { WIDGETS } from '@core/token/token-providers';
@@ -280,51 +279,52 @@ export class BuilderState {
     const animateConfig = getAnimate(widget);
     switch (widget.type) {
       case 'title':
-        fields = getTitle(widget, [animateConfig]);
+        fields = getTitle(widget);
         break;
       case 'video':
-        fields = getVideo(widget, [animateConfig]);
+        fields = getVideo(widget);
         break;
       case 'btn-video':
-        fields = getBtnVideo(widget, [animateConfig]);
+        fields = getBtnVideo(widget);
         break;
       case 'swiper':
-        fields = getSwiper(widget, [animateConfig]);
+        fields = getSwiper(widget);
         break;
       case 'link':
-        fields = getLink(widget, [animateConfig]);
+        fields = getLink(widget);
         break;
       case 'btn':
-        fields = getBtn(widget, [animateConfig]);
+        fields = getBtn(widget);
         break;
       case 'spacer':
         fields = getSpacer(widget);
         break;
       case 'chart':
-        fields = getChart(widget, [animateConfig]);
+        fields = getChart(widget);
         break;
       case 'contact-us':
-        fields = getContact(widget, [animateConfig]);
+        fields = getContact(widget);
         break;
       case 'text':
-        fields = getText(widget, [animateConfig]);
+        fields = getText(widget);
         break;
       case 'img':
-        fields = getImg(widget, [animateConfig]);
+        fields = getImg(widget);
         break;
       case 'icon':
-        fields = getIcon(widget, [animateConfig]);
+        fields = getIcon(widget);
         break;
       case 'layout-builder':
-        fields = getBuilder(widget, [animateConfig]);
+        fields = getBuilder(widget);
         break;
       case 'divider':
         fields = getDivider(widget);
         break;
       default:
-        fields = getNone(widget, [animateConfig]);
+        fields = getNone(widget);
     }
 
+    fields[0].fieldGroup?.push(animateConfig);
     if (fields.length > 0) {
       this.showComponentSetting(widget, fields, path);
     }

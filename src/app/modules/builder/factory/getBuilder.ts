@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getGridLayoutConfig, getSpacerOptions } from './getCommon';
-export function getBuilder(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getBuilder(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'builder',
@@ -36,10 +36,6 @@ export function getBuilder(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }

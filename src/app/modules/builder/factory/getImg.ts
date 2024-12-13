@@ -1,7 +1,7 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getAspectRatio, getObjectFix } from './getCommon';
 
-export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getImg(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'img',
@@ -143,10 +143,6 @@ export function getImg(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }

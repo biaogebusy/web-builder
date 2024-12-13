@@ -81,7 +81,7 @@ export class ComponentToolbarComponent implements OnInit {
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
-  onSetting(content: any, pageIndex: number, event: any): void {
+  onSetting(content: any, event: any): void {
     const { type } = content;
     const path = this.util.generatePath(event.target);
     const component = type ? content : content.content;

@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getBtnVideo(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'btnVideo',
@@ -114,9 +114,6 @@ export function getBtnVideo(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }

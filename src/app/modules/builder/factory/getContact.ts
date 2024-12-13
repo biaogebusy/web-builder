@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getContact(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getContact(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'contact',
@@ -45,9 +45,6 @@ export function getContact(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }

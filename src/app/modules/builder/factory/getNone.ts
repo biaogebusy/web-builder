@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export function getNone(widget: any, options?: any[]): FormlyFieldConfig[] {
+export function getNone(widget: any): FormlyFieldConfig[] {
   const fields = [
     {
       key: 'none',
@@ -19,10 +19,6 @@ export function getNone(widget: any, options?: any[]): FormlyFieldConfig[] {
       ],
     },
   ];
-
-  if (options) {
-    fields[0].fieldGroup.push(...options);
-  }
 
   return fields;
 }
