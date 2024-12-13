@@ -47,6 +47,7 @@ export function getLink(widget: any): FormlyFieldConfig {
             defaultValue: widget.rel ?? '',
             props: {
               type: 'text',
+              placeholder: 'rel',
             },
           },
           {

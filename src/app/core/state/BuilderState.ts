@@ -18,22 +18,8 @@ import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
 import { WIDGETS } from '@core/token/token-providers';
 import { getAnimate } from '@modules/builder/factory/getAnimate';
-import { getBtn } from '@modules/builder/factory/getBtn';
-import { getBtnVideo } from '@modules/builder/factory/getBtnVideo';
-import { getBuilder } from '@modules/builder/factory/getBuilder';
-import { getChart } from '@modules/builder/factory/getChart';
-import { getContact } from '@modules/builder/factory/getContact';
-import { getDivider } from '@modules/builder/factory/getDivider';
-import { getIcon } from '@modules/builder/factory/getIcon';
-import { getImg } from '@modules/builder/factory/getImg';
-import { getLink } from '@modules/builder/factory/getLink';
-import { getNone } from '@modules/builder/factory/getNone';
-import { getSpacer } from '@modules/builder/factory/getSpacer';
-import { getSwiper } from '@modules/builder/factory/getSwiper';
-import { getText } from '@modules/builder/factory/getText';
-import { getTitle } from '@modules/builder/factory/getTitle';
-import { getVideo } from '@modules/builder/factory/getVideo';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { getWidgetSetting } from '@modules/builder/factory/getWidgetSetting';
 
 @Injectable({
   providedIn: 'root',
@@ -275,54 +261,8 @@ export class BuilderState {
   }
 
   onWidgetSetting(widget: any, path: string): void {
-    let fields: FormlyFieldConfig;
     const animateConfig = getAnimate(widget);
-    switch (widget.type) {
-      case 'title':
-        fields = getTitle(widget);
-        break;
-      case 'video':
-        fields = getVideo(widget);
-        break;
-      case 'btn-video':
-        fields = getBtnVideo(widget);
-        break;
-      case 'swiper':
-        fields = getSwiper(widget);
-        break;
-      case 'link':
-        fields = getLink(widget);
-        break;
-      case 'btn':
-        fields = getBtn(widget);
-        break;
-      case 'spacer':
-        fields = getSpacer(widget);
-        break;
-      case 'chart':
-        fields = getChart(widget);
-        break;
-      case 'contact-us':
-        fields = getContact(widget);
-        break;
-      case 'text':
-        fields = getText(widget);
-        break;
-      case 'img':
-        fields = getImg(widget);
-        break;
-      case 'icon':
-        fields = getIcon(widget);
-        break;
-      case 'layout-builder':
-        fields = getBuilder(widget);
-        break;
-      case 'divider':
-        fields = getDivider(widget);
-        break;
-      default:
-        fields = getNone(widget);
-    }
+    const fields = getWidgetSetting(widget);
 
     fields.fieldGroup?.push(animateConfig);
     this.showComponentSetting(widget, [fields], path);

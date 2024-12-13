@@ -5,6 +5,7 @@ import { getText } from './getText';
 import { getAnimate } from './getAnimate';
 import { getBgClasses, getGridLayoutConfig, getOverlay, getSpacerOptions } from './getCommon';
 import { getVideo } from './getVideo';
+import { getWidgetSetting } from './getWidgetSetting';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig = {
@@ -349,6 +350,14 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
 
       tabsGroup?.push(swiperConfig);
       break;
+
+    default:
+      tabsGroup?.push({
+        props: {
+          label: content.type,
+        },
+        fieldGroup: getWidgetSetting(content).fieldGroup,
+      });
   }
 
   tabsGroup?.push(getAnimate(content));
