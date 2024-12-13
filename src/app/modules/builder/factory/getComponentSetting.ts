@@ -180,177 +180,175 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
       },
     },
   ];
-
-  if (content.type === 'layout-builder') {
-    const flexConfig: FormlyFieldConfig[] = [
-      {
+  switch (content.type) {
+    case 'layout-builder':
+      const flexConfig: FormlyFieldConfig[] = [
+        {
+          props: {
+            label: '布局',
+          },
+          fieldGroup: [
+            ...getGridLayoutConfig(content),
+            {
+              type: 'input',
+              key: 'wrapperClass',
+              className: 'w-full',
+              defaultValue: content.wrapperClass ?? '',
+              props: {
+                label: 'Wrapper Classes',
+              },
+            },
+          ],
+        },
+      ];
+      fields[0].fieldGroup?.push(...flexConfig);
+      break;
+    case 'swiper':
+      fields[0].fieldGroup?.push({
         props: {
-          label: '布局',
+          label: '幻灯片',
         },
         fieldGroup: [
-          ...getGridLayoutConfig(content),
           {
-            type: 'input',
-            key: 'wrapperClass',
+            type: 'tabs',
+            fieldGroup: getSwiper(content)[0].fieldGroup,
+          },
+        ],
+      });
+      break;
+
+    case 'video':
+      fields[0].fieldGroup?.push({
+        props: {
+          label: '视频',
+        },
+        fieldGroup: getVideo(content)[0].fieldGroup,
+      });
+      break;
+
+    case 'text':
+      fields[0].fieldGroup?.push({
+        props: {
+          label: '文本',
+        },
+        fieldGroup: [
+          ...getTitle(content.title),
+          {
+            key: 'body',
+            type: 'rich-text',
             className: 'w-full',
-            defaultValue: content.wrapperClass ?? '',
+            defaultValue: content.body,
             props: {
-              label: 'Wrapper Classes',
+              label: '内容',
+              rows: 10,
+            },
+          },
+          {
+            key: 'actionsAlign',
+            type: 'select',
+            className: 'w-full',
+            defaultValue: content.actionsAlign ?? 'center',
+            props: {
+              label: '按钮对齐',
+              options: [
+                {
+                  label: '左对齐',
+                  value: 'start',
+                },
+                {
+                  label: '居中对齐',
+                  value: 'center',
+                },
+                {
+                  label: '右对齐',
+                  value: 'end',
+                },
+              ],
             },
           },
         ],
-      },
-    ];
-    fields[0].fieldGroup?.push(...flexConfig);
-  }
+      });
+      break;
 
-  if (content.type === 'swiper') {
-    fields[0].fieldGroup?.push({
-      props: {
-        label: '幻灯片',
-      },
-      fieldGroup: [
-        {
-          type: 'tabs',
-          fieldGroup: getSwiper(content)[0].fieldGroup,
-        },
-      ],
-    });
-  }
-
-  if (content.type === 'video') {
-    fields[0].fieldGroup?.push({
-      props: {
-        label: '视频',
-      },
-      fieldGroup: getVideo(content)[0].fieldGroup,
-    });
-  }
-
-  if (content.type === 'text') {
-    fields[0].fieldGroup?.push({
-      props: {
-        label: '文本',
-      },
-      fieldGroup: [
-        ...getTitle(content.title),
-        {
-          key: 'body',
-          type: 'rich-text',
-          className: 'w-full',
-          defaultValue: content.body,
+    case 'carousel-1v3':
+      if (content.text) {
+        const textConfig: FormlyFieldConfig = {
           props: {
-            label: '内容',
-            rows: 10,
+            label: '标题',
           },
+          fieldGroup: [...getText(content.text)],
+        };
+        fields[0].fieldGroup?.push(textConfig);
+      }
+      const swiperConfig1v3: FormlyFieldConfig = {
+        props: {
+          label: '幻灯片',
         },
-        {
-          key: 'actionsAlign',
-          type: 'select',
-          className: 'w-full',
-          defaultValue: content.actionsAlign ?? 'center',
+        fieldGroup: [
+          {
+            ...getSwiper(content.sliders)[0],
+            key: 'sliders',
+          },
+        ],
+      };
+
+      fields[0].fieldGroup?.push(swiperConfig1v3);
+      break;
+
+    case 'carousel-2v1':
+      if (content.title) {
+        const titleConfig: FormlyFieldConfig = {
           props: {
-            label: '按钮对齐',
-            options: [
-              {
-                label: '左对齐',
-                value: 'start',
-              },
-              {
-                label: '居中对齐',
-                value: 'center',
-              },
-              {
-                label: '右对齐',
-                value: 'end',
-              },
-            ],
+            label: '标题',
           },
-        },
-      ],
-    });
-  }
+          fieldGroup: [...getTitle(content.title)],
+        };
+        fields[0].fieldGroup?.push(titleConfig);
+      }
 
-  if (
-    content.type === 'carousel-1v1' ||
-    content.type === 'carousel-1v2' ||
-    content.type === 'carousel-2v2' ||
-    content.type === 'hero-1v1'
-  ) {
-    if (content.title) {
-      const titleConfig: FormlyFieldConfig = {
+      const swiperConfig2v1: FormlyFieldConfig = {
         props: {
-          label: '标题',
+          label: '幻灯片',
         },
-        fieldGroup: [...getTitle(content.title)],
+        fieldGroup: [
+          {
+            ...getSwiper(content.sliders)[0],
+            key: 'sliders',
+          },
+        ],
       };
-      fields[0].fieldGroup?.push(titleConfig);
-    }
 
-    const swiperConfig: FormlyFieldConfig = {
-      props: {
-        label: '幻灯片',
-      },
-      fieldGroup: [
-        {
-          ...getSwiper(content.sliders)[0],
-          key: 'sliders',
-        },
-      ],
-    };
+      fields[0].fieldGroup?.push(swiperConfig2v1);
+      break;
 
-    fields[0].fieldGroup?.push(swiperConfig);
-  }
+    case 'carousel-1v1':
+    case 'carousel-1v2':
+    case 'carousel-2v2':
+    case 'hero-1v1':
+      if (content.title) {
+        const titleConfig: FormlyFieldConfig = {
+          props: {
+            label: '标题',
+          },
+          fieldGroup: [...getTitle(content.title)],
+        };
+        fields[0].fieldGroup?.push(titleConfig);
+      }
 
-  if (content.type === 'carousel-1v3') {
-    if (content.text) {
-      const textConfig: FormlyFieldConfig = {
+      const swiperConfig: FormlyFieldConfig = {
         props: {
-          label: '标题',
+          label: '幻灯片',
         },
-        fieldGroup: [...getText(content.text)],
+        fieldGroup: [
+          {
+            ...getSwiper(content.sliders)[0],
+            key: 'sliders',
+          },
+        ],
       };
-      fields[0].fieldGroup?.push(textConfig);
-    }
-    const swiperConfig: FormlyFieldConfig = {
-      props: {
-        label: '幻灯片',
-      },
-      fieldGroup: [
-        {
-          ...getSwiper(content.sliders)[0],
-          key: 'sliders',
-        },
-      ],
-    };
 
-    fields[0].fieldGroup?.push(swiperConfig);
-  }
-
-  if (content.type === 'carousel-2v1') {
-    if (content.title) {
-      const titleConfig: FormlyFieldConfig = {
-        props: {
-          label: '标题',
-        },
-        fieldGroup: [...getTitle(content.title)],
-      };
-      fields[0].fieldGroup?.push(titleConfig);
-    }
-
-    const swiperConfig: FormlyFieldConfig = {
-      props: {
-        label: '幻灯片',
-      },
-      fieldGroup: [
-        {
-          ...getSwiper(content.sliders)[0],
-          key: 'sliders',
-        },
-      ],
-    };
-
-    fields[0].fieldGroup?.push(swiperConfig);
+      fields[0].fieldGroup?.push(swiperConfig);
+      break;
   }
 
   fields[0].fieldGroup?.push(getAnimate(content));
