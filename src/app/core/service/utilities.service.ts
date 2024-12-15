@@ -3,18 +3,18 @@ import { Inject, Injectable, inject } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
+import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-
+import AOS from 'aos';
 @Injectable({
   providedIn: 'root',
 })
 export class UtilitiesService {
-  private clipboard = inject(Clipboard)
-  private snackbar = inject(MatSnackBar)
-  private screenService = inject(ScreenService)
-  private document = inject(DOCUMENT)
-  private coreConfig = inject(CORE_CONFIG)
+  private clipboard = inject(Clipboard);
+  private snackbar = inject(MatSnackBar);
+  private screenService = inject(ScreenService);
+  private document = inject(DOCUMENT);
+  private coreConfig = inject(CORE_CONFIG);
   getIndexTitle(title: string): string {
     return title.substring(0, 1);
   }
@@ -73,11 +73,7 @@ export class UtilitiesService {
     return '';
   }
 
-  getDatesInRange(
-    startDate: Date,
-    endDate: Date,
-    formarDate: string
-  ): string[] {
+  getDatesInRange(startDate: Date, endDate: Date, formarDate: string): string[] {
     const date = new Date(startDate.getTime());
 
     const dates = [];
@@ -94,20 +90,16 @@ export class UtilitiesService {
     this.clipboard.copy(content);
   }
 
-  initAnimate(
-    inputs: IDynamicInputs,
-    animateEle: HTMLElement,
-    triggerEle: HTMLElement
-  ): void {
+  initAnimate(inputs: IDynamicInputs, animateEle: HTMLElement, triggerEle: HTMLElement): void {
     if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
       let gsapConfig;
+      let content: any = {};
       if (!inputs.type && inputs.content) {
-        if (inputs?.content?.animate) {
-          gsapConfig = inputs.content.animate;
-        }
+        content = inputs.content;
       } else {
-        gsapConfig = inputs.animate;
+        content = inputs;
       }
+      gsapConfig = content.animate;
       if (gsapConfig) {
         const { enable, trigger, from } = gsapConfig;
         if (enable) {
@@ -122,9 +114,7 @@ export class UtilitiesService {
               scroller: this.getScroller(),
               toggleActions: `${trigger?.onEnter || 'paly'} ${
                 trigger?.onLeave || 'none'
-              } ${trigger?.onEnterBack || 'none'} ${
-                trigger?.onLeaveBack || 'none'
-              }`,
+              } ${trigger?.onEnterBack || 'none'} ${trigger?.onLeaveBack || 'none'}`,
             },
           });
           if (from) {
@@ -134,6 +124,17 @@ export class UtilitiesService {
             });
           }
         }
+      }
+
+      const { aos } = content;
+      if (aos) {
+        console.log(aos);
+        const { animation } = aos;
+        animateEle.setAttribute('data-aos', animation);
+        setTimeout(() => {
+          AOS.init();
+          AOS.refresh();
+        }, 800);
       }
     }
   }

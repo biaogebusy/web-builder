@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
-
+import AOS from 'aos';
 @Component({
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
@@ -85,6 +85,10 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         };
       })
     );
+  }
+
+  onScroll(): void {
+    AOS.refreshHard();
   }
 
   addNewSection(event: any, type: 'widget' | 'section', newSection: any): void {

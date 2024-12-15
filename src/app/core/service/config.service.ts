@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 import { ClarityService } from './clarity.service';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import AOS from 'aos';
 @Injectable({
   providedIn: 'root',
 })
@@ -40,6 +41,7 @@ export class ConfigService {
         }
         window.gsap = gsap;
         window.gsap.registerPlugin(ScrollTrigger);
+        AOS.init();
       }
     }
   }
