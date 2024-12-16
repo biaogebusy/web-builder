@@ -111,13 +111,13 @@ export class DynamicComponentComponent
       this.component.instance.pageIndex = this.index;
     }
     this.container.insert(this.component.hostView);
+    this.component.changeDetectorRef.markForCheck();
     this.util.initAnimate(
       this.inputs,
       this.ele.nativeElement.lastElementChild,
       this.ele.nativeElement,
       this.index
     );
-    this.component.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy(): void {
