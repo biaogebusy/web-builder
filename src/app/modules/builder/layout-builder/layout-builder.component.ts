@@ -32,12 +32,10 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
 
   layoutAnimate(): void {
     this.content.elements.map((item: ILayoutBlock, index) => {
-      if (item.animate) {
-        const animateEle = this.ele.nativeElement.querySelectorAll(
-          `.layout-${index} .for-animate`
-        )[0];
-        this.util.initAnimate(item, animateEle, this.ele.nativeElement);
-      }
+      const animateEle = this.ele.nativeElement.querySelectorAll(
+        `.layout-${index} .for-animate`
+      )[0];
+      this.util.initAnimate(item, animateEle, this.ele.nativeElement);
     });
   }
 }

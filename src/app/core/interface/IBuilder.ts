@@ -96,6 +96,7 @@ export interface ILayoutBlock {
   row: {
     [key: string]: number;
   };
+  aos?: any;
   animate?: any;
   bg?: IBgImg;
   elements: any[];
