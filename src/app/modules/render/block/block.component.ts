@@ -63,7 +63,6 @@ export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.componentCount$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.count += 1;
-        console.log(this.count);
         if (this.count === this.pageBodyLength - 1) {
           setTimeout(() => {
             AOS.init();
