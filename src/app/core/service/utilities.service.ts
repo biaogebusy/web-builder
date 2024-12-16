@@ -1,5 +1,5 @@
 import { DOCUMENT, formatDate } from '@angular/common';
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -128,13 +128,18 @@ export class UtilitiesService {
 
       const { aos } = content;
       if (aos) {
-        console.log(aos);
-        const { animation } = aos;
-        animateEle.setAttribute('data-aos', animation);
-        setTimeout(() => {
-          AOS.init();
-          AOS.refresh();
-        }, 800);
+        const { animation, enable, behaviour } = aos;
+        if (enable) {
+          animateEle.classList.add('aos-item');
+          animateEle.setAttribute('data-aos', animation);
+          Object.keys(behaviour).forEach(key => {
+            animateEle.setAttribute(`data-aos-${key}`, behaviour[key]);
+          });
+          setTimeout(() => {
+            AOS.init();
+            AOS.refresh();
+          }, 800);
+        }
       }
     }
   }

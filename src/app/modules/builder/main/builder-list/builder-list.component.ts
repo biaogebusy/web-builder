@@ -12,6 +12,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  afterRender,
   inject,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
@@ -51,7 +52,34 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
     @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
-  ) {}
+  ) {
+    afterRender(() => {
+      const scrollableContainer = document.querySelector('.builder-list');
+      const aosElements = this.builderList.nativeElement.querySelectorAll('.aos-item');
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach((entry: any) => {
+            const { top } = entry.boundingClientRect;
+            const viewportHeight = entry.rootBounds.height; // 滚动容器的高度
+            const bottomOffset = 150;
+            if (entry.isIntersecting) {
+              entry.target.classList.add('aos-animate');
+            }
+
+            if (top > viewportHeight - bottomOffset) {
+              // 当元素准备离开底部一定距离
+              entry.target.classList.remove('aos-animate');
+            }
+          });
+        },
+        {
+          root: scrollableContainer, // 设置滚动容器
+          threshold: 0.1, // 元素进入视口的触发比例
+        }
+      );
+      aosElements.forEach((el: any) => observer.observe(el));
+    });
+  }
 
   ngOnInit(): void {}
 
@@ -85,10 +113,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         };
       })
     );
-  }
-
-  onScroll(): void {
-    AOS.refreshHard();
   }
 
   addNewSection(event: any, type: 'widget' | 'section', newSection: any): void {

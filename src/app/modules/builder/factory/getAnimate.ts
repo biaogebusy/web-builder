@@ -41,310 +41,411 @@ export function getAnimate(content: any): FormlyFieldConfig {
     },
     fieldGroup: [
       {
-        key: 'animate',
-        fieldGroupClassName: 'w-full',
+        type: 'tabs',
         fieldGroup: [
           {
-            key: 'enable',
-            type: 'toggle',
-            className: 'w-full',
-            defaultValue: content?.animate?.enable,
             props: {
-              label: '开启动画',
-            },
-          },
-          {
-            key: 'from',
-            expressions: {
-              hide: (field: FormlyFieldConfig) => {
-                return !field.parent?.model?.enable;
-              },
+              label: 'Aos 基础动画',
             },
             fieldGroup: [
               {
-                fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                key: 'aos',
+                fieldGroupClassName: 'w-full',
                 fieldGroup: [
                   {
-                    key: 'x',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.x ?? 0,
+                    key: 'enable',
+                    type: 'toggle',
+                    className: 'w-full',
+                    defaultValue: content.aos?.enable ?? false,
                     props: {
-                      label: '水平位移',
-                      min: -500,
-                      max: 500,
-                      step: 10,
-                      type: 'number',
+                      label: '开启动画',
                     },
                   },
                   {
-                    key: 'y',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.y ?? 0,
-                    props: {
-                      label: '垂直位移',
-                      min: -500,
-                      max: 500,
-                      step: 10,
-                      type: 'number',
-                    },
-                  },
-                ],
-              },
-              {
-                fieldGroupClassName: 'grid grid-cols-12 gap-3',
-                fieldGroup: [
-                  {
-                    key: 'rotationX',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.rotationX ?? 0,
-                    props: {
-                      label: '水平旋转',
-                      min: -360,
-                      max: 360,
-                      step: 1,
-                      type: 'number',
-                    },
-                  },
-                  {
-                    key: 'rotationY',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.rotationY ?? 0,
-                    props: {
-                      label: '垂直旋转',
-                      min: -360,
-                      max: 360,
-                      step: 1,
-                      type: 'number',
-                    },
-                  },
-                ],
-              },
-              {
-                fieldGroupClassName: 'grid grid-cols-12 gap-3',
-                fieldGroup: [
-                  {
-                    key: 'scaleX',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.scaleX ?? 1,
-                    props: {
-                      label: '水平缩放',
-                      min: 0,
-                      max: 2,
-                      step: 0.1,
-                      type: 'number',
-                    },
-                  },
-                  {
-                    key: 'scaleY',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.scaleY ?? 1,
-                    props: {
-                      label: '垂直缩放',
-                      min: 0,
-                      max: 2,
-                      step: 0.1,
-                      type: 'number',
-                    },
-                  },
-                ],
-              },
-              {
-                fieldGroupClassName: 'grid grid-cols-12 gap-3',
-                fieldGroup: [
-                  {
-                    key: 'skewX',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.skewX ?? 0,
-                    props: {
-                      label: 'skewX',
-                      min: -180,
-                      max: 180,
-                      step: 1,
-                      type: 'number',
-                    },
-                  },
-                  {
-                    key: 'skewY',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.skewY ?? 0,
-                    props: {
-                      label: 'skewY',
-                      min: -180,
-                      max: 180,
-                      step: 1,
-                      type: 'number',
-                    },
-                  },
-                ],
-              },
-              {
-                fieldGroupClassName: 'grid grid-cols-12 gap-3',
-                fieldGroup: [
-                  {
-                    key: 'opacity',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.opacity ?? 1,
-                    props: {
-                      label: '不透明度',
-                      min: 0,
-                      max: 1,
-                      step: 0.1,
-                      type: 'number',
-                    },
-                  },
-                  {
-                    key: 'delay',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.delay ?? 0,
-                    props: {
-                      label: '延迟',
-                      min: 0,
-                      max: 6,
-                      step: 0.1,
-                      type: 'number',
-                    },
-                  },
-                  {
-                    key: 'duration',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.from?.duration ?? 1,
-                    props: {
-                      label: '时长',
-                      min: 0.1,
-                      max: 6,
-                      step: 0.1,
-                      unit: 's',
-                    },
-                  },
-                  {
-                    key: 'ease',
-                    defaultValue: content?.animate?.from?.ease ?? 'none',
+                    key: 'animation',
                     type: 'select',
-                    className: 'col-span-6',
+                    className: 'w-full',
+                    defaultValue: content.aos?.animation || 'fade',
                     props: {
-                      label: '缓动曲线',
+                      label: '动画效果',
                       options: [
-                        { label: 'none', value: 'none' },
-                        { label: 'power1.out', value: 'power1.out' },
-                        { label: 'power2.out', value: 'power2.out' },
-                        { label: 'power3.out', value: 'power3.out' },
-                        { label: 'power4.out', value: 'power4.out' },
-                        { label: 'back.out(1.7)', value: 'back.out(1.7)' },
-                        { label: 'bounce.out', value: 'bounce.out' },
-                        { label: 'circ.out', value: 'circ.out' },
-                        {
-                          label: 'elastic.out(1,0.3)',
-                          value: 'elastic.out(1,0.3)',
-                        },
-                        { label: 'expo.out', value: 'expo.out' },
-                        { label: 'sine.out', value: 'sine.out' },
-                        { label: 'steps(12)', value: 'steps(12)' },
-                        {
-                          label: 'slow(0.7,0.7,false)',
-                          value: 'slow(0.7,0.7,false)',
-                        },
+                        { label: 'fade-up', value: 'fade-up' },
+                        { label: 'fade-down', value: 'fade-down' },
+                        { label: 'fade-left', value: 'fade-left' },
+                        { label: 'fade-right', value: 'fade-right' },
                       ],
                     },
+                  },
+                  {
+                    key: 'behaviour',
+                    fieldGroup: [
+                      {
+                        key: 'offset',
+                        type: 'input',
+                        className: 'w-full',
+                        defaultValue: content.aos?.offset || 120,
+                        props: {
+                          type: 'number',
+                          label: '偏移量',
+                        },
+                      },
+                      {
+                        key: 'duration',
+                        type: 'input',
+                        className: 'w-full',
+                        defaultValue: content.aos?.duration || 400,
+                        props: {
+                          type: 'number',
+                          label: '动画时长',
+                        },
+                      },
+                      {
+                        key: 'delay',
+                        type: 'input',
+                        className: 'w-full',
+                        defaultValue: content.aos?.delay || 0,
+                        props: {
+                          type: 'number',
+                          label: '延迟时间',
+                        },
+                      },
+                      {
+                        key: 'easing',
+                        type: 'select',
+                        className: 'w-full',
+                        defaultValue: content.aos?.easing || 'ease',
+                        props: {
+                          type: 'text',
+                          label: '缓动效果',
+                          options: [
+                            { value: 'linear', label: 'linear' },
+                            { value: 'ease', label: 'ease' },
+                            { value: 'ease-in', label: 'ease-in' },
+                            { value: 'ease-out', label: 'ease-out' },
+                            { value: 'ease-in-out', label: 'ease-in-out' },
+                          ],
+                        },
+                      },
+                    ],
                   },
                 ],
               },
             ],
           },
           {
-            key: 'trigger',
-            expressions: {
-              hide: (field: FormlyFieldConfig) => {
-                return !field.parent?.model?.enable;
-              },
+            props: {
+              label: 'Gsap 高级动画',
             },
             fieldGroup: [
               {
-                fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                key: 'animate',
+                fieldGroupClassName: 'w-full',
                 fieldGroup: [
                   {
-                    key: 'onEnter',
-                    type: 'select',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.trigger?.onEnter ?? 'play',
+                    key: 'enable',
+                    type: 'toggle',
+                    className: 'w-full',
+                    defaultValue: content?.animate?.enable,
                     props: {
-                      label: '元素进入视线',
-                      options: actionsOptions,
+                      label: '开启动画',
                     },
                   },
                   {
-                    key: 'onLeave',
-                    type: 'select',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.trigger?.onLeave ?? 'none',
-                    props: {
-                      label: '元素离开视线',
-                      options: actionsOptions,
+                    key: 'from',
+                    expressions: {
+                      hide: (field: FormlyFieldConfig) => {
+                        return !field.parent?.model?.enable;
+                      },
                     },
+                    fieldGroup: [
+                      {
+                        fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                        fieldGroup: [
+                          {
+                            key: 'x',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.x ?? 0,
+                            props: {
+                              label: '水平位移',
+                              min: -500,
+                              max: 500,
+                              step: 10,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            key: 'y',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.y ?? 0,
+                            props: {
+                              label: '垂直位移',
+                              min: -500,
+                              max: 500,
+                              step: 10,
+                              type: 'number',
+                            },
+                          },
+                        ],
+                      },
+                      {
+                        fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                        fieldGroup: [
+                          {
+                            key: 'rotationX',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.rotationX ?? 0,
+                            props: {
+                              label: '水平旋转',
+                              min: -360,
+                              max: 360,
+                              step: 1,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            key: 'rotationY',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.rotationY ?? 0,
+                            props: {
+                              label: '垂直旋转',
+                              min: -360,
+                              max: 360,
+                              step: 1,
+                              type: 'number',
+                            },
+                          },
+                        ],
+                      },
+                      {
+                        fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                        fieldGroup: [
+                          {
+                            key: 'scaleX',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.scaleX ?? 1,
+                            props: {
+                              label: '水平缩放',
+                              min: 0,
+                              max: 2,
+                              step: 0.1,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            key: 'scaleY',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.scaleY ?? 1,
+                            props: {
+                              label: '垂直缩放',
+                              min: 0,
+                              max: 2,
+                              step: 0.1,
+                              type: 'number',
+                            },
+                          },
+                        ],
+                      },
+                      {
+                        fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                        fieldGroup: [
+                          {
+                            key: 'skewX',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.skewX ?? 0,
+                            props: {
+                              label: 'skewX',
+                              min: -180,
+                              max: 180,
+                              step: 1,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            key: 'skewY',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.skewY ?? 0,
+                            props: {
+                              label: 'skewY',
+                              min: -180,
+                              max: 180,
+                              step: 1,
+                              type: 'number',
+                            },
+                          },
+                        ],
+                      },
+                      {
+                        fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                        fieldGroup: [
+                          {
+                            key: 'opacity',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.opacity ?? 1,
+                            props: {
+                              label: '不透明度',
+                              min: 0,
+                              max: 1,
+                              step: 0.1,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            key: 'delay',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.delay ?? 0,
+                            props: {
+                              label: '延迟',
+                              min: 0,
+                              max: 6,
+                              step: 0.1,
+                              type: 'number',
+                            },
+                          },
+                          {
+                            key: 'duration',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.from?.duration ?? 1,
+                            props: {
+                              label: '时长',
+                              min: 0.1,
+                              max: 6,
+                              step: 0.1,
+                              unit: 's',
+                            },
+                          },
+                          {
+                            key: 'ease',
+                            defaultValue: content?.animate?.from?.ease ?? 'none',
+                            type: 'select',
+                            className: 'col-span-6',
+                            props: {
+                              label: '缓动曲线',
+                              options: [
+                                { label: 'none', value: 'none' },
+                                { label: 'power1.out', value: 'power1.out' },
+                                { label: 'power2.out', value: 'power2.out' },
+                                { label: 'power3.out', value: 'power3.out' },
+                                { label: 'power4.out', value: 'power4.out' },
+                                { label: 'back.out(1.7)', value: 'back.out(1.7)' },
+                                { label: 'bounce.out', value: 'bounce.out' },
+                                { label: 'circ.out', value: 'circ.out' },
+                                {
+                                  label: 'elastic.out(1,0.3)',
+                                  value: 'elastic.out(1,0.3)',
+                                },
+                                { label: 'expo.out', value: 'expo.out' },
+                                { label: 'sine.out', value: 'sine.out' },
+                                { label: 'steps(12)', value: 'steps(12)' },
+                                {
+                                  label: 'slow(0.7,0.7,false)',
+                                  value: 'slow(0.7,0.7,false)',
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    ],
                   },
                   {
-                    key: 'onEnterBack',
-                    type: 'select',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.trigger?.onEnterBack ?? 'none',
-                    props: {
-                      label: '再进入视线',
-                      options: actionsOptions,
+                    key: 'trigger',
+                    expressions: {
+                      hide: (field: FormlyFieldConfig) => {
+                        return !field.parent?.model?.enable;
+                      },
                     },
-                  },
-                  {
-                    key: 'onLeaveBack',
-                    type: 'select',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.trigger?.onLeaveBack ?? 'none',
-                    props: {
-                      label: '再进入后离开',
-                      options: actionsOptions,
-                    },
+                    fieldGroup: [
+                      {
+                        fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                        fieldGroup: [
+                          {
+                            key: 'onEnter',
+                            type: 'select',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.trigger?.onEnter ?? 'play',
+                            props: {
+                              label: '元素进入视线',
+                              options: actionsOptions,
+                            },
+                          },
+                          {
+                            key: 'onLeave',
+                            type: 'select',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.trigger?.onLeave ?? 'none',
+                            props: {
+                              label: '元素离开视线',
+                              options: actionsOptions,
+                            },
+                          },
+                          {
+                            key: 'onEnterBack',
+                            type: 'select',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.trigger?.onEnterBack ?? 'none',
+                            props: {
+                              label: '再进入视线',
+                              options: actionsOptions,
+                            },
+                          },
+                          {
+                            key: 'onLeaveBack',
+                            type: 'select',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.trigger?.onLeaveBack ?? 'none',
+                            props: {
+                              label: '再进入后离开',
+                              options: actionsOptions,
+                            },
+                          },
+                        ],
+                      },
+                      {
+                        fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                        fieldGroup: [
+                          {
+                            key: 'start',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.trigger?.start ?? 'top 90%',
+                            props: {
+                              label: '触发开始位置',
+                            },
+                          },
+                          {
+                            key: 'end',
+                            type: 'input',
+                            className: 'col-span-6',
+                            defaultValue: content?.animate?.trigger?.end ?? 'top 40%',
+                            props: {
+                              label: '触发结束位置',
+                            },
+                          },
+                        ],
+                      },
+                      {
+                        key: 'scrub',
+                        type: 'toggle',
+                        className: 'w-full',
+                        defaultValue: content?.animate?.trigger?.scrub ?? false,
+                        props: {
+                          label: '跟随滚动变化',
+                        },
+                      },
+                    ],
                   },
                 ],
-              },
-              {
-                fieldGroupClassName: 'grid grid-cols-12 gap-3',
-                fieldGroup: [
-                  {
-                    key: 'start',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.trigger?.start ?? 'top 90%',
-                    props: {
-                      label: '触发开始位置',
-                    },
-                  },
-                  {
-                    key: 'end',
-                    type: 'input',
-                    className: 'col-span-6',
-                    defaultValue: content?.animate?.trigger?.end ?? 'top 40%',
-                    props: {
-                      label: '触发结束位置',
-                    },
-                  },
-                ],
-              },
-              {
-                key: 'scrub',
-                type: 'toggle',
-                className: 'w-full',
-                defaultValue: content?.animate?.trigger?.scrub ?? false,
-                props: {
-                  label: '跟随滚动变化',
-                },
               },
             ],
           },

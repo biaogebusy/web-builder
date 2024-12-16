@@ -85,7 +85,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
       return;
     }
     const url = window.location.origin;
-    window.open(`${url}/builder/preview`, '_blank');
+    window.open(`${url}/preview`, '_blank');
   }
 
   onPageSetting(page: IPage): void {

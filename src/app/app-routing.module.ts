@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
+import { PreviewComponent } from '@modules/builder/preview/preview.component';
 import { BlockComponent } from '@modules/render/block/block.component';
 
 const routes: Routes = [
@@ -11,20 +12,21 @@ const routes: Routes = [
   },
   {
     path: 'me',
-    loadChildren: () =>
-      import('./modules/user/user.module').then(m => m.UserModule),
+    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+  },
+  {
+    path: 'preview',
+    component: PreviewComponent,
   },
   {
     path: 'builder',
     canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./modules/builder/builder.module').then(m => m.BuilderModule),
+    loadChildren: () => import('./modules/builder/builder.module').then(m => m.BuilderModule),
   },
   {
     path: 'en/builder',
     canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./modules/builder/builder.module').then(m => m.BuilderModule),
+    loadChildren: () => import('./modules/builder/builder.module').then(m => m.BuilderModule),
   },
   {
     path: '**',

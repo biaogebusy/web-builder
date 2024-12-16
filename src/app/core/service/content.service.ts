@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE, CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -40,7 +40,6 @@ export class ContentService extends ApiService {
 
   loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
     const { lang, path } = this.getUrlPath(pageUrl);
-
     if (environment.production) {
       const landingPath = '/api/v3/landingPage?content=';
       const pageUrlParams = `${this.apiUrl}${lang}${landingPath}${path}`;
@@ -54,16 +53,14 @@ export class ContentService extends ApiService {
         })
       );
     } else {
-      return this.http
-        .get<any>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`)
-        .pipe(
-          tap(page => {
-            this.updatePage(page);
-          }),
-          catchError(() => {
-            return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-          })
-        );
+      return this.http.get<any>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`).pipe(
+        tap(page => {
+          this.updatePage(page);
+        }),
+        catchError(() => {
+          return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
+        })
+      );
     }
   }
 
