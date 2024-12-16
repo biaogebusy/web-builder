@@ -58,8 +58,7 @@ export class DynamicComponentComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.showToolbar =
-        !!this.coreConfig.builder?.enable && this.inputs?.showToolbar;
+      this.showToolbar = !!this.coreConfig.builder?.enable && this.inputs?.showToolbar;
     }
   }
 
@@ -70,15 +69,13 @@ export class DynamicComponentComponent
   }
 
   ngAfterContentInit(): void {
-    this.isBuilderMode$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        if (!this.inputs?.showToolbar) {
-          this.activeToolbarClass = false;
-          return;
-        }
-        this.activeToolbarClass = state;
-      });
+    this.isBuilderMode$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+      if (!this.inputs?.showToolbar) {
+        this.activeToolbarClass = false;
+        return;
+      }
+      this.activeToolbarClass = state;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -117,7 +114,8 @@ export class DynamicComponentComponent
     this.util.initAnimate(
       this.inputs,
       this.ele.nativeElement.lastElementChild,
-      this.ele.nativeElement
+      this.ele.nativeElement,
+      this.index
     );
     this.component.changeDetectorRef.markForCheck();
   }

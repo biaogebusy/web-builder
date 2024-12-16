@@ -6,6 +6,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import AOS from 'aos';
+import { ContentState } from '@core/state/ContentState';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,6 +16,7 @@ export class UtilitiesService {
   private screenService = inject(ScreenService);
   private document = inject(DOCUMENT);
   private coreConfig = inject(CORE_CONFIG);
+  private contentState = inject(ContentState);
   getIndexTitle(title: string): string {
     return title.substring(0, 1);
   }
@@ -90,10 +92,18 @@ export class UtilitiesService {
     this.clipboard.copy(content);
   }
 
-  initAnimate(inputs: IDynamicInputs, animateEle: HTMLElement, triggerEle: HTMLElement): void {
+  initAnimate(
+    inputs: IDynamicInputs,
+    animateEle: HTMLElement,
+    triggerEle: HTMLElement,
+    index?: number
+  ): void {
     if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
       let gsapConfig;
       let content: any = {};
+      if (index !== undefined) {
+        this.contentState.componentCount$.next(index);
+      }
       if (!inputs.type && inputs.content) {
         content = inputs.content;
       } else {
@@ -135,10 +145,6 @@ export class UtilitiesService {
           Object.keys(behaviour).forEach(key => {
             animateEle.setAttribute(`data-aos-${key}`, behaviour[key]);
           });
-          setTimeout(() => {
-            AOS.init();
-            AOS.refresh();
-          }, 800);
         }
       }
     }
