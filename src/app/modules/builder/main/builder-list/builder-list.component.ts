@@ -53,7 +53,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
   ) {
     afterRender(() => {
-      const scrollableContainer = document.querySelector('.builder-list');
+      const scrollableContainer = this.doc.querySelector('.builder-list');
       const aosElements = this.builderList.nativeElement.querySelectorAll('.aos-item');
       const observer = new IntersectionObserver(
         entries => {

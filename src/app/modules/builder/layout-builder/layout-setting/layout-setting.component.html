@@ -1,6 +1,17 @@
 <div class="layout-setting p-5">
+  @let component = content.content;
+  @let elements = component?.elements;
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)" />
-  @let elements = content.content?.elements;
+  @if (model?.component?.aos?.enable) {
+    <app-btn
+      (click)="applyAosAllTopComponent(model.component.aos)"
+      [content]="{
+        label: '一键应用该AOS动画到页面一级组件',
+        color: 'primary',
+        mode: 'stroked',
+      }"
+    />
+  }
   @if (elements?.length) {
     <div class="loop-elements">
       <mat-list cdkDropList (cdkDropListDropped)="drop($event)">

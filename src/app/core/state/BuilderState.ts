@@ -11,7 +11,7 @@ import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { cloneDeep, get, map, set } from 'lodash-es';
+import { cloneDeep, defaults, get, map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
@@ -188,6 +188,16 @@ export class BuilderState {
     const { body } = this.currentPage;
     body[index] = content;
     this.updatePage();
+  }
+
+  bulkUpdateComponent(content: object): void {
+    this.currentPage.body = this.currentPage.body.map(item => {
+      return {
+        ...item,
+        ...content,
+      };
+    });
+    this.saveLocalVersions();
   }
 
   updatePageContentByPath(path: string, content: any, addType?: 'add'): void {
