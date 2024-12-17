@@ -98,7 +98,6 @@ export class UtilitiesService {
     index?: number
   ): void {
     if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
-      let gsapConfig;
       let content: any = {};
       if (index !== undefined) {
         this.contentState.componentCount$.next(index);
@@ -108,9 +107,20 @@ export class UtilitiesService {
       } else {
         content = inputs;
       }
-      gsapConfig = content.animate;
-      if (gsapConfig) {
-        const { enable, trigger, from } = gsapConfig;
+      const { animate, aos } = content;
+      if (animate?.enable && aos?.enable) {
+        this.openSnackbar(`不能同时开启AOS和GSAP动画，请检查！`, 'ok');
+        setTimeout(() => {
+          animateEle.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+          });
+          animateEle.parentElement?.classList.add('animate-warn');
+        }, 800);
+      }
+      if (animate) {
+        const { enable, trigger, from } = animate;
         if (enable) {
           animateEle.style.display = 'block';
           const tl = window.gsap.timeline({
@@ -135,7 +145,6 @@ export class UtilitiesService {
         }
       }
 
-      const { aos } = content;
       if (aos) {
         const { animation, enable, behaviour } = aos;
         if (enable) {
