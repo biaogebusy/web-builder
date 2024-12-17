@@ -5,7 +5,6 @@ import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import AOS from 'aos';
 import { ContentState } from '@core/state/ContentState';
 @Injectable({
   providedIn: 'root',

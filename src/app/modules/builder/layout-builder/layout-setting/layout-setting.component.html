@@ -2,16 +2,18 @@
   @let component = content.content;
   @let elements = component?.elements;
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)" />
-  @if (model?.component?.aos?.enable) {
-    <app-btn
-      (click)="applyAosAllTopComponent(model.component.aos)"
-      [content]="{
-        label: '一键应用该AOS动画到页面一级组件',
-        color: 'primary',
-        mode: 'stroked',
-      }"
-    />
-  }
+  <div class="flex justify-center items-center -mt-5 mb-5">
+    @if (model?.component?.aos?.enable) {
+      <app-btn
+        (click)="applyAosAllTopComponent(model.component.aos)"
+        [content]="{
+          label: '一键应用该AOS动画',
+          color: 'primary',
+          mode: 'stroked',
+        }"
+      />
+    }
+  </div>
   @if (elements?.length) {
     <div class="loop-elements">
       <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
