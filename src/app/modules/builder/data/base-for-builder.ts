@@ -197,7 +197,6 @@ export const base = [
                       x: '100',
                       y: 0,
                       rotation: 0,
-                      scale: 0.8,
                       opacity: 1,
                       delay: 0,
                       duration: 1,

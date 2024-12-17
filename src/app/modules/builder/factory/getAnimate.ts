@@ -203,7 +203,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'x',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.x ?? 0,
+                            defaultValue: Number(content?.animate?.from?.x) ?? 0,
                             props: {
                               label: '水平位移',
                               min: -500,
@@ -216,7 +216,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'y',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.y ?? 0,
+                            defaultValue: Number(content?.animate?.from?.y) ?? 0,
                             props: {
                               label: '垂直位移',
                               min: -500,
@@ -234,7 +234,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'rotationX',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.rotationX ?? 0,
+                            defaultValue: Number(content?.animate?.from?.rotationX) ?? 0,
                             props: {
                               label: '水平旋转',
                               min: -360,
@@ -247,7 +247,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'rotationY',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.rotationY ?? 0,
+                            defaultValue: Number(content?.animate?.from?.rotationY) ?? 0,
                             props: {
                               label: '垂直旋转',
                               min: -360,
@@ -265,7 +265,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'scaleX',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.scaleX ?? 1,
+                            defaultValue: Number(content?.animate?.from?.scaleX) ?? 1,
                             props: {
                               label: '水平缩放',
                               min: 0,
@@ -278,7 +278,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'scaleY',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.scaleY ?? 1,
+                            defaultValue: Number(content?.animate?.from?.scaleY) ?? 1,
                             props: {
                               label: '垂直缩放',
                               min: 0,
@@ -296,7 +296,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'skewX',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.skewX ?? 0,
+                            defaultValue: Number(content?.animate?.from?.skewX) ?? 0,
                             props: {
                               label: 'skewX',
                               min: -180,
@@ -309,7 +309,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'skewY',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.skewY ?? 0,
+                            defaultValue: Number(content?.animate?.from?.skewY) ?? 0,
                             props: {
                               label: 'skewY',
                               min: -180,
@@ -327,7 +327,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'opacity',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.opacity ?? 1,
+                            defaultValue: Number(content?.animate?.from?.opacity) ?? 1,
                             props: {
                               label: '不透明度',
                               min: 0,
@@ -340,7 +340,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'delay',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.delay ?? 0,
+                            defaultValue: Number(content?.animate?.from?.delay) ?? 0,
                             props: {
                               label: '延迟',
                               min: 0,
@@ -353,13 +353,13 @@ export function getAnimate(content: any): FormlyFieldConfig {
                             key: 'duration',
                             type: 'input',
                             className: 'col-span-6',
-                            defaultValue: content?.animate?.from?.duration ?? 1,
+                            defaultValue: Number(content?.animate?.from?.duration) ?? 1,
                             props: {
-                              label: '时长',
+                              label: '时长(秒)',
                               min: 0.1,
                               max: 6,
                               step: 0.1,
-                              unit: 's',
+                              type: 'number',
                             },
                           },
                           {
