@@ -107,9 +107,9 @@ export class UtilitiesService {
       } else {
         content = inputs;
       }
-      const { animate, aos } = content;
-      if (animate?.enable && aos?.enable) {
-        this.openSnackbar(`不能同时开启AOS和GSAP动画，请检查！`, 'ok');
+      const { animate } = content;
+      if (animate?.gsap?.enable && animate?.aos?.enable) {
+        this.openSnackbar(`不能同时开启AOS和GSAP动画，请检查！`, 'ok', { duration: 5000 });
         setTimeout(() => {
           animateEle.scrollIntoView({
             behavior: 'smooth',
@@ -119,8 +119,8 @@ export class UtilitiesService {
           animateEle.parentElement?.classList.add('animate-warn');
         }, 800);
       }
-      if (animate) {
-        const { enable, trigger, from } = animate;
+      if (animate?.gsap) {
+        const { enable, trigger, from } = animate.gsap;
         if (enable) {
           animateEle.style.display = 'block';
           const tl = window.gsap.timeline({
@@ -145,14 +145,17 @@ export class UtilitiesService {
         }
       }
 
-      if (aos) {
-        const { animation, enable, behaviour } = aos;
+      if (animate?.aos) {
+        const { enable, animation, behaviour } = animate.aos;
         if (enable) {
           animateEle.classList.add('aos-item');
           animateEle.setAttribute('data-aos', animation);
           Object.keys(behaviour).forEach(key => {
             animateEle.setAttribute(`data-aos-${key}`, behaviour[key]);
           });
+        } else {
+          animateEle.classList.remove('aos-item');
+          animateEle.removeAttribute('data-aos');
         }
       }
     }
