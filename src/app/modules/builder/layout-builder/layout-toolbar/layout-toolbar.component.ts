@@ -53,21 +53,6 @@ export class LayoutToolbarComponent implements OnInit {
   }
 
   onLayoutSettings(layout: any, target: any): void {
-    const layoutSetting: ILayoutSetting = {
-      type: 'layout-setting',
-      fields: getLayoutSetting(layout),
-      content: layout,
-      path: this.util.generatePath(target),
-      fullWidth: true,
-    };
-    this.builder.rightContent$.next({
-      mode: 'over',
-      hasBackdrop: false,
-      style: {
-        width: '318px',
-      },
-      elements: [layoutSetting],
-    });
     const path = this.util.generatePath(target);
     const fields: FormlyFieldConfig[] = getLayoutSetting(layout);
     this.builder.showComponentSetting(layout, fields, path);
