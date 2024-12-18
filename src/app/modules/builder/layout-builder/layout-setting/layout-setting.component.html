@@ -3,9 +3,9 @@
   @let elements = component?.elements;
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)" />
   <div class="flex justify-center items-center -mt-5 mb-5">
-    @if (model?.component?.aos?.enable) {
+    @if (model?.component?.animate?.aos?.enable) {
       <app-btn
-        (click)="applyAosAllTopComponent(model.component.aos)"
+        (click)="applyAosAllTopComponent(model.component.animate)"
         [content]="{
           label: '一键应用该AOS动画',
           color: 'primary',

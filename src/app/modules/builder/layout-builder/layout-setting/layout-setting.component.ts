@@ -70,7 +70,7 @@ export class LayoutSettingComponent {
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
-  applyAosAllTopComponent(aos: any): void {
+  applyAosAllTopComponent(animate: any): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '340px',
       data: {
@@ -88,7 +88,7 @@ export class LayoutSettingComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.builder.bulkUpdateComponent({ aos });
+        this.builder.bulkUpdateComponent({ animate });
       }
     });
   }
