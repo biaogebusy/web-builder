@@ -1,239 +1,353 @@
-import { ComponentRef, Injectable, Injector, createNgModule, inject } from '@angular/core';
+import {
+  ComponentRef,
+  Injectable,
+  Injector,
+  NgModuleRef,
+  Type,
+  createNgModule,
+  inject,
+} from '@angular/core';
 import { BaseModule } from '@uiux/base/base.module';
+
+// 定义类型
+type ModuleType = Type<any>;
+type ModuleLoader = () => Promise<ModuleType>;
+
+// 模块配置接口
+interface ModuleConfig {
+  module: string;
+  components: string[];
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class ComponentService {
-  private moduleLists: Record<string, () => Promise<any>> = {};
-  injector = inject(Injector);
+  private readonly moduleLoaders = new Map<string, ModuleLoader>();
+  private readonly moduleCache = new Map<string, Promise<NgModuleRef<any>>>();
+  private readonly injector = inject(Injector);
+
+  private readonly MODULE_CONFIG: ModuleConfig[] = [
+    {
+      module: 'WidgetsModule',
+      components: [
+        'bg',
+        'img',
+        'tab',
+        'map',
+        'box',
+        'btn',
+        'text',
+        'card',
+        'link',
+        'icon',
+        'flag',
+        'shape',
+        'panel',
+        'title',
+        'share',
+        'swiper',
+        'divider',
+        'spacer',
+        'iframe',
+        'bg-img',
+        'spinner',
+        'stepper',
+        'card-1v1',
+        'card-1v2',
+        'card-1v4',
+        'card-1v5',
+        'card-1v6',
+        'chart-box',
+        'accordion',
+        'user-card',
+        'btn-video',
+        'view-list',
+        'text-hero',
+        'menu-list',
+        'chip-list',
+        'chart',
+        'formly',
+        'media-list',
+        'feature-box',
+        'content-box',
+        'testimonial',
+        'progress-bar',
+        'media-object',
+        'media-meta',
+        'textarea',
+        'download',
+        'dynamic-table',
+        'dropdown-menu',
+        'number-animate',
+        'progress-group',
+        'datepicker',
+        'inline-lightbox',
+        'media-object-group',
+        'content-text-center',
+        'github-star',
+      ],
+    },
+    {
+      module: 'BannerModule',
+      components: ['banner-simple'],
+    },
+    {
+      module: 'CalendarModule',
+      components: ['full-calendar'],
+    },
+    {
+      module: 'CalculatorModule',
+      components: ['lottery'],
+    },
+    {
+      module: 'CarouselModule',
+      components: [
+        'carousel-1v1',
+        'carousel-1v2',
+        'carousel-1v3',
+        'carousel-2v1',
+        'carousel-2v1',
+        'carousel-2v2',
+      ],
+    },
+    {
+      module: 'HeroModule',
+      components: ['hero-1v1', 'hero-1v2', 'hero-1v4', 'hero-2v1', 'hero-2v2', 'hero-2v3'],
+    },
+    {
+      module: 'ListModule',
+      components: [
+        'dynamic-card-list',
+        'dynamic-card-list-1v1',
+        'dynamic-media-list',
+        'dynamic-text-list',
+        'list',
+        'list-thin',
+        'taxonomy-list',
+        'taxonomy-thin-list',
+      ],
+    },
+    {
+      module: 'MapModule',
+      components: ['location', 'map-list-v1', 'view-map'],
+    },
+    {
+      module: 'MasonryModule',
+      components: ['shuffle'],
+    },
+    {
+      module: 'NodeModule',
+      components: ['article', 'question', 'report', 'relate'],
+    },
+    {
+      module: 'FormModule',
+      components: ['contact-us', 'contact-us-1v1'],
+    },
+    {
+      module: 'OtherModule',
+      components: ['autoclose', 'jsoneditor', 'theme-preview', 'code-editor', 'custom-template'],
+    },
+    {
+      module: 'ProfileModule',
+      components: ['profile-1v1', 'user-center', 'user-favorite', 'user-pay', 'user-profile'],
+    },
+    {
+      module: 'SearchModule',
+      components: ['search'],
+    },
+    {
+      module: 'ShowcaseModule',
+      components: [
+        'showcase-1v1',
+        'showcase-1v3',
+        'showcase-1v4',
+        'showcase-2v1',
+        'showcase-2v2',
+        'showcase-2v4',
+        'showcase-2v6',
+        'showcase-3v3',
+        'showcase-3v4',
+        'showcase-3v5',
+        'showcase-3v6',
+        'showcase-3v7',
+        'showcase-3v9',
+        'showcase-4v1',
+      ],
+    },
+    {
+      module: 'TabModule',
+      components: ['tab-1v1'],
+    },
+    {
+      module: 'VideoModule',
+      components: ['video-bg', 'video'],
+    },
+    {
+      module: 'DashboardModule',
+      components: ['dashboard', 'dashboard-box'],
+    },
+    {
+      module: 'BuilderModule',
+      components: [
+        'layout-builder',
+        'builder-template',
+        'builder-generater',
+        'btn-generater',
+        'inline-editor',
+        'widget-picker',
+        'layout-setting',
+        'page-setting',
+        'json',
+        'card-list',
+        'card-page',
+      ],
+    },
+    {
+      module: 'ManageModule',
+      components: ['manage-media', 'upload-media', 'taxonomy'],
+    },
+    {
+      module: 'UserModule',
+      components: ['login', 'user-setting'],
+    },
+  ];
 
   registerDynamicComponent(): void {
-    [
-      'bg',
-      'img',
-      'tab',
-      'map',
-      'box',
-      'btn',
-      'text',
-      'card',
-      'link',
-      'icon',
-      'flag',
-      'shape',
-      'panel',
-      'title',
-      'share',
-      'swiper',
-      'divider',
-      'spacer',
-      'iframe',
-      'bg-img',
-      'spinner',
-      'stepper',
-      'card-1v1',
-      'card-1v2',
-      'card-1v4',
-      'card-1v5',
-      'card-1v6',
-      'chart-box',
-      'accordion',
-      'user-card',
-      'btn-video',
-      'view-list',
-      'text-hero',
-      'menu-list',
-      'chip-list',
-      'chart',
-      'formly',
-      'media-list',
-      'feature-box',
-      'content-box',
-      'testimonial',
-      'progress-bar',
-      'media-object',
-      'media-meta',
-      'textarea',
-      'download',
-      'dynamic-table',
-      'dropdown-menu',
-      'number-animate',
-      'progress-group',
-      'datepicker',
-      'inline-lightbox',
-      'media-object-group',
-      'content-text-center',
-      'github-star',
-    ].forEach(type =>
-      this.setModule(type, () => import('@uiux/widgets/widgets.module').then(m => m.WidgetsModule))
-    );
-
-    ['banner-simple'].forEach(type =>
-      this.setModule(type, () =>
-        import('@uiux/combs/banner/banner.module').then(m => m.BannerModule)
-      )
-    );
-
-    ['lottery'].forEach(type =>
-      this.setModule(type, () =>
-        import('@uiux/combs/calculator/calculator.module').then(m => m.CalculatorModule)
-      )
-    );
-
-    ['full-calendar'].forEach(type =>
-      this.setModule(type, () =>
-        import('@uiux/combs/calendar/calendar.module').then(m => m.CalendarModule)
-      )
-    );
-
-    [
-      'carousel-1v1',
-      'carousel-1v2',
-      'carousel-1v3',
-      'carousel-2v1',
-      'carousel-2v1',
-      'carousel-2v2',
-    ].forEach(type =>
-      this.setModule(type, () =>
-        import('@uiux/combs/carousel/carousel.module').then(m => m.CarouselModule)
-      )
-    );
-
-    ['hero-1v1', 'hero-1v2', 'hero-1v4', 'hero-2v1', 'hero-2v2', 'hero-2v3'].forEach(type =>
-      this.setModule(type, () => import('@uiux/combs/hero/hero.module').then(m => m.HeroModule))
-    );
-
-    [
-      'dynamic-card-list',
-      'dynamic-card-list-1v1',
-      'dynamic-media-list',
-      'dynamic-text-list',
-      'list',
-      'list-thin',
-      'taxonomy-list',
-      'taxonomy-thin-list',
-    ].forEach(type =>
-      this.setModule(type, () => import('@uiux/combs/list/list.module').then(m => m.ListModule))
-    );
-
-    ['location', 'map-list-v1', 'view-map'].forEach(type =>
-      this.setModule(type, () => import('@uiux/combs/map/map.module').then(m => m.MapModule))
-    );
-
-    ['shuffle'].forEach(type =>
-      this.setModule(type, () =>
-        import('@uiux/combs/masonry/masonry.module').then(m => m.MasonryModule)
-      )
-    );
-
-    ['article', 'question', 'report', 'relate'].forEach(type =>
-      this.setModule(type, () => import('@uiux/combs/node/node.module').then(m => m.NodeModule))
-    );
-
-    ['contact-us', 'contact-us-1v1'].forEach(type =>
-      this.setModule(type, () => import('@uiux/combs/form/form.module').then(m => m.FormModule))
-    );
-
-    ['autoclose', 'jsoneditor', 'theme-preview', 'code-editor', 'custom-template'].forEach(type =>
-      this.setModule(type, () => import('@uiux/combs/other/other.module').then(m => m.OtherModule))
-    );
-
-    ['profile-1v1', 'user-center', 'user-favorite', 'user-pay', 'user-profile'].forEach(type =>
-      this.setModule(type, () =>
-        import('@uiux/combs/profile/profile.module').then(m => m.ProfileModule)
-      )
-    );
-
-    ['search'].forEach(type =>
-      this.setModule(type, () =>
-        import('@uiux/combs/search/search.module').then(m => m.SearchModule)
-      )
-    );
-    [
-      'showcase-1v1',
-      'showcase-1v3',
-      'showcase-1v4',
-      'showcase-2v1',
-      'showcase-2v2',
-      'showcase-2v4',
-      'showcase-2v6',
-      'showcase-3v3',
-      'showcase-3v4',
-      'showcase-3v5',
-      'showcase-3v6',
-      'showcase-3v7',
-      'showcase-3v9',
-      'showcase-4v1',
-    ].forEach(type =>
-      this.setModule(type, () =>
-        import('@uiux/combs/showcase/showcase.module').then(m => m.ShowcaseModule)
-      )
-    );
-
-    ['tab-1v1'].forEach(type =>
-      this.setModule(type, () => import('@uiux/combs/tab/tab.module').then(m => m.TabModule))
-    );
-
-    ['video-bg', 'video'].forEach(type =>
-      this.setModule(type, () => import('@uiux/combs/video/video.module').then(m => m.VideoModule))
-    );
-
-    ['dashboard', 'dashboard-box'].forEach(type =>
-      this.setModule(type, () =>
-        import('@uiux/combs/dashboard/dashboard.module').then(m => m.DashboardModule)
-      )
-    );
-
-    [
-      'layout-builder',
-      'builder-template',
-      'builder-generater',
-      'btn-generater',
-      'inline-editor',
-      'widget-picker',
-      'layout-setting',
-      'page-setting',
-      'json',
-      'card-list',
-      'card-page',
-    ].forEach(type =>
-      this.setModule(type, () =>
-        import('@modules/builder/builder.module').then(m => m.BuilderModule)
-      )
-    );
-
-    ['manage-media', 'upload-media', 'taxonomy'].forEach(type =>
-      this.setModule(type, () => import('@modules/manage/manage.module').then(m => m.ManageModule))
-    );
-    ['login', 'user-setting'].forEach(type =>
-      this.setModule(type, () => import('@modules/user/user.module').then(m => m.UserModule))
-    );
-  }
-
-  setModule(type: string, loadModule: () => Promise<any>): void {
-    this.moduleLists[type] = loadModule;
-  }
-
-  async getComponent(type: string): Promise<ComponentRef<unknown> | ComponentRef<any> | undefined> {
-    return this.getModuleRef(type)
-      .then((module: any) => {
-        if (module.instance instanceof BaseModule) {
-          const componentFactory = module.instance.getComponentFactory(type);
-          return componentFactory.create(module.injector, [], null, module);
-        }
-      })
-      .catch(error => {
-        console.log(error);
+    this.MODULE_CONFIG.forEach(config => {
+      const loader = this.createModuleLoader(config.module);
+      config.components.forEach(component => {
+        this.moduleLoaders.set(component, loader);
       });
+    });
   }
 
-  async getModuleRef(type: string): Promise<any> {
-    if (!this.moduleLists[type]) {
-      throw new Error(`组件${type}不存在！`);
+  private createModuleLoader(moduleName: string): ModuleLoader {
+    return async () => {
+      let module: any;
+      switch (moduleName) {
+        case 'WidgetsModule':
+          module = await import('@uiux/widgets/widgets.module');
+          break;
+        case 'BannerModule':
+          module = await import('@uiux/combs/banner/banner.module');
+          break;
+        case 'CalendarModule':
+          module = await import('@uiux/combs/calendar/calendar.module');
+          break;
+        case 'CalculatorModule':
+          module = await import('@uiux/combs/calculator/calculator.module');
+          break;
+        case 'CarouselModule':
+          module = await import('@uiux/combs/carousel/carousel.module');
+          break;
+        case 'HeroModule':
+          module = await import('@uiux/combs/hero/hero.module');
+          break;
+        case 'ListModule':
+          module = await import('@uiux/combs/list/list.module');
+          break;
+        case 'MapModule':
+          module = await import('@uiux/combs/map/map.module');
+          break;
+        case 'MasonryModule':
+          module = await import('@uiux/combs/masonry/masonry.module');
+          break;
+        case 'NodeModule':
+          module = await import('@uiux/combs/node/node.module');
+          break;
+        case 'FormModule':
+          module = await import('@uiux/combs/form/form.module');
+          break;
+        case 'OtherModule':
+          module = await import('@uiux/combs/other/other.module');
+          break;
+        case 'ProfileModule':
+          module = await import('@uiux/combs/profile/profile.module');
+          break;
+        case 'SearchModule':
+          module = await import('@uiux/combs/search/search.module');
+          break;
+        case 'ShowcaseModule':
+          module = await import('@uiux/combs/showcase/showcase.module');
+          break;
+        case 'TabModule':
+          module = await import('@uiux/combs/tab/tab.module');
+          break;
+        case 'VideoModule':
+          module = await import('@uiux/combs/video/video.module');
+          break;
+        case 'DashboardModule':
+          module = await import('@uiux/combs/dashboard/dashboard.module');
+          break;
+        case 'BuilderModule':
+          module = await import('@modules/builder/builder.module');
+          break;
+        case 'ManageModule':
+          module = await import('@modules/manage/manage.module');
+          break;
+        case 'UserModule':
+          module = await import('@modules/user/user.module');
+          break;
+        default:
+          throw new Error(`Unknown module: ${moduleName}`);
+      }
+      return module[moduleName];
+    };
+  }
+
+  async getComponent(type: string): Promise<ComponentRef<unknown>> {
+    try {
+      const moduleRef = await this.getModuleRef(type);
+
+      if (!(moduleRef.instance instanceof BaseModule)) {
+        throw new Error(`Module for component ${type} does not extend BaseModule`);
+      }
+
+      const componentFactory = moduleRef.instance.getComponentFactory(type);
+
+      if (!componentFactory) {
+        throw new Error(`Component factory for ${type} not found`);
+      }
+
+      return componentFactory.create(moduleRef.injector, [], null, moduleRef);
+    } catch (error) {
+      console.error(`Error creating component ${type}:`, error);
+      throw error;
     }
-    const module = await this.moduleLists[type]();
-    const moduleRef = createNgModule(module, this.injector);
-    return moduleRef;
+  }
+
+  private async getModuleRef(type: string): Promise<NgModuleRef<any>> {
+    const loader = this.moduleLoaders.get(type);
+
+    if (!loader) {
+      throw new Error(`No module loader found for component ${type}`);
+    }
+
+    // 使用缓存避免重复加载
+    const cacheKey = type;
+    let moduleRefPromise = this.moduleCache.get(cacheKey);
+
+    if (!moduleRefPromise) {
+      moduleRefPromise = loader()
+        .then(moduleType => createNgModule(moduleType, this.injector))
+        .catch(error => {
+          this.moduleCache.delete(cacheKey);
+          throw error;
+        });
+
+      this.moduleCache.set(cacheKey, moduleRefPromise);
+    }
+
+    return moduleRefPromise;
+  }
+
+  // 清理缓存的方法
+  clearCache(type?: string): void {
+    if (type) {
+      this.moduleCache.delete(type);
+    } else {
+      this.moduleCache.clear();
+    }
   }
 }
