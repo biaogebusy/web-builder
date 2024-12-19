@@ -1,12 +1,4 @@
-import {
-  ComponentRef,
-  Injectable,
-  Injector,
-  NgModuleRef,
-  Type,
-  createNgModule,
-  inject,
-} from '@angular/core';
+import { Injectable, Injector, NgModuleRef, Type, createNgModule, inject } from '@angular/core';
 import { BaseModule } from '@uiux/base/base.module';
 
 // 定义类型
@@ -296,21 +288,15 @@ export class ComponentService {
     };
   }
 
-  async getComponent(type: string): Promise<ComponentRef<unknown>> {
+  async getComponentType(type: string): Promise<Type<unknown>> {
     try {
       const moduleRef = await this.getModuleRef(type);
 
       if (!(moduleRef.instance instanceof BaseModule)) {
         throw new Error(`Module for component ${type} does not extend BaseModule`);
       }
-
       const componentFactory = moduleRef.instance.getComponentFactory(type);
-
-      if (!componentFactory) {
-        throw new Error(`Component factory for ${type} not found`);
-      }
-
-      return componentFactory.create(moduleRef.injector, [], null, moduleRef);
+      return componentFactory.componentType;
     } catch (error) {
       console.error(`Error creating component ${type}:`, error);
       throw error;

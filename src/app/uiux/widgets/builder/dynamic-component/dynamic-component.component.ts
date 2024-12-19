@@ -6,26 +6,29 @@ import {
   ComponentRef,
   DestroyRef,
   ElementRef,
+  EnvironmentInjector,
   HostBinding,
   Inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Renderer2,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
   ViewRef,
+  createComponent,
   inject,
 } from '@angular/core';
-import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
-import { ComponentService } from '@core/service/component.service';
-import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG, IS_BUILDER_MODE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
+import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { ComponentService } from '@core/service/component.service';
+import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
+import { CORE_CONFIG, IS_BUILDER_MODE } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-dynamic-component',
@@ -50,7 +53,9 @@ export class DynamicComponentComponent
   screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
   componentService = inject(ComponentService);
-  public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
+  private readonly environmentInjector = inject(EnvironmentInjector);
+  private readonly renderer = inject(Renderer2);
+  public componentRef: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
@@ -91,27 +96,34 @@ export class DynamicComponentComponent
     if (!type) {
       return;
     }
+
     this.container.clear();
 
-    this.component = await this.componentService.getComponent(type);
-    if (!this.component) {
+    const componentType = await this.componentService.getComponentType(type);
+    const hostElement = this.renderer.createElement('div');
+    this.componentRef = createComponent(componentType, {
+      environmentInjector: this.environmentInjector,
+      hostElement,
+    });
+    if (!componentType) {
       console.log('无法识别该组件：', this.inputs);
       return;
     }
-    if (this.component.instance && this.inputs) {
+    if (this.componentRef.instance && this.inputs) {
       if (!this.inputs.type && this.inputs.content) {
         Object.keys(this.inputs).forEach(key => {
-          if (this.component) {
-            this.component.instance[key] = this.inputs[key];
+          if (this.componentRef) {
+            this.componentRef.instance[key] = this.inputs[key];
           }
         });
       } else {
-        this.component.instance.content = this.inputs;
+        this.componentRef.instance.content = this.inputs;
       }
-      this.component.instance.pageIndex = this.index;
+      this.componentRef.instance.pageIndex = this.index;
     }
-    this.container.insert(this.component.hostView);
-    this.component.changeDetectorRef.markForCheck();
+
+    this.container.insert(this.componentRef.hostView);
+    this.componentRef.changeDetectorRef.detectChanges();
     this.util.initAnimate(
       this.inputs,
       this.ele.nativeElement.lastElementChild,
@@ -122,6 +134,9 @@ export class DynamicComponentComponent
 
   ngOnDestroy(): void {
     this.container.clear();
+    if (this.componentRef) {
+      this.componentRef.destroy();
+    }
     if (this.cd && !(this.cd as ViewRef).destroyed) {
       this.cd.detectChanges();
     }
