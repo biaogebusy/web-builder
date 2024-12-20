@@ -35,21 +35,5 @@
         </div>
       </header>
     }
-    <ng-template #transparent>
-      <header
-        #header
-        id="transparent-mode"
-        class="transparent-mode"
-        [class.header-inverse]="branding.header.params.inverse"
-        [ngClass]="(contentState.pageConfig$ | async)?.headerMode?.style"
-      >
-        <div class="static">
-          @if (branding.header.top) {
-            <app-header-top [content]="branding.header.top" />
-          }
-          <app-menu #menu />
-        </div>
-      </header>
-    </ng-template>
   }
 }
