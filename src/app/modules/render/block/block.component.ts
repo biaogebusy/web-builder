@@ -7,6 +7,7 @@ import {
   AfterContentInit,
   inject,
   DestroyRef,
+  AfterViewInit,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
@@ -17,6 +18,8 @@ import { DOCUMENT } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContentService } from '@core/service/content.service';
 import { Router } from '@angular/router';
+import AOS from 'aos';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-block',
@@ -30,7 +33,7 @@ import { Router } from '@angular/router';
     },
   ],
 })
-export class BlockComponent implements OnInit, AfterContentInit {
+export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
   @Input() isPreview = false;
   drawerLoading: boolean;
   drawerContent: IPage;
@@ -40,25 +43,44 @@ export class BlockComponent implements OnInit, AfterContentInit {
   contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
   contentService = inject(ContentService);
+  screenService = inject(ScreenService);
   router = inject(Router);
+  count = 0;
+  pageBodyLength: number;
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+      this.pageBodyLength = page?.body?.length;
+    });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.screenService.isPlatformBrowser()) {
+      this.contentState.componentCount$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+        this.count += 1;
+        if (this.count === this.pageBodyLength - 1) {
+          this.count = 0;
+          setTimeout(() => {
+            AOS.init();
+          }, 200);
+        }
+      });
+    }
+  }
 
   onBackdrop(): void {
     this.contentState.drawerOpened$.next(false);
   }
 
   ngAfterContentInit(): void {
-    this.contentState.drawerOpened$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        this.opened = state;
-      });
+    this.contentState.drawerOpened$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+      this.opened = state;
+    });
 
     this.contentState.drawerLoading$
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -76,19 +98,11 @@ export class BlockComponent implements OnInit, AfterContentInit {
   onDrawer(): void {
     this.zone.runOutsideAngular(() => {
       if (this.opened) {
-        this.doc
-          .getElementsByTagName('html')[0]
-          .classList.add('drawer-disable-scroll');
-        this.doc
-          .getElementById('transparent-mode')
-          ?.classList.remove('transparent-mode');
+        this.doc.getElementsByTagName('html')[0].classList.add('drawer-disable-scroll');
+        this.doc.getElementById('transparent-mode')?.classList.remove('transparent-mode');
       } else {
-        this.doc
-          .getElementsByTagName('html')[0]
-          .classList.remove('drawer-disable-scroll');
-        this.doc
-          .getElementById('transparent-mode')
-          ?.classList.add('transparent-mode');
+        this.doc.getElementsByTagName('html')[0].classList.remove('drawer-disable-scroll');
+        this.doc.getElementById('transparent-mode')?.classList.add('transparent-mode');
       }
     });
   }

@@ -64,13 +64,12 @@ export function builderFullScreenFactory(
   return isFull$;
 }
 
-export function builderCurrentPageFactory(
-  storage: LocalStorageService
-): Observable<IPage | object | boolean> {
+export function builderCurrentPageFactory(): Observable<IPage | object | boolean> {
   const versionKey = 'version';
   const currentPage$ = new BehaviorSubject<IPage | object | boolean>(false);
-  const localVersion = storage.retrieve(versionKey);
+  const storage = inject(LocalStorageService);
   const builderService = inject(BuilderService);
+  const localVersion = storage.retrieve(versionKey);
   if (localVersion) {
     const currentPage = localVersion.find((page: IPage) => page.current === true);
     builderService.checkIsLatestPage(currentPage);
@@ -89,14 +88,14 @@ export function builderCurrentPageFactory(
 
 export function isBuilderModeFactory(router: Router): Observable<boolean> {
   const isBuilderMode$ = new BehaviorSubject<boolean>(false);
-  if (router.url.includes(BUILDERPATH) && router.url !== '/builder/preview') {
+  if (router.url.includes(BUILDERPATH)) {
     isBuilderMode$.next(true);
   } else {
     isBuilderMode$.next(false);
   }
   router.events.subscribe(event => {
     if (event instanceof NavigationEnd) {
-      if (router.url.includes(BUILDERPATH) && router.url !== '/builder/preview') {
+      if (router.url.includes(BUILDERPATH)) {
         isBuilderMode$.next(true);
       } else {
         isBuilderMode$.next(false);

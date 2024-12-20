@@ -70,6 +70,29 @@ export class LayoutSettingComponent {
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
+  applyAosAllTopComponent(animate: any): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '340px',
+      data: {
+        title: '一键应用动画',
+        closeLabel: '确定应用',
+        inputData: {
+          content: {
+            type: 'text',
+            fullWidth: true,
+            body: '将会把当前AOS的动画配置应用到页面最外层的所有一级组件，已有动画会被覆盖。',
+          },
+        },
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.builder.bulkUpdateComponent({ animate });
+      }
+    });
+  }
+
   onWidgetPicker(): void {
     // 有layout builder，有普通的组件
     const { content, path } = this.content;

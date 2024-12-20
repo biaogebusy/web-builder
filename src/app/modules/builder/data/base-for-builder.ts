@@ -28,26 +28,6 @@ export const base = [
           vertical: 'center',
           wrapperClass: '',
           alignItems: 'center',
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
           type: 'layout-builder',
           elements: [
             {
@@ -80,26 +60,6 @@ export const base = [
                 borderRadius: 'none',
                 padding: '',
                 margin: '',
-              },
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 0,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
               },
               elements: [
                 {
@@ -165,26 +125,6 @@ export const base = [
               style: {
                 borderRadius: 'none',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
               horizontal: 'center',
               vertical: 'center',
               elements: [
@@ -192,27 +132,6 @@ export const base = [
                   classes: '',
                   alt: 'alt',
                   hostClasses: 'text-center',
-                  animate: {
-                    from: {
-                      x: '100',
-                      y: 0,
-                      rotation: 0,
-                      scale: 0.8,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                      scrub: false,
-                    },
-                  },
                   type: 'img',
                   src: 'https://builder.design/assets/images/illustration/11.png',
                   style: {
@@ -257,26 +176,6 @@ export const base = [
             xs: '5',
           },
           wrapperClass: 'sm:flex-nowrap',
-          animate: {
-            from: {
-              x: 0,
-              y: '100',
-              rotation: 0,
-              scale: 1,
-              opacity: 0,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
           type: 'layout-builder',
           elements: [
             {
@@ -309,26 +208,6 @@ export const base = [
                 borderRadius: 'none',
                 margin: '',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: '0',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
               elements: [
                 {
                   style: 'none',
@@ -343,25 +222,6 @@ export const base = [
                         label: 'web builder',
                       },
                     ],
-                  },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
                   },
                   type: 'title',
                   label: '自由搭配，玩出新意',
@@ -384,27 +244,6 @@ export const base = [
                     objectFit: 'contain',
                   },
                   hostClasses: 'text-center',
-                  animate: {
-                    from: {
-                      x: '0',
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      opacity: 0,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                      scrub: true,
-                    },
-                  },
                   type: 'img',
                   width: 350,
                   height: 300,
@@ -441,26 +280,6 @@ export const base = [
                 borderRadius: 'none',
                 margin: '',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
               elements: [
                 {
                   style: 'none',
@@ -475,25 +294,6 @@ export const base = [
                         label: 'web builder',
                       },
                     ],
-                  },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
                   },
                   type: 'title',
                   label: '款款亮眼，爱不释手',
@@ -516,27 +316,6 @@ export const base = [
                     objectFit: 'contain',
                   },
                   hostClasses: 'text-center',
-                  animate: {
-                    from: {
-                      x: '0',
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      opacity: 0,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                      scrub: true,
-                    },
-                  },
                   type: 'img',
                   width: 350,
                   height: 300,
@@ -569,26 +348,6 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
           type: 'layout-builder',
           elements: [
             {
@@ -626,26 +385,6 @@ export const base = [
                 marginRight: '0px',
                 marginBottom: '0px',
                 marginLeft: '0px',
-              },
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 0,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
               },
               elements: [
                 {
@@ -699,26 +438,6 @@ export const base = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 0,
-                  delay: '0.6',
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
               elements: [
                 {
                   type: 'box',
@@ -761,26 +480,6 @@ export const base = [
               },
               classes: '',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: '0',
-                  delay: '1',
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -838,26 +537,6 @@ export const base = [
           gap: {
             xs: 5,
           },
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
           type: 'layout-builder',
           elements: [
             {
@@ -900,50 +579,12 @@ export const base = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: '0',
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   spacer: 'none',
                   body: '<p style="display: inline-block; margin-bottom: 0px;">把想法转化给设计稿，根据设计稿通过拖拽出响应式页面，大大降低开发成本，将注意力放在您的业务。</p>',
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
+
                   type: 'text',
                 },
                 {
@@ -958,26 +599,7 @@ export const base = [
                     borderRadius: '',
                     boxShadow: '',
                   },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
+
                   type: 'img',
                   width: 200,
                   height: 100,
@@ -1022,26 +644,7 @@ export const base = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: '0',
-                  delay: '0.6',
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   type: 'card-1v1',
@@ -1112,26 +715,7 @@ export const base = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: '0',
-                  delay: '1.2',
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   type: 'card-1v1',
@@ -1202,26 +786,7 @@ export const base = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: '0',
-                  delay: '1.2',
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   type: 'card-1v1',
@@ -1281,26 +846,7 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
+
           type: 'layout-builder',
           elements: [
             {
@@ -1331,26 +877,7 @@ export const base = [
               style: {
                 borderRadius: 'none',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               layoutAlign: 'start start',
               elements: [],
             },
@@ -1382,26 +909,7 @@ export const base = [
               style: {
                 borderRadius: 'none',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               layoutAlign: 'start start',
               elements: [],
             },
@@ -1483,26 +991,7 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
+
           type: 'layout-builder',
           elements: [
             {
@@ -1534,26 +1023,7 @@ export const base = [
               style: {
                 borderRadius: 'none',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   style: 'style-v4',
@@ -1569,25 +1039,7 @@ export const base = [
                       },
                     ],
                   },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
+
                   type: 'title',
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
@@ -1636,26 +1088,7 @@ export const base = [
               style: {
                 borderRadius: 'none',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   type: 'spacer',
@@ -1710,26 +1143,7 @@ export const base = [
           gap: {
             xs: '5',
           },
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
+
           type: 'layout-builder',
           elements: [
             {
@@ -1761,26 +1175,7 @@ export const base = [
               style: {
                 borderRadius: 'none',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   type: 'spacer',
@@ -1837,26 +1232,7 @@ export const base = [
               style: {
                 borderRadius: 'none',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   style: 'style-v4',
@@ -1872,25 +1248,7 @@ export const base = [
                       },
                     ],
                   },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
+
                   type: 'title',
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
@@ -1933,26 +1291,6 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
           type: 'layout-builder',
           elements: [
             {
@@ -1992,26 +1330,7 @@ export const base = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   type: 'img',
@@ -2043,25 +1362,7 @@ export const base = [
                       },
                     ],
                   },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
+
                   type: 'title',
                   label:
                     '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
@@ -2097,51 +1398,13 @@ export const base = [
               style: {
                 borderRadius: 'none',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   spacer: 'none',
                   classes: 'md:max-w-3/4 mx-auto',
                   body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
+
                   type: 'text',
                 },
                 {
@@ -2177,26 +1440,7 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
+
           type: 'layout-builder',
           elements: [
             {
@@ -2251,27 +1495,7 @@ export const base = [
                     borderRadius: '14px',
                     boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px',
                   },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: '300',
-                      rotation: 0,
-                      scale: '1',
-                      opacity: 0,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                      scrub: true,
-                    },
-                  },
+
                   type: 'img',
                   width: 800,
                   height: 600,
@@ -2305,26 +1529,7 @@ export const base = [
             xs: 0,
             sm: 4,
           },
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
+
           type: 'layout-builder',
           elements: [
             {
@@ -2364,26 +1569,7 @@ export const base = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   type: 'title',
@@ -2433,26 +1619,7 @@ export const base = [
               },
               classes: 'overflow-hidden',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               style: {
                 borderRadius: 'none',
               },
@@ -2481,26 +1648,7 @@ export const base = [
                     autoplay: false,
                     mousewheel: false,
                   },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
+
                   type: 'swiper',
                   classes: '',
                   elements: [
@@ -2624,26 +1772,7 @@ export const base = [
           gap: {
             xs: 0,
           },
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
+
           type: 'layout-builder',
           elements: [
             {
@@ -2672,26 +1801,7 @@ export const base = [
               },
               classes: 'mb-5',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: '0',
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -2754,27 +1864,7 @@ export const base = [
               },
               classes: 'mb-5',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: '200',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: '0',
-                  delay: '0.6',
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                  scrub: true,
-                },
-              },
+
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -2838,26 +1928,7 @@ export const base = [
               },
               classes: 'mb-5',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: '0',
-                  delay: '0.6',
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -2920,26 +1991,7 @@ export const base = [
               },
               classes: 'mb-5',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: '100',
-                  rotation: 0,
-                  scale: 1,
-                  opacity: '0',
-                  delay: '1.2',
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -3004,26 +2056,7 @@ export const base = [
           },
           wrapperClass: '',
           alignItems: 'center',
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
+
           type: 'layout-builder',
           elements: [
             {
@@ -3052,26 +2085,7 @@ export const base = [
               },
               classes: '',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -3112,26 +2126,7 @@ export const base = [
                   },
                   classes: '',
                   blockClasses: '',
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
+
                   style: {
                     borderRadius: 'none',
                     paddingTop: '0px',
@@ -3172,26 +2167,7 @@ export const base = [
                       },
                       classes: '',
                       blockClasses: '',
-                      animate: {
-                        from: {
-                          x: 0,
-                          y: 0,
-                          rotation: 0,
-                          scale: 1,
-                          opacity: 1,
-                          delay: 0,
-                          duration: 1,
-                          ease: 'none',
-                        },
-                        trigger: {
-                          onEnter: 'play',
-                          onLeave: 'none',
-                          onEnterBack: 'none',
-                          onLeaveBack: 'none',
-                          start: 'top 90%',
-                          end: 'top 40%',
-                        },
-                      },
+
                       style: {
                         borderRadius: 'none',
                         paddingTop: '0px',
@@ -3318,26 +2294,7 @@ export const base = [
                       },
                       classes: '',
                       blockClasses: '',
-                      animate: {
-                        from: {
-                          x: 0,
-                          y: 0,
-                          rotation: 0,
-                          scale: 1,
-                          opacity: 1,
-                          delay: 0,
-                          duration: 1,
-                          ease: 'none',
-                        },
-                        trigger: {
-                          onEnter: 'play',
-                          onLeave: 'none',
-                          onEnterBack: 'none',
-                          onLeaveBack: 'none',
-                          start: 'top 90%',
-                          end: 'top 40%',
-                        },
-                      },
+
                       style: {
                         borderRadius: 'none',
                         paddingTop: '0px',
@@ -3470,26 +2427,7 @@ export const base = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   type: 'title',
@@ -3536,26 +2474,7 @@ export const base = [
           },
           horizontal: 'center',
           vertical: 'center',
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotation: 0,
-              scale: 1,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-            },
-          },
+
           type: 'layout-builder',
           elements: [
             {
@@ -3584,26 +2503,7 @@ export const base = [
               },
               classes: 'text-center',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               style: {
                 borderRadius: 'none',
                 paddingTop: '0px',
@@ -3638,26 +2538,7 @@ export const base = [
                     lg: '4',
                   },
                   wrapperClass: 'sm:flex-nowrap',
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotation: 0,
-                      scale: 1,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                    },
-                  },
+
                   row: {
                     xs: 12,
                     sm: 12,
@@ -3719,25 +2600,7 @@ export const base = [
                         marginBottom: '0px',
                         marginLeft: '0px',
                       },
-                      animate: {
-                        from: {
-                          x: 0,
-                          y: 0,
-                          rotation: 0,
-                          scale: 1,
-                          delay: 0,
-                          duration: 1,
-                          ease: 'none',
-                        },
-                        trigger: {
-                          onEnter: 'play',
-                          onLeave: 'none',
-                          onEnterBack: 'none',
-                          onLeaveBack: 'none',
-                          start: 'top 90%',
-                          end: 'top 40%',
-                        },
-                      },
+
                       elements: [
                         {
                           type: 'box',
@@ -3786,26 +2649,7 @@ export const base = [
                         marginBottom: '0px',
                         marginLeft: '0px',
                       },
-                      animate: {
-                        from: {
-                          x: 0,
-                          y: 0,
-                          rotation: 0,
-                          scale: 1,
-                          opacity: 1,
-                          delay: 0,
-                          duration: 1,
-                          ease: 'none',
-                        },
-                        trigger: {
-                          onEnter: 'play',
-                          onLeave: 'none',
-                          onEnterBack: 'none',
-                          onLeaveBack: 'none',
-                          start: 'top 90%',
-                          end: 'top 40%',
-                        },
-                      },
+
                       elements: [
                         {
                           type: 'box',
@@ -3851,25 +2695,7 @@ export const base = [
                         marginBottom: '0px',
                         marginLeft: '0px',
                       },
-                      animate: {
-                        from: {
-                          x: 0,
-                          y: 0,
-                          rotation: 0,
-                          scale: 1,
-                          delay: 0,
-                          duration: 1,
-                          ease: 'none',
-                        },
-                        trigger: {
-                          onEnter: 'play',
-                          onLeave: 'none',
-                          onEnterBack: 'none',
-                          onLeaveBack: 'none',
-                          start: 'top 90%',
-                          end: 'top 40%',
-                        },
-                      },
+
                       elements: [
                         {
                           type: 'box',
@@ -3927,26 +2753,7 @@ export const base = [
                 marginBottom: '0px',
                 marginLeft: '0px',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   type: 'img',

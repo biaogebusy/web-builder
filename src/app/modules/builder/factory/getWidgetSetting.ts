@@ -15,7 +15,7 @@ import { getText } from './getText';
 import { getTitle } from './getTitle';
 import { getVideo } from './getVideo';
 
-export function getWidgetSetting(widget: any) {
+export function getWidgetSetting(widget: any): FormlyFieldConfig {
   let fields: FormlyFieldConfig;
   switch (widget.type) {
     case 'title':

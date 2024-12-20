@@ -44,34 +44,26 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.contentState.pageConfig$
-      .pipe(takeUntilDestroyed(this.destoryRef))
-      .subscribe(config => {
-        this.headerMode = config?.headerMode;
-        if (this.headerMode?.transparent) {
-          this.doc
-            .getElementsByTagName('body')[0]
-            .classList.add('transparent-header');
-        }
-      });
+    this.contentState.pageConfig$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(config => {
+      this.headerMode = config?.headerMode;
+      if (this.headerMode?.transparent) {
+        this.doc.getElementsByTagName('body')[0].classList.add('transparent-header');
+      }
+    });
   }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screenState.scroll$
-        .pipe(takeUntilDestroyed(this.destoryRef))
-        .subscribe(() => {
-          if (this.menu) {
-            this.sticky = this.screenService.isElementOutTopViewport(
-              this.menu.nativeElement
-            );
-          }
-          this.cd.detectChanges();
-          this.listenSticky(this.sticky);
-          if (this.headerMode?.transparent) {
-            this.windowScroll();
-          }
-        });
+      this.screenState.scroll$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(() => {
+        if (this.menu) {
+          this.sticky = this.screenService.isElementOutTopViewport(this.menu.nativeElement);
+        }
+        this.cd.detectChanges();
+        this.listenSticky(this.sticky);
+        if (this.headerMode?.transparent) {
+          this.windowScroll();
+        }
+      });
       this.initBanner();
     }
   }
@@ -86,10 +78,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   windowScroll(): void {
     const style = this.headerMode?.style;
-    if (
-      this.doc.body.scrollTop > 50 ||
-      this.doc.documentElement.scrollTop > 50
-    ) {
+    if (this.doc.body.scrollTop > 50 || this.doc.documentElement.scrollTop > 50) {
       this.header.nativeElement.classList.add('header-sticky');
       this.header.nativeElement.classList.remove(style);
     } else {
@@ -99,22 +88,19 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   initBanner(): void {
-    this.branding$
-      .pipe(takeUntilDestroyed(this.destoryRef))
-      .subscribe((branding: any) => {
-        const banner = branding.header.banner;
-        if (!banner) {
-          this.showBanner = false;
-        } else {
-          this.screenState
-            .mqAlias$()
-            .pipe(takeUntilDestroyed(this.destoryRef))
-            .subscribe(mq => {
-              this.showBanner =
-                mq.includes('md') || mq.includes('lg') || mq.includes('xl');
-              this.cd.detectChanges();
-            });
-        }
-      });
+    this.branding$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe((branding: any) => {
+      const banner = branding.header.banner;
+      if (!banner) {
+        this.showBanner = false;
+      } else {
+        this.screenState
+          .mqAlias$()
+          .pipe(takeUntilDestroyed(this.destoryRef))
+          .subscribe(mq => {
+            this.showBanner = mq.includes('md') || mq.includes('lg') || mq.includes('xl');
+            this.cd.detectChanges();
+          });
+      }
+    });
   }
 }

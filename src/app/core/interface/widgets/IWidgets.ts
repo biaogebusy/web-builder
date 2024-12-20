@@ -27,6 +27,7 @@ export interface IDynamicTable {
     key: string;
     classes?: string | string[] | Set<string> | { [klass: string]: any };
     style?: object;
+    sticky?: boolean;
     dialog?: {
       shorten: number;
       label: string;
@@ -37,13 +38,7 @@ export interface IDynamicTable {
 }
 
 export interface IRatios {
-  ratios:
-    | 'media-140'
-    | 'media-1-2'
-    | 'media-1-1'
-    | 'media-4-3'
-    | 'media-16-9'
-    | 'media-2-1';
+  ratios: 'media-140' | 'media-1-2' | 'media-1-1' | 'media-4-3' | 'media-16-9' | 'media-2-1';
 }
 
 export interface IIframe {

@@ -11,7 +11,7 @@ import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { cloneDeep, get, map, set } from 'lodash-es';
+import { cloneDeep, defaults, get, map, set } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
@@ -190,6 +190,16 @@ export class BuilderState {
     this.updatePage();
   }
 
+  bulkUpdateComponent(content: object): void {
+    this.currentPage.body = this.currentPage.body.map(item => {
+      return {
+        ...item,
+        ...content,
+      };
+    });
+    this.saveLocalVersions();
+  }
+
   updatePageContentByPath(path: string, content: any, addType?: 'add'): void {
     const { body } = this.currentPage;
     if (!addType) {
@@ -258,14 +268,6 @@ export class BuilderState {
 
     this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
-  }
-
-  onWidgetSetting(widget: any, path: string): void {
-    const animateConfig = getAnimate(widget);
-    const fields = getWidgetSetting(widget);
-
-    fields.fieldGroup?.push(animateConfig);
-    this.showComponentSetting(widget, [fields], path);
   }
 
   showComponentSetting(widget: any, fields: FormlyFieldConfig[], path: string): void {

@@ -12,7 +12,11 @@
     [ngClass]="'w-full'"
     aria-describedby="dynamic table"
   >
-    <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
+    <ng-container
+      [matColumnDef]="item.key"
+      *ngFor="let item of content.header"
+      [sticky]="item.sticky"
+    >
       <th mat-header-cell *cdkHeaderCellDef mat-sort-header [ngClass]="item.classes || ''">
         <span class="px-3" [innerHTML]="item.label | safeHtml"></span>
       </th>

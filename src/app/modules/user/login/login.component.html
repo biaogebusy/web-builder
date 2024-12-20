@@ -12,108 +12,118 @@
       class="flex flex-col justify-center items-center login-form p-3 z-10 overflow-hidden relative flex-12/12 sm:flex-6/12 box-border"
       [class.is-login]="user$ | async"
     >
-      @if (!loading) {
-        <div class="w-full form-scroll">
-          @if (!(user$ | async)) {
-            @if (error) {
-              <div class="error rounded-[4px] p-3 mb-3 text-sm">
-                {{ error }}
-              </div>
-            }
-            <mat-tab-group>
-              @if (loginConfig.phoneLogin.enable) {
-                <mat-tab label="{{ loginConfig.phoneLogin.tabLabel || '手机登录' }}">
-                  <form
-                    class="flex flex-col py-5"
-                    [formGroup]="phoneForm"
-                    (ngSubmit)="loginByPhone()"
-                  >
-                    <mat-form-field appearance="fill">
-                      <mat-label>请输入手机号码</mat-label>
-                      <mat-icon matSuffix>phone_iphone</mat-icon>
-                      <input
-                        placeholder="请输入手机号码"
-                        type="text"
-                        matInput
-                        formControlName="phone"
-                      />
-                      @if (formPhone.phone.errors?.pattern) {
-                        <mat-error>
-                          {{ loginConfig.phoneLogin.error || '请输入正确的手机号码' }}</mat-error
-                        >
-                      }
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                      <mat-label>验证码</mat-label>
-                      <input matInput type="text" formControlName="code" />
-                      <button
-                        disabled="{{ countdown > 0 }}"
-                        (click)="getCode($event)"
-                        class="right-4"
-                        [class]="countdown ? 'pointer-events-none' : ''"
-                        matSuffix
-                        color="primary"
-                        mat-raised-button
-                        aria-label="code"
-                      >
-                        <small class="whitespace-nowrap">
-                          发送验证码
-                          @if (countdown) {
-                            ({{ countdown }})
-                          }
-                        </small>
-                      </button>
-                    </mat-form-field>
-                    <button class="mt-5" type="submit" mat-raised-button color="primary">
-                      {{ loginConfig.phoneLogin.submitLabel }}
-                    </button>
-                  </form>
-                </mat-tab>
-              }
-              @if (loginConfig.pswLogin.enable) {
-                <mat-tab label="{{ loginConfig.pswLogin.tabLabel || '密码登录' }}">
-                  <form class="flex flex-col py-5" [formGroup]="userForm" (ngSubmit)="login()">
-                    <mat-form-field appearance="fill">
-                      <mat-label>用户名</mat-label>
-                      <mat-icon matSuffix>person</mat-icon>
-                      <input matInput formControlName="name" autocomplete="username" />
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                      <mat-label>密码</mat-label>
-                      <input
-                        matInput
-                        [type]="hide ? 'password' : 'text'"
-                        formControlName="pass"
-                        autocomplete="current-password"
-                      />
-                      <button
-                        mat-icon-button
-                        matSuffix
-                        (click)="hide = !hide"
-                        [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide"
-                      >
-                        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-                      </button>
-                    </mat-form-field>
-                    <button class="mt-5" type="submit" mat-raised-button color="primary">
-                      {{ loginConfig.pswLogin.submitLabel }}
-                    </button>
-                  </form>
-                </mat-tab>
-              }
-            </mat-tab-group>
-          }
-          @if (user$ | async; as currentUser) {
-            <h1 class="mat-h1 text-base">Hi, {{ currentUser.display_name }}</h1>
-            <mat-divider />
-            <p class="text-base !mt-3">欢迎。</p>
-          }
-        </div>
-      }
       @if (loading) {
         <mat-spinner diameter="50" color="accent" />
       }
+      <div class="w-full form-scroll">
+        @if (!(user$ | async)) {
+          @if (error) {
+            <div class="error rounded-[4px] p-3 mb-3 text-sm">
+              {{ error }}
+            </div>
+          }
+          <mat-tab-group>
+            @if (loginConfig.phoneLogin.enable) {
+              <mat-tab label="{{ loginConfig.phoneLogin.tabLabel || '手机登录' }}">
+                <form
+                  class="flex flex-col py-5"
+                  [formGroup]="phoneForm"
+                  (ngSubmit)="loginByPhone()"
+                >
+                  <mat-form-field appearance="fill">
+                    <mat-label>请输入手机号码</mat-label>
+                    <mat-icon matSuffix>phone_iphone</mat-icon>
+                    <input
+                      placeholder="请输入手机号码"
+                      type="text"
+                      matInput
+                      formControlName="phone"
+                    />
+                    @if (formPhone.phone.errors?.pattern) {
+                      <mat-error>
+                        {{ loginConfig.phoneLogin.error || '请输入正确的手机号码' }}</mat-error
+                      >
+                    }
+                  </mat-form-field>
+                  <mat-form-field appearance="fill">
+                    <mat-label>验证码</mat-label>
+                    <input matInput type="text" formControlName="code" />
+                    <button
+                      disabled="{{ countdown > 0 }}"
+                      (click)="getCode($event)"
+                      class="right-4"
+                      [class]="countdown ? 'pointer-events-none' : ''"
+                      matSuffix
+                      color="primary"
+                      mat-raised-button
+                      aria-label="code"
+                    >
+                      <small class="whitespace-nowrap">
+                        发送验证码
+                        @if (countdown) {
+                          ({{ countdown }})
+                        }
+                      </small>
+                    </button>
+                  </mat-form-field>
+                  <button
+                    [disabled]="loading"
+                    class="mt-5"
+                    type="submit"
+                    mat-raised-button
+                    color="primary"
+                  >
+                    {{ loginConfig.phoneLogin.submitLabel }}
+                  </button>
+                </form>
+              </mat-tab>
+            }
+            @if (loginConfig.pswLogin.enable) {
+              <mat-tab label="{{ loginConfig.pswLogin.tabLabel || '密码登录' }}">
+                <form class="flex flex-col py-5" [formGroup]="userForm" (ngSubmit)="login()">
+                  <mat-form-field appearance="fill">
+                    <mat-label>用户名</mat-label>
+                    <mat-icon matSuffix>person</mat-icon>
+                    <input matInput formControlName="name" autocomplete="username" />
+                  </mat-form-field>
+                  <mat-form-field appearance="fill">
+                    <mat-label>密码</mat-label>
+                    <input
+                      matInput
+                      [type]="hide ? 'password' : 'text'"
+                      formControlName="pass"
+                      autocomplete="current-password"
+                    />
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      (click)="hide = !hide"
+                      [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hide"
+                    >
+                      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                  <button
+                    [disabled]="loading"
+                    class="mt-5"
+                    type="submit"
+                    mat-raised-button
+                    color="primary"
+                  >
+                    {{ loginConfig.pswLogin.submitLabel }}
+                  </button>
+                </form>
+              </mat-tab>
+            }
+          </mat-tab-group>
+        }
+        @if (user$ | async; as currentUser) {
+          <h1 class="mat-h1 text-base">Hi, {{ currentUser.display_name }}</h1>
+          <mat-divider />
+          <p class="text-base !mt-3">欢迎。</p>
+        }
+      </div>
     </div>
     <div class="mark-bg absolute"></div>
   </div>

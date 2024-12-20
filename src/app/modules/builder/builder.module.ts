@@ -102,7 +102,6 @@ const components = [
     {
       provide: BUILDER_CURRENT_PAGE,
       useFactory: builderCurrentPageFactory,
-      deps: [LocalStorageService],
     },
   ],
   exports: [...components],

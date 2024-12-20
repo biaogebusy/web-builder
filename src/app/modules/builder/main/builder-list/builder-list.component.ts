@@ -12,6 +12,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  afterRender,
   inject,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
@@ -26,7 +27,6 @@ import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
-
 @Component({
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
@@ -51,7 +51,38 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
     @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
-  ) {}
+  ) {
+    afterRender(() => {
+      const scrollableContainer = this.doc.querySelector('.builder-list');
+      const aosElements = this.builderList.nativeElement.querySelectorAll('.aos-item');
+      const gsapElements = this.builderList.nativeElement.querySelectorAll('.gsap-item');
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach((entry: any) => {
+            const { top } = entry.boundingClientRect;
+            const viewportHeight = entry.rootBounds.height; // 滚动容器的高度
+            const bottomOffset = 150;
+            if (entry.isIntersecting) {
+              entry.target.classList.add('aos-animate');
+              window.gsap.globalTimeline.play();
+            }
+
+            if (top > viewportHeight - bottomOffset) {
+              // 当元素准备离开底部一定距离
+              entry.target.classList.remove('aos-animate');
+              window.gsap.globalTimeline.pause();
+            }
+          });
+        },
+        {
+          root: scrollableContainer, // 设置滚动容器
+          threshold: 0.1, // 元素进入视口的触发比例
+        }
+      );
+      const elements = [...aosElements, ...gsapElements];
+      elements.forEach((el: any) => observer.observe(el));
+    });
+  }
 
   ngOnInit(): void {}
 

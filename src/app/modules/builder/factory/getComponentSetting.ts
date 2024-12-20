@@ -354,7 +354,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
     default:
       tabsGroup?.push({
         props: {
-          label: content.type,
+          label: '组件',
         },
         fieldGroup: getWidgetSetting(content).fieldGroup,
       });

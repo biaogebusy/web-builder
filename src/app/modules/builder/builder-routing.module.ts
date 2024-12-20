@@ -39,10 +39,6 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'preview',
-        component: PreviewComponent,
-      },
-      {
         path: '**',
         component: ManagePageComponent,
         canActivate: [BuilderGuard],

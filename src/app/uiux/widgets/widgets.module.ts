@@ -80,16 +80,12 @@ import { UserCardCountComponent } from './card/user-card/user-card-count/user-ca
 
 import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
 import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
-import { ChartComponent } from './chart/chart.component';
-import { NgxEchartsModule } from 'ngx-echarts';
 import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
-
 import { BaseModule } from '@uiux/base/base.module';
 import { AccordionComponent } from './accordion/accordion.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
-import { ChartBoxComponent } from './chart/chart-box/chart-box.component';
 import { Card1v5Component } from './card/card1v5/card1v5.component';
 import { Card1v6Component } from './card/card1v6/card1v6.component';
 import { DynamicComponentComponent } from './builder/dynamic-component/dynamic-component.component';
@@ -173,8 +169,6 @@ const components = [
   ContentTextCenterComponent,
   DateRangeComponent,
   MatSelectComponent,
-  ChartComponent,
-  ChartBoxComponent,
   StepperComponent,
   FormlyComponent,
   RepeatTypeComponent,
@@ -216,9 +210,6 @@ const components = [
     ClipboardModule,
     NgOptimizedImage,
     QuillModule.forRoot(),
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'),
-    }),
     FormlyModule.forRoot({
       types: [
         {
@@ -256,10 +247,7 @@ const components = [
     }),
   ],
   exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
-  providers: [
-    MatDatepickerModule,
-    { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
-  ],
+  providers: [MatDatepickerModule, { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WidgetsModule extends BaseModule {

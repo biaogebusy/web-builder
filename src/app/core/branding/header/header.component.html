@@ -1,55 +1,27 @@
 @if (!(isBuilderMode$ | async)) {
   @if (branding$ | async; as branding) {
-    @if (!(contentState.pageConfig$ | async)?.headerMode?.transparent) {
-      <header>
-        <div class="static" [class.header-inverse]="branding?.header?.params?.inverse">
-          @if (showBanner) {
-            <app-header-banner [content]="branding?.header?.banner" />
-          }
-          @if (branding?.header?.top) {
-            <app-header-top [content]="branding?.header?.top" />
-          }
-          @if (branding?.header) {
-            <app-menu #menu />
-          }
-        </div>
-        <app-menu
-          class="sticky"
-          [class.sticking]="sticky"
-          [class.header-inverse]="branding?.header?.params?.inverse"
-        />
-      </header>
-    } @else {
-      <header
-        #header
-        id="transparent-mode"
-        class="transparent-mode"
-        [class.header-inverse]="branding.header.params.inverse"
-        [ngClass]="(contentState.pageConfig$ | async)?.headerMode?.style"
-      >
-        <div class="static">
-          @if (branding.header.top) {
-            <app-header-top [content]="branding.header.top" />
-          }
+    @let pageHeader = branding.header;
+    @let params = pageHeader?.params;
+    @let banner = pageHeader?.banner;
+    @let top = pageHeader?.top;
+    @let headerMode = (contentState.pageConfig$ | async)?.headerMode;
+    <header
+      #header
+      [class.transparent-mode]="headerMode?.transparent"
+      [class.header-inverse]="params?.inverse"
+    >
+      <div class="static" [class.header-inverse]="params?.inverse">
+        @if (showBanner) {
+          <app-header-banner [content]="banner" />
+        }
+        @if (top) {
+          <app-header-top [content]="top" />
+        }
+        @if (branding?.header) {
           <app-menu #menu />
-        </div>
-      </header>
-    }
-    <ng-template #transparent>
-      <header
-        #header
-        id="transparent-mode"
-        class="transparent-mode"
-        [class.header-inverse]="branding.header.params.inverse"
-        [ngClass]="(contentState.pageConfig$ | async)?.headerMode?.style"
-      >
-        <div class="static">
-          @if (branding.header.top) {
-            <app-header-top [content]="branding.header.top" />
-          }
-          <app-menu #menu />
-        </div>
-      </header>
-    </ng-template>
+        }
+      </div>
+      <app-menu class="sticky" [class.sticking]="sticky" />
+    </header>
   }
 }
