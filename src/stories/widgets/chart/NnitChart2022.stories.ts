@@ -7,8 +7,7 @@ import {
   StoryObj,
   applicationConfig,
 } from '@storybook/angular';
-import { ChartComponent } from '@uiux/widgets/chart/chart.component';
-import { NGX_ECHARTS_CONFIG } from 'ngx-echarts';
+import { ChartComponent } from '@uiux/combs/chart/chart/chart.component';
 
 const meta: Meta<ChartComponent> = {
   title: '基础组件/图表/2022问卷',
@@ -20,12 +19,7 @@ const meta: Meta<ChartComponent> = {
     }),
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
-      providers: [
-        {
-          provide: NGX_ECHARTS_CONFIG,
-          useValue: {},
-        },
-      ],
+      providers: [],
     }),
     componentWrapperDecorator(
       story => `<div class="relative p-x p-y" style="z-index:1">${story}</div>`

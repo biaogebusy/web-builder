@@ -8,7 +8,7 @@ import {
   StoryObj,
   applicationConfig,
 } from '@storybook/angular';
-import { ChartBoxComponent } from '@uiux/widgets/chart/chart-box/chart-box.component';
+import { ChartBoxComponent } from '@uiux/combs/chart/chart-box/chart-box.component';
 
 const meta: Meta<ChartBoxComponent> = {
   title: '基础组件/图表/图表数据',
@@ -21,9 +21,7 @@ const meta: Meta<ChartBoxComponent> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator(
-      story => `<div class="relative p-x p-y" >${story}</div>`
-    ),
+    componentWrapperDecorator(story => `<div class="relative p-x p-y" >${story}</div>`),
   ],
 };
 

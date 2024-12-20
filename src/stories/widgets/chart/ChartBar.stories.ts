@@ -7,10 +7,9 @@ import {
   StoryObj,
   applicationConfig,
 } from '@storybook/angular';
-import { ChartComponent } from '@uiux/widgets/chart/chart.component';
+import { ChartComponent } from '@uiux/combs/chart/chart/chart.component';
 import { EChartsOption } from 'echarts';
 import { random } from 'lodash-es';
-import { NGX_ECHARTS_CONFIG } from 'ngx-echarts';
 
 const meta: Meta<ChartComponent> = {
   title: '基础组件/图表/柱状图',
@@ -22,12 +21,7 @@ const meta: Meta<ChartComponent> = {
     }),
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
-      providers: [
-        {
-          provide: NGX_ECHARTS_CONFIG,
-          useValue: {},
-        },
-      ],
+      providers: [],
     }),
     componentWrapperDecorator(
       story => `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
@@ -62,24 +56,9 @@ const bar: EChartsOption = {
     // 提供一份数据。
     source: [
       ['红包预算', '2020', '2021', '2022'],
-      [
-        '第一季度',
-        random(3000, 10000),
-        random(3000, 10000),
-        random(3000, 10000),
-      ],
-      [
-        '第二季度',
-        random(3000, 10000),
-        random(3000, 10000),
-        random(3000, 10000),
-      ],
-      [
-        '第三季度',
-        random(3000, 10000),
-        random(3000, 10000),
-        random(3000, 10000),
-      ],
+      ['第一季度', random(3000, 10000), random(3000, 10000), random(3000, 10000)],
+      ['第二季度', random(3000, 10000), random(3000, 10000), random(3000, 10000)],
+      ['第三季度', random(3000, 10000), random(3000, 10000), random(3000, 10000)],
     ],
   },
   // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。

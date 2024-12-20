@@ -43,6 +43,7 @@ export class ComponentService {
         'spacer',
         'iframe',
         'bg-img',
+        'formly',
         'spinner',
         'stepper',
         'card-1v1',
@@ -50,7 +51,8 @@ export class ComponentService {
         'card-1v4',
         'card-1v5',
         'card-1v6',
-        'chart-box',
+        'textarea',
+        'download',
         'accordion',
         'user-card',
         'btn-video',
@@ -58,27 +60,27 @@ export class ComponentService {
         'text-hero',
         'menu-list',
         'chip-list',
-        'chart',
-        'formly',
         'media-list',
         'feature-box',
+        'media-meta',
         'content-box',
         'testimonial',
+        'datepicker',
+        'github-star',
         'progress-bar',
         'media-object',
-        'media-meta',
-        'textarea',
-        'download',
         'dynamic-table',
         'dropdown-menu',
         'number-animate',
         'progress-group',
-        'datepicker',
         'inline-lightbox',
         'media-object-group',
         'content-text-center',
-        'github-star',
       ],
+    },
+    {
+      module: 'ChartModule',
+      components: ['chart', 'chart-box'],
     },
     {
       module: 'BannerModule',
@@ -220,6 +222,9 @@ export class ComponentService {
       switch (moduleName) {
         case 'WidgetsModule':
           module = await import('@uiux/widgets/widgets.module');
+          break;
+        case 'ChartModule':
+          module = await import('@uiux/combs/chart/chart.module');
           break;
         case 'BannerModule':
           module = await import('@uiux/combs/banner/banner.module');

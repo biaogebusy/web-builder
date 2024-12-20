@@ -6,11 +6,10 @@ import {
   StoryObj,
   applicationConfig,
 } from '@storybook/angular';
-import { ChartComponent } from '@uiux/widgets/chart/chart.component';
+import { ChartComponent } from '@uiux/combs/chart/chart/chart.component';
 import { Bar } from './ChartBar.stories';
 import { EChartsOption } from 'echarts';
 import { importProvidersFrom } from '@angular/core';
-import { NGX_ECHARTS_CONFIG } from 'ngx-echarts';
 const meta: Meta<ChartComponent> = {
   title: '基础组件/图表/折线图',
   id: 'chart-line',
@@ -21,12 +20,7 @@ const meta: Meta<ChartComponent> = {
     }),
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
-      providers: [
-        {
-          provide: NGX_ECHARTS_CONFIG,
-          useValue: {},
-        },
-      ],
+      providers: [],
     }),
     componentWrapperDecorator(
       story => `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
