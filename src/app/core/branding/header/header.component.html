@@ -1,13 +1,18 @@
 @if (!(isBuilderMode$ | async)) {
   @if (branding$ | async; as branding) {
-    @if (!(contentState.pageConfig$ | async)?.headerMode?.transparent) {
+    @let pageHeader = branding.header;
+    @let params = pageHeader?.params;
+    @let banner = pageHeader?.banner;
+    @let top = pageHeader?.top;
+    @let headerMode = (contentState.pageConfig$ | async)?.headerMode;
+    @if (!headerMode?.transparent) {
       <header>
-        <div class="static" [class.header-inverse]="branding?.header?.params?.inverse">
+        <div class="static" [class.header-inverse]="params?.inverse">
           @if (showBanner) {
-            <app-header-banner [content]="branding?.header?.banner" />
+            <app-header-banner [content]="banner" />
           }
-          @if (branding?.header?.top) {
-            <app-header-top [content]="branding?.header?.top" />
+          @if (top) {
+            <app-header-top [content]="top" />
           }
           @if (branding?.header) {
             <app-menu #menu />
@@ -16,7 +21,7 @@
         <app-menu
           class="sticky"
           [class.sticking]="sticky"
-          [class.header-inverse]="branding?.header?.params?.inverse"
+          [class.header-inverse]="params?.inverse"
         />
       </header>
     } @else {
@@ -24,12 +29,12 @@
         #header
         id="transparent-mode"
         class="transparent-mode"
-        [class.header-inverse]="branding.header.params.inverse"
-        [ngClass]="(contentState.pageConfig$ | async)?.headerMode?.style"
+        [class.header-inverse]="params?.inverse"
+        [ngClass]="headerMode?.style"
       >
         <div class="static">
-          @if (branding.header.top) {
-            <app-header-top [content]="branding.header.top" />
+          @if (top) {
+            <app-header-top [content]="top" />
           }
           <app-menu #menu />
         </div>
