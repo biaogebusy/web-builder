@@ -7,11 +7,7 @@ import {
   inject,
   DestroyRef,
 } from '@angular/core';
-import {
-  UntypedFormGroup,
-  UntypedFormBuilder,
-  Validators,
-} from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { TagsService } from '@core/service/tags.service';
@@ -51,19 +47,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     @Inject(USER) public user$: Observable<IUser>
   ) {
     if (this.screenService.isPlatformBrowser()) {
-      this.userService.userSub$
-        .pipe(takeUntilDestroyed())
-        .subscribe((currentUser: any) => {
-          // login
-          if (currentUser) {
-            setTimeout(() => {
-              const returnUrl =
-                this.route.snapshot.queryParams.returnUrl ||
-                this.coreConfig.login.loginRedirect;
-              this.router.navigate([returnUrl]);
-            }, 2000);
-          }
-        });
+      this.userService.userSub$.pipe(takeUntilDestroyed()).subscribe((currentUser: any) => {
+        // login
+        if (currentUser) {
+          setTimeout(() => {
+            const returnUrl =
+              this.route.snapshot.queryParams.returnUrl || this.coreConfig.login.loginRedirect;
+            this.router.navigate([returnUrl]);
+          }, 2000);
+        }
+      });
     }
   }
 
@@ -121,15 +114,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onLogin(state: any, errorMessage: string): void {
-    if (state) {
-      this.loading = false;
-      this.cd.detectChanges();
-    }
     if (!state) {
-      this.loading = false;
       this.error = errorMessage;
-      this.cd.detectChanges();
     }
+    this.loading = false;
+    this.cd.detectChanges();
   }
 
   getCode(event: any): any {
