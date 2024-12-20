@@ -68,7 +68,7 @@
     "mustache": "^4.2.0",
     "ngx-cookie-service": "^18.0.0",
     "ngx-countup": "^13.1.0",
-    "ngx-echarts": "^14.0.0",
+    "ngx-echarts": "^18.0.0",
     "ngx-file-drop": "^16.0.0",
     "ngx-mat-select-search": "^7.0.6",
     "ngx-monaco-editor": "^12.0.0",

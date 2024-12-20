@@ -82,6 +82,21 @@ import { DateRangeComponent } from './form/formly-type/date-range/date-range.com
 import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
 import { ChartComponent } from './chart/chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts/core';
+import { BarChart, LineChart, PieChart } from 'echarts/charts';
+import {
+  TitleComponent as TitleEchartsComponent,
+  TooltipComponent,
+  GridComponent,
+  DatasetComponent,
+  TransformComponent,
+} from 'echarts/components';
+// Features like Universal Transition and Label Layout
+import { LabelLayout, UniversalTransition } from 'echarts/features';
+
+// Import the Canvas renderer
+// Note that including the CanvasRenderer or SVGRenderer is a required step
+import { CanvasRenderer } from 'echarts/renderers';
 import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
@@ -112,6 +127,24 @@ import { CountUpModule } from 'ngx-countup';
 import { LightgalleryModule } from 'lightgallery/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { NgOptimizedImage } from '@angular/common';
+
+// Import the theme
+import 'echarts/theme/macarons.js';
+
+// Register the required components
+echarts.use([
+  BarChart,
+  LineChart,
+  PieChart,
+  TitleEchartsComponent,
+  TooltipComponent,
+  GridComponent,
+  DatasetComponent,
+  TransformComponent,
+  LabelLayout,
+  UniversalTransition,
+  CanvasRenderer,
+]);
 
 const components = [
   BgComponent,
@@ -216,9 +249,7 @@ const components = [
     ClipboardModule,
     NgOptimizedImage,
     QuillModule.forRoot(),
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'),
-    }),
+    NgxEchartsModule.forRoot({ echarts }),
     FormlyModule.forRoot({
       types: [
         {
@@ -256,10 +287,7 @@ const components = [
     }),
   ],
   exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
-  providers: [
-    MatDatepickerModule,
-    { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
-  ],
+  providers: [MatDatepickerModule, { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WidgetsModule extends BaseModule {
