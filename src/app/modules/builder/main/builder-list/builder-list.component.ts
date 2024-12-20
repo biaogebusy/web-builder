@@ -55,6 +55,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     afterRender(() => {
       const scrollableContainer = this.doc.querySelector('.builder-list');
       const aosElements = this.builderList.nativeElement.querySelectorAll('.aos-item');
+      const gsapElements = this.builderList.nativeElement.querySelectorAll('.gsap-item');
       const observer = new IntersectionObserver(
         entries => {
           entries.forEach((entry: any) => {
@@ -63,11 +64,13 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
             const bottomOffset = 150;
             if (entry.isIntersecting) {
               entry.target.classList.add('aos-animate');
+              window.gsap.globalTimeline.play();
             }
 
             if (top > viewportHeight - bottomOffset) {
               // 当元素准备离开底部一定距离
               entry.target.classList.remove('aos-animate');
+              window.gsap.globalTimeline.pause();
             }
           });
         },
@@ -76,7 +79,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
           threshold: 0.1, // 元素进入视口的触发比例
         }
       );
-      aosElements.forEach((el: any) => observer.observe(el));
+      const elements = [...aosElements, ...gsapElements];
+      elements.forEach((el: any) => observer.observe(el));
     });
   }
 

@@ -270,14 +270,6 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  onWidgetSetting(widget: any, path: string): void {
-    const animateConfig = getAnimate(widget);
-    const fields = getWidgetSetting(widget);
-
-    fields.fieldGroup?.push(animateConfig);
-    this.showComponentSetting(widget, [fields], path);
-  }
-
   showComponentSetting(widget: any, fields: FormlyFieldConfig[], path: string): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',

@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { getAnimate } from '@modules/builder/factory/getAnimate';
+import { getWidgetSetting } from '@modules/builder/factory/getWidgetSetting';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
@@ -57,6 +59,10 @@ export class BlockToolbarComponent {
 
   onWidgetSetting(widget: any, target: any): void {
     const path = this.util.generatePath(target);
-    this.builder.onWidgetSetting(widget, path);
+    const animateConfig = getAnimate(widget);
+    const fields = getWidgetSetting(widget);
+
+    fields.fieldGroup?.push(animateConfig);
+    this.builder.showComponentSetting(widget, [fields], path);
   }
 }

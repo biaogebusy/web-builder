@@ -124,6 +124,7 @@ export class UtilitiesService {
         if (enable) {
           setTimeout(() => {
             animateEle.style.display = 'block';
+            animateEle.classList.add('gsap-item');
             const tl = window.gsap.timeline({
               scrollTrigger: {
                 trigger: triggerEle,
@@ -164,7 +165,7 @@ export class UtilitiesService {
   }
 
   getScroller(): HTMLElement | Window {
-    const scroller = document.getElementById('builder-list');
+    const scroller = document.getElementById('gsap-scroller');
     if (scroller) {
       return scroller;
     } else {

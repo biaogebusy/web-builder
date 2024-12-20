@@ -124,12 +124,14 @@ export class DynamicComponentComponent
 
     this.container.insert(this.componentRef.hostView);
     this.componentRef.changeDetectorRef.detectChanges();
-    this.util.initAnimate(
-      this.inputs,
-      this.ele.nativeElement.lastElementChild,
-      this.ele.nativeElement,
-      this.index
-    );
+    if (this.screenService.isPlatformBrowser()) {
+      this.util.initAnimate(
+        this.inputs,
+        this.ele.nativeElement.lastElementChild,
+        this.ele.nativeElement,
+        this.index
+      );
+    }
   }
 
   ngOnDestroy(): void {

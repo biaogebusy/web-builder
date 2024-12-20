@@ -463,7 +463,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'end',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: content?.animate?.gsap?.trigger?.end ?? 'top 40%',
+                        defaultValue: content?.animate?.gsap?.trigger?.end ?? 'bottom 30%',
                         props: {
                           label: '触发结束位置',
                         },
@@ -477,6 +477,15 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     defaultValue: content?.animate?.gsap?.trigger?.scrub ?? false,
                     props: {
                       label: '跟随滚动变化',
+                    },
+                  },
+                  {
+                    key: 'markers',
+                    type: 'toggle',
+                    className: 'w-full',
+                    defaultValue: content?.animate?.gsap?.trigger?.markers ?? false,
+                    props: {
+                      label: '调试',
                     },
                   },
                 ],
