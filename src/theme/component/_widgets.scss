@@ -98,10 +98,7 @@
 
     .feature-inner-ling {
       .media {
-        background-color: mat.m2-get-color-from-palette(
-          $background,
-          background
-        );
+        background-color: mat.m2-get-color-from-palette($background, background);
       }
 
       .title {
@@ -122,11 +119,7 @@
 
   .feature-float {
     .title {
-      background-color: mat.m2-get-color-from-palette(
-        $foreground,
-        elevation,
-        0.7
-      );
+      background-color: mat.m2-get-color-from-palette($foreground, elevation, 0.7);
       color: mat.m2-get-color-from-palette($primary, default-contrast, 0.8);
     }
 
@@ -176,10 +169,7 @@
   .pagination {
     button.current {
       background-color: mat.m2-get-color-from-palette($primary) !important;
-      color: mat.m2-get-color-from-palette(
-        $primary,
-        default-contrast
-      ) !important;
+      color: mat.m2-get-color-from-palette($primary, default-contrast) !important;
       border-radius: 4px;
     }
   }
@@ -206,21 +196,12 @@
     @media #{$gt-sm} {
       form {
         background-color: mat.m2-get-color-from-palette($background, card);
-        @include mat.elevation(
-          4,
-          mat.m2-get-color-from-palette($foreground, text),
-          0.2
-        );
-        border: 1px solid
-          mat.m2-get-color-from-palette($foreground, divider, 0.1);
+        @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.2);
+        border: 1px solid mat.m2-get-color-from-palette($foreground, divider, 0.1);
 
         &:hover,
         &:focus {
-          @include mat.elevation(
-            4,
-            mat.m2-get-color-from-palette($primary),
-            0.5
-          );
+          @include mat.elevation(4, mat.m2-get-color-from-palette($primary), 0.5);
           border: 1px solid mat.m2-get-color-from-palette($primary, 0.1);
         }
       }
@@ -253,20 +234,12 @@
     .sidebar {
       > .inner {
         background-color: mat.m2-get-color-from-palette($background, card);
-        @include mat.elevation(
-          4,
-          mat.m2-get-color-from-palette($foreground, divider),
-          0.5
-        );
+        @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, divider), 0.5);
       }
     }
 
     .view {
-      @include mat.elevation(
-        6,
-        mat.m2-get-color-from-palette($foreground, divider),
-        0.25
-      );
+      @include mat.elevation(6, mat.m2-get-color-from-palette($foreground, divider), 0.25);
     }
   }
 
@@ -280,10 +253,7 @@
     tbody {
       > tr {
         &:hover {
-          background-color: mat.m2-get-color-from-palette(
-            $background,
-            background
-          );
+          background-color: mat.m2-get-color-from-palette($background, background);
         }
       }
 
@@ -297,17 +267,14 @@
 
   .border-primary {
     border: 1px solid mat.m2-get-color-from-palette($primary) !important;
-    background-color: mat.m2-get-color-from-palette($background, card);
   }
 
   .border-warn {
     border: 1px solid mat.m2-get-color-from-palette($warn) !important;
-    background-color: mat.m2-get-color-from-palette($background, card);
   }
 
   .border-accent {
     border: 1px solid mat.m2-get-color-from-palette($accent) !important;
-    background-color: mat.m2-get-color-from-palette($background, card);
   }
 
   .inline-lightbox {
@@ -327,11 +294,7 @@
 
   .chart {
     border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
-    @include mat.elevation(
-      2,
-      mat.m2-get-color-from-palette($foreground, divider),
-      0.07
-    );
+    @include mat.elevation(2, mat.m2-get-color-from-palette($foreground, divider), 0.07);
   }
 
   .tab {
@@ -378,11 +341,7 @@
   .code-editor {
     .box {
       border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
-      @include mat.elevation(
-        2,
-        mat.m2-get-color-from-palette($foreground, divider),
-        0.07
-      );
+      @include mat.elevation(2, mat.m2-get-color-from-palette($foreground, divider), 0.07);
 
       .jsoneditor {
         border-color: transparent;

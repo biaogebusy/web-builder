@@ -9,11 +9,6 @@
     formly-field {
       margin-right: 10px;
     }
-    @media #{$xs} {
-      formly-field {
-        width: 46%;
-      }
-    }
     .dynamic-table {
       .mat-mdc-header-cell {
         font-size: 14px;

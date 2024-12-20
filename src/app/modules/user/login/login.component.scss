@@ -23,6 +23,14 @@
   max-width: 750px;
   max-height: 600px;
 
+  mat-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
   .login-form {
     .mat-mdc-raised-button {
       height: 40px;

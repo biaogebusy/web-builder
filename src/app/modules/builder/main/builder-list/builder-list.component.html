@@ -1,6 +1,6 @@
 @if (currentPage$ | async; as page) {
-  <div class="builder-list">
-    <div id="gsap-scroller" class="wrapper" [ngClass]="previewClass$ | async">
+  <div class="builder-list" id="gsap-scroller">
+    <div class="wrapper" [ngClass]="previewClass$ | async">
       @if (builder.loading$ | async) {
         <div class="load">
           <mat-spinner diameter="50" color="accent" />
@@ -58,7 +58,7 @@
       </div>
       @if (builder.switchPreivew$ | async) {
         <div class="iframe-wrapper">
-          <app-iframe class="preview-iframe" [content]="{ url: '/builder/preview' }" />
+          <app-iframe class="preview-iframe" [content]="{ url: '/preview' }" />
         </div>
       }
     </div>

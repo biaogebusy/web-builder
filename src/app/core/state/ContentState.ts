@@ -13,5 +13,5 @@ export class ContentState {
   public drawerContent$ = new Subject<IPage>();
   public mediaAssetsFormChange$ = new Subject<object>();
 
-  constructor() {}
+  public componentCount$ = new Subject<number>();
 }

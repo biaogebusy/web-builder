@@ -8,7 +8,5 @@ import type { IShowcase3v9 } from '@core/interface/combs/IShowcase';
 })
 export class Showcase3v9Component implements OnInit {
   @Input() content: IShowcase3v9;
-  constructor() {}
-
   ngOnInit(): void {}
 }

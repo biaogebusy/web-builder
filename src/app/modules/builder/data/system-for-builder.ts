@@ -763,8 +763,7 @@ export const system: any[] = [
                         className: 'bg-warn',
                       },
                       {
-                        title:
-                          'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
+                        title: 'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
                         event: 'drupal',
                         start: 1720942921677,
                         user: 'Johnson',
@@ -858,8 +857,7 @@ export const system: any[] = [
                         className: 'bg-brown',
                       },
                       {
-                        title:
-                          'ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别',
+                        title: 'ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别',
                         event: 'drupal',
                         start: 1720338121677,
                         user: 'Johnson',
@@ -1337,24 +1335,21 @@ export const system: any[] = [
                     end: '2023/04/11 23:59:59',
                   },
                   {
-                    title:
-                      '<a href="#">城盛百汇周末特惠 会员1元换购大米/面粉</a>',
+                    title: '<a href="#">城盛百汇周末特惠 会员1元换购大米/面粉</a>',
                     lottery: '66',
                     visitor: '415',
                     comment: '1',
                     end: '2023/03/29 23:59:59',
                   },
                   {
-                    title:
-                      '<a href="#">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>',
+                    title: '<a href="#">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>',
                     lottery: '7',
                     visitor: '181',
                     comment: '0',
                     end: '2022/12/30 23:59:59',
                   },
                   {
-                    title:
-                      '<a href="#">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>',
+                    title: '<a href="#">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>',
                     lottery: '4',
                     visitor: '365',
                     comment: '0',
@@ -1393,22 +1388,19 @@ export const system: any[] = [
                 ],
                 elements: [
                   {
-                    title:
-                      '<a href="#">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>',
+                    title: '<a href="#">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>',
                     user: '用户ERSyAUCP',
                     body: '看起来不错！',
                     date: '2023/04/01',
                   },
                   {
-                    title:
-                      '<a href="#">城盛百汇周末特惠 会员1元换购大米/面粉</a>',
+                    title: '<a href="#">城盛百汇周末特惠 会员1元换购大米/面粉</a>',
                     user: '用户FGDDDES',
                     body: '为什么超出范围？',
                     date: '2023/03/28',
                   },
                   {
-                    title:
-                      '<a href="#">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>',
+                    title: '<a href="#">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>',
                     user: '用户PIJFN',
                     body: '可以多一些这样的好物！',
                     date: '2023/02/18',
@@ -1457,8 +1449,7 @@ export const system: any[] = [
                         className: 'bg-warn',
                       },
                       {
-                        title:
-                          'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
+                        title: 'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
                         event: 'drupal',
                         start: 1720942921677,
                         user: 'Johnson',
@@ -1552,8 +1543,7 @@ export const system: any[] = [
                         className: 'bg-brown',
                       },
                       {
-                        title:
-                          'ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别',
+                        title: 'ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别',
                         event: 'drupal',
                         start: 1720338121677,
                         user: 'Johnson',
@@ -2876,8 +2866,7 @@ export const system: any[] = [
               },
               {
                 link: {
-                  label:
-                    '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
+                  label: '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
                   href: '/node/382',
                   target: '_blank',
                 },
@@ -3033,8 +3022,7 @@ export const system: any[] = [
               },
               {
                 link: {
-                  label:
-                    '分享几款不错的 Web 地图应用 UI 设计，并用 Drupal Jsonapi 实现了个 Demo',
+                  label: '分享几款不错的 Web 地图应用 UI 设计，并用 Drupal Jsonapi 实现了个 Demo',
                   href: '/node/374',
                   target: '_blank',
                 },
@@ -3112,8 +3100,7 @@ export const system: any[] = [
               },
               {
                 link: {
-                  label:
-                    'Angular ng-content、ng-template、ng-container 之间的区别',
+                  label: 'Angular ng-content、ng-template、ng-container 之间的区别',
                   href: '/node/372',
                   target: '_blank',
                 },
@@ -3379,8 +3366,7 @@ export const system: any[] = [
                   className: 'bg-yellow',
                 },
                 {
-                  title:
-                    '开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器',
+                  title: '开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器',
                   event: 'drupal',
                   start: 1717514351195,
                   user: 'Johnson',
@@ -3445,8 +3431,7 @@ export const system: any[] = [
                   className: 'bg-brown',
                 },
                 {
-                  title:
-                    'ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别',
+                  title: 'ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别',
                   event: 'drupal',
                   start: 1716736751195,
                   user: 'Johnson',
@@ -3518,33 +3503,7 @@ export const system: any[] = [
           vertical: 'center',
           gap: {},
           wrapperClass: '',
-          animate: {
-            from: {
-              x: 0,
-              y: 0,
-              rotationX: 0,
-              rotationY: 0,
-              scaleX: 1,
-              scaleY: 1,
-              skewX: 0,
-              skewY: 0,
-              opacity: 1,
-              delay: 0,
-              duration: 1,
-              ease: 'none',
-              rotation: 0,
-              scale: 1,
-            },
-            trigger: {
-              onEnter: 'play',
-              onLeave: 'none',
-              onEnterBack: 'none',
-              onLeaveBack: 'none',
-              start: 'top 90%',
-              end: 'top 40%',
-              scrub: false,
-            },
-          },
+
           type: 'layout-builder',
           elements: [
             {
@@ -3573,33 +3532,7 @@ export const system: any[] = [
               },
               classes: '',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotationX: 0,
-                  rotationY: 0,
-                  scaleX: 1,
-                  scaleY: 1,
-                  skewX: 0,
-                  skewY: 0,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                  rotation: 0,
-                  scale: 1,
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                  scrub: false,
-                },
-              },
+
               style: {
                 borderRadius: 'none',
               },
@@ -3651,26 +3584,7 @@ export const system: any[] = [
               style: {
                 borderRadius: 'none',
               },
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 1,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                },
-              },
+
               elements: [
                 {
                   style: 'style-v1',
@@ -3686,31 +3600,7 @@ export const system: any[] = [
                       },
                     ],
                   },
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotationX: 0,
-                      rotationY: 0,
-                      scaleX: 1,
-                      scaleY: 1,
-                      skewX: 0,
-                      skewY: 0,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                      scrub: false,
-                    },
-                  },
+
                   type: 'title',
                   label:
                     '<p style="display: inline-block; margin-bottom: 0px;">OH!NO&nbsp;</p><div><p style="display: inline-block; margin-bottom: 0px;">页面没有找到</p></div>',
@@ -3743,33 +3633,7 @@ export const system: any[] = [
               },
               classes: '',
               blockClasses: '',
-              animate: {
-                from: {
-                  x: 0,
-                  y: 0,
-                  rotationX: 0,
-                  rotationY: 0,
-                  scaleX: 1,
-                  scaleY: 1,
-                  skewX: 0,
-                  skewY: 0,
-                  opacity: 1,
-                  delay: 0,
-                  duration: 1,
-                  ease: 'none',
-                  rotation: 0,
-                  scale: 1,
-                },
-                trigger: {
-                  onEnter: 'play',
-                  onLeave: 'none',
-                  onEnterBack: 'none',
-                  onLeaveBack: 'none',
-                  start: 'top 90%',
-                  end: 'top 40%',
-                  scrub: false,
-                },
-              },
+
               style: {
                 borderRadius: 'none',
               },
@@ -3790,31 +3654,7 @@ export const system: any[] = [
                   },
                   classes: '',
                   pill: false,
-                  animate: {
-                    from: {
-                      x: 0,
-                      y: 0,
-                      rotationX: 0,
-                      rotationY: 0,
-                      scaleX: 1,
-                      scaleY: 1,
-                      skewX: 0,
-                      skewY: 0,
-                      opacity: 1,
-                      delay: 0,
-                      duration: 1,
-                      ease: 'none',
-                    },
-                    trigger: {
-                      onEnter: 'play',
-                      onLeave: 'none',
-                      onEnterBack: 'none',
-                      onLeaveBack: 'none',
-                      start: 'top 90%',
-                      end: 'top 40%',
-                      scrub: false,
-                    },
-                  },
+
                   type: 'btn',
                 },
               ],
@@ -3962,8 +3802,7 @@ export const system: any[] = [
             },
           ],
           contentStyle: {
-            background:
-              'url("/assets/images/showcase/pattern-02.png") no-repeat center center',
+            background: 'url("/assets/images/showcase/pattern-02.png") no-repeat center center',
           },
         },
       },
@@ -4209,8 +4048,7 @@ export const system: any[] = [
             {
               type: 'showcase-3v3',
               title: {
-                label:
-                  '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
+                label: '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
                 href: '/node/382',
               },
               spacer: 'none',
@@ -4903,8 +4741,7 @@ export const system: any[] = [
               badge_1:
                 '<div class="item-list"><ul><li>五险一金</li><li>绩效奖金</li><li>包中餐</li><li>产假</li></ul></div>',
               img: '/assets/images/logo/amazon.svg',
-              address:
-                '中国广西壮族自治区南宁市青秀区民族大道159号万丰新新大厦',
+              address: '中国广西壮族自治区南宁市青秀区民族大道159号万丰新新大厦',
               nid: '247',
               url: '/node/247',
               position: [108.407058, 22.815584],
@@ -4918,8 +4755,7 @@ export const system: any[] = [
               badge_1:
                 '<div class="item-list"><ul><li>五险一金</li><li>绩效奖金</li><li>包中餐</li><li>产假</li></ul></div>',
               img: '/assets/images/logo/amazon.svg',
-              address:
-                '中国广西壮族自治区南宁市青秀区民族大道159号万丰新新大厦',
+              address: '中国广西壮族自治区南宁市青秀区民族大道159号万丰新新大厦',
               nid: '247',
               url: '/node/247',
               latitude: '22.83393',
@@ -4931,11 +4767,9 @@ export const system: any[] = [
               meta_2: '2021-04-25',
               badge_2: '<div class="item-list"><ul><li>运营</li></ul></div>',
               meta_1: '<span class="text-primary bold">3-6 k</span>',
-              badge_1:
-                '<div class="item-list"><ul><li>职位晋升</li></ul></div>',
+              badge_1: '<div class="item-list"><ul><li>职位晋升</li></ul></div>',
               img: '/assets/images/logo/codepen.svg',
-              address:
-                '中国广西壮族自治区南宁市良庆区平乐大道21号大唐·总部1号1号楼',
+              address: '中国广西壮族自治区南宁市良庆区平乐大道21号大唐·总部1号1号楼',
               nid: '245',
               url: '/node/245',
               position: [108.384383, 22.750785],
@@ -4944,14 +4778,11 @@ export const system: any[] = [
               subTitle: '产品经理',
               title: '中国谷歌 Google',
               meta_2: '2021-04-25',
-              badge_2:
-                '<div class="item-list"><ul><li>产品分析</li></ul></div>',
+              badge_2: '<div class="item-list"><ul><li>产品分析</li></ul></div>',
               meta_1: '<span class="text-primary bold">4-6 k</span>',
-              badge_1:
-                '<div class="item-list"><ul><li>职位晋升</li></ul></div>',
+              badge_1: '<div class="item-list"><ul><li>职位晋升</li></ul></div>',
               img: '/assets/images/logo/google.svg',
-              address:
-                '中国广西壮族自治区南宁市良庆区平乐大道21号大唐·总部1号1号楼',
+              address: '中国广西壮族自治区南宁市良庆区平乐大道21号大唐·总部1号1号楼',
               nid: '244',
               url: '/node/244',
               position: [108.384383, 22.750785],
@@ -4960,14 +4791,12 @@ export const system: any[] = [
               subTitle: 'cto首席技术官 ',
               title: '联想集团',
               meta_2: '2021-04-25',
-              badge_2:
-                '<div class="item-list"><ul><li>技术机构</li></ul></div>',
+              badge_2: '<div class="item-list"><ul><li>技术机构</li></ul></div>',
               meta_1: '<span class="text-primary bold">15-20 k</span>',
               badge_1:
                 '<div class="item-list"><ul><li>绩效奖金</li><li>午餐补助</li><li>美女多</li></ul></div>',
               img: '/assets/images/logo/lenovo.svg',
-              address:
-                '中国广西壮族自治区南宁市青秀区金洲路琅西56栋-12号(汇发集团)3楼',
+              address: '中国广西壮族自治区南宁市青秀区金洲路琅西56栋-12号(汇发集团)3楼',
               nid: '242',
               url: '/node/242',
               position: [108.364581, 22.808037],
@@ -4981,8 +4810,7 @@ export const system: any[] = [
               badge_1:
                 '<div class="item-list"><ul><li>绩效奖金</li><li>午餐补助</li><li>美女多</li></ul></div>',
               img: '/assets/images/logo/paypal.svg',
-              address:
-                '中国广西壮族自治区南宁市青秀区金洲路琅西56栋-12号(汇发集团)3楼',
+              address: '中国广西壮族自治区南宁市青秀区金洲路琅西56栋-12号(汇发集团)3楼',
               nid: '241',
               url: '/node/241',
               position: [108.364581, 22.808037],
@@ -4993,8 +4821,7 @@ export const system: any[] = [
               meta_2: '2021-04-24',
               badge_2: '<div class="item-list"><ul><li>Linux</li></ul></div>',
               meta_1: '<span class="text-primary bold">7-9 k</span>',
-              badge_1:
-                '<div class="item-list"><ul><li>五险一金</li></ul></div>',
+              badge_1: '<div class="item-list"><ul><li>五险一金</li></ul></div>',
               img: '/assets/images/logo/shopify.svg',
               address: '中国广西壮族自治区南宁市良庆区平乐大道18号东盟信息港',
               nid: '239',
@@ -5005,11 +4832,9 @@ export const system: any[] = [
               subTitle: 'Java架构师',
               title: 'Spotify',
               meta_2: '2021-04-23',
-              badge_2:
-                '<div class="item-list"><ul><li>Spring</li><li>Oracle</li></ul></div>',
+              badge_2: '<div class="item-list"><ul><li>Spring</li><li>Oracle</li></ul></div>',
               meta_1: '<span class="text-primary bold">12-18 k</span>',
-              badge_1:
-                '<div class="item-list"><ul><li>周末双休</li></ul></div>',
+              badge_1: '<div class="item-list"><ul><li>周末双休</li></ul></div>',
               img: '/assets/images/logo/spotify.svg',
               address: '中国广西壮族自治区南宁市西乡塘区东盟慧谷13栋15楼1501',
               nid: '237',
