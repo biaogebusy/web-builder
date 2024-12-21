@@ -6,6 +6,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ContentState } from '@core/state/ContentState';
+import { isNil, omitBy } from 'lodash-es';
 @Injectable({
   providedIn: 'root',
 })
@@ -128,20 +129,35 @@ export class UtilitiesService {
             const tl = window.gsap.timeline({
               scrollTrigger: {
                 trigger: triggerEle,
-                start: trigger?.start || 'top 85%',
-                end: trigger?.end || 'bottom 30%',
+                start: trigger.start || '20px 80%',
+                end: trigger.bottom || 'bottom 100px',
                 markers: trigger?.markers,
                 scrub: trigger?.scrub,
                 scroller: this.getScroller(),
-                toggleActions: `${trigger?.onEnter || 'paly'} ${
-                  trigger?.onLeave || 'none'
-                } ${trigger?.onEnterBack || 'none'} ${trigger?.onLeaveBack || 'none'}`,
+                toggleActions: `${trigger?.onEnter || 'restart'} ${
+                  trigger?.onLeave || 'pause'
+                } ${trigger?.onEnterBack || 'none'} ${trigger?.onLeaveBack || 'reverse'}`,
+                onEnter: () => {
+                  console.log('onEnter');
+                },
+                onLeave: () => {
+                  console.log('onLeave');
+                },
+                onEnterBack: () => {
+                  console.log('onEnterBack');
+                },
+                onLeaveBack: () => {
+                  console.log('onLeaveBack');
+                },
               },
             });
             if (from) {
               // 从一个状态到当前状态
+              const vars = omitBy(from, value => {
+                return isNil(value) || isNaN(value);
+              });
               tl.from(animateEle, {
-                ...from,
+                ...vars,
               });
             }
           }, 600);
