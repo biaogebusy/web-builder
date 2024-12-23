@@ -11,6 +11,7 @@
     </a>
   }
   <mat-divider />
+
   @if (config) {
     @if (config.menu) {
       <app-accordion
@@ -20,6 +21,18 @@
         [content]="config.menu"
       />
     }
+  } @else {
+    <div class="mx-1 my-5">
+      <ngx-skeleton-loader
+        [theme]="{
+          'height': '10px',
+          'background-color': '#373737',
+        }"
+        count="20"
+        animation="progress-dark"
+        appearance="line"
+      />
+    </div>
   }
 
   <div class="icon-menu" [ngClass]="sidebarDrawer.opened ? '!hidden' : ''">
