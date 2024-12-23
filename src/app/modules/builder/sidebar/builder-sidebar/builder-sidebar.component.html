@@ -22,17 +22,15 @@
       />
     }
   } @else {
-    <div class="mx-1 my-5">
-      <ngx-skeleton-loader
-        [theme]="{
-          'height': '10px',
-          'background-color': '#373737',
-        }"
-        count="20"
-        animation="progress-dark"
-        appearance="line"
-      />
-    </div>
+    <ngx-skeleton-loader
+      [theme]="{
+        'background-color': '#373737',
+      }"
+      count="6"
+      animation="progress-dark"
+      appearance="circle"
+      class="flex flex-col justify-center items-center gap-4 my-5"
+    />
   }
 
   <div class="icon-menu" [ngClass]="sidebarDrawer.opened ? '!hidden' : ''">
