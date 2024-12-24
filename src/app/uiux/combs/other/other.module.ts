@@ -10,6 +10,7 @@ import { ThemePreviewComponent } from './theme-preview/theme-preview.component';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { CustomTemplateComponent } from './custom-template/custom-template.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { FormModule } from '../form/form.module';
 
 const components = [
   AutocloseComponent,
@@ -25,6 +26,7 @@ const components = [
     ShareModule,
     WidgetsModule,
     NgJsonEditorModule,
+    FormModule,
     MonacoEditorModule.forRoot(),
   ],
   exports: [...components],

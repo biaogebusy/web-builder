@@ -42,7 +42,6 @@ export class ComponentService {
         'spacer',
         'iframe',
         'bg-img',
-        'formly',
         'spinner',
         'stepper',
         'card-1v1',
@@ -64,7 +63,6 @@ export class ComponentService {
         'media-meta',
         'content-box',
         'testimonial',
-        'datepicker',
         'github-star',
         'progress-bar',
         'media-object',
@@ -136,7 +134,7 @@ export class ComponentService {
     },
     {
       module: 'FormModule',
-      components: ['contact-us', 'contact-us-1v1'],
+      components: ['formly', 'datepicker', 'contact-us', 'contact-us-1v1'],
     },
     {
       module: 'OtherModule',

@@ -18,6 +18,7 @@ import { RelateComponent } from './relate/relate.component';
 import { SummaryComponent } from './common/summary/summary.component';
 import { SummaryItemComponent } from './common/summary/summary-item/summary-item.component';
 import { RelateShowcaseComponent } from './common/relate-showcase/relate-showcase.component';
+import { FormModule } from '@uiux/combs/form/form.module';
 
 const components = [
   ArticleComponent,
@@ -37,7 +38,7 @@ const components = [
 ];
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule, ShowcaseModule, QuillModule.forRoot()],
+  imports: [ShareModule, WidgetsModule, FormModule, ShowcaseModule, QuillModule.forRoot()],
   exports: [
     ArticleComponent,
     QuestionComponent,
@@ -50,12 +51,7 @@ const components = [
   ],
 })
 export class NodeModule extends BaseModule {
-  dynamicComponents = [
-    ArticleComponent,
-    QuestionComponent,
-    ReportComponent,
-    RelateComponent,
-  ];
+  dynamicComponents = [ArticleComponent, QuestionComponent, ReportComponent, RelateComponent];
 
   static forStorybook(): any {
     return [...components];

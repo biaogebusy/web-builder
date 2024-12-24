@@ -5,12 +5,14 @@ import { WidgetsModule } from '../../widgets/widgets.module';
 import { LocationComponent } from './location/location.component';
 import { MapListV1Component } from './map-list-v1/map-list-v1.component';
 import { ViewMapComponent } from './view-map/view-map.component';
+import { FormModule } from '@uiux/combs/form/form.module';
 
 const components = [LocationComponent, MapListV1Component, ViewMapComponent];
 
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule],
+  imports: [ShareModule, WidgetsModule, FormModule],
+
   exports: [...components],
 })
 export class MapModule extends BaseModule {

@@ -4,20 +4,11 @@ import { CdkTableModule } from '@angular/cdk/table';
 
 // Material
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSortModule } from '@angular/material/sort';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-
-// Form
-import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { FormlyMaterialModule } from '@ngx-formly/material';
-import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
-import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
 
 // Core
 import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
@@ -66,21 +57,15 @@ import { DownloadComponent } from './actions/download/download.component';
 import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 import { TextHeroComponent } from './text-hero/text-hero.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
-import { TermsServiceComponent } from './form/terms-service/terms-service.component';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
-import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
 import { ViewListComponent } from './view-list/view-list.component';
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
 import { IframeComponent } from './iframe/iframe.component';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
-
-import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
-import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
 import { StepperComponent } from './stepper/stepper.component';
-import { FormlyComponent } from './form/formly/formly.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
 import { BaseModule } from '@uiux/base/base.module';
 import { AccordionComponent } from './accordion/accordion.component';
@@ -96,12 +81,7 @@ import { LogoComponent } from './img/logo/logo.component';
 import { GotopComponent } from './actions/gotop/gotop.component';
 import { SwitchThemeComponent } from './switch-theme/switch-theme.component';
 import { GithubStarComponent } from './github-star/github-star.component';
-import { RepeatTypeComponent } from './form/formly-type/repeat.type';
-import { TabsTypeComponent } from './form/formly-type/tabs/tabs.component';
-import { ImgPickerComponent } from './form/formly-type/img-picker/img-picker.component';
-import { SliderComponent } from './form/formly-type/slider/slider.component';
 import { DividerComponent } from './divider/divider.component';
-import { RichTextComponent } from './form/formly-type/rich-text/rich-text.component';
 import { QuillModule } from 'ngx-quill';
 import { CountUpModule } from 'ngx-countup';
 import { LightgalleryModule } from 'lightgallery/angular';
@@ -158,21 +138,12 @@ const components = [
   DownloadComponent,
   CardMetaComponent,
   ViewListComponent,
-  DatepickerComponent,
-  TermsServiceComponent,
   DynamicTableComponent,
   SearchSidebarComponent,
   InlineLightboxComponent,
   MediaObjectGroupComponent,
   ContentTextCenterComponent,
-  DateRangeComponent,
-  MatSelectComponent,
   StepperComponent,
-  FormlyComponent,
-  RepeatTypeComponent,
-  RichTextComponent,
-  TabsTypeComponent,
-  ImgPickerComponent,
   BtnVideoComponent,
   AccordionComponent,
   DropdownMenuComponent,
@@ -182,7 +153,6 @@ const components = [
   BuilderMenuComponent,
   GotopComponent,
   GithubStarComponent,
-  SliderComponent,
   DividerComponent,
 ];
 
@@ -195,57 +165,15 @@ const components = [
     CountUpModule,
     LightgalleryModule,
     CdkTableModule,
-    MatDatepickerModule,
     MatNativeDateModule,
-    NgxMatSelectSearchModule,
-    FormlyMatDatepickerModule,
-    FormlyMaterialModule,
     MatSliderModule,
-    FormlyMatSliderModule,
-    FormlyMatToggleModule,
     MatCheckboxModule,
     MatSortModule,
     ClipboardModule,
     NgOptimizedImage,
     QuillModule.forRoot(),
-    FormlyModule.forRoot({
-      types: [
-        {
-          name: 'rich-text',
-          component: RichTextComponent,
-        },
-        {
-          name: 'mat-select',
-          component: MatSelectComponent,
-        },
-        {
-          name: 'date-range',
-          component: DateRangeComponent,
-        },
-        { name: 'repeat', component: RepeatTypeComponent },
-        { name: 'tabs', component: TabsTypeComponent },
-        { name: 'img-picker', component: ImgPickerComponent },
-        {
-          name: 'slider',
-          component: SliderComponent,
-          wrappers: ['form-field'],
-        },
-      ],
-      validationMessages: [
-        { name: 'required', message: '该字段必填' },
-        {
-          name: 'max',
-          message: '不能超过最大值',
-        },
-        {
-          name: 'min',
-          message: '不能小于最小值',
-        },
-      ],
-    }),
   ],
   exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
-  providers: [MatDatepickerModule, { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WidgetsModule extends BaseModule {
