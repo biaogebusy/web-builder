@@ -38,7 +38,6 @@ export class ComponentService {
         'panel',
         'title',
         'share',
-        'swiper',
         'divider',
         'spacer',
         'iframe',
@@ -97,6 +96,7 @@ export class ComponentService {
     {
       module: 'CarouselModule',
       components: [
+        'swiper',
         'carousel-1v1',
         'carousel-1v2',
         'carousel-1v3',

@@ -4,15 +4,10 @@ import { ISwiper } from '@core/interface/widgets/ISwiper';
 import { StorysModule } from '@core/module/storys.module';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 import { CardComponent } from '@uiux/widgets/card/card.component';
 
-import { SwiperComponent } from '@uiux/widgets/swiper/swiper.component';
+import { SwiperComponent } from '@uiux/combs/carousel/swiper/swiper.component';
 
 const meta: Meta<SwiperComponent> = {
   title: '基础组件/Swiper',

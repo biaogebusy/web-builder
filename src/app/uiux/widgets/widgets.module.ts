@@ -34,7 +34,6 @@ import { CardComponent } from './card/card.component';
 import { TextComponent } from './text/text.component';
 import { TitleComponent } from './title/title.component';
 import { PanelComponent } from './panel/panel.component';
-import { SwiperComponent } from './swiper/swiper.component';
 import { SpacerComponent } from './spacer/spacer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
@@ -123,7 +122,6 @@ const components = [
   IconComponent,
   TitleComponent,
   PanelComponent,
-  SwiperComponent,
   SpacerComponent,
   SpinnerComponent,
   Card1v1Component,
