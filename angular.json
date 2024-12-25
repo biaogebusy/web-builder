@@ -87,7 +87,6 @@
               "highlight.js",
               "lodash",
               "crypto-js",
-              "jspdf-autotable",
               "jsoneditor",
               "quill",
               "dompurify"
