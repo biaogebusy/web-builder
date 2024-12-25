@@ -7,7 +7,6 @@
     "start": "ng serve",
     "build": "ng build --configuration production",
     "build:nnit": "ng build --configuration nnit",
-    "build:sanziqi": "ng build --configuration sanziqi",
     "test": "ng test",
     "e2e": "ng e2e",
     "bundle-report": "ng build --configuration production --stats-json && webpack-bundle-analyzer dist/browser/stats.json",
