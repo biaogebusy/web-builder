@@ -82,7 +82,6 @@ import { SwitchThemeComponent } from './switch-theme/switch-theme.component';
 import { GithubStarComponent } from './github-star/github-star.component';
 import { DividerComponent } from './divider/divider.component';
 import { QuillModule } from 'ngx-quill';
-import { CountUpModule } from 'ngx-countup';
 import { LightgalleryModule } from 'lightgallery/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { NgOptimizedImage } from '@angular/common';
@@ -160,7 +159,6 @@ const components = [
     MatChipsModule,
     MatBadgeModule,
     ShareModule,
-    CountUpModule,
     LightgalleryModule,
     CdkTableModule,
     MatNativeDateModule,
