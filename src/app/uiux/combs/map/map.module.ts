@@ -6,8 +6,9 @@ import { LocationComponent } from './location/location.component';
 import { MapListV1Component } from './map-list-v1/map-list-v1.component';
 import { ViewMapComponent } from './view-map/view-map.component';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { MapComponent } from './map/map.component';
 
-const components = [LocationComponent, MapListV1Component, ViewMapComponent];
+const components = [LocationComponent, MapListV1Component, ViewMapComponent, MapComponent];
 
 @NgModule({
   declarations: [...components],

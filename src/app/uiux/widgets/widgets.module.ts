@@ -18,7 +18,6 @@ import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
-import { MapComponent } from './map/map.component';
 import { TabComponent } from './tab/tab.component';
 import { LinkComponent } from './link/link.component';
 import { CardComponent } from './card/card.component';
@@ -92,7 +91,6 @@ const components = [
   BgComponent,
   ImgComponent,
   LogoComponent,
-  MapComponent,
   BoxComponent,
   TextComponent,
   LinkComponent,

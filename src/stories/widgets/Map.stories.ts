@@ -7,7 +7,7 @@ import {
 } from '@storybook/angular';
 
 import { AmapService } from '@core/service/amap.service';
-import { MapComponent } from '@uiux/widgets/map/map.component';
+import { MapComponent } from '@uiux/combs/map/map/map.component';
 import { ConfigService } from '@core/service/config.service';
 import { StorysModule } from '@core/module/storys.module';
 import { IMap } from '@core/interface/IAmap';
@@ -26,8 +26,7 @@ const meta: Meta<MapComponent> = {
       providers: [AmapService, ConfigService],
     }),
     componentWrapperDecorator(
-      story =>
-        `<div class="widget relative p-x p-y" style="z-index:1;height:500px;">${story}</div>`
+      story => `<div class="widget relative p-x p-y" style="z-index:1;height:500px;">${story}</div>`
     ),
   ],
 };

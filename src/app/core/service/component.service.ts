@@ -26,7 +26,6 @@ export class ComponentService {
         'bg',
         'img',
         'tab',
-        'map',
         'box',
         'btn',
         'text',
@@ -122,7 +121,7 @@ export class ComponentService {
     },
     {
       module: 'MapModule',
-      components: ['location', 'map-list-v1', 'view-map'],
+      components: ['map', 'location', 'map-list-v1', 'view-map'],
     },
     {
       module: 'MasonryModule',
