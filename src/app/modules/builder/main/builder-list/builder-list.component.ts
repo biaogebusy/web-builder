@@ -17,8 +17,6 @@ import {
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
-import { ContentState } from '@core/state/ContentState';
-import { ScreenState } from '@core/state/screen/ScreenState';
 import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each } from 'lodash-es';
 import { Observable } from 'rxjs';
@@ -36,15 +34,12 @@ import { BuilderService } from '@core/service/builder.service';
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
   markers: NodeListOf<Element>;
-  opened = false;
   previewClass$: Observable<any>;
   router = inject(Router);
   private zone = inject(NgZone);
   public builder = inject(BuilderState);
-  public screenState = inject(ScreenState);
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
-  public contentState = inject(ContentState);
   private builderService = inject(BuilderService);
 
   constructor(
