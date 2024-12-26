@@ -22,6 +22,8 @@ import { FormlyComponent } from './formly/formly.component';
 import { TermsServiceComponent } from './terms-service/terms-service.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSliderModule } from '@angular/material/slider';
+import { QuillModule } from 'ngx-quill';
 
 const components = [
   SliderComponent,
@@ -48,6 +50,8 @@ const components = [
     NgxMatSelectSearchModule,
     WidgetsModule,
     MatDatepickerModule,
+    MatSliderModule,
+    QuillModule.forRoot(),
     FormlyModule.forRoot({
       types: [
         {
@@ -86,7 +90,6 @@ const components = [
   ],
   providers: [MatDatepickerModule, { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' }],
   exports: [...components],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FormModule extends BaseModule {
   dynamicComponents = [...components];

@@ -5,7 +5,6 @@ import { CdkTableModule } from '@angular/cdk/table';
 // Material
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSortModule } from '@angular/material/sort';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -80,7 +79,6 @@ import { GotopComponent } from './actions/gotop/gotop.component';
 import { SwitchThemeComponent } from './switch-theme/switch-theme.component';
 import { GithubStarComponent } from './github-star/github-star.component';
 import { DividerComponent } from './divider/divider.component';
-import { QuillModule } from 'ngx-quill';
 import { LightgalleryModule } from 'lightgallery/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { NgOptimizedImage } from '@angular/common';
@@ -160,12 +158,10 @@ const components = [
     LightgalleryModule,
     CdkTableModule,
     MatNativeDateModule,
-    MatSliderModule,
     MatCheckboxModule,
     MatSortModule,
     ClipboardModule,
     NgOptimizedImage,
-    QuillModule.forRoot(),
   ],
   exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
