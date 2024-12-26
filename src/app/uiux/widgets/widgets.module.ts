@@ -60,7 +60,6 @@ import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
 import { ViewListComponent } from './view-list/view-list.component';
-import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
 import { IframeComponent } from './iframe/iframe.component';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
@@ -136,7 +135,6 @@ const components = [
   CardMetaComponent,
   ViewListComponent,
   DynamicTableComponent,
-  SearchSidebarComponent,
   InlineLightboxComponent,
   MediaObjectGroupComponent,
   ContentTextCenterComponent,
