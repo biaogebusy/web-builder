@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IBuilderShowcase } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
@@ -17,16 +12,13 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
   styleUrls: ['./builder-showcase.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderShowcaseComponent implements OnInit {
+export class BuilderShowcaseComponent {
   @Input() content: IBuilderShowcase;
-  constructor(
-    private builder: BuilderState,
-    private util: UtilitiesService,
-    private dialog: MatDialog,
-    private screenService: ScreenService
-  ) {}
 
-  ngOnInit(): void {}
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private dialog = inject(MatDialog);
+  private screenService = inject(ScreenService);
 
   onClose(): void {
     this.builder.showcase$.next(false);
