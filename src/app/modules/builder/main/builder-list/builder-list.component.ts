@@ -18,7 +18,7 @@ import {
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CONFIG, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
-import { map as each } from 'lodash-es';
+import { map as each, throttle } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -51,15 +51,18 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
   ) {
     afterRender({
-      read: () => {
+      read: throttle(() => {
         this.intersectionObserver(this.animateElement);
-      },
+      }, 600),
     });
   }
 
   ngOnInit(): void {}
 
   intersectionObserver(animateElement: Element[]): void {
+    if (animateElement.length === 0) {
+      return;
+    }
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach((entry: any) => {
@@ -68,13 +71,11 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
           const bottomOffset = 150;
           if (entry.isIntersecting) {
             entry.target.classList.add('aos-animate');
-            window.gsap.globalTimeline.play();
           }
 
           if (top > viewportHeight - bottomOffset) {
             // 当元素准备离开底部一定距离
             entry.target.classList.remove('aos-animate');
-            window.gsap.globalTimeline.pause();
           }
         });
       },
