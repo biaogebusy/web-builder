@@ -7,6 +7,7 @@ import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ContentState } from '@core/state/ContentState';
 import { isNil, omitBy } from 'lodash-es';
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,6 +18,8 @@ export class UtilitiesService {
   private document = inject(DOCUMENT);
   private coreConfig = inject(CORE_CONFIG);
   private contentState = inject(ContentState);
+  public animateElement$ = new Subject<Element>();
+
   getIndexTitle(title: string): string {
     return title.substring(0, 1);
   }
@@ -160,6 +163,7 @@ export class UtilitiesService {
                 ...vars,
               });
             }
+            this.animateElement$.next(animateEle);
           }, 600);
         }
       }
@@ -172,6 +176,7 @@ export class UtilitiesService {
           Object.keys(behaviour).forEach(key => {
             animateEle.setAttribute(`data-aos-${key}`, behaviour[key]);
           });
+          this.animateElement$.next(animateEle);
         } else {
           animateEle.classList.remove('aos-item');
           animateEle.removeAttribute('data-aos');

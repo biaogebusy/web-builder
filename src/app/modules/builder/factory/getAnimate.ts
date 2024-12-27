@@ -107,7 +107,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'offset',
                     type: 'input',
                     className: 'w-full',
-                    defaultValue: content?.animate?.aos?.offset ?? 120,
+                    defaultValue: content?.animate?.aos?.behaviour?.offset ?? 120,
                     props: {
                       type: 'number',
                       label: '偏移量',
@@ -117,7 +117,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'duration',
                     type: 'input',
                     className: 'w-full',
-                    defaultValue: content?.animate?.aos?.duration ?? 400,
+                    defaultValue: content?.animate?.aos?.behaviour?.duration ?? 400,
                     props: {
                       type: 'number',
                       label: '动画时长',
@@ -127,17 +127,17 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'delay',
                     type: 'input',
                     className: 'w-full',
-                    defaultValue: content?.animate?.aos?.delay ?? 0,
+                    defaultValue: content?.animate?.aos?.behaviour?.delay ?? 0,
                     props: {
                       type: 'number',
-                      label: '延迟时间',
+                      label: '延迟时间（ms）',
                     },
                   },
                   {
                     key: 'easing',
                     type: 'select',
                     className: 'w-full',
-                    defaultValue: content?.animate?.aos?.easing ?? 'ease',
+                    defaultValue: content?.animate?.aos?.behaviour?.easing ?? 'ease',
                     props: {
                       type: 'text',
                       label: '缓动效果',
