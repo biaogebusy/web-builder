@@ -6,7 +6,7 @@
     <div class="actions">
       <div class="item">
         <app-btn
-          (click)="onCopy(content.card.components[0])"
+          (click)="onCopy()"
           [matTooltip]="'复制 JSON'"
           matTooltipPosition="above"
           [content]="{
@@ -17,7 +17,7 @@
           }"
         />
         <app-btn
-          (click)="showCode(content.card.components[0])"
+          (click)="showCode()"
           [matTooltip]="'查看 JSON'"
           matTooltipPosition="above"
           [content]="{
@@ -28,7 +28,7 @@
           }"
         />
         <app-btn
-          (click)="insert(content.card.components[0])"
+          (click)="insert()"
           [matTooltip]="'插入组件到编辑区'"
           matTooltipPosition="above"
           [content]="{

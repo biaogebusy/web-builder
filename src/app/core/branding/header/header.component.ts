@@ -5,10 +5,10 @@ import {
   ElementRef,
   AfterViewInit,
   Inject,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
   inject,
   DestroyRef,
+  signal,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
@@ -25,8 +25,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
-  sticky = false;
-  showBanner: boolean;
+  sticky = signal(false);
+  showBanner = signal(false);
   headerMode: any;
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private destoryRef = inject(DestroyRef);
   public screenService = inject(ScreenService);
   public screenState = inject(ScreenState);
-  private cd = inject(ChangeDetectorRef);
   public contentState = inject(ContentState);
   constructor(
     @Inject(DOCUMENT) private doc: Document,
@@ -56,10 +55,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       this.screenState.scroll$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(() => {
         if (this.menu) {
-          this.sticky = this.screenService.isElementOutTopViewport(this.menu.nativeElement);
+          this.sticky.set(this.screenService.isElementOutTopViewport(this.menu.nativeElement));
         }
-        this.cd.detectChanges();
-        this.listenSticky(this.sticky);
+        this.listenSticky(this.sticky());
         if (this.headerMode?.transparent) {
           this.windowScroll();
         }
@@ -91,14 +89,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.branding$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe((branding: any) => {
       const banner = branding.header.banner;
       if (!banner) {
-        this.showBanner = false;
+        this.showBanner.set(false);
       } else {
         this.screenState
           .mqAlias$()
           .pipe(takeUntilDestroyed(this.destoryRef))
           .subscribe(mq => {
-            this.showBanner = mq.includes('md') || mq.includes('lg') || mq.includes('xl');
-            this.cd.detectChanges();
+            this.showBanner.set(mq.includes('md') || mq.includes('lg') || mq.includes('xl'));
           });
       }
     });

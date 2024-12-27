@@ -5,7 +5,7 @@
       <app-search-sidebar
         class="block col-span-12 sm:col-span-3"
         [label]="content.label"
-        [content]="content.sidebar"
+        [fields]="content.sidebar"
         [form]="form"
         (modelChange)="onSearch($event)"
       />

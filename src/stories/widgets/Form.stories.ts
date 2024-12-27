@@ -6,7 +6,7 @@ import {
   applicationConfig,
 } from '@storybook/angular';
 
-import { FormlyComponent } from '@uiux/widgets/form/formly/formly.component';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { FormGroup } from '@angular/forms';
 import { StorysModule } from '@core/module/storys.module';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
@@ -619,7 +619,7 @@ const use: FormlyFieldConfig[] = [
       label: '理由?',
     },
     expressionProperties: {
-      'props.label': '\'为什么选择 \' + model.color + \'?\'',
+      'props.label': "'为什么选择 ' + model.color + '?'",
     },
     hideExpression: '!model.color',
   },

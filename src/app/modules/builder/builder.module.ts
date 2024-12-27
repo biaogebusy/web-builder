@@ -40,6 +40,7 @@ import { JsonComponent } from './main/json/json.component';
 import { CardListComponent } from './main/card-list/card-list.component';
 import { CardPageComponent } from './main/card-list/card-page/card-page.component';
 import { DefaultPageComponent } from './main/default-page/default-page.component';
+import { FormModule } from '@uiux/combs/form/form.module';
 
 const components = [
   JsonComponent,
@@ -85,6 +86,7 @@ const components = [
     BrandingModule,
     DragDropModule,
     BuilderRoutingModule,
+    FormModule,
   ],
   providers: [
     {
