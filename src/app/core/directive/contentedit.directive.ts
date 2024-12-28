@@ -50,8 +50,6 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
       if (clipboardData) {
         const plainText = clipboardData.getData('text/plain');
 
-        const targetElement = event.target;
-
         // 保存当前选区（光标位置）
         const selection = window.getSelection();
         if (!selection) {

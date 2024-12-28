@@ -80,10 +80,7 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   onClear(): void {
     if (this.content.mode === 'text') {
       this.viewHTML.removeAttribute('style');
-      this.builder.updatePageContentByPath(
-        this.content.path,
-        this.viewHTML.outerHTML
-      );
+      this.builder.updatePageContentByPath(this.content.path, this.viewHTML.outerHTML);
     }
 
     if (this.content.mode === 'img') {
@@ -108,7 +105,7 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
         inputData: {
           content: {
             type: 'manage-media',
-            fullWidth: true
+            fullWidth: true,
           },
         },
       },
@@ -120,14 +117,12 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
     for (const key of Object.keys(style)) {
       switch (key) {
         case 'maxWidth':
-          const maxWidth =
-            style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
+          const maxWidth = style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
           style[key] = maxWidth;
           this.setStyle('maxWidth', maxWidth, value);
           break;
         case 'maxHeight':
-          const maxHeight =
-            style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
+          const maxHeight = style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
           style[key] = maxHeight;
           this.setStyle('maxHeight', maxHeight, value);
           break;
@@ -146,15 +141,9 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
       const imgPath = path.substring(0, path.lastIndexOf('.'));
       this.builder.updatePageContentByPath(`${imgPath}.style`, style);
       this.builder.updatePageContentByPath(`${imgPath}.src`, src);
-      this.builder.updatePageContentByPath(
-        `${imgPath}.width`,
-        parseInt(style.width)
-      );
+      this.builder.updatePageContentByPath(`${imgPath}.width`, parseInt(style.width));
       delete style.width;
-      this.builder.updatePageContentByPath(
-        `${imgPath}.height`,
-        parseInt(style.height)
-      );
+      this.builder.updatePageContentByPath(`${imgPath}.height`, parseInt(style.height));
       delete style.height;
     }
 
