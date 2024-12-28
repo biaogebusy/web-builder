@@ -34,6 +34,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   builder = inject(BuilderState);
   dialog = inject(MatDialog);
   storage = inject(LocalStorageService);
+  ele = inject(ElementRef);
 
   constructor(
     @Inject(WIDGETS) public widgets: any[],
@@ -91,6 +92,9 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   onHover(widget: any, ele: any): void {
     if (this.popup?.nativeElement) {
+      const parentRect = this.ele.nativeElement.getBoundingClientRect();
+      const widgetRect = ele.getBoundingClientRect();
+      const offset = widgetRect.left - parentRect.left;
       this.widget$.next(widget);
       this.popper = createPopper(ele, this.popup.nativeElement, {
         placement: 'left',
@@ -99,7 +103,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
           {
             name: 'offset',
             options: {
-              offset: [0, 30],
+              offset: [0, offset + 24],
             },
           },
         ],

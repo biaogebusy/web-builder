@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import type { IImg } from '@core/interface/widgets/IImg';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
@@ -22,7 +21,6 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 export class ImgComponent implements OnInit {
   @Input() content: IImg | undefined;
   @HostBinding('class') hostClasses: any;
-  screen = inject(ScreenState);
   screenService = inject(ScreenService);
 
   constructor(@Inject(CORE_CONFIG) public coreConfig: ICoreConfig) {}

@@ -8,6 +8,7 @@ import { Hero2v3Component } from './hero2v3/hero2v3.component';
 import { Hero1v2Component } from './hero1v2/hero1v2.component';
 import { BaseModule } from '@uiux/base/base.module';
 import { Hero1v4Component } from './hero1v4/hero1v4.component';
+import { CarouselModule } from '../carousel/carousel.module';
 
 const components = [
   Hero1v1Component,
@@ -20,7 +21,7 @@ const components = [
 
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule],
+  imports: [ShareModule, WidgetsModule, CarouselModule],
   exports: [...components],
 })
 export class HeroModule extends BaseModule {

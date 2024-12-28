@@ -5,19 +5,16 @@ import {
   ElementRef,
   Input,
   OnDestroy,
-  OnInit,
   ViewChild,
   inject,
 } from '@angular/core';
 import type { ITitle } from '@core/interface/widgets/ITitle';
 import { ScreenService } from '@core/service/screen.service';
-import Typed from 'typed.js';
 
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.scss'],
-  host: { ngSkipHydration: 'true' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleComponent implements AfterViewInit, OnDestroy {
@@ -29,10 +26,13 @@ export class TitleComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       if (this.content?.typed?.enable) {
-        const typedEle = this.title.nativeElement.querySelectorAll('strong')[0];
-        this.typed = new Typed(typedEle, {
-          strings: this.content.typed.strings.map(item => item.label),
-          ...this.content.typed.config,
+        import('typed.js').then(loader => {
+          const { default: Typed } = loader;
+          const typedEle = this.title.nativeElement.querySelectorAll('strong')[0];
+          this.typed = new Typed(typedEle, {
+            strings: this.content?.typed?.strings.map(item => item.label),
+            ...this.content?.typed?.config,
+          });
         });
       }
     }

@@ -51,25 +51,21 @@ export class UserCenterComponent implements OnInit {
     if (this.screenService.isPlatformBrowser()) {
       this.userConfig$ = this.userService.getUserConfig();
       this.getUser();
-      this.userService.userSub$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(user => {
-          // logout
-          if (!user) {
-            setTimeout(() => {
-              this.route.navigate([
-                environment.drupalProxy ? '/my' : '/me/login',
-              ]);
-            }, 2000);
-          } else {
-            window.location.reload();
-          }
-        });
+      this.userService.userSub$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
+        // logout
+        if (!user) {
+          setTimeout(() => {
+            this.route.navigate([environment.drupalProxy ? '/my' : '/me/login']);
+          }, 2000);
+        } else {
+          window.location.reload();
+        }
+      });
     }
   }
 
   getUser(): any {
-    if (!environment.production) {
+    if (!environment.production || !this.user) {
       return;
     }
     const people = {};

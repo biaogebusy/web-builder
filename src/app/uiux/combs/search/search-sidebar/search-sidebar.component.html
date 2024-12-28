@@ -1,4 +1,4 @@
-@if (content) {
+@if (fields) {
   <div class="search-sidebar my-10 sticky top-[40px]">
     <div class="sidebar-header flex justify-between items-center">
       <div class="key m-3">
@@ -32,7 +32,7 @@
           </mat-expansion-panel-header>
           <app-formly
             [form]="form"
-            [fields]="content"
+            [fields]="fields"
             [model]="model"
             (modelChange)="onModelChange($event)"
           />

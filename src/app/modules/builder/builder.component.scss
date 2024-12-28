@@ -16,6 +16,17 @@
       width: 200px;
     }
   }
+  .drawer-content {
+    transition-duration: 400ms;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-property: transform, padding-left;
+    &:not(.opened) {
+      padding-left: 60px;
+    }
+    &.opened {
+      padding-left: 0;
+    }
+  }
 }
 
 .mat-drawer {

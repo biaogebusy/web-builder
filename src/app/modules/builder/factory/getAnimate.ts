@@ -3,6 +3,10 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 export function getAnimate(content: any): FormlyFieldConfig {
   const actionsOptions = [
     {
+      label: '重新开始',
+      value: 'restart',
+    },
+    {
       label: '无',
       value: 'none',
     },
@@ -17,10 +21,6 @@ export function getAnimate(content: any): FormlyFieldConfig {
     {
       label: '继续播放',
       value: 'resume',
-    },
-    {
-      label: '重新开始',
-      value: 'restart',
     },
     {
       label: '反向播放',
@@ -107,7 +107,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'offset',
                     type: 'input',
                     className: 'w-full',
-                    defaultValue: content?.animate?.aos?.offset ?? 120,
+                    defaultValue: content?.animate?.aos?.behaviour?.offset ?? 120,
                     props: {
                       type: 'number',
                       label: '偏移量',
@@ -117,7 +117,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'duration',
                     type: 'input',
                     className: 'w-full',
-                    defaultValue: content?.animate?.aos?.duration ?? 400,
+                    defaultValue: content?.animate?.aos?.behaviour?.duration ?? 400,
                     props: {
                       type: 'number',
                       label: '动画时长',
@@ -127,17 +127,17 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     key: 'delay',
                     type: 'input',
                     className: 'w-full',
-                    defaultValue: content?.animate?.aos?.delay ?? 0,
+                    defaultValue: content?.animate?.aos?.behaviour?.delay ?? 0,
                     props: {
                       type: 'number',
-                      label: '延迟时间',
+                      label: '延迟时间（ms）',
                     },
                   },
                   {
                     key: 'easing',
                     type: 'select',
                     className: 'w-full',
-                    defaultValue: content?.animate?.aos?.easing ?? 'ease',
+                    defaultValue: content?.animate?.aos?.behaviour?.easing ?? 'ease',
                     props: {
                       type: 'text',
                       label: '缓动效果',
@@ -201,9 +201,9 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'x',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.x) ?? 0,
+                        defaultValue: Number(content?.animate?.gsap?.from?.x) ?? null,
                         props: {
-                          label: '水平位移',
+                          label: '水平移动',
                           min: -500,
                           max: 500,
                           step: 10,
@@ -214,9 +214,9 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'y',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.y) ?? 0,
+                        defaultValue: Number(content?.animate?.gsap?.from?.y) ?? null,
                         props: {
-                          label: '垂直位移',
+                          label: '垂直移动',
                           min: -500,
                           max: 500,
                           step: 10,
@@ -232,7 +232,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'rotationX',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.rotationX) ?? 0,
+                        defaultValue: Number(content?.animate?.gsap?.from?.rotationX) ?? null,
                         props: {
                           label: '水平旋转',
                           min: -360,
@@ -245,7 +245,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'rotationY',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.rotationY) ?? 0,
+                        defaultValue: Number(content?.animate?.gsap?.from?.rotationY) ?? null,
                         props: {
                           label: '垂直旋转',
                           min: -360,
@@ -263,7 +263,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'scaleX',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.scaleX) ?? 1,
+                        defaultValue: Number(content?.animate?.gsap?.from?.scaleX) ?? null,
                         props: {
                           label: '水平缩放',
                           min: 0,
@@ -276,7 +276,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'scaleY',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.scaleY) ?? 1,
+                        defaultValue: Number(content?.animate?.gsap?.from?.scaleY) ?? null,
                         props: {
                           label: '垂直缩放',
                           min: 0,
@@ -294,7 +294,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'skewX',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.skewX) ?? 0,
+                        defaultValue: Number(content?.animate?.gsap?.from?.skewX) ?? null,
                         props: {
                           label: 'skewX',
                           min: -180,
@@ -307,7 +307,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'skewY',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.skewY) ?? 0,
+                        defaultValue: Number(content?.animate?.gsap?.from?.skewY) ?? null,
                         props: {
                           label: 'skewY',
                           min: -180,
@@ -325,7 +325,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'opacity',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.opacity) ?? 1,
+                        defaultValue: Number(content?.animate?.gsap?.from?.opacity) ?? null,
                         props: {
                           label: '不透明度',
                           min: 0,
@@ -338,7 +338,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'delay',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.delay) ?? 0,
+                        defaultValue: Number(content?.animate?.gsap?.from?.delay) ?? null,
                         props: {
                           label: '延迟',
                           min: 0,
@@ -351,7 +351,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'duration',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: Number(content?.animate?.gsap?.from?.duration) ?? 1,
+                        defaultValue: Number(content?.animate?.gsap?.from?.duration) ?? null,
                         props: {
                           label: '时长(秒)',
                           min: 0.1,
@@ -362,7 +362,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                       },
                       {
                         key: 'ease',
-                        defaultValue: content?.animate?.gsap?.from?.ease ?? 'none',
+                        defaultValue: content?.animate?.gsap?.from?.ease ?? null,
                         type: 'select',
                         className: 'col-span-6',
                         props: {
@@ -409,9 +409,9 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'onEnter',
                         type: 'select',
                         className: 'col-span-6',
-                        defaultValue: content?.animate?.gsap?.trigger?.onEnter ?? 'play',
+                        defaultValue: content?.animate?.gsap?.trigger?.onEnter || 'restart',
                         props: {
-                          label: '元素进入视线',
+                          label: '元素从底部进入',
                           options: actionsOptions,
                         },
                       },
@@ -419,9 +419,9 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'onLeave',
                         type: 'select',
                         className: 'col-span-6',
-                        defaultValue: content?.animate?.gsap?.trigger?.onLeave ?? 'none',
+                        defaultValue: content?.animate?.gsap?.trigger?.onLeave || 'pause',
                         props: {
-                          label: '元素离开视线',
+                          label: '元素从顶部离开',
                           options: actionsOptions,
                         },
                       },
@@ -431,7 +431,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: content?.animate?.gsap?.trigger?.onEnterBack ?? 'none',
                         props: {
-                          label: '再进入视线',
+                          label: '再次从顶部进入',
                           options: actionsOptions,
                         },
                       },
@@ -439,7 +439,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'onLeaveBack',
                         type: 'select',
                         className: 'col-span-6',
-                        defaultValue: content?.animate?.gsap?.trigger?.onLeaveBack ?? 'none',
+                        defaultValue: content?.animate?.gsap?.trigger?.onLeaveBack ?? 'reverse',
                         props: {
                           label: '再进入后离开',
                           options: actionsOptions,
@@ -454,7 +454,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'start',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: content?.animate?.gsap?.trigger?.start ?? 'top 90%',
+                        defaultValue: content?.animate?.gsap?.trigger?.start ?? '20px 80%',
                         props: {
                           label: '触发开始位置',
                         },
@@ -463,7 +463,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         key: 'end',
                         type: 'input',
                         className: 'col-span-6',
-                        defaultValue: content?.animate?.gsap?.trigger?.end ?? 'bottom 30%',
+                        defaultValue: content?.animate?.gsap?.trigger?.end ?? 'bottom 100px',
                         props: {
                           label: '触发结束位置',
                         },

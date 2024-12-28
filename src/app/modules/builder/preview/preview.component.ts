@@ -39,7 +39,9 @@ export class PreviewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.contentState.pageConfig$.next(this.builder.currentPage.config);
     this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      this.pageBodyLength = page.body.length;
+      if (page?.body?.length) {
+        this.pageBodyLength = page.body.length;
+      }
     });
   }
 

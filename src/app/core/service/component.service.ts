@@ -26,7 +26,6 @@ export class ComponentService {
         'bg',
         'img',
         'tab',
-        'map',
         'box',
         'btn',
         'text',
@@ -38,12 +37,10 @@ export class ComponentService {
         'panel',
         'title',
         'share',
-        'swiper',
         'divider',
         'spacer',
         'iframe',
         'bg-img',
-        'formly',
         'spinner',
         'stepper',
         'card-1v1',
@@ -65,7 +62,6 @@ export class ComponentService {
         'media-meta',
         'content-box',
         'testimonial',
-        'datepicker',
         'github-star',
         'progress-bar',
         'media-object',
@@ -97,6 +93,7 @@ export class ComponentService {
     {
       module: 'CarouselModule',
       components: [
+        'swiper',
         'carousel-1v1',
         'carousel-1v2',
         'carousel-1v3',
@@ -124,7 +121,7 @@ export class ComponentService {
     },
     {
       module: 'MapModule',
-      components: ['location', 'map-list-v1', 'view-map'],
+      components: ['map', 'location', 'map-list-v1', 'view-map'],
     },
     {
       module: 'MasonryModule',
@@ -136,7 +133,7 @@ export class ComponentService {
     },
     {
       module: 'FormModule',
-      components: ['contact-us', 'contact-us-1v1'],
+      components: ['formly', 'datepicker', 'contact-us', 'contact-us-1v1'],
     },
     {
       module: 'OtherModule',
