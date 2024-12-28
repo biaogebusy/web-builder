@@ -10,6 +10,7 @@ import { BaseModule } from '@uiux/base/base.module';
 import { UploadMediaComponent } from './upload-media/upload-media.component';
 import { NgOptimizedImage } from '@angular/common';
 import { TaxonomyComponent } from './taxonomy/taxonomy.component';
+import { FormModule } from '@uiux/combs/form/form.module';
 const components = [ManageMediaComponent, UploadMediaComponent, TaxonomyComponent];
 
 @NgModule({
@@ -22,6 +23,7 @@ const components = [ManageMediaComponent, UploadMediaComponent, TaxonomyComponen
     WidgetsModule,
     NgxFileDropModule,
     NgOptimizedImage,
+    FormModule,
   ],
   exports: [...components],
 })

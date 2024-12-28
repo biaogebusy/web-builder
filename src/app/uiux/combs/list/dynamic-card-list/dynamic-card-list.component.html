@@ -5,14 +5,16 @@
         @if (content.sidebar) {
           <app-search-sidebar
             class="col-span-12 md:col-span-2"
-            [content]="content.sidebar"
-            [form]="form" />
+            [fields]="content.sidebar"
+            [form]="form"
+          />
         }
         @if (nodes) {
           <div
             class="card-list m-y col-span-12 md:col-span-{{
               content.sidebar ? '10' : '12'
-            }} grid grid-cols-12">
+            }} grid grid-cols-12"
+          >
             @for (
               card of nodes
                 | paginate
@@ -25,12 +27,12 @@
             ) {
               <app-card
                 class="col-span-12 md:col-span-{{ content.row }} m-bottom-sm"
-                [content]="card" />
+                [content]="card"
+              />
             }
             <div class="list-bottom w-full">
               @if (nodes.length) {
-                <app-pagination
-                  (pageChange)="onPageChange($event)" />
+                <app-pagination (pageChange)="onPageChange($event)" />
               } @else {
                 <div class="text-center p-y-xl">
                   <p>没有数据。</p>

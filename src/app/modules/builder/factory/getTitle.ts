@@ -103,14 +103,14 @@ export function getTitle(widget: any): FormlyFieldConfig {
                   },
                   {
                     key: 'typeSpeed',
-                    type: 'slider',
+                    type: 'input',
                     defaultValue: widget?.typed?.config?.typeSpeed ?? 120,
                     props: {
                       label: '速度',
                       min: 10,
                       max: 1000,
                       step: 2,
-                      unit: 'ms',
+                      type: 'number',
                     },
                   },
                 ],

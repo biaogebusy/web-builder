@@ -52,18 +52,6 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     });
   }
 
-  get drawerStyle(): object {
-    if (this.isBuilderMode) {
-      return {
-        paddingLeft: this.sidebarDrawerOpened ? '0' : '60px',
-      };
-    } else {
-      return {
-        paddingLeft: 0,
-      };
-    }
-  }
-
   onClose(): void {
     this.builderRightDrawer.close();
   }

@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   inject,
+  DestroyRef,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
@@ -20,6 +21,7 @@ import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import type { IPage } from '@core/interface/IAppConfig';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-full-calendar',
@@ -39,16 +41,15 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
   visiable = false;
   viewApi: ViewApi;
 
+  cd = inject(ChangeDetectorRef);
+  destroyRef = inject(DestroyRef);
   formService = inject(FormService);
-  screenService = inject(ScreenService);
   nodeService = inject(NodeService);
-  calendarState = inject(CalendarState);
   routeService = inject(RouteService);
-  contentService = inject(ContentService);
   contentState = inject(ContentState);
-  constructor(private cd: ChangeDetectorRef) {
-    super();
-  }
+  screenService = inject(ScreenService);
+  calendarState = inject(CalendarState);
+  contentService = inject(ContentService);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -58,13 +59,9 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
   }
 
   initCalendar(): void {
-    this.options = Object.assign(
-      this.calendarState.default,
-      this.content.calendar.options,
-      {
-        datesSet: this.handleDates.bind(this),
-      }
-    );
+    this.options = Object.assign(this.calendarState.default, this.content.calendar.options, {
+      datesSet: this.handleDates.bind(this),
+    });
     this.theme = this.content?.calendar?.theme || {};
     this.cd.detectChanges();
   }
@@ -88,36 +85,39 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
       return;
     }
     if (api || params || this.options?.events) {
-      this.nodeService.fetch(api, params).subscribe(data => {
-        if (this.options) {
-          let events = [];
-          if (data.rows && data.pager) {
-            // view api
-            events = data.rows;
-          } else {
-            // custom calendar api
-            events = data;
+      this.nodeService
+        .fetch(api, params)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(data => {
+          if (this.options) {
+            let events = [];
+            if (data.rows && data.pager) {
+              // view api
+              events = data.rows;
+            } else {
+              // custom calendar api
+              events = data;
+            }
+            this.options.events = events.map((item: any) => {
+              // events attr see EventApi
+              const type = item.type;
+              const event = item.event;
+              return {
+                title: item.label || item.title,
+                event,
+                type,
+                start: item.date || item.created,
+                url: item.url,
+                end: item.end || null,
+                user: item.user,
+                className: `${this.theme[type]} ${this.theme[event]} type-${type} event-${event}`,
+                // custom event style bg, border
+              };
+            });
+            this.initEvents();
+            this.cd.detectChanges();
           }
-          this.options.events = events.map((item: any) => {
-            // events attr see EventApi
-            const type = item.type;
-            const event = item.event;
-            return {
-              title: item.label || item.title,
-              event,
-              type,
-              start: item.date || item.created,
-              url: item.url,
-              end: item.end || null,
-              user: item.user,
-              className: `${this.theme[type]} ${this.theme[event]} type-${type} event-${event}`,
-              // custom event style bg, border
-            };
-          });
-          this.initEvents();
-          this.cd.detectChanges();
-        }
-      });
+        });
     }
   }
 
@@ -129,6 +129,7 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
         this.cd.detectChanges();
         this.contentService
           .loadPageContent(info.event.url)
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((content: IPage) => {
             this.contentState.drawerLoading$.next(false);
             this.contentState.drawerContent$.next(content);

@@ -11,7 +11,7 @@
       [class.header-inverse]="params?.inverse"
     >
       <div class="static" [class.header-inverse]="params?.inverse">
-        @if (showBanner) {
+        @if (showBanner()) {
           <app-header-banner [content]="banner" />
         }
         @if (top) {
@@ -21,7 +21,7 @@
           <app-menu #menu />
         }
       </div>
-      <app-menu class="sticky" [class.sticking]="sticky" />
+      <app-menu class="sticky" [class.sticking]="sticky()" />
     </header>
   }
 }

@@ -43,9 +43,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
   screenService = inject(ScreenService);
   cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  constructor() {
-    super();
-  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -80,17 +77,14 @@ export class SearchComponent extends BaseComponent implements OnInit {
   initFilterForm(querys: any, sidebar: any[]): void {
     this.filterForm = this.initFormValueWithUrlQuery(querys, sidebar);
     this.initForm(this.filterForm);
+    this.cd.detectChanges();
   }
 
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
     this.cd.detectChanges();
     this.vauleChange$
-      .pipe(
-        debounceTime(1000),
-        distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef)
-      )
+      .pipe(debounceTime(1000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
         this.onSelectChange(value);
       });

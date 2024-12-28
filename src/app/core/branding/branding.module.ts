@@ -18,6 +18,7 @@ import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
 import { LangSwitchComponent } from './header/lang-switch/lang-switch.component';
+import { FormModule } from '@uiux/combs/form/form.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { LangSwitchComponent } from './header/lang-switch/lang-switch.component'
     HoverMenuComponent,
     LangSwitchComponent,
   ],
-  imports: [ShareModule, WidgetsModule],
+  imports: [ShareModule, WidgetsModule, FormModule],
   exports: [
     HeaderComponent,
     FooterComponent,

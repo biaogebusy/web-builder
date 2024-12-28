@@ -17,6 +17,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class BuilderSidebarComponent implements OnInit {
   @Input() sidebarDrawer: MatDrawer;
+  @Input() drawerContentRef: any;
   builder = inject(BuilderState);
   dialog = inject(MatDialog);
   manageService = inject(ManageService);
@@ -54,6 +55,14 @@ export class BuilderSidebarComponent implements OnInit {
   }
 
   onToggle(): void {
+    const {
+      elementRef: { nativeElement },
+    } = this.drawerContentRef;
+    if (this.sidebarDrawer.opened) {
+      nativeElement.classList.remove('opened');
+    } else {
+      nativeElement.classList.add('opened');
+    }
     this.sidebarDrawer.toggle();
   }
 }
