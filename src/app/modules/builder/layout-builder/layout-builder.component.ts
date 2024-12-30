@@ -41,8 +41,12 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-        this.layoutAnimate();
+      this.isBuilderMode$.subscribe(state => {
+        if (state) {
+          this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+            this.layoutAnimate();
+          });
+        }
       });
     }
   }

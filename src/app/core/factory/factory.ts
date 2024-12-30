@@ -65,14 +65,18 @@ export function builderFullScreenFactory(
 }
 
 export function builderCurrentPageFactory(): Observable<IPage | object | boolean> {
+  const router = inject(Router);
   const versionKey = 'version';
   const currentPage$ = new BehaviorSubject<IPage | object | boolean>(false);
   const storage = inject(LocalStorageService);
   const builderService = inject(BuilderService);
   const localVersion = storage.retrieve(versionKey);
+
   if (localVersion) {
     const currentPage = localVersion.find((page: IPage) => page.current === true);
-    builderService.checkIsLatestPage(currentPage);
+    if (router.url.includes(BUILDERPATH)) {
+      builderService.checkIsLatestPage(currentPage);
+    }
     currentPage$.next(currentPage);
   }
 

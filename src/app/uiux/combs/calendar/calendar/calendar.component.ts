@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import type { CalendarOptions } from '@fullcalendar/core';
 
@@ -13,12 +13,11 @@ export class CalendarComponent implements OnInit {
   @Input() loading: boolean;
   isBrowser = false;
   eventGuid = 0;
+  screenService = inject(ScreenService);
 
-  constructor(private screenSerivce: ScreenService) {
-    if (this.screenSerivce.isPlatformBrowser()) {
+  ngOnInit(): void {
+    if (this.screenService.isPlatformBrowser()) {
       this.isBrowser = true;
     }
   }
-
-  ngOnInit(): void {}
 }
