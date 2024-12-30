@@ -10,13 +10,13 @@ import {
   inject,
 } from '@angular/core';
 import type { IWidgetPicker } from '@core/interface/IBuilder';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG, WIDGETS } from '@core/token/token-providers';
+import { WIDGETS } from '@core/token/token-providers';
 import { Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatDialog } from '@angular/material/dialog';
+import { BuilderService } from '@core/service/builder.service';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
@@ -35,14 +35,15 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   dialog = inject(MatDialog);
   storage = inject(LocalStorageService);
   ele = inject(ElementRef);
+  builderService = inject(BuilderService);
 
-  constructor(
-    @Inject(WIDGETS) public widgets: any[],
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
-  ) {}
+  constructor(@Inject(WIDGETS) public widgets: any[]) {}
 
   ngOnInit(): void {
-    this.help = this.coreConfig?.builder?.widgetPicker?.help;
+    const {
+      widgetPicker: { help },
+    } = this.builderService.builderConfig;
+    this.help = help;
     this.bcData = this.storage.retrieve(this.builder.COPYWIDGETKEY);
   }
 

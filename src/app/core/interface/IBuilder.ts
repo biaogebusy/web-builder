@@ -15,6 +15,18 @@ export interface IBuilderConfig {
     delay: number;
     steps: any[];
   };
+  generater: FormlyFieldConfig[];
+  api: {
+    create: string;
+    update: string;
+    translate: string;
+  };
+  widgetPicker: {
+    help: {
+      tooltip: string;
+      link: string;
+    };
+  };
 }
 
 export interface IBuilderComponent {

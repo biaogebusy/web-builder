@@ -50,16 +50,6 @@ export interface ICoreConfig {
     params: {
       reqRoles: string[];
     };
-    api: {
-      [key: string]: string;
-    };
-    widgetPicker: {
-      help: {
-        tooltip: string;
-        link: string;
-      };
-    };
-    generater: FormlyFieldConfig[];
   };
   access: {
     check: true;
