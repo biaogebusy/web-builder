@@ -17,6 +17,7 @@ import { createPopper } from '@popperjs/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatDialog } from '@angular/material/dialog';
 import { BuilderService } from '@core/service/builder.service';
+import { cloneDeep } from 'lodash-es';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
@@ -56,6 +57,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   onSelect(widget: any): void {
     const { addType, path, content } = this.content;
+    const data = cloneDeep(content);
 
     // add widget from layout builder toolbar
     if (addType === 'widget') {
@@ -67,7 +69,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
-        this.copyLayoutLastChild(content.elements, widget),
+        this.copyLayoutLastChild(data.elements, widget),
         'add'
       );
       this.dialog.closeAll();
@@ -75,7 +77,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     }
 
     // add widget from loop element of layout builder top level
-    const lists = [...content.elements];
+    const lists = [...data.elements];
     lists.splice(lists.length, 0, widget);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
     this.dialog.closeAll();
@@ -87,7 +89,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   }
   copyLayoutLastChild(elements: any[], widget: any): any {
     const last = Object.assign({}, elements[elements.length - 1]);
-    last.elements = [widget];
+    last.elements = [cloneDeep(widget)];
     return last;
   }
 
