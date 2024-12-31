@@ -1,23 +1,24 @@
 <ng-container *ngIf="content">
-  <ng-container *reqRolesIf="content">
-    <ng-container [ngSwitch]="content.mode">
-      <ng-container *ngSwitchCase="'raised'">
-        <button
-          [ngClass]="content.classes || ''"
-          [class.pill]="content.pill"
-          [disabled]="content.disabled"
-          mat-raised-button
-          *ngIf="!content.href; else link"
-          [color]="content.color"
-        >
-          <app-icon
-            class="mr-1"
-            *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon"
-          />
-          <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
-        </button>
-        <ng-template #link>
+  <div [ngClass]="content.iconPosition" *reqRolesIf="content">
+    @switch (content.mode) {
+      @case ('raised') {
+        @if (!content.href) {
+          <button
+            [ngClass]="content.classes || ''"
+            [class.pill]="content.pill"
+            [disabled]="content.disabled"
+            mat-raised-button
+            [color]="content.color"
+          >
+            @if (content.icon && content.icon.svg) {
+              <app-icon
+                [class.order-1]="content.iconPosition === 'right'"
+                [content]="content.icon"
+              />
+            }
+            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+          </button>
+        } @else {
           <a
             [ngClass]="content.classes || ''"
             [class.pill]="content.pill"
@@ -28,32 +29,34 @@
             [target]="content.target || ''"
             [color]="content.color"
           >
-            <app-icon
-              class="mr-1"
-              *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon"
-            />
+            @if (content.icon && content.icon.svg) {
+              <app-icon
+                [class.order-1]="content.iconPosition === 'right'"
+                [content]="content.icon"
+              />
+            }
             <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
           </a>
-        </ng-template>
-      </ng-container>
-      <ng-container *ngSwitchCase="'stroked'">
-        <button
-          [ngClass]="content.classes || ''"
-          [class.pill]="content.pill"
-          [disabled]="content.disabled"
-          mat-stroked-button
-          *ngIf="!content.href; else link"
-          [color]="content.color"
-        >
-          <app-icon
-            class="mr-1"
-            *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon"
-          />
-          <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
-        </button>
-        <ng-template #link>
+        }
+      }
+      @case ('stroked') {
+        @if (!content.href) {
+          <button
+            [ngClass]="content.classes || ''"
+            [class.pill]="content.pill"
+            [disabled]="content.disabled"
+            mat-stroked-button
+            [color]="content.color"
+          >
+            @if (content.icon && content.icon.svg) {
+              <app-icon
+                [class.order-1]="content.iconPosition === 'right'"
+                [content]="content.icon"
+              />
+            }
+            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+          </button>
+        } @else {
           <a
             [ngClass]="content.classes || ''"
             [class.pill]="content.pill"
@@ -64,32 +67,34 @@
             [target]="content.target || ''"
             [color]="content.color"
           >
-            <app-icon
-              class="mr-1"
-              *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon"
-            />
+            @if (content.icon && content.icon.svg) {
+              <app-icon
+                [class.order-1]="content.iconPosition === 'right'"
+                [content]="content.icon"
+              />
+            }
             <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
           </a>
-        </ng-template>
-      </ng-container>
-      <ng-container *ngSwitchCase="'flat'">
-        <button
-          [ngClass]="content.classes || ''"
-          [class.pill]="content.pill"
-          [disabled]="content.disabled"
-          mat-flat-button
-          *ngIf="!content.href; else link"
-          [color]="content.color"
-        >
-          <app-icon
-            class="mr-1"
-            *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon"
-          />
-          <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
-        </button>
-        <ng-template #link>
+        }
+      }
+      @case ('flat') {
+        @if (!content.href) {
+          <button
+            [ngClass]="content.classes || ''"
+            [class.pill]="content.pill"
+            [disabled]="content.disabled"
+            mat-flat-button
+            [color]="content.color"
+          >
+            @if (content.icon && content.icon.svg) {
+              <app-icon
+                [class.order-1]="content.iconPosition === 'right'"
+                [content]="content.icon"
+              />
+            }
+            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+          </button>
+        } @else {
           <a
             [ngClass]="content.classes || ''"
             [class.pill]="content.pill"
@@ -100,30 +105,33 @@
             [target]="content.target || ''"
             [color]="content.color"
           >
-            <app-icon
-              class="mr-1"
-              *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon"
-            />
+            @if (content.icon && content.icon.svg) {
+              <app-icon
+                [class.order-1]="content.iconPosition === 'right'"
+                [content]="content.icon"
+              />
+            }
             <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
           </a>
-        </ng-template>
-      </ng-container>
-      <ng-container *ngSwitchCase="'icon'">
-        <button
-          *ngIf="!content.href; else link"
-          [ngClass]="content.classes || ''"
-          [disabled]="content.disabled"
-          mat-icon-button
-          [color]="content.color"
-        >
-          <app-icon
-            class="mr-1"
-            *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon"
-          />
-        </button>
-        <ng-template #link>
+        }
+      }
+      @case ('icon') {
+        @if (!content.href) {
+          <button
+            [ngClass]="content.classes || ''"
+            [disabled]="content.disabled"
+            mat-icon-button
+            [color]="content.color"
+          >
+            @if (content.icon && content.icon.svg) {
+              <app-icon
+                [class.order-1]="content.iconPosition === 'right'"
+                *ngIf="content.icon && content.icon.svg"
+                [content]="content.icon"
+              />
+            }
+          </button>
+        } @else {
           <a
             [ngClass]="content.classes || ''"
             [disabled]="content.disabled"
@@ -133,52 +141,53 @@
             [target]="content.target || ''"
             [color]="content.color"
           >
-            <app-icon
-              class="mr-1"
-              *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon"
-            />
+            @if (content.icon && content.icon.svg) {
+              <app-icon [content]="content.icon" />
+            }
           </a>
-        </ng-template>
-      </ng-container>
-      <ng-container *ngSwitchCase="'fab'">
-        <button
-          *ngIf="content.icon && content.icon.svg"
-          [ngClass]="content.classes || ''"
-          [disabled]="content.disabled"
-          mat-fab
-          [color]="content.color"
-        >
-          <app-icon [content]="content.icon" />
-        </button>
-      </ng-container>
-      <ng-container *ngSwitchCase="'mini-fab'">
-        <button
-          *ngIf="content.icon && content.icon.svg"
-          [ngClass]="content.classes || ''"
-          [disabled]="content.disabled"
-          mat-mini-fab
-          [color]="content.color"
-        >
-          <app-icon [content]="content.icon" />
-        </button>
-      </ng-container>
-      <ng-container *ngSwitchDefault>
-        <button
-          [ngClass]="content.classes || ''"
-          [disabled]="content.disabled"
-          mat-button
-          *ngIf="!content.href; else link"
-          [color]="content.color"
-        >
-          <app-icon
-            class="mr-1"
-            *ngIf="content.icon && content.icon.svg"
-            [content]="content.icon"
-          />
-          <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
-        </button>
-        <ng-template #link>
+        }
+      }
+      @case ('fab') {
+        @if (content.icon && content.icon.svg) {
+          <button
+            [ngClass]="content.classes || ''"
+            [disabled]="content.disabled"
+            mat-fab
+            [color]="content.color"
+          >
+            <app-icon [content]="content.icon" />
+          </button>
+        }
+      }
+      @case ('mini-fab') {
+        @if (content.icon && content.icon.svg) {
+          <button
+            [ngClass]="content.classes || ''"
+            [disabled]="content.disabled"
+            mat-mini-fab
+            [color]="content.color"
+          >
+            <app-icon [content]="content.icon" />
+          </button>
+        }
+      }
+      @default {
+        @if (!content.href) {
+          <button
+            [ngClass]="content.classes || ''"
+            [disabled]="content.disabled"
+            mat-button
+            [color]="content.color"
+          >
+            @if (content.icon && content.icon.svg) {
+              <app-icon
+                [class.order-1]="content.iconPosition === 'right'"
+                [content]="content.icon"
+              />
+            }
+            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+          </button>
+        } @else {
           <a
             [ngClass]="content.classes || ''"
             [disabled]="content.disabled"
@@ -188,15 +197,16 @@
             [target]="content.target || ''"
             [color]="content.color"
           >
-            <app-icon
-              class="mr-1"
-              *ngIf="content.icon && content.icon.svg"
-              [content]="content.icon"
-            />
+            @if (content.icon && content.icon.svg) {
+              <app-icon
+                [class.order-1]="content.iconPosition === 'right'"
+                [content]="content.icon"
+              />
+            }
             <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
           </a>
-        </ng-template>
-      </ng-container>
-    </ng-container>
-  </ng-container>
+        }
+      }
+    }
+  </div>
 </ng-container>
