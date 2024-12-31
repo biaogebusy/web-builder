@@ -25,6 +25,7 @@ const components = [ManageMediaComponent, UploadMediaComponent, TaxonomyComponen
     NgOptimizedImage,
     FormModule,
   ],
+
   exports: [...components],
 })
 export class ManageModule extends BaseModule {
