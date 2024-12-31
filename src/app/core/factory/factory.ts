@@ -257,7 +257,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
 
   // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value: any) => {
-    const params = nodeService.getApiParams({ ...value, noCache: true });
+    const params = nodeService.getApiParams({ ...value });
     nodeService.fetch(api, params).subscribe(res => {
       assets$.next({
         rows: res.rows,

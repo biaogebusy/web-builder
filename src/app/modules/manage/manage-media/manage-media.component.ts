@@ -46,9 +46,7 @@ export class ManageMediaComponent implements OnInit {
     page: new FormControl(0),
   });
   fields: FormlyFieldConfig[];
-  model: any = {
-    noCache: true,
-  };
+  model: any = {};
   loading = false;
   selectedId: string;
   deletedLists: string[] = [];
@@ -74,6 +72,14 @@ export class ManageMediaComponent implements OnInit {
         type: 'string',
         appearance: 'fill',
         label: '请输入关键词',
+      },
+    },
+    {
+      type: 'toggle',
+      key: 'noCache',
+      defaultValue: false,
+      props: {
+        label: '忽略缓存',
       },
     },
   ];
@@ -244,6 +250,7 @@ export class ManageMediaComponent implements OnInit {
       .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
+        this.form.get('noCache')?.patchValue(true);
         this.onSearch(this.form.value);
       });
   }
