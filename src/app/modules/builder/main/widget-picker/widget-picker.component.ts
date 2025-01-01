@@ -32,13 +32,12 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   popper: any;
 
   public bcData: any;
-  builder = inject(BuilderState);
-  dialog = inject(MatDialog);
-  storage = inject(LocalStorageService);
   ele = inject(ElementRef);
+  widgets = inject(WIDGETS);
+  dialog = inject(MatDialog);
+  builder = inject(BuilderState);
+  storage = inject(LocalStorageService);
   builderService = inject(BuilderService);
-
-  constructor(@Inject(WIDGETS) public widgets: any[]) {}
 
   ngOnInit(): void {
     const {
@@ -58,10 +57,11 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   onSelect(widget: any): void {
     const { addType, path, content } = this.content;
     const data = cloneDeep(content);
+    const widgetContent = cloneDeep(widget);
 
     // add widget from layout builder toolbar
     if (addType === 'widget') {
-      this.builder.updatePageContentByPath(path, widget, 'add');
+      this.builder.updatePageContentByPath(path, widgetContent, 'add');
       this.dialog.closeAll();
       return;
     }
@@ -69,7 +69,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     if (addType === 'layout') {
       this.builder.updatePageContentByPath(
         path,
-        this.copyLayoutLastChild(data.elements, widget),
+        this.copyLayoutLastChild(data.elements, widgetContent),
         'add'
       );
       this.dialog.closeAll();
@@ -78,7 +78,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
     // add widget from loop element of layout builder top level
     const lists = [...data.elements];
-    lists.splice(lists.length, 0, widget);
+    lists.splice(lists.length, 0, widgetContent);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
     this.dialog.closeAll();
   }
