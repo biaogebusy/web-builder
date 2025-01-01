@@ -15,6 +15,8 @@ import { getText } from './getText';
 import { getTitle } from './getTitle';
 import { getVideo } from './getVideo';
 import { getBox } from './getBox';
+import { getCard } from './getCard';
+import { getCard1v1 } from './getCard1v1';
 
 export function getWidgetSetting(widget: any): FormlyFieldConfig {
   let fields: FormlyFieldConfig;
@@ -63,6 +65,12 @@ export function getWidgetSetting(widget: any): FormlyFieldConfig {
       break;
     case 'box':
       fields = getBox(widget);
+      break;
+    case 'card':
+      fields = getCard(widget);
+      break;
+    case 'card-1v1':
+      fields = getCard1v1(widget);
       break;
     default:
       fields = getNone(widget);

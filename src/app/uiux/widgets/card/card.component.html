@@ -1,7 +1,7 @@
 @if (content) {
   <mat-card
     appearance="outlined"
-    class="card {{ content.header?.meta ? 'has-header' : '' }}"
+    class="card overflow-hidden {{ content.header?.meta ? 'has-header' : '' }}"
     [ngClass]="content.classes"
   >
     @if (content.header?.meta) {
@@ -89,7 +89,7 @@
         </div>
       </div>
       @if (content.body) {
-        <div contentedit="body" class="card-body" [innerHTML]="content.body | safeHtml"></div>
+        <div contentedit="body" class="card-body pb-4" [innerHTML]="content.body | safeHtml"></div>
       }
     </mat-card-content>
     @if (content.actions) {
