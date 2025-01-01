@@ -14,6 +14,7 @@ import { getSwiper } from './getSwiper';
 import { getText } from './getText';
 import { getTitle } from './getTitle';
 import { getVideo } from './getVideo';
+import { getBox } from './getBox';
 
 export function getWidgetSetting(widget: any): FormlyFieldConfig {
   let fields: FormlyFieldConfig;
@@ -59,6 +60,9 @@ export function getWidgetSetting(widget: any): FormlyFieldConfig {
       break;
     case 'divider':
       fields = getDivider(widget);
+      break;
+    case 'box':
+      fields = getBox(widget);
       break;
     default:
       fields = getNone(widget);
