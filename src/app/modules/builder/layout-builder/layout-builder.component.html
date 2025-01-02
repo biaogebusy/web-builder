@@ -81,21 +81,17 @@
                   class="item relative box-border item-{{ item.type }} col-span-12"
                   [attr.data-path]="'elements.' + index"
                 >
+                  <app-dynamic-component [inputs]="item" [index]="index" />
                   @if (isBuilderMode$ | async) {
-                    <div
-                      class="toolbar absolute z-10 whitespace-nowrap rounded-tl-[4px] rounded-tr-[4px] hidden"
-                    >
-                      <app-block-toolbar
-                        [layout]="layout"
-                        [block]="item"
-                        [index]="index"
-                        [i]="i"
-                        [lbContent]="content"
-                        [pageIndex]="pageIndex"
-                      />
+                    <div class="block-toolbar" #action>
+                      <button mat-raised-button (click)="addBlock('widget', content, action)">
+                        <div class="flex">
+                          <app-icon class="mr-1" [content]="{ svg: 'arrow-right-bottom' }" />
+                          <span>插入组件</span>
+                        </div>
+                      </button>
                     </div>
                   }
-                  <app-dynamic-component [inputs]="item" [index]="index" />
                 </div>
               }
             </div>

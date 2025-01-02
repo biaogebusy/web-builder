@@ -14,10 +14,28 @@
         &.item-layout-builder {
           @apply w-full;
         }
-        > .toolbar {
+        ::ng-deep {
+          .component-toolbar {
+            .actions {
+              top: auto;
+              bottom: 100%;
+              border-radius: 4px 4px 0 0;
+            }
+          }
+        }
+        .block-toolbar {
+          position: absolute;
           left: 50%;
-          bottom: 100%;
+          bottom: -34px;
           transform: translateX(-50%);
+          z-index: 99;
+          display: none;
+          white-space: nowrap;
+        }
+        &:hover {
+          .block-toolbar {
+            display: block;
+          }
         }
       }
     }
