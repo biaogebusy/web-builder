@@ -146,25 +146,6 @@ $dark-theme: mat.m2-define-dark-theme(
     }
   }
 
-  // for dynamic-component host class
-  .active-toolbar {
-    position: relative;
-    display: block;
-    box-sizing: content-box;
-    &:hover {
-      > .component-toolbar {
-        display: block !important;
-      }
-    }
-    > .component-toolbar {
-      position: absolute;
-      left: 0;
-      top: 0px;
-      width: 100%;
-      z-index: 999;
-      line-height: 1;
-    }
-  }
   .drawer-right {
     .builder-list {
       min-width: 85vw;

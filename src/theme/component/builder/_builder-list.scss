@@ -2,9 +2,11 @@
 @mixin builder-list($background, $foreground, $primary, $warn) {
   background-color: mat.m2-get-color-from-palette($background, card);
   .component-item {
-    &:hover {
-      outline: 1px dashed mat.m2-get-color-from-palette($primary);
-      z-index: 10;
+    // for dynamic-component host class
+    .active-toolbar {
+      &:hover {
+        outline: 1px dashed mat.m2-get-color-from-palette($primary);
+      }
     }
     .animate-warn {
       &::after {

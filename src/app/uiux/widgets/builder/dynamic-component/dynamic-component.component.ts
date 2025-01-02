@@ -20,6 +20,7 @@ import {
   ViewRef,
   createComponent,
   inject,
+  signal,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BuilderState } from '@core/state/BuilderState';
@@ -39,11 +40,10 @@ export class DynamicComponentComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy, AfterContentInit
 {
   @Input() inputs: IDynamicInputs;
-  @Input() index: number;
-  @HostBinding('class.active-toolbar') activeToolbarClass: boolean;
+  @Input() index: number; // just for order
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
-  showToolbar: boolean;
+  showToolbar = signal(false);
 
   ele = inject(ElementRef);
   cd = inject(ChangeDetectorRef);
@@ -60,11 +60,7 @@ export class DynamicComponentComponent
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
   ) {}
 
-  ngOnInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.showToolbar = !!this.coreConfig.builder?.enable && this.inputs?.showToolbar;
-    }
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.inputs.firstChange) {
@@ -74,11 +70,11 @@ export class DynamicComponentComponent
 
   ngAfterContentInit(): void {
     this.isBuilderMode$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
-      if (!this.inputs?.showToolbar) {
-        this.activeToolbarClass = false;
-        return;
+      if (state) {
+        this.showToolbar.set(true);
+      } else {
+        this.showToolbar.set(false);
       }
-      this.activeToolbarClass = state;
     });
   }
 
