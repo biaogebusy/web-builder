@@ -14,11 +14,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { Observable, from, of } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import type {
-  IManageAssets,
-  IManageImg,
-  IManageMedia,
-} from '@core/interface/manage/IManage';
+import type { IManageAssets, IManageImg, IManageMedia } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
 import {
   catchError,
@@ -50,9 +46,7 @@ export class ManageMediaComponent implements OnInit {
     page: new FormControl(0),
   });
   fields: FormlyFieldConfig[];
-  model: any = {
-    noCache: true,
-  };
+  model: any = {};
   loading = false;
   selectedId: string;
   deletedLists: string[] = [];
@@ -80,6 +74,14 @@ export class ManageMediaComponent implements OnInit {
         label: '请输入关键词',
       },
     },
+    {
+      type: 'toggle',
+      key: 'noCache',
+      defaultValue: false,
+      props: {
+        label: '忽略缓存',
+      },
+    },
   ];
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
@@ -89,16 +91,9 @@ export class ManageMediaComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.loading = true;
-      this.fields = [
-        ...this.defaultField,
-        ...this.coreConfig.manageMedia.sidebar.form,
-      ];
+      this.fields = [...this.defaultField, ...this.coreConfig.manageMedia.sidebar.form];
       this.form.valueChanges
-        .pipe(
-          takeUntilDestroyed(this.destroyRef),
-          debounceTime(1000),
-          distinctUntilChanged()
-        )
+        .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(1000), distinctUntilChanged())
         .subscribe(value => {
           this.onSearch(value);
         });
@@ -219,12 +214,7 @@ export class ManageMediaComponent implements OnInit {
 
   onPreview(item: IManageImg): void {
     this.dialog.open(DialogComponent, {
-      panelClass: [
-        'close-outside',
-        'dialog-p-0',
-        'close-icon-white',
-        'media-preview-dialog',
-      ],
+      panelClass: ['close-outside', 'dialog-p-0', 'close-icon-white', 'media-preview-dialog'],
       backdropClass: ['bg-neutral-800', '!opacity-80'],
       data: {
         disableCloseButton: true,
@@ -260,6 +250,7 @@ export class ManageMediaComponent implements OnInit {
       .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
+        this.form.get('noCache')?.patchValue(true);
         this.onSearch(this.form.value);
       });
   }

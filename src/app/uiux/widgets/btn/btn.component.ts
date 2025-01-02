@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import type { IBtn } from '@core/interface/widgets/IBtn';
 import { RouteService } from '@core/service/route.service';
 
@@ -14,12 +8,9 @@ import { RouteService } from '@core/service/route.service';
   styleUrls: ['./btn.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BtnComponent implements OnInit {
+export class BtnComponent {
   @Input() content: IBtn;
   routeService = inject(RouteService);
-  constructor() {}
-
-  ngOnInit(): void {}
 
   onNav(event: any, content: any): void {
     this.routeService.toNavigate(event, content);

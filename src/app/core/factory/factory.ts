@@ -22,6 +22,7 @@ import { ComponentService } from '@core/service/component.service';
 import { inject } from '@angular/core';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -253,14 +254,21 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   const api = '/api/v2/media';
   const nodeService = inject(NodeService);
   const contentState = inject(ContentState);
+  const util = inject(UtilitiesService);
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 
   // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value: any) => {
-    const params = nodeService.getApiParams({ ...value, noCache: true });
+    const params = nodeService.getApiParams({ ...value });
     nodeService.fetch(api, params).subscribe(res => {
       assets$.next({
-        rows: res.rows,
+        rows: res.rows.map((item: any) => {
+          const type = util.getFileType(item.source);
+          return {
+            ...item,
+            src: type === 'svg' ? item.source : item.thumb,
+          };
+        }),
         pager: nodeService.handlerPager(res.pager, res.rows.length),
       });
     });

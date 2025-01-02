@@ -15,6 +15,8 @@ export interface IBtn {
   drawerIframe?: boolean;
   disabled?: boolean;
   pill?: boolean;
+  iconPosition?: string;
+  containerClasses?: string;
 }
 
 export interface IBtnVideo {
