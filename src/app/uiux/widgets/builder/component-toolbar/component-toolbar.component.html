@@ -3,7 +3,7 @@
     @if (index > 0) {
       <div
         class="item"
-        (click)="onUpdown(index, 'up')"
+        (click)="onUpdown(index, 'up', $event)"
         [matTooltip]="'上移'"
         matTooltipPosition="above"
       >
@@ -19,7 +19,7 @@
     }
     <div
       class="item"
-      (click)="onUpdown(index, 'down')"
+      (click)="onUpdown(index, 'down', $event)"
       [matTooltip]="'下移'"
       matTooltipPosition="above"
     >
@@ -54,7 +54,12 @@
         />
       </div>
     }
-    <div class="item" (click)="onDelete(index)" [matTooltip]="'移除'" matTooltipPosition="above">
+    <div
+      class="item"
+      (click)="onDelete(index, $event)"
+      [matTooltip]="'移除'"
+      matTooltipPosition="above"
+    >
       <app-btn
         [content]="{
           label: '',

@@ -153,14 +153,25 @@ export class BuilderState {
     this.storage.store(this.versionKey, Object.assign([], this.version));
   }
 
-  upDownComponent(index: number, direction: string): void {
+  getObjectByPath(path: string, body: any[]): any[] {
+    if (path.includes('.')) {
+      const after = path.slice(0, path.lastIndexOf('.'));
+      return get(body, after);
+    } else {
+      // 一级组件
+      return body;
+    }
+  }
+
+  upDownComponent(index: number, direction: string, path: string): void {
     const { body } = this.currentPage;
+    let arrs = this.getObjectByPath(path, body);
     if (direction === 'up') {
-      [body[index - 1], body[index]] = [body[index], body[index - 1]];
+      [arrs[index - 1], arrs[index]] = [arrs[index], arrs[index - 1]];
     }
 
-    if (direction === 'down' && index < body.length - 1) {
-      [body[index], body[index + 1]] = [body[index + 1], body[index]];
+    if (direction === 'down' && index < arrs.length - 1) {
+      [arrs[index], arrs[index + 1]] = [arrs[index + 1], arrs[index]];
     }
     this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
@@ -176,9 +187,10 @@ export class BuilderState {
     }
   }
 
-  deleteComponent(index: number): void {
+  deleteComponent(index: number, path: string): void {
     const { body } = this.currentPage;
-    body.splice(index, 1);
+    const arrs = this.getObjectByPath(path, body);
+    arrs.splice(index, 1);
     this.updatePage();
   }
 

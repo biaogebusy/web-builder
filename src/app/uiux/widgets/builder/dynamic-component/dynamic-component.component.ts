@@ -7,7 +7,6 @@ import {
   DestroyRef,
   ElementRef,
   EnvironmentInjector,
-  HostBinding,
   Inject,
   Input,
   OnChanges,
@@ -23,13 +22,12 @@ import {
   signal,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BuilderState } from '@core/state/BuilderState';
 import { ScreenService } from '@core/service/screen.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ComponentService } from '@core/service/component.service';
-import type { ICoreConfig, IDynamicInputs } from '@core/interface/IAppConfig';
-import { CORE_CONFIG, IS_BUILDER_MODE } from '@core/token/token-providers';
+import type { IDynamicInputs } from '@core/interface/IAppConfig';
+import { IS_BUILDER_MODE } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-dynamic-component',
@@ -47,25 +45,23 @@ export class DynamicComponentComponent
 
   ele = inject(ElementRef);
   cd = inject(ChangeDetectorRef);
-  builder = inject(BuilderState);
   util = inject(UtilitiesService);
   screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
   componentService = inject(ComponentService);
-  private readonly environmentInjector = inject(EnvironmentInjector);
   private readonly renderer = inject(Renderer2);
+  private readonly environmentInjector = inject(EnvironmentInjector);
   public componentRef: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
-  constructor(
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>
-  ) {}
+  constructor(@Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>) {}
 
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.inputs.firstChange) {
-      this.loadComponent();
-    }
+    Object.keys(changes).forEach(key => {
+      if (!changes[key].firstChange) {
+        this.loadComponent();
+      }
+    });
   }
 
   ngAfterContentInit(): void {

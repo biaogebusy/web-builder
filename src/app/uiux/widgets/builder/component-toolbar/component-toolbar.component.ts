@@ -51,8 +51,9 @@ export class ComponentToolbarComponent implements OnInit {
     return this.content.type || this.content.content?.type || '';
   }
 
-  onUpdown(index: number, direction: string): void {
-    this.builder.upDownComponent(index, direction);
+  onUpdown(index: number, direction: string, event: any): void {
+    const path = this.util.generatePath(event.target);
+    this.builder.upDownComponent(index, direction, path);
   }
 
   onCopy(): void {
@@ -81,7 +82,8 @@ export class ComponentToolbarComponent implements OnInit {
     this.builder.showComponentSetting(component, fields, path);
   }
 
-  onDelete(index: number): void {
-    this.builder.deleteComponent(index);
+  onDelete(index: number, event: any): void {
+    const path = this.util.generatePath(event.target);
+    this.builder.deleteComponent(index, path);
   }
 }
