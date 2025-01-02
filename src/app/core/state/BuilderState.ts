@@ -6,6 +6,8 @@ import {
   IBuilderDynamicContent,
   IBuilderShowcase,
   ILayoutSetting,
+  IWidgetPicker,
+  IWidgets,
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -28,6 +30,7 @@ export class BuilderState {
   public showcase$ = new Subject<IBuilderShowcase | false>();
   public themeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public rightContent$ = new Subject<IBuilderDynamicContent>();
+  public wigetsPicker$ = new Subject<IWidgetPicker>();
   public closeRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();

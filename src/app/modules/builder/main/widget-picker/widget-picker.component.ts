@@ -26,8 +26,9 @@ import { cloneDeep } from 'lodash-es';
 })
 export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @Input() content: IWidgetPicker;
-  @ViewChild('popup', { static: false }) popup: ElementRef;
+  @ViewChild('groupPopup', { static: false }) groupPopup: ElementRef;
   public widget$ = new Subject<any>();
+  public group$ = new Subject<any>();
   help: any;
   popper: any;
 
@@ -84,7 +85,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   }
 
   onLeave(): void {
-    this.widget$.next(false);
+    this.group$.next(false);
     this.popper.destroy();
   }
   copyLayoutLastChild(elements: any[], widget: any): any {
@@ -93,23 +94,14 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     return last;
   }
 
-  onHover(widget: any, ele: any): void {
-    if (this.popup?.nativeElement) {
+  onHover(group: any, ele: any): void {
+    if (this.groupPopup?.nativeElement) {
       const parentRect = this.ele.nativeElement.getBoundingClientRect();
       const widgetRect = ele.getBoundingClientRect();
       const offset = widgetRect.left - parentRect.left;
-      this.widget$.next(widget);
-      this.popper = createPopper(ele, this.popup.nativeElement, {
+      this.group$.next(group);
+      this.popper = createPopper(ele, this.groupPopup.nativeElement, {
         placement: 'left',
-        strategy: 'fixed',
-        modifiers: [
-          {
-            name: 'offset',
-            options: {
-              offset: [0, offset + 24],
-            },
-          },
-        ],
       });
     }
   }

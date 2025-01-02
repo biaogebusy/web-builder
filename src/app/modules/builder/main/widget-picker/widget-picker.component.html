@@ -1,43 +1,69 @@
-<div class="widget-picker p-4" (mouseleave)="onLeave()">
+<div class="widget-picker p-2" (mouseleave)="onLeave()">
   @if (widgets) {
-    <div class="box grid grid-cols-12 gap-3">
-      @if (bcData) {
-        <div
-          #copy
-          class="item col-span-4"
-          (click)="onPasteData()"
-          (mouseenter)="onHover({ content: bcData }, copy)"
-          matRipple
-        >
+    @for (group of widgets; track $index) {
+      <div class="box flex flex-col justify-center items-center">
+        @if (bcData) {
           <div
-            class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700"
+            #copy
+            class="item"
+            (click)="onPasteData()"
+            (mouseenter)="onHover({ content: bcData }, copy)"
+            matRipple
           >
-            <app-icon [content]="{ svg: 'content-paste' }" />
-            <div class="title">粘贴组件</div>
+            <div
+              class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700"
+            >
+              <app-icon [content]="{ svg: 'content-paste' }" />
+              <div class="title">粘贴组件</div>
+            </div>
           </div>
-        </div>
-      }
-      @for (widget of widgets; track widget) {
-        <div
-          class="item col-span-4"
-          #item
-          (mouseenter)="onHover(widget, item)"
-          (click)="onSelect(widget.content)"
-          matRipple
-        >
+        }
+        <div class="item" #item (mouseenter)="onHover(group, item)" matRipple>
           <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
-            @if (widget.icon) {
-              <app-icon [content]="widget.icon" />
+            @if (group.icon) {
+              <app-icon [content]="group.icon" />
             }
-            <div class="title" title="{{ widget.label }}">
-              {{ widget.label }}
+            <div class="title" title="{{ group.label }}">
+              {{ group.label }}
             </div>
           </div>
         </div>
-      }
-    </div>
+      </div>
+    }
+    @if (help) {
+      <div class="help item" [matTooltip]="help.tooltip">
+        <app-btn
+          [content]="{
+            label: '',
+            mode: 'icon',
+            color: undefined,
+            href: help.link,
+            target: '_blank',
+            icon: { svg: 'help-circle', inline: true },
+          }"
+        />
+      </div>
+    }
   }
-  <div class="popup p-4 z-10 w-[560px] h-[300px]" #popup>
+  <div #groupPopup>
+    @if (group$ | async; as group) {
+      <div class="popup p-4 z-10 flex-col justify-start items-start whitespace-nowrap w-[400px]">
+        <h2>{{ group.label }}</h2>
+        <div class="grid grid-cols-12 gap-4 w-full">
+          @for (item of group.elements; track $index) {
+            <div
+              (click)="onSelect(item.content)"
+              class="col-span-4 border border-solid border-gray-300 rounded-md p-4 flex flex-col justify-center items-center cursor-pointer"
+            >
+              <app-icon [content]="item.icon"></app-icon>
+              {{ item.label }}
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+  <!-- <div class="popup p-4 z-10 w-[560px] h-[300px]" #popup>
     @if (widget$ | async; as widget) {
       <div class="hover-show w-full h-full flex justify-center items-center relative">
         @if (widget.preview) {
@@ -47,19 +73,5 @@
         }
       </div>
     }
-  </div>
-  @if (help) {
-    <div class="help absolute right-5 bottom-5" [matTooltip]="help.tooltip">
-      <app-btn
-        [content]="{
-          label: '',
-          mode: 'icon',
-          color: undefined,
-          href: help.link,
-          target: '_blank',
-          icon: { svg: 'help-circle', inline: true },
-        }"
-      />
-    </div>
-  }
+  </div> -->
 </div>

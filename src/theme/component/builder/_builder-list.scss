@@ -25,6 +25,10 @@
     #builder-list {
       @include scrollbar(mat.m2-get-color-from-palette($primary));
     }
+    .widget-picker {
+      background-color: mat.m2-get-color-from-palette($background, card);
+      @include mat.elevation(4, mat.m2-get-color-from-palette($background, tooltip), 0.5);
+    }
   }
   .preview {
     background-color: mat.m2-get-color-from-palette($foreground, elevation, 0.85);

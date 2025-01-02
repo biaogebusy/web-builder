@@ -134,9 +134,15 @@ export interface ILayoutSetting {
 
 export interface IWidgetPicker {
   type: 'widget-picker';
-  addType: 'widget' | 'layout';
+  addType: string;
   path: string;
   content: any;
+}
+
+export interface IWidgets {
+  label: string;
+  icon: IIcon;
+  elements: any[];
 }
 
 export interface IMetaEdit {

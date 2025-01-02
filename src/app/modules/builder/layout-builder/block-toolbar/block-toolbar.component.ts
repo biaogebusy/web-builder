@@ -42,7 +42,7 @@ export class BlockToolbarComponent {
   }
 
   addBlock(addType: string, content: any, target: any): void {
-    this.builderSerivce.addBlock(addType, content, this.util.generatePath(target));
+    // this.builderSerivce.addBlock(addType, content, this.util.generatePath(target));
   }
 
   onCopy(widget: any): any {

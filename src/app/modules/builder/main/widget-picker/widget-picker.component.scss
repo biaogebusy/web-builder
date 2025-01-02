@@ -16,11 +16,7 @@
     }
   }
   .popup {
-    display: none;
-    position: fixed;
     border-radius: 4px;
-    justify-content: center;
-    align-items: center;
     overflow: hidden;
     box-sizing: border-box;
     &[data-popper-placement] {
