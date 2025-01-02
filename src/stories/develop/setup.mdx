@@ -174,19 +174,16 @@ const routes: Routes = [
   },
   {
     path: 'me',
-    loadChildren: () =>
-      import('./modules/user/user.module').then(m => m.UserModule),
+    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
   },
   {
     path: 'super',
     canActivate: [ManageGuard],
-    loadChildren: () =>
-      import('./modules/manage/manage.module').then(m => m.ManageModule),
+    loadChildren: () => import('./modules/manage/manage.module').then(m => m.ManageModule),
   },
   {
     path: 'builder',
-    loadChildren: () =>
-      import('./modules/builder/builder.module').then(m => m.BuilderModule),
+    loadChildren: () => import('./modules/builder/builder.module').then(m => m.BuilderModule),
   },
   {
     path: '**',
@@ -212,40 +209,54 @@ export class AppRoutingModule {}
 除了应用的路由，其他都使用 BlockComponent 来渲染：
 
 ```html
-<div class="block" *ngIf="pageContent$ | async as page">
+@if (pageContent$ | async; as page) {
+<div class="block">
+  @if ((user$ | async) && page.nid) {
+  <div class="page-toolbar fixed right-5 top-20 md:right-10 md:top-40 z-[1000]">
+    <app-btn
+      (click)="onEdit(page.nid)"
+      [content]="{
+            mode: 'mini-fab',
+            color: 'primary',
+            icon: { svg: 'pencil' },
+          }"
+    />
+  </div>
+  }
   <mat-drawer-container (backdropClick)="onBackdrop()">
     <mat-drawer-content>
-      <div
-        *ngTemplateOutlet="block; context: {content:page.body, isPreview: isPreview}"></div>
+      <div *ngTemplateOutlet="block; context: { content: page.body }"></div>
     </mat-drawer-content>
     <mat-drawer
       (openedChange)="onDrawer()"
       class="drawer-right"
       [mode]="'over'"
       [opened]="opened"
-      position="end">
-      <div class="drawer-loading" *ngIf="drawerLoading">
-        <mat-spinner diameter="50" color="accent"></mat-spinner>
+      position="end"
+    >
+      @if (drawerLoading) {
+      <div class="drawer-loading">
+        <mat-spinner diameter="50" color="accent" />
       </div>
-      <ng-container *ngIf="!drawerLoading && opened">
-        <div
-          *ngTemplateOutlet="block; context: {content:drawerContent?.body,isPreview:coreConfig?.builder?.enable}; "></div>
-      </ng-container>
+      } @if (!drawerLoading && opened) {
+      <div
+        *ngTemplateOutlet="
+              block;
+              context: {
+                content: drawerContent?.body,
+              }
+            "
+      ></div>
+      }
     </mat-drawer>
   </mat-drawer-container>
 </div>
+}
 
-<ng-template let-content="content" let-isPreview="isPreview" #block>
-  <ng-container *ngIf="!isPreview">
-    <app-dynamic-component
-      *ngFor="let item of content;index as i; trackBy: trackByFn"
-      [inputs]="item"
-      [index]="i"></app-dynamic-component>
-  </ng-container>
-
-  <ng-container \*ngIf="isPreview">
-    <app-builder-list></app-builder-list>
-  </ng-container>
+<ng-template let-content="content" #block>
+  @for (item of content; track i; let i = $index) {
+  <app-dynamic-component [inputs]="item" [index]="i" />
+  }
 </ng-template>
 ```
 
@@ -254,13 +265,7 @@ export class AppRoutingModule {}
 ```ts
 @NgModule({
   declarations: [BlockComponent],
-  imports: [
-    ShareModule,
-    WidgetsModule,
-    MatSidenavModule,
-    MatProgressSpinnerModule,
-    BuilderModule,
-  ],
+  imports: [ShareModule, WidgetsModule, MatSidenavModule, MatProgressSpinnerModule, BuilderModule],
   providers: [
     {
       provide: PAGE_CONTENT,
@@ -340,63 +345,50 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // return true;
     if (environment.production) {
-      return this.nodeService
-        .fetch(`/api/v3/landingPage`, 'content=/core/base')
-        .pipe(
-          switchMap((config: ICoreConfig) => {
-            const guardConfig = config.guard;
-            if (state.url.startsWith('/my') || guardConfig?.authGuard) {
-              return this.userService.getLoginState().pipe(
-                map(status => {
-                  // console.log('userState:', status);
-                  if (status) {
-                    if (environment?.drupalProxy) {
-                      if (!this.user.csrf_token) {
-                        this.userService.updateUserBySession();
-                      }
-                    }
-                    return true;
-                  } else {
-                    this.userService.logoutLocalUser();
-                    if (environment?.drupalProxy) {
-                      window.location.href =
-                        guardConfig.defaultDrupalLoginPage || '/user/login';
-                      return false;
-                    } else {
-                      this.router.navigate(
-                        [guardConfig.defaultFrontLoginPage || '/me/login'],
-                        {
-                          queryParams: { returnUrl: state.url },
-                        }
-                      );
-                      return false;
-                    }
-                  }
-                }),
-                catchError(() => {
+      return this.nodeService.fetch(`/api/v3/landingPage`, 'content=/core/base').pipe(
+        switchMap((config: ICoreConfig) => {
+          const guardConfig = config.guard;
+          if (state.url.startsWith('/my') || guardConfig?.authGuard) {
+            return this.userService.getLoginState().pipe(
+              map(status => {
+                // console.log('userState:', status);
+                if (status) {
                   if (environment?.drupalProxy) {
-                    window.location.href =
-                      guardConfig.defaultDrupalLoginPage || '/user/login';
-                    return of(false);
-                  } else {
-                    this.router.navigate([
-                      guardConfig.defaultFrontLoginPage || '/me/login',
-                    ]);
-                    return of(false);
+                    if (!this.user.csrf_token) {
+                      this.userService.updateUserBySession();
+                    }
                   }
-                })
-              );
-            }
-            return of(true);
-          })
-        );
+                  return true;
+                } else {
+                  this.userService.logoutLocalUser();
+                  if (environment?.drupalProxy) {
+                    window.location.href = guardConfig.defaultDrupalLoginPage || '/user/login';
+                    return false;
+                  } else {
+                    this.router.navigate([guardConfig.defaultFrontLoginPage || '/me/login'], {
+                      queryParams: { returnUrl: state.url },
+                    });
+                    return false;
+                  }
+                }
+              }),
+              catchError(() => {
+                if (environment?.drupalProxy) {
+                  window.location.href = guardConfig.defaultDrupalLoginPage || '/user/login';
+                  return of(false);
+                } else {
+                  this.router.navigate([guardConfig.defaultFrontLoginPage || '/me/login']);
+                  return of(false);
+                }
+              })
+            );
+          }
+          return of(true);
+        })
+      );
     } else {
       return of(true);
     }

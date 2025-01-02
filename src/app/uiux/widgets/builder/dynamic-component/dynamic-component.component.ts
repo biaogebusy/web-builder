@@ -40,7 +40,6 @@ export class DynamicComponentComponent
 {
   @Input() inputs: IDynamicInputs;
   @Input() index: number;
-  @Input() isPreview: boolean;
   @HostBinding('class.active-toolbar') activeToolbarClass: boolean;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
