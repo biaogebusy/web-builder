@@ -26,12 +26,12 @@ import { cloneDeep } from 'lodash-es';
 export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @Input() content: IWidgetPicker;
   @ViewChild('groupPopup', { static: false }) groupPopup: ElementRef;
+  @ViewChild('popup', { static: false }) widgetPopup: ElementRef;
   public widget$ = new Subject<any>();
   public group$ = new Subject<any>();
   help: any;
   popper: any;
 
-  public bcData: any;
   ele = inject(ElementRef);
   widgets = inject(WIDGETS);
   dialog = inject(MatDialog);
@@ -44,15 +44,9 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       widgetPicker: { help },
     } = this.builderService.builderConfig;
     this.help = help;
-    this.bcData = this.storage.retrieve(this.builder.COPYWIDGETKEY);
   }
 
   ngAfterViewInit(): void {}
-
-  onPasteData(): void {
-    this.onSelect(this.bcData);
-    this.storage.clear(this.builder.COPYWIDGETKEY);
-  }
 
   onSelect(widget: any): void {
     const { addType, path, content } = this.content;
@@ -86,6 +80,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   onLeave(): void {
     this.group$.next(false);
     this.popper.destroy();
+    this.builder.wigetsPicker$.next(false);
   }
   copyLayoutLastChild(elements: any[], widget: any): any {
     const last = Object.assign({}, elements[elements.length - 1]);
@@ -95,12 +90,36 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   onHoverGroup(group: any, ele: any): void {
     if (this.groupPopup?.nativeElement) {
-      const parentRect = this.ele.nativeElement.getBoundingClientRect();
-      const widgetRect = ele.getBoundingClientRect();
-      const offset = widgetRect.left - parentRect.left;
       this.group$.next(group);
       this.popper = createPopper(ele, this.groupPopup.nativeElement, {
         placement: 'left',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 4],
+            },
+          },
+        ],
+      });
+    }
+  }
+  onHoverWidget(widget: any, ele: any): void {
+    if (this.widgetPopup?.nativeElement) {
+      const parentRect = this.ele.nativeElement.getBoundingClientRect();
+      const widgetRect = ele.getBoundingClientRect();
+      const offset = widgetRect.left - parentRect.left;
+      this.widget$.next(widget);
+      this.popper = createPopper(ele, this.widgetPopup.nativeElement, {
+        placement: 'left',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 2],
+            },
+          },
+        ],
       });
     }
   }

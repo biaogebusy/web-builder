@@ -30,7 +30,7 @@ export class BuilderState {
   public showcase$ = new Subject<IBuilderShowcase | false>();
   public themeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public rightContent$ = new Subject<IBuilderDynamicContent>();
-  public wigetsPicker$ = new Subject<IWidgetPicker>();
+  public wigetsPicker$ = new Subject<IWidgetPicker | false>();
   public closeRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();

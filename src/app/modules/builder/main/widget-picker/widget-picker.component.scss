@@ -1,5 +1,8 @@
 @import '../../../../../theme/variable/breakpoint';
 .widget-picker {
+  .widget-wrapper {
+    border-radius: 20px;
+  }
   .item {
     position: relative;
     .title {
@@ -14,6 +17,9 @@
       border-radius: 4px;
       cursor: pointer;
     }
+  }
+  .group-popup {
+    border-radius: 12px;
   }
   .popup {
     border-radius: 4px;

@@ -1,58 +1,48 @@
-<div class="widget-picker py-4" (mouseleave)="onLeave()">
+<div class="widget-picker p-5" (mouseleave)="onLeave()">
   @if (widgets) {
-    @for (group of widgets; track $index) {
-      <div class="box flex flex-col justify-center items-center">
-        @if (bcData) {
-          <div
-            #copy
-            class="item"
-            (click)="onPasteData()"
-            (mouseenter)="onHoverGroup({ content: bcData }, copy)"
-            matRipple
-          >
-            <div
-              class="inner flex flex-col justify-center items-center m-[2px] p-[6px] bg-primary hover:!text-gray-700"
-            >
-              <app-icon [content]="{ svg: 'content-paste' }" />
-              <div class="title">粘贴组件</div>
+    <div class="widget-wrapper" #wrapper>
+      @for (group of widgets; track $index) {
+        <div
+          class="box flex flex-col justify-center items-center"
+          (mouseenter)="onHoverGroup(group, wrapper)"
+        >
+          <div class="item" #item matRipple>
+            <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
+              @if (group.icon) {
+                <app-icon [content]="group.icon" />
+              }
             </div>
           </div>
-        }
-        <div class="item" #item (mouseenter)="onHoverGroup(group, item)" matRipple>
-          <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
-            @if (group.icon) {
-              <app-icon [content]="group.icon" />
-            }
-          </div>
         </div>
-      </div>
-    }
-    @if (help) {
-      <div class="help box" [matTooltip]="help.tooltip">
-        <app-btn
-          [content]="{
-            label: '',
-            mode: 'icon',
-            color: undefined,
-            href: help.link,
-            target: '_blank',
-            icon: { svg: 'help-circle', inline: true },
-          }"
-        />
-      </div>
-    }
+      }
+      @if (help) {
+        <div class="help box" [matTooltip]="help.tooltip">
+          <app-btn
+            [content]="{
+              label: '',
+              mode: 'icon',
+              color: undefined,
+              href: help.link,
+              target: '_blank',
+              icon: { svg: 'help-circle', inline: true },
+            }"
+          />
+        </div>
+      }
+    </div>
   }
   <div #groupPopup>
     @if (group$ | async; as group) {
       <div
-        class="group-popup p-4 z-10 flex-col justify-start items-start whitespace-nowrap w-[400px] min-h-[360px]"
+        class="group-popup p-4 z-10 flex-col justify-start items-start whitespace-nowrap w-[280px] min-h-[360px]"
       >
         <h2 class="text-gray-400">{{ group.label }}</h2>
         <div class="grid grid-cols-12 gap-4 w-full">
           @for (item of group.elements; track $index) {
             <div
+              (mouseenter)="onHoverWidget(item, groupPopup)"
               (click)="onSelect(item.content)"
-              class="col-span-4 border border-solid border-gray-200 rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer item"
+              class="col-span-6 border border-solid border-gray-200 rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer item"
             >
               <app-icon class="text-primary" [content]="item.icon"></app-icon>
               <div class="text-sm opacity-90">{{ item.label }}</div>
@@ -62,15 +52,17 @@
       </div>
     }
   </div>
-  <!-- <div class="popup p-4 z-10 w-[560px] h-[300px]" #popup>
+  <div class="popup" #popup>
     @if (widget$ | async; as widget) {
-      <div class="hover-show w-full h-full flex justify-center items-center relative">
-        @if (widget.preview) {
-          <img [src]="widget.preview" alt="" />
-        } @else {
-          <app-dynamic-component [inputs]="widget.content" />
-        }
+      <div class="p-4 z-10 w-[560px] h-[300px]">
+        <div class="hover-show w-full h-full flex justify-center items-center relative">
+          @if (widget.preview) {
+            <img [src]="widget.preview" alt="" />
+          } @else {
+            <app-dynamic-component [inputs]="widget.content" />
+          }
+        </div>
       </div>
     }
-  </div> -->
+  </div>
 </div>
