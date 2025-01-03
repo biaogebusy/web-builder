@@ -1,6 +1,9 @@
 export const widgets = [
   {
     label: '基础',
+    icon: {
+      svg: 'format-letter-case',
+    },
     elements: [
       {
         label: '标题',
@@ -315,6 +318,9 @@ export const widgets = [
   },
   {
     label: '自定义',
+    icon: {
+      svg: 'view-dashboard',
+    },
     elements: [
       {
         label: 'Layout',
@@ -395,6 +401,9 @@ export const widgets = [
   },
   {
     label: '媒体',
+    icon: {
+      svg: 'image',
+    },
     elements: [
       {
         label: '图片',
@@ -607,6 +616,9 @@ export const widgets = [
   },
   {
     label: 'Box',
+    icon: {
+      svg: 'box',
+    },
     elements: [
       {
         label: 'Box',
@@ -829,6 +841,9 @@ export const widgets = [
   },
   {
     label: '图表',
+    icon: {
+      svg: 'chart-box',
+    },
     elements: [
       {
         label: '柱状图',
@@ -971,6 +986,9 @@ export const widgets = [
   },
   {
     label: '卡片',
+    icon: {
+      svg: 'credit-card-chip-outline',
+    },
     elements: [
       {
         label: '卡片',
@@ -1130,6 +1148,9 @@ export const widgets = [
   },
   {
     label: '其他',
+    icon: {
+      svg: 'debug-step-over',
+    },
     elements: [
       {
         label: '进步器',

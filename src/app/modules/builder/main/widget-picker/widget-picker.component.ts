@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Inject,
   Input,
   OnInit,
   ViewChild,
@@ -94,7 +93,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     return last;
   }
 
-  onHover(group: any, ele: any): void {
+  onHoverGroup(group: any, ele: any): void {
     if (this.groupPopup?.nativeElement) {
       const parentRect = this.ele.nativeElement.getBoundingClientRect();
       const widgetRect = ele.getBoundingClientRect();
