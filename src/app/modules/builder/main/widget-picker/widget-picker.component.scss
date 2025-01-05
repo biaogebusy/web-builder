@@ -1,28 +1,30 @@
 @import '../../../../../theme/variable/breakpoint';
 .widget-picker {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  width: 48px;
   .widget-wrapper {
     border-radius: 20px;
-  }
-  .item {
-    position: relative;
-    .title {
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
-      text-align: center;
-    }
-    .inner {
-      border-radius: 4px;
-      cursor: pointer;
+    .item {
+      position: relative;
+      .inner {
+        border-radius: 4px;
+        cursor: pointer;
+      }
     }
   }
   .group-popup {
+    position: relative;
+    right: 10px;
+  }
+  .group-popup,
+  .widget-popup {
     border-radius: 12px;
   }
-  .popup {
-    border-radius: 4px;
+  .widget-popup {
     overflow: hidden;
     box-sizing: border-box;
     &[data-popper-placement] {

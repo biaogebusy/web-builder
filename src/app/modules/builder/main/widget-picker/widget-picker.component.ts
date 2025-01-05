@@ -24,13 +24,14 @@ import { cloneDeep } from 'lodash-es';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WidgetPickerComponent implements OnInit, AfterViewInit {
-  @Input() content: IWidgetPicker;
+  @Input() content: IWidgetPicker | false;
   @ViewChild('groupPopup', { static: false }) groupPopup: ElementRef;
   @ViewChild('popup', { static: false }) widgetPopup: ElementRef;
   public widget$ = new Subject<any>();
   public group$ = new Subject<any>();
   help: any;
-  popper: any;
+  groupPopper: any;
+  widgetPopper: any;
 
   ele = inject(ElementRef);
   widgets = inject(WIDGETS);
@@ -46,9 +47,16 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     this.help = help;
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.builder.wigetsPicker$.subscribe(content => {
+      this.content = content;
+    });
+  }
 
   onSelect(widget: any): void {
+    if (!this.content) {
+      return;
+    }
     const { addType, path, content } = this.content;
     const data = cloneDeep(content);
     const widgetContent = cloneDeep(widget);
@@ -79,7 +87,13 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   onLeave(): void {
     this.group$.next(false);
-    this.popper.destroy();
+    this.widget$.next(false);
+    if (this.groupPopper) {
+      this.groupPopper.destroy();
+    }
+    if (this.widgetPopper) {
+      this.widgetPopper.destroy();
+    }
     this.builder.wigetsPicker$.next(false);
   }
   copyLayoutLastChild(elements: any[], widget: any): any {
@@ -90,9 +104,18 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   onHoverGroup(group: any, ele: any): void {
     if (this.groupPopup?.nativeElement) {
+      this.group$.next(false);
+      this.widget$.next(false);
+      if (this.groupPopper) {
+        this.groupPopper.destroy();
+      }
+      if (this.widgetPopper) {
+        this.widgetPopper.destroy();
+      }
       this.group$.next(group);
-      this.popper = createPopper(ele, this.groupPopup.nativeElement, {
-        placement: 'left',
+      // debugger;
+      this.groupPopper = createPopper(ele, this.groupPopup.nativeElement, {
+        placement: 'left-start',
         modifiers: [
           {
             name: 'offset',
@@ -102,25 +125,27 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
           },
         ],
       });
+      this.groupPopper.update();
     }
   }
   onHoverWidget(widget: any, ele: any): void {
     if (this.widgetPopup?.nativeElement) {
-      const parentRect = this.ele.nativeElement.getBoundingClientRect();
-      const widgetRect = ele.getBoundingClientRect();
-      const offset = widgetRect.left - parentRect.left;
+      if (this.widgetPopper) {
+        this.widgetPopper.destroy();
+      }
       this.widget$.next(widget);
-      this.popper = createPopper(ele, this.widgetPopup.nativeElement, {
+      this.widgetPopper = createPopper(ele, this.widgetPopup.nativeElement, {
         placement: 'left',
         modifiers: [
           {
             name: 'offset',
             options: {
-              offset: [0, 2],
+              offset: [0, 10],
             },
           },
         ],
       });
+      this.widgetPopper.update();
     }
   }
 }

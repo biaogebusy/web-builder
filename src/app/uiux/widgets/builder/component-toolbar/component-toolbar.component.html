@@ -32,7 +32,7 @@
         }"
       />
     </div>
-    <div class="item" matTooltip="复制JSON" (click)="onCopy()">
+    <div class="item" matTooltip="复制JSON" matTooltipPosition="above" (click)="onCopy()">
       <app-btn
         [content]="{
           label: '',
@@ -43,7 +43,12 @@
       />
     </div>
     @if (bcData) {
-      <div class="item" matTooltip="粘贴复制的组件到下面" (click)="onPaste($event, bcData)">
+      <div
+        class="item"
+        matTooltip="粘贴复制的组件到下面"
+        matTooltipPosition="above"
+        (click)="onPaste($event, bcData)"
+      >
         <app-btn
           [content]="{
             label: '',

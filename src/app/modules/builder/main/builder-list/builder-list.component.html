@@ -60,9 +60,8 @@
           <app-iframe class="preview-iframe" [content]="{ url: '/preview' }" />
         </div>
       }
-
-      @if (builder.wigetsPicker$ | async; as wigetsPicker) {
-        <app-widget-picker [content]="wigetsPicker"></app-widget-picker>
+      @if (page.body.length > 0) {
+        <app-widget-picker></app-widget-picker>
       }
     </div>
   </div>

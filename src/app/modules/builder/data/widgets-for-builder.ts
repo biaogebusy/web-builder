@@ -615,6 +615,151 @@ export const widgets = [
     ],
   },
   {
+    label: '图表',
+    icon: {
+      svg: 'chart-box',
+    },
+    elements: [
+      {
+        label: '柱状图',
+        icon: {
+          svg: 'chart-bar',
+        },
+        preview: '/assets/images/builder/widgets/bar.png',
+        content: {
+          type: 'chart',
+          title: {
+            text: '年度活动金额预算',
+            subtext: '南宁',
+          },
+          legend: {
+            bottom: '10px',
+          },
+          tooltip: {
+            trigger: 'axis',
+          },
+          dataset: {
+            source: [
+              ['红包预算', '2020', '2021', '2022'],
+              ['第一季度', 4180, 9056, 7942],
+              ['第二季度', 7908, 9032, 8471],
+              ['第三季度', 4785, 7987, 4172],
+            ],
+          },
+          xAxis: {
+            type: 'category',
+          },
+          yAxis: {},
+          series: [
+            {
+              type: 'bar',
+            },
+            {
+              type: 'bar',
+            },
+            {
+              type: 'bar',
+            },
+          ],
+        },
+      },
+      {
+        label: '折线图',
+        icon: {
+          svg: 'chart-line',
+        },
+        preview: '/assets/images/builder/widgets/line.png',
+        content: {
+          type: 'chart',
+          title: {
+            text: '年度活动金额预算',
+            subtext: '南宁',
+          },
+          legend: {
+            bottom: '10px',
+          },
+          tooltip: {
+            trigger: 'axis',
+          },
+          dataset: {
+            source: [
+              ['红包预算', '2020', '2021', '2022'],
+              ['第一季度', 4180, 9056, 7942],
+              ['第二季度', 7908, 9032, 8471],
+              ['第三季度', 4785, 7987, 4172],
+            ],
+          },
+          xAxis: {
+            type: 'category',
+          },
+          yAxis: {},
+          series: [
+            {
+              type: 'line',
+            },
+            {
+              type: 'line',
+            },
+            {
+              type: 'line',
+            },
+          ],
+        },
+      },
+      {
+        label: '饼图',
+        icon: {
+          svg: 'chart-pie',
+        },
+        preview: '/assets/images/builder/widgets/pie.png',
+        content: {
+          type: 'chart',
+          title: {
+            text: '金额预算占比',
+            subtext: '2022年9月',
+            left: 'center',
+          },
+          tooltip: {
+            trigger: 'item',
+          },
+          legend: {
+            orient: 'vertical',
+            left: 'left',
+          },
+          xAxis: {
+            type: 'category',
+          },
+          yAxis: {},
+          dataset: {
+            source: [
+              ['预算', '费用'],
+              ['大额红包总金额', 398],
+              ['小额红包总金额', 916],
+              ['提成总额', 370],
+            ],
+          },
+          series: [
+            {
+              name: 'Access From',
+              type: 'pie',
+              radius: '50%',
+              label: {
+                formatter: '{b}: {d}%',
+              },
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)',
+                },
+              },
+            },
+          ],
+        },
+      },
+    ],
+  },
+  {
     label: 'Box',
     icon: {
       svg: 'box',
@@ -839,151 +984,7 @@ export const widgets = [
       },
     ],
   },
-  {
-    label: '图表',
-    icon: {
-      svg: 'chart-box',
-    },
-    elements: [
-      {
-        label: '柱状图',
-        icon: {
-          svg: 'chart-bar',
-        },
-        preview: '/assets/images/builder/widgets/bar.png',
-        content: {
-          type: 'chart',
-          title: {
-            text: '年度活动金额预算',
-            subtext: '南宁',
-          },
-          legend: {
-            bottom: '10px',
-          },
-          tooltip: {
-            trigger: 'axis',
-          },
-          dataset: {
-            source: [
-              ['红包预算', '2020', '2021', '2022'],
-              ['第一季度', 4180, 9056, 7942],
-              ['第二季度', 7908, 9032, 8471],
-              ['第三季度', 4785, 7987, 4172],
-            ],
-          },
-          xAxis: {
-            type: 'category',
-          },
-          yAxis: {},
-          series: [
-            {
-              type: 'bar',
-            },
-            {
-              type: 'bar',
-            },
-            {
-              type: 'bar',
-            },
-          ],
-        },
-      },
-      {
-        label: '折线图',
-        icon: {
-          svg: 'chart-line',
-        },
-        preview: '/assets/images/builder/widgets/line.png',
-        content: {
-          type: 'chart',
-          title: {
-            text: '年度活动金额预算',
-            subtext: '南宁',
-          },
-          legend: {
-            bottom: '10px',
-          },
-          tooltip: {
-            trigger: 'axis',
-          },
-          dataset: {
-            source: [
-              ['红包预算', '2020', '2021', '2022'],
-              ['第一季度', 4180, 9056, 7942],
-              ['第二季度', 7908, 9032, 8471],
-              ['第三季度', 4785, 7987, 4172],
-            ],
-          },
-          xAxis: {
-            type: 'category',
-          },
-          yAxis: {},
-          series: [
-            {
-              type: 'line',
-            },
-            {
-              type: 'line',
-            },
-            {
-              type: 'line',
-            },
-          ],
-        },
-      },
-      {
-        label: '饼图',
-        icon: {
-          svg: 'chart-pie',
-        },
-        preview: '/assets/images/builder/widgets/pie.png',
-        content: {
-          type: 'chart',
-          title: {
-            text: '金额预算占比',
-            subtext: '2022年9月',
-            left: 'center',
-          },
-          tooltip: {
-            trigger: 'item',
-          },
-          legend: {
-            orient: 'vertical',
-            left: 'left',
-          },
-          xAxis: {
-            type: 'category',
-          },
-          yAxis: {},
-          dataset: {
-            source: [
-              ['预算', '费用'],
-              ['大额红包总金额', 398],
-              ['小额红包总金额', 916],
-              ['提成总额', 370],
-            ],
-          },
-          series: [
-            {
-              name: 'Access From',
-              type: 'pie',
-              radius: '50%',
-              label: {
-                formatter: '{b}: {d}%',
-              },
-              emphasis: {
-                itemStyle: {
-                  shadowBlur: 10,
-                  shadowOffsetX: 0,
-                  shadowColor: 'rgba(0, 0, 0, 0.5)',
-                },
-              },
-            },
-          ],
-        },
-      },
-    ],
-  },
+
   {
     label: '卡片',
     icon: {
