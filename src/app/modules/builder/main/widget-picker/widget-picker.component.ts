@@ -14,7 +14,6 @@ import { WIDGETS } from '@core/token/token-providers';
 import { Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { MatDialog } from '@angular/material/dialog';
 import { BuilderService } from '@core/service/builder.service';
 import { cloneDeep } from 'lodash-es';
 @Component({
@@ -35,7 +34,6 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   ele = inject(ElementRef);
   widgets = inject(WIDGETS);
-  dialog = inject(MatDialog);
   builder = inject(BuilderState);
   storage = inject(LocalStorageService);
   builderService = inject(BuilderService);
@@ -64,7 +62,6 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     // add widget from layout builder toolbar
     if (addType === 'widget') {
       this.builder.updatePageContentByPath(path, widgetContent, 'add');
-      this.dialog.closeAll();
       return;
     }
 
@@ -74,7 +71,6 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
         this.copyLayoutLastChild(data.elements, widgetContent),
         'add'
       );
-      this.dialog.closeAll();
       return;
     }
 
@@ -82,7 +78,6 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     const lists = [...data.elements];
     lists.splice(lists.length, 0, widgetContent);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
-    this.dialog.closeAll();
   }
 
   onLeave(): void {
@@ -113,7 +108,6 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
         this.widgetPopper.destroy();
       }
       this.group$.next(group);
-      // debugger;
       this.groupPopper = createPopper(ele, this.groupPopup.nativeElement, {
         placement: 'left-start',
         modifiers: [
