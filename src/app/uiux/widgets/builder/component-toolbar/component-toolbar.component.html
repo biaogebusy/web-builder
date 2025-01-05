@@ -1,6 +1,6 @@
 <div class="wrapper flex justify-between items-center">
   <div class="actions flex">
-    @if (index > 0 && isPreview) {
+    @if (index > 0) {
       <div
         class="item"
         (click)="onUpdown(index, 'up')"
@@ -17,23 +17,21 @@
         />
       </div>
     }
-    @if (isPreview) {
-      <div
-        class="item"
-        (click)="onUpdown(index, 'down')"
-        [matTooltip]="'下移'"
-        matTooltipPosition="above"
-      >
-        <app-btn
-          [content]="{
-            label: '',
-            color: 'primary',
-            mode: 'icon',
-            icon: { svg: 'arrow-collapse-down', inline: true },
-          }"
-        />
-      </div>
-    }
+    <div
+      class="item"
+      (click)="onUpdown(index, 'down')"
+      [matTooltip]="'下移'"
+      matTooltipPosition="above"
+    >
+      <app-btn
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'arrow-collapse-down', inline: true },
+        }"
+      />
+    </div>
     <div class="item" matTooltip="复制JSON" (click)="onCopy()">
       <app-btn
         [content]="{
@@ -56,18 +54,16 @@
         />
       </div>
     }
-    @if (isPreview) {
-      <div class="item" (click)="onDelete(index)" [matTooltip]="'移除'" matTooltipPosition="above">
-        <app-btn
-          [content]="{
-            label: '',
-            color: 'primary',
-            mode: 'icon',
-            icon: { svg: 'delete', inline: true },
-          }"
-        />
-      </div>
-    }
+    <div class="item" (click)="onDelete(index)" [matTooltip]="'移除'" matTooltipPosition="above">
+      <app-btn
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'delete', inline: true },
+        }"
+      />
+    </div>
     <div
       class="item"
       (click)="onSetting(content, $event)"

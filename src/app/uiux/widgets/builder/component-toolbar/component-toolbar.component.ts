@@ -25,13 +25,9 @@ import { Observable } from 'rxjs';
 })
 export class ComponentToolbarComponent implements OnInit {
   @Input() content: IComponentToolbar;
-  // for builder preview page
-  @Input() isPreview: boolean;
-
   @Input() index: number;
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
-  enableBuilderToolbar: boolean;
 
   public bcData: any;
 
@@ -45,10 +41,6 @@ export class ComponentToolbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isBDMode$.subscribe(state => {
-      this.enableBuilderToolbar = state;
-    });
-
     this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
       this.bcData = data;
       this.cd.detectChanges();

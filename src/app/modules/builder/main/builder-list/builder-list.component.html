@@ -27,7 +27,6 @@
                 [attr.data-path]="i"
                 [inputs]="{ content: item, showToolbar: true }"
                 [index]="i"
-                [isPreview]="true"
               />
               @if (builderConfig$ | async; as builderConfig) {
                 <div class="add-new-section gap-2 items-center" [attr.data-path]="i">

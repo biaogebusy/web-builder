@@ -1,10 +1,10 @@
 @if (uiux) {
   <div class="builder-generater flex flex-col">
-    @if (coreConfig.builder.generater) {
+    @if (builderConfig$ | async; as builderConfig) {
       <app-formly
         [classes]="'form-field-width-auto'"
         [form]="form"
-        [fields]="coreConfig.builder.generater"
+        [fields]="builderConfig.generater"
         [model]="model"
       />
     }

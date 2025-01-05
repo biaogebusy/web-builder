@@ -139,6 +139,25 @@ export function getBtn(widget: any): FormlyFieldConfig {
             ],
           },
           {
+            key: 'iconPosition',
+            className: 'w-full',
+            defaultValue: widget?.iconPosition ?? 'left',
+            type: 'select',
+            props: {
+              label: '图标位置',
+              options: [
+                {
+                  label: '左侧',
+                  value: 'left',
+                },
+                {
+                  label: '右侧',
+                  value: 'right',
+                },
+              ],
+            },
+          },
+          {
             key: 'classes',
             type: 'input',
             className: 'w-full',
@@ -155,6 +174,15 @@ export function getBtn(widget: any): FormlyFieldConfig {
             defaultValue: widget.pill ?? false,
             props: {
               label: '胶囊样式',
+            },
+          },
+          {
+            key: 'containerClasses',
+            type: 'input',
+            className: '!hidden',
+            defaultValue: '!overflow-visible',
+            props: {
+              label: '容器Class',
             },
           },
         ],

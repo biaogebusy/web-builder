@@ -3,42 +3,40 @@
   <app-card-1v1 [content]="content.card" />
   <div class="showcase-footer flex flex-row justify-between items-center">
     <div class="title">{{ content.title }}</div>
-    <div class="actions">
-      <div class="item">
-        <app-btn
-          (click)="onCopy()"
-          [matTooltip]="'复制 JSON'"
-          matTooltipPosition="above"
-          [content]="{
-            label: '',
-            color: 'primary',
-            mode: 'icon',
-            icon: { svg: 'content-copy', inline: true },
-          }"
-        />
-        <app-btn
-          (click)="showCode()"
-          [matTooltip]="'查看 JSON'"
-          matTooltipPosition="above"
-          [content]="{
-            label: '',
-            color: 'primary',
-            mode: 'icon',
-            icon: { svg: 'code-json', inline: true },
-          }"
-        />
-        <app-btn
-          (click)="insert()"
-          [matTooltip]="'插入组件到编辑区'"
-          matTooltipPosition="above"
-          [content]="{
-            label: '',
-            color: 'primary',
-            mode: 'icon',
-            icon: { svg: 'arrow-right', inline: true },
-          }"
-        />
-      </div>
+    <div class="actions flex">
+      <app-btn
+        (click)="onCopy()"
+        [matTooltip]="'复制 JSON'"
+        matTooltipPosition="above"
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'content-copy', inline: true },
+        }"
+      />
+      <app-btn
+        (click)="showCode()"
+        [matTooltip]="'查看 JSON'"
+        matTooltipPosition="above"
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'code-json', inline: true },
+        }"
+      />
+      <app-btn
+        (click)="insert()"
+        [matTooltip]="'插入组件到编辑区'"
+        matTooltipPosition="above"
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'arrow-right', inline: true },
+        }"
+      />
     </div>
   </div>
 </div>

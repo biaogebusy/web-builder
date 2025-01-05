@@ -60,7 +60,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
       elements: [
         {
           type: 'jsoneditor',
-          isPreview: true,
           data: this.page,
           isPage: true,
           classes: 'full-height',

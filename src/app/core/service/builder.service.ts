@@ -1,7 +1,7 @@
 import { Inject, Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { ICoreConfig, IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
+import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
+import type { IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
 import { Observable, Subject, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import type { IUser } from '@core/interface/IUser';
@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { ContentService } from './content.service';
 import { isArray } from 'lodash-es';
+import { IBuilderConfig } from '@core/interface/IBuilder';
 
 @Injectable({
   providedIn: 'root',
@@ -27,13 +28,17 @@ export class BuilderService extends ApiService {
   nodeService = inject(NodeService);
   contentService = inject(ContentService);
   user: IUser;
+  builderConfig: IBuilderConfig;
   constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>
+    @Inject(USER) private user$: Observable<IUser>,
+    @Inject(BUILDER_CONFIG) private builderConfig$: Observable<IBuilderConfig>
   ) {
     super();
     this.user$.subscribe(user => {
       this.user = user;
+    });
+    this.builderConfig$.subscribe(config => {
+      this.builderConfig = config;
     });
   }
 
@@ -160,10 +165,8 @@ export class BuilderService extends ApiService {
 
   createLandingPage(page: IPage): Observable<any> {
     const {
-      builder: {
-        api: { create },
-      },
-    } = this.coreConfig;
+      api: { create },
+    } = this.builderConfig;
     const { csrf_token } = this.user;
     this.builder.loading$.next(true);
     return this.http
@@ -191,10 +194,8 @@ export class BuilderService extends ApiService {
       prefix = `/${lang}`;
     }
     const {
-      builder: {
-        api: { update },
-      },
-    } = this.coreConfig;
+      api: { update },
+    } = this.builderConfig;
     const { csrf_token } = this.user;
     this.builder.loading$.next(true);
     return this.http
@@ -250,10 +251,8 @@ export class BuilderService extends ApiService {
   addTranslation(page: IPage): Observable<any> {
     const { nid, target, langcode } = page;
     const {
-      builder: {
-        api: { translate },
-      },
-    } = this.coreConfig;
+      api: { translate },
+    } = this.builderConfig;
     const { csrf_token } = this.user;
     return this.http.post(
       `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,

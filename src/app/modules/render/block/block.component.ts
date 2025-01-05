@@ -34,7 +34,6 @@ import { ScreenService } from '@core/service/screen.service';
   ],
 })
 export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
-  @Input() isPreview = false;
   drawerLoading: boolean;
   drawerContent: IPage;
   opened: boolean;

@@ -56,12 +56,16 @@ export class UtilitiesService {
     }
     const url = href.toLowerCase();
     const pdfReg = /^.+(\.pdf)/;
+    const svgReg = /^.+(\.svg)/;
     const txtReg = /^.+(\.txt)/;
     const wordReg = /^.+(\.doc|\.docx)/;
     const excelReg = /^.+(\.xls|\.xlsx)/;
-    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp|\.gif|\.webp|\.svg)/;
+    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp|\.gif|\.webp)/;
     if (pdfReg.test(url)) {
       return 'pdf';
+    }
+    if (svgReg.test(url)) {
+      return 'svg';
     }
     if (txtReg.test(url)) {
       return 'txt';
