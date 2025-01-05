@@ -16,6 +16,7 @@ import { BuilderService } from '@core/service/builder.service';
 import { IPage } from '@core/interface/IAppConfig';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ScreenService } from '@core/service/screen.service';
+import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
   selector: 'app-layout-builder',
@@ -29,9 +30,10 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
 
   util = inject(UtilitiesService);
   ele = inject(ElementRef);
-  builderSerivce = inject(BuilderService);
+  builder = inject(BuilderState);
   destroyRef = inject(DestroyRef);
   screenService = inject(ScreenService);
+  builderSerivce = inject(BuilderService);
   constructor(
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
@@ -52,6 +54,7 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   }
 
   addBlock(addType: string, content: any, target: any): void {
+    this.builder.closeRightDrawer$.next(true);
     this.builderSerivce.addBlock(addType, content, this.util.generatePath(target));
   }
 

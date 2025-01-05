@@ -32,7 +32,7 @@
       }
     </div>
   }
-  <div #groupPopup>
+  <div #groupPopup class="absolute">
     @if (group$ | async; as group) {
       <div
         class="group-popup p-4 z-10 flex-col justify-start items-start whitespace-nowrap w-[280px] min-h-[360px]"
@@ -53,7 +53,7 @@
       </div>
     }
   </div>
-  <div #popup>
+  <div #popup class="absolute">
     @if (widget$ | async; as widget) {
       <div class="p-3">
         <div class="widget-popup">
