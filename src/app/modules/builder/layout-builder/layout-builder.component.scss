@@ -24,17 +24,12 @@
           }
         }
         .block-toolbar {
-          position: absolute;
-          left: 50%;
-          bottom: -34px;
-          transform: translateX(-50%);
-          z-index: 99;
-          display: none;
+          opacity: 0;
+          height: 0;
           white-space: nowrap;
-        }
-        &:hover {
-          .block-toolbar {
-            display: block;
+          &[data-popper-placement] {
+            opacity: 1;
+            height: auto;
           }
         }
       }

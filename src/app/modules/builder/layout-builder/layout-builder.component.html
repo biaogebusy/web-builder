@@ -7,6 +7,7 @@
   @let horizontal = content.horizontal;
   @let alignItems = content.alignItems;
   @let wrapperClass = content.wrapperClass;
+  @let isBuilderMode = isBuilderMode$ | async;
 
   <div class="layout-builder relative" [ngClass]="classes" [ngStyle]="style">
     <div
@@ -34,7 +35,7 @@
           }} md:col-span-{{ row.md }} lg:col-span-{{ row.lg }}"
           [attr.data-path]="'elements.' + i"
         >
-          @if (isBuilderMode$ | async) {
+          @if (isBuilderMode) {
             <div class="toolbar hidden absolute z-50">
               <app-layout-toolbar
                 [lbContent]="content"
@@ -78,11 +79,14 @@
               }
               @for (item of elements; track item; let index = $index) {
                 <div
+                  #widget
+                  (mouseleave)="onLeaveWidget(isBuilderMode)"
+                  (mouseenter)="onHoverWidget(widget, isBuilderMode)"
                   class="item relative box-border item-{{ item.type }} col-span-12"
                   [attr.data-path]="'elements.' + index"
                 >
-                  <app-dynamic-component [inputs]="item" [index]="index" />
-                  @if (isBuilderMode$ | async) {
+                  <app-dynamic-component class="component" [inputs]="item" [index]="index" />
+                  @if (isBuilderMode) {
                     <div class="block-toolbar" #action>
                       <button mat-raised-button (click)="addBlock('widget', content, action)">
                         <div class="flex">
