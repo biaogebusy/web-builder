@@ -32,7 +32,7 @@
       <mat-spinner diameter="50" color="primary" />
     }
     @if (content$ | async; as content) {
-      @for (page of content; track page.nid; let i = $index) {
+      @for (page of content; track $index; let i = $index) {
         <div
           [ngClass]="{
             active: page.nid === currentPage?.nid && page.langcode === currentPage?.langcode,

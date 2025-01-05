@@ -3,7 +3,7 @@
     dropZoneLabel="Drop files here"
     (onFileDrop)="dropped($event)"
     [multiple]="true"
-    accept=".png,.jpg,.jpeg,.svg"
+    accept=".png,.jpg,.jpeg,.svg,.gif"
   >
     <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
       @if (files.length) {

@@ -3,7 +3,7 @@
     <mat-drawer-container>
       <mat-drawer mode="side" [opened]="true">
         <div class="sidebar flex flex-col">
-          <mat-slider max="12" min="3" step="1"
+          <mat-slider max="12" min="1" step="1"
             ><input matSliderThumb [(ngModel)]="coreConfig.manageMedia.row" />
           </mat-slider>
           @if (coreConfig.manageMedia.sidebar.form) {
@@ -99,7 +99,7 @@
                     >
                       <img
                         class="w-full h-full object-contain"
-                        ngSrc="{{ item.thumb || item.src || item.source }}"
+                        ngSrc="{{ item.src }}"
                         priority
                         width="480"
                         height="360"

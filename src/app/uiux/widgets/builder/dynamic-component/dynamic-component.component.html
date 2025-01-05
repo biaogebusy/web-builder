@@ -1,5 +1,5 @@
 @if (showToolbar) {
-  <app-component-toolbar #toolbar [content]="inputs" [isPreview]="isPreview" [index]="index" />
+  <app-component-toolbar #toolbar [content]="inputs" [index]="index" />
 }
 @let content = inputs.type ? inputs : inputs.content;
 <div class="relative overflow-hidden" [ngClass]="content?.containerClasses">

@@ -263,7 +263,12 @@ export class PageListComponent extends BaseComponent implements OnInit {
   loadPage(page: any): void {
     this.util.openSnackbar(`正在加载${page.title}`, 'ok');
     this.builder.loading$.next(true);
-    this.builderService.loadPage({ langcode: page.langcode, nid: page.nid });
+    const { langcode, nid } = page;
+    if (!nid) {
+      this.util.openSnackbar('请检查 LandingPage View 配置', 'ok');
+      return;
+    }
+    this.builderService.loadPage({ langcode, nid });
   }
 
   updatePageSetting(page: IPageMeta): void {

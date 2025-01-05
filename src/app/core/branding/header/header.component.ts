@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   sticky = signal(false);
   showBanner = signal(false);
   headerMode: any;
+  isBuilderMode = false;
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -53,7 +54,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.isBuilderMode$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(state => {
+        this.isBuilderMode = state;
+      });
       this.screenState.scroll$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(() => {
+        if (this.isBuilderMode) {
+          return;
+        }
         if (this.menu) {
           this.sticky.set(this.screenService.isElementOutTopViewport(this.menu.nativeElement));
         }

@@ -5,7 +5,7 @@
         <app-icon [content]="content.icon" />
       </div>
     }
-    @if (content.img) {
+    @if (content.img && content.img.src) {
       <div class="box-image">
         <app-img [attr.data-path]="'img'" [content]="content.img" />
       </div>
@@ -23,7 +23,7 @@
           [innerHTML]="content.content | safeHtml"
         ></div>
       }
-      @if (content.more) {
+      @if (content.more && content.more.label) {
         <div class="read-more">
           <a href="{{ content.more.href }}" target="{{ content.more.target || '_blank' }}"
             ><span contentedit="more.label" [innerHTML]="content.more.label | safeHtml"></span

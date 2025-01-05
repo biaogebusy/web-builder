@@ -36,6 +36,11 @@
       }
     }
   ],
+  "api": {
+    "create": "/api/v3/landingPage/builder",
+    "update": "/api/v3/landingPage/update",
+    "translate": "/api/v3/landingPage/translations"
+  },
   "tour": {
     "enable": true,
     "delay": 2000,
@@ -81,5 +86,161 @@
         "intro": "If you have any doubts about how to use it, you can check the demonstration video."
       }
     ]
-  }
+  },
+  "widgetPicker": {
+    "help": {
+      "tooltip": "How to add components here?",
+      "link": "https://ui.builder.design/?path=/docs/develop-newcomponent--page"
+    }
+  },
+  "generater": [
+    {
+      "type": "select",
+      "key": "hero",
+      "defaultValue": 1,
+      "className": "block m-bottom-sm",
+      "templateOptions": {
+        "label": "Select the number of Heros",
+        "description": "The first screen component under the page menu",
+        "options": [
+          {
+            "label": "1",
+            "value": 1
+          },
+          {
+            "label": "2",
+            "value": 2
+          },
+          {
+            "label": "3",
+            "value": 3
+          },
+          {
+            "label": "4",
+            "value": 4
+          },
+          {
+            "label": "5",
+            "value": 5
+          },
+          {
+            "label": "6",
+            "value": 6
+          }
+        ]
+      }
+    },
+    {
+      "type": "select",
+      "key": "showcase",
+      "defaultValue": 3,
+      "className": "block m-bottom-sm",
+      "templateOptions": {
+        "label": "Select the number of Showcases",
+        "description": "Usually, a page will have multiple Showcase components",
+        "options": [
+          {
+            "label": "1",
+            "value": 1
+          },
+          {
+            "label": "2",
+            "value": 2
+          },
+          {
+            "label": "3",
+            "value": 3
+          },
+          {
+            "label": "4",
+            "value": 4
+          },
+          {
+            "label": "5",
+            "value": 5
+          },
+          {
+            "label": "6",
+            "value": 6
+          },
+          {
+            "label": "7",
+            "value": 7
+          },
+          {
+            "label": "8",
+            "value": 8
+          },
+          {
+            "label": "9",
+            "value": 9
+          },
+          {
+            "label": "10",
+            "value": 10
+          }
+        ]
+      }
+    },
+    {
+      "type": "select",
+      "key": "carousel",
+      "defaultValue": 1,
+      "className": "block m-bottom-sm",
+      "templateOptions": {
+        "label": "Select the number of slides",
+        "description": "There should not be too many slides",
+        "options": [
+          {
+            "label": "1",
+            "value": 1
+          },
+          {
+            "label": "2",
+            "value": 2
+          },
+          {
+            "label": "3",
+            "value": 3
+          },
+          {
+            "label": "4",
+            "value": 4
+          },
+          {
+            "label": "5",
+            "value": 5
+          },
+          {
+            "label": "6",
+            "value": 6
+          }
+        ]
+      }
+    },
+    {
+      "type": "select",
+      "key": "masonry",
+      "defaultValue": 0,
+      "className": "block m-bottom-sm",
+      "templateOptions": {
+        "label": "Select the number of waterfall",
+        "description": "The waterfall flow component usually only requires one",
+        "options": [
+          {
+            "label": "0",
+            "value": 0
+          },
+          {
+            "label": "1",
+            "value": 1
+          },
+          {
+            "label": "2",
+            "value": 2
+          }
+        ]
+      }
+    }
+  ]
 }

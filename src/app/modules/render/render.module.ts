@@ -10,13 +10,7 @@ import { BuilderModule } from '../builder/builder.module';
 
 @NgModule({
   declarations: [BlockComponent],
-  imports: [
-    ShareModule,
-    WidgetsModule,
-    MatSidenavModule,
-    MatProgressSpinnerModule,
-    BuilderModule,
-  ],
+  imports: [ShareModule, WidgetsModule, MatSidenavModule, MatProgressSpinnerModule, BuilderModule],
   providers: [
     {
       provide: PAGE_CONTENT,

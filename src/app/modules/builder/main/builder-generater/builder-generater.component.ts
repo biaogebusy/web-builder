@@ -1,20 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
-import type { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
+import type { IBuilderComponent, IBuilderConfig, IUiux } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG, UIUX, USER } from '@core/token/token-providers';
+import { BUILDER_CONFIG, CORE_CONFIG, UIUX, USER } from '@core/token/token-providers';
 import { LoginComponent } from '@modules/user/login/login.component';
 import { map, shuffle } from 'lodash-es';
 import { Observable } from 'rxjs';
@@ -35,7 +29,7 @@ export class BuilderGeneraterComponent implements OnInit {
   util = inject(UtilitiesService);
   constructor(
     @Inject(UIUX) public uiux: IUiux[],
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>,
     @Inject(USER) private user$: Observable<IUser>
   ) {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
@@ -84,29 +78,12 @@ export class BuilderGeneraterComponent implements OnInit {
         }
       });
       const heros = this.builder.getRandomElements(items, 'hero', value.hero);
-      const showcases = this.builder.getRandomElements(
-        items,
-        'showcase',
-        value.showcase
-      );
+      const showcases = this.builder.getRandomElements(items, 'showcase', value.showcase);
       const layout = this.builder.getRandomElements(items, 'layout', 1);
       const section = this.builder.getRandomElements(items, 'section', 2);
-      const carousel = this.builder.getRandomElements(
-        items,
-        'carousel',
-        value.carousel
-      );
-      const masonry = this.builder.getRandomElements(
-        items,
-        'masonry',
-        value.masonry
-      );
-      const shuffleComponents = shuffle([
-        ...layout,
-        ...section,
-        ...showcases,
-        ...carousel,
-      ]);
+      const carousel = this.builder.getRandomElements(items, 'carousel', value.carousel);
+      const masonry = this.builder.getRandomElements(items, 'masonry', value.masonry);
+      const shuffleComponents = shuffle([...layout, ...section, ...showcases, ...carousel]);
       const action = [];
       const text = items
         .filter(item => item.id === 'base')[0]
