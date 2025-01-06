@@ -10,6 +10,9 @@
     .blocks {
       > .item {
         max-width: 100%;
+        &:hover {
+          z-index: 100;
+        }
         &.item-divider,
         &.item-layout-builder {
           @apply w-full;
@@ -27,8 +30,10 @@
           opacity: 0;
           height: 0;
           white-space: nowrap;
+          pointer-events: none;
           &[data-popper-placement] {
             opacity: 1;
+            pointer-events: auto;
             height: auto;
           }
         }
@@ -49,15 +54,6 @@
         outline-offset: 2px;
         > .toolbar {
           display: block;
-        }
-      }
-      .blocks {
-        > .item {
-          &:hover {
-            > .toolbar {
-              display: block;
-            }
-          }
         }
       }
     }
