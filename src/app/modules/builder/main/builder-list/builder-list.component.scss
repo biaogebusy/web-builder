@@ -42,6 +42,7 @@
         padding: 2px;
         &:hover {
           z-index: 10;
+          outline-offset: -2px;
           > .component-toolbar {
             display: block !important;
           }

@@ -27,7 +27,6 @@ import { createPopper } from '@popperjs/core';
 export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   @Input() content: ILayoutBuilder;
   @Input() pageIndex: number;
-  @Input() uuid: string;
 
   util = inject(UtilitiesService);
   ele = inject(ElementRef);
@@ -80,7 +79,7 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
           {
             name: 'offset',
             options: {
-              offset: [1, 0],
+              offset: [0, 0],
             },
           },
         ],
