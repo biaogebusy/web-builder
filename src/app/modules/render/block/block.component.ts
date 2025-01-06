@@ -25,7 +25,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-block',
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss'],
-  host: { ngSkipHydration: 'true' },
+  // host: { ngSkipHydration: 'true' },
   providers: [
     {
       provide: PAGE_CONTENT,
