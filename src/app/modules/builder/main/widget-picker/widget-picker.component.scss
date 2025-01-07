@@ -1,11 +1,12 @@
 @import '../../../../../theme/variable/breakpoint';
 .widget-picker {
   position: absolute;
-  right: 0;
+  right: -88px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 999;
   width: 48px;
+  transition: right 0.3s ease-out;
   .widget-wrapper {
     border-radius: 20px;
     .item {
@@ -37,5 +38,12 @@
         max-height: 100%;
       }
     }
+  }
+}
+
+:host(.active) {
+  .widget-picker {
+    right: 20px;
+    transition: right 0.3s ease;
   }
 }

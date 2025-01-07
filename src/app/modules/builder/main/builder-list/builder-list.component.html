@@ -61,7 +61,8 @@
         </div>
       }
       @if (page.body.length > 0) {
-        <app-widget-picker></app-widget-picker>
+        @let active = builder.wigetsPicker$ | async;
+        <app-widget-picker [class.active]="active"></app-widget-picker>
       }
     </div>
   </div>

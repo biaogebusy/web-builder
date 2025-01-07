@@ -77,7 +77,7 @@
               @if (bg) {
                 <app-bg-img [attr.data-path]="'bg'" [content]="bg" />
               }
-              @for (item of elements; track item; let index = $index) {
+              @for (item of elements; track item; let index = $index; let last = $last) {
                 <div
                   #widget
                   (mouseleave)="onLeaveWidget(isBuilderMode)"
@@ -95,6 +95,9 @@
                         </div>
                       </button>
                     </div>
+                    @if (last) {
+                      <div class="py-6"></div>
+                    }
                   }
                 </div>
               }
