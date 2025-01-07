@@ -2,7 +2,11 @@
   @if (content.title || content.form) {
     <div class="box-header flex flex-row justify-between items-center">
       @if (content.title) {
-        <div class="mat-h3 font-bold m-bottom-0">
+        <div
+          class="mat-h3 font-bold m-bottom-0"
+          [attr.data-path]="'title.label'"
+          contentedit="label"
+        >
           {{ content.title.label }}
         </div>
       }

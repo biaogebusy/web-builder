@@ -54,6 +54,7 @@ export class ComponentToolbarComponent implements OnInit {
   onUpdown(index: number, direction: string, event: any): void {
     const path = this.util.generatePath(event.target);
     this.builder.upDownComponent(index, direction, path);
+    this.hiddenPicker();
   }
 
   onCopy(): void {
@@ -71,6 +72,7 @@ export class ComponentToolbarComponent implements OnInit {
   onPaste(event: any, content: any): void {
     const path = this.util.generatePath(event.target);
     this.builder.updatePageContentByPath(path, content, 'add');
+    this.hiddenPicker();
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
@@ -79,11 +81,13 @@ export class ComponentToolbarComponent implements OnInit {
     const path = this.util.generatePath(event.target);
     const component = type ? content : content.content;
     const fields: FormlyFieldConfig[] = getComponentSetting(component);
+    this.hiddenPicker();
     this.builder.showComponentSetting(component, fields, path);
   }
 
   onDelete(index: number, event: any): void {
     const path = this.util.generatePath(event.target);
+    this.hiddenPicker();
     this.builder.deleteComponent(index, path);
   }
 

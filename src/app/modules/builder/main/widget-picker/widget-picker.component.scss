@@ -6,9 +6,8 @@
   transform: translateY(-50%);
   z-index: 999;
   width: 48px;
-  transition: right 0.3s ease-out;
+  transition: right 0.5s ease-out;
   .widget-wrapper {
-    border-radius: 20px;
     .item {
       position: relative;
       .inner {
@@ -21,9 +20,10 @@
     position: relative;
     right: 10px;
   }
+  .widget-wrapper,
   .group-popup,
   .widget-popup {
-    border-radius: 12px;
+    border-radius: 8px;
   }
   .widget-popup {
     overflow: hidden;
@@ -44,6 +44,6 @@
 :host(.active) {
   .widget-picker {
     right: 20px;
-    transition: right 0.3s ease;
+    transition: right 0.5s ease-in;
   }
 }

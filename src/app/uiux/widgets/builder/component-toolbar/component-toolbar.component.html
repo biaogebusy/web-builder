@@ -1,5 +1,5 @@
-<div class="wrapper flex justify-between items-center" (click)="hiddenPicker()">
-  <div class="actions flex">
+<div class="wrapper flex justify-between items-center">
+  <div class="actions flex gap-1">
     @if (index > 0) {
       <div
         class="item"
@@ -59,21 +59,7 @@
         />
       </div>
     }
-    <div
-      class="item"
-      (click)="onDelete(index, $event)"
-      [matTooltip]="'移除'"
-      matTooltipPosition="above"
-    >
-      <app-btn
-        [content]="{
-          label: '',
-          color: 'primary',
-          mode: 'icon',
-          icon: { svg: 'delete', inline: true },
-        }"
-      />
-    </div>
+
     <div
       class="item"
       (click)="onSetting(content, $event)"
@@ -86,6 +72,22 @@
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'tune-vertical', inline: true },
+        }"
+      />
+    </div>
+    <app-divider [content]="{ vertical: true }" />
+    <div
+      class="item"
+      (click)="onDelete(index, $event)"
+      [matTooltip]="'移除'"
+      matTooltipPosition="above"
+    >
+      <app-btn
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'delete', inline: true },
         }"
       />
     </div>

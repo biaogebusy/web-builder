@@ -8,6 +8,7 @@ import {
   OnInit,
   ViewChild,
   inject,
+  signal,
 } from '@angular/core';
 import type { IWidgetPicker } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
@@ -34,6 +35,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   groupPopper: any;
   widgetPopper: any;
 
+  public bcData = signal(false);
   ele = inject(ElementRef);
   widgets = inject(WIDGETS);
   builder = inject(BuilderState);
@@ -46,12 +48,20 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       widgetPicker: { help },
     } = this.builderService.builderConfig;
     this.help = help;
+    this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
+      this.bcData.set(data);
+    });
   }
 
   ngAfterViewInit(): void {
     this.builder.widgetsPicker$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {
       this.content = content;
     });
+  }
+
+  onPasteData(): void {
+    this.onSelect(this.bcData());
+    this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
   onSelect(widget: any): void {
@@ -144,5 +154,13 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       });
       this.widgetPopper.update();
     }
+  }
+
+  onHoverCopy(widget: any, ele: any): void {
+    this.group$.next(false);
+    if (this.groupPopper) {
+      this.groupPopper.destroy();
+    }
+    this.onHoverWidget(widget, ele);
   }
 }

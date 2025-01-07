@@ -1,6 +1,23 @@
 <div class="widget-picker p-5" (mouseleave)="onLeave()">
   @if (widgets) {
-    <div class="widget-wrapper py-4" #wrapper>
+    <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
+      @if (bcData()) {
+        <div
+          #copy
+          class="box flex flex-col justify-center items-center"
+          (click)="onPasteData()"
+          (mouseenter)="onHoverCopy({ content: bcData() }, copy)"
+          matTooltip="选择复制的组件"
+          matTooltipPosition="above"
+        >
+          <div class="item" matRipple>
+            <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
+              <app-icon [content]="{ svg: 'content-paste' }" />
+            </div>
+          </div>
+        </div>
+        <app-divider />
+      }
       @for (group of widgets; track $index) {
         <div
           class="box flex flex-col justify-center items-center"
@@ -16,7 +33,7 @@
         </div>
       }
       @if (help) {
-        <app-divider></app-divider>
+        <app-divider class="opacity-50 w-[40px]"></app-divider>
         <div class="help box" [matTooltip]="help.tooltip">
           <app-btn
             [content]="{
