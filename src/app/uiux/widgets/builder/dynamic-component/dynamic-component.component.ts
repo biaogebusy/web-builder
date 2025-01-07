@@ -79,43 +79,42 @@ export class DynamicComponentComponent
   }
 
   async loadComponent(): Promise<void> {
-    const type = this.inputs.type
-      ? this.inputs.type
-      : this.inputs.content
-        ? this.inputs.content.type
-        : null;
-    if (!type) {
-      return;
-    }
-
-    this.container.clear();
-
-    const componentType = await this.componentService.getComponentType(type);
-    const hostElement = this.renderer.createElement('div');
-    this.componentRef = createComponent(componentType, {
-      environmentInjector: this.environmentInjector,
-      hostElement,
-    });
-    if (!componentType) {
-      console.log('无法识别该组件：', this.inputs);
-      return;
-    }
-    if (this.componentRef.instance && this.inputs) {
-      if (!this.inputs.type && this.inputs.content) {
-        Object.keys(this.inputs).forEach(key => {
-          if (this.componentRef) {
-            this.componentRef.instance[key] = this.inputs[key];
-          }
-        });
-      } else {
-        this.componentRef.instance.content = this.inputs;
-      }
-      this.componentRef.instance.pageIndex = this.index;
-    }
-
-    this.container.insert(this.componentRef.hostView);
-    this.componentRef.changeDetectorRef.detectChanges();
     if (this.screenService.isPlatformBrowser()) {
+      const type = this.inputs.type
+        ? this.inputs.type
+        : this.inputs.content
+          ? this.inputs.content.type
+          : null;
+      if (!type) {
+        return;
+      }
+      this.container.clear();
+
+      const componentType = await this.componentService.getComponentType(type);
+      const hostElement = this.renderer.createElement('div');
+      this.componentRef = createComponent(componentType, {
+        environmentInjector: this.environmentInjector,
+        hostElement,
+      });
+      if (!componentType) {
+        console.log('无法识别该组件：', this.inputs);
+        return;
+      }
+      if (this.componentRef.instance && this.inputs) {
+        if (!this.inputs.type && this.inputs.content) {
+          Object.keys(this.inputs).forEach(key => {
+            if (this.componentRef) {
+              this.componentRef.instance[key] = this.inputs[key];
+            }
+          });
+        } else {
+          this.componentRef.instance.content = this.inputs;
+        }
+        this.componentRef.instance.pageIndex = this.index;
+      }
+
+      this.container.insert(this.componentRef.hostView);
+      this.componentRef.changeDetectorRef.detectChanges();
       this.util.initAnimate(
         this.inputs,
         this.ele.nativeElement.lastElementChild,

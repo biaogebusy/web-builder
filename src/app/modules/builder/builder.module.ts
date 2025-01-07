@@ -51,6 +51,7 @@ import { CardListComponent } from './main/card-list/card-list.component';
 import { CardPageComponent } from './main/card-list/card-page/card-page.component';
 import { DefaultPageComponent } from './main/default-page/default-page.component';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 const components = [
   JsonComponent,
@@ -97,6 +98,7 @@ const components = [
     DragDropModule,
     BuilderRoutingModule,
     FormModule,
+    MonacoEditorModule.forRoot(),
   ],
   providers: [
     {
