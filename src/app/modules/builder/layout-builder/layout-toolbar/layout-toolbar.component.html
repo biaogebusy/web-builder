@@ -1,4 +1,8 @@
-<div class="layout-toolbar inline-flex justify-end items-center" #toolbar>
+<div
+  class="layout-toolbar inline-flex justify-end items-center"
+  #toolbar
+  (click)="hiddenWidgetPicker()"
+>
   <app-btn
     [matMenuTriggerFor]="menu"
     class="toggle block"

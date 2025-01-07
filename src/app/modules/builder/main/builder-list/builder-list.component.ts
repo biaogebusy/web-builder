@@ -126,6 +126,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addNewSection(event: any, type: 'widget' | 'section', newSection: any): void {
+    this.builder.widgetsPicker$.next(false);
     this.router.navigate(['/builder']);
     const path = this.util.generatePath(event.target);
     if (type === 'section') {

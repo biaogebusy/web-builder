@@ -86,4 +86,8 @@ export class ComponentToolbarComponent implements OnInit {
     const path = this.util.generatePath(event.target);
     this.builder.deleteComponent(index, path);
   }
+
+  hiddenPicker(): void {
+    this.builder.widgetsPicker$.next(false);
+  }
 }

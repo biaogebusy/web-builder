@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   Input,
   OnInit,
@@ -16,6 +17,7 @@ import { createPopper } from '@popperjs/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { BuilderService } from '@core/service/builder.service';
 import { cloneDeep } from 'lodash-es';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
@@ -37,6 +39,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   builder = inject(BuilderState);
   storage = inject(LocalStorageService);
   builderService = inject(BuilderService);
+  destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     const {
@@ -46,7 +49,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.builder.wigetsPicker$.subscribe(content => {
+    this.builder.widgetsPicker$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {
       this.content = content;
     });
   }
@@ -89,7 +92,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     if (this.widgetPopper) {
       this.widgetPopper.destroy();
     }
-    this.builder.wigetsPicker$.next(false);
+    this.builder.widgetsPicker$.next(false);
   }
   copyLayoutLastChild(elements: any[], widget: any): any {
     const last = Object.assign({}, elements[elements.length - 1]);

@@ -56,4 +56,8 @@ export class LayoutToolbarComponent implements OnInit {
     const fields: FormlyFieldConfig[] = getLayoutSetting(layout);
     this.builder.showComponentSetting(layout, fields, path);
   }
+
+  hiddenWidgetPicker(): void {
+    this.builder.widgetsPicker$.next(false);
+  }
 }
