@@ -87,10 +87,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     animateElement.forEach((el: any) => observer.observe(el));
   }
 
-  trackByFn(index: number, item: any): number {
-    return index;
-  }
-
   drop(event: CdkDragDrop<string[]>): void {
     this.builder.onDrop(event);
   }

@@ -4,9 +4,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Input,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
@@ -15,7 +17,6 @@ import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { cloneDeep, defaultsDeep, get } from 'lodash-es';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-layout-setting',
@@ -27,13 +28,13 @@ export class LayoutSettingComponent {
   @Input() content: ILayoutSetting;
   form = new UntypedFormGroup({});
   model: any = {};
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
-  builder = inject(BuilderState);
-  dialog = inject(MatDialog);
-  cd = inject(ChangeDetectorRef);
-  builderService = inject(BuilderService);
   doc = inject(DOCUMENT);
+  dialog = inject(MatDialog);
+  builder = inject(BuilderState);
+  cd = inject(ChangeDetectorRef);
+  destroyRef = inject(DestroyRef);
+  builderService = inject(BuilderService);
 
   onModelChange(value: any): void {
     const { path } = this.content;
@@ -86,11 +87,14 @@ export class LayoutSettingComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.builder.bulkUpdateComponent({ animate });
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (result) {
+          this.builder.bulkUpdateComponent({ animate });
+        }
+      });
   }
 
   onWidgetPicker(): void {
@@ -111,7 +115,7 @@ export class LayoutSettingComponent {
       },
     });
 
-    this.dialog.afterAllClosed.subscribe(() => {
+    this.dialog.afterAllClosed.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.cd.detectChanges();
     });
   }
@@ -163,17 +167,23 @@ export class LayoutSettingComponent {
         },
       });
 
-      dialogRef.afterOpened().subscribe(() => {
-        builderList = this.doc.querySelector('#builder-list');
-        builderList.style.paddingBottom = '500px';
-        this.builder.fullScreen$.next(true);
-        this.builder.closeRightDrawer$.next(true);
-      });
+      dialogRef
+        .afterOpened()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          builderList = this.doc.querySelector('#builder-list');
+          builderList.style.paddingBottom = '500px';
+          this.builder.fullScreen$.next(true);
+          this.builder.closeRightDrawer$.next(true);
+        });
 
-      dialogRef.afterClosed().subscribe(() => {
-        builderList.style.paddingBottom = '150px';
-        this.builder.fullScreen$.next(false);
-      });
+      dialogRef
+        .afterClosed()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          builderList.style.paddingBottom = '150px';
+          this.builder.fullScreen$.next(false);
+        });
     }
   }
 }

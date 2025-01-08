@@ -21,7 +21,6 @@ export class LayoutToolbarComponent implements OnInit {
   util = inject(UtilitiesService);
   builder = inject(BuilderState);
   builderService = inject(BuilderService);
-  constructor() {}
 
   ngOnInit(): void {}
 

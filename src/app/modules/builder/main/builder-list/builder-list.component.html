@@ -14,7 +14,7 @@
         [cdkDropListData]="page.body"
         (cdkDropListDropped)="drop($event)"
       >
-        @for (item of page.body; track trackByFn(i, item); let i = $index) {
+        @for (item of page.body; track item; let i = $index) {
           <div
             id="item-{{ i }}"
             class="component-item"
@@ -23,11 +23,7 @@
             [cdkDragData]="item"
           >
             @if (item) {
-              <app-dynamic-component
-                [attr.data-path]="i"
-                [inputs]="{ content: item }"
-                [index]="i"
-              />
+              <app-dynamic-component [attr.data-path]="i" [inputs]="item" [index]="i" />
               @if (builderConfig$ | async; as builderConfig) {
                 <div class="add-new-section gap-2 items-center" [attr.data-path]="i">
                   <button

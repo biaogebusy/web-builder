@@ -1,12 +1,12 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   HostBinding,
   Inject,
   Input,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -29,12 +29,11 @@ export class ComponentToolbarComponent implements OnInit {
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
 
-  public bcData: any;
+  public bcData = signal(false);
 
   builder = inject(BuilderState);
   storage = inject(LocalStorageService);
   util = inject(UtilitiesService);
-  cd = inject(ChangeDetectorRef);
   constructor(
     @Inject(IS_BUILDER_MODE)
     public isBDMode$: Observable<boolean>
@@ -42,8 +41,7 @@ export class ComponentToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
-      this.bcData = data;
-      this.cd.detectChanges();
+      this.bcData.set(data);
     });
   }
 

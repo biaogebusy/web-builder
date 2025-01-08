@@ -42,12 +42,12 @@
         }"
       />
     </div>
-    @if (bcData) {
+    @if (bcData()) {
       <div
         class="item"
         matTooltip="粘贴复制的组件到下面"
         matTooltipPosition="above"
-        (click)="onPaste($event, bcData)"
+        (click)="onPaste($event, bcData())"
       >
         <app-btn
           [content]="{

@@ -1,5 +1,5 @@
 <div [class.active-toolbar]="showToolbar()">
-  @if (showToolbar()) {
+  @if (showToolbar() && screenService.isPlatformBrowser()) {
     <app-component-toolbar #toolbar [content]="inputs" [index]="index" />
   }
   @let content = inputs.type ? inputs : inputs.content;

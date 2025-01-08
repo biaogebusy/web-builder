@@ -35,7 +35,7 @@
           }} md:col-span-{{ row.md }} lg:col-span-{{ row.lg }}"
           [attr.data-path]="'elements.' + i"
         >
-          @if (isBuilderMode) {
+          @if (isBuilderMode && screenService.isPlatformBrowser()) {
             <div class="toolbar hidden absolute z-50">
               <app-layout-toolbar
                 [lbContent]="content"
