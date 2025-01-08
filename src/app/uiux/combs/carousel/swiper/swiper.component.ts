@@ -10,7 +10,6 @@ import {
   EventEmitter,
   inject,
   OnChanges,
-  SimpleChange,
   SimpleChanges,
 } from '@angular/core';
 
@@ -26,9 +25,7 @@ register();
   styleUrls: ['./swiper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SwiperComponent
-  implements OnInit, AfterViewInit, OnChanges, OnDestroy
-{
+export class SwiperComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() content: ISwiper;
   @Input() index: number;
   @Input() navigationSub: Subject<any>;
@@ -58,23 +55,16 @@ export class SwiperComponent
         },
       };
     }
-    this.config = Object.assign(
-      this.defaultConfig,
-      this.content.params,
-      customPagination
-    );
+    this.config = Object.assign(this.defaultConfig, this.content.params, customPagination);
   }
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       Object.assign(this.swiper.nativeElement, this.config);
       this.swiper.nativeElement.initialize();
-      this.swiper.nativeElement.addEventListener(
-        'swiperslidechange',
-        (event: any) => {
-          const [swiper] = event.detail;
-          this.slideChange.emit(swiper);
-        }
-      );
+      this.swiper.nativeElement.addEventListener('swiperslidechange', (event: any) => {
+        const [swiper] = event.detail;
+        this.slideChange.emit(swiper);
+      });
       if (this.navigationSub) {
         this.navigationSub.subscribe(action => {
           if (action > 0) {

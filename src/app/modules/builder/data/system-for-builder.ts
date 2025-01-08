@@ -9,6 +9,8 @@ export const system: any[] = [
         },
         content: {
           style: 'normal',
+          fullWidth: true,
+          spacer: 'none',
           type: 'banner-simple',
           bannerBg: {
             classes: 'bg-fill-width overlay overlay-60',
@@ -42,6 +44,8 @@ export const system: any[] = [
         },
         content: {
           type: 'article',
+          fullWidth: true,
+          spacer: 'none',
           title: '使用 DevTools 对 Angular 前端应用性能分析优化',
           banner: {
             img: {
@@ -1570,6 +1574,8 @@ export const system: any[] = [
         },
         content: {
           type: 'user-center',
+          fullWidth: true,
+          spacer: 'none',
           params: {
             showProfile: false,
             showDetails: false,
@@ -1835,6 +1841,8 @@ export const system: any[] = [
         },
         content: {
           type: 'profile-1v1',
+          fullWidth: true,
+          spacer: 'none',
           bannerBg: {
             classes: 'bg-fill-width overlay overlay-80',
             img: {
@@ -2086,6 +2094,8 @@ export const system: any[] = [
         },
         content: {
           type: 'profile-1v1',
+          fullWidth: true,
+          spacer: 'none',
           bannerBg: {
             classes: 'bg-fill-width overlay overlay-80',
             img: {
@@ -2327,6 +2337,8 @@ export const system: any[] = [
         content: {
           type: 'search',
           api: '/api/v1/content',
+          fullWidth: true,
+          spacer: 'none',
           header: {
             bg: {
               classes: 'bg-shadow overlay overlay-80',
@@ -3234,6 +3246,7 @@ export const system: any[] = [
         },
         content: {
           type: 'full-calendar',
+          fullWidth: true,
           spacer: 'xxl',
           text: {
             title: {
@@ -3455,6 +3468,8 @@ export const system: any[] = [
         },
         content: {
           type: 'location',
+          fullWidth: true,
+          spacer: 'md',
           title: {
             label: '我的位置',
             style: 'style-v1',
@@ -3484,7 +3499,7 @@ export const system: any[] = [
           svg: 'text-search-variant',
         },
         content: {
-          fullWidth: false,
+          fullWidth: true,
           spacer: 'md',
           bgClasses: 'bg-fill-width',
           overlay: '',
@@ -3672,6 +3687,7 @@ export const system: any[] = [
         label: '问答',
         content: {
           type: 'question',
+          fullWidth: true,
           title: '作为一个前端开发人员，如何让自己保持学习的热忱并坚持下去？',
           body: '前端技术不断更迭，日新月异，如何保持学习的心态。',
           topic: {
@@ -3725,13 +3741,14 @@ export const system: any[] = [
         label: '联系表单',
         content: {
           type: 'contact-us-1v1',
+          fullWidth: true,
           text: {
             title: {
               label: '联系我们',
               style: 'style-v1',
               classes: 'mat-headline-3',
             },
-            classes: 'text-light text-center',
+            classes: 'text-light text-center mb-10',
             body: '如果您有任何需要帮助，请联系我们！',
           },
           classes: 'text-center',
@@ -4978,6 +4995,8 @@ export const system: any[] = [
         label: '位置列表',
         content: {
           type: 'map-list-v1',
+          fullWidth: true,
+          spacer: 'lg',
           title: {
             label: '南宁市创业孵化服务中心',
             style: 'style-v4',

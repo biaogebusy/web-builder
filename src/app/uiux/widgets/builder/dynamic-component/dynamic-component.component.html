@@ -14,7 +14,7 @@
       <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
     }
 
-    <div class="{{ content?.fullWidth ? '' : 'container' }}">
+    <div class="relative z-10 {{ content?.fullWidth ? '' : 'container' }}">
       <ng-container #componentContainer />
     </div>
 

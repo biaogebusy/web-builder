@@ -19,6 +19,7 @@ import {
   GridComponent,
   DatasetComponent,
   TransformComponent,
+  LegendComponent,
 } from 'echarts/components';
 // Features like Universal Transition and Label Layout
 import { LabelLayout, UniversalTransition } from 'echarts/features';
@@ -40,6 +41,7 @@ echarts.use([
   LabelLayout,
   UniversalTransition,
   CanvasRenderer,
+  LegendComponent,
 ]);
 @Component({
   selector: 'app-chart',

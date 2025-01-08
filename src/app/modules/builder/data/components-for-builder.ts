@@ -284,7 +284,7 @@ export const components: any[] = [
                 ],
               },
               bg: {
-                classes: ' overlay overlay-80',
+                classes: ' overlay overlay-',
                 img: {
                   src: '/assets/images/hero/bg-pattern-hero.png',
                   mobile: '/assets/images/hero/bg-pattern-hero.png',
@@ -467,7 +467,7 @@ export const components: any[] = [
                   left: '40%',
                   top: '10%',
                 },
-                classes: 'absolute',
+                classes: '!absolute',
                 body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
                 actionsAlign: 'start center',
                 actions: [
@@ -524,8 +524,8 @@ export const components: any[] = [
             label: '2v3',
             content: {
               type: 'hero-2v3',
-              id: 'xxx',
-              spacer: 'lg',
+              fullWidth: true,
+              spacer: 'none',
               shape: true,
               bg: {
                 classes: '',
@@ -710,6 +710,7 @@ export const components: any[] = [
               bg: {
                 classes: '',
               },
+              spacer: 'md',
               classes: '',
               elements: [
                 {
@@ -793,6 +794,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg- bg-fill-width',
               },
+              spacer: 'md',
               classes: '',
               elements: [
                 {
@@ -871,6 +873,7 @@ export const components: any[] = [
                 style: 'style-v3',
                 classes: 'mat-headline-3',
               },
+              spacer: 'md',
               row: 3,
               bg: {
                 classes: 'bg- bg-fill-width',
@@ -954,6 +957,7 @@ export const components: any[] = [
                 style: 'style-v1',
                 classes: 'mat-headline-3',
               },
+              spacer: 'md',
               subTitle: {
                 spacer: 'none',
                 classes: 'text-center',
@@ -1016,6 +1020,7 @@ export const components: any[] = [
                 style: 'style-v4',
                 classes: 'mat-headline-3',
               },
+              spacer: 'md',
               row: 3,
               bg: {
                 classes: 'bg-shadow bg-fill-width',
@@ -1098,6 +1103,7 @@ export const components: any[] = [
                 style: 'style-v5',
                 classes: 'mat-headline-3',
               },
+              spacer: 'md',
               row: 3,
               bg: {
                 classes: '',
@@ -1169,6 +1175,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-none bg-fill-width',
               },
+              spacer: 'md',
               row: 3,
               classes: '',
               elements: [
@@ -1254,6 +1261,7 @@ export const components: any[] = [
                   classes: 'mat-headline-3',
                 },
               },
+              spacer: 'md',
               classes: 'text-light',
               bg: {
                 classes: 'bg-fill-width overlay overlay-20',
@@ -1309,6 +1317,7 @@ export const components: any[] = [
                   classes: 'mat-headline-3',
                 },
               },
+              spacer: 'md',
               classes: '',
               bg: {
                 classes: '',
@@ -1432,6 +1441,7 @@ export const components: any[] = [
                   classes: 'mat-headline-3',
                 },
               },
+              spacer: 'md',
               classes: 'text-light',
               bg: {
                 classes: 'bg-fill-width overlay overlay-80',
@@ -1802,6 +1812,7 @@ export const components: any[] = [
                 classes: 'text-center',
                 body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
               },
+              spacer: 'md',
               bg: {
                 classes: '',
               },
@@ -1812,7 +1823,7 @@ export const components: any[] = [
                   type: 'card',
                   subTitle: '2024-07-13',
                   avatar: {
-                    src: '/assets/images/avatar/01.jpeg',
+                    src: '/assets/images/cases/porto1.jpg',
                     alt: '',
                   },
                   carousel: {
@@ -2128,6 +2139,7 @@ export const components: any[] = [
               bg: {
                 classes: '',
               },
+              spacer: 'md',
               classes: '',
               text: {
                 title: {
@@ -2230,6 +2242,7 @@ export const components: any[] = [
             label: '2v2',
             content: {
               type: 'showcase-2v2',
+              spacer: 'md',
               text: {
                 title: {
                   label: '本年度<strong class="text-primary">艺术作品</strong>代表作',
@@ -2472,7 +2485,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-headline-3 blod',
                 },
-                classes: 'text-center',
+                classes: 'text-center mb-10',
                 body: '<p class="text-center">Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文</p>',
               },
               spacer: 'md',
@@ -2546,7 +2559,7 @@ export const components: any[] = [
                 label: 'Storybook 是什么？',
                 href: '#',
               },
-              spacer: 'none',
+              spacer: 'md',
               bg: {
                 classes: '',
               },
@@ -2572,7 +2585,7 @@ export const components: any[] = [
                 label: 'Storybook 是什么？',
                 href: '#',
               },
-              spacer: 'none',
+              spacer: 'md',
               bg: {
                 classes: '',
               },
@@ -2611,6 +2624,7 @@ export const components: any[] = [
                 style: 'style-v1',
                 classes: 'mat-headline-3',
               },
+              spacer: 'md',
               bg: {
                 classes: 'bg-light bg-fill-width',
               },
@@ -2692,6 +2706,7 @@ export const components: any[] = [
             content: {
               type: 'showcase-3v5',
               id: '',
+              spacer: 'md',
               title: {
                 type: 'text',
                 spacer: 'sm',
@@ -2802,6 +2817,7 @@ export const components: any[] = [
             content: {
               type: 'showcase-3v6',
               id: '',
+              spacer: 'md',
               title: {
                 type: 'text',
                 spacer: 'sm',
@@ -2887,6 +2903,7 @@ export const components: any[] = [
             content: {
               type: 'showcase-3v6',
               id: '',
+              spacer: 'md',
               title: {
                 type: 'text',
                 spacer: 'sm',
@@ -3026,6 +3043,7 @@ export const components: any[] = [
             label: '3v7',
             content: {
               type: 'showcase-3v7',
+              spacer: 'md',
               title: {
                 type: 'text',
                 spacer: 'sm',
@@ -3130,6 +3148,7 @@ export const components: any[] = [
             label: '3v9',
             content: {
               type: 'showcase-3v9',
+              spacer: 'md',
               bg: {
                 classes: 'bg-fill-width',
                 img: {
@@ -3676,6 +3695,7 @@ export const components: any[] = [
                       height: '750px',
                     },
                     text: {
+                      type: 'text',
                       title: {
                         label: '高性能',
                         style: 'style-v4',
@@ -3711,6 +3731,7 @@ export const components: any[] = [
                       height: '750px',
                     },
                     text: {
+                      type: 'text',
                       title: {
                         label: '易用的编辑器',
                         style: 'style-v4',
@@ -3745,6 +3766,7 @@ export const components: any[] = [
                       height: '750px',
                     },
                     text: {
+                      type: 'text',
                       title: {
                         label: '多语言',
                         style: 'style-v4',
@@ -3964,6 +3986,7 @@ export const components: any[] = [
                       height: '750px',
                     },
                     text: {
+                      'type': 'text',
                       'title': {
                         label: '组件驱动开发',
                         style: 'style-v1',
@@ -4001,6 +4024,7 @@ export const components: any[] = [
                       height: '750px',
                     },
                     text: {
+                      type: 'text',
                       title: {
                         label: '组件展示和测试',
                         style: 'style-v4',
@@ -4035,6 +4059,7 @@ export const components: any[] = [
                       height: '750px',
                     },
                     text: {
+                      type: 'text',
                       title: {
                         label: '文档化',
                         style: 'style-v4',
@@ -4070,6 +4095,7 @@ export const components: any[] = [
                       height: '750px',
                     },
                     text: {
+                      type: 'text',
                       title: {
                         label: '插件和工具生态系统',
                         style: 'style-v4',
@@ -4619,6 +4645,7 @@ export const components: any[] = [
                 label: '近期作品',
                 style: 'style-v5',
               },
+              spacer: 'md',
               classes: '',
               bg: {
                 classes: 'bg-white bg-fill-width',
@@ -5022,6 +5049,7 @@ export const components: any[] = [
             label: '2v1',
             content: {
               type: 'carousel-2v1',
+              spacer: 'md',
               title: {
                 label: '用户是如何评价 Storybook',
                 style: 'style-v1',
@@ -5205,6 +5233,7 @@ export const components: any[] = [
         label: '洗牌',
         content: {
           type: 'shuffle',
+          spacer: 'md',
           title: {
             label: 'Vue 开发',
             style: 'style-v1',
