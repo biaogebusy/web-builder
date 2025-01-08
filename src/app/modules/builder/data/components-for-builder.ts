@@ -45,7 +45,7 @@ export const components: any[] = [
                     },
                     classes: 'xy-center',
                     bg: {
-                      classes: 'bg-center overlay overlay-80',
+                      classes: ' overlay overlay-80',
                       img: {
                         src: '/assets/images/16-9/business-14.jpeg',
                         mobile: '/assets/images/mobile/mobile-03.jpg',
@@ -284,7 +284,7 @@ export const components: any[] = [
                 ],
               },
               bg: {
-                classes: 'bg-center overlay overlay-80',
+                classes: ' overlay overlay-80',
                 img: {
                   src: '/assets/images/hero/bg-pattern-hero.png',
                   mobile: '/assets/images/hero/bg-pattern-hero.png',
@@ -332,7 +332,7 @@ export const components: any[] = [
                 classes: 'bg-fill-width overlay- overlay-',
                 img: {
                   src: '/assets/images/bg/bg-02.png',
-                  hostClasses: 'bg-center',
+                  hostClasses: '',
                 },
               },
               order: -1,
@@ -407,13 +407,13 @@ export const components: any[] = [
               params: {
                 height: '750px',
               },
-               bg: {
-                  classes: 'bg-shadow overlay overlay-20',
-                  img: {
-                    src: '/assets/images/hero/light-bg.jpeg',
-                    mobile: '/assets/images/mobile/follower-04.jpg',
-                  },
+              bg: {
+                classes: 'bg-shadow overlay overlay-20',
+                img: {
+                  src: '/assets/images/hero/light-bg.jpeg',
+                  mobile: '/assets/images/mobile/follower-04.jpg',
                 },
+              },
               text: {
                 title: {
                   label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -449,12 +449,12 @@ export const components: any[] = [
                 height: '750px',
               },
               bg: {
-                  classes: 'bg-shadow overlay overlay-80',
-                  img: {
-                    src: '/assets/images/hero/light-bg.jpeg',
-                    mobile: '/assets/images/mobile/mobile-02.jpg',
-                  },
+                classes: 'bg-shadow overlay overlay-80',
+                img: {
+                  src: '/assets/images/hero/light-bg.jpeg',
+                  mobile: '/assets/images/mobile/mobile-02.jpg',
                 },
+              },
               text: {
                 title: {
                   label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -528,9 +528,9 @@ export const components: any[] = [
               spacer: 'lg',
               shape: true,
               bg: {
-                classes: 'bg-center',
+                classes: '',
                 img: {
-                  hostClasses: 'bg-center',
+                  hostClasses: '',
                   src: '/assets/images/bg/bg-04.png',
                 },
               },
@@ -1258,7 +1258,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-fill-width overlay overlay-20',
                 img: {
-                  hostClasses: 'bg-center',
+                  hostClasses: '',
                   src: '/assets/images/hero/bg-pattern-hero.png',
                   alt: 'page title',
                 },
@@ -1436,7 +1436,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-fill-width overlay overlay-80',
                 img: {
-                  hostClasses: 'bg-center',
+                  hostClasses: '',
                   src: '/assets/images/showcase/8.jpg',
                   alt: 'page title',
                 },
@@ -4163,7 +4163,7 @@ export const components: any[] = [
                           },
                           classes: 'xy-center',
                           bg: {
-                            classes: 'bg-center overlay overlay-80',
+                            classes: ' overlay overlay-80',
                             img: {
                               src: '/assets/images/16-9/business-14.jpeg',
                               mobile: '/assets/images/mobile/mobile-03.jpg',
@@ -5031,7 +5031,7 @@ export const components: any[] = [
                 classes: 'bg-fill-width overlay overlay-80',
                 img: {
                   src: '/assets/images/bg/bg-03.jpeg',
-                  hostClasses: 'bg-center',
+                  hostClasses: '',
                 },
               },
               classes: '',

@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Carousel2v1Component } from '@uiux/combs/carousel/carousel2v1/carousel2v1.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -38,7 +33,7 @@ const content: ICarouselBase = {
     classes: 'bg-fill-width overlay overlay-80',
     img: {
       src: '/assets/images/bg/bg-03.jpeg',
-      hostClasses: 'bg-center',
+      hostClasses: '',
     },
   },
   classes: '',

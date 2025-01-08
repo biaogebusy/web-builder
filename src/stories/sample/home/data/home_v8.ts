@@ -23,8 +23,7 @@ export const home_v8 = {
       classes: '',
       text: {
         title: {
-          label:
-            '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+          label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
           classes: 'mat-headline-2 bold',
           style: 'style-v1',
         },
@@ -56,7 +55,7 @@ export const home_v8 = {
         classes: 'bg-fill-width overlay- overlay-',
         img: {
           src: '/assets/images/bg/bg-02.png',
-          hostClasses: 'bg-center',
+          hostClasses: '',
         },
       },
       order: -1,
@@ -563,8 +562,7 @@ export const home_v8 = {
     {
       type: 'text',
       title: {
-        label:
-          '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+        label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
         classes: 'mat-headline-1 bold',
       },

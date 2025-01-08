@@ -459,7 +459,7 @@ export const home_v6 = {
       bg: {
         classes: 'bg-fill-width overlay overlay-80',
         img: {
-          hostClasses: 'bg-center',
+          hostClasses: '',
           src: '/assets/images/showcase/8.jpg',
           alt: 'page title',
         },
@@ -469,9 +469,9 @@ export const home_v6 = {
           type: 'text',
           spacer: 'none',
           style: {
-            margin: '0 auto',
+            'margin': '0 auto',
             'text-align': 'center',
-            width: '800px',
+            'width': '800px',
           },
           body: '作为行业内的领军企业，始终秉承“科技以人为本，创新引领健康”的理念，积极履行社会责任，投身于公益医疗项目和公共卫生能力建设。我们坚信，只有不断探索前沿医疗科技，才能更好地应对未来全球健康挑战，让高品质医疗服务触手可及，普惠全民。',
           actionsAlign: 'center center',

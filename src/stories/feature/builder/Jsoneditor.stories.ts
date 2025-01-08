@@ -11,10 +11,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
-import {
-  defaultHeader,
-  footerInverse,
-} from '@modules/builder/data/Branding.json';
+import { defaultHeader, footerInverse } from '@modules/builder/data/Branding.json';
 import { JsoneditorComponent } from '@uiux/combs/other/jsoneditor/jsoneditor.component';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { importProvidersFrom } from '@angular/core';
@@ -82,7 +79,7 @@ const content: IJsoneditor = {
           },
           classes: 'xy-center',
           bg: {
-            classes: 'bg-center overlay overlay-80',
+            classes: ' overlay overlay-80',
             img: {
               src: '/assets/images/16-9/business-14.jpeg',
               mobile: '/assets/images/mobile/mobile-03.jpg',

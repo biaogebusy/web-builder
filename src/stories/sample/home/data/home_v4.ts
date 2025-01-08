@@ -30,8 +30,7 @@ export const home_v4 = {
             href: '#',
             label: '高性能',
           },
-          content:
-            '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+          content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
           more: {
             href: '#',
             label: '+',
@@ -298,7 +297,7 @@ export const home_v4 = {
       bg: {
         classes: 'bg-fill-width overlay overlay-80',
         img: {
-          hostClasses: 'bg-center',
+          hostClasses: '',
           src: '/assets/images/showcase/8.jpg',
           alt: 'page title',
         },
@@ -308,9 +307,9 @@ export const home_v4 = {
           type: 'text',
           spacer: 'none',
           style: {
-            margin: '0 auto',
+            'margin': '0 auto',
             'text-align': 'center',
-            width: '600px',
+            'width': '600px',
           },
           body: 'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。',
           actionsAlign: 'center center',
@@ -665,8 +664,7 @@ export const home_v4 = {
     {
       type: 'text',
       title: {
-        label:
-          '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+        label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
         classes: 'mat-headline-1 bold',
       },

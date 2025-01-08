@@ -3,7 +3,7 @@
     <app-component-toolbar #toolbar [content]="inputs" [index]="index" />
   }
   @let content = inputs.type ? inputs : inputs.content;
-  <div class="relative overflow-hidden" [ngClass]="content?.containerClasses">
+  <div class="relative" [ngClass]="content?.containerClasses">
     @if (content?.id) {
       <span class="anchor" [id]="content.id"></span>
     }

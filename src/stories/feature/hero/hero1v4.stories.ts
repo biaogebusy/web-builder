@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { Hero1v4Component } from '@uiux/combs/hero/hero1v4/hero1v4.component';
@@ -41,8 +36,7 @@ const content: IHero1v4 = {
   classes: '',
   text: {
     title: {
-      label:
-        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+      label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
       classes: 'mat-headline-2 bold',
       style: 'style-v1',
     },
@@ -86,8 +80,7 @@ const shape: IHero1v4 = {
   classes: '',
   text: {
     title: {
-      label:
-        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+      label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
       classes: 'mat-headline-2 bold',
       style: 'style-v1',
     },
@@ -119,7 +112,7 @@ const shape: IHero1v4 = {
     classes: 'bg-fill-width overlay- overlay-',
     img: {
       src: '/assets/images/bg/bg-02.png',
-      hostClasses: 'bg-center',
+      hostClasses: '',
     },
   },
   order: -1,

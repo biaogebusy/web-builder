@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Hero2v3Component } from '@uiux/combs/hero/hero2v3/hero2v3.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -41,9 +36,9 @@ const content: IHero2v3 = {
   spacer: 'lg',
   shape: true,
   bg: {
-    classes: 'bg-center',
+    classes: '',
     img: {
-      hostClasses: 'bg-center',
+      hostClasses: '',
       src: '/assets/images/bg/bg-04.png',
     },
   },

@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Hero1v1Component } from '@uiux/combs/hero/hero1v1/hero1v1.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -72,7 +67,7 @@ const content: IHero1v1 = {
         },
         classes: 'xy-center',
         bg: {
-          classes: 'bg-center overlay overlay-80',
+          classes: ' overlay overlay-80',
           img: {
             src: '/assets/images/16-9/business-14.jpeg',
             mobile: '/assets/images/mobile/mobile-03.jpg',

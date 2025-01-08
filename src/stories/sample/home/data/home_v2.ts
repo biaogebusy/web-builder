@@ -23,9 +23,9 @@ export const home_v2 = {
       spacer: 'lg',
       shape: true,
       bg: {
-        classes: 'bg-center',
+        classes: '',
         img: {
-          hostClasses: 'bg-center',
+          hostClasses: '',
           src: '/assets/images/bg/bg-04.png',
         },
       },
@@ -106,8 +106,7 @@ export const home_v2 = {
     {
       type: 'showcase-1v1',
       title: {
-        label:
-          '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+        label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v3',
       },
       row: 3,
@@ -344,8 +343,7 @@ export const home_v2 = {
             href: '/',
             label: '高性能',
           },
-          content:
-            '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+          content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
           more: {
             href: '#',
             label: '更多',

@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
 import * as ContactUs from '@stories/drupal/form/ContactUs.stories';
@@ -46,7 +41,7 @@ const content: IShowcase1v3 = {
   bg: {
     classes: 'bg-fill-width overlay overlay-20',
     img: {
-      hostClasses: 'bg-center',
+      hostClasses: '',
       src: '/assets/images/hero/bg-pattern-hero.png',
       alt: 'page title',
     },
@@ -56,9 +51,9 @@ const content: IShowcase1v3 = {
       type: 'text',
       spacer: 'none',
       style: {
-        margin: '0 auto',
+        'margin': '0 auto',
         'text-align': 'center',
-        width: '600px',
+        'width': '600px',
       },
       body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文，Storybook是一个用于开发和展示UI组件的工具。',
       actionsAlign: 'center center',
@@ -140,7 +135,7 @@ const video: IShowcase1v3 = {
   bg: {
     classes: 'bg-fill-width overlay overlay-80',
     img: {
-      hostClasses: 'bg-center',
+      hostClasses: '',
       src: '/assets/images/showcase/8.jpg',
       alt: 'page title',
     },
@@ -150,9 +145,9 @@ const video: IShowcase1v3 = {
       type: 'text',
       spacer: 'none',
       style: {
-        margin: '0 auto',
+        'margin': '0 auto',
         'text-align': 'center',
-        width: '600px',
+        'width': '600px',
       },
       body: 'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。',
       actionsAlign: 'center center',

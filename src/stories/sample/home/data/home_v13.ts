@@ -121,8 +121,7 @@ export const home_v13 = {
     {
       type: 'showcase-1v1',
       title: {
-        label:
-          '<p style="display: inline-block; margin-bottom: 0px;">我们的服务</p>',
+        label: '<p style="display: inline-block; margin-bottom: 0px;">我们的服务</p>',
         style: 'style-v2',
       },
       subTitle: {
@@ -347,7 +346,7 @@ export const home_v13 = {
           src: '/assets/images/showcase/6.jpg',
           classes: 'object-contain',
           alt: '6',
-          hostClasses: 'bg-center',
+          hostClasses: '',
         },
         classes: 'bg-fill-width overlay overlay-80',
         overlay: ' ',
@@ -375,8 +374,7 @@ export const home_v13 = {
       type: 'showcase-1v3',
       text: {
         title: {
-          label:
-            '<p style="display: inline-block; margin-bottom: 0px;">市场领导力</p>',
+          label: '<p style="display: inline-block; margin-bottom: 0px;">市场领导力</p>',
           style: 'style-v1',
           classes: 'mat-headline-1',
         },
@@ -386,9 +384,9 @@ export const home_v13 = {
           type: 'text',
           spacer: 'none',
           style: {
-            margin: '0 auto',
+            'margin': '0 auto',
             'text-align': 'center',
-            width: '600px',
+            'width': '600px',
           },
           body: '作为行业领导者，我们公司凭借卓越的产品质量、创新的技术研发以及优质的客户服务，在市场中稳居主导地位，持续引领行业发展。',
           actionsAlign: 'center center',

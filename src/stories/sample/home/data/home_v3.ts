@@ -48,7 +48,7 @@ export const home_v3 = {
             },
             classes: 'xy-center',
             bg: {
-              classes: 'bg-center overlay overlay-80',
+              classes: ' overlay overlay-80',
               img: {
                 src: '/assets/images/16-9/business-14.jpeg',
                 mobile: '/assets/images/mobile/mobile-03.jpg',
@@ -244,8 +244,7 @@ export const home_v3 = {
             href: '#',
             label: '高性能',
           },
-          content:
-            '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+          content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
           more: {
             href: '#',
             label: '+',
@@ -527,8 +526,7 @@ export const home_v3 = {
     {
       type: 'text',
       title: {
-        label:
-          '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+        label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
         classes: 'mat-headline-2 bold',
       },

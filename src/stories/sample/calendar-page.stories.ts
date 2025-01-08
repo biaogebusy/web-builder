@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  componentWrapperDecorator,
-  StoryObj,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, componentWrapperDecorator, StoryObj } from '@storybook/angular';
 
 import { BlockComponent } from '@modules/render/block/block.component';
 import { RenderModule } from '@modules/render/render.module';
@@ -14,10 +9,7 @@ import { of } from 'rxjs';
 import * as calendarStory from '@stories/widgets/Calendar.stories';
 import { BRANDING } from '@core/token/token-providers';
 const calendar: any = calendarStory.Default.args;
-import {
-  defaultHeader,
-  footerInverse,
-} from '@modules/builder/data/Branding.json';
+import { defaultHeader, footerInverse } from '@modules/builder/data/Branding.json';
 const meta: Meta<BlockComponent> = {
   title: '示例页面/工作日历',
   id: 'calendar-page',
@@ -26,12 +18,7 @@ const meta: Meta<BlockComponent> = {
     moduleMetadata({
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [
-        RenderModule,
-        StorysModule.forRoot(),
-        CalendarModule,
-        BrandingModule,
-      ],
+      imports: [RenderModule, StorysModule.forRoot(), CalendarModule, BrandingModule],
       providers: [
         {
           provide: BRANDING,
@@ -73,7 +60,7 @@ const content = of({
       bannerBg: {
         classes: 'bg-fill-width overlay overlay-40',
         img: {
-          hostClasses: 'bg-center',
+          hostClasses: '',
           src: '/assets/images/16-9/business-03.jpg',
           alt: 'grass-3251984_1920.jpg',
         },

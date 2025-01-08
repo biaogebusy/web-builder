@@ -133,8 +133,7 @@ export const home_v5 = {
             href: '#',
             label: '会员无限制访问',
           },
-          content:
-            '<p>只要支付799元/年，就可以成为会员，无限制观看所有的视频课程</p>\r\n',
+          content: '<p>只要支付799元/年，就可以成为会员，无限制观看所有的视频课程</p>\r\n',
           more: {
             href: '#',
             label: '成为会员',
@@ -149,8 +148,7 @@ export const home_v5 = {
             href: '#',
             label: '我们的课程',
           },
-          content:
-            '<p>课程包括了初入职场的初级课程，也包括进阶高级的精品好课</p>\r\n',
+          content: '<p>课程包括了初入职场的初级课程，也包括进阶高级的精品好课</p>\r\n',
           more: {
             href: '#',
             label: '浏览更多',
@@ -165,8 +163,7 @@ export const home_v5 = {
             href: '#',
             label: '优秀的老师',
           },
-          content:
-            '<p>所有的老师都是层层筛选和把关，为学员提供真实有效的技能和经验</p>\r\n',
+          content: '<p>所有的老师都是层层筛选和把关，为学员提供真实有效的技能和经验</p>\r\n',
           more: {
             href: '#',
             label: '成为老师',
@@ -363,7 +360,7 @@ export const home_v5 = {
       bg: {
         classes: 'bg-fill-width overlay overlay-80',
         img: {
-          hostClasses: 'bg-center',
+          hostClasses: '',
           src: '/assets/images/showcase/8.jpg',
           alt: 'page title',
         },
@@ -373,9 +370,9 @@ export const home_v5 = {
           type: 'text',
           spacer: 'none',
           style: {
-            margin: '0 auto',
+            'margin': '0 auto',
             'text-align': 'center',
-            width: '600px',
+            'width': '600px',
           },
           body: 'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。',
           actionsAlign: 'center center',
@@ -601,8 +598,7 @@ export const home_v5 = {
     {
       type: 'text',
       title: {
-        label:
-          '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+        label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
         classes: 'mat-headline-2 bold',
       },

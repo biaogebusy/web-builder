@@ -22,9 +22,7 @@ const meta: Meta<Card1v1Component> = {
     moduleMetadata({
       declarations: [...StorysModule.forEntryComponents()],
     }),
-    componentWrapperDecorator(
-      story => `<div class="widget relative  w-[300px]">${story}</div>`
-    ),
+    componentWrapperDecorator(story => `<div class="widget relative  w-[300px]">${story}</div>`),
   ],
 };
 
@@ -91,7 +89,7 @@ const comp: ICard1v1 = {
         classes: 'bg-fill-width overlay overlay-',
         img: {
           src: '/assets/images/bg/home-shape.png',
-          hostClasses: 'bg-center',
+          hostClasses: '',
         },
       },
       widget: [

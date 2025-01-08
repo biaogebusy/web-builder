@@ -108,7 +108,7 @@ export const home_v11 = {
         ],
       },
       bg: {
-        classes: 'bg-center overlay overlay-80',
+        classes: ' overlay overlay-80',
         img: {
           src: '/assets/images/hero/bg-pattern-hero.png',
           mobile: '/assets/images/hero/bg-pattern-hero.png',

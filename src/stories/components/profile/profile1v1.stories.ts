@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
@@ -47,7 +42,7 @@ const content: IProfile1v1 = {
   bannerBg: {
     classes: 'bg-fill-width overlay overlay-80',
     img: {
-      hostClasses: 'bg-center',
+      hostClasses: '',
       src: '/assets/images/16-9/business-14.jpeg',
       alt: 'page title',
     },
@@ -165,7 +160,7 @@ const componey: IProfile1v1 = {
   bannerBg: {
     classes: 'bg-fill-width overlay overlay-80',
     img: {
-      hostClasses: 'bg-center',
+      hostClasses: '',
       src: '/assets/images/16-9/business-14.jpeg',
       alt: 'page title',
     },

@@ -1838,7 +1838,7 @@ export const system: any[] = [
           bannerBg: {
             classes: 'bg-fill-width overlay overlay-80',
             img: {
-              hostClasses: 'bg-center',
+              hostClasses: '',
               src: '/assets/images/16-9/business-14.jpeg',
               alt: 'page title',
             },
@@ -2089,7 +2089,7 @@ export const system: any[] = [
           bannerBg: {
             classes: 'bg-fill-width overlay overlay-80',
             img: {
-              hostClasses: 'bg-center',
+              hostClasses: '',
               src: '/assets/images/16-9/business-14.jpeg',
               alt: 'page title',
             },
@@ -2331,7 +2331,7 @@ export const system: any[] = [
             bg: {
               classes: 'bg-shadow overlay overlay-80',
               img: {
-                hostClasses: 'bg-center',
+                hostClasses: '',
                 src: '/assets/images/hero/1-6.jpg',
                 mobile: '/assets/images/mobile/mobile-03.jpg',
               },

@@ -7,7 +7,6 @@ import {
   Input,
   OnInit,
   ViewChild,
-  afterRender,
   inject,
 } from '@angular/core';
 import type { EChartsOption } from 'echarts';

@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { SearchComponent } from '@uiux/combs/search/search.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -45,7 +40,7 @@ const content: ISearch = {
     bg: {
       classes: 'bg-shadow overlay overlay-80',
       img: {
-        hostClasses: 'bg-center',
+        hostClasses: '',
         src: '/assets/images/hero/1-6.jpg',
         mobile: '/assets/images/mobile/mobile-03.jpg',
       },
