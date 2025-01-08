@@ -27,14 +27,11 @@
           }
         }
         .block-toolbar {
+          position: absolute;
           opacity: 0;
-          height: 0;
           white-space: nowrap;
-          pointer-events: none;
           &[data-popper-placement] {
             opacity: 1;
-            pointer-events: auto;
-            height: auto;
           }
         }
       }
