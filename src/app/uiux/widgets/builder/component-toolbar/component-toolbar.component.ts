@@ -78,7 +78,7 @@ export class ComponentToolbarComponent implements OnInit {
     const { type } = content;
     const path = this.util.generatePath(event.target);
     const component = type ? content : content.content;
-    const fields: FormlyFieldConfig[] = getComponentSetting(component);
+    const fields: FormlyFieldConfig[] = getComponentSetting(component, path);
     this.hiddenPicker();
     this.builder.showComponentSetting(component, fields, path);
   }
