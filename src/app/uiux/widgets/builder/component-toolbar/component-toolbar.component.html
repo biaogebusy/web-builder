@@ -1,25 +1,25 @@
 <div class="wrapper flex justify-between items-center">
   <div class="actions flex gap-1">
-    @if (index > 0) {
-      <div
-        class="item"
-        (click)="onUpdown(index, 'up', $event)"
-        [matTooltip]="'上移'"
-        matTooltipPosition="above"
-      >
-        <app-btn
-          [content]="{
-            label: '',
-            color: 'primary',
-            mode: 'icon',
-            icon: { svg: 'arrow-collapse-up', inline: true },
-          }"
-        />
-      </div>
-    }
     <div
-      class="item"
-      (click)="onUpdown(index, 'down', $event)"
+      class="item hidden"
+      [class.!block]="index() > 0"
+      (click)="onUpdown('up', $event)"
+      [matTooltip]="'上移'"
+      matTooltipPosition="above"
+    >
+      <app-btn
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'arrow-collapse-up', inline: true },
+        }"
+      />
+    </div>
+    <div
+      class="item hidden"
+      [class.!block]="index() < length() && index() !== length() - 1"
+      (click)="onUpdown('down', $event)"
       [matTooltip]="'下移'"
       matTooltipPosition="above"
     >
@@ -59,7 +59,6 @@
         />
       </div>
     }
-
     <div
       class="item"
       (click)="onSetting(content, $event)"

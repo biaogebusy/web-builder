@@ -1,6 +1,6 @@
 <div [class.active-toolbar]="showToolbar()">
   @if (showToolbar() && screenService.isPlatformBrowser()) {
-    <app-component-toolbar #toolbar [content]="inputs" [index]="index" />
+    <app-component-toolbar #toolbar [content]="inputs" />
   }
   @let content = inputs.type ? inputs : inputs.content;
   <div class="relative" [ngClass]="content?.containerClasses">

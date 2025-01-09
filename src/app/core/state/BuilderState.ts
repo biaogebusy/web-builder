@@ -166,9 +166,10 @@ export class BuilderState {
     }
   }
 
-  upDownComponent(index: number, direction: string, path: string): void {
+  upDownComponent(direction: string, path: string): void {
     const { body } = this.currentPage;
-    let arrs = this.getArrsByPath(path, body);
+    const arrs = this.getArrsByPath(path, body);
+    const index = this.targetIndex(path);
     if (direction === 'up') {
       [arrs[index - 1], arrs[index]] = [arrs[index], arrs[index - 1]];
     }
@@ -193,15 +194,18 @@ export class BuilderState {
   deleteComponent(path: string): void {
     const { body } = this.currentPage;
     const arrs = this.getArrsByPath(path, body);
+    const index = this.targetIndex(path);
+    arrs.splice(index, 1);
+    this.updatePage();
+  }
+
+  targetIndex(path: string): number {
     const lastDotIndex = path.lastIndexOf('.');
     if (lastDotIndex !== -1) {
-      const index = path.slice(lastDotIndex + 1);
-      arrs.splice(Number(index), 1);
+      return Number(path.slice(lastDotIndex + 1));
     } else {
-      // 一级组件
-      arrs.splice(Number(path), 1);
+      return Number(path);
     }
-    this.updatePage();
   }
 
   updateComponent(index: number, content: any): void {
