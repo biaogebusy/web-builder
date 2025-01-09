@@ -1,7 +1,6 @@
 import {
   AfterContentInit,
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ComponentRef,
   DestroyRef,
@@ -16,7 +15,6 @@ import {
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
-  ViewRef,
   createComponent,
   inject,
   signal,
@@ -44,7 +42,6 @@ export class DynamicComponentComponent
   showToolbar = signal(false);
 
   ele = inject(ElementRef);
-  cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
   screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
@@ -122,9 +119,6 @@ export class DynamicComponentComponent
     this.container.clear();
     if (this.componentRef) {
       this.componentRef.destroy();
-    }
-    if (this.cd && !(this.cd as ViewRef).destroyed) {
-      this.cd.detectChanges();
     }
   }
 }
