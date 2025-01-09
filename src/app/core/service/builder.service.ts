@@ -509,21 +509,6 @@ export class BuilderService extends ApiService {
       path,
       content,
     });
-    // this.builder.rightContent$.next({
-    //   mode: 'over',
-    //   hasBackdrop: false,
-    //   style: {
-    //     width: '308px',
-    //   },
-    //   elements: [
-    //     {
-    //       type: 'widget-picker',
-    //       addType,
-    //       path,
-    //       content,
-    //     },
-    //   ],
-    // });
   }
 
   initExtraBody(body: any[], isTemplate?: boolean): any[] {

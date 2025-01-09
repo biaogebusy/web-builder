@@ -83,10 +83,10 @@ export class ComponentToolbarComponent implements OnInit {
     this.builder.showComponentSetting(component, fields, path);
   }
 
-  onDelete(index: number, event: any): void {
+  onDelete(event: any): void {
     const path = this.util.generatePath(event.target);
     this.hiddenPicker();
-    this.builder.deleteComponent(index, path);
+    this.builder.deleteComponent(path);
   }
 
   hiddenPicker(): void {

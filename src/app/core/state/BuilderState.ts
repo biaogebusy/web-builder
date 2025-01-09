@@ -156,7 +156,7 @@ export class BuilderState {
     this.storage.store(this.versionKey, Object.assign([], this.version));
   }
 
-  getObjectByPath(path: string, body: any[]): any[] {
+  getArrsByPath(path: string, body: any[]): any[] {
     if (path.includes('.')) {
       const after = path.slice(0, path.lastIndexOf('.'));
       return get(body, after);
@@ -168,7 +168,7 @@ export class BuilderState {
 
   upDownComponent(index: number, direction: string, path: string): void {
     const { body } = this.currentPage;
-    let arrs = this.getObjectByPath(path, body);
+    let arrs = this.getArrsByPath(path, body);
     if (direction === 'up') {
       [arrs[index - 1], arrs[index]] = [arrs[index], arrs[index - 1]];
     }
@@ -190,10 +190,17 @@ export class BuilderState {
     }
   }
 
-  deleteComponent(index: number, path: string): void {
+  deleteComponent(path: string): void {
     const { body } = this.currentPage;
-    const arrs = this.getObjectByPath(path, body);
-    arrs.splice(index, 1);
+    const arrs = this.getArrsByPath(path, body);
+    const lastDotIndex = path.lastIndexOf('.');
+    if (lastDotIndex !== -1) {
+      const index = path.slice(lastDotIndex + 1);
+      arrs.splice(Number(index), 1);
+    } else {
+      // 一级组件
+      arrs.splice(Number(path), 1);
+    }
     this.updatePage();
   }
 

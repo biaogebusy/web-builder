@@ -97,27 +97,10 @@ export class LayoutSettingComponent {
       });
   }
 
-  onWidgetPicker(): void {
-    // 有layout builder，有普通的组件
+  onWidgetPicker(last: number): void {
     const { content, path } = this.content;
-    this.dialog.open(DialogComponent, {
-      width: '700px',
-      position: { bottom: '20px' },
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'widget-picker',
-            content,
-            path,
-          },
-        },
-      },
-    });
-
-    this.dialog.afterAllClosed.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.cd.detectChanges();
-    });
+    this.builder.closeRightDrawer$.next(true);
+    this.builderService.addBlock('widget', content, `${path}.elements.${last}`);
   }
 
   editorJSON(): void {
