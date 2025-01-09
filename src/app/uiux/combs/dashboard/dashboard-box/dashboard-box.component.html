@@ -25,7 +25,7 @@
       </div>
     </div>
   }
-  <app-dynamic-component [attr.data-path]="'widget'" [inputs]="{ content: widget$ | async }" />
+  <app-dynamic-component [attr.data-path]="'widget'" [inputs]="widget$ | async" />
   @if (loading) {
     <div class="loading-inner">
       <mat-spinner diameter="50" />

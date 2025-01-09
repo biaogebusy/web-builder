@@ -5,7 +5,7 @@
         <app-title [content]="content.title" />
       }
       @for (action of content.actions; track action) {
-        <app-dynamic-component [inputs]="{ content: action }" />
+        <app-dynamic-component [inputs]="action" />
       }
     </div>
     <app-summary [content]="content.summary" />
