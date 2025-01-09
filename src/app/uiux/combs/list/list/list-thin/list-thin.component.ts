@@ -1,18 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, inject } from '@angular/core';
 import type { IListThin } from '@core/interface/combs/IList';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-list-thin',
   templateUrl: './list-thin.component.html',
   styleUrls: ['./list-thin.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListThinComponent implements OnInit {
   @Input() content: IListThin[];
@@ -21,7 +13,8 @@ export class ListThinComponent implements OnInit {
 
   @Output() pageChange: EventEmitter<string> = new EventEmitter();
   p = 1;
-  constructor(private screenService: ScreenService) {}
+  private screenService = inject(ScreenService);
+  constructor() {}
 
   ngOnInit(): void {}
 

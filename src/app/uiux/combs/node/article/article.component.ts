@@ -4,7 +4,6 @@ import {
   OnInit,
   AfterViewInit,
   Inject,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
   DestroyRef,
@@ -33,12 +32,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArticleComponent
-  extends NodeComponent
-  implements OnInit, AfterViewInit
-{
+export class ArticleComponent extends NodeComponent implements OnInit, AfterViewInit {
   @Input() content: IBaseNode;
   currentUserRule: string[];
   comments: IComment[];
@@ -77,29 +72,25 @@ export class ArticleComponent
 
     this.checkAccess();
 
-    this.userService.userSub$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.cd.markForCheck();
-      });
+    this.userService.userSub$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.cd.markForCheck();
+    });
   }
 
   checkAccess(): void {
     if (!environment.production) {
       return;
     }
-    this.pageContent$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(page => {
-        const entityId = page.config?.node?.entityId || '';
-        this.nodeService
-          .checkNodeAccess(this.content.params, entityId, this.user)
-          .subscribe(access => {
-            this.canAccess = access.canAccess;
-            this.isReqRoles = access.isReqRoles;
-            this.cd.detectChanges();
-          });
-      });
+    this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+      const entityId = page.config?.node?.entityId || '';
+      this.nodeService
+        .checkNodeAccess(this.content.params, entityId, this.user)
+        .subscribe(access => {
+          this.canAccess = access.canAccess;
+          this.isReqRoles = access.isReqRoles;
+          this.cd.detectChanges();
+        });
+    });
   }
 
   ngAfterViewInit(): void {

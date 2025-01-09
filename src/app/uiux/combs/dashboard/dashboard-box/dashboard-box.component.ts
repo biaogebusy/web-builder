@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  Input,
-  OnInit,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import type { IDashboardBox } from '@core/interface/combs/IDashboard';
@@ -21,7 +13,6 @@ import { catchError, delay, map } from 'rxjs/operators';
   selector: 'app-dashboard-box',
   templateUrl: './dashboard-box.component.html',
   styleUrls: ['./dashboard-box.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardBoxComponent extends BaseComponent implements OnInit {
   @Input() content: IDashboardBox;

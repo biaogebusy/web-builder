@@ -20,7 +20,6 @@ export class SearchListComponent implements OnInit {
   @Input() loading: boolean;
 
   @Output() pageChange = new EventEmitter();
-  constructor() {}
 
   ngOnInit(): void {}
 

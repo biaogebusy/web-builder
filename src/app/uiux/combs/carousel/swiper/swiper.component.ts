@@ -5,7 +5,6 @@ import {
   ViewChild,
   AfterViewInit,
   OnDestroy,
-  ChangeDetectionStrategy,
   Output,
   EventEmitter,
   inject,
@@ -23,7 +22,6 @@ register();
   selector: 'app-swiper',
   templateUrl: './swiper.component.html',
   styleUrls: ['./swiper.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwiperComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() content: ISwiper;
@@ -32,7 +30,6 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   @Output() slideChange = new EventEmitter<Swiper>();
   @ViewChild('swiper', { static: false }) swiper: any;
   screenService = inject(ScreenService);
-  constructor() {}
 
   defaultConfig = {
     slidesPerView: 'auto',

@@ -2,25 +2,19 @@ import {
   Component,
   Input,
   OnInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   AfterViewInit,
   ViewChild,
   OnChanges,
   SimpleChanges,
+  inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import type { IDynamicTable } from '../../../core/interface/widgets/IWidgets';
 import { RouteService } from '@core/service/route.service';
 import { isArray } from 'lodash-es';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -29,15 +23,11 @@ import { MatTableDataSource } from '@angular/material/table';
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
   styleUrls: ['./dynamic-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
       state('expanded', style({ height: '*' })),
-      transition(
-        'expanded <=> collapsed',
-        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-      ),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
@@ -52,11 +42,9 @@ export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
   columnsToDisplayWithExpand: string[];
   expandedElement: null;
   isExpand: boolean;
-  constructor(
-    private dialog: MatDialog,
-    private routService: RouteService,
-    private cd: ChangeDetectorRef
-  ) {}
+  private dialog = inject(MatDialog);
+  private routService = inject(RouteService);
+  private cd = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.content.elements);
@@ -64,9 +52,7 @@ export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.content?.currentValue) {
-      this.dataSource = new MatTableDataSource(
-        changes.content.currentValue.elements
-      );
+      this.dataSource = new MatTableDataSource(changes.content.currentValue.elements);
     }
   }
 

@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  inject,
-} from '@angular/core';
+import { Component, Input, AfterViewInit, ChangeDetectorRef, inject } from '@angular/core';
 import type { IVideoBg } from '@core/interface/combs/IVideoBg';
 import type { IVideo } from '@core/interface/widgets/IVideo';
 import { ScreenService } from '@core/service/screen.service';
@@ -13,7 +6,6 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-video-bg',
   templateUrl: './video-bg.component.html',
   styleUrls: ['./video-bg.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoBgComponent implements AfterViewInit {
   @Input() content: IVideoBg;
