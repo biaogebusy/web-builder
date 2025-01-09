@@ -1,11 +1,11 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   DestroyRef,
   Input,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
@@ -28,11 +28,10 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
   @Input() form = new UntypedFormGroup({});
   @Input() model: any = {};
   widget$: Observable<any>;
-  loading = true;
+  loading = signal(true);
 
   formService = inject(FormService);
   nodeService = inject(NodeService);
-  cd = inject(ChangeDetectorRef);
   destroyRef = inject(DestroyRef);
   constructor() {
     super();
@@ -43,8 +42,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
       this.getContent();
     } else {
       this.widget$ = of(this.content.widget);
-      this.loading = false;
-      this.cd.detectChanges();
+      this.loading.set(false);
     }
   }
 
@@ -57,7 +55,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
     const api = this.content.params?.api || '';
     const params = this.getApiParams(options);
     const type = this.content.widget.type;
-    this.loading = true;
+    this.loading.set(true);
     this.widget$ = this.nodeService.fetch(api, params).pipe(
       catchError(() => {
         let data: any[] = [];
@@ -147,13 +145,11 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
             );
             break;
         }
-        this.loading = false;
-        this.cd.detectChanges();
+        this.loading.set(false);
         return data;
       }),
       takeUntilDestroyed(this.destroyRef)
     );
-    this.cd.detectChanges();
   }
 
   reload(): void {

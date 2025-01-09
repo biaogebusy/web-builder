@@ -80,32 +80,26 @@ export class DynamicComponentComponent
 
   async loadComponent(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
-      const type = this.inputs.type
-        ? this.inputs.type
-        : this.inputs.content
-          ? this.inputs.content.type
-          : null;
+      const type = this.inputs.type ?? this.inputs.content?.type ?? null;
       if (!type) {
         return;
       }
       this.container.clear();
 
       const componentType = await this.componentService.getComponentType(type);
+      if (!componentType) {
+        console.log('无法识别该组件：', this.inputs);
+        return;
+      }
       const hostElement = this.renderer.createElement('div');
       this.componentRef = createComponent(componentType, {
         environmentInjector: this.environmentInjector,
         hostElement,
       });
-      if (!componentType) {
-        console.log('无法识别该组件：', this.inputs);
-        return;
-      }
-      if (this.componentRef.instance && this.inputs) {
+      if (this.componentRef?.instance && this.inputs) {
         if (!this.inputs.type && this.inputs.content) {
           Object.keys(this.inputs).forEach(key => {
-            if (this.componentRef) {
-              this.componentRef.instance[key] = this.inputs[key];
-            }
+            this.componentRef.instance[key] = this.inputs[key];
           });
         } else {
           this.componentRef.instance.content = this.inputs;
