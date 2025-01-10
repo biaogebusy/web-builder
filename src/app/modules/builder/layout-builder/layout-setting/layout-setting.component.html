@@ -50,7 +50,7 @@
         @if (elements[0]?.type | isString) {
           <div class="actions my-5 flex justify-center">
             <app-btn
-              (click)="onWidgetPicker()"
+              (click)="onWidgetPicker(elements.length)"
               [content]="{
                 label: '新增',
                 icon: { svg: 'plus' },

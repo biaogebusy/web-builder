@@ -23,10 +23,7 @@
                     <app-bg-img [content]="content.bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
-                    <app-dynamic-component
-                      [attr.data-path]="'elements.' + i"
-                      [inputs]="{ content: item }"
-                    />
+                    <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
                   }
                 </div>
               </mat-tab>
@@ -47,10 +44,7 @@
                     <app-bg-img [content]="content.bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
-                    <app-dynamic-component
-                      [attr.data-path]="'elements.' + i"
-                      [inputs]="{ content: item }"
-                    />
+                    <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
                   }
                 </div>
               </mat-tab>
@@ -71,10 +65,7 @@
                     <app-bg-img [content]="content.bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
-                    <app-dynamic-component
-                      [attr.data-path]="'elements.' + i"
-                      [inputs]="{ content: item }"
-                    />
+                    <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
                   }
                 </div>
               </mat-tab>

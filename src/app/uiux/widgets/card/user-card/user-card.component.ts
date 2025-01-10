@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
@@ -24,7 +23,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
   styleUrls: ['./user-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCardComponent extends BaseComponent implements OnInit {
   @Input() content: IUserCard;

@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
@@ -17,7 +11,6 @@ import { map } from 'rxjs/operators';
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportComponent extends BaseComponent implements OnInit {
   @Input() content: IReport;
@@ -25,13 +18,9 @@ export class ReportComponent extends BaseComponent implements OnInit {
   @Input() model: any = {};
   box$: Observable<any[]>;
   loading: boolean;
-  constructor(
-    private nodeService: NodeService,
-    private cd: ChangeDetectorRef,
-    private formService: FormService
-  ) {
-    super();
-  }
+  private nodeService = inject(NodeService);
+  private cd = inject(ChangeDetectorRef);
+  private formService = inject(FormService);
 
   ngOnInit(): void {
     if (this.content?.params?.api) {

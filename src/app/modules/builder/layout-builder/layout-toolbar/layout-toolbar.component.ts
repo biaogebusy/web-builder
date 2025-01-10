@@ -17,15 +17,13 @@ export class LayoutToolbarComponent implements OnInit {
   @Input() lbContent: any;
   @Input() i: number;
   @Input() layout: any;
-  @Input() pageIndex: number;
   util = inject(UtilitiesService);
   builder = inject(BuilderState);
   builderService = inject(BuilderService);
-  constructor() {}
 
   ngOnInit(): void {}
 
-  onMoveCol(direction: 'left' | 'right', lists: any[], target: any, index: number): void {
+  onMoveCol(direction: 'left' | 'right', lists: any[], target: Element, index: number): void {
     const elements = cloneDeep(lists);
     const path = this.util.generatePath(target);
     const lastDotIndex = path.lastIndexOf('.');
@@ -41,19 +39,22 @@ export class LayoutToolbarComponent implements OnInit {
     this.builder.updatePageContentByPath(arrayPath, elements);
   }
 
-  addBlock(addType: string, content: any, target: any): void {
+  addBlock(addType: string, content: any, target: Element): void {
     this.builderService.addBlock(addType, content, this.util.generatePath(target));
   }
 
-  onDeleteRow(index: number): void {
-    const { elements } = this.lbContent;
-    elements.splice(index, 1);
-    this.builder.updateComponent(this.pageIndex, this.lbContent);
+  onDeleteRow(target: Element): void {
+    const path = this.util.generatePath(target);
+    this.builder.updatePageContentByPath(path, this.lbContent, 'remove');
   }
 
-  onLayoutSettings(layout: any, target: any): void {
+  onLayoutSettings(layout: any, target: Element): void {
     const path = this.util.generatePath(target);
     const fields: FormlyFieldConfig[] = getLayoutSetting(layout);
     this.builder.showComponentSetting(layout, fields, path);
+  }
+
+  hiddenWidgetPicker(): void {
+    this.builder.widgetsPicker$.next(false);
   }
 }

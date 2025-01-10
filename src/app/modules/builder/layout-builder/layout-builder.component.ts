@@ -16,6 +16,8 @@ import { BuilderService } from '@core/service/builder.service';
 import { IPage } from '@core/interface/IAppConfig';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ScreenService } from '@core/service/screen.service';
+import { BuilderState } from '@core/state/BuilderState';
+import { createPopper } from '@popperjs/core';
 
 @Component({
   selector: 'app-layout-builder',
@@ -24,14 +26,14 @@ import { ScreenService } from '@core/service/screen.service';
 })
 export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   @Input() content: ILayoutBuilder;
-  @Input() pageIndex: number;
-  @Input() uuid: string;
 
   util = inject(UtilitiesService);
   ele = inject(ElementRef);
-  builderSerivce = inject(BuilderService);
+  builder = inject(BuilderState);
   destroyRef = inject(DestroyRef);
   screenService = inject(ScreenService);
+  builderSerivce = inject(BuilderService);
+  popup: any;
   constructor(
     @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
@@ -52,6 +54,7 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   }
 
   addBlock(addType: string, content: any, target: any): void {
+    this.builder.closeRightDrawer$.next(true);
     this.builderSerivce.addBlock(addType, content, this.util.generatePath(target));
   }
 
@@ -62,5 +65,31 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
       )[0];
       this.util.initAnimate(item, animateEle, this.ele.nativeElement);
     });
+  }
+
+  onHoverWidget(widget: any, isBuilderMode: boolean | null): void {
+    if (isBuilderMode) {
+      const component = widget.querySelector('.component');
+      const popup = widget.querySelector('.block-toolbar');
+      this.popup = createPopper(component, popup, {
+        placement: 'bottom',
+        strategy: 'fixed',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 0],
+            },
+          },
+        ],
+      });
+      this.popup.update();
+    }
+  }
+
+  onLeaveWidget(isBuilderMode: boolean | null): void {
+    if (isBuilderMode) {
+      this.popup?.destroy();
+    }
   }
 }

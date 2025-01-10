@@ -1,9 +1,9 @@
 @if (content) {
   <div class="dashboard">
     <div class="wrapper flex flex-wrap" *reqRolesIf="content">
-      @for (box of content.elements; track box) {
+      @for (box of content.elements; track box; let index = $index) {
         <div class="flex-12/12 md:flex-{{ box.row }}/12 overflow-hidden">
-          <app-dashboard-box class="box" [content]="box" />
+          <app-dashboard-box [attr.data-path]="'elements.' + index" class="box" [content]="box" />
         </div>
       }
     </div>

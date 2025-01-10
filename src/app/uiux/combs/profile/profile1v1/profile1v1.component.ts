@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
@@ -25,7 +24,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-profile-1v1',
   templateUrl: './profile1v1.component.html',
   styleUrls: ['./profile1v1.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Profile1v1Component implements OnInit, AfterViewInit {
   @Input() content: IProfile1v1;

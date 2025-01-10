@@ -72,6 +72,7 @@ module.exports = {
     'order-1',
     'order-0',
     '!overflow-visible',
+    '!absolute',
   ],
   theme: {
     screens: {

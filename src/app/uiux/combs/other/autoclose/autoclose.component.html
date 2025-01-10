@@ -1,7 +1,7 @@
 <div class="auto-close relative">
   <div class="container">
     @for (block of content.elements; track block) {
-      <app-dynamic-component [inputs]="{ content: block }" />
+      <app-dynamic-component [inputs]="block" />
     }
   </div>
 </div>

@@ -6,6 +6,8 @@ import {
   IBuilderDynamicContent,
   IBuilderShowcase,
   ILayoutSetting,
+  IWidgetPicker,
+  IWidgets,
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -28,6 +30,7 @@ export class BuilderState {
   public showcase$ = new Subject<IBuilderShowcase | false>();
   public themeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public rightContent$ = new Subject<IBuilderDynamicContent>();
+  public widgetsPicker$ = new Subject<IWidgetPicker | false>();
   public closeRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
@@ -153,14 +156,26 @@ export class BuilderState {
     this.storage.store(this.versionKey, Object.assign([], this.version));
   }
 
-  upDownComponent(index: number, direction: string): void {
+  getArrsByPath(path: string, body: any[]): any[] {
+    if (path.includes('.')) {
+      const after = path.slice(0, path.lastIndexOf('.'));
+      return get(body, after);
+    } else {
+      // 一级组件
+      return body;
+    }
+  }
+
+  upDownComponent(direction: string, path: string): void {
     const { body } = this.currentPage;
+    const arrs = this.getArrsByPath(path, body);
+    const index = this.targetIndex(path);
     if (direction === 'up') {
-      [body[index - 1], body[index]] = [body[index], body[index - 1]];
+      [arrs[index - 1], arrs[index]] = [arrs[index], arrs[index - 1]];
     }
 
-    if (direction === 'down' && index < body.length - 1) {
-      [body[index], body[index + 1]] = [body[index + 1], body[index]];
+    if (direction === 'down' && index < arrs.length - 1) {
+      [arrs[index], arrs[index + 1]] = [arrs[index + 1], arrs[index]];
     }
     this.closeRightDrawer$.next(true);
     this.saveLocalVersions();
@@ -176,16 +191,21 @@ export class BuilderState {
     }
   }
 
-  deleteComponent(index: number): void {
+  deleteComponent(path: string): void {
     const { body } = this.currentPage;
-    body.splice(index, 1);
+    const arrs = this.getArrsByPath(path, body);
+    const index = this.targetIndex(path);
+    arrs.splice(index, 1);
     this.updatePage();
   }
 
-  updateComponent(index: number, content: any): void {
-    const { body } = this.currentPage;
-    body[index] = content;
-    this.updatePage();
+  targetIndex(path: string): number {
+    const lastDotIndex = path.lastIndexOf('.');
+    if (lastDotIndex !== -1) {
+      return Number(path.slice(lastDotIndex + 1));
+    } else {
+      return Number(path);
+    }
   }
 
   bulkUpdateComponent(content: object): void {
@@ -198,27 +218,42 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  updatePageContentByPath(path: string, content: any, addType?: 'add'): void {
+  /**
+   * example: "2.elements.1"
+   * before: 2
+   * targetIndex: 1
+   */
+  updatePageContentByPath(path: string, content: any, addType?: 'add' | 'remove'): void {
     const { body } = this.currentPage;
-    if (!addType) {
-      set(body, path, content);
-    }
+    const lastDotIndex = path.lastIndexOf('.');
+    const before = path.slice(0, lastDotIndex);
+    const targetIndex = Number(path.slice(lastDotIndex + 1));
+    const targetArray = get(body, before);
 
-    if (addType === 'add') {
-      const lastDotIndex = path.lastIndexOf('.');
-      if (lastDotIndex !== -1) {
-        // loop element 等，新增组件到数组
-        const before = path.slice(0, lastDotIndex);
-        const index = path.slice(lastDotIndex + 1);
-        const targetArray = get(body, before);
+    switch (addType) {
+      case 'add':
+        if (lastDotIndex !== -1) {
+          // 对子级组件的数组操作
+          if (Array.isArray(targetArray)) {
+            targetArray.splice(targetIndex + 1, 0, content);
+            set(body, before, targetArray);
+          }
+        } else {
+          // body 一级组件
+          body.splice(Number(path) + 1, 0, cloneDeep(content));
+        }
+        break;
+      case 'remove':
+        // 移除子级数组的组件
         if (Array.isArray(targetArray)) {
-          targetArray.splice(Number(index) + 1, 0, content);
+          targetArray.splice(targetIndex, 1);
           set(body, before, targetArray);
         }
-      } else {
-        // body 一级组件
-        body.splice(Number(path) + 1, 0, cloneDeep(content));
-      }
+        break;
+      default:
+        // 根据路径直接覆盖，整个对象、某个属性等
+        set(body, path, content);
+        break;
     }
 
     this.updatePage();

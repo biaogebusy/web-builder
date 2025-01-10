@@ -38,7 +38,11 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
     if (this.fieldConfig.props.api) {
       this.getOptionsFromApi();
     } else {
-      this.matOptions = this.to.options || [];
+      this.matOptions = this.props.options || [];
+      const { defaultValue } = this.fieldConfig;
+      if (defaultValue) {
+        this.formControl.setValue(defaultValue);
+      }
       this.filteredOptions.next(this.matOptions.slice());
     }
 

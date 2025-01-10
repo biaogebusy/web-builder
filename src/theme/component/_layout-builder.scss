@@ -18,26 +18,14 @@
           }
           .layout-toolbar {
             .toggle {
-              background-color: #333;
-              color: mat.m2-get-color-from-palette(
-                $primary,
-                default-contrast,
-                0.8
-              );
+              background-color: #272727;
+              color: mat.m2-get-color-from-palette($primary, default-contrast, 0.8);
             }
             .actions {
               background-color: #333;
-              @include mat.elevation(
-                2,
-                mat.m2-get-color-from-palette($background, tooltip),
-                0.25
-              );
+              @include mat.elevation(2, mat.m2-get-color-from-palette($background, tooltip), 0.25);
               .mat-mdc-button-base {
-                color: mat.m2-get-color-from-palette(
-                  $primary,
-                  default-contrast,
-                  0.8
-                );
+                color: mat.m2-get-color-from-palette($primary, default-contrast, 0.8);
               }
             }
           }
@@ -49,10 +37,6 @@
           }
           .blocks {
             > .item {
-              &:hover {
-                outline: 1px solid mat.m2-get-color-from-palette($primary);
-                z-index: 10;
-              }
               > .toolbar {
                 background-color: #333;
 
@@ -64,11 +48,7 @@
 
                 .mat-mdc-button-base,
                 .title {
-                  color: mat.m2-get-color-from-palette(
-                    $primary,
-                    default-contrast,
-                    0.8
-                  );
+                  color: mat.m2-get-color-from-palette($primary, default-contrast, 0.8);
                 }
                 .title {
                   background: rgb(0 0 0 / 40%);

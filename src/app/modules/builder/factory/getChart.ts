@@ -17,7 +17,7 @@ export function getChart(widget: any): FormlyFieldConfig {
               {
                 key: 'text',
                 type: 'input',
-                defaultValue: widget.title.text,
+                defaultValue: widget?.title?.text,
                 props: {
                   label: '标题',
                 },
@@ -25,7 +25,7 @@ export function getChart(widget: any): FormlyFieldConfig {
               {
                 key: 'subtext',
                 type: 'input',
-                defaultValue: widget.title.subtext,
+                defaultValue: widget?.title?.subtext,
                 props: {
                   label: '副标题',
                 },

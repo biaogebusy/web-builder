@@ -56,6 +56,8 @@
 | 页面预览             | 调转到新窗口查看真实的页面                                            |
 | 响应式预览           | 可切换不同设备尺寸查看页面响应式排版                                  |
 
+> 基于 DeepSeek AI 生成UI组件、图表、文案已经开发测试当中，敬请期待。
+
 ## Web builder 管理微信小程序的页面和组件
 
 <p align="center">
@@ -71,8 +73,9 @@
 
 ## 相关视频演示
 
+- [使用Web builder 构建Drupal CMS 预览版宣传着陆页](https://www.bilibili.com/video/BV1mD6hY6Et3/)
+- [支持AOS通用页面滚动动画](https://www.bilibili.com/video/BV1VKkSY3E1r/)
 - [Layout 嵌套](https://www.bilibili.com/video/BV1pH4y1L7qk)
-- [组件动画配置](https://www.bilibili.com/video/BV17F4m157uP)
 - [API 数据来源](https://www.bilibili.com/video/BV1ux4y1n7MA/) | [静态数据来源](https://www.bilibili.com/video/BV1rf421R7He/) TailwindCss 自定义组件
 - [复制功能快速构建组件](https://www.bilibili.com/video/BV1nF4m1w7cs/)
 - [多语言发布及媒体库管理](https://www.bilibili.com/video/BV1XohfeoEtz/)

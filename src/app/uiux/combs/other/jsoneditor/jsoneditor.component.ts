@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
@@ -24,7 +23,6 @@ import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
   selector: 'app-jsoneditor',
   templateUrl: './jsoneditor.component.html',
   styleUrls: ['./jsoneditor.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JsoneditorComponent implements OnInit, AfterViewInit {
   @Input() content: IJsoneditor;

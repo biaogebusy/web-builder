@@ -29,7 +29,7 @@
         @if (content.right.length) {
           <div class="right col-span-12 md:col-span-9">
             @for (item of content.right; track item) {
-              <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="{ content: item }" />
+              <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item" />
             }
           </div>
         }

@@ -87,10 +87,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     animateElement.forEach((el: any) => observer.observe(el));
   }
 
-  trackByFn(index: number, item: any): number {
-    return index;
-  }
-
   drop(event: CdkDragDrop<string[]>): void {
     this.builder.onDrop(event);
   }
@@ -126,6 +122,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addNewSection(event: any, type: 'widget' | 'section', newSection: any): void {
+    this.builder.widgetsPicker$.next(false);
     this.router.navigate(['/builder']);
     const path = this.util.generatePath(event.target);
     if (type === 'section') {

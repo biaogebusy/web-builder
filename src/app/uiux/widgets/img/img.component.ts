@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  Inject,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, HostBinding, Inject, Input, OnInit, inject } from '@angular/core';
 import type { IImg } from '@core/interface/widgets/IImg';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
@@ -16,7 +8,6 @@ import { CORE_CONFIG } from '@core/token/token-providers';
   selector: 'app-img',
   templateUrl: './img.component.html',
   styleUrls: ['./img.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImgComponent implements OnInit {
   @Input() content: IImg | undefined;

@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import type { IMapListv1 } from '@core/interface/combs/IMap';
 import type { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
@@ -12,14 +7,14 @@ import { AmapService } from '@core/service/amap.service';
   selector: 'app-map-list-v1',
   templateUrl: './map-list-v1.component.html',
   styleUrls: ['./map-list-v1.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapListV1Component implements OnInit {
   @Input() content: IMapListv1;
   elements: any[];
   loading: boolean;
   selectedId: number;
-  constructor(private amapService: AmapService) {}
+  private amapService = inject(AmapService);
+  constructor() {}
 
   ngOnInit(): void {
     this.elements = this.content.map.elements.map(item => {

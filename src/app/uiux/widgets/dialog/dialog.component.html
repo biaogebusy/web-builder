@@ -10,10 +10,10 @@
   <mat-dialog-content>
     @if (data.inputData | isArray) {
       @for (widget of data.inputData; track widget) {
-        <app-dynamic-component [inputs]="{ content: widget }" />
+        <app-dynamic-component [inputs]="widget" />
       }
     } @else {
-      <app-dynamic-component [inputs]="{ content: data.inputData.content }" />
+      <app-dynamic-component [inputs]="data.inputData.content" />
     }
   </mat-dialog-content>
   @if (!data.disableCloseButton) {

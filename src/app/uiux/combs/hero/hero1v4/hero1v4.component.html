@@ -7,7 +7,7 @@
       @if (content.widget) {
         <div class="basis-full order-{{ content.order }} flex justify-center items-center">
           @for (item of content.widget; track item; let i = $index) {
-            <app-dynamic-component [attr.data-path]="'widget.' + i" [inputs]="{ content: item }" />
+            <app-dynamic-component [attr.data-path]="'widget.' + i" [inputs]="item" />
           }
         </div>
       }

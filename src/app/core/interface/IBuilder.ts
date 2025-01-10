@@ -126,7 +126,6 @@ export interface ILayoutBlock {
 export interface ILayoutSetting {
   type: 'layout-setting';
   fields: FormlyFieldConfig[];
-  pageIndex?: number;
   content?: any;
   path?: string;
   fullWidth: boolean;
@@ -134,9 +133,15 @@ export interface ILayoutSetting {
 
 export interface IWidgetPicker {
   type: 'widget-picker';
-  addType: 'widget' | 'layout';
+  addType: string;
   path: string;
   content: any;
+}
+
+export interface IWidgets {
+  label: string;
+  icon: IIcon;
+  elements: any[];
 }
 
 export interface IMetaEdit {
