@@ -26,7 +26,6 @@ import { createPopper } from '@popperjs/core';
 })
 export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   @Input() content: ILayoutBuilder;
-  @Input() pageIndex: number;
 
   util = inject(UtilitiesService);
   ele = inject(ElementRef);

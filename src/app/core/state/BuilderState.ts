@@ -208,12 +208,6 @@ export class BuilderState {
     }
   }
 
-  updateComponent(index: number, content: any): void {
-    const { body } = this.currentPage;
-    body[index] = content;
-    this.updatePage();
-  }
-
   bulkUpdateComponent(content: object): void {
     this.currentPage.body = this.currentPage.body.map(item => {
       return {
@@ -224,27 +218,42 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  updatePageContentByPath(path: string, content: any, addType?: 'add'): void {
+  /**
+   * example: "2.elements.1"
+   * before: 2
+   * targetIndex: 1
+   */
+  updatePageContentByPath(path: string, content: any, addType?: 'add' | 'remove'): void {
     const { body } = this.currentPage;
-    if (!addType) {
-      set(body, path, content);
-    }
+    const lastDotIndex = path.lastIndexOf('.');
+    const before = path.slice(0, lastDotIndex);
+    const targetIndex = Number(path.slice(lastDotIndex + 1));
+    const targetArray = get(body, before);
 
-    if (addType === 'add') {
-      const lastDotIndex = path.lastIndexOf('.');
-      if (lastDotIndex !== -1) {
-        // loop element 等，新增组件到数组
-        const before = path.slice(0, lastDotIndex);
-        const index = path.slice(lastDotIndex + 1);
-        const targetArray = get(body, before);
+    switch (addType) {
+      case 'add':
+        if (lastDotIndex !== -1) {
+          // 对子级组件的数组操作
+          if (Array.isArray(targetArray)) {
+            targetArray.splice(targetIndex + 1, 0, content);
+            set(body, before, targetArray);
+          }
+        } else {
+          // body 一级组件
+          body.splice(Number(path) + 1, 0, cloneDeep(content));
+        }
+        break;
+      case 'remove':
+        // 移除子级数组的组件
         if (Array.isArray(targetArray)) {
-          targetArray.splice(Number(index) + 1, 0, content);
+          targetArray.splice(targetIndex, 1);
           set(body, before, targetArray);
         }
-      } else {
-        // body 一级组件
-        body.splice(Number(path) + 1, 0, cloneDeep(content));
-      }
+        break;
+      default:
+        // 根据路径直接覆盖，整个对象、某个属性等
+        set(body, path, content);
+        break;
     }
 
     this.updatePage();

@@ -36,13 +36,8 @@
           [attr.data-path]="'elements.' + i"
         >
           @if (isBuilderMode && screenService.isPlatformBrowser()) {
-            <div class="toolbar hidden absolute z-50">
-              <app-layout-toolbar
-                [lbContent]="content"
-                [i]="i"
-                [layout]="layout"
-                [pageIndex]="pageIndex"
-              />
+            <div class="toolbar hidden absolute z-[1000]">
+              <app-layout-toolbar [lbContent]="content" [i]="i" [layout]="layout" />
             </div>
             @if (elements.length === 0) {
               <div
@@ -104,6 +99,8 @@
             </div>
           </div>
         </div>
+      } @empty {
+        <div class="p-5 text-center col-span-12 opacity-50">当前无Layout，可重新删除新建</div>
       }
     </div>
   </div>
