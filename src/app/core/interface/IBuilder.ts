@@ -126,7 +126,6 @@ export interface ILayoutBlock {
 export interface ILayoutSetting {
   type: 'layout-setting';
   fields: FormlyFieldConfig[];
-  pageIndex?: number;
   content?: any;
   path?: string;
   fullWidth: boolean;

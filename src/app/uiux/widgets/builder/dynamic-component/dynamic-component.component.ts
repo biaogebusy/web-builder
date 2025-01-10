@@ -27,7 +27,7 @@ import type { IDynamicInputs } from '@core/interface/IAppConfig';
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() inputs: IDynamicInputs;
-  @Input() index: number; // just for order
+  @Input() index: number; // just for animate count
   @Input() showToolbar = false;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
@@ -80,7 +80,6 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
         } else {
           this.componentRef.instance.content = this.inputs;
         }
-        this.componentRef.instance.pageIndex = this.index;
       }
 
       this.container.insert(this.componentRef.hostView);
