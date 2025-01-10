@@ -2,12 +2,13 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
-  Inject,
   Input,
   OnInit,
   ViewChild,
   inject,
+  signal,
 } from '@angular/core';
 import type { IWidgetPicker } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
@@ -15,9 +16,9 @@ import { WIDGETS } from '@core/token/token-providers';
 import { Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { MatDialog } from '@angular/material/dialog';
 import { BuilderService } from '@core/service/builder.service';
 import { cloneDeep } from 'lodash-es';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
@@ -25,36 +26,48 @@ import { cloneDeep } from 'lodash-es';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WidgetPickerComponent implements OnInit, AfterViewInit {
-  @Input() content: IWidgetPicker;
-  @ViewChild('popup', { static: false }) popup: ElementRef;
+  @Input() content: IWidgetPicker | false;
+  @ViewChild('groupPopup', { static: false }) groupPopup: ElementRef;
+  @ViewChild('popup', { static: false }) widgetPopup: ElementRef;
   public widget$ = new Subject<any>();
+  public group$ = new Subject<any>();
   help: any;
-  popper: any;
+  groupPopper: any;
+  widgetPopper: any;
 
-  public bcData: any;
+  public bcData = signal(false);
   ele = inject(ElementRef);
   widgets = inject(WIDGETS);
-  dialog = inject(MatDialog);
   builder = inject(BuilderState);
   storage = inject(LocalStorageService);
   builderService = inject(BuilderService);
+  destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     const {
       widgetPicker: { help },
     } = this.builderService.builderConfig;
     this.help = help;
-    this.bcData = this.storage.retrieve(this.builder.COPYWIDGETKEY);
+    this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
+      this.bcData.set(data);
+    });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.builder.widgetsPicker$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {
+      this.content = content;
+    });
+  }
 
   onPasteData(): void {
-    this.onSelect(this.bcData);
-    this.storage.clear(this.builder.COPYWIDGETKEY);
+    this.onSelect(this.bcData());
+    this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
   onSelect(widget: any): void {
+    if (!this.content) {
+      return;
+    }
     const { addType, path, content } = this.content;
     const data = cloneDeep(content);
     const widgetContent = cloneDeep(widget);
@@ -62,7 +75,6 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     // add widget from layout builder toolbar
     if (addType === 'widget') {
       this.builder.updatePageContentByPath(path, widgetContent, 'add');
-      this.dialog.closeAll();
       return;
     }
 
@@ -72,7 +84,6 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
         this.copyLayoutLastChild(data.elements, widgetContent),
         'add'
       );
-      this.dialog.closeAll();
       return;
     }
 
@@ -80,12 +91,18 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     const lists = [...data.elements];
     lists.splice(lists.length, 0, widgetContent);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
-    this.dialog.closeAll();
   }
 
   onLeave(): void {
+    this.group$.next(false);
     this.widget$.next(false);
-    this.popper.destroy();
+    if (this.groupPopper) {
+      this.groupPopper.destroy();
+    }
+    if (this.widgetPopper) {
+      this.widgetPopper.destroy();
+    }
+    this.builder.widgetsPicker$.next(false);
   }
   copyLayoutLastChild(elements: any[], widget: any): any {
     const last = Object.assign({}, elements[elements.length - 1]);
@@ -93,24 +110,57 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     return last;
   }
 
-  onHover(widget: any, ele: any): void {
-    if (this.popup?.nativeElement) {
-      const parentRect = this.ele.nativeElement.getBoundingClientRect();
-      const widgetRect = ele.getBoundingClientRect();
-      const offset = widgetRect.left - parentRect.left;
-      this.widget$.next(widget);
-      this.popper = createPopper(ele, this.popup.nativeElement, {
-        placement: 'left',
-        strategy: 'fixed',
+  onHoverGroup(group: any, ele: any): void {
+    if (this.groupPopup?.nativeElement) {
+      this.group$.next(false);
+      this.widget$.next(false);
+      if (this.groupPopper) {
+        this.groupPopper.destroy();
+      }
+      if (this.widgetPopper) {
+        this.widgetPopper.destroy();
+      }
+      this.group$.next(group);
+      this.groupPopper = createPopper(ele, this.groupPopup.nativeElement, {
+        placement: 'left-start',
         modifiers: [
           {
             name: 'offset',
             options: {
-              offset: [0, offset + 24],
+              offset: [0, 4],
             },
           },
         ],
       });
+      this.groupPopper.update();
     }
+  }
+  onHoverWidget(widget: any, ele: any): void {
+    if (this.widgetPopup?.nativeElement) {
+      if (this.widgetPopper) {
+        this.widgetPopper.destroy();
+      }
+      this.widget$.next(widget);
+      this.widgetPopper = createPopper(ele, this.widgetPopup.nativeElement, {
+        placement: 'left',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 10],
+            },
+          },
+        ],
+      });
+      this.widgetPopper.update();
+    }
+  }
+
+  onHoverCopy(widget: any, ele: any): void {
+    this.group$.next(false);
+    if (this.groupPopper) {
+      this.groupPopper.destroy();
+    }
+    this.onHoverWidget(widget, ele);
   }
 }

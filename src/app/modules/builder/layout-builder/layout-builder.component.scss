@@ -10,14 +10,29 @@
     .blocks {
       > .item {
         max-width: 100%;
+        &:hover {
+          z-index: 100;
+        }
         &.item-divider,
         &.item-layout-builder {
           @apply w-full;
         }
-        > .toolbar {
-          left: 50%;
-          bottom: 100%;
-          transform: translateX(-50%);
+        ::ng-deep {
+          .component-toolbar {
+            .actions {
+              top: auto;
+              bottom: 100%;
+              border-radius: 4px 4px 0 0;
+            }
+          }
+        }
+        .block-toolbar {
+          position: absolute;
+          opacity: 0;
+          white-space: nowrap;
+          &[data-popper-placement] {
+            opacity: 1;
+          }
         }
       }
     }
@@ -36,15 +51,6 @@
         outline-offset: 2px;
         > .toolbar {
           display: block;
-        }
-      }
-      .blocks {
-        > .item {
-          &:hover {
-            > .toolbar {
-              display: block;
-            }
-          }
         }
       }
     }

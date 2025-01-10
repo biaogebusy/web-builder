@@ -1,7 +1,7 @@
 @if (data$ | async; as data) {
   <div class="chart-box p-5 flex justify-center items-end">
     <div class="w-full flex flex-col justify-center items-start">
-      <div class="title mat-h3 one-line">
+      <div class="title mat-h3 one-line" [attr.data-path]="'label'" contentedit="label">
         {{ data.label }}
       </div>
       <div class="count one-line">

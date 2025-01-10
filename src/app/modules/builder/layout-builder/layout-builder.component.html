@@ -7,6 +7,7 @@
   @let horizontal = content.horizontal;
   @let alignItems = content.alignItems;
   @let wrapperClass = content.wrapperClass;
+  @let isBuilderMode = isBuilderMode$ | async;
 
   <div class="layout-builder relative" [ngClass]="classes" [ngStyle]="style">
     <div
@@ -34,14 +35,9 @@
           }} md:col-span-{{ row.md }} lg:col-span-{{ row.lg }}"
           [attr.data-path]="'elements.' + i"
         >
-          @if (isBuilderMode$ | async) {
-            <div class="toolbar hidden absolute z-50">
-              <app-layout-toolbar
-                [lbContent]="content"
-                [i]="i"
-                [layout]="layout"
-                [pageIndex]="pageIndex"
-              />
+          @if (isBuilderMode && screenService.isPlatformBrowser()) {
+            <div class="toolbar hidden absolute z-[1000]">
+              <app-layout-toolbar [lbContent]="content" [i]="i" [layout]="layout" />
             </div>
             @if (elements.length === 0) {
               <div
@@ -76,31 +72,40 @@
               @if (bg) {
                 <app-bg-img [attr.data-path]="'bg'" [content]="bg" />
               }
-              @for (item of elements; track item; let index = $index) {
+              @for (item of elements; track item; let index = $index; let last = $last) {
                 <div
+                  #widget
+                  (mouseleave)="onLeaveWidget(isBuilderMode)"
+                  (mouseenter)="onHoverWidget(widget, isBuilderMode)"
                   class="item relative box-border item-{{ item.type }} col-span-12"
                   [attr.data-path]="'elements.' + index"
                 >
-                  @if (isBuilderMode$ | async) {
-                    <div
-                      class="toolbar absolute z-10 whitespace-nowrap rounded-tl-[4px] rounded-tr-[4px] hidden"
-                    >
-                      <app-block-toolbar
-                        [layout]="layout"
-                        [block]="item"
-                        [index]="index"
-                        [i]="i"
-                        [lbContent]="content"
-                        [pageIndex]="pageIndex"
-                      />
+                  <app-dynamic-component
+                    class="component"
+                    [inputs]="item"
+                    [index]="index"
+                    [showToolbar]="true"
+                  />
+                  @if (isBuilderMode) {
+                    <div class="block-toolbar" #action>
+                      <button mat-raised-button (click)="addBlock('widget', content, action)">
+                        <div class="flex">
+                          <app-icon class="mr-1" [content]="{ svg: 'arrow-right-bottom' }" />
+                          <span>插入组件</span>
+                        </div>
+                      </button>
                     </div>
+                    @if (last) {
+                      <div class="py-6"></div>
+                    }
                   }
-                  <app-dynamic-component [inputs]="item" />
                 </div>
               }
             </div>
           </div>
         </div>
+      } @empty {
+        <div class="p-5 text-center col-span-12 opacity-50">当前无Layout，可重新删除新建</div>
       }
     </div>
   </div>

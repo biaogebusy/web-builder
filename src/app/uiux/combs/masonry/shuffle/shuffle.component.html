@@ -23,7 +23,7 @@
     <div class="shuffle-inner flex w-full h-full flex-wrap">
       @for (item of content.elements; track item) {
         <div class="item w-[100%] sm:w-[50%] md:w-[25%]" [attr.data-groups]="item.category">
-          <app-dynamic-component [inputs]="{ content: item }" />
+          <app-dynamic-component [inputs]="item" />
         </div>
       }
       <div class="sizer w-[100%] sm:w-[50%] md:w-[25%]"></div>

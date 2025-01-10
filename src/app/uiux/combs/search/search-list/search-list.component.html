@@ -40,7 +40,7 @@
                   }
                   <div class="actions flex">
                     @for (action of item.actions; track action) {
-                      <app-dynamic-component [inputs]="{ content: action }" />
+                      <app-dynamic-component [inputs]="action" />
                     }
                   </div>
                 </div>

@@ -6,7 +6,7 @@
         @if (content.sidebar) {
           <div class="thin-sidebar p-3 col-sapn-12 md:col-span-3">
             @for (item of content.sidebar; track item) {
-              <app-dynamic-component [inputs]="{ content: item }" />
+              <app-dynamic-component [inputs]="item" />
             }
           </div>
         }

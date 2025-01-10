@@ -1,18 +1,10 @@
-import {
-  Component,
-  Input,
-  ElementRef,
-  ChangeDetectionStrategy,
-  inject,
-  afterNextRender,
-} from '@angular/core';
+import { Component, Input, ElementRef, inject, afterNextRender } from '@angular/core';
 import type { IShuffle } from '@core/interface/combs/IMasonry';
 import Shuffle from 'shufflejs';
 @Component({
   selector: 'app-shuffle',
   templateUrl: './shuffle.component.html',
   styleUrls: ['./shuffle.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShuffleComponent {
   @Input() content: IShuffle;

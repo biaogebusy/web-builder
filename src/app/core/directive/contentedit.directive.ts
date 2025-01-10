@@ -93,7 +93,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
             },
           };
           this.builder.rightContent$.next({
-            mode: 'push',
+            mode: 'over',
             hasBackdrop: false,
             style: {
               'width': '260px',

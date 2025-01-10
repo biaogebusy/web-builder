@@ -199,6 +199,7 @@ export class UtilitiesService {
   }
 
   generatePath(contenteditableElement: any): string {
+    // 注意：get path只能在 component-item 区域使用
     let path = contenteditableElement.getAttribute('data-path') || '';
     let element = contenteditableElement;
     while (

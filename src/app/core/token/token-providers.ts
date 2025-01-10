@@ -4,7 +4,7 @@ import { IUser } from '@core/interface/IUser';
 import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
-import { IBuilderConfig, IUiux } from '@core/interface/IBuilder';
+import { IBuilderConfig, IUiux, IWidgets } from '@core/interface/IBuilder';
 import { IThemePreview } from '@core/interface/combs/IThemePreview';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { IManageAssets } from '@core/interface/manage/IManage';
@@ -29,4 +29,4 @@ export const BUILDER_FULL_SCREEN = new InjectionToken<Observable<boolean>>('buil
 export const UIUX = new InjectionToken<IUiux[]>('builder uiux data');
 export const IS_BUILDER_MODE = new InjectionToken<Observable<boolean>>('is builder mode');
 
-export const WIDGETS = new InjectionToken<any[]>('builder widgets for popup select');
+export const WIDGETS = new InjectionToken<IWidgets[]>('builder widgets for popup select');

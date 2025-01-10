@@ -30,9 +30,31 @@
       transform: translateX(-50%);
     }
     &:hover {
-      outline-offset: -1px;
       .add-new-section {
         display: flex;
+      }
+    }
+    ::ng-deep {
+      .active-toolbar {
+        position: relative;
+        display: block;
+        box-sizing: content-box;
+        padding: 2px;
+        &:hover {
+          z-index: 10;
+          outline-offset: -2px;
+          > .component-toolbar {
+            display: block !important;
+          }
+        }
+        > .component-toolbar {
+          position: absolute;
+          left: 0;
+          top: 0px;
+          width: 100%;
+          z-index: 999;
+          line-height: 1;
+        }
       }
     }
   }

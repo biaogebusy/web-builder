@@ -1,26 +1,31 @@
 @import '../../../../../theme/variable/breakpoint';
 .widget-picker {
-  .item {
-    position: relative;
-    .title {
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
-      text-align: center;
-    }
-    .inner {
-      border-radius: 4px;
-      cursor: pointer;
+  position: absolute;
+  right: -88px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  width: 48px;
+  transition: right 0.5s ease-out;
+  .widget-wrapper {
+    .item {
+      position: relative;
+      .inner {
+        border-radius: 4px;
+        cursor: pointer;
+      }
     }
   }
-  .popup {
-    display: none;
-    position: fixed;
-    border-radius: 4px;
-    justify-content: center;
-    align-items: center;
+  .group-popup {
+    position: relative;
+    right: 10px;
+  }
+  .widget-wrapper,
+  .group-popup,
+  .widget-popup {
+    border-radius: 8px;
+  }
+  .widget-popup {
     overflow: hidden;
     box-sizing: border-box;
     &[data-popper-placement] {
@@ -33,5 +38,12 @@
         max-height: 100%;
       }
     }
+  }
+}
+
+:host(.active) {
+  .widget-picker {
+    right: 20px;
+    transition: right 0.5s ease-in;
   }
 }

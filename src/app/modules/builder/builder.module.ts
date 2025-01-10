@@ -29,7 +29,6 @@ import {
   getBuilderConfig,
   mediaAssetsFactory,
 } from '@core/factory/factory';
-import { LocalStorageService } from 'ngx-webstorage';
 import { InlineEditComponent } from './main/inline-editor/inline-editor.component';
 import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
 import { WidgetPickerComponent } from './main/widget-picker/widget-picker.component';
@@ -42,7 +41,6 @@ import { PageListComponent } from './sidebar/page-list/page-list.component';
 import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
 import { BuilderTemplateComponent } from './main/builder-template/builder-template.component';
 import { LayoutToolbarComponent } from './layout-builder/layout-toolbar/layout-toolbar.component';
-import { BlockToolbarComponent } from './layout-builder/block-toolbar/block-toolbar.component';
 import { PageSettingComponent } from './main/page-setting/page-setting.component';
 import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
@@ -51,6 +49,7 @@ import { CardListComponent } from './main/card-list/card-list.component';
 import { CardPageComponent } from './main/card-list/card-page/card-page.component';
 import { DefaultPageComponent } from './main/default-page/default-page.component';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 const components = [
   JsonComponent,
@@ -84,7 +83,6 @@ const components = [
     PageListComponent,
     BuilderSidebarComponent,
     LayoutToolbarComponent,
-    BlockToolbarComponent,
     BuilderWorkspaceComponent,
     ManagePageComponent,
     DefaultPageComponent,
@@ -97,6 +95,7 @@ const components = [
     DragDropModule,
     BuilderRoutingModule,
     FormModule,
+    MonacoEditorModule.forRoot(),
   ],
   providers: [
     {

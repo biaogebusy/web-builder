@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import type { IContactUs1v1 } from '@core/interface/combs/IForm';
 import { FormService } from '@core/service/form.service';
@@ -14,7 +9,6 @@ import { BaseComponent } from '@uiux/base/base.widget';
   selector: 'app-contact-us-1v1',
   templateUrl: './contact-us1v1.component.html',
   styleUrls: ['./contact-us1v1.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactUs1v1Component extends BaseComponent implements OnInit {
   @Input() content: IContactUs1v1;
@@ -34,10 +28,7 @@ export class ContactUs1v1Component extends BaseComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    const data = this.formService.getwebFormData(
-      this.content.params,
-      value.form
-    );
+    const data = this.formService.getwebFormData(this.content.params, value.form);
     this.formService.submitWebForm(data).subscribe(
       res => {
         this.util.openSnackbar('成功提交！');

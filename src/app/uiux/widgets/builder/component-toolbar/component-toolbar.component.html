@@ -1,25 +1,25 @@
 <div class="wrapper flex justify-between items-center">
-  <div class="actions flex">
-    @if (index > 0) {
-      <div
-        class="item"
-        (click)="onUpdown(index, 'up')"
-        [matTooltip]="'上移'"
-        matTooltipPosition="above"
-      >
-        <app-btn
-          [content]="{
-            label: '',
-            color: 'primary',
-            mode: 'icon',
-            icon: { svg: 'arrow-collapse-up', inline: true },
-          }"
-        />
-      </div>
-    }
+  <div class="actions flex gap-1">
     <div
-      class="item"
-      (click)="onUpdown(index, 'down')"
+      class="item hidden"
+      [class.!block]="index() > 0"
+      (click)="onUpdown('up', $event)"
+      [matTooltip]="'上移'"
+      matTooltipPosition="above"
+    >
+      <app-btn
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'arrow-collapse-up', inline: true },
+        }"
+      />
+    </div>
+    <div
+      class="item hidden"
+      [class.!block]="index() < length() && index() !== length() - 1"
+      (click)="onUpdown('down', $event)"
       [matTooltip]="'下移'"
       matTooltipPosition="above"
     >
@@ -32,7 +32,7 @@
         }"
       />
     </div>
-    <div class="item" matTooltip="复制JSON" (click)="onCopy()">
+    <div class="item" matTooltip="复制JSON" matTooltipPosition="above" (click)="onCopy()">
       <app-btn
         [content]="{
           label: '',
@@ -42,8 +42,13 @@
         }"
       />
     </div>
-    @if (bcData) {
-      <div class="item" matTooltip="粘贴复制的组件到下面" (click)="onPaste($event, bcData)">
+    @if (bcData()) {
+      <div
+        class="item"
+        matTooltip="粘贴复制的组件到下面"
+        matTooltipPosition="above"
+        (click)="onPaste($event, bcData())"
+      >
         <app-btn
           [content]="{
             label: '',
@@ -54,16 +59,6 @@
         />
       </div>
     }
-    <div class="item" (click)="onDelete(index)" [matTooltip]="'移除'" matTooltipPosition="above">
-      <app-btn
-        [content]="{
-          label: '',
-          color: 'primary',
-          mode: 'icon',
-          icon: { svg: 'delete', inline: true },
-        }"
-      />
-    </div>
     <div
       class="item"
       (click)="onSetting(content, $event)"
@@ -76,6 +71,17 @@
           color: 'primary',
           mode: 'icon',
           icon: { svg: 'tune-vertical', inline: true },
+        }"
+      />
+    </div>
+    <app-divider [content]="{ vertical: true }" />
+    <div class="item" (click)="onDelete($event)" [matTooltip]="'移除'" matTooltipPosition="above">
+      <app-btn
+        [content]="{
+          label: '',
+          color: 'primary',
+          mode: 'icon',
+          icon: { svg: 'delete', inline: true },
         }"
       />
     </div>

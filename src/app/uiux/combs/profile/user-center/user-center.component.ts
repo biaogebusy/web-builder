@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
@@ -25,7 +24,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-user-center',
   templateUrl: './user-center.component.html',
   styleUrls: ['./user-center.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCenterComponent implements OnInit {
   @Input() content: IUserCenter;

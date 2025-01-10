@@ -4,6 +4,9 @@
     [style]="content.params"
     [ngClass]="content.theme"
   >
-    <app-text [attr.data-path]="'text'" [content]="content.text" />
+    <app-dynamic-component
+      [attr.data-path]="'text'"
+      [inputs]="content.text"
+    ></app-dynamic-component>
   </div>
 }

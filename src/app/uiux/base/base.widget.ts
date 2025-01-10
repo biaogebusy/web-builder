@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Params } from '@angular/router';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { ApiService } from '@core/service/api.service';
-import { isArray, remove, result } from 'lodash-es';
+import { isArray, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
   apiService = inject(ApiService);

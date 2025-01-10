@@ -146,50 +146,9 @@ $dark-theme: mat.m2-define-dark-theme(
     }
   }
 
-  // for dynamic-component host class
-  .active-toolbar {
-    position: relative;
-    display: block;
-    box-sizing: content-box;
-    &:hover {
-      > .component-toolbar {
-        display: block !important;
-      }
-    }
-    > .component-toolbar {
-      position: absolute;
-      left: 0;
-      top: 0px;
-      width: 100%;
-      z-index: 999;
-      line-height: 1;
-    }
-  }
   .drawer-right {
     .builder-list {
       min-width: 85vw;
-    }
-  }
-
-  .widget-picker {
-    .popup {
-      @include mat.elevation(2, mat.m2-get-color-from-palette($background, hover), 0.4);
-      background-color: mat.m2-get-color-from-palette($background, card);
-      border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
-      .hover-show {
-        > app-dynamic-component {
-          > app-spacer {
-            background-color: mat.m2-get-color-from-palette($primary, 0.5);
-          }
-        }
-      }
-    }
-    .item {
-      .inner {
-        &:hover {
-          background-color: mat.m2-get-color-from-palette($primary, 0.1);
-        }
-      }
     }
   }
 

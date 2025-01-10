@@ -11,7 +11,7 @@
             <app-dynamic-component
               [attr.data-path]="'left.' + i"
               class="p-x-sm w-full flex justify-center items-center"
-              [inputs]="{ content: item }"
+              [inputs]="item"
             />
           }
         </div>
@@ -24,7 +24,7 @@
             <app-dynamic-component
               [attr.data-path]="'right.' + i"
               class="block w-full"
-              [inputs]="{ content: item }"
+              [inputs]="item"
             />
           }
         </div>

@@ -2802,6 +2802,7 @@ export const base = [
           svg: 'format-size',
         },
         content: {
+          spacer: 'md',
           type: 'text',
           title: {
             label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -3422,10 +3423,24 @@ export const base = [
           svg: 'play-circle-outline',
         },
         content: {
-          type: 'video',
+          fullWidth: false,
+          spacer: 'none',
+          bgClasses: 'bg- bg-fill-width',
+          overlay: '',
+          containerClasses: '',
+          id: '',
+          bg: {
+            img: {
+              src: '',
+              alt: '',
+            },
+            classes: 'bg- bg-fill-width',
+            overlay: '',
+          },
           options: {
+            loop: false,
             controls: true,
-            aspectRatio: '16:9',
+            aspectRatio: '1:1',
             poster: '/assets/video/poster01.png',
             sources: [
               {
@@ -3433,7 +3448,14 @@ export const base = [
                 type: 'video/mp4',
               },
             ],
+            mode: 'cover',
           },
+          animate: {
+            aos: {
+              enable: false,
+            },
+          },
+          type: 'video',
         },
       },
       {
@@ -3503,6 +3525,7 @@ export const base = [
         },
         content: {
           type: 'contact-us',
+          spacer: 'xl',
           params: {
             webform_id: 'contact',
           },

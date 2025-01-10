@@ -52,7 +52,7 @@
     &:hover {
       @apply opacity-100;
       .actions {
-        @apply block;
+        @apply flex;
       }
     }
   }

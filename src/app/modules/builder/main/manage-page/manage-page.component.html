@@ -2,7 +2,7 @@
   @if (pageContent$ | async; as page) {
     @if (page.body) {
       @for (item of page.body; track $index) {
-        <app-dynamic-component [inputs]="{ content: item }" />
+        <app-dynamic-component [inputs]="item" />
       }
     } @else {
       <mat-spinner class="page-loading" diameter="50" color="primary" />

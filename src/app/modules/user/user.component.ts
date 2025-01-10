@@ -46,9 +46,7 @@ export class UserComponent implements OnInit {
       this.userService.userSub$.subscribe(user => {
         if (!user) {
           setTimeout(() => {
-            this.route.navigate([
-              environment.drupalProxy ? '/my' : '/me/login',
-            ]);
+            this.route.navigate([environment.drupalProxy ? '/my' : '/me/login']);
           }, 2000);
         } else {
           window.location.reload();
@@ -113,7 +111,7 @@ export class UserComponent implements OnInit {
     return {
       classes: 'bg-fill-width overlay overlay-80',
       img: {
-        hostClasses: 'bg-center',
+        hostClasses: '',
         src: this.coreConfig?.user?.banner,
       },
     };

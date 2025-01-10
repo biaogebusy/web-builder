@@ -503,20 +503,11 @@ export class BuilderService extends ApiService {
   }
 
   addBlock(addType: string, content: any, path: string): void {
-    this.builder.rightContent$.next({
-      mode: 'over',
-      hasBackdrop: false,
-      style: {
-        width: '308px',
-      },
-      elements: [
-        {
-          type: 'widget-picker',
-          addType,
-          path,
-          content,
-        },
-      ],
+    this.builder.widgetsPicker$.next({
+      type: 'widget-picker',
+      addType,
+      path,
+      content,
     });
   }
 

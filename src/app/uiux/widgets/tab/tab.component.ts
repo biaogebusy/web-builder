@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import type { ITab } from '@core/interface/widgets/ITab';
 
@@ -13,15 +7,13 @@ import type { ITab } from '@core/interface/widgets/ITab';
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
   host: { ngSkipHydration: 'true' },
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabComponent implements OnInit {
   @Input() content: ITab;
   selectedIndex: number | null;
-  constructor(
-    private route: ActivatedRoute,
-    private cd: ChangeDetectorRef
-  ) {}
+  private route = inject(ActivatedRoute);
+  private cd = inject(ChangeDetectorRef);
+  constructor() {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(qp => {
