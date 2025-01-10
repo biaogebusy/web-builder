@@ -23,7 +23,12 @@
             [cdkDragData]="item"
           >
             @if (item) {
-              <app-dynamic-component [attr.data-path]="i" [inputs]="item" [index]="i" />
+              <app-dynamic-component
+                [attr.data-path]="i"
+                [inputs]="item"
+                [index]="i"
+                [showToolbar]="true"
+              />
               @if (builderConfig$ | async; as builderConfig) {
                 <div class="add-new-section gap-2 items-center" [attr.data-path]="i">
                   <button
