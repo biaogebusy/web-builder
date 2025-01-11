@@ -13,7 +13,7 @@ import { IPage } from '@core/interface/IAppConfig';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { BUILDER_CURRENT_PAGE, IS_BUILDER_MODE } from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { get } from 'lodash-es';
@@ -38,11 +38,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   util = inject(UtilitiesService);
   ele = inject(ElementRef);
   currentPage: IPage;
-  constructor(
-    @Inject(IS_BUILDER_MODE)
-    public isBDMode$: Observable<boolean>,
-    @Inject(BUILDER_CURRENT_PAGE) private currentPage$: Observable<IPage>
-  ) {}
+  constructor(@Inject(BUILDER_CURRENT_PAGE) private currentPage$: Observable<IPage>) {}
 
   ngOnInit(): void {
     this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
