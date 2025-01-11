@@ -80,6 +80,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
         } else {
           this.componentRef.instance.content = this.inputs;
         }
+        this.componentRef.instance.showToolbar = this.showToolbar;
       }
 
       this.container.insert(this.componentRef.hostView);

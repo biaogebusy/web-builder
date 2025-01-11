@@ -9,7 +9,7 @@ import {
   inject,
 } from '@angular/core';
 import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
-import { BUILDER_CURRENT_PAGE, IS_BUILDER_MODE } from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
@@ -26,6 +26,7 @@ import { createPopper } from '@popperjs/core';
 })
 export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   @Input() content: ILayoutBuilder;
+  @Input() showToolbar = false;
 
   util = inject(UtilitiesService);
   ele = inject(ElementRef);
@@ -34,22 +35,17 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   screenService = inject(ScreenService);
   builderSerivce = inject(BuilderService);
   popup: any;
-  constructor(
-    @Inject(IS_BUILDER_MODE) public isBuilderMode$: Observable<boolean>,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
-  ) {}
+  constructor(@Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.isBuilderMode$.subscribe(state => {
-        if (state) {
-          this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-            this.layoutAnimate();
-          });
-        }
-      });
+      if (this.showToolbar) {
+        this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+          this.layoutAnimate();
+        });
+      }
     }
   }
 
@@ -67,8 +63,8 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onHoverWidget(widget: any, isBuilderMode: boolean | null): void {
-    if (isBuilderMode) {
+  onHoverWidget(widget: any, showToolbar: boolean | null): void {
+    if (showToolbar) {
       const component = widget.querySelector('.component');
       const popup = widget.querySelector('.block-toolbar');
       this.popup = createPopper(component, popup, {
@@ -87,8 +83,8 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onLeaveWidget(isBuilderMode: boolean | null): void {
-    if (isBuilderMode) {
+  onLeaveWidget(showToolbar: boolean | null): void {
+    if (showToolbar) {
       this.popup?.destroy();
     }
   }
