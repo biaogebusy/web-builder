@@ -1,4 +1,4 @@
-<div class="widget-picker p-5" (mouseleave)="onLeave()">
+<div class="widget-picker" [class.active]="show()" (mouseleave)="onLeave()">
   @if (widgets) {
     <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
       @if (bcData()) {
@@ -86,5 +86,17 @@
         </div>
       </div>
     }
+  </div>
+  <div class="expand">
+    <app-btn
+      (mouseenter)="hoverExpand()"
+      [matTooltip]="'展开'"
+      [content]="{
+        label: '',
+        color: 'primary',
+        mode: 'mini-fab',
+        icon: { svg: 'chevron-left' },
+      }"
+    />
   </div>
 </div>
