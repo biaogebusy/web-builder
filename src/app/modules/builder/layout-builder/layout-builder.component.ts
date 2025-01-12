@@ -7,6 +7,7 @@ import {
   Input,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
@@ -26,7 +27,7 @@ import { createPopper } from '@popperjs/core';
 })
 export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   @Input() content: ILayoutBuilder;
-  @Input() showToolbar = false;
+  showToolbar = signal(false);
 
   util = inject(UtilitiesService);
   ele = inject(ElementRef);
@@ -41,7 +42,10 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      if (this.showToolbar) {
+      if (this.ele.nativeElement.closest('.component-item')) {
+        this.showToolbar.set(true);
+      }
+      if (this.showToolbar()) {
         this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
           this.layoutAnimate();
         });
@@ -63,8 +67,8 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onHoverWidget(widget: any, showToolbar: boolean | null): void {
-    if (showToolbar) {
+  onHoverWidget(widget: any): void {
+    if (this.showToolbar()) {
       const component = widget.querySelector('.component');
       const popup = widget.querySelector('.block-toolbar');
       this.popup = createPopper(component, popup, {
@@ -83,8 +87,8 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onLeaveWidget(showToolbar: boolean | null): void {
-    if (showToolbar) {
+  onLeaveWidget(): void {
+    if (this.showToolbar()) {
       this.popup?.destroy();
     }
   }
