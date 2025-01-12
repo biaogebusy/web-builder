@@ -48,7 +48,7 @@
     .layout {
       @apply p-0;
       &:hover {
-        outline-offset: 2px;
+        outline-offset: -2px;
         > .toolbar {
           display: block;
         }
