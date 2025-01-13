@@ -2268,6 +2268,7 @@ export const components: any[] = [
               elements: [
                 {
                   carousel: {
+                    type: 'swiper',
                     params: {
                       slidesPerView: 1,
                       navigation: false,
@@ -2311,6 +2312,7 @@ export const components: any[] = [
                 },
                 {
                   carousel: {
+                    type: 'swiper',
                     params: {
                       slidesPerView: 1,
                       navigation: false,
@@ -2342,6 +2344,7 @@ export const components: any[] = [
                 },
                 {
                   carousel: {
+                    type: 'swiper',
                     params: {
                       slidesPerView: 1,
                       navigation: false,
@@ -2373,6 +2376,7 @@ export const components: any[] = [
                 },
                 {
                   carousel: {
+                    type: 'swiper',
                     params: {
                       slidesPerView: 1,
                       navigation: false,

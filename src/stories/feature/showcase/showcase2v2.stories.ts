@@ -49,6 +49,7 @@ const content: IShowcase2v2 = {
   elements: [
     {
       carousel: {
+        type: 'swiper',
         params: {
           slidesPerView: 1,
           navigation: false,
@@ -92,6 +93,7 @@ const content: IShowcase2v2 = {
     },
     {
       carousel: {
+        type: 'swiper',
         params: {
           slidesPerView: 1,
           navigation: false,
@@ -123,6 +125,7 @@ const content: IShowcase2v2 = {
     },
     {
       carousel: {
+        type: 'swiper',
         params: {
           slidesPerView: 1,
           navigation: false,
@@ -154,6 +157,7 @@ const content: IShowcase2v2 = {
     },
     {
       carousel: {
+        type: 'swiper',
         params: {
           slidesPerView: 1,
           navigation: false,

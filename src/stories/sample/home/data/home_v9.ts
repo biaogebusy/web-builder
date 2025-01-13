@@ -70,6 +70,7 @@ export const home_v9 = {
       elements: [
         {
           carousel: {
+            type: 'swiper',
             params: {
               slidesPerView: 1,
               navigation: false,
@@ -113,6 +114,7 @@ export const home_v9 = {
         },
         {
           carousel: {
+            type: 'swiper',
             params: {
               slidesPerView: 1,
               navigation: false,
@@ -144,6 +146,7 @@ export const home_v9 = {
         },
         {
           carousel: {
+            type: 'swiper',
             params: {
               slidesPerView: 1,
               navigation: false,
@@ -175,6 +178,7 @@ export const home_v9 = {
         },
         {
           carousel: {
+            type: 'swiper',
             params: {
               slidesPerView: 1,
               navigation: false,
