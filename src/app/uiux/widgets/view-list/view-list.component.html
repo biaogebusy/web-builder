@@ -7,12 +7,14 @@
       @if (content.form) {
         <div class="filter flex flex-col md:flex-row justify-between items-center">
           <div class="filter-item flex flex-col md:flex-row flex-wrap gap-3">
-            <app-formly
-              [form]="form"
-              [fields]="content.form"
-              [model]="model"
-              (modelChange)="onModelChange($event)"
-            />
+            <app-dynamic-component
+              [inputs]="{
+                content: content.form,
+                form: form,
+                fields: content.form.fields,
+                model: model,
+              }"
+            ></app-dynamic-component>
           </div>
           <div class="actions flex justify-center items-center gap-3">
             @if (content.params.export?.enable && content.params.export?.position === 'top') {

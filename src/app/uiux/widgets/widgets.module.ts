@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -164,7 +164,6 @@ const components = [
     NgOptimizedImage,
   ],
   exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WidgetsModule extends BaseModule {
   dynamicComponents = [...components];
