@@ -23,6 +23,13 @@
     color: #fff;
   }
 }
+.mdc-fab--mini {
+  ::ng-deep {
+    .mdc-button__label {
+      display: flex;
+    }
+  }
+}
 ::ng-deep {
   .mat-mdc-menu-content {
     .mat-mdc-menu-item {

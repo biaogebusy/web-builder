@@ -1,20 +1,45 @@
 @if (content) {
   @if (!content.svg) {
-    <mat-icon
-      [ngStyle]="content.style"
-      [color]="content.color"
-      [inline]="content.inline ?? false"
-      [fontIcon]="content.name || ''"
-    />
+    @if (!content.badge) {
+      <mat-icon
+        [ngStyle]="content.style"
+        [color]="content.color"
+        [inline]="content.inline ?? false"
+        [fontIcon]="content.name || ''"
+      />
+    } @else {
+      <mat-icon
+        [ngStyle]="content.style"
+        [color]="content.color"
+        [inline]="content.inline ?? false"
+        [fontIcon]="content.name || ''"
+        [matBadge]="content.badge.value"
+        [matBadgePosition]="content.badge.position ?? 'above'"
+        [matBadgeSize]="content.badge.size ?? 'medium'"
+      />
+    }
   }
   @if (content.svg) {
-    <mat-icon
-      [ngStyle]="content.style"
-      class="custom"
-      [color]="content.color"
-      [inline]="content.inline ?? false"
-      [svgIcon]="content.svg"
-    />
+    @if (!content.badge) {
+      <mat-icon
+        [ngStyle]="content.style"
+        class="custom"
+        [color]="content.color"
+        [inline]="content.inline ?? false"
+        [svgIcon]="content.svg"
+      />
+    } @else {
+      <mat-icon
+        [ngStyle]="content.style"
+        class="custom"
+        [color]="content.color"
+        [inline]="content.inline ?? false"
+        [svgIcon]="content.svg"
+        [matBadge]="content.badge.value"
+        [matBadgePosition]="content.badge.position ?? 'above'"
+        [matBadgeSize]="content.badge.size ?? 'medium'"
+      />
+    }
   }
   <ng-content />
 }

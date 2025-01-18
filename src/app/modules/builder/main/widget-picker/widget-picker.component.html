@@ -1,4 +1,4 @@
-<div class="widget-picker p-5" (mouseleave)="onLeave()">
+<div class="widget-picker" [class.active]="show()" (mouseleave)="onLeave()">
   @if (widgets) {
     <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
       @if (bcData()) {
@@ -60,9 +60,9 @@
             <div
               (mouseenter)="onHoverWidget(item, groupPopup)"
               (click)="onSelect(item.content)"
-              class="col-span-6 border border-solid border-gray-200 rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer item"
+              class="item col-span-6 border border-solid rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer"
             >
-              <app-icon class="text-primary" [content]="item.icon"></app-icon>
+              <app-icon [content]="item.icon"></app-icon>
               <div class="text-sm opacity-90">{{ item.label }}</div>
             </div>
           }
@@ -86,5 +86,17 @@
         </div>
       </div>
     }
+  </div>
+  <div class="expand">
+    <app-btn
+      (mouseenter)="hoverExpand()"
+      [matTooltip]="'展开'"
+      [content]="{
+        label: '',
+        color: 'primary',
+        mode: 'mini-fab',
+        icon: { svg: 'chevron-left' },
+      }"
+    />
   </div>
 </div>

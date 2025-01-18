@@ -7,7 +7,10 @@ export interface IViewList {
   spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   params: Params;
   header: Header[];
-  form: FormlyFieldConfig[];
+  form: {
+    type: string;
+    fields: FormlyFieldConfig[];
+  };
   tableClasses?: string;
   tableParams?: any;
   fullWidth?: boolean;

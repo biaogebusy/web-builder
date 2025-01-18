@@ -1,8 +1,9 @@
 @import '../../../../../theme/variable/breakpoint';
 .widget-picker {
   position: absolute;
-  right: -88px;
+  right: -108px;
   top: 50%;
+  padding: 30px;
   transform: translateY(-50%);
   z-index: 999;
   width: 48px;
@@ -39,11 +40,22 @@
       }
     }
   }
-}
-
-:host(.active) {
-  .widget-picker {
-    right: 20px;
+  .expand {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 108px;
+    opacity: 1;
+    padding: 20px;
+    opacity: right 0.5s ease-out;
+  }
+  &.active {
+    right: 0px;
     transition: right 0.5s ease-in;
+    .expand {
+      opacity: 0;
+      z-index: -10;
+      transition: opacity 0.5s ease-in;
+    }
   }
 }

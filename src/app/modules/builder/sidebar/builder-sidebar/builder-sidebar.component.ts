@@ -65,4 +65,8 @@ export class BuilderSidebarComponent implements OnInit {
     }
     this.sidebarDrawer.toggle();
   }
+
+  onHiddeRightDrawer(): void {
+    this.builder.closeRightDrawer$.next(true);
+  }
 }

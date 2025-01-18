@@ -248,6 +248,7 @@ export const system: any[] = [
           type: 'dashboard',
           elements: [
             {
+              type: 'dashboard-box',
               title: {
                 label: '内容发布量',
               },
@@ -336,6 +337,7 @@ export const system: any[] = [
             },
             {
               row: 3,
+              type: 'dashboard-box',
               widget: {
                 type: 'chart-box',
                 label: '文章数',
@@ -400,6 +402,7 @@ export const system: any[] = [
             },
             {
               row: 3,
+              type: 'dashboard-box',
               widget: {
                 type: 'chart-box',
                 label: '审核数',
@@ -464,6 +467,7 @@ export const system: any[] = [
             },
             {
               row: 3,
+              type: 'dashboard-box',
               widget: {
                 type: 'chart-box',
                 label: '用户数',
@@ -528,6 +532,7 @@ export const system: any[] = [
             },
             {
               row: 3,
+              type: 'dashboard-box',
               widget: {
                 type: 'chart-box',
                 label: '评论数',
@@ -591,6 +596,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               title: {
                 label: '最新文章',
               },
@@ -662,6 +668,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               title: {
                 label: '最新审批',
               },
@@ -733,6 +740,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               title: {
                 label: '工作日历',
               },
@@ -890,6 +898,7 @@ export const system: any[] = [
           type: 'dashboard',
           elements: [
             {
+              type: 'dashboard-box',
               title: {
                 label: '消费者注册数据',
               },
@@ -978,6 +987,7 @@ export const system: any[] = [
             },
             {
               row: 3,
+              type: 'dashboard-box',
               widget: {
                 type: 'chart-box',
                 label: '广告发布量',
@@ -1041,6 +1051,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               row: 3,
               widget: {
                 type: 'chart-box',
@@ -1105,6 +1116,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               row: 3,
               widget: {
                 type: 'chart-box',
@@ -1169,6 +1181,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               row: 3,
               widget: {
                 type: 'chart-box',
@@ -1233,6 +1246,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               title: {
                 label: '抽奖数据',
               },
@@ -1299,6 +1313,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               title: {
                 label: '最新广告',
               },
@@ -1363,6 +1378,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               title: {
                 label: '最新评论',
               },
@@ -1419,6 +1435,7 @@ export const system: any[] = [
               },
             },
             {
+              type: 'dashboard-box',
               title: {
                 label: '活动日历',
               },

@@ -1,5 +1,5 @@
-<div [class.active-toolbar]="showToolbar">
-  @if (showToolbar) {
+<div [class.active-toolbar]="showToolbar()">
+  @if (showToolbar()) {
     <app-component-toolbar [content]="inputs" />
   }
   @let content = inputs.type ? inputs : inputs.content;
