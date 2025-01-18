@@ -36,7 +36,7 @@
           0px 2.5px 8.4px rgba(0, 0, 0, 0.05),
           0px 6px 20px rgba(0, 0, 0, 0.07);
         .box {
-          color: mat.m2-get-color-from-palette($primary, 600);
+          color: mat.m2-get-color-from-palette($primary);
         }
       }
       .group-popup,
@@ -46,7 +46,12 @@
         border: 1px solid mat.m2-get-color-from-palette($foreground, divider, 0.1);
       }
       .group-popup {
+        color: mat.m2-get-color-from-palette($foreground, text);
         .item {
+          border-color: mat.m2-get-color-from-palette($foreground, divider);
+          .mat-icon {
+            color: mat.m2-get-color-from-palette($primary);
+          }
           &:hover {
             background-color: mat.m2-get-color-from-palette($primary, 0.1);
           }
@@ -93,6 +98,9 @@
   .component-toolbar {
     .actions {
       background-color: #272727;
+      .mat-icon {
+        color: rgba(255, 255, 255, 0.8);
+      }
       @include mat.elevation(2, mat.m2-get-color-from-palette($background, tooltip), 0.25);
       .mat-mdc-button-base {
         color: mat.m2-get-color-from-palette($primary, default-contrast, 0.8);
