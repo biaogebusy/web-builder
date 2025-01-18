@@ -14,6 +14,7 @@ import {
   ViewContainerRef,
   createComponent,
   inject,
+  signal,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -28,7 +29,7 @@ import type { IDynamicInputs } from '@core/interface/IAppConfig';
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() inputs: IDynamicInputs;
   @Input() index: number; // just for animate count
-  @Input() showToolbar = false;
+  showToolbar = signal(false);
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
 
@@ -52,6 +53,9 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
 
   ngAfterViewInit(): void {
     this.loadComponent();
+    if (this.ele.nativeElement.closest('.component-item')) {
+      this.showToolbar.set(true);
+    }
   }
 
   async loadComponent(): Promise<void> {

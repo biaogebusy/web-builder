@@ -182,9 +182,10 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
   };
 
   const tabsGroup = fields.fieldGroup;
+  let componentConfig: FormlyFieldConfig[] = [];
   switch (content.type) {
     case 'layout-builder':
-      const flexConfig: FormlyFieldConfig[] = [
+      componentConfig = [
         {
           props: {
             label: '布局',
@@ -203,73 +204,78 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
           ],
         },
       ];
-      tabsGroup?.push(...flexConfig);
       break;
     case 'swiper':
-      tabsGroup?.push({
-        props: {
-          label: '幻灯片',
-        },
-        fieldGroup: [
-          {
-            type: 'tabs',
-            fieldGroup: getSwiper(content).fieldGroup,
+      componentConfig = [
+        {
+          props: {
+            label: '幻灯片',
           },
-        ],
-      });
+          fieldGroup: [
+            {
+              type: 'tabs',
+              fieldGroup: getSwiper(content).fieldGroup,
+            },
+          ],
+        },
+      ];
       break;
 
     case 'video':
-      tabsGroup?.push({
-        props: {
-          label: '视频',
+      componentConfig = [
+        {
+          props: {
+            label: '视频',
+          },
+          fieldGroup: getVideo(content).fieldGroup,
         },
-        fieldGroup: getVideo(content).fieldGroup,
-      });
+      ];
       break;
 
     case 'text':
-      tabsGroup?.push({
-        props: {
-          label: '文本',
+      componentConfig = [
+        {
+          props: {
+            label: '文本',
+          },
+          fieldGroup: [
+            content.title ? getTitle(content.title) : {},
+            {
+              key: 'body',
+              type: 'rich-text',
+              className: 'w-full',
+              defaultValue: content.body,
+              props: {
+                label: '内容',
+                rows: 10,
+              },
+            },
+            {
+              key: 'actionsAlign',
+              type: 'select',
+              className: 'w-full',
+              defaultValue: content.actionsAlign ?? 'center',
+              props: {
+                label: '按钮对齐',
+                options: [
+                  {
+                    label: '左对齐',
+                    value: 'start',
+                  },
+                  {
+                    label: '居中对齐',
+                    value: 'center',
+                  },
+                  {
+                    label: '右对齐',
+                    value: 'end',
+                  },
+                ],
+              },
+            },
+          ],
         },
-        fieldGroup: [
-          content.title ? getTitle(content.title) : {},
-          {
-            key: 'body',
-            type: 'rich-text',
-            className: 'w-full',
-            defaultValue: content.body,
-            props: {
-              label: '内容',
-              rows: 10,
-            },
-          },
-          {
-            key: 'actionsAlign',
-            type: 'select',
-            className: 'w-full',
-            defaultValue: content.actionsAlign ?? 'center',
-            props: {
-              label: '按钮对齐',
-              options: [
-                {
-                  label: '左对齐',
-                  value: 'start',
-                },
-                {
-                  label: '居中对齐',
-                  value: 'center',
-                },
-                {
-                  label: '右对齐',
-                  value: 'end',
-                },
-              ],
-            },
-          },
-        ],
-      });
+      ];
       break;
 
     case 'carousel-1v3':
@@ -280,7 +286,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
           },
           fieldGroup: [getText(content.text)],
         };
-        tabsGroup?.push(textConfig);
+        componentConfig.push(textConfig);
       }
       const swiperConfig1v3: FormlyFieldConfig = {
         props: {
@@ -293,8 +299,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
           },
         ],
       };
-
-      tabsGroup?.push(swiperConfig1v3);
+      componentConfig.push(swiperConfig1v3);
       break;
 
     case 'carousel-2v1':
@@ -305,7 +310,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
           },
           fieldGroup: [getTitle(content.title)],
         };
-        tabsGroup?.push(titleConfig);
+        componentConfig.push(titleConfig);
       }
 
       const swiperConfig2v1: FormlyFieldConfig = {
@@ -320,7 +325,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
         ],
       };
 
-      tabsGroup?.push(swiperConfig2v1);
+      componentConfig.push(swiperConfig2v1);
       break;
 
     case 'carousel-1v1':
@@ -334,7 +339,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
           },
           fieldGroup: [getTitle(content.title)],
         };
-        tabsGroup?.push(titleConfig);
+        componentConfig.push(titleConfig);
       }
 
       const swiperConfig: FormlyFieldConfig = {
@@ -349,18 +354,24 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
         ],
       };
 
-      tabsGroup?.push(swiperConfig);
+      componentConfig.push(swiperConfig);
       break;
 
     default:
-      tabsGroup?.push({
-        props: {
-          label: '组件',
+      componentConfig = [
+        {
+          props: {
+            label: '组件',
+          },
+          fieldGroup: getWidgetSetting(content).fieldGroup,
         },
-        fieldGroup: getWidgetSetting(content).fieldGroup,
-      });
+      ];
   }
-
+  if (path.includes('.')) {
+    tabsGroup?.unshift(...componentConfig);
+  } else {
+    tabsGroup?.push(...componentConfig);
+  }
   tabsGroup?.push(getAnimate(content));
   return [fields];
 }

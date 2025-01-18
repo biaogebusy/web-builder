@@ -65,6 +65,12 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.afterClosedDialog();
+      this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
+        this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
+        const mergeValue = merge(value, this.form.getRawValue());
+        const options = this.formService.handleRangeDate(mergeValue);
+        this.getViews(options);
+      });
     }
   }
 
@@ -155,13 +161,6 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
     this.form.get('page')?.patchValue(pageIndex, { onlySelf: true, emitEvent: false });
     const value = merge(this.model, this.form.getRawValue());
     const options = this.formService.handleRangeDate(value);
-    this.getViews(options);
-  }
-
-  onModelChange(value: any): void {
-    this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
-    const mergeValue = merge(value, this.form.getRawValue());
-    const options = this.formService.handleRangeDate(mergeValue);
     this.getViews(options);
   }
 

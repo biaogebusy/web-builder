@@ -7,7 +7,6 @@
   @let horizontal = content.horizontal;
   @let alignItems = content.alignItems;
   @let wrapperClass = content.wrapperClass;
-  @let isBuilderMode = isBuilderMode$ | async;
 
   <div class="layout-builder relative" [ngClass]="classes" [ngStyle]="style">
     <div
@@ -35,7 +34,7 @@
           }} md:col-span-{{ row.md }} lg:col-span-{{ row.lg }}"
           [attr.data-path]="'elements.' + i"
         >
-          @if (isBuilderMode && screenService.isPlatformBrowser()) {
+          @if (showToolbar()) {
             <div class="toolbar hidden absolute z-[1000]">
               <app-layout-toolbar [lbContent]="content" [i]="i" [layout]="layout" />
             </div>
@@ -75,18 +74,13 @@
               @for (item of elements; track item; let index = $index; let last = $last) {
                 <div
                   #widget
-                  (mouseleave)="onLeaveWidget(isBuilderMode)"
-                  (mouseenter)="onHoverWidget(widget, isBuilderMode)"
+                  (mouseleave)="onLeaveWidget()"
+                  (mouseenter)="onHoverWidget(widget)"
                   class="item relative box-border item-{{ item.type }} col-span-12"
                   [attr.data-path]="'elements.' + index"
                 >
-                  <app-dynamic-component
-                    class="component"
-                    [inputs]="item"
-                    [index]="index"
-                    [showToolbar]="true"
-                  />
-                  @if (isBuilderMode) {
+                  <app-dynamic-component class="component" [inputs]="item" [index]="index" />
+                  @if (showToolbar()) {
                     <div class="block-toolbar" #action>
                       <button mat-raised-button (click)="addBlock('widget', content, action)">
                         <div class="flex">

@@ -144,18 +144,6 @@ export class UtilitiesService {
                 toggleActions: `${trigger?.onEnter || 'restart'} ${
                   trigger?.onLeave || 'pause'
                 } ${trigger?.onEnterBack || 'none'} ${trigger?.onLeaveBack || 'reverse'}`,
-                onEnter: () => {
-                  console.log('onEnter');
-                },
-                onLeave: () => {
-                  console.log('onLeave');
-                },
-                onEnterBack: () => {
-                  console.log('onEnterBack');
-                },
-                onLeaveBack: () => {
-                  console.log('onLeaveBack');
-                },
               },
             });
             if (from) {

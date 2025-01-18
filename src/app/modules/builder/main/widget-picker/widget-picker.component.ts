@@ -19,6 +19,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { BuilderService } from '@core/service/builder.service';
 import { cloneDeep } from 'lodash-es';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UtilitiesService } from '@core/service/utilities.service';
 @Component({
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
@@ -34,14 +35,16 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   help: any;
   groupPopper: any;
   widgetPopper: any;
+  show = signal(false);
 
   public bcData = signal(false);
   ele = inject(ElementRef);
   widgets = inject(WIDGETS);
   builder = inject(BuilderState);
+  util = inject(UtilitiesService);
+  destroyRef = inject(DestroyRef);
   storage = inject(LocalStorageService);
   builderService = inject(BuilderService);
-  destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     const {
@@ -56,6 +59,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.builder.widgetsPicker$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {
       this.content = content;
+      this.show.set(!!this.content);
     });
   }
 
@@ -66,6 +70,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
 
   onSelect(widget: any): void {
     if (!this.content) {
+      this.util.openSnackbar('请先选择插入组件的位置', 'ok');
       return;
     }
     const { addType, path, content } = this.content;
@@ -162,5 +167,9 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       this.groupPopper.destroy();
     }
     this.onHoverWidget(widget, ele);
+  }
+
+  hoverExpand(): void {
+    this.show.set(true);
   }
 }

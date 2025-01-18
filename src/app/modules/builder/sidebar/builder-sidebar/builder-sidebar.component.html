@@ -59,6 +59,7 @@
                         [routerLink]="item.href"
                         [routerLinkActive]="['active']"
                         [routerLinkActiveOptions]="{ exact: true }"
+                        (click)="onHiddeRightDrawer()"
                       >
                         @if (item.icon) {
                           <app-icon class="h-[24px] w-[24px] leading-none" [content]="item.icon" />

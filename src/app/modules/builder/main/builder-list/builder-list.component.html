@@ -23,12 +23,7 @@
             [cdkDragData]="item"
           >
             @if (item) {
-              <app-dynamic-component
-                [attr.data-path]="i"
-                [inputs]="item"
-                [index]="i"
-                [showToolbar]="true"
-              />
+              <app-dynamic-component [attr.data-path]="i" [inputs]="item" [index]="i" />
               @if (builderConfig$ | async; as builderConfig) {
                 <div class="add-new-section gap-2 items-center" [attr.data-path]="i">
                   <button
@@ -62,8 +57,7 @@
         </div>
       }
       @if (page.body.length > 0) {
-        @let active = builder.widgetsPicker$ | async;
-        <app-widget-picker [class.active]="active"></app-widget-picker>
+        <app-widget-picker></app-widget-picker>
       }
     </div>
   </div>
