@@ -47,6 +47,11 @@ $dark-theme: mat.m2-define-dark-theme(
         }
         .right {
           color: mat.m2-get-color-from-palette($foreground, text, 0.5);
+          .mat-unthemed {
+            .mdc-button__label {
+              color: mat.m2-get-color-from-palette($foreground, text, 0.5);
+            }
+          }
         }
       }
       .builder-main {
@@ -79,6 +84,9 @@ $dark-theme: mat.m2-define-dark-theme(
             color: mat.m2-get-color-from-palette($foreground, text);
             border-top: 1px solid mat.m2-get-color-from-palette($foreground, divider);
             background: mat.m2-get-color-from-palette($background, background);
+            .mat-icon {
+              color: mat.m2-get-color-from-palette($primary) !important;
+            }
           }
           .component-toolbar {
             + app-spacer {
