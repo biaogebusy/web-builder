@@ -132,6 +132,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     if (type === 'widget') {
       this.builderService.addBlock(type, {}, this.util.generatePath(event.target));
     }
+    this.builder.closeRightDrawer$.next(false);
   }
 
   ngOnDestroy(): void {
