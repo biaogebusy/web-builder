@@ -1,5 +1,18 @@
 @use '@angular/material' as mat;
 @mixin builder-sidebar($background, $foreground, $primary) {
+  .mat-drawer {
+    &.sidebar-drawer {
+      border-right: 0;
+      &.opened {
+        box-shadow: 1px 1px 6px 0px rgb(48 48 48 / 20%);
+        transition: box-shadow 0.1s ease-in;
+      }
+      &.closed {
+        box-shadow: 1px 1px 6px 0px rgb(48 48 48 / 50%) !important;
+        transition: box-shadow 0.1s ease-out;
+      }
+    }
+  }
   .builder-sidebar {
     background-color: mat.m2-get-color-from-palette($background, background);
     .icon-menu,
