@@ -3,7 +3,7 @@
 <p align="center">
   <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
   <br>
-  <i>信使 Web builder 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>通过拖拽可视化配置快速构建现代化响应式UI、多主题、多语言的 Web 页面，包含美观的后台管理主题，拥有完整的前端解决方案。
+  <i>信使 Web builder 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>通过拖拽可视化配置快速构建现代化响应式UI、多主题、多语言的 Web 页面，包含美观的后台管理主题，拥有完整的前端解决方案，Pro 版本已接入AI，可优化文案，创建组件和一句话生成页面。
     </i>
   <br>
 </p>
@@ -40,6 +40,7 @@
 
 | 功能点               | 说明                                                                  |
 | -------------------- | --------------------------------------------------------------------- |
+| AI (Pro版)           | 基于DeepSeek，基础对话、优化文案、生成图表、创建组件和一句话生成页面  |
 | Layout builder       | 动态 layout，基于 TailwindCss 的动态组件，支持静态数据和 API 数据来源 |
 | 组件编辑             | 删除、复制 JSON、编辑组件数据、拖动上下排列                           |
 | 媒体库               | 可在前台批量上传、查看、更新媒体库                                    |
@@ -73,7 +74,8 @@
 
 ## 相关视频演示
 
-- [使用Web builder 构建Drupal CMS 预览版宣传着陆页](https://www.bilibili.com/video/BV1mD6hY6Et3/)
+- [AI 创建自定义组件，优化文案，一句话生成整个页面](https://www.bilibili.com/video/BV17HfhYKEMz/)
+- [构建Drupal CMS 预览版宣传着陆页](https://www.bilibili.com/video/BV1mD6hY6Et3/)
 - [支持AOS通用页面滚动动画](https://www.bilibili.com/video/BV1VKkSY3E1r/)
 - [Layout 嵌套](https://www.bilibili.com/video/BV1pH4y1L7qk)
 - [API 数据来源](https://www.bilibili.com/video/BV1ux4y1n7MA/) | [静态数据来源](https://www.bilibili.com/video/BV1rf421R7He/) TailwindCss 自定义组件

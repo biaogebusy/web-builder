@@ -15,6 +15,7 @@ export const components: any[] = [
               bg: {
                 classes: '',
               },
+              fullWidth: true,
               sliders: {
                 params: {
                   slidesPerView: 1,
