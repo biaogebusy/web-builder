@@ -8,7 +8,12 @@
 .mobile-menu {
   @media #{$xs} {
     position: fixed !important;
-    width: 80vw;
+    width: 100vw;
+    ::ng-deep {
+      .mdc-list-item__primary-text {
+        font-weight: bold;
+      }
+    }
   }
 }
 
