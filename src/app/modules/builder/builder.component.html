@@ -1,3 +1,4 @@
+@let rightContent = builder.rightContent$ | async;
 <div
   class="builder-wrapper relative flex"
   [ngClass]="{ dark: (builder.themeMode | async) === 'dark' }"
@@ -17,15 +18,15 @@
         class="builder flex-1 overflow-auto h-full"
         [ngClass]="{ 'has-sidebar': !(builderFullScreen$ | async) }"
       >
-        <mat-drawer-container [hasBackdrop]="(builder.rightContent$ | async)?.hasBackdrop">
+        <mat-drawer-container [hasBackdrop]="rightContent?.hasBackdrop">
           <mat-drawer
             class="!fixed"
-            [class]="(builder.rightContent$ | async)?.classes"
+            [class]="rightContent?.classes"
             #builderRightDrawer
             [ngStyle]="{
               overflow: builderRightDrawer.opened ? 'visible' : 'auto',
             }"
-            [mode]="(builder.rightContent$ | async)?.mode || 'over'"
+            [mode]="rightContent?.mode || 'over'"
             position="end"
           >
             <div class="actions expand">
@@ -39,12 +40,14 @@
                 }"
               />
             </div>
-            @if (builder.rightContent$ | async; as dynamic) {
-              <div [ngStyle]="dynamic.style">
-                @for (item of dynamic.elements; track item) {
-                  <app-dynamic-component [inputs]="item" />
-                }
-              </div>
+            @if (builderRightDrawer.opened) {
+              @if (rightContent) {
+                <div [ngStyle]="rightContent.style">
+                  @for (item of rightContent.elements; track item) {
+                    <app-dynamic-component [inputs]="item" />
+                  }
+                </div>
+              }
             }
           </mat-drawer>
           <mat-drawer-content>
