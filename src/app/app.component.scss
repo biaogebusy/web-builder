@@ -8,7 +8,15 @@
 .mobile-menu {
   @media #{$xs} {
     position: fixed !important;
-    width: 80vw;
+    width: 100vw;
+    ::ng-deep {
+      .mdc-list-item__primary-text {
+        font-weight: bold;
+      }
+      .mat-accordion .mat-expansion-panel-header-title {
+        font-size: 16px;
+      }
+    }
   }
 }
 
