@@ -1,13 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  Input,
-  inject,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, Input, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -22,7 +15,6 @@ import { cloneDeep, defaultsDeep, get } from 'lodash-es';
   selector: 'app-layout-setting',
   templateUrl: './layout-setting.component.html',
   styleUrls: ['./layout-setting.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutSettingComponent {
   @Input() content: ILayoutSetting;
@@ -123,6 +115,7 @@ export class LayoutSettingComponent {
           },
         },
       });
+      this.builder.closeRightDrawer$.next(true);
     }
   }
 
