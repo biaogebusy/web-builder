@@ -7,7 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: false
     defaults:
       run:
         working-directory: ./
@@ -44,4 +43,4 @@ jobs:
           FOLDER: 'dist'
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: '/mnt/wwwroot/app/builder'
+          SERVER_DESTINATION: '/mnt/wwwroot/app/base'
