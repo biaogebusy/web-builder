@@ -3,7 +3,7 @@ import { IEnvironment } from '../app/core/interface/IEnvironment';
 export const environment: IEnvironment = {
   apiUrl: 'https://yourdomain.com',
   production: true,
-  port: 4201,
+  port: 4200,
   cache: true,
   multiLang: true,
   langs: [
