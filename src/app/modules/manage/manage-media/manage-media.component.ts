@@ -1,18 +1,18 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   Inject,
   ChangeDetectorRef,
   Input,
   inject,
   ViewChild,
   DestroyRef,
+  signal,
 } from '@angular/core';
 import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, from, of } from 'rxjs';
-import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
+import { BUILDER_CONFIG, CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IManageAssets, IManageImg, IManageMedia } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
@@ -33,21 +33,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IBuilderConfig } from '@core/interface/IBuilder';
 
 @Component({
   selector: 'app-manage-media',
   templateUrl: './manage-media.component.html',
   styleUrls: ['./manage-media.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManageMediaComponent implements OnInit {
   @Input() content: IManageMedia;
   form = new UntypedFormGroup({
     page: new FormControl(0),
   });
-  fields: FormlyFieldConfig[];
+  fields = signal<FormlyFieldConfig[]>([]);
+  manageMediaConfig = signal<any>({});
   model: any = {};
-  loading = false;
+  loading = signal<boolean>(false);
   selectedId: string;
   deletedLists: string[] = [];
   progress = 0;
@@ -73,25 +74,25 @@ export class ManageMediaComponent implements OnInit {
         appearance: 'fill',
         label: '请输入关键词',
       },
-    },
-    {
-      type: 'toggle',
-      key: 'noCache',
-      defaultValue: false,
-      props: {
-        label: '忽略缓存',
+      modelOptions: {
+        updateOn: 'blur',
       },
     },
   ];
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>
+    @Inject(BUILDER_CONFIG) public builderConfig: Observable<IBuilderConfig>,
+    @Inject(MEDIA_ASSETS)
+    public mediaAssets$: Observable<IManageAssets>
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.loading = true;
-      this.fields = [...this.defaultField, ...this.coreConfig.manageMedia.sidebar.form];
+      this.loading.set(true);
+      this.builderConfig.subscribe(config => {
+        this.manageMediaConfig.set(config.manageMedia);
+        this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
+      });
       this.form.valueChanges
         .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(1000), distinctUntilChanged())
         .subscribe(value => {
@@ -99,34 +100,31 @@ export class ManageMediaComponent implements OnInit {
         });
 
       this.mediaAssets$.subscribe(() => {
-        this.loading = false;
-        this.cd.detectChanges();
+        this.loading.set(false);
       });
     }
   }
 
   onPageChange(page: PageEvent): void {
     this.screenService.gotoTop();
-    this.loading = true;
+    this.loading.set(true);
     this.form.get('page')?.patchValue(page.pageIndex);
   }
 
   onSearch(value: any): void {
-    this.loading = true;
-    this.cd.detectChanges();
+    this.loading.set(true);
     this.contentState.mediaAssetsFormChange$.next(value);
   }
 
   onDelete(uuid: string): void {
     if (uuid) {
-      this.loading = true;
+      this.loading.set(true);
       this.manageService
         .deleteMedia(uuid)
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(res => {
-          this.loading = false;
+        .subscribe(() => {
+          this.loading.set(false);
           this.onSearch(this.form.value);
-          this.cd.detectChanges();
         });
     } else {
       this.util.openSnackbar('是否忘记了配置UUID？', 'ok');
@@ -161,7 +159,6 @@ export class ManageMediaComponent implements OnInit {
     if (progress === 100) {
       this.util.openSnackbar('已全部删除', 'ok');
     }
-    this.cd.detectChanges();
   }
 
   bulkDelete(lists: string[]): void {
@@ -171,14 +168,14 @@ export class ManageMediaComponent implements OnInit {
       .pipe(
         concatMap(file => this.handleDelete(file)), // 使用 concatMap 保证顺序执行
         scan((acc, curr) => acc + (curr === false ? 0 : 1), 0),
-        tap(deletedCount => this.calculateProgress(deletedCount, totalFiles))
+        tap(deletedCount => this.calculateProgress(deletedCount, totalFiles)),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
         complete: () => {
-          this.loading = false;
+          this.loading.set(false);
           this.deletedLists = [];
           this.onSearch(this.form.value);
-          this.cd.detectChanges();
         },
         error: err => console.error('Error deleting files', err),
       });

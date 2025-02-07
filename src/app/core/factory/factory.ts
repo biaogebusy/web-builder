@@ -254,12 +254,18 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   const api = '/api/v2/media';
   const nodeService = inject(NodeService);
   const contentState = inject(ContentState);
+  const userService = inject(UserService);
+  const cookieService = inject(CookieService);
+  const key = userService.localUserKey;
   const util = inject(UtilitiesService);
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
-
+  let noCache = false;
+  if (cookieService.check(key)) {
+    noCache = true;
+  }
   // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value: any) => {
-    const params = nodeService.getApiParams({ ...value });
+    const params = nodeService.getApiParams({ ...value, noCache });
     nodeService.fetch(api, params).subscribe(res => {
       assets$.next({
         rows: res.rows.map((item: any) => {
