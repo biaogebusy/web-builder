@@ -52,3 +52,11 @@ pre {
     background-color: transparent;
   }
 }
+:root {
+  // TODO: 临时修复
+  --mdc-text-button-container-height: 36px;
+  --mdc-filled-button-container-height: 36px;
+  --mdc-protected-button-container-height: 36px;
+  --mdc-outlined-button-container-height: 36px;
+  --mat-form-field-container-height: 56px;
+}

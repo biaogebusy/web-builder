@@ -14,7 +14,7 @@ export function getBox(widget: any): FormlyFieldConfig {
             key: 'title',
             fieldGroup: [
               {
-                key: 'lable',
+                key: 'label',
                 type: 'input',
                 defaultValue: widget?.title?.label,
                 props: {
@@ -77,7 +77,7 @@ export function getBox(widget: any): FormlyFieldConfig {
             fieldGroup: [
               {
                 type: 'input',
-                key: 'lable',
+                key: 'label',
                 defaultValue: widget?.more?.label,
                 props: {
                   label: '更多',
