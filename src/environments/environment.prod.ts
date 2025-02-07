@@ -1,7 +1,7 @@
 import { IEnvironment } from '../app/core/interface/IEnvironment';
 
 export const environment: IEnvironment = {
-  apiUrl: 'https://builder.design',
+  apiUrl: 'https://base.builder.design',
   production: true,
   port: 4201,
   cache: true,
