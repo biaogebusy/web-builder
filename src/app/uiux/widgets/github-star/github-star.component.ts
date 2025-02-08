@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -11,12 +11,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./github-star.component.scss'],
 })
 export class GithubStarComponent implements OnInit {
-  repo$: Observable<any> = new BehaviorSubject<any>('0');
+  private contentService = inject(ContentService);
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  constructor(
-    private contentService: ContentService,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
-  ) {}
+  repo$: Observable<any> = new BehaviorSubject<any>('0');
 
   ngOnInit(): void {
     if (this.coreConfig.github && environment.production) {

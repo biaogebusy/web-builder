@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,6 +20,10 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderGeneraterComponent implements OnInit {
+  uiux = inject(UIUX);
+  builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  private user$ = inject<Observable<IUser>>(USER);
+
   form = new UntypedFormGroup({});
   model: any = {};
   user: IUser;
@@ -27,11 +31,8 @@ export class BuilderGeneraterComponent implements OnInit {
   router = inject(Router);
   builder = inject(BuilderState);
   util = inject(UtilitiesService);
-  constructor(
-    @Inject(UIUX) public uiux: IUiux[],
-    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });

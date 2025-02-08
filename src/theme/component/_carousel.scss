@@ -9,6 +9,12 @@
   $warn: map-get($config, warn);
 
   $light: map-get($background, card);
+  $primary-color: mat.m2-get-color-from-palette($primary);
+  --swiper-navigation-color: #{$primary-color};
+  --swiper-theme-color: #{$primary-color};
+  .swiper {
+    --swiper-navigation-size: 24px;
+  }
   .carousel-1-v2 {
     .actions {
       color: mat.m2-get-color-from-palette($primary);
@@ -87,8 +93,7 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        border: 2px solid
-          mat.m2-get-color-from-palette($foreground, elevation, 0.4);
+        border: 2px solid mat.m2-get-color-from-palette($foreground, elevation, 0.4);
         border-radius: 50%;
         transform: translate(-50%, -50%);
       }

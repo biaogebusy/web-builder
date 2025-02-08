@@ -6,6 +6,7 @@ import { IBgImg } from './widgets/IBgImg';
 import { ILink } from './widgets/ILink';
 import { IBtn } from './widgets/IBtn';
 import { IMainMenu } from './branding/IBranding';
+import { ITitle } from './widgets/ITitle';
 
 export interface IBuilderConfig {
   menu: IMainMenu[];
@@ -26,6 +27,16 @@ export interface IBuilderConfig {
       tooltip: string;
       link: string;
     };
+  };
+  manageMedia: IBuilderManageMedia;
+}
+
+export interface IBuilderManageMedia {
+  row: number;
+  sidebar: {
+    title: ITitle;
+    form: FormlyFieldConfig[];
+    action: IBtn;
   };
 }
 

@@ -4,7 +4,6 @@ import {
   Input,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Inject,
   inject,
   DestroyRef,
 } from '@angular/core';
@@ -28,6 +27,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlagComponent extends BaseComponent implements OnInit {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: IFlag;
   config: ICoreFlag;
   flagging = false;
@@ -38,10 +40,8 @@ export class FlagComponent extends BaseComponent implements OnInit {
   nodeService = inject(NodeService);
   utiltiy = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     super();
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
@@ -60,10 +60,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
   get flaggingParams(): any {
     const params = [
       `filter[uid.id]=${this.user.id}`,
-      `filter[entity_id]=${this.getDeepValue(
-        this.content,
-        'params.entity_id'
-      )}`,
+      `filter[entity_id]=${this.getDeepValue(this.content, 'params.entity_id')}`,
     ].join('&');
     return params;
   }
@@ -105,10 +102,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
           relationships: {
             flagged_entity: {
               data: {
-                type: this.getDeepValue(
-                  this.content,
-                  'params.relationships.flagged_entity.type'
-                ),
+                type: this.getDeepValue(this.content, 'params.relationships.flagged_entity.type'),
                 id: this.nodeId,
               },
             },
@@ -131,18 +125,10 @@ export class FlagComponent extends BaseComponent implements OnInit {
         });
     } else {
       this.nodeService
-        .getNodes(
-          this.coreConfig.apiUrl.flaggingGetPath,
-          this.type,
-          this.flaggingParams
-        )
+        .getNodes(this.coreConfig.apiUrl.flaggingGetPath, this.type, this.flaggingParams)
         .pipe(
           switchMap(res => {
-            return this.nodeService.deleteFlagging(
-              this.path,
-              res.data,
-              this.user.csrf_token
-            );
+            return this.nodeService.deleteFlagging(this.path, res.data, this.user.csrf_token);
           }),
           takeUntilDestroyed(this.destroyRef)
         )
@@ -159,10 +145,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
   }
 
   get nodeId(): string {
-    return this.getDeepValue(
-      this.content,
-      'params.relationships.flagged_entity.id'
-    );
+    return this.getDeepValue(this.content, 'params.relationships.flagged_entity.id');
   }
 
   get path(): string {

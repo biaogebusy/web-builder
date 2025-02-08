@@ -7,7 +7,6 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Inject,
   NgZone,
   OnDestroy,
   OnInit,
@@ -32,6 +31,10 @@ import { BuilderService } from '@core/service/builder.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
+  private doc = inject<Document>(DOCUMENT);
+  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
   markers: NodeListOf<Element>;
   previewClass$: Observable<any>;
@@ -45,11 +48,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   animateElement: Element[] = [];
   scrollableContainer: Element;
 
-  constructor(
-    @Inject(DOCUMENT) private doc: Document,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
-  ) {
+  constructor() {
     afterRender({
       read: throttle(() => {
         this.intersectionObserver(this.animateElement);

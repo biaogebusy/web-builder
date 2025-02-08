@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -26,6 +25,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./profile1v1.component.scss'],
 })
 export class Profile1v1Component implements OnInit, AfterViewInit {
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: IProfile1v1;
   comments: IComment[];
   avatar: IImg;
@@ -36,10 +38,8 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   nodeService = inject(NodeService);
   contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user$: Observable<IUser>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });

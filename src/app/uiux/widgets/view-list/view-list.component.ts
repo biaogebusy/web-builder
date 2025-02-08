@@ -5,7 +5,6 @@ import {
   OnInit,
   ChangeDetectorRef,
   AfterViewInit,
-  Inject,
   inject,
   DestroyRef,
 } from '@angular/core';
@@ -34,6 +33,8 @@ import { catchError } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewListComponent extends BaseComponent implements OnInit, AfterViewInit {
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: IViewList;
   @Input() form = new UntypedFormGroup({
     page: new UntypedFormControl(0),
@@ -55,7 +56,8 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   screenService = inject(ScreenService);
   userSerivice = inject(UserService);
   private destroyRef = inject(DestroyRef);
-  constructor(@Inject(USER) private user$: Observable<IUser>) {
+
+  constructor() {
     super();
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;

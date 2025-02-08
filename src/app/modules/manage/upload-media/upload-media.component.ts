@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Inject, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IUser } from '@core/interface/IUser';
 import { IMediaAttr } from '@core/interface/manage/IManage';
@@ -15,13 +15,16 @@ import { catchError, retry } from 'rxjs/operators';
   styleUrl: './upload-media.component.scss',
 })
 export class UploadMediaComponent {
+  private user$ = inject<Observable<IUser>>(USER);
+
   files: IMediaAttr[] = [];
   filesEntry: NgxFileDropEntry[];
   util = inject(UtilitiesService);
   nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
   user: IUser;
-  constructor(@Inject(USER) private user$: Observable<IUser>) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });

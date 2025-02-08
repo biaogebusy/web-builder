@@ -5,7 +5,7 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
-  Inject,
+  inject,
 } from '@angular/core';
 import type { ICommentConfig } from '@core/interface/node/INode';
 import { ContentState } from '@core/state/ContentState';
@@ -21,6 +21,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentActionsComponent implements OnInit {
+  contentState = inject(ContentState);
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() config: ICommentConfig;
   @Input() item: any;
   @Input() i: number;
@@ -30,10 +33,8 @@ export class CommentActionsComponent implements OnInit {
   @Output() reply = new EventEmitter();
   @Output() delete = new EventEmitter();
   user: IUser;
-  constructor(
-    public contentState: ContentState,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
@@ -59,8 +60,6 @@ export class CommentActionsComponent implements OnInit {
   }
 
   isMy(): boolean {
-    return (
-      this.item.author.id === this.user.id && this.item.id !== this.currentId
-    );
+    return this.item.author.id === this.user.id && this.item.id !== this.currentId;
   }
 }

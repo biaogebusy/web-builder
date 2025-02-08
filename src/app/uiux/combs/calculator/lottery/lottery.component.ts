@@ -5,6 +5,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import type { ILottery, ILotteryForm } from '@core/interface/combs/ICalculator';
@@ -17,6 +18,8 @@ import { EChartsOption } from 'echarts';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LotteryComponent implements OnInit, AfterViewInit {
+  private cd = inject(ChangeDetectorRef);
+
   @Input() content: ILottery;
   @Input() form = new UntypedFormGroup({});
   @Input() model: any = {};
@@ -24,8 +27,6 @@ export class LotteryComponent implements OnInit, AfterViewInit {
   promoteMoney = '0';
   minTotalMoney = 0;
   chart: EChartsOption;
-
-  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 
@@ -41,36 +42,22 @@ export class LotteryComponent implements OnInit, AfterViewInit {
     }
     // max: 大额红包 min: 小额红包 promote: 提成
     const { max, min, promote, isPromote } = value;
-    const {
-      per_max: min_per_max,
-      per_min: min_per_min,
-      total_number: min_total_number,
-    } = min;
-    this.minTotalMoney = Number(
-      (((min_per_max + min_per_min) / 2) * min_total_number).toFixed(2)
-    );
+    const { per_max: min_per_max, per_min: min_per_min, total_number: min_total_number } = min;
+    this.minTotalMoney = Number((((min_per_max + min_per_min) / 2) * min_total_number).toFixed(2));
     if (isPromote) {
       // 固定金额
       if (promote.type === 'fixed') {
-        this.promoteMoney = (
-          promote.fixed *
-          (max.total_number + min.total_number)
-        ).toFixed(2);
+        this.promoteMoney = (promote.fixed * (max.total_number + min.total_number)).toFixed(2);
       }
       // 按比例
       if (promote.type === 'percent') {
         const percent = promote.percent / 100;
-        this.promoteMoney = (
-          (max.total_money + this.minTotalMoney) *
-          percent
-        ).toFixed(0);
+        this.promoteMoney = ((max.total_money + this.minTotalMoney) * percent).toFixed(0);
       }
     } else {
       this.promoteMoney = '0';
     }
-    this.total = Math.round(
-      max.total_money + this.minTotalMoney + Number(this.promoteMoney)
-    );
+    this.total = Math.round(max.total_money + this.minTotalMoney + Number(this.promoteMoney));
 
     const data = {
       dataset: {

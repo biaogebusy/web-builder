@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -26,6 +25,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./comment-item.component.scss'],
 })
 export class CommentItemComponent implements OnInit, AfterViewInit {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: IBaseNode;
   @Input() comments: IComment[];
 
@@ -44,10 +46,8 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
   tagsService = inject(TagsService);
   private destroyRef = inject(DestroyRef);
   user: IUser;
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });

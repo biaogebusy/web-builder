@@ -1,18 +1,17 @@
-import { Injectable, Inject, PLATFORM_ID, NgZone } from '@angular/core';
+import { Injectable, PLATFORM_ID, NgZone, inject } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScreenService {
+  private document = inject<Document>(DOCUMENT);
+  platformId = inject(PLATFORM_ID);
+  private zone = inject(NgZone);
+
   main: any;
   sidebar: any;
   container: any;
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) public platformId: object,
-    private zone: NgZone
-  ) {}
 
   isPlatformServer(): boolean {
     return isPlatformServer(this.platformId);
@@ -29,28 +28,20 @@ export class ScreenService {
       rect.left >= 0 &&
       rect.bottom <=
         (window.innerHeight ||
-          this.document.documentElement
-            .clientHeight) /* or $(window).height() */ &&
+          this.document.documentElement.clientHeight) /* or $(window).height() */ &&
       rect.right <=
-        (window.innerWidth ||
-          this.document.documentElement.clientWidth) /* or $(window).width() */
+        (window.innerWidth || this.document.documentElement.clientWidth) /* or $(window).width() */
     );
   }
 
   isElementOutTopViewport(el: any): boolean {
     const rect = el.getBoundingClientRect();
-    return (
-      rect.top < -el.clientHeight &&
-      rect.bottom <= 0 /* or $(window).height() */
-    );
+    return rect.top < -el.clientHeight && rect.bottom <= 0 /* or $(window).height() */;
   }
 
   isElementOutBottomViewport(el: any): boolean {
     const rect = el.getBoundingClientRect();
-    return (
-      rect.top >
-      (window.innerHeight || this.document.documentElement.clientHeight)
-    );
+    return rect.top > (window.innerHeight || this.document.documentElement.clientHeight);
   }
 
   scrollToAnchor(location: string, wait = 0): void {
@@ -77,9 +68,7 @@ export class ScreenService {
   initSidebarStyle(opened: any): void {
     this.main = this.document.getElementById('main-container');
     this.sidebar = this.document.getElementById('sidebar');
-    this.container = this.sidebar.getElementsByClassName(
-      'mat-drawer-inner-container'
-    )[0];
+    this.container = this.sidebar.getElementsByClassName('mat-drawer-inner-container')[0];
     this.zone.runOutsideAngular(() => {
       if (opened) {
         this.main.style.paddingLeft = '0';

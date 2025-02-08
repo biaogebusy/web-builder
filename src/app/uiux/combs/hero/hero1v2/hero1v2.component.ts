@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import type { IHero1v2 } from '@core/interface/combs/IHero';
 @Component({
@@ -14,10 +15,10 @@ import type { IHero1v2 } from '@core/interface/combs/IHero';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero1v2Component implements OnInit {
+  private cd = inject(ChangeDetectorRef);
+
   @Input() content: IHero1v2;
   index = 0;
-
-  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 

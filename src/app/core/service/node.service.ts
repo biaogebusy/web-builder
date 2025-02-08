@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -17,14 +17,15 @@ import { IMediaAttr } from '@core/interface/manage/IManage';
   providedIn: 'root',
 })
 export class NodeService extends ApiService {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private user$ = inject<Observable<IUser>>(USER);
+
   http = inject(HttpClient);
   storage = inject(LocalStorageService);
   util = inject(UtilitiesService);
   user: IUser;
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     super();
     this.user$.subscribe(user => {
       this.user = user;

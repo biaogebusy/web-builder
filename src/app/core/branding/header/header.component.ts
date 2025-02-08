@@ -4,7 +4,6 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
-  Inject,
   ChangeDetectionStrategy,
   inject,
   DestroyRef,
@@ -25,6 +24,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
+  private doc = inject<Document>(DOCUMENT);
+  branding$ = inject<Observable<IBranding>>(BRANDING);
+  isBuilderMode$ = inject<Observable<boolean>>(IS_BUILDER_MODE);
+
   sticky = signal(false);
   showBanner = signal(false);
   headerMode: any;
@@ -36,12 +39,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public screenService = inject(ScreenService);
   public screenState = inject(ScreenState);
   public contentState = inject(ContentState);
-  constructor(
-    @Inject(DOCUMENT) private doc: Document,
-    @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(IS_BUILDER_MODE)
-    public isBuilderMode$: Observable<boolean>
-  ) {}
 
   ngOnInit(): void {
     this.contentState.pageConfig$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(config => {

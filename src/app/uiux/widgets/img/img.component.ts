@@ -1,4 +1,4 @@
-import { Component, HostBinding, Inject, Input, OnInit, inject } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, inject } from '@angular/core';
 import type { IImg } from '@core/interface/widgets/IImg';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
@@ -10,11 +10,11 @@ import { CORE_CONFIG } from '@core/token/token-providers';
   styleUrls: ['./img.component.scss'],
 })
 export class ImgComponent implements OnInit {
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+
   @Input() content: IImg | undefined;
   @HostBinding('class') hostClasses: any;
   screenService = inject(ScreenService);
-
-  constructor(@Inject(CORE_CONFIG) public coreConfig: ICoreConfig) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

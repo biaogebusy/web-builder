@@ -4,15 +4,17 @@
       @if (content.title) {
         <app-title [attr.data-path]="'title'" [content]="content.title" />
       }
-      <div class="actions">
-        <mat-icon data-testid="prev" (click)="onPrev()">keyboard_arrow_left</mat-icon>
-        <mat-icon data-testid="next" (click)="onNext()">keyboard_arrow_right</mat-icon>
+      <div class="actions flex">
+        <app-btn
+          [content]="{ mode: 'icon', icon: { svg: 'chevron-left' }, classes: 'prev' }"
+        ></app-btn>
+        <app-btn
+          [content]="{ mode: 'icon', icon: { svg: 'chevron-right' }, classes: 'next' }"
+        ></app-btn>
       </div>
     </div>
-    <app-swiper
-      [attr.data-path]="'sliders'"
-      [content]="content.sliders"
-      [navigationSub]="navigation$"
-    />
+    @if (swiper().elements.length) {
+      <app-swiper [attr.data-path]="'swiper'" [content]="swiper()" [navigationSub]="navigation$" />
+    }
   </div>
 }

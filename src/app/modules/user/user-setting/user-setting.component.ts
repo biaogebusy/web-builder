@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   OnInit,
   inject,
 } from '@angular/core';
@@ -25,6 +24,8 @@ import { Observable, catchError, of } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserSettingComponent implements OnInit {
+  user$ = inject<Observable<IUser>>(USER);
+
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[];
@@ -36,7 +37,6 @@ export class UserSettingComponent implements OnInit {
   storage = inject(LocalStorageService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  constructor(@Inject(USER) public user$: Observable<IUser>) {}
 
   ngOnInit(): void {
     this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user: IUser) => {

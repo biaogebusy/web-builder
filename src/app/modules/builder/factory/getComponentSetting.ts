@@ -294,8 +294,8 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
         },
         fieldGroup: [
           {
-            ...getSwiper(content.sliders),
-            key: 'sliders',
+            ...getSwiper(content.swiper),
+            key: 'swiper',
           },
         ],
       };
@@ -319,8 +319,8 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
         },
         fieldGroup: [
           {
-            ...getSwiper(content.sliders),
-            key: 'sliders',
+            ...getSwiper(content.swiper),
+            key: 'swiper',
           },
         ],
       };
@@ -348,8 +348,8 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
         },
         fieldGroup: [
           {
-            ...getSwiper(content.sliders),
-            key: 'sliders',
+            ...getSwiper(content.swiper),
+            key: 'swiper',
           },
         ],
       };

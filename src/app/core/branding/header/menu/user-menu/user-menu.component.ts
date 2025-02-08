@@ -4,7 +4,6 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
-  Inject,
   inject,
   DestroyRef,
 } from '@angular/core';
@@ -28,6 +27,8 @@ import { UtilitiesService } from '@core/service/utilities.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserMenuComponent implements OnInit {
+  user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: any[];
   dialogRef: any;
   currentUser: IUser | false;
@@ -39,7 +40,8 @@ export class UserMenuComponent implements OnInit {
   router = inject(Router);
   utilities = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
-  constructor(@Inject(USER) public user$: Observable<IUser>) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.currentUser = user;
     });

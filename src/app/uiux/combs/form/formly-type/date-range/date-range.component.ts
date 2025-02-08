@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  inject,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { FieldType } from '@ngx-formly/core';
@@ -14,11 +15,10 @@ import { FieldType } from '@ngx-formly/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateRangeComponent extends FieldType implements OnInit {
+  private cd = inject(ChangeDetectorRef);
+
   start: UntypedFormControl;
   end: UntypedFormControl;
-  constructor(private cd: ChangeDetectorRef) {
-    super();
-  }
 
   ngOnInit(): void {
     if (this.field.fieldGroup && this.field.fieldGroup?.length > 0) {

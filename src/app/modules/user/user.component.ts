@@ -3,7 +3,6 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Inject,
   inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -23,6 +22,9 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserComponent implements OnInit {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private user$ = inject<Observable<IUser>>(USER);
+
   currentUser: any;
   user: IUser;
   id: any;
@@ -31,10 +33,8 @@ export class UserComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   userService = inject(UserService);
   screenService = inject(ScreenService);
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     this.user$.subscribe(user => {
       this.user = user;
     });

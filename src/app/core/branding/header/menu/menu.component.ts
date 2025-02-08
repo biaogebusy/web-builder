@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Inject,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -21,16 +13,19 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent implements OnInit {
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  branding$ = inject<Observable<IBranding>>(BRANDING);
+
   @Input() isDrawer: boolean;
   show = true;
 
   screen = inject(ScreenState);
   router = inject(Router);
   cd = inject(ChangeDetectorRef);
-  constructor(
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(BRANDING) public branding$: Observable<IBranding>
-  ) {
+
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+  constructor() {
     this.router.events.subscribe((event: Event) => {
       if (this.isDrawer && event instanceof NavigationStart) {
         this.screen.toggleDrawer();

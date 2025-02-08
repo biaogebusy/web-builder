@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  Inject,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, NOTIFY_CONTENT, USER } from '@core/token/token-providers';
 import { NodeService } from '@core/service/node.service';
@@ -21,15 +14,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotifyComponent implements OnInit {
+  private user$ = inject<Observable<IUser>>(USER);
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  notify$ = inject<Observable<INotify[]>>(NOTIFY_CONTENT);
+
   user: IUser;
 
   nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(USER) private user$: Observable<IUser>,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(NOTIFY_CONTENT) public notify$: Observable<INotify[]>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });

@@ -1,15 +1,13 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { THEME } from '@core/token/token-providers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(THEME) private theme: string
-  ) {}
+  private document = inject<Document>(DOCUMENT);
+  private theme = inject(THEME);
 
   initTheme(): void {
     this.setTheme(this.theme);

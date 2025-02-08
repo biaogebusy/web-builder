@@ -1,12 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClarityService {
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  private document = inject<Document>(DOCUMENT);
 
   init(id: string): void {
     const { host } = window.location;

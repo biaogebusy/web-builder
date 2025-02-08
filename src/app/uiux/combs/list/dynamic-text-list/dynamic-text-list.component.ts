@@ -7,7 +7,6 @@ import {
   Output,
   ChangeDetectorRef,
   OnDestroy,
-  Inject,
   inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
@@ -27,6 +26,8 @@ import type { IDynamicTextList } from '@core/interface/combs/IList';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicTextListComponent extends BaseComponent implements OnInit, OnDestroy {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+
   @Input() content: IDynamicTextList;
   @Output() pageChange = new EventEmitter<string>();
 
@@ -39,9 +40,6 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit, O
   private cd = inject(ChangeDetectorRef);
   public nodeService = inject(NodeService);
   private screenService = inject(ScreenService);
-  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {
-    super();
-  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

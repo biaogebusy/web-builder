@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
@@ -11,15 +11,14 @@ import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
   providedIn: 'root',
 })
 export class ManageService extends ApiService {
+  private user$ = inject<Observable<IUser>>(USER);
+
   http = inject(HttpClient);
   util = inject(UtilitiesService);
-  mediaDialogClass = [
-    'close-outside',
-    'close-icon-white',
-    'manage-media-dialog',
-  ];
+  mediaDialogClass = ['close-outside', 'close-icon-white', 'manage-media-dialog'];
   user: IUser;
-  constructor(@Inject(USER) private user$: Observable<IUser>) {
+
+  constructor() {
     super();
     this.user$.subscribe(user => {
       this.user = user;

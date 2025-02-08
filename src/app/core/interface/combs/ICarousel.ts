@@ -7,5 +7,5 @@ export interface ICarouselBase extends ICombsBase {
   bg: IBgImg;
   style?: string;
   title?: ITitle;
-  sliders: ISwiper;
+  swiper: ISwiper;
 }

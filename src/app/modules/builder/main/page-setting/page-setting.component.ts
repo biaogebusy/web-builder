@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -29,6 +28,8 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageSettingComponent implements OnInit {
+  user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: any;
   form = new FormGroup({});
   model: any = {};
@@ -45,7 +46,8 @@ export class PageSettingComponent implements OnInit {
   builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   user: IUser;
-  constructor(@Inject(USER) public user$: Observable<IUser>) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
