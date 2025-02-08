@@ -21,7 +21,7 @@ export const home_v11 = {
       type: 'hero-1v2',
       spacer: 'none',
       classes: 'text-light text-center',
-      sliders: {
+      swiper: {
         params: {
           slidesPerView: 1,
           spaceBetween: 0,
@@ -125,7 +125,7 @@ export const home_v11 = {
       bg: {
         classes: 'bg-white bg-fill-width',
       },
-      sliders: {
+      swiper: {
         params: {
           slidesPerView: 1.2,
           spaceBetween: 10,

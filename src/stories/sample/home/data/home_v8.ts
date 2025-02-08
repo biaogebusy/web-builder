@@ -81,7 +81,7 @@ export const home_v8 = {
         classes: 'bg-fill-width bg-shadow',
       },
       classes: '',
-      sliders: {
+      swiper: {
         params: {
           slidesPerView: 1.2,
           pagination: false,
@@ -411,7 +411,7 @@ export const home_v8 = {
       bg: {
         classes: 'bg-shadow',
       },
-      sliders: {
+      swiper: {
         params: {
           slidesPerView: 1.1,
           spaceBetween: 20,

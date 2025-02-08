@@ -448,7 +448,7 @@ export const home_v4 = {
       bg: {
         classes: 'bg-white bg-fill-width',
       },
-      sliders: {
+      swiper: {
         type: 'swiper',
         params: {
           navigation: false,

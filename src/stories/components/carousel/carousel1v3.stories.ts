@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Carousel1v3Component } from '@uiux/combs/carousel/carousel1v3/carousel1v3.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -45,7 +40,7 @@ const content: ICarouselBase = {
   bg: {
     classes: 'bg-shadow',
   },
-  sliders: {
+  swiper: {
     params: {
       slidesPerView: 1.2,
       spaceBetween: 20,
@@ -186,7 +181,7 @@ const clientContent: ICarouselBase = {
   bg: {
     classes: 'bg-shadow',
   },
-  sliders: {
+  swiper: {
     params: {
       slidesPerView: 1.1,
       spaceBetween: 20,

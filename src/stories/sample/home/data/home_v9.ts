@@ -281,7 +281,7 @@ export const home_v9 = {
       bg: {
         classes: 'bg-white bg-fill-width',
       },
-      sliders: {
+      swiper: {
         params: {
           slidesPerView: 1.2,
           spaceBetween: 10,

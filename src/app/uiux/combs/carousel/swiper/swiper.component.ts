@@ -4,12 +4,12 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit,
-  OnDestroy,
   Output,
   EventEmitter,
   inject,
   OnChanges,
   SimpleChanges,
+  DestroyRef,
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -17,19 +17,21 @@ import { ScreenService } from '@core/service/screen.service';
 import type { ISwiper } from '@core/interface/widgets/ISwiper';
 import { register } from 'swiper/element/bundle';
 import { Swiper } from 'swiper/types';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 register();
 @Component({
   selector: 'app-swiper',
   templateUrl: './swiper.component.html',
   styleUrls: ['./swiper.component.scss'],
 })
-export class SwiperComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() content: ISwiper;
   @Input() index: number;
-  @Input() navigationSub: Subject<any>;
+  @Input() navigationSub: Subject<number>;
   @Output() slideChange = new EventEmitter<Swiper>();
   @ViewChild('swiper', { static: false }) swiper: any;
   screenService = inject(ScreenService);
+  destroyRef = inject(DestroyRef);
 
   defaultConfig = {
     slidesPerView: 'auto',
@@ -39,6 +41,15 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges, OnDest
     mousewheel: false,
     navigation: true,
     autoplay: true,
+    injectStyles: [
+      `
+      .swiper-button-next,
+      .swiper-button-prev {
+        height:24px;
+        width:24px;
+      }
+      `,
+    ],
   };
   config: any;
   ngOnInit(): void {
@@ -56,18 +67,19 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   }
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      Object.assign(this.swiper.nativeElement, this.config);
-      this.swiper.nativeElement.initialize();
-      this.swiper.nativeElement.addEventListener('swiperslidechange', (event: any) => {
+      const swiperEle = this.swiper.nativeElement;
+      Object.assign(swiperEle, this.config);
+      swiperEle.initialize();
+      swiperEle.addEventListener('swiperslidechange', (event: any) => {
         const [swiper] = event.detail;
         this.slideChange.emit(swiper);
       });
       if (this.navigationSub) {
-        this.navigationSub.subscribe(action => {
+        this.navigationSub.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(action => {
           if (action > 0) {
-            this.swiper.swiperRef.slideNext();
+            swiperEle.swiper.slideNext();
           } else {
-            this.swiper.swiperRef.slidePrev();
+            swiperEle.swiper.slidePrev();
           }
         });
       }
@@ -95,12 +107,6 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges, OnDest
           }
         });
       });
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.navigationSub && this.navigationSub.unsubscribe) {
-      this.navigationSub?.unsubscribe();
     }
   }
 }

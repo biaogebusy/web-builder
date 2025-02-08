@@ -62,7 +62,7 @@ const content: IJsoneditor = {
     spacer: 'none',
     type: 'hero-1v1',
     classes: 'text-light text-center',
-    sliders: {
+    swiper: {
       params: {
         slidesPerView: 1,
         spaceBetween: 0,

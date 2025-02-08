@@ -37,7 +37,7 @@ const content: ICarouselBase = {
     },
   },
   classes: '',
-  sliders: {
+  swiper: {
     params: {
       slidesPerView: 1,
       pagination: false,

@@ -23,8 +23,7 @@ export const home_v7 = {
       classes: '',
       text: {
         title: {
-          label:
-            '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+          label: '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
           classes: 'mat-headline-2 bold',
           style: 'style-v1',
         },
@@ -82,8 +81,7 @@ export const home_v7 = {
             href: '#',
             label: '高性能',
           },
-          content:
-            '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+          content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
           more: {
             href: '#',
             label: '+',
@@ -352,7 +350,7 @@ export const home_v7 = {
       bg: {
         classes: 'bg-shadow',
       },
-      sliders: {
+      swiper: {
         params: {
           slidesPerView: 1.1,
           spaceBetween: 20,
@@ -442,8 +440,7 @@ export const home_v7 = {
     {
       type: 'text',
       title: {
-        label:
-          '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+        label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
         style: 'style-v1',
         classes: 'mat-headline-1 bold',
       },

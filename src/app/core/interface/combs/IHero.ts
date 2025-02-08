@@ -5,7 +5,7 @@ import { IImg } from '../widgets/IImg';
 import { ILink } from '../widgets/ILink';
 
 export interface IHero1v1 extends ICombsBase {
-  sliders: ISwiper;
+  swiper: ISwiper;
 }
 
 export interface IHero1v2 extends ICombsBase {

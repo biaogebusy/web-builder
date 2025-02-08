@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Carousel1v1Component } from '@uiux/combs/carousel/carousel1v1/carousel1v1.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -49,7 +44,7 @@ const content: ICarouselBase = {
   },
   classes: '',
   fullWidth: true,
-  sliders: {
+  swiper: {
     params: {
       slidesPerView: 1,
       spaceBetween: 0,
@@ -76,28 +71,29 @@ const content: ICarouselBase = {
           height: '750px',
         },
         text: {
-          title: {
+          'title': {
             label: '组件驱动开发',
             style: 'style-v1',
             classes: 'mat-headline-4',
           },
-          spacer: 'xl',
-          classes: 'xy-center',
+          'spacer': 'xl',
+          'classes': 'xy-center',
           'style-': {
             width: '50%',
             left: '0%',
             top: '5%',
           },
-          bg: {
+          'bg': {
             classes: 'bg-shadow overlay overlay-80',
             img: {
               src: '/assets/images/hero/1-6.jpg',
               mobile: '/assets/images/mobile/mobile-03.jpg',
             },
           },
-          body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
-          actionsAlign: 'center center',
-          actions: [
+          'body':
+            'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
+          'actionsAlign': 'center center',
+          'actions': [
             {
               href: '#',
               label: '马上体验',

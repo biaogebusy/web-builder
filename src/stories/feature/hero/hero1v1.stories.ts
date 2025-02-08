@@ -37,7 +37,7 @@ const content: IHero1v1 = {
   bg: {
     classes: '',
   },
-  sliders: {
+  swiper: {
     params: {
       slidesPerView: 1,
       spaceBetween: 0,

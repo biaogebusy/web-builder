@@ -32,8 +32,7 @@ export const home_v12 = {
       content: {
         type: 'text',
         title: {
-          label:
-            '<p><span data-type="text">艺术点亮生活，为您打造独一无二的艺术之旅</span></p>',
+          label: '<p><span data-type="text">艺术点亮生活，为您打造独一无二的艺术之旅</span></p>',
           style: 'style-v4',
           classes: 'mat-headline-1',
         },
@@ -61,7 +60,7 @@ export const home_v12 = {
         classes: 'bg-fill-width bg-shadow',
       },
       classes: '',
-      sliders: {
+      swiper: {
         params: {
           slidesPerView: 1.2,
           pagination: false,

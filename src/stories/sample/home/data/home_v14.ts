@@ -723,8 +723,7 @@ export const home_v14 = {
                 },
               },
               type: 'title',
-              label:
-                '<p style="display: inline-block; margin-bottom: 0px;">Danderyd</p>',
+              label: '<p style="display: inline-block; margin-bottom: 0px;">Danderyd</p>',
             },
             {
               type: 'text',
@@ -839,8 +838,7 @@ export const home_v14 = {
               type: 'btn',
               href: '/node/1',
               target: '_blank',
-              label:
-                '<p style="display: inline-block; margin-bottom: 0px;">浏览所有<br></p>',
+              label: '<p style="display: inline-block; margin-bottom: 0px;">浏览所有<br></p>',
               mode: 'raised',
               color: 'primary',
             },
@@ -2217,7 +2215,7 @@ export const home_v14 = {
         label: 'Our blogs',
         icon: 'email',
       },
-      sliders: {
+      swiper: {
         params: {
           direction: 'horizontal',
           breakpoints: {

@@ -36,7 +36,7 @@ const defaultContent: ICarouselBase = {
   bg: {
     classes: 'bg-white bg-fill-width',
   },
-  sliders: {
+  swiper: {
     type: 'swiper',
     params: {
       navigation: false,
@@ -160,7 +160,7 @@ const textHeroContent: ICarouselBase = {
     classes: '',
   },
   classes: '',
-  sliders: {
+  swiper: {
     params: {
       slidesPerView: 1,
       spaceBetween: 0,
@@ -294,7 +294,7 @@ Video.storyName = '视频';
 Video.args = {
   content: {
     ...defaultContent,
-    sliders: {
+    swiper: {
       params: {
         slidesPerView: 1.5,
         spaceBetween: 40,
@@ -435,7 +435,7 @@ FullScreen.args = {
     bg: {
       classes: '',
     },
-    sliders: {
+    swiper: {
       classes: 'full-screen',
       params: {
         direction: 'vertical',
@@ -468,7 +468,7 @@ FullScreen.args = {
           bg: {
             classes: '',
           },
-          sliders: {
+          swiper: {
             params: {
               slidesPerView: 1,
               spaceBetween: 0,
