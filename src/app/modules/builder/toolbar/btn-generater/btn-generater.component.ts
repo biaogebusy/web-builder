@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, inject } from '@angular/core';
 import type { IBtn } from '@core/interface/widgets/IBtn';
 import { BuilderState } from '@core/state/BuilderState';
 
@@ -14,8 +9,9 @@ import { BuilderState } from '@core/state/BuilderState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BtnGeneraterComponent implements OnInit {
+  private builder = inject(BuilderState);
+
   @Input() content: IBtn;
-  constructor(private builder: BuilderState) {}
 
   ngOnInit(): void {}
 

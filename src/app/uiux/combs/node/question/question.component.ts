@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -31,10 +30,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionComponent
-  extends NodeComponent
-  implements OnInit, AfterViewInit
-{
+export class QuestionComponent extends NodeComponent implements OnInit, AfterViewInit {
+  user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: IQuestion;
   comments: IComment[];
   showEditor = false;
@@ -50,7 +48,8 @@ export class QuestionComponent
   dialog = inject(MatDialog);
   contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
-  constructor(@Inject(USER) public user$: Observable<IUser>) {
+
+  constructor() {
     super();
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;

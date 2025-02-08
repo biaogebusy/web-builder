@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '../../../state/screen/ScreenState';
 
@@ -9,9 +9,8 @@ import { ScreenState } from '../../../state/screen/ScreenState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LightComponent {
+  screen = inject(ScreenState);
+  utilities = inject(UtilitiesService);
+
   @Input() content: any;
-  constructor(
-    public screen: ScreenState,
-    public utilities: UtilitiesService
-  ) {}
 }

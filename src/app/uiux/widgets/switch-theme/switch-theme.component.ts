@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, THEME } from '@core/token/token-providers';
 import { ConfigService } from '@core/service/config.service';
@@ -18,14 +12,13 @@ import { ThemeService } from '@core/service/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchThemeComponent implements OnInit {
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  theme = inject(THEME);
+
   currentTheme: string;
   themeService = inject(ThemeService);
   configService = inject(ConfigService);
   storage = inject(LocalStorageService);
-  constructor(
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(THEME) public theme: string
-  ) {}
 
   ngOnInit(): void {
     this.currentTheme = this.theme;

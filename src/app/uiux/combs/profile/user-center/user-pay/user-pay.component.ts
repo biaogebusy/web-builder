@@ -5,7 +5,6 @@ import {
   ChangeDetectorRef,
   Input,
   ChangeDetectionStrategy,
-  Inject,
   inject,
   DestroyRef,
 } from '@angular/core';
@@ -23,6 +22,8 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserPayComponent implements OnInit {
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: any;
   lists: any;
   loading: boolean;
@@ -36,7 +37,8 @@ export class UserPayComponent implements OnInit {
   nodeService = inject(NodeService);
   cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  constructor(@Inject(USER) private user$: Observable<IUser>) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
@@ -90,9 +92,7 @@ export class UserPayComponent implements OnInit {
                     label: '分享',
                   },
                   params: {
-                    url: `${
-                      this.nodeService.apiUrl
-                    }${this.nodeService.getNodePath(node)}`,
+                    url: `${this.nodeService.apiUrl}${this.nodeService.getNodePath(node)}`,
                   },
                 },
                 {

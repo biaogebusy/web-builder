@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -14,11 +13,7 @@ import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { Observable } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type {
-  ICoreConfig,
-  ICoreDownload,
-  IPage,
-} from '@core/interface/IAppConfig';
+import type { ICoreConfig, ICoreDownload, IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { MatDialog } from '@angular/material/dialog';
@@ -31,6 +26,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DownloadComponent implements OnInit {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
+  user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: IDownload;
   @Input() data: any;
   config: ICoreDownload;
@@ -43,11 +42,8 @@ export class DownloadComponent implements OnInit {
   nodeService = inject(NodeService);
   cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    @Inject(USER) public user$: Observable<IUser>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });

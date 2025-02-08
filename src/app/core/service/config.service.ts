@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { DialogService } from './dialog.service';
 import { AnalyticsService } from './analytics.service';
 import { QiDianService } from './qidian.service';
@@ -13,13 +13,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
   providedIn: 'root',
 })
 export class ConfigService {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+
   public switchChange$ = new Subject();
   screenService = inject(ScreenService);
   analyticsService = inject(AnalyticsService);
   qiDianService = inject(QiDianService);
   dialogService = inject(DialogService);
   clarityService = inject(ClarityService);
-  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {}
 
   init(): void {
     if (this.screenService.isPlatformBrowser()) {

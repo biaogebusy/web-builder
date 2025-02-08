@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
@@ -18,24 +19,18 @@ import { IPager } from '@core/interface/widgets/IWidgets';
   styleUrls: ['./dynamic-card-list1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicCardList1v1Component
-  extends BaseComponent
-  implements OnInit
-{
+export class DynamicCardList1v1Component extends BaseComponent implements OnInit {
+  nodeService = inject(NodeService);
+  routerService = inject(RouteService);
+  private screenService = inject(ScreenService);
+  private cd = inject(ChangeDetectorRef);
+
   @Input() content: IDynamicCardList1v1;
 
   page: number;
   pager: IPager;
   loading = false;
   nodes: any[];
-  constructor(
-    public nodeService: NodeService,
-    public routerService: RouteService,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
-  ) {
-    super();
-  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -47,20 +42,18 @@ export class DynamicCardList1v1Component
     this.loading = true;
     const state = this.getParamsState({}, options);
     const params = this.getApiParams(state);
-    this.nodeService
-      .fetch(this.getParams(this.content, 'type'), params)
-      .subscribe(
-        data => {
-          this.updateList(data);
-          this.loading = false;
-          this.cd.detectChanges();
-        },
-        error => {
-          console.log(error);
-          this.loading = false;
-          this.cd.detectChanges();
-        }
-      );
+    this.nodeService.fetch(this.getParams(this.content, 'type'), params).subscribe(
+      data => {
+        this.updateList(data);
+        this.loading = false;
+        this.cd.detectChanges();
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+        this.cd.detectChanges();
+      }
+    );
   }
 
   updateList(data: any): void {

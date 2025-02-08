@@ -1,15 +1,13 @@
-import { AfterViewInit, Directive, ElementRef, NgZone } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, NgZone, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Directive({
   selector: '[checkChildMenuActive]',
 })
 export class CheckChildMenuActiveDirective implements AfterViewInit {
-  constructor(
-    private el: ElementRef,
-    private router: Router,
-    private zone: NgZone
-  ) {}
+  private el = inject(ElementRef);
+  private router = inject(Router);
+  private zone = inject(NgZone);
 
   ngAfterViewInit(): void {
     setTimeout(() => {

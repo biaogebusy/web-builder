@@ -5,6 +5,7 @@ import {
   ElementRef,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IMainMenu } from '@core/interface/branding/IBranding';
 import { ScreenService } from '@core/service/screen.service';
@@ -20,16 +21,13 @@ import { mergeMap, delay, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HoverMenuComponent extends BaseComponent implements OnInit {
+  private eleRef = inject(ElementRef);
+  private cd = inject(ChangeDetectorRef);
+  private screenService = inject(ScreenService);
+  private screenState = inject(ScreenState);
+
   @Input() content: IMainMenu;
   active: boolean;
-  constructor(
-    private eleRef: ElementRef,
-    private cd: ChangeDetectorRef,
-    private screenService: ScreenService,
-    private screenState: ScreenState
-  ) {
-    super();
-  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

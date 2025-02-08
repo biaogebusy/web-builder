@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { forkJoin, Observable, of } from 'rxjs';
@@ -10,13 +10,14 @@ import { UserService } from '@core/service/user.service';
   providedIn: 'root',
 })
 export class NotifyService {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private user$ = inject<Observable<IUser>>(USER);
+
   nodeService = inject(NodeService);
   userService = inject(UserService);
   user: IUser;
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     this.user$.subscribe(user => {
       this.user = user;
     });
@@ -33,10 +34,7 @@ export class NotifyService {
       if (!api.reqRoles || api.reqRoles.length === 0) {
         return true;
       }
-      return this.userService.isMatchCurrentRole(
-        api.reqRoles || [],
-        this.user.current_user.roles
-      );
+      return this.userService.isMatchCurrentRole(api.reqRoles || [], this.user.current_user.roles);
     });
     if (finalList && finalList?.length > 0) {
       finalList.forEach((list: any, index: number) => {

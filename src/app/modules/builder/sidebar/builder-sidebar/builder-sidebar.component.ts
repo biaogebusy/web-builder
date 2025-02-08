@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING, BUILDER_CONFIG } from '@core/token/token-providers';
@@ -16,15 +16,14 @@ import { MatDrawer } from '@angular/material/sidenav';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSidebarComponent implements OnInit {
+  branding$ = inject<Observable<IBranding>>(BRANDING);
+  builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+
   @Input() sidebarDrawer: MatDrawer;
   @Input() drawerContentRef: any;
   builder = inject(BuilderState);
   dialog = inject(MatDialog);
   manageService = inject(ManageService);
-  constructor(
-    @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
-  ) {}
 
   ngOnInit(): void {}
 

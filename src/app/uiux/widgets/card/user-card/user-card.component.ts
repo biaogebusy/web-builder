@@ -1,12 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  Inject,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
 import { NodeService } from '@core/service/node.service';
 import { DialogService } from '@core/service/dialog.service';
@@ -25,6 +17,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./user-card.component.scss'],
 })
 export class UserCardComponent extends BaseComponent implements OnInit {
+  user$ = inject<Observable<IUser>>(USER);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+
   @Input() content: IUserCard;
   profile: IMediaObject;
   count: IUserCount[];
@@ -34,10 +29,8 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   dialogService = inject(DialogService);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(USER) public user$: Observable<IUser>,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
-  ) {
+
+  constructor() {
     super();
     this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.user = user;

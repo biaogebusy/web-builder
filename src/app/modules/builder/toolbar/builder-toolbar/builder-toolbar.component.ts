@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  Inject,
   OnInit,
   inject,
 } from '@angular/core';
@@ -39,6 +38,11 @@ import { NodeService } from '@core/service/node.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
+  private user$ = inject<Observable<IUser>>(USER);
+  branding$ = inject<Observable<IBranding>>(BRANDING);
+  builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
+  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+
   page?: IPage;
   router = inject(Router);
   dialog = inject(MatDialog);
@@ -51,23 +55,17 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
   user: IUser;
-  constructor(
-    @Inject(USER) private user$: Observable<IUser>,
-    @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
 
   ngOnInit(): void {
-    this.currentPage$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(page => {
-        this.page = page;
-      });
+    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+      this.page = page;
+    });
   }
 
   ngAfterViewInit(): void {

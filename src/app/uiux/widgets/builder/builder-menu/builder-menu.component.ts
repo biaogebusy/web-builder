@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   OnInit,
   inject,
 } from '@angular/core';
@@ -26,6 +25,9 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderMenuComponent implements OnInit, AfterViewInit {
+  debugAnimate$ = inject<Observable<boolean>>(DEBUG_ANIMATE);
+  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+
   page: IPage;
   public contentState = inject(ContentState);
   private builder = inject(BuilderState);
@@ -33,10 +35,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
-  constructor(
-    @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
-  ) {}
 
   ngOnInit(): void {}
 

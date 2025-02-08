@@ -3,9 +3,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Inject,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -17,12 +17,11 @@ import { ScreenState } from '@core/state/screen/ScreenState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GotopComponent implements OnInit {
+  private screenService = inject(ScreenService);
+  private screen = inject(ScreenState);
+  private document = inject<Document>(DOCUMENT);
+
   @ViewChild('goTop') goTop: ElementRef;
-  constructor(
-    private screenService: ScreenService,
-    private screen: ScreenState,
-    @Inject(DOCUMENT) private document: Document
-  ) {}
 
   ngOnInit(): void {}
 

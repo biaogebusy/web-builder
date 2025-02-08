@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
 import type { IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
@@ -21,6 +21,9 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
+  private user$ = inject<Observable<IUser>>(USER);
+  private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+
   http = inject(HttpClient);
   dialog = inject(MatDialog);
   builder = inject(BuilderState);
@@ -29,10 +32,8 @@ export class BuilderService extends ApiService {
   contentService = inject(ContentService);
   user: IUser;
   builderConfig: IBuilderConfig;
-  constructor(
-    @Inject(USER) private user$: Observable<IUser>,
-    @Inject(BUILDER_CONFIG) private builderConfig$: Observable<IBuilderConfig>
-  ) {
+
+  constructor() {
     super();
     this.user$.subscribe(user => {
       this.user = user;

@@ -4,7 +4,6 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
-  Inject,
   inject,
   DestroyRef,
 } from '@angular/core';
@@ -23,6 +22,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IframeComponent implements OnInit {
+  private user$ = inject<Observable<IUser>>(USER);
+  private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
+
   @Input() content: IIframe;
   url: string;
   loading: boolean;
@@ -30,10 +32,8 @@ export class IframeComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(USER) private user$: Observable<IUser>,
-    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
@@ -76,19 +76,17 @@ export class IframeComponent implements OnInit {
     }
 
     if (this.content?.url.includes(':nid')) {
-      this.pageContent$
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(page => {
-          const nid = page.config?.node?.nid;
-          if (nid) {
-            // node 的详情页
-            this.url = this.content.url.replace(':nid', nid);
-          } else {
-            // 非node详情页，例如日历页面
-            this.url = '/go-to-node';
-          }
-          this.cd.detectChanges();
-        });
+      this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+        const nid = page.config?.node?.nid;
+        if (nid) {
+          // node 的详情页
+          this.url = this.content.url.replace(':nid', nid);
+        } else {
+          // 非node详情页，例如日历页面
+          this.url = '/go-to-node';
+        }
+        this.cd.detectChanges();
+      });
     }
   }
 }

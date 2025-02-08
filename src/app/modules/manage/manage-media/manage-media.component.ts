@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  Inject,
   ChangeDetectorRef,
   Input,
   inject,
@@ -41,6 +40,10 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
   styleUrls: ['./manage-media.component.scss'],
 })
 export class ManageMediaComponent implements OnInit {
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  mediaAssets$ = inject<Observable<IManageAssets>>(MEDIA_ASSETS);
+
   @Input() content: IManageMedia;
   form = new UntypedFormGroup({
     page: new FormControl(0),
@@ -79,12 +82,6 @@ export class ManageMediaComponent implements OnInit {
       },
     },
   ];
-  constructor(
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(BUILDER_CONFIG) public builderConfig: Observable<IBuilderConfig>,
-    @Inject(MEDIA_ASSETS)
-    public mediaAssets$: Observable<IManageAssets>
-  ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

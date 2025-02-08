@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import { Subject } from 'rxjs';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -9,9 +9,12 @@ import { ScreenService } from '@core/service/screen.service';
   providedIn: 'root',
 })
 export class CalendarState {
+  private screenSerivce = inject(ScreenService);
+
   public calendarChange$ = new Subject();
   default: CalendarOptions;
-  constructor(private screenSerivce: ScreenService) {
+
+  constructor() {
     if (this.screenSerivce.isPlatformBrowser()) {
       this.default = {
         initialView: 'dayGridMonth',

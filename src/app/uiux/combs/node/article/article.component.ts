@@ -3,7 +3,6 @@ import {
   Input,
   OnInit,
   AfterViewInit,
-  Inject,
   ChangeDetectorRef,
   inject,
   DestroyRef,
@@ -34,6 +33,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent extends NodeComponent implements OnInit, AfterViewInit {
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
+  user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: IBaseNode;
   currentUserRule: string[];
   comments: IComment[];
@@ -54,11 +57,8 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
   user: IUser;
-  constructor(
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
-    @Inject(USER) public user$: Observable<IUser>
-  ) {
+
+  constructor() {
     super();
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;

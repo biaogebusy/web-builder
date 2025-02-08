@@ -3,7 +3,6 @@ import {
   OnInit,
   Input,
   ChangeDetectionStrategy,
-  Inject,
   OnChanges,
   SimpleChanges,
   ChangeDetectorRef,
@@ -29,6 +28,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements OnInit, OnChanges {
+  private theme = inject(THEME);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+
   @Input() content: IMap;
   AMap: any;
   circle: any;
@@ -47,10 +49,6 @@ export class MapComponent implements OnInit, OnChanges {
   utilService = inject(UtilitiesService);
   cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(THEME) private theme: string,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
-  ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -144,16 +142,12 @@ export class MapComponent implements OnInit, OnChanges {
       mapStyle: this.theme === 'dark-theme' ? mapStyle.dark : mapStyle.light,
       features: amapConfig.features,
     };
-    this.map = new this.AMap.Map(
-      'map',
-      Object.assign({}, defaultOptions, options)
-    );
+    this.map = new this.AMap.Map('map', Object.assign({}, defaultOptions, options));
     if (this.configService?.switchChange$) {
       this.configService.switchChange$
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(theme => {
-          const newMapStyle =
-            theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
+          const newMapStyle = theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
           this.map.setMapStyle(newMapStyle);
         });
     }
@@ -234,9 +228,7 @@ export class MapComponent implements OnInit, OnChanges {
     this.amapService.markers$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((marker: IMark) => {
-        const position = this.map
-          .getAllOverlays('marker')
-          [marker.index].getPosition();
+        const position = this.map.getAllOverlays('marker')[marker.index].getPosition();
         this.currentInfoWindow = new this.AMap.InfoWindow({
           content: marker.content,
           isCustom: true,

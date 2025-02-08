@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  ChangeDetectorRef,
-  OnDestroy,
-  inject,
-  DestroyRef,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, inject, DestroyRef } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -25,6 +17,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  user$ = inject<Observable<IUser>>(USER);
+
   hide = true;
   loading: boolean;
   error: string;
@@ -42,10 +37,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   screenService = inject(ScreenService);
   cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) public user$: Observable<IUser>
-  ) {
+
+  constructor() {
     if (this.screenService.isPlatformBrowser()) {
       this.userService.userSub$.pipe(takeUntilDestroyed()).subscribe((currentUser: any) => {
         // login

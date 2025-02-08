@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-  Inject,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { IUserConfig } from '@core/interface/IUserConfig';
 import type { IUser } from '@core/interface/IUser';
@@ -20,11 +13,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent implements OnInit {
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: any;
   @Input() userConfig$: Observable<IUserConfig>;
   user: IUser;
   userService = inject(UserService);
-  constructor(@Inject(USER) private user$: Observable<IUser>) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });

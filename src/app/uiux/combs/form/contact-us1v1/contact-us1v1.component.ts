@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import type { IContactUs1v1 } from '@core/interface/combs/IForm';
 import { FormService } from '@core/service/form.service';
@@ -11,15 +11,12 @@ import { BaseComponent } from '@uiux/base/base.widget';
   styleUrls: ['./contact-us1v1.component.scss'],
 })
 export class ContactUs1v1Component extends BaseComponent implements OnInit {
+  private formService = inject(FormService);
+  private util = inject(UtilitiesService);
+
   @Input() content: IContactUs1v1;
   form: UntypedFormGroup = new UntypedFormGroup({});
   model: any = {};
-  constructor(
-    private formService: FormService,
-    private util: UtilitiesService
-  ) {
-    super();
-  }
 
   ngOnInit(): void {}
 

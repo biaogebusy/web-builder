@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -31,6 +30,8 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardListComponent extends BaseComponent implements OnInit {
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: ICardList;
   content$: Observable<IPageMeta[]>;
   form = new FormGroup({
@@ -48,7 +49,8 @@ export class CardListComponent extends BaseComponent implements OnInit {
   nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
   user: IUser;
-  constructor(@Inject(USER) private user$: Observable<IUser>) {
+
+  constructor() {
     super();
     this.user$.subscribe(user => {
       this.user = user;
@@ -57,13 +59,11 @@ export class CardListComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPage('noCache=1');
-    this.builder.updateSuccess$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        if (state) {
-          this.onReload();
-        }
-      });
+    this.builder.updateSuccess$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+      if (state) {
+        this.onReload();
+      }
+    });
   }
 
   onModelChange(value: any): void {
@@ -108,9 +108,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
   }
 
   onPageChange(page: PageEvent): void {
-    this.form
-      .get('page')
-      ?.patchValue(page.pageIndex, { onlySelf: true, emitEvent: false });
+    this.form.get('page')?.patchValue(page.pageIndex, { onlySelf: true, emitEvent: false });
     const value = merge(this.model, this.form.getRawValue());
     const params = this.getApiParams(value);
     this.fetchPage(params);

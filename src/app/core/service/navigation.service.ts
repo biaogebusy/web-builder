@@ -1,16 +1,15 @@
 import { Location } from '@angular/common';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NavigationService {
+  private router = inject(Router);
+  private location = inject(Location);
+
   private history: string[] = [];
-  constructor(
-    private router: Router,
-    private location: Location
-  ) {}
 
   public startSaveHistory(): void {
     this.router.events.subscribe(event => {

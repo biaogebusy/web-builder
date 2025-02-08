@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import type { ICard1v4 } from '@core/interface/widgets/ICard';
 import { RangePipe } from 'ngx-pipes';
 
@@ -9,8 +9,9 @@ import { RangePipe } from 'ngx-pipes';
   providers: [RangePipe],
 })
 export class Card1v4Component implements OnInit {
+  private rangePipe = inject(RangePipe);
+
   @Input() content: ICard1v4;
-  constructor(private rangePipe: RangePipe) {}
 
   ngOnInit(): void {}
 

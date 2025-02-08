@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ChangeDetectionStrategy,
-  Inject,
-} from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -19,13 +13,10 @@ import type { IHero2v3 } from '@core/interface/combs/IHero';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero2v3Component extends BaseComponent implements OnInit {
+  screen = inject(ScreenState);
+  pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
+
   @Input() content: IHero2v3;
-  constructor(
-    public screen: ScreenState,
-    @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>
-  ) {
-    super();
-  }
 
   ngOnInit(): void {}
 }
