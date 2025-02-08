@@ -63,7 +63,7 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
         },
       };
     }
-    this.config = Object.assign(this.defaultConfig, this.content.params, customPagination);
+    this.config = Object.assign(this.defaultConfig, this.content?.params, customPagination);
   }
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {

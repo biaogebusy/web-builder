@@ -12,9 +12,7 @@
   $primary-color: mat.m2-get-color-from-palette($primary);
   --swiper-navigation-color: #{$primary-color};
   --swiper-theme-color: #{$primary-color};
-  .swiper {
-    --swiper-navigation-size: 24px;
-  }
+
   .carousel-1-v2 {
     .actions {
       color: mat.m2-get-color-from-palette($primary);

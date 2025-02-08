@@ -13,7 +13,7 @@
         ></app-btn>
       </div>
     </div>
-    @if (swiper().elements.length) {
+    @if (swiper() && swiper().elements && swiper().elements.length) {
       <app-swiper [attr.data-path]="'swiper'" [content]="swiper()" [navigationSub]="navigation$" />
     }
   </div>
