@@ -25,11 +25,9 @@ export class BuilderPanelComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.builder.fixedChange$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.cd.detectChanges();
-      });
+    this.builder.fixedChange$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.cd.detectChanges();
+    });
   }
 
   onShowcase(content: any): void {
@@ -79,5 +77,9 @@ export class BuilderPanelComponent implements OnInit {
 
   onAfterExpand(): void {
     this.builder.cancelFixedShowcase();
+  }
+
+  add(content: any): void {
+    this.builder.pushComponent(content);
   }
 }
