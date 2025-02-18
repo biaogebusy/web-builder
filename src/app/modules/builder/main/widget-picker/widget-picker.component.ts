@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   ElementRef,
@@ -10,13 +9,12 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import type { IWidgetPicker } from '@core/interface/IBuilder';
+import type { IBuilderConfig, IWidgetPicker } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
-import { WIDGETS } from '@core/token/token-providers';
-import { Subject } from 'rxjs';
+import { BUILDER_CONFIG, WIDGETS } from '@core/token/token-providers';
+import { Observable, Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { BuilderService } from '@core/service/builder.service';
 import { cloneDeep } from 'lodash-es';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -24,7 +22,6 @@ import { UtilitiesService } from '@core/service/utilities.service';
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
   styleUrls: ['./widget-picker.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @Input() content: IWidgetPicker | false;
@@ -38,19 +35,14 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   show = signal(false);
 
   public bcData = signal(false);
-  ele = inject(ElementRef);
-  widgets = inject(WIDGETS);
-  builder = inject(BuilderState);
-  util = inject(UtilitiesService);
-  destroyRef = inject(DestroyRef);
-  storage = inject(LocalStorageService);
-  builderService = inject(BuilderService);
+  public widgets = inject(WIDGETS);
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private destroyRef = inject(DestroyRef);
+  private storage = inject(LocalStorageService);
+  builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   ngOnInit(): void {
-    const {
-      widgetPicker: { help },
-    } = this.builderService.builderConfig;
-    this.help = help;
     this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
       this.bcData.set(data);
     });
