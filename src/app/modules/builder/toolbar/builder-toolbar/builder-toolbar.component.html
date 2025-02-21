@@ -1,5 +1,6 @@
-@if (builderFullScreen$ | async) {
-  <div *ngTemplateOutlet="toolbar; context: { isFull: builderFullScreen$ | async }"></div>
+@let isFullScreen = builderFullScreen$ | async;
+@if (isFullScreen) {
+  <div *ngTemplateOutlet="toolbar; context: { isFull: isFullScreen }"></div>
 }
 <!-- placeholder for fixed -->
 <div *ngTemplateOutlet="toolbar; context: { isFull: false }"></div>
@@ -9,11 +10,22 @@
     <div class="wrapper flex justify-between items-center">
       @if (currentPage$ | async; as page) {
         <div class="left flex flex-col justify-center items-start flex-[0_1_33.33%]">
-          <div class="page-title flex items-center" contenteditable="true" (blur)="onTitle($event)">
-            {{ page.title }}
-            <app-icon [content]="{ svg: 'pencil-outline' }" />
-          </div>
-          <div class="time">{{ page.time | date: 'YYYY-MM-dd HH:mm' }}</div>
+          @if (page.body.length) {
+            <div
+              class="page-title flex items-center"
+              contenteditable="true"
+              (blur)="onTitle($event)"
+            >
+              {{ page.title }}
+              @if (!page.uuid) {
+                - 未发布
+              }
+              <app-icon [content]="{ svg: 'pencil-outline' }" />
+            </div>
+            <div class="time">{{ page.changed | date: 'YYYY-MM-dd HH:mm' }}</div>
+          } @else {
+            <div class="page-title">欢迎页</div>
+          }
         </div>
       }
       <div class="middle text-primary justify-center items-center hidden md:flex flex-[0_1_33.33%]">
@@ -25,9 +37,9 @@
         class="right sm:gap-1 flex justify-end items-center flex-[0_1_33.33%]"
       >
         <mat-slide-toggle
-          [checked]="builderFullScreen$ | async"
+          [checked]="isFullScreen"
           (change)="onFullScreen($event)"
-          [matTooltip]="(builderFullScreen$ | async) ? '显示边栏' : '切换全宽'"
+          [matTooltip]="isFullScreen ? '显示边栏' : '切换全宽'"
         />
         <app-btn-generater
           matTooltip="快速生成页面"
@@ -43,11 +55,11 @@
             class="hidden sm:flex whitespace-nowrap"
             (click)="onSubmit(page)"
             [content]="{
-              label: page.translation ? '更新翻译' : page.uuid ? '更新页面' : '新建页面',
+              label: page.translation ? '更新翻译' : page.uuid ? '更新保存' : '发布新页面',
               color: 'primary',
               mode: 'raised',
               icon: {
-                svg: page.uuid ? 'navigation-variant' : 'pencil-plus',
+                svg: page.uuid ? 'pencil' : 'pencil-plus',
               },
             }"
           />

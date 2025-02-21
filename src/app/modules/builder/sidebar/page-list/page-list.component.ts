@@ -261,7 +261,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   loadPage(page: any): void {
-    this.util.openSnackbar(`正在加载${page.title}`, 'ok');
     this.builder.loading$.next(true);
     const { langcode, nid } = page;
     if (!nid) {
