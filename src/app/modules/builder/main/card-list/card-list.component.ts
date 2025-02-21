@@ -40,15 +40,15 @@ export class CardListComponent extends BaseComponent implements OnInit {
   model: any = {
     noCache: true,
   };
-  loading = false;
-  pager: IPager;
-  langs = environment.langs;
-  builder = inject(BuilderState);
-  cd = inject(ChangeDetectorRef);
-  util = inject(UtilitiesService);
-  nodeService = inject(NodeService);
+  public loading = false;
+  public pager: IPager;
+  public langs = environment.langs;
+  private builder = inject(BuilderState);
+  private cd = inject(ChangeDetectorRef);
+  private util = inject(UtilitiesService);
+  private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
-  user: IUser;
+  public user: IUser;
 
   constructor() {
     super();

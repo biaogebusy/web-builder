@@ -32,19 +32,18 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @ViewChild('popup', { static: false }) widgetPopup: ElementRef;
   public widget$ = new Subject<any>();
   public group$ = new Subject<any>();
-  help: any;
-  groupPopper: any;
-  widgetPopper: any;
-  show = signal(false);
+  public help: any;
+  private groupPopper: any;
+  private widgetPopper: any;
+  public show = signal(false);
 
   public bcData = signal(false);
-  ele = inject(ElementRef);
-  widgets = inject(WIDGETS);
-  builder = inject(BuilderState);
-  util = inject(UtilitiesService);
-  destroyRef = inject(DestroyRef);
-  storage = inject(LocalStorageService);
-  builderService = inject(BuilderService);
+  public widgets = inject(WIDGETS);
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private destroyRef = inject(DestroyRef);
+  private storage = inject(LocalStorageService);
+  private builderService = inject(BuilderService);
 
   ngOnInit(): void {
     const {

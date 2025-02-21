@@ -28,15 +28,15 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
   @Input() content: ILayoutBuilder;
-  showToolbar = signal(false);
+  public showToolbar = signal(false);
 
-  util = inject(UtilitiesService);
-  ele = inject(ElementRef);
-  builder = inject(BuilderState);
-  destroyRef = inject(DestroyRef);
-  screenService = inject(ScreenService);
-  builderSerivce = inject(BuilderService);
-  popup: any;
+  private util = inject(UtilitiesService);
+  private ele = inject(ElementRef);
+  private builder = inject(BuilderState);
+  private destroyRef = inject(DestroyRef);
+  private screenService = inject(ScreenService);
+  private builderSerivce = inject(BuilderService);
+  private popup: any;
 
   ngOnInit(): void {}
 

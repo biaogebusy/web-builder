@@ -21,19 +21,18 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
 export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private doc = inject<Document>(DOCUMENT);
-  builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
-  builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
+  private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  public builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
 
-  builderFullScreen: boolean;
-  panelOpenState = false;
-  mode: 'side' | 'over' | 'push' = 'side';
+  private builderFullScreen: boolean;
+  public mode: 'side' | 'over' | 'push' = 'side';
 
-  builder = inject(BuilderState);
-  utli = inject(UtilitiesService);
-  screenState = inject(ScreenState);
-  storage = inject(LocalStorageService);
+  public builder = inject(BuilderState);
+  private utli = inject(UtilitiesService);
+  private screenState = inject(ScreenState);
+  private storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
-  tagService = inject(TagsService);
+  private tagService = inject(TagsService);
   private tourService = inject(TourService);
   private screenSerivce = inject(ScreenService);
 
