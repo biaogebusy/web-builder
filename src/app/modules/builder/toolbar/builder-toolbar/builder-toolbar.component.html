@@ -22,7 +22,9 @@
               }
               <app-icon [content]="{ svg: 'pencil-outline' }" />
             </div>
-            <div class="time">{{ page.changed | date: 'YYYY-MM-dd HH:mm' }}</div>
+            @if (page.changed) {
+              <div class="time">{{ date() | date: 'YYYY-MM-dd HH:mm' }}</div>
+            }
           } @else {
             <div class="page-title">欢迎页</div>
           }
