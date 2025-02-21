@@ -103,7 +103,7 @@ export class BuilderState {
   clearAllVersion(): void {
     this.version = [
       {
-        title: '欢迎页',
+        title: '未命名',
         body: [],
         current: true,
         time: new Date(),

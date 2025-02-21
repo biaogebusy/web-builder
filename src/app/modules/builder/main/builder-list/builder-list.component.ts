@@ -3,7 +3,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   ElementRef,
@@ -28,7 +27,6 @@ import { BuilderService } from '@core/service/builder.service';
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
   styleUrls: ['./builder-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private doc = inject<Document>(DOCUMENT);

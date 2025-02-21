@@ -69,21 +69,11 @@ export class BuilderService extends ApiService {
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
       .subscribe((page: IPage) => {
-        const { body, status, uuid } = page;
+        const { body, status } = page;
         this.builder.loading$.next(false);
         if (status) {
           this.builder.loadNewPage(this.formatToExtraData(page, isTemplate));
-          if (uuid && !isTemplate) {
-            this.openPageSetting(
-              {
-                uuid,
-                langcode,
-              },
-              '/api/v1/node/landing_page',
-              this.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
-            );
-          }
-
+          this.util.openSnackbar(`已加载${page.title}`, 'ok');
           if (body.length === 0) {
             this.util.openSnackbar('当前内容为空，已为你初始化一个组件', 'ok');
           }

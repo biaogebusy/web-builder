@@ -108,6 +108,9 @@
       }
     }
     .item {
+      .add {
+        background-color: mat.m2-get-color-from-palette($primary, 100, 0.8);
+      }
       .inner {
         background-color: mat.m2-get-color-from-palette($background, card);
         transition: background 0.1s ease-in-out;

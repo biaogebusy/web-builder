@@ -44,9 +44,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         // login
         if (currentUser) {
           setTimeout(() => {
-            const returnUrl =
-              this.route.snapshot.queryParams.returnUrl || this.coreConfig.login.loginRedirect;
-            this.router.navigate([returnUrl]);
+            const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
+              this.route.snapshot.queryParams;
+            this.router.navigate([returnUrl], { queryParams });
           }, 2000);
         }
       });

@@ -13,10 +13,32 @@
       width: 100%;
       text-align: center;
     }
+    &:hover {
+      .add {
+        display: block;
+      }
+    }
+    .add {
+      @apply absolute -top-[12px] -right-[10px] z-10 hidden rounded-full;
+      ::ng-deep {
+        .mdc-icon-button {
+          --mdc-icon-button-state-layer-size: 26px;
+          --mdc-icon-button-icon-size: 18px;
+          line-height: 26px;
+          padding: 0;
+          .mat-icon {
+            height: 18px;
+            width: 18px;
+          }
+        }
+      }
+    }
     .inner {
       margin: 2px;
       padding: 16px 6px;
       border-radius: 4px;
+      position: relative;
+
       &.move {
         &:hover {
           cursor: move;
