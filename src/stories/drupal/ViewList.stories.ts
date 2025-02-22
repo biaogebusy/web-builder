@@ -83,54 +83,28 @@ Default.args = {
       apiType: '/api/v1/event',
     },
     header,
-    form: [
-      {
-        fieldGroupClassName: 'flex flex-wrap',
-        fieldGroup: [
-          {
-            type: 'input',
-            key: 'title',
-            props: {
-              label: '标题',
-            },
-          },
-          {
-            type: 'mat-select',
-            key: 'user',
-            props: {
-              multiple: true,
-              search: true,
-              hideSelected: true,
-              label: '用户',
-              options: [
-                { value: 1, label: 'Johnson' },
-                { value: 2, label: '表歌' },
-                { value: 3, label: '小南' },
-              ],
-            },
-          },
-          {
-            type: 'date-range',
-            key: 'date',
-            props: {
-              label: '期间',
-              value: '',
-              placeholder: '选择发布日期',
-            },
-            fieldGroup: [
-              {
-                type: 'input',
-                key: 'start',
+    form: {
+      type: 'formly',
+      fields: [
+        {
+          fieldGroupClassName: 'flex flex-wrap',
+          fieldGroup: [
+            {
+              type: 'input',
+              key: 'title',
+              props: {
+                label: '标题',
+                placeholder: '',
+                disabled: false,
               },
-              {
-                type: 'input',
-                key: 'end',
+              modelOptions: {
+                updateOn: 'blur',
               },
-            ],
-          },
-        ],
-      },
-    ],
+            },
+          ],
+        },
+      ],
+    },
     data: {
       canShow: true,
       pager: {
@@ -252,8 +226,7 @@ Default.args = {
           },
           {
             url: '/node/399',
-            title:
-              '没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它',
+            title: '没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它',
             created: '2021-08-02',
             body: '前言目前，市面上求职渠道五花八门，有覆盖全行业的，有细分垂直领域的，有本地运营的，带来更多选择的同时，也带来了很多的烦恼。例如：泄露身份信息的常年挂着职位不回复的借招聘之名行培训之实的诈骗传销的带着这些好奇心，爱好问卷的我们群里发起了【在南宁，作为从事互联网相关工作的你，最近一份工作是从哪个渠道求职找到的？】的调查，数据量不多，本文标题有标题党嫌疑，仅供参考：）填写量：620您当前的职位类别是？通过哪个招聘网站或者渠道？为了排除机器人及非有效性问卷，以下是筛选仅限来自广西地区的投票：填写量：53您当前的职位类别是？通过哪个招聘网站或者渠道？最后，得出的结论是小伙伴们最近一份工作求职渠道最受欢迎的是BOSS招聘和广西人才市场。声明：以上调查数据量有限，不权威，仅供参考。南宁IT派，您的职场朋友圈。',
             type: '新闻',
@@ -541,8 +514,7 @@ Default.args = {
           },
           {
             url: '/node/382',
-            title:
-              '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
+            title: '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
             created: '2021-05-10',
             body: '查了些文档文章，GithubActions有几个重要的信息如下：通过Docker隔离每个workflow独享1核虚拟CPU,3.75GB内存，包括网络权限和100GB磁盘在yml配置文件中可以使用上下文环境变量，比如分支或者不公开变量每个workflow排队和执行时间最多58分钟，最多可以包含100个action，每个仓库同一时刻只能运行两个workflow下例以一个Angular的示例应用来演示：部署可以有很多方式，此次使用云服务器的SSH账户密码来部署，这些敏感信息存在仓库的Secrets里面，在yml里面可以读取。目标：当master分支发生push事件时，build并部署代码到sit测试环境；当prod分支有PR请求合并时，build并部署代码到prod正式环境；定义sitworkflow在仓库根目录新建.github/workflows/sit.ymlname:Buildappanddeploytohuaweisiton:push:#监听push操作branches:[master]#指定分支jobs:build:#usingUbunturuns-on:ubuntu-',
             type: '博客',
@@ -686,8 +658,7 @@ Default.args = {
           },
           {
             url: '/node/374',
-            title:
-              '分享几款不错的 Web 地图应用 UI 设计，并用 Drupal Jsonapi 实现了个 Demo',
+            title: '分享几款不错的 Web 地图应用 UI 设计，并用 Drupal Jsonapi 实现了个 Demo',
             created: '2021-05-03',
             body: '',
             type: '博客',
@@ -831,8 +802,7 @@ Default.args = {
           },
           {
             url: '/node/368',
-            title:
-              'Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器',
+            title: 'Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器',
             created: '2021-05-01',
             body: '有过DrupalJSONAPI使用经验的开发者来说，处理请求的json数据特别的繁琐，特别是有些实体字段多重依赖和嵌套，需要自定义的构建函数来提取组合数据。且看看JSONAPI返回的数据：https://api.zhaobg.com/api/v1/node/case?fields[node--case]=title,body,created,medias,field_tags,drupal_internal__nid,path&amp;amp;include=medias,medias.field_media_image,field_tags&amp;amp;fields[file--file]=uri&amp;amp;fields[taxonomy_term--industry]=name一个文章的内容类型，其中图片字段使用了媒体实体，其中有多层相关关联和嵌套，要想获取该内容的图片路径，需要经过复杂的映射匹配才能得到。或者你也遇到过，需要往JSONAPI请求接口提交数据时，必须符合JSONAPI的标准规范，而这个标准规范也比较繁琐，例如新增一个实体内容：{&quot;data',
             type: '博客',

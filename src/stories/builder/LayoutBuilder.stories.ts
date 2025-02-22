@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { IS_BUILDER_MODE } from '@core/token/token-providers';
@@ -21,11 +16,7 @@ const meta: Meta<LayoutBuilderComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [
-        ...StorysModule.forEntryComponents(),
-        SafeHtmlPipe,
-        ReqRolesDirective,
-      ],
+      declarations: [...StorysModule.forEntryComponents(), SafeHtmlPipe, ReqRolesDirective],
       providers: [
         {
           provide: IS_BUILDER_MODE,
@@ -45,7 +36,6 @@ type Story = StoryObj<LayoutBuilderComponent>;
 export const LayoutDefault: Story = {};
 LayoutDefault.storyName = '默认';
 LayoutDefault.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -142,8 +132,7 @@ LayoutDefault.args = {
         elements: [
           {
             type: 'title',
-            label:
-              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+            label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v4',
             classes: 'mat-headline-3 bold',
           },
@@ -272,7 +261,6 @@ LayoutDefault.args = {
 export const TwoCol: Story = {};
 TwoCol.storyName = '两栏';
 TwoCol.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -588,7 +576,6 @@ TwoCol.args = {
 export const ThreeCol: Story = {};
 ThreeCol.storyName = '三栏';
 ThreeCol.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -697,8 +684,7 @@ ThreeCol.args = {
               href: '#',
               label: '高性能',
             },
-            content:
-              '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+            content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
           },
         ],
       },
@@ -770,8 +756,7 @@ ThreeCol.args = {
               href: '#',
               label: '易用的编辑器',
             },
-            content:
-              '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+            content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
           },
         ],
       },
@@ -855,7 +840,6 @@ ThreeCol.args = {
 export const FourCol: Story = {};
 FourCol.storyName = '四栏';
 FourCol.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -1302,7 +1286,6 @@ FourCol.args = {
 export const Section1A: Story = {};
 Section1A.storyName = '1A';
 Section1A.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'xl',
@@ -1427,8 +1410,7 @@ Section1A.args = {
               },
             },
             type: 'title',
-            label:
-              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+            label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
           },
           {
             type: 'text',
@@ -1528,7 +1510,6 @@ Section1A.args = {
 export const Section1B: Story = {};
 Section1B.storyName = '1B';
 Section1B.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'xl',
@@ -1733,8 +1714,7 @@ Section1B.args = {
               },
             },
             type: 'title',
-            label:
-              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+            label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
           },
           {
             type: 'text',
@@ -1758,7 +1738,6 @@ Section1B.args = {
 export const Section2A: Story = {};
 Section2A.storyName = '2A';
 Section2A.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -1907,8 +1886,7 @@ Section2A.args = {
               },
             },
             type: 'title',
-            label:
-              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+            label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
           },
         ],
       },
@@ -2005,7 +1983,6 @@ Section2A.args = {
 export const Section2B: Story = {};
 Section2B.storyName = '2B';
 Section2B.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -2067,8 +2044,7 @@ Section2B.args = {
         elements: [
           {
             type: 'title',
-            label:
-              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+            label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v1',
             classes: 'mat-headline-3 bold',
           },
@@ -2132,7 +2108,6 @@ Section2B.args = {
 export const Section3A: Story = {};
 Section3A.storyName = '3A';
 Section3A.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -2238,8 +2213,7 @@ Section3A.args = {
         elements: [
           {
             type: 'title',
-            label:
-              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+            label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v4',
             classes: 'mat-headline-3 bold',
           },
@@ -2456,7 +2430,6 @@ Section3A.args = {
 export const Section3B: Story = {};
 Section3B.storyName = '3B';
 Section3B.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -2837,7 +2810,6 @@ Section3B.args = {
 export const Section4A: Story = {};
 Section4A.storyName = '4A';
 Section4A.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -3350,8 +3322,7 @@ Section4A.args = {
         elements: [
           {
             type: 'title',
-            label:
-              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+            label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v4',
             classes: 'mat-headline-3 bold',
           },
@@ -3377,7 +3348,6 @@ Section4A.args = {
 export const Section5A: Story = {};
 Section5A.storyName = '5A';
 Section5A.args = {
-  pageIndex: 0,
   content: {
     fullWidth: false,
     spacer: 'md',
@@ -3478,8 +3448,7 @@ Section5A.args = {
         elements: [
           {
             type: 'title',
-            label:
-              '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+            label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
             style: 'style-v4',
             classes: 'mat-headline-3 bold',
           },
@@ -3610,8 +3579,7 @@ Section5A.args = {
                       href: '#',
                       label: '高性能',
                     },
-                    content:
-                      '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                    content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
                   },
                 ],
               },
@@ -3678,8 +3646,7 @@ Section5A.args = {
                       href: '#',
                       label: '易用的编辑器',
                     },
-                    content:
-                      '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+                    content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
                   },
                 ],
               },
@@ -3743,8 +3710,7 @@ Section5A.args = {
                       href: '#',
                       label: '多语言',
                     },
-                    content:
-                      'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+                    content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
                   },
                 ],
               },
