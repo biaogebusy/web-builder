@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IUser } from '@core/interface/IUser';
+import { ManageService } from '@core/service/manage.service';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
@@ -38,6 +39,7 @@ export class UserSettingComponent implements OnInit {
   private storage = inject(LocalStorageService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
+  private manageService = inject(ManageService);
 
   ngOnInit(): void {
     this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user: IUser) => {
@@ -230,57 +232,41 @@ export class UserSettingComponent implements OnInit {
     });
   }
 
-  async onUpload(input: HTMLElement, user: IUser): Promise<void> {
-    input.click();
-    input.addEventListener('change', async (event: any) => {
-      if (event) {
-        const file = event?.target?.files[0];
-        if (!file) {
-          this.util.openSnackbar('请检查图片格式', 'ok');
-          return;
-        }
+  async handleFileChange(event: Event, user: IUser): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) {
+      this.util.openSnackbar('请检查图片格式', 'ok');
+      return;
+    }
 
-        if (file.size > 5 * 1024 * 1024) {
-          this.util.openSnackbar('图片大小不能超过5M', 'ok');
-          return;
-        }
-        const data = await new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            const result = e.target.result;
-            this.loading.set(true);
-            if (result) {
-              resolve(result);
-            } else {
-              reject(false);
-            }
-          };
+    if (file.size > 5 * 1024 * 1024) {
+      this.util.openSnackbar('图片大小不能超过5M', 'ok');
+      return;
+    }
 
-          reader.readAsArrayBuffer(file);
+    try {
+      const data = await this.manageService.readFileAsArrayBuffer(file);
+      this.userService
+        .uploadUserPicture(user, data)
+        .pipe(
+          catchError(error => {
+            return of(false);
+          }),
+          takeUntilDestroyed(this.destroyRef)
+        )
+        .subscribe(res => {
+          if (res) {
+            this.util.openSnackbar('头像上传成功', 'ok');
+            this.userService.updateUserBySession();
+          } else {
+            this.util.openSnackbar('头像上传失败', 'ok');
+          }
+          this.loading.set(false);
         });
-
-        if (!data) {
-          return;
-        }
-
-        this.userService
-          .uploadUserPicture(user, data)
-          .pipe(
-            catchError(error => {
-              return of(false);
-            }),
-            takeUntilDestroyed(this.destroyRef)
-          )
-          .subscribe(res => {
-            if (res) {
-              this.util.openSnackbar('头像上传成功', 'ok');
-              this.userService.updateUserBySession();
-            } else {
-              this.util.openSnackbar('头像上传失败', 'ok');
-            }
-            this.loading.set(false);
-          });
-      }
-    });
+    } catch (error) {
+      this.util.openSnackbar('头像上传失败', 'ok');
+      this.loading.set(false);
+    }
   }
 }

@@ -2,6 +2,7 @@ import { Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IUser } from '@core/interface/IUser';
 import { IMediaAttr } from '@core/interface/manage/IManage';
+import { ManageService } from '@core/service/manage.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
@@ -17,11 +18,12 @@ import { catchError, retry } from 'rxjs/operators';
 export class UploadMediaComponent {
   private user$ = inject<Observable<IUser>>(USER);
 
-  files: IMediaAttr[] = [];
-  filesEntry: NgxFileDropEntry[];
-  util = inject(UtilitiesService);
-  nodeService = inject(NodeService);
+  public files: IMediaAttr[] = [];
+  public filesEntry: NgxFileDropEntry[];
+  private util = inject(UtilitiesService);
+  private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
+  private manageService = inject(ManageService);
   user: IUser;
 
   constructor() {
@@ -44,19 +46,7 @@ export class UploadMediaComponent {
           });
 
           if (file) {
-            const data = await new Promise<string | ArrayBuffer>((resolve, reject) => {
-              const reader = new FileReader();
-              reader.onload = e => {
-                const result = e.target?.result;
-                if (result) {
-                  resolve(result);
-                } else {
-                  reject(false);
-                }
-              };
-              reader.onerror = e => reject(e);
-              reader.readAsArrayBuffer(file);
-            });
+            const data = await this.manageService.readFileAsArrayBuffer(file);
 
             const imgAttr = await lastValueFrom(
               this.nodeService.uploadImage(file.name, data, this.user.csrf_token).pipe(

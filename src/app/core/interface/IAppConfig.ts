@@ -50,10 +50,6 @@ export interface ICoreConfig {
   access: {
     check: true;
   };
-  qidian: {
-    id: string;
-    key: string;
-  };
   notify?: {
     enable: boolean;
     params: {

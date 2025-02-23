@@ -16,10 +16,16 @@
               src="{{ user.picture }}"
               alt=""
             />
-            <input type="file" #avatarInput accept="image/*" style="display: none" />
+            <input
+              type="file"
+              #avatarInput
+              accept="image/*"
+              style="display: none"
+              (change)="handleFileChange($event, user)"
+            />
             <div class="upload absolute -bottom-3 -right-3">
               <app-btn
-                (click)="onUpload(avatarInput, user)"
+                (click)="avatarInput.click()"
                 matTooltip="更新头像"
                 matTooltipPosition="above"
                 [content]="{ mode: 'icon', icon: { svg: 'camera' } }"

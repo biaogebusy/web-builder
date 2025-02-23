@@ -384,7 +384,7 @@ export class NodeService extends ApiService {
       })
       .pipe(
         catchError(errror => {
-          return throwError(errror);
+          return of(errror);
         }),
         map((res: any) => {
           const {

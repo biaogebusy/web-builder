@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { DialogService } from './dialog.service';
 import { AnalyticsService } from './analytics.service';
-import { QiDianService } from './qidian.service';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -16,11 +15,10 @@ export class ConfigService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   public switchChange$ = new Subject();
-  screenService = inject(ScreenService);
-  analyticsService = inject(AnalyticsService);
-  qiDianService = inject(QiDianService);
-  dialogService = inject(DialogService);
-  clarityService = inject(ClarityService);
+  private screenService = inject(ScreenService);
+  private analyticsService = inject(AnalyticsService);
+  private dialogService = inject(DialogService);
+  private clarityService = inject(ClarityService);
 
   init(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -28,10 +26,6 @@ export class ConfigService {
         if (this.coreConfig?.analytics?.ga) {
           const id = this.coreConfig.analytics.ga.id;
           this.analyticsService.loadGoogleAnalytics(id);
-        }
-        if (this.coreConfig?.qidian) {
-          const qdConfig = this.coreConfig.qidian;
-          this.qiDianService.loadQiDian(qdConfig);
         }
         if (this.coreConfig?.dialog?.forceDialog) {
           this.dialogService.forceDialog(this.coreConfig.dialog.forceDialog);

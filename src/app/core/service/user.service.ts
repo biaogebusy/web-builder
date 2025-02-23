@@ -338,7 +338,7 @@ export class UserService extends ApiService {
     return [environment.drupalProxy ? '/my' : '/me/login'];
   }
 
-  uploadUserPicture(user: IUser, imageData: string): Observable<any> {
+  uploadUserPicture(user: IUser, imageData: string | ArrayBuffer): Observable<any> {
     const { id, csrf_token } = user;
     const httpOptions = {
       headers: new HttpHeaders({
