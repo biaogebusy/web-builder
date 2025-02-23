@@ -1,12 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  Inject,
-  OnInit,
-  ViewChild,
-  inject,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, ViewChild, inject, AfterViewInit } from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_FULL_SCREEN } from '@core/token/token-providers';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -20,13 +12,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   host: { ngSkipHydration: 'true' },
 })
 export class BuilderComponent implements OnInit, AfterViewInit {
+  builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
+
   @ViewChild('builderRightDrawer', { static: false })
   builderRightDrawer: MatDrawer;
   sidebarDrawerOpened = false;
   builder = inject(BuilderState);
   private destroyRef = inject(DestroyRef);
-
-  constructor(@Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>) {}
 
   ngOnInit(): void {
     this.builder.rightContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {

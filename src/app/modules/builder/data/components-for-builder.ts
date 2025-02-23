@@ -16,7 +16,7 @@ export const components: any[] = [
                 classes: '',
               },
               fullWidth: true,
-              sliders: {
+              swiper: {
                 params: {
                   slidesPerView: 1,
                   spaceBetween: 0,
@@ -3561,7 +3561,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-white bg-fill-width',
               },
-              sliders: {
+              swiper: {
                 type: 'swiper',
                 params: {
                   navigation: false,
@@ -3682,7 +3682,7 @@ export const components: any[] = [
                 classes: '',
               },
               classes: '',
-              sliders: {
+              swiper: {
                 params: {
                   slidesPerView: 1,
                   spaceBetween: 0,
@@ -3826,7 +3826,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-white bg-fill-width',
               },
-              sliders: {
+              swiper: {
                 params: {
                   slidesPerView: 1.5,
                   spaceBetween: 40,
@@ -3972,7 +3972,7 @@ export const components: any[] = [
               },
               classes: '',
               fullWidth: true,
-              sliders: {
+              swiper: {
                 params: {
                   slidesPerView: 1,
                   spaceBetween: 0,
@@ -4151,7 +4151,7 @@ export const components: any[] = [
               bg: {
                 classes: '',
               },
-              sliders: {
+              swiper: {
                 classes: 'full-screen',
                 params: {
                   direction: 'vertical',
@@ -4184,7 +4184,7 @@ export const components: any[] = [
                     bg: {
                       classes: '',
                     },
-                    sliders: {
+                    swiper: {
                       params: {
                         slidesPerView: 1,
                         spaceBetween: 0,
@@ -4663,7 +4663,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-white bg-fill-width',
               },
-              sliders: {
+              swiper: {
                 params: {
                   slidesPerView: 1.2,
                   spaceBetween: 10,
@@ -4827,7 +4827,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-shadow',
               },
-              sliders: {
+              swiper: {
                 params: {
                   slidesPerView: 1.2,
                   spaceBetween: 20,
@@ -4965,7 +4965,7 @@ export const components: any[] = [
               bg: {
                 classes: 'bg-shadow',
               },
-              sliders: {
+              swiper: {
                 params: {
                   slidesPerView: 1.1,
                   spaceBetween: 20,
@@ -5076,7 +5076,7 @@ export const components: any[] = [
                 },
               },
               classes: '',
-              sliders: {
+              swiper: {
                 params: {
                   slidesPerView: 1,
                   pagination: false,
@@ -5154,7 +5154,7 @@ export const components: any[] = [
                 classes: 'bg-fill-width bg-shadow',
               },
               classes: '',
-              sliders: {
+              swiper: {
                 params: {
                   slidesPerView: 1.2,
                   pagination: false,

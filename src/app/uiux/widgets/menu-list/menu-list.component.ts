@@ -1,13 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import type {
-  IMenuList,
-  IMenuListItem,
-} from '@core/interface/widgets/IMenuList';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import type { IMenuList, IMenuListItem } from '@core/interface/widgets/IMenuList';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
@@ -17,12 +9,13 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuListComponent implements OnInit {
+  private screenService = inject(ScreenService);
+
   @Input() content: IMenuList;
   list: IMenuListItem[];
   initList: IMenuListItem[];
   expand = false;
   row = 12;
-  constructor(private screenService: ScreenService) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

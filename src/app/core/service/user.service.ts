@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap } from 'rxjs/operators';
@@ -16,6 +16,8 @@ import { UtilitiesService } from './utilities.service';
   providedIn: 'root',
 })
 export class UserService extends ApiService {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+
   userSub$ = new Subject<IUser | boolean>();
 
   http = inject(HttpClient);
@@ -23,9 +25,6 @@ export class UserService extends ApiService {
   cryptoJS = inject(CryptoJSService);
   cookieService = inject(CookieService);
   util = inject(UtilitiesService);
-  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {
-    super();
-  }
 
   get userApiPath(): string {
     return `${this.apiUrl}${this.coreConfig.apiUrl.userGetPath}`;
@@ -337,5 +336,23 @@ export class UserService extends ApiService {
 
   get userLink(): string[] {
     return [environment.drupalProxy ? '/my' : '/me/login'];
+  }
+
+  uploadUserPicture(user: IUser, imageData: string | ArrayBuffer): Observable<any> {
+    const { id, csrf_token } = user;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/vnd.api+json',
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': 'file; filename="' + id + '-picture.jpg"',
+        'X-CSRF-Token': csrf_token,
+      }),
+      withCredentials: true,
+    };
+    return this.http.post(
+      `${this.apiUrl}/api/v1/user/user/${id}/user_picture`,
+      imageData,
+      httpOptions
+    );
   }
 }

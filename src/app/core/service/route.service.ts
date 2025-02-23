@@ -10,12 +10,13 @@ import { IPage } from '@core/interface/IAppConfig';
   providedIn: 'root',
 })
 export class RouteService {
+  private location = inject(Location);
+
   router = inject(Router);
   activatedRoute = inject(ActivatedRoute);
   util = inject(UtilitiesService);
   contentService = inject(ContentService);
   contentState = inject(ContentState);
-  constructor(private location: Location) {}
 
   updateQueryParams(query: Params): void {
     const url = this.router
@@ -64,11 +65,7 @@ export class RouteService {
       return;
     }
     if (!this.util.getFileType(href)) {
-      if (
-        href.startsWith('/print') ||
-        href.startsWith('/export') ||
-        href.startsWith('/manage')
-      ) {
+      if (href.startsWith('/print') || href.startsWith('/export') || href.startsWith('/manage')) {
         window.open(href, link.target || '_self');
         return;
       }
@@ -91,12 +88,10 @@ export class RouteService {
         if (target.rel === 'drawer') {
           this.contentState.drawerOpened$.next(true);
           this.contentState.drawerLoading$.next(true);
-          this.contentService
-            .loadPageContent(link)
-            .subscribe((content: IPage) => {
-              this.contentState.drawerContent$.next(content);
-              this.contentState.drawerLoading$.next(false);
-            });
+          this.contentService.loadPageContent(link).subscribe((content: IPage) => {
+            this.contentState.drawerContent$.next(content);
+            this.contentState.drawerLoading$.next(false);
+          });
           event.preventDefault();
           return;
         }

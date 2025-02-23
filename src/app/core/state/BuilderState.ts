@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import {
   IBuilderComponent,
@@ -25,6 +25,9 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
   providedIn: 'root',
 })
 export class BuilderState {
+  private doc = inject<Document>(DOCUMENT);
+  widgets = inject(WIDGETS);
+
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
   public showcase$ = new Subject<IBuilderShowcase | false>();
@@ -58,10 +61,8 @@ export class BuilderState {
   util = inject(UtilitiesService);
   sreenService = inject(ScreenService);
   storage = inject(LocalStorageService);
-  constructor(
-    @Inject(DOCUMENT) private doc: Document,
-    @Inject(WIDGETS) public widgets: any[]
-  ) {
+
+  constructor() {
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion) {
       this.version = localVersion;
@@ -102,7 +103,7 @@ export class BuilderState {
   clearAllVersion(): void {
     this.version = [
       {
-        title: '欢迎页',
+        title: '未命名',
         body: [],
         current: true,
         time: new Date(),

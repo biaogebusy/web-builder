@@ -9,7 +9,7 @@ import { JsoneditorComponent } from './jsoneditor/jsoneditor.component';
 import { ThemePreviewComponent } from './theme-preview/theme-preview.component';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { CustomTemplateComponent } from './custom-template/custom-template.component';
-import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { FormModule } from '../form/form.module';
 
 const components = [

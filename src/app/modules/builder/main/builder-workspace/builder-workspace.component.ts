@@ -1,21 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  DestroyRef,
-  Inject,
-  inject, OnInit,
-} from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
-import {
-  BUILDER_CONFIG,
-  BUILDER_FULL_SCREEN,
-  CORE_CONFIG,
-} from '@core/token/token-providers';
+import { BUILDER_CONFIG, BUILDER_FULL_SCREEN, CORE_CONFIG } from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 import { TagsService } from '@core/service/tags.service';
@@ -29,24 +19,24 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
   styleUrl: './builder-workspace.component.scss',
 })
 export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
-  builderFullScreen: boolean;
-  panelOpenState = false;
-  mode: 'side' | 'over' | 'push' = 'side';
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private doc = inject<Document>(DOCUMENT);
+  private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  public builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
 
-  builder = inject(BuilderState);
-  utli = inject(UtilitiesService);
-  screenState = inject(ScreenState);
-  storage = inject(LocalStorageService);
+  private builderFullScreen: boolean;
+  public mode: 'side' | 'over' | 'push' = 'side';
+
+  public builder = inject(BuilderState);
+  private utli = inject(UtilitiesService);
+  private screenState = inject(ScreenState);
+  private storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
-  tagService = inject(TagsService);
+  private tagService = inject(TagsService);
   private tourService = inject(TourService);
   private screenSerivce = inject(ScreenService);
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(DOCUMENT) private doc: Document,
-    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>,
-    @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>
-  ) {
+
+  constructor() {
     this.tagService.setTitle('工作区');
   }
 
@@ -90,10 +80,7 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
         code,
         target: { localName },
       } = event;
-      if (
-        (code === 'KeyS' && localName === 'body') ||
-        localName === 'mat-drawer'
-      ) {
+      if ((code === 'KeyS' && localName === 'body') || localName === 'mat-drawer') {
         this.storage.store('builderFullScreen', !isFull);
         this.builder.fullScreen$.next(!isFull);
       }

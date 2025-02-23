@@ -1,3 +1,5 @@
+@let builderConfig = builderConfig$ | async;
+@let help = builderConfig?.widgetPicker?.help;
 <div class="widget-picker" [class.active]="show()" (mouseleave)="onLeave()">
   @if (widgets) {
     <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>

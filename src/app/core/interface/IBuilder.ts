@@ -6,6 +6,7 @@ import { IBgImg } from './widgets/IBgImg';
 import { ILink } from './widgets/ILink';
 import { IBtn } from './widgets/IBtn';
 import { IMainMenu } from './branding/IBranding';
+import { ITitle } from './widgets/ITitle';
 
 export interface IBuilderConfig {
   menu: IMainMenu[];
@@ -27,6 +28,16 @@ export interface IBuilderConfig {
       link: string;
     };
   };
+  manageMedia: IBuilderManageMedia;
+}
+
+export interface IBuilderManageMedia {
+  row: number;
+  sidebar: {
+    title: ITitle;
+    form: FormlyFieldConfig[];
+    action: IBtn;
+  };
 }
 
 export interface IBuilderComponent {
@@ -41,7 +52,6 @@ export interface IBuilderComponentElement {
   id?: string;
   icon?: IIcon;
   type?: string;
-  provide?: 'CORE_CONFIG' | 'BRANDING';
   child?: IBuilderComponentElement[];
   content?: {
     type?: string;
@@ -85,9 +95,9 @@ export interface IBuilderShowcase {
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
   style?: any;
-  horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
-  vertical: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-  alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+  horizontal: IHorizontal;
+  vertical: IVertical;
+  alignItems?: IAlignItems;
   wrapperClass?: any;
   animate?: any;
   bgClasses?: string;
@@ -101,6 +111,9 @@ export interface ILayoutBuilder extends ICombsBase {
   elements: ILayoutBlock[];
 }
 
+export type IHorizontal = 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+export type IVertical = 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+export type IAlignItems = 'start' | 'end' | 'center' | 'baseline' | 'stretch';
 export interface ILayoutBlock {
   classes: any;
   blockClasses?: any;
@@ -112,9 +125,9 @@ export interface ILayoutBlock {
   animate?: any;
   bg?: IBgImg;
   elements: any[];
-  horizontal: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
-  vertical: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-  alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+  horizontal: IHorizontal;
+  vertical: IVertical;
+  alignItems?: IAlignItems;
   gap?: {
     xs?: number | string;
     sm?: number | string;

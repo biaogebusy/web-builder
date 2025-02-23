@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IShowcase4v1 } from '@core/interface/combs/IShowcase';
 import { DialogService } from '@core/service/dialog.service';
@@ -19,15 +20,12 @@ import { catchError } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Showcase4v1Component extends BaseComponent implements OnInit {
+  private nodeService = inject(NodeService);
+  private cd = inject(ChangeDetectorRef);
+  private dialogService = inject(DialogService);
+
   @Input() content: IShowcase4v1;
   elements: any[];
-  constructor(
-    private nodeService: NodeService,
-    private cd: ChangeDetectorRef,
-    private dialogService: DialogService
-  ) {
-    super();
-  }
 
   ngOnInit(): void {
     const api = this.getParams(this.content, 'api');

@@ -31,36 +31,18 @@ export const base = [
           type: 'layout-builder',
           elements: [
             {
-              row: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 7,
-              },
+              row: { xs: 12, sm: 6, md: 6, lg: 7 },
               vertical: 'start',
-              gap: {
-                xs: '2',
-                sm: '2',
-                md: '2',
-                lg: '2',
-              },
+              gap: { xs: '2', sm: '2', md: '2', lg: '2' },
               bg: {
-                img: {
-                  src: '',
-                  alt: '',
-                  classes: 'object-fit',
-                },
+                img: { src: '', alt: '', classes: 'object-fit' },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
               blockClasses: '',
               horizontal: 'start',
-              style: {
-                borderRadius: 'none',
-                padding: '',
-                margin: '',
-              },
+              style: { borderRadius: 'none', padding: '', margin: '' },
               elements: [
                 {
                   type: 'title',
@@ -72,22 +54,17 @@ export const base = [
                 {
                   type: 'text',
                   spacer: 'none',
-                  body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
-                  bg: {
-                    classes: 'bg- bg-fill-width',
-                  },
+                  body: '信使UI，一款基于Material设计的Angular前端框架，提供了超过五十种丰富组件，旨在为用户带来卓越的数字创新体验。通过我们的Web Builder，您可以轻松拖拽，快速构建出响应式且支持多主题的Web页面。此外，信使UI现已集成DeepSeek AI功能，旨在通过AI技术进一步提升开发效率和用户体验。',
+                  bg: { classes: 'bg- bg-fill-width' },
                   classes: '',
                 },
                 {
                   type: 'card-1v4',
-                  img: {
-                    classes: 'object-fit',
-                    src: '/assets/images/avatar/01.jpeg',
-                  },
+                  img: { classes: 'object-fit', src: '/assets/images/avatar/01.jpeg' },
                   star: 5,
                   title: '- Johnson',
                   subTitle: '前端开发',
-                  body: '信使是一个灵活可扩展性高的前端Anuglar框架，动态组件可以使得组件之间变得更加灵活，但是依赖循环也变得复杂。',
+                  body: '信使是一个高度灵活且可扩展的前端Angular框架，其动态组件特性显著提升了组件间的灵活性，尽管这可能会引入更复杂的依赖循环问题。',
                 },
                 {
                   type: 'btn',
@@ -100,31 +77,15 @@ export const base = [
               ],
             },
             {
-              row: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 5,
-              },
-              gap: {
-                xs: 0,
-                sm: 0,
-                md: 0,
-                lg: 0,
-              },
+              row: { xs: 12, sm: 6, md: 6, lg: 5 },
+              gap: { xs: 0, sm: 0, md: 0, lg: 0 },
               bg: {
-                img: {
-                  src: '',
-                  alt: '',
-                  classes: 'object-fit',
-                },
+                img: { src: '', alt: '', classes: 'object-fit' },
                 overlay: '',
                 classes: 'bg-fill-width',
               },
               classes: '',
-              style: {
-                borderRadius: 'none',
-              },
+              style: { borderRadius: 'none' },
               horizontal: 'center',
               vertical: 'center',
               elements: [
@@ -950,7 +911,7 @@ export const base = [
             content:
               '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
           },
-          html: '<div class="text-center md:text-left md:flex bg-shadow rounded-xl p-8 md:p-0 m-5 mx-auto overflow-hidden">\n          <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full" src="{{img}}" alt="" width="384" height="512">\n          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">\n             <p class="text-lg font-medium">\n                “{{content}}”\n              </p>\n            <div class="font-medium">\n              <div class="text-xl mb-2">\n                {{title}}\n              </div>\n              <div class="opacity-75 text-sm">\n                {{subTitle}}\n              </div>\n            </div>\n          </div>\n        </div>',
+          html: '<div class="text-center md:text-left md:flex bg-shadow rounded-xl p-8 md:p-0 m-5 mx-auto overflow-hidden">\n          <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full" src="/assets/images/avatar/05.jpeg" alt="" width="384" height="512">\n          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">\n             <p class="text-lg font-medium">\n                “信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。”\n              </p>\n            <div class="font-medium">\n              <div class="text-xl mb-2">web builder</div>\n              <div class="opacity-75 text-sm">是一款通过拖拽组件构建页面的低代码</div>\n            </div>\n          </div>\n        </div>',
         },
       },
       {
@@ -2809,19 +2770,12 @@ export const base = [
             classes: 'mat-headline-3 bold',
             style: 'style-v1',
           },
-          bg: {
-            classes: 'bg- bg-fill-width',
-          },
-          body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
+          bg: { classes: 'bg- bg-fill-width' },
+          body: '信使UI是基于 Material 的 Angular 前端框架，提供五十多个丰富的组件，旨在为用户提供卓越的数字创新体验。通过 Web Builder，您可以轻松拖拽构建响应式、多主题的 Web 页面。此外，我们的平台集成了先进的 DeepSeek AI 功能，使页面构建更加智能化和高效。',
           classes: 'text-center',
           actionsAlign: 'center',
           actions: [
-            {
-              type: 'btn-generater',
-              label: '生成页面',
-              color: 'primary',
-              mode: 'raised',
-            },
+            { type: 'btn-generater', label: '生成页面', color: 'primary', mode: 'raised' },
             {
               type: 'btn',
               color: 'primary',
@@ -2829,10 +2783,7 @@ export const base = [
               label: '演示视频',
               href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
               target: '_blank',
-              icon: {
-                inline: true,
-                svg: 'play-circle-outline',
-              },
+              icon: { inline: true, svg: 'play-circle-outline' },
             },
           ],
         },

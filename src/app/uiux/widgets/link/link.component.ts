@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -30,6 +29,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LinkComponent extends BaseComponent implements OnInit {
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: ILink;
   classes: any;
   href: string;
@@ -44,7 +45,8 @@ export class LinkComponent extends BaseComponent implements OnInit {
   util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private dialog = inject(MatDialog);
-  constructor(@Inject(USER) private user$: Observable<IUser>) {
+
+  constructor() {
     super();
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;

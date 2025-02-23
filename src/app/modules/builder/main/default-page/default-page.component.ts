@@ -11,9 +11,9 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DefaultPageComponent implements OnInit {
-  content$: Observable<IPage>;
-  builderService = inject(BuilderService);
-  screenSerivce = inject(ScreenService);
+  public content$: Observable<IPage>;
+  private builderService = inject(BuilderService);
+  private screenSerivce = inject(ScreenService);
   ngOnInit(): void {
     if (this.screenSerivce.isPlatformBrowser()) {
       this.content$ = this.builderService.getDefaultPage('/builder/default-page');

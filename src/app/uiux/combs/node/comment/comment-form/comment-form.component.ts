@@ -6,7 +6,6 @@ import {
   Output,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Inject,
   inject,
   DestroyRef,
 } from '@angular/core';
@@ -30,6 +29,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentFormComponent implements OnInit {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: IBaseNode;
   @Input() commentContent: any;
   @Input() commentId: string;
@@ -47,10 +49,8 @@ export class CommentFormComponent implements OnInit {
   contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
   user: IUser;
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
@@ -102,12 +102,7 @@ export class CommentFormComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  add(
-    value: string,
-    params: ICommentParams,
-    type: string,
-    token: string
-  ): void {
+  add(value: string, params: ICommentParams, type: string, token: string): void {
     // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types
     params.attributes.comment_body = {
       value,
@@ -130,12 +125,7 @@ export class CommentFormComponent implements OnInit {
       );
   }
 
-  reply(
-    value: string,
-    params: ICommentParams,
-    type: string,
-    token: string
-  ): void {
+  reply(value: string, params: ICommentParams, type: string, token: string): void {
     const entity = {
       type: params.type,
       attributes: {
@@ -169,12 +159,7 @@ export class CommentFormComponent implements OnInit {
       });
   }
 
-  update(
-    value: string,
-    params: ICommentParams,
-    type: string,
-    token: string
-  ): void {
+  update(value: string, params: ICommentParams, type: string, token: string): void {
     const entity: ICommentParams = {
       type: params.type,
       id: this.commentId,
@@ -216,16 +201,11 @@ export class CommentFormComponent implements OnInit {
     this.loading = false;
     this.cd.detectChanges();
     this.contentState.commentChange$.next(true);
-    this.utilitiesService.openSnackbar(
-      snack || this.content?.editor?.succes?.label
-    );
+    this.utilitiesService.openSnackbar(snack || this.content?.editor?.succes?.label);
   }
 
   editorCreated(quill: any): void {
     const toolbar = quill.getModule('toolbar');
-    toolbar.addHandler(
-      'image',
-      this.nodeService.imageHandler.bind(this.nodeService, quill)
-    );
+    toolbar.addHandler('image', this.nodeService.imageHandler.bind(this.nodeService, quill));
   }
 }

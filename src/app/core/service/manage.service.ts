@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
@@ -11,15 +11,14 @@ import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
   providedIn: 'root',
 })
 export class ManageService extends ApiService {
+  private user$ = inject<Observable<IUser>>(USER);
+
   http = inject(HttpClient);
   util = inject(UtilitiesService);
-  mediaDialogClass = [
-    'close-outside',
-    'close-icon-white',
-    'manage-media-dialog',
-  ];
+  mediaDialogClass = ['close-outside', 'close-icon-white', 'manage-media-dialog'];
   user: IUser;
-  constructor(@Inject(USER) private user$: Observable<IUser>) {
+
+  constructor() {
     super();
     this.user$.subscribe(user => {
       this.user = user;
@@ -142,5 +141,21 @@ export class ManageService extends ApiService {
       type,
       params: apiParams.getQueryString({ encode: false }),
     };
+  }
+
+  readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const result = e.target?.result;
+        if (result) {
+          resolve(result as ArrayBuffer);
+        } else {
+          reject(false);
+        }
+      };
+      reader.onerror = e => reject(e);
+      reader.readAsArrayBuffer(file);
+    });
   }
 }

@@ -24,17 +24,13 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   form = new UntypedFormGroup({});
   model: any = {};
   @Input() content: IMetaEdit;
-  sizeGuiUI: any;
-  styleFolder: any;
-  sizeFolder: any;
-  viewHTML: any;
-  guiHTML: any;
-  editor: any;
+  private viewHTML: any;
+  private guiHTML: any;
 
-  dialog = inject(MatDialog);
-  builder = inject(BuilderState);
-  cd = inject(ChangeDetectorRef);
-  manageService = inject(ManageService);
+  private dialog = inject(MatDialog);
+  private builder = inject(BuilderState);
+  private cd = inject(ChangeDetectorRef);
+  private manageService = inject(ManageService);
   constructor() {}
 
   ngOnInit(): void {}

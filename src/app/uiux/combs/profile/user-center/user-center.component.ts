@@ -1,12 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  Inject,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import type { IUserCenter } from '@core/interface/IUserCenter';
 import { ScreenService } from '@core/service/screen.service';
@@ -26,6 +18,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./user-center.component.scss'],
 })
 export class UserCenterComponent implements OnInit {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: IUserCenter;
   currentUser: any;
   id: any;
@@ -36,10 +31,8 @@ export class UserCenterComponent implements OnInit {
   screenService = inject(ScreenService);
   userService = inject(UserService);
   private destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) public user$: Observable<IUser>
-  ) {
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });

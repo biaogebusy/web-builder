@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   HostBinding,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -26,6 +25,8 @@ import { Observable, delay } from 'rxjs';
   styleUrls: ['./component-toolbar.component.scss'],
 })
 export class ComponentToolbarComponent implements OnInit, AfterViewInit {
+  private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+
   @Input() content: IComponentToolbar;
   index = signal(0);
   length = signal(0);
@@ -38,7 +39,6 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   util = inject(UtilitiesService);
   ele = inject(ElementRef);
   currentPage: IPage;
-  constructor(@Inject(BUILDER_CURRENT_PAGE) private currentPage$: Observable<IPage>) {}
 
   ngOnInit(): void {
     this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {

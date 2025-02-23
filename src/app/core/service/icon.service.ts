@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { ScreenService } from '@core/service/screen.service';
@@ -7,17 +7,13 @@ import { ScreenService } from '@core/service/screen.service';
   providedIn: 'root',
 })
 export class IconService {
-  constructor(
-    private ds: DomSanitizer,
-    private ir: MatIconRegistry,
-    private screenService: ScreenService
-  ) {}
+  private ds = inject(DomSanitizer);
+  private ir = inject(MatIconRegistry);
+  private screenService = inject(ScreenService);
 
   loadSvgResources(): void {
     if (this.screenService.isPlatformServer()) {
-      this.ir.addSvgIconSetLiteral(
-        this.ds.bypassSecurityTrustHtml('<svg></svg>')
-      );
+      this.ir.addSvgIconSetLiteral(this.ds.bypassSecurityTrustHtml('<svg></svg>'));
     } else {
       // mdi
       // https://pictogrammers.com/docs/library/mdi/getting-started/angular/

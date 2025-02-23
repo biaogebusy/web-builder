@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   OnInit,
   inject,
 } from '@angular/core';
@@ -21,6 +20,8 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchPreviewComponent implements OnInit {
+  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+
   currentPage: IPage;
   private destroyRef = inject(DestroyRef);
   currentPreview = 'none';
@@ -59,16 +60,11 @@ export class SwitchPreviewComponent implements OnInit {
   builder = inject(BuilderState);
   cd = inject(ChangeDetectorRef);
   util = inject(UtilitiesService);
-  constructor(
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
-  ) {}
 
   ngOnInit(): void {
-    this.currentPage$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(page => {
-        this.currentPage = page;
-      });
+    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+      this.currentPage = page;
+    });
   }
 
   onSwitch(preview: any): void {

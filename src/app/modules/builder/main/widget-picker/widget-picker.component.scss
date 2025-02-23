@@ -7,6 +7,7 @@
   transform: translateY(-50%);
   z-index: 999;
   width: 48px;
+  pointer-events: none;
   .widget-wrapper {
     position: relative;
     left: 108px;
@@ -51,9 +52,11 @@
     padding: 20px;
     transition: all 0.5s ease-out;
     z-index: -10;
+    pointer-events: all;
   }
   &.active {
     right: 0px;
+    pointer-events: all;
     .widget-wrapper {
       left: 0;
       transition: left 0.5s ease-in;

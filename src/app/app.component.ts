@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  Inject,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit, inject } from '@angular/core';
 import { ScreenState } from './core/state/screen/ScreenState';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
@@ -20,6 +14,9 @@ import { ThemeService } from '@core/service/theme.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  branding$ = inject<Observable<IBranding>>(BRANDING);
+
   mobileMenuOpened: boolean;
   loading = true;
   screen = inject(ScreenState);
@@ -27,10 +24,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   configService = inject(ConfigService);
   screenService = inject(ScreenService);
   themeService = inject(ThemeService);
-  constructor(
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(BRANDING) public branding$: Observable<IBranding>
-  ) {}
 
   ngOnInit(): void {
     this.configService.init();

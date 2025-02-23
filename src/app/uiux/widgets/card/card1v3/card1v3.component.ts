@@ -6,6 +6,7 @@ import {
   Output,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import type { IMark } from '@core/interface/IAmap';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -19,14 +20,12 @@ import { MatDialog } from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Card1v3Component implements OnInit {
+  private dialog = inject(MatDialog);
+  private cd = inject(ChangeDetectorRef);
+
   @Input() content: ICard1v3;
   @Output() selected = new EventEmitter();
   selectedId: number;
-
-  constructor(
-    private dialog: MatDialog,
-    private cd: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {}
 

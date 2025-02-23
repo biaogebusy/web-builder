@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntypedFormGroup } from '@angular/forms';
@@ -24,6 +25,13 @@ import { IPager } from '@core/interface/widgets/IWidgets';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicCardListComponent extends BaseComponent implements OnInit {
+  nodeService = inject(NodeService);
+  private router = inject(ActivatedRoute);
+  routerService = inject(RouteService);
+  private formService = inject(FormService);
+  private screenService = inject(ScreenService);
+  private cd = inject(ChangeDetectorRef);
+
   @Input() content: IDynamicCardList;
   keys: string;
   page: number;
@@ -33,17 +41,6 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   nodes: any[];
   status: any;
   loading = false;
-
-  constructor(
-    public nodeService: NodeService,
-    private router: ActivatedRoute,
-    public routerService: RouteService,
-    private formService: FormService,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
-  ) {
-    super();
-  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -59,10 +56,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
           isEmpty
         );
         if (this.content.sidebar) {
-          this.filterForm = this.initFormValueWithUrlQuery(
-            queryOpt,
-            this.content.sidebar
-          );
+          this.filterForm = this.initFormValueWithUrlQuery(queryOpt, this.content.sidebar);
           this.initForm(this.filterForm);
         }
         this.nodeSearch(queryOpt);
@@ -72,31 +66,27 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
 
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
-    this.form.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged())
-      .subscribe(value => {
-        const params = Object.assign({ page: 0 }, value);
-        this.onSelectChange(params);
-      });
+    this.form.valueChanges.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(value => {
+      const params = Object.assign({ page: 0 }, value);
+      this.onSelectChange(params);
+    });
   }
 
   nodeSearch(options: any): void {
     this.loading = true;
     const state = this.getParamsState(this.form?.value, options);
     const params = this.getApiParams(state);
-    this.nodeService
-      .fetch(this.getParams(this.content, 'type'), params)
-      .subscribe(
-        data => {
-          this.updateList(data, this.form.value, options);
-          this.loading = false;
-          this.cd.detectChanges();
-        },
-        error => {
-          this.loading = false;
-          this.cd.detectChanges();
-        }
-      );
+    this.nodeService.fetch(this.getParams(this.content, 'type'), params).subscribe(
+      data => {
+        this.updateList(data, this.form.value, options);
+        this.loading = false;
+        this.cd.detectChanges();
+      },
+      error => {
+        this.loading = false;
+        this.cd.detectChanges();
+      }
+    );
   }
 
   onSelectChange(options: any): void {
@@ -114,14 +104,8 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     this.cd.detectChanges();
     this.nodes = data.rows.map((item: any) => {
       const link = item.url;
-      const title = result(
-        item,
-        this.getValue(this.content, 'fields', 'title')
-      );
-      const subTitle = result(
-        item,
-        this.getValue(this.content, 'fields', 'subTitle')
-      );
+      const title = result(item, this.getValue(this.content, 'fields', 'title'));
+      const subTitle = result(item, this.getValue(this.content, 'fields', 'subTitle'));
       const body = result(item, this.getValue(this.content, 'fields', 'body'));
       return {
         link: {

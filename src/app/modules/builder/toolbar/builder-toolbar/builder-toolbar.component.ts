@@ -3,24 +3,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  Inject,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {
-  BRANDING,
-  BUILDER_CURRENT_PAGE,
-  BUILDER_FULL_SCREEN,
-  USER,
-} from '@core/token/token-providers';
+import { BUILDER_CURRENT_PAGE, BUILDER_FULL_SCREEN, USER } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import type { IPage } from '@core/interface/IAppConfig';
-import type { IBranding } from '@core/interface/branding/IBranding';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
@@ -30,7 +24,6 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NodeService } from '@core/service/node.service';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -39,35 +32,36 @@ import { NodeService } from '@core/service/node.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
-  page?: IPage;
-  router = inject(Router);
-  dialog = inject(MatDialog);
-  builder = inject(BuilderState);
-  util = inject(UtilitiesService);
-  screenState = inject(ScreenState);
-  storage = inject(LocalStorageService);
-  screenService = inject(ScreenService);
-  builderService = inject(BuilderService);
-  nodeService = inject(NodeService);
+  private user$ = inject<Observable<IUser>>(USER);
+  public builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
+  public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+
+  public page?: IPage;
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private screenState = inject(ScreenState);
+  private storage = inject(LocalStorageService);
+  private screenService = inject(ScreenService);
+  private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
-  user: IUser;
-  constructor(
-    @Inject(USER) private user$: Observable<IUser>,
-    @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
-  ) {
+  private user: IUser;
+  public date = signal<Date>(new Date());
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });
   }
 
   ngOnInit(): void {
-    this.currentPage$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(page => {
-        this.page = page;
-      });
+    this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
+      this.page = page;
+      if (this.page.changed) {
+        this.date.set(new Date(Number(this.page.changed) * 1000));
+      }
+    });
   }
 
   ngAfterViewInit(): void {

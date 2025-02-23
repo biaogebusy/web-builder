@@ -1,6 +1,5 @@
 import {
   Component,
-  Inject,
   OnInit,
   NgZone,
   Input,
@@ -34,6 +33,10 @@ import { ScreenService } from '@core/service/screen.service';
   ],
 })
 export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
+  private doc = inject<Document>(DOCUMENT);
+  pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+
   drawerLoading: boolean;
   drawerContent: IPage;
   opened: boolean;
@@ -46,11 +49,6 @@ export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
   router = inject(Router);
   count = 0;
   pageBodyLength: number;
-  constructor(
-    @Inject(DOCUMENT) private doc: Document,
-    @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
-  ) {}
 
   ngOnInit(): void {
     this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {

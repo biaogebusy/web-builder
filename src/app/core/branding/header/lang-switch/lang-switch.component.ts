@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { ILanguage } from '@core/interface/IEnvironment';
 import { CORE_CONFIG, LANG } from '@core/token/token-providers';
@@ -16,13 +11,12 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LangSwitchComponent implements OnInit {
+  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  lang = inject<ILanguage>(LANG);
+
   currentLang: ILanguage;
   langs = environment?.langs;
   multiLang = environment?.multiLang;
-  constructor(
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(LANG) public lang: ILanguage
-  ) {}
 
   ngOnInit(): void {
     this.currentLang = this.lang;
@@ -38,9 +32,7 @@ export class LangSwitchComponent implements OnInit {
   removeLangPrefix(urlPath: string): string {
     const pathParts = urlPath.split('/');
     // check if the path is like /en/some/path
-    const isLangPage = this.langs?.find(lang =>
-      urlPath.startsWith(`/${lang.langCode}`)
-    );
+    const isLangPage = this.langs?.find(lang => urlPath.startsWith(`/${lang.langCode}`));
 
     if (isLangPage) {
       const remainingPath = pathParts.slice(2).join('/');

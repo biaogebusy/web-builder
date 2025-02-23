@@ -3,7 +3,6 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -26,17 +25,18 @@ import { createPopper } from '@popperjs/core';
   styleUrls: ['./layout-builder.component.scss'],
 })
 export class LayoutBuilderComponent implements OnInit, AfterViewInit {
-  @Input() content: ILayoutBuilder;
-  showToolbar = signal(false);
+  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
-  util = inject(UtilitiesService);
-  ele = inject(ElementRef);
-  builder = inject(BuilderState);
-  destroyRef = inject(DestroyRef);
-  screenService = inject(ScreenService);
-  builderSerivce = inject(BuilderService);
-  popup: any;
-  constructor(@Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>) {}
+  @Input() content: ILayoutBuilder;
+  public showToolbar = signal(false);
+
+  private util = inject(UtilitiesService);
+  private ele = inject(ElementRef);
+  private builder = inject(BuilderState);
+  private destroyRef = inject(DestroyRef);
+  private screenService = inject(ScreenService);
+  private builderSerivce = inject(BuilderService);
+  private popup: any;
 
   ngOnInit(): void {}
 

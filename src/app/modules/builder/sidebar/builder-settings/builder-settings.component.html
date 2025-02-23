@@ -5,13 +5,13 @@
         <mat-panel-title> 配置 </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
-        <div class="cards grid grid-cols-12 gap-1">
+        <div class="cards flex flex-col gap-1">
           @if (loading) {
             <mat-spinner class="mx-auto my-10" diameter="50" color="primary" />
           }
           @if (content$ | async; as content) {
             @for (item of content; track item; let i = $index) {
-              <div class="item col-span-12 cursor-pointer">
+              <div class="item cursor-pointer">
                 <div (click)="onJson(item)" class="overflow-hidden">
                   <div class="inner flex flex-col p-4 gap-1" matRipple>
                     <div class="title flex justify-between items-center">

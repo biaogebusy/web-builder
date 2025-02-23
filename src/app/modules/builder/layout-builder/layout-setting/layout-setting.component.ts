@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, DestroyRef, Input, inject } from '@angular/core';
+import { Component, DestroyRef, Input, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,12 +21,11 @@ export class LayoutSettingComponent {
   form = new UntypedFormGroup({});
   model: any = {};
 
-  doc = inject(DOCUMENT);
-  dialog = inject(MatDialog);
-  builder = inject(BuilderState);
-  cd = inject(ChangeDetectorRef);
-  destroyRef = inject(DestroyRef);
-  builderService = inject(BuilderService);
+  private doc = inject(DOCUMENT);
+  private dialog = inject(MatDialog);
+  private builder = inject(BuilderState);
+  private destroyRef = inject(DestroyRef);
+  private builderService = inject(BuilderService);
 
   onModelChange(value: any): void {
     const { path } = this.content;
@@ -127,7 +126,7 @@ export class LayoutSettingComponent {
       dialogRef = this.dialog.open(DialogComponent, {
         width: '85vw',
         hasBackdrop: false,
-        panelClass: 'close-outside',
+        panelClass: ['close-outside', 'code-editor-theme'],
         position: {
           bottom: '0px',
         },
@@ -138,6 +137,7 @@ export class LayoutSettingComponent {
               type: 'code-editor',
               path,
               content: get(this.builder.currentPage.body, path),
+              fullWidth: true,
             },
           },
         },

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '../../uiux/widgets/text/text.component';
@@ -9,12 +9,11 @@ import { MatDialog } from '@angular/material/dialog';
   providedIn: 'root',
 })
 export class DialogService {
+  private dialog = inject(MatDialog);
+  private doc = inject<Document>(DOCUMENT);
+
   dialogState$ = new Subject();
   dialogRef: any;
-  constructor(
-    private dialog: MatDialog,
-    @Inject(DOCUMENT) private doc: Document
-  ) {}
 
   closeDialog(): void {
     this.dialogState$.next(false);

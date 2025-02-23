@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Subject, Observable, fromEvent, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -8,6 +8,9 @@ import { ScreenService } from '@core/service/screen.service';
   providedIn: 'root',
 })
 export class ScreenState {
+  breakpointObserver = inject(BreakpointObserver);
+  private screenService = inject(ScreenService);
+
   public scroll$ = new BehaviorSubject<boolean>(true);
   public drawer$ = new Subject();
   public stickyMenu$ = new Subject();
@@ -21,10 +24,7 @@ export class ScreenState {
 
   viewPort: string[];
 
-  constructor(
-    public breakpointObserver: BreakpointObserver,
-    private screenService: ScreenService
-  ) {
+  constructor() {
     if (this.screenService.isPlatformBrowser()) {
       this.initScreen();
       this.initBrowserEvents();

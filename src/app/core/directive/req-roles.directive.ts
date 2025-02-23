@@ -1,11 +1,4 @@
-import {
-  Directive,
-  Input,
-  Inject,
-  TemplateRef,
-  ViewContainerRef,
-  inject,
-} from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
@@ -15,12 +8,15 @@ import { Observable } from 'rxjs';
   selector: '[reqRolesIf]',
 })
 export class ReqRolesDirective {
+  private currentUser$ = inject<Observable<IUser>>(USER);
+
   userService = inject(UserService);
   viewContainer = inject(ViewContainerRef);
   templateRef = inject(TemplateRef<any>);
 
   user: IUser;
-  constructor(@Inject(USER) private currentUser$: Observable<IUser>) {
+
+  constructor() {
     this.currentUser$.subscribe(user => {
       this.user = user;
     });

@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
 import type { IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
@@ -21,6 +21,9 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
+  private user$ = inject<Observable<IUser>>(USER);
+  private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+
   http = inject(HttpClient);
   dialog = inject(MatDialog);
   builder = inject(BuilderState);
@@ -29,10 +32,8 @@ export class BuilderService extends ApiService {
   contentService = inject(ContentService);
   user: IUser;
   builderConfig: IBuilderConfig;
-  constructor(
-    @Inject(USER) private user$: Observable<IUser>,
-    @Inject(BUILDER_CONFIG) private builderConfig$: Observable<IBuilderConfig>
-  ) {
+
+  constructor() {
     super();
     this.user$.subscribe(user => {
       this.user = user;
@@ -68,21 +69,11 @@ export class BuilderService extends ApiService {
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
       .subscribe((page: IPage) => {
-        const { body, status, uuid } = page;
+        const { body, status } = page;
         this.builder.loading$.next(false);
         if (status) {
           this.builder.loadNewPage(this.formatToExtraData(page, isTemplate));
-          if (uuid && !isTemplate) {
-            this.openPageSetting(
-              {
-                uuid,
-                langcode,
-              },
-              '/api/v1/node/landing_page',
-              this.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
-            );
-          }
-
+          this.util.openSnackbar(`已加载${page.title}`, 'ok');
           if (body.length === 0) {
             this.util.openSnackbar('当前内容为空，已为你初始化一个组件', 'ok');
           }

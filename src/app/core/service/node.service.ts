@@ -1,4 +1,4 @@
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -17,14 +17,15 @@ import { IMediaAttr } from '@core/interface/manage/IManage';
   providedIn: 'root',
 })
 export class NodeService extends ApiService {
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private user$ = inject<Observable<IUser>>(USER);
+
   http = inject(HttpClient);
   storage = inject(LocalStorageService);
   util = inject(UtilitiesService);
   user: IUser;
-  constructor(
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     super();
     this.user$.subscribe(user => {
       this.user = user;
@@ -151,14 +152,6 @@ export class NodeService extends ApiService {
     return this.http.patch<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
       JSON.stringify(entity),
-      this.optionsWithCookieAndToken(token)
-    );
-  }
-  // TODO: refact updateComment and this to patch
-  updateLawCase(data: any, uuid: string, token: string): Observable<any> {
-    return this.http.patch<any>(
-      `${this.apiUrl}/api/v1/node/case/${uuid}`,
-      JSON.stringify(data),
       this.optionsWithCookieAndToken(token)
     );
   }
@@ -391,7 +384,7 @@ export class NodeService extends ApiService {
       })
       .pipe(
         catchError(errror => {
-          return throwError(errror);
+          return of(errror);
         }),
         map((res: any) => {
           const {

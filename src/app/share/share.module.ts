@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -123,14 +123,15 @@ import { ContenteditDirective } from '@core/directive/contentedit.directive';
   ],
 })
 export class ShareModule {
+  private iconService = inject(IconService);
+
   /**
    * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
    * @Optional 可选，如果CoreModule不存在正常执行
    */
-  constructor(
-    private iconService: IconService,
-    @Optional() @SkipSelf() parentModule: ShareModule
-  ) {
+  constructor() {
+    const parentModule = inject(ShareModule, { optional: true, skipSelf: true })!;
+
     this.iconService.loadSvgResources();
     if (parentModule) {
       throwError('ShareModule already loaded!');

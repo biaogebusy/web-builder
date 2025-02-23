@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -36,6 +35,9 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageListComponent extends BaseComponent implements OnInit {
+  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: any;
   content$: Observable<IPageMeta[]>;
   form = new FormGroup({
@@ -140,10 +142,8 @@ export class PageListComponent extends BaseComponent implements OnInit {
       ],
     },
   ];
-  constructor(
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(USER) private user$: Observable<IUser>
-  ) {
+
+  constructor() {
     super();
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
@@ -261,7 +261,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   loadPage(page: any): void {
-    this.util.openSnackbar(`正在加载${page.title}`, 'ok');
     this.builder.loading$.next(true);
     const { langcode, nid } = page;
     if (!nid) {

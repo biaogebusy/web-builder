@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { pageContentFactory } from '@core/factory/factory';
 import { IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -16,5 +16,5 @@ import { Observable } from 'rxjs';
   ],
 })
 export class ManagePageComponent {
-  constructor(@Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>) {}
+  pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
 }

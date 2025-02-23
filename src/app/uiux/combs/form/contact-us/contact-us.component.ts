@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import { FormService } from '@core/service/form.service';
 import { UntypedFormGroup } from '@angular/forms';
@@ -16,16 +17,15 @@ import { UtilitiesService } from '@core/service/utilities.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactUsComponent implements OnInit {
+  private cd = inject(ChangeDetectorRef);
+  formService = inject(FormService);
+  private utilitiesService = inject(UtilitiesService);
+
   @Input() content: any;
   form = new UntypedFormGroup({});
   model: any = {};
   success = false;
   submited = false;
-  constructor(
-    private cd: ChangeDetectorRef,
-    public formService: FormService,
-    private utilitiesService: UtilitiesService
-  ) {}
 
   ngOnInit(): void {}
 
@@ -35,10 +35,7 @@ export class ContactUsComponent implements OnInit {
       return;
     }
     this.submited = true;
-    const data = this.formService.getwebFormData(
-      this.content.params,
-      this.form.value
-    );
+    const data = this.formService.getwebFormData(this.content.params, this.form.value);
     this.formService.submitWebForm(data).subscribe(
       res => {
         this.submited = false;

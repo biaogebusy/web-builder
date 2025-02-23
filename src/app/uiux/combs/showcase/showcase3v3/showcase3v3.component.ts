@@ -5,6 +5,7 @@ import {
   Component,
   Input,
   OnInit,
+  inject,
 } from '@angular/core';
 import type { IShowcase3v3 } from '@core/interface/combs/IShowcase';
 
@@ -15,9 +16,10 @@ import type { IShowcase3v3 } from '@core/interface/combs/IShowcase';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Showcase3v3Component implements OnInit, AfterViewInit {
+  private cd = inject(ChangeDetectorRef);
+
   @Input() content: IShowcase3v3;
   isShow: boolean;
-  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 

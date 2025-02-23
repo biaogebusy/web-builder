@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Inject,
   Input,
   OnInit,
   inject,
@@ -29,23 +28,26 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageSettingComponent implements OnInit {
+  private user$ = inject<Observable<IUser>>(USER);
+
   @Input() content: any;
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[];
-  loading: boolean;
-  type: 'node--landing_page' | 'node--json';
+  public loading: boolean;
+  public type: 'node--landing_page' | 'node--json';
 
-  dialog = inject(MatDialog);
-  cd = inject(ChangeDetectorRef);
-  builder = inject(BuilderState);
-  util = inject(UtilitiesService);
-  nodeService = inject(NodeService);
-  screenService = inject(ScreenService);
-  builderService = inject(BuilderService);
+  private dialog = inject(MatDialog);
+  private cd = inject(ChangeDetectorRef);
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private nodeService = inject(NodeService);
+  private screenService = inject(ScreenService);
+  private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
-  user: IUser;
-  constructor(@Inject(USER) public user$: Observable<IUser>) {
+  private user: IUser;
+
+  constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
     });

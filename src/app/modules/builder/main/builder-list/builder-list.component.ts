@@ -3,11 +3,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   ElementRef,
-  Inject,
   NgZone,
   OnDestroy,
   OnInit,
@@ -29,27 +27,26 @@ import { BuilderService } from '@core/service/builder.service';
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
   styleUrls: ['./builder-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
+  private doc = inject<Document>(DOCUMENT);
+  public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
-  markers: NodeListOf<Element>;
-  previewClass$: Observable<any>;
-  router = inject(Router);
+  private markers: NodeListOf<Element>;
+  public previewClass$: Observable<any>;
+  private router = inject(Router);
   private zone = inject(NgZone);
   public builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
   private ele = inject(ElementRef);
-  animateElement: Element[] = [];
-  scrollableContainer: Element;
+  private animateElement: Element[] = [];
+  private scrollableContainer: Element;
 
-  constructor(
-    @Inject(DOCUMENT) private doc: Document,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
-    @Inject(BUILDER_CONFIG) public builderConfig$: Observable<IBuilderConfig>
-  ) {
+  constructor() {
     afterRender({
       read: throttle(() => {
         this.intersectionObserver(this.animateElement);
