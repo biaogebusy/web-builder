@@ -126,7 +126,7 @@ export class LayoutSettingComponent {
       dialogRef = this.dialog.open(DialogComponent, {
         width: '85vw',
         hasBackdrop: false,
-        panelClass: ['close-outside', 'code-editor-theme'],
+        panelClass: ['close-outside', 'code-editor-dialog'],
         position: {
           bottom: '0px',
         },

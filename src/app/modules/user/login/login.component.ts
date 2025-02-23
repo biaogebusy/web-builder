@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, inject, DestroyRef } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ScreenState } from '@core/state/screen/ScreenState';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -17,25 +16,24 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  user$ = inject<Observable<IUser>>(USER);
+  public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  public user$ = inject<Observable<IUser>>(USER);
 
-  hide = true;
-  loading: boolean;
-  error: string;
-  userForm: UntypedFormGroup;
-  phoneForm: UntypedFormGroup;
+  public hide = true;
+  public loading: boolean;
+  public error: string;
+  public userForm: UntypedFormGroup;
+  public phoneForm: UntypedFormGroup;
   public countdown: number;
   private subscription: Subscription;
 
-  fb = inject(UntypedFormBuilder);
-  router = inject(Router);
-  route = inject(ActivatedRoute);
-  screenState = inject(ScreenState);
-  tagsService = inject(TagsService);
-  userService = inject(UserService);
-  screenService = inject(ScreenService);
-  cd = inject(ChangeDetectorRef);
+  private fb = inject(UntypedFormBuilder);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private tagsService = inject(TagsService);
+  private userService = inject(UserService);
+  private screenService = inject(ScreenService);
+  private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
   constructor() {

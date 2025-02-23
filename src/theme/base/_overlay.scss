@@ -4,6 +4,7 @@
       max-height: none;
     }
   }
+
   .media-preview-dialog {
     img {
       width: revert;
@@ -12,6 +13,7 @@
       min-height: 200px;
     }
   }
+
   .close-outside {
     .mat-mdc-dialog-container {
       overflow: visible;
@@ -24,6 +26,31 @@
         .mat-icon {
           color: #fff;
         }
+      }
+    }
+  }
+
+  .code-editor-dialog {
+    width: 100vw !important;
+    max-width: none !important;
+    --mat-dialog-content-padding: 0;
+    .dialog {
+      .mat-mdc-dialog-content {
+        overflow: hidden;
+        border-radius: 20px 20px 0 0;
+      }
+      .dialog-colse-outside-btn {
+        top: -48px;
+        right: 80px;
+      }
+    }
+  }
+  .login-dialog {
+    .mat-mdc-dialog-content {
+      padding: 0;
+      .login-wrapper {
+        @apply border-0;
+        box-shadow: none;
       }
     }
   }
