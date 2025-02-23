@@ -5,6 +5,7 @@ import {
   DestroyRef,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
@@ -24,23 +25,23 @@ import { Observable, catchError, of } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserSettingComponent implements OnInit {
-  user$ = inject<Observable<IUser>>(USER);
+  public user$ = inject<Observable<IUser>>(USER);
 
-  form = new FormGroup({});
-  model: any = {};
-  fields: FormlyFieldConfig[];
-  loading = true;
+  public form = new FormGroup({});
+  public model: any = {};
+  public fields: FormlyFieldConfig[];
+  public loading = signal<boolean>(true);
 
-  dialog = inject(MatDialog);
-  userService = inject(UserService);
-  util = inject(UtilitiesService);
-  storage = inject(LocalStorageService);
+  private dialog = inject(MatDialog);
+  private userService = inject(UserService);
+  private util = inject(UtilitiesService);
+  private storage = inject(LocalStorageService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user: IUser) => {
-      this.loading = false;
+      this.loading.set(false);
       if (user) {
         this.fields = [
           {
@@ -193,7 +194,7 @@ export class UserSettingComponent implements OnInit {
   }
 
   onUpdate(value: any, user: IUser): void {
-    this.loading = true;
+    this.loading.set(true);
     // remove confirm value
     const formData = Object.assign({}, value);
     delete formData.pass.confirm;
@@ -212,19 +213,63 @@ export class UserSettingComponent implements OnInit {
         } else {
           this.util.openSnackbar('更新失败！', 'ok');
         }
-        this.loading = false;
+        this.loading.set(false);
         this.cd.detectChanges();
       });
   }
 
   onLogout(): void {
-    this.loading = true;
+    this.loading.set(true);
     const logoutToken = this.storage.retrieve(this.userService.logoutToken);
     this.userService.logout(logoutToken);
     this.userService.userSub$.subscribe(user => {
       if (!user) {
-        this.loading = false;
+        this.loading.set(false);
         this.dialog.closeAll();
+      }
+    });
+  }
+
+  onUpload(input: HTMLElement, user: IUser): void {
+    input.click();
+    input.addEventListener('change', (event: any) => {
+      if (event) {
+        const file = event?.target?.files[0];
+        console.log(file);
+        if (!file) {
+          this.util.openSnackbar('请检查图片格式', 'ok');
+          return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+          this.util.openSnackbar('图片大小不能超过5M', 'ok');
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          const result = e.target.result;
+          this.loading.set(true);
+          this.userService
+            .uploadUserPicture(user, result)
+            .pipe(
+              catchError(error => {
+                return of(false);
+              }),
+              takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe(res => {
+              if (res) {
+                this.util.openSnackbar('头像上传成功', 'ok');
+                this.userService.updateUserBySession();
+              } else {
+                this.util.openSnackbar('头像上传失败', 'ok');
+              }
+              this.loading.set(false);
+            });
+        };
+
+        reader.readAsArrayBuffer(file);
       }
     });
   }

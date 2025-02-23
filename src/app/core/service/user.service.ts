@@ -337,4 +337,22 @@ export class UserService extends ApiService {
   get userLink(): string[] {
     return [environment.drupalProxy ? '/my' : '/me/login'];
   }
+
+  uploadUserPicture(user: IUser, imageData: string): Observable<any> {
+    const { id, csrf_token } = user;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/vnd.api+json',
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': 'file; filename="' + id + '-picture.jpg"',
+        'X-CSRF-Token': csrf_token,
+      }),
+      withCredentials: true,
+    };
+    return this.http.post(
+      `${this.apiUrl}/api/v1/user/user/${id}/user_picture`,
+      imageData,
+      httpOptions
+    );
+  }
 }
