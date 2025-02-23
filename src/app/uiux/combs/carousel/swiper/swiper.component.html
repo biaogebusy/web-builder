@@ -5,13 +5,15 @@
   [attr.data-path]="'elements'"
   [ngClass]="content.classes"
 >
-  @for (slide of content.elements; track slide; let i = $index) {
-    <swiper-slide class="swiper-slide">
-      <app-dynamic-component
-        [attr.data-path]="i"
-        [ngClass]="content.sliderClasses"
-        [inputs]="slide"
-      />
-    </swiper-slide>
+  @if (content && content.elements) {
+    @for (slide of content.elements; track slide; let i = $index) {
+      <swiper-slide class="swiper-slide">
+        <app-dynamic-component
+          [attr.data-path]="i"
+          [ngClass]="content.sliderClasses"
+          [inputs]="slide"
+        />
+      </swiper-slide>
+    }
   }
 </swiper-container>

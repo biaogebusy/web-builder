@@ -37,6 +37,7 @@ export class Carousel1v2Component implements OnInit, AfterViewInit {
               nextEl,
             },
           },
+          elements: [],
         },
         this.content.swiper
       )

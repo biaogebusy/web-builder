@@ -24,15 +24,15 @@ import AOS from 'aos';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PreviewComponent implements OnInit, AfterViewInit {
-  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
-  contentState = inject(ContentState);
-  builder = inject(BuilderState);
-  tagsService = inject(TagsService);
-  screenService = inject(ScreenService);
-  destroyRef = inject(DestroyRef);
-  count = 0;
-  pageBodyLength: number;
+  private contentState = inject(ContentState);
+  private builder = inject(BuilderState);
+  private tagsService = inject(TagsService);
+  private screenService = inject(ScreenService);
+  private destroyRef = inject(DestroyRef);
+  private count = 0;
+  private pageBodyLength: number;
 
   constructor() {
     this.tagsService.setTitle(`${this.builder.currentPage.title}草稿预览`);

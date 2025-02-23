@@ -17,9 +17,10 @@ export class LayoutToolbarComponent implements OnInit {
   @Input() lbContent: any;
   @Input() i: number;
   @Input() layout: any;
-  util = inject(UtilitiesService);
-  builder = inject(BuilderState);
-  builderService = inject(BuilderService);
+
+  private util = inject(UtilitiesService);
+  private builder = inject(BuilderState);
+  private builderService = inject(BuilderService);
 
   ngOnInit(): void {}
 

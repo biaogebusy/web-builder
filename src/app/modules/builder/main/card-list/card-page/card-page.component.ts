@@ -22,14 +22,14 @@ export class CardPageComponent {
   @Input() langs: ILanguage[];
   @Input() user: IUser;
 
-  currentEditeTitle: string;
+  private currentEditeTitle: string;
 
-  router = inject(Router);
-  builder = inject(BuilderState);
-  nodeService = inject(NodeService);
-  destroyRef = inject(DestroyRef);
-  util = inject(UtilitiesService);
-  builderService = inject(BuilderService);
+  private router = inject(Router);
+  private builder = inject(BuilderState);
+  private nodeService = inject(NodeService);
+  private destroyRef = inject(DestroyRef);
+  private util = inject(UtilitiesService);
+  private builderService = inject(BuilderService);
 
   loadPage(page: IPageMeta): void {
     this.router.navigate(['builder/page-list'], {

@@ -115,6 +115,36 @@ $dark-theme: mat.m2-define-dark-theme(
     }
   }
 }
+
+@mixin code-editor-theme($darkBg, $darkFore, $darkPrimary, $warn) {
+  .code-editor-theme {
+    width: 100vw !important;
+    max-width: none !important;
+
+    --mdc-dialog-container-color: mat.m2-get-color-from-palette($darkBg, card);
+    --mat-dialog-content-padding: 0;
+  }
+  .dialog {
+    .mat-mdc-dialog-content {
+      background-color: mat.m2-get-color-from-palette($darkBg, card);
+      overflow: hidden;
+      border-radius: 20px 20px 0 0;
+    }
+    .monaco-editor,
+    .monaco-editor-background,
+    .monaco-editor .inputarea.ime-input {
+      background-color: mat.m2-get-color-from-palette($darkBg, card);
+    }
+    .toolbar {
+      background-color: mat.m2-get-color-from-palette($darkBg, app-bar);
+    }
+    .dialog-colse-outside-btn {
+      top: -48px;
+      right: 80px;
+    }
+  }
+}
+
 @mixin builder-color($theme) {
   $config: mat.m2-get-color-config($theme);
   $foreground: map-get($config, foreground);
@@ -135,6 +165,7 @@ $dark-theme: mat.m2-define-dark-theme(
     $map: $dark-theme,
     $key: primary,
   );
+  @include code-editor-theme($darkBg, $darkFore, $darkPrimary, $warn);
   .builder-wrapper {
     @include theme($background, $foreground, $primary, $warn);
 

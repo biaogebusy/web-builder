@@ -24,13 +24,20 @@
             @if (!widget.child) {
               <div
                 class="item col-span-6 sm:col-span-4"
-                matRipple
                 [matTooltip]="
                   builder.fixedContent === widget.content ? '已锁定预览，可查看复制组件JSON' : ''
                 "
                 matTooltipPosition="above"
               >
+                <app-btn
+                  (click)="add(widget.content)"
+                  class="add"
+                  matTooltip="添加到编辑区"
+                  matTooltipPosition="above"
+                  [content]="{ color: 'primary', mode: 'icon', icon: { svg: 'plus' } }"
+                />
                 <div
+                  matRipple
                   class="w-full"
                   [cdkDragData]="widget.content"
                   cdkDrag
@@ -38,9 +45,9 @@
                   (cdkDragMoved)="onMoved()"
                   (mouseenter)="onShowcase(widget.content)"
                   (mouseleave)="hideShowcase()"
-                  (click)="onFixed(widget.content)"
                 >
                   <div
+                    (click)="onFixed(widget.content)"
                     class="inner move flex flex-col justify-center items-center"
                     [ngClass]="builder.fixedContent === widget.content ? 'active' : ''"
                   >
@@ -59,13 +66,20 @@
                 @for (item of widget.child; track item) {
                   <div
                     class="item col-span-6 sm:col-span-4"
-                    matRipple
                     [matTooltip]="
                       builder.fixedContent === item.content ? '已锁定预览，可查看复制组件JSON' : ''
                     "
                     matTooltipPosition="above"
                   >
+                    <app-btn
+                      (click)="add(item.content)"
+                      class="add"
+                      matTooltip="添加到编辑区"
+                      matTooltipPosition="above"
+                      [content]="{ color: 'primary', mode: 'icon', icon: { svg: 'plus' } }"
+                    />
                     <div
+                      matRipple
                       class="w-full"
                       [cdkDragData]="item.content"
                       cdkDrag
@@ -73,9 +87,9 @@
                       (cdkDragMoved)="onMoved()"
                       (mouseenter)="onShowcase(item.content)"
                       (mouseleave)="hideShowcase()"
-                      (click)="onFixed(item.content)"
                     >
                       <div
+                        (click)="onFixed(item.content)"
                         class="inner move flex flex-col justify-center items-center"
                         [ngClass]="builder.fixedContent === item.content ? 'active' : ''"
                       >
