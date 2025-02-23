@@ -911,7 +911,7 @@ export const base = [
             content:
               '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
           },
-          html: '<div class="text-center md:text-left md:flex bg-shadow rounded-xl p-8 md:p-0 m-5 mx-auto overflow-hidden">\n          <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full" src="{{img}}" alt="" width="384" height="512">\n          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">\n             <p class="text-lg font-medium">\n                “{{content}}”\n              </p>\n            <div class="font-medium">\n              <div class="text-xl mb-2">\n                {{title}}\n              </div>\n              <div class="opacity-75 text-sm">\n                {{subTitle}}\n              </div>\n            </div>\n          </div>\n        </div>',
+          html: '<div class="text-center md:text-left md:flex bg-shadow rounded-xl p-8 md:p-0 m-5 mx-auto overflow-hidden">\n          <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full" src="/assets/images/avatar/05.jpeg" alt="" width="384" height="512">\n          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">\n             <p class="text-lg font-medium">\n                “信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。”\n              </p>\n            <div class="font-medium">\n              <div class="text-xl mb-2">web builder</div>\n              <div class="opacity-75 text-sm">是一款通过拖拽组件构建页面的低代码</div>\n            </div>\n          </div>\n        </div>',
         },
       },
       {

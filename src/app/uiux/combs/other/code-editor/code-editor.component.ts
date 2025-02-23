@@ -27,15 +27,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class CodeEditorComponent implements OnInit {
   @Input() content: ICodeEditor;
   public editorOptions: JsonEditorOptions;
-  html: string;
-  json: any;
-  isAPI: boolean;
-  api: string;
-  form = new UntypedFormGroup({});
-  htmlForm = new UntypedFormControl({});
-  model: any = {};
-  fields: FormlyFieldConfig[];
-  MonacoOptions = { theme: 'vs-dark', language: 'html' };
+  public html: string;
+  public json: any;
+  public isAPI: boolean;
+  private api: string;
+  public form = new UntypedFormGroup({});
+  public htmlForm = new UntypedFormControl({});
+  public model: any = {};
+  public fields: FormlyFieldConfig[];
+  public MonacoOptions = { theme: 'vs-dark', language: 'html' };
 
   private builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
@@ -49,6 +49,9 @@ export class CodeEditorComponent implements OnInit {
       this.editorOptions.mode = 'code'; // set only one mode
       this.editorOptions.enableTransform = false;
       this.editorOptions.enableSort = false;
+      this.editorOptions.navigationBar = false;
+      this.editorOptions.statusBar = false;
+      this.editorOptions.statusBar = false;
     }
   }
 
@@ -62,15 +65,6 @@ export class CodeEditorComponent implements OnInit {
         fieldGroupClassName: 'flex flex-wrap',
         fieldGroup: [
           {
-            type: 'toggle',
-            key: 'isAPI',
-            defaultValue: this.isAPI,
-            className: 'flex-4/12',
-            props: {
-              label: 'API',
-            },
-          },
-          {
             type: 'input',
             key: 'api',
             defaultValue: this.api,
@@ -78,7 +72,9 @@ export class CodeEditorComponent implements OnInit {
             props: {
               label: 'API',
             },
-            hideExpression: '!model.isAPI',
+            modelOptions: {
+              updateOn: 'blur',
+            },
           },
         ],
       },
@@ -99,11 +95,7 @@ export class CodeEditorComponent implements OnInit {
 
   onHTMLChange(): void {
     this.htmlForm.valueChanges
-      .pipe(
-        debounceTime(3000),
-        distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef)
-      )
+      .pipe(debounceTime(3000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe(html => {
         const { path } = this.content;
         if (path) {
@@ -118,17 +110,15 @@ export class CodeEditorComponent implements OnInit {
 
   onFormChange(): void {
     this.form.valueChanges
-      .pipe(
-        debounceTime(1000),
-        distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef)
-      )
+      .pipe(debounceTime(1000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
-        const { isAPI, api } = value;
+        const { api } = value;
+        if (!api) {
+          return;
+        }
         const { path } = this.content;
-        this.isAPI = isAPI;
-        this.api = api;
-        if (isAPI && api) {
+        this.api = api.trim();
+        if (this.isAPI && api) {
           this.nodeService
             .fetch(api, '')
             .pipe(
@@ -143,7 +133,7 @@ export class CodeEditorComponent implements OnInit {
               this.json = Object.assign({}, res);
               const content = {
                 ...get(this.builder.currentPage.body, path),
-                isAPI,
+                isAPI: this.isAPI,
                 api,
                 json: null,
               };
@@ -153,7 +143,7 @@ export class CodeEditorComponent implements OnInit {
         } else {
           const content = {
             ...get(this.builder.currentPage.body, path),
-            isAPI,
+            isAPI: this.isAPI,
             api,
             json: this.json,
           };
@@ -174,5 +164,10 @@ export class CodeEditorComponent implements OnInit {
       };
       this.builder.updatePageContentByPath(`${path}`, content);
     }
+  }
+
+  onToggle(event: any): void {
+    const { checked } = event;
+    this.isAPI = checked;
   }
 }

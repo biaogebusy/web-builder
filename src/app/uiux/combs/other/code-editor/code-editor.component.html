@@ -1,15 +1,21 @@
 @if (screenService.isPlatformBrowser()) {
-  <div class="code-editor flex gap-2">
-    <div class="box flex-4/12 flex flex-col">
-      <app-formly class="block px-3" [form]="form" [fields]="fields" [model]="model" />
-      <json-editor
-        class="block flex-auto"
-        [options]="editorOptions"
-        [data]="json"
-        (change)="onJsonChange($event)"
-      />
-    </div>
-    <div class="box flex-8/12">
+  <div class="toolbar p-5 flex gap-1 items-center">
+    <mat-slide-toggle [checked]="isAPI" (change)="onToggle($event)" />
+    <div class="text-white">{{ isAPI ? '数据来源API' : '数据来源静态' }}</div>
+  </div>
+  <div class="code-editor grid grid-cols-12 gap-2">
+    @if (isAPI) {
+      <div class="box {{ isAPI ? 'col-span-4' : '' }}  flex flex-col">
+        <app-formly class="block px-3" [form]="form" [fields]="fields" [model]="model" />
+        <json-editor
+          class="block flex-auto"
+          [options]="editorOptions"
+          [data]="json"
+          (change)="onJsonChange($event)"
+        />
+      </div>
+    }
+    <div class="box {{ isAPI ? 'col-span-8' : 'col-span-12' }}">
       <ngx-monaco-editor
         class="!h-full"
         [options]="MonacoOptions"
