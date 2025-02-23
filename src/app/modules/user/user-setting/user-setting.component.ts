@@ -230,12 +230,11 @@ export class UserSettingComponent implements OnInit {
     });
   }
 
-  onUpload(input: HTMLElement, user: IUser): void {
+  async onUpload(input: HTMLElement, user: IUser): Promise<void> {
     input.click();
-    input.addEventListener('change', (event: any) => {
+    input.addEventListener('change', async (event: any) => {
       if (event) {
         const file = event?.target?.files[0];
-        console.log(file);
         if (!file) {
           this.util.openSnackbar('请检查图片格式', 'ok');
           return;
@@ -245,31 +244,42 @@ export class UserSettingComponent implements OnInit {
           this.util.openSnackbar('图片大小不能超过5M', 'ok');
           return;
         }
+        const data = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            const result = e.target.result;
+            this.loading.set(true);
+            if (result) {
+              resolve(result);
+            } else {
+              reject(false);
+            }
+          };
 
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const result = e.target.result;
-          this.loading.set(true);
-          this.userService
-            .uploadUserPicture(user, result)
-            .pipe(
-              catchError(error => {
-                return of(false);
-              }),
-              takeUntilDestroyed(this.destroyRef)
-            )
-            .subscribe(res => {
-              if (res) {
-                this.util.openSnackbar('头像上传成功', 'ok');
-                this.userService.updateUserBySession();
-              } else {
-                this.util.openSnackbar('头像上传失败', 'ok');
-              }
-              this.loading.set(false);
-            });
-        };
+          reader.readAsArrayBuffer(file);
+        });
 
-        reader.readAsArrayBuffer(file);
+        if (!data) {
+          return;
+        }
+
+        this.userService
+          .uploadUserPicture(user, data)
+          .pipe(
+            catchError(error => {
+              return of(false);
+            }),
+            takeUntilDestroyed(this.destroyRef)
+          )
+          .subscribe(res => {
+            if (res) {
+              this.util.openSnackbar('头像上传成功', 'ok');
+              this.userService.updateUserBySession();
+            } else {
+              this.util.openSnackbar('头像上传失败', 'ok');
+            }
+            this.loading.set(false);
+          });
       }
     });
   }
