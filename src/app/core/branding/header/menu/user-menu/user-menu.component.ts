@@ -6,8 +6,8 @@ import {
   ChangeDetectionStrategy,
   inject,
   DestroyRef,
+  signal,
 } from '@angular/core';
-import { ScreenState } from '@core/state/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { Observable } from 'rxjs';
 import { USER } from '@core/token/token-providers';
@@ -27,23 +27,24 @@ import { UtilitiesService } from '@core/service/utilities.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserMenuComponent implements OnInit {
-  user$ = inject<Observable<IUser>>(USER);
+  public user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: any[];
-  dialogRef: any;
-  currentUser: IUser | false;
+  private currentUser: IUser | false;
 
-  screen = inject(ScreenState);
-  dialog = inject(MatDialog);
-  cd = inject(ChangeDetectorRef);
-  userService = inject(UserService);
-  router = inject(Router);
-  utilities = inject(UtilitiesService);
+  private dialog = inject(MatDialog);
+  private cd = inject(ChangeDetectorRef);
+  private userService = inject(UserService);
+  private router = inject(Router);
   private destroyRef = inject(DestroyRef);
+  private uti = inject(UtilitiesService);
+
+  public name = signal<string>('');
 
   constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.currentUser = user;
+      this.name.set(this.uti.getIndexTitle(user.display_name || 'N'));
     });
     this.userService.userSub$.pipe(takeUntilDestroyed()).subscribe((currentUser: any) => {
       // login
@@ -80,11 +81,22 @@ export class UserMenuComponent implements OnInit {
       returnUrl: pathname,
     };
     this.router.navigate([], { queryParams });
-    this.dialog.open(LoginComponent);
+    this.dialog.open(DialogComponent, {
+      panelClass: ['close-outside', 'close-icon-white', 'login-dialog'],
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'login',
+            fullWidth: true,
+          },
+        },
+      },
+    });
   }
 
   openDialog(): void {
-    this.dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       width: '380px',
       panelClass: ['close-outside', 'close-icon-white'],
       data: {
