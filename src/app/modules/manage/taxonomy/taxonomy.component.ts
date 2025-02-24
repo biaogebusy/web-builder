@@ -1,16 +1,15 @@
 import {
   Component,
-  ChangeDetectionStrategy,
   Input,
   OnInit,
   inject,
   ChangeDetectorRef,
   DestroyRef,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { ITaxonomy } from '@core/interface/manage/ITaxonomy';
-import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -24,25 +23,23 @@ import { Observable, catchError, of, tap } from 'rxjs';
   templateUrl: './taxonomy.component.html',
   styleUrl: './taxonomy.component.scss',
   providers: [StripTagsPipe],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaxonomyComponent implements OnInit {
   @Input() content: ITaxonomy;
-  items$: Observable<any>;
-  loading = false;
-  nodeService = inject(NodeService);
-  util = inject(UtilitiesService);
-  cd = inject(ChangeDetectorRef);
-  builderSerivce = inject(BuilderService);
+  public items$: Observable<any>;
+  public loading = signal<boolean>(false);
+  private nodeService = inject(NodeService);
+  private util = inject(UtilitiesService);
+  private cd = inject(ChangeDetectorRef);
+  private builderSerivce = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private stripTags = inject(StripTagsPipe);
 
-  user$ = inject(USER);
-  form = new FormGroup({});
-  model: any = {};
-  selectedItem: any;
-  links: IPaginationLinks;
-  fields: FormlyFieldConfig[] = [
+  public user$ = inject(USER);
+  public form = new FormGroup({});
+  public model: any = {};
+  public selectedItem: any;
+  public fields: FormlyFieldConfig[] = [
     {
       key: 'name',
       type: 'input',
@@ -79,18 +76,17 @@ export class TaxonomyComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.getItems('onCache=true');
+    this.getItems('noCache=true');
   }
 
   getItems(params: string): void {
-    this.loading = true;
+    this.loading.set(true);
     const {
       params: { api },
     } = this.content;
     this.items$ = this.nodeService.fetch(api, params).pipe(
       tap(res => {
-        this.loading = false;
-        this.cd.detectChanges();
+        this.loading.set(false);
       }),
       takeUntilDestroyed(this.destroyRef)
     );
@@ -99,8 +95,7 @@ export class TaxonomyComponent implements OnInit {
   onPageChange(link: string): void {
     this.items$ = this.nodeService.getNodeByLink(link).pipe(
       tap(() => {
-        this.loading = false;
-        this.cd.detectChanges();
+        this.loading.set(false);
       }),
       takeUntilDestroyed(this.destroyRef)
     );
@@ -134,7 +129,6 @@ export class TaxonomyComponent implements OnInit {
           } else {
             this.util.openSnackbar('添加失败');
           }
-          this.cd.detectChanges();
         });
     } else {
       this.onSave(this.selectedItem, value);
@@ -181,8 +175,7 @@ export class TaxonomyComponent implements OnInit {
     const {
       params: { api },
     } = this.content;
-    console.log(value);
-    this.loading = true;
+    this.loading.set(true);
     this.builderSerivce
       .updateAttributes(
         { uuid: id, langcode },
@@ -199,8 +192,7 @@ export class TaxonomyComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(res => {
-        this.loading = false;
-        this.cd.detectChanges();
+        this.loading.set(false);
         if (res) {
           this.form.reset();
           this.getItems('noCache=true');
