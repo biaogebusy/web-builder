@@ -7,9 +7,7 @@ import {
   inject,
   DestroyRef,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
 import { TagsService } from '@core/service/tags.service';
-import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -21,7 +19,6 @@ import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import type { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
-import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -33,30 +30,23 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent extends NodeComponent implements OnInit, AfterViewInit {
-  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-  user$ = inject<Observable<IUser>>(USER);
+  public user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: IBaseNode;
-  currentUserRule: string[];
-  comments: IComment[];
-  dialogRef: MatDialogRef<any>;
-  fontForm: UntypedFormGroup;
-  htmlBody: any;
-  isReqRoles = false;
-  canAccess: boolean;
+  public comments: IComment[];
+  private dialogRef: MatDialogRef<any>;
+  public canAccess: boolean;
 
-  cd = inject(ChangeDetectorRef);
-  dialog = inject(MatDialog);
-  router = inject(Router);
-  nodeService = inject(NodeService);
-  screen = inject(ScreenState);
-  screenService = inject(ScreenService);
-  tagsService = inject(TagsService);
-  userService = inject(UserService);
-  contentState = inject(ContentState);
+  private cd = inject(ChangeDetectorRef);
+  private nodeService = inject(NodeService);
+  private screenService = inject(ScreenService);
+  private tagsService = inject(TagsService);
+  private userService = inject(UserService);
+  private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
-  user: IUser;
+  private user: IUser;
 
   constructor() {
     super();
@@ -87,7 +77,6 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
         .checkNodeAccess(this.content.params, entityId, this.user)
         .subscribe(access => {
           this.canAccess = access.canAccess;
-          this.isReqRoles = access.isReqRoles;
           this.cd.detectChanges();
         });
     });
@@ -125,10 +114,10 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
 
   openLogin(): void {
     const returnUrl = window.location.pathname;
-    this.router.navigate([], {
-      queryParams: { returnUrl },
-    });
-    this.dialogRef = this.dialog.open(LoginComponent);
+    const queryParams = {
+      returnUrl: returnUrl,
+    };
+    this.dialogRef = this.userService.openLoginDialog(queryParams);
     this.dialogRef
       .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))
