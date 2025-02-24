@@ -14,7 +14,9 @@
           />
         }
       </div>
-      <div class="main p-x-sm p-y-sm flex-12/12 {{ content.form ? 'sm:flex-8/12' : '' }}">
+      <div
+        class="main min-h-[65vh] p-x-sm p-y-sm flex-12/12 {{ content.form ? 'sm:flex-8/12' : '' }}"
+      >
         <div class="calendar w-full">
           @if (visiable) {
             <app-calendar
