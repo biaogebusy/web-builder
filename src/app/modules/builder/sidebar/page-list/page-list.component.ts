@@ -35,33 +35,33 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageListComponent extends BaseComponent implements OnInit {
-  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
   private user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: any;
-  content$: Observable<IPageMeta[]>;
-  form = new FormGroup({
+  public content$: Observable<IPageMeta[]>;
+  public form = new FormGroup({
     page: new FormControl(0),
   });
-  model: any = {
+  public model: any = {
     noCache: true,
   };
-  loading = false;
-  pager: IPager;
-  currentEditeTitle: string;
-  langs = environment.langs;
-  currentPage?: IPage;
-  builder = inject(BuilderState);
-  cd = inject(ChangeDetectorRef);
-  util = inject(UtilitiesService);
-  nodeService = inject(NodeService);
-  router = inject(ActivatedRoute);
-  builderService = inject(BuilderService);
+  public loading = false;
+  public pager: IPager;
+  private currentEditeTitle: string;
+  public langs = environment.langs;
+  public currentPage?: IPage;
+  private builder = inject(BuilderState);
+  private cd = inject(ChangeDetectorRef);
+  private util = inject(UtilitiesService);
+  private nodeService = inject(NodeService);
+  private router = inject(ActivatedRoute);
+  private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private tagService = inject(TagsService);
-  user: IUser;
+  public user: IUser;
 
-  fields: FormlyFieldConfig[] = [
+  public fields: FormlyFieldConfig[] = [
     {
       type: 'tabs',
       fieldGroup: [
@@ -79,7 +79,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
                   className: 'col-span-12',
                   props: {
                     label: '搜索标题',
-                    type: 'search',
+                    placeholder: '回车搜索',
                   },
                   modelOptions: {
                     updateOn: 'submit',
@@ -317,6 +317,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   }
 
   onReload(): void {
+    this.form.reset();
     this.onModelChange({ title: '', time: +new Date() });
   }
 }
