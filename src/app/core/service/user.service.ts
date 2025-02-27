@@ -209,7 +209,7 @@ export class UserService extends ApiService {
 
   loginByPhone(phone: number, code: string): Observable<boolean> {
     return this.http
-      .post<any>(`${this.apiUrl}/api/v1/otp/login?format=json`, {
+      .post<any>(`${this.apiUrl}/api/v3/otp/login?format=json`, {
         mobile_number: phone,
         code,
       })
