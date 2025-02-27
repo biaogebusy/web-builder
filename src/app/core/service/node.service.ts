@@ -377,7 +377,7 @@ export class NodeService extends ApiService {
         headers: new HttpHeaders({
           'Accept': 'application/vnd.api+json',
           'Content-Type': 'application/octet-stream',
-          'Content-Disposition': `file; filename=${encodeURIComponent(fileName)}`,
+          'Content-Disposition': `file; filename="${encodeURIComponent(fileName)}"`,
           'X-CSRF-Token': csrfToken,
         }),
         withCredentials: true,
