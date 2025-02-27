@@ -126,7 +126,7 @@ $dark-theme: mat.m2-define-dark-theme(
       .monaco-editor,
       .monaco-editor-background,
       .monaco-editor .inputarea.ime-input {
-        background-color: mat.m2-get-color-from-palette($darkBg, card);
+        background-color: #282c34;
       }
       .toolbar {
         background-color: mat.m2-get-color-from-palette($darkBg, app-bar);

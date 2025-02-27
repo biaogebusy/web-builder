@@ -8,6 +8,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -28,17 +29,18 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
   @Input() content: IComponentToolbar;
-  index = signal(0);
-  length = signal(0);
+  public index = signal(0);
+  public length = signal(0);
   @HostBinding('class.component-toolbar') hostClass = true;
 
   public bcData = signal(false);
 
-  builder = inject(BuilderState);
-  storage = inject(LocalStorageService);
-  util = inject(UtilitiesService);
-  ele = inject(ElementRef);
-  currentPage: IPage;
+  private builder = inject(BuilderState);
+  private storage = inject(LocalStorageService);
+  private util = inject(UtilitiesService);
+  private ele = inject(ElementRef);
+  private dialog = inject(MatDialog);
+  private currentPage: IPage;
 
   ngOnInit(): void {
     this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
@@ -107,6 +109,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     const component = type ? content : content.content;
     const fields: FormlyFieldConfig[] = getComponentSetting(component, path);
     this.hiddenPicker();
+    this.dialog.getDialogById('code-editor-dialog')?.close();
     this.builder.showComponentSetting(component, fields, path);
   }
 
