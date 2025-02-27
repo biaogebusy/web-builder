@@ -202,7 +202,7 @@ export class UserService extends ApiService {
   }
 
   getCode(phone: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/v1/otp/generate?format=json`, {
+    return this.http.post(`${this.apiUrl}/api/v3/otp/generate?format=json`, {
       mobile_number: phone,
     });
   }
