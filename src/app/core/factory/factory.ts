@@ -273,6 +273,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
           return {
             ...item,
             src: type === 'svg' ? item.source : item.thumb,
+            title: decodeURIComponent(item.title),
           };
         }),
         pager: nodeService.handlerPager(res.pager, res.rows.length),

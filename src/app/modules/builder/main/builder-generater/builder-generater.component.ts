@@ -1,15 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
-import type { IBuilderComponent, IBuilderConfig, IUiux } from '@core/interface/IBuilder';
+import type { IPage } from '@core/interface/IAppConfig';
+import type { IBuilderComponent, IBuilderConfig } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
+import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { BUILDER_CONFIG, CORE_CONFIG, UIUX, USER } from '@core/token/token-providers';
-import { LoginComponent } from '@modules/user/login/login.component';
+import { BUILDER_CONFIG, UIUX, USER } from '@core/token/token-providers';
 import { map, shuffle } from 'lodash-es';
 import { Observable } from 'rxjs';
 
@@ -20,17 +18,16 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderGeneraterComponent implements OnInit {
-  uiux = inject(UIUX);
-  builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  public uiux = inject(UIUX);
+  public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
 
-  form = new UntypedFormGroup({});
-  model: any = {};
-  user: IUser;
-  dialog = inject(MatDialog);
-  router = inject(Router);
-  builder = inject(BuilderState);
-  util = inject(UtilitiesService);
+  public form = new UntypedFormGroup({});
+  public model: any = {};
+  private user: IUser;
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private userService = inject(UserService);
 
   constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
@@ -45,8 +42,7 @@ export class BuilderGeneraterComponent implements OnInit {
       const queryParams = {
         returnUrl: 'builder',
       };
-      this.router.navigate([], { queryParams });
-      this.dialog.open(LoginComponent);
+      this.userService.openLoginDialog(queryParams);
       return;
     }
     const items: IBuilderComponent[] = [];

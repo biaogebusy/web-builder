@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./theme-preview.component.scss'],
 })
 export class ThemePreviewComponent implements OnInit {
-  page$: Observable<IPage>;
-  builderService = inject(BuilderService);
-  screenSerivce = inject(ScreenService);
+  public page$: Observable<IPage>;
+  private builderService = inject(BuilderService);
+  private screenSerivce = inject(ScreenService);
 
   ngOnInit(): void {
     if (this.screenSerivce.isPlatformBrowser()) {

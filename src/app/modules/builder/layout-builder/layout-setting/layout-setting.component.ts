@@ -130,6 +130,7 @@ export class LayoutSettingComponent {
         position: {
           bottom: '0px',
         },
+        id: 'code-editor-dialog',
         data: {
           disableCloseButton: true,
           inputData: {

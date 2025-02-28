@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BuilderComponent } from './builder.component';
-import { PreviewComponent } from './preview/preview.component';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 import { PageListComponent } from './sidebar/page-list/page-list.component';

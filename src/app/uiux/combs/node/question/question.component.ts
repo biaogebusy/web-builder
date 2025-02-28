@@ -5,7 +5,6 @@ import {
   Component,
   DestroyRef,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -14,15 +13,14 @@ import type { IComment, IQuestion } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeComponent } from '@uiux/base/node.widget';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { LoginComponent } from 'src/app/modules/user/login/login.component';
+import { Observable } from 'rxjs';
 import { ContentState } from '@core/state/ContentState';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-question',
@@ -31,23 +29,21 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionComponent extends NodeComponent implements OnInit, AfterViewInit {
-  user$ = inject<Observable<IUser>>(USER);
+  public user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: IQuestion;
-  comments: IComment[];
-  showEditor = false;
-  isAsked = false;
-  myCommentId = '';
-  dialogRef: MatDialogRef<any>;
-  user: IUser;
-
-  nodeService = inject(NodeService);
-  screenService = inject(ScreenService);
-  cd = inject(ChangeDetectorRef);
-  router = inject(Router);
-  dialog = inject(MatDialog);
-  contentState = inject(ContentState);
+  public comments: IComment[];
+  public showEditor = false;
+  public isAsked = false;
+  public myCommentId = '';
+  private dialogRef: MatDialogRef<any>;
+  private user: IUser;
+  private nodeService = inject(NodeService);
+  private screenService = inject(ScreenService);
+  private cd = inject(ChangeDetectorRef);
+  private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
+  private userService = inject(UserService);
 
   constructor() {
     super();
@@ -135,10 +131,10 @@ export class QuestionComponent extends NodeComponent implements OnInit, AfterVie
 
   openLogin(): void {
     const returnUrl = window.location.pathname;
-    this.router.navigate([], {
-      queryParams: { returnUrl },
-    });
-    this.dialogRef = this.dialog.open(LoginComponent);
+    const queryParams = {
+      returnUrl: returnUrl,
+    };
+    this.dialogRef = this.userService.openLoginDialog(queryParams);
     this.dialogRef
       .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))

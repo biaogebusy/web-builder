@@ -1,25 +1,19 @@
 @if (screenService.isPlatformBrowser()) {
   <div class="toolbar p-5 flex gap-1 items-center">
-    <mat-slide-toggle [checked]="isAPI" (change)="onToggle($event)" />
-    <div class="text-white">{{ isAPI ? '数据来源API' : '数据来源静态' }}</div>
+    <div class="text-white">{{ isAPI ? '数据来源 API' : 'Tailwind 自定义组件' }}</div>
   </div>
   <div class="code-editor grid grid-cols-12 gap-2">
     @if (isAPI) {
-      <div class="box {{ isAPI ? 'col-span-4' : '' }}  flex flex-col">
-        <app-formly class="block px-3" [form]="form" [fields]="fields" [model]="model" />
-        <json-editor
-          class="block flex-auto"
-          [options]="editorOptions"
-          [data]="json"
-          (change)="onJsonChange($event)"
-        />
+      <div class="box col-span-12 {{ isAPI ? 'md:col-span-3' : '' }}  flex flex-col p-3">
+        <app-formly class="block" [form]="form" [fields]="fields" [model]="model" />
+        <json-editor class="block flex-auto" [options]="editorOptions" [data]="json()" />
       </div>
     }
-    <div class="box {{ isAPI ? 'col-span-8' : 'col-span-12' }}">
+    <div class="box col-span-12 {{ isAPI ? 'md:col-span-9' : '' }}">
       <ngx-monaco-editor
         class="!h-full"
         [options]="MonacoOptions"
-        [ngModel]="html"
+        [ngModel]="html()"
         [formControl]="htmlForm"
       />
     </div>
