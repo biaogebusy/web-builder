@@ -18,6 +18,7 @@ import { PAGE_CONTENT } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-download',
@@ -32,16 +33,15 @@ export class DownloadComponent implements OnInit {
 
   @Input() content: IDownload;
   @Input() data: any;
-  config: ICoreDownload;
-  canAccess: boolean;
-  isReqRoles: boolean;
-  user: IUser;
-
-  screenService = inject(ScreenService);
-  dialog = inject(MatDialog);
-  nodeService = inject(NodeService);
-  cd = inject(ChangeDetectorRef);
+  public config: ICoreDownload;
+  public canAccess: boolean;
+  public user: IUser;
+  private screenService = inject(ScreenService);
+  private dialog = inject(MatDialog);
+  private nodeService = inject(NodeService);
+  private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
+  private userService = inject(UserService);
 
   constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
@@ -64,19 +64,16 @@ export class DownloadComponent implements OnInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(access => {
           this.canAccess = access.canAccess;
-          this.isReqRoles = access.isReqRoles;
           this.cd.detectChanges();
         });
     });
   }
 
   openLogin(): void {
-    const dialogRef = this.dialog.open(LoginComponent);
-    dialogRef
-      .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        console.log('dialog close!');
-      });
+    const returnUrl = window.location.pathname;
+    const queryParams = {
+      returnUrl: returnUrl,
+    };
+    this.userService.openLoginDialog(queryParams);
   }
 }

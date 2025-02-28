@@ -2,11 +2,13 @@
   <div class="reload">
     @if (!loading) {
       <app-btn
+        matTooltip="重置"
+        matTooltipPosition="above"
         (click)="onReload()"
         [content]="{
           label: '',
           mode: 'icon',
-          color: 'primary',
+          color: undefined,
           icon: { svg: 'reload' },
         }"
       />

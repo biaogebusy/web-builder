@@ -14,7 +14,6 @@ import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import { environment } from 'src/environments/environment';
-import { LoginComponent } from '@modules/user/login/login.component';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -80,19 +79,7 @@ export class UserMenuComponent implements OnInit {
     const queryParams = {
       returnUrl: pathname,
     };
-    this.router.navigate([], { queryParams });
-    this.dialog.open(DialogComponent, {
-      panelClass: ['close-outside', 'close-icon-white', 'login-dialog'],
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'login',
-            fullWidth: true,
-          },
-        },
-      },
-    });
+    this.userService.openLoginDialog(queryParams);
   }
 
   openDialog(): void {

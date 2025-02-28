@@ -11,8 +11,7 @@ import {
 import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, from, of } from 'rxjs';
-import { BUILDER_CONFIG, CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { BUILDER_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { IManageAssets, IManageImg, IManageMedia } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
 import {
@@ -40,28 +39,26 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
   styleUrls: ['./manage-media.component.scss'],
 })
 export class ManageMediaComponent implements OnInit {
-  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
-  mediaAssets$ = inject<Observable<IManageAssets>>(MEDIA_ASSETS);
+  private builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  public mediaAssets$ = inject<Observable<IManageAssets>>(MEDIA_ASSETS);
 
   @Input() content: IManageMedia;
-  form = new UntypedFormGroup({
+  public form = new UntypedFormGroup({
     page: new FormControl(0),
   });
-  fields = signal<FormlyFieldConfig[]>([]);
-  manageMediaConfig = signal<any>({});
-  model: any = {};
-  loading = signal<boolean>(false);
-  selectedId: string;
-  deletedLists: string[] = [];
-  progress = 0;
-  dialog = inject(MatDialog);
-  cd = inject(ChangeDetectorRef);
-  builder = inject(BuilderState);
-  util = inject(UtilitiesService);
-  contentState = inject(ContentState);
-  screenService = inject(ScreenService);
-  manageService = inject(ManageService);
+  public fields = signal<FormlyFieldConfig[]>([]);
+  public manageMediaConfig = signal<any>({});
+  public model: any = {};
+  public loading = signal<boolean>(false);
+  private selectedId: string;
+  public deletedLists: string[] = [];
+  public progress = 0;
+  private dialog = inject(MatDialog);
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private contentState = inject(ContentState);
+  private screenService = inject(ScreenService);
+  private manageService = inject(ManageService);
   private destroyRef = inject(DestroyRef);
 
   @ViewChild('uploadDrawer', { static: false })
@@ -137,7 +134,6 @@ export class ManageMediaComponent implements OnInit {
         this.deletedLists.splice(index, 1);
       }
     }
-    this.cd.detectChanges();
   }
 
   handleDelete(file: string): Observable<boolean> {

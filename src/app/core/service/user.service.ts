@@ -12,19 +12,25 @@ import { environment } from 'src/environments/environment';
 import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
 import { UtilitiesService } from './utilities.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Params, Router } from '@angular/router';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { DialogRef } from '@angular/cdk/dialog';
 @Injectable({
   providedIn: 'root',
 })
 export class UserService extends ApiService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  userSub$ = new Subject<IUser | boolean>();
+  public userSub$ = new Subject<IUser | boolean>();
 
-  http = inject(HttpClient);
-  storage = inject(LocalStorageService);
-  cryptoJS = inject(CryptoJSService);
-  cookieService = inject(CookieService);
-  util = inject(UtilitiesService);
+  private router = inject(Router);
+  private http = inject(HttpClient);
+  private dialog = inject(MatDialog);
+  private util = inject(UtilitiesService);
+  private cryptoJS = inject(CryptoJSService);
+  private cookieService = inject(CookieService);
+  private storage = inject(LocalStorageService);
 
   get userApiPath(): string {
     return `${this.apiUrl}${this.coreConfig.apiUrl.userGetPath}`;
@@ -196,14 +202,14 @@ export class UserService extends ApiService {
   }
 
   getCode(phone: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/v1/otp/generate?format=json`, {
+    return this.http.post(`${this.apiUrl}/api/v3/otp/generate?format=json`, {
       mobile_number: phone,
     });
   }
 
   loginByPhone(phone: number, code: string): Observable<boolean> {
     return this.http
-      .post<any>(`${this.apiUrl}/api/v1/otp/login?format=json`, {
+      .post<any>(`${this.apiUrl}/api/v3/otp/login?format=json`, {
         mobile_number: phone,
         code,
       })
@@ -354,5 +360,21 @@ export class UserService extends ApiService {
       imageData,
       httpOptions
     );
+  }
+
+  openLoginDialog(queryParams: Params): MatDialogRef<DialogComponent> {
+    this.router.navigate([], { queryParams });
+    return this.dialog.open(DialogComponent, {
+      panelClass: ['close-outside', 'close-icon-white', 'login-dialog'],
+      data: {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'login',
+            fullWidth: true,
+          },
+        },
+      },
+    });
   }
 }

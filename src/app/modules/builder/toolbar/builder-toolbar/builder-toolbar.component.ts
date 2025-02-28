@@ -19,11 +19,10 @@ import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { LoginComponent } from '@modules/user/login/login.component';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -37,7 +36,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
   public page?: IPage;
-  private router = inject(Router);
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
@@ -46,6 +44,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
+  private userService = inject(UserService);
   private user: IUser;
   public date = signal<Date>(new Date());
 
@@ -195,7 +194,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     const queryParams = {
       returnUrl: 'builder',
     };
-    this.router.navigate([], { queryParams });
-    this.dialog.open(LoginComponent);
+    this.userService.openLoginDialog(queryParams);
   }
 }

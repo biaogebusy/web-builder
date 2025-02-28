@@ -1,13 +1,8 @@
 .page-list {
-  position: relative;
-  margin: 10px;
-  border-radius: 4px;
+  @apply relative rounded-md m-3;
   .reload {
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-    z-index: 1;
+    @apply z-10 absolute top-2 right-2 cursor-pointer;
+    transform: scale(0.8);
   }
   .form {
     padding: 10px;
