@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="https://builder.design/builder">Web Builder </a>
+  <a href="https://github.com/biaogebusy/builder-cms">Builder CMS</a>
   ·
   <a href="https://github.com/biaogebusy/xinshi-mini">信使小程序</a>
   ·
