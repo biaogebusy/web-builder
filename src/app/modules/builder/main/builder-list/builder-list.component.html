@@ -1,64 +1,67 @@
 @if (currentPage$ | async; as page) {
-  <div class="builder-list" id="gsap-scroller">
-    <div class="wrapper" [ngClass]="previewClass$ | async">
-      @if (builder.loading$ | async) {
-        <div class="load">
-          <mat-spinner diameter="50" color="accent" />
-        </div>
-      }
-      <div
-        #builderList
-        id="builder-list"
-        cdkDropList
-        [cdkDropListConnectedTo]="['widgets']"
-        [cdkDropListData]="page.body"
-        (cdkDropListDropped)="drop($event)"
-      >
-        @for (item of page.body; track item; let i = $index) {
-          <div
-            id="item-{{ i }}"
-            class="component-item"
-            cdkDrag
-            [cdkDragDisabled]="true"
-            [cdkDragData]="item"
-          >
-            @if (item) {
-              <app-dynamic-component [attr.data-path]="i" [inputs]="item" [index]="i" />
-              @if (builderConfig$ | async; as builderConfig) {
-                <div class="add-new-section gap-2 items-center" [attr.data-path]="i">
-                  <button
-                    mat-raised-button
-                    (click)="addNewSection($event, 'section', builderConfig.newSection)"
-                  >
-                    <div class="flex">
-                      <app-icon class="mr-1" [content]="{ svg: 'plus' }" />
-                      <span>新增布局</span>
-                    </div>
-                  </button>
-                  <button
-                    class="new-widget !bg-white rounded-full shadow"
-                    matTooltip="选择基组件"
-                    mat-icon-button
-                    (click)="addNewSection($event, 'widget', builderConfig.newSection)"
-                  >
-                    <app-icon [content]="{ svg: 'chevron-down' }" />
-                  </button>
-                </div>
-              }
-            }
+  @if (page.body.length > 0) {
+    <div class="builder-list" id="gsap-scroller">
+      <div class="wrapper" [ngClass]="previewClass$ | async">
+        @if (builder.loading$ | async) {
+          <div class="load">
+            <mat-spinner diameter="50" color="accent" />
           </div>
-        } @empty {
-          <app-default-page />
+        }
+        <div
+          #builderList
+          id="builder-list"
+          cdkDropList
+          [class.empty]="page.body.length === 0"
+          [cdkDropListConnectedTo]="['widgets']"
+          [cdkDropListData]="page.body"
+          (cdkDropListDropped)="drop($event)"
+        >
+          @for (item of page.body; track item; let i = $index) {
+            <div
+              id="item-{{ i }}"
+              class="component-item"
+              cdkDrag
+              [cdkDragDisabled]="true"
+              [cdkDragData]="item"
+            >
+              @if (item) {
+                <app-dynamic-component [attr.data-path]="i" [inputs]="item" [index]="i" />
+                @if (builderConfig$ | async; as builderConfig) {
+                  <div class="add-new-section gap-2 items-center" [attr.data-path]="i">
+                    <button
+                      mat-raised-button
+                      (click)="addNewSection($event, 'section', builderConfig.newSection)"
+                    >
+                      <div class="flex">
+                        <app-icon class="mr-1" [content]="{ svg: 'plus' }" />
+                        <span>新增布局</span>
+                      </div>
+                    </button>
+                    <button
+                      class="new-widget !bg-white rounded-full shadow"
+                      matTooltip="选择基组件"
+                      mat-icon-button
+                      (click)="addNewSection($event, 'widget', builderConfig.newSection)"
+                    >
+                      <app-icon [content]="{ svg: 'chevron-down' }" />
+                    </button>
+                  </div>
+                }
+              }
+            </div>
+          }
+        </div>
+        @if (builder.switchPreivew$ | async) {
+          <div class="iframe-wrapper">
+            <app-iframe class="preview-iframe" [content]="{ url: '/preview' }" />
+          </div>
+        }
+        @if (page.body.length > 0) {
+          <app-widget-picker></app-widget-picker>
         }
       </div>
-      @if (builder.switchPreivew$ | async) {
-        <div class="iframe-wrapper">
-          <app-iframe class="preview-iframe" [content]="{ url: '/preview' }" />
-        </div>
-      }
-      @if (page.body.length > 0) {
-        <app-widget-picker />
-      }
     </div>
-  </div>
+  } @else {
+    <app-default-page />
+  }
 }

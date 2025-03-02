@@ -1,6 +1,9 @@
 .default-page {
   position: relative;
   min-height: 70vh;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   mat-spinner {
     position: absolute;
     left: 50%;
