@@ -28,7 +28,7 @@
               @if (item) {
                 <app-dynamic-component [attr.data-path]="i" [inputs]="item" [index]="i" />
                 @if (builderConfig) {
-                  <div class="add-new-section gap-2 items-center" [attr.data-path]="i">
+                  <div #actionBtn class="add-new-section gap-2 items-center" [attr.data-path]="i">
                     <button
                       mat-raised-button
                       (click)="addNewSection($event, 'section', builderConfig.newSection)"
@@ -40,12 +40,23 @@
                     </button>
                     <button
                       class="new-widget !bg-white rounded-full shadow"
-                      matTooltip="选择基组件"
+                      matTooltip="选择组件"
                       mat-icon-button
-                      (click)="addNewSection($event, 'widget', builderConfig.newSection)"
+                      [matMenuTriggerFor]="menu"
                     >
                       <app-icon [content]="{ svg: 'chevron-down' }" />
                     </button>
+                    <mat-menu #menu="matMenu">
+                      <button
+                        mat-menu-item
+                        (click)="addNewSection(actionBtn, 'widget', builderConfig?.newSection)"
+                      >
+                        <div class="flex items-centert">
+                          <app-icon [content]="{ svg: 'widgets-outline' }" />
+                          <span>选择基组件</span>
+                        </div>
+                      </button>
+                    </mat-menu>
                   </div>
                 }
               }

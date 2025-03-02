@@ -118,16 +118,16 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  addNewSection(event: any, type: 'widget' | 'section', newSection: any): void {
+  addNewSection(target: any, type: 'widget' | 'section', newSection: any): void {
     this.builder.widgetsPicker$.next(false);
     this.router.navigate(['/builder']);
-    const path = this.util.generatePath(event.target);
+    const path = this.util.generatePath(target);
     if (type === 'section') {
       this.builder.updatePageContentByPath(path, newSection, 'add');
     }
 
     if (type === 'widget') {
-      this.builderService.addBlock(type, {}, this.util.generatePath(event.target));
+      this.builderService.addBlock(type, {}, this.util.generatePath(target));
     }
     this.builder.closeRightDrawer$.next(true);
   }
