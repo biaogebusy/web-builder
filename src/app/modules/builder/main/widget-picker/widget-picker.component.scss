@@ -5,9 +5,7 @@
   top: 50%;
   padding: 30px;
   transform: translateY(-50%);
-  z-index: 999;
-  width: 48px;
-  pointer-events: none;
+  @apply pointer-events-none w-[48px];
   .widget-wrapper {
     position: relative;
     left: 108px;

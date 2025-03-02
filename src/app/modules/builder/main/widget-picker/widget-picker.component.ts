@@ -72,6 +72,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     // add widget from layout builder toolbar
     if (addType === 'widget') {
       this.builder.updatePageContentByPath(path, widgetContent, 'add');
+      this.onLeave();
       return;
     }
 
@@ -81,6 +82,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
         this.copyLayoutLastChild(data.elements, widgetContent),
         'add'
       );
+      this.onLeave();
       return;
     }
 
@@ -88,6 +90,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     const lists = [...data.elements];
     lists.splice(lists.length, 0, widgetContent);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
+    this.onLeave();
   }
 
   onLeave(): void {

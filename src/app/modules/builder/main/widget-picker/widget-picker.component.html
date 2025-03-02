@@ -1,6 +1,6 @@
 @let builderConfig = builderConfig$ | async;
 @let help = builderConfig?.widgetPicker?.help;
-<div class="widget-picker" [class.active]="show()" (mouseleave)="onLeave()">
+<div class="widget-picker z-[9999]" [class.active]="show()">
   @if (widgets) {
     <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
       @if (bcData()) {
@@ -102,3 +102,6 @@
     />
   </div>
 </div>
+@if (show()) {
+  <div class="fixed w-full h-full z-[1000] left-0 top-0" (click)="onLeave()"></div>
+}
