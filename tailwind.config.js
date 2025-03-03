@@ -59,20 +59,65 @@ module.exports = {
     'flex-nowrap',
     'grid-flow-col',
     'grid-flow-row',
-    'justify-items-start',
-    'justify-items-end',
-    'justify-items-center',
-    'justify-items-baseline',
-    'justify-items-stretch',
-    'items-start',
-    'items-end',
-    'items-center',
-    'items-baseline',
-    'items-stretch',
     'order-1',
     'order-0',
     '!overflow-visible',
     '!absolute',
+    {
+      pattern: /^p[xytbrl]?-(1[0-9]|20|[1-9])$/,
+    },
+    {
+      pattern: /^m[xytbrl]?-(1[0-9]|20|[1-9])$/,
+    },
+    // 布局类
+    { pattern: /^(block|inline|flex|grid|hidden|table|flow-root)$/ },
+    { pattern: /^(absolute|relative|fixed|sticky|static)$/ },
+    { pattern: /^overflow-(auto|hidden|visible|scroll)$/ },
+    { pattern: /^z-([0-9]|10|20|30|40|50|auto)$/ }, // 层级
+
+    // 尺寸类
+    { pattern: /^(w|h)-((1\/[2-4])|full|screen|min|max|auto|[0-9]{1,3})$/ }, // 支持 w-1/2, h-full 等
+
+    // 排版类
+    { pattern: /^text-(left|center|right|justify)$/ },
+    { pattern: /^text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl)$/ },
+    { pattern: /^font-(thin|light|normal|medium|semibold|bold|black)$/ },
+    { pattern: /^(italic|not-italic|uppercase|lowercase|capitalize|normal-case)$/ },
+
+    // 颜色类 (按项目主色调调整)
+    {
+      pattern:
+        /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+    },
+    {
+      pattern:
+        /^text-(white|black|current|inherit|transparent|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+    },
+    {
+      pattern:
+        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+    },
+
+    // 边框与圆角
+    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/ },
+    { pattern: /^rounded(-[tlbr]{1,2})?(|none|sm|md|lg|xl|2xl|3xl|full)$/ },
+
+    // 阴影与透明度
+    { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/ },
+    { pattern: /^opacity-(0|5|10|20|30|40|50|60|70|75|80|90|95|100)$/ },
+
+    // 过渡与动画
+    { pattern: /^transition(-none|all|colors|opacity|shadow|transform)$/ },
+    { pattern: /^duration-(75|100|150|200|300|500|700|1000)$/ },
+    { pattern: /^ease-(linear|in|out|in-out)$/ },
+
+    // Flex/Grid 布局
+    {
+      pattern:
+        /^(items|justify|content|place-items|place-content)-(start|end|center|between|around|evenly|stretch)$/,
+    },
+    { pattern: /^gap-([0-9]|10|12|14|16|20|24|28|32|36|40|48|56|64|72|80|96)$/ },
+    { pattern: /^grid-cols-([1-9]|10|11|12|none)$/ },
   ],
   theme: {
     screens: {
