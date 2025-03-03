@@ -6,12 +6,12 @@ import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 })
 export class ScreenService {
   private document = inject<Document>(DOCUMENT);
-  platformId = inject(PLATFORM_ID);
+  private platformId = inject(PLATFORM_ID);
   private zone = inject(NgZone);
 
-  main: any;
-  sidebar: any;
-  container: any;
+  private main: any;
+  private sidebar: any;
+  private container: any;
 
   isPlatformServer(): boolean {
     return isPlatformServer(this.platformId);
