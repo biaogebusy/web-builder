@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IBuilderComponent } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-builder-panel',
@@ -36,7 +37,7 @@ export class BuilderPanelComponent implements OnInit {
     if (this.builder.fixedShowcase) {
       return;
     }
-    this.builder.showcase(content);
+    this.builder.showcase(cloneDeep(content));
   }
 
   onFixed(content: any): void {
@@ -50,7 +51,7 @@ export class BuilderPanelComponent implements OnInit {
 
       // switch to other
       if (content !== this.builder.fixedContent) {
-        this.builder.showcase(content);
+        this.builder.showcase(cloneDeep(content));
         return;
       }
     }
@@ -58,7 +59,7 @@ export class BuilderPanelComponent implements OnInit {
     // set new active
     if (!this.builder.fixedShowcase) {
       this.builder.fixedShowcase = true;
-      this.builder.showcase(content);
+      this.builder.showcase(cloneDeep(content));
     }
   }
 
@@ -82,7 +83,7 @@ export class BuilderPanelComponent implements OnInit {
   }
 
   add(content: any): void {
-    this.builder.pushComponent({ ...content });
+    this.builder.pushComponent(cloneDeep(content));
     const { body } = this.builder.currentPage;
     setTimeout(() => {
       this.scrrenService.scrollToAnchor(`item-${body.length - 1}`);

@@ -3,7 +3,6 @@ export interface IJsoneditor {
   data: any;
   classes?: any;
   actions?: any[];
-  actionsAlign?: string;
   tooltip?: string;
   isPage?: boolean; // load from page
   isSetting?: boolean; // load from setting page
