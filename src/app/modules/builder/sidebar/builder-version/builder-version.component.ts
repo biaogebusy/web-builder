@@ -66,7 +66,7 @@ export class BuilderVersionComponent implements OnInit {
   }
 
   onVersion(page: IPage, index: number): void {
-    this.builder.showVersionPage(page, index);
+    this.builder.showVersionPage(index);
     this.builder.closeRightDrawer$.next(true);
     this.builder.fixedShowcase = false;
     this.builder.showcase$.next(false);
