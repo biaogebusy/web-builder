@@ -7,7 +7,6 @@ import {
   IBuilderShowcase,
   ILayoutSetting,
   IWidgetPicker,
-  IWidgets,
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
