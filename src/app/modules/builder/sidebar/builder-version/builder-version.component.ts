@@ -44,25 +44,12 @@ export class BuilderVersionComponent implements OnInit {
     this.builder.deleteLocalPage(index);
   }
 
-  onDeleteAll(): void {
-    this.builder.clearAllVersion();
+  onClearHistory(): void {
+    this.builder.clearAllHistory();
   }
 
   onNewPage(): void {
-    this.builder.fixedShowcase = false;
-    this.builder.showcase$.next(false);
-    this.dialog.open(DialogComponent, {
-      width: '1200px',
-      data: {
-        title: '选择模板创建页面',
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'builder-template',
-          },
-        },
-      },
-    });
+    this.builder.onNewPage();
   }
 
   onVersion(page: IPage, index: number): void {

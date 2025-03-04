@@ -23,6 +23,8 @@ import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 @Component({
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
@@ -38,10 +40,12 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   public previewClass$: Observable<any>;
   private router = inject(Router);
   private zone = inject(NgZone);
+  private dialog = inject(MatDialog);
   public builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
+
   private ele = inject(ElementRef);
   private animateElement: Element[] = [];
   private scrollableContainer: Element;
@@ -130,6 +134,14 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
       this.builderService.addBlock(type, {}, this.util.generatePath(target));
     }
     this.builder.closeRightDrawer$.next(true);
+  }
+
+  onNewPage(): void {
+    this.builder.onNewPage();
+  }
+
+  onClearHistory() {
+    this.builder.clearAllHistory();
   }
 
   ngOnDestroy(): void {
