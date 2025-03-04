@@ -123,7 +123,7 @@ export class BuilderState {
     this.updatePage();
   }
 
-  showVersionPage(page: IPage, index: number): void {
+  showVersionPage(index: number): void {
     this.loading$.next(true);
     setTimeout(() => {
       // reset current
