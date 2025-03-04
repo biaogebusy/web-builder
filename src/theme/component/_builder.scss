@@ -20,6 +20,19 @@ $dark-theme: mat.m2-define-dark-theme(
   )
 );
 
+$darkBg: map-get(
+  $map: $dark-theme,
+  $key: background,
+);
+$darkFore: map-get(
+  $map: $dark-theme,
+  $key: foreground,
+);
+$darkPrimary: map-get(
+  $map: $dark-theme,
+  $key: primary,
+);
+
 @mixin theme($background, $foreground, $primary, $warn) {
   background-color: mat.m2-get-color-from-palette($background, card);
   @include builder-sidebar($background, $foreground, $primary);
@@ -143,18 +156,6 @@ $dark-theme: mat.m2-define-dark-theme(
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $darkBg: map-get(
-    $map: $dark-theme,
-    $key: background,
-  );
-  $darkFore: map-get(
-    $map: $dark-theme,
-    $key: foreground,
-  );
-  $darkPrimary: map-get(
-    $map: $dark-theme,
-    $key: primary,
-  );
   @include code-editor-theme($darkBg, $darkFore, $darkPrimary, $warn);
   .builder-wrapper {
     @include theme($background, $foreground, $primary, $warn);
@@ -166,6 +167,9 @@ $dark-theme: mat.m2-define-dark-theme(
         background-color: #fafafa !important;
       }
       .mat-drawer {
+        &.sidebar-drawer {
+          border-right-color: #272727;
+        }
         .actions {
           &.expand {
             color: #fafafa;

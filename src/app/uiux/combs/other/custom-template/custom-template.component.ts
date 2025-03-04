@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -19,7 +18,6 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-custom-template',
   templateUrl: './custom-template.component.html',
   styleUrls: ['./custom-template.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomTemplateComponent implements AfterViewInit {
   @Input() content: ICustomTemplate;
@@ -29,7 +27,6 @@ export class CustomTemplateComponent implements AfterViewInit {
   screenService = inject(ScreenService);
   nodeService = inject(NodeService);
   template: Element;
-  constructor() {}
 
   ngAfterViewInit(): void {
     this.template = this.ele.nativeElement.querySelector('.template');

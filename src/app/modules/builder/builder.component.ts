@@ -31,8 +31,10 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.builder.closeRightDrawer$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.onClose();
+    this.builder.closeRightDrawer$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+      if (state) {
+        this.onClose();
+      }
     });
   }
 

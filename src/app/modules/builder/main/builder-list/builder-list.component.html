@@ -31,7 +31,7 @@
                   <div #actionBtn class="add-new-section gap-2 items-center" [attr.data-path]="i">
                     <button
                       mat-raised-button
-                      (click)="addNewSection($event, 'section', builderConfig.newSection)"
+                      (click)="addNewSection(actionBtn, 'section', builderConfig.newSection)"
                     >
                       <div class="flex">
                         <app-icon class="mr-1" [content]="{ svg: 'plus' }" />

@@ -53,7 +53,6 @@ export class BuilderState {
 
   public version: IPage[] = [];
 
-  pageKey = 'page';
   versionKey = 'version';
 
   dialog = inject(MatDialog);
@@ -129,14 +128,14 @@ export class BuilderState {
       this.version.forEach(item => (item.current = false));
       this.version[index].current = true;
 
-      this.storage.store(this.versionKey, Object.assign([], this.version));
+      this.saveLocalVersions();
       this.loading$.next(false);
     }, 600);
   }
 
   updatePage(index = 0): void {
     setTimeout(() => {
-      this.storage.store(this.versionKey, Object.assign([], this.version));
+      this.saveLocalVersions();
 
       if (index) {
         this.sreenService.scrollToAnchor(`item-${index}`);
@@ -153,7 +152,7 @@ export class BuilderState {
   setCurrentPage(page: IPage): void {
     const currentIndex = this.version.findIndex((item: IPage) => item.current === true);
     this.version[currentIndex] = page;
-    this.storage.store(this.versionKey, Object.assign([], this.version));
+    this.saveLocalVersions();
   }
 
   getArrsByPath(path: string, body: any[]): any[] {

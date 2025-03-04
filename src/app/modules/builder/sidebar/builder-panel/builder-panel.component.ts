@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IBuilderComponent } from '@core/interface/IBuilder';
+import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
@@ -23,6 +24,7 @@ export class BuilderPanelComponent implements OnInit {
   public builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
+  private scrrenService = inject(ScreenService);
 
   ngOnInit(): void {
     this.builder.fixedChange$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
@@ -80,6 +82,10 @@ export class BuilderPanelComponent implements OnInit {
   }
 
   add(content: any): void {
-    this.builder.pushComponent(content);
+    this.builder.pushComponent({ ...content });
+    const { body } = this.builder.currentPage;
+    setTimeout(() => {
+      this.scrrenService.scrollToAnchor(`item-${body.length - 1}`);
+    }, 500);
   }
 }

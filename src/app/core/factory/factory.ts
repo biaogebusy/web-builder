@@ -82,7 +82,7 @@ export function builderCurrentPageFactory(): Observable<IPage | object | boolean
   }
 
   storage.observe(versionKey).subscribe((version: IPage[]) => {
-    if (version.length > 0) {
+    if (version?.length > 0) {
       const current = version.find((page: IPage) => page.current === true) || version[0];
       currentPage$.next(current);
     }
