@@ -122,12 +122,13 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       }
       this.group$.next(group);
       this.groupPopper = createPopper(ele, this.groupPopup.nativeElement, {
-        placement: 'left-start',
+        strategy: 'fixed',
+        placement: 'auto-end',
         modifiers: [
           {
             name: 'offset',
             options: {
-              offset: [0, 6],
+              offset: [0, 10],
             },
           },
         ],
@@ -136,14 +137,13 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     }
   }
   onHoverWidget(widget: any, ele: any): void {
-    return;
     if (this.widgetPopup?.nativeElement) {
       if (this.widgetPopper) {
         this.widgetPopper.destroy();
       }
       this.widget$.next(widget);
       this.widgetPopper = createPopper(ele, this.widgetPopup.nativeElement, {
-        placement: 'left',
+        placement: 'bottom',
         strategy: 'fixed',
         modifiers: [
           {
@@ -164,9 +164,5 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       this.groupPopper.destroy();
     }
     this.onHoverWidget(widget, ele);
-  }
-
-  hoverExpand(): void {
-    this.show.set(true);
   }
 }

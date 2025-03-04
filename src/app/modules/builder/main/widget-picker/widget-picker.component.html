@@ -1,6 +1,6 @@
 @let builderConfig = builderConfig$ | async;
 @let help = builderConfig?.widgetPicker?.help;
-<div class="widget-picker z-[9999]" [class.active]="show()">
+<div class="widget-picker z-[9999]" [class.show]="show()">
   @if (show()) {
     @if (widgets) {
       <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
@@ -73,34 +73,18 @@
         </div>
       }
     </div>
-    <div #popup class="absolute">
-      @if (widget$ | async; as widget) {
-        <div class="p-3">
-          <div class="widget-popup">
-            <div class="p-4 z-10 w-[560px] h-[300px]">
-              <div class="hover-show w-full h-full flex justify-center items-center relative">
-                @if (widget.preview) {
-                  <img [src]="widget.preview" alt="" />
-                } @else {
-                  <app-dynamic-component [inputs]="widget.content" />
-                }
-              </div>
-            </div>
+    <div #popup class="widget-popup absolute">
+      <div class="z-10 w-[314px] h-[236px] box-border overflow-auto">
+        @if (widget$ | async; as widget) {
+          <div class="hover-show w-full h-full flex justify-center relative">
+            @if (widget.preview) {
+              <img [src]="widget.preview" alt="" />
+            } @else {
+              <app-dynamic-component [inputs]="widget.content" />
+            }
           </div>
-        </div>
-      }
-    </div>
-    <div class="expand">
-      <app-btn
-        (mouseenter)="hoverExpand()"
-        [matTooltip]="'展开'"
-        [content]="{
-          label: '',
-          color: 'primary',
-          mode: 'mini-fab',
-          icon: { svg: 'chevron-left' },
-        }"
-      />
+        }
+      </div>
     </div>
   }
 </div>

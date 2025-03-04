@@ -6,7 +6,6 @@ import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
-import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { cloneDeep, defaultsDeep, get } from 'lodash-es';
@@ -25,7 +24,6 @@ export class LayoutSettingComponent {
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private destroyRef = inject(DestroyRef);
-  private builderService = inject(BuilderService);
 
   onModelChange(value: any): void {
     const { path } = this.content;
@@ -86,12 +84,6 @@ export class LayoutSettingComponent {
           this.builder.bulkUpdateComponent({ animate });
         }
       });
-  }
-
-  onWidgetPicker(last: number): void {
-    const { content, path } = this.content;
-    this.builder.closeRightDrawer$.next(true);
-    this.builderService.addBlock('widget', content, `${path}.elements.${last}`);
   }
 
   editorJSON(): void {

@@ -129,8 +129,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     if (type === 'widget') {
-      const widgetPicker = this.ele.nativeElement.querySelector('.widget-picker');
-      this.builderService.addBlock(type, {}, this.util.generatePath(target), target, widgetPicker);
+      this.builderService.addBlock(type, {}, this.util.generatePath(target), target);
     }
     this.builder.closeRightDrawer$.next(true);
   }
@@ -139,7 +138,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.builder.onNewPage();
   }
 
-  onClearHistory() {
+  onClearHistory(): void {
     this.builder.clearAllHistory();
   }
 

@@ -494,17 +494,20 @@ export class BuilderService extends ApiService {
     return pageTitle;
   }
 
-  addBlock(addType: string, content: any, path: string, target: any, popper: any): void {
+  addBlock(addType: string, content: any, path: string, target: any): void {
+    const popper = document.querySelector('.widget-picker') as HTMLElement;
     this.builder.widgetsPicker$.next({
       type: 'widget-picker',
       addType,
       path,
       content,
     });
-    createPopper(target, popper, {
-      strategy: 'fixed',
-      placement: 'right',
-    });
+    if (popper) {
+      createPopper(target, popper, {
+        strategy: 'fixed',
+        placement: 'right',
+      });
+    }
   }
 
   initExtraBody(body: any[], isTemplate?: boolean): any[] {

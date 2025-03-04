@@ -41,7 +41,7 @@ export class LayoutToolbarComponent implements OnInit {
   }
 
   addBlock(addType: string, content: any, target: Element): void {
-    this.builderService.addBlock(addType, content, this.util.generatePath(target));
+    this.builderService.addBlock(addType, content, this.util.generatePath(target), target);
   }
 
   onDeleteRow(target: Element): void {
