@@ -77,3 +77,28 @@
     <app-default-page />
   }
 }
+<app-btn
+  class="absolute right-10 bottom-10 z-50"
+  [matMenuTriggerFor]="menu"
+  [content]="{
+    mode: 'mini-fab',
+    color: 'primary',
+    icon: {
+      svg: 'dots-vertical',
+    },
+  }"
+/>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <div class="flex items-center">
+      <app-icon [content]="{ svg: 'pencil-plus', color: 'primary' }" /> <span>创建页面</span>
+    </div>
+  </button>
+
+  <button mat-menu-item>
+    <div class="flex items-center">
+      <app-icon [content]="{ svg: 'delete-empty-outline', color: 'warn' }" />
+      <span>清空草稿</span>
+    </div>
+  </button>
+</mat-menu>
