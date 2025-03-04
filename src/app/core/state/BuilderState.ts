@@ -285,7 +285,7 @@ export class BuilderState {
     this.updatePage(event.currentIndex);
   }
 
-  loadNewPage(page: IPage): void {
+  loadNewPage(page: IPage, close?: boolean): void {
     const currentPage = { ...page, current: true, time: new Date() };
     let somePageIndex = -1;
     this.version.forEach(version => (version.current = false));
@@ -298,7 +298,7 @@ export class BuilderState {
       this.version.unshift(currentPage);
     }
 
-    this.closeRightDrawer$.next(true);
+    this.closeRightDrawer$.next(close ?? true);
     this.saveLocalVersions();
   }
 
