@@ -136,6 +136,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     }
   }
   onHoverWidget(widget: any, ele: any): void {
+    return;
     if (this.widgetPopup?.nativeElement) {
       if (this.widgetPopper) {
         this.widgetPopper.destroy();
@@ -143,6 +144,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       this.widget$.next(widget);
       this.widgetPopper = createPopper(ele, this.widgetPopup.nativeElement, {
         placement: 'left',
+        strategy: 'fixed',
         modifiers: [
           {
             name: 'offset',

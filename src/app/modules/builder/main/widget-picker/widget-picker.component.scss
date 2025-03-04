@@ -1,10 +1,6 @@
 @import '../../../../../theme/variable/breakpoint';
 .widget-picker {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  padding: 30px;
-  transform: translateY(-50%);
+  min-height: 360px;
   @apply pointer-events-none w-[48px];
   .widget-wrapper {
     position: relative;
@@ -53,7 +49,6 @@
     pointer-events: all;
   }
   &.active {
-    right: 0px;
     pointer-events: all;
     .widget-wrapper {
       left: 0;

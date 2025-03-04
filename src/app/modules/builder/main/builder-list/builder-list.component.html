@@ -28,7 +28,11 @@
               @if (item) {
                 <app-dynamic-component [attr.data-path]="i" [inputs]="item" [index]="i" />
                 @if (builderConfig) {
-                  <div #actionBtn class="add-new-section gap-2 items-center" [attr.data-path]="i">
+                  <div
+                    #actionBtn
+                    class="add-new-section flex gap-2 items-center"
+                    [attr.data-path]="i"
+                  >
                     <button
                       mat-raised-button
                       (click)="addNewSection(actionBtn, 'section', builderConfig.newSection)"

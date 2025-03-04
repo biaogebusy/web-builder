@@ -23,8 +23,6 @@ import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 @Component({
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
@@ -36,11 +34,11 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
+  @ViewChild('widgetPicker') widgetPicker: ElementRef;
   private markers: NodeListOf<Element>;
   public previewClass$: Observable<any>;
   private router = inject(Router);
   private zone = inject(NgZone);
-  private dialog = inject(MatDialog);
   public builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
@@ -131,7 +129,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     if (type === 'widget') {
-      this.builderService.addBlock(type, {}, this.util.generatePath(target));
+      const widgetPicker = this.ele.nativeElement.querySelector('.widget-picker');
+      this.builderService.addBlock(type, {}, this.util.generatePath(target), target, widgetPicker);
     }
     this.builder.closeRightDrawer$.next(true);
   }

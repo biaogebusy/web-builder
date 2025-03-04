@@ -24,14 +24,14 @@
     .add-new-section {
       position: absolute;
       z-index: 999;
-      display: none;
+      opacity: 0;
       left: 50%;
       bottom: -18px;
       transform: translateX(-50%);
     }
     &:hover {
       .add-new-section {
-        display: flex;
+        opacity: 1;
       }
     }
     ::ng-deep {
