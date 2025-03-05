@@ -17,6 +17,18 @@
     .page-title {
       font-size: 14px;
       font-weight: bold;
+      &:hover {
+        div[contenteditable] {
+          text-decoration: underline;
+        }
+      }
+      div[contenteditable] {
+        &:hover,
+        &:focus,
+        &:focus-visible {
+          outline: none;
+        }
+      }
       ::ng-deep {
         .mat-icon {
           height: 16px;
