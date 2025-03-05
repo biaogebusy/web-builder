@@ -12,13 +12,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   host: { ngSkipHydration: 'true' },
 })
 export class BuilderComponent implements OnInit, AfterViewInit {
-  builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
-
   @ViewChild('builderRightDrawer', { static: false })
-  builderRightDrawer: MatDrawer;
-  sidebarDrawerOpened = false;
-  builder = inject(BuilderState);
+  private builderRightDrawer: MatDrawer;
+  public sidebarDrawerOpened = false;
+
+  public builder = inject(BuilderState);
   private destroyRef = inject(DestroyRef);
+  public builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
 
   ngOnInit(): void {
     this.builder.rightContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {

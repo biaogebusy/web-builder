@@ -14,6 +14,10 @@
         display: none;
       }
       .tabs-type {
+        .tab-field {
+          @apply mt-0 mb-0;
+          --mdc-filled-text-field-active-indicator-color: rgba(0, 0, 0, 0.2);
+        }
         .item {
           margin: 10px 0 0 0;
         }
@@ -23,9 +27,27 @@
   app-title {
     margin: 0 10px;
   }
+  .lists-wrapper {
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 10;
+      width: 100%;
+      height: 20px;
+      left: 0;
+    }
+    &:after {
+      bottom: 0;
+    }
+    &::before {
+      top: 0;
+    }
+  }
   .lists {
     position: relative;
     height: 450px;
+    max-height: 45vh;
     overflow: auto;
     .mat-mdc-progress-spinner {
       position: absolute;
@@ -67,7 +89,13 @@
   .pager {
     ::ng-deep {
       .mat-mdc-paginator-range-label {
-        display: none;
+        margin: 0;
+        white-space: nowrap;
+        @apply line-clamp-1 opacity-70;
+      }
+      button {
+        --mdc-icon-button-state-layer-size: 40px;
+        padding: 8px;
       }
     }
   }

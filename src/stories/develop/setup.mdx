@@ -14,16 +14,13 @@ import { Meta } from '@storybook/blocks';
 ```ts
 @NgModule({
   declarations: [AppComponent],
+  bootstrap: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'xinshi' }),
-    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    BrowserTransferStateModule,
     CommonModule,
     MatSidenavModule,
     NgxWebstorageModule.forRoot(),
-    Angulartics2Module.forRoot(),
     RenderModule,
     BrandingModule,
     LoadingBarHttpClientModule,
@@ -32,6 +29,9 @@ import { Meta } from '@storybook/blocks';
   providers: [
     Title,
     httpInterceptorProviders,
+    CookieService,
+    provideHttpClient(withFetch()),
+    provideClientHydration(),
     {
       provide: CORE_CONFIG,
       useValue: {},
@@ -39,7 +39,6 @@ import { Meta } from '@storybook/blocks';
     {
       provide: BRANDING,
       useFactory: brandingFactory,
-      deps: [ContentService],
     },
     {
       provide: THEME,
@@ -49,48 +48,42 @@ import { Meta } from '@storybook/blocks';
     {
       provide: APP_INITIALIZER,
       useFactory: initApp,
-      deps: [ContentService, [new Inject(CORE_CONFIG)]],
+      deps: [[new Inject(CORE_CONFIG)]],
       multi: true,
+    },
+    {
+      provide: LANG,
+      useFactory: langFactory,
     },
     {
       provide: API_URL,
       useFactory: apiUrlFactory,
-      deps: [],
     },
     {
       provide: USER,
       useFactory: userFactory,
-      deps: [LocalStorageService, CryptoJSService, UserService],
     },
     {
       provide: NOTIFY_CONTENT,
       useFactory: notifyFactory,
-      deps: [[new Inject(CORE_CONFIG)], NotifyService],
+      deps: [[new Inject(CORE_CONFIG)]],
     },
     {
       provide: BUILDER_FULL_SCREEN,
       useFactory: builderFullScreenFactory,
-      deps: [Router, LocalStorageService, BuilderState],
     },
     {
       provide: DEBUG_ANIMATE,
       useFactory: debugAnimateFactory,
-      deps: [LocalStorageService, BuilderState],
     },
     {
       provide: IS_BUILDER_MODE,
       useFactory: isBuilderModeFactory,
       deps: [Router],
     },
-    {
-      provide: MEDIA_ASSETS,
-      useFactory: mediaAssetsFactory,
-      deps: [NodeService, ManageService, ContentState],
-    },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
 })
-export class AppModule {}
 ```
 
 读取全局配置信息

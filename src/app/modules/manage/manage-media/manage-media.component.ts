@@ -1,13 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectorRef,
-  Input,
-  inject,
-  ViewChild,
-  DestroyRef,
-  signal,
-} from '@angular/core';
+import { Component, OnInit, Input, inject, ViewChild, DestroyRef, signal } from '@angular/core';
 import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, from, of } from 'rxjs';

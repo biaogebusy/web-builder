@@ -44,17 +44,14 @@ export function pageContentFactory(): Observable<IPage | object | boolean> {
   return $pageContent;
 }
 
-export function builderFullScreenFactory(
-  router: Router,
-  storage: LocalStorageService,
-  builder: BuilderState
-): Observable<boolean> {
+export function builderFullScreenFactory(): Observable<boolean> {
+  const router = inject(Router);
+  const builder = inject(BuilderState);
   const isFull$ = new BehaviorSubject<boolean>(false);
-  const isFull = storage.retrieve('builderFullScreen');
 
   router.events.subscribe(event => {
     if (event instanceof NavigationEnd) {
-      if (event.url.includes(BUILDERPATH) && isFull !== false) {
+      if (event.url.includes(BUILDERPATH)) {
         isFull$.next(false);
       }
     }
@@ -91,7 +88,8 @@ export function builderCurrentPageFactory(): Observable<IPage | object | boolean
   return currentPage$;
 }
 
-export function isBuilderModeFactory(router: Router): Observable<boolean> {
+export function isBuilderModeFactory(): Observable<boolean> {
+  const router = inject(Router);
   const isBuilderMode$ = new BehaviorSubject<boolean>(false);
   if (router.url.includes(BUILDERPATH)) {
     isBuilderMode$.next(true);
@@ -200,7 +198,8 @@ export function langFactory(): ILanguage | undefined {
   }
 }
 
-export function themeFactory(coreConfig: ICoreConfig, storage: LocalStorageService): string {
+export function themeFactory(coreConfig: ICoreConfig): string {
+  const storage = inject(LocalStorageService);
   const defaultTheme = coreConfig.defaultTheme || 'blue-theme';
   const localTheme = storage.retrieve(THEMKEY);
   if (localTheme && coreConfig.theme) {
