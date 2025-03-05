@@ -126,7 +126,6 @@ export class StorysModule {
         {
           provide: BUILDER_FULL_SCREEN,
           useFactory: builderFullScreenFactory,
-          deps: [Router, LocalStorageService, BuilderState],
         },
         {
           provide: DEBUG_ANIMATE,
