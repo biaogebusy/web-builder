@@ -16,14 +16,14 @@ import { MatDrawer } from '@angular/material/sidenav';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSidebarComponent implements OnInit {
-  branding$ = inject<Observable<IBranding>>(BRANDING);
-  builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
+  public branding$ = inject<Observable<IBranding>>(BRANDING);
+  public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   @Input() sidebarDrawer: MatDrawer;
   @Input() drawerContentRef: any;
-  builder = inject(BuilderState);
-  dialog = inject(MatDialog);
-  manageService = inject(ManageService);
+  public builder = inject(BuilderState);
+  private dialog = inject(MatDialog);
+  private manageService = inject(ManageService);
 
   ngOnInit(): void {}
 

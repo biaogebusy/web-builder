@@ -1,28 +1,27 @@
 @import '../../../../theme//mixins/amixin';
 .manage-media {
-  height: 65vh;
+  height: 70vh;
   overflow: hidden;
   .mat-drawer-container {
     height: 100%;
   }
 }
 
-.sidebar {
-  width: 180px;
-  padding: 0 10px 10px 0;
-}
-
 .inner {
-  padding-left: 20px;
   box-sizing: border-box;
   height: 100%;
+  overflow: auto;
   .viewport {
     width: 100%;
-    height: 80%;
   }
   .page {
     .mat-mdc-paginator {
       background-color: transparent;
+      ::ng-deep {
+        .mat-mdc-paginator-range-label {
+          @apply hidden sm:block;
+        }
+      }
     }
   }
 }

@@ -3,7 +3,7 @@
     <mat-tab-group>
       @for (tab of field.fieldGroup; track tab; let i = $index; let last = $last) {
         <mat-tab [label]="tab.props?.label || ''">
-          <div class="my-5">
+          <div class="tab-field my-5">
             <formly-field [field]="tab" />
           </div>
         </mat-tab>
