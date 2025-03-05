@@ -60,23 +60,29 @@
     color: mat.m2-get-color-from-palette($foreground, text, 0.75);
     background-color: mat.m2-get-color-from-palette($background, background);
     @include mat.elevation(3, mat.m2-get-color-from-palette($foreground, divider), 0.4);
-    .form {
-      background-color: mat.m2-get-color-from-palette($background, card);
-      @include mat.elevation(3, mat.m2-get-color-from-palette($foreground, divider), 0.4);
+    .lists-wrapper {
+      position: relative;
+
+      &:after {
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          mat.m2-get-color-from-palette($background, background) 80%
+        );
+      }
+      &:before {
+        background: linear-gradient(
+          0deg,
+          transparent 0%,
+          mat.m2-get-color-from-palette($background, background) 80%
+        );
+      }
     }
     .lists {
       @include scrollbar(mat.m2-get-color-from-palette($primary));
       .item {
         border-bottom: 1px solid mat.m2-get-color-from-palette($foreground, divider);
         color: mat.m2-get-color-from-palette($foreground, text, 0.75);
-        .title {
-          border-bottom: 1px solid transparent;
-          &:focus-visible,
-          &[contentEditable='true'] {
-            outline: none;
-            border-bottom-color: mat.m2-get-color-from-palette($primary);
-          }
-        }
         a {
           color: mat.m2-get-color-from-palette($foreground, text, 0.75);
           &:hover {
@@ -90,6 +96,12 @@
             background-color: mat.m2-get-color-from-palette($primary);
           }
         }
+      }
+    }
+    .pager {
+      .mat-mdc-paginator {
+        background-color: mat.m2-get-color-from-palette($background, background);
+        color: mat.m2-get-color-from-palette($foreground, text, 0.75);
       }
     }
   }

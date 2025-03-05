@@ -27,6 +27,23 @@
   app-title {
     margin: 0 10px;
   }
+  .lists-wrapper {
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 10;
+      width: 100%;
+      height: 20px;
+      left: 0;
+    }
+    &:after {
+      bottom: 0;
+    }
+    &::before {
+      top: 0;
+    }
+  }
   .lists {
     position: relative;
     height: 450px;
