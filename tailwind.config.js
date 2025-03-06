@@ -29,6 +29,11 @@ module.exports = {
     'order-0',
     '!overflow-visible',
     '!absolute',
+    'animate-none',
+    'animate-bounce',
+    'animate-spin',
+    'animate-ping',
+    'animate-pulse',
     {
       pattern: /^p[xytbrl]?-(1[0-9]|20|[1-9])$/,
       variants: ['sm', 'md', 'lg'],
