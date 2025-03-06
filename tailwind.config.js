@@ -1,25 +1,10 @@
 // https://tailwindcss.com/docs/content-configuration
-const sizes = ['sm', 'md', 'lg'];
 const COMMON_VARIANTS = ['sm', 'md', 'lg', 'hover']; // 复用通用变体
-function getLayoutClasses(layout) {
-  const prefix = layout === 'flex' ? '/12' : '';
-  const FlexClasses = [];
-  for (let i = 1; i <= 12; i++) {
-    FlexClasses.push(`${layout}-${i}${prefix}`);
-    for (const size of sizes) {
-      FlexClasses.push(`${size}:${layout}-${i}${prefix}`);
-    }
-  }
-
-  return FlexClasses;
-}
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{html,ts,mdx}'],
   safelist: [
-    ...getLayoutClasses('flex'),
-    ...getLayoutClasses('col-span'),
     'flex-row-reverse',
     'flex-col-reverse',
     'flex-wrap-reverse',
@@ -35,6 +20,15 @@ module.exports = {
     'animate-spin',
     'animate-ping',
     'animate-pulse',
+    {
+      pattern: /^(flex-(\d{1,2}\/12))$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    // 替代列跨度类
+    {
+      pattern: /^(col-span-([1-9]|1[0-2]))$/,
+      variants: ['sm', 'md', 'lg'],
+    },
     {
       pattern: /^p[xytbrl]?-(1[0-9]|20|[1-9])$/,
       variants: COMMON_VARIANTS,
