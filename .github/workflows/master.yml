@@ -17,19 +17,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.0.1
 
-      - name: use Node.js
-        uses: actions/setup-node@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
+          cache: 'npm'
 
-      - name: Cache verify
-        run: npm cache verify
+      - name: Upgrade npm
+        run: npm install -g npm@latest
 
-      - name: NPM Install
-        run: npm ci over npm
+      - name: Clean npm cache
+        run: npm cache clean --force
 
-      - name: NPM Install Angular
-        run: npm install -g @angular/cli > /dev/null
+      - name: Install dependencies
+        run: npm ci --force
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
 
       - name: NPM build all App Production
         run: npm run build
