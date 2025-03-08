@@ -135,7 +135,7 @@ location / {
 当访问以这些开头的url时转发给后台，完整结构如下：
 
 ```nginx
-location ~* ^/(api|en/api|user|admin|manage|system|print|export|sites/([^/]+)/files) {
+location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([^/]+)/([^/]+)/edit|autocomplete|media-library|history|quickedit|webform_rest|session|contextual|themes|shs-term-data|modules|libraries|core|api|en/api|user|admin|manage|system|print|export|sites/([^/]+)/files|front-preview|payment|ckeditor_uploadimage) {
     proxy_pass http://127.0.0.1:8080;
     proxy_redirect off;
     proxy_set_header X-Real-IP $remote_addr;
