@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="部署/Drupal 配置" id="drupal-settings" />
+
+前后端分离的模式，前台和后台分别不同的域名，比如前台：`www.yourdomain.com`，后台：`admin.yourdomain.com`,
+当您的后端是 Drupal 时，信使 UI 会调用 Drupal 的接口，需要如下的配置。
+
+## Drupal CORS 跨域的配置
+
+在站点的`services.yml`中：
+
+- 不同二级域名 cookies 不共用，确保前台和后台域名不共用 cookies；
+- 配置 cors 跨域，allowedOrigins 可以在开发环境中添加`http://localhost:4200`
+
+```yml
+parameters:
+  session.storage.options:
+    gc_probability: 1
+    gc_divisor: 100
+    gc_maxlifetime: 200000
+    cookie_lifetime: 200000
+    cookie_domain: none
+  twig.config:
+    debug: false
+    auto_reload: null
+    cache: true
+  renderer.config:
+    required_cache_contexts: ['languages:language_interface', 'theme', 'user.permissions']
+    auto_placeholder_conditions:
+      max-age: 0
+      contexts: ['session', 'user']
+      tags: []
+  http.response.debug_cacheability_headers: false
+  factory.keyvalue: {}
+  factory.keyvalue.expirable: {}
+  filter_protocols:
+    - http
+    - https
+    - ftp
+    - news
+    - nntp
+    - tel
+    - telnet
+    - mailto
+    - irc
+    - ssh
+    - sftp
+    - webcal
+    - rtsp
+  cors.config:
+    enabled: true
+    allowedHeaders:
+      ['x-csrf-token', 'authorization', 'content-type', 'accept', 'origin', 'x-requested-with']
+    allowedMethods: ['*']
+    allowedOrigins: ['https://yourdomain.com', 'http://localhost:4200']
+    exposedHeaders: true
+    maxAge: 1000
+    supportsCredentials: true
+```
+
+当访客在访问 drupal 的 api 或者页面时代理转发给 drupal 的应用，以上设置为`http://127.0.0.1:8080`，是因为 Drupal 是 Docker 的一个内部端口，当然你也可以直接设置为具体的后台域名，Drupal 接收到请求后，需要对 proxy 进行一些设置：
+在`settings.php`文件中，添加：
+
+```php
+$settings['reverse_proxy'] = TRUE;
+$settings['reverse_proxy_addresses'] = array($_SERVER['REMOTE_ADDR']);
+$settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
+```
+
+不然，使用 api 登录时，cookies 等会有问题，导致登录异常。
