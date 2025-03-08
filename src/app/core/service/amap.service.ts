@@ -12,9 +12,8 @@ import { ScreenService } from './screen.service';
   providedIn: 'root',
 })
 export class AmapService {
-  position$ = new Subject();
-  markers$ = new Subject<IMark>();
-  screenSerivce = inject(ScreenService);
+  public markers$ = new Subject<IMark>();
+  private screenSerivce = inject(ScreenService);
   constructor() {}
 
   load(config: IAmap): Observable<any> {
@@ -43,9 +42,7 @@ export class AmapService {
 
   getMarker(item: IMarkInfo): any {
     const isLink = item.url ? 'drawer' : '';
-    const img = item.img
-      ? `<div class="media"><img src="${item.img}" /></div>`
-      : '';
+    const img = item.img ? `<div class="media"><img src="${item.img}" /></div>` : '';
     const badge1 = item.badge_1 ? `<div>${item.badge_1}</div>` : '';
     const badge2 = item.badge_2 ? `<div>${item.badge_2}</div>` : '';
     return `
