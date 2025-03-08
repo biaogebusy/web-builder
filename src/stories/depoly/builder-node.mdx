@@ -101,7 +101,7 @@ node应用跑起来只是内部服务器端口可访问，外部网络是无法�
 
 > 127.0.0.1是本机地址，加上node的端口即可
 
-## 配置网站
+## 配置反向代理
 
 新建好网站之后，还需要配置一些事项：
 
@@ -193,3 +193,19 @@ location / {
 ![0fe2c9204e06139029aab02059f5519e.png](https://pic4.zhimg.com/v2-db8ad78ddfb7fa5273afcd73253d1193_r.jpg)
 
 > Tips: 遇到问题，多看应用日志。
+
+## 1panel 最佳实践
+
+### 开启对json的压缩
+
+1panel默认没有对`application/json`进行gzip压缩，在`OpenResty`的全局配置中，新增：
+
+```text
+gzip_types text/plain application/javascript application/x-javascript text/javascript text/css application/xml application/json;
+```
+
+### 在高级功能的 WAP 中
+
+1. 因为媒体库静态图片资源会加载所有的图片，1panel默认请求频率要求会封掉IP，可以调高频率或者禁用WAF功能；
+1. 关闭参数规则，影响后台数据保存；
+1. 关闭其他中 SQL 和 XXS，影响富文本图片上传及 builder 的更新修改；
