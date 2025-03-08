@@ -1,6 +1,12 @@
 import { Meta } from '@storybook/blocks';
 
-<Meta title="部署/Drupal 配置" id="drupal-settings" />
+<Meta title="部署/Drupal 部署" id="drupal-depoly" />
+
+## Drupal 部署
+
+git clone或者下载完整信使CMS:https://github.com/biaogebusy/builder-cms 上传到你的服务器，然后新建后台站点，配置后台域名，访问后台域名进行默认的安装。
+
+> 如果是权限的站点可以使用 builder cms的数据库进入导入初始化
 
 前后端分离的模式，前台和后台分别不同的域名，比如前台：`www.yourdomain.com`，后台：`admin.yourdomain.com`,
 当您的后端是 Drupal 时，信使 UI 会调用 Drupal 的接口，需要如下的配置。

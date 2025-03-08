@@ -1,24 +1,9 @@
 import { Meta } from '@storybook/blocks';
 
-<Meta title="部署/架构图 " id="framework" />
+<Meta title="部署/部署流程" id="workflow" />
 
-## Web builder 的架构图
+## Web builder 完整的部署流程
 
-理解整体的架构有助于你对Drupal作为Headless CMS的集成，在日后维护或者部署也一目了然。
-
-> 架构图也是web builder AI 对话生成出来的
-
-<img src="/assets/storybook/assets/web-builder-framework.png" width="85%" />
-### 以体验站为例
-
-- 后台管理域名：admin.builder.design
-
-- 前台访问页面：builder.design
-
-- Node 所用端口为：4200
-
-### 流程
-
-- Web builder 前台：用户通过浏览器访问前台域名，Nginx 接受到请求后，代理转发给 NODE 端口，NODE 应用访问后台API，返回数据给用户。
-
-- 小程序： 用户通过小程序API请求，Nginx 代理转发给后台，后台验证用户信息、权限，返回数据。
+1. 部署 xinshi cms 到服务器，配置后台域名和Drupal的相关配置；
+2. 部署 web builder 到服务器，配置前台域名；
+3. 访问web builder，配置builder，如果是导入web builder数据库初始化的站点可忽略；

@@ -8,7 +8,37 @@ import { Meta } from '@storybook/blocks';
 
 ## 打包应用并上传到云服务器
 
-在web builder项目执行打包命令：`npm run build`最终你的包应该包含：
+git clone 或者下载web builder：[https://github.com/biaogebusy/web-builder](https://github.com/biaogebusy/web-builder) 到本地，进入目录后：
+
+- npm install 安装依赖包
+- 检查web builder的环境变量修改并确认apiUrl是否为你的前台域名：`src/environments/environment.prod.ts`
+
+```ts
+import { IEnvironment } from '../app/core/interface/IEnvironment';
+
+export const environment: IEnvironment = {
+  apiUrl: 'https://base.builder.design',
+  production: true,
+  port: 4201,
+  cache: true,
+  multiLang: true,
+  langs: [
+    {
+      label: '中文',
+      langCode: 'zh-hans',
+      prefix: '/',
+      default: true,
+    },
+    {
+      label: 'EN',
+      langCode: 'en',
+      prefix: '/en',
+    },
+  ],
+};
+```
+
+在项目执行打包命令：`npm run build`最终你的包应该包含：
 
 ```
 dist
@@ -16,7 +46,7 @@ dist
  - server
 ```
 
-把dist目录和package.json一起打包压缩通过1panel上传到服务器
+把dist目录和package.json一起打包压缩上传到服务器
 
 > package.json 用于1panel中node的启动命令。
 

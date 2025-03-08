@@ -29,7 +29,7 @@ const preview: Preview = {
             'JSONAPI',
           ],
           '部署',
-          ['架构图', 'builder 前台部署', 'Nginx 配置', 'Drupal 配置'],
+          ['架构图', '部署流程', 'Drupal 部署', 'builder 前台部署', 'Nginx 配置'],
           '低代码',
           '主题',
           '全局配置',
