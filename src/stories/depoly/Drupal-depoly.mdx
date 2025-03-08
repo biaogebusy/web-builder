@@ -1,0 +1,87 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="部署/Drupal 部署" id="drupal-depoly" />
+
+## Drupal 部署
+
+以下已1panel为例创建Drupal CMS。
+
+### 创建 PHP 运行环境
+
+进入：网站>运行环境
+
+<img src="/assets/storybook/assets/create-php-docker.png" />
+
+- 填写名称
+
+- PHP 版本选择8.1.X
+
+- 扩展可以选择WordPress即可
+
+### 创建CMS后台
+
+进入：网站》网站，创建运行环境
+
+<img src="/assets/storybook/assets/create-cms.png" />
+
+选择刚刚创建好的PHP环境，端口默认9000，主域名填写后台域名：admin.yourdomain.com，其他域名填写：127.0.0.1:8080 用于反向代理。
+
+#### 配置刚创建好的后台环境
+
+<img src="/assets/storybook/assets/cms-domain.png" />
+进入【网站目录】绑定Builder cms，点击root目录右侧文件夹， git
+clone或者下载完整信使CMS:https://github.com/biaogebusy/builder-cms
+上传到文件夹下，上传好后，选择运行目录为：`/docroot`
+<img src="/assets/storybook/assets/cms-docroot.png" />
+
+#### 配置HTTPS
+
+推荐使用DNS和Acme方式自动获取证书，具体可访问1pnael的文档，或者群里交流。
+
+#### 设置伪静态
+
+```
+ if (!-e $request_filename) {
+  rewrite ^ /index.php?$query_string last;
+}
+```
+
+### 创建数据库
+
+<img src="/assets/storybook/assets/create-mysql.png" />
+>需要注意的是，因为数据库也是docker创建的，地址在数据库页面的连接信息查看
+
+### 初始化站点
+
+访问后台域名：`admin.yourdomain.com`，会进行初始化，安装的过程可以看看缺少哪些扩展或者报错对应处理即可。
+
+> 如果是权限的站点可以使用 builder cms的数据库进入导入初始化
+
+## Drupal CORS 跨域的配置
+
+<img src="/assets/storybook/assets/change-cms-config.png" />
+从网站列表这里，进入网站目录，进入`/docroot/sites/default/services.yml`
+
+```yml
+cors.config:
+  enabled: true
+  allowedHeaders:
+    ['x-csrf-token', 'authorization', 'content-type', 'accept', 'origin', 'x-requested-with']
+  allowedMethods: ['*']
+  allowedOrigins: ['https://yourdomain.com']
+  exposedHeaders: true
+  maxAge: 1000
+  supportsCredentials: true
+```
+
+找到allowedOrigins设置为你的前台域名。
+
+同个目录下找到`settings.php`，添加如下配置：
+
+<img src="/assets/storybook/assets/cms-erverse-proxy.png" />
+```php $settings['reverse_proxy'] = TRUE; $settings['reverse_proxy_addresses'] =
+array($_SERVER['REMOTE_ADDR']); $settings['reverse_proxy_trusted_headers'] =
+\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL |
+\Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED; ```
+
+不然，使用 api 登录时，cookies 等会有问题，导致登录异常。
