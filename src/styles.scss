@@ -13,6 +13,15 @@ html {
   scroll-behavior: smooth;
 }
 
+@layer utilities {
+  *[class*='from-'],
+  *[class*='to-'] {
+    --tw-gradient-from-position: ;
+    --tw-gradient-via-position: ;
+    --tw-gradient-to-position: ;
+  }
+}
+
 body {
   width: 100vw;
   max-width: 100%;
