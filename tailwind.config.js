@@ -1,5 +1,4 @@
 // https://tailwindcss.com/docs/content-configuration
-const COMMON_VARIANTS = ['sm', 'md', 'lg', 'hover']; // 复用通用变体
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -22,37 +21,43 @@ module.exports = {
     'animate-pulse',
     {
       pattern: /^(flex-(\d{1,2}\/12))$/,
-      variants: ['sm', 'md', 'lg'],
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^(col-span-([1-9]|1[0-2]))$/,
-      variants: ['sm', 'md', 'lg'],
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^p[xytbrl]?-(1[0-9]|20|[1-9])$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^m[xytbrl]?-(1[0-9]|20|[1-9])$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
-    { pattern: /^(block|inline|flex|grid|hidden|table|flow-root)$/, variants: COMMON_VARIANTS },
-    { pattern: /^(absolute|relative|fixed|sticky|static)$/, variants: COMMON_VARIANTS },
-    { pattern: /^overflow-(auto|hidden|visible|scroll)$/, variants: COMMON_VARIANTS },
+    {
+      pattern: /^(block|inline|flex|grid|hidden|table|flow-root)$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
+    { pattern: /^(absolute|relative|fixed|sticky|static)$/, variants: ['sm', 'md', 'lg', 'hover'] },
+    { pattern: /^overflow-(auto|hidden|visible|scroll)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     { pattern: /^z-([0-9]|10|20|30|40|50|auto)$/ },
     {
       pattern: /^(w|h)-((1\/[2-4])|full|screen|min|max|auto|[0-9]{1,3})$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
-    { pattern: /^text-(left|center|right|justify)$/, variants: COMMON_VARIANTS },
-    { pattern: /^text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl)$/, variants: COMMON_VARIANTS },
+    { pattern: /^text-(left|center|right|justify)$/, variants: ['sm', 'md', 'lg', 'hover'] },
+    {
+      pattern: /^text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl)$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
     {
       pattern: /^font-(thin|light|normal|medium|semibold|bold|black)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^(italic|not-italic|uppercase|lowercase|capitalize|normal-case)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern:
@@ -66,40 +71,40 @@ module.exports = {
       pattern:
         /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
     },
-    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/, variants: COMMON_VARIANTS },
+    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern: /^rounded(-[tlbr]{1,2})?(|none|sm|md|lg|xl|2xl|3xl|full)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
-    { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: COMMON_VARIANTS },
+    { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern: /^opacity-(0|5|10|20|30|40|50|60|70|75|80|90|95|100)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^transition(-none|all|colors|opacity|shadow|transform)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     { pattern: /^duration-(75|100|150|200|300|500|700|1000)$/ },
     { pattern: /^ease-(linear|in|out|in-out)$/ },
     {
       pattern:
         /^(items|justify|content|place-items|place-content)-(start|end|center|between|around|evenly|stretch)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^gap-([0-9]|10|12|14|16|20|24|28|32|36|40|48|56|64|72|80|96)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
-    { pattern: /^grid-cols-([1-9]|10|11|12|none)$/, variants: COMMON_VARIANTS },
+    { pattern: /^grid-cols-([1-9]|10|11|12|none)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern:
         /^-?translate-[xy]-(0|([1-9]|1[0-9]|20)|(1|2|3|4|5|6|7|8|9|10|11|12)\/(2|3|4|5|6)|full)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^line-clamp-(1[0]|[1-9])$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern:
@@ -112,11 +117,11 @@ module.exports = {
     {
       pattern:
         /^(fill|stroke)-(current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900))$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^stroke-(0|1|2|3|4|5)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^(fill-none|stroke-none)$/,
