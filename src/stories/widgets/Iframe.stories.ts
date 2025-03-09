@@ -68,7 +68,7 @@ const full: IIframe = {
   type: 'iframe',
   url: '?path=/story/full-calendar--default',
   width: '100%',
-  classes: 'height-100vh',
+  classes: 'h-screen',
 };
 FullScreenHeight.args = {
   content: full,
