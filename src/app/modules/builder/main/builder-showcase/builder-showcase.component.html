@@ -1,11 +1,13 @@
+@let card = content.card;
+@let component = card.components[0];
 <div class="backdrop" (click)="onClose()"></div>
 <div class="showcase">
-  <app-card-1v1 [content]="content.card" />
+  <app-card-1v1 [content]="card" />
   <div class="showcase-footer flex flex-row justify-between items-center">
     <div class="title">{{ content.title }}</div>
     <div class="actions flex">
       <app-btn
-        (click)="onCopy()"
+        (click)="onCopy(component)"
         [matTooltip]="'复制 JSON'"
         matTooltipPosition="above"
         [content]="{
@@ -16,7 +18,7 @@
         }"
       />
       <app-btn
-        (click)="showCode()"
+        (click)="showCode(component)"
         [matTooltip]="'查看 JSON'"
         matTooltipPosition="above"
         [content]="{
@@ -27,7 +29,7 @@
         }"
       />
       <app-btn
-        (click)="insert()"
+        (click)="insert(component)"
         [matTooltip]="'插入组件到编辑区'"
         matTooltipPosition="above"
         [content]="{
