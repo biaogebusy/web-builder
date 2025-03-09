@@ -23,7 +23,7 @@
     min-height: 66px;
     .add-new-section {
       position: absolute;
-      z-index: 999;
+      z-index: 0;
       opacity: 0;
       left: 50%;
       bottom: -18px;
@@ -32,6 +32,7 @@
     &:hover {
       .add-new-section {
         opacity: 1;
+        z-index: 999;
       }
     }
     ::ng-deep {
