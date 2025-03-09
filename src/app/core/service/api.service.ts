@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
   public configLoadDone$ = new Subject();
-  private document = inject(DOCUMENT);
+  public document = inject(DOCUMENT);
   private apiBaseUrl = inject(API_URL);
 
   get apiUrl(): string {
