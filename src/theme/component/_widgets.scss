@@ -358,4 +358,14 @@
       }
     }
   }
+
+  .dynamic-table {
+    a {
+      color: mat.m2-get-color-from-palette($foreground, text);
+      &:hover,
+      &:focus {
+        color: mat.m2-get-color-from-palette($primary);
+      }
+    }
+  }
 }

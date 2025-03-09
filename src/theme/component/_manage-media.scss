@@ -9,6 +9,9 @@
   $warn: map-get($config, warn);
 
   .manage-media {
+    .sidebar {
+      background-color: mat.m2-get-color-from-palette($background, background);
+    }
     .viewport {
       @include scrollbar(mat.m2-get-color-from-palette($primary));
     }
@@ -19,11 +22,7 @@
         }
       }
       .actions {
-        background-color: mat.m2-get-color-from-palette(
-          $background,
-          tooltip,
-          0.6
-        );
+        background-color: mat.m2-get-color-from-palette($background, tooltip, 0.6);
         .icon-delete {
           &:hover {
             .mat-icon {

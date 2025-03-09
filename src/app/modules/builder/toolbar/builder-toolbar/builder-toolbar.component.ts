@@ -107,12 +107,12 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(page: IPage): void {
+    if (!this.user) {
+      this.openLogin();
+      return;
+    }
     if (page.translation && page.target) {
       // 新增翻译
-      if (!this.user) {
-        this.openLogin();
-        return;
-      }
       this.builder.loading$.next(true);
       this.builderService.addTranslation(page).subscribe(res => {
         if (res.status) {
@@ -131,10 +131,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
       });
     } else {
       if (page.uuid && page.nid) {
-        if (!this.user) {
-          this.openLogin();
-          return;
-        }
         // update page
         this.util.openSnackbar('正在更新！', 'ok');
         this.builderService
@@ -163,10 +159,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
           this.onNewPage();
         } else {
           // submit new page
-          if (!this.user.authenticated) {
-            this.openLogin();
-            return;
-          }
           this.builderService
             .createLandingPage(this.builder.currentPage)
             .pipe(

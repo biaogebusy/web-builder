@@ -9,13 +9,10 @@
   $warn: map-get($config, warn);
 
   .login-wrapper {
+    color: mat.m2-get-color-from-palette($foreground, text, 0.75);
     background-color: map-get($background, card);
     border: 1px solid mat.m2-get-color-from-palette($foreground, divider, 0.06);
-    @include mat.elevation(
-      4,
-      mat.m2-get-color-from-palette($foreground, text),
-      0.3
-    );
+    @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.3);
 
     .login-second {
       background-color: mat.m2-get-color-from-palette($background, background);

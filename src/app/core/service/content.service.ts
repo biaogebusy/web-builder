@@ -21,11 +21,11 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
   providedIn: 'root',
 })
 export class ContentService extends ApiService {
-  http = inject(HttpClient);
-  tagsService = inject(TagsService);
-  screenState = inject(ScreenState);
-  apiService = inject(ApiService);
-  coreConfig = inject(CORE_CONFIG);
+  private http = inject(HttpClient);
+  private tagsService = inject(TagsService);
+  private screenState = inject(ScreenState);
+  private apiService = inject(ApiService);
+  private coreConfig = inject(CORE_CONFIG);
   constructor() {
     super();
   }

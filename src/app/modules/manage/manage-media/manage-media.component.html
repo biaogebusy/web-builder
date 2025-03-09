@@ -1,151 +1,147 @@
 <div class="manage-media relative">
-  <mat-drawer-container>
-    <mat-drawer mode="side" [opened]="true">
-      <div class="sidebar flex flex-col">
-        <mat-slider max="12" min="1" step="1">
-          <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
-        </mat-slider>
-        <form [formGroup]="form">
-          <app-formly
-            [classes]="'form-field-width-auto'"
-            [form]="form"
-            [fields]="fields()"
-            [model]="model"
-          />
-        </form>
-        <div class="flex flex-col gap-3 justify-center items-center my-5">
-          <app-btn
-            (click)="onUpload()"
-            [content]="{
-              label: '上传媒体',
-              color: 'primary',
-              mode: 'raised',
-              icon: { svg: 'upload-outline' },
-            }"
-          />
-        </div>
+  <div class="grid grid-cols-12 gap-5 h-full">
+    <div class="sidebar col-span-12 md:col-span-3 lg:col-span-2 flex flex-col p-3">
+      <mat-slider max="12" min="1" step="1">
+        <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
+      </mat-slider>
+      <form [formGroup]="form">
+        <app-formly
+          [classes]="'form-field-width-auto'"
+          [form]="form"
+          [fields]="fields()"
+          [model]="model"
+        />
+      </form>
+      <div class="flex justify-center items-center my-2 sm:my-5">
+        <app-btn
+          (click)="onUpload()"
+          [content]="{
+            label: '上传媒体',
+            color: 'primary',
+            mode: 'raised',
+            icon: { svg: 'upload-outline' },
+          }"
+        />
       </div>
-    </mat-drawer>
-    <mat-drawer-content>
-      <div class="inner flex flex-col justify-center">
-        @if (loading()) {
-          <div class="load">
-            <mat-spinner diameter="50" color="accent" />
+    </div>
+    <div class="inner col-span-12 md:col-span-9 lg:col-span-10 flex flex-col">
+      @if (loading()) {
+        <div class="load">
+          <mat-spinner diameter="50" color="accent" />
+        </div>
+      }
+      @if (progress > 0 && progress < 100) {
+        <div class="absolute top-0 left-0 right-0 w-full z-100">
+          <mat-progress-bar mode="determinate" color="primary" [value]="progress" />
+        </div>
+      }
+      @if (mediaAssets$ | async; as assets) {
+        @if (assets.rows.length) {
+          <div class="viewport grid grid-cols-12 gap-1 overflow-auto">
+            @for (item of assets.rows; track item) {
+              <div
+                class="masonry-item aspect-[4/3] box-border col-span-6 sm:col-span-4 md:col-span-{{
+                  manageMediaConfig().row
+                }}"
+              >
+                <div class="actions opacity-90 right-1 top-1" [matTooltip]="item.title">
+                  <app-btn
+                    *reqRolesIf="{
+                      params: { reqRoles: ['administrator'] },
+                    }"
+                    class="hidden sm:block icon-delete"
+                    [matTooltip]="'删除'"
+                    matTooltipPosition="above"
+                    (click)="onDelete(item.uuid)"
+                    [content]="{
+                      label: '',
+                      mode: 'icon',
+                      icon: { svg: 'delete' },
+                    }"
+                  />
+                  <app-btn
+                    class="hidden sm:block"
+                    [matTooltip]="'复制路径'"
+                    matTooltipPosition="above"
+                    (click)="onCopy(item)"
+                    [content]="{
+                      label: '',
+                      mode: 'icon',
+                      icon: { svg: 'content-copy' },
+                    }"
+                  />
+                  <app-btn
+                    class="hidden sm:block"
+                    [matTooltip]="'选择'"
+                    matTooltipPosition="above"
+                    (click)="onSelect(item)"
+                    [content]="{
+                      label: '',
+                      mode: 'icon',
+                      icon: { svg: 'checkbox-marked-outline' },
+                    }"
+                  />
+                </div>
+
+                <div class="delete absolute left-2 bottom-1 z-10">
+                  <mat-checkbox (change)="onChange($event.checked, item.uuid)" />
+                </div>
+                <div
+                  (click)="onPreview(item)"
+                  class="box w-full h-full bg-gray-200 p-1 box-border"
+                  [ngClass]="{ selected: isSelected(item) }"
+                >
+                  <img
+                    class="w-full h-full object-contain"
+                    ngSrc="{{ item.src }}"
+                    priority
+                    width="480"
+                    height="360"
+                  />
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="text-center flex flex-col items-center gap-3 opacity-75">
+            <app-icon class="w-20 h-20" [content]="{ svg: 'magnify', inline: true }" />
+            @if (model.name) {
+              关键词{{ model.name }}
+            }
+            无数据
           </div>
         }
-        @if (progress > 0 && progress < 100) {
-          <div class="absolute top-0 left-0 right-0 w-full z-100">
-            <mat-progress-bar mode="determinate" color="primary" [value]="progress" />
+      }
+      <div class="flex justify-between items-center">
+        @if (deletedLists.length) {
+          <div class="flex left-[20px] bottom-[40px]">
+            <app-btn
+              (click)="bulkDelete(deletedLists)"
+              [content]="{
+                color: 'warn',
+                mode: 'raised',
+                label: '批量删除（' + deletedLists.length + '）',
+                icon: { svg: 'trash-can-outline' },
+              }"
+            />
           </div>
         }
         @if (mediaAssets$ | async; as assets) {
-          @if (assets.rows.length) {
-            <div class="viewport grid grid-cols-12 gap-1 overflow-auto">
-              @for (item of assets.rows; track item) {
-                <div
-                  class="masonry-item aspect-[4/3] box-border col-span-6 sm:col-span-4 md:col-span-{{
-                    manageMediaConfig().row
-                  }}"
-                >
-                  <div class="actions opacity-90 right-1 top-1" [matTooltip]="item.title">
-                    <app-btn
-                      *reqRolesIf="{
-                        params: { reqRoles: ['administrator'] },
-                      }"
-                      class="hidden sm:block icon-delete"
-                      [matTooltip]="'删除'"
-                      matTooltipPosition="above"
-                      (click)="onDelete(item.uuid)"
-                      [content]="{
-                        label: '',
-                        mode: 'icon',
-                        icon: { svg: 'delete' },
-                      }"
-                    />
-                    <app-btn
-                      class="hidden sm:block"
-                      [matTooltip]="'复制路径'"
-                      matTooltipPosition="above"
-                      (click)="onCopy(item)"
-                      [content]="{
-                        label: '',
-                        mode: 'icon',
-                        icon: { svg: 'content-copy' },
-                      }"
-                    />
-                    <app-btn
-                      class="hidden sm:block"
-                      [matTooltip]="'选择'"
-                      matTooltipPosition="above"
-                      (click)="onSelect(item)"
-                      [content]="{
-                        label: '',
-                        mode: 'icon',
-                        icon: { svg: 'checkbox-marked-outline' },
-                      }"
-                    />
-                  </div>
-
-                  <div class="delete absolute left-2 bottom-1 z-10">
-                    <mat-checkbox (change)="onChange($event.checked, item.uuid)" />
-                  </div>
-                  <div
-                    (click)="onPreview(item)"
-                    class="box w-full h-full bg-gray-200 p-1 box-border"
-                    [ngClass]="{ selected: isSelected(item) }"
-                  >
-                    <img
-                      class="w-full h-full object-contain"
-                      ngSrc="{{ item.src }}"
-                      priority
-                      width="480"
-                      height="360"
-                    />
-                  </div>
-                </div>
-              }
-            </div>
-          } @else {
-            <div class="text-center flex flex-col items-center gap-3 opacity-75">
-              <app-icon class="w-20 h-20" [content]="{ svg: 'magnify', inline: true }" />
-              @if (model.name) {
-                关键词{{ model.name }}
-              }
-              无数据
-            </div>
-          }
-        }
-        <div class="flex justify-between items-center">
-          @if (deletedLists.length) {
-            <div class="flex left-[20px] bottom-[40px]">
-              <app-btn
-                (click)="bulkDelete(deletedLists)"
-                [content]="{
-                  color: 'warn',
-                  mode: 'raised',
-                  label: '批量删除（' + deletedLists.length + '）',
-                  icon: { svg: 'trash-can-outline' },
-                }"
+          <div class="page flex-auto">
+            @if (assets.pager && assets.rows.length) {
+              <mat-paginator
+                (page)="onPageChange($event)"
+                [length]="assets.pager.totalItems"
+                [pageSize]="assets.pager.itemsPerPage"
+                [showFirstLastButtons]="true"
+                [hidePageSize]="true"
+                [pageIndex]="assets.pager.currentPage"
+                aria-label="Select page"
               />
-            </div>
-          }
-          @if (mediaAssets$ | async; as assets) {
-            <div class="page flex-auto">
-              @if (assets.pager && assets.rows.length) {
-                <mat-paginator
-                  (page)="onPageChange($event)"
-                  [length]="assets.pager.totalItems"
-                  [pageSize]="assets.pager.itemsPerPage"
-                  [showFirstLastButtons]="true"
-                  [hidePageSize]="true"
-                  [pageIndex]="assets.pager.currentPage"
-                  aria-label="Select page"
-                />
-              }
-            </div>
-          }
-        </div>
+            }
+          </div>
+        }
       </div>
-    </mat-drawer-content>
-  </mat-drawer-container>
+    </div>
+  </div>
 </div>

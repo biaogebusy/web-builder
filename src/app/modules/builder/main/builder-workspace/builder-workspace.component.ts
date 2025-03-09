@@ -4,7 +4,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { ScreenState } from '@core/state/screen/ScreenState';
 import { BUILDER_CONFIG, BUILDER_FULL_SCREEN, CORE_CONFIG } from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
@@ -25,11 +24,9 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
   public builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
 
   private builderFullScreen: boolean;
-  public mode: 'side' | 'over' | 'push' = 'side';
 
   public builder = inject(BuilderState);
   private utli = inject(UtilitiesService);
-  private screenState = inject(ScreenState);
   private storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
   private tagService = inject(TagsService);
@@ -63,16 +60,6 @@ export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
           }
         });
     }
-    this.screenState
-      .mqAlias$()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(alia => {
-        if (alia.includes('xs')) {
-          this.mode = 'over';
-        } else {
-          this.mode = 'side';
-        }
-      });
 
     this.doc.addEventListener('keydown', (event: any) => {
       const isFull = this.storage.retrieve('builderFullScreen');

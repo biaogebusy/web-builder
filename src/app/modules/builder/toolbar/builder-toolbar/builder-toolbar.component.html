@@ -11,12 +11,10 @@
       @if (currentPage$ | async; as page) {
         <div class="left flex flex-col justify-center items-start flex-[0_1_33.33%]">
           @if (page.body.length) {
-            <div
-              class="page-title flex items-center"
-              contenteditable="true"
-              (blur)="onTitle($event)"
-            >
-              {{ page.title }}
+            <div class="page-title flex items-center">
+              <div contenteditable="true" (blur)="onTitle($event)">
+                {{ page.title }}
+              </div>
               @if (!page.uuid) {
                 - 未发布
               }
@@ -57,7 +55,7 @@
             class="hidden sm:flex whitespace-nowrap"
             (click)="onSubmit(page)"
             [content]="{
-              label: page.translation ? '更新翻译' : page.uuid ? '更新保存' : '发布新页面',
+              label: page.translation ? '更新翻译' : page.uuid ? '更新保存' : '创建新页面',
               color: 'primary',
               mode: 'raised',
               icon: {

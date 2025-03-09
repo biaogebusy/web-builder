@@ -16,6 +16,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { ContentService } from './content.service';
 import { isArray } from 'lodash-es';
 import { IBuilderConfig } from '@core/interface/IBuilder';
+import { createPopper } from '@popperjs/core';
 
 @Injectable({
   providedIn: 'root',
@@ -493,13 +494,20 @@ export class BuilderService extends ApiService {
     return pageTitle;
   }
 
-  addBlock(addType: string, content: any, path: string): void {
+  addBlock(addType: string, content: any, path: string, target: any): void {
+    const popper = document.querySelector('.widget-picker') as HTMLElement;
     this.builder.widgetsPicker$.next({
       type: 'widget-picker',
       addType,
       path,
       content,
     });
+    if (popper) {
+      createPopper(target, popper, {
+        strategy: 'fixed',
+        placement: 'right',
+      });
+    }
   }
 
   initExtraBody(body: any[], isTemplate?: boolean): any[] {

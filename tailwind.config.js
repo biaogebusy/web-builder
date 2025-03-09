@@ -1,78 +1,126 @@
 // https://tailwindcss.com/docs/content-configuration
-const sizes = ['sm', 'md', 'lg'];
-
-function getGapClasses() {
-  const gapClasses = [];
-  for (let i = 0; i <= 20; i++) {
-    gapClasses.push(`gap-${i}`);
-    for (const size of sizes) {
-      gapClasses.push(`${size}:gap-${i}`);
-    }
-  }
-  return gapClasses;
-}
-
-function getSizes(size) {
-  let sizesClasses = [];
-  const array = [
-    ...Array.from({ length: 12 }, (_, i) => `${size}-${i}`),
-    ...Array.from({ length: 5 }, (_, i) => `${size}-${12 + i * 2}`),
-    ...Array.from({ length: 20 }, (_, i) => `${size}-${16 + i * 4}`),
-    `${size}-auto`,
-    `${size}-full`,
-    `${size}-screen`,
-  ];
-  array.map(item => {
-    sizesClasses.push(item);
-    for (const size of sizes) {
-      sizesClasses.push(`${size}:${item}`);
-    }
-  });
-  return [...new Set(sizesClasses)];
-}
-
-function getLayoutClasses(layout) {
-  const prefix = layout === 'flex' ? '/12' : '';
-  const FlexClasses = [];
-  for (let i = 1; i <= 12; i++) {
-    FlexClasses.push(`${layout}-${i}${prefix}`);
-    for (const size of sizes) {
-      FlexClasses.push(`${size}:${layout}-${i}${prefix}`);
-    }
-  }
-
-  return FlexClasses;
-}
+const COMMON_VARIANTS = ['sm', 'md', 'lg', 'hover']; // 复用通用变体
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{html,ts,mdx}'],
   safelist: [
-    ...getGapClasses(),
-    ...getSizes('w'),
-    ...getSizes('h'),
-    ...getLayoutClasses('flex'),
-    ...getLayoutClasses('col-span'),
     'flex-row-reverse',
     'flex-col-reverse',
     'flex-wrap-reverse',
     'flex-nowrap',
     'grid-flow-col',
     'grid-flow-row',
-    'justify-items-start',
-    'justify-items-end',
-    'justify-items-center',
-    'justify-items-baseline',
-    'justify-items-stretch',
-    'items-start',
-    'items-end',
-    'items-center',
-    'items-baseline',
-    'items-stretch',
     'order-1',
     'order-0',
     '!overflow-visible',
     '!absolute',
+    'animate-none',
+    'animate-bounce',
+    'animate-spin',
+    'animate-ping',
+    'animate-pulse',
+    {
+      pattern: /^(flex-(\d{1,2}\/12))$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^(col-span-([1-9]|1[0-2]))$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^p[xytbrl]?-(1[0-9]|20|[1-9])$/,
+      variants: COMMON_VARIANTS,
+    },
+    {
+      pattern: /^m[xytbrl]?-(1[0-9]|20|[1-9])$/,
+      variants: COMMON_VARIANTS,
+    },
+    { pattern: /^(block|inline|flex|grid|hidden|table|flow-root)$/, variants: COMMON_VARIANTS },
+    { pattern: /^(absolute|relative|fixed|sticky|static)$/, variants: COMMON_VARIANTS },
+    { pattern: /^overflow-(auto|hidden|visible|scroll)$/, variants: COMMON_VARIANTS },
+    { pattern: /^z-([0-9]|10|20|30|40|50|auto)$/ },
+    {
+      pattern: /^(w|h)-((1\/[2-4])|full|screen|min|max|auto|[0-9]{1,3})$/,
+      variants: COMMON_VARIANTS,
+    },
+    { pattern: /^text-(left|center|right|justify)$/, variants: COMMON_VARIANTS },
+    { pattern: /^text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl)$/, variants: COMMON_VARIANTS },
+    {
+      pattern: /^font-(thin|light|normal|medium|semibold|bold|black)$/,
+      variants: COMMON_VARIANTS,
+    },
+    {
+      pattern: /^(italic|not-italic|uppercase|lowercase|capitalize|normal-case)$/,
+      variants: COMMON_VARIANTS,
+    },
+    {
+      pattern:
+        /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+    },
+    {
+      pattern:
+        /^text-(white|black|current|inherit|transparent|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+    },
+    {
+      pattern:
+        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+    },
+    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/, variants: COMMON_VARIANTS },
+    {
+      pattern: /^rounded(-[tlbr]{1,2})?(|none|sm|md|lg|xl|2xl|3xl|full)$/,
+      variants: COMMON_VARIANTS,
+    },
+    { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: COMMON_VARIANTS },
+    {
+      pattern: /^opacity-(0|5|10|20|30|40|50|60|70|75|80|90|95|100)$/,
+      variants: COMMON_VARIANTS,
+    },
+    {
+      pattern: /^transition(-none|all|colors|opacity|shadow|transform)$/,
+      variants: COMMON_VARIANTS,
+    },
+    { pattern: /^duration-(75|100|150|200|300|500|700|1000)$/ },
+    { pattern: /^ease-(linear|in|out|in-out)$/ },
+    {
+      pattern:
+        /^(items|justify|content|place-items|place-content)-(start|end|center|between|around|evenly|stretch)$/,
+      variants: COMMON_VARIANTS,
+    },
+    {
+      pattern: /^gap-([0-9]|10|12|14|16|20|24|28|32|36|40|48|56|64|72|80|96)$/,
+      variants: COMMON_VARIANTS,
+    },
+    { pattern: /^grid-cols-([1-9]|10|11|12|none)$/, variants: COMMON_VARIANTS },
+    {
+      pattern:
+        /^-?translate-[xy]-(0|([1-9]|1[0-9]|20)|(1|2|3|4|5|6|7|8|9|10|11|12)\/(2|3|4|5|6)|full)$/,
+      variants: COMMON_VARIANTS,
+    },
+    {
+      pattern: /^line-clamp-(1[0]|[1-9])$/,
+      variants: COMMON_VARIANTS,
+    },
+    {
+      pattern:
+        /^(w|h)-(0|full|screen|min|max|sm|fit|px|([1-9]\d?)|1(00|02|04|05|6|8|9)|2[0-9]|3[0-6]|((1[0-2]|[1-9])\/(2|3|4|5|6)))$/,
+    },
+    {
+      pattern:
+        /^(min-w|max-w|min-h|max-h)-(0|full|screen|min|max|fit|px|([1-9]\d?)|1(00|02|04|05|6|8|9)|2[0-9]|3[0-6]|((1[0-2]|[1-9])\/(2|3|4|5|6))|(xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl))$/,
+    },
+    {
+      pattern:
+        /^(fill|stroke)-(current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900))$/,
+      variants: COMMON_VARIANTS,
+    },
+    {
+      pattern: /^stroke-(0|1|2|3|4|5)$/,
+      variants: COMMON_VARIANTS,
+    },
+    {
+      pattern: /^(fill-none|stroke-none)$/,
+    },
   ],
   theme: {
     screens: {
@@ -81,7 +129,13 @@ module.exports = {
       lg: '1280px',
       xl: '1470px',
     },
-    extend: {},
+    extend: {
+      strokeWidth: {
+        3: '3',
+        4: '4',
+        5: '5',
+      },
+    },
     flex: {
       '1/12': '0 0 8.33%',
       '2/12': '0 0 16.66%',
@@ -101,11 +155,6 @@ module.exports = {
       'inherit': 'inherit',
       'none': 'none',
       '2': '2 2 0%',
-    },
-    maxWidth: {
-      '1/4': '25%',
-      '1/2': '50%',
-      '3/4': '75%',
     },
   },
   plugins: [

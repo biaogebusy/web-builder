@@ -48,7 +48,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
   };
   public loading = false;
   public pager: IPager;
-  private currentEditeTitle: string;
   public langs = environment.langs;
   public currentPage?: IPage;
   private builder = inject(BuilderState);
@@ -180,53 +179,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
     const formValue = merge(value, this.form.getRawValue());
     const params = this.getApiParams({ ...formValue, noCache: 1 });
     this.fetchPage(params);
-  }
-
-  enableEditor(event: any): void {
-    const { currentTarget } = event;
-    if (currentTarget) {
-      const title = currentTarget.previousElementSibling;
-      this.currentEditeTitle = title.textContent.trim();
-      title.contentEditable = 'true';
-    }
-  }
-
-  onTitle(event: any, page: IPageMeta): void {
-    const { target } = event;
-    if (target) {
-      target.contentEditable = 'false';
-      if (this.currentEditeTitle !== target.textContent.trim()) {
-        this.builder.loading$.next(true);
-        const {
-          target: { textContent },
-        } = event;
-        if (textContent) {
-          this.builderService
-            .updateAttributes(
-              page,
-              '/api/v1/node/landing_page',
-              {
-                title: textContent,
-              },
-              {
-                uid: {
-                  data: {
-                    type: 'user--user',
-                    id: this.user.id,
-                  },
-                },
-              }
-            )
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(res => {
-              this.builder.loading$.next(false);
-              this.util.openSnackbar(`已更新标题为${textContent}`, 'ok');
-              this.builder.currentPage.title = textContent;
-              this.builder.saveLocalVersions();
-            });
-        }
-      }
-    }
   }
 
   fetchPage(params: string): void {

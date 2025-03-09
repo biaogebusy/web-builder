@@ -37,9 +37,9 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
   private builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
+  private util = inject(UtilitiesService);
   private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
-  private util = inject(UtilitiesService);
   constructor() {
     if (this.screenService.isPlatformBrowser()) {
       this.editorOptions = new JsonEditorOptions();
@@ -57,7 +57,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
       .pipe(debounceTime(1500), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
         this.value = value;
-        this.updateCurrentPage();
+        this.updateContent();
       });
   }
 
@@ -70,7 +70,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
     this.cd.detectChanges();
   }
 
-  updateCurrentPage(): void {
+  updateContent(): void {
     if (this.value) {
       const { isPage, path } = this.content;
       // for page json

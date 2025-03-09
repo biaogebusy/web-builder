@@ -8,7 +8,6 @@ import { getVideo } from './getVideo';
 import { getWidgetSetting } from './getWidgetSetting';
 
 export function getComponentSetting(content: any, path: string): FormlyFieldConfig[] {
-  // TODO: base path to order tabs
   const fields: FormlyFieldConfig = {
     type: 'tabs',
     key: 'component',

@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
-import { LocalStorageService } from 'ngx-webstorage';
-import { forkJoin, throwError, Observable, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
@@ -20,10 +19,9 @@ export class NodeService extends ApiService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
 
-  http = inject(HttpClient);
-  storage = inject(LocalStorageService);
-  util = inject(UtilitiesService);
-  user: IUser;
+  private http = inject(HttpClient);
+  private util = inject(UtilitiesService);
+  private user: IUser;
 
   constructor() {
     super();

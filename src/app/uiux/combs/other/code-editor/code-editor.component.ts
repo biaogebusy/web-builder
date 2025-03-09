@@ -118,15 +118,19 @@ export class CodeEditorComponent implements OnInit {
     this.htmlForm.valueChanges
       .pipe(debounceTime(3000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe(html => {
-        const { path } = this.content;
-        if (path) {
-          const content = { ...get(this.builder.currentPage.body, path), html };
-          if (this.isAPI) {
-            content.json = null;
-          }
-          this.builder.updatePageContentByPath(`${path}`, content);
-        }
+        this.updateHtml(html);
       });
+  }
+
+  updateHtml(html: any): void {
+    const { path } = this.content;
+    if (path) {
+      const content = { ...get(this.builder.currentPage.body, path), html };
+      if (this.isAPI) {
+        content.json = null;
+      }
+      this.builder.updatePageContentByPath(`${path}`, content);
+    }
   }
 
   onFormChange(): void {

@@ -55,7 +55,7 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
 
   addBlock(addType: string, content: any, target: any): void {
     this.builder.closeRightDrawer$.next(true);
-    this.builderSerivce.addBlock(addType, content, this.util.generatePath(target));
+    this.builderSerivce.addBlock(addType, content, this.util.generatePath(target), target);
   }
 
   layoutAnimate(): void {
