@@ -8,7 +8,7 @@ import { ScreenService } from '@core/service/screen.service';
   providedIn: 'root',
 })
 export class ScreenState {
-  breakpointObserver = inject(BreakpointObserver);
+  private breakpointObserver = inject(BreakpointObserver);
   private screenService = inject(ScreenService);
 
   public scroll$ = new BehaviorSubject<boolean>(true);
@@ -22,7 +22,7 @@ export class ScreenState {
     [Breakpoints.XLarge, 'xl'],
   ]);
 
-  viewPort: string[];
+  private viewPort: string[];
 
   constructor() {
     if (this.screenService.isPlatformBrowser()) {

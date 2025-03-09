@@ -13,10 +13,10 @@ import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 export class ManageService extends ApiService {
   private user$ = inject<Observable<IUser>>(USER);
 
-  http = inject(HttpClient);
-  util = inject(UtilitiesService);
-  mediaDialogClass = ['close-outside', 'close-icon-white', 'manage-media-dialog'];
-  user: IUser;
+  private http = inject(HttpClient);
+  private util = inject(UtilitiesService);
+  public mediaDialogClass = ['close-outside', 'close-icon-white', 'manage-media-dialog'];
+  private user: IUser;
 
   constructor() {
     super();
