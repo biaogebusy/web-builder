@@ -23,15 +23,16 @@
     min-height: 66px;
     .add-new-section {
       position: absolute;
-      z-index: 999;
-      display: none;
+      z-index: 0;
+      opacity: 0;
       left: 50%;
       bottom: -18px;
       transform: translateX(-50%);
     }
     &:hover {
       .add-new-section {
-        display: flex;
+        opacity: 1;
+        z-index: 999;
       }
     }
     ::ng-deep {

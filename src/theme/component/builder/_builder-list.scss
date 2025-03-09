@@ -42,6 +42,7 @@
       .group-popup,
       .widget-popup {
         @include mat.elevation(10, mat.m2-get-color-from-palette($background, hover), 0.4);
+        @include scrollbar(mat.m2-get-color-from-palette($foreground, divider, 0.2));
         background-color: mat.m2-get-color-from-palette($background, card);
         border: 1px solid mat.m2-get-color-from-palette($foreground, divider, 0.1);
       }

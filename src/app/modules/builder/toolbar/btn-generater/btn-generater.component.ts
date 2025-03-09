@@ -17,9 +17,12 @@ export class BtnGeneraterComponent implements OnInit {
 
   onGenerate(): void {
     this.builder.rightContent$.next({
+      hasBackdrop: false,
+      mode: 'over',
       elements: [
         {
           type: 'builder-generater',
+          fullWidth: true,
         },
       ],
     });

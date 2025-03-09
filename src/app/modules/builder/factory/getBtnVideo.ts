@@ -47,7 +47,7 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
                     type: 'select',
                     key: 'aspectRatio',
                     className: 'w-full',
-                    defaultValue: widget.video.options.aspectRatio,
+                    defaultValue: widget.video?.options?.aspectRatio,
                     props: {
                       label: '播放比例',
                       options: [
@@ -71,13 +71,13 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
                     },
                   },
                   {
-                    template: `<img class="m-bottom-sm" src="${widget.video.options.poster}" height="50" width="auto" >`,
+                    template: `<img class="m-bottom-sm" src="${widget.video?.options?.poster}" height="50" width="auto" >`,
                   },
                   {
                     key: 'poster',
                     type: 'input',
                     className: 'w-full',
-                    defaultValue: widget.video.options.poster,
+                    defaultValue: widget.video?.options?.poster,
                     props: {
                       label: '视频封面',
                     },
@@ -85,7 +85,7 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
                   {
                     key: 'sources',
                     type: 'repeat',
-                    defaultValue: widget.video.options.sources,
+                    defaultValue: widget.video?.options?.sources,
                     className: 'w-full',
                     props: {
                       addText: '新增',
@@ -96,7 +96,7 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
                           key: 'src',
                           type: 'input',
                           className: 'w-full',
-                          defaultValue: widget.video.options.sources[0].src,
+                          defaultValue: widget.video?.options?.sources[0].src,
                           props: {
                             label: '视频地址',
                           },

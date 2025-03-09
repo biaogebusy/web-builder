@@ -47,39 +47,29 @@
             </div>
           </mat-list-item>
         }
-        @if (elements[0]?.type | isString) {
-          <div class="actions my-5 flex justify-center">
-            <app-btn
-              (click)="onWidgetPicker(elements.length)"
-              [content]="{
-                label: '新增',
-                icon: { svg: 'plus' },
-                color: 'primary',
-              }"
-            />
-          </div>
-        }
       </mat-list>
     </div>
   }
-  <div class="actions flex justify-center items-center gap-3 my-5">
-    <app-btn
-      (click)="editorJSON()"
-      [content]="{
-        label: '编辑 JSON',
-        color: 'primary',
-        mode: 'stroked',
-      }"
-    />
-    @if (content.content.type === 'custom-template') {
+  <div class="actions flex flex-col justify-center items-center gap-5 my-5">
+    <div class="flex justify-center items-center gap-3">
       <app-btn
-        (click)="editorCode()"
+        (click)="editorJSON()"
         [content]="{
-          label: '编辑自定义模板',
+          label: '编辑 JSON',
           color: 'primary',
-          mode: 'raised',
+          mode: 'stroked',
         }"
       />
-    }
+      @if (component.type === 'custom-template') {
+        <app-btn
+          (click)="editorCode()"
+          [content]="{
+            label: '编辑自定义模板',
+            color: 'primary',
+            mode: 'raised',
+          }"
+        />
+      }
+    </div>
   </div>
 </div>

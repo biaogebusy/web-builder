@@ -1,6 +1,6 @@
 @if (data$ | async; as data) {
-  <div class="chart-box p-5 flex justify-center items-end">
-    <div class="w-full flex flex-col justify-center items-start">
+  <div class="chart-box p-5 grid grid-cols-12 sm:gap-2 justify-center items-end">
+    <div class="col-span-12 sm:col-span-6 flex flex-col justify-center items-center sm:items-start">
       <div class="title mat-h3 one-line" [attr.data-path]="'label'" contentedit="label">
         {{ data.label }}
       </div>
@@ -9,7 +9,7 @@
       </div>
     </div>
     @if (showChart) {
-      <app-chart class="w-full" [content]="data.chart" [style]="style" />
+      <app-chart class="col-span-12 sm:col-span-6" [content]="data.chart" [style]="style" />
     }
   </div>
 }

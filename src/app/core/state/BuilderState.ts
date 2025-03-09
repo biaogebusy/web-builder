@@ -7,7 +7,6 @@ import {
   IBuilderShowcase,
   ILayoutSetting,
   IWidgetPicker,
-  IWidgets,
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -20,6 +19,7 @@ import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
 import { WIDGETS } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +54,6 @@ export class BuilderState {
 
   public version: IPage[] = [];
 
-  pageKey = 'page';
   versionKey = 'version';
 
   dialog = inject(MatDialog);
@@ -100,7 +99,7 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  clearAllVersion(): void {
+  clearAllHistory(): void {
     this.version = [
       {
         title: '未命名',
@@ -123,21 +122,21 @@ export class BuilderState {
     this.updatePage();
   }
 
-  showVersionPage(page: IPage, index: number): void {
+  showVersionPage(index: number): void {
     this.loading$.next(true);
     setTimeout(() => {
       // reset current
       this.version.forEach(item => (item.current = false));
       this.version[index].current = true;
 
-      this.storage.store(this.versionKey, Object.assign([], this.version));
+      this.saveLocalVersions();
       this.loading$.next(false);
     }, 600);
   }
 
   updatePage(index = 0): void {
     setTimeout(() => {
-      this.storage.store(this.versionKey, Object.assign([], this.version));
+      this.saveLocalVersions();
 
       if (index) {
         this.sreenService.scrollToAnchor(`item-${index}`);
@@ -154,7 +153,7 @@ export class BuilderState {
   setCurrentPage(page: IPage): void {
     const currentIndex = this.version.findIndex((item: IPage) => item.current === true);
     this.version[currentIndex] = page;
-    this.storage.store(this.versionKey, Object.assign([], this.version));
+    this.saveLocalVersions();
   }
 
   getArrsByPath(path: string, body: any[]): any[] {
@@ -287,7 +286,7 @@ export class BuilderState {
     this.updatePage(event.currentIndex);
   }
 
-  loadNewPage(page: IPage): void {
+  loadNewPage(page: IPage, close?: boolean): void {
     const currentPage = { ...page, current: true, time: new Date() };
     let somePageIndex = -1;
     this.version.forEach(version => (version.current = false));
@@ -300,7 +299,7 @@ export class BuilderState {
       this.version.unshift(currentPage);
     }
 
-    this.closeRightDrawer$.next(true);
+    this.closeRightDrawer$.next(close ?? true);
     this.saveLocalVersions();
   }
 
@@ -393,5 +392,22 @@ export class BuilderState {
         });
       }
     }
+  }
+
+  onNewPage(): void {
+    this.fixedShowcase = false;
+    this.showcase$.next(false);
+    this.dialog.open(DialogComponent, {
+      width: '1200px',
+      data: {
+        title: '选择模板创建页面',
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'builder-template',
+          },
+        },
+      },
+    });
   }
 }

@@ -17,7 +17,7 @@
   <app-title
     [content]="{
       label: '管理列表',
-      style: 'style-v4',
+      style: 'none',
       classes: 'p-y-xs !mb-2 bold',
     }"
   />
@@ -29,82 +29,79 @@
       (modelChange)="onModelChange($event)"
     />
   </div>
-  <div class="lists py-4">
-    @if (loading) {
-      <mat-spinner diameter="50" color="primary" />
-    }
-    @if (content$ | async; as content) {
-      @for (page of content; track $index; let i = $index) {
-        <div
-          [ngClass]="{
-            active: page.nid === currentPage?.nid && page.langcode === currentPage?.langcode,
-          }"
-          class="item flex flex-col gap-2 relative p-2"
-        >
-          <div class="text-sm mr-[62px] inline-flex items-center gap-1 group">
-            <span class="title" (blur)="onTitle($event, page)" contenteditable="false">
-              {{ page.title }}
-            </span>
-            <app-icon
-              (click)="enableEditor($event)"
-              class="group-hover:!inline-block !hidden w-[16px] h-[16px] cursor-pointer"
-              [content]="{ svg: 'pencil-outline', inline: true }"
-            />
-          </div>
-          <div class="meta text-xs font-mono">
-            <div class="flex justify-between my-2 items-center">
-              {{ page.author | shorten: 6 : '**' }}
-              @if (page.taxonomy) {
-                <span class="bg-gray-300 rounded-2xl py-1 px-2 leading-none taxonomy">{{
-                  page.taxonomy
-                }}</span>
-              }
+  <div class="lists-wrapper">
+    <div class="lists py-4">
+      @if (loading) {
+        <mat-spinner diameter="50" color="primary" />
+      }
+      @if (content$ | async; as content) {
+        @for (page of content; track $index; let i = $index) {
+          <div
+            [ngClass]="{
+              active: page.nid === currentPage?.nid && page.langcode === currentPage?.langcode,
+            }"
+            class="item flex flex-col gap-2 relative p-2"
+          >
+            <div class="text-sm mr-[62px] inline-flex items-center gap-1 group">
+              <span class="title">
+                {{ page.title }}
+              </span>
             </div>
-            <div class="flex justify-between mt-2">
-              <a
-                class="truncate"
-                [matTooltip]="page.url"
-                href="{{ page.url }}?preview=true"
-                target="_blank"
-                >{{ page.url }}</a
-              >
-              <span class="whitespace-nowrap">{{ page.changed | date: 'yyyy/MM/dd HH:mm' }}</span>
+            <div class="meta text-xs font-mono">
+              <div class="flex justify-between my-2 items-center">
+                {{ page.author | shorten: 6 : '**' }}
+                @if (page.taxonomy) {
+                  <span class="bg-gray-300 rounded-2xl py-1 px-2 leading-none taxonomy">{{
+                    page.taxonomy
+                  }}</span>
+                }
+              </div>
+              <div class="flex justify-between mt-2">
+                <a
+                  class="truncate"
+                  [matTooltip]="page.url"
+                  href="{{ page.url }}?preview=true"
+                  target="_blank"
+                  >{{ page.url }}</a
+                >
+                <span class="whitespace-nowrap">{{ page.changed | date: 'yyyy/MM/dd HH:mm' }}</span>
+              </div>
             </div>
-          </div>
-          <div class="actions absolute right-2 top-2">
-            <app-btn
-              class="block"
-              [matMenuTriggerFor]="menu"
-              [content]="{
-                label: '编辑',
-                mode: 'stroked',
-                color: 'primary',
-              }"
-            />
-            <mat-menu #menu="matMenu" class="overlay-btn-icon">
-              <button mat-menu-item (click)="loadPage(page)">
-                <app-icon [content]="{ svg: 'pencil' }" />
-                <span>载入编辑</span>
-              </button>
-              @if (langs) {
-                @for (item of langs; track $index) {
-                  @if (!item.default && item.langCode !== page.langcode) {
-                    <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
-                      <app-icon [content]="{ svg: 'translate' }" />
-                      <span>编辑{{ item.label }}</span>
-                    </button>
+            <div class="actions absolute right-2 top-2">
+              <app-btn
+                class="block"
+                [matMenuTriggerFor]="menu"
+                [content]="{
+                  label: '编辑',
+                  mode: 'stroked',
+                  color: 'primary',
+                }"
+              />
+              <mat-menu #menu="matMenu" class="overlay-btn-icon">
+                <button mat-menu-item (click)="loadPage(page)">
+                  <app-icon [content]="{ svg: 'pencil' }" />
+                  <span>载入编辑</span>
+                </button>
+                @if (langs) {
+                  @for (item of langs; track $index) {
+                    @if (!item.default && item.langCode !== page.langcode) {
+                      <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
+                        <app-icon [content]="{ svg: 'translate' }" />
+                        <span>编辑{{ item.label }}</span>
+                      </button>
+                    }
                   }
                 }
-              }
-              <button mat-menu-item (click)="updatePageSetting(page)">
-                <app-icon [content]="{ svg: 'cog' }" />
-                <span>页面属性</span>
-              </button>
-            </mat-menu>
+                <button mat-menu-item (click)="updatePageSetting(page)">
+                  <app-icon [content]="{ svg: 'cog' }" />
+                  <span>页面属性</span>
+                </button>
+              </mat-menu>
+            </div>
           </div>
-        </div>
+        }
       }
-    }
+    </div>
   </div>
   @if (pager) {
     <div class="pager">

@@ -1,104 +1,93 @@
 @let builderConfig = builderConfig$ | async;
 @let help = builderConfig?.widgetPicker?.help;
-<div class="widget-picker" [class.active]="show()" (mouseleave)="onLeave()">
-  @if (widgets) {
-    <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
-      @if (bcData()) {
-        <div
-          #copy
-          class="box flex flex-col justify-center items-center"
-          (click)="onPasteData()"
-          (mouseenter)="onHoverCopy({ content: bcData() }, copy)"
-          matTooltip="选择复制的组件"
-          matTooltipPosition="above"
-        >
-          <div class="item" matRipple>
-            <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
-              <app-icon [content]="{ svg: 'content-paste' }" />
+<div class="widget-picker z-[9999]" [class.show]="show()">
+  @if (show()) {
+    @if (widgets) {
+      <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
+        @if (bcData()) {
+          <div
+            #copy
+            class="box flex flex-col justify-center items-center"
+            (click)="onPasteData()"
+            (mouseenter)="onHoverCopy({ content: bcData() }, copy)"
+            matTooltip="选择复制的组件"
+            matTooltipPosition="above"
+          >
+            <div class="item" matRipple>
+              <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
+                <app-icon [content]="{ svg: 'content-paste' }" />
+              </div>
             </div>
           </div>
-        </div>
-        <app-divider />
-      }
-      @for (group of widgets; track $index) {
-        <div
-          class="box flex flex-col justify-center items-center"
-          (mouseenter)="onHoverGroup(group, wrapper)"
-        >
-          <div class="item" #item matRipple>
-            <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
-              @if (group.icon) {
-                <app-icon [content]="group.icon" />
-              }
+          <app-divider />
+        }
+        @for (group of widgets; track $index) {
+          <div
+            class="box flex flex-col justify-center items-center"
+            (mouseenter)="onHoverGroup(group, wrapper)"
+          >
+            <div class="item" #item matRipple>
+              <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
+                @if (group.icon) {
+                  <app-icon [content]="group.icon" />
+                }
+              </div>
             </div>
           </div>
-        </div>
-      }
-      @if (help) {
-        <app-divider class="opacity-50 w-[40px]"></app-divider>
-        <div class="help box" [matTooltip]="help.tooltip">
-          <app-btn
-            [content]="{
-              label: '',
-              mode: 'icon',
-              color: undefined,
-              href: help.link,
-              target: '_blank',
-              icon: { svg: 'help-circle', inline: true },
-            }"
-          />
+        }
+        @if (help) {
+          <app-divider class="opacity-50 w-[40px]"></app-divider>
+          <div class="help box" [matTooltip]="help.tooltip">
+            <app-btn
+              [content]="{
+                label: '',
+                mode: 'icon',
+                color: undefined,
+                href: help.link,
+                target: '_blank',
+                icon: { svg: 'help-circle', inline: true },
+              }"
+            />
+          </div>
+        }
+      </div>
+    }
+    <div #groupPopup class="absolute">
+      @if (group$ | async; as group) {
+        <div
+          class="group-popup p-4 z-10 flex-col justify-start items-start whitespace-nowrap w-[280px] min-h-[360px]"
+        >
+          <h2>{{ group.label }}</h2>
+          <div class="grid grid-cols-12 gap-4 w-full">
+            @for (item of group.elements; track $index) {
+              <div
+                (mouseenter)="onHoverWidget(item, groupPopup)"
+                (click)="onSelect(item.content)"
+                class="item col-span-6 border border-solid rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer"
+              >
+                <app-icon [content]="item.icon"></app-icon>
+                <div class="text-sm opacity-90">{{ item.label }}</div>
+              </div>
+            }
+          </div>
         </div>
       }
     </div>
-  }
-  <div #groupPopup class="absolute">
-    @if (group$ | async; as group) {
-      <div
-        class="group-popup p-4 z-10 flex-col justify-start items-start whitespace-nowrap w-[280px] min-h-[360px]"
-      >
-        <h2>{{ group.label }}</h2>
-        <div class="grid grid-cols-12 gap-4 w-full">
-          @for (item of group.elements; track $index) {
-            <div
-              (mouseenter)="onHoverWidget(item, groupPopup)"
-              (click)="onSelect(item.content)"
-              class="item col-span-6 border border-solid rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer"
-            >
-              <app-icon [content]="item.icon"></app-icon>
-              <div class="text-sm opacity-90">{{ item.label }}</div>
-            </div>
-          }
-        </div>
-      </div>
-    }
-  </div>
-  <div #popup class="absolute">
-    @if (widget$ | async; as widget) {
-      <div class="p-3">
-        <div class="widget-popup">
-          <div class="p-4 z-10 w-[560px] h-[300px]">
-            <div class="hover-show w-full h-full flex justify-center items-center relative">
-              @if (widget.preview) {
-                <img [src]="widget.preview" alt="" />
-              } @else {
-                <app-dynamic-component [inputs]="widget.content" />
-              }
-            </div>
+    <div #popup class="widget-popup absolute">
+      <div class="z-10 w-[314px] h-[236px] box-border overflow-auto">
+        @if (widget$ | async; as widget) {
+          <div class="hover-show w-full h-full flex justify-center relative">
+            @if (widget.preview) {
+              <img [src]="widget.preview" alt="" />
+            } @else {
+              <app-dynamic-component [inputs]="widget.content" />
+            }
           </div>
-        </div>
+        }
       </div>
-    }
-  </div>
-  <div class="expand">
-    <app-btn
-      (mouseenter)="hoverExpand()"
-      [matTooltip]="'展开'"
-      [content]="{
-        label: '',
-        color: 'primary',
-        mode: 'mini-fab',
-        icon: { svg: 'chevron-left' },
-      }"
-    />
-  </div>
+    </div>
+  }
 </div>
+@if (show()) {
+  <div class="fixed w-full h-full z-[1000] left-0 top-0" (click)="onLeave()"></div>
+}

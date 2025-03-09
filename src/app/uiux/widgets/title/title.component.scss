@@ -3,6 +3,9 @@
   display: block;
 }
 .title {
+  .line-style {
+    max-width: 200px;
+  }
   &.style-v1,
   &.style-v2,
   &.style-v3,

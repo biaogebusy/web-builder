@@ -6,7 +6,7 @@ import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/c
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { NgxWebstorageModule, LocalStorageService } from 'ngx-webstorage';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
@@ -38,8 +38,6 @@ import {
   userFactory,
 } from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
-import { Router } from '@angular/router';
-import { BuilderState } from '@core/state/BuilderState';
 import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
@@ -73,7 +71,7 @@ import { CookieService } from 'ngx-cookie-service';
     {
       provide: THEME,
       useFactory: themeFactory,
-      deps: [[new Inject(CORE_CONFIG)], LocalStorageService],
+      deps: [[new Inject(CORE_CONFIG)]],
     },
     {
       provide: APP_INITIALIZER,
@@ -101,7 +99,6 @@ import { CookieService } from 'ngx-cookie-service';
     {
       provide: BUILDER_FULL_SCREEN,
       useFactory: builderFullScreenFactory,
-      deps: [Router, LocalStorageService, BuilderState],
     },
     {
       provide: DEBUG_ANIMATE,
@@ -110,7 +107,6 @@ import { CookieService } from 'ngx-cookie-service';
     {
       provide: IS_BUILDER_MODE,
       useFactory: isBuilderModeFactory,
-      deps: [Router],
     },
     provideHttpClient(withInterceptorsFromDi()),
   ],

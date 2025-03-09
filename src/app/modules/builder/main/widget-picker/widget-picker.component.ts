@@ -72,6 +72,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     // add widget from layout builder toolbar
     if (addType === 'widget') {
       this.builder.updatePageContentByPath(path, widgetContent, 'add');
+      this.onLeave();
       return;
     }
 
@@ -81,6 +82,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
         this.copyLayoutLastChild(data.elements, widgetContent),
         'add'
       );
+      this.onLeave();
       return;
     }
 
@@ -88,6 +90,7 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
     const lists = [...data.elements];
     lists.splice(lists.length, 0, widgetContent);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
+    this.onLeave();
   }
 
   onLeave(): void {
@@ -119,12 +122,13 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       }
       this.group$.next(group);
       this.groupPopper = createPopper(ele, this.groupPopup.nativeElement, {
-        placement: 'left-start',
+        strategy: 'fixed',
+        placement: 'auto-end',
         modifiers: [
           {
             name: 'offset',
             options: {
-              offset: [0, 6],
+              offset: [0, 10],
             },
           },
         ],
@@ -139,7 +143,8 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       }
       this.widget$.next(widget);
       this.widgetPopper = createPopper(ele, this.widgetPopup.nativeElement, {
-        placement: 'left',
+        placement: 'bottom',
+        strategy: 'fixed',
         modifiers: [
           {
             name: 'offset',
@@ -159,9 +164,5 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       this.groupPopper.destroy();
     }
     this.onHoverWidget(widget, ele);
-  }
-
-  hoverExpand(): void {
-    this.show.set(true);
   }
 }

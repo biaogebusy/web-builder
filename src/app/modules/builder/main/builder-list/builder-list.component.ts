@@ -34,6 +34,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
+  @ViewChild('widgetPicker') widgetPicker: ElementRef;
   private markers: NodeListOf<Element>;
   public previewClass$: Observable<any>;
   private router = inject(Router);
@@ -42,6 +43,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
+
   private ele = inject(ElementRef);
   private animateElement: Element[] = [];
   private scrollableContainer: Element;
@@ -118,18 +120,26 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  addNewSection(event: any, type: 'widget' | 'section', newSection: any): void {
+  addNewSection(target: any, type: 'widget' | 'section', newSection: any): void {
     this.builder.widgetsPicker$.next(false);
     this.router.navigate(['/builder']);
-    const path = this.util.generatePath(event.target);
+    const path = this.util.generatePath(target);
     if (type === 'section') {
       this.builder.updatePageContentByPath(path, newSection, 'add');
     }
 
     if (type === 'widget') {
-      this.builderService.addBlock(type, {}, this.util.generatePath(event.target));
+      this.builderService.addBlock(type, {}, this.util.generatePath(target), target);
     }
     this.builder.closeRightDrawer$.next(true);
+  }
+
+  onNewPage(): void {
+    this.builder.onNewPage();
+  }
+
+  onClearHistory(): void {
+    this.builder.clearAllHistory();
   }
 
   ngOnDestroy(): void {
