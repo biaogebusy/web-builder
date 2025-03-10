@@ -19,6 +19,7 @@ module.exports = {
     'animate-spin',
     'animate-ping',
     'animate-pulse',
+    'text-transparent',
     { pattern: /^(flex-(\d{1,2}\/12))$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^(col-span-([1-9]|1[0-2]))$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^p[xytbrl]?-(1[0-9]|20|[1-9])$/, variants: ['sm', 'md', 'lg'] },
@@ -51,6 +52,10 @@ module.exports = {
       variants: ['sm', 'md', 'lg'],
     },
     {
+      pattern: /^bg-clip-(text|border|padding|content|border-box|padding-box|content-box)$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    {
       pattern:
         /^text-(white|black|current|inherit|transparent|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
@@ -74,7 +79,7 @@ module.exports = {
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
-      pattern: /^rounded(-[tlbr]{1,2})?(|none|sm|md|lg|xl|2xl|3xl|full)$/,
+      pattern: /^rounded(-[tlbr]{1,2})?(-(none|sm|md|lg|xl|2xl|3xl|full))?$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
