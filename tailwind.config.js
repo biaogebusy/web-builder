@@ -47,6 +47,10 @@ module.exports = {
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
+      pattern: /^bg-opacity-(0|5|10|20|25|30|40|50|60|70|75|80|90|95|100)$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    {
       pattern:
         /^text-(white|black|current|inherit|transparent|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
