@@ -165,6 +165,20 @@ module.exports = {
       pattern: /^(inset)(-x|-y|-t|-r|-b|-l)?-(([1-9]))$/,
       variants: ['xs', 'sm', 'md', 'lg'],
     },
+    {
+      pattern: /^aspect-(square|video|auto|none)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^aspect-\[(\d{1,2}\/\d{1,2})\]$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+
+    // 旧版语法兼容（aspect-w/h-*）
+    {
+      pattern: /^aspect-(w|h)-([1-9]\d?)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
   ],
   theme: {
     screens: { sm: '600px', md: '960px', lg: '1280px', xl: '1470px' },
