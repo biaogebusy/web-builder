@@ -20,16 +20,6 @@
     background-color: mat.m2-get-color-from-palette($primary);
   }
 
-  a {
-    color: inherit;
-
-    &:hover,
-    &:focus,
-    &.active {
-      color: mat.m2-get-color-from-palette($accent);
-    }
-  }
-
   blockquote {
     color: mat.m2-get-color-from-palette($foreground, text, 0.45);
     border-left: 3px solid mat.m2-get-color-from-palette($foreground, divider);

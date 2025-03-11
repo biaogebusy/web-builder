@@ -20,10 +20,17 @@ module.exports = {
     'animate-ping',
     'animate-pulse',
     'text-transparent',
+    'border',
     { pattern: /^(flex-(\d{1,2}\/12))$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^(col-span-([1-9]|1[0-2]))$/, variants: ['sm', 'md', 'lg'] },
-    { pattern: /^p[xytbrl]?-(1[0-9]|20|[1-9])$/, variants: ['sm', 'md', 'lg'] },
-    { pattern: /^m[xytbrl]?-(1[0-9]|20|[1-9])$/, variants: ['sm', 'md', 'lg'] },
+    {
+      pattern: /^p[xytbrl]?-(0|([1-9]\d*))$/, // 匹配所有数值
+      variants: ['sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^m[xytbrl]?-(0|([1-9]\d*))$/,
+      variants: ['sm', 'md', 'lg'],
+    },
     { pattern: /^(block|inline|flex|grid|hidden|table|flow-root)$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^(absolute|relative|fixed|sticky|static)$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^overflow-(auto|hidden|visible|scroll)$/, variants: ['sm', 'md', 'lg'] },
@@ -62,10 +69,14 @@ module.exports = {
     },
     {
       pattern:
-        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+        /^text-(white|black|current|inherit|transparent|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)(\/[0-9]{1,3})?$/,
     },
-    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/, variants: ['sm', 'md', 'lg', 'hover'] },
+    {
+      pattern:
+        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^border-(solid|dashed|dotted|double|none)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
@@ -112,6 +123,12 @@ module.exports = {
     {
       pattern:
         /^(w|h)-(0|full|screen|min|max|sm|fit|px|([1-9]\d?)|1(00|02|04|05|6|8|9)|2[0-9]|3[0-6]|((1[0-2]|[1-9])\/(2|3|4|5|6)))$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    {
+      pattern:
+        /^size-(0|px|full|screen|min|max|fit|(\d+(\/\d+)?)|(xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl))$/,
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern:
@@ -126,11 +143,16 @@ module.exports = {
     { pattern: /^bg-gradient-to-(t|tr|r|br|b|bl|l|tl)$/ },
     {
       pattern:
-        /^from-(transparent|current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900))$/,
+        /^(from|to)-(transparent|current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)(\/[0-9]{1,3})?)$/,
+    },
+    {
+      pattern: /^shadow(-(sm|md|lg|xl|2xl|inner|none))?$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
     },
     {
       pattern:
-        /^to-(transparent|current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900))$/,
+        /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
     },
   ],
   theme: {
