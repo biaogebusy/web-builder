@@ -3,7 +3,7 @@
 <p align="center">
   <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
   <br>
-  <i>信使 Web builder 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>通过拖拽可视化配置快速构建现代化响应式UI、多主题、多语言的 Web 页面，包含美观的后台管理主题，拥有完整的前端解决方案，Pro 版本已接入AI，可优化文案，创建组件和一句话生成页面。
+  <i>信使 Web builder 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>通过拖拽可视化配置快速构建现代化响应式UI、多主题、多语言的 Web 页面，包含美观的后台管理主题，拥有完整的前端解决方案，Pro 版本已接入DeepSeek AI，可优化文案、翻译、图表、思维导图、创建组件和一句话生成页面。
     </i>
   <br>
 </p>
@@ -25,7 +25,7 @@
   <a href="./README-EN.md"> English</a>
   <br>
   <br>
-  <a href="https://www.bilibili.com/video/BV1ux4y197kc/?vd_source=f65b4e2d70ecc450290b6b1710c0ada5#reply998790468">观看演示视频</a>
+  <a href="https://space.bilibili.com/457248997/lists/2430152?type=season">观看演示视频</a>
 </p>
 
 <p align="center">
@@ -40,7 +40,6 @@
 
 | 功能点               | 说明                                                                  |
 | -------------------- | --------------------------------------------------------------------- |
-| AI (Pro版)           | 基于DeepSeek，基础对话、优化文案、生成图表、创建组件和一句话生成页面  |
 | Layout builder       | 动态 layout，基于 TailwindCss 的动态组件，支持静态数据和 API 数据来源 |
 | 组件编辑             | 删除、复制 JSON、编辑组件数据、拖动上下排列                           |
 | 媒体库               | 可在前台批量上传、查看、更新媒体库                                    |
@@ -57,9 +56,25 @@
 | 页面预览             | 调转到新窗口查看真实的页面                                            |
 | 响应式预览           | 可切换不同设备尺寸查看页面响应式排版                                  |
 
-> 基于 DeepSeek AI 生成UI组件、图表、文案、SVG等Pro已经开放测试，欢迎体验。
+## Builder 预览
 
-## Web builder 管理微信小程序的页面和组件
+|                                                      |                                                     |
+| ---------------------------------------------------- | --------------------------------------------------- |
+| ![swiper](src/assets/images/builder/builder-01.png)  | ![layout](src/assets/images/builder/builder-02.png) |
+| ![title](src/assets/images/builder/builder-03.png)   | ![widget](src/assets/images/builder/builder-04.png) |
+| ![animate](src/assets/images/builder/builder-05.png) | ![layout](src/assets/images/builder/builder-09.png) |
+| ![swiper](src/assets/images/builder/builder-07.png)  | ![layout](src/assets/images/builder/builder-08.png) |
+
+## Builder Pro 预览
+
+> 基于 DeepSeeek 可优化文案、翻译、图表、思维导图、创建组件和一句话生成页面，未来还有更多智能体，欢迎体验。
+
+|                                                         |                                                               |
+| ------------------------------------------------------- | ------------------------------------------------------------- |
+| ![chat-entry](src/assets/images/builder/chat-entry.png) | ![chat-tailwind](src/assets/images/builder/chat-tailwind.png) |
+| ![chat-chart](src/assets/images/builder/chat-chart.png) | ![chat-mermaid](src/assets/images/builder/chat-mermaid.png)   |
+
+## 信使 Mini 小程序
 
 <p align="center">
   <i>信使小程序是基于 Taro+NutUI 的小程序，Vue3拥有更好的编辑开发体验，<br>在<strong>Web builder</strong>中通过拖拽可视化配置，小程序可动态构建页面。
@@ -74,6 +89,7 @@
 
 ## 相关视频演示
 
+- [DeepSeek 生成自定义组件](https://www.bilibili.com/video/BV1Xx9rYyEfK/)
 - [AI 创建自定义组件，优化文案，一句话生成整个页面](https://www.bilibili.com/video/BV17HfhYKEMz/)
 - [构建Drupal CMS 预览版宣传着陆页](https://www.bilibili.com/video/BV1mD6hY6Et3/)
 - [支持AOS通用页面滚动动画](https://www.bilibili.com/video/BV1VKkSY3E1r/)
@@ -146,7 +162,7 @@
 ## 安装 npm install
 
 1. 代码下载或者 clone 项目到本地：`git clone git@github.com:biaogebusy/web-builder.git`
-2. 请使用 npm install 安装，严格安装 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
+2. 请使用 npm install 安装，严格按照 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
 
 ## 本地开发
 
@@ -186,10 +202,6 @@ export const environment: IEnvironment = {
 - drupalProxy: 对应后端为 drupal，统一使用 Drupal 来登录登出；
 - multiLang: 应用是否是多语言；
 
-## 路由守卫配置
-
-默认会读取 `/api/v1/config` 的全局配置信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true;`；
-
 ## 本地开发环境 Proxy 代理
 
 为了体验一致，本地默认配置体验站的API代理，配置文件`config/proxy.config.js`，根据实际情况进行配置；
@@ -207,55 +219,6 @@ const PROXY_CONFIG = [
 module.exports = PROXY_CONFIG;
 ```
 
-## 页面数据加载逻辑
-
-页面在浏览器打开访问时，应用会订阅 url 的变化，根据`url`进行接口的数据读取，根据接口返回的数据渲染页面组件：
-
-```js
-export function pageContentFactory(activateRoute: ActivatedRoute, contentService: ContentService, contentState: ContentState): Observable<IPage | object | boolean> {
-  const $pageContent = (new BehaviorSubject() < IPage) | object | (boolean > false);
-  activateRoute.url.subscribe(async (url) => {
-    const page = await contentService.loadPageContent().toPromise();
-    $pageContent.next(page);
-    contentState.pageConfig$.next(page.config);
-  });
-  return $pageContent;
-}
-```
-
-```js
-loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
-    const { lang, path } = this.getUrlPath(pageUrl);
-
-    if (environment.production) {
-      const landingPath = '/api/v3/landingPage?content=';
-      const pageUrlParams = `${this.apiUrl}${lang}${landingPath}${path}`;
-      return this.http.get<any>(pageUrlParams).pipe(
-        tap((page) => {
-          this.updatePage(page);
-          this.logContent(pageUrl);
-        }),
-        catchError(() => {
-          return this.http.get<any>(`${this.apiUrl}${landingPath}/404`);
-        }),
-      );
-    } else {
-      return this.http
-        .get<any>(`${this.apiUrl}/assets/app${lang}${pageUrl}.json`)
-        .pipe(
-          tap((page) => {
-            this.updatePage(page);
-          }),
-          catchError(() => {
-            return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-          }),
-        );
-    }
-  }
-```
-
-Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.builder.design/?path=/docs/base-config--page)
-
 ## 为生产环境打包
 
 `npm run build`
@@ -265,15 +228,6 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.builder.
 `npm run storybook`
 
 更多开发移步[开发指南](https://ui.builder.design/?path=/docs/guide--page)
-
-## Builder 预览
-
-|                                                      |                                                     |
-| ---------------------------------------------------- | --------------------------------------------------- |
-| ![swiper](src/assets/images/builder/builder-01.png)  | ![layout](src/assets/images/builder/builder-02.png) |
-| ![title](src/assets/images/builder/builder-03.png)   | ![widget](src/assets/images/builder/builder-04.png) |
-| ![animate](src/assets/images/builder/builder-05.png) | ![layout](src/assets/images/builder/builder-09.png) |
-| ![swiper](src/assets/images/builder/builder-07.png)  | ![layout](src/assets/images/builder/builder-08.png) |
 
 ## 最后
 
