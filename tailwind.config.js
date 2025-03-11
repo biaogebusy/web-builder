@@ -31,7 +31,10 @@ module.exports = {
       pattern: /^m[xytbrl]?-(0|([1-9]\d*))$/,
       variants: ['sm', 'md', 'lg'],
     },
-    { pattern: /^(block|inline|flex|grid|hidden|table|flow-root)$/, variants: ['sm', 'md', 'lg'] },
+    {
+      pattern: /^(block|inline|inline-block|flex|inline-flex|grid|hidden|table|flow-root)$/,
+      variants: ['sm', 'md', 'lg'],
+    },
     { pattern: /^(absolute|relative|fixed|sticky|static)$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^overflow-(auto|hidden|visible|scroll)$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^z-([0-9]|10|20|30|40|50|auto)$/ },
@@ -152,6 +155,14 @@ module.exports = {
     {
       pattern:
         /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^(inset)(-x|-y|-t|-r|-b|-l)?-(0|full|px)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^(inset)(-x|-y|-t|-r|-b|-l)?-(([1-9]))$/,
       variants: ['xs', 'sm', 'md', 'lg'],
     },
   ],
