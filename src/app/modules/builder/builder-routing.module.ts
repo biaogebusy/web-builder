@@ -8,6 +8,7 @@ import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-work
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { BuilderGuard } from '@core/guards/builder.guard';
 import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
+import { ConfigCheckComponent } from './main/config-check/config-check.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
             component: BuilderSettingsComponent,
           },
         ],
+      },
+      {
+        path: 'config-check',
+        component: ConfigCheckComponent,
       },
       {
         path: '**',

@@ -1,0 +1,22 @@
+<div class="config-check container">
+  <h1>API健康检查</h1>
+  <button (click)="runTests()">开始检测</button>
+
+  @if (isLoading) {
+    <div class="loading">检测中...</div>
+  }
+
+  <div class="result-list">
+    @for (result of results; track $index) {
+      <div class="result-item" [class.success]="result.success">
+        <h3>{{ result.name }}</h3>
+        <p>Endpoint: {{ result.endpoint }}</p>
+        <p>状态: {{ result.success ? '✅ 正常' : '❌ 异常' }}</p>
+        <p>响应时间: {{ result.responseTime }}ms</p>
+        @if (!result.success) {
+          <p>错误信息: {{ result.error }}</p>
+        }
+      </div>
+    }
+  </div>
+</div>
