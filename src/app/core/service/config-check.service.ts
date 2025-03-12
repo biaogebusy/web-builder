@@ -1,13 +1,26 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { API_CHECK_LIST, ApiEndpoint } from '@modules/builder/main/config-check/api-check-list';
-import { lastValueFrom } from 'rxjs';
+import { Subject, concatMap, from, lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConfigCheckService {
   private http = inject(HttpClient);
+  private resultSubject = new Subject<ApiTestResult>();
+
+  // 暴露结果流
+  public results$ = this.resultSubject.asObservable();
+
+  // 启动检测（使用RxJS流处理）
+  startCheck() {
+    from(API_CHECK_LIST)
+      .pipe(concatMap(api => this.testEndpoint(api)))
+      .subscribe(result => {
+        this.resultSubject.next(result);
+      });
+  }
   async checkAllEndpoints(): Promise<ApiTestResult[]> {
     const results: ApiTestResult[] = [];
     for (const api of API_CHECK_LIST) {
@@ -23,7 +36,10 @@ export class ConfigCheckService {
       const response: any = await lastValueFrom(
         this.http.request(api.method, api.endpoint, {
           body: api.body,
-          headers: api.headers,
+          headers: new HttpHeaders({
+            'Accept': 'application/vnd.api+json',
+            'Content-Type': 'application/octet-stream',
+          }),
         })
       );
 
