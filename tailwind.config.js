@@ -173,8 +173,6 @@ module.exports = {
       pattern: /^aspect-\[(\d{1,2}\/\d{1,2})\]$/,
       variants: ['xs', 'sm', 'md', 'lg'],
     },
-
-    // 旧版语法兼容（aspect-w/h-*）
     {
       pattern: /^aspect-(w|h)-([1-9]\d?)$/,
       variants: ['xs', 'sm', 'md', 'lg'],
