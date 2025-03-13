@@ -6,7 +6,6 @@
 
 @include reset-styles();
 
-@include mat.all-component-typographies($custom-typography);
 @include mat.core();
 
 @include branding(map-get($color-theme, shadow), 'shadow');

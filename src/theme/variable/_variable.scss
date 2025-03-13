@@ -19,28 +19,9 @@ $color-theme: (
   ),
 );
 
-$font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-  'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-
-// custom typography
-// https://material.angular.io/guide/typography
-$custom-typography: mat.m2-define-typography-config(
-  $font-family: $font-family,
-  $headline-1:
-    mat.m2-define-typography-level(60px, 1.25, 600, $font-family: $font-family),
-  $headline-2:
-    mat.m2-define-typography-level(48px, 1.25, 600, $font-family: $font-family),
-  $headline-3:
-    mat.m2-define-typography-level(40px, 1.25, 600, $font-family: $font-family),
-  $headline-4:
-    mat.m2-define-typography-level(30px, 1.5, 600, $font-family: $font-family),
-  $headline-5:
-    mat.m2-define-typography-level(25px, 1.618, 600, $font-family: $font-family),
-  $headline-6:
-    mat.m2-define-typography-level(20px, 1.618, 500, $font-family: $font-family),
-  $body-2: mat.m2-define-typography-level(16px, 1.618, 400),
-  $subtitle-2: mat.m2-define-typography-level(14px, 1.618, 500),
-);
+$font-family:
+  'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑',
+  Arial, sans-serif;
 
 $spacer: 40px;
 

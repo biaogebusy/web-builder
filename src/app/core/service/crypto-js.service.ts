@@ -5,7 +5,7 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root',
 })
 export class CryptoJSService {
-  secretKey = 'xinshi';
+  private secretKey = 'xinshi';
   constructor() {}
 
   // Generate 32-bit random string
@@ -25,8 +25,6 @@ export class CryptoJSService {
   }
 
   decrypt(textToDecrypt: string): string {
-    return CryptoJS.AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(
-      CryptoJS.enc.Utf8
-    );
+    return CryptoJS.AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(CryptoJS.enc.Utf8);
   }
 }

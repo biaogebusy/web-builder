@@ -13,7 +13,7 @@ export class ThemeService {
     this.setTheme(this.theme);
   }
 
-  setTheme(theme: string) {
+  setTheme(theme: string): void {
     const root = this.document.getElementsByTagName('html')[0];
     root.removeAttribute('class');
     root.classList.add(theme);

@@ -12,7 +12,7 @@ export class CalendarState {
   private screenSerivce = inject(ScreenService);
 
   public calendarChange$ = new Subject();
-  default: CalendarOptions;
+  public default: CalendarOptions;
 
   constructor() {
     if (this.screenSerivce.isPlatformBrowser()) {

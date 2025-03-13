@@ -12,8 +12,7 @@ export class DialogService {
   private dialog = inject(MatDialog);
   private doc = inject<Document>(DOCUMENT);
 
-  dialogState$ = new Subject();
-  dialogRef: any;
+  public dialogState$ = new Subject();
 
   closeDialog(): void {
     this.dialogState$.next(false);
@@ -49,7 +48,7 @@ export class DialogService {
   }
 
   openDialog(config: any): void {
-    this.dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       width: config.params.width,
       disableClose: true,
       hasBackdrop: true,
@@ -66,7 +65,7 @@ export class DialogService {
   }
 
   openDynamicDialog(config: any): void {
-    this.dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       ...config.params,
       data: {
         inputData: [...config.content],

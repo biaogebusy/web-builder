@@ -1,5 +1,4 @@
 // https://tailwindcss.com/docs/content-configuration
-const COMMON_VARIANTS = ['sm', 'md', 'lg', 'hover']; // 复用通用变体
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -20,90 +19,119 @@ module.exports = {
     'animate-spin',
     'animate-ping',
     'animate-pulse',
+    'text-transparent',
+    'border',
+    { pattern: /^(flex-(\d{1,2}\/12))$/, variants: ['sm', 'md', 'lg'] },
+    { pattern: /^(col-span-([1-9]|1[0-2]))$/, variants: ['sm', 'md', 'lg'] },
     {
-      pattern: /^(flex-(\d{1,2}\/12))$/,
+      pattern: /^p[xytbrl]?-(0|([1-9]\d*))$/, // 匹配所有数值
       variants: ['sm', 'md', 'lg'],
     },
     {
-      pattern: /^(col-span-([1-9]|1[0-2]))$/,
+      pattern: /^m[xytbrl]?-(0|([1-9]\d*))$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
-      pattern: /^p[xytbrl]?-(1[0-9]|20|[1-9])$/,
-      variants: COMMON_VARIANTS,
+      pattern: /^(block|inline|inline-block|flex|inline-flex|grid|hidden|table|flow-root)$/,
+      variants: ['sm', 'md', 'lg'],
     },
-    {
-      pattern: /^m[xytbrl]?-(1[0-9]|20|[1-9])$/,
-      variants: COMMON_VARIANTS,
-    },
-    { pattern: /^(block|inline|flex|grid|hidden|table|flow-root)$/, variants: COMMON_VARIANTS },
-    { pattern: /^(absolute|relative|fixed|sticky|static)$/, variants: COMMON_VARIANTS },
-    { pattern: /^overflow-(auto|hidden|visible|scroll)$/, variants: COMMON_VARIANTS },
+    { pattern: /^(absolute|relative|fixed|sticky|static)$/, variants: ['sm', 'md', 'lg'] },
+    { pattern: /^overflow-(auto|hidden|visible|scroll)$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^z-([0-9]|10|20|30|40|50|auto)$/ },
     {
       pattern: /^(w|h)-((1\/[2-4])|full|screen|min|max|auto|[0-9]{1,3})$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg'],
     },
-    { pattern: /^text-(left|center|right|justify)$/, variants: COMMON_VARIANTS },
-    { pattern: /^text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl)$/, variants: COMMON_VARIANTS },
+    { pattern: /^text-(left|center|right|justify)$/, variants: ['sm', 'md', 'lg'] },
+    { pattern: /^text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl)$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^font-(thin|light|normal|medium|semibold|bold|black)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^(italic|not-italic|uppercase|lowercase|capitalize|normal-case)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern:
         /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
+    {
+      pattern: /^bg-opacity-(0|5|10|20|25|30|40|50|60|70|75|80|90|95|100)$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^bg-clip-(text|border|padding|content|border-box|padding-box|content-box)$/,
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern:
         /^text-(white|black|current|inherit|transparent|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
+    {
+      pattern:
+        /^text-(white|black|current|inherit|transparent|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)(\/[0-9]{1,3})?$/,
     },
     {
       pattern:
         /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+      variants: ['sm', 'md', 'lg'],
     },
-    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/, variants: COMMON_VARIANTS },
+    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/, variants: ['sm', 'md', 'lg'] },
     {
-      pattern: /^rounded(-[tlbr]{1,2})?(|none|sm|md|lg|xl|2xl|3xl|full)$/,
-      variants: COMMON_VARIANTS,
+      pattern: /^border-(solid|dashed|dotted|double|none)$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
-    { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: COMMON_VARIANTS },
+    {
+      pattern: /^divide-(solid|dashed|dotted|double|none)$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
+    {
+      pattern: /^outline-(solid|dashed|dotted|double|none)$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
+    {
+      pattern: /^rounded(-[tlbr]{1,2})?(-(none|sm|md|lg|xl|2xl|3xl|full))?$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
+    { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern: /^opacity-(0|5|10|20|30|40|50|60|70|75|80|90|95|100)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^transition(-none|all|colors|opacity|shadow|transform)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     { pattern: /^duration-(75|100|150|200|300|500|700|1000)$/ },
     { pattern: /^ease-(linear|in|out|in-out)$/ },
     {
       pattern:
         /^(items|justify|content|place-items|place-content)-(start|end|center|between|around|evenly|stretch)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^gap-([0-9]|10|12|14|16|20|24|28|32|36|40|48|56|64|72|80|96)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg'],
     },
-    { pattern: /^grid-cols-([1-9]|10|11|12|none)$/, variants: COMMON_VARIANTS },
+    { pattern: /^grid-cols-([1-9]|10|11|12|none)$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern:
         /^-?translate-[xy]-(0|([1-9]|1[0-9]|20)|(1|2|3|4|5|6|7|8|9|10|11|12)\/(2|3|4|5|6)|full)$/,
-      variants: COMMON_VARIANTS,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
-    {
-      pattern: /^line-clamp-(1[0]|[1-9])$/,
-      variants: COMMON_VARIANTS,
-    },
+    { pattern: /^line-clamp-(1[0]|[1-9])$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern:
         /^(w|h)-(0|full|screen|min|max|sm|fit|px|([1-9]\d?)|1(00|02|04|05|6|8|9)|2[0-9]|3[0-6]|((1[0-2]|[1-9])\/(2|3|4|5|6)))$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    {
+      pattern:
+        /^size-(0|px|full|screen|min|max|fit|(\d+(\/\d+)?)|(xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl))$/,
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern:
@@ -112,30 +140,47 @@ module.exports = {
     {
       pattern:
         /^(fill|stroke)-(current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900))$/,
-      variants: COMMON_VARIANTS,
+    },
+    { pattern: /^stroke-(0|1|2|3|4|5)$/ },
+    { pattern: /^(fill-none|stroke-none)$/ },
+    { pattern: /^bg-gradient-to-(t|tr|r|br|b|bl|l|tl)$/ },
+    {
+      pattern:
+        /^(from|to)-(transparent|current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)(\/[0-9]{1,3})?)$/,
     },
     {
-      pattern: /^stroke-(0|1|2|3|4|5)$/,
-      variants: COMMON_VARIANTS,
+      pattern: /^shadow(-(sm|md|lg|xl|2xl|inner|none))?$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      pattern: /^(fill-none|stroke-none)$/,
+      pattern:
+        /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^(inset)(-x|-y|-t|-r|-b|-l)?-(0|full|px)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^(inset)(-x|-y|-t|-r|-b|-l)?-(([1-9]))$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^aspect-(square|video|auto|none)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^aspect-\[(\d{1,2}\/\d{1,2})\]$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      pattern: /^aspect-(w|h)-([1-9]\d?)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
     },
   ],
   theme: {
-    screens: {
-      sm: '600px',
-      md: '960px',
-      lg: '1280px',
-      xl: '1470px',
-    },
-    extend: {
-      strokeWidth: {
-        3: '3',
-        4: '4',
-        5: '5',
-      },
-    },
+    screens: { sm: '600px', md: '960px', lg: '1280px', xl: '1470px' },
+    extend: { strokeWidth: { 3: '3', 4: '4', 5: '5' } },
     flex: {
       '1/12': '0 0 8.33%',
       '2/12': '0 0 16.66%',
@@ -162,7 +207,5 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
   ],
-  corePlugins: {
-    preflight: false,
-  },
+  corePlugins: { preflight: false },
 };

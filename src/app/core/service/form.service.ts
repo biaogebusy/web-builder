@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '@core/service/api.service';
 import { formatDate } from '@angular/common';
@@ -11,8 +11,6 @@ import { formatDate } from '@angular/common';
 export class FormService {
   private http = inject(HttpClient);
   private apiService = inject(ApiService);
-
-  autoList$ = new Subject<any[]>();
 
   toFormGroup(items: any[]): any {
     const group: any = {};

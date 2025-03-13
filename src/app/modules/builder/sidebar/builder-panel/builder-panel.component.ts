@@ -6,6 +6,7 @@ import {
   Input,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IBuilderComponent } from '@core/interface/IBuilder';
@@ -26,6 +27,7 @@ export class BuilderPanelComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   private scrrenService = inject(ScreenService);
+  public fixLabel = signal<string>('');
 
   ngOnInit(): void {
     this.builder.fixedChange$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
@@ -40,18 +42,22 @@ export class BuilderPanelComponent implements OnInit {
     this.builder.showcase(cloneDeep(content));
   }
 
-  onFixed(content: any): void {
+  onFixed(item: any): void {
+    const { label, content } = item;
     if (this.builder.fixedShowcase) {
       // click active
       if (content === this.builder.fixedContent) {
         this.builder.fixedShowcase = false;
         this.builder.showcase$.next(false);
+        this.fixLabel.set('');
         return;
       }
 
       // switch to other
       if (content !== this.builder.fixedContent) {
-        this.builder.showcase(cloneDeep(content));
+        this.builder.fixedShowcase = true;
+        this.fixLabel.set(label);
+        this.builder.showcase(content);
         return;
       }
     }
@@ -59,7 +65,8 @@ export class BuilderPanelComponent implements OnInit {
     // set new active
     if (!this.builder.fixedShowcase) {
       this.builder.fixedShowcase = true;
-      this.builder.showcase(cloneDeep(content));
+      this.fixLabel.set(label);
+      this.builder.showcase(content);
     }
   }
 

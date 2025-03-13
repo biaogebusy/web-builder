@@ -10,6 +10,27 @@
 img {
   position: relative;
   max-width: 100%;
+  &.object-fit,
+  &.bg-cover {
+    position: absolute !important;
+    object-fit: cover;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  &.bg-contain {
+    position: absolute !important;
+    object-fit: contain;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 :host(.img-bg-shape) {
