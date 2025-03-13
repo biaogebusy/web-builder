@@ -131,7 +131,6 @@ $darkPrimary: map-get(
 
 @mixin code-editor-theme($darkBg, $darkFore, $darkPrimary, $warn) {
   .code-editor-dialog {
-    --mdc-dialog-container-color: mat.m2-get-color-from-palette($darkBg, card);
     .dialog {
       .mat-mdc-dialog-content {
         background-color: mat.m2-get-color-from-palette($darkBg, card);
