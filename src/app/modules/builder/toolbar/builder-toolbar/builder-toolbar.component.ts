@@ -23,6 +23,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -47,6 +48,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   private userService = inject(UserService);
   private user: IUser;
   public date = signal<Date>(new Date());
+  private router = inject(Router);
 
   constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
@@ -136,24 +138,17 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
         this.builderService
           .updateLandingPage(this.builder.currentPage)
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(
-            res => {
-              this.builder.loading$.next(false);
-              const { status, message } = res;
-              this.util.openSnackbar(message, 'ok');
-
-              if (status) {
-                this.builder.updateSuccess$.next(true);
-              }
-            },
-            error => {
-              const {
-                error: { message },
-              } = error;
-              this.builder.loading$.next(false);
+          .subscribe(res => {
+            this.builder.loading$.next(false);
+            const { status, message } = res;
+            this.util.openSnackbar(message, 'ok');
+            this.gotoPageList();
+            if (status) {
+              this.builder.updateSuccess$.next(true);
+            } else {
               this.util.openSnackbar(message, 'ok');
             }
-          );
+          });
       } else {
         if (page.body.length === 0) {
           this.onNewPage();
@@ -170,6 +165,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
             )
             .subscribe(res => {
               const { status, message } = res;
+              this.gotoPageList();
               if (status) {
                 this.util.openSnackbar(message, 'ok');
                 this.builder.updateSuccess$.next(true);
@@ -180,6 +176,10 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
         }
       }
     }
+  }
+
+  gotoPageList(): void {
+    this.router.navigate(['/builder/page-list']);
   }
 
   openLogin(): void {

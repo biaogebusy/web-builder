@@ -1,56 +1,55 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IBuilderShowcase } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { cloneDeep } from 'lodash-es';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-builder-showcase',
   templateUrl: './builder-showcase.component.html',
   styleUrls: ['./builder-showcase.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderShowcaseComponent implements OnInit {
   @Input() content: IBuilderShowcase;
-  component: any;
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private dialog = inject(MatDialog);
   private screenService = inject(ScreenService);
+  private storage = inject(LocalStorageService);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.component = cloneDeep(this.content.card.components[0]);
     }
   }
 
   onClose(): void {
     this.builder.showcase$.next(false);
   }
-  onCopy(): void {
-    this.util.copy(JSON.stringify(this.component));
-    this.util.openSnackbar(`已复制${this.component.type}的JSON！`, 'ok');
+  onCopy(component: any): void {
+    this.util.copy(JSON.stringify(component));
+    this.util.openSnackbar(`已复制${component.type}的JSON！`, 'ok');
+    this.storage.store(this.builder.COPYCOMPONENTKEY, component);
   }
 
-  showCode(): void {
+  showCode(component: any): void {
     this.dialog.open(DialogComponent, {
       width: '800px',
       data: {
         inputData: {
           content: {
             type: 'jsoneditor',
-            data: this.component,
+            data: component,
           },
         },
       },
     });
   }
 
-  insert(): void {
-    this.builder.pushComponent(this.component);
+  insert(component: any): void {
+    this.builder.pushComponent(component);
     setTimeout(() => {
       const length = this.builder.currentPage.body.length;
       this.screenService.scrollToAnchor(`item-${length - 1}`);

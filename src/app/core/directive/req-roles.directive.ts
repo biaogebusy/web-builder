@@ -10,11 +10,11 @@ import { Observable } from 'rxjs';
 export class ReqRolesDirective {
   private currentUser$ = inject<Observable<IUser>>(USER);
 
-  userService = inject(UserService);
-  viewContainer = inject(ViewContainerRef);
-  templateRef = inject(TemplateRef<any>);
+  private userService = inject(UserService);
+  private viewContainer = inject(ViewContainerRef);
+  private templateRef = inject(TemplateRef<any>);
 
-  user: IUser;
+  private user: IUser;
 
   constructor() {
     this.currentUser$.subscribe(user => {

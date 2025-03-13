@@ -7,8 +7,8 @@ import { isString } from 'lodash';
   name: 'safeHtml',
 })
 export class SafeHtmlPipe implements PipeTransform {
-  screenService = inject(ScreenService);
-  sanitizer = inject(DomSanitizer);
+  private screenService = inject(ScreenService);
+  private sanitizer = inject(DomSanitizer);
 
   transform(html: any): any {
     if (this.screenService.isPlatformBrowser() && isString(html)) {

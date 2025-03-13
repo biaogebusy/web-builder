@@ -26,7 +26,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 })
 export class BuilderState {
   private doc = inject<Document>(DOCUMENT);
-  widgets = inject(WIDGETS);
+  private widgets = inject(WIDGETS);
 
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
@@ -56,10 +56,10 @@ export class BuilderState {
 
   versionKey = 'version';
 
-  dialog = inject(MatDialog);
-  util = inject(UtilitiesService);
-  sreenService = inject(ScreenService);
-  storage = inject(LocalStorageService);
+  private dialog = inject(MatDialog);
+  private util = inject(UtilitiesService);
+  private sreenService = inject(ScreenService);
+  private storage = inject(LocalStorageService);
 
   constructor() {
     const localVersion = this.storage.retrieve(this.versionKey);

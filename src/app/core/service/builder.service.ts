@@ -25,14 +25,14 @@ export class BuilderService extends ApiService {
   private user$ = inject<Observable<IUser>>(USER);
   private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
-  http = inject(HttpClient);
-  dialog = inject(MatDialog);
-  builder = inject(BuilderState);
-  util = inject(UtilitiesService);
-  nodeService = inject(NodeService);
-  contentService = inject(ContentService);
-  user: IUser;
-  builderConfig: IBuilderConfig;
+  private http = inject(HttpClient);
+  private dialog = inject(MatDialog);
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private nodeService = inject(NodeService);
+  private contentService = inject(ContentService);
+  private user: IUser;
+  private builderConfig: IBuilderConfig;
 
   constructor() {
     super();

@@ -16,11 +16,11 @@ import { ScreenService } from '@core/service/screen.service';
 export class BuilderGuard {
   private currentUser$ = inject<Observable<IUser>>(USER);
 
-  user: IUser;
-  router = inject(Router);
-  userService = inject(UserService);
-  nodeService = inject(NodeService);
-  screenService = inject(ScreenService);
+  private user: IUser;
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private nodeService = inject(NodeService);
+  private screenService = inject(ScreenService);
 
   constructor() {
     this.currentUser$.subscribe(user => {

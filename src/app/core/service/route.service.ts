@@ -12,11 +12,11 @@ import { IPage } from '@core/interface/IAppConfig';
 export class RouteService {
   private location = inject(Location);
 
-  router = inject(Router);
-  activatedRoute = inject(ActivatedRoute);
-  util = inject(UtilitiesService);
-  contentService = inject(ContentService);
-  contentState = inject(ContentState);
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  private util = inject(UtilitiesService);
+  private contentService = inject(ContentService);
+  private contentState = inject(ContentState);
 
   updateQueryParams(query: Params): void {
     const url = this.router

@@ -13,9 +13,9 @@ export class NotifyService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
 
-  nodeService = inject(NodeService);
-  userService = inject(UserService);
-  user: IUser;
+  private nodeService = inject(NodeService);
+  private userService = inject(UserService);
+  private user: IUser;
 
   constructor() {
     this.user$.subscribe(user => {

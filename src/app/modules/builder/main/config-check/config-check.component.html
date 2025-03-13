@@ -1,0 +1,55 @@
+<div class="config-check max-w-3xl mx-auto">
+  <app-title
+    [content]="{
+      label: '配置检测清单',
+      classes: 'mat-headline-4 bold',
+      style: 'style-v4',
+    }"
+  ></app-title>
+
+  <div class="flex justify-between items-center my-5">
+    <div class="font-bold">检查清单 {{ completedCount }}/{{ totalCount }}</div>
+    <app-btn
+      (click)="runTests()"
+      [content]="{
+        label: '开始检测',
+        color: 'primary',
+        mode: 'raised',
+        icon: {
+          svg: 'check',
+        },
+      }"
+    />
+  </div>
+
+  <div
+    class="result-list rounded-lg bg-white shadow-lg border-b border-solid border-gray-100 overflow-hidden"
+  >
+    @for (result of results; track $index) {
+      <div
+        class="result-item p-5 border-b border-solid border-gray-50"
+        [class.success]="result.success"
+      >
+        <div class="flex items-center gap-5">
+          <div class="whitespace-nowrap font-bold">
+            @if (result.success) {
+              <app-icon [content]="{ svg: 'check-circle', color: 'primary' }"></app-icon>
+            } @else {
+              <app-icon [content]="{ svg: 'alert-circle', color: 'warn' }"></app-icon>
+            }
+          </div>
+          <div class="flex flex-col gap-1 flex-auto">
+            <div class="text-md">{{ result.name }}</div>
+            <p class="text-sm text-neutral-500">{{ result.description }}</p>
+            <p class="text-sm text-neutral-500">响应时间: {{ result.responseTime }}ms</p>
+            @if (!result.success) {
+              <p class="text-sm bg-red-100 rounded-md p-2">
+                错误: {{ result.error || '未知错误' }}
+              </p>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

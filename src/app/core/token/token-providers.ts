@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import { IBuilderConfig, IUiux, IWidgets } from '@core/interface/IBuilder';
-import { IThemePreview } from '@core/interface/combs/IThemePreview';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { IManageAssets } from '@core/interface/manage/IManage';
 

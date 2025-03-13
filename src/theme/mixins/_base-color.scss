@@ -4,14 +4,6 @@
   .text-#{$suffix} {
     color: map-get($colors, text) !important;
   }
-
-  .border-#{$suffix} {
-    border-color: map-get($colors, border) !important;
-  }
-
-  .bg-#{$suffix} {
-    background-color: map-get($colors, bg) !important;
-  }
 }
 
 @mixin base-colors($theme) {
@@ -26,16 +18,6 @@
 
   .loading {
     background-color: mat.m2-get-color-from-palette($primary);
-  }
-
-  a {
-    color: mat.m2-get-color-from-palette($accent);
-
-    &:hover,
-    &:focus,
-    &.active {
-      color: mat.m2-get-color-from-palette($accent);
-    }
   }
 
   blockquote {
