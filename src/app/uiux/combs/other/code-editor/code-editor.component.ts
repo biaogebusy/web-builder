@@ -22,6 +22,7 @@ export class CodeEditorComponent implements OnInit {
   public editorOptions: JsonEditorOptions;
   public html = signal<string>('');
   public json = signal<any>(null);
+  public isMore = signal<boolean>(true);
   public isAPI: boolean;
   private api: string;
   public form = new UntypedFormGroup({});
@@ -131,6 +132,10 @@ export class CodeEditorComponent implements OnInit {
       }
       this.builder.updatePageContentByPath(`${path}`, content);
     }
+  }
+
+  onShowMore(): void {
+    this.isMore.set(!this.isMore());
   }
 
   onFormChange(): void {

@@ -38,10 +38,15 @@
       .mat-mdc-dialog-content {
         overflow: hidden;
         border-radius: 20px 20px 0 0;
+        max-height: none;
       }
       .dialog-colse-outside-btn {
-        top: -48px;
-        right: 80px;
+        top: 8px;
+        right: 20px;
+        z-index: 100;
+        button {
+          color: #fff;
+        }
       }
     }
   }
