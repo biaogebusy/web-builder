@@ -18,11 +18,13 @@ import { Observable, Subject } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  standalone: false,
+  host: {
+    ngSkipHydration: 'true',
+  },
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
