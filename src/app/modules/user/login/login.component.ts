@@ -10,11 +10,10 @@ import type { IUser } from '@core/interface/IUser';
 import { Observable, Subscription, interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    host: { ngSkipHydration: 'true' },
-    styleUrls: ['./login.component.scss'],
-    standalone: false
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  standalone: false,
 })
 export class LoginComponent implements OnInit, OnDestroy {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);

@@ -25,10 +25,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 
 @Component({
-    selector: 'app-manage-media',
-    templateUrl: './manage-media.component.html',
-    styleUrls: ['./manage-media.component.scss'],
-    standalone: false
+  selector: 'app-manage-media',
+  templateUrl: './manage-media.component.html',
+  styleUrls: ['./manage-media.component.scss'],
+  standalone: false,
 })
 export class ManageMediaComponent implements OnInit {
   private builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
@@ -79,6 +79,7 @@ export class ManageMediaComponent implements OnInit {
         this.manageMediaConfig.set(config.manageMedia);
         this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
       });
+      this.onSearch({});
       this.form.valueChanges
         .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(1000), distinctUntilChanged())
         .subscribe(value => {

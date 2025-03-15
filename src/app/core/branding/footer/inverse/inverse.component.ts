@@ -8,12 +8,14 @@ import { UtilitiesService } from '@core/service/utilities.service';
   templateUrl: './inverse.component.html',
   styleUrls: ['./inverse.component.scss'],
   standalone: false,
+  host: {
+    ngSkipHydration: 'true',
+  },
 })
 export class InverseComponent {
   @Input() content: any;
-  form: UntypedFormGroup = new UntypedFormGroup({});
-  success = false;
-  submited = false;
+  public form: UntypedFormGroup = new UntypedFormGroup({});
+  public submited = false;
 
   private cd = inject(ChangeDetectorRef);
   public formService = inject(FormService);
@@ -31,7 +33,6 @@ export class InverseComponent {
     this.formService.submitWebForm(data).subscribe(
       () => {
         this.submited = false;
-        this.success = true;
         this.util.openSnackbar('成功订阅！');
         this.cd.detectChanges();
       },

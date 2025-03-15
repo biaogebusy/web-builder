@@ -15,12 +15,11 @@ import { BuilderState } from '@core/state/BuilderState';
 import { cloneDeep } from 'lodash-es';
 
 @Component({
-    selector: 'app-builder-panel',
-    templateUrl: './builder-panel.component.html',
-    styleUrls: ['./builder-panel.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    host: { ngSkipHydration: 'true' },
-    standalone: false
+  selector: 'app-builder-panel',
+  templateUrl: './builder-panel.component.html',
+  styleUrls: ['./builder-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BuilderPanelComponent implements OnInit {
   @Input() content: IBuilderComponent[];

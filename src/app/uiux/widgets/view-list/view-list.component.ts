@@ -26,12 +26,11 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-view-list',
-    templateUrl: './view-list.component.html',
-    styleUrls: ['./view-list.component.scss'],
-    host: { ngSkipHydration: 'true' },
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-view-list',
+  templateUrl: './view-list.component.html',
+  styleUrls: ['./view-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ViewListComponent extends BaseComponent implements OnInit, AfterViewInit {
   private user$ = inject<Observable<IUser>>(USER);

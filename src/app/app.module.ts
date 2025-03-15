@@ -1,6 +1,12 @@
 import { Title, provideClientHydration, withIncrementalHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, Inject, inject, provideAppInitializer } from '@angular/core';
+import {
+  NgModule,
+  Inject,
+  inject,
+  provideAppInitializer,
+  provideExperimentalZonelessChangeDetection,
+} from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { CommonModule, registerLocaleData } from '@angular/common';
@@ -60,6 +66,7 @@ import { CookieService } from 'ngx-cookie-service';
     CookieService,
     provideHttpClient(withFetch()),
     provideClientHydration(withIncrementalHydration()),
+    provideExperimentalZonelessChangeDetection(),
     {
       provide: CORE_CONFIG,
       useValue: {},

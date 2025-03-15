@@ -4,7 +4,7 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable, lastValueFrom, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -26,6 +26,9 @@ export class ContentService extends ApiService {
   private screenState = inject(ScreenState);
   private apiService = inject(ApiService);
   private coreConfig = inject(CORE_CONFIG);
+  private builderConfigCache: Observable<IBuilderConfig>;
+  private coreConfigCache: Observable<ICoreConfig>;
+
   constructor() {
     super();
   }
@@ -99,7 +102,10 @@ export class ContentService extends ApiService {
     const configPath = environment.production
       ? `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/base`
       : `${this.apiUrl}/assets/app${lang}/core/base.json`;
-    return lastValueFrom(this.http.get<ICoreConfig>(configPath)).then(
+    if (!this.coreConfigCache) {
+      this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(shareReplay(1));
+    }
+    return lastValueFrom(this.coreConfigCache).then(
       (config: ICoreConfig) => {
         Object.assign(coreConfig, config);
         this.apiService.configLoadDone$.next(true);
@@ -112,8 +118,11 @@ export class ContentService extends ApiService {
   }
 
   loadBuilderConfig(): Observable<IBuilderConfig> {
-    const { lang } = this.getUrlPath(this.pageUrl);
-    return this.loadJSON(`${lang}/core/builder`);
+    if (!this.builderConfigCache) {
+      const { lang } = this.getUrlPath(this.pageUrl);
+      this.builderConfigCache = this.loadJSON(`${lang}/core/builder`).pipe(shareReplay(1));
+    }
+    return this.builderConfigCache;
   }
 
   loadJSON(jsonPath: string): Observable<any> {
