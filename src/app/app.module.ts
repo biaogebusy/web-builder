@@ -1,4 +1,4 @@
-import { Title, provideClientHydration } from '@angular/platform-browser';
+import { Title, provideClientHydration, withIncrementalHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, Inject, inject, provideAppInitializer } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
@@ -59,7 +59,7 @@ import { CookieService } from 'ngx-cookie-service';
     httpInterceptorProviders,
     CookieService,
     provideHttpClient(withFetch()),
-    provideClientHydration(),
+    provideClientHydration(withIncrementalHydration()),
     {
       provide: CORE_CONFIG,
       useValue: {},
@@ -74,10 +74,8 @@ import { CookieService } from 'ngx-cookie-service';
       deps: [[new Inject(CORE_CONFIG)]],
     },
     provideAppInitializer(() => {
-      // const initializerFn = (initApp)(inject([new Inject(CORE_CONFIG)]));
-      // return initializerFn();
-      const coreConfig = inject(CORE_CONFIG);
-      return initApp(coreConfig);
+      const initializerFn = initApp(inject(CORE_CONFIG));
+      return initializerFn();
     }),
     {
       provide: LANG,

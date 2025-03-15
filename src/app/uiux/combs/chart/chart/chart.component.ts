@@ -8,9 +8,62 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import type { EChartsOption } from 'echarts/types/dist/shared';
+import type { EChartsOption, ComposeOption } from 'echarts/types/dist/shared';
 import { isArray } from 'lodash-es';
 import * as echarts from 'echarts/core';
+import {
+  GridComponent,
+  TitleComponent,
+  LegendComponent,
+  TooltipComponent,
+  DatasetComponent,
+  TransformComponent,
+} from 'echarts/components';
+import { LabelLayout, UniversalTransition } from 'echarts/features';
+import { CanvasRenderer } from 'echarts/renderers';
+import {
+  BarChart,
+  LineChart,
+  PieChart,
+  ScatterChart,
+  RadarChart,
+  MapChart,
+  CandlestickChart,
+  GraphChart,
+  TreeChart,
+  SunburstChart,
+  SankeyChart,
+  FunnelChart,
+  GaugeChart,
+  ThemeRiverChart,
+} from 'echarts/charts';
+
+// 注册必须的组件
+echarts.use([
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  DatasetComponent,
+  TransformComponent,
+  LegendComponent,
+  BarChart,
+  LineChart,
+  LabelLayout,
+  UniversalTransition,
+  CanvasRenderer,
+  PieChart,
+  ScatterChart,
+  RadarChart,
+  MapChart,
+  CandlestickChart,
+  GraphChart,
+  TreeChart,
+  SunburstChart,
+  SankeyChart,
+  FunnelChart,
+  GaugeChart,
+  ThemeRiverChart,
+]);
 
 // Import the theme
 import { ScreenService } from '@core/service/screen.service';

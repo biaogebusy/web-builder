@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
-import { Observable, of } from 'rxjs';
+import { Observable, lastValueFrom, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
@@ -99,23 +99,16 @@ export class ContentService extends ApiService {
     const configPath = environment.production
       ? `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/base`
       : `${this.apiUrl}/assets/app${lang}/core/base.json`;
-    return this.http
-      .get(configPath)
-      .pipe(
-        tap((config: any) => {
-          Object.assign(coreConfig, config);
-        })
-      )
-      .toPromise()
-      .then(
-        (config: ICoreConfig) => {
-          this.apiService.configLoadDone$.next(true);
-        },
-        error => {
-          console.log(error);
-          console.log('base json not found!');
-        }
-      );
+    return lastValueFrom(this.http.get<ICoreConfig>(configPath)).then(
+      (config: ICoreConfig) => {
+        Object.assign(coreConfig, config);
+        this.apiService.configLoadDone$.next(true);
+      },
+      error => {
+        console.log(error);
+        console.log('base json not found!');
+      }
+    );
   }
 
   loadBuilderConfig(): Observable<IBuilderConfig> {
