@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { ICombsBase } from './ICombsBase';
-import { EChartsOption } from 'echarts';
+import type { EChartsOption } from 'echarts/types/dist/shared';
 export interface ILottery extends ICombsBase {
   form: FormlyFieldConfig[];
   description: string;

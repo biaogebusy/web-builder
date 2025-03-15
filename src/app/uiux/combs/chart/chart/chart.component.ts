@@ -8,7 +8,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import type { EChartsOption } from 'echarts';
+import type { EChartsOption } from 'echarts/types/dist/shared';
 import { isArray } from 'lodash-es';
 import * as echarts from 'echarts/core';
 
@@ -50,7 +50,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   onChange(chart: any): void {
     if (isArray(this.content.series)) {
-      this.content.series.forEach(item => {
+      this.content.series.forEach((item: any) => {
         item.type = chart.value;
       });
       this.content = { ...this.content };

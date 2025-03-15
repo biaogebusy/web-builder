@@ -9,14 +9,14 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import type { ILottery, ILotteryForm } from '@core/interface/combs/ICalculator';
-import { EChartsOption } from 'echarts';
+import type { EChartsOption } from 'echarts/types/dist/shared';
 
 @Component({
-    selector: 'app-lottery',
-    templateUrl: './lottery.component.html',
-    styleUrls: ['./lottery.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-lottery',
+  templateUrl: './lottery.component.html',
+  styleUrls: ['./lottery.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class LotteryComponent implements OnInit, AfterViewInit {
   private cd = inject(ChangeDetectorRef);

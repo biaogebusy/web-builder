@@ -2,7 +2,7 @@ import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { IImg } from './IImg';
 import { IIcon } from '@core/interface/widgets/IIcon';
-import { EChartsOption } from 'echarts';
+import type { EChartsOption } from 'echarts/types/dist/shared';
 import { ILink } from './ILink';
 import { IBtn } from './IBtn';
 
