@@ -1,4 +1,4 @@
-@import '/src/theme/variable/breakpoint';
+@use '../../../../../theme/variable/breakpoint' as *;
 .showcase-1-v3 {
   overflow: hidden;
 }

@@ -1,14 +1,15 @@
 @use '@angular/material' as mat;
-@import '../../theme/variable/breakpoint';
-@import '../../theme/mixins/amixin';
+@use 'sass:map';
+@use '../../theme/variable/breakpoint' as *;
+@use '../../theme/mixins/amixin' as *;
 
 @mixin widgets-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   $bg-color: mat.m2-get-color-from-palette($background, background);
   $divider-color: mat.m2-get-color-from-palette($foreground, divider);

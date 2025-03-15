@@ -1,5 +1,5 @@
-@import '../mixins/amixin';
-@import '../variable/breakpoint';
+@use '../mixins/amixin' as *;
+@use '../variable/breakpoint' as *;
 
 .container {
   box-sizing: border-box;

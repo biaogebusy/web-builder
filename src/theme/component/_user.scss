@@ -1,12 +1,12 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin user-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   $text-base: mat.m2-get-color-from-palette($foreground, text, 0.75);
   .user {
@@ -29,20 +29,12 @@
   .user-center {
     .profile {
       background-color: mat.m2-get-color-from-palette($background, card);
-      @include mat.elevation(
-        4,
-        mat.m2-get-color-from-palette($foreground, text),
-        0.3
-      );
+      @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.3);
     }
     .main {
       .box {
         background-color: mat.m2-get-color-from-palette($background, card);
-        @include mat.elevation(
-          4,
-          mat.m2-get-color-from-palette($foreground, text),
-          0.3
-        );
+        @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.3);
       }
     }
   }

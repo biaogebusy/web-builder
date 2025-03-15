@@ -1,5 +1,6 @@
-@import '/src/theme/variable/variable';
-@import '/src/theme//mixins/amixin';
+@use '../../../../../theme/variable/variable' as *;
+@use '../../../../../theme/variable/breakpoint' as *;
+@use '../../../../../theme//mixins/amixin' as *;
 .card-1-v3 {
   .item {
     cursor: pointer;

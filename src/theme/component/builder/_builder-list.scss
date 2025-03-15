@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use '../../mixins/amixin' as *;
 @mixin builder-list($background, $foreground, $primary, $warn) {
   background-color: mat.m2-get-color-from-palette($background, card);
   .component-item {

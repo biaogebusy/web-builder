@@ -1,14 +1,14 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin chart-box-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
-  $light: map-get($background, card);
+  $light: map.get($background, card);
   .chart-box {
     .title {
       color: mat.m2-get-color-from-palette($foreground, text, 0.4);

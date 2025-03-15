@@ -1,4 +1,4 @@
-@import '../../../../theme/mixins/amixin';
+@use '../../../../theme/mixins/amixin' as *;
 :host {
   display: block;
   width: 100%;

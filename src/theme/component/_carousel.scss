@@ -1,17 +1,15 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin carousel-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
-  $light: map-get($background, card);
+  $light: map.get($background, card);
   $primary-color: mat.m2-get-color-from-palette($primary);
-  --swiper-navigation-color: #{$primary-color};
-  --swiper-theme-color: #{$primary-color};
 
   .carousel-1-v2 {
     .actions {
@@ -70,6 +68,8 @@
     }
   }
   .swiper-container {
+    --swiper-navigation-color: #{$primary-color};
+    --swiper-theme-color: #{$primary-color};
     .swiper-pagination-bullet-active {
       background-color: mat.m2-get-color-from-palette($primary);
     }

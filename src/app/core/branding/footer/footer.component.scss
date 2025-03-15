@@ -1,4 +1,4 @@
-@import '/src/theme/variable/variable';
+@use '../../../../theme/variable/variable' as *;
 
 .footer {
   position: relative;

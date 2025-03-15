@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'sass:map';
 @mixin bg-calendar($color) {
   background-color: rgba($color, 0.2);
   border-left: 3px solid $color;
@@ -12,11 +13,11 @@
 }
 @mixin calendar-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   $text-primary: mat.m2-get-color-from-palette($primary);
   .full-calendar {
@@ -75,10 +76,7 @@
         &:not(:disabled):active,
         &:not(:disabled).fc-button-active:focus,
         &:not(:disabled):active:focus {
-          background-color: mat.m2-get-color-from-palette(
-            $primary,
-            default-contrast
-          );
+          background-color: mat.m2-get-color-from-palette($primary, default-contrast);
           color: mat.m2-get-color-from-palette($primary);
         }
       }

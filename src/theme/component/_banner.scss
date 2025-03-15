@@ -1,21 +1,17 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin banner-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   .banner-simple {
     @include mat.elevation(1, mat.m2-get-color-from-palette($accent), 0.25);
     &.no-bg {
-      background-color: mat.m2-get-color-from-palette(
-        $background,
-        'app-bar',
-        0.8
-      );
+      background-color: mat.m2-get-color-from-palette($background, 'app-bar', 0.8);
       color: mat.m2-get-color-from-palette($foreground, text, 0.75);
       a {
         color: mat.m2-get-color-from-palette($foreground, text, 0.75);

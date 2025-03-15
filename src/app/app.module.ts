@@ -74,9 +74,11 @@ import { CookieService } from 'ngx-cookie-service';
       deps: [[new Inject(CORE_CONFIG)]],
     },
     provideAppInitializer(() => {
-        const initializerFn = (initApp)(inject([new Inject(CORE_CONFIG)]));
-        return initializerFn();
-      }),
+      // const initializerFn = (initApp)(inject([new Inject(CORE_CONFIG)]));
+      // return initializerFn();
+      const coreConfig = inject(CORE_CONFIG);
+      return initApp(coreConfig);
+    }),
     {
       provide: LANG,
       useFactory: langFactory,

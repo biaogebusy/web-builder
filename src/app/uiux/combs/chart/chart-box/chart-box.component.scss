@@ -1,4 +1,4 @@
-@import '../../../../../theme/variable/breakpoint';
+@use '../../../../../theme/variable/breakpoint' as *;
 .chart-box {
   .count {
     font-size: 38px;
