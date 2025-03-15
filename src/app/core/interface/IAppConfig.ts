@@ -22,7 +22,7 @@ export interface ICoreConfig {
   article?: IArticle;
   editor: IEditor;
   actions: IActions;
-  dialog: IDialog;
+  dialog: IForceDialog;
   user: User;
   analytics?: {
     ga?: {
@@ -205,7 +205,7 @@ export interface ForceDialog {
   text: Text;
 }
 
-export interface IDialog {
+export interface IForceDialog {
   forceDialog: ForceDialog;
 }
 

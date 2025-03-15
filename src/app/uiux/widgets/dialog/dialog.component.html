@@ -17,9 +17,10 @@
     }
   </mat-dialog-content>
   @if (!data.disableCloseButton) {
-    <div class="flex !justify-center !items-center" mat-dialog-actions>
-      <button mat-raised-button color="primary" [mat-dialog-close]="true">
-        {{ data.closeLabel ?? '关闭' }}
+    <div class="flex !justify-center !items-center gap-3" mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">{{ data.noLabel }}</button>
+      <button mat-raised-button color="primary" (click)="onYesClick()" cdkFocusInitial>
+        {{ data.yesLabel }}
       </button>
     </div>
   }

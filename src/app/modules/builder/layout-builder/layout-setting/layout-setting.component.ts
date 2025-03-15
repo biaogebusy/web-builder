@@ -5,6 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
+import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -61,19 +62,21 @@ export class LayoutSettingComponent {
   }
 
   applyAosAllTopComponent(animate: any): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '340px',
-      data: {
-        title: '一键应用动画',
-        closeLabel: '确定应用',
-        inputData: {
-          content: {
-            type: 'text',
-            fullWidth: true,
-            body: '将会把当前AOS的动画配置应用到页面最外层的所有一级组件，已有动画会被覆盖。',
-          },
+    const config: IDialog = {
+      title: '一键应用动画',
+      noLabel: '取消',
+      yesLabel: '确定应用',
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: '将会把当前AOS的动画配置应用到页面最外层的所有一级组件，已有动画会被覆盖。',
         },
       },
+    };
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '340px',
+      data: config,
     });
 
     dialogRef
@@ -115,6 +118,18 @@ export class LayoutSettingComponent {
     let dialogRef: any;
     let builderList: any;
     if (path && this.content.content.type === 'custom-template') {
+      const config: IDialog = {
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'code-editor',
+            path,
+            content: get(this.builder.currentPage.body, path),
+            fullWidth: true,
+          },
+        },
+      };
+
       dialogRef = this.dialog.open(DialogComponent, {
         width: '85vw',
         hasBackdrop: false,
@@ -123,17 +138,7 @@ export class LayoutSettingComponent {
           bottom: '0px',
         },
         id: 'code-editor-dialog',
-        data: {
-          disableCloseButton: true,
-          inputData: {
-            content: {
-              type: 'code-editor',
-              path,
-              content: get(this.builder.currentPage.body, path),
-              fullWidth: true,
-            },
-          },
-        },
+        data: config,
       });
 
       dialogRef

@@ -9,8 +9,7 @@ import type { IInlineLightbox } from '@core/interface/widgets/IWidgets';
 })
 export class InlineLightboxComponent implements OnInit {
   @Input() content: IInlineLightbox;
-  dialogRef: any;
-  settings = {
+  public settings = {
     counter: false,
   };
 

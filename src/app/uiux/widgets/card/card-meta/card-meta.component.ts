@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
-import { TextComponent } from '../../text/text.component';
 import { DialogComponent } from '../../dialog/dialog.component';
 import type { IMeta } from '@core/interface/widgets/ICard';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +20,6 @@ export class CardMetaComponent implements OnInit {
     this.dialog.open(DialogComponent, {
       width: '600px',
       data: {
-        renderInputComponent: TextComponent,
         inputData: {
           content: {
             type: 'text',

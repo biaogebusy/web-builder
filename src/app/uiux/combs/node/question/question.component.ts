@@ -132,7 +132,7 @@ export class QuestionComponent extends NodeComponent implements OnInit, AfterVie
   openLogin(): void {
     const returnUrl = window.location.pathname;
     const queryParams = {
-      returnUrl: returnUrl,
+      returnUrl,
     };
     this.dialogRef = this.userService.openLoginDialog(queryParams);
     this.dialogRef

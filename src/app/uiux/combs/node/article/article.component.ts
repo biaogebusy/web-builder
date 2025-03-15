@@ -115,7 +115,7 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   openLogin(): void {
     const returnUrl = window.location.pathname;
     const queryParams = {
-      returnUrl: returnUrl,
+      returnUrl,
     };
     this.dialogRef = this.userService.openLoginDialog(queryParams);
     this.dialogRef

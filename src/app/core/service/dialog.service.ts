@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { TextComponent } from '../../uiux/widgets/text/text.component';
 import { DOCUMENT } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -55,7 +54,6 @@ export class DialogService {
       panelClass: 'force-dialog',
       backdropClass: 'force-backdrop',
       data: {
-        renderInputComponent: TextComponent,
         disableCloseButton: true,
         inputData: {
           content: config.text,
