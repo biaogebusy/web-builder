@@ -8,7 +8,8 @@
 
 @include reset-styles();
 
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 @include branding(map.get($color-theme, shadow), 'shadow');
 @include branding(map.get($color-theme, light), 'light');
