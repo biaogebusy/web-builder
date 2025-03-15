@@ -21,9 +21,10 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, delay } from 'rxjs';
 
 @Component({
-  selector: 'app-component-toolbar',
-  templateUrl: './component-toolbar.component.html',
-  styleUrls: ['./component-toolbar.component.scss'],
+    selector: 'app-component-toolbar',
+    templateUrl: './component-toolbar.component.html',
+    styleUrls: ['./component-toolbar.component.scss'],
+    standalone: false
 })
 export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);

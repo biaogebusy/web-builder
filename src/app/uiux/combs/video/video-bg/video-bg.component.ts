@@ -3,9 +3,10 @@ import type { IVideoBg } from '@core/interface/combs/IVideoBg';
 import type { IVideo } from '@core/interface/widgets/IVideo';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
-  selector: 'app-video-bg',
-  templateUrl: './video-bg.component.html',
-  styleUrls: ['./video-bg.component.scss'],
+    selector: 'app-video-bg',
+    templateUrl: './video-bg.component.html',
+    styleUrls: ['./video-bg.component.scss'],
+    standalone: false
 })
 export class VideoBgComponent implements AfterViewInit {
   @Input() content: IVideoBg;

@@ -10,10 +10,11 @@ import {
 import type { IShowcase3v3 } from '@core/interface/combs/IShowcase';
 
 @Component({
-  selector: 'app-showcase-3v3',
-  templateUrl: './showcase3v3.component.html',
-  styleUrls: ['./showcase3v3.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-showcase-3v3',
+    templateUrl: './showcase3v3.component.html',
+    styleUrls: ['./showcase3v3.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class Showcase3v3Component implements OnInit, AfterViewInit {
   private cd = inject(ChangeDetectorRef);

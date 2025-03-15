@@ -5,10 +5,11 @@ import { IDialog } from '@core/interface/IDialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
-  selector: 'app-terms-service',
-  templateUrl: './terms-service.component.html',
-  styleUrls: ['./terms-service.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-terms-service',
+    templateUrl: './terms-service.component.html',
+    styleUrls: ['./terms-service.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TermsServiceComponent implements OnInit {
   private dialog = inject(MatDialog);

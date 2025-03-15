@@ -13,10 +13,11 @@ import { RouteService } from '@core/service/route.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 @Component({
-  selector: 'app-feature-box',
-  templateUrl: './feature-box.component.html',
-  styleUrls: ['./feature-box.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-feature-box',
+    templateUrl: './feature-box.component.html',
+    styleUrls: ['./feature-box.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FeatureBoxComponent implements OnInit {
   @Input() content: IFeatureBox;

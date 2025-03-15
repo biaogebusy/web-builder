@@ -8,10 +8,11 @@ import { UntypedFormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'app-datepicker',
-  templateUrl: './datepicker.component.html',
-  styleUrls: ['./datepicker.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-datepicker',
+    templateUrl: './datepicker.component.html',
+    styleUrls: ['./datepicker.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DatepickerComponent implements OnInit {
   @Input() content: any;

@@ -7,10 +7,11 @@ import {
 import type { IBgImg } from '@core/interface/widgets/IBgImg';
 
 @Component({
-  selector: 'app-bg-img',
-  templateUrl: './bg-img.component.html',
-  styleUrls: ['./bg-img.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-bg-img',
+    templateUrl: './bg-img.component.html',
+    styleUrls: ['./bg-img.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BgImgComponent implements OnInit {
   @Input() content: IBgImg;

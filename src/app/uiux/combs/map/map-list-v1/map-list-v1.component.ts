@@ -4,9 +4,10 @@ import type { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 
 @Component({
-  selector: 'app-map-list-v1',
-  templateUrl: './map-list-v1.component.html',
-  styleUrls: ['./map-list-v1.component.scss'],
+    selector: 'app-map-list-v1',
+    templateUrl: './map-list-v1.component.html',
+    styleUrls: ['./map-list-v1.component.scss'],
+    standalone: false
 })
 export class MapListV1Component implements OnInit {
   @Input() content: IMapListv1;

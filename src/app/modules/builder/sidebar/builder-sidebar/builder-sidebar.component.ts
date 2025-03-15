@@ -10,10 +10,11 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'app-builder-sidebar',
-  templateUrl: './builder-sidebar.component.html',
-  styleUrls: ['./builder-sidebar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-builder-sidebar',
+    templateUrl: './builder-sidebar.component.html',
+    styleUrls: ['./builder-sidebar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuilderSidebarComponent implements OnInit {
   public branding$ = inject<Observable<IBranding>>(BRANDING);

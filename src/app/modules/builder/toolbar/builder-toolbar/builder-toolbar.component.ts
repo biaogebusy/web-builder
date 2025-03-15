@@ -26,10 +26,11 @@ import { UserService } from '@core/service/user.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-builder-toolbar',
-  templateUrl: './builder-toolbar.component.html',
-  styleUrls: ['./builder-toolbar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-builder-toolbar',
+    templateUrl: './builder-toolbar.component.html',
+    styleUrls: ['./builder-toolbar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   private user$ = inject<Observable<IUser>>(USER);

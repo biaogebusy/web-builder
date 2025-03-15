@@ -5,7 +5,8 @@ import type { IUser } from '@core/interface/IUser';
 import { Observable } from 'rxjs';
 
 @Directive({
-  selector: '[reqRolesIf]',
+    selector: '[reqRolesIf]',
+    standalone: false
 })
 export class ReqRolesDirective {
   private currentUser$ = inject<Observable<IUser>>(USER);

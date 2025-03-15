@@ -11,9 +11,10 @@ import { Observable, lastValueFrom, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-upload-media',
-  templateUrl: './upload-media.component.html',
-  styleUrl: './upload-media.component.scss',
+    selector: 'app-upload-media',
+    templateUrl: './upload-media.component.html',
+    styleUrl: './upload-media.component.scss',
+    standalone: false
 })
 export class UploadMediaComponent {
   private user$ = inject<Observable<IUser>>(USER);

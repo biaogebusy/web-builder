@@ -19,10 +19,11 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-builder-menu',
-  templateUrl: './builder-menu.component.html',
-  styleUrls: ['./builder-menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-builder-menu',
+    templateUrl: './builder-menu.component.html',
+    styleUrls: ['./builder-menu.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuilderMenuComponent implements OnInit, AfterViewInit {
   debugAnimate$ = inject<Observable<boolean>>(DEBUG_ANIMATE);

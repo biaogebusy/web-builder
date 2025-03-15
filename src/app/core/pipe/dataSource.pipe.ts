@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Pipe({
-  name: 'dataSource',
+    name: 'dataSource',
+    standalone: false
 })
 export class DataSourcePipe implements PipeTransform {
   transform(array: any[]): any {

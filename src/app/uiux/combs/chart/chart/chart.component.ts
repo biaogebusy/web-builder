@@ -16,9 +16,10 @@ import * as echarts from 'echarts';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-  selector: 'app-chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss'],
+    selector: 'app-chart',
+    templateUrl: './chart.component.html',
+    styleUrls: ['./chart.component.scss'],
+    standalone: false
 })
 export class ChartComponent implements OnInit, AfterViewInit {
   @Input() content: EChartsOption;

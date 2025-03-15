@@ -24,9 +24,10 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 @Component({
-  selector: 'app-builder-list',
-  templateUrl: './builder-list.component.html',
-  styleUrls: ['./builder-list.component.scss'],
+    selector: 'app-builder-list',
+    templateUrl: './builder-list.component.html',
+    styleUrls: ['./builder-list.component.scss'],
+    standalone: false
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private doc = inject<Document>(DOCUMENT);

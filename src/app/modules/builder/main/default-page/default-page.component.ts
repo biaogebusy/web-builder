@@ -5,10 +5,11 @@ import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-  selector: 'app-default-page',
-  templateUrl: './default-page.component.html',
-  styleUrl: './default-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-default-page',
+    templateUrl: './default-page.component.html',
+    styleUrl: './default-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DefaultPageComponent implements OnInit {
   public content$: Observable<IPage>;

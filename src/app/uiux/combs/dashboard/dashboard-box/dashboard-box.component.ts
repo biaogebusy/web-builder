@@ -10,9 +10,10 @@ import { Observable, of } from 'rxjs';
 import { catchError, delay, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-dashboard-box',
-  templateUrl: './dashboard-box.component.html',
-  styleUrls: ['./dashboard-box.component.scss'],
+    selector: 'app-dashboard-box',
+    templateUrl: './dashboard-box.component.html',
+    styleUrls: ['./dashboard-box.component.scss'],
+    standalone: false
 })
 export class DashboardBoxComponent extends BaseComponent implements OnInit {
   @Input() content: IDashboardBox;

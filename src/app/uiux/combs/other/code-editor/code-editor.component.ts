@@ -13,9 +13,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
-  selector: 'app-code-editor',
-  templateUrl: './code-editor.component.html',
-  styleUrls: ['./code-editor.component.scss'],
+    selector: 'app-code-editor',
+    templateUrl: './code-editor.component.html',
+    styleUrls: ['./code-editor.component.scss'],
+    standalone: false
 })
 export class CodeEditorComponent implements OnInit {
   @Input() content: ICodeEditor;

@@ -14,10 +14,11 @@ import { of, ReplaySubject } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-mat-select',
-  templateUrl: './mat-select.component.html',
-  styleUrls: ['./mat-select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-mat-select',
+    templateUrl: './mat-select.component.html',
+    styleUrls: ['./mat-select.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MatSelectComponent extends FieldType<FieldTypeConfig> implements OnInit {
   @ViewChild('select') select: MatSelect;

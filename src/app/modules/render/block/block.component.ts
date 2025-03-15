@@ -21,16 +21,17 @@ import AOS from 'aos';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-  selector: 'app-block',
-  templateUrl: './block.component.html',
-  styleUrls: ['./block.component.scss'],
-  // host: { ngSkipHydration: 'true' },
-  providers: [
-    {
-      provide: PAGE_CONTENT,
-      useFactory: pageContentFactory,
-    },
-  ],
+    selector: 'app-block',
+    templateUrl: './block.component.html',
+    styleUrls: ['./block.component.scss'],
+    // host: { ngSkipHydration: 'true' },
+    providers: [
+        {
+            provide: PAGE_CONTENT,
+            useFactory: pageContentFactory,
+        },
+    ],
+    standalone: false
 })
 export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);

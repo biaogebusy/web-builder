@@ -14,10 +14,11 @@ import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-showcase-4v1',
-  templateUrl: './showcase4v1.component.html',
-  styleUrls: ['./showcase4v1.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-showcase-4v1',
+    templateUrl: './showcase4v1.component.html',
+    styleUrls: ['./showcase4v1.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class Showcase4v1Component extends BaseComponent implements OnInit {
   private nodeService = inject(NodeService);

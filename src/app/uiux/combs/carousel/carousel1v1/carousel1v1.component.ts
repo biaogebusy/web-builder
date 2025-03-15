@@ -7,10 +7,11 @@ import {
 import type { ICarouselBase } from '@core/interface/combs/ICarousel';
 
 @Component({
-  selector: 'app-carousel-1v1',
-  templateUrl: './carousel1v1.component.html',
-  styleUrls: ['./carousel1v1.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-carousel-1v1',
+    templateUrl: './carousel1v1.component.html',
+    styleUrls: ['./carousel1v1.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class Carousel1v1Component implements OnInit {
   @Input() content: ICarouselBase;

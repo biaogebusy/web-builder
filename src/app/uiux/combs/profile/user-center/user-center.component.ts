@@ -13,9 +13,10 @@ import type { IUser } from '@core/interface/IUser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-user-center',
-  templateUrl: './user-center.component.html',
-  styleUrls: ['./user-center.component.scss'],
+    selector: 'app-user-center',
+    templateUrl: './user-center.component.html',
+    styleUrls: ['./user-center.component.scss'],
+    standalone: false
 })
 export class UserCenterComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

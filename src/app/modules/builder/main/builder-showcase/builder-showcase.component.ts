@@ -8,9 +8,10 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
-  selector: 'app-builder-showcase',
-  templateUrl: './builder-showcase.component.html',
-  styleUrls: ['./builder-showcase.component.scss'],
+    selector: 'app-builder-showcase',
+    templateUrl: './builder-showcase.component.html',
+    styleUrls: ['./builder-showcase.component.scss'],
+    standalone: false
 })
 export class BuilderShowcaseComponent implements OnInit {
   @Input() content: IBuilderShowcase;

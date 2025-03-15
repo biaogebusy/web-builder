@@ -12,9 +12,10 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { cloneDeep, defaultsDeep, get } from 'lodash-es';
 
 @Component({
-  selector: 'app-layout-setting',
-  templateUrl: './layout-setting.component.html',
-  styleUrls: ['./layout-setting.component.scss'],
+    selector: 'app-layout-setting',
+    templateUrl: './layout-setting.component.html',
+    styleUrls: ['./layout-setting.component.scss'],
+    standalone: false
 })
 export class LayoutSettingComponent {
   @Input() content: ILayoutSetting;

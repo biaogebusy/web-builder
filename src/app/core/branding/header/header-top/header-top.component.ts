@@ -11,10 +11,11 @@ import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-  selector: 'app-header-top',
-  templateUrl: './header-top.component.html',
-  styleUrls: ['./header-top.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-header-top',
+    templateUrl: './header-top.component.html',
+    styleUrls: ['./header-top.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HeaderTopComponent implements OnInit {
   @Input() content: IHeaderTop | undefined;

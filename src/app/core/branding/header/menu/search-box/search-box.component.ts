@@ -16,10 +16,11 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import type { IHeaderSearch } from '@core/interface/branding/IBranding';
 
 @Component({
-  selector: 'app-search-box',
-  templateUrl: './search-box.component.html',
-  styleUrls: ['./search-box.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-search-box',
+    templateUrl: './search-box.component.html',
+    styleUrls: ['./search-box.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SearchBoxComponent extends BaseComponent implements OnInit {
   @Input() content: IHeaderSearch;

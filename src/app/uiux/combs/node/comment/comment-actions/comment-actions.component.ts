@@ -15,10 +15,11 @@ import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-comment-actions',
-  templateUrl: './comment-actions.component.html',
-  styleUrls: ['./comment-actions.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-comment-actions',
+    templateUrl: './comment-actions.component.html',
+    styleUrls: ['./comment-actions.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CommentActionsComponent implements OnInit {
   contentState = inject(ContentState);

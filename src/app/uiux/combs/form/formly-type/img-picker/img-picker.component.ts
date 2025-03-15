@@ -7,9 +7,10 @@ import { FieldType } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
-  selector: 'app-img-picker',
-  templateUrl: './img-picker.component.html',
-  styleUrls: ['./img-picker.component.scss'],
+    selector: 'app-img-picker',
+    templateUrl: './img-picker.component.html',
+    styleUrls: ['./img-picker.component.scss'],
+    standalone: false
 })
 export class ImgPickerComponent extends FieldType implements OnInit {
   time: Date;

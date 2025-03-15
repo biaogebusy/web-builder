@@ -22,10 +22,11 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-page-setting',
-  templateUrl: './page-setting.component.html',
-  styleUrl: './page-setting.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-page-setting',
+    templateUrl: './page-setting.component.html',
+    styleUrl: './page-setting.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PageSettingComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

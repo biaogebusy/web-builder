@@ -20,9 +20,10 @@ import { BuilderState } from '@core/state/BuilderState';
 import { createPopper } from '@popperjs/core';
 
 @Component({
-  selector: 'app-layout-builder',
-  templateUrl: './layout-builder.component.html',
-  styleUrls: ['./layout-builder.component.scss'],
+    selector: 'app-layout-builder',
+    templateUrl: './layout-builder.component.html',
+    styleUrls: ['./layout-builder.component.scss'],
+    standalone: false
 })
 export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);

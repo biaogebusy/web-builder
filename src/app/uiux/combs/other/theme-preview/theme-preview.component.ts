@@ -5,9 +5,10 @@ import { ScreenService } from '@core/service/screen.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-theme-preview',
-  templateUrl: './theme-preview.component.html',
-  styleUrls: ['./theme-preview.component.scss'],
+    selector: 'app-theme-preview',
+    templateUrl: './theme-preview.component.html',
+    styleUrls: ['./theme-preview.component.scss'],
+    standalone: false
 })
 export class ThemePreviewComponent implements OnInit {
   public page$: Observable<IPage>;

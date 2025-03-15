@@ -14,8 +14,9 @@ import { BuilderState } from '@core/state/BuilderState';
 import { getInlineImg } from '@modules/builder/factory/getInlinImg';
 import { getInlineText } from '@modules/builder/factory/getInlineText';
 @Directive({
-  // tslint:disable-next-line:directive-selector
-  selector: '[contentedit]',
+    // tslint:disable-next-line:directive-selector
+    selector: '[contentedit]',
+    standalone: false
 })
 export class ContenteditDirective implements AfterViewInit, OnInit {
   private componentItem: Element | null = null;

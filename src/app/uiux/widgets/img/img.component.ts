@@ -5,9 +5,10 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
 @Component({
-  selector: 'app-img',
-  templateUrl: './img.component.html',
-  styleUrls: ['./img.component.scss'],
+    selector: 'app-img',
+    templateUrl: './img.component.html',
+    styleUrls: ['./img.component.scss'],
+    standalone: false
 })
 export class ImgComponent implements OnInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);

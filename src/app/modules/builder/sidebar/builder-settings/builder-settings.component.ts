@@ -19,10 +19,11 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-builder-settings',
-  templateUrl: './builder-settings.component.html',
-  styleUrls: ['./builder-settings.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-builder-settings',
+    templateUrl: './builder-settings.component.html',
+    styleUrls: ['./builder-settings.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   @Input() content: any;

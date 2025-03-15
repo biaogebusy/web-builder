@@ -24,10 +24,11 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-full-calendar',
-  templateUrl: './full-calendar.component.html',
-  styleUrls: ['./full-calendar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-full-calendar',
+    templateUrl: './full-calendar.component.html',
+    styleUrls: ['./full-calendar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FullCalendarComponent extends BaseComponent implements OnInit {
   @Input() readonly content: IFullCalendar;

@@ -11,10 +11,11 @@ import { UntypedFormGroup } from '@angular/forms';
 import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
-  selector: 'app-contact-us',
-  templateUrl: './contact-us.component.html',
-  styleUrls: ['./contact-us.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-contact-us',
+    templateUrl: './contact-us.component.html',
+    styleUrls: ['./contact-us.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ContactUsComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);

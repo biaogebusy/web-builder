@@ -15,10 +15,11 @@ import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-hover-menu',
-  templateUrl: './hover-menu.component.html',
-  styleUrls: ['./hover-menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-hover-menu',
+    templateUrl: './hover-menu.component.html',
+    styleUrls: ['./hover-menu.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HoverMenuComponent extends BaseComponent implements OnInit {
   private eleRef = inject(ElementRef);

@@ -15,10 +15,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
 
 @Component({
-  selector: 'app-inline-editor',
-  templateUrl: './inline-editor.component.html',
-  styleUrls: ['./inline-editor.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-inline-editor',
+    templateUrl: './inline-editor.component.html',
+    styleUrls: ['./inline-editor.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class InlineEditComponent implements OnInit, AfterViewInit {
   form = new UntypedFormGroup({});

@@ -6,11 +6,12 @@ import { BRANDING, CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss'],
-  host: { ngSkipHydration: 'true' },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-menu',
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.scss'],
+    host: { ngSkipHydration: 'true' },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MenuComponent implements OnInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);

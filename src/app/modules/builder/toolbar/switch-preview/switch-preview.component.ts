@@ -14,10 +14,11 @@ import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-switch-preview',
-  templateUrl: './switch-preview.component.html',
-  styleUrls: ['./switch-preview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-switch-preview',
+    templateUrl: './switch-preview.component.html',
+    styleUrls: ['./switch-preview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SwitchPreviewComponent implements OnInit {
   currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);

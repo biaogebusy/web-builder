@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FieldArrayType } from '@ngx-formly/core';
 
 @Component({
-  selector: 'formly-repeat',
-  template: `
+    selector: 'formly-repeat',
+    template: `
     @for (field of field.fieldGroup; track field; let i = $index) {
       <div class="row">
         <formly-field class="w-full" [field]="field" />
@@ -35,5 +35,6 @@ import { FieldArrayType } from '@ngx-formly/core';
         }" />
     </div>
   `,
+    standalone: false
 })
 export class RepeatTypeComponent extends FieldArrayType {}

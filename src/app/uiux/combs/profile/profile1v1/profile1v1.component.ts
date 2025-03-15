@@ -20,9 +20,10 @@ import { ContentState } from '@core/state/ContentState';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-profile-1v1',
-  templateUrl: './profile1v1.component.html',
-  styleUrls: ['./profile1v1.component.scss'],
+    selector: 'app-profile-1v1',
+    templateUrl: './profile1v1.component.html',
+    styleUrls: ['./profile1v1.component.scss'],
+    standalone: false
 })
 export class Profile1v1Component implements OnInit, AfterViewInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);

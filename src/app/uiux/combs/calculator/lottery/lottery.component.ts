@@ -12,10 +12,11 @@ import type { ILottery, ILotteryForm } from '@core/interface/combs/ICalculator';
 import { EChartsOption } from 'echarts';
 
 @Component({
-  selector: 'app-lottery',
-  templateUrl: './lottery.component.html',
-  styleUrls: ['./lottery.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-lottery',
+    templateUrl: './lottery.component.html',
+    styleUrls: ['./lottery.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LotteryComponent implements OnInit, AfterViewInit {
   private cd = inject(ChangeDetectorRef);

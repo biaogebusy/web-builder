@@ -14,10 +14,11 @@ import type { Card1v3Item, ICard1v3 } from '@core/interface/widgets/ICard';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-card-1v3',
-  templateUrl: './card1v3.component.html',
-  styleUrls: ['./card1v3.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-card-1v3',
+    templateUrl: './card1v3.component.html',
+    styleUrls: ['./card1v3.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class Card1v3Component implements OnInit {
   private dialog = inject(MatDialog);

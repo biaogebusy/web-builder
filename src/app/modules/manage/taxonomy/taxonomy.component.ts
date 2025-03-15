@@ -19,10 +19,11 @@ import { StripTagsPipe } from 'ngx-pipes';
 import { Observable, catchError, of, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-taxonomy',
-  templateUrl: './taxonomy.component.html',
-  styleUrl: './taxonomy.component.scss',
-  providers: [StripTagsPipe],
+    selector: 'app-taxonomy',
+    templateUrl: './taxonomy.component.html',
+    styleUrl: './taxonomy.component.scss',
+    providers: [StripTagsPipe],
+    standalone: false
 })
 export class TaxonomyComponent implements OnInit {
   @Input() content: ITaxonomy;

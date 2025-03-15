@@ -7,10 +7,11 @@ import {
 import type { ILocation } from '@core/interface/combs/IMap';
 
 @Component({
-  selector: 'app-location',
-  templateUrl: './location.component.html',
-  styleUrls: ['./location.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-location',
+    templateUrl: './location.component.html',
+    styleUrls: ['./location.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LocationComponent implements OnInit {
   @Input() content: ILocation;

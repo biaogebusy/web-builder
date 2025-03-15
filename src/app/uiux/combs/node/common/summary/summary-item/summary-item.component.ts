@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import type { ISummaryItem } from '@core/interface/node/ISummaryItem';
 
 @Component({
-  selector: 'app-summary-item',
-  templateUrl: './summary-item.component.html',
-  styleUrls: ['./summary-item.component.scss'],
+    selector: 'app-summary-item',
+    templateUrl: './summary-item.component.html',
+    styleUrls: ['./summary-item.component.scss'],
+    standalone: false
 })
 export class SummaryItemComponent implements OnInit {
   @Input() content: ISummaryItem;

@@ -6,10 +6,11 @@ import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-builder',
-  templateUrl: './builder.component.html',
-  styleUrls: ['./builder.component.scss'],
-  host: { ngSkipHydration: 'true' },
+    selector: 'app-builder',
+    templateUrl: './builder.component.html',
+    styleUrls: ['./builder.component.scss'],
+    host: { ngSkipHydration: 'true' },
+    standalone: false
 })
 export class BuilderComponent implements OnInit, AfterViewInit {
   @ViewChild('builderRightDrawer', { static: false })

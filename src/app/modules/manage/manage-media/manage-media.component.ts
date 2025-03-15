@@ -25,9 +25,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 
 @Component({
-  selector: 'app-manage-media',
-  templateUrl: './manage-media.component.html',
-  styleUrls: ['./manage-media.component.scss'],
+    selector: 'app-manage-media',
+    templateUrl: './manage-media.component.html',
+    styleUrls: ['./manage-media.component.scss'],
+    standalone: false
 })
 export class ManageMediaComponent implements OnInit {
   private builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);

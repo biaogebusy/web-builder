@@ -20,10 +20,11 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, catchError, of } from 'rxjs';
 
 @Component({
-  selector: 'app-user-setting',
-  templateUrl: './user-setting.component.html',
-  styleUrl: './user-setting.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-user-setting',
+    templateUrl: './user-setting.component.html',
+    styleUrl: './user-setting.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UserSettingComponent implements OnInit {
   public user$ = inject<Observable<IUser>>(USER);

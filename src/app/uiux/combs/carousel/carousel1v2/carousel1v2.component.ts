@@ -14,9 +14,10 @@ import { defaultsDeep } from 'lodash-es';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-carousel-1v2',
-  templateUrl: './carousel1v2.component.html',
-  styleUrls: ['./carousel1v2.component.scss'],
+    selector: 'app-carousel-1v2',
+    templateUrl: './carousel1v2.component.html',
+    styleUrls: ['./carousel1v2.component.scss'],
+    standalone: false
 })
 export class Carousel1v2Component implements OnInit, AfterViewInit {
   @Input() content: ICarouselBase;

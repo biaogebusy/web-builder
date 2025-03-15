@@ -11,9 +11,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-builder-page',
-  templateUrl: './builder-page.component.html',
-  styleUrls: ['./builder-page.component.scss'],
+    selector: 'app-builder-page',
+    templateUrl: './builder-page.component.html',
+    styleUrls: ['./builder-page.component.scss'],
+    standalone: false
 })
 export class BuilderPageComponent implements OnInit {
   pages$: Observable<any[]>;
