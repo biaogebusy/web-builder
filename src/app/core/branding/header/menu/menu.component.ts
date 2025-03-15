@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  inject,
+} from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -6,12 +13,11 @@ import { BRANDING, CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
 @Component({
-    selector: 'app-menu',
-    templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss'],
-    host: { ngSkipHydration: 'true' },
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MenuComponent implements OnInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);

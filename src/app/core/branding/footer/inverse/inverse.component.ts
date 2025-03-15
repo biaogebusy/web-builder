@@ -4,11 +4,10 @@ import { FormService } from '@core/service/form.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
-    selector: 'app-inverse',
-    templateUrl: './inverse.component.html',
-    styleUrls: ['./inverse.component.scss'],
-    host: { ngSkipHydration: 'true' },
-    standalone: false
+  selector: 'app-inverse',
+  templateUrl: './inverse.component.html',
+  styleUrls: ['./inverse.component.scss'],
+  standalone: false,
 })
 export class InverseComponent {
   @Input() content: any;

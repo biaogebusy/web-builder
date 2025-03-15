@@ -8,7 +8,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import type { EChartsOption, ComposeOption } from 'echarts/types/dist/shared';
+import type { EChartsOption } from 'echarts/types/dist/shared';
 import { isArray } from 'lodash-es';
 import * as echarts from 'echarts/core';
 import {
