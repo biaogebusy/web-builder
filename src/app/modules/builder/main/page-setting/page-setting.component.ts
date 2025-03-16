@@ -10,6 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
@@ -22,11 +23,11 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-page-setting',
-    templateUrl: './page-setting.component.html',
-    styleUrl: './page-setting.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-page-setting',
+  templateUrl: './page-setting.component.html',
+  styleUrl: './page-setting.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class PageSettingComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
@@ -458,22 +459,23 @@ export class PageSettingComponent implements OnInit {
   }
 
   onPreview(): void {
+    const config: IDialog = {
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'iframe',
+          url: `${this.model.alias}?nocache=true`,
+          width: '100%',
+          fullWidth: true,
+          classes: 'h-screen',
+        },
+      },
+    };
     this.dialog.open(DialogComponent, {
       width: '85vw',
       height: '85vh',
       panelClass: ['close-outside', 'close-icon-white', 'dialog-p-0', 'page-preview-dialog'],
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'iframe',
-            url: `${this.model.alias}?nocache=true`,
-            width: '100%',
-            fullWidth: true,
-            classes: 'h-screen',
-          },
-        },
-      },
+      data: config,
     });
   }
 

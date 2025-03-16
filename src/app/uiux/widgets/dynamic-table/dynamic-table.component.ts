@@ -18,19 +18,20 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { IDialog } from '@core/interface/IDialog';
 
 @Component({
-    selector: 'app-dynamic-table',
-    templateUrl: './dynamic-table.component.html',
-    styleUrls: ['./dynamic-table.component.scss'],
-    animations: [
-        trigger('detailExpand', [
-            state('collapsed', style({ height: '0px', minHeight: '0' })),
-            state('expanded', style({ height: '*' })),
-            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-        ]),
-    ],
-    standalone: false
+  selector: 'app-dynamic-table',
+  templateUrl: './dynamic-table.component.html',
+  styleUrls: ['./dynamic-table.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
+  standalone: false,
 })
 export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() content: IDynamicTable;
@@ -70,21 +71,22 @@ export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   openDialog(label: string, content: any): void {
-    this.dialog.open(DialogComponent, {
-      width: '600px',
-      data: {
-        inputData: {
-          content: {
-            type: 'text',
-            spacer: 'none',
-            title: {
-              label,
-              style: 'style-v4',
-            },
-            body: content,
+    const config: IDialog = {
+      inputData: {
+        content: {
+          type: 'text',
+          spacer: 'none',
+          title: {
+            label,
+            style: 'style-v4',
           },
+          body: content,
         },
       },
+    };
+    this.dialog.open(DialogComponent, {
+      width: '600px',
+      data: config,
     });
   }
 

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IBuilderShowcase } from '@core/interface/IBuilder';
+import { IDialog } from '@core/interface/IDialog';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -8,10 +9,10 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
-    selector: 'app-builder-showcase',
-    templateUrl: './builder-showcase.component.html',
-    styleUrls: ['./builder-showcase.component.scss'],
-    standalone: false
+  selector: 'app-builder-showcase',
+  templateUrl: './builder-showcase.component.html',
+  styleUrls: ['./builder-showcase.component.scss'],
+  standalone: false,
 })
 export class BuilderShowcaseComponent implements OnInit {
   @Input() content: IBuilderShowcase;
@@ -36,16 +37,17 @@ export class BuilderShowcaseComponent implements OnInit {
   }
 
   showCode(component: any): void {
-    this.dialog.open(DialogComponent, {
-      width: '800px',
-      data: {
-        inputData: {
-          content: {
-            type: 'jsoneditor',
-            data: component,
-          },
+    const config: IDialog = {
+      inputData: {
+        content: {
+          type: 'jsoneditor',
+          data: component,
         },
       },
+    };
+    this.dialog.open(DialogComponent, {
+      width: '800px',
+      data: config,
     });
   }
 

@@ -20,6 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { WIDGETS } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { IDialog } from '@core/interface/IDialog';
 
 @Injectable({
   providedIn: 'root',
@@ -397,17 +398,18 @@ export class BuilderState {
   onNewPage(): void {
     this.fixedShowcase = false;
     this.showcase$.next(false);
-    this.dialog.open(DialogComponent, {
-      width: '1200px',
-      data: {
-        title: '选择模板创建页面',
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'builder-template',
-          },
+    const config: IDialog = {
+      title: '选择模板创建页面',
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'builder-template',
         },
       },
+    };
+    this.dialog.open(DialogComponent, {
+      width: '1200px',
+      data: config,
     });
   }
 }

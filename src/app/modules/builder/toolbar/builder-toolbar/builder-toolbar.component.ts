@@ -24,13 +24,14 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
 import { Router } from '@angular/router';
+import { IDialog } from '@core/interface/IDialog';
 
 @Component({
-    selector: 'app-builder-toolbar',
-    templateUrl: './builder-toolbar.component.html',
-    styleUrls: ['./builder-toolbar.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-builder-toolbar',
+  templateUrl: './builder-toolbar.component.html',
+  styleUrls: ['./builder-toolbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   private user$ = inject<Observable<IUser>>(USER);
@@ -90,17 +91,18 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   }
 
   onNewPage(): void {
-    this.dialog.open(DialogComponent, {
-      width: '1200px',
-      data: {
-        title: '选择模板创建页面',
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'builder-template',
-          },
+    const config: IDialog = {
+      title: '选择模板创建页面',
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'builder-template',
         },
       },
+    };
+    this.dialog.open(DialogComponent, {
+      width: '1200px',
+      data: config,
     });
   }
 

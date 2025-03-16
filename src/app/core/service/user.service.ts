@@ -16,6 +16,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Params, Router } from '@angular/router';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { DialogRef } from '@angular/cdk/dialog';
+import { IDialog } from '@core/interface/IDialog';
 @Injectable({
   providedIn: 'root',
 })
@@ -364,17 +365,18 @@ export class UserService extends ApiService {
 
   openLoginDialog(queryParams: Params): MatDialogRef<DialogComponent> {
     this.router.navigate([], { queryParams });
-    return this.dialog.open(DialogComponent, {
-      panelClass: ['close-outside', 'close-icon-white', 'login-dialog'],
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'login',
-            fullWidth: true,
-          },
+    const config: IDialog = {
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'login',
+          fullWidth: true,
         },
       },
+    };
+    return this.dialog.open(DialogComponent, {
+      panelClass: ['close-outside', 'close-icon-white', 'login-dialog'],
+      data: config,
     });
   }
 }

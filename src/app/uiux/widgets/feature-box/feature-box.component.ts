@@ -12,12 +12,13 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { RouteService } from '@core/service/route.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { IDialog } from '@core/interface/IDialog';
 @Component({
-    selector: 'app-feature-box',
-    templateUrl: './feature-box.component.html',
-    styleUrls: ['./feature-box.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-feature-box',
+  templateUrl: './feature-box.component.html',
+  styleUrls: ['./feature-box.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FeatureBoxComponent implements OnInit {
   @Input() content: IFeatureBox;
@@ -94,15 +95,16 @@ export class FeatureBoxComponent implements OnInit {
       window.open(img.preview, '_blank');
       return;
     }
-    this.dialog.open(DialogComponent, {
-      data: {
-        inputData: {
-          content: {
-            type: 'img',
-            src: img.src,
-          },
+    const config: IDialog = {
+      inputData: {
+        content: {
+          type: 'img',
+          src: img.src,
         },
       },
+    };
+    this.dialog.open(DialogComponent, {
+      data: config,
     });
   }
 

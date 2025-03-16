@@ -23,6 +23,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
+import { IDialog } from '@core/interface/IDialog';
 
 @Component({
   selector: 'app-manage-media',
@@ -196,37 +197,39 @@ export class ManageMediaComponent implements OnInit {
   }
 
   onPreview(item: IManageImg): void {
+    const config: IDialog = {
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'img',
+          src: item.source || item.src,
+          width: 800,
+          height: 600,
+          classes: 'object-contain',
+        },
+      },
+    };
     this.dialog.open(DialogComponent, {
       panelClass: ['close-outside', 'dialog-p-0', 'close-icon-white', 'media-preview-dialog'],
       backdropClass: ['bg-neutral-800', '!opacity-80'],
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'img',
-            src: item.source || item.src,
-            width: 800,
-            height: 600,
-            classes: 'object-contain',
-          },
-        },
-      },
+      data: config,
     });
   }
 
   onUpload(): void {
+    const config: IDialog = {
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'upload-media',
+        },
+      },
+    };
     const dialog = this.dialog.open(DialogComponent, {
       width: '800px',
       id: 'upload-dialog',
       panelClass: ['close-outside', 'close-icon-white'],
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'upload-media',
-          },
-        },
-      },
+      data: config,
     });
 
     dialog

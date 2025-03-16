@@ -12,10 +12,10 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { cloneDeep, defaultsDeep, get } from 'lodash-es';
 
 @Component({
-    selector: 'app-layout-setting',
-    templateUrl: './layout-setting.component.html',
-    styleUrls: ['./layout-setting.component.scss'],
-    standalone: false
+  selector: 'app-layout-setting',
+  templateUrl: './layout-setting.component.html',
+  styleUrls: ['./layout-setting.component.scss'],
+  standalone: false,
 })
 export class LayoutSettingComponent {
   @Input() content: ILayoutSetting;
@@ -100,15 +100,16 @@ export class LayoutSettingComponent {
         path,
         data: get(this.builder.currentPage.body, path),
       };
+      const config: IDialog = {
+        disableCloseButton: true,
+        inputData: {
+          content: json,
+        },
+      };
       this.dialog.open(DialogComponent, {
         width: '1000px',
         panelClass: ['close-outside', 'close-icon-white'],
-        data: {
-          disableCloseButton: true,
-          inputData: {
-            content: json,
-          },
-        },
+        data: config,
       });
       this.builder.closeRightDrawer$.next(true);
     }
