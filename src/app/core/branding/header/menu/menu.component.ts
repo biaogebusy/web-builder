@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, Input, inject } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -16,22 +9,15 @@ import { Observable } from 'rxjs';
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
 export class MenuComponent implements OnInit {
-  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  branding$ = inject<Observable<IBranding>>(BRANDING);
-
   @Input() isDrawer: boolean;
-  show = true;
-
-  screen = inject(ScreenState);
-  router = inject(Router);
-  cd = inject(ChangeDetectorRef);
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
+  public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  public branding$ = inject<Observable<IBranding>>(BRANDING);
+  public show = true;
+  private screen = inject(ScreenState);
+  private router = inject(Router);
   constructor() {
     this.router.events.subscribe((event: Event) => {
       if (this.isDrawer && event instanceof NavigationStart) {
@@ -43,7 +29,6 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.screen.mqAlias$().subscribe((mq: string[]) => {
       this.show = mq.includes('md') || mq.includes('lg') || mq.includes('xl');
-      this.cd.detectChanges();
     });
   }
 

@@ -9,22 +9,22 @@ import { IBranding } from './core/interface/branding/IBranding';
 import { Observable } from 'rxjs';
 import { ThemeService } from '@core/service/theme.service';
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  branding$ = inject<Observable<IBranding>>(BRANDING);
+  public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  public branding$ = inject<Observable<IBranding>>(BRANDING);
 
-  mobileMenuOpened: boolean;
-  loading = true;
-  screen = inject(ScreenState);
-  activateRouter = inject(ActivatedRoute);
-  configService = inject(ConfigService);
-  screenService = inject(ScreenService);
-  themeService = inject(ThemeService);
+  public mobileMenuOpened: boolean;
+  public loading = true;
+  private screen = inject(ScreenState);
+  private activateRouter = inject(ActivatedRoute);
+  private configService = inject(ConfigService);
+  private screenService = inject(ScreenService);
+  private themeService = inject(ThemeService);
 
   ngOnInit(): void {
     this.configService.init();
