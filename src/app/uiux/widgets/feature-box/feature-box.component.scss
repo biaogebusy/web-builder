@@ -1,4 +1,4 @@
-@import '/src/theme/mixins/amixin';
+@use '../../../../theme/mixins/amixin' as *;
 .feature-cover {
   &:before {
     content: '';

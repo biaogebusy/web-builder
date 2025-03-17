@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use '../../mixins/amixin' as *;
 @mixin builder-sidebar($background, $foreground, $primary) {
   .mat-drawer {
     &.sidebar-drawer {

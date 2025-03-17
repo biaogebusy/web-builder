@@ -12,9 +12,10 @@ import type { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { cloneDeep } from 'lodash-es';
 
 @Component({
-  selector: 'app-formly',
-  templateUrl: './formly.component.html',
-  styleUrls: ['./formly.component.scss'],
+    selector: 'app-formly',
+    templateUrl: './formly.component.html',
+    styleUrls: ['./formly.component.scss'],
+    standalone: false
 })
 export class FormlyComponent implements OnInit, AfterViewInit {
   @Input() content: any;

@@ -1,4 +1,4 @@
-@import '../variable/variable';
+@use '../variable/variable' as *;
 @mixin spacer($pre, $region, $sizes, $pos, $axis, $spacer) {
   @each $p in $pos {
     .#{$pre}-#{$p}-0 {
@@ -51,8 +51,7 @@ $sizes: (
   // 60px
   xl: 5,
   // 80px
-  xxl: 6.25,
-  // 100px
+  xxl: 6.25, // 100px
 );
 $pos: left, top, right, bottom;
 $axis:

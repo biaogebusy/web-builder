@@ -1,4 +1,4 @@
-@import '/src/theme/variable/breakpoint';
+@use '../../../../../theme/variable/breakpoint' as *;
 .hero-1-v1 {
   height: calc(100vh - 50px);
   overflow: hidden;

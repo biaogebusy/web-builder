@@ -22,10 +22,11 @@ import { ContentState } from '@core/state/ContentState';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-map',
+    templateUrl: './map.component.html',
+    styleUrls: ['./map.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MapComponent implements OnInit, OnChanges {
   private theme = inject(THEME);

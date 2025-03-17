@@ -1,5 +1,5 @@
-@import '../../../../../theme/mixins/amixin';
-@import '../../../../../theme/variable/breakpoint';
+@use '../../../../../theme/mixins/amixin' as *;
+@use '../../../../../theme/variable/breakpoint' as *;
 
 .card-content {
   .media {

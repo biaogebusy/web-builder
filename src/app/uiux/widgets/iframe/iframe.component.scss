@@ -1,4 +1,4 @@
-@import '../../../../theme/mixins/amixin';
+@use '../../../../theme/mixins/amixin' as *;
 
 .mat-mdc-progress-spinner {
   @include middle-center();

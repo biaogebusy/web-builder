@@ -1,5 +1,5 @@
-@import '/src/theme/variable/breakpoint';
-@import '/src/theme//mixins/amixin';
+@use '../theme/variable/breakpoint' as *;
+@use '../theme//mixins/amixin' as *;
 
 .main {
   min-height: calc(100vh - 110px);

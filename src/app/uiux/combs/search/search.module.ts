@@ -23,8 +23,4 @@ const components = [
 })
 export class SearchModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

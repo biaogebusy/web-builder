@@ -1,5 +1,6 @@
 @use 'sass:math';
-@import '/src/theme/variable/variable';
+@use '../../../../../theme/variable/variable' as *;
+@use '../../../../../theme/variable/breakpoint' as *;
 :host ::ng-deep {
   .amap-marker-content {
     line-height: 1;

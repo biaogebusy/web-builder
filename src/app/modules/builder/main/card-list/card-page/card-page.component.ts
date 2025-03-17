@@ -11,10 +11,11 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
-  selector: 'app-card-page',
-  templateUrl: './card-page.component.html',
-  styleUrl: './card-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-card-page',
+    templateUrl: './card-page.component.html',
+    styleUrl: './card-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardPageComponent {
   @Input() lists: any[];

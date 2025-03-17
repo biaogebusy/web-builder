@@ -17,8 +17,4 @@ const components = [FullCalendarComponent, CalendarComponent];
 })
 export class CalendarModule extends BaseModule {
   dynamicComponents = [FullCalendarComponent];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

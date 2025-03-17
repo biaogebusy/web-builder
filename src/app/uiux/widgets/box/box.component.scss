@@ -1,5 +1,5 @@
-@import '/src/theme/mixins/amixin';
-@import '/src/theme/variable/breakpoint';
+@use '../../../../theme/mixins/amixin' as *;
+@use '../../../../theme/variable/breakpoint' as *;
 .inv-builder-box {
   position: relative;
   .box-icon {

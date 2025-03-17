@@ -1,12 +1,13 @@
 @use '@angular/material' as mat;
-@import '../mixins/amixin';
+@use 'sass:map';
+@use '../mixins/amixin' as *;
 @mixin manage-media-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   .manage-media {
     .sidebar {

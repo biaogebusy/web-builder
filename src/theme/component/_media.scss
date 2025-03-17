@@ -1,12 +1,12 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin media-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   .media-object {
     .meta,
@@ -32,8 +32,7 @@
         }
       }
       &:hover {
-        box-shadow: 0 5px 13px
-          mat.m2-get-color-from-palette($foreground, divider);
+        box-shadow: 0 5px 13px mat.m2-get-color-from-palette($foreground, divider);
       }
     }
     app-icon {

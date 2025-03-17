@@ -1,11 +1,12 @@
 @use '@angular/material' as mat;
+@use 'sass:map';
 @mixin tour-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
   $black900: #212121;
   $black800: #424242;
   $black600: #616161;
@@ -16,8 +17,9 @@
   $black100: #f4f4f4;
   $white: #ffffff;
 
-  $font_family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-    '微软雅黑', Arial, sans-serif;
+  $font_family:
+    'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑',
+    Arial, sans-serif;
   $background_color_9: #08c;
   $background_color_10: rgba(136, 136, 136, 0.24);
 

@@ -6,10 +6,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-article-banner',
-  templateUrl: './article-banner.component.html',
-  styleUrls: ['./article-banner.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-article-banner',
+    templateUrl: './article-banner.component.html',
+    styleUrls: ['./article-banner.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ArticleBannerComponent implements OnInit {
   @Input() content: any;

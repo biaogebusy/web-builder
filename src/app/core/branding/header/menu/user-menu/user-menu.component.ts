@@ -18,12 +18,14 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { IDialog } from '@core/interface/IDialog';
 
 @Component({
   selector: 'app-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class UserMenuComponent implements OnInit {
   public user$ = inject<Observable<IUser>>(USER);
@@ -83,19 +85,20 @@ export class UserMenuComponent implements OnInit {
   }
 
   openDialog(): void {
+    const config: IDialog = {
+      title: '账户设置',
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'user-setting',
+          fullWidth: true,
+        },
+      },
+    };
     this.dialog.open(DialogComponent, {
       width: '380px',
       panelClass: ['close-outside', 'close-icon-white'],
-      data: {
-        title: '账户设置',
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'user-setting',
-            fullWidth: true,
-          },
-        },
-      },
+      data: config,
     });
   }
 }

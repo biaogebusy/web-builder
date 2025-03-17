@@ -1,4 +1,4 @@
-@import '../../../../../theme//mixins/amixin';
+@use '../../../../../theme//mixins/amixin' as *;
 .builder-list {
   height: 100%;
   overflow-x: hidden !important;

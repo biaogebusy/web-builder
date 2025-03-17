@@ -13,8 +13,4 @@ const components = [BannerSimpleComponent];
 })
 export class BannerModule extends BaseModule {
   dynamicComponents = [BannerSimpleComponent];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

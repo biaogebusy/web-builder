@@ -17,6 +17,7 @@ import { ContentService } from './content.service';
 import { isArray } from 'lodash-es';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { createPopper } from '@popperjs/core';
+import { IDialog } from '@core/interface/IDialog';
 
 @Injectable({
   providedIn: 'root',
@@ -84,27 +85,30 @@ export class BuilderService extends ApiService {
       });
   }
 
-  checkIsLatestPage(page: IPage): void {
-    const { langcode, nid, changed, uuid, title } = page;
+  checkIsLatestPage(checkPage: IPage): void {
+    const { langcode, nid, changed, uuid, title } = checkPage;
     if (nid && changed && uuid) {
       const lang = this.getApiLang(langcode);
       this.nodeService
         .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
         .subscribe((page: IPage) => {
           if (Number(changed) < Number(page.changed)) {
-            const dialogRef = this.dialog.open(DialogComponent, {
-              width: '340px',
-              data: {
-                title: `当前页面不是最新版本`,
-                closeLabel: '确认',
-                inputData: {
-                  content: {
-                    type: 'text',
-                    fullWidth: true,
-                    body: `是否要拉取<strong class="text-primary">[${title}]</strong>最新的更新覆盖当前页面？`,
-                  },
+            const config: IDialog = {
+              title: `当前页面不是最新版本`,
+              titleClasses: 'text-red-500',
+              yesLabel: '确认更新',
+              noLabel: '取消',
+              inputData: {
+                content: {
+                  type: 'text',
+                  fullWidth: true,
+                  body: `是否要拉取<strong class="text-black-500">[${title}]</strong>最新的更新覆盖当前页面？`,
                 },
               },
+            };
+            const dialogRef = this.dialog.open(DialogComponent, {
+              width: '340px',
+              data: config,
             });
 
             dialogRef.afterClosed().subscribe(result => {
@@ -123,34 +127,35 @@ export class BuilderService extends ApiService {
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
-      .subscribe((page: any) => {
+      .subscribe((newPage: IPage) => {
+        const config: IDialog = {
+          disableCloseButton: true,
+          inputData: {
+            content: {
+              type: 'jsoneditor',
+              data: newPage,
+              isSetting: true,
+              actions: [
+                {
+                  type: 'update',
+                  label: '更新配置',
+                  params: {
+                    reqRoles: ['administrator'],
+                    uuid,
+                    langcode,
+                    api: '/api/v1/node/json',
+                    type: 'node--json',
+                  },
+                },
+              ],
+            },
+          },
+        };
         this.builder.loading$.next(false);
         this.dialog.open(DialogComponent, {
           width: '1000px',
           panelClass: ['close-outside', 'close-icon-white'],
-          data: {
-            disableCloseButton: true,
-            inputData: {
-              content: {
-                type: 'jsoneditor',
-                data: page,
-                isSetting: true,
-                actions: [
-                  {
-                    type: 'update',
-                    label: '更新配置',
-                    params: {
-                      reqRoles: ['administrator'],
-                      uuid,
-                      langcode,
-                      api: '/api/v1/node/json',
-                      type: 'node--json',
-                    },
-                  },
-                ],
-              },
-            },
-          },
+          data: config,
         });
       });
   }

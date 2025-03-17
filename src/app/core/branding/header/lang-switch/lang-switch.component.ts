@@ -5,10 +5,11 @@ import { CORE_CONFIG, LANG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-lang-switch',
-  templateUrl: './lang-switch.component.html',
-  styleUrls: ['./lang-switch.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-lang-switch',
+    templateUrl: './lang-switch.component.html',
+    styleUrls: ['./lang-switch.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LangSwitchComponent implements OnInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);

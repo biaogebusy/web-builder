@@ -6,9 +6,10 @@ import { catchError } from 'rxjs/operators';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { of } from 'rxjs';
 @Component({
-  selector: 'app-showcase-2v1',
-  templateUrl: './showcase2v1.component.html',
-  styleUrls: ['./showcase2v1.component.scss'],
+    selector: 'app-showcase-2v1',
+    templateUrl: './showcase2v1.component.html',
+    styleUrls: ['./showcase2v1.component.scss'],
+    standalone: false
 })
 export class Showcase2v1Component extends BaseComponent implements OnInit, AfterViewInit {
   @Input() content: IShowcase2v1;

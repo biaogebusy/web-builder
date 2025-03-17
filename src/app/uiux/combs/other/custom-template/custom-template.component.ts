@@ -15,9 +15,10 @@ import { PageEvent } from '@angular/material/paginator';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-  selector: 'app-custom-template',
-  templateUrl: './custom-template.component.html',
-  styleUrls: ['./custom-template.component.scss'],
+    selector: 'app-custom-template',
+    templateUrl: './custom-template.component.html',
+    styleUrls: ['./custom-template.component.scss'],
+    standalone: false
 })
 export class CustomTemplateComponent implements AfterViewInit {
   @Input() content: ICustomTemplate;

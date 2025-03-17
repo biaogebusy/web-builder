@@ -25,9 +25,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss'],
+    selector: 'app-article',
+    templateUrl: './article.component.html',
+    styleUrls: ['./article.component.scss'],
+    standalone: false
 })
 export class ArticleComponent extends NodeComponent implements OnInit, AfterViewInit {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -115,7 +116,7 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   openLogin(): void {
     const returnUrl = window.location.pathname;
     const queryParams = {
-      returnUrl: returnUrl,
+      returnUrl,
     };
     this.dialogRef = this.userService.openLoginDialog(queryParams);
     this.dialogRef

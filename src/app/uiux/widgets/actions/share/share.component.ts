@@ -14,10 +14,11 @@ import { DOCUMENT } from '@angular/common';
 declare let window: any;
 
 @Component({
-  selector: 'app-share',
-  templateUrl: './share.component.html',
-  styleUrls: ['./share.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-share',
+    templateUrl: './share.component.html',
+    styleUrls: ['./share.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ShareComponent implements OnInit {
   private screenService = inject(ScreenService);

@@ -8,9 +8,10 @@ import type { IReport } from '@core/interface/node/IReport';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss'],
+    selector: 'app-report',
+    templateUrl: './report.component.html',
+    styleUrls: ['./report.component.scss'],
+    standalone: false
 })
 export class ReportComponent extends BaseComponent implements OnInit {
   @Input() content: IReport;

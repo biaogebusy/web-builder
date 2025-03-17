@@ -7,10 +7,11 @@ import {
 import type { IProgressGroup } from '@core/interface/widgets/IWidgets';
 
 @Component({
-  selector: 'app-progress-group',
-  templateUrl: './progress-group.component.html',
-  styleUrls: ['./progress-group.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-progress-group',
+    templateUrl: './progress-group.component.html',
+    styleUrls: ['./progress-group.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ProgressGroupComponent implements OnInit {
   @Input() content: IProgressGroup;

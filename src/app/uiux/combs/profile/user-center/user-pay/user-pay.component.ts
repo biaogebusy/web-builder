@@ -16,10 +16,11 @@ import { USER } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-user-pay',
-  templateUrl: './user-pay.component.html',
-  styleUrls: ['./user-pay.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-user-pay',
+    templateUrl: './user-pay.component.html',
+    styleUrls: ['./user-pay.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UserPayComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

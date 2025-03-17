@@ -31,8 +31,4 @@ const components = [
 })
 export class ListModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

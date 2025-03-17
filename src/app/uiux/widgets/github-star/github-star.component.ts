@@ -6,9 +6,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-github-star',
-  templateUrl: './github-star.component.html',
-  styleUrls: ['./github-star.component.scss'],
+    selector: 'app-github-star',
+    templateUrl: './github-star.component.html',
+    styleUrls: ['./github-star.component.scss'],
+    standalone: false
 })
 export class GithubStarComponent implements OnInit {
   private contentService = inject(ContentService);

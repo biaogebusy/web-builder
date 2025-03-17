@@ -16,10 +16,11 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-user',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UserComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

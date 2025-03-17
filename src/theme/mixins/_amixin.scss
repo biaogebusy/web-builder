@@ -1,3 +1,5 @@
+@use "sass:color";
+@use "sass:string";
 @mixin transition(
   $prop: all,
   $time: $transition_duration,
@@ -81,7 +83,7 @@
 }
 
 @mixin color-overlay($color: $base_color, $opacity: 0.8) {
-  background-color: rgba(red($color), green($color), blue($color), $opacity);
+  background-color: rgba(color.red($color), color.green($color), color.blue($color), $opacity);
 }
 
 @mixin gradient($startColor: #eee, $endColor: white) {
@@ -113,7 +115,7 @@
 
 // @include responsive-ratio(16, 9)
 @mixin responsive-ratio($x, $y, $pseudo: false) {
-  $padding: unquote(($y / $x) * 100 + '%');
+  $padding: string.unquote(($y / $x) * 100 + '%');
 
   @if $pseudo {
     &:before {

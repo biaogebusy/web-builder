@@ -8,12 +8,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { MatDrawer } from '@angular/material/sidenav';
+import { IDialog } from '@core/interface/IDialog';
 
 @Component({
   selector: 'app-builder-sidebar',
   templateUrl: './builder-sidebar.component.html',
   styleUrls: ['./builder-sidebar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BuilderSidebarComponent implements OnInit {
   public branding$ = inject<Observable<IBranding>>(BRANDING);
@@ -28,18 +30,19 @@ export class BuilderSidebarComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelectAssets(): void {
+    const config: IDialog = {
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'manage-media',
+          fullWidth: true,
+        },
+      },
+    };
     this.dialog.open(DialogComponent, {
       width: '85vw',
       panelClass: this.manageService.mediaDialogClass,
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'manage-media',
-            fullWidth: true,
-          },
-        },
-      },
+      data: config,
     });
   }
 

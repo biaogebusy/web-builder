@@ -93,8 +93,4 @@ const components = [
 })
 export class FormModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

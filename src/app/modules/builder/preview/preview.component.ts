@@ -20,8 +20,8 @@ import AOS from 'aos';
   selector: 'app-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.scss'],
-  host: { ngSkipHydration: 'true' },
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class PreviewComponent implements OnInit, AfterViewInit {
   public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);

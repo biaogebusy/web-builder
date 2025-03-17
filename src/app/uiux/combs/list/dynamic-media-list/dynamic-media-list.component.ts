@@ -14,10 +14,11 @@ import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
-  selector: 'app-dynamic-media-list',
-  templateUrl: './dynamic-media-list.component.html',
-  styleUrls: ['./dynamic-media-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-dynamic-media-list',
+    templateUrl: './dynamic-media-list.component.html',
+    styleUrls: ['./dynamic-media-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DynamicMediaListComponent extends BaseComponent implements OnInit {
   @Input() content: IDynamicMediaList;

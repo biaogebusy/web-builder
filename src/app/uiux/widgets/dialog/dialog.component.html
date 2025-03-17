@@ -5,7 +5,9 @@
     mat-dialog-close="true"
   />
   @if (data.title) {
-    <h2 mat-dialog-title>{{ data.title }}</h2>
+    <h2 mat-dialog-title>
+      <span [class]="data.titleClasses">{{ data.title }}</span>
+    </h2>
   }
   <mat-dialog-content>
     @if (data.inputData | isArray) {
@@ -17,9 +19,10 @@
     }
   </mat-dialog-content>
   @if (!data.disableCloseButton) {
-    <div class="flex !justify-center !items-center" mat-dialog-actions>
-      <button mat-raised-button color="primary" [mat-dialog-close]="true">
-        {{ data.closeLabel ?? '关闭' }}
+    <div class="gap-3 px-4" mat-dialog-actions align="end">
+      <button mat-button (click)="onNoClick()">{{ data.noLabel }}</button>
+      <button mat-button color="primary" (click)="onYesClick()" cdkFocusInitial>
+        {{ data.yesLabel }}
       </button>
     </div>
   }

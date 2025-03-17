@@ -16,10 +16,11 @@ import { ScreenService } from '@core/service/screen.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-tab-1v1',
-  templateUrl: './tab1v1.component.html',
-  styleUrls: ['./tab1v1.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-tab-1v1',
+    templateUrl: './tab1v1.component.html',
+    styleUrls: ['./tab1v1.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class Tab1v1Component extends BaseComponent implements OnInit {
   @Input() content: any;

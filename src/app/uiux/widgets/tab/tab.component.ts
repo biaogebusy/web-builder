@@ -6,7 +6,7 @@ import type { ITab } from '@core/interface/widgets/ITab';
   selector: 'app-tab',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
-  host: { ngSkipHydration: 'true' },
+  standalone: false,
 })
 export class TabComponent implements OnInit {
   @Input() content: ITab;

@@ -2,15 +2,14 @@ import {
   Component,
   OnInit,
   NgZone,
-  Input,
   AfterContentInit,
   inject,
   DestroyRef,
   AfterViewInit,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
-import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
+import type { IPage } from '@core/interface/IAppConfig';
+import { PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 import { DOCUMENT } from '@angular/common';
@@ -24,31 +23,30 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-block',
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss'],
-  // host: { ngSkipHydration: 'true' },
   providers: [
     {
       provide: PAGE_CONTENT,
       useFactory: pageContentFactory,
     },
   ],
+  standalone: false,
 })
 export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
-  pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-  coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
 
-  drawerLoading: boolean;
-  drawerContent: IPage;
-  opened: boolean;
-  zone = inject(NgZone);
-  user$ = inject(USER);
-  contentState = inject(ContentState);
+  public drawerLoading: boolean;
+  public drawerContent: IPage;
+  public opened: boolean;
+  private zone = inject(NgZone);
+  public user$ = inject(USER);
+  private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
-  contentService = inject(ContentService);
-  screenService = inject(ScreenService);
-  router = inject(Router);
-  count = 0;
-  pageBodyLength: number;
+  private contentService = inject(ContentService);
+  private screenService = inject(ScreenService);
+  private router = inject(Router);
+  private count = 0;
+  private pageBodyLength: number;
 
   ngOnInit(): void {
     this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {

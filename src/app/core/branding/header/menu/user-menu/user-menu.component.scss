@@ -6,5 +6,5 @@
   }
 }
 .user-picture {
-  @apply h-[30px] w-[30px] rounded-full cursor-pointer object-contain;
+  @apply h-[30px] w-[30px] rounded-full cursor-pointer object-cover;
 }

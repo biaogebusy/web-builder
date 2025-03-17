@@ -1,8 +1,19 @@
 @if (screenService.isPlatformBrowser()) {
+  <app-btn
+    class="code-editor-show-btn"
+    (click)="onShowMore()"
+    [content]="{
+      color: undefined,
+      mode: 'icon',
+      icon: { svg: isMore() ? 'chevron-up' : 'chevron-down' },
+    }"
+    matTooltip="{{ isMore() ? '展开' : '收起' }}"
+    matTooltipPosition="above"
+  ></app-btn>
   <div class="toolbar p-5 flex gap-1 items-center">
     <div class="text-white">{{ isAPI ? '数据来源 API' : 'Tailwind 自定义组件' }}</div>
   </div>
-  <div class="code-editor grid grid-cols-12 gap-2">
+  <div class="code-editor grid grid-cols-12 gap-2" [class]="isMore() ? 'more' : 'less'">
     @if (isAPI) {
       <div class="box col-span-12 {{ isAPI ? 'md:col-span-3' : '' }}  flex flex-col p-3">
         <app-formly class="block" [form]="form" [fields]="fields" [model]="model" />

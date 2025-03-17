@@ -13,8 +13,4 @@ const components = [Tab1v1Component];
 })
 export class TabModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

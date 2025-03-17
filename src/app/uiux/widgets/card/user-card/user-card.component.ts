@@ -12,9 +12,10 @@ import type { IUserCard, IUserCount } from '@core/interface/widgets/ICard';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-user-card',
-  templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.scss'],
+    selector: 'app-user-card',
+    templateUrl: './user-card.component.html',
+    styleUrls: ['./user-card.component.scss'],
+    standalone: false
 })
 export class UserCardComponent extends BaseComponent implements OnInit {
   user$ = inject<Observable<IUser>>(USER);

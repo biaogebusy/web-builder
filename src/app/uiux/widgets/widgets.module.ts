@@ -167,8 +167,4 @@ const components = [
 })
 export class WidgetsModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

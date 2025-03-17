@@ -11,10 +11,11 @@ import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 
 @Component({
-  selector: 'app-gotop',
-  templateUrl: './gotop.component.html',
-  styleUrls: ['./gotop.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-gotop',
+    templateUrl: './gotop.component.html',
+    styleUrls: ['./gotop.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class GotopComponent implements OnInit {
   private screenService = inject(ScreenService);

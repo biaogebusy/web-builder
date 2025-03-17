@@ -2,9 +2,10 @@ import { Component, Input, ElementRef, inject, afterNextRender } from '@angular/
 import type { IShuffle } from '@core/interface/combs/IMasonry';
 import Shuffle from 'shufflejs';
 @Component({
-  selector: 'app-shuffle',
-  templateUrl: './shuffle.component.html',
-  styleUrls: ['./shuffle.component.scss'],
+    selector: 'app-shuffle',
+    templateUrl: './shuffle.component.html',
+    styleUrls: ['./shuffle.component.scss'],
+    standalone: false
 })
 export class ShuffleComponent {
   @Input() content: IShuffle;

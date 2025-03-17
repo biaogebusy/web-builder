@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin inverse($primary, $bg, $text, $contrast, $form) {
   background: $bg;
   color: $text;
@@ -83,11 +83,11 @@
 
 @mixin footer-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   $text-base: mat.m2-get-color-from-palette($foreground, text, 0.75);
 
@@ -96,17 +96,9 @@
   $inverse-text-contrast: #fff;
   $inverse-form: #4c4c4c;
 
-  $inverse-bg-light: mat.m2-get-color-from-palette(
-    $background,
-    status-bar,
-    0.6
-  );
+  $inverse-bg-light: mat.m2-get-color-from-palette($background, status-bar, 0.6);
   $inverse-text-light: $text-base;
-  $inverse-text-contrast-light: mat.m2-get-color-from-palette(
-    $foreground,
-    text,
-    0.6
-  );
+  $inverse-text-contrast-light: mat.m2-get-color-from-palette($foreground, text, 0.6);
   $inverse-form-light: mat.m2-get-color-from-palette($foreground, text, 0.1);
   .footer {
     .footer-light {
@@ -124,10 +116,7 @@
       .footer-bottom {
         position: relative;
         color: mat.m2-get-color-from-palette($foreground, text, 0.6);
-        background-color: mat.m2-get-color-from-palette(
-          $background,
-          background
-        );
+        background-color: mat.m2-get-color-from-palette($background, background);
         z-index: 10;
       }
 
@@ -170,13 +159,7 @@
     }
 
     .footer-inverse {
-      @include inverse(
-        $primary,
-        $inverse-bg,
-        $inverse-text,
-        $inverse-text-contrast,
-        $inverse-form
-      );
+      @include inverse($primary, $inverse-bg, $inverse-text, $inverse-text-contrast, $inverse-form);
     }
 
     .footer-inverse-light {
@@ -196,8 +179,7 @@
         color: mat.m2-get-color-from-palette($primary, default-contrast);
       }
       .item {
-        border-bottom: 1px solid
-          mat.m2-get-color-from-palette($foreground, divider);
+        border-bottom: 1px solid mat.m2-get-color-from-palette($foreground, divider);
         &:hover,
         &:focus {
           background-color: mat.m2-get-color-from-palette($primary);

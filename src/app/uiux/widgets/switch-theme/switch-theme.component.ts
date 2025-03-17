@@ -6,10 +6,11 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { THEMKEY } from '@core/factory/factory';
 import { ThemeService } from '@core/service/theme.service';
 @Component({
-  selector: 'app-switch-theme',
-  templateUrl: './switch-theme.component.html',
-  styleUrls: ['./switch-theme.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-switch-theme',
+    templateUrl: './switch-theme.component.html',
+    styleUrls: ['./switch-theme.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SwitchThemeComponent implements OnInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);

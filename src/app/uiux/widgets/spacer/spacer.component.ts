@@ -10,10 +10,11 @@ interface ISpacer {
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
 }
 @Component({
-  selector: 'app-spacer',
-  templateUrl: './spacer.component.html',
-  styleUrls: ['./spacer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-spacer',
+    templateUrl: './spacer.component.html',
+    styleUrls: ['./spacer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SpacerComponent implements OnInit {
   // content and size 是兼容写法

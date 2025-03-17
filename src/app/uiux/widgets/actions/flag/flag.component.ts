@@ -21,10 +21,11 @@ import { environment } from 'src/environments/environment';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-flag',
-  templateUrl: './flag.component.html',
-  styleUrls: ['./flag.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-flag',
+    templateUrl: './flag.component.html',
+    styleUrls: ['./flag.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlagComponent extends BaseComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

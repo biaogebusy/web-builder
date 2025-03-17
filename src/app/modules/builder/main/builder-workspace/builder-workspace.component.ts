@@ -13,9 +13,10 @@ import { TourService } from '@core/service/tour.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 
 @Component({
-  selector: 'app-builder-workspace',
-  templateUrl: './builder-workspace.component.html',
-  styleUrl: './builder-workspace.component.scss',
+    selector: 'app-builder-workspace',
+    templateUrl: './builder-workspace.component.html',
+    styleUrl: './builder-workspace.component.scss',
+    standalone: false
 })
 export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

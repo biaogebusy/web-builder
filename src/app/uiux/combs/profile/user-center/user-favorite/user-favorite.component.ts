@@ -16,10 +16,11 @@ import { USER } from '@core/token/token-providers';
 import { IListThin } from '@core/interface/combs/IList';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
-  selector: 'app-user-favorite',
-  templateUrl: './user-favorite.component.html',
-  styleUrls: ['./user-favorite.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-user-favorite',
+    templateUrl: './user-favorite.component.html',
+    styleUrls: ['./user-favorite.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UserFavoriteComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

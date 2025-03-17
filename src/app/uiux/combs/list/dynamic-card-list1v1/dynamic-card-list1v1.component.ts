@@ -14,10 +14,11 @@ import type { IDynamicCardList1v1 } from '@core/interface/combs/IList';
 import { IPager } from '@core/interface/widgets/IWidgets';
 
 @Component({
-  selector: 'app-dynamic-card-list-1v1',
-  templateUrl: './dynamic-card-list1v1.component.html',
-  styleUrls: ['./dynamic-card-list1v1.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-dynamic-card-list-1v1',
+    templateUrl: './dynamic-card-list1v1.component.html',
+    styleUrls: ['./dynamic-card-list1v1.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DynamicCardList1v1Component extends BaseComponent implements OnInit {
   nodeService = inject(NodeService);
