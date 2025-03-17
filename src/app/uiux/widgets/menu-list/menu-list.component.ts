@@ -3,10 +3,11 @@ import type { IMenuList, IMenuListItem } from '@core/interface/widgets/IMenuList
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-  selector: 'app-menu-list',
-  templateUrl: './menu-list.component.html',
-  styleUrls: ['./menu-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-menu-list',
+    templateUrl: './menu-list.component.html',
+    styleUrls: ['./menu-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MenuListComponent implements OnInit {
   private screenService = inject(ScreenService);

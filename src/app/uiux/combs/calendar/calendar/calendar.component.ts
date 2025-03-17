@@ -3,9 +3,10 @@ import { ScreenService } from '@core/service/screen.service';
 import type { CalendarOptions } from '@fullcalendar/core';
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss'],
+    selector: 'app-calendar',
+    templateUrl: './calendar.component.html',
+    styleUrls: ['./calendar.component.scss'],
+    standalone: false
 })
 export class CalendarComponent implements OnInit {
   @Input() content: any;

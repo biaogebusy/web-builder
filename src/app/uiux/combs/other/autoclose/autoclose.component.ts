@@ -7,10 +7,11 @@ import {
 import { interval } from 'rxjs';
 
 @Component({
-  selector: 'app-autoclose',
-  templateUrl: './autoclose.component.html',
-  styleUrls: ['./autoclose.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-autoclose',
+    templateUrl: './autoclose.component.html',
+    styleUrls: ['./autoclose.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AutocloseComponent implements OnInit {
   @Input() content: any;

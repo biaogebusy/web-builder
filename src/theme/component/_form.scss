@@ -1,12 +1,12 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin form-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   $text-base: mat.m2-get-color-from-palette($foreground, text, 0.75);
 
@@ -28,11 +28,7 @@
       background-color: mat.m2-get-color-from-palette($primary);
     }
     .box {
-      @include mat.elevation(
-        4,
-        mat.m2-get-color-from-palette($foreground, text),
-        0.5
-      );
+      @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.5);
       background-color: mat.m2-get-color-from-palette($background, card);
     }
     .form {

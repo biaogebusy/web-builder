@@ -2,7 +2,8 @@ import { AfterViewInit, Directive, ElementRef, NgZone, inject } from '@angular/c
 import { NavigationEnd, Router } from '@angular/router';
 
 @Directive({
-  selector: '[checkChildMenuActive]',
+    selector: '[checkChildMenuActive]',
+    standalone: false
 })
 export class CheckChildMenuActiveDirective implements AfterViewInit {
   private el = inject(ElementRef);

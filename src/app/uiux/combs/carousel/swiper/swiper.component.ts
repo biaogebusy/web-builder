@@ -20,9 +20,10 @@ import { Swiper } from 'swiper/types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 register();
 @Component({
-  selector: 'app-swiper',
-  templateUrl: './swiper.component.html',
-  styleUrls: ['./swiper.component.scss'],
+    selector: 'app-swiper',
+    templateUrl: './swiper.component.html',
+    styleUrls: ['./swiper.component.scss'],
+    standalone: false
 })
 export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() content: ISwiper;

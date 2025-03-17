@@ -11,10 +11,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-builder-template',
-  templateUrl: './builder-template.component.html',
-  styleUrls: ['./builder-template.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-builder-template',
+    templateUrl: './builder-template.component.html',
+    styleUrls: ['./builder-template.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuilderTemplateComponent implements OnInit {
   content$: Observable<any[]>;

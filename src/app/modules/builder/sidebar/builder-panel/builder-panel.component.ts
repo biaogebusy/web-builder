@@ -19,7 +19,7 @@ import { cloneDeep } from 'lodash-es';
   templateUrl: './builder-panel.component.html',
   styleUrls: ['./builder-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { ngSkipHydration: 'true' },
+  standalone: false,
 })
 export class BuilderPanelComponent implements OnInit {
   @Input() content: IBuilderComponent[];

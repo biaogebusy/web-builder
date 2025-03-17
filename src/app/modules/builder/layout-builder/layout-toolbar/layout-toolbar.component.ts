@@ -8,10 +8,11 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { cloneDeep } from 'lodash-es';
 
 @Component({
-  selector: 'app-layout-toolbar',
-  templateUrl: './layout-toolbar.component.html',
-  styleUrls: ['./layout-toolbar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-layout-toolbar',
+    templateUrl: './layout-toolbar.component.html',
+    styleUrls: ['./layout-toolbar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LayoutToolbarComponent implements OnInit {
   @Input() lbContent: any;

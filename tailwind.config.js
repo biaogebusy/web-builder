@@ -177,6 +177,9 @@ module.exports = {
       pattern: /^aspect-(w|h)-([1-9]\d?)$/,
       variants: ['xs', 'sm', 'md', 'lg'],
     },
+    {
+      pattern: /^(line-through|no-underline|underline)$/,
+    },
   ],
   theme: {
     screens: { sm: '600px', md: '960px', lg: '1280px', xl: '1470px' },

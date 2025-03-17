@@ -20,10 +20,11 @@ import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks'
 import type { IDynamicTextList } from '@core/interface/combs/IList';
 
 @Component({
-  selector: 'app-dynamic-text-list',
-  templateUrl: './dynamic-text-list.component.html',
-  styleUrls: ['./dynamic-text-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-dynamic-text-list',
+    templateUrl: './dynamic-text-list.component.html',
+    styleUrls: ['./dynamic-text-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DynamicTextListComponent extends BaseComponent implements OnInit, OnDestroy {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

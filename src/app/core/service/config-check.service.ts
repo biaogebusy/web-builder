@@ -14,7 +14,7 @@ export class ConfigCheckService {
   public results$ = this.resultSubject.asObservable();
 
   // 启动检测（使用RxJS流处理）
-  startCheck() {
+  startCheck(): void {
     from(API_CHECK_LIST)
       .pipe(concatMap(api => this.testEndpoint(api)))
       .subscribe(result => {

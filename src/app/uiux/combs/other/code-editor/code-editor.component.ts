@@ -13,15 +13,17 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
-  selector: 'app-code-editor',
-  templateUrl: './code-editor.component.html',
-  styleUrls: ['./code-editor.component.scss'],
+    selector: 'app-code-editor',
+    templateUrl: './code-editor.component.html',
+    styleUrls: ['./code-editor.component.scss'],
+    standalone: false
 })
 export class CodeEditorComponent implements OnInit {
   @Input() content: ICodeEditor;
   public editorOptions: JsonEditorOptions;
   public html = signal<string>('');
   public json = signal<any>(null);
+  public isMore = signal<boolean>(true);
   public isAPI: boolean;
   private api: string;
   public form = new UntypedFormGroup({});
@@ -131,6 +133,10 @@ export class CodeEditorComponent implements OnInit {
       }
       this.builder.updatePageContentByPath(`${path}`, content);
     }
+  }
+
+  onShowMore(): void {
+    this.isMore.set(!this.isMore());
   }
 
   onFormChange(): void {

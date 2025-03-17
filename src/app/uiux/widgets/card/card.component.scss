@@ -1,4 +1,4 @@
-@import '/src/theme/mixins/amixin';
+@use '../../../../theme/mixins/amixin' as *;
 .card-body {
   min-height: 40px;
   @include line-clamp(2);
@@ -125,10 +125,7 @@
       }
     }
   }
-  ::ng-deep
-    .mat-mdc-card-footer
-    .mat-mdc-progress-bar
-    .mdc-linear-progress__bar-inner {
+  ::ng-deep .mat-mdc-card-footer .mat-mdc-progress-bar .mdc-linear-progress__bar-inner {
     border-radius: 0 0 4px 4px;
   }
 }

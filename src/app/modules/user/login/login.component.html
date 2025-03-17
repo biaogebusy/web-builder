@@ -119,7 +119,7 @@
           </mat-tab-group>
         }
         @if (user$ | async; as currentUser) {
-          <h1 class="mat-h1 text-base">Hi, {{ currentUser.display_name }}</h1>
+          <h1 class="text-lg">Hi, {{ currentUser.display_name }}</h1>
           <mat-divider />
           <p class="text-base !mt-3">欢迎。</p>
         }

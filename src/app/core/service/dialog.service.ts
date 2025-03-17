@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { TextComponent } from '../../uiux/widgets/text/text.component';
 import { DOCUMENT } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { IDialog } from '@core/interface/IDialog';
 
 @Injectable({
   providedIn: 'root',
@@ -48,19 +48,19 @@ export class DialogService {
   }
 
   openDialog(config: any): void {
+    const dateConfig: IDialog = {
+      disableCloseButton: true,
+      inputData: {
+        content: config.text,
+      },
+    };
     this.dialog.open(DialogComponent, {
       width: config.params.width,
       disableClose: true,
       hasBackdrop: true,
       panelClass: 'force-dialog',
       backdropClass: 'force-backdrop',
-      data: {
-        renderInputComponent: TextComponent,
-        disableCloseButton: true,
-        inputData: {
-          content: config.text,
-        },
-      },
+      data: dateConfig,
     });
   }
 

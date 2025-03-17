@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '
 import type { IIcon } from '@core/interface/widgets/IIcon';
 
 @Component({
-  selector: 'app-icon',
-  templateUrl: './icon.component.html',
-  styleUrls: ['./icon.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-icon',
+    templateUrl: './icon.component.html',
+    styleUrls: ['./icon.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class IconComponent implements OnInit {
   @Input() content: IIcon;

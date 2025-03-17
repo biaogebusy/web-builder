@@ -1,4 +1,4 @@
-@import '/src/theme/variable/breakpoint';
+@use '../../../../../theme/variable/breakpoint' as *;
 .banner-simple {
   padding: 60px 0;
   overflow: hidden;

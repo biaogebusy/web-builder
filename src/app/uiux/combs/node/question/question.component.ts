@@ -23,10 +23,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
 
 @Component({
-  selector: 'app-question',
-  templateUrl: './question.component.html',
-  styleUrls: ['./question.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-question',
+    templateUrl: './question.component.html',
+    styleUrls: ['./question.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class QuestionComponent extends NodeComponent implements OnInit, AfterViewInit {
   public user$ = inject<Observable<IUser>>(USER);
@@ -132,7 +133,7 @@ export class QuestionComponent extends NodeComponent implements OnInit, AfterVie
   openLogin(): void {
     const returnUrl = window.location.pathname;
     const queryParams = {
-      returnUrl: returnUrl,
+      returnUrl,
     };
     this.dialogRef = this.userService.openLoginDialog(queryParams);
     this.dialogRef

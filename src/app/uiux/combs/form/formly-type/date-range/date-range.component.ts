@@ -9,10 +9,11 @@ import { UntypedFormControl } from '@angular/forms';
 import { FieldType } from '@ngx-formly/core';
 
 @Component({
-  selector: 'app-date-range',
-  templateUrl: './date-range.component.html',
-  styleUrls: ['./date-range.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-date-range',
+    templateUrl: './date-range.component.html',
+    styleUrls: ['./date-range.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DateRangeComponent extends FieldType implements OnInit {
   private cd = inject(ChangeDetectorRef);

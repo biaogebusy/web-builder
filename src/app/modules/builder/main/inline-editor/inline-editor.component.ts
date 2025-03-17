@@ -13,12 +13,14 @@ import type { IMetaEdit } from '@core/interface/IBuilder';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageService } from '@core/service/manage.service';
+import { IDialog } from '@core/interface/IDialog';
 
 @Component({
   selector: 'app-inline-editor',
   templateUrl: './inline-editor.component.html',
   styleUrls: ['./inline-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class InlineEditComponent implements OnInit, AfterViewInit {
   form = new UntypedFormGroup({});
@@ -93,18 +95,19 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   }
 
   openMedias(): void {
+    const config: IDialog = {
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'manage-media',
+          fullWidth: true,
+        },
+      },
+    };
     this.dialog.open(DialogComponent, {
       width: '100%',
       panelClass: this.manageService.mediaDialogClass,
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'manage-media',
-            fullWidth: true,
-          },
-        },
-      },
+      data: config,
     });
   }
   onModelChange(value: any): void {

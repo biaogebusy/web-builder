@@ -8,10 +8,11 @@ import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-notify',
-  templateUrl: './notify.component.html',
-  styleUrls: ['./notify.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-notify',
+    templateUrl: './notify.component.html',
+    styleUrls: ['./notify.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NotifyComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

@@ -1,6 +1,7 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
+import { IDialog } from '@core/interface/IDialog';
 import { ManageService } from '@core/service/manage.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { FieldType } from '@ngx-formly/core';
@@ -10,6 +11,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
   selector: 'app-img-picker',
   templateUrl: './img-picker.component.html',
   styleUrls: ['./img-picker.component.scss'],
+  standalone: false,
 })
 export class ImgPickerComponent extends FieldType implements OnInit {
   time: Date;
@@ -46,20 +48,21 @@ export class ImgPickerComponent extends FieldType implements OnInit {
 
   openMedias(): void {
     this.time = new Date();
+    const config: IDialog = {
+      disableCloseButton: true,
+      inputData: {
+        content: {
+          type: 'manage-media',
+          time: this.time,
+          fullWidth: true,
+        },
+      },
+    };
     this.dialog.open(DialogComponent, {
       width: '85vw',
       panelClass: this.manageService.mediaDialogClass,
       id: 'img-picker',
-      data: {
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'manage-media',
-            time: this.time,
-            fullWidth: true
-          },
-        },
-      },
+      data: config,
     });
   }
 

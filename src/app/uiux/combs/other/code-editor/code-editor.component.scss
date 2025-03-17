@@ -2,6 +2,12 @@
   height: 35vh;
   max-height: 50vh;
   overflow: hidden;
+  @apply transition-all;
+  &.less {
+    height: 90vh;
+    max-height: 90vh;
+    @apply transition-all;
+  }
   ::ng-deep {
     .jsoneditor-outer {
       height: 100%;
@@ -16,4 +22,10 @@
       }
     }
   }
+}
+
+.code-editor-show-btn {
+  @apply absolute left-1/2;
+  top: 8px;
+  transform: translateX(-50%);
 }

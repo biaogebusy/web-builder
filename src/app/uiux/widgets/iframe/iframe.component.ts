@@ -16,10 +16,11 @@ import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-iframe',
-  templateUrl: './iframe.component.html',
-  styleUrls: ['./iframe.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-iframe',
+    templateUrl: './iframe.component.html',
+    styleUrls: ['./iframe.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class IframeComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

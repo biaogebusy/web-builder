@@ -13,10 +13,11 @@ import type { ISearchLabel } from '@core/interface/combs/ISearch';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
-  selector: 'app-search-sidebar',
-  templateUrl: './search-sidebar.component.html',
-  styleUrls: ['./search-sidebar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-search-sidebar',
+    templateUrl: './search-sidebar.component.html',
+    styleUrls: ['./search-sidebar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SearchSidebarComponent implements OnInit {
   @Input() fields: FormlyFieldConfig[];

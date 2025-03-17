@@ -4,7 +4,8 @@ import { ScreenService } from '@core/service/screen.service';
 import DOMPurify from 'dompurify';
 import { isString } from 'lodash';
 @Pipe({
-  name: 'safeHtml',
+    name: 'safeHtml',
+    standalone: false
 })
 export class SafeHtmlPipe implements PipeTransform {
   private screenService = inject(ScreenService);

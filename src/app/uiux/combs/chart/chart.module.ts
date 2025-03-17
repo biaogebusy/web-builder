@@ -14,8 +14,4 @@ const components = [ChartComponent, ChartBoxComponent];
 })
 export class ChartModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

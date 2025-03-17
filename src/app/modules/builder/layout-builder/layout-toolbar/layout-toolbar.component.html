@@ -12,7 +12,7 @@
     [content]="{
       label: '',
       mode: 'icon',
-      icon: { svg: 'tune-vertical-variant', inline: true },
+      icon: { svg: 'tune-vertical-variant' },
     }"
   ></app-btn>
   @let elements = lbContent.elements;
@@ -23,7 +23,7 @@
       (click)="onMoveCol('left', elements, toolbar, i)"
     >
       <div class="flex items-center">
-        <app-icon [content]="{ svg: 'chevron-left', inline: true }"></app-icon>
+        <app-icon [content]="{ svg: 'chevron-left' }"></app-icon>
         <span>左移</span>
       </div>
     </button>
@@ -33,25 +33,25 @@
       (click)="onMoveCol('right', elements, toolbar, i)"
     >
       <div class="flex items-center">
-        <app-icon [content]="{ svg: 'chevron-right', inline: true }"></app-icon>
+        <app-icon [content]="{ svg: 'chevron-right' }"></app-icon>
         <span>右移</span>
       </div>
     </button>
     <button mat-menu-item (click)="addBlock('layout', lbContent, toolbar)">
       <div class="flex items-center">
-        <app-icon [content]="{ svg: 'plus', inline: true }"></app-icon>
+        <app-icon [content]="{ svg: 'plus' }"></app-icon>
         <span>选择组件插入新一栏</span>
       </div>
     </button>
     <button mat-menu-item (click)="onDeleteRow(toolbar)">
       <div class="flex items-center">
-        <app-icon [content]="{ svg: 'close', inline: true }"></app-icon>
+        <app-icon [content]="{ svg: 'close' }"></app-icon>
         <span>移除当前栏</span>
       </div>
     </button>
     <button mat-menu-item (click)="onLayoutSettings(layout, toolbar)">
       <div class="flex items-center">
-        <app-icon [content]="{ svg: 'responsive', inline: true }"></app-icon>
+        <app-icon [content]="{ svg: 'responsive' }"></app-icon>
         <span>当前栏配置</span>
       </div>
     </button>

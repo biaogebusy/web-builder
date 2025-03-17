@@ -12,10 +12,11 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-chart-box',
-  templateUrl: './chart-box.component.html',
-  styleUrls: ['./chart-box.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-chart-box',
+    templateUrl: './chart-box.component.html',
+    styleUrls: ['./chart-box.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ChartBoxComponent implements OnInit {
   @Input() content: any;

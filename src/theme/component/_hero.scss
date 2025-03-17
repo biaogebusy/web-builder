@@ -1,12 +1,12 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin hero-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   $bg-card-color: mat.m2-get-color-from-palette($background, card);
   .hero-1-v2 {
@@ -18,11 +18,7 @@
   .hero-2-v2 {
     .box {
       background-color: $bg-card-color;
-      @include mat.elevation(
-        4,
-        mat.m2-get-color-from-palette($foreground, text),
-        0.1
-      );
+      @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.1);
       .content {
         color: mat.m2-get-color-from-palette($foreground, text, 0.5);
       }
@@ -34,17 +30,9 @@
     color: mat.m2-get-color-from-palette($primary, default-contrast);
     .card {
       background-color: $bg-card-color;
-      @include mat.elevation(
-        4,
-        mat.m2-get-color-from-palette($foreground, text),
-        0.2
-      );
+      @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.2);
       .card-media {
-        @include mat.elevation(
-          5,
-          mat.m2-get-color-from-palette($foreground, text),
-          0.3
-        );
+        @include mat.elevation(5, mat.m2-get-color-from-palette($foreground, text), 0.3);
       }
     }
   }

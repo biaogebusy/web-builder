@@ -20,9 +20,10 @@ import { Subject, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-jsoneditor',
-  templateUrl: './jsoneditor.component.html',
-  styleUrls: ['./jsoneditor.component.scss'],
+    selector: 'app-jsoneditor',
+    templateUrl: './jsoneditor.component.html',
+    styleUrls: ['./jsoneditor.component.scss'],
+    standalone: false
 })
 export class JsoneditorComponent implements OnInit, AfterViewInit {
   @Input() content: IJsoneditor;

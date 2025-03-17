@@ -1,16 +1,21 @@
 // https://tailwindcss.com/docs/functions-and-directives
-// @import "tailwindcss/base";
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+// @use "tailwindcss/base";
+@use 'tailwindcss/components';
+@use 'tailwindcss/utilities';
 /* You can add global styles to this file, and also import other style files */
-@import './theme/mixins/reset';
-@import './theme/main.scss';
-@import 'highlight.js/scss/atom-one-dark.scss';
-@import 'aos/dist/aos.css';
+@use './theme/mixins/reset';
+@use './theme/main';
+@use 'highlight.js/scss/atom-one-dark';
+@use 'aos/dist/aos.css';
 
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  font-family:
+    'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑',
+    Arial, sans-serif;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 @layer utilities {

@@ -52,8 +52,4 @@ const components = [
 })
 export class NodeModule extends BaseModule {
   dynamicComponents = [ArticleComponent, QuestionComponent, ReportComponent, RelateComponent];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

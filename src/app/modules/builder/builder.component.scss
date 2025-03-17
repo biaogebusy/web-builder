@@ -9,6 +9,7 @@
     ::ng-deep {
       > .mat-drawer-inner-container {
         overflow: hidden;
+        display: block;
       }
     }
     &.mat-drawer-opened {

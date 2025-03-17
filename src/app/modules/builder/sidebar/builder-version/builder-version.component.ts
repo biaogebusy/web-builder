@@ -15,10 +15,11 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
-  selector: 'app-builder-version',
-  templateUrl: './builder-version.component.html',
-  styleUrls: ['./builder-version.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-builder-version',
+    templateUrl: './builder-version.component.html',
+    styleUrls: ['./builder-version.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuilderVersionComponent implements OnInit {
   public version: IPage[] | undefined;

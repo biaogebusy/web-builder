@@ -1,4 +1,4 @@
-@import '../../../../theme/variable/breakpoint';
+@use '../../../../theme/variable/breakpoint' as *;
 .view-list {
   .loading-inner {
     position: absolute;

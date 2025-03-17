@@ -12,10 +12,11 @@ import { map, shuffle } from 'lodash-es';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-builder-generater',
-  templateUrl: './builder-generater.component.html',
-  styleUrls: ['./builder-generater.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-builder-generater',
+    templateUrl: './builder-generater.component.html',
+    styleUrls: ['./builder-generater.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuilderGeneraterComponent implements OnInit {
   public uiux = inject(UIUX);

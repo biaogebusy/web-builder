@@ -22,9 +22,10 @@ import { ComponentService } from '@core/service/component.service';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 
 @Component({
-  selector: 'app-dynamic-component',
-  templateUrl: './dynamic-component.component.html',
-  styleUrls: ['./dynamic-component.component.scss'],
+    selector: 'app-dynamic-component',
+    templateUrl: './dynamic-component.component.html',
+    styleUrls: ['./dynamic-component.component.scss'],
+    standalone: false
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() inputs: IDynamicInputs;

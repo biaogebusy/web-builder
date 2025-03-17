@@ -1,4 +1,4 @@
-@import '../../../../theme//mixins/amixin';
+@use '../../../../theme//mixins/amixin' as *;
 .manage-media {
   height: 70vh;
   overflow: hidden;

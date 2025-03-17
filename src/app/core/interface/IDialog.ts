@@ -1,7 +1,8 @@
 export interface IDialog {
   disableCloseButton?: boolean;
   title?: string;
+  titleClasses?: string;
   inputData: any;
-  renderInputComponent: any;
-  closeLabel?: string;
+  yesLabel?: string;
+  noLabel?: string;
 }

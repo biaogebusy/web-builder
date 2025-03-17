@@ -7,10 +7,11 @@ import {
 import type { IContentBox } from '@core/interface/widgets/IContentWidget';
 
 @Component({
-  selector: 'app-content-box',
-  templateUrl: './content-box.component.html',
-  styleUrls: ['./content-box.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-content-box',
+    templateUrl: './content-box.component.html',
+    styleUrls: ['./content-box.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ContentBoxComponent implements OnInit {
   @Input() content: IContentBox;

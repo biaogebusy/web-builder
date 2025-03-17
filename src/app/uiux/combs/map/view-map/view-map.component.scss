@@ -1,4 +1,4 @@
-@import '../../../../../theme/variable/breakpoint';
+@use '../../../../../theme/variable/breakpoint' as *;
 .view-map {
   height: calc(100vh - 100px);
   .sidebar {

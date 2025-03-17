@@ -1,6 +1,6 @@
 // import all css on anuglar.json
 // https://swiperjs.com/angular
-@import '../../../../../theme/mixins/amixin';
+@use '../../../../../theme/mixins/amixin' as *;
 
 .swiper-slide {
   overflow: hidden;

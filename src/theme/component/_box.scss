@@ -1,12 +1,12 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin box-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   $text-base: mat.m2-get-color-from-palette($foreground, text, 0.75);
   $text-primary: mat.m2-get-color-from-palette($primary);
@@ -261,8 +261,7 @@
     }
     &.style-v9 {
       background-color: $bg-card-color;
-      box-shadow: 0 0 3px
-        mat.m2-get-color-from-palette($foreground, divider, 0.1);
+      box-shadow: 0 0 3px mat.m2-get-color-from-palette($foreground, divider, 0.1);
       .box-icon {
         background: mat.m2-get-color-from-palette($primary, 0.1);
         color: $text-primary;
@@ -276,8 +275,7 @@
         }
       }
       &:hover {
-        box-shadow: 0 10px 25px
-          mat.m2-get-color-from-palette($foreground, divider, 0.1);
+        box-shadow: 0 10px 25px mat.m2-get-color-from-palette($foreground, divider, 0.1);
         .box-icon {
           .mat-icon {
             color: #fff;

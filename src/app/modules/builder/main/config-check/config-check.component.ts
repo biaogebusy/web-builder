@@ -5,11 +5,10 @@ import { Subscription } from 'rxjs';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 @Component({
-  selector: 'app-config-check',
-  standalone: true,
-  imports: [WidgetsModule],
-  templateUrl: './config-check.component.html',
-  styleUrl: './config-check.component.scss',
+    selector: 'app-config-check',
+    imports: [WidgetsModule],
+    templateUrl: './config-check.component.html',
+    styleUrl: './config-check.component.scss'
 })
 export class ConfigCheckComponent {
   results: ApiTestResult[] = [];

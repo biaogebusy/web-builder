@@ -7,10 +7,11 @@ import {
 import type { IBox } from '@core/interface/widgets/IBox';
 
 @Component({
-  selector: 'app-box',
-  templateUrl: './box.component.html',
-  styleUrls: ['./box.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-box',
+    templateUrl: './box.component.html',
+    styleUrls: ['./box.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BoxComponent implements OnInit {
   @Input() content: IBox;

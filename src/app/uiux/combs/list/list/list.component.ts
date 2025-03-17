@@ -12,10 +12,11 @@ import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks'
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ListComponent implements OnInit {
   private screenService = inject(ScreenService);

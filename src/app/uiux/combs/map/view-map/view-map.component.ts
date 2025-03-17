@@ -18,10 +18,11 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-view-map',
-  templateUrl: './view-map.component.html',
-  styleUrls: ['./view-map.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-view-map',
+    templateUrl: './view-map.component.html',
+    styleUrls: ['./view-map.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ViewMapComponent extends BaseComponent implements OnInit {
   @Input() content: IViewMap;

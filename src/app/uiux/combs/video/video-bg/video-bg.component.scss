@@ -1,4 +1,4 @@
-@import '/src/theme/variable/breakpoint';
+@use '../../../../../theme/variable/breakpoint' as *;
 .video-bg {
   overflow: hidden;
   min-height: 280px;

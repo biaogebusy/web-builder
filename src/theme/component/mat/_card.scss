@@ -1,12 +1,13 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
+@use '../../mixins/amixin' as *;
 @mixin card-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
   $text-color: mat.m2-get-color-from-palette($foreground, text, 0.75);
   $bg-color: mat.m2-get-color-from-palette($background, card);
   .mat-mdc-card {
@@ -14,11 +15,7 @@
     background-color: $bg-color;
     &:hover {
       cursor: pointer;
-      background-color: mat.m2-get-color-from-palette(
-        $background,
-        background,
-        0.85
-      );
+      background-color: mat.m2-get-color-from-palette($background, background, 0.85);
     }
     .meta {
       .badge {
@@ -45,11 +42,7 @@
   }
 
   .card-1v1 {
-    @include mat.elevation(
-      4,
-      mat.m2-get-color-from-palette($foreground, text),
-      0.1
-    );
+    @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.1);
     background-color: $bg-color;
     a {
       color: $text-color;
@@ -76,9 +69,7 @@
 
   .card-1-v3 {
     .viewport {
-      @include scrollbar(
-        mat.m2-get-color-from-palette($foreground, divider, 0.2)
-      );
+      @include scrollbar(mat.m2-get-color-from-palette($foreground, divider, 0.2));
     }
     .item {
       @include mat.elevation(4, #000, 0.35);
@@ -109,11 +100,7 @@
   .card-1-v4 {
     .left {
       img {
-        @include mat.elevation(
-          4,
-          mat.m2-get-color-from-palette($foreground, text),
-          0.1
-        );
+        @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.1);
       }
     }
     .mat-icon {
@@ -124,22 +111,14 @@
     }
 
     .inner {
-      @include mat.elevation(
-        4,
-        mat.m2-get-color-from-palette($foreground, text),
-        0.1
-      );
+      @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.1);
       color: mat.m2-get-color-from-palette($foreground, text, 0.5);
       background-color: mat.m2-get-color-from-palette($background, card);
     }
   }
 
   .card-1v5 {
-    @include mat.elevation(
-      4,
-      mat.m2-get-color-from-palette($foreground, text),
-      0.1
-    );
+    @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.1);
     background-color: mat.m2-get-color-from-palette($background, card);
     .more {
       color: mat.m2-get-color-from-palette($primary);
@@ -150,25 +129,13 @@
   }
 
   .card-1v6 {
-    @include mat.elevation(
-      4,
-      mat.m2-get-color-from-palette($foreground, text),
-      0.1
-    );
+    @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, text), 0.1);
     background-color: mat.m2-get-color-from-palette($primary, 0.07);
-    border-bottom: 3px solid
-      mat.m2-get-color-from-palette($foreground, divider, 0.2);
+    border-bottom: 3px solid mat.m2-get-color-from-palette($foreground, divider, 0.2);
     &:hover {
       border-color: mat.m2-get-color-from-palette($primary);
-      background-color: mat.m2-get-color-from-palette(
-        $background,
-        card
-      ) !important;
-      @include mat.elevation(
-        5,
-        mat.m2-get-color-from-palette($foreground, divider),
-        0.7
-      );
+      background-color: mat.m2-get-color-from-palette($background, card) !important;
+      @include mat.elevation(5, mat.m2-get-color-from-palette($foreground, divider), 0.7);
       .title {
         color: mat.m2-get-color-from-palette($primary);
       }

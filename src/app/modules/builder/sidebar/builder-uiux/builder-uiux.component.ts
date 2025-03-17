@@ -9,10 +9,11 @@ import { BuilderState } from '@core/state/BuilderState';
 import { UIUX } from '@core/token/token-providers';
 
 @Component({
-  selector: 'app-builder-uiux',
-  templateUrl: './builder-uiux.component.html',
-  styleUrls: ['./builder-uiux.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-builder-uiux',
+    templateUrl: './builder-uiux.component.html',
+    styleUrls: ['./builder-uiux.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuilderUiuxComponent implements OnInit {
   builder = inject(BuilderState);

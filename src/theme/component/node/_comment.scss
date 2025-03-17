@@ -1,23 +1,21 @@
 @use '@angular/material' as mat;
-
+@use 'sass:map';
 @mixin comment-color($theme) {
   $config: mat.m2-get-color-config($theme);
-  $foreground: map-get($config, foreground);
-  $background: map-get($config, background);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-  $warn: map-get($config, warn);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
 
   $text-color: mat.m2-get-color-from-palette($foreground, text, 0.75);
   .comment-list {
     .comment-count {
-      border-bottom: 1px solid
-        mat.m2-get-color-from-palette($foreground, divider);
+      border-bottom: 1px solid mat.m2-get-color-from-palette($foreground, divider);
     }
     .item {
       &:after {
-        border-bottom: 1px solid
-          mat.m2-get-color-from-palette($foreground, divider, 0.08);
+        border-bottom: 1px solid mat.m2-get-color-from-palette($foreground, divider, 0.08);
       }
       &:last-child:after {
         border-bottom: 0;
