@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -19,7 +14,7 @@ const meta: Meta<TitleComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents(), SafeHtmlPipe],
+      declarations: [SafeHtmlPipe],
     }),
   ],
 };

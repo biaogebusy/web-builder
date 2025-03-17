@@ -123,8 +123,4 @@ const components = [
 })
 export class BuilderModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

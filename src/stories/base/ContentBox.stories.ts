@@ -22,11 +22,7 @@ const meta: Meta<ContentBoxComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [
-        ...StorysModule.forEntryComponents(),
-        ReqRolesDirective,
-        SafeHtmlPipe,
-      ],
+      declarations: [ReqRolesDirective, SafeHtmlPipe],
     }),
     componentWrapperDecorator(
       story => `<div style="width:40%" class="widget relative">${story}</div>`

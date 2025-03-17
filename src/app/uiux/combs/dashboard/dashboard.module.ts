@@ -15,8 +15,4 @@ const components = [DashboardComponent, DashboardBoxComponent];
 })
 export class DashboardModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

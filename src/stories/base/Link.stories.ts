@@ -23,15 +23,9 @@ const meta: Meta<LinkComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [
-        ...StorysModule.forEntryComponents(),
-        ReqRolesDirective,
-        SafeHtmlPipe,
-      ],
+      declarations: [ReqRolesDirective, SafeHtmlPipe],
     }),
-    componentWrapperDecorator(
-      story => `<div class="widget relative p-x-md p-y-md">${story}</div>`
-    ),
+    componentWrapperDecorator(story => `<div class="widget relative p-x-md p-y-md">${story}</div>`),
   ],
 };
 

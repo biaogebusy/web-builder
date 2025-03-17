@@ -25,13 +25,7 @@ const meta: Meta<BlockComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [
-        ...StorysModule.forEntryComponents(),
-        DynamicComponentComponent,
-        SafeHtmlPipe,
-        ReqRolesDirective,
-        MatIcon,
-      ],
+      declarations: [DynamicComponentComponent, SafeHtmlPipe, ReqRolesDirective, MatIcon],
     }),
     componentWrapperDecorator(
       story => `

@@ -18,8 +18,4 @@ const components = [LocationComponent, MapListV1Component, ViewMapComponent, Map
 })
 export class MapModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

@@ -22,15 +22,10 @@ const meta: Meta<ContentTextCenterComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [
-        ...StorysModule.forEntryComponents(),
-        ReqRolesDirective,
-        SafeHtmlPipe,
-      ],
+      declarations: [ReqRolesDirective, SafeHtmlPipe],
     }),
     componentWrapperDecorator(
-      story =>
-        `<div style="width:40%" class="widget relative text-light">${story}</div>`
+      story => `<div style="width:40%" class="widget relative text-light">${story}</div>`
     ),
   ],
 };

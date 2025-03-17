@@ -15,8 +15,4 @@ const components = [LotteryComponent];
 })
 export class CalculatorModule extends BaseModule {
   dynamicComponents = [LotteryComponent];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

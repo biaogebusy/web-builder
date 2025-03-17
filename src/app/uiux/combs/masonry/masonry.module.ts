@@ -14,8 +14,4 @@ const components = [ShuffleComponent];
 })
 export class MasonryModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

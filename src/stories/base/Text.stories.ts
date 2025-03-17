@@ -22,15 +22,9 @@ const meta: Meta<TextComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [
-        ...StorysModule.forEntryComponents(),
-        ReqRolesDirective,
-        SafeHtmlPipe,
-      ],
+      declarations: [ReqRolesDirective, SafeHtmlPipe],
     }),
-    componentWrapperDecorator(
-      story => `<div class="relative p-10 z-10">${story}</div>`
-    ),
+    componentWrapperDecorator(story => `<div class="relative p-10 z-10">${story}</div>`),
   ],
   parameters: {
     layout: 'fullscreen',
@@ -55,8 +49,7 @@ Title.storyName = '带标题';
 const title: IText = {
   ...Base.args.content,
   title: {
-    label:
-      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+    label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v4',
     classes: 'mat-headline-3 bold',
   },
@@ -104,8 +97,7 @@ Center.storyName = '居中';
 const center: IText = {
   type: 'text',
   title: {
-    label:
-      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+    label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     classes: 'mat-headline-3 bold',
     style: 'style-v1',
   },
@@ -276,8 +268,7 @@ const list: IText = {
       },
       {
         type: 'link',
-        label:
-          'Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器',
+        label: 'Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器',
         href: '#',
       },
       {
@@ -308,8 +299,7 @@ MaxWidth.args = {
   content: {
     type: 'text',
     title: {
-      label:
-        '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+      label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
       style: 'style-v1',
       classes: 'mat-headline-3 bold',
     },

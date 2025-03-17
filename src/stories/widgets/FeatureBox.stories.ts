@@ -24,12 +24,10 @@ const meta: Meta<FeatureBoxComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents(), DialogComponent],
+      declarations: [DialogComponent],
       imports: [MatIconModule, MatDialogModule],
     }),
-    componentWrapperDecorator(
-      story => `<div classs="widget" style="width:33%">${story}</div>`
-    ),
+    componentWrapperDecorator(story => `<div classs="widget" style="width:33%">${story}</div>`),
   ],
 };
 

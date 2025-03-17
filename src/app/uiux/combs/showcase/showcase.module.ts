@@ -41,8 +41,4 @@ const components = [
 })
 export class ShowcaseModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

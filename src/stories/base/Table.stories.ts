@@ -22,7 +22,7 @@ const meta: Meta<DynamicTableComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents(), MatTable],
+      declarations: [MatTable],
     }),
     componentWrapperDecorator(story => {
       return `<div classs="widget">${story}</div>`;

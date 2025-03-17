@@ -30,8 +30,4 @@ const components = [ManageMediaComponent, UploadMediaComponent, TaxonomyComponen
 })
 export class ManageModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

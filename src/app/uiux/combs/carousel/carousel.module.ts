@@ -26,8 +26,4 @@ const components = [
 })
 export class CarouselModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

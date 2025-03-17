@@ -1,10 +1,9 @@
 import { ModuleWithProviders, NgModule, inject } from '@angular/core';
 import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import base from '@assets/app/core/base.json';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import {
   builderFullScreenFactory,
   debugAnimateFactory,
@@ -29,29 +28,10 @@ import {
   WIDGETS,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { BannerModule } from '@uiux/combs/banner/banner.module';
-import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
-import { HeroModule } from '@uiux/combs/hero/hero.module';
-import { ListModule } from '@uiux/combs/list/list.module';
-import { MapModule } from '@uiux/combs/map/map.module';
-import { MasonryModule } from '@uiux/combs/masonry/masonry.module';
-import { NodeModule } from '@uiux/combs/node/node.module';
-import { OtherModule } from '@uiux/combs/other/other.module';
-import { ProfileModule } from '@uiux/combs/profile/profile.module';
-import { SearchModule } from '@uiux/combs/search/search.module';
-import { ShowcaseModule } from '@uiux/combs/showcase/showcase.module';
-import { TabModule } from '@uiux/combs/tab/tab.module';
-import { VideoModule } from '@uiux/combs/video/video.module';
-import { CarouselModule } from '@uiux/combs/carousel/carousel.module';
-import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
-import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
 import { notify } from './data/notify';
 import { BuilderState } from '@core/state/BuilderState';
 import { defaultHeader, footerInverse } from '@modules/builder/data/Branding.json';
-import { BuilderModule } from '@modules/builder/builder.module';
-import { ManageModule } from '@modules/manage/manage.module';
 import { ThemeService } from '@core/service/theme.service';
-import { FormModule } from '@uiux/combs/form/form.module';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ComponentService } from '@core/service/component.service';
@@ -142,31 +122,6 @@ export class StorysModule {
         },
       ],
     };
-  }
-
-  static forEntryComponents(): any[] {
-    return [
-      ...WidgetsModule.forStorybook(),
-      ...BannerModule.forStorybook(),
-      ...CalculatorModule.forStorybook(),
-      ...CalendarModule.forStorybook(),
-      ...CarouselModule.forStorybook(),
-      ...HeroModule.forStorybook(),
-      ...ListModule.forStorybook(),
-      ...MapModule.forStorybook(),
-      ...MasonryModule.forStorybook(),
-      ...NodeModule.forStorybook(),
-      ...OtherModule.forStorybook(),
-      ...ProfileModule.forStorybook(),
-      ...SearchModule.forStorybook(),
-      ...ShowcaseModule.forStorybook(),
-      ...TabModule.forStorybook(),
-      ...VideoModule.forStorybook(),
-      ...DashboardModule.forStorybook(),
-      ...BuilderModule.forStorybook(),
-      ...ManageModule.forStorybook(),
-      ...FormModule.forStorybook(),
-    ];
   }
 
   constructor() {

@@ -21,15 +21,10 @@ const meta: Meta<BoxComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [
-        ...StorysModule.forEntryComponents(),
-        SafeHtmlPipe,
-        MatIcon,
-      ],
+      declarations: [SafeHtmlPipe, MatIcon],
     }),
     componentWrapperDecorator(
-      story =>
-        `<div class="widget p-y flex w-[300px] justify-center items-center">${story}</div>`
+      story => `<div class="widget p-y flex w-[300px] justify-center items-center">${story}</div>`
     ),
   ],
   parameters: {

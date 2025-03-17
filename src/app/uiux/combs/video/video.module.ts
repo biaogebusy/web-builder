@@ -14,8 +14,4 @@ const components = [VideoBgComponent, VideoComponent];
 })
 export class VideoModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }

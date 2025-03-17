@@ -24,8 +24,4 @@ const components = [
 })
 export class ProfileModule extends BaseModule {
   dynamicComponents = [...components];
-
-  static forStorybook(): any {
-    return [...components];
-  }
 }
