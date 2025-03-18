@@ -1,3 +1,5 @@
+@let entry = filesEntry();
+@let filesLists = files();
 <div class="upload-media p-5">
   <ngx-file-drop
     dropZoneLabel="Drop files here"
@@ -8,12 +10,12 @@
     <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
       @if (files.length) {
         <div class="grid grid-cols-12 gap-2 w-full">
-          @for (item of filesEntry; track $index) {
-            @if (files[$index]) {
+          @for (item of entry; track $index) {
+            @if (filesLists[$index]) {
               <div class="col-span-3">
                 <img
                   class="w-full aspect-[4/3] object-cover rounded"
-                  [src]="files[$index].uri.url"
+                  [src]="filesLists[$index].uri.url"
                   alt=""
                 />
               </div>
@@ -39,26 +41,26 @@
   </ngx-file-drop>
   <div class="upload-table w-full box-border my-5 text-sm text-gray-500">
     <div class="flex flex-col gap-3">
-      @for (item of filesEntry; track $index) {
+      @for (item of entry; track $index) {
         <mat-divider class="my-3" />
         <div class="flex justify-between items-center gap-2 truncate">
           <div class="flex items-center gap-2">
-            @if (files[$index]) {
+            @if (filesLists[$index]) {
               <app-icon [content]="{ svg: 'check', color: 'primary' }" />
             } @else {
               <app-spinner [content]="{ color: 'primary', size: 24 }" />
             }
             <div class="text-gray-700">{{ item.relativePath }}</div>
-            @if (files[$index]) {
+            @if (filesLists[$index]) {
               <div>
-                {{ files[$index].filesize | bytes: 2 }}
+                {{ filesLists[$index].filesize | bytes: 2 }}
               </div>
             }
           </div>
 
-          @if (files[$index]) {
+          @if (filesLists[$index]) {
             <app-icon
-              (click)="onCopy(files[$index].uri.url)"
+              (click)="onCopy(filesLists[$index].uri.url)"
               class="cursor-pointer"
               [content]="{ svg: 'content-copy' }"
             />
