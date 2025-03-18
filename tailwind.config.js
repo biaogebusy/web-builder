@@ -207,6 +207,10 @@ module.exports = {
       '2': '2 2 0%',
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+  ],
   corePlugins: { preflight: false },
 };
