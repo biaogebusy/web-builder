@@ -170,20 +170,22 @@ module.exports = {
       variants: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      pattern: /^aspect-\[(\d{1,2}\/\d{1,2})\]$/,
-      variants: ['xs', 'sm', 'md', 'lg'],
-    },
-    {
-      pattern: /^aspect-(w|h)-([1-9]\d?)$/,
-      variants: ['xs', 'sm', 'md', 'lg'],
-    },
-    {
       pattern: /^(line-through|no-underline|underline)$/,
     },
   ],
   theme: {
     screens: { sm: '600px', md: '960px', lg: '1280px', xl: '1470px' },
-    extend: { strokeWidth: { 3: '3', 4: '4', 5: '5' } },
+    extend: {
+      strokeWidth: { 3: '3', 4: '4', 5: '5' },
+      aspectRatio: {
+        '16/9': '16 / 9',
+        '4/3': '4 / 3',
+        '3/2': '3 / 2',
+        '1/1': '1 / 1',
+        '9:16': '9 / 16',
+        '2/3': '2 / 3',
+      },
+    },
     flex: {
       '1/12': '0 0 8.33%',
       '2/12': '0 0 16.66%',
@@ -205,10 +207,6 @@ module.exports = {
       '2': '2 2 0%',
     },
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
   corePlugins: { preflight: false },
 };
