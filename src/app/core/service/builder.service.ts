@@ -81,13 +81,14 @@ export class BuilderService extends ApiService {
           this.util.openSnackbar(`已加载${content.title}`, 'ok');
           if (openSetting) {
             const config: IDialog = {
-              title: '打开页面属性',
+              title: '页面属性',
               noLabel: '取消',
               yesLabel: '确认',
               inputData: {
                 content: {
                   type: 'text',
-                  body: `打开<strong class="text-black-500">[${title}]</strong>页面属性面板设置相关属性`,
+                  fullWidth: true,
+                  body: `是否需要打开页面属性面板？`,
                 },
               },
             };
