@@ -65,17 +65,48 @@ export class BuilderService extends ApiService {
     return params;
   }
 
-  loadPage(page: { langcode?: string; nid: string; isTemplate?: boolean }): void {
+  loadPage(
+    page: { langcode?: string; nid: string; isTemplate?: boolean },
+    openSetting = false
+  ): void {
     const { langcode, nid, isTemplate } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
-      .subscribe((page: IPage) => {
-        const { body, status } = page;
+      .subscribe((content: IPage) => {
+        const { body, status, uuid, title } = content;
         this.builder.loading$.next(false);
         if (status) {
-          this.builder.loadNewPage(this.formatToExtraData(page, isTemplate));
-          this.util.openSnackbar(`已加载${page.title}`, 'ok');
+          this.builder.loadNewPage(this.formatToExtraData(content, isTemplate));
+          this.util.openSnackbar(`已加载${content.title}`, 'ok');
+          if (openSetting) {
+            const config: IDialog = {
+              title: '打开页面属性',
+              noLabel: '取消',
+              yesLabel: '确认',
+              inputData: {
+                contnet: {
+                  type: 'text',
+                  body: `打开<strong class="text-black-500">[${title}]</strong>页面属性面板设置相关属性`,
+                },
+              },
+            };
+            const dialogRef = this.dialog.open(DialogComponent, {
+              width: '340px',
+              data: config,
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              if (result && uuid) {
+                this.openPageSetting(
+                  { uuid, langcode },
+                  '/api/v1/node/landing_page',
+                  this.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+                );
+              }
+            });
+          }
+
           if (body.length === 0) {
             this.util.openSnackbar('当前内容为空，已为你初始化一个组件', 'ok');
           }
@@ -177,7 +208,7 @@ export class BuilderService extends ApiService {
           const {
             data: { nid },
           } = res;
-          this.loadPage({ nid });
+          this.loadPage({ nid }, true);
         })
       );
   }
@@ -412,32 +443,36 @@ export class BuilderService extends ApiService {
   openPageSetting(page: { uuid: string; langcode?: string }, api: string, params: string): void {
     const { uuid, langcode } = page;
     const lang = this.getApiLang(langcode);
-    this.nodeService.fetch(`${api}/${uuid}`, params, this.user.csrf_token, lang).subscribe(
-      res => {
-        this.builder.loading$.next(false);
-        this.builder.rightContent$.next({
-          mode: 'over',
-          hasBackdrop: true,
-          style: {
-            'width': '260px',
-            'padding': '14px',
-            'max-width': 'calc(100vw - 50px)',
-          },
-          elements: [
-            {
-              type: 'page-setting',
-              content: res,
-              fullWidth: true,
+    this.nodeService
+      .fetch(`${api}/${uuid}`, params, this.user.csrf_token, lang)
+      .pipe(
+        catchError((error: any) => {
+          const { statusText } = error;
+          this.util.openSnackbar(statusText, 'ok');
+          return of(false);
+        })
+      )
+      .subscribe(res => {
+        if (res) {
+          this.builder.rightContent$.next({
+            mode: 'over',
+            hasBackdrop: true,
+            style: {
+              'width': '260px',
+              'padding': '14px',
+              'max-width': 'calc(100vw - 50px)',
             },
-          ],
-        });
-      },
-      error => {
+            elements: [
+              {
+                type: 'page-setting',
+                content: res,
+                fullWidth: true,
+              },
+            ],
+          });
+        }
         this.builder.loading$.next(false);
-        const { statusText } = error;
-        this.util.openSnackbar(statusText, 'ok');
-      }
-    );
+      });
   }
 
   coverExtraData(page: IPage): any {
