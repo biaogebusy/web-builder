@@ -85,7 +85,7 @@ export class BuilderService extends ApiService {
               noLabel: '取消',
               yesLabel: '确认',
               inputData: {
-                contnet: {
+                content: {
                   type: 'text',
                   body: `打开<strong class="text-black-500">[${title}]</strong>页面属性面板设置相关属性`,
                 },

@@ -2,7 +2,7 @@
   @if (showToolbar()) {
     <app-component-toolbar [content]="inputs" />
   }
-  @let content = inputs.type ? inputs : inputs.content;
+  @let content = compContent();
   <div class="relative" [ngClass]="content?.containerClasses">
     @if (content?.id) {
       <span class="anchor" [id]="content.id"></span>

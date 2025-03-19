@@ -1,21 +1,14 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import type { IBgImg } from '@core/interface/widgets/IBgImg';
 
 @Component({
-    selector: 'app-bg-img',
-    templateUrl: './bg-img.component.html',
-    styleUrls: ['./bg-img.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-bg-img',
+  templateUrl: './bg-img.component.html',
+  styleUrls: ['./bg-img.component.scss'],
+  standalone: false,
 })
 export class BgImgComponent implements OnInit {
   @Input() content: IBgImg;
-  constructor() {}
 
   ngOnInit(): void {}
 

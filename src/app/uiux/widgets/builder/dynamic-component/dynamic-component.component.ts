@@ -22,26 +22,26 @@ import { ComponentService } from '@core/service/component.service';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 
 @Component({
-    selector: 'app-dynamic-component',
-    templateUrl: './dynamic-component.component.html',
-    styleUrls: ['./dynamic-component.component.scss'],
-    standalone: false
+  selector: 'app-dynamic-component',
+  templateUrl: './dynamic-component.component.html',
+  styleUrls: ['./dynamic-component.component.scss'],
+  standalone: false,
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() inputs: IDynamicInputs;
   @Input() index: number; // just for animate count
-  showToolbar = signal(false);
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
-  container: ViewContainerRef;
+  private container: ViewContainerRef;
 
-  ele = inject(ElementRef);
-  util = inject(UtilitiesService);
-  screenService = inject(ScreenService);
-  componentService = inject(ComponentService);
+  private ele = inject(ElementRef);
+  public showToolbar = signal(false);
+  private util = inject(UtilitiesService);
+  private screenService = inject(ScreenService);
+  private componentService = inject(ComponentService);
   private readonly renderer = inject(Renderer2);
   private readonly environmentInjector = inject(EnvironmentInjector);
   public componentRef: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
-
+  public compContent = signal<any>({});
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -65,6 +65,8 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
       if (!type) {
         return;
       }
+      const content = this.inputs.type ? this.inputs : this.inputs.content;
+      this.compContent.set(content);
       this.container.clear();
 
       const componentType = await this.componentService.getComponentType(type);
