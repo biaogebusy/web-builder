@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING, BUILDER_CONFIG } from '@core/token/token-providers';
@@ -14,7 +14,6 @@ import { IDialog } from '@core/interface/IDialog';
   selector: 'app-builder-sidebar',
   templateUrl: './builder-sidebar.component.html',
   styleUrls: ['./builder-sidebar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
 export class BuilderSidebarComponent implements OnInit {
