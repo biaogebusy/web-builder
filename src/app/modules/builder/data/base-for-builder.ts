@@ -11,7 +11,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -118,7 +118,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -294,7 +294,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-shadow bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -479,7 +479,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-shadow bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -792,7 +792,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -937,7 +937,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'xl',
-          bgClasses: 'bg-shadow bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -1085,7 +1085,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'xl',
-          bgClasses: 'bg-shadow bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -1237,7 +1237,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -1386,7 +1386,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -1471,7 +1471,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-shadow bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -1715,7 +1715,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-shadow bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -1997,7 +1997,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg- bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -2420,7 +2420,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'md',
-          bgClasses: 'bg-shadow bg-fill-width',
+
           overlay: '',
           classes: '',
           id: '',
@@ -2796,7 +2796,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'none',
-          bgClasses: 'bg- bg-fill-width',
+
           overlay: '',
           containerClasses: '',
           id: '',
@@ -3376,7 +3376,7 @@ export const base = [
         content: {
           fullWidth: false,
           spacer: 'none',
-          bgClasses: 'bg- bg-fill-width',
+
           overlay: '',
           containerClasses: '',
           id: '',

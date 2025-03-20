@@ -3518,7 +3518,6 @@ export const system: any[] = [
         content: {
           fullWidth: true,
           spacer: 'md',
-          bgClasses: 'bg-fill-width',
           overlay: '',
           classes: '',
           id: '',
