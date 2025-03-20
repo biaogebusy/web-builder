@@ -1,10 +1,5 @@
 import { IBtn } from '@core/interface/widgets/IBtn';
-import {
-  Meta,
-  StoryObj,
-  applicationConfig,
-  moduleMetadata,
-} from '@storybook/angular';
+import { Meta, StoryObj, applicationConfig, moduleMetadata } from '@storybook/angular';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { importProvidersFrom } from '@angular/core';
 import { StorysModule } from '@core/module/storys.module';
@@ -19,10 +14,7 @@ const meta: Meta<BtnComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [
-        // StorysModule.forEntryComponents(),
-        SafeHtmlPipe,
-      ],
+      declarations: [SafeHtmlPipe],
       imports: [],
     }),
   ],

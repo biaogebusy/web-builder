@@ -20,9 +20,7 @@ const meta: Meta<MediaListComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(
       story => `<div class="relative p-x p-y" style="z-index:1">${story}</div>`
     ),

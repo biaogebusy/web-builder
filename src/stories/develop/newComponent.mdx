@@ -28,12 +28,7 @@ UPDATE src/app/uiux/widgets/widgets.module.ts (12113 bytes)
 需要注意的是，组件必须有一个@Input 输入属性 content，所有的组件都要遵循，否则动态组件无法输入数据。
 
 ```ts
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-card-sample',
@@ -83,64 +78,6 @@ const components = [
         import('@uiux/widgets/widgets.module').then((m) => m.WidgetsModule)
       )
     );
-```
-
-## 在 storybook 中开发组件
-
-在 storybook 中开发测试预览组件不是必须的，当然你也可以按传统的开发组件，但是作为大型的组件库，应该对所有的组件进行预览测试和文档化。
-
-1. `npm run storybook` 启动 storybook 环境；
-2. 在对应的目录找到一个 card 组件复制新建，例如`src/stories/widgets/card/Card.stories.ts`=》`src/stories/widgets/card/CardSample.stories.ts`
-
-```ts
-import { moduleMetadata, Meta } from '@storybook/angular';
-import { Story } from '@storybook/angular/types-6-0';
-import { StorysModule } from '@core/module/storys.module';
-import { CardSampleComponent } from '@uiux/widgets/card/card-sample/card-sample.component';
-const meta: Meta<MyComponent> = {
-  title: '基础组件/卡片/卡片sample',
-  id: 'card-sample',
-  component: CardSampleComponent,
-  decorators: [
-    moduleMetadata({
-      declarations: [],
-      entryComponents: [...StorysModule.forEntryComponents()],
-      imports: [StorysModule.forRoot()],
-    }),
-  ],
-};
-
-export default meta;
-type Story = StoryObj<MyComponent>;
-export const Default: Story = {};
-Default.storyName = 'sample';
-
-Default.args = {
-  content: {},
-};
-```
-
-title 定义了组件在 storybook 左侧菜单位置，在 story Default 中，content 就是你在组件里面定义的 Input 属性：
-
-```js
-Default.args = {
-  content: {},
-};
-```
-
-<img src="assets/storybook/assets/card-sample.png" />
-
-修改你的 story 输入数据：
-
-```js
-Default.args = {
-  content: {
-    type: 'card-sample',
-    title: '信使 Web builder',
-    subTitle:
-      '信使UI是一款开源的前端框架，基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
-  },
-};
 ```
 
 编辑开发组件，建议以组件名称为 class 父元素，在 theme 中需要使用到。

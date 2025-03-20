@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.component';
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
@@ -20,9 +15,7 @@ const meta: Meta<MapListV1Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     docs: {

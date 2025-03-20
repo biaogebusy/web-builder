@@ -18,9 +18,7 @@ const meta: Meta<SpacerComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(
       story =>
         `<div class="widget relative bg-shadow p-y p-x" style="z-index:1;">

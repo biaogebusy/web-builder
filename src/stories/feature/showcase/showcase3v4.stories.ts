@@ -20,9 +20,7 @@ const meta: Meta<Showcase3v4Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(story => `${story}`),
   ],
   parameters: {
@@ -73,8 +71,7 @@ const content: IShowcase3v4 = {
         href: '/',
         label: '高性能',
       },
-      content:
-        '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+      content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
     },
     {
       ...BoxStyleV7.content,

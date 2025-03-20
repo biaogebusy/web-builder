@@ -22,7 +22,6 @@ const meta: Meta<HeaderComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
       providers: [
         {
           provide: BRANDING,

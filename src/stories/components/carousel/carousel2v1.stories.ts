@@ -13,9 +13,7 @@ const meta: Meta<Carousel2v1Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
 };
 

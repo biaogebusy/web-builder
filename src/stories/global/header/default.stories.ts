@@ -9,10 +9,7 @@ import {
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
-import {
-  defaultHeader,
-  footerInverse,
-} from '@modules/builder/data/Branding.json';
+import { defaultHeader, footerInverse } from '@modules/builder/data/Branding.json';
 import { StorysModule } from '@core/module/storys.module';
 import { importProvidersFrom } from '@angular/core';
 
@@ -25,7 +22,6 @@ const meta: Meta<HeaderComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
       providers: [
         {
           provide: BRANDING,

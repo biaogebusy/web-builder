@@ -18,9 +18,7 @@ const meta: Meta<ShapeComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(
       story =>
         `<div class="widget shape-inner relative p-y-lg m-top-lg bg-primary">

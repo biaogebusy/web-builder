@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  applicationConfig,
-  StoryObj,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, applicationConfig, StoryObj } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { ContactUs1v1Component } from '@uiux/combs/form/contact-us1v1/contact-us1v1.component';
@@ -20,7 +15,6 @@ const meta: Meta<ContactUs1v1Component> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
       imports: [FormlyModule.forRoot()],
     }),
   ],
@@ -112,8 +106,7 @@ const content: IContactUs1v1 = {
     },
   ],
   contentStyle: {
-    background:
-      'url("/assets/images/showcase/pattern-02.png") no-repeat center center',
+    background: 'url("/assets/images/showcase/pattern-02.png") no-repeat center center',
   },
 };
 Default.args = {

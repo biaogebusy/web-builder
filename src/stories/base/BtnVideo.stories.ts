@@ -22,7 +22,6 @@ const meta: Meta<BtnVideoComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [MatIcon],
     }),
     componentWrapperDecorator(story => {

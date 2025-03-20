@@ -1,28 +1,12 @@
-import { importProvidersFrom } from '@angular/core';
 import { IChartBox } from '@core/interface/widgets/IWidgets';
-import { StorysModule } from '@core/module/storys.module';
-import {
-  moduleMetadata,
-  componentWrapperDecorator,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { componentWrapperDecorator, Meta, StoryObj } from '@storybook/angular';
 import { ChartBoxComponent } from '@uiux/combs/chart/chart-box/chart-box.component';
 
 const meta: Meta<ChartBoxComponent> = {
   title: '基础组件/图表/图表数据',
   id: 'chart-box',
   component: ChartBoxComponent,
-  decorators: [
-    applicationConfig({
-      providers: [importProvidersFrom(StorysModule.forRoot())],
-    }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
-    componentWrapperDecorator(story => `<div class="relative p-x p-y" >${story}</div>`),
-  ],
+  decorators: [componentWrapperDecorator(story => `<div class="relative p-x p-y" >${story}</div>`)],
 };
 
 export default meta;

@@ -19,9 +19,7 @@ const meta: Meta<Showcase1v1Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     layout: 'fullscreen',
@@ -123,8 +121,7 @@ StyleV1.storyName = 'Style v1';
 const v1: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    label:
-      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+    label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v1',
     classes: 'mat-headline-3',
   },
@@ -160,8 +157,7 @@ StyleV2.storyName = 'Style v2';
 const v2: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    label:
-      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+    label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v2',
     icon: 'mail',
     classes: 'mat-headline-3',
@@ -211,8 +207,7 @@ StyleV3.storyName = 'Style v3';
 const v3: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    label:
-      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+    label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v3',
     classes: 'mat-headline-3',
   },
@@ -280,8 +275,7 @@ const primary: IShowcase1v1 = {
       img: { src: '/assets/images/svg/Asset187.svg', alt: 'browser' },
       style: 'style-v3 use-image',
       title: { href: '#', label: '高性能' },
-      content:
-        '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+      content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
     },
     {
       type: 'box',
@@ -308,8 +302,7 @@ StyleV4.storyName = 'Style v4';
 const v4: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    label:
-      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+    label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v4',
     classes: 'mat-headline-3',
   },
@@ -358,8 +351,7 @@ StyleV5.storyName = 'Style v5';
 const v5: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    label:
-      '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+    label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
     style: 'style-v5',
     classes: 'mat-headline-3',
   },
@@ -370,8 +362,7 @@ const v5: IShowcase1v1 = {
   classes: '',
   elements: [
     {
-      label:
-        '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+      label: '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
       icon: {
         name: 'verified_user',
       },
@@ -425,8 +416,7 @@ const image: IShowcase1v1 = {
         href: '#',
         label: '高性能',
       },
-      content:
-        '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+      content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
       more: {
         href: '#',
         label: '+',

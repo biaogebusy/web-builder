@@ -20,9 +20,7 @@ const meta: Meta<Showcase2v1Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(story => `${story}`),
   ],
   parameters: {

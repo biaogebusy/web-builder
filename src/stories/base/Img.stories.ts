@@ -19,12 +19,9 @@ const meta: Meta<ImgComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(
-      story =>
-        `<div class="widget relative  w-[300px]"  style="height:300px">${story}</div>`
+      story => `<div class="widget relative  w-[300px]"  style="height:300px">${story}</div>`
     ),
   ],
 };

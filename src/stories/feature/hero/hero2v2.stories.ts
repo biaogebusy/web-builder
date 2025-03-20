@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Hero2v2Component } from '@uiux/combs/hero/hero2v2/hero2v2.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -18,9 +13,7 @@ const meta: Meta<Hero2v2Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     docs: {

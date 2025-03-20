@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { defaultsDeep, random } from 'lodash-es';
@@ -12,11 +6,10 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-chart-box',
-    templateUrl: './chart-box.component.html',
-    styleUrls: ['./chart-box.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-chart-box',
+  templateUrl: './chart-box.component.html',
+  styleUrls: ['./chart-box.component.scss'],
+  standalone: false,
 })
 export class ChartBoxComponent implements OnInit {
   @Input() content: any;
@@ -28,7 +21,6 @@ export class ChartBoxComponent implements OnInit {
   data$: Observable<any>;
   private nodeService = inject(NodeService);
   private screenService = inject(ScreenService);
-  constructor() {}
 
   ngOnInit(): void {
     if (this.content?.params?.api) {

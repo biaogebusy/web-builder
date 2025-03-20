@@ -23,7 +23,11 @@ import { Meta } from '@storybook/blocks';
 - 用户管理：/builder/users
 - 分类管理：/builder/taxonomy
 - 博客分类：/builder/blog-taxonomy
-  ![a6ef0b0d851f077a66320792d9f25619.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/a6ef0b0d851f077a66320792d9f25619-461675)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/a6ef0b0d851f077a66320792d9f25619-461675"
+  width="800"
+/>
 
 #### 2. 根据URL参数过滤对应分类的列表页面
 
@@ -33,8 +37,15 @@ import { Meta } from '@storybook/blocks';
 - 示例库：/builder/pages/示例库
 - 模板库：/builder/pages/模板
 - 小程序： /builder/pages/小程序
-  ![58ac33fa0d6fa19f3cc4732b53524af6.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/58ac33fa0d6fa19f3cc4732b53524af6-770873)
-  ![5acd13c0119ede679ea2da930dde80e5.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/5acd13c0119ede679ea2da930dde80e5-167303)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/58ac33fa0d6fa19f3cc4732b53524af6-770873"
+  width="800"
+/>
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/5acd13c0119ede679ea2da930dde80e5-167303"
+  width="300"
+/>
 
 ## 检查Builder配置
 
@@ -49,24 +60,45 @@ import { Meta } from '@storybook/blocks';
 - Builder 引导配置(可选)
 
 注意：目前还不能通过builder新增配置，后面会添加，可以从体验站复制到后台发布：https://builder.design/builder/settings
-![49d872db7655cb172cf44581d4a8a1de.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/49d872db7655cb172cf44581d4a8a1de-311883)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/49d872db7655cb172cf44581d4a8a1de-311883"
+  width="800"
+/>
 
 ## 检查JSON配置内容类型列表
 
 页面：/builder/settings是内置的页面，会读取JSON内容类型的列表（即/manage/json中的列表页面），这样就可以在前台更新配置文件：
-![90904e6d3d8400e3e969e0dc6da583fa.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/90904e6d3d8400e3e969e0dc6da583fa-186693)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/90904e6d3d8400e3e969e0dc6da583fa-186693"
+  width="800"
+/>
+
 该列表依赖View API，导入下面这个Views API即可：
-![30b58aebb77f44b460218743d0467970.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/30b58aebb77f44b460218743d0467970-76638)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/30b58aebb77f44b460218743d0467970-76638"
+  width="500"
+/>
 
 ## 检查是否有【页面分组】分类
 
 该分类的字段必须为：`page_group`，然后添加这几个通用的页面分类
-![a4205a2d95730b3e20b4442890146035.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/a4205a2d95730b3e20b4442890146035-166514)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/a4205a2d95730b3e20b4442890146035-166514"
+  width="500"
+/>
 
 ## 检查着陆页内容类型字段
 
 检查是否包含封面图和分类字段，没有则新建：
-![2e2753187f43a2249d1121bd9f049848.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/2e2753187f43a2249d1121bd9f049848-40272)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/2e2753187f43a2249d1121bd9f049848-40272"
+  width="800"
+/>
 分类字段：
 
 - 机读字段名：group
@@ -75,13 +107,21 @@ import { Meta } from '@storybook/blocks';
 封面图字段：
 
 - 机读字段名：cover
-  ![6ce78b0a0c5005e1551867b3bb82a192.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/6ce78b0a0c5005e1551867b3bb82a192-34759)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/6ce78b0a0c5005e1551867b3bb82a192-34759"
+  width="800"
+/>
 
 ## 检查【页面管理】views的配置
 
 页面管理列表是View API:`/api/v2/node/landing-page`，没有则新建
 可使用builder.degisn进行导入同步
-![fdb5a2007d11eb2d37c56bf807060a52.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/fdb5a2007d11eb2d37c56bf807060a52-68515)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/fdb5a2007d11eb2d37c56bf807060a52-68515"
+  width="500"
+/>
 
 ## 检查分类API
 
@@ -90,24 +130,45 @@ import { Meta } from '@storybook/blocks';
 - 用于对页面设置时，下拉选择分类
 - 用于根据URL带来的分类，过滤页面
 
-![4fb1e439bc60ad3d4eeaa3957e6dd036.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/4fb1e439bc60ad3d4eeaa3957e6dd036-184241)
-![f51cdafd8770df6cc76090f73af35053.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/f51cdafd8770df6cc76090f73af35053-154082)
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/4fb1e439bc60ad3d4eeaa3957e6dd036-184241"
+  width="500"
+/>
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/f51cdafd8770df6cc76090f73af35053-154082"
+  width="500"
+/>
 
 可直接导入该分类View配置，已包含这两个API：
-![f5a7ee8e700ec931af60d8a433e061f9.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/f5a7ee8e700ec931af60d8a433e061f9-107535)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/f5a7ee8e700ec931af60d8a433e061f9-107535"
+  width="500"
+/>
 
 ## 检查默认欢迎页
 
-![26279d4ddd7b2072a14409a045ae55ae.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/26279d4ddd7b2072a14409a045ae55ae-737388)
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/26279d4ddd7b2072a14409a045ae55ae-737388"
+  width="800"
+/>
 右侧区域为默认加载这个欢迎页，具体项目可自由配置，构建好欢迎页后：
 
 - url必须设置为：`/builder/default-page`
 - 页面分组可设置为：Builder
-  ![046f52ea24429b39399d8d138b2f9cad.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/046f52ea24429b39399d8d138b2f9cad-565002)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/046f52ea24429b39399d8d138b2f9cad-565002"
+  width="800"
+/>
 
 ## 检查builder的页面模板
 
-![ecec331982811c26df7f1baecaa4a944.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/ecec331982811c26df7f1baecaa4a944-203856)
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/ecec331982811c26df7f1baecaa4a944-203856"
+  width="800"
+/>
+
 当点击新建页面时会弹出页面模板，这里的列表来自分类为【模板】的着陆页，新站点可以从builder.design复制模板过来。
 
 ## 检查Builder主边栏管理页面
@@ -127,14 +188,20 @@ import { Meta } from '@storybook/blocks';
 - 表单：/api/v2/submission-contact
 - 评论：/api/v2/comments
 
-![297927c0e56a30258134326d96c1857b.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/297927c0e56a30258134326d96c1857b-48705)
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/297927c0e56a30258134326d96c1857b-48705"
+  width="500"
+/>
 
 ## 多语言
 
 开启多语言需要注意：
 
 1. URL别名开启【在创建和编辑页面显示语言选择器】`/admin/config/regional/content-language`
-   ![9d75ec944ebc71fb17afdc6f5b611617.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/9d75ec944ebc71fb17afdc6f5b611617-23016)
+   <img
+     src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/9d75ec944ebc71fb17afdc6f5b611617-23016"
+     width="500"
+   />
 
 ## 十、检查core/config全局配置
 
@@ -164,11 +231,18 @@ import { Meta } from '@storybook/blocks';
 ## 十一、检查媒体库Views
 
 媒体库依赖视图rest输出，导出媒体库(media_library)并导入
-![f25165c8284905419a42096d6b53e85c.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/f25165c8284905419a42096d6b53e85c-47454)
+
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/f25165c8284905419a42096d6b53e85c-47454"
+  width="500"
+/>
 
 ## 登录页面
 
-![e55c5220022241baeae7abbe59e4af79.png](https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/e55c5220022241baeae7abbe59e4af79-132356)
+<img
+  src="https://yx-prod-resources-shared-1254112465.cos.ap-beijing.myqcloud.com/1/e55c5220022241baeae7abbe59e4af79-132356"
+  width="500"
+/>
 
 - 登录弹出的左侧区域是动态组件，在全局配置core/base中配置
 - 右侧可配置是否开启手机登录

@@ -19,12 +19,8 @@ const meta: Meta<TabComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
-    componentWrapperDecorator(
-      story => `<div class="relative" style="z-index:1">${story}</div>`
-    ),
+    moduleMetadata({}),
+    componentWrapperDecorator(story => `<div class="relative" style="z-index:1">${story}</div>`),
   ],
 };
 

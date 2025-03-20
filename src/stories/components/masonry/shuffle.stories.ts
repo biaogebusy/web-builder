@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { ShuffleComponent } from '@uiux/combs/masonry/shuffle/shuffle.component';
 import { sleep, StorysModule } from '@core/module/storys.module';
@@ -18,9 +13,7 @@ const meta: Meta<ShuffleComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     docs: {

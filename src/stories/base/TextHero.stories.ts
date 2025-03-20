@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { TextHeroComponent } from '@uiux/widgets/text-hero/text-hero.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -18,9 +13,7 @@ const meta: Meta<TextHeroComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
 };
 

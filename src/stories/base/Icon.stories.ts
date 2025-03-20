@@ -22,12 +22,9 @@ const meta: Meta<IconComponent> = {
     }),
 
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
       imports: [MatIconModule],
     }),
-    componentWrapperDecorator(
-      story => `<div class="widget relative p-x-md p-y-md">${story}</div>`
-    ),
+    componentWrapperDecorator(story => `<div class="widget relative p-x-md p-y-md">${story}</div>`),
   ],
   parameters: {
     docs: {

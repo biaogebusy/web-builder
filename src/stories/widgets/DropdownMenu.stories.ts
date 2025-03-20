@@ -18,12 +18,9 @@ const meta: Meta<DropdownMenuComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(
-      story =>
-        `<div style="width:40%" class="widget relative text-light">${story}</div>`
+      story => `<div style="width:40%" class="widget relative text-light">${story}</div>`
     ),
   ],
 };

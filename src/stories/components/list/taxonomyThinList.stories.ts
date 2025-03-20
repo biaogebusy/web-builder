@@ -20,9 +20,7 @@ const meta: Meta<TaxonomyThinListComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(story => `${story}`),
   ],
 };

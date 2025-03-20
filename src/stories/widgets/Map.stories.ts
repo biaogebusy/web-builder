@@ -22,7 +22,6 @@ const meta: Meta<MapComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
       providers: [AmapService, ConfigService],
     }),
     componentWrapperDecorator(

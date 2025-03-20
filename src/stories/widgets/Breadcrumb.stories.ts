@@ -19,12 +19,9 @@ const meta: Meta<BreadcrumbComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(
-      story =>
-        `<div class="widget bg-primary bg-fill-width p-x p-y">${story}</div>`
+      story => `<div class="widget bg-primary bg-fill-width p-x p-y">${story}</div>`
     ),
   ],
 };

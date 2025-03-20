@@ -19,9 +19,7 @@ const meta: Meta<Showcase2v4Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     layout: 'fullscreen',
@@ -56,8 +54,7 @@ const content: IShowcase2v4 = {
         href: '/search',
       },
       title: {
-        label:
-          '展现了作者内心深处的黑暗情绪，让观者深陷其中，感受到无尽的绝望与孤独。',
+        label: '展现了作者内心深处的黑暗情绪，让观者深陷其中，感受到无尽的绝望与孤独。',
         href: '/search',
       },
       img: {
@@ -75,8 +72,7 @@ const content: IShowcase2v4 = {
         href: '/search',
       },
       title: {
-        label:
-          '如同一幅绚丽的画卷，色彩的交织与流动呈现出动感和活力，令人心旷神怡。',
+        label: '如同一幅绚丽的画卷，色彩的交织与流动呈现出动感和活力，令人心旷神怡。',
         href: '/search',
       },
       img: {

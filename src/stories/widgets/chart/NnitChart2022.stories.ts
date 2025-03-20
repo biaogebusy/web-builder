@@ -18,7 +18,6 @@ const meta: Meta<ChartComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
       providers: [],
     }),
     componentWrapperDecorator(

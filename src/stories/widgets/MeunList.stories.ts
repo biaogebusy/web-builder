@@ -19,9 +19,7 @@ const meta: Meta<MenuListComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(story => {
       return `<div classs="widget">${story}</div>`;
     }),

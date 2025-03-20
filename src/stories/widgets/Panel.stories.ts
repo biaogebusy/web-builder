@@ -1,11 +1,6 @@
 import { importProvidersFrom } from '@angular/core';
 import { StorysModule } from '@core/module/storys.module';
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { PanelComponent } from '@uiux/widgets/panel/panel.component';
 
@@ -17,9 +12,7 @@ const meta: Meta<PanelComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
 };
 

@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { LotteryComponent } from '@uiux/combs/calculator/lottery/lottery.component';
@@ -19,9 +14,7 @@ const meta: Meta<LotteryComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     docs: {
@@ -323,8 +316,7 @@ const content: ILottery = {
       },
     ],
   },
-  description:
-    '<ul class="list-done"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li></ul>',
+  description: '<ul class="list-done"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li></ul>',
 };
 Default.args = {
   content,

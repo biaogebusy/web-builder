@@ -17,7 +17,6 @@ const meta: Meta<any> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
       imports: [QuillModule.forRoot()],
     }),
     componentWrapperDecorator(

@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { ViewMapComponent } from '@uiux/combs/map/view-map/view-map.component';
@@ -17,9 +12,7 @@ const meta: Meta<ViewMapComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     docs: {
@@ -146,8 +139,7 @@ Default.args = {
         badge_1:
           '<div class="item-list"><ul><li>绩效奖金</li><li>午餐补助</li><li>美女多</li></ul></div>',
         img: '/assets/images/logo/lenovo.svg',
-        address:
-          '中国广西壮族自治区南宁市青秀区金洲路琅西56栋-12号(汇发集团)3楼',
+        address: '中国广西壮族自治区南宁市青秀区金洲路琅西56栋-12号(汇发集团)3楼',
         nid: '242',
         url: '/node/242',
         position: [108.364581, 22.808037],
@@ -161,8 +153,7 @@ Default.args = {
         badge_1:
           '<div class="item-list"><ul><li>绩效奖金</li><li>午餐补助</li><li>美女多</li></ul></div>',
         img: '/assets/images/logo/paypal.svg',
-        address:
-          '中国广西壮族自治区南宁市青秀区金洲路琅西56栋-12号(汇发集团)3楼',
+        address: '中国广西壮族自治区南宁市青秀区金洲路琅西56栋-12号(汇发集团)3楼',
         nid: '241',
         url: '/node/241',
         position: [108.364581, 22.808037],
@@ -184,8 +175,7 @@ Default.args = {
         subTitle: 'Java架构师',
         title: 'Spotify',
         meta_2: '2021-04-23',
-        badge_2:
-          '<div class="item-list"><ul><li>Spring</li><li>Oracle</li></ul></div>',
+        badge_2: '<div class="item-list"><ul><li>Spring</li><li>Oracle</li></ul></div>',
         meta_1: '<span class="text-primary bold">12-18 k</span>',
         badge_1: '<div class="item-list"><ul><li>周末双休</li></ul></div>',
         img: '/assets/images/logo/spotify.svg',

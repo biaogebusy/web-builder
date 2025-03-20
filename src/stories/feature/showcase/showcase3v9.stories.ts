@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { StorysModule } from '@core/module/storys.module';
 import { Showcase3v9Component } from '@uiux/combs/showcase/showcase3v9/showcase3v9.component';
@@ -20,9 +15,7 @@ const meta: Meta<Showcase3v9Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     layout: 'fullscreen',

@@ -19,9 +19,7 @@ const meta: Meta<Card1v1Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(story => `<div class="widget relative  w-[300px]">${story}</div>`),
   ],
 };

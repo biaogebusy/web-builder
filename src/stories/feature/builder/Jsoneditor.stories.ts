@@ -24,7 +24,6 @@ const meta: Meta<JsoneditorComponent> = {
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
     moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
       imports: [BrandingModule, CalculatorModule],
       providers: [
         {

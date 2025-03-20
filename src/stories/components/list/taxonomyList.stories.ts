@@ -21,9 +21,7 @@ const meta: Meta<TaxonomyListComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
     componentWrapperDecorator(story => `${story}`),
   ],
   parameters: {
@@ -272,8 +270,7 @@ const content: ITaxonomyList = {
     {
       type: 'showcase-3v3',
       title: {
-        label:
-          '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
+        label: '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
         href: '/node/382',
       },
       spacer: 'none',

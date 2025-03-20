@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -18,9 +13,7 @@ const meta: Meta<FullCalendarComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     docs: {
@@ -171,8 +164,7 @@ Default.args = {
             className: 'bg-yellow',
           },
           {
-            title:
-              '开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器',
+            title: '开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器',
             event: 'drupal',
             start: 1717514351195,
             user: 'Johnson',
@@ -200,8 +192,7 @@ Default.args = {
             className: 'bg-blue',
           },
           {
-            title:
-              '没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它',
+            title: '没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它',
             event: 'drupal',
             start: 1716823151195,
             user: 'Johnson',
@@ -222,8 +213,7 @@ Default.args = {
             className: 'bg-green',
           },
           {
-            title:
-              'JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器',
+            title: 'JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器',
             event: 'drupal',
             start: 1716304751195,
             user: 'Johnson',

@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import * as Breadcrumb from 'src/stories/widgets/Breadcrumb.stories';
 import { BannerSimpleComponent } from '@uiux/combs/banner/banner-simple/banner-simple.component';
@@ -19,9 +14,7 @@ const meta: Meta<BannerSimpleComponent> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     docs: {

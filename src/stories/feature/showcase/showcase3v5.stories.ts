@@ -1,9 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  StoryObj,
-  applicationConfig,
-} from '@storybook/angular';
+import { moduleMetadata, Meta, StoryObj, applicationConfig } from '@storybook/angular';
 
 import { Showcase3v5Component } from '@uiux/combs/showcase/showcase3v5/showcase3v5.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -19,9 +14,7 @@ const meta: Meta<Showcase3v5Component> = {
     applicationConfig({
       providers: [importProvidersFrom(StorysModule.forRoot())],
     }),
-    moduleMetadata({
-      declarations: [...StorysModule.forEntryComponents()],
-    }),
+    moduleMetadata({}),
   ],
   parameters: {
     layout: 'fullscreen',
@@ -99,8 +92,7 @@ const content: IShowcase3v5 = {
         href: '/',
         label: '高性能',
       },
-      content:
-        '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+      content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
     },
     {
       type: 'box',
