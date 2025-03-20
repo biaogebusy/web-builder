@@ -9,10 +9,9 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
-import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { CalendarOptions, DatesSetArg, ViewApi } from '@fullcalendar/core';
+import { CalendarOptions, DatesSetArg } from '@fullcalendar/core';
 import { CalendarState } from '@core/state/CalendarState';
 import { formatDate } from '@angular/common';
 import { RouteService } from '@core/service/route.service';
@@ -20,41 +19,35 @@ import type { IFullCalendar } from '@core/interface/combs/ICalendar';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import type { IPage } from '@core/interface/IAppConfig';
-import { FormlyFieldConfig } from '@ngx-formly/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-full-calendar',
-    templateUrl: './full-calendar.component.html',
-    styleUrls: ['./full-calendar.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-full-calendar',
+  templateUrl: './full-calendar.component.html',
+  styleUrls: ['./full-calendar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FullCalendarComponent extends BaseComponent implements OnInit {
   @Input() readonly content: IFullCalendar;
-  selected: Date | null;
-  options: CalendarOptions;
-  theme: any;
-  form = new UntypedFormGroup({});
-  fields: FormlyFieldConfig[];
-  model: any = {};
-  loading: boolean;
-  visiable = false;
-  viewApi: ViewApi;
+  public options: CalendarOptions;
+  private theme: any;
+  public form = new UntypedFormGroup({});
+  public model: any = {};
+  public loading: boolean;
+  public visiable = false;
 
-  cd = inject(ChangeDetectorRef);
-  destroyRef = inject(DestroyRef);
-  formService = inject(FormService);
-  nodeService = inject(NodeService);
-  routeService = inject(RouteService);
-  contentState = inject(ContentState);
-  screenService = inject(ScreenService);
-  calendarState = inject(CalendarState);
-  contentService = inject(ContentService);
+  private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
+  private nodeService = inject(NodeService);
+  private routeService = inject(RouteService);
+  private contentState = inject(ContentState);
+  private screenService = inject(ScreenService);
+  private calendarState = inject(CalendarState);
+  private contentService = inject(ContentService);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.fields = this.content.form;
       this.getEvents();
     }
   }
