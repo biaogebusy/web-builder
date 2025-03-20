@@ -1,5 +1,84 @@
 export const base = [
   {
+    label: 'AI 生成',
+    id: 'ai',
+    elements: [
+      {
+        label: '图文 v1',
+        content: {
+          fullWidth: false,
+          spacer: 'md',
+          bgClasses: 'bg- bg-fill-width',
+          overlay: '',
+          containerClasses: '',
+          id: '',
+          bg: { img: { src: '', alt: '' }, classes: 'bg- bg-fill-width', overlay: '' },
+          animate: {
+            aos: {
+              enable: false,
+              animation: 'fade-up',
+              behaviour: { offset: 120, duration: 400, delay: 0, easing: 'ease' },
+            },
+            gsap: { enable: false },
+          },
+          type: 'custom-template',
+          html: '<section class="py-8 bg-white">\n  <div class="flex flex-col md:flex-row gap-8">\n    <!-- 左边卡片 -->\n    <div class="md:w-1/2 relative rounded-lg shadow-md overflow-hidden group">\n      <img src="/assets/images/showcase/8.jpg" \n           class="w-full h-full object-cover"\n           alt="Campus life">\n      <div class="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-slate-900 via-slate-900/70 to-transparent"></div>\n      <div class="absolute bottom-0 left-0 right-0 p-6 text-white">\n        <h2 class="text-2xl font-bold mb-2">探索校园生活</h2>\n        <p class="text-slate-200 line-clamp-3 mb-4">在这里发现丰富多彩的校园活动、学生社团和难忘的大学时光，记录属于你的青春故事。</p>\n        <a href="#" class="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-300">\n          阅读更多\n          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">\n            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>\n          </svg>\n        </a>\n      </div>\n    </div>\n\n    <!-- 右侧双卡片 -->\n    <div class="md:w-1/2 flex flex-row gap-6">\n      <div class="w-1/2 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">\n        <div class="relative aspect-[4/3]">\n          <img src="/assets/images/showcase/7.jpg"\n               class="absolute top-0 left-0 w-full h-full object-cover"\n               alt="Event">\n        </div>\n        <div class="p-6">\n          <h3 class="text-lg font-bold text-gray-800 mb-2">校园活动日历</h3>\n          <p class="text-gray-600 line-clamp-3 mb-4">实时更新各类学术讲座、文艺演出、体育赛事等校园活动信息，助你合理安排时间参与精彩活动。</p>\n          <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors duration-300">查看详情 →</a>\n        </div>\n      </div>\n\n      <div class="w-1/2 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">\n        <div class="relative aspect-[4/3]">\n          <img src="/assets/images/showcase/6.jpg"\n               class="absolute top-0 left-0 w-full h-full object-cover"\n               alt="Club">\n        </div>\n        <div class="p-6">\n          <h3 class="text-lg font-bold text-gray-800 mb-2">社团招新季</h3>\n          <p class="text-gray-600 line-clamp-3 mb-4">超过50个学生社团火热招新中，涵盖学术科技、文化艺术、体育竞技等各个领域，总有一个适合你！</p>\n          <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors duration-300">立即加入 →</a>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>',
+          json: [],
+          isAPI: false,
+        },
+      },
+      {
+        label: '图文 v2',
+        content: {
+          fullWidth: false,
+          spacer: 'md',
+          bgClasses: 'bg-grey-200 bg-fill-width',
+          overlay: '',
+          containerClasses: '',
+          id: '',
+          bg: { img: { src: '', alt: '' }, classes: 'bg-grey-200 bg-fill-width', overlay: '' },
+          animate: {
+            aos: {
+              enable: false,
+              animation: 'fade-up',
+              behaviour: { offset: 120, duration: 400, delay: 0, easing: 'ease' },
+            },
+            gsap: { enable: false },
+          },
+          type: 'custom-template',
+          html: '<section class="py-8">\n  <div class="flex flex-col md:flex-row gap-8">\n    <!-- 左边卡片 -->\n\n    <div class="md:w-1/2 flex flex-row gap-6">\n      <div class="w-1/2 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow bg-white">\n        <div class="relative aspect-[4/3]">\n          <img src="/assets/images/showcase/5.jpg"\n               class="absolute top-0 left-0 w-full h-full object-cover"\n               alt="Event">\n        </div>\n        <div class="p-6">\n          <h3 class="text-lg font-bold text-gray-800 mb-2">校园活动日历</h3>\n          <p class="text-gray-600 line-clamp-3 mb-4">实时更新各类学术讲座、文艺演出、体育赛事等校园活动信息，助你合理安排时间参与精彩活动。</p>\n          <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors duration-300">查看详情 →</a>\n        </div>\n      </div>\n\n      <div class="w-1/2 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow bg-white">\n        <div class="relative aspect-[4/3]">\n          <img src="/assets/images/showcase/4.jpg"\n               class="absolute top-0 left-0 w-full h-full object-cover"\n               alt="Club">\n        </div>\n        <div class="p-6">\n          <h3 class="text-lg font-bold text-gray-800 mb-2">社团招新季</h3>\n          <p class="text-gray-600 line-clamp-3 mb-4">超过50个学生社团火热招新中，涵盖学术科技、文化艺术、体育竞技等各个领域，总有一个适合你！</p>\n          <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors duration-300">立即加入 →</a>\n        </div>\n      </div>\n    </div>\n\n    <!-- 右侧双卡片 -->\n    <div class="md:w-1/2 relative rounded-lg shadow-md overflow-hidden group">\n      <img src="/assets/images/showcase/3.jpg"\n           class="w-full h-full object-cover"\n           alt="Campus life">\n      <div\n        class="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-slate-900 via-slate-900/70 to-transparent">\n      </div>\n      <div class="absolute bottom-0 left-0 right-0 p-6 text-white">\n        <h2 class="text-2xl font-bold mb-2">探索校园生活</h2>\n        <p class="text-slate-200 line-clamp-3 mb-4">在这里发现丰富多彩的校园活动、学生社团和难忘的大学时光，记录属于你的青春故事。</p>\n        <a href="#" class="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-300">\n          阅读更多\n          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">\n            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />\n          </svg>\n        </a>\n      </div>\n    </div>\n  </div>\n</section>',
+          json: [],
+          isAPI: false,
+        },
+      },
+      {
+        label: '卡片 v1',
+        content: {
+          fullWidth: false,
+          spacer: 'xl',
+          bgClasses: 'bg-grey-100 bg-fill-width',
+          overlay: ' ',
+          containerClasses: '',
+          id: '',
+          bg: {
+            img: {
+              src: '',
+              alt: 'bg-02',
+              classes: 'bg-contain',
+            },
+            classes: 'bg-grey-100 bg-fill-width',
+            overlay: ' ',
+          },
+          animate: { aos: { enable: false } },
+          type: 'custom-template',
+          html: '<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">\n  <div class="max-w-xs rounded overflow-hidden shadow-lg bg-blue-50">\n    <div class="aspect-[4/3] overflow-hidden">\n      <img class="w-full object-cover h-full" src="/assets/images/hero/bg05.jpg" alt="风景封面图">\n    </div>\n    <div class="px-6 py-4">\n      <div class="font-bold text-xl mb-2 truncate">Web Builder</div>\n      <p class="text-gray-700 text-base line-clamp-3">\n        Web Builder是一个强大的工具，用于快速构建和部署现代化的Web应用程序。它提供了丰富的组件和模板，使得开发过程更加高效和便捷。\n      </p>\n    </div>\n    <div class="px-6 pt-4 pb-2">\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">用途：Web开发</span>\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">角色：前端开发</span>\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">类型：工具</span>\n    </div>\n  </div>\n  <div class="max-w-xs rounded overflow-hidden shadow-lg bg-blue-50">\n    <div class="aspect-[4/3] overflow-hidden">\n      <img class="w-full object-cover h-full" src="/assets/images/hero/bg03.jpg" alt="Angular封面图">\n    </div>\n    <div class="px-6 py-4">\n      <div class="font-bold text-xl mb-2 truncate">Angular</div>\n      <p class="text-gray-700 text-base line-clamp-3">\n        Angular是一个由Google维护的开源前端框架，用于构建高效、复杂的单页面应用程序。Angular是一个由Google维护的开源前端框架，用于构建高效、复杂的单页面应用程序。\n      </p>\n    </div>\n    <div class="px-6 pt-4 pb-2">\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">用途：前端开发</span>\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">角色：开发者</span>\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">类型：框架</span>\n    </div>\n  </div>\n  <div class="max-w-xs rounded overflow-hidden shadow-lg bg-blue-50">\n    <div class="aspect-[4/3] overflow-hidden">\n      <img class="w-full object-cover h-full" src="/assets/images/hero/bg02.jpg" alt="React封面图">\n    </div>\n    <div class="px-6 py-4">\n      <div class="font-bold text-xl mb-2 truncate">React</div>\n      <p class="text-gray-700 text-base line-clamp-3">\n        React是一个由Facebook开发的用于构建用户界面的JavaScript库，特别适合构建大型应用程序。React是一个由Facebook开发的用于构建用户界面的JavaScript库，特别适合构建大型应用程序。\n      </p>\n    </div>\n    <div class="px-6 pt-4 pb-2">\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">用途：前端开发</span>\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">角色：开发者</span>\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">类型：库</span>\n    </div>\n  </div>\n  <div class="max-w-xs rounded overflow-hidden shadow-lg bg-blue-50">\n    <div class="aspect-[4/3] overflow-hidden">\n      <img class="w-full object-cover h-full" src="/assets/images/hero/bg01.jpg" alt="Vue封面图">\n    </div>\n    <div class="px-6 py-4">\n      <div class="font-bold text-xl mb-2 truncate">Vue</div>\n      <p class="text-gray-700 text-base line-clamp-3">\n        Vue是一个渐进式JavaScript框架，用于构建用户界面，易于上手且灵活。Vue是一个渐进式JavaScript框架，用于构建用户界面，易于上手且灵活。\n      </p>\n    </div>\n    <div class="px-6 pt-4 pb-2">\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">用途：前端开发</span>\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">角色：开发者</span>\n      <span class="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-800 mr-2 mb-2">类型：框架</span>\n    </div>\n  </div>\n</div>',
+          json: [],
+          isAPI: false,
+        },
+      },
+    ],
+  },
+  {
     label: '动态构建',
     id: 'layout',
     elements: [
