@@ -141,7 +141,6 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
   }
 
   handleDates(dates: DatesSetArg): void {
-    this.viewApi = dates.view;
     switch (dates.view.type) {
       case 'dayGridMonth':
         this.form.patchValue({

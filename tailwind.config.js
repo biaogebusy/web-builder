@@ -59,7 +59,7 @@ module.exports = {
     },
     {
       pattern: /^bg-opacity-(0|5|10|20|25|30|40|50|60|70|75|80|90|95|100)$/,
-      variants: ['sm', 'md', 'lg'],
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^bg-clip-(text|border|padding|content|border-box|padding-box|content-box)$/,
@@ -99,10 +99,10 @@ module.exports = {
     { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern: /^opacity-(0|5|10|20|30|40|50|60|70|75|80|90|95|100)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg', 'hover', 'group-hover'],
     },
     {
-      pattern: /^transition(-none|all|colors|opacity|shadow|transform)$/,
+      pattern: /^transition-(none|all|colors|opacity|shadow|transform)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     { pattern: /^duration-(75|100|150|200|300|500|700|1000)$/ },
