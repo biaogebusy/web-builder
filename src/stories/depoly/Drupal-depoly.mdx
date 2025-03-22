@@ -79,9 +79,14 @@ cors.config:
 同个目录下找到`settings.php`，添加如下配置：
 
 <img src="/assets/storybook/assets/cms-erverse-proxy.png" />
-```php $settings['reverse_proxy'] = TRUE; $settings['reverse_proxy_addresses'] =
+
+```
+
+php $settings['reverse_proxy'] = TRUE; $settings['reverse_proxy_addresses'] =
 array($_SERVER['REMOTE_ADDR']); $settings['reverse_proxy_trusted_headers'] =
 \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL |
-\Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED; ```
+\Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
+
+```
 
 不然，使用 api 登录时，cookies 等会有问题，导致登录异常。
