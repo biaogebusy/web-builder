@@ -59,7 +59,7 @@ module.exports = {
     },
     {
       pattern: /^bg-opacity-(0|5|10|20|25|30|40|50|60|70|75|80|90|95|100)$/,
-      variants: ['sm', 'md', 'lg'],
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^bg-clip-(text|border|padding|content|border-box|padding-box|content-box)$/,
@@ -99,10 +99,10 @@ module.exports = {
     { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern: /^opacity-(0|5|10|20|30|40|50|60|70|75|80|90|95|100)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg', 'hover', 'group-hover'],
     },
     {
-      pattern: /^transition(-none|all|colors|opacity|shadow|transform)$/,
+      pattern: /^transition-(none|all|colors|opacity|shadow|transform)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     { pattern: /^duration-(75|100|150|200|300|500|700|1000)$/ },
@@ -170,20 +170,23 @@ module.exports = {
       variants: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      pattern: /^aspect-\[(\d{1,2}\/\d{1,2})\]$/,
-      variants: ['xs', 'sm', 'md', 'lg'],
-    },
-    {
-      pattern: /^aspect-(w|h)-([1-9]\d?)$/,
-      variants: ['xs', 'sm', 'md', 'lg'],
-    },
-    {
       pattern: /^(line-through|no-underline|underline)$/,
     },
   ],
   theme: {
     screens: { sm: '600px', md: '960px', lg: '1280px', xl: '1470px' },
-    extend: { strokeWidth: { 3: '3', 4: '4', 5: '5' } },
+    extend: {
+      strokeWidth: { 3: '3', 4: '4', 5: '5' },
+      aspectRatio: {
+        '16/9': '16 / 9',
+        '4/3': '4 / 3',
+        '3/2': '3 / 2',
+        '3/4': '3 / 4',
+        '1/1': '1 / 1',
+        '9:16': '9 / 16',
+        '2/3': '2 / 3',
+      },
+    },
     flex: {
       '1/12': '0 0 8.33%',
       '2/12': '0 0 16.66%',
@@ -205,10 +208,6 @@ module.exports = {
       '2': '2 2 0%',
     },
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
   corePlugins: { preflight: false },
 };

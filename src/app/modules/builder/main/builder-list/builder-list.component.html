@@ -99,6 +99,13 @@
     </div>
   </button>
 
+  <button mat-menu-item (click)="goBackUiux()">
+    <div class="flex items-center">
+      <app-icon [content]="{ svg: 'youtube-subscription', color: 'primary' }" />
+      <span>查看组件</span>
+    </div>
+  </button>
+
   <button mat-menu-item (click)="onClearHistory()">
     <div class="flex items-center">
       <app-icon [content]="{ svg: 'delete-empty-outline', color: 'warn' }" />

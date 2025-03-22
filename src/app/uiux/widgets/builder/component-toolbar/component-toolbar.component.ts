@@ -10,21 +10,23 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
+import { IDialog } from '@core/interface/IDialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { get } from 'lodash-es';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, delay } from 'rxjs';
 
 @Component({
-    selector: 'app-component-toolbar',
-    templateUrl: './component-toolbar.component.html',
-    styleUrls: ['./component-toolbar.component.scss'],
-    standalone: false
+  selector: 'app-component-toolbar',
+  templateUrl: './component-toolbar.component.html',
+  styleUrls: ['./component-toolbar.component.scss'],
+  standalone: false,
 })
 export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
@@ -116,8 +118,30 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
 
   onDelete(event: any): void {
     const path = this.util.generatePath(event.target);
-    this.hiddenPicker();
-    this.builder.deleteComponent(path);
+    const config: IDialog = {
+      title: '删除组件',
+      titleClasses: 'text-red-500',
+      noLabel: '取消',
+      yesLabel: '确认删除',
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: `是否要删除<strong class="text-black-500">[${this.content.type}]</strong>组件？`,
+        },
+      },
+    };
+
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '340px',
+      data: config,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.hiddenPicker();
+        this.builder.deleteComponent(path);
+      }
+    });
   }
 
   hiddenPicker(): void {

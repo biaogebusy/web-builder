@@ -7,16 +7,16 @@ import { get } from 'lodash-es';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NodeService } from '@core/service/node.service';
-import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
-    selector: 'app-code-editor',
-    templateUrl: './code-editor.component.html',
-    styleUrls: ['./code-editor.component.scss'],
-    standalone: false
+  selector: 'app-code-editor',
+  templateUrl: './code-editor.component.html',
+  styleUrls: ['./code-editor.component.scss'],
+  standalone: false,
 })
 export class CodeEditorComponent implements OnInit {
   @Input() content: ICodeEditor;
@@ -24,6 +24,7 @@ export class CodeEditorComponent implements OnInit {
   public html = signal<string>('');
   public json = signal<any>(null);
   public isMore = signal<boolean>(true);
+  public isCollapse = signal<boolean>(false);
   public isAPI: boolean;
   private api: string;
   public form = new UntypedFormGroup({});
@@ -56,6 +57,7 @@ export class CodeEditorComponent implements OnInit {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   public screenService = inject(ScreenService);
+  public editing = signal<boolean>(false);
 
   constructor() {
     if (this.screenService.isPlatformBrowser()) {
@@ -118,9 +120,17 @@ export class CodeEditorComponent implements OnInit {
 
   onHTMLChange(): void {
     this.htmlForm.valueChanges
-      .pipe(debounceTime(3000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        tap(() => {
+          this.editing.set(true);
+        }),
+        debounceTime(2000),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe(html => {
         this.updateHtml(html);
+        this.editing.set(false);
       });
   }
 
@@ -137,6 +147,10 @@ export class CodeEditorComponent implements OnInit {
 
   onShowMore(): void {
     this.isMore.set(!this.isMore());
+  }
+
+  toggleCollapse(): void {
+    this.isCollapse.set(!this.isCollapse());
   }
 
   onFormChange(): void {

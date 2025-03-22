@@ -4,8 +4,12 @@
   overflow: hidden;
   @apply transition-all;
   &.less {
-    height: 90vh;
-    max-height: 90vh;
+    height: 80vh;
+    max-height: 80vh;
+    @apply transition-all;
+  }
+  &.collapse {
+    height: 0 !important;
     @apply transition-all;
   }
   ::ng-deep {
@@ -24,8 +28,15 @@
   }
 }
 
-.code-editor-show-btn {
+.code-editor-btns {
   @apply absolute left-1/2;
   top: 8px;
   transform: translateX(-50%);
+  --mdc-icon-button-disabled-icon-color: rgb(255 255 255 / 50%);
+  .lock {
+    pointer-events: none;
+  }
+  .set-bottom {
+    transform: scale(0.8);
+  }
 }
