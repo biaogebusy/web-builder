@@ -5,7 +5,7 @@
         contentedit="src"
         [ngStyle]="content.style"
         [ngClass]="content.classes"
-        [ngSrc]="content.src || coreConfig.defaultThumb"
+        [ngSrc]="content.src || ''"
         [alt]="content.alt || ''"
         [width]="content.width || 400"
         [height]="content.height || 300"
@@ -15,7 +15,7 @@
         <img
           contentedit="src"
           [ngClass]="content.classes"
-          [ngSrc]="content.src || coreConfig.defaultThumb"
+          [ngSrc]="content.src || ''"
           [ngStyle]="content.style"
           [alt]="content.alt || ''"
           [width]="content.width || 400"
