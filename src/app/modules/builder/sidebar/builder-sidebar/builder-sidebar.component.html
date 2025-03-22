@@ -2,11 +2,24 @@
 @let config = builderConfig$ | async;
 <div class="builder-sidebar" [ngClass]="sidebarDrawer.opened ? 'opened' : 'closed'">
   @if (branding) {
-    <a [routerLink]="branding.header.logo?.href" class="logo">
-      @if (!sidebarDrawer.opened) {
-        <app-logo [content]="branding.header.logo" [isInvert]="true" />
-      } @else {
-        <app-logo [content]="branding.header.logo" />
+    <a [routerLink]="[branding.header.logo?.href ?? '/home']" class="logo">
+      @if (branding.header.logo?.img) {
+        @let logo = branding.header.logo;
+        @if (!sidebarDrawer.opened) {
+          <img
+            [src]="logo?.invert"
+            [alt]="logo?.label"
+            [width]="logo?.img?.width || 65"
+            [height]="logo?.img?.height || 40"
+          />
+        } @else {
+          <img
+            [src]="logo?.img?.src"
+            [width]="logo?.img?.width || 65"
+            [height]="logo?.img?.height || 40"
+            [alt]="logo?.label"
+          />
+        }
       }
     </a>
   }

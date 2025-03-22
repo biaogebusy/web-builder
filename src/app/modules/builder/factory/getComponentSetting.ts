@@ -47,26 +47,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
               options: getSpacerOptions,
             },
           },
-          {
-            type: 'select',
-            key: 'bgClasses',
-            className: 'col-span-6',
-            defaultValue: content?.bg?.classes ?? 'bg- bg-fill-width',
-            props: {
-              label: '背景色',
-              options: getBgClasses,
-            },
-          },
-          {
-            type: 'select',
-            key: 'overlay',
-            className: 'col-span-6',
-            defaultValue: content?.bg?.overlay ?? '',
-            props: {
-              label: '蒙版',
-              options: getOverlay,
-            },
-          },
+
           {
             type: 'input',
             key: 'containerClasses',
@@ -91,6 +72,32 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
             key: 'bg',
             className: 'col-span-12 mt-3',
             fieldGroup: [
+              {
+                fieldGroupClassName: 'grid grid-cols-12 gap-3',
+                fieldGroup: [
+                  {
+                    type: 'select',
+                    key: 'classes',
+                    className: 'col-span-6',
+                    defaultValue: content?.bg?.classes ?? 'bg- bg-fill-width',
+                    props: {
+                      label: '背景色',
+                      options: getBgClasses,
+                    },
+                  },
+                  {
+                    type: 'select',
+                    key: 'overlay',
+                    className: 'col-span-6',
+                    defaultValue: content?.bg?.overlay ?? '',
+                    props: {
+                      label: '背景蒙版',
+                      options: getOverlay,
+                    },
+                  },
+                ],
+              },
+
               {
                 key: 'img',
                 fieldGroup: [
@@ -163,21 +170,6 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
         ],
       },
     ],
-    hooks: {
-      onInit: (formGroup: any) => {
-        const { form, model } = formGroup;
-        form.valueChanges.subscribe((value: any) => {
-          const { component } = value;
-          model.bg = {
-            ...model.bg,
-            ...{
-              classes: component.bgClasses,
-              overlay: component.overlay,
-            },
-          };
-        });
-      },
-    },
   };
 
   const tabsGroup = fields.fieldGroup;

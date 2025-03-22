@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IUser } from '@core/interface/IUser';
 import { IMediaAttr } from '@core/interface/manage/IManage';
@@ -11,16 +11,16 @@ import { Observable, lastValueFrom, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-upload-media',
-    templateUrl: './upload-media.component.html',
-    styleUrl: './upload-media.component.scss',
-    standalone: false
+  selector: 'app-upload-media',
+  templateUrl: './upload-media.component.html',
+  styleUrl: './upload-media.component.scss',
+  standalone: false,
 })
 export class UploadMediaComponent {
   private user$ = inject<Observable<IUser>>(USER);
 
-  public files: IMediaAttr[] = [];
-  public filesEntry: NgxFileDropEntry[];
+  public files = signal<IMediaAttr[]>([]);
+  public filesEntry = signal<NgxFileDropEntry[]>([]);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
@@ -34,7 +34,7 @@ export class UploadMediaComponent {
   }
 
   async dropped(files: NgxFileDropEntry[]): Promise<void> {
-    this.filesEntry = files;
+    this.filesEntry.set(files);
     if (!this.user) {
       this.util.openSnackbar('请先登录', 'ok');
     }
@@ -61,7 +61,7 @@ export class UploadMediaComponent {
             );
 
             if (imgAttr) {
-              this.files.push(imgAttr as IMediaAttr);
+              this.files.set([...this.files(), imgAttr as IMediaAttr]);
             }
           }
         } catch (error) {

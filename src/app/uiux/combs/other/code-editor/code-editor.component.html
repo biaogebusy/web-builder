@@ -1,19 +1,37 @@
 @if (screenService.isPlatformBrowser()) {
-  <app-btn
-    class="code-editor-show-btn"
-    (click)="onShowMore()"
-    [content]="{
-      color: undefined,
-      mode: 'icon',
-      icon: { svg: isMore() ? 'chevron-up' : 'chevron-down' },
-    }"
-    matTooltip="{{ isMore() ? '展开' : '收起' }}"
-    matTooltipPosition="above"
-  ></app-btn>
+  <div class="code-editor-btns text-white flex justify-center">
+    <app-btn
+      (click)="onShowMore()"
+      [class.lock]="isCollapse()"
+      [content]="{
+        color: undefined,
+        mode: 'icon',
+        icon: { svg: isMore() ? 'chevron-up' : 'chevron-down' },
+        disabled: isCollapse(),
+      }"
+      matTooltip="{{ isMore() ? '展开' : '收起' }}"
+      matTooltipPosition="above"
+    ></app-btn>
+    <app-btn
+      class="set-bottom"
+      (click)="toggleCollapse()"
+      [content]="{
+        color: undefined,
+        mode: 'icon',
+        icon: { svg: isCollapse() ? 'tray-arrow-up' : 'tray-arrow-down' },
+      }"
+      [matTooltip]="isCollapse() ? '恢复' : '置底'"
+      matTooltipPosition="above"
+    ></app-btn>
+  </div>
   <div class="toolbar p-5 flex gap-1 items-center">
     <div class="text-white">{{ isAPI ? '数据来源 API' : 'Tailwind 自定义组件' }}</div>
   </div>
-  <div class="code-editor grid grid-cols-12 gap-2" [class]="isMore() ? 'more' : 'less'">
+  <div
+    class="code-editor grid grid-cols-12 gap-2"
+    [class.collapse]="isCollapse()"
+    [class]="isMore() ? 'more' : 'less'"
+  >
     @if (isAPI) {
       <div class="box col-span-12 {{ isAPI ? 'md:col-span-3' : '' }}  flex flex-col p-3">
         <app-formly class="block" [form]="form" [fields]="fields" [model]="model" />
@@ -28,5 +46,10 @@
         [formControl]="htmlForm"
       />
     </div>
+    @if (editing()) {
+      <div class="editing absolute bottom-5 right-6">
+        <mat-spinner diameter="20" />
+      </div>
+    }
   </div>
 }

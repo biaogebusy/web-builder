@@ -1,0 +1,27 @@
+import { Meta, Story } from '@storybook/blocks';
+
+<Meta title="全局配置/web builder" id="web-builder-config" />
+
+## Builder
+
+组件市场，可在 Storybook 或者前台页面中选择组件添加到预览页面中，可拖拽上下顺序。
+
+- 添加到预览页面中；
+- 复制 JSON;
+- 编辑 JSON，保存所见即所得；
+- 复制整个页面的 JSON;
+
+```json
+{
+  //...
+  "builder": {
+    "enable": true,
+    "params": {
+      "reqRoles": ["administrator"]
+    },
+    "generater": [
+      // 生成页面的动态表单
+    ]
+  }
+}
+```
