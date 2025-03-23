@@ -1,0 +1,50 @@
+.preview-section {
+  margin-top: 2rem;
+  border: 1px solid #eee;
+  padding: 1rem;
+  max-height: 60vh;
+  overflow: auto;
+
+  table {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    th {
+      background: #f5f5f5;
+      font-weight: 500;
+    }
+
+    td {
+      vertical-align: top;
+      padding: 0.8rem;
+
+      &:nth-child(1) {
+        width: 25%;
+      }
+      &:nth-child(2) {
+        width: 60%;
+      }
+      &:nth-child(3) {
+        width: 15%;
+      }
+    }
+
+    mark {
+      background: #fff3cd;
+      padding: 0 0.2em;
+    }
+  }
+}
+
+// 添加加载动画
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

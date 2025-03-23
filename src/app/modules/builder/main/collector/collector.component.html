@@ -1,0 +1,106 @@
+<div class="collector p-5 mx-auto max-w-5xl bg-white rounded-lg">
+  <div class="params grid grid-cols-12 gap-3 items-center">
+    <app-formly class="col-span-12" [form]="form" [fields]="fields" [model]="model" />
+    <div class="col-span-12">
+      <app-btn
+        (click)="start(model)"
+        class="col-span-12 sm:col-span-3"
+        [content]="{
+          mode: 'raised',
+          label: '开始采集',
+          color: 'primary',
+          icon: {
+            svg: 'download',
+          },
+        }"
+      ></app-btn>
+    </div>
+  </div>
+
+  <!-- 进度指示 -->
+  <div class="progress-section" *ngIf="isCollecting">
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    <div class="progress-info">
+      <span>已获取 {{ completedCount }} 条</span>
+      <span>剩余 {{ estimatedRemaining | async }} 秒</span>
+    </div>
+  </div>
+
+  <!-- 数据预览 -->
+  <div class="preview-section" *ngIf="previewData.length > 0">
+    <h3 class="preview-title">预览数据（共{{ previewData.length }}条）</h3>
+
+    <mat-table [dataSource]="previewData" class="mat-elevation-z1">
+      <!-- 标题列 -->
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef>标题</mat-header-cell>
+        <mat-cell *matCellDef="let item" [innerHTML]="item.attributes.title"></mat-cell>
+      </ng-container>
+
+      <!-- 摘要列 -->
+      <ng-container matColumnDef="summary">
+        <mat-header-cell *matHeaderCellDef>内容摘要</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+          {{ item.attributes.body.value | shorten: 120 : '...' }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- 操作列 -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>操作</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+          <button mat-icon-button color="accent" (click)="viewDetails(item)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [class.invalid-row]="row._status === 'invalid'"
+      >
+      </mat-row>
+    </mat-table>
+  </div>
+  <!-- 操作按钮 -->
+  <div class="preview-actions flex gap-3 my-5">
+    <app-btn
+      (click)="clearPreview()"
+      [content]="{
+        label: '清空预览',
+        mode: 'stroked',
+        color: 'warn',
+        icon: {
+          svg: 'delete',
+        },
+      }"
+    ></app-btn>
+
+    <app-btn
+      (click)="confirmImport()"
+      [content]="{
+        label: '确认导入',
+        mode: 'raised',
+        color: 'primary',
+        icon: {
+          svg: 'content-save-outline',
+        },
+      }"
+    ></app-btn>
+  </div>
+
+  <!-- 错误提示 -->
+  <div class="error-section" *ngIf="errorMessage">
+    <mat-card class="error-card">
+      <mat-card-header>
+        <mat-icon matCardAvatar color="warn">error</mat-icon>
+        <mat-card-title>采集过程中发生错误</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        {{ errorMessage }}
+        <pre *ngIf="errorDetails">{{ errorDetails }}</pre>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
