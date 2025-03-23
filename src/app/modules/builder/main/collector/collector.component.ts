@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { DataFetcherService } from '@core/service/data-fetcher.service';
 import { Observable, lastValueFrom, map, timer } from 'rxjs';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { NodeService } from '@core/service/node.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { TagsService } from '@core/service/tags.service';
 
 @Component({
   selector: 'app-collector',
@@ -13,7 +14,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
   styleUrl: './collector.component.scss',
   standalone: false,
 })
-export class CollectorComponent {
+export class CollectorComponent implements OnInit {
   private http = inject(HttpClient);
   public form = new UntypedFormGroup({});
   public model: any = {};
@@ -86,6 +87,7 @@ export class CollectorComponent {
     },
   ];
   private dataFetcher = inject(DataFetcherService);
+  private tagService = inject(TagsService);
 
   // 表格配置
   displayedColumns: string[] = ['title', 'summary', 'actions'];
@@ -97,6 +99,10 @@ export class CollectorComponent {
   completedCount = 0;
   errorMessage: string | null = null;
   errorDetails: any = null;
+
+  ngOnInit(): void {
+    this.tagService.setTitle('数据采集 - 基于JSONAPI');
+  }
 
   // 性能估算
   get estimatedRemaining(): Observable<number> {
