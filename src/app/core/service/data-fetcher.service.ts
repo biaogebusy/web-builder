@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, forkJoin, throwError } from 'rxjs';
 import { ApiService } from './api.service';
@@ -11,11 +11,10 @@ import { IUser } from '@core/interface/IUser';
   providedIn: 'root',
 })
 export class DataFetcherService extends ApiService {
-  private http = inject(HttpClient);
   private nodeService = inject(NodeService);
-  private readonly EXTERNAL_API = '/api/v1/node/article';
   private user$ = inject<Observable<IUser>>(USER);
   private user: IUser;
+  private api = '';
 
   constructor() {
     super();
@@ -24,16 +23,17 @@ export class DataFetcherService extends ApiService {
     });
   }
 
-  transformExternalToLocal(extArticle: any): any {
+  transformExternalToLocal(extArticle: any, api: string): any {
+    this.api = api;
     return {
-      type: 'node--article',
+      type: this.nodeService.getEntityType(api),
       attributes: {
         title: extArticle.attributes.title,
         body: {
           value: extArticle.attributes.body.value,
           format: 'full_html',
         },
-        created: new Date().toISOString(),
+        created: new Date(),
       },
     };
   }
@@ -67,7 +67,7 @@ export class DataFetcherService extends ApiService {
   // 创建单个条目
   private createSingleItem(item: any): Observable<any> {
     const { attributes } = item;
-    return this.nodeService.addEntify('/api/v1/node/article', attributes, this.user.csrf_token);
+    return this.nodeService.addEntity(this.api, attributes, this.user.csrf_token);
   }
 
   // 错误处理（批量）

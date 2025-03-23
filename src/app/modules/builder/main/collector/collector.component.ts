@@ -90,15 +90,15 @@ export class CollectorComponent implements OnInit {
   private tagService = inject(TagsService);
 
   // 表格配置
-  displayedColumns: string[] = ['title', 'summary', 'actions'];
-  previewData: any[] = [];
+  public displayedColumns: string[] = ['title', 'summary', 'actions'];
+  public previewData: any[] = [];
 
   // 状态管理
-  isCollecting = false;
-  progress = 0;
-  completedCount = 0;
-  errorMessage: string | null = null;
-  errorDetails: any = null;
+  public isCollecting = false;
+  public progress = 0;
+  public completedCount = 0;
+  public errorMessage: string | null = null;
+  public errorDetails: any = null;
 
   ngOnInit(): void {
     this.tagService.setTitle('数据采集 - 基于JSONAPI');
@@ -109,10 +109,6 @@ export class CollectorComponent implements OnInit {
     return timer(0, 1000).pipe(
       map(() => Math.round((this.previewData.length - this.completedCount) * 0.5))
     );
-  }
-
-  get validCount(): number {
-    return this.previewData.filter(item => item._status === 'valid').length;
   }
 
   // 开始采集
@@ -138,7 +134,7 @@ export class CollectorComponent implements OnInit {
           api,
         })
       );
-      this.processData(response.content.data);
+      this.processData(response.content.data, api);
     } catch (error) {
       this.handleError(error);
     } finally {
@@ -147,9 +143,9 @@ export class CollectorComponent implements OnInit {
   }
 
   // 处理采集到的数据
-  private processData(data: any[]): void {
+  private processData(data: any[], api: string): void {
     this.previewData = data.map(item => {
-      const transformed = this.dataFetcher.transformExternalToLocal(item);
+      const transformed = this.dataFetcher.transformExternalToLocal(item, api);
       return transformed;
     });
 
@@ -160,8 +156,7 @@ export class CollectorComponent implements OnInit {
   async confirmImport(): Promise<void> {
     try {
       this.isCollecting = true;
-      await this.dataFetcher.batchCreate(this.previewData).toPromise();
-
+      await lastValueFrom(this.dataFetcher.batchCreate(this.previewData));
       this.clearPreview();
     } catch (error) {
       this.handleError(error);
