@@ -31,6 +31,12 @@
     <h3 class="preview-title">预览数据（共{{ previewData.length }}条）</h3>
 
     <mat-table [dataSource]="previewData" class="mat-elevation-z1">
+      <!-- 状态列 -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>状态</mat-header-cell>
+        <mat-cell *matCellDef="let item" [innerHTML]="item.status"></mat-cell>
+      </ng-container>
+
       <!-- 标题列 -->
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef>标题</mat-header-cell>
@@ -65,18 +71,6 @@
   </div>
   <!-- 操作按钮 -->
   <div class="preview-actions flex gap-3 my-5">
-    <app-btn
-      (click)="clearPreview()"
-      [content]="{
-        label: '清空预览',
-        mode: 'stroked',
-        color: 'warn',
-        icon: {
-          svg: 'delete',
-        },
-      }"
-    ></app-btn>
-
     <app-btn
       (click)="confirmImport()"
       [content]="{

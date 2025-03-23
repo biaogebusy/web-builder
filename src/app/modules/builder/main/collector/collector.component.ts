@@ -9,6 +9,7 @@ import { TagsService } from '@core/service/tags.service';
 import { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { SubmissionItem } from '@core/interface/node/IDrupal';
 
 @Component({
   selector: 'app-collector',
@@ -95,8 +96,8 @@ export class CollectorComponent implements OnInit {
   private tagService = inject(TagsService);
 
   // 表格配置
-  public displayedColumns: string[] = ['title', 'summary', 'actions'];
-  public previewData: any[] = [];
+  public displayedColumns: string[] = ['status', 'title', 'summary', 'actions'];
+  public previewData: SubmissionItem[] = [];
 
   // 状态管理
   public isCollecting = false;
@@ -104,6 +105,13 @@ export class CollectorComponent implements OnInit {
   public completedCount = 0;
   public errorMessage: string | null = null;
   public errorDetails: any = null;
+
+  error: string | null = null;
+  isSubmitting = false;
+  currentProgress = 0;
+  totalToSubmit = 0;
+  successCount = 0;
+  failedItems: SubmissionItem[] = [];
 
   ngOnInit(): void {
     this.tagService.setTitle('数据采集 - 基于JSONAPI');
@@ -121,10 +129,10 @@ export class CollectorComponent implements OnInit {
 
   // 开始采集
   async start(value: any): Promise<void> {
-    if (!this.user) {
-      this.util.openSnackbar('请登录');
-      return;
-    }
+    // if (!this.user) {
+    //   this.util.openSnackbar('请登录');
+    //   return;
+    // }
     const { domain, api, page, title } = value;
     try {
       this.resetState();
@@ -167,14 +175,15 @@ export class CollectorComponent implements OnInit {
   // 确认导入
   async confirmImport(): Promise<void> {
     try {
-      if (!this.user) {
-        this.util.openSnackbar('请登录');
-        return;
-      }
+      // if (!this.user) {
+      //   this.util.openSnackbar('请登录');
+      //   return;
+      // }
       this.isCollecting = true;
-      await lastValueFrom(this.dataFetcher.sequentialSubmit(this.previewData));
-      this.dataFetcher.sequentialSubmit(this.previewData).subscribe(res => {
-        console.log(res);
+      this.dataFetcher.sequentialSubmit(this.previewData).subscribe({
+        next: result => this.handleSubmissionResult(result),
+        error: err => this.handleSubmissionError(err),
+        complete: () => this.handleSubmissionComplete(),
       });
       // this.clearPreview();
     } catch (error) {
@@ -184,10 +193,30 @@ export class CollectorComponent implements OnInit {
     }
   }
 
-  // 清空预览
-  clearPreview(): void {
-    this.previewData = [];
-    localStorage.removeItem('cachedCollection');
+  private handleSubmissionResult(result: {
+    success: boolean;
+    index: number;
+    item?: SubmissionItem;
+  }): void {
+    this.currentProgress = Math.round((result.index / this.totalToSubmit) * 100);
+
+    if (result.success) {
+      this.successCount++;
+    } else if (result.item) {
+      this.failedItems.push(result.item);
+    }
+  }
+
+  private handleSubmissionError(err: Error): void {
+    this.isSubmitting = false;
+    this.error = `提交过程中断: ${err.message}`;
+  }
+
+  private handleSubmissionComplete(): void {
+    this.isSubmitting = false;
+    if (this.failedItems.length > 0) {
+      this.error = `${this.failedItems.length} 条数据提交失败，可尝试重新提交`;
+    }
   }
 
   // 查看详情

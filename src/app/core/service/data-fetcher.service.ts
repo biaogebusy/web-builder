@@ -1,30 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, concatMap, delay, forkJoin, from, of, throwError } from 'rxjs';
+import { Observable, catchError, concatMap, delay, from, of } from 'rxjs';
 import { ApiService } from './api.service';
 import { NodeService } from './node.service';
-import { User } from '../interface/IAppConfig';
 import { USER } from '@core/token/token-providers';
 import { IUser } from '@core/interface/IUser';
-export interface SubmissionItem {
-  source_id: string;
-  title: string;
-  content: string;
-  original_data: {
-    created: string;
-    modified?: string;
-    drupal_type: string;
-  };
-}
+import { SubmissionItem } from '@core/interface/node/IDrupal';
 
-export interface SubmissionResponse {
-  success: boolean;
-  inserted_id?: string;
-  error?: {
-    code: string;
-    message: string;
-  };
-}
 @Injectable({
   providedIn: 'root',
 })
@@ -42,9 +24,11 @@ export class DataFetcherService extends ApiService {
     });
   }
 
-  transformExternalToLocal(extArticle: any, api: string): any {
+  transformExternalToLocal(extArticle: any, api: string): SubmissionItem {
     this.api = api;
     return {
+      id: extArticle.id,
+      status: false,
       type: this.nodeService.getEntityType(api),
       attributes: {
         title: extArticle.attributes.title,
@@ -52,7 +36,6 @@ export class DataFetcherService extends ApiService {
           value: extArticle.attributes.body.value,
           format: 'full_html',
         },
-        created: new Date(),
       },
     };
   }
@@ -69,7 +52,8 @@ export class DataFetcherService extends ApiService {
     index: number,
     delayMs: number
   ): Observable<{ success: boolean; index: number; item?: SubmissionItem }> {
-    return this.nodeService.addEntity(this.api, item, this.user.csrf_token).pipe(
+    const { attributes } = item;
+    return this.nodeService.addEntity(this.api, attributes, this.user.csrf_token).pipe(
       delay(delayMs),
       concatMap(res =>
         of({
@@ -78,13 +62,13 @@ export class DataFetcherService extends ApiService {
           item: res.success ? undefined : item,
         })
       ),
-      catchError((err: HttpErrorResponse) =>
-        of({
+      catchError((err: HttpErrorResponse) => {
+        return of({
           success: false,
           index: index + 1,
           item,
-        })
-      )
+        });
+      })
     );
   }
 }
