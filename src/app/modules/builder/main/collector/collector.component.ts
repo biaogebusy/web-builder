@@ -4,9 +4,11 @@ import { UntypedFormGroup } from '@angular/forms';
 import { DataFetcherService } from '@core/service/data-fetcher.service';
 import { Observable, lastValueFrom, map, timer } from 'rxjs';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
-import { NodeService } from '@core/service/node.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { TagsService } from '@core/service/tags.service';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-collector',
@@ -16,6 +18,9 @@ import { TagsService } from '@core/service/tags.service';
 })
 export class CollectorComponent implements OnInit {
   private http = inject(HttpClient);
+  private user$ = inject<Observable<IUser>>(USER);
+  private util = inject(UtilitiesService);
+  private user: IUser;
   public form = new UntypedFormGroup({});
   public model: any = {};
   public fields: FormlyFieldConfig[] = [
@@ -37,10 +42,10 @@ export class CollectorComponent implements OnInit {
           key: 'api',
           className: 'col-span-12 sm:col-span-3',
           type: 'input',
-          defaultValue: '/api/v1/node/article',
+          defaultValue: '/api/v1/node/blog',
           props: {
             label: 'API',
-            placeholder: '/jsonapi/node/article',
+            placeholder: '/jsonapi/node/blog',
             required: true,
           },
         },
@@ -102,6 +107,9 @@ export class CollectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.tagService.setTitle('数据采集 - 基于JSONAPI');
+    this.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
   // 性能估算
@@ -113,6 +121,10 @@ export class CollectorComponent implements OnInit {
 
   // 开始采集
   async start(value: any): Promise<void> {
+    if (!this.user) {
+      this.util.openSnackbar('请登录');
+      return;
+    }
     const { domain, api, page, title } = value;
     try {
       this.resetState();
@@ -155,9 +167,16 @@ export class CollectorComponent implements OnInit {
   // 确认导入
   async confirmImport(): Promise<void> {
     try {
+      if (!this.user) {
+        this.util.openSnackbar('请登录');
+        return;
+      }
       this.isCollecting = true;
-      await lastValueFrom(this.dataFetcher.batchCreate(this.previewData));
-      this.clearPreview();
+      await lastValueFrom(this.dataFetcher.sequentialSubmit(this.previewData));
+      this.dataFetcher.sequentialSubmit(this.previewData).subscribe(res => {
+        console.log(res);
+      });
+      // this.clearPreview();
     } catch (error) {
       this.handleError(error);
     } finally {

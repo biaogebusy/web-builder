@@ -1,12 +1,30 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, forkJoin, throwError } from 'rxjs';
+import { Observable, catchError, concatMap, delay, forkJoin, from, of, throwError } from 'rxjs';
 import { ApiService } from './api.service';
 import { NodeService } from './node.service';
 import { User } from '../interface/IAppConfig';
 import { USER } from '@core/token/token-providers';
 import { IUser } from '@core/interface/IUser';
+export interface SubmissionItem {
+  source_id: string;
+  title: string;
+  content: string;
+  original_data: {
+    created: string;
+    modified?: string;
+    drupal_type: string;
+  };
+}
 
+export interface SubmissionResponse {
+  success: boolean;
+  inserted_id?: string;
+  error?: {
+    code: string;
+    message: string;
+  };
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -15,6 +33,7 @@ export class DataFetcherService extends ApiService {
   private user$ = inject<Observable<IUser>>(USER);
   private user: IUser;
   private api = '';
+  private readonly defaultDelay = 800;
 
   constructor() {
     super();
@@ -38,50 +57,34 @@ export class DataFetcherService extends ApiService {
     };
   }
 
-  // 批量创建方法
-  batchCreate(items: any[]): Observable<any> {
-    return this.processInBatches(items, 5).pipe(catchError(this.handleBatchError));
+  sequentialSubmit(
+    items: SubmissionItem[],
+    delayMs: number = this.defaultDelay
+  ): Observable<{ success: boolean; index: number; item?: SubmissionItem }> {
+    return from(items).pipe(concatMap((item, index) => this.submitItem(item, index, delayMs)));
   }
 
-  // 分批处理逻辑
-  private processInBatches(items: any[], batchSize: number): Observable<any> {
-    const batches = [];
-    for (let i = 0; i < items.length; i += batchSize) {
-      const batch = items.slice(i, i + batchSize);
-      batches.push(batch);
-    }
-
-    return forkJoin(
-      batches.map(batch =>
-        forkJoin(
-          batch.map(item =>
-            this.createSingleItem(item).pipe(
-              catchError(error => this.handleSingleError(error, item))
-            )
-          )
-        )
+  private submitItem(
+    item: SubmissionItem,
+    index: number,
+    delayMs: number
+  ): Observable<{ success: boolean; index: number; item?: SubmissionItem }> {
+    return this.nodeService.addEntity(this.api, item, this.user.csrf_token).pipe(
+      delay(delayMs),
+      concatMap(res =>
+        of({
+          success: res.success,
+          index: index + 1,
+          item: res.success ? undefined : item,
+        })
+      ),
+      catchError((err: HttpErrorResponse) =>
+        of({
+          success: false,
+          index: index + 1,
+          item,
+        })
       )
     );
-  }
-
-  // 创建单个条目
-  private createSingleItem(item: any): Observable<any> {
-    const { attributes } = item;
-    return this.nodeService.addEntity(this.api, attributes, this.user.csrf_token);
-  }
-
-  // 错误处理（批量）
-  private handleBatchError(error: HttpErrorResponse): any {
-    const errorMessage = `批量操作失败: ${error.status} - ${error.message}`;
-    return throwError(() => new Error(errorMessage));
-  }
-
-  // 错误处理（单个）
-  private handleSingleError(error: any, originalItem: any): any {
-    return throwError(() => ({
-      error,
-      originalItem,
-      message: `创建失败: ${error.message || '未知错误'}`,
-    }));
   }
 }
