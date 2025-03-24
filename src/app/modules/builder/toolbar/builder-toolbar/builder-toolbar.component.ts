@@ -34,6 +34,7 @@ import { IDialog } from '@core/interface/IDialog';
   standalone: false,
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
+  public version = signal<IPage[] | undefined>(undefined);
   private user$ = inject<Observable<IUser>>(USER);
   public builderFullScreen$ = inject<Observable<boolean>>(BUILDER_FULL_SCREEN);
   public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
@@ -65,6 +66,13 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
         this.date.set(new Date(Number(this.page.changed) * 1000));
       }
     });
+    this.version.set(this.storage.retrieve('version'));
+    this.storage
+      .observe('version')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((version: IPage[]) => {
+        this.version.set(version);
+      });
   }
 
   ngAfterViewInit(): void {
@@ -88,6 +96,15 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
       this.builder.currentPage.title = textContent;
       this.builder.saveLocalVersions();
     }
+  }
+
+  onClearHistory(): void {
+    this.builder.clearAllHistory();
+  }
+
+  onVersion(page: IPage, index: number): void {
+    this.builder.switchVersion(page, index);
+    this.builderService.checkIsLatestPage(page);
   }
 
   onNewPage(): void {
