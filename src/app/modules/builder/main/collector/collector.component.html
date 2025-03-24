@@ -81,6 +81,9 @@
               >
               </mat-row>
             </mat-table>
+            @if (links()) {
+              <app-pagination-links (pageChange)="onPageChange($event)" [links]="links()" />
+            }
             <mat-divider />
             <div class="p-5 font-bold">已选择{{ selection.selected.length }}条数据</div>
             <div class="p-5 text-gray-500 text-sm">

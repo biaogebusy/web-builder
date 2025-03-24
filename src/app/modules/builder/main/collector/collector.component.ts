@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { DataFetcherService } from '@core/service/data-fetcher.service';
 import { Observable, lastValueFrom } from 'rxjs';
@@ -12,6 +12,8 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { SubmissionItem } from '@core/interface/node/IDrupal';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
+import { NodeService } from '@core/service/node.service';
 
 @Component({
   selector: 'app-collector',
@@ -27,6 +29,7 @@ export class CollectorComponent implements OnInit {
   public form = new UntypedFormGroup({});
   public model: any = {};
   public selection = new SelectionModel<SubmissionItem>(true, []);
+  links = signal<IPaginationLinks | undefined>(undefined);
   public fields: FormlyFieldConfig[] = [
     {
       fieldGroupClassName: 'flex flex-col gap-3',
@@ -97,6 +100,7 @@ export class CollectorComponent implements OnInit {
   ];
   private dataFetcher = inject(DataFetcherService);
   private tagService = inject(TagsService);
+  private nodeService = inject(NodeService);
 
   // 表格配置
   public displayedColumns: string[] = ['select', 'index', 'title', 'summary', 'status', 'actions'];
@@ -149,7 +153,10 @@ export class CollectorComponent implements OnInit {
           api,
         })
       );
-      this.processData(response.content.data, api);
+      const {
+        content: { data, links },
+      } = response;
+      this.handleData(data, links);
     } catch (error) {
       this.handleError(error);
     } finally {
@@ -157,11 +164,16 @@ export class CollectorComponent implements OnInit {
     }
   }
 
+  handleData(data: any, links: IPaginationLinks): void {
+    this.links.set(links);
+    this.processData(data);
+  }
+
   // 处理采集到的数据
-  private processData(data: any[], api: string): void {
+  private processData(data: any[]): void {
     this.previewData = new MatTableDataSource(
       data.map((item, index) => {
-        const transformed = this.dataFetcher.transformExternalToLocal(item, api);
+        const transformed = this.dataFetcher.transformExternalToLocal(item, this.model.api);
         return {
           ...transformed,
           index: index + 1,
@@ -259,5 +271,10 @@ export class CollectorComponent implements OnInit {
     }
 
     this.selection.select(...this.previewData.data);
+  }
+  onPageChange(link: string): void {
+    console.log(link);
+    //TODO
+    const { domain } = this.model;
   }
 }
