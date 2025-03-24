@@ -51,6 +51,7 @@ import { DefaultPageComponent } from './main/default-page/default-page.component
 import { FormModule } from '@uiux/combs/form/form.module';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { CollectorComponent } from './main/collector/collector.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const components = [
   JsonComponent,
@@ -92,6 +93,7 @@ const components = [
   imports: [
     ShareModule,
     MatSidenavModule,
+    MatCheckboxModule,
     WidgetsModule,
     BrandingModule,
     DragDropModule,

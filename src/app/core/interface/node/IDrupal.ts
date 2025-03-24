@@ -34,6 +34,8 @@ export interface SubmissionItem {
   id: string;
   status: boolean;
   type: string;
+  title: string;
+  body: string;
   attributes: {
     title: string;
     body: {

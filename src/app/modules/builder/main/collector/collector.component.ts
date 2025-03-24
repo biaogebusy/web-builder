@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { DataFetcherService } from '@core/service/data-fetcher.service';
-import { Observable, lastValueFrom, map, timer } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { TagsService } from '@core/service/tags.service';
@@ -10,6 +10,8 @@ import { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { SubmissionItem } from '@core/interface/node/IDrupal';
+import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-collector',
@@ -24,9 +26,10 @@ export class CollectorComponent implements OnInit {
   private user: IUser;
   public form = new UntypedFormGroup({});
   public model: any = {};
+  public selection = new SelectionModel<SubmissionItem>(true, []);
   public fields: FormlyFieldConfig[] = [
     {
-      fieldGroupClassName: 'grid grid-cols-12 gap-3',
+      fieldGroupClassName: 'flex flex-col gap-3',
       fieldGroup: [
         {
           key: 'domain',
@@ -96,35 +99,27 @@ export class CollectorComponent implements OnInit {
   private tagService = inject(TagsService);
 
   // 表格配置
-  public displayedColumns: string[] = ['status', 'title', 'summary', 'actions'];
-  public previewData: SubmissionItem[] = [];
+  public displayedColumns: string[] = ['select', 'index', 'title', 'summary', 'status', 'actions'];
+  public previewData: any;
 
   // 状态管理
   public isCollecting = false;
   public progress = 0;
-  public completedCount = 0;
   public errorMessage: string | null = null;
   public errorDetails: any = null;
 
-  error: string | null = null;
-  isSubmitting = false;
-  currentProgress = 0;
-  totalToSubmit = 0;
-  successCount = 0;
-  failedItems: SubmissionItem[] = [];
+  private error: string | null = null;
+  private isSubmitting = false;
+  private currentProgress = 0;
+  private totalToSubmit = 0;
+  private successCount = 0;
+  private failedItems: SubmissionItem[] = [];
 
   ngOnInit(): void {
     this.tagService.setTitle('数据采集 - 基于JSONAPI');
     this.user$.subscribe(user => {
       this.user = user;
     });
-  }
-
-  // 性能估算
-  get estimatedRemaining(): Observable<number> {
-    return timer(0, 1000).pipe(
-      map(() => Math.round((this.previewData.length - this.completedCount) * 0.5))
-    );
   }
 
   // 开始采集
@@ -164,23 +159,28 @@ export class CollectorComponent implements OnInit {
 
   // 处理采集到的数据
   private processData(data: any[], api: string): void {
-    this.previewData = data.map(item => {
-      const transformed = this.dataFetcher.transformExternalToLocal(item, api);
-      return transformed;
-    });
+    this.previewData = new MatTableDataSource(
+      data.map((item, index) => {
+        const transformed = this.dataFetcher.transformExternalToLocal(item, api);
+        return {
+          ...transformed,
+          index: index + 1,
+        };
+      })
+    );
 
     this.progress = 100;
   }
 
   // 确认导入
-  async confirmImport(): Promise<void> {
+  async confirmImport(selected: SubmissionItem[]): Promise<void> {
     try {
       // if (!this.user) {
       //   this.util.openSnackbar('请登录');
       //   return;
       // }
       this.isCollecting = true;
-      this.dataFetcher.sequentialSubmit(this.previewData).subscribe({
+      this.dataFetcher.sequentialSubmit(selected).subscribe({
         next: result => this.handleSubmissionResult(result),
         error: err => this.handleSubmissionError(err),
         complete: () => this.handleSubmissionComplete(),
@@ -237,8 +237,27 @@ export class CollectorComponent implements OnInit {
 
   private resetState(): void {
     this.progress = 0;
-    this.completedCount = 0;
     this.errorMessage = null;
     this.errorDetails = null;
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.previewData.filter = filterValue.trim().toLowerCase();
+  }
+
+  isAllSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.previewData.data.length;
+    return numSelected === numRows;
+  }
+
+  toggleAllRows(): void {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.previewData.data);
   }
 }

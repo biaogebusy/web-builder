@@ -26,10 +26,13 @@ export class DataFetcherService extends ApiService {
 
   transformExternalToLocal(extArticle: any, api: string): SubmissionItem {
     this.api = api;
+    const { title, body } = extArticle.attributes;
     return {
       id: extArticle.id,
       status: false,
       type: this.nodeService.getEntityType(api),
+      title,
+      body: body.processed,
       attributes: {
         title: extArticle.attributes.title,
         body: {

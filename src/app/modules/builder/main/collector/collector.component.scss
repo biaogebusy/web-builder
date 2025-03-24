@@ -2,37 +2,18 @@
   margin-top: 2rem;
   border: 1px solid #eee;
   padding: 1rem;
-  max-height: 60vh;
   overflow: auto;
 
-  table {
+  .mat-mdc-table {
     width: 100%;
-    margin-bottom: 1rem;
-
-    th {
-      background: #f5f5f5;
-      font-weight: 500;
-    }
-
-    td {
-      vertical-align: top;
-      padding: 0.8rem;
-
-      &:nth-child(1) {
-        width: 25%;
-      }
-      &:nth-child(2) {
-        width: 60%;
-      }
-      &:nth-child(3) {
-        width: 15%;
-      }
-    }
-
-    mark {
-      background: #fff3cd;
-      padding: 0 0.2em;
-    }
+    max-height: 60vh;
+    overflow: auto;
+  }
+  .mat-column-select,
+  .mat-column-status,
+  .mat-column-actions,
+  .mat-column-index {
+    flex: 0 1 80px;
   }
 }
 
