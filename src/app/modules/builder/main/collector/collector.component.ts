@@ -58,7 +58,7 @@ export class CollectorComponent implements OnInit {
           className: 'col-span-12 sm:col-span-3',
           type: 'input',
           props: {
-            label: '标题',
+            label: '关键词',
           },
         },
         {
@@ -67,7 +67,7 @@ export class CollectorComponent implements OnInit {
           type: 'select',
           defaultValue: 20,
           props: {
-            label: '分页',
+            label: '每页显示',
             options: [
               {
                 label: '10',
