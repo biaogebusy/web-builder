@@ -219,10 +219,12 @@ export class CollectorComponent implements OnInit {
     index: number;
     item?: SubmissionItem;
   }): void {
-    if (result.success) {
+    const { success, index, item } = result;
+    if (success) {
       this.successCount++;
-    } else if (result.item) {
-      this.failedItems.push(result.item);
+      this.selection.selected[index].status = true;
+    } else if (item) {
+      this.failedItems.push(item);
     }
   }
 

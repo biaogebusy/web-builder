@@ -64,14 +64,14 @@ export class DataFetcherService extends ApiService {
       concatMap(res =>
         of({
           success: res.success,
-          index: index + 1,
+          index,
           item: res.success ? undefined : item,
         })
       ),
       catchError((err: HttpErrorResponse) => {
         return of({
           success: false,
-          index: index + 1,
+          index,
           item,
         });
       })
