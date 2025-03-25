@@ -14,6 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { NodeService } from '@core/service/node.service';
+import qs from 'qs';
 
 @Component({
   selector: 'app-collector',
@@ -127,12 +128,12 @@ export class CollectorComponent implements OnInit {
   }
 
   // 开始采集
-  async start(value: any): Promise<void> {
+  start(): void {
     // if (!this.user) {
     //   this.util.openSnackbar('请登录');
     //   return;
     // }
-    const { domain, api, page, title } = value;
+    const { page, title } = this.model;
     try {
       this.resetState();
       this.isCollecting = true;
@@ -146,22 +147,27 @@ export class CollectorComponent implements OnInit {
 
       const params = apiParams.getQueryObject();
 
-      const response = await lastValueFrom(
-        this.http.post<any>(`/collector`, {
-          ...params,
-          domain,
-          api,
-        })
-      );
-      const {
-        content: { data, links },
-      } = response;
-      this.handleData(data, links);
+      this.getContent(params);
     } catch (error) {
       this.handleError(error);
     } finally {
       this.isCollecting = false;
     }
+  }
+
+  async getContent(params: any): Promise<void> {
+    const { domain, api } = this.model;
+    const response = await lastValueFrom(
+      this.http.post<any>(`/collector`, {
+        ...params,
+        domain,
+        api,
+      })
+    );
+    const {
+      content: { data, links },
+    } = response;
+    this.handleData(data, links);
   }
 
   handleData(data: any, links: IPaginationLinks): void {
@@ -272,9 +278,10 @@ export class CollectorComponent implements OnInit {
 
     this.selection.select(...this.previewData.data);
   }
+
   onPageChange(link: string): void {
-    console.log(link);
-    //TODO
-    const { domain } = this.model;
+    const searchQuery = link.split('?')[1];
+    const query = qs.parse(searchQuery);
+    this.getContent(query);
   }
 }

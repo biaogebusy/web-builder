@@ -52,7 +52,7 @@
                 <mat-header-cell *matHeaderCellDef>内容摘要</mat-header-cell>
                 <mat-cell *matCellDef="let item">
                   <div
-                    class="line-clamp-3 py-2 text-sm"
+                    class="line-clamp-3 my-2 text-sm"
                     [innerHTML]="item.body | stripTags | shorten: 120 : '...' | safeHtml"
                   ></div>
                 </mat-cell>
@@ -128,7 +128,7 @@
             <app-formly [form]="form" [fields]="fields" [model]="model" />
             <div>
               <app-btn
-                (click)="start(model)"
+                (click)="start()"
                 class="col-span-12 sm:col-span-3"
                 [content]="{
                   mode: 'raised',
