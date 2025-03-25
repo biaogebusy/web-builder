@@ -116,10 +116,9 @@ export class CollectorComponent implements OnInit {
   public previewData: any;
 
   // 状态管理
-  public isCollecting = false;
-  public progress = 0;
-  public errorMessage: string | null = null;
-  public errorDetails: any = null;
+  public isCollecting = signal<boolean>(false);
+  public progress = signal<number>(0);
+  public errorMessage = signal<string | null>(null);
 
   private error: string | null = null;
   private totalToSubmit = 0;
@@ -140,40 +139,38 @@ export class CollectorComponent implements OnInit {
     //   return;
     // }
     const { page, title } = this.model;
-    try {
-      this.resetState();
-      this.isCollecting = true;
+    this.resetState();
+    this.isCollecting.set(true);
 
-      const apiParams = new DrupalJsonApiParams();
-      apiParams.addFilter('status', '1');
-      apiParams.addPageLimit(page);
-      if (title) {
-        apiParams.addFilter('title', title, 'CONTAINS');
-      }
-
-      const params = apiParams.getQueryObject();
-
-      this.getContent(params);
-    } catch (error) {
-      this.handleError(error);
-    } finally {
-      this.isCollecting = false;
+    const apiParams = new DrupalJsonApiParams();
+    apiParams.addFilter('status', '1');
+    apiParams.addPageLimit(page);
+    if (title) {
+      apiParams.addFilter('title', title, 'CONTAINS');
     }
+    const params = apiParams.getQueryObject();
+    this.getContent(params);
   }
 
   async getContent(params: any): Promise<void> {
     const { domain, api } = this.model;
-    const response = await lastValueFrom(
-      this.http.post<any>(`/collector`, {
-        ...params,
-        domain,
-        api,
-      })
-    );
-    const {
-      content: { data, links },
-    } = response;
-    this.handleData(data, links);
+    try {
+      const response = await lastValueFrom(
+        this.http.post<any>(`/collector`, {
+          ...params,
+          domain,
+          api,
+        })
+      );
+      const {
+        content: { data, links },
+      } = response;
+      this.handleData(data, links);
+    } catch (error) {
+      this.handleError(error);
+    } finally {
+      this.isCollecting.set(false);
+    }
   }
 
   handleData(data: any, links: IPaginationLinks): void {
@@ -193,7 +190,7 @@ export class CollectorComponent implements OnInit {
       })
     );
 
-    this.progress = 100;
+    this.isCollecting.set(false);
   }
 
   // 确认导入
@@ -203,7 +200,7 @@ export class CollectorComponent implements OnInit {
       //   this.util.openSnackbar('请登录');
       //   return;
       // }
-      this.isCollecting = true;
+      this.isCollecting.set(true);
       this.dataFetcher.sequentialSubmit(selected).subscribe({
         next: result => this.handleSubmissionResult(result),
         error: err => this.handleSubmissionError(err),
@@ -213,7 +210,7 @@ export class CollectorComponent implements OnInit {
     } catch (error) {
       this.handleError(error);
     } finally {
-      this.isCollecting = false;
+      this.isCollecting.set(false);
     }
   }
 
@@ -258,18 +255,15 @@ export class CollectorComponent implements OnInit {
 
   // 错误处理
   private handleError(error: any): void {
-    this.errorMessage = error.message || '未知错误';
-    this.errorDetails = error.error || null;
+    this.errorMessage.set(error.message || '未知错误');
     setTimeout(() => {
-      this.errorMessage = null;
-      this.errorDetails = null;
+      this.errorMessage.set(null);
     }, 5000);
   }
 
   private resetState(): void {
-    this.progress = 0;
-    this.errorMessage = null;
-    this.errorDetails = null;
+    this.progress.set(0);
+    this.errorMessage.set(null);
   }
 
   applyFilter(event: Event): void {

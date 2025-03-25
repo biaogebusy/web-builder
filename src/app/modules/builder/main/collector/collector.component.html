@@ -2,7 +2,7 @@
   <div class="container">
     <div class="p-5 my-10 mx-auto bg-white rounded-lg shadow-lg">
       <div class="grid grid-cols-12 gap-8 mb-3">
-        <div class="col-span-12 sm:col-span-9">
+        <div class="col-span-12 sm:col-span-9 relative">
           <div class="flex justify-between items-center">
             <app-title [content]="{ label: '数据采集', style: 'style-v4' }"></app-title>
             <mat-form-field>
@@ -11,9 +11,11 @@
             </mat-form-field>
           </div>
           <!-- 进度指示 -->
-          <div class="progress-section" *ngIf="isCollecting">
-            <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-          </div>
+          @if (isCollecting()) {
+            <div class="load absolute inset-0 z-10 flex justify-center items-center">
+              <mat-spinner diameter="50" color="accent" />
+            </div>
+          }
 
           <!-- 数据预览 -->
           <div class="preview-section">
@@ -67,7 +69,7 @@
               <!-- 创建列 -->
               <ng-container matColumnDef="created">
                 <mat-header-cell *matHeaderCellDef>创建</mat-header-cell>
-                <mat-cell class="opacity-90 text-sm" *matCellDef="let item">{{
+                <mat-cell class="opacity-90 text-xs" *matCellDef="let item">{{
                   item.created | date: 'yyyy/MM/dd HH:mm'
                 }}</mat-cell>
               </ng-container>
@@ -101,18 +103,19 @@
           </div>
 
           <!-- 错误提示 -->
-          <div class="error-section" *ngIf="errorMessage">
-            <mat-card class="error-card">
-              <mat-card-header>
-                <mat-icon matCardAvatar color="warn">error</mat-icon>
-                <mat-card-title>采集过程中发生错误</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                {{ errorMessage }}
-                <pre *ngIf="errorDetails">{{ errorDetails }}</pre>
-              </mat-card-content>
-            </mat-card>
-          </div>
+          @if (errorMessage()) {
+            <div class="error-section">
+              <mat-card class="error-card">
+                <mat-card-header>
+                  <mat-icon matCardAvatar color="warn">error</mat-icon>
+                  <mat-card-title>采集过程中发生错误</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  {{ errorMessage() }}
+                </mat-card-content>
+              </mat-card>
+            </div>
+          }
         </div>
         <div class="col-span-12 sm:col-span-3 px-5 bg-gray-100 rounded-md">
           <div class="flex flex-col justify-center">
@@ -144,19 +147,18 @@
           </div>
         </div>
         <div class="col-span-12 sm:col-span-4 flex justify-center items-center">
-          @if (selection.hasValue()) {
-            <app-btn
-              (click)="confirmImport(selection.selected)"
-              [content]="{
-                label: '确认导入',
-                mode: 'raised',
-                color: 'primary',
-                icon: {
-                  svg: 'send',
-                },
-              }"
-            />
-          }
+          <app-btn
+            (click)="confirmImport(selection.selected)"
+            [content]="{
+              label: '确认导入',
+              mode: 'raised',
+              color: 'primary',
+              disabled: !selection.hasValue(),
+              icon: {
+                svg: 'send',
+              },
+            }"
+          />
         </div>
       </div>
     </div>
