@@ -8,13 +8,13 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { TagsService } from '@core/service/tags.service';
 import { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { SubmissionItem } from '@core/interface/node/IDrupal';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { NodeService } from '@core/service/node.service';
 import qs from 'qs';
+import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
   selector: 'app-collector',
@@ -25,7 +25,7 @@ import qs from 'qs';
 export class CollectorComponent implements OnInit {
   private http = inject(HttpClient);
   private user$ = inject<Observable<IUser>>(USER);
-  private util = inject(UtilitiesService);
+  private builder = inject(BuilderState);
   private user: IUser;
   public form = new UntypedFormGroup({});
   public model: any = {};
@@ -104,7 +104,15 @@ export class CollectorComponent implements OnInit {
   private nodeService = inject(NodeService);
 
   // 表格配置
-  public displayedColumns: string[] = ['select', 'index', 'title', 'summary', 'status', 'actions'];
+  public displayedColumns: string[] = [
+    'select',
+    'index',
+    'nid',
+    'title',
+    'created',
+    'langcode',
+    'status',
+  ];
   public previewData: any;
 
   // 状态管理
@@ -114,8 +122,6 @@ export class CollectorComponent implements OnInit {
   public errorDetails: any = null;
 
   private error: string | null = null;
-  private isSubmitting = false;
-  private currentProgress = 0;
   private totalToSubmit = 0;
   private successCount = 0;
   private failedItems: SubmissionItem[] = [];
@@ -216,8 +222,6 @@ export class CollectorComponent implements OnInit {
     index: number;
     item?: SubmissionItem;
   }): void {
-    this.currentProgress = Math.round((result.index / this.totalToSubmit) * 100);
-
     if (result.success) {
       this.successCount++;
     } else if (result.item) {
@@ -226,21 +230,30 @@ export class CollectorComponent implements OnInit {
   }
 
   private handleSubmissionError(err: Error): void {
-    this.isSubmitting = false;
     this.error = `提交过程中断: ${err.message}`;
   }
 
   private handleSubmissionComplete(): void {
-    this.isSubmitting = false;
     if (this.failedItems.length > 0) {
       this.error = `${this.failedItems.length} 条数据提交失败，可尝试重新提交`;
     }
   }
 
-  // 查看详情
   viewDetails(item: any): void {
-    // 实现详情查看逻辑
-    console.log('Item details:', item);
+    this.builder.rightContent$.next({
+      mode: 'over',
+      hasBackdrop: true,
+      style: {
+        width: '800px',
+      },
+      elements: [
+        {
+          type: 'article',
+          title: item.title,
+          body: item.body,
+        },
+      ],
+    });
   }
 
   // 错误处理
@@ -280,6 +293,7 @@ export class CollectorComponent implements OnInit {
   }
 
   onPageChange(link: string): void {
+    this.selection.clear();
     const searchQuery = link.split('?')[1];
     const query = qs.parse(searchQuery);
     this.getContent(query);

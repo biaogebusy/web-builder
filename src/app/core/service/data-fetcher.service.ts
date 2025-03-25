@@ -26,13 +26,16 @@ export class DataFetcherService extends ApiService {
 
   transformExternalToLocal(extArticle: any, api: string): SubmissionItem {
     this.api = api;
-    const { title, body } = extArticle.attributes;
+    const { title, body, drupal_internal__nid, created, langcode } = extArticle.attributes;
     return {
       id: extArticle.id,
       status: false,
       type: this.nodeService.getEntityType(api),
       title,
       body: body.processed,
+      nid: drupal_internal__nid,
+      created,
+      langcode,
       attributes: {
         title: extArticle.attributes.title,
         body: {

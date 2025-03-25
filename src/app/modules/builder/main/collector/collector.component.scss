@@ -1,19 +1,20 @@
 .preview-section {
-  margin-top: 2rem;
-  border: 1px solid #eee;
-  padding: 1rem;
-  overflow: auto;
-
   .mat-mdc-table {
     width: 100%;
-    max-height: 60vh;
+    height: 60vh;
     overflow: auto;
   }
   .mat-column-select,
+  .mat-column-nid,
+  .mat-column-select,
   .mat-column-status,
-  .mat-column-actions,
   .mat-column-index {
-    flex: 0 1 80px;
+    flex: 0 1 70px;
+    padding: 0;
+  }
+  .mat-column-created,
+  .mat-column-langcode {
+    flex: 0 1 94px;
   }
 }
 

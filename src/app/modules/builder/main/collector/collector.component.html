@@ -1,9 +1,15 @@
 <div class="collector">
   <div class="container">
-    <app-title [content]="{ label: '数据采集', style: 'style-v4' }"></app-title>
     <div class="p-5 my-10 mx-auto bg-white rounded-lg shadow-lg">
-      <div class="grid grid-cols-12 gap-5">
+      <div class="grid grid-cols-12 gap-8 mb-3">
         <div class="col-span-12 sm:col-span-9">
+          <div class="flex justify-between items-center">
+            <app-title [content]="{ label: '数据采集', style: 'style-v4' }"></app-title>
+            <mat-form-field>
+              <mat-label>过滤</mat-label>
+              <input matInput (keyup)="applyFilter($event)" #input />
+            </mat-form-field>
+          </div>
           <!-- 进度指示 -->
           <div class="progress-section" *ngIf="isCollecting">
             <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
@@ -11,11 +17,6 @@
 
           <!-- 数据预览 -->
           <div class="preview-section">
-            <h3 class="preview-title">预览数据</h3>
-            <mat-form-field>
-              <mat-label>过滤</mat-label>
-              <input matInput (keyup)="applyFilter($event)" #input />
-            </mat-form-field>
             <mat-table [dataSource]="previewData">
               <!-- Checkbox Column -->
               <ng-container matColumnDef="select" [sticky]="true">
@@ -39,39 +40,52 @@
               <!-- 序号 -->
               <ng-container matColumnDef="index">
                 <mat-header-cell *matHeaderCellDef>序号</mat-header-cell>
-                <mat-cell *matCellDef="let item">{{ item.index }}</mat-cell>
+                <mat-cell class="opacity-90 text-sm" *matCellDef="let item">{{
+                  item.index
+                }}</mat-cell>
+              </ng-container>
+              <!-- nid 列 -->
+              <ng-container matColumnDef="nid">
+                <mat-header-cell *matHeaderCellDef>id</mat-header-cell>
+                <mat-cell
+                  class="opacity-90 text-sm"
+                  *matCellDef="let item"
+                  [innerHTML]="item.nid"
+                ></mat-cell>
               </ng-container>
               <!-- 标题列 -->
               <ng-container matColumnDef="title">
                 <mat-header-cell *matHeaderCellDef>标题</mat-header-cell>
-                <mat-cell *matCellDef="let item" [innerHTML]="item.title"></mat-cell>
+                <mat-cell
+                  (click)="viewDetails(item)"
+                  *matCellDef="let item"
+                  class="cursor-pointer"
+                  [innerHTML]="item.title"
+                ></mat-cell>
               </ng-container>
 
-              <!-- 摘要列 -->
-              <ng-container matColumnDef="summary">
-                <mat-header-cell *matHeaderCellDef>内容摘要</mat-header-cell>
-                <mat-cell *matCellDef="let item">
-                  <div
-                    class="line-clamp-3 my-2 text-sm"
-                    [innerHTML]="item.body | stripTags | shorten: 120 : '...' | safeHtml"
-                  ></div>
-                </mat-cell>
+              <!-- 创建列 -->
+              <ng-container matColumnDef="created">
+                <mat-header-cell *matHeaderCellDef>创建</mat-header-cell>
+                <mat-cell class="opacity-90 text-sm" *matCellDef="let item">{{
+                  item.created | date: 'yyyy/MM/dd HH:mm'
+                }}</mat-cell>
+              </ng-container>
+
+              <!-- 语言列 -->
+              <ng-container matColumnDef="langcode">
+                <mat-header-cell *matHeaderCellDef>语言</mat-header-cell>
+                <mat-cell class="opacity-90 text-sm" *matCellDef="let item">{{
+                  item.langcode
+                }}</mat-cell>
               </ng-container>
 
               <!-- 状态列 -->
               <ng-container matColumnDef="status">
                 <mat-header-cell *matHeaderCellDef>状态</mat-header-cell>
-                <mat-cell *matCellDef="let item">{{ item.status ? '已导入' : '待导入' }}</mat-cell>
-              </ng-container>
-
-              <!-- 操作列 -->
-              <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef>操作</mat-header-cell>
-                <mat-cell *matCellDef="let item">
-                  <button mat-icon-button color="accent" (click)="viewDetails(item)">
-                    <mat-icon>visibility</mat-icon>
-                  </button>
-                </mat-cell>
+                <mat-cell class="opacity-90 text-sm" *matCellDef="let item">{{
+                  item.status ? '已导入' : '待导入'
+                }}</mat-cell>
               </ng-container>
 
               <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
@@ -83,28 +97,6 @@
             </mat-table>
             @if (links()) {
               <app-pagination-links (pageChange)="onPageChange($event)" [links]="links()" />
-            }
-            <mat-divider />
-            <div class="p-5 font-bold">已选择{{ selection.selected.length }}条数据</div>
-            <div class="p-5 text-gray-500 text-sm">
-              该采集器基于Druapl JSONAPI，目标站需开启JSONAPI，并开放访问权限。
-            </div>
-          </div>
-          <!-- 操作按钮 -->
-
-          <div class="preview-actions flex justify-end gap-3 my-5 p-5">
-            @if (selection.hasValue()) {
-              <app-btn
-                (click)="confirmImport(selection.selected)"
-                [content]="{
-                  label: '确认导入',
-                  mode: 'raised',
-                  color: 'primary',
-                  icon: {
-                    svg: 'send',
-                  },
-                }"
-              />
             }
           </div>
 
@@ -122,25 +114,49 @@
             </mat-card>
           </div>
         </div>
-        <div class="col-span-12 sm:col-span-3">
-          <div class="params flex flex-col justify-center">
+        <div class="col-span-12 sm:col-span-3 px-5 bg-gray-100 rounded-md">
+          <div class="flex flex-col justify-center">
             <app-title [content]="{ label: '目标站点', style: 'style-v4' }"></app-title>
             <app-formly [form]="form" [fields]="fields" [model]="model" />
-            <div>
-              <app-btn
-                (click)="start()"
-                class="col-span-12 sm:col-span-3"
-                [content]="{
-                  mode: 'raised',
-                  label: '开始采集',
-                  color: 'primary',
-                  icon: {
-                    svg: 'download',
-                  },
-                }"
-              ></app-btn>
-            </div>
+            <app-btn
+              (click)="start()"
+              class="my-5"
+              [content]="{
+                mode: 'raised',
+                label: '开始采集',
+                color: undefined,
+                icon: {
+                  svg: 'download',
+                },
+              }"
+            />
           </div>
+        </div>
+      </div>
+      <mat-divider />
+      <div class="grid grid-cols-12 gap-5 items-center py-3">
+        <div class="col-span-12 sm:col-span-8 flex flex-col gap-2">
+          <div class="font-bold">
+            已选择 <span class="text-primary">{{ selection.selected.length }} </span>条数据
+          </div>
+          <div class="text-gray-500 text-sm">
+            该采集器基于Druapl JSONAPI，目标站需开启JSONAPI，并开放访问权限。
+          </div>
+        </div>
+        <div class="col-span-12 sm:col-span-4 flex justify-center items-center">
+          @if (selection.hasValue()) {
+            <app-btn
+              (click)="confirmImport(selection.selected)"
+              [content]="{
+                label: '确认导入',
+                mode: 'raised',
+                color: 'primary',
+                icon: {
+                  svg: 'send',
+                },
+              }"
+            />
+          }
         </div>
       </div>
     </div>

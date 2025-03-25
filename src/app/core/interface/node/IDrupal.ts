@@ -36,6 +36,9 @@ export interface SubmissionItem {
   type: string;
   title: string;
   body: string;
+  nid: string;
+  created: string;
+  langcode: string;
   attributes: {
     title: string;
     body: {
