@@ -237,19 +237,29 @@ export class CollectorComponent implements OnInit {
   }
 
   viewDetails(item: any): void {
+    console.log(item);
+    const { type, title, body } = item;
+    let widget = {};
+    if (type.includes('json')) {
+      widget = {
+        type: 'jsoneditor',
+        data: JSON.parse(body),
+        classes: 'full-height',
+      };
+    } else {
+      widget = {
+        type: 'article',
+        title,
+        body,
+      };
+    }
     this.builder.rightContent$.next({
       mode: 'over',
       hasBackdrop: true,
       style: {
         width: '800px',
       },
-      elements: [
-        {
-          type: 'article',
-          title: item.title,
-          body: item.body,
-        },
-      ],
+      elements: [widget],
     });
   }
 

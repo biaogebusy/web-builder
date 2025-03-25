@@ -32,7 +32,7 @@ export class DataFetcherService extends ApiService {
       status: false,
       type: this.nodeService.getEntityType(api),
       title,
-      body: body.processed,
+      body: body.value,
       nid: drupal_internal__nid,
       created,
       langcode,
