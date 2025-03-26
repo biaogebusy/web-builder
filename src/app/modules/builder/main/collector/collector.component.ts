@@ -47,12 +47,23 @@ export class CollectorComponent implements OnInit {
           },
         },
         {
-          key: 'api',
+          key: 'sourceApi',
           className: 'col-span-12 sm:col-span-3',
           type: 'input',
-          defaultValue: '/api/v1/node/blog',
+          defaultValue: '/jsonapi/node/blog',
           props: {
-            label: 'API',
+            label: '数据来源 API',
+            placeholder: '/jsonapi/node/blog',
+            required: true,
+          },
+        },
+        {
+          key: 'targetApi',
+          className: 'col-span-12 sm:col-span-3',
+          type: 'input',
+          defaultValue: '/jsonapi/node/blog',
+          props: {
+            label: '数据导入 API',
             placeholder: '/jsonapi/node/blog',
             required: true,
           },
@@ -121,7 +132,6 @@ export class CollectorComponent implements OnInit {
   public errorMessage = signal<string | null>(null);
 
   private error: string | null = null;
-  private totalToSubmit = 0;
   private successCount = 0;
   private failedItems: SubmissionItem[] = [];
 
@@ -153,13 +163,13 @@ export class CollectorComponent implements OnInit {
   }
 
   async getContent(params: any): Promise<void> {
-    const { domain, api } = this.model;
+    const { domain, sourceApi } = this.model;
     try {
       const response = await lastValueFrom(
         this.http.post<any>(`/collector`, {
           ...params,
           domain,
-          api,
+          sourceApi,
         })
       );
       const {
@@ -182,7 +192,7 @@ export class CollectorComponent implements OnInit {
   private processData(data: any[]): void {
     this.previewData = new MatTableDataSource(
       data.map((item, index) => {
-        const transformed = this.dataFetcher.transformExternalToLocal(item, this.model.api);
+        const transformed = this.dataFetcher.transformExternalToLocal(item, this.model.targetApi);
         return {
           ...transformed,
           index: index + 1,
