@@ -30,11 +30,12 @@
                   >
                   </mat-checkbox>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row">
+                <mat-cell *matCellDef="let item">
                   <mat-checkbox
                     (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)"
+                    (change)="$event ? selection.toggle(item) : null"
+                    [checked]="selection.isSelected(item)"
+                    [disabled]="item.status"
                   >
                   </mat-checkbox>
                 </mat-cell>
@@ -85,9 +86,12 @@
               <!-- 状态列 -->
               <ng-container matColumnDef="status">
                 <mat-header-cell *matHeaderCellDef>状态</mat-header-cell>
-                <mat-cell class="opacity-90 text-sm" *matCellDef="let item">{{
-                  item.status ? '已导入' : '待导入'
-                }}</mat-cell>
+                <mat-cell
+                  class="opacity-90 text-sm"
+                  [ngClass]="item.status ? 'text-red-600' : ''"
+                  *matCellDef="let item"
+                  >{{ item.status ? '已导入' : '待导入' }}</mat-cell
+                >
               </ng-container>
 
               <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>

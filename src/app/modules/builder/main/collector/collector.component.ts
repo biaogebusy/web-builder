@@ -138,10 +138,10 @@ export class CollectorComponent implements OnInit {
 
   // 开始采集
   start(): void {
-    // if (!this.user) {
-    //   this.util.openSnackbar('请登录');
-    //   return;
-    // }
+    if (!this.user) {
+      this.util.openSnackbar('请登录');
+      return;
+    }
     const { page, title } = this.model;
     this.resetState();
     this.isCollecting.set(true);
@@ -200,10 +200,10 @@ export class CollectorComponent implements OnInit {
   // 确认导入
   async confirmImport(selected: SubmissionItem[]): Promise<void> {
     try {
-      // if (!this.user) {
-      //   this.util.openSnackbar('请登录');
-      //   return;
-      // }
+      if (!this.user) {
+        this.util.openSnackbar('请登录');
+        return;
+      }
       this.isCollecting.set(true);
       this.dataFetcher.sequentialSubmit(selected).subscribe({
         next: result => this.handleSubmissionResult(result),
@@ -246,6 +246,8 @@ export class CollectorComponent implements OnInit {
 
   private handleSubmissionComplete(): void {
     this.isCollecting.set(false);
+    this.selection.clear();
+    this.successCount.set(0);
     if (this.failedItems.length > 0) {
       this.util.openSnackbar(`${this.failedItems.length} 条数据提交失败，可尝试重新提交`, 'ok');
       this.failedItems = [];
@@ -253,7 +255,6 @@ export class CollectorComponent implements OnInit {
   }
 
   viewDetails(item: any): void {
-    console.log(item);
     const { type, title, body } = item;
     let widget = {};
     if (type.includes('json')) {
