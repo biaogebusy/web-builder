@@ -12,9 +12,13 @@
     flex: 0 1 70px;
     padding: 0;
   }
-  .mat-column-created,
+  .mat-column-created {
+    flex: 0 1 135px;
+    padding: 0;
+  }
   .mat-column-langcode {
     flex: 0 1 94px;
+    padding: 0;
   }
 }
 

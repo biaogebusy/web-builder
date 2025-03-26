@@ -12,9 +12,9 @@ import { SubmissionItem } from '@core/interface/node/IDrupal';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
-import { NodeService } from '@core/service/node.service';
 import qs from 'qs';
 import { BuilderState } from '@core/state/BuilderState';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-collector',
@@ -26,6 +26,7 @@ export class CollectorComponent implements OnInit {
   private http = inject(HttpClient);
   private user$ = inject<Observable<IUser>>(USER);
   private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
   private user: IUser;
   public form = new UntypedFormGroup({});
   public model: any = {};
@@ -33,11 +34,10 @@ export class CollectorComponent implements OnInit {
   links = signal<IPaginationLinks | undefined>(undefined);
   public fields: FormlyFieldConfig[] = [
     {
-      fieldGroupClassName: 'flex flex-col gap-3',
+      fieldGroupClassName: 'flex flex-col',
       fieldGroup: [
         {
           key: 'domain',
-          className: 'col-span-12 sm:col-span-4',
           type: 'input',
           defaultValue: 'https://builder.design',
           props: {
@@ -48,7 +48,6 @@ export class CollectorComponent implements OnInit {
         },
         {
           key: 'sourceApi',
-          className: 'col-span-12 sm:col-span-3',
           type: 'input',
           defaultValue: '/jsonapi/node/blog',
           props: {
@@ -59,18 +58,16 @@ export class CollectorComponent implements OnInit {
         },
         {
           key: 'targetApi',
-          className: 'col-span-12 sm:col-span-3',
           type: 'input',
           defaultValue: '/jsonapi/node/blog',
           props: {
-            label: '数据导入 API',
+            label: '数据写入 API',
             placeholder: '/jsonapi/node/blog',
             required: true,
           },
         },
         {
           key: 'title',
-          className: 'col-span-12 sm:col-span-3',
           type: 'input',
           props: {
             label: '关键词',
@@ -78,7 +75,6 @@ export class CollectorComponent implements OnInit {
         },
         {
           key: 'page',
-          className: 'col-span-12 sm:col-span-2',
           type: 'select',
           defaultValue: 20,
           props: {
@@ -112,7 +108,6 @@ export class CollectorComponent implements OnInit {
   ];
   private dataFetcher = inject(DataFetcherService);
   private tagService = inject(TagsService);
-  private nodeService = inject(NodeService);
 
   // 表格配置
   public displayedColumns: string[] = [
@@ -131,8 +126,7 @@ export class CollectorComponent implements OnInit {
   public progress = signal<number>(0);
   public errorMessage = signal<string | null>(null);
 
-  private error: string | null = null;
-  private successCount = 0;
+  public successCount = signal<number>(0);
   private failedItems: SubmissionItem[] = [];
 
   ngOnInit(): void {
@@ -216,11 +210,8 @@ export class CollectorComponent implements OnInit {
         error: err => this.handleSubmissionError(err),
         complete: () => this.handleSubmissionComplete(),
       });
-      // this.clearPreview();
     } catch (error) {
       this.handleError(error);
-    } finally {
-      this.isCollecting.set(false);
     }
   }
 
@@ -231,20 +222,33 @@ export class CollectorComponent implements OnInit {
   }): void {
     const { success, index, item } = result;
     if (success) {
-      this.successCount++;
-      this.selection.selected[index].status = true;
+      this.successCount.update(value => value + 1);
+      if (item) {
+        const successIndex = this.previewData.data.findIndex(
+          (target: SubmissionItem) => target.nid === item.nid
+        );
+        if (index === -1) {
+          return;
+        }
+
+        const newData = [...this.previewData.data];
+        newData[successIndex] = { ...item, status: true };
+        this.previewData.data = newData;
+      }
     } else if (item) {
       this.failedItems.push(item);
     }
   }
 
   private handleSubmissionError(err: Error): void {
-    this.error = `提交过程中断: ${err.message}`;
+    this.util.openSnackbar(`提交过程中断: ${err.message}`, 'ok');
   }
 
   private handleSubmissionComplete(): void {
+    this.isCollecting.set(false);
     if (this.failedItems.length > 0) {
-      this.error = `${this.failedItems.length} 条数据提交失败，可尝试重新提交`;
+      this.util.openSnackbar(`${this.failedItems.length} 条数据提交失败，可尝试重新提交`, 'ok');
+      this.failedItems = [];
     }
   }
 
