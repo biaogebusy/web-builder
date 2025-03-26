@@ -169,7 +169,7 @@ export class CollectorComponent implements OnInit {
         this.http.post<any>(`/collector`, {
           ...params,
           domain,
-          sourceApi,
+          api: sourceApi,
         })
       );
       const {
