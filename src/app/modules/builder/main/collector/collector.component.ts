@@ -221,9 +221,9 @@ export class CollectorComponent implements OnInit {
     item?: SubmissionItem;
   }): void {
     const { success, index, item } = result;
-    if (success) {
-      this.successCount.update(value => value + 1);
-      if (item) {
+    if (item) {
+      if (success) {
+        this.successCount.update(value => value + 1);
         const successIndex = this.previewData.data.findIndex(
           (target: SubmissionItem) => target.nid === item.nid
         );
@@ -234,9 +234,9 @@ export class CollectorComponent implements OnInit {
         const newData = [...this.previewData.data];
         newData[successIndex] = { ...item, status: true };
         this.previewData.data = newData;
+      } else {
+        this.failedItems.push(item);
       }
-    } else if (item) {
-      this.failedItems.push(item);
     }
   }
 

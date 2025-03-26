@@ -63,9 +63,9 @@ export class DataFetcherService extends ApiService {
       delay(delayMs),
       concatMap(res =>
         of({
-          success: res.success,
+          success: true,
           index,
-          item: res.success ? undefined : item,
+          item,
         })
       ),
       catchError((err: HttpErrorResponse) => {
