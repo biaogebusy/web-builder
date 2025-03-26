@@ -131,6 +131,24 @@ location / {
 }
 ```
 
+Pro 版本多了AI，也需要添加反向代理：
+
+```
+location ~ ^/(chat|collector){
+    proxy_pass http://127.0.0.1:3000;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header REMOTE-HOST $remote_addr;
+    proxy_connect_timeout 30s;
+    proxy_read_timeout 86400s;
+    proxy_send_timeout 30s;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    }
+```
+
 如果你的应用是静态的此时访问域名应该可以正常访问了，但是依赖后台api，还需要添加nginx配置：
 当访问以这些开头的url时转发给后台，完整结构如下：
 
@@ -169,10 +187,24 @@ location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([
     }
     proxy_ignore_headers Set-Cookie Cache-Control expires;
     #proxy_cache proxy_cache_panel;
-    proxy_cache off; // 测试环境禁用了缓存，到生产可开启
+    #proxy_cache off;
     proxy_cache_key $host$uri$is_args$args;
     proxy_cache_valid 200 304 301 302 10m;
 }
+
+location ~ ^/(chat|collector){
+    proxy_pass http://127.0.0.1:3000;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header REMOTE-HOST $remote_addr;
+    proxy_connect_timeout 30s;
+    proxy_read_timeout 86400s;
+    proxy_send_timeout 30s;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    }
 
 location / {
     proxy_pass http://127.0.0.1:4209;
