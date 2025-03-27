@@ -1,8 +1,9 @@
 .logo {
   ::ng-deep {
     img {
-      min-height: 30px;
       max-height: 40px;
+      width: auto;
+      object-fit: contain;
     }
   }
 }
