@@ -53,7 +53,7 @@ export class CollectorComponent implements OnInit {
         {
           key: 'sourceApi',
           type: 'input',
-          defaultValue: '/api/v1/node/landing_page',
+          defaultValue: '/jsonapi/node/blog',
           props: {
             label: '数据来源 API',
             placeholder: '/jsonapi/node/blog',
