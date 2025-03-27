@@ -192,7 +192,7 @@ export class BuilderService extends ApiService {
       });
   }
 
-  createLandingPage(page: IPage): Observable<any> {
+  createLandingPage(page: IPage, loadPage = true): Observable<any> {
     const {
       api: { create },
     } = this.builderConfig;
@@ -209,7 +209,9 @@ export class BuilderService extends ApiService {
           const {
             data: { nid },
           } = res;
-          this.loadPage({ nid }, true);
+          if (loadPage) {
+            this.loadPage({ nid }, true);
+          }
         })
       );
   }

@@ -34,7 +34,6 @@ export class CollectorComponent implements OnInit {
   links = signal<IPaginationLinks | undefined>(undefined);
   public fields: FormlyFieldConfig[] = [
     {
-      fieldGroupClassName: 'flex flex-col',
       fieldGroup: [
         {
           key: 'domain',
@@ -45,11 +44,16 @@ export class CollectorComponent implements OnInit {
             placeholder: '请输入域名:https://example.com',
             required: true,
           },
+          validation: {
+            messages: {
+              pattern: (error: any, field: FormlyFieldConfig) => '请输入有效的URL',
+            },
+          },
         },
         {
           key: 'sourceApi',
           type: 'input',
-          defaultValue: '/jsonapi/node/blog',
+          defaultValue: '/api/v1/node/landing_page',
           props: {
             label: '数据来源 API',
             placeholder: '/jsonapi/node/blog',
@@ -64,6 +68,46 @@ export class CollectorComponent implements OnInit {
             label: '数据写入 API',
             placeholder: '/jsonapi/node/blog',
             required: true,
+          },
+        },
+        {
+          key: 'sort',
+          type: 'select',
+          defaultValue: 'changed',
+          props: {
+            label: '排序字段',
+            options: [
+              {
+                label: '创建时间',
+                value: 'created',
+              },
+              {
+                label: '修改时间',
+                value: 'changed',
+              },
+              {
+                label: 'Node ID',
+                value: 'nid',
+              },
+            ],
+          },
+        },
+        {
+          key: 'sort_direction',
+          type: 'select',
+          defaultValue: 'DESC',
+          props: {
+            label: '排序',
+            options: [
+              {
+                label: '降序',
+                value: 'DESC',
+              },
+              {
+                label: '升序',
+                value: 'ASC',
+              },
+            ],
           },
         },
         {
@@ -142,7 +186,7 @@ export class CollectorComponent implements OnInit {
       this.util.openSnackbar('请登录');
       return;
     }
-    const { page, title } = this.model;
+    const { page, title, sort, sort_direction } = this.model;
     this.resetState();
     this.isCollecting.set(true);
 
@@ -152,6 +196,7 @@ export class CollectorComponent implements OnInit {
     if (title) {
       apiParams.addFilter('title', title, 'CONTAINS');
     }
+    apiParams.addSort(sort, sort_direction);
     const params = apiParams.getQueryObject();
     this.getContent(params);
   }
@@ -183,16 +228,22 @@ export class CollectorComponent implements OnInit {
   }
 
   // 处理采集到的数据
-  private processData(data: any[]): void {
-    this.previewData = new MatTableDataSource(
-      data.map((item, index) => {
-        const transformed = this.dataFetcher.transformExternalToLocal(item, this.model.targetApi);
+  private async processData(data: any[]): Promise<void> {
+    const lists = await Promise.all(
+      data.map(async (item, index) => {
+        const transformed = await this.dataFetcher.transformExternalToLocal(
+          item,
+          this.model.targetApi,
+          this.model.domain
+        );
         return {
           ...transformed,
           index: index + 1,
         };
       })
     );
+    console.log(lists);
+    this.previewData = new MatTableDataSource(lists);
 
     this.isCollecting.set(false);
   }
@@ -256,19 +307,32 @@ export class CollectorComponent implements OnInit {
 
   viewDetails(item: any): void {
     const { type, title, body } = item;
+
     let widget = {};
-    if (type.includes('json')) {
-      widget = {
-        type: 'jsoneditor',
-        data: JSON.parse(body),
-        classes: 'full-height',
-      };
-    } else {
-      widget = {
-        type: 'article',
-        title,
-        body,
-      };
+    switch (type) {
+      case 'node--json':
+        widget = {
+          type: 'jsoneditor',
+          data: JSON.parse(body),
+          classes: 'full-height',
+        };
+        break;
+      case 'node--landing_page':
+        widget = {
+          type: 'jsoneditor',
+          data: {
+            title,
+            body,
+          },
+          classes: 'full-height',
+        };
+        break;
+      default:
+        widget = {
+          type: 'article',
+          title,
+          body,
+        };
     }
     this.builder.rightContent$.next({
       mode: 'over',

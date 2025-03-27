@@ -1,3 +1,5 @@
+import { IPage } from '../IAppConfig';
+
 export interface DrupalNode {
   type: string;
   id: string;
@@ -35,11 +37,12 @@ export interface SubmissionItem {
   status: boolean;
   type: string;
   title: string;
-  body: string;
+  body: any;
   nid: string;
   created: string;
   langcode: string;
-  attributes: {
+  page?: IPage;
+  attributes?: {
     title: string;
     body: {
       value: string;

@@ -49,7 +49,7 @@
               </ng-container>
               <!-- nid 列 -->
               <ng-container matColumnDef="nid">
-                <mat-header-cell *matHeaderCellDef>id</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>nid</mat-header-cell>
                 <mat-cell
                   class="opacity-90 text-sm"
                   *matCellDef="let item"
@@ -131,7 +131,7 @@
               [content]="{
                 mode: 'raised',
                 label: '开始采集',
-                color: undefined,
+                color: 'primary',
                 icon: {
                   svg: 'download',
                 },
