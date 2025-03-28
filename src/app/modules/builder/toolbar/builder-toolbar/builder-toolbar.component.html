@@ -9,23 +9,52 @@
   <div class="builder-toolbar" [ngClass]="{ fixed: isFull }">
     <div class="wrapper flex justify-between items-center">
       @if (currentPage$ | async; as page) {
-        <div class="left flex flex-col justify-center items-start flex-[0_1_33.33%]">
-          @if (page.body.length) {
-            <div class="page-title flex items-center">
-              <div contenteditable="true" (blur)="onTitle($event)">
-                {{ page.title }}
+        <div class="left flex-[0_1_33.33%] flex gap-5">
+          <div class="flex flex-[0_1_33.33%] flex-col justify-center items-start">
+            @if (page.body.length) {
+              <div class="page-title flex items-center">
+                <div contenteditable="true" (blur)="onTitle($event)">
+                  {{ page.title }}
+                </div>
+                @if (!page.uuid) {
+                  - 未发布
+                }
+                <app-icon [content]="{ svg: 'pencil-outline' }" />
               </div>
-              @if (!page.uuid) {
-                - 未发布
+              @if (page.changed) {
+                <div class="time">{{ date() | date: 'YYYY-MM-dd HH:mm' }}</div>
               }
-              <app-icon [content]="{ svg: 'pencil-outline' }" />
-            </div>
-            @if (page.changed) {
-              <div class="time">{{ date() | date: 'YYYY-MM-dd HH:mm' }}</div>
+            } @else {
+              <div class="page-title">欢迎页</div>
             }
-          } @else {
-            <div class="page-title">欢迎页</div>
-          }
+          </div>
+          <button aria-label="dropdown menu" mat-icon-button [mat-menu-trigger-for]="menu">
+            <app-icon [content]="{ svg: 'chevron-down' }" />
+          </button>
+          <mat-menu #menu="matMenu">
+            @if (version()) {
+              @for (version of version(); track $index; let i = $index) {
+                <button mat-menu-item (click)="onVersion(version, i)">
+                  <div class="flex items-center">
+                    <app-icon class="opacity-70" [content]="{ svg: 'file-outline' }" />
+                    <span matListItemTitle>{{ version.title }}</span>
+                  </div>
+                </button>
+              }
+            }
+            <button mat-menu-item (click)="onClearHistory()">
+              <div class="flex items-center">
+                <app-icon [content]="{ svg: 'delete-empty-outline', color: 'warn' }" />
+                <span matListItemTitle>清空草稿</span>
+              </div>
+            </button>
+            <button mat-menu-item (click)="onNewPage()">
+              <div class="flex items-center">
+                <app-icon [content]="{ svg: 'pencil-plus', color: 'primary' }" />
+                <span matListItemTitle>新建草稿</span>
+              </div>
+            </button>
+          </mat-menu>
         </div>
       }
       <div class="middle text-primary justify-center items-center hidden md:flex flex-[0_1_33.33%]">

@@ -19,17 +19,17 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-builder-menu',
-    templateUrl: './builder-menu.component.html',
-    styleUrls: ['./builder-menu.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-builder-menu',
+  templateUrl: './builder-menu.component.html',
+  styleUrls: ['./builder-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BuilderMenuComponent implements OnInit, AfterViewInit {
-  debugAnimate$ = inject<Observable<boolean>>(DEBUG_ANIMATE);
-  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  public debugAnimate$ = inject<Observable<boolean>>(DEBUG_ANIMATE);
+  private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
-  page: IPage;
+  public page: IPage;
   public contentState = inject(ContentState);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);

@@ -1,3 +1,7 @@
+.article-node {
+  max-width: 100%;
+  word-wrap: break-word;
+}
 .article-body ::ng-deep {
   img {
     display: inline-block;

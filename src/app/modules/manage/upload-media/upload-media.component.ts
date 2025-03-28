@@ -37,6 +37,7 @@ export class UploadMediaComponent {
     this.filesEntry.set(files);
     if (!this.user) {
       this.util.openSnackbar('请先登录', 'ok');
+      return;
     }
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
