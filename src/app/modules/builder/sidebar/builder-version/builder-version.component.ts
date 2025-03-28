@@ -7,29 +7,26 @@ import {
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
-    selector: 'app-builder-version',
-    templateUrl: './builder-version.component.html',
-    styleUrls: ['./builder-version.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-builder-version',
+  templateUrl: './builder-version.component.html',
+  styleUrls: ['./builder-version.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BuilderVersionComponent implements OnInit {
   public version: IPage[] | undefined;
 
-  dialog = inject(MatDialog);
-  cd = inject(ChangeDetectorRef);
-  builder = inject(BuilderState);
-  storage = inject(LocalStorageService);
+  private cd = inject(ChangeDetectorRef);
+  private builder = inject(BuilderState);
+  private storage = inject(LocalStorageService);
   private destroyRef = inject(DestroyRef);
-  builderService = inject(BuilderService);
+  private builderService = inject(BuilderService);
   ngOnInit(): void {
     this.version = this.storage.retrieve('version');
     this.storage
@@ -54,10 +51,7 @@ export class BuilderVersionComponent implements OnInit {
   }
 
   onVersion(page: IPage, index: number): void {
-    this.builder.showVersionPage(index);
-    this.builder.closeRightDrawer$.next(true);
-    this.builder.fixedShowcase = false;
-    this.builder.showcase$.next(false);
+    this.builder.switchVersion(page, index);
     this.builderService.checkIsLatestPage(page);
   }
 

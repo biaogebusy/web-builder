@@ -19,11 +19,11 @@ import { StripTagsPipe } from 'ngx-pipes';
 import { Observable, catchError, of, tap } from 'rxjs';
 
 @Component({
-    selector: 'app-taxonomy',
-    templateUrl: './taxonomy.component.html',
-    styleUrl: './taxonomy.component.scss',
-    providers: [StripTagsPipe],
-    standalone: false
+  selector: 'app-taxonomy',
+  templateUrl: './taxonomy.component.html',
+  styleUrl: './taxonomy.component.scss',
+  providers: [StripTagsPipe],
+  standalone: false,
 })
 export class TaxonomyComponent implements OnInit {
   @Input() content: ITaxonomy;
@@ -116,7 +116,7 @@ export class TaxonomyComponent implements OnInit {
     }
     if (!this.selectedItem) {
       this.nodeService
-        .addEntify(api, value, user.csrf_token)
+        .addEntity(api, value, user.csrf_token)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .pipe(
           catchError(() => {

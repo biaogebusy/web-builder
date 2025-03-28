@@ -91,11 +91,10 @@ export class NodeService extends ApiService {
   }
 
   // path: /api/v1/taxonomy_term/page_group
-  addEntify(path: string, attr: any, token: string): Observable<any> {
-    const arr = path.split('/');
+  addEntity(path: string, attr: any, token: string): Observable<any> {
     const post = {
       data: {
-        type: `${arr[arr.length - 2]}--${arr[arr.length - 1]}`,
+        type: this.getEntityType(path),
         attributes: {
           ...attr,
         },
@@ -106,6 +105,11 @@ export class NodeService extends ApiService {
       JSON.stringify(post),
       this.optionsWithCookieAndToken(token)
     );
+  }
+
+  getEntityType(path: string): string {
+    const arr = path.split('/');
+    return `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
   }
 
   getNodePath(attr: any): string {

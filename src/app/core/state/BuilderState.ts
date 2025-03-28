@@ -412,4 +412,11 @@ export class BuilderState {
       data: config,
     });
   }
+
+  switchVersion(page: IPage, index: number): void {
+    this.showVersionPage(index);
+    this.closeRightDrawer$.next(true);
+    this.fixedShowcase = false;
+    this.showcase$.next(false);
+  }
 }

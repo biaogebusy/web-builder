@@ -33,17 +33,16 @@ export class LinkComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: ILink;
-  classes: any;
-  href: string;
-  dialogRef: MatDialogRef<any>;
-  user: IUser;
+  public classes: any;
+  private dialogRef: MatDialogRef<any>;
+  private user: IUser;
 
-  router = inject(Router);
-  routeService = inject(RouteService);
-  dialogService = inject(DialogService);
-  contentService = inject(ContentService);
-  contentState = inject(ContentState);
-  util = inject(UtilitiesService);
+  private router = inject(Router);
+  private routeService = inject(RouteService);
+  private dialogService = inject(DialogService);
+  private contentService = inject(ContentService);
+  private contentState = inject(ContentState);
+  private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private dialog = inject(MatDialog);
 
