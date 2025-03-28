@@ -19,10 +19,10 @@ import { cloneDeep } from 'lodash-es';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 @Component({
-    selector: 'app-widget-picker',
-    templateUrl: './widget-picker.component.html',
-    styleUrls: ['./widget-picker.component.scss'],
-    standalone: false
+  selector: 'app-widget-picker',
+  templateUrl: './widget-picker.component.html',
+  styleUrls: ['./widget-picker.component.scss'],
+  standalone: false,
 })
 export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @Input() content: IWidgetPicker | false;

@@ -33,10 +33,16 @@
             row.sm
           }} md:col-span-{{ row.md }} lg:col-span-{{ row.lg }}"
           [attr.data-path]="'elements.' + i"
+          #layoutEle
         >
           @if (showToolbar()) {
             <div class="toolbar hidden absolute z-[1000]">
-              <app-layout-toolbar [lbContent]="content" [i]="i" [layout]="layout" />
+              <app-layout-toolbar
+                [target]="layoutEle"
+                [lbContent]="content"
+                [i]="i"
+                [layout]="layout"
+              />
             </div>
             @if (elements.length === 0) {
               <div
