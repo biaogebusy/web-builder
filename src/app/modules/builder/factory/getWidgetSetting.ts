@@ -17,6 +17,7 @@ import { getVideo } from './getVideo';
 import { getBox } from './getBox';
 import { getCard } from './getCard';
 import { getCard1v1 } from './getCard1v1';
+import { getCustomTemplate } from './getCustomTemplate';
 
 export function getWidgetSetting(widget: any): FormlyFieldConfig {
   let fields: FormlyFieldConfig;
@@ -71,6 +72,9 @@ export function getWidgetSetting(widget: any): FormlyFieldConfig {
       break;
     case 'card-1v1':
       fields = getCard1v1(widget);
+      break;
+    case 'custom-template':
+      fields = getCustomTemplate(widget);
       break;
     default:
       fields = getNone(widget);
