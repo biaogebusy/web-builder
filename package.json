@@ -66,7 +66,7 @@
     "ngx-monaco-editor-v2": "^18.1.0",
     "ngx-pagination": "^6.0.3",
     "ngx-pipes": "^3.2.2",
-    "ngx-quill": "^25.3.2",
+    "ngx-quill": "^27.0.1",
     "ngx-skeleton-loader": "^8.1.0",
     "ngx-webstorage": "^13.0.1",
     "qs": "^6.14.0",

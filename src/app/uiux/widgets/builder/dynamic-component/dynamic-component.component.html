@@ -3,7 +3,7 @@
     <app-component-toolbar [content]="inputs" />
   }
   @let content = compContent();
-  <div class="relative" [ngClass]="content?.containerClasses">
+  <div class="relative" [ngClass]="content?.containerClasses" [ngStyle]="content.style">
     @if (content?.id) {
       <span class="anchor" [id]="content.id"></span>
     }

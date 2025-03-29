@@ -3,60 +3,103 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 export const getBgClasses = [
   {
     label: '无',
-    value: 'bg- bg-fill-width',
+    value: '',
   },
   {
     label: '品牌色',
-    value: 'bg-primary bg-fill-width',
-  },
-  {
-    label: '灰色',
-    value: 'bg-shadow bg-fill-width',
+    value: 'bg-primary',
   },
   {
     label: '白色',
-    value: 'bg-white bg-fill-width',
-  },
-
-  {
-    label: '灰色 50',
-    value: 'bg-grey-50 bg-fill-width',
+    value: 'bg-white',
   },
   {
-    label: '灰色 100',
-    value: 'bg-grey-100 bg-fill-width',
+    label: '灰色',
+    value: 'bg-gray',
   },
   {
-    label: '灰色 200',
-    value: 'bg-grey-200 bg-fill-width',
+    label: '中性灰',
+    value: 'bg-neutral',
   },
   {
-    label: '灰色 300',
-    value: 'bg-grey-300 bg-fill-width',
+    label: '红色',
+    value: 'bg-red',
   },
   {
-    label: '灰色 400',
-    value: 'bg-grey-400 bg-fill-width',
+    label: '橙色',
+    value: 'bg-orange',
   },
   {
-    label: '灰色 500',
-    value: 'bg-grey-500 bg-fill-width',
+    label: '黄色',
+    value: 'bg-yellow',
   },
   {
-    label: '灰色 600',
-    value: 'bg-grey-600 bg-fill-width',
+    label: '绿色',
+    value: 'bg-green',
   },
   {
-    label: '灰色 700',
-    value: 'bg-grey-700 bg-fill-width',
+    label: '蓝色',
+    value: 'bg-blue',
   },
   {
-    label: '灰色 800',
-    value: 'bg-grey-800 bg-fill-width',
+    label: '紫色',
+    value: 'bg-purple',
   },
   {
-    label: '灰色 900',
-    value: 'bg-grey-900 bg-fill-width',
+    label: '板岩灰',
+    value: 'bg-slate',
+  },
+  {
+    label: '锌灰',
+    value: 'bg-zinc',
+  },
+  {
+    label: '岩石灰',
+    value: 'bg-stone',
+  },
+  {
+    label: '琥珀黄',
+    value: 'bg-amber',
+  },
+  {
+    label: '酸橙绿',
+    value: 'bg-lime',
+  },
+  {
+    label: '翡翠绿',
+    value: 'bg-emerald',
+  },
+  {
+    label: '水鸭色',
+    value: 'bg-teal',
+  },
+  {
+    label: '青色',
+    value: 'bg-cyan',
+  },
+  {
+    label: '天蓝色',
+    value: 'bg-sky',
+  },
+  {
+    label: '靛蓝',
+    value: 'bg-indigo',
+  },
+  {
+    label: '紫罗兰',
+    value: 'bg-violet',
+  },
+  {
+    label: '洋红色',
+    value: 'bg-fuchsia',
+  },
+  {
+    label: '粉色',
+    value: 'bg-pink',
+  },
+  {
+    label: '玫瑰粉',
+    value: 'bg-rose',
   },
 ];
 

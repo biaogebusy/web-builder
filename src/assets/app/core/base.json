@@ -25,7 +25,7 @@
       "spacer": "md",
       "fullWidth": false,
       "bg": {
-        "classes": "bg-fill-width"
+        "classes": ""
       },
       "gap": {
         "xs": 0,
@@ -55,7 +55,7 @@
               "classes": "object-contain"
             },
             "overlay": " ",
-            "classes": "bg-fill-width"
+            "classes": ""
           },
           "classes": "",
           "blockClasses": "",

@@ -13,6 +13,7 @@ export class BgComponent implements OnInit {
   public classes = signal<string>('');
 
   ngOnInit(): void {
-    this.classes.set(`${this.content.classes} ${this.content.overlay}`);
+    const { classes, variant, overlay } = this.content;
+    this.classes.set(`${classes}${variant ? `-${variant}` : ''} ${overlay} bg-fill-width`);
   }
 }

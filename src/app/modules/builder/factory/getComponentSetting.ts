@@ -16,61 +16,55 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
         props: {
           label: '通用',
         },
-        fieldGroupClassName: 'grid grid-cols-12 gap-3',
+        fieldGroupClassName: 'grid grid-cols-12',
         fieldGroup: [
           {
-            type: 'select',
-            key: 'fullWidth',
-            className: 'col-span-6',
-            defaultValue: content.fullWidth ?? false,
-            props: {
-              label: '全屏宽',
-              options: [
-                {
-                  label: '全屏',
-                  value: true,
+            fieldGroupClassName: 'grid grid-cols-12 gap-3',
+            className: 'col-span-12',
+            fieldGroup: [
+              {
+                type: 'select',
+                key: 'fullWidth',
+                className: 'col-span-6',
+                defaultValue: content.fullWidth ?? false,
+                props: {
+                  label: '全屏宽',
+                  options: [
+                    {
+                      label: '全屏',
+                      value: true,
+                    },
+                    {
+                      label: '非全屏',
+                      value: false,
+                    },
+                  ],
                 },
-                {
-                  label: '非全屏',
-                  value: false,
+              },
+              {
+                type: 'select',
+                key: 'spacer',
+                defaultValue: content.spacer ?? 'none',
+                className: 'col-span-6',
+                props: {
+                  label: '上下间距',
+                  options: getSpacerOptions,
                 },
-              ],
-            },
+              },
+            ],
           },
-          {
-            type: 'select',
-            key: 'spacer',
-            defaultValue: content.spacer ?? 'none',
-            className: 'col-span-6',
-            props: {
-              label: '上下间距',
-              options: getSpacerOptions,
-            },
-          },
-
           {
             type: 'input',
             key: 'containerClasses',
-            className: 'col-span-6',
+            className: 'col-span-12',
             defaultValue: content.containerClasses ?? '',
             props: {
-              label: 'Classes',
-              description: '组件 class',
-            },
-          },
-          {
-            type: 'input',
-            key: 'id',
-            className: 'col-span-6',
-            defaultValue: content.id ?? '',
-            props: {
-              label: 'ID',
-              description: 'HTML ID',
+              label: '组件 class',
             },
           },
           {
             key: 'bg',
-            className: 'col-span-12 mt-3',
+            className: 'col-span-12',
             fieldGroup: [
               {
                 fieldGroupClassName: 'grid grid-cols-12 gap-3',
@@ -78,11 +72,58 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                   {
                     type: 'select',
                     key: 'classes',
-                    className: 'col-span-6',
-                    defaultValue: content?.bg?.classes ?? 'bg- bg-fill-width',
+                    className: 'col-span-12',
+                    defaultValue: content?.bg?.classes ?? '',
                     props: {
                       label: '背景色',
                       options: getBgClasses,
+                    },
+                  },
+                  {
+                    type: 'select',
+                    key: 'variant',
+                    className: 'col-span-6',
+                    defaultValue: content?.bg?.variant ?? '',
+                    props: {
+                      label: '背景色等级',
+                      options: [
+                        {
+                          label: '100',
+                          value: 100,
+                        },
+                        {
+                          label: '200',
+                          value: 200,
+                        },
+                        {
+                          label: '300',
+                          value: 300,
+                        },
+                        {
+                          label: '400',
+                          value: 400,
+                        },
+                        {
+                          label: '500',
+                          value: 500,
+                        },
+                        {
+                          label: '600',
+                          value: 600,
+                        },
+                        {
+                          label: '700',
+                          value: 700,
+                        },
+                        {
+                          label: '800',
+                          value: 800,
+                        },
+                        {
+                          label: '900',
+                          value: 900,
+                        },
+                      ],
                     },
                   },
                   {
@@ -97,7 +138,6 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                   },
                 ],
               },
-
               {
                 key: 'img',
                 fieldGroup: [
@@ -159,7 +199,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
               {
                 key: 'classes',
                 type: 'input',
-                defaultValue: content?.bg?.classes ?? 'bg-fill-width',
+                defaultValue: content?.bg?.classes ?? '',
                 props: {
                   label: 'Bg Class',
                 },
