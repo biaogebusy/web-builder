@@ -57,6 +57,7 @@ export class ComponentService {
         'text-hero',
         'menu-list',
         'chip-list',
+        'breadcrumb',
         'media-list',
         'feature-box',
         'media-meta',
