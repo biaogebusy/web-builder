@@ -135,7 +135,6 @@ export class BuilderService extends ApiService {
               {
                 type: 'jsoneditor',
                 data: this.formatToExtraData(content),
-                isPage: true,
                 classes: 'full-height',
                 isSetting: true,
                 actions: [

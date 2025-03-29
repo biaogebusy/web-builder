@@ -62,7 +62,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
   }
 
   onChange(event: any): void {
-    if (event.timeStamp || this.content.isSetting) {
+    if (event.timeStamp) {
       return;
     }
 
