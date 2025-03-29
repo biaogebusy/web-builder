@@ -39,23 +39,31 @@ export class DataFetcherService extends ApiService {
     } = attributes;
     if (type === 'node--landing_page') {
       const lang = this.builderService.getApiLang(langcode);
-      const { content } = await lastValueFrom(
-        this.http.post<any>(`/collector`, {
-          ...{},
-          domain,
-          api: `${lang}/api/v3/landingPage/json/${drupal_internal__nid}`,
-        })
+      const landingPage = await lastValueFrom(
+        this.http
+          .post<any>(`/collector`, {
+            ...{},
+            domain,
+            api: `${lang}/api/v3/landingPage/json/${drupal_internal__nid}`,
+          })
+          .pipe(
+            map((res: any) => {
+              const formatPage = this.builderService.formatToExtraData(res.content);
+              console.log(formatPage);
+              return formatPage;
+            })
+          )
       );
       return {
         id,
         status: false,
         type,
         title,
-        body: content.body,
+        body: landingPage.body,
         nid: drupal_internal__nid,
         created,
         langcode,
-        page: content,
+        page: landingPage,
       };
     } else {
       return {
