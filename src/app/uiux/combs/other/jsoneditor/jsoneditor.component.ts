@@ -20,20 +20,19 @@ import { Subject, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-jsoneditor',
-    templateUrl: './jsoneditor.component.html',
-    styleUrls: ['./jsoneditor.component.scss'],
-    standalone: false
+  selector: 'app-jsoneditor',
+  templateUrl: './jsoneditor.component.html',
+  styleUrls: ['./jsoneditor.component.scss'],
+  standalone: false,
 })
 export class JsoneditorComponent implements OnInit, AfterViewInit {
   @Input() content: IJsoneditor;
   public editorOptions: JsonEditorOptions;
   public data: any;
   @ViewChild(JsonEditorComponent, { static: false })
-  editor: JsonEditorComponent;
-  value: any;
-  loading: boolean;
-  valueChange$: Subject<any> = new Subject<any>();
+  public value: any;
+  public loading: boolean;
+  private valueChange$: Subject<any> = new Subject<any>();
 
   private builder = inject(BuilderState);
   private cd = inject(ChangeDetectorRef);
@@ -63,9 +62,10 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
   }
 
   onChange(event: any): void {
-    if (event.timeStamp) {
+    if (event.timeStamp || this.content.isSetting) {
       return;
     }
+
     this.loading = true;
     this.valueChange$.next(event);
     this.cd.detectChanges();

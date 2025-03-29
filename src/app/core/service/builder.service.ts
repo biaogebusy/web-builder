@@ -117,7 +117,52 @@ export class BuilderService extends ApiService {
       });
   }
 
+  loadPageJSON(page: { langcode?: string; nid: string }): void {
+    const { langcode, nid } = page;
+    const lang = this.getApiLang(langcode);
+    this.nodeService
+      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
+      .subscribe((content: IPage) => {
+        const { body, status, uuid, title } = content;
+        if (status) {
+          this.builder.rightContent$.next({
+            mode: 'over',
+            hasBackdrop: true,
+            style: {
+              width: '800px',
+            },
+            elements: [
+              {
+                type: 'jsoneditor',
+                data: this.formatToExtraData(content),
+                isPage: true,
+                classes: 'full-height',
+                isSetting: true,
+                actions: [
+                  {
+                    type: 'update',
+                    label: '更新JSON',
+                    params: {
+                      uuid,
+                      langcode,
+                      api: '/api/v1/node/landing_page',
+                      type: 'node--landing_page',
+                    },
+                  },
+                ],
+              },
+            ],
+          });
+        } else {
+          this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
+        }
+      });
+  }
+
   checkIsLatestPage(checkPage: IPage): void {
+    if (!checkPage) {
+      return;
+    }
     const { langcode, nid, changed, uuid, title } = checkPage;
     if (nid && changed && uuid) {
       const lang = this.getApiLang(langcode);
