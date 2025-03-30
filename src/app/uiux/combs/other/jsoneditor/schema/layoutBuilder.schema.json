@@ -43,7 +43,7 @@
           }
         },
         "animate": {
-          "type": "boolean"
+          "$ref": "#/definitions/Animate"
         }
       },
       "required": [
@@ -97,7 +97,7 @@
     },
     "Element": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "row": {
           "$ref": "#/definitions/Row"
@@ -126,6 +126,19 @@
         "elements": {
           "type": "array",
           "items": {}
+        },
+        "animate": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "from": {
+              "type": "object"
+            },
+            "trigger": {
+              "type": "object"
+            }
+          },
+          "required": ["from"]
         }
       },
       "required": [
@@ -140,6 +153,19 @@
         "vertical"
       ],
       "title": "Element"
+    },
+    "Animate": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "from": {
+          "type": "object"
+        },
+        "trigger": {
+          "type": "object"
+        }
+      },
+      "required": ["from"]
     },
     "Gap": {
       "type": "object",
