@@ -143,8 +143,8 @@ export class PageSettingComponent implements OnInit {
                 onInit: (field: FormlyFieldConfig) => {
                   field.formControl?.valueChanges
                     .pipe(takeUntilDestroyed(this.destroyRef))
-                    .subscribe(cover => {
-                      if (!cover) {
+                    .subscribe(coverImg => {
+                      if (!coverImg) {
                         return;
                       }
                       this.loading = true;
@@ -157,7 +157,7 @@ export class PageSettingComponent implements OnInit {
                             cover: {
                               data: {
                                 type: 'media--image',
-                                id: cover,
+                                id: coverImg,
                               },
                             },
                             uid: {
@@ -478,13 +478,17 @@ export class PageSettingComponent implements OnInit {
       data: config,
     });
   }
-
   onJson(): void {
     const {
       content: {
         data: {
           id,
-          attributes: { drupal_internal__nid, langcode },
+          type,
+          attributes: {
+            drupal_internal__nid,
+            langcode,
+            path: { alias = '' },
+          },
         },
       },
     } = this.content;
@@ -492,6 +496,7 @@ export class PageSettingComponent implements OnInit {
       langcode,
       nid: drupal_internal__nid,
       uuid: id,
+      nodePath: alias,
     });
   }
   deletePage(value: any): void {

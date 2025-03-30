@@ -18,6 +18,10 @@ import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { Subject, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import brandingSchema from './schema/branding.schema.json';
+import builderSchema from './schema/builder.schema.json';
+import coreSchema from './schema/core.schema.json';
+import pageSchema from './schema/page.schema.json';
 
 @Component({
   selector: 'app-jsoneditor',
@@ -40,15 +44,29 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
   private util = inject(UtilitiesService);
   private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
-  constructor() {
+  constructor() {}
+  ngOnInit(): void {
+    console.log(this.content);
+    const { nodePath = '' } = this.content;
     if (this.screenService.isPlatformBrowser()) {
       this.editorOptions = new JsonEditorOptions();
       this.editorOptions.mode = 'code'; // set only one mode
       this.editorOptions.enableTransform = false;
       this.editorOptions.enableSort = false;
+      switch (nodePath) {
+        case '/core/builder':
+          this.editorOptions.schema = builderSchema;
+          break;
+        case '/core/base':
+          this.editorOptions.schema = coreSchema;
+          break;
+        case '/core/branding':
+          this.editorOptions.schema = brandingSchema;
+          break;
+        default:
+          this.editorOptions.schema = pageSchema;
+      }
     }
-  }
-  ngOnInit(): void {
     this.data = this.content.data;
   }
 

@@ -1,0 +1,275 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Builder",
+  "definitions": {
+    "Builder": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "menu": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Menu"
+          }
+        },
+        "newSection": {
+          "$ref": "#/definitions/NewSection"
+        },
+        "api": {
+          "$ref": "#/definitions/API"
+        },
+        "tour": {
+          "$ref": "#/definitions/Tour"
+        },
+        "widgetPicker": {
+          "$ref": "#/definitions/WidgetPicker"
+        },
+        "generater": {
+          "type": "array"
+        },
+        "manageMedia": {
+          "$ref": "#/definitions/ManageMedia"
+        }
+      },
+      "required": ["api", "generater", "manageMedia", "menu", "newSection", "tour", "widgetPicker"],
+      "title": "Builder"
+    },
+    "API": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "create": {
+          "type": "string"
+        },
+        "update": {
+          "type": "string"
+        },
+        "translate": {
+          "type": "string"
+        }
+      },
+      "required": ["create", "translate", "update"],
+      "title": "API"
+    },
+    "Props": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "rows": {
+          "type": "integer"
+        },
+        "min": {
+          "type": "integer"
+        }
+      },
+      "required": ["label"],
+      "title": "Props"
+    },
+    "TemplateOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Option"
+          }
+        }
+      },
+      "required": ["description", "label", "options"],
+      "title": "TemplateOptions"
+    },
+    "Option": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "format": "integer"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": ["label", "value"],
+      "title": "Option"
+    },
+    "Validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "messages": {
+          "$ref": "#/definitions/Messages"
+        }
+      },
+      "required": ["messages"],
+      "title": "Validation"
+    },
+    "Messages": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "type": "string"
+        }
+      },
+      "required": ["required"],
+      "title": "Messages"
+    },
+    "ManageMedia": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "row": {
+          "type": "integer"
+        },
+        "sidebar": {
+          "type": "object"
+        }
+      },
+      "required": ["row", "sidebar"],
+      "title": "ManageMedia"
+    },
+    "Menu": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "icon": {
+          "$ref": "#/definitions/Icon"
+        },
+        "child": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Menu"
+          }
+        }
+      },
+      "required": ["label"],
+      "title": "Menu"
+    },
+    "Icon": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "svg": {
+          "type": "string"
+        }
+      },
+      "required": ["svg"],
+      "title": "Icon"
+    },
+    "NewSection": {
+      "type": "object"
+    },
+    "Tour": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string"
+        },
+        "delay": {
+          "type": "integer"
+        },
+        "dontShowAgain": {
+          "type": "boolean"
+        },
+        "dontShowAgainLabel": {
+          "type": "string"
+        },
+        "nextLabel": {
+          "type": "string"
+        },
+        "prevLabel": {
+          "type": "string"
+        },
+        "doneLabel": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Step"
+          }
+        }
+      },
+      "required": [
+        "delay",
+        "doneLabel",
+        "dontShowAgain",
+        "dontShowAgainLabel",
+        "enable",
+        "nextLabel",
+        "path",
+        "prevLabel",
+        "steps"
+      ],
+      "title": "Tour"
+    },
+    "Step": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "intro": {
+          "type": "string"
+        },
+        "element": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "Step"
+    },
+    "WidgetPicker": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "help": {
+          "$ref": "#/definitions/Help"
+        }
+      },
+      "required": ["help"],
+      "title": "WidgetPicker"
+    },
+    "Help": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tooltip": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "qt-uri-protocols": ["https"]
+        }
+      },
+      "required": ["link", "tooltip"],
+      "title": "Help"
+    }
+  }
+}

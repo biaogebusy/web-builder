@@ -18,6 +18,7 @@ import { isArray } from 'lodash-es';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { createPopper } from '@popperjs/core';
 import { IDialog } from '@core/interface/IDialog';
+import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 
 @Injectable({
   providedIn: 'root',
@@ -197,9 +198,9 @@ export class BuilderService extends ApiService {
     }
   }
 
-  loadNodeJson(page: { langcode?: string; nid: string; uuid: string }): void {
+  loadNodeJson(page: { langcode?: string; nid: string; uuid: string; nodePath: string }): void {
     this.builder.loading$.next(true);
-    const { langcode, nid, uuid } = page;
+    const { langcode, nid, uuid, nodePath } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
@@ -211,6 +212,7 @@ export class BuilderService extends ApiService {
               type: 'jsoneditor',
               data: newPage,
               isSetting: true,
+              nodePath,
               actions: [
                 {
                   type: 'update',
@@ -224,7 +226,7 @@ export class BuilderService extends ApiService {
                   },
                 },
               ],
-            },
+            } as IJsoneditor,
           },
         };
         this.builder.loading$.next(false);

@@ -1,0 +1,442 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Core",
+  "definitions": {
+    "Core": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "defaultTheme": {
+          "type": "string"
+        },
+        "theme": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Theme"
+          }
+        },
+        "login": {
+          "$ref": "#/definitions/Login"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "defaultAvatar": {
+          "type": "string"
+        },
+        "amap": {
+          "$ref": "#/definitions/Amap"
+        },
+        "apiUrl": {
+          "$ref": "#/definitions/APIURL"
+        },
+        "loading": {
+          "type": "boolean"
+        },
+        "loadingBar": {
+          "type": "boolean"
+        },
+        "guard": {
+          "$ref": "#/definitions/Guard"
+        },
+        "clarity": {
+          "$ref": "#/definitions/Clarity"
+        },
+        "animate": {
+          "type": "boolean"
+        },
+        "github": {
+          "$ref": "#/definitions/Github"
+        },
+        "builder": {
+          "$ref": "#/definitions/Builder"
+        }
+      },
+      "required": [
+        "animate",
+        "apiUrl",
+        "builder",
+        "defaultAvatar",
+        "defaultTheme",
+        "guard",
+        "loading",
+        "loadingBar",
+        "login",
+        "theme",
+        "user"
+      ],
+      "title": "Core"
+    },
+    "Amap": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "plugins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "city": {
+          "type": "string"
+        },
+        "zoom": {
+          "type": "integer"
+        },
+        "center": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "mapStyle": {
+          "$ref": "#/definitions/MapStyle"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["center", "city", "features", "key", "mapStyle", "plugins", "version", "zoom"],
+      "title": "Amap"
+    },
+    "MapStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "light": {
+          "type": "string"
+        },
+        "dark": {
+          "type": "string"
+        }
+      },
+      "required": ["dark", "light"],
+      "title": "MapStyle"
+    },
+    "APIURL": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "apiBase": {
+          "type": "string"
+        },
+        "localConfigUrl": {
+          "type": "string"
+        },
+        "brandingConfigUrl": {
+          "type": "string"
+        },
+        "coreConfigUrl": {
+          "type": "string"
+        },
+        "loginPath": {
+          "type": "string"
+        },
+        "logoutPath": {
+          "type": "string"
+        },
+        "userIdGetPath": {
+          "type": "string"
+        },
+        "nodeGetPath": {
+          "type": "string"
+        },
+        "taxonomyGetPath": {
+          "type": "string"
+        },
+        "userGetPath": {
+          "type": "string"
+        },
+        "commentGetPath": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "apiBase",
+        "brandingConfigUrl",
+        "commentGetPath",
+        "coreConfigUrl",
+        "localConfigUrl",
+        "loginPath",
+        "logoutPath",
+        "nodeGetPath",
+        "taxonomyGetPath",
+        "userGetPath",
+        "userIdGetPath"
+      ],
+      "title": "APIURL"
+    },
+    "Builder": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "guard": {
+          "type": "boolean"
+        },
+        "params": {
+          "$ref": "#/definitions/Params"
+        }
+      },
+      "required": ["enable", "guard", "params"],
+      "title": "Builder"
+    },
+    "Params": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reqRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["reqRoles"],
+      "title": "Params"
+    },
+    "Clarity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": ["id"],
+      "title": "Clarity"
+    },
+    "Github": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "repo": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": ["enable", "owner", "repo", "token"],
+      "title": "Github"
+    },
+    "Guard": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authGuard": {
+          "type": "boolean"
+        },
+        "checkUserState": {
+          "type": "boolean"
+        }
+      },
+      "required": ["authGuard", "checkUserState"],
+      "title": "Guard"
+    },
+    "Login": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "loginRedirect": {
+          "type": "string"
+        },
+        "left": {
+          "type": "object"
+        },
+        "phoneLogin": {
+          "$ref": "#/definitions/PhoneLogin"
+        },
+        "pswLogin": {
+          "$ref": "#/definitions/PswLogin"
+        }
+      },
+      "required": ["left", "loginRedirect", "phoneLogin", "pswLogin"],
+      "title": "Login"
+    },
+    "Left": {
+      "type": "object"
+    },
+    "Img": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        }
+      },
+      "required": ["alt", "classes", "src"],
+      "title": "Img"
+    },
+    "StyleClass": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "aspectRatio": {
+          "type": "string"
+        },
+        "objectFit": {
+          "type": "string"
+        },
+        "opacity": {
+          "type": "integer"
+        },
+        "borderRadius": {
+          "type": "integer"
+        },
+        "boxShadow": {
+          "type": "string"
+        }
+      },
+      "required": ["aspectRatio", "borderRadius", "boxShadow", "objectFit", "opacity"],
+      "title": "StyleClass"
+    },
+    "Typed": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "config": {
+          "$ref": "#/definitions/Config"
+        },
+        "strings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/String"
+          }
+        }
+      },
+      "required": ["config", "enable", "strings"],
+      "title": "Typed"
+    },
+    "Config": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "typeSpeed": {
+          "type": "integer"
+        }
+      },
+      "required": ["typeSpeed"],
+      "title": "Config"
+    },
+    "String": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": ["label"],
+      "title": "String"
+    },
+    "PhoneLogin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "tabLabel": {
+          "type": "string"
+        },
+        "leftTime": {
+          "type": "integer"
+        },
+        "submitLabel": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "required": ["enable", "error", "leftTime", "submitLabel", "tabLabel"],
+      "title": "PhoneLogin"
+    },
+    "PswLogin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "tabLabel": {
+          "type": "string"
+        },
+        "submitLabel": {
+          "type": "string"
+        }
+      },
+      "required": ["enable", "submitLabel", "tabLabel"],
+      "title": "PswLogin"
+    },
+    "Theme": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "svgIcon": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "style"],
+      "title": "Theme"
+    },
+    "User": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "banner": {
+          "type": "string"
+        }
+      },
+      "required": ["banner"],
+      "title": "User"
+    },
+    "StyleUnion": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/StyleClass"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "StyleUnion"
+    }
+  }
+}
