@@ -4,7 +4,7 @@
   "definitions": {
     "Page": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "status": {
           "type": "boolean"

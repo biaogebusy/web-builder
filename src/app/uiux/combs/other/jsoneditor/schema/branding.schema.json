@@ -4,7 +4,7 @@
   "definitions": {
     "Branding": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "header": {
           "$ref": "#/definitions/Header"

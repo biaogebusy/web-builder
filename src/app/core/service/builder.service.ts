@@ -126,32 +126,32 @@ export class BuilderService extends ApiService {
       .subscribe((content: IPage) => {
         const { body, status, uuid, title } = content;
         if (status) {
+          const jsonWidget: IJsoneditor = {
+            type: 'jsoneditor',
+            data: this.formatToExtraData(content),
+            classes: 'full-height',
+            isSetting: true,
+            schemaType: 'page',
+            actions: [
+              {
+                type: 'update',
+                label: '更新JSON',
+                params: {
+                  uuid,
+                  langcode,
+                  api: '/api/v1/node/landing_page',
+                  type: 'node--landing_page',
+                },
+              },
+            ],
+          };
           this.builder.rightContent$.next({
             mode: 'over',
             hasBackdrop: true,
             style: {
               width: '800px',
             },
-            elements: [
-              {
-                type: 'jsoneditor',
-                data: this.formatToExtraData(content),
-                classes: 'full-height',
-                isSetting: true,
-                actions: [
-                  {
-                    type: 'update',
-                    label: '更新JSON',
-                    params: {
-                      uuid,
-                      langcode,
-                      api: '/api/v1/node/landing_page',
-                      type: 'node--landing_page',
-                    },
-                  },
-                ],
-              },
-            ],
+            elements: [jsonWidget],
           });
         } else {
           this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
@@ -198,35 +198,36 @@ export class BuilderService extends ApiService {
     }
   }
 
-  loadNodeJson(page: { langcode?: string; nid: string; uuid: string; nodePath: string }): void {
+  loadNodeJson(page: { langcode?: string; nid: string; uuid: string; schemaType: string }): void {
     this.builder.loading$.next(true);
-    const { langcode, nid, uuid, nodePath } = page;
+    const { langcode, nid, uuid, schemaType } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
       .subscribe((newPage: IPage) => {
+        const jsonWidget: IJsoneditor = {
+          type: 'jsoneditor',
+          data: newPage,
+          isSetting: true,
+          schemaType,
+          actions: [
+            {
+              type: 'update',
+              label: '更新配置',
+              params: {
+                reqRoles: ['administrator'],
+                uuid,
+                langcode,
+                api: '/api/v1/node/json',
+                type: 'node--json',
+              },
+            },
+          ],
+        };
         const config: IDialog = {
           disableCloseButton: true,
           inputData: {
-            content: {
-              type: 'jsoneditor',
-              data: newPage,
-              isSetting: true,
-              nodePath,
-              actions: [
-                {
-                  type: 'update',
-                  label: '更新配置',
-                  params: {
-                    reqRoles: ['administrator'],
-                    uuid,
-                    langcode,
-                    api: '/api/v1/node/json',
-                    type: 'node--json',
-                  },
-                },
-              ],
-            } as IJsoneditor,
+            content: jsonWidget,
           },
         };
         this.builder.loading$.next(false);

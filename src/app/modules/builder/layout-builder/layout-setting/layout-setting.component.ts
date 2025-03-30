@@ -2,7 +2,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
 import { Component, DestroyRef, Input, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
@@ -19,8 +18,7 @@ import { cloneDeep, defaultsDeep, get } from 'lodash-es';
 })
 export class LayoutSettingComponent {
   @Input() content: ILayoutSetting;
-  form = new UntypedFormGroup({});
-  model: any = {};
+  public model: any = {};
 
   private doc = inject(DOCUMENT);
   private dialog = inject(MatDialog);
@@ -91,19 +89,22 @@ export class LayoutSettingComponent {
   }
 
   editorJSON(): void {
-    const { path } = this.content;
-
+    const {
+      path,
+      content: { type },
+    } = this.content;
     // layout builder level
     if (path) {
-      const json: IJsoneditor = {
+      const jsonWidget: IJsoneditor = {
         type: 'jsoneditor',
         path,
+        schemaType: type,
         data: get(this.builder.currentPage.body, path),
       };
       const config: IDialog = {
         disableCloseButton: true,
         inputData: {
-          content: json,
+          content: jsonWidget,
         },
       };
       this.dialog.open(DialogComponent, {

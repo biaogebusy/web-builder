@@ -10,6 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import type { IPage } from '@core/interface/IAppConfig';
+import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -50,20 +51,20 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   }
 
   onPageJson(): void {
+    const jsonWidget: IJsoneditor = {
+      type: 'jsoneditor',
+      data: this.page,
+      isPage: true,
+      schemaType: 'page',
+      classes: 'full-height',
+    };
     this.builder.rightContent$.next({
       mode: 'over',
       hasBackdrop: true,
       style: {
         width: '800px',
       },
-      elements: [
-        {
-          type: 'jsoneditor',
-          data: this.page,
-          isPage: true,
-          classes: 'full-height',
-        },
-      ],
+      elements: [jsonWidget],
     });
   }
 

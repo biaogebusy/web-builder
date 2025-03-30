@@ -16,6 +16,8 @@ import qs from 'qs';
 import { BuilderState } from '@core/state/BuilderState';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import { IArticle } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-collector',
@@ -317,6 +319,7 @@ export class CollectorComponent implements OnInit {
           type: 'jsoneditor',
           data: JSON.parse(body),
           classes: 'full-height',
+          schemaType: 'none',
         };
         break;
       case 'node--landing_page':
@@ -327,6 +330,7 @@ export class CollectorComponent implements OnInit {
             body,
           },
           classes: 'full-height',
+          schemaType: 'page',
         };
         break;
       default:

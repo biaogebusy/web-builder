@@ -496,7 +496,7 @@ export class PageSettingComponent implements OnInit {
       langcode,
       nid: drupal_internal__nid,
       uuid: id,
-      nodePath: alias,
+      schemaType: alias,
     });
   }
   deletePage(value: any): void {

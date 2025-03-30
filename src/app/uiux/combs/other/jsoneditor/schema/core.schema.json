@@ -4,7 +4,7 @@
   "definitions": {
     "Core": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "defaultTheme": {
           "type": "string"
@@ -291,49 +291,6 @@
       "required": ["alt", "classes", "src"],
       "title": "Img"
     },
-    "StyleClass": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "aspectRatio": {
-          "type": "string"
-        },
-        "objectFit": {
-          "type": "string"
-        },
-        "opacity": {
-          "type": "integer"
-        },
-        "borderRadius": {
-          "type": "integer"
-        },
-        "boxShadow": {
-          "type": "string"
-        }
-      },
-      "required": ["aspectRatio", "borderRadius", "boxShadow", "objectFit", "opacity"],
-      "title": "StyleClass"
-    },
-    "Typed": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "enable": {
-          "type": "boolean"
-        },
-        "config": {
-          "$ref": "#/definitions/Config"
-        },
-        "strings": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/String"
-          }
-        }
-      },
-      "required": ["config", "enable", "strings"],
-      "title": "Typed"
-    },
     "Config": {
       "type": "object",
       "additionalProperties": false,
@@ -426,17 +383,6 @@
       },
       "required": ["banner"],
       "title": "User"
-    },
-    "StyleUnion": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/StyleClass"
-        },
-        {
-          "type": "string"
-        }
-      ],
-      "title": "StyleUnion"
     }
   }
 }

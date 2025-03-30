@@ -22,6 +22,8 @@ import brandingSchema from './schema/branding.schema.json';
 import builderSchema from './schema/builder.schema.json';
 import coreSchema from './schema/core.schema.json';
 import pageSchema from './schema/page.schema.json';
+import componentSchema from './schema/component.schema.json';
+import layoutBuilder from './schema/layoutBuilder.schema.json';
 
 @Component({
   selector: 'app-jsoneditor',
@@ -46,14 +48,13 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
   private builderService = inject(BuilderService);
   constructor() {}
   ngOnInit(): void {
-    console.log(this.content);
-    const { nodePath = '' } = this.content;
+    const { schemaType = '' } = this.content;
     if (this.screenService.isPlatformBrowser()) {
       this.editorOptions = new JsonEditorOptions();
       this.editorOptions.mode = 'code'; // set only one mode
       this.editorOptions.enableTransform = false;
       this.editorOptions.enableSort = false;
-      switch (nodePath) {
+      switch (schemaType) {
         case '/core/builder':
           this.editorOptions.schema = builderSchema;
           break;
@@ -63,8 +64,16 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
         case '/core/branding':
           this.editorOptions.schema = brandingSchema;
           break;
-        default:
+        case 'page':
           this.editorOptions.schema = pageSchema;
+          break;
+        case 'layout-builder':
+          this.editorOptions.schema = layoutBuilder;
+          break;
+        case 'none':
+          break;
+        default:
+          this.editorOptions.schema = componentSchema;
       }
     }
     this.data = this.content.data;
