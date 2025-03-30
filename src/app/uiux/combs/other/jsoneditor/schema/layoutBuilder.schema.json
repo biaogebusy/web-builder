@@ -46,19 +46,7 @@
           "$ref": "#/definitions/Animate"
         }
       },
-      "required": [
-        "animate",
-        "bg",
-        "bgClasses",
-        "classes",
-        "elements",
-        "fullWidth",
-        "horizontal",
-        "overlay",
-        "spacer",
-        "type",
-        "vertical"
-      ],
+      "required": ["bg", "elements", "fullWidth", "horizontal", "spacer", "type", "vertical"],
       "title": "LayoutBuilder"
     },
     "Bg": {
@@ -141,17 +129,7 @@
           "required": ["from"]
         }
       },
-      "required": [
-        "bg",
-        "classes",
-        "elements",
-        "gap",
-        "horizontal",
-        "layoutAlign",
-        "row",
-        "style",
-        "vertical"
-      ],
+      "required": ["elements", "gap", "horizontal", "layoutAlign", "row", "vertical"],
       "title": "Element"
     },
     "Animate": {

@@ -28,7 +28,7 @@
           "type": "string"
         }
       },
-      "required": ["bg", "classes", "fullWidth", "overlay", "spacer", "type"],
+      "required": ["type"],
       "title": "Component"
     },
     "Bg": {
@@ -45,7 +45,7 @@
           "type": "string"
         }
       },
-      "required": ["classes", "img", "overlay"],
+      "required": ["img", "overlay"],
       "title": "Bg"
     },
     "Img": {
@@ -62,7 +62,7 @@
           "type": "string"
         }
       },
-      "required": ["alt", "classes", "src"],
+      "required": ["classes", "src"],
       "title": "Img"
     }
   }
