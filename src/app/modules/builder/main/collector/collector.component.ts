@@ -243,9 +243,7 @@ export class CollectorComponent implements OnInit {
         };
       })
     );
-    console.log(lists);
     this.previewData = new MatTableDataSource(lists);
-
     this.isCollecting.set(false);
   }
 
@@ -367,18 +365,29 @@ export class CollectorComponent implements OnInit {
   }
 
   isAllSelected(): boolean {
+    const { filteredData, data } = this.previewData;
     const numSelected = this.selection.selected.length;
-    const numRows = this.previewData.data.length;
+    let numRows = 0;
+    if (filteredData.length > 0) {
+      numRows = filteredData.length;
+    } else {
+      numRows = data.length;
+    }
     return numSelected === numRows;
   }
 
   toggleAllRows(): void {
+    const { filteredData, data } = this.previewData;
     if (this.isAllSelected()) {
       this.selection.clear();
       return;
     }
 
-    this.selection.select(...this.previewData.data);
+    if (filteredData) {
+      this.selection.select(...filteredData);
+      return;
+    }
+    this.selection.select(...data);
   }
 
   onPageChange(link: string): void {
