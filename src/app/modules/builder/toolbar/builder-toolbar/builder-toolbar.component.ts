@@ -159,9 +159,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
           .updateLandingPage(this.builder.currentPage)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(res => {
-            this.builder.loading$.next(false);
             const { status, message } = res;
-            this.util.openSnackbar(message, 'ok');
             this.gotoPageList();
             if (status) {
               this.builder.updateSuccess$.next(true);

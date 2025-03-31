@@ -287,10 +287,13 @@ export class BuilderService extends ApiService {
           const { status } = res;
           if (status) {
             if (langcode && nid) {
-              this.loadPage({
-                langcode,
-                nid,
-              });
+              this.loadPage(
+                {
+                  langcode,
+                  nid,
+                },
+                true
+              );
             }
           } else {
             this.util.openSnackbar('保存失败，请重试', 'ok');
