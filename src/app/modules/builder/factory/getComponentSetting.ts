@@ -83,10 +83,14 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     type: 'select',
                     key: 'variant',
                     className: 'col-span-6',
-                    defaultValue: content?.bg?.variant ?? '',
+                    defaultValue: content?.bg?.variant,
                     props: {
                       label: '背景色等级',
                       options: [
+                        {
+                          label: '50',
+                          value: 50,
+                        },
                         {
                           label: '100',
                           value: 100,
@@ -124,6 +128,22 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                           value: 900,
                         },
                       ],
+                    },
+                    validation: {
+                      messages: {
+                        required: '修改背景色需要设置变体',
+                      },
+                    },
+                    expressions: {
+                      'props.required': (field: FormlyFieldConfig) => {
+                        const classes = field.parent?.model?.classes;
+                        if (classes) {
+                          field.form?.get('variant')?.markAsTouched();
+                          return true;
+                        } else {
+                          return false;
+                        }
+                      },
                     },
                   },
                   {
