@@ -318,7 +318,7 @@
           }
         }
       },
-      "required": ["actions", "logo", "mainMenu", "params", "search", "top"],
+      "required": ["logo", "mainMenu", "params", "search"],
       "title": "Header"
     },
     "HeaderLogo": {
