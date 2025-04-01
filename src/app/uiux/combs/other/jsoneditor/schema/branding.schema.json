@@ -65,14 +65,14 @@
         "right": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Actionsxx"
+            "$ref": "#/definitions/Actions"
           }
         }
       },
       "required": ["left", "right"],
       "title": "FooterBottom"
     },
-    "Actionsxx": {
+    "Actions": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -84,7 +84,7 @@
         }
       },
       "required": ["href", "label"],
-      "title": "Actionsxx"
+      "title": "Actions"
     },
     "FooterBrand": {
       "type": "object",
@@ -311,14 +311,14 @@
         "search": {
           "$ref": "#/definitions/Search"
         },
-        "actionsxx": {
+        "actions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Actionsxx"
+            "$ref": "#/definitions/Actions"
           }
         }
       },
-      "required": ["actionsxx", "logo", "mainMenu", "params", "search", "top"],
+      "required": ["actions", "logo", "mainMenu", "params", "search", "top"],
       "title": "Header"
     },
     "HeaderLogo": {
@@ -351,6 +351,9 @@
         "src": {
           "type": "string"
         },
+        "href": {
+          "type": "string"
+        },
         "alt": {
           "type": "string"
         },
@@ -361,7 +364,7 @@
           "type": "integer"
         }
       },
-      "required": ["alt", "height", "src", "width"],
+      "required": ["height", "src", "width"],
       "title": "FluffyImg"
     },
     "MainMenu": {
@@ -427,7 +430,7 @@
         "child": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Actionsxx"
+            "$ref": "#/definitions/Actions"
           }
         },
         "href": {
