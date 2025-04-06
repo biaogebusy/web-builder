@@ -8,17 +8,18 @@ import {
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
+import { IconService } from '@core/service/icon.service';
 import { NodeService } from '@core/service/node.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 import { of, ReplaySubject } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-mat-select',
-    templateUrl: './mat-select.component.html',
-    styleUrls: ['./mat-select.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-mat-select',
+  templateUrl: './mat-select.component.html',
+  styleUrls: ['./mat-select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MatSelectComponent extends FieldType<FieldTypeConfig> implements OnInit {
   @ViewChild('select') select: MatSelect;
@@ -30,13 +31,14 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   fieldConfig: any;
   private nodeService = inject(NodeService);
   private cd = inject(ChangeDetectorRef);
+  private iconService = inject(IconService);
   constructor() {
     super();
   }
 
   ngOnInit(): void {
     this.fieldConfig = this.field;
-    if (this.fieldConfig.props.api) {
+    if (this.fieldConfig.props.api || this.fieldConfig.props?.type === 'icon') {
       this.getOptionsFromApi();
     } else {
       this.matOptions = this.props.options || [];
@@ -55,22 +57,31 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   }
 
   getOptionsFromApi(): void {
-    const { api, nocache, options } = this.fieldConfig.props;
-    this.nodeService
-      .fetch(api || '', nocache ? 'noCache=true' : '')
-      .pipe(
-        catchError(() => {
-          return of({
-            rows: [],
-          });
-        })
-      )
-      .subscribe(res => {
-        this.matOptions = [...options, ...res.rows];
+    const { api, type, nocache, options = [] } = this.fieldConfig.props;
+    if (type === 'icon') {
+      this.iconService.getIcons().subscribe(res => {
+        this.matOptions = [...options, ...res];
         // load the initial options
         this.filteredOptions.next(this.matOptions.slice());
         this.cd.detectChanges();
       });
+    } else {
+      this.nodeService
+        .fetch(api || '', nocache ? 'noCache=true' : '')
+        .pipe(
+          catchError(() => {
+            return of({
+              rows: [],
+            });
+          })
+        )
+        .subscribe(res => {
+          this.matOptions = [...options, ...res.rows];
+          // load the initial options
+          this.filteredOptions.next(this.matOptions.slice());
+          this.cd.detectChanges();
+        });
+    }
   }
 
   /**

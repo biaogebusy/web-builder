@@ -12,10 +12,18 @@ export function getIcon(widget: any): FormlyFieldConfig {
         fieldGroup: [
           {
             key: 'svg',
-            type: 'input',
+            type: 'mat-select',
             defaultValue: widget.svg,
             props: {
               label: 'Icon',
+              type: 'icon',
+              search: true,
+              options: [
+                {
+                  label: '无',
+                  value: '',
+                },
+              ],
             },
           },
           {

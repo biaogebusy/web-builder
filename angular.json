@@ -49,6 +49,11 @@
                 "glob": "**/*",
                 "input": "node_modules/monaco-editor",
                 "output": "assets/monaco"
+              },
+              {
+                "glob": "codepoints",
+                "input": "node_modules/material-design-icons/iconfont",
+                "output": "/assets/icons"
               }
             ],
             "styles": [
