@@ -54,7 +54,7 @@ export function getIcon(widget: any): FormlyFieldConfig {
           },
           {
             template:
-              '<a href="https://pictogrammers.com/library/mdi/" target="_blank">浏览图标库</a>',
+              '<a class="text-xs text-gray-500" href="https://pictogrammers.com/library/mdi/" target="_blank">浏览图标库</a>',
           },
         ],
       },
