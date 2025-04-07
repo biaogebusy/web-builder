@@ -13,6 +13,7 @@ import { NodeService } from '@core/service/node.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 import { of, ReplaySubject } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
+import * as mdi from '@mdi/js';
 
 @Component({
   selector: 'app-mat-select',
@@ -59,12 +60,20 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   getOptionsFromApi(): void {
     const { api, type, nocache, options = [] } = this.fieldConfig.props;
     if (type === 'icon') {
-      this.iconService.getIcons().subscribe(res => {
-        this.matOptions = [...options, ...res];
-        // load the initial options
-        this.filteredOptions.next(this.matOptions.slice());
-        this.cd.detectChanges();
-      });
+      const icons = Object.keys(mdi)
+        .filter(key => key.startsWith('mdi'))
+        .map(key => {
+          const name = key.replace('mdi', '');
+          const hyphenated = name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+          return {
+            label: `${hyphenated}`,
+            value: `${hyphenated}`,
+          };
+        });
+      this.matOptions = [...options, ...icons];
+      // load the initial options
+      this.filteredOptions.next(this.matOptions.slice());
+      this.cd.detectChanges();
     } else {
       this.nodeService
         .fetch(api || '', nocache ? 'noCache=true' : '')

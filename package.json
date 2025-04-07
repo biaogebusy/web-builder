@@ -36,6 +36,7 @@
     "@fullcalendar/list": "^6.1.13",
     "@fullcalendar/timegrid": "^6.1.13",
     "@mdi/angular-material": "^7.0.96",
+    "@mdi/js": "^7.4.47",
     "@ngx-formly/core": "^6.3.12",
     "@ngx-formly/material": "^6.3.12",
     "@ngx-loading-bar/core": "^6.0.2",
