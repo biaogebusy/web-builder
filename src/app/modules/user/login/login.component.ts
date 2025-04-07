@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.pattern('1(3|4|5|7|8)\\d{9}'),
+          Validators.pattern(/^1[3-9]\d{9}$/),
           Validators.minLength(11),
           Validators.maxLength(11),
         ],
