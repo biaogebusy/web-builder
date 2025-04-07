@@ -127,7 +127,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
         content: {
           type: 'text',
           fullWidth: true,
-          body: `是否要删除<strong class="text-black-500">[${this.content.type}]</strong>组件？`,
+          body: `是否要删除<strong class="text-black-500 text-primary">${this.content.type}</strong>组件？`,
         },
       },
     };
