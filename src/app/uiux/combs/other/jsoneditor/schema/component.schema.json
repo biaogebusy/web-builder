@@ -10,7 +10,7 @@
           "type": "boolean"
         },
         "spacer": {
-          "type": "string"
+          "type": ["string", "object"]
         },
         "overlay": {
           "type": "string"

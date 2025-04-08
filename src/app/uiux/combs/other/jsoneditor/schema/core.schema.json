@@ -288,7 +288,7 @@
           "type": "string"
         }
       },
-      "required": ["alt", "classes", "src"],
+      "required": ["classes", "src"],
       "title": "Img"
     },
     "Config": {
