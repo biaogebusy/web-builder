@@ -1,0 +1,33 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="部署/Drupal 多站点" id="drupal-mutiple-sites" />
+
+## Drupal 多站点配置
+
+例子，以下两个站点为同一套代码中的子站：
+
+- 前台：a.builder.design 后台：a-admin.builder.design
+- 前台：b.builder.design 后台：b-admin.builder.design
+
+drupal 使用docker启动，端口为 http://127.0.0.1:8090
+
+两个站点的前台和后台域名都代理转发同一个端口，那么需要在drupal的多站点中如下配置：
+
+```php
+$sites = [
+  'a-admin.builder.design' => 'default',
+  'a.builder.design' => 'default',
+  'b-admin.builder.design'  => 'b.builder.design',
+  'b.builder.design'  => 'b.builder.design'
+];
+```
+
+> 格式：域名 => 站点名称
+
+### 文件夹：
+
+```
+- /sites
+  -- /default
+  -- /b.builder.design
+```
