@@ -27,7 +27,7 @@
       <mat-divider />
       <div class="view">
         @if (loading) {
-          <ngx-skeleton-loader count="10" appearance="line" />
+          <ngx-skeleton-loader class="my-5 block" count="10" appearance="line" />
         }
         @if (table && canShow && !loading) {
           <app-dynamic-table [content]="table" />

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { DataFetcherService } from '@core/service/data-fetcher.service';
 import { Observable, lastValueFrom } from 'rxjs';
@@ -15,6 +15,9 @@ import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import qs from 'qs';
 import { BuilderState } from '@core/state/BuilderState';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import { IArticle } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-collector',
@@ -27,11 +30,12 @@ export class CollectorComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
+  private destroyRef = inject(DestroyRef);
   private user: IUser;
   public form = new UntypedFormGroup({});
   public model: any = {};
   public selection = new SelectionModel<SubmissionItem>(true, []);
-  links = signal<IPaginationLinks | undefined>(undefined);
+  public links = signal<IPaginationLinks | undefined>(undefined);
   public fields: FormlyFieldConfig[] = [
     {
       fieldGroup: [
@@ -175,7 +179,7 @@ export class CollectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.tagService.setTitle('数据采集 - 基于JSONAPI');
-    this.user$.subscribe(user => {
+    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.user = user;
     });
   }
@@ -233,7 +237,6 @@ export class CollectorComponent implements OnInit {
       data.map(async (item, index) => {
         const transformed = await this.dataFetcher.transformExternalToLocal(
           item,
-          this.model.targetApi,
           this.model.domain
         );
         return {
@@ -242,9 +245,7 @@ export class CollectorComponent implements OnInit {
         };
       })
     );
-    console.log(lists);
     this.previewData = new MatTableDataSource(lists);
-
     this.isCollecting.set(false);
   }
 
@@ -256,11 +257,14 @@ export class CollectorComponent implements OnInit {
         return;
       }
       this.isCollecting.set(true);
-      this.dataFetcher.sequentialSubmit(selected).subscribe({
-        next: result => this.handleSubmissionResult(result),
-        error: err => this.handleSubmissionError(err),
-        complete: () => this.handleSubmissionComplete(),
-      });
+      this.dataFetcher
+        .sequentialSubmit(selected, this.model.targetApi)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: result => this.handleSubmissionResult(result),
+          error: err => this.handleSubmissionError(err),
+          complete: () => this.handleSubmissionComplete(),
+        });
     } catch (error) {
       this.handleError(error);
     }
@@ -315,6 +319,7 @@ export class CollectorComponent implements OnInit {
           type: 'jsoneditor',
           data: JSON.parse(body),
           classes: 'full-height',
+          schemaType: 'none',
         };
         break;
       case 'node--landing_page':
@@ -325,6 +330,7 @@ export class CollectorComponent implements OnInit {
             body,
           },
           classes: 'full-height',
+          schemaType: 'page',
         };
         break;
       default:
@@ -363,18 +369,29 @@ export class CollectorComponent implements OnInit {
   }
 
   isAllSelected(): boolean {
+    const { filteredData, data } = this.previewData;
     const numSelected = this.selection.selected.length;
-    const numRows = this.previewData.data.length;
+    let numRows = 0;
+    if (filteredData.length > 0) {
+      numRows = filteredData.length;
+    } else {
+      numRows = data.length;
+    }
     return numSelected === numRows;
   }
 
   toggleAllRows(): void {
+    const { filteredData, data } = this.previewData;
     if (this.isAllSelected()) {
       this.selection.clear();
       return;
     }
 
-    this.selection.select(...this.previewData.data);
+    if (filteredData) {
+      this.selection.select(...filteredData);
+      return;
+    }
+    this.selection.select(...data);
   }
 
   onPageChange(link: string): void {

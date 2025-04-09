@@ -163,7 +163,7 @@ export const widgets = [
             webform_id: 'contact',
           },
           bg: {
-            classes: 'bg-fill-width',
+            classes: '',
             icon: 'wave',
           },
           action: {
@@ -340,7 +340,7 @@ export const widgets = [
           type: 'layout-builder',
           fullWidth: false,
           bg: {
-            classes: 'bg-fill-width',
+            classes: '',
           },
           elements: [
             {

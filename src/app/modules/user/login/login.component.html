@@ -12,19 +12,21 @@
       class="flex flex-col justify-center items-center login-form p-6 sm:p-3 z-10 overflow-hidden relative flex-12/12 sm:flex-6/12 box-border"
       [class.is-login]="user$ | async"
     >
-      @if (loading) {
+      @if (loading()) {
         <mat-spinner diameter="50" color="accent" />
       }
       <div class="w-full form-scroll">
         @if (!(user$ | async)) {
-          @if (error) {
+          @if (error()) {
             <div class="error rounded-[4px] p-3 mb-3 text-sm">
-              {{ error }}
+              {{ error() }}
             </div>
           }
           <mat-tab-group>
-            @if (loginConfig.phoneLogin.enable) {
-              <mat-tab label="{{ loginConfig.phoneLogin.tabLabel || '手机登录' }}">
+            @let phoneLogin = loginConfig.phoneLogin;
+            @let pswLogin = loginConfig.pswLogin;
+            @if (phoneLogin.enable) {
+              <mat-tab label="{{ phoneLogin.tabLabel || '手机登录' }}">
                 <form
                   class="flex flex-col py-5"
                   [formGroup]="phoneForm"
@@ -40,19 +42,17 @@
                       formControlName="phone"
                     />
                     @if (formPhone.phone.errors?.pattern) {
-                      <mat-error>
-                        {{ loginConfig.phoneLogin.error || '请输入正确的手机号码' }}</mat-error
-                      >
+                      <mat-error> {{ phoneLogin.error || '请输入正确的手机号码' }}</mat-error>
                     }
                   </mat-form-field>
                   <mat-form-field appearance="fill">
                     <mat-label>验证码</mat-label>
                     <input matInput type="text" formControlName="code" />
                     <button
-                      disabled="{{ countdown > 0 }}"
+                      disabled="{{ countdown() > 0 }}"
                       (click)="getCode($event)"
                       class="right-4"
-                      [class]="countdown ? 'pointer-events-none' : ''"
+                      [class]="countdown() ? 'pointer-events-none' : ''"
                       matSuffix
                       color="primary"
                       mat-raised-button
@@ -60,14 +60,14 @@
                     >
                       <small class="whitespace-nowrap">
                         发送验证码
-                        @if (countdown) {
-                          ({{ countdown }})
+                        @if (countdown()) {
+                          ({{ countdown() }})
                         }
                       </small>
                     </button>
                   </mat-form-field>
                   <button
-                    [disabled]="loading"
+                    [disabled]="loading()"
                     class="mt-5"
                     type="submit"
                     mat-raised-button
@@ -78,8 +78,8 @@
                 </form>
               </mat-tab>
             }
-            @if (loginConfig.pswLogin.enable) {
-              <mat-tab label="{{ loginConfig.pswLogin.tabLabel || '密码登录' }}">
+            @if (pswLogin.enable) {
+              <mat-tab label="{{ pswLogin.tabLabel || '密码登录' }}">
                 <form class="flex flex-col py-5" [formGroup]="userForm" (ngSubmit)="login()">
                   <mat-form-field appearance="fill">
                     <mat-label>用户名</mat-label>
@@ -105,13 +105,13 @@
                     </button>
                   </mat-form-field>
                   <button
-                    [disabled]="loading"
+                    [disabled]="loading()"
                     class="mt-5"
                     type="submit"
                     mat-raised-button
                     color="primary"
                   >
-                    {{ loginConfig.pswLogin.submitLabel }}
+                    {{ pswLogin.submitLabel }}
                   </button>
                 </form>
               </mat-tab>

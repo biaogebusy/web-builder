@@ -18,9 +18,9 @@
   ::ng-deep json-editor .jsoneditor,
   ::ng-deep json-editor > div,
   ::ng-deep json-editor .jsoneditor-outer {
-    height: calc(100vh - 75px);
+    height: calc(100vh - 100px);
     .ace_editor.ace-jsoneditor {
-      height: calc(100vh - 75px);
+      height: calc(100vh - 100px);
     }
   }
 }

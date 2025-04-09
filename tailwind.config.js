@@ -54,7 +54,7 @@ module.exports = {
     },
     {
       pattern:
-        /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+        /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
@@ -125,11 +125,6 @@ module.exports = {
     { pattern: /^line-clamp-(1[0]|[1-9])$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern:
-        /^(w|h)-(0|full|screen|min|max|sm|fit|px|([1-9]\d?)|1(00|02|04|05|6|8|9)|2[0-9]|3[0-6]|((1[0-2]|[1-9])\/(2|3|4|5|6)))$/,
-      variants: ['sm', 'md', 'lg'],
-    },
-    {
-      pattern:
         /^size-(0|px|full|screen|min|max|fit|(\d+(\/\d+)?)|(xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl))$/,
       variants: ['sm', 'md', 'lg'],
     },
@@ -172,6 +167,23 @@ module.exports = {
     {
       pattern: /^(line-through|no-underline|underline)$/,
     },
+    {
+      pattern: /^leading-(none|tight|normal|relaxed|loose|3|4|5|6|7|8|9|10)$/,
+    },
+    { pattern: /^w-(100|200|300|400|500|600|700)$/ },
+    { pattern: /^h-(100|200|300|400|500|600|700)$/ },
+    { pattern: /^w-(full|screen|fit)$/, variants: ['xs', 'sm', 'md', 'lg'] },
+    { pattern: /^h-(full|screen|fit)$/, variants: ['xs', 'sm', 'md', 'lg'] },
+    {
+      pattern:
+        /^w-(1\/2|1\/3|2\/3|1\/4|2\/4|3\/4|1\/5|2\/5|4\/5|1\/6|2\/6|3\/6|4\/6|5\/6|1\/12|2\/12|3\/12|4\/12|5\/12|6\/12|7\/12|8\/12|9\/12|10\/12|11\/12)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      pattern:
+        /^h-(1\/2|1\/3|2\/3|1\/4|2\/4|3\/4|1\/5|2\/5|4\/5|1\/6|2\/6|3\/6|4\/6|5\/6|1\/12|2\/12|3\/12|4\/12|5\/12|6\/12|7\/12|8\/12|9\/12|10\/12|11\/12)$/,
+      variants: ['xs', 'sm', 'md', 'lg'],
+    },
   ],
   theme: {
     screens: { sm: '600px', md: '960px', lg: '1280px', xl: '1470px' },
@@ -186,6 +198,12 @@ module.exports = {
         '9:16': '9 / 16',
         '2/3': '2 / 3',
       },
+      width: () => ({
+        ...generateSizeClasses(100, 700, 100),
+      }),
+      height: () => ({
+        ...generateSizeClasses(100, 700, 100),
+      }),
     },
     flex: {
       '1/12': '0 0 8.33%',
@@ -211,3 +229,11 @@ module.exports = {
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
   corePlugins: { preflight: false },
 };
+
+function generateSizeClasses(start, end, step, unit = 'px') {
+  const classes = {};
+  for (let i = start; i <= end; i += step) {
+    classes[i] = unit === 'px' ? `${i}${unit}` : `${i / 4}${unit}`;
+  }
+  return classes;
+}

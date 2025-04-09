@@ -18,7 +18,6 @@ export class DataFetcherService extends ApiService {
   private user$ = inject<Observable<IUser>>(USER);
   private http = inject(HttpClient);
   private user: IUser;
-  private api = '';
   private readonly defaultDelay = 800;
 
   constructor() {
@@ -28,8 +27,7 @@ export class DataFetcherService extends ApiService {
     });
   }
 
-  async transformExternalToLocal(page: any, api: string, domain?: string): Promise<SubmissionItem> {
-    this.api = api;
+  async transformExternalToLocal(page: any, domain?: string): Promise<SubmissionItem> {
     const { type, id, attributes } = page;
     const {
       title,
@@ -41,23 +39,31 @@ export class DataFetcherService extends ApiService {
     } = attributes;
     if (type === 'node--landing_page') {
       const lang = this.builderService.getApiLang(langcode);
-      const { content } = await lastValueFrom(
-        this.http.post<any>(`/collector`, {
-          ...{},
-          domain,
-          api: `${lang}/api/v3/landingPage/json/${drupal_internal__nid}`,
-        })
+      const landingPage = await lastValueFrom(
+        this.http
+          .post<any>(`/collector`, {
+            ...{},
+            domain,
+            api: `${lang}/api/v3/landingPage/json/${drupal_internal__nid}`,
+          })
+          .pipe(
+            map((res: any) => {
+              const formatPage = this.builderService.formatToExtraData(res.content);
+              console.log(formatPage);
+              return formatPage;
+            })
+          )
       );
       return {
         id,
         status: false,
         type,
         title,
-        body: content.body,
+        body: landingPage.body,
         nid: drupal_internal__nid,
         created,
         langcode,
-        page: content,
+        page: landingPage,
       };
     } else {
       return {
@@ -82,12 +88,16 @@ export class DataFetcherService extends ApiService {
 
   sequentialSubmit(
     items: SubmissionItem[],
+    postApi: string,
     delayMs: number = this.defaultDelay
   ): Observable<{ success: boolean; index: number; item?: SubmissionItem }> {
-    return from(items).pipe(concatMap((item, index) => this.submitItem(item, index, delayMs)));
+    return from(items).pipe(
+      concatMap((item, index) => this.submitItem(postApi, item, index, delayMs))
+    );
   }
 
   private submitItem(
+    api: string,
     item: SubmissionItem,
     index: number,
     delayMs: number
@@ -100,7 +110,7 @@ export class DataFetcherService extends ApiService {
       };
       return this.builderService.createLandingPage(newPage, false);
     } else {
-      return this.nodeService.addEntity(this.api, attributes, this.user.csrf_token).pipe(
+      return this.nodeService.addEntity(api, attributes, this.user.csrf_token).pipe(
         delay(delayMs),
         concatMap(res =>
           of({

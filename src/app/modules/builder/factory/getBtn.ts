@@ -124,11 +124,19 @@ export function getBtn(widget: any): FormlyFieldConfig {
             fieldGroup: [
               {
                 key: 'svg',
-                type: 'input',
+                type: 'mat-select',
                 className: 'w-full',
                 defaultValue: widget?.icon?.svg ?? '',
                 props: {
                   label: '图标',
+                  type: 'icon',
+                  search: true,
+                  options: [
+                    {
+                      label: '无',
+                      value: '',
+                    },
+                  ],
                 },
                 modelOptions: {
                   debounce: {

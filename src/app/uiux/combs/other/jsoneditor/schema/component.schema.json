@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Component",
+  "definitions": {
+    "Component": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "fullWidth": {
+          "type": "boolean"
+        },
+        "spacer": {
+          "type": ["string", "object"]
+        },
+        "overlay": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "bg": {
+          "$ref": "#/definitions/Bg"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "title": "Component"
+    },
+    "Bg": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "img": {
+          "$ref": "#/definitions/Img"
+        },
+        "classes": {
+          "type": "string"
+        },
+        "overlay": {
+          "type": "string"
+        }
+      },
+      "required": ["img", "overlay"],
+      "title": "Bg"
+    },
+    "Img": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        }
+      },
+      "required": ["classes", "src"],
+      "title": "Img"
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IBuilderShowcase } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
+import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -37,12 +38,14 @@ export class BuilderShowcaseComponent implements OnInit {
   }
 
   showCode(component: any): void {
+    const jsonWidget: IJsoneditor = {
+      type: 'jsoneditor',
+      data: component,
+      schemaType: component.type,
+    };
     const config: IDialog = {
       inputData: {
-        content: {
-          type: 'jsoneditor',
-          data: component,
-        },
+        content: jsonWidget,
       },
     };
     this.dialog.open(DialogComponent, {

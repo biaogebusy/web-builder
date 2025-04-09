@@ -7,11 +7,11 @@ import { createPopper } from '@popperjs/core';
 import { QuillModule } from 'ngx-quill';
 
 @Component({
-    selector: 'app-rich-text',
-    templateUrl: './rich-text.component.html',
-    styleUrls: ['./rich-text.component.scss'],
-    providers: [{ provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: FormlyFieldTextArea }],
-    standalone: false
+  selector: 'app-rich-text',
+  templateUrl: './rich-text.component.html',
+  styleUrls: ['./rich-text.component.scss'],
+  providers: [{ provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: FormlyFieldTextArea }],
+  standalone: false,
 })
 export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnInit, AfterViewInit {
   @ViewChild(MatInput, { static: true }) formFieldControl!: MatInput;
@@ -125,7 +125,9 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnI
   }
   // 延迟加载内容
   lazyLoadContent(quillInstance: any): void {
-    if (!quillInstance) return;
+    if (!quillInstance) {
+      return;
+    }
 
     let chunkIndex = 0;
     const interval = setInterval(() => {

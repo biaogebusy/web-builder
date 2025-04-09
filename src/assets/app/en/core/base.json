@@ -25,7 +25,7 @@
       "spacer": "md",
       "fullWidth": false,
       "bg": {
-        "classes": "bg-fill-width"
+        "classes": ""
       },
       "layoutAlign": "center center",
       "gap": {
@@ -53,7 +53,7 @@
               "alt": "bg-05"
             },
             "overlay": " ",
-            "classes": "bg-fill-width"
+            "classes": ""
           },
           "classes": "",
           "style": {

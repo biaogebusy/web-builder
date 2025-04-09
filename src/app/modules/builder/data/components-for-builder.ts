@@ -330,7 +330,7 @@ export const components: any[] = [
                 ],
               },
               bg: {
-                classes: 'bg-fill-width overlay- overlay-',
+                classes: ' overlay- overlay-',
                 img: {
                   src: '/assets/images/bg/bg-02.png',
                   hostClasses: '',
@@ -490,7 +490,7 @@ export const components: any[] = [
               spacer: 'lg',
               id: 'xxx',
               bg: {
-                classes: 'bg-fill-width overlay',
+                classes: ' overlay',
                 img: {
                   classes: 'object-fit',
                   src: '/assets/images/16-9/business-16.jpeg',
@@ -627,7 +627,7 @@ export const components: any[] = [
               classes: 'features-absolute',
               spacer: 'lg',
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg-shadow ',
               },
               row: 3,
               elements: [
@@ -793,7 +793,7 @@ export const components: any[] = [
               },
               row: 3,
               bg: {
-                classes: 'bg- bg-fill-width',
+                classes: 'bg- ',
               },
               spacer: 'md',
               classes: '',
@@ -877,7 +877,7 @@ export const components: any[] = [
               spacer: 'md',
               row: 3,
               bg: {
-                classes: 'bg- bg-fill-width',
+                classes: 'bg- ',
               },
               classes: '',
               style: 'style-v3',
@@ -965,7 +965,7 @@ export const components: any[] = [
                 body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg-shadow ',
               },
               row: 4,
               classes: '',
@@ -1024,7 +1024,7 @@ export const components: any[] = [
               spacer: 'md',
               row: 3,
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg-shadow ',
               },
               classes: '',
               elements: [
@@ -1174,7 +1174,7 @@ export const components: any[] = [
             content: {
               type: 'showcase-1v1',
               bg: {
-                classes: 'bg-none bg-fill-width',
+                classes: 'bg-none ',
               },
               spacer: 'md',
               row: 3,
@@ -1265,7 +1265,7 @@ export const components: any[] = [
               spacer: 'md',
               classes: 'text-light',
               bg: {
-                classes: 'bg-fill-width overlay overlay-20',
+                classes: ' overlay overlay-20',
                 img: {
                   hostClasses: '',
                   src: '/assets/images/hero/bg-pattern-hero.png',
@@ -1336,7 +1336,7 @@ export const components: any[] = [
                     webform_id: 'contact',
                   },
                   bg: {
-                    classes: 'bg-fill-width',
+                    classes: '',
                     icon: 'wave',
                   },
                   action: {
@@ -1445,7 +1445,7 @@ export const components: any[] = [
               spacer: 'md',
               classes: 'text-light',
               bg: {
-                classes: 'bg-fill-width overlay overlay-80',
+                classes: ' overlay overlay-80',
                 img: {
                   hostClasses: '',
                   src: '/assets/images/showcase/8.jpg',
@@ -1493,7 +1493,7 @@ export const components: any[] = [
               type: 'showcase-1v4',
               spacer: 'lg',
               bg: {
-                classes: 'bg- bg-fill-width',
+                classes: 'bg- ',
               },
               row: 4,
               classes: '',
@@ -1573,7 +1573,7 @@ export const components: any[] = [
               type: 'showcase-1v4',
               spacer: 'lg',
               bg: {
-                classes: 'bg- bg-fill-width',
+                classes: 'bg- ',
               },
               row: 3,
               classes: '',
@@ -1685,7 +1685,7 @@ export const components: any[] = [
               type: 'showcase-1v4',
               spacer: 'lg',
               bg: {
-                classes: 'bg- bg-fill-width',
+                classes: 'bg- ',
               },
               row: 6,
               classes: '',
@@ -2639,7 +2639,7 @@ export const components: any[] = [
               },
               spacer: 'md',
               bg: {
-                classes: 'bg-light bg-fill-width',
+                classes: 'bg-light ',
               },
               classes: '',
               img: {
@@ -2732,7 +2732,7 @@ export const components: any[] = [
                 body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg-shadow ',
               },
               classes: '',
               img: {
@@ -2843,7 +2843,7 @@ export const components: any[] = [
                 body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
               },
               bg: {
-                classes: 'bg-light bg-fill-width',
+                classes: 'bg-light ',
               },
               classes: '',
               row: 4,
@@ -2929,7 +2929,7 @@ export const components: any[] = [
                 body: '<p class="text-center">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg-shadow ',
               },
               classes: '',
               row: 3,
@@ -3069,7 +3069,7 @@ export const components: any[] = [
                 body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg-shadow ',
               },
               classes: '',
               img: {
@@ -3163,7 +3163,7 @@ export const components: any[] = [
               type: 'showcase-3v9',
               spacer: 'md',
               bg: {
-                classes: 'bg-fill-width',
+                classes: '',
                 img: {
                   classes: 'object-fit',
                   src: '/assets/images/bg/bg-01.png',
@@ -3255,7 +3255,7 @@ export const components: any[] = [
               type: 'showcase-3v9',
               spacer: 'xl',
               bg: {
-                classes: 'bg-fill-width',
+                classes: '',
                 img: {
                   src: '/assets/images/bg/bg-02.png',
                 },
@@ -3342,7 +3342,7 @@ export const components: any[] = [
               type: 'showcase-3v9',
               spacer: 'xl',
               bg: {
-                classes: 'bg-fill-width',
+                classes: '',
                 img: {
                   src: '/assets/images/bg/bg-02.png',
                 },
@@ -3559,7 +3559,7 @@ export const components: any[] = [
               },
               classes: '',
               bg: {
-                classes: 'bg-white bg-fill-width',
+                classes: 'bg-white ',
               },
               swiper: {
                 type: 'swiper',
@@ -3824,7 +3824,7 @@ export const components: any[] = [
               },
               classes: '',
               bg: {
-                classes: 'bg-white bg-fill-width',
+                classes: 'bg-white ',
               },
               swiper: {
                 params: {
@@ -4284,7 +4284,7 @@ export const components: any[] = [
                     type: 'showcase-1v4',
                     spacer: 'lg',
                     bg: {
-                      classes: 'bg- bg-fill-width',
+                      classes: 'bg- ',
                     },
                     row: 4,
                     classes: '',
@@ -4365,7 +4365,7 @@ export const components: any[] = [
                       classes: 'mat-headline-3',
                     },
                     bg: {
-                      classes: 'bg-light bg-fill-width',
+                      classes: 'bg-light ',
                     },
                     classes: '',
                     img: {
@@ -4444,7 +4444,7 @@ export const components: any[] = [
                     type: 'showcase-3v5',
                     id: '',
                     bg: {
-                      classes: 'bg-shadow bg-fill-width',
+                      classes: 'bg-shadow ',
                     },
                     classes: '',
                     img: {
@@ -4532,7 +4532,7 @@ export const components: any[] = [
                     sliderClasses: 'slider-center',
                     type: 'showcase-3v7',
                     bg: {
-                      classes: 'bg-shadow bg-fill-width',
+                      classes: 'bg-shadow ',
                     },
                     classes: '',
                     img: {
@@ -4629,7 +4629,7 @@ export const components: any[] = [
                       classes: 'mat-headline-2 bold',
                     },
                     bg: {
-                      classes: 'bg- bg-fill-width',
+                      classes: 'bg- ',
                     },
                     actionsAlign: 'center center',
                     actions: [
@@ -4661,7 +4661,7 @@ export const components: any[] = [
               spacer: 'md',
               classes: '',
               bg: {
-                classes: 'bg-white bg-fill-width',
+                classes: 'bg-white ',
               },
               swiper: {
                 params: {
@@ -5069,7 +5069,7 @@ export const components: any[] = [
                 classes: 'mat-headline-3',
               },
               bg: {
-                classes: 'bg-fill-width overlay overlay-80',
+                classes: ' overlay overlay-80',
                 img: {
                   src: '/assets/images/bg/bg-03.jpeg',
                   hostClasses: '',
@@ -5151,7 +5151,7 @@ export const components: any[] = [
               id: '',
               spacer: 'xl',
               bg: {
-                classes: 'bg-fill-width bg-shadow',
+                classes: ' bg-shadow',
               },
               classes: '',
               swiper: {

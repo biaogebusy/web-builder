@@ -19,7 +19,7 @@
       },
       "type": "showcase-3v9",
       "bg": {
-        "classes": "bg-fill-width",
+        "classes": "",
         "img": {
           "classes": "object-cover",
           "src": "/assets/images/bg/bg-01.png",
@@ -136,7 +136,7 @@
       },
       "type": "showcase-1v1",
       "bg": {
-        "classes": "bg-shadow bg-fill-width"
+        "classes": "bg-shadow "
       },
       "title": {
         "label": "使用人员",
@@ -238,7 +238,7 @@
         "type": "json"
       },
       "spacer": "xl",
-      "bgClasses": "bg- bg-fill-width",
+      "bgClasses": "bg- ",
       "overlay": "",
       "classes": "text-center md:max-w-3/4 mx-auto",
       "id": "",
@@ -248,7 +248,7 @@
           "classes": "object-fit",
           "alt": ""
         },
-        "classes": "bg- bg-fill-width",
+        "classes": "bg- ",
         "overlay": ""
       },
       "animate": {

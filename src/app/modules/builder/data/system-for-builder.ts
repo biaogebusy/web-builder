@@ -13,7 +13,7 @@ export const system: any[] = [
           spacer: 'none',
           type: 'banner-simple',
           bannerBg: {
-            classes: 'bg-fill-width overlay overlay-60',
+            classes: ' overlay overlay-60',
             img: {
               hostClasses: '',
               src: '/assets/images/16-9/nature-08.jpg',
@@ -873,7 +873,7 @@ export const system: any[] = [
                         event: 'drupal',
                         start: 1720338121677,
                         user: 'Johnson',
-                        className: 'bg-grey',
+                        className: 'bg-gray',
                       },
                     ],
                   },
@@ -1568,7 +1568,7 @@ export const system: any[] = [
                         event: 'drupal',
                         start: 1720338121677,
                         user: 'Johnson',
-                        className: 'bg-grey',
+                        className: 'bg-gray',
                       },
                     ],
                   },
@@ -1600,7 +1600,7 @@ export const system: any[] = [
           main: {
             spacer: 'sm',
             bg: {
-              classes: 'bg-fill-width bg-shadow',
+              classes: ' bg-shadow',
             },
           },
           left: [
@@ -1861,7 +1861,7 @@ export const system: any[] = [
           fullWidth: true,
           spacer: 'none',
           bannerBg: {
-            classes: 'bg-fill-width overlay overlay-80',
+            classes: ' overlay overlay-80',
             img: {
               hostClasses: '',
               src: '/assets/images/16-9/business-14.jpeg',
@@ -2114,7 +2114,7 @@ export const system: any[] = [
           fullWidth: true,
           spacer: 'none',
           bannerBg: {
-            classes: 'bg-fill-width overlay overlay-80',
+            classes: ' overlay overlay-80',
             img: {
               hostClasses: '',
               src: '/assets/images/16-9/business-14.jpeg',
@@ -3134,7 +3134,7 @@ export const system: any[] = [
                   target: '_blank',
                 },
                 created: '2021-05-03',
-                body: '刚开始学Angular的时候，会觉得这三个指令很像，每一个都具有不一样的作用，拿实际的例子，看看他们之间具体的区别。ng-content&amp;lt;div[ngClass]=&quot;classes&quot;&amp;gt;&amp;lt;ng-content&amp;gt;&amp;lt;/ng-content&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;app-bg[classes]=&quot;[&#039;bg-fill-width&#039;,&#039;wave-wrapper&#039;]&quot;&amp;gt;&amp;lt;mat-iconclass=&quot;wave&quot;svgIcon=&quot;wave&quot;&amp;gt;&amp;lt;/mat-icon&amp;gt;&amp;lt;/app-bg&amp;gt;ng-content置于Angular组件中，相当于占位符，外部组件在调用的时候，会把真正的内容放置到ng-content所占位的地方。这样就可以灵活的使用动态的外部数据来填充到指定的结构里面',
+                body: '刚开始学Angular的时候，会觉得这三个指令很像，每一个都具有不一样的作用，拿实际的例子，看看他们之间具体的区别。ng-content&amp;lt;div[ngClass]=&quot;classes&quot;&amp;gt;&amp;lt;ng-content&amp;gt;&amp;lt;/ng-content&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;app-bg[classes]=&quot;[&#039;&#039;,&#039;wave-wrapper&#039;]&quot;&amp;gt;&amp;lt;mat-iconclass=&quot;wave&quot;svgIcon=&quot;wave&quot;&amp;gt;&amp;lt;/mat-icon&amp;gt;&amp;lt;/app-bg&amp;gt;ng-content置于Angular组件中，相当于占位符，外部组件在调用的时候，会把真正的内容放置到ng-content所占位的地方。这样就可以灵活的使用动态的外部数据来填充到指定的结构里面',
                 type: '博客',
                 actions: [
                   {
@@ -3465,7 +3465,7 @@ export const system: any[] = [
                   event: 'drupal',
                   start: 1716736751195,
                   user: 'Johnson',
-                  className: 'bg-grey',
+                  className: 'bg-gray',
                 },
               ],
             },
@@ -3527,7 +3527,7 @@ export const system: any[] = [
               classes: 'object-fit',
               alt: '',
             },
-            classes: 'bg-fill-width',
+            classes: '',
             overlay: '',
           },
           horizontal: 'center',
@@ -3559,7 +3559,7 @@ export const system: any[] = [
                   classes: 'object-fit',
                 },
                 overlay: '',
-                classes: 'bg-fill-width',
+                classes: '',
               },
               classes: '',
               blockClasses: '',
@@ -3608,7 +3608,7 @@ export const system: any[] = [
                   classes: 'object-fit',
                 },
                 overlay: '',
-                classes: 'bg-fill-width',
+                classes: '',
               },
               classes: '',
               blockClasses: '',
@@ -3660,7 +3660,7 @@ export const system: any[] = [
                   classes: 'object-fit',
                 },
                 overlay: '',
-                classes: 'bg-fill-width',
+                classes: '',
               },
               classes: '',
               blockClasses: '',

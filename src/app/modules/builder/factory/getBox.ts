@@ -46,11 +46,19 @@ export function getBox(widget: any): FormlyFieldConfig {
             key: 'icon',
             fieldGroup: [
               {
-                type: 'input',
+                type: 'mat-select',
                 key: 'svg',
                 defaultValue: widget?.icon?.svg,
                 props: {
                   label: '图标',
+                  type: 'icon',
+                  search: true,
+                  options: [
+                    {
+                      label: '无',
+                      value: '',
+                    },
+                  ],
                 },
               },
             ],

@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/LayoutBuilder",
+  "definitions": {
+    "LayoutBuilder": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "fullWidth": {
+          "type": "boolean"
+        },
+        "spacer": {
+          "type": "string"
+        },
+        "bgClasses": {
+          "type": "string"
+        },
+        "overlay": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "bg": {
+          "$ref": "#/definitions/Bg"
+        },
+        "horizontal": {
+          "type": "string"
+        },
+        "vertical": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Element"
+          }
+        },
+        "animate": {
+          "$ref": "#/definitions/Animate"
+        }
+      },
+      "required": ["bg", "elements", "fullWidth", "horizontal", "spacer", "type", "vertical"],
+      "title": "LayoutBuilder"
+    },
+    "Bg": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "img": {
+          "$ref": "#/definitions/Img"
+        },
+        "classes": {
+          "type": "string"
+        },
+        "overlay": {
+          "type": "string"
+        }
+      },
+      "required": ["classes", "img", "overlay"],
+      "title": "Bg"
+    },
+    "Img": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        }
+      },
+      "required": ["classes", "src"],
+      "title": "Img"
+    },
+    "Element": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "row": {
+          "$ref": "#/definitions/Row"
+        },
+        "horizontal": {
+          "type": "string"
+        },
+        "vertical": {
+          "type": "string"
+        },
+        "gap": {
+          "$ref": "#/definitions/Gap"
+        },
+        "bg": {
+          "$ref": "#/definitions/Bg"
+        },
+        "classes": {
+          "type": "string"
+        },
+        "style": {
+          "$ref": "#/definitions/Style"
+        },
+        "layoutAlign": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {}
+        },
+        "animate": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "from": {
+              "type": "object"
+            },
+            "trigger": {
+              "type": "object"
+            }
+          },
+          "required": ["from"]
+        }
+      },
+      "required": ["elements", "gap", "horizontal", "layoutAlign", "row", "vertical"],
+      "title": "Element"
+    },
+    "Animate": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "from": {
+          "type": "object"
+        },
+        "trigger": {
+          "type": "object"
+        }
+      },
+      "required": ["from"]
+    },
+    "Gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "xs": {
+          "type": ["number", "string"]
+        },
+        "sm": {
+          "type": ["number", "string"]
+        },
+        "md": {
+          "type": ["number", "string"]
+        },
+        "lg": {
+          "type": ["number", "string"]
+        }
+      },
+      "required": ["lg", "md", "sm", "xs"],
+      "title": "Gap"
+    },
+    "Row": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "xs": {
+          "type": ["number", "string"]
+        },
+        "sm": {
+          "type": ["number", "string"]
+        },
+        "md": {
+          "type": ["number", "string"]
+        },
+        "lg": {
+          "type": ["number", "string"]
+        }
+      },
+      "required": ["lg", "md", "sm", "xs"],
+      "title": "Row"
+    },
+    "Style": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "borderRadius": {
+          "type": "string"
+        }
+      },
+      "required": ["borderRadius"],
+      "title": "Style"
+    }
+  }
+}

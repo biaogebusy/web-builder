@@ -29,11 +29,11 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-page-list',
-    templateUrl: './page-list.component.html',
-    styleUrls: ['./page-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-page-list',
+  templateUrl: './page-list.component.html',
+  styleUrls: ['./page-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class PageListComponent extends BaseComponent implements OnInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
@@ -221,6 +221,15 @@ export class PageListComponent extends BaseComponent implements OnInit {
       return;
     }
     this.builderService.loadPage({ langcode, nid });
+  }
+
+  updateByJSON(page: any): void {
+    const { langcode, nid } = page;
+    if (!nid) {
+      this.util.openSnackbar('请检查 LandingPage View 配置', 'ok');
+      return;
+    }
+    this.builderService.loadPageJSON({ langcode, nid });
   }
 
   updatePageSetting(page: IPageMeta): void {
