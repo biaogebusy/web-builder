@@ -101,16 +101,37 @@ export class BuilderState {
   }
 
   clearAllHistory(): void {
-    this.version = [
-      {
-        title: '未命名',
-        body: [],
-        current: true,
-        time: new Date(),
+    const config: IDialog = {
+      title: '清空草稿',
+      titleClasses: 'text-red-500',
+      noLabel: '取消',
+      yesLabel: '确认清空',
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: `是否要清空本地所有历史草稿记录？`,
+        },
       },
-    ];
-    this.closeRightDrawer$.next(true);
-    this.saveLocalVersions();
+    };
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '340px',
+      data: config,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.version = [
+          {
+            title: '未命名',
+            body: [],
+            current: true,
+            time: new Date(),
+          },
+        ];
+        this.closeRightDrawer$.next(true);
+        this.saveLocalVersions();
+      }
+    });
   }
 
   saveLocalVersions(): void {

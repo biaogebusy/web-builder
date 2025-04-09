@@ -331,6 +331,9 @@
         },
         "error": {
           "type": "string"
+        },
+        "delayMessage": {
+          "type": "string"
         }
       },
       "required": ["enable", "error", "leftTime", "submitLabel", "tabLabel"],

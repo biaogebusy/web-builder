@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, DestroyRef, signal } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TagsService } from '@core/service/tags.service';
@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   public user$ = inject<Observable<IUser>>(USER);
 
   public hide = true;
-  public loading: boolean;
-  public error: string;
+  public loading = signal<boolean>(false);
+  public error = signal<string>('');
   public userForm: UntypedFormGroup;
   public phoneForm: UntypedFormGroup;
   public countdown: number;
@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   private tagsService = inject(TagsService);
   private userService = inject(UserService);
   private screenService = inject(ScreenService);
-  private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
   constructor() {
@@ -84,57 +83,57 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.userForm.invalid) {
       return;
     }
-    this.loading = true;
+    this.loading.set(true);
     this.userService
       .login(this.userForm.value.name, this.userForm.value.pass)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(state => {
-        this.onLogin(state, '登录出现问题，请联系管理员！');
+        this.showMessage(state, '登录出现问题，请联系管理员！');
       });
   }
 
   loginByPhone(): void {
-    this.loading = true;
+    this.loading.set(true);
     const { phone, code } = this.phoneForm.value;
     this.userService
       .loginByPhone(phone, code)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(state => {
-        this.onLogin(state, '请检查手机号或者验证码！');
+        this.showMessage(state, '请检查手机号或者验证码！');
       });
   }
 
-  onLogin(state: any, errorMessage: string): void {
+  showMessage(state: any, errorMessage: string): void {
     if (!state) {
-      this.error = errorMessage;
+      this.error.set(errorMessage);
     }
-    this.loading = false;
-    this.cd.detectChanges();
+    this.loading.set(false);
   }
 
   getCode(event: any): any {
     event.preventDefault();
     const { phone } = this.phoneForm.value;
     if (!phone) {
-      this.error = '请输入手机号码';
-      this.cd.detectChanges();
+      this.error.set('请输入手机号码');
       return false;
     }
     this.userService
       .getCode(phone)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        const { leftTime } = this.coreConfig.login.phoneLogin;
+        const { leftTime, delayMessage = '' } = this.coreConfig.login.phoneLogin;
         this.countdown = leftTime;
         const source = interval(1000);
         this.subscription = source.subscribe(val => {
           if (this.countdown > 0) {
             this.countdown--;
           } else {
+            if (delayMessage) {
+              this.showMessage(false, delayMessage);
+            }
             this.subscription.unsubscribe();
           }
         });
-        this.cd.detectChanges();
       });
   }
 
