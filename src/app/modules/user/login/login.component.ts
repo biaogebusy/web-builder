@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public error = signal<string>('');
   public userForm: UntypedFormGroup;
   public phoneForm: UntypedFormGroup;
-  public countdown: number;
+  public countdown = signal<number>(0);
   private subscription: Subscription;
 
   private fb = inject(UntypedFormBuilder);
@@ -122,11 +122,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         const { leftTime, delayMessage = '' } = this.coreConfig.login.phoneLogin;
-        this.countdown = leftTime;
+        this.countdown.set(Number(leftTime));
         const source = interval(1000);
         this.subscription = source.subscribe(val => {
-          if (this.countdown > 0) {
-            this.countdown--;
+          if (this.countdown() > 0) {
+            this.countdown.update(value => value - 1);
           } else {
             if (delayMessage) {
               this.showMessage(false, delayMessage);

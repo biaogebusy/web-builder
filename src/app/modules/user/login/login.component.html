@@ -49,10 +49,10 @@
                     <mat-label>验证码</mat-label>
                     <input matInput type="text" formControlName="code" />
                     <button
-                      disabled="{{ countdown > 0 }}"
+                      disabled="{{ countdown() > 0 }}"
                       (click)="getCode($event)"
                       class="right-4"
-                      [class]="countdown ? 'pointer-events-none' : ''"
+                      [class]="countdown() ? 'pointer-events-none' : ''"
                       matSuffix
                       color="primary"
                       mat-raised-button
@@ -60,8 +60,8 @@
                     >
                       <small class="whitespace-nowrap">
                         发送验证码
-                        @if (countdown) {
-                          ({{ countdown }})
+                        @if (countdown()) {
+                          ({{ countdown() }})
                         }
                       </small>
                     </button>
