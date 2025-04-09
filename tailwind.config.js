@@ -167,6 +167,9 @@ module.exports = {
     {
       pattern: /^(line-through|no-underline|underline)$/,
     },
+    {
+      pattern: /^leading-(none|tight|normal|relaxed|loose|3|4|5|6|7|8|9|10)$/,
+    },
     { pattern: /^w-(100|200|300|400|500|600|700)$/ },
     { pattern: /^h-(100|200|300|400|500|600|700)$/ },
     { pattern: /^w-(full|screen|fit)$/, variants: ['xs', 'sm', 'md', 'lg'] },
