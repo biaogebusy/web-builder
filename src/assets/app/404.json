@@ -4,7 +4,7 @@
     {
       "fullWidth": false,
       "spacer": "md",
-      "bgClasses": "bg-fill-width",
+      "bgClasses": "",
       "overlay": "",
       "classes": "",
       "id": "",
@@ -14,7 +14,7 @@
           "classes": "object-fit",
           "alt": ""
         },
-        "classes": "bg-fill-width",
+        "classes": "",
         "overlay": ""
       },
       "direction": "col",
@@ -76,7 +76,7 @@
               "classes": "object-fit"
             },
             "overlay": "",
-            "classes": "bg-fill-width"
+            "classes": ""
           },
           "classes": "",
           "blockClasses": "",
@@ -152,7 +152,7 @@
               "classes": "object-fit"
             },
             "overlay": "",
-            "classes": "bg-fill-width"
+            "classes": ""
           },
           "classes": "",
           "blockClasses": "",
@@ -249,7 +249,7 @@
               "classes": "object-fit"
             },
             "overlay": "",
-            "classes": "bg-fill-width"
+            "classes": ""
           },
           "classes": "",
           "blockClasses": "",

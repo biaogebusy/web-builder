@@ -7,4 +7,5 @@ export interface IJsoneditor {
   isPage?: boolean; // load from page
   isSetting?: boolean; // load from setting page
   path?: string; // load from component or widget
+  schemaType: string;
 }

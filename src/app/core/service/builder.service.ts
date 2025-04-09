@@ -18,6 +18,7 @@ import { isArray } from 'lodash-es';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { createPopper } from '@popperjs/core';
 import { IDialog } from '@core/interface/IDialog';
+import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 
 @Injectable({
   providedIn: 'root',
@@ -117,7 +118,51 @@ export class BuilderService extends ApiService {
       });
   }
 
+  loadPageJSON(page: { langcode?: string; nid: string }): void {
+    const { langcode, nid } = page;
+    const lang = this.getApiLang(langcode);
+    this.nodeService
+      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
+      .subscribe((content: IPage) => {
+        const { body, status, uuid, title } = content;
+        if (status) {
+          const jsonWidget: IJsoneditor = {
+            type: 'jsoneditor',
+            data: this.formatToExtraData(content),
+            classes: 'full-height',
+            isSetting: true,
+            schemaType: 'page',
+            actions: [
+              {
+                type: 'update',
+                label: '更新JSON',
+                params: {
+                  uuid,
+                  langcode,
+                  api: '/api/v1/node/landing_page',
+                  type: 'node--landing_page',
+                },
+              },
+            ],
+          };
+          this.builder.rightContent$.next({
+            mode: 'over',
+            hasBackdrop: true,
+            style: {
+              width: '800px',
+            },
+            elements: [jsonWidget],
+          });
+        } else {
+          this.util.openSnackbar('该页面非builder创建，请到后台编辑', 'ok');
+        }
+      });
+  }
+
   checkIsLatestPage(checkPage: IPage): void {
+    if (!checkPage) {
+      return;
+    }
     const { langcode, nid, changed, uuid, title } = checkPage;
     if (nid && changed && uuid) {
       const lang = this.getApiLang(langcode);
@@ -153,34 +198,36 @@ export class BuilderService extends ApiService {
     }
   }
 
-  loadNodeJson(page: { langcode?: string; nid: string; uuid: string }): void {
+  loadNodeJson(page: { langcode?: string; nid: string; uuid: string; schemaType: string }): void {
     this.builder.loading$.next(true);
-    const { langcode, nid, uuid } = page;
+    const { langcode, nid, uuid, schemaType } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
       .subscribe((newPage: IPage) => {
+        const jsonWidget: IJsoneditor = {
+          type: 'jsoneditor',
+          data: newPage,
+          isSetting: true,
+          schemaType,
+          actions: [
+            {
+              type: 'update',
+              label: '更新配置',
+              params: {
+                reqRoles: ['administrator'],
+                uuid,
+                langcode,
+                api: '/api/v1/node/json',
+                type: 'node--json',
+              },
+            },
+          ],
+        };
         const config: IDialog = {
           disableCloseButton: true,
           inputData: {
-            content: {
-              type: 'jsoneditor',
-              data: newPage,
-              isSetting: true,
-              actions: [
-                {
-                  type: 'update',
-                  label: '更新配置',
-                  params: {
-                    reqRoles: ['administrator'],
-                    uuid,
-                    langcode,
-                    api: '/api/v1/node/json',
-                    type: 'node--json',
-                  },
-                },
-              ],
-            },
+            content: jsonWidget,
           },
         };
         this.builder.loading$.next(false);
@@ -240,10 +287,13 @@ export class BuilderService extends ApiService {
           const { status } = res;
           if (status) {
             if (langcode && nid) {
-              this.loadPage({
-                langcode,
-                nid,
-              });
+              this.loadPage(
+                {
+                  langcode,
+                  nid,
+                },
+                true
+              );
             }
           } else {
             this.util.openSnackbar('保存失败，请重试', 'ok');
@@ -583,7 +633,7 @@ export class BuilderService extends ApiService {
             classes: 'mat-headline-3 bold',
           },
           bg: {
-            classes: 'bg- bg-fill-width',
+            classes: '',
           },
           body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
           classes: 'text-center',

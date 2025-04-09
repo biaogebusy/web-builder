@@ -10,12 +10,15 @@
       disableRipple
       #select
     >
-      @if (to && to.none) {
-        <mat-option>{{ to.none?.label || '无' }}</mat-option>
-      }
-      @for (option of matOptions; track option) {
-        <mat-option value="{{ option.value }}">{{ option.label }} </mat-option>
-      }
+      <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
+        @if (to && to.none) {
+          <mat-option>{{ to.none?.label || '无' }}</mat-option>
+        }
+        <mat-option *cdkVirtualFor="let icon of matOptions; track: icon" [value]="icon.value">
+          <mat-icon [svgIcon]="icon.value"></mat-icon>
+          {{ icon.label }}
+        </mat-option>
+      </cdk-virtual-scroll-viewport>
     </mat-select>
   }
 
@@ -36,12 +39,18 @@
           [formControl]="searchCtrl"
         />
       </mat-option>
-      @if (to && to.none) {
-        <mat-option>{{ to.none?.label || '无' }}</mat-option>
-      }
-      @for (option of filteredOptions | async; track option) {
-        <mat-option [value]="option.value">{{ option.label }} </mat-option>
-      }
+      <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
+        @if (to && to.none) {
+          <mat-option>{{ to.none?.label || '无' }}</mat-option>
+        }
+        <mat-option
+          *cdkVirtualFor="let icon of filteredOptions | async; track: icon"
+          [value]="icon.value"
+        >
+          <mat-icon [svgIcon]="icon.value"></mat-icon>
+          {{ icon.label }}
+        </mat-option>
+      </cdk-virtual-scroll-viewport>
     </mat-select>
   }
   <!-- 多选不开启搜索 -->
@@ -55,12 +64,15 @@
       disableRipple
       #select
     >
-      @if (to && to.none) {
-        <mat-option>{{ to.none?.label || '无' }}</mat-option>
-      }
-      @for (option of matOptions; track option) {
-        <mat-option value="{{ option.value }}">{{ option.label }} </mat-option>
-      }
+      <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
+        @if (to && to.none) {
+          <mat-option>{{ to.none?.label || '无' }}</mat-option>
+        }
+        <mat-option *cdkVirtualFor="let icon of matOptions; track: icon" [value]="icon.value">
+          <mat-icon [svgIcon]="icon.value"></mat-icon>
+          {{ icon.label }}
+        </mat-option>
+      </cdk-virtual-scroll-viewport>
     </mat-select>
   }
 
@@ -82,12 +94,18 @@
           [formControl]="searchCtrl"
         />
       </mat-option>
-      @if (to.none) {
-        <mat-option>{{ to.none?.label || '无' }}</mat-option>
-      }
-      @for (option of filteredOptions | async; track option) {
-        <mat-option [value]="option.value">{{ option.label }} </mat-option>
-      }
+      <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
+        @if (to && to.none) {
+          <mat-option>{{ to.none?.label || '无' }}</mat-option>
+        }
+        <mat-option
+          *cdkVirtualFor="let icon of filteredOptions | async; track: icon"
+          [value]="icon.value"
+        >
+          <mat-icon [svgIcon]="icon.value"></mat-icon>
+          {{ icon.label }}
+        </mat-option>
+      </cdk-virtual-scroll-viewport>
     </mat-select>
   }
 </mat-form-field>

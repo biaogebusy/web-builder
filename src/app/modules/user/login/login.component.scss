@@ -20,9 +20,8 @@
 }
 
 .login-wrapper {
-  max-width: 750px;
   max-height: 600px;
-
+  @apply max-w-full sm:w-[750px];
   mat-spinner {
     position: absolute;
     left: 50%;

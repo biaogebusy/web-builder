@@ -1,0 +1,588 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Branding",
+  "definitions": {
+    "Branding": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/Header"
+        },
+        "footer": {
+          "$ref": "#/definitions/Footer"
+        }
+      },
+      "required": ["footer", "header"],
+      "title": "Branding"
+    },
+    "Footer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "params": {
+          "$ref": "#/definitions/FooterParams"
+        },
+        "footerBrand": {
+          "$ref": "#/definitions/FooterBrand"
+        },
+        "mainMenu": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Menu"
+          }
+        },
+        "mobileMenu": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Menu"
+          }
+        },
+        "footerNewsletter": {
+          "$ref": "#/definitions/FooterNewsletter"
+        },
+        "footerBottom": {
+          "$ref": "#/definitions/FooterBottom"
+        }
+      },
+      "required": [
+        "footerBottom",
+        "footerBrand",
+        "footerNewsletter",
+        "mainMenu",
+        "mobileMenu",
+        "params"
+      ],
+      "title": "Footer"
+    },
+    "FooterBottom": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "left": {
+          "type": "string"
+        },
+        "right": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Actions"
+          }
+        }
+      },
+      "required": ["left", "right"],
+      "title": "FooterBottom"
+    },
+    "Actions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        }
+      },
+      "required": ["href", "label"],
+      "title": "Actions"
+    },
+    "FooterBrand": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "logo": {
+          "$ref": "#/definitions/FooterBrandLogo"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "social": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Social"
+          }
+        }
+      },
+      "required": ["logo", "social", "summary"],
+      "title": "FooterBrand"
+    },
+    "FooterBrandLogo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "img": {
+          "$ref": "#/definitions/PurpleImg"
+        }
+      },
+      "required": ["img"],
+      "title": "FooterBrandLogo"
+    },
+    "PurpleImg": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        }
+      },
+      "required": ["alt", "classes", "href", "src"],
+      "title": "PurpleImg"
+    },
+    "Social": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "icon": {
+          "$ref": "#/definitions/SocialIcon"
+        },
+        "href": {
+          "type": "string",
+          "format": "uri",
+          "qt-uri-protocols": ["http", "https"]
+        },
+        "target": {
+          "$ref": "#/definitions/Target"
+        }
+      },
+      "required": ["href", "icon", "label"],
+      "title": "Social"
+    },
+    "SocialIcon": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "svg": {
+          "$ref": "#/definitions/SVG"
+        }
+      },
+      "required": ["svg"],
+      "title": "SocialIcon"
+    },
+    "FooterNewsletter": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "params": {
+          "$ref": "#/definitions/FooterNewsletterParams"
+        },
+        "label": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "form": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Form"
+          }
+        },
+        "action": {
+          "$ref": "#/definitions/Action"
+        }
+      },
+      "required": ["action", "form", "label", "params", "summary"],
+      "title": "FooterNewsletter"
+    },
+    "Action": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": ["label"],
+      "title": "Action"
+    },
+    "Form": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "props": {
+          "$ref": "#/definitions/Props"
+        }
+      },
+      "required": ["key", "props", "type"],
+      "title": "Form"
+    },
+    "Props": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "email": {
+          "type": "boolean"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "appearance": {
+          "type": "string"
+        }
+      },
+      "required": ["appearance", "email", "label", "placeholder", "required"],
+      "title": "Props"
+    },
+    "FooterNewsletterParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "webform_id": {
+          "type": "string"
+        }
+      },
+      "required": ["webform_id"],
+      "title": "FooterNewsletterParams"
+    },
+    "Menu": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "child": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Social"
+          }
+        }
+      },
+      "required": ["child", "label"],
+      "title": "Menu"
+    },
+    "FooterParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string"
+        },
+        "shape": {
+          "type": "boolean"
+        }
+      },
+      "required": ["mode", "shape"],
+      "title": "FooterParams"
+    },
+    "Header": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "params": {
+          "$ref": "#/definitions/HeaderParams"
+        },
+        "logo": {
+          "$ref": "#/definitions/HeaderLogo"
+        },
+        "top": {
+          "$ref": "#/definitions/Top"
+        },
+        "mainMenu": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MainMenu"
+          }
+        },
+        "search": {
+          "$ref": "#/definitions/Search"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Actions"
+          }
+        }
+      },
+      "required": ["logo", "mainMenu", "params", "search"],
+      "title": "Header"
+    },
+    "HeaderLogo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "version": {
+          "type": "boolean"
+        },
+        "href": {
+          "type": "string"
+        },
+        "img": {
+          "$ref": "#/definitions/FluffyImg"
+        },
+        "invert": {
+          "type": "string"
+        }
+      },
+      "required": ["href", "img", "invert", "label", "version"],
+      "title": "HeaderLogo"
+    },
+    "FluffyImg": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        }
+      },
+      "required": ["height", "src", "width"],
+      "title": "FluffyImg"
+    },
+    "MainMenu": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "child": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MainMenuChild"
+          }
+        }
+      },
+      "required": ["classes", "label"],
+      "title": "MainMenu"
+    },
+    "MainMenuChild": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string",
+          "qt-uri-protocols": ["https"]
+        },
+        "queryParams": {
+          "$ref": "#/definitions/QueryParams"
+        },
+        "child": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChildChild"
+          }
+        },
+        "classes": {
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/definitions/Target"
+        }
+      },
+      "required": ["label"],
+      "title": "MainMenuChild"
+    },
+    "ChildChild": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "child": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Actions"
+          }
+        },
+        "href": {
+          "type": "string"
+        }
+      },
+      "required": ["label"],
+      "title": "ChildChild"
+    },
+    "QueryParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "title": "QueryParams"
+    },
+    "HeaderParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "themeSwitch": {
+          "type": "boolean"
+        },
+        "userInfo": {
+          "type": "boolean"
+        },
+        "menuHoverOpen": {
+          "type": "boolean"
+        }
+      },
+      "required": ["menuHoverOpen", "themeSwitch", "userInfo"],
+      "title": "HeaderParams"
+    },
+    "Search": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "nabel": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "tooltip": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": ["enable", "key", "link", "nabel", "placeholder", "tooltip", "type"],
+      "title": "Search"
+    },
+    "Top": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "banner": {
+          "$ref": "#/definitions/Banner"
+        }
+      },
+      "required": ["banner"],
+      "title": "Top"
+    },
+    "Banner": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "left": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Left"
+          }
+        },
+        "right": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Right"
+          }
+        }
+      },
+      "required": ["left", "right"],
+      "title": "Banner"
+    },
+    "Left": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "icon": {
+          "$ref": "#/definitions/LeftIcon"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": ["icon", "label"],
+      "title": "Left"
+    },
+    "LeftIcon": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "svg": {
+          "type": "string"
+        },
+        "inline": {
+          "type": "boolean"
+        }
+      },
+      "required": ["inline", "svg"],
+      "title": "LeftIcon"
+    },
+    "Right": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "svg": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string",
+          "qt-uri-protocols": ["https"]
+        }
+      },
+      "required": ["href", "label", "svg"],
+      "title": "Right"
+    },
+    "SVG": {
+      "type": "string",
+      "enum": ["zhihu", "weibo", "github", "chevron-right"],
+      "title": "SVG"
+    },
+    "Target": {
+      "type": "string",
+      "enum": ["_blank"],
+      "title": "Target"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Page",
+  "definitions": {
+    "Page": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "nid": {
+          "type": "string"
+        },
+        "vid": {
+          "type": "string"
+        },
+        "changed": {
+          "type": "string"
+        },
+        "langcode": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "body": {
+          "type": "array"
+        },
+        "current": {
+          "type": "boolean"
+        },
+        "time": {
+          "type": "string"
+        }
+      },
+      "required": ["body", "title"],
+      "title": "Page"
+    }
+  }
+}

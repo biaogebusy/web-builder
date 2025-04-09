@@ -214,3 +214,32 @@ a.anchor {
     }
   }
 }
+
+.custom-select {
+  overflow: hidden !important;
+  .cdk-virtual-scroll-viewport {
+    height: 300px;
+    display: block;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+
+    mat-option {
+      display: flex;
+      align-items: center;
+      height: 48px;
+
+      mat-icon {
+        margin-right: 12px;
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
+      }
+    }
+  }
+}

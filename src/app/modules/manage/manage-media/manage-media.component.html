@@ -1,6 +1,6 @@
 <div class="manage-media relative">
   <div class="grid grid-cols-12 gap-5 h-full">
-    <div class="sidebar col-span-12 md:col-span-3 lg:col-span-2 flex flex-col p-3">
+    <div class="sidebar col-span-12 md:col-span-3 xl:col-span-2 flex flex-col p-3">
       <mat-slider max="12" min="1" step="1">
         <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
       </mat-slider>
@@ -24,7 +24,7 @@
         />
       </div>
     </div>
-    <div class="inner col-span-12 md:col-span-9 lg:col-span-10 flex flex-col">
+    <div class="inner col-span-12 md:col-span-9 xl:col-span-10 flex flex-col">
       @if (loading()) {
         <div class="load">
           <mat-spinner diameter="50" color="accent" />

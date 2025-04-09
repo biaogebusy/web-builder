@@ -12,10 +12,18 @@ export function getIcon(widget: any): FormlyFieldConfig {
         fieldGroup: [
           {
             key: 'svg',
-            type: 'input',
+            type: 'mat-select',
             defaultValue: widget.svg,
             props: {
               label: 'Icon',
+              type: 'icon',
+              search: true,
+              options: [
+                {
+                  label: '无',
+                  value: '',
+                },
+              ],
             },
           },
           {
@@ -46,7 +54,7 @@ export function getIcon(widget: any): FormlyFieldConfig {
           },
           {
             template:
-              '<a href="https://pictogrammers.com/library/mdi/" target="_blank">浏览图标库</a>',
+              '<a class="text-xs text-gray-500" href="https://pictogrammers.com/library/mdi/" target="_blank">浏览图标库</a>',
           },
         ],
       },

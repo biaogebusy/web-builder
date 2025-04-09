@@ -87,6 +87,7 @@ export interface PhoneLogin {
   leftTime: number;
   submitLabel: string;
   error: string;
+  delayMessage: string;
 }
 
 export interface PswLogin {

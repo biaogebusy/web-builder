@@ -52,6 +52,43 @@
     color: $contrast;
   }
 
+  .bg-primary-50 {
+    background-color: mat.m2-get-color-from-palette($primary, 50);
+  }
+  .bg-primary-100 {
+    background-color: mat.m2-get-color-from-palette($primary, 100);
+  }
+  .bg-primary-200 {
+    background-color: mat.m2-get-color-from-palette($primary, 200);
+  }
+  .bg-primary-300 {
+    background-color: mat.m2-get-color-from-palette($primary, 300);
+  }
+  .bg-primary-400 {
+    background-color: mat.m2-get-color-from-palette($primary, 400);
+    color: $contrast;
+  }
+  .bg-primary-500 {
+    background-color: mat.m2-get-color-from-palette($primary, 500);
+    color: $contrast;
+  }
+  .bg-primary-600 {
+    background-color: mat.m2-get-color-from-palette($primary, 600);
+    color: $contrast;
+  }
+  .bg-primary-700 {
+    background-color: mat.m2-get-color-from-palette($primary, 700);
+    color: $contrast;
+  }
+  .bg-primary-800 {
+    background-color: mat.m2-get-color-from-palette($primary, 800);
+    color: $contrast;
+  }
+  .bg-primary-900 {
+    background-color: mat.m2-get-color-from-palette($primary, 900);
+    color: $contrast;
+  }
+
   .bg-accent {
     background-color: mat.m2-get-color-from-palette($accent);
     color: $contrast;
@@ -60,165 +97,6 @@
   .bg-warn {
     background-color: mat.m2-get-color-from-palette($warn);
     color: $contrast;
-  }
-
-  // theme color from material theme config
-  .bg-pink {
-    background-color: #c2185b;
-    color: $contrast;
-  }
-
-  .text-pink {
-    color: #c2185b;
-  }
-
-  .bg-orange {
-    background-color: #e65100;
-    color: $contrast;
-  }
-
-  .text-orange {
-    color: #e65100;
-  }
-
-  .bg-yellow {
-    background-color: #f57f17;
-    color: $contrast;
-  }
-
-  .text-yellow {
-    color: #f57f17;
-  }
-
-  .bg-red {
-    background-color: #d32f2f;
-    color: $contrast;
-  }
-
-  .text-red {
-    color: #d32f2f;
-  }
-
-  .bg-purple {
-    background-color: #512da8;
-    color: $contrast;
-  }
-
-  .text-purple {
-    color: #512da8;
-  }
-
-  .bg-indigo {
-    background-color: #303f9f;
-    color: $contrast;
-  }
-
-  .text-indigo {
-    color: #303f9f;
-  }
-
-  .bg-blue {
-    background-color: #1976d2;
-    color: $contrast;
-  }
-
-  .text-blue {
-    color: #1976d2;
-  }
-
-  .bg-cyan {
-    background-color: #006064;
-    color: $contrast;
-  }
-
-  .text-cyan {
-    color: #006064;
-  }
-
-  .bg-teal {
-    background-color: #004d40;
-    color: $contrast;
-  }
-
-  .text-teal {
-    color: #004d40;
-  }
-
-  .bg-green {
-    background-color: #1b5e20;
-    color: $contrast;
-  }
-
-  .text-green {
-    color: #1b5e20;
-  }
-
-  .bg-light-green {
-    background-color: #4caf50;
-    color: $contrast;
-  }
-
-  .text-light-green {
-    color: #4caf50;
-  }
-
-  .bg-brown {
-    background-color: #5d4037;
-    color: $contrast;
-  }
-
-  .text-brown {
-    color: #5d4037;
-  }
-
-  .bg-grey {
-    background-color: #9e9e9e;
-    color: $contrast;
-  }
-
-  .bg-grey-50 {
-    background-color: map.get(mat.$m2-grey-palette, 50);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 50);
-  }
-  .bg-grey-100 {
-    background-color: map.get(mat.$m2-grey-palette, 100);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 100);
-  }
-  .bg-grey-200 {
-    background-color: map.get(mat.$m2-grey-palette, 200);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 200);
-  }
-  .bg-grey-300 {
-    background-color: map.get(mat.$m2-grey-palette, 300);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 300);
-  }
-  .bg-grey-400 {
-    background-color: map.get(mat.$m2-grey-palette, 400);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 400);
-  }
-  .bg-grey-500 {
-    background-color: map.get(mat.$m2-grey-palette, 500);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 500);
-  }
-  .bg-grey-600 {
-    background-color: map.get(mat.$m2-grey-palette, 600);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 600);
-  }
-  .bg-grey-700 {
-    background-color: map.get(mat.$m2-grey-palette, 700);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 700);
-  }
-  .bg-grey-800 {
-    background-color: map.get(mat.$m2-grey-palette, 800);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 800);
-  }
-  .bg-grey-900 {
-    background-color: map.get(mat.$m2-grey-palette, 900);
-    color: mat.m2-get-contrast-color-from-palette(mat.$m2-grey-palette, 900);
-  }
-
-  .text-grey {
-    color: #9e9e9e;
   }
 
   .ngx-bar {
