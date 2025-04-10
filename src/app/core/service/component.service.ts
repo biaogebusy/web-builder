@@ -138,7 +138,7 @@ export class ComponentService {
     },
     {
       module: 'OtherModule',
-      components: ['autoclose', 'jsoneditor', 'theme-preview', 'code-editor', 'custom-template'],
+      components: ['autoclose', 'jsoneditor', 'code-editor', 'custom-template'],
     },
     {
       module: 'ProfileModule',
