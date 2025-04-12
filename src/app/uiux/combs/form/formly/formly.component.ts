@@ -37,10 +37,7 @@ export class FormlyComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     let config: FormlyFieldConfig[] = [];
     const fields = this.content?.fields;
-    if (fields) {
-      // support AI formly
-      config = Object.assign(fields, this.fields);
-    }
+    config = fields ?? this.fields;
     this.fieldsConfig.set(cloneDeep(config));
   }
 
