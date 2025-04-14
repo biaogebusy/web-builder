@@ -11,12 +11,11 @@
       #select
     >
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        @if (to && to.none) {
-          <mat-option>{{ to.none?.label || '无' }}</mat-option>
-        }
-        <mat-option *cdkVirtualFor="let icon of matOptions; track: icon" [value]="icon.value">
-          <mat-icon [svgIcon]="icon.value"></mat-icon>
-          {{ icon.label }}
+        <mat-option *cdkVirtualFor="let option of matOptions; track: option" [value]="option.value">
+          @if (to.icon) {
+            <mat-icon [svgIcon]="option.value"></mat-icon>
+          }
+          {{ option.label }}
         </mat-option>
       </cdk-virtual-scroll-viewport>
     </mat-select>
@@ -40,15 +39,14 @@
         />
       </mat-option>
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        @if (to && to.none) {
-          <mat-option>{{ to.none?.label || '无' }}</mat-option>
-        }
         <mat-option
-          *cdkVirtualFor="let icon of filteredOptions | async; track: icon"
-          [value]="icon.value"
+          *cdkVirtualFor="let option of filteredOptions | async; track: option"
+          [value]="option.value"
         >
-          <mat-icon [svgIcon]="icon.value"></mat-icon>
-          {{ icon.label }}
+          @if (to.icon) {
+            <mat-icon [svgIcon]="option.value"></mat-icon>
+          }
+          {{ option.label }}
         </mat-option>
       </cdk-virtual-scroll-viewport>
     </mat-select>
@@ -65,12 +63,11 @@
       #select
     >
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        @if (to && to.none) {
-          <mat-option>{{ to.none?.label || '无' }}</mat-option>
-        }
-        <mat-option *cdkVirtualFor="let icon of matOptions; track: icon" [value]="icon.value">
-          <mat-icon [svgIcon]="icon.value"></mat-icon>
-          {{ icon.label }}
+        <mat-option *cdkVirtualFor="let option of matOptions; track: option" [value]="option.value">
+          @if (to.icon) {
+            <mat-icon [svgIcon]="option.value"></mat-icon>
+          }
+          {{ option.label }}
         </mat-option>
       </cdk-virtual-scroll-viewport>
     </mat-select>
@@ -95,15 +92,14 @@
         />
       </mat-option>
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        @if (to && to.none) {
-          <mat-option>{{ to.none?.label || '无' }}</mat-option>
-        }
         <mat-option
-          *cdkVirtualFor="let icon of filteredOptions | async; track: icon"
-          [value]="icon.value"
+          *cdkVirtualFor="let option of filteredOptions | async; track: option"
+          [value]="option.value"
         >
-          <mat-icon [svgIcon]="icon.value"></mat-icon>
-          {{ icon.label }}
+          @if (to.icon) {
+            <mat-icon [svgIcon]="option.value"></mat-icon>
+          }
+          {{ option.label }}
         </mat-option>
       </cdk-virtual-scroll-viewport>
     </mat-select>

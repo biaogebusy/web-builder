@@ -217,6 +217,7 @@ a.anchor {
 
 .custom-select {
   overflow: hidden !important;
+  max-height: none !important;
   .cdk-virtual-scroll-viewport {
     height: 300px;
     display: block;
