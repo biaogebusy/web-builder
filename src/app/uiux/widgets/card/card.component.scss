@@ -1,11 +1,8 @@
 @use '../../../../theme/mixins/amixin' as *;
 .card-body {
   min-height: 40px;
-  @include line-clamp(2);
 }
-.mat-mdc-card-title {
-  @include line-clamp(1);
-}
+
 .card-header {
   position: relative;
   margin-top: -16px !important;
@@ -106,19 +103,19 @@
       margin-bottom: 2px;
       .inline-lightbox {
         .inline {
+          @apply line-clamp-1;
           display: block;
-          @include line-clamp();
           padding-left: 0 !important;
           padding-right: 0 !important;
         }
       }
     }
     .badge {
+      @apply line-clamp-1;
       padding: 4px 10px;
       border-radius: 15px;
       margin-bottom: 8px;
       display: inline-block;
-      @include line-clamp();
       &:empty {
         display: none !important;
         opacity: 0;
