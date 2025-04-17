@@ -53,17 +53,6 @@ export class NodeService extends ApiService {
         ? `${this.apiUrl}${lang}/api/v1/${api}&${params}`
         : `${this.apiUrl}${lang}/api/v1/${api}?${params}`;
     }
-    // search for role
-    const searchForRole = this.coreConfig?.apiUrl?.search;
-    if (searchForRole && apiParams.indexOf('/api/v1/content')) {
-      Object.keys(searchForRole).some(role => {
-        if (!this.user || this.user.current_user.roles.includes(role)) {
-          apiParams = apiParams.replace('/api/v1/content', searchForRole[role]);
-          return true;
-        }
-        return false;
-      });
-    }
 
     return this.http.get<any>(
       apiParams,
