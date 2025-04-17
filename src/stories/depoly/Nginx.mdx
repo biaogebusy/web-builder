@@ -56,14 +56,16 @@ location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([
     proxy_buffering on;
     add_header Strict-Transport-Security "max-age=31536000";
     proxy_set_header Host $host;
-    if ( $uri ~* "\.(gif|png|jpg|css|js|woff|woff2)$" ) {
-        expires 1m;
+    if ( $uri ~* "\.(gif|png|jpg|css|svg|js|woff|woff2)$" ) {
+       expires 365d;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        access_log off;
+        sendfile on;
     }
     proxy_ignore_headers Set-Cookie Cache-Control expires;
     proxy_cache proxy_cache_panel;
     proxy_cache_key $host$uri$is_args$args;
     proxy_cache_valid 200 304 301 302 10m;
-
 }
 ```
 
@@ -127,8 +129,11 @@ location ~* ^/(editor|batch|views/ajax|entity_reference_autocomplete|taxonomy/([
     proxy_buffering on;
     add_header Strict-Transport-Security "max-age=31536000";
     proxy_set_header Host $host;
-    if ( $uri ~* "\.(gif|png|jpg|css|js|woff|woff2)$" ) {
-        expires 1m;
+    if ( $uri ~* "\.(gif|png|jpg|css|svg|js|woff|woff2)$" ) {
+      expires 365d;
+      add_header Cache-Control "public, max-age=31536000, immutable";
+      access_log off;
+      sendfile on;
     }
     proxy_ignore_headers Set-Cookie Cache-Control expires;
     proxy_cache proxy_cache_panel;
