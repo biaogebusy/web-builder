@@ -50,19 +50,14 @@
     }
     @include middle-center();
     > a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 40px;
-      width: 40px;
+      @apply flex justify-center items-center h-10 w-10 text-base;
       line-height: 40px;
-      font-size: 16px;
-      @include scale(0);
+      transform: scale(0);
       @include transition(all, 0.4s, ease);
       @include border-radius(3px, 3px, 3px, 3px);
       margin-right: 10px;
       &:last-child {
-        margin-right: 0;
+        @apply mr-0;
       }
     }
   }
@@ -124,7 +119,7 @@
     }
     .btns {
       > a {
-        @include scale(1);
+        transform: scale(0);
         @include transition(all, 0.4s, ease);
         &:not([class*='download']):hover {
           z-index: 1;
