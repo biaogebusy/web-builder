@@ -29,7 +29,6 @@
 @use './dashboard' as *;
 @use './chart-box' as *;
 @use './builder' as *;
-@use './theme-preview' as *;
 @use './tour' as *;
 @use './manage-media' as *;
 @use './layout-builder' as *;
@@ -73,7 +72,6 @@
   @include dashboard-color($theme);
   @include chart-box-color($theme);
   @include builder-color($theme);
-  @include theme-preview-color($theme);
   @include tour-color($theme);
   @include manage-media-color($theme);
   @include layout-builder-color($theme);

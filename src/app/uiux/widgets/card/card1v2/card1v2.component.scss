@@ -26,7 +26,7 @@
   }
   .title {
     ::ng-deep a {
-      @include line-clamp(2);
+      @apply line-clamp-2;
       &:hover {
         text-decoration: underline;
       }

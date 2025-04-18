@@ -29,7 +29,7 @@
   overflow: auto;
   ::ng-deep .media {
     .media-content {
-      @include line-clamp(3);
+      @apply line-clamp-3;
     }
   }
 }

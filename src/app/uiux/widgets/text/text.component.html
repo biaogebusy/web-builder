@@ -7,19 +7,6 @@
       @if (content.body) {
         <div #body class="text-body" contentedit="body" [innerHTML]="content.body | safeHtml"></div>
       }
-      @if (content.lists?.elements) {
-        <ul #list class="lists my-5 flex flex-col" [class.list-done]="content.lists?.params?.icon">
-          @for (list of content.lists?.elements; track list) {
-            <li class="flex justify-start items-center">
-              @if (!list.href) {
-                <span [innerHTML]="list.label"></span>
-              } @else {
-                <app-link [content]="list" />
-              }
-            </li>
-          }
-        </ul>
-      }
       @if (content.actions) {
         <div
           [attr.data-path]="'actions'"

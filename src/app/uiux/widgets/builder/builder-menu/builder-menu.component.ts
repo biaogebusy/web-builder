@@ -97,17 +97,4 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
       );
     }
   }
-
-  onColorTest(): void {
-    this.util.openSnackbar(`正在载入...`, 'ok');
-    this.builder.loadNewPage({
-      title: '主题色彩检查',
-      body: [
-        {
-          type: 'theme-preview',
-          fullWidth: true,
-        },
-      ],
-    });
-  }
 }
