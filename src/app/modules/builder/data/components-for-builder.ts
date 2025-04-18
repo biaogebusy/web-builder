@@ -11,7 +11,7 @@ export const components: any[] = [
             content: {
               spacer: 'none',
               type: 'hero-1v1',
-              classes: 'text-light text-center',
+              classes: 'text-white text-center',
               bg: {
                 classes: '',
               },
@@ -72,7 +72,7 @@ export const components: any[] = [
                       classes: 'mat-headline-2 bold',
                     },
                     spacer: 'xl',
-                    classes: 'xy-center text-light',
+                    classes: 'xy-center text-white',
                     bg: {
                       classes: 'bg-shadow  overlay overlay-80',
                       img: {
@@ -100,7 +100,7 @@ export const components: any[] = [
                       classes: 'mat-headline-2 bold',
                     },
                     spacer: 'xl',
-                    classes: 'xy-center text-light',
+                    classes: 'xy-center text-white',
                     bg: {
                       classes: 'bg-shadow  overlay overlay-80',
                       img: {
@@ -129,7 +129,7 @@ export const components: any[] = [
             content: {
               type: 'hero-1v2',
               spacer: 'none',
-              classes: 'text-light text-center',
+              classes: 'text-white text-center',
               right: {
                 params: {
                   navigation: false,
@@ -367,7 +367,7 @@ export const components: any[] = [
             label: '2v1',
             content: {
               type: 'hero-2v1',
-              theme: 'text-light',
+              theme: 'text-white',
               params: {
                 height: '750px',
               },
@@ -445,7 +445,7 @@ export const components: any[] = [
             label: 'XY自定义',
             content: {
               type: 'hero-2v1',
-              theme: 'text-light',
+              theme: 'text-white',
               params: {
                 height: '750px',
               },
@@ -1263,7 +1263,7 @@ export const components: any[] = [
                 },
               },
               spacer: 'md',
-              classes: 'text-light',
+              classes: 'text-white',
               bg: {
                 classes: ' overlay overlay-20',
                 img: {
@@ -1443,7 +1443,7 @@ export const components: any[] = [
                 },
               },
               spacer: 'md',
-              classes: 'text-light',
+              classes: 'text-white',
               bg: {
                 classes: ' overlay overlay-80',
                 img: {
@@ -3703,7 +3703,7 @@ export const components: any[] = [
                 elements: [
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -3739,7 +3739,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -3774,7 +3774,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -3994,7 +3994,7 @@ export const components: any[] = [
                 elements: [
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -4032,7 +4032,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -4103,7 +4103,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -4180,7 +4180,7 @@ export const components: any[] = [
                     sliderClasses: 'slider-center',
                     spacer: 'none',
                     type: 'hero-1v1',
-                    classes: 'text-light text-center',
+                    classes: 'text-white text-center',
                     bg: {
                       classes: '',
                     },
@@ -4228,7 +4228,7 @@ export const components: any[] = [
                             classes: 'mat-headline-2 bold',
                           },
                           spacer: 'xl',
-                          classes: 'xy-center text-light',
+                          classes: 'xy-center text-white',
                           bg: {
                             classes: 'bg-shadow  overlay overlay-80',
                             img: {
@@ -4256,7 +4256,7 @@ export const components: any[] = [
                             classes: 'mat-headline-2 bold',
                           },
                           spacer: 'xl',
-                          classes: 'xy-center text-light',
+                          classes: 'xy-center text-white',
                           bg: {
                             classes: 'bg-shadow  overlay overlay-80',
                             img: {

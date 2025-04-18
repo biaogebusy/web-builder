@@ -2902,7 +2902,7 @@ export const base = [
             overlay: '',
           },
           type: 'hero-2v1',
-          theme: 'text-light',
+          theme: 'text-white',
           params: {
             height: '750px',
           },
@@ -3524,7 +3524,7 @@ export const base = [
                 style: 'style-v1',
                 classes: 'mat-headline-3',
               },
-              classes: 'text-light',
+              classes: 'text-white',
               elements: [
                 {
                   type: 'text',
