@@ -1,45 +1,19 @@
-@use "sass:color";
-@use "sass:string";
-@mixin transition(
-  $prop: all,
-  $time: $transition_duration,
-  $ease: linear,
-  $delay: 0
-) {
+@use 'sass:color';
+@use 'sass:string';
+@mixin transition($prop: all, $time: $transition_duration, $ease: linear, $delay: 0) {
   transition: $prop $time $ease;
 }
 
-@mixin delay($delay: 0) {
-  transition-delay: $delay;
-}
-@mixin box-shadow($x: 0px, $y: 3px, $blur: 5px, $alpha: 0.5) {
-  box-shadow: $x $y $blur rgba(0, 0, 0, $alpha);
-}
-
-@mixin border-radius(
-  $topleft: 5px,
-  $topright: 5px,
-  $bottomleft: 5px,
-  $bottomright: 5px
-) {
+@mixin border-radius($topleft: 5px, $topright: 5px, $bottomleft: 5px, $bottomright: 5px) {
   border-radius: $topleft $topright $bottomright $bottomleft;
 }
 
 @mixin transform($rotate: 90deg, $scale: 1, $skew: 1deg, $translate: 10px) {
   transform: rotate($rotate) scale($scale) skew($skew) translate($translate);
 }
-@mixin transform(
-  $rotate: 90deg,
-  $scale: 1,
-  $skew: 1deg,
-  $translateX: 0px,
-  $translateY: 0px
-) {
+@mixin transform($rotate: 90deg, $scale: 1, $skew: 1deg, $translateX: 0px, $translateY: 0px) {
   transform: rotate($rotate) scale($scale) skew($skew) translateX($translateX)
     translateY($translateY);
-}
-@mixin transform-rotateY($rotate: 90deg) {
-  transform: rotateY($rotate);
 }
 
 @mixin transform-rotate($rotate: 90deg, $time: 0.5s, $ease: linear) {
@@ -59,15 +33,9 @@
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
-@mixin translateY($y: 0px) {
-  transform: translateY($y);
-}
+
 @mixin translateX($x: 0px) {
   transform: translateX($x);
-}
-
-@mixin translateXY($x: 0px, $y: 0px) {
-  transform: translateX($x) translateY($y);
 }
 
 @mixin translateAndScale($x: 0px, $y: 0px, $scale: 0) {
@@ -78,39 +46,11 @@
   transform: translateX($x) rotate($rotate);
 }
 
-@mixin scale($scale: 0) {
-  transform: scale($scale);
-}
-
-@mixin color-overlay($color: $base_color, $opacity: 0.8) {
-  background-color: rgba(color.red($color), color.green($color), color.blue($color), $opacity);
-}
-
 @mixin gradient($startColor: #eee, $endColor: white) {
   background-color: $startColor;
-  background-image: -webkit-gradient(
-    linear,
-    left 0%,
-    left 100%,
-    from($startColor),
-    to($endColor)
-  );
-  background-image: -webkit-linear-gradient(
-    top,
-    $startColor,
-    0%,
-    $endColor,
-    100%
-  );
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from($startColor), to($endColor));
+  background-image: -webkit-linear-gradient(top, $startColor, 0%, $endColor, 100%);
   background-image: linear-gradient(to bottom, $startColor 0%, $endColor 100%);
-}
-
-@mixin quick-gradient($origin: left, $alpha: 0.2) {
-  background-image: linear-gradient(
-    $origin,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, $alpha)
-  );
 }
 
 // @include responsive-ratio(16, 9)
@@ -128,16 +68,6 @@
   }
 }
 
-@mixin line-clamp($numLines: 1) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block !important;
-  /* autoprefixer: off */
-  display: -webkit-box !important;
-  -webkit-line-clamp: $numLines;
-  -webkit-box-orient: vertical;
-}
-
 @mixin scrollbar($color) {
   &::-webkit-scrollbar-thumb {
     background: $color;
@@ -145,15 +75,5 @@
   &::-webkit-scrollbar {
     height: 4px;
     width: 4px;
-  }
-}
-
-@function hsb($h-hsb, $s-hsb, $b-hsb, $a: 1) {
-  @if $b-hsb == 0 {
-    @return hsla(0, 0, 0, $a);
-  } @else {
-    $l-hsl: ($b-hsb/2) * (2 - ($s-hsb/100));
-    $s-hsl: ($b-hsb * $s-hsb) / if($l-hsl < 50, $l-hsl * 2, 200 - $l-hsl * 2);
-    @return hsla($h-hsb, $s-hsl, $l-hsl, $a);
   }
 }

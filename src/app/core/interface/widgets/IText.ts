@@ -11,12 +11,6 @@ export interface IText {
   title?: ITitle;
   body?: string;
   actionsAlign?: string;
-  lists?: {
-    params: {
-      icon: boolean;
-    };
-    elements: any[];
-  };
   actions?: any[];
 }
 

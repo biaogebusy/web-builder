@@ -164,7 +164,7 @@
       "additionalProperties": false,
       "properties": {
         "svg": {
-          "$ref": "#/definitions/SVG"
+          "type": "string"
         }
       },
       "required": ["svg"],
@@ -573,11 +573,6 @@
       },
       "required": ["href", "label", "svg"],
       "title": "Right"
-    },
-    "SVG": {
-      "type": "string",
-      "enum": ["zhihu", "weibo", "github", "chevron-right"],
-      "title": "SVG"
     },
     "Target": {
       "type": "string",

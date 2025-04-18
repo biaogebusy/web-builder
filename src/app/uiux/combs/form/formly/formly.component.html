@@ -1,10 +1,12 @@
 <form [formGroup]="form">
-  <formly-form
-    [ngClass]="classes"
-    [options]="options"
-    [form]="form"
-    [fields]="fieldsConfig()"
-    [model]="model"
-    (modelChange)="onModelChange($event)"
-  />
+  @if (fieldsConfig()) {
+    <formly-form
+      [ngClass]="classes"
+      [options]="options"
+      [form]="form"
+      [fields]="fieldsConfig()"
+      [model]="model"
+      (modelChange)="onModelChange($event)"
+    />
+  }
 </form>
