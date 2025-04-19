@@ -62,7 +62,7 @@ module.exports = {
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
-      pattern: /^bg-clip-(text|border|padding|content|border-box|padding-box|content-box)$/,
+      pattern: /^bg-clip-(border|padding|content|text)$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
@@ -96,7 +96,6 @@ module.exports = {
       pattern: /^rounded(-[tlbr]{1,2})?(-(none|sm|md|lg|xl|2xl|3xl|full))?$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
-    { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern: /^opacity-(0|5|10|20|30|40|50|60|70|75|80|90|95|100)$/,
       variants: ['sm', 'md', 'lg', 'hover', 'group-hover'],
@@ -143,14 +142,11 @@ module.exports = {
       pattern:
         /^(from|to)-(transparent|current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)(\/[0-9]{1,3})?)$/,
     },
-    {
-      pattern: /^shadow(-(sm|md|lg|xl|2xl|inner|none))?$/,
-      variants: ['xs', 'sm', 'md', 'lg'],
-    },
+    { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern:
         /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
-      variants: ['xs', 'sm', 'md', 'lg'],
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^(inset)(-x|-y|-t|-r|-b|-l)?-(0|full|px)$/,
