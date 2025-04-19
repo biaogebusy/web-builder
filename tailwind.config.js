@@ -113,7 +113,7 @@ module.exports = {
       variants: ['sm', 'md', 'lg'],
     },
     {
-      pattern: /^gap-([0-9]|10|12|14|16|20|24|28|32|36|40|48|56|64|72|80|96)$/,
+      pattern: /^gap-(?:[xy]-)?([0-9]|10|12|14|16|20|24|28|32|36|40|48|56|64|72|80|96)$/,
       variants: ['sm', 'md', 'lg'],
     },
     { pattern: /^grid-cols-([1-9]|10|11|12|none)$/, variants: ['sm', 'md', 'lg'] },
