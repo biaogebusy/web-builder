@@ -34,26 +34,6 @@
           color: $light;
         }
       }
-      .testimonial {
-        &.style-v2 {
-          .bx-wrapper {
-            img {
-              border-color: $light !important;
-            }
-          }
-          .testimonial-detail {
-            .info {
-              color: $light;
-            }
-            .sub-title {
-              color: $light;
-            }
-            .desc {
-              color: $light;
-            }
-          }
-        }
-      }
     }
   }
   .carousel-2-v2 {

@@ -1290,15 +1290,9 @@ export const widgets = [
           svg: 'format-wrap-square',
         },
         content: {
-          type: 'testimonial',
-          style: 'style-v2',
-          title: 'Johnson',
-          subTitle: 'FrontEnd',
-          img: {
-            src: '/assets/images/avatar/01.jpeg',
-            alt: '',
-          },
-          body: '作为一名非专业的Web开发者，我曾经因为缺乏编码和设计技能而感到十分困惑。然而自从我开始使用Builder构建页面后，我的许多顾虑就消失了。',
+          isAPI: false,
+          type: 'custom-template',
+          html: "<div class='flex flex-col items-center gap-1 p-5'>\n  <div class='border-2 border-gray-200 rounded-full border p-2'>\n    <img src='/assets/images/avatar/01.jpeg' \n         class='w-200 h-200 rounded-full object-cover'>\n  </div>\n  <h3 class='font-bold'>Johnson/前端开发</h3>\n  <p class='text-center max-w-xl'>作为一名非专业的Web开发者，我曾经因为缺乏编码和设计技能而感到十分困惑。然而自从我开始使用Builder构建页面后，我的许多顾虑就消失了。</p>\n</div>",
         },
       },
     ],

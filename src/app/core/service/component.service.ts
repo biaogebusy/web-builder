@@ -62,7 +62,6 @@ export class ComponentService {
         'feature-box',
         'media-meta',
         'content-box',
-        'testimonial',
         'github-star',
         'progress-bar',
         'media-object',

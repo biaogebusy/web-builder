@@ -31,7 +31,6 @@ import { ChipListComponent } from './chip-list/chip-list.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
-import { TestimonialComponent } from './testimonial/testimonial.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { IconComponent } from './icon/icon.component';
@@ -111,7 +110,6 @@ const components = [
   FeatureBoxComponent,
   BreadcrumbComponent,
   SwitchThemeComponent,
-  TestimonialComponent,
   UserCardCountComponent,
   NumberAnimateComponent,
   SidebarComponent,
