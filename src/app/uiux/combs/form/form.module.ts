@@ -24,6 +24,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { QuillModule } from 'ngx-quill';
+import { JsonFieldType } from './formly-type/json/json.component';
+import { NgJsonEditorModule } from 'ang-jsoneditor';
 
 const components = [
   SliderComponent,
@@ -38,6 +40,7 @@ const components = [
   DatepickerComponent,
   ContactUs1v1Component,
   TermsServiceComponent,
+  JsonFieldType,
 ];
 @NgModule({
   declarations: [...components],
@@ -51,6 +54,7 @@ const components = [
     WidgetsModule,
     MatDatepickerModule,
     MatSliderModule,
+    NgJsonEditorModule,
     QuillModule.forRoot(),
     FormlyModule.forRoot({
       types: [
@@ -73,6 +77,10 @@ const components = [
           name: 'slider',
           component: SliderComponent,
           wrappers: ['form-field'],
+        },
+        {
+          name: 'json',
+          component: JsonFieldType,
         },
       ],
       validationMessages: [

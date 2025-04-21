@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { TagsService } from '@core/service/tags.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
@@ -10,13 +11,16 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
   styleUrl: './node-add.component.scss',
 })
 export class NodeAddComponent implements OnInit {
-  public type = signal<string>('');
+  private tagsService = inject(TagsService);
   private activateRoute = inject(ActivatedRoute);
+
+  public type = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
   public fields = signal<FormlyFieldConfig[]>([]);
   ngOnInit() {
     this.activateRoute.params.subscribe(params => {
       const type = params['type'];
+      this.tagsService.setTitle('创建 ' + type + ' 页面');
       this.type.set(type);
 
       switch (type) {
@@ -32,7 +36,7 @@ export class NodeAddComponent implements OnInit {
             },
             {
               key: 'body',
-              type: 'textarea',
+              type: 'json',
               props: {
                 label: 'JSON',
                 required: true,

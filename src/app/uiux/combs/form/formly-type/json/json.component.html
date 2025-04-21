@@ -1,0 +1,3 @@
+@if (screenService.isPlatformBrowser()) {
+  <json-editor [options]="editorOptions" [data]="data" (change)="onChange($event)" />
+}
