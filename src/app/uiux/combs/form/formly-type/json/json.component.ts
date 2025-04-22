@@ -1,29 +1,29 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
-import { JsonEditorOptions } from 'ang-jsoneditor';
-
+declare let window: any;
 @Component({
   selector: 'app-json',
-  standalone: false,
   templateUrl: './json.component.html',
   styleUrl: './json.component.scss',
 })
-export class JsonFieldType extends FieldType<FieldTypeConfig> implements OnInit {
-  public screenService = inject(ScreenService);
+export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterViewInit {
+  private screenService = inject(ScreenService);
+  @ViewChild('jsoneditor', { read: ElementRef }) editor: ElementRef;
 
-  public editorOptions: JsonEditorOptions;
-  public data: any;
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.editorOptions = new JsonEditorOptions();
-      this.editorOptions.mode = 'code';
-      this.editorOptions.enableTransform = false;
-      this.editorOptions.enableSort = false;
+      const editor = new window.JSONEditor(this.editor.nativeElement, {
+        mode: 'code',
+        enableSort: false,
+        enableTransform: false,
+        onChange: () => {
+          try {
+            const json = editor.get();
+            this.formControl.setValue(json);
+          } catch (e) {}
+        },
+      });
     }
-  }
-
-  onChange(event: any): void {
-    this.formControl.setValue(event);
   }
 }

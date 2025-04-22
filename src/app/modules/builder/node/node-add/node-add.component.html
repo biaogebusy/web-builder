@@ -3,7 +3,7 @@
     <app-title [content]="{ label: type(), style: 'none' }"></app-title>
     <div class="node-form">
       <app-formly [form]="form" [fields]="fields()" />
-      <div class="actions flex justify-end">
+      <div class="actions flex justify-end my-5">
         <app-btn
           (click)="onSubmit(form.value)"
           [content]="{
@@ -15,7 +15,6 @@
             },
           }"
         />
-        {{ form.value }}
       </div>
     </div>
   </div>

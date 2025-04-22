@@ -1,17 +1,27 @@
-import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  inject,
+  signal,
+} from '@angular/core';
 import type { ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { JsonEditorOptions } from 'ang-jsoneditor';
 import { get } from 'lodash-es';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NodeService } from '@core/service/node.service';
-import { catchError, debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, skip, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog } from '@angular/material/dialog';
+import hljs from 'highlight.js/lib/core';
+import json from 'highlight.js/lib/languages/json';
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
@@ -20,12 +30,11 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CodeEditorComponent implements OnInit {
   @Input() content: ICodeEditor;
-  public editorOptions: JsonEditorOptions;
   public html = signal<string>('');
   public json = signal<any>(null);
   public isMore = signal<boolean>(true);
   public isCollapse = signal<boolean>(false);
-  public isAPI: boolean;
+  public isAPI = signal<boolean>(false);
   private api: string;
   public form = new UntypedFormGroup({});
   public htmlForm = new UntypedFormControl({});
@@ -58,26 +67,18 @@ export class CodeEditorComponent implements OnInit {
   private nodeService = inject(NodeService);
   public screenService = inject(ScreenService);
   public editing = signal<boolean>(false);
-
-  constructor() {
-    if (this.screenService.isPlatformBrowser()) {
-      this.editorOptions = new JsonEditorOptions();
-      this.editorOptions.mode = 'code'; // set only one mode
-      this.editorOptions.enableTransform = false;
-      this.editorOptions.enableSort = false;
-      this.editorOptions.navigationBar = false;
-      this.editorOptions.statusBar = false;
-    }
-  }
+  @ViewChild('jsonblock', { read: ElementRef }) jsonblock: ElementRef;
+  public highlightedCode = signal<string>('');
+  constructor() {}
 
   ngOnInit(): void {
     const { html, json = null, isAPI = false, api = '' } = this.content.content;
     this.html.set(html);
     this.json.set(json);
-    this.isAPI = isAPI;
+    this.isAPI.set(isAPI);
     this.api = api;
 
-    if (this.isAPI && this.api) {
+    if (this.isAPI() && this.api) {
       this.fields = [
         {
           fieldGroupClassName: 'flex flex-wrap',
@@ -97,11 +98,13 @@ export class CodeEditorComponent implements OnInit {
           ],
         },
       ];
+
       this.nodeService
         .fetch(this.api, '')
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res => {
-          this.json.set(res);
+          this.json.set(JSON.stringify(res));
+          this.highlightCode(this.jsonblock.nativeElement);
         });
     }
     this.onFormChange();
@@ -116,6 +119,11 @@ export class CodeEditorComponent implements OnInit {
           this.builder.fullScreen$.next(false);
         }
       });
+  }
+
+  highlightCode(block: any): void {
+    hljs.registerLanguage('json', json);
+    this.highlightedCode.set(hljs.highlight(this.json(), { language: 'json' }).value);
   }
 
   onHTMLChange(): void {
@@ -138,7 +146,7 @@ export class CodeEditorComponent implements OnInit {
     const { path } = this.content;
     if (path) {
       const content = { ...get(this.builder.currentPage.body, path), html };
-      if (this.isAPI) {
+      if (this.isAPI()) {
         content.json = null;
       }
       this.builder.updatePageContentByPath(`${path}`, content);
@@ -155,7 +163,13 @@ export class CodeEditorComponent implements OnInit {
 
   onFormChange(): void {
     this.form.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
+
+      .pipe(
+        skip(1),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe(value => {
         const { api } = value;
         if (!api) {

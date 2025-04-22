@@ -43,7 +43,6 @@
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-loading-bar/router": "5.1.2",
     "@popperjs/core": "^2.11.8",
-    "ang-jsoneditor": "^3.1.1",
     "angulartics2": "^13.1.0",
     "aos": "^3.0.0-beta.6",
     "crypto-js": "^4.1.1",

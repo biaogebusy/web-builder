@@ -4,12 +4,7 @@
       <mat-spinner diameter="20" color="primary" />
     </div>
   }
-  <json-editor
-    [matTooltip]="content.tooltip || ''"
-    [options]="editorOptions"
-    [data]="data"
-    (change)="onChange($event)"
-  />
+  <div #jsoneditor></div>
   @if (content.actions) {
     <div #actions class="actions m-top pb-[10px] flex justify-center items-center">
       @for (action of content.actions; track action) {
