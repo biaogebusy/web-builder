@@ -5,7 +5,6 @@ import {
   DestroyRef,
   ElementRef,
   Input,
-  OnInit,
   ViewChild,
   inject,
 } from '@angular/core';

@@ -1,7 +1,11 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IUser } from '@core/interface/IUser';
+import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
@@ -11,8 +15,12 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
   styleUrl: './node-add.component.scss',
 })
 export class NodeAddComponent implements OnInit {
+  private nodeService = inject(NodeService);
   private tagsService = inject(TagsService);
   private activateRoute = inject(ActivatedRoute);
+  public user$ = inject(USER);
+  private util = inject(UtilitiesService);
+  private router = inject(Router);
 
   public type = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
@@ -49,7 +57,29 @@ export class NodeAddComponent implements OnInit {
     });
   }
 
-  onSubmit(value: any): void {
+  onSubmit(value: any, user: IUser | any): void {
     console.log(value);
+    if (!user) {
+      this.util.openSnackbar('请登录后再试！', 'ok');
+      return;
+    }
+    const type = this.type();
+    switch (type) {
+      case 'json':
+        const { title, body } = value;
+        this.nodeService
+          .addEntity(
+            '/api/v1/json',
+            {
+              title,
+              body: JSON.stringify(body),
+            },
+            user.csrf_token
+          )
+          .subscribe(() => {
+            this.router.navigate(['/builder/settings']);
+          });
+        break;
+    }
   }
 }
