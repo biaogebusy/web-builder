@@ -14,6 +14,10 @@ export const getBgClasses = [
     value: 'bg-white',
   },
   {
+    label: '黑色',
+    value: 'bg-black',
+  },
+  {
     label: '灰色',
     value: 'bg-gray',
   },
