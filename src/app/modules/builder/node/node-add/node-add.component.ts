@@ -69,7 +69,7 @@ export class NodeAddComponent implements OnInit {
         const { title, body } = value;
         this.nodeService
           .addEntity(
-            '/api/v1/json',
+            `/api/v1/node/${type}`,
             {
               title,
               body: JSON.stringify(body),
