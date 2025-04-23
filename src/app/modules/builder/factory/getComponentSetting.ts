@@ -89,7 +89,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                       options: [
                         {
                           label: '无',
-                          value: null,
+                          value: 0,
                         },
                         {
                           label: '50',
