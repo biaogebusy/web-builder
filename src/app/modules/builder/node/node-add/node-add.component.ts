@@ -72,6 +72,7 @@ export class NodeAddComponent implements OnInit {
             `/api/v1/node/${type}`,
             {
               title,
+              status: true,
               body: JSON.stringify(body),
             },
             user.csrf_token
