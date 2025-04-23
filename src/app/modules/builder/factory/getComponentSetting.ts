@@ -88,6 +88,10 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                       label: '背景色等级',
                       options: [
                         {
+                          label: '无',
+                          value: null,
+                        },
+                        {
                           label: '50',
                           value: 50,
                         },

@@ -21,6 +21,11 @@ module.exports = {
     'animate-pulse',
     'text-transparent',
     'border',
+    'bg-black',
+    'bg-white',
+    'bg-inherit',
+    'bg-current',
+    'bg-transparent',
     { pattern: /^(flex-(\d{1,2}\/12))$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^(col-span-([1-9]|1[0-2]))$/, variants: ['sm', 'md', 'lg'] },
     {
@@ -54,7 +59,7 @@ module.exports = {
     },
     {
       pattern:
-        /^bg-(black|white|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)$/,
+        /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
