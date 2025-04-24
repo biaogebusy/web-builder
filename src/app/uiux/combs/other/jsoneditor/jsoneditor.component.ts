@@ -46,6 +46,7 @@ export class JsoneditorComponent implements AfterViewInit {
   private builderService = inject(BuilderService);
 
   ngAfterViewInit(): void {
+    this.util.loadStyle('/assets/styles/jsoneditor/jsoneditor.min.css');
     const { schemaType = '', data } = this.content;
     this.data = data;
     if (this.screenService.isPlatformBrowser()) {

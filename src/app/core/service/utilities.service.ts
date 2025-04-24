@@ -50,6 +50,21 @@ export class UtilitiesService {
     this.document.head.appendChild(script);
   }
 
+  loadStyle(href: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.document.querySelector(`link[href="${href}"]`)) {
+        resolve();
+        return;
+      }
+      const link = this.document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.onload = () => resolve();
+      link.onerror = () => reject(`Failed to load ${href}`);
+      this.document.head.appendChild(link);
+    });
+  }
+
   getFileType(href: string): string {
     if (!href) {
       return '';

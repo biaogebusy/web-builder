@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 declare let window: any;
 @Component({
@@ -9,10 +10,12 @@ declare let window: any;
 })
 export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterViewInit {
   private screenService = inject(ScreenService);
+  private util = inject(UtilitiesService);
   @ViewChild('jsoneditor', { read: ElementRef }) editor: ElementRef;
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
+      await this.util.loadStyle('/assets/styles/jsoneditor/jsoneditor.min.css');
       const editor = new window.JSONEditor(this.editor.nativeElement, {
         mode: 'code',
         enableSort: false,

@@ -18,12 +18,13 @@ import type { ISwiper } from '@core/interface/widgets/ISwiper';
 import { register } from 'swiper/element/bundle';
 import { Swiper } from 'swiper/types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UtilitiesService } from '@core/service/utilities.service';
 register();
 @Component({
-    selector: 'app-swiper',
-    templateUrl: './swiper.component.html',
-    styleUrls: ['./swiper.component.scss'],
-    standalone: false
+  selector: 'app-swiper',
+  templateUrl: './swiper.component.html',
+  styleUrls: ['./swiper.component.scss'],
+  standalone: false,
 })
 export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() content: ISwiper;
@@ -31,10 +32,11 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() navigationSub: Subject<number>;
   @Output() slideChange = new EventEmitter<Swiper>();
   @ViewChild('swiper', { static: false }) swiper: any;
-  screenService = inject(ScreenService);
-  destroyRef = inject(DestroyRef);
+  private destroyRef = inject(DestroyRef);
+  private screenService = inject(ScreenService);
+  private util = inject(UtilitiesService);
 
-  defaultConfig = {
+  private defaultConfig = {
     slidesPerView: 'auto',
     speed: 1000,
     scrollbar: false,
@@ -52,7 +54,7 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
       `,
     ],
   };
-  config: any;
+  private config: any;
   ngOnInit(): void {
     let customPagination = {};
     if (this.content?.custom?.pagination?.bulletsStyle) {
@@ -66,8 +68,9 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
     }
     this.config = Object.assign(this.defaultConfig, this.content?.params, customPagination);
   }
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
+      await this.util.loadStyle('/assets/styles/swiper/swiper-bundle.min.css');
       const swiperEle = this.swiper.nativeElement;
       Object.assign(swiperEle, this.config);
       swiperEle.initialize();
