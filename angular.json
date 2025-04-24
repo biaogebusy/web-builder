@@ -71,19 +71,8 @@
                 "bundleName": "pink-theme"
               }
             ],
-            "scripts": [
-              "node_modules/social-share.js/src/js/qrcode.js",
-              "node_modules/social-share.js/src/js/social-share.js",
-              "node_modules/jsoneditor/dist/jsoneditor.min.js"
-            ],
-            "allowedCommonJsDependencies": [
-              "highlight.js",
-              "lodash",
-              "crypto-js",
-              "jsoneditor",
-              "quill",
-              "dompurify"
-            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": ["highlight.js", "lodash", "crypto-js", "dompurify"],
             "stylePreprocessorOptions": {
               "includePaths": ["."]
             }

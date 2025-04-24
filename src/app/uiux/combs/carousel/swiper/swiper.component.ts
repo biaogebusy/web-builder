@@ -70,7 +70,7 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
   }
   async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
-      await this.util.loadStyle('/assets/styles/swiper/swiper-bundle.min.css');
+      await this.util.loadStyle('/assets/injects/swiper/swiper-bundle.min.css');
       const swiperEle = this.swiper.nativeElement;
       Object.assign(swiperEle, this.config);
       swiperEle.initialize();

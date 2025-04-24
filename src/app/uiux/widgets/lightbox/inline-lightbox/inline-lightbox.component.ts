@@ -17,6 +17,6 @@ export class InlineLightboxComponent implements AfterViewInit {
   };
 
   async ngAfterViewInit(): Promise<void> {
-    await this.util.loadStyle('/assets/styles/lightgallery/css/lightgallery-bundle.min.css');
+    await this.util.loadStyle('/assets/injects/lightgallery/css/lightgallery-bundle.min.css');
   }
 }

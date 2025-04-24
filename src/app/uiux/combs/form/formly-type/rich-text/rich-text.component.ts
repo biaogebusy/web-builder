@@ -58,8 +58,8 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnI
   ngOnInit(): void {}
 
   async ngAfterViewInit(): Promise<void> {
-    await this.util.loadStyle('/assets/styles/quill/quill.core.css');
-    await this.util.loadStyle('/assets/styles/quill/quill.snow.css');
+    await this.util.loadStyle('/assets/injects/quill/quill.core.css');
+    await this.util.loadStyle('/assets/injects/quill/quill.snow.css');
     this.contentChunks = this.chunkHTMLByBlocks(this.formControl.value);
   }
 

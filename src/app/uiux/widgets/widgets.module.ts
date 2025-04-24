@@ -43,7 +43,6 @@ import { PaginationLinksComponent } from './pagination/pagination-links/paginati
 import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
 import { BgImgComponent } from './bg-img/bg-img.component';
-import { ShareComponent } from './actions/share/share.component';
 import { Card1v1Component } from './card/card1v1/card1v1.component';
 import { BtnComponent } from './btn/btn.component';
 import { Card1v2Component } from './card/card1v2/card1v2.component';
@@ -123,7 +122,6 @@ const components = [
   ProgressGroupComponent,
   DialogComponent,
   FlagComponent,
-  ShareComponent,
   ShapeComponent,
   BgImgComponent,
   IframeComponent,

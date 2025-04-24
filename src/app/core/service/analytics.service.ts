@@ -9,10 +9,10 @@ declare let window: any;
 export class AnalyticsService {
   private utility = inject(UtilitiesService);
 
-  loadGoogleAnalytics(id: string): void {
+  async loadGoogleAnalytics(id: string): Promise<void> {
     // injecting GA main script asynchronously
     const src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
-    this.utility.loadScript(src, null, false);
+    await this.utility.loadScript(src, '', false);
 
     // preparing GA API to be usable even before the async script is loaded
     window.dataLayer = window.dataLayer || [];

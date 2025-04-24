@@ -36,7 +36,6 @@ export class ComponentService {
         'shape',
         'panel',
         'title',
-        'share',
         'divider',
         'spacer',
         'iframe',

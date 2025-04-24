@@ -33,7 +33,7 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     if (this.screenSerivce.isPlatformBrowser()) {
-      await this.util.loadStyle('/assets/styles/video/video-js.min.css');
+      await this.util.loadStyle('/assets/injects/video/video-js.min.css');
       this.player = videojs(this.target.nativeElement, this.content.options);
     }
   }

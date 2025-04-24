@@ -37,17 +37,30 @@ export class UtilitiesService {
     });
   }
 
-  loadScript(src: string, id?: any, defer?: boolean): any {
-    const script = this.document.createElement('script');
-    script.src = src;
-    script.async = true;
-    if (defer) {
-      script.defer = true;
-    }
-    if (id) {
-      script.id = id;
-    }
-    this.document.head.appendChild(script);
+  loadScript(src: string, id?: string, defer?: boolean): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const script = this.document.createElement('script');
+      script.src = src;
+      script.async = true;
+
+      if (defer) script.defer = true;
+      if (id) script.id = id;
+
+      // 设置加载完成回调
+      script.onload = () => {
+        script.onload = null; // 清理事件处理器
+        script.onerror = null;
+        resolve();
+      };
+
+      // 设置错误处理
+      script.onerror = error => {
+        script.remove(); // 移除失败脚本
+        reject(new Error(`Failed to load script: ${src}`, { cause: error }));
+      };
+
+      this.document.head.appendChild(script);
+    });
   }
 
   loadStyle(href: string): Promise<void> {
