@@ -39,6 +39,10 @@ export class UtilitiesService {
 
   loadScript(src: string, id?: string, defer?: boolean): Promise<void> {
     return new Promise((resolve, reject) => {
+      if (this.document.querySelector(`script[src="${src}"]`)) {
+        resolve();
+        return;
+      }
       const script = this.document.createElement('script');
       script.src = src;
       script.async = true;

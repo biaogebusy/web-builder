@@ -25,7 +25,7 @@ export class ConfigService {
       if (this.coreConfig) {
         if (this.coreConfig?.analytics?.ga) {
           const id = this.coreConfig.analytics.ga.id;
-          this.analyticsService.loadGoogleAnalytics(id);
+          this.analyticsService.initialize(id);
         }
         if (this.coreConfig?.dialog?.forceDialog) {
           this.dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
