@@ -72,9 +72,9 @@ export class CodeEditorComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    const { html, json = null, isAPI = false, api = '' } = this.content.content;
+    const { html, json: jsonValue = null, isAPI = false, api = '' } = this.content.content;
     this.html.set(html);
-    this.json.set(json);
+    this.json.set(jsonValue);
     this.isAPI.set(isAPI);
     this.api = api;
 
@@ -104,6 +104,13 @@ export class CodeEditorComponent implements OnInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res => {
           this.json.set(JSON.stringify(res));
+        });
+
+      this.dialog
+        .getDialogById('code-editor-dialog')
+        ?.afterOpened()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
           this.highlightCode(this.jsonblock.nativeElement);
         });
     }
