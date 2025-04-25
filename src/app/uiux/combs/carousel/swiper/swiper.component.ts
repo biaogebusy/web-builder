@@ -31,6 +31,7 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() index: number;
   @Input() navigationSub: Subject<number>;
   @Output() slideChange = new EventEmitter<Swiper>();
+  @Output() slideClick = new EventEmitter<any>();
   @ViewChild('swiper', { static: false }) swiper: any;
   private destroyRef = inject(DestroyRef);
   private screenService = inject(ScreenService);
@@ -97,7 +98,9 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
       }
     }
   }
-
+  onClick(slide: any): void {
+    this.slideClick.emit(slide);
+  }
   onpaginationRender(swiper: any): void {
     if (this.content?.custom?.pagination?.bulletsStyle) {
       const {
