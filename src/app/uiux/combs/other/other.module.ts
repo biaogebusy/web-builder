@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
-import { NgJsonEditorModule } from 'ang-jsoneditor';
 
 import { AutocloseComponent } from './autoclose/autoclose.component';
 import { BaseModule } from '@uiux/base/base.module';
@@ -20,13 +19,7 @@ const components = [
 
 @NgModule({
   declarations: [...components],
-  imports: [
-    ShareModule,
-    WidgetsModule,
-    NgJsonEditorModule,
-    FormModule,
-    MonacoEditorModule.forRoot(),
-  ],
+  imports: [ShareModule, WidgetsModule, FormModule, MonacoEditorModule.forRoot()],
   exports: [...components],
 })
 export class OtherModule extends BaseModule {

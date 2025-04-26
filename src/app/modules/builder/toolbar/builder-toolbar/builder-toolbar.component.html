@@ -84,11 +84,11 @@
             class="hidden sm:flex whitespace-nowrap"
             (click)="onSubmit(page)"
             [content]="{
-              label: page.translation ? '更新翻译' : page.uuid ? '更新保存' : '创建新页面',
+              label: page.translation ? '提交翻译' : page.uuid ? '提交更新' : '提交新页面',
               color: 'primary',
               mode: 'raised',
               icon: {
-                svg: page.uuid ? 'pencil' : 'pencil-plus',
+                svg: page.uuid ? 'pencil' : 'tray-arrow-up',
               },
             }"
           />

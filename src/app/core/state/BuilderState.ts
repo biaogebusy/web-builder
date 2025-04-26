@@ -68,7 +68,7 @@ export class BuilderState {
       this.version = localVersion;
       this.loading$.next(false);
     } else {
-      this.initPage([{ ...this.page, current: true, time: new Date() }]);
+      this.initPage([{ ...this.page, current: true, time: new Date().toLocaleString() }]);
     }
   }
 
@@ -125,7 +125,7 @@ export class BuilderState {
             title: '未命名',
             body: [],
             current: true,
-            time: new Date(),
+            time: new Date().toLocaleString(),
           },
         ];
         this.closeRightDrawer$.next(true);
@@ -309,7 +309,7 @@ export class BuilderState {
   }
 
   loadNewPage(page: IPage, close?: boolean): void {
-    const currentPage = { ...page, current: true, time: new Date() };
+    const currentPage = { ...page, current: true, time: new Date().toLocaleString() };
     let somePageIndex = -1;
     this.version.forEach(version => (version.current = false));
     somePageIndex = this.version.findIndex(item => {

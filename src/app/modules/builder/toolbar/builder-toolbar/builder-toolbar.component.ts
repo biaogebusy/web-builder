@@ -49,10 +49,10 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private userService = inject(UserService);
-  private user: IUser;
-  public date = signal<Date>(new Date());
   private router = inject(Router);
 
+  private user: IUser;
+  public date = signal<Date>(new Date());
   constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
@@ -133,6 +133,12 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
       this.openLogin();
       return;
     }
+
+    if (this.page?.body.length === 0) {
+      this.util.openSnackbar('请先添加组件', 'ok');
+      return;
+    }
+
     if (page.translation && page.target) {
       // 新增翻译
       this.builder.loading$.next(true);

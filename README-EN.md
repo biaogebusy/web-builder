@@ -66,7 +66,7 @@ This open-source project is very suitable for beginners to learn or advance thei
 - Charts: Echarts
 - Video: Video.js
 - File Generation: jspdf for PDF generation, html2canvas for image generation, fileSaver and jszip for zip generation
-- Editors: quill, ang-jsoneditor
+- Editors: quill, jsoneditor
 - Slideshow: swiper
 - Icon Fonts: material design icons + custom SVG icons
 - Encryption: crypto-js

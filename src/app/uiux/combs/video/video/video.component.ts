@@ -10,14 +10,15 @@ import {
 } from '@angular/core';
 import type { IVideo } from '@core/interface/widgets/IVideo';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import videojs from 'video.js';
 
 @Component({
-    selector: 'app-video',
-    templateUrl: './video.component.html',
-    styleUrls: ['./video.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: 'app-video',
+  templateUrl: './video.component.html',
+  styleUrls: ['./video.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class VideoComponent implements OnInit, OnDestroy {
   @ViewChild('target', { static: true }) target: ElementRef;
@@ -25,12 +26,14 @@ export class VideoComponent implements OnInit, OnDestroy {
   // https://videojs.com/guides/angular/
   @Input() content: IVideo;
 
-  player: any;
+  private player: any;
 
+  private util = inject(UtilitiesService);
   private screenSerivce = inject(ScreenService);
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if (this.screenSerivce.isPlatformBrowser()) {
+      await this.util.loadStyle('/assets/injects/video-js/video-js.min.css');
       this.player = videojs(this.target.nativeElement, this.content.options);
     }
   }

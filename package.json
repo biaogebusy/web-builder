@@ -41,7 +41,6 @@
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-loading-bar/router": "5.1.2",
     "@popperjs/core": "^2.11.8",
-    "ang-jsoneditor": "^3.1.1",
     "angulartics2": "^13.1.0",
     "aos": "^3.0.0-beta.6",
     "crypto-js": "^4.1.1",
@@ -72,7 +71,6 @@
     "quill": "^2.0.2",
     "rxjs": "~7.8.1",
     "shufflejs": "^5.3.0",
-    "social-share.js": "^1.0.16",
     "swiper": "^11.1.4",
     "typed.js": "^2.1.0",
     "video.js": "^8.16.1"

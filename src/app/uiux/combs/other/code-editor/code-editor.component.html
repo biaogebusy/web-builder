@@ -25,20 +25,26 @@
     ></app-btn>
   </div>
   <div class="toolbar p-5 flex gap-1 items-center">
-    <div class="text-white">{{ isAPI ? '数据来源 API' : 'Tailwind 自定义组件' }}</div>
+    <div class="text-white">{{ isAPI() ? '数据来源 API' : 'Tailwind 自定义组件' }}</div>
   </div>
   <div
     class="code-editor grid grid-cols-12 gap-2"
     [class.collapse]="isCollapse()"
     [class]="isMore() ? 'more' : 'less'"
   >
-    @if (isAPI) {
-      <div class="box col-span-12 {{ isAPI ? 'md:col-span-3' : '' }}  flex flex-col p-3">
+    @if (isAPI()) {
+      <div
+        class="box col-span-12 {{
+          isAPI() ? 'md:col-span-3' : ''
+        }}  flex flex-col p-3 max-h-full overflow-auto"
+      >
         <app-formly class="block" [form]="form" [fields]="fields" [model]="model" />
-        <json-editor class="block flex-auto" [options]="editorOptions" [data]="json()" />
+        <pre #jsonblock class="bg-white">
+          <code [innerHTML]="highlightedCode()" class="language-json whitespace-normal break-words"></code>
+        </pre>
       </div>
     }
-    <div class="box col-span-12 {{ isAPI ? 'md:col-span-9' : '' }}">
+    <div class="box col-span-12 {{ isAPI() ? 'md:col-span-9' : '' }}">
       <ngx-monaco-editor
         class="!h-full"
         [options]="MonacoOptions"

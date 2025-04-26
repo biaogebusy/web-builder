@@ -53,14 +53,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/swiper/swiper-bundle.css",
-              "node_modules/social-share.js/dist/css/share.min.css",
-              "node_modules/video.js/dist/video-js.min.css",
-              "node_modules/lightgallery/css/lightgallery-bundle.min.css",
               "node_modules/material-design-icons/iconfont/material-icons.css",
-              "node_modules/quill/dist/quill.core.css",
-              "node_modules/quill/dist/quill.snow.css",
-              "node_modules/jsoneditor/dist/jsoneditor.min.css",
               {
                 "input": "src/theme/theme-config/blue-config.scss",
                 "bundleName": "blue-theme"
@@ -78,18 +71,8 @@
                 "bundleName": "pink-theme"
               }
             ],
-            "scripts": [
-              "node_modules/social-share.js/src/js/qrcode.js",
-              "node_modules/social-share.js/src/js/social-share.js"
-            ],
-            "allowedCommonJsDependencies": [
-              "highlight.js",
-              "lodash",
-              "crypto-js",
-              "jsoneditor",
-              "quill",
-              "dompurify"
-            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": ["highlight.js", "lodash", "crypto-js", "dompurify"],
             "stylePreprocessorOptions": {
               "includePaths": ["."]
             }
@@ -111,7 +94,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "3mb",
-                  "maximumError": "10mb"
+                  "maximumError": "12mb"
                 },
                 {
                   "type": "anyComponentStyle",

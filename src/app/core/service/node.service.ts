@@ -105,26 +105,6 @@ export class NodeService extends ApiService {
     return attr?.path?.alias ? attr.path.alias : `/node/${attr.drupal_internal__nid}`;
   }
 
-  addNode(type: string, attr: any, token: string): Observable<any> {
-    const data = {
-      data: {
-        type: `node--${type}`,
-        attributes: {
-          title: attr.title,
-          body: {
-            value: attr.body,
-            format: 'plain_text',
-          },
-        },
-      },
-    };
-    return this.http.post<any>(
-      `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}`,
-      JSON.stringify(data),
-      this.optionsWithCookieAndToken(token)
-    );
-  }
-
   addComment(type: string, entityData: any, token: string): Observable<any> {
     const entity = {
       data: entityData,
@@ -321,19 +301,6 @@ export class NodeService extends ApiService {
         return isRule;
       }
     }
-  }
-
-  checkCurrentUserPayed(uid: string, entityId: string, token: string): Observable<boolean> {
-    const params = [`filter[uid.id]=${uid}`, `filter[entity_id]=${entityId}`].join('&');
-    return this.getFlaging(this.apiUrlConfig?.paymentPath, params, token).pipe(
-      map(res => {
-        if (res.data.length > 0) {
-          return true;
-        }
-        console.log('用户没有购买！');
-        return false;
-      })
-    );
   }
 
   checkNodeAccess(params: any, entityId: string, user: IUser): Observable<IArticleAccess> {

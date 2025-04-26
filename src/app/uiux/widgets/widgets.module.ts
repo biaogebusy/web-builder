@@ -31,7 +31,6 @@ import { ChipListComponent } from './chip-list/chip-list.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
-import { TestimonialComponent } from './testimonial/testimonial.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { IconComponent } from './icon/icon.component';
@@ -44,7 +43,6 @@ import { PaginationLinksComponent } from './pagination/pagination-links/paginati
 import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
 import { BgImgComponent } from './bg-img/bg-img.component';
-import { ShareComponent } from './actions/share/share.component';
 import { Card1v1Component } from './card/card1v1/card1v1.component';
 import { BtnComponent } from './btn/btn.component';
 import { Card1v2Component } from './card/card1v2/card1v2.component';
@@ -111,7 +109,6 @@ const components = [
   FeatureBoxComponent,
   BreadcrumbComponent,
   SwitchThemeComponent,
-  TestimonialComponent,
   UserCardCountComponent,
   NumberAnimateComponent,
   SidebarComponent,
@@ -125,7 +122,6 @@ const components = [
   ProgressGroupComponent,
   DialogComponent,
   FlagComponent,
-  ShareComponent,
   ShapeComponent,
   BgImgComponent,
   IframeComponent,

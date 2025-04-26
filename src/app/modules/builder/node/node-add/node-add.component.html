@@ -1,0 +1,22 @@
+@let user = user$ | async;
+<div class="node-add">
+  <div class="container">
+    <app-title [content]="{ label: type(), style: 'none' }"></app-title>
+    <div class="node-form">
+      <app-formly [form]="form" [fields]="fields()" />
+      <div class="actions flex my-8">
+        <app-btn
+          (click)="onSubmit(form.value, user)"
+          [content]="{
+            label: '确认提交',
+            color: 'primary',
+            mode: 'raised',
+            icon: {
+              svg: 'send',
+            },
+          }"
+        />
+      </div>
+    </div>
+  </div>
+</div>

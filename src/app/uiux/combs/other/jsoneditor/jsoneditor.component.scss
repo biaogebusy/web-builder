@@ -1,7 +1,5 @@
-::ng-deep json-editor,
-::ng-deep json-editor .jsoneditor,
-::ng-deep json-editor > div,
-::ng-deep json-editor .jsoneditor-outer {
+::ng-deep .jsoneditor,
+::ng-deep .jsoneditor-outer {
   min-height: 400px;
   .ace_editor.ace-jsoneditor {
     min-height: 400px;
@@ -14,10 +12,8 @@
 }
 :host-context(.preview-container),
 .full-height {
-  ::ng-deep json-editor,
-  ::ng-deep json-editor .jsoneditor,
-  ::ng-deep json-editor > div,
-  ::ng-deep json-editor .jsoneditor-outer {
+  ::ng-deep .jsoneditor,
+  ::ng-deep .jsoneditor-outer {
     height: calc(100vh - 100px);
     .ace_editor.ace-jsoneditor {
       height: calc(100vh - 100px);
