@@ -11,7 +11,7 @@ export const components: any[] = [
             content: {
               spacer: 'none',
               type: 'hero-1v1',
-              classes: 'text-light text-center',
+              classes: 'text-white text-center',
               bg: {
                 classes: '',
               },
@@ -72,7 +72,7 @@ export const components: any[] = [
                       classes: 'mat-headline-2 bold',
                     },
                     spacer: 'xl',
-                    classes: 'xy-center text-light',
+                    classes: 'xy-center text-white',
                     bg: {
                       classes: 'bg-shadow  overlay overlay-80',
                       img: {
@@ -100,7 +100,7 @@ export const components: any[] = [
                       classes: 'mat-headline-2 bold',
                     },
                     spacer: 'xl',
-                    classes: 'xy-center text-light',
+                    classes: 'xy-center text-white',
                     bg: {
                       classes: 'bg-shadow  overlay overlay-80',
                       img: {
@@ -129,7 +129,7 @@ export const components: any[] = [
             content: {
               type: 'hero-1v2',
               spacer: 'none',
-              classes: 'text-light text-center',
+              classes: 'text-white text-center',
               right: {
                 params: {
                   navigation: false,
@@ -367,7 +367,7 @@ export const components: any[] = [
             label: '2v1',
             content: {
               type: 'hero-2v1',
-              theme: 'text-light',
+              theme: 'text-white',
               params: {
                 height: '750px',
               },
@@ -445,7 +445,7 @@ export const components: any[] = [
             label: 'XY自定义',
             content: {
               type: 'hero-2v1',
-              theme: 'text-light',
+              theme: 'text-white',
               params: {
                 height: '750px',
               },
@@ -1263,7 +1263,7 @@ export const components: any[] = [
                 },
               },
               spacer: 'md',
-              classes: 'text-light',
+              classes: 'text-white',
               bg: {
                 classes: ' overlay overlay-20',
                 img: {
@@ -1443,7 +1443,7 @@ export const components: any[] = [
                 },
               },
               spacer: 'md',
-              classes: 'text-light',
+              classes: 'text-white',
               bg: {
                 classes: ' overlay overlay-80',
                 img: {
@@ -3703,7 +3703,7 @@ export const components: any[] = [
                 elements: [
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -3739,7 +3739,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -3774,7 +3774,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -3994,7 +3994,7 @@ export const components: any[] = [
                 elements: [
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -4032,7 +4032,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -4103,7 +4103,7 @@ export const components: any[] = [
                   },
                   {
                     type: 'text-hero',
-                    theme: 'text-light',
+                    theme: 'text-white',
                     params: {
                       height: '750px',
                     },
@@ -4180,7 +4180,7 @@ export const components: any[] = [
                     sliderClasses: 'slider-center',
                     spacer: 'none',
                     type: 'hero-1v1',
-                    classes: 'text-light text-center',
+                    classes: 'text-white text-center',
                     bg: {
                       classes: '',
                     },
@@ -4228,7 +4228,7 @@ export const components: any[] = [
                             classes: 'mat-headline-2 bold',
                           },
                           spacer: 'xl',
-                          classes: 'xy-center text-light',
+                          classes: 'xy-center text-white',
                           bg: {
                             classes: 'bg-shadow  overlay overlay-80',
                             img: {
@@ -4256,7 +4256,7 @@ export const components: any[] = [
                             classes: 'mat-headline-2 bold',
                           },
                           spacer: 'xl',
-                          classes: 'xy-center text-light',
+                          classes: 'xy-center text-white',
                           bg: {
                             classes: 'bg-shadow  overlay overlay-80',
                             img: {
@@ -5097,48 +5097,24 @@ export const components: any[] = [
                 classes: 'p-bottom',
                 elements: [
                   {
-                    type: 'testimonial',
-                    style: 'style-v2',
-                    title: 'Johnson',
-                    subTitle: 'FrontEnd',
-                    img: {
-                      src: '/assets/images/avatar/01.jpeg',
-                      alt: '',
-                    },
-                    body: 'Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。',
+                    isAPI: false,
+                    type: 'custom-template',
+                    html: "<div class='flex flex-col items-center gap-1 p-5'>\n  <div class='border-2 border-solid border-gray-200 rounded-full p-2'>\n    <img src='/assets/images/avatar/01.jpeg' \n         class='w-200 h-200 rounded-full object-cover'>\n  </div>\n  <h3 class='font-bold'>Johnson/前端开发</h3>\n  <p class='text-center max-w-xl'>Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>\n</div>",
                   },
                   {
-                    type: 'testimonial',
-                    style: 'style-v2',
-                    title: 'Will',
-                    subTitle: 'FrontEnd',
-                    img: {
-                      src: '/assets/images/avatar/02.jpeg',
-                      alt: '',
-                    },
-                    body: 'Storybook是我们团队的救星！它使我们能够独立地开发、测试和文档化组件，大大提高了我们的工作效率。非常好用！',
+                    isAPI: false,
+                    type: 'custom-template',
+                    html: "<div class='flex flex-col items-center gap-1 p-5'>\n  <div class='border-2 border-solid border-gray-200 rounded-full p-2'>\n    <img src='/assets/images/avatar/02.jpeg' \n         class='w-200 h-200 rounded-full object-cover'>\n  </div>\n  <h3 class='font-bold'>Johnson/前端开发</h3>\n  <p class='text-center max-w-xl'>Storybook是我们团队的救星！它使我们能够独立地开发、测试和文档化组件，大大提高了我们的工作效率。非常好用！</p>\n</div>",
                   },
                   {
-                    type: 'testimonial',
-                    style: 'style-v2',
-                    title: 'Ammy',
-                    subTitle: 'Backend',
-                    img: {
-                      src: '/assets/images/avatar/03.jpeg',
-                      alt: '',
-                    },
-                    body: '使用Storybook后，我们的组件开发变得更加高效和可靠。它帮助我们定义多个使用场景，清晰地展示组件在各种情景下的表现。我们团队对它赞不绝口！ ',
+                    isAPI: false,
+                    type: 'custom-template',
+                    html: "<div class='flex flex-col items-center gap-1 p-5'>\n  <div class='border-2 border-solid border-gray-200 rounded-full p-2'>\n    <img src='/assets/images/avatar/03.jpeg' \n         class='w-200 h-200 rounded-full object-cover'>\n  </div>\n  <h3 class='font-bold'>Johnson/前端开发</h3>\n  <p class='text-center max-w-xl'>使用Storybook后，我们的组件开发变得更加高效和可靠。它帮助我们定义多个使用场景，清晰地展示组件在各种情景下的表现。我们团队对它赞不绝口！</p>\n</div>",
                   },
                   {
-                    type: 'testimonial',
-                    style: 'style-v2',
-                    title: 'Alen',
-                    subTitle: 'FrontEnd',
-                    img: {
-                      src: '/assets/images/avatar/04.jpeg',
-                      alt: '',
-                    },
-                    body: 'Storybook为我们的团队带来了极大的协作效益。它提供了一个集中查看和交流的平台，团队成员可以轻松共享和讨论组件。无疑是一个必备工具！ ',
+                    isAPI: false,
+                    type: 'custom-template',
+                    html: "<div class='flex flex-col items-center gap-1 p-5'>\n  <div class='border-2 border-solid border-gray-200 rounded-full p-2'>\n    <img src='/assets/images/avatar/04.jpeg' \n         class='w-200 h-200 rounded-full object-cover'>\n  </div>\n  <h3 class='font-bold'>Johnson/前端开发</h3>\n  <p class='text-center max-w-xl'>Storybook为我们的团队带来了极大的协作效益。它提供了一个集中查看和交流的平台，团队成员可以轻松共享和讨论组件。无疑是一个必备工具！</p>\n</div>",
                   },
                 ],
               },

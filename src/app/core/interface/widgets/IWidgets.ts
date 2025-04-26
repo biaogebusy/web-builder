@@ -66,15 +66,6 @@ export interface IProgressGroup {
   elements: IProgressBar[];
 }
 
-export interface ITestimonial {
-  type?: 'testimonial';
-  style: object | string;
-  img: IImg;
-  title: string;
-  subTitle: string;
-  body: string;
-}
-
 export interface IChartBox {
   type?: 'chart';
   label: string;

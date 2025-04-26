@@ -2369,7 +2369,7 @@ export const system: any[] = [
               title: {
                 label: '综合搜索',
                 style: 'style-v1',
-                classes: 'mat-headline-3  text-light',
+                classes: 'mat-headline-3  text-white',
               },
               spacer: 'xl',
             },
@@ -3764,7 +3764,7 @@ export const system: any[] = [
               style: 'style-v1',
               classes: 'mat-headline-3',
             },
-            classes: 'text-light text-center mb-10',
+            classes: 'text-white text-center mb-10',
             body: '如果您有任何需要帮助，请联系我们！',
           },
           classes: 'text-center',

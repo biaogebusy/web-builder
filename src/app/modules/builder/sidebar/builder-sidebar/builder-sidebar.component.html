@@ -73,6 +73,7 @@
                         [routerLinkActive]="['active']"
                         [routerLinkActiveOptions]="{ exact: true }"
                         (click)="onHiddeRightDrawer()"
+                        *reqRolesIf="item"
                       >
                         @if (item.icon) {
                           <app-icon class="h-[24px] w-[24px] leading-none" [content]="item.icon" />

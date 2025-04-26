@@ -52,6 +52,7 @@ import { FormModule } from '@uiux/combs/form/form.module';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { CollectorComponent } from './main/collector/collector.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NodeAddComponent } from './node/node-add/node-add.component';
 
 const components = [
   JsonComponent,
@@ -67,6 +68,7 @@ const components = [
   PageSettingComponent,
   CardListComponent,
   CardPageComponent,
+  NodeAddComponent,
 ];
 
 @NgModule({

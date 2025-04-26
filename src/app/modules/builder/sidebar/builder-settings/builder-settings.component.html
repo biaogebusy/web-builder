@@ -56,6 +56,14 @@
             icon: { svg: 'reload', inline: true },
           }"
         />
+        <app-btn
+          (click)="addJSON()"
+          [content]="{
+            label: '新建配置',
+            color: 'primary',
+            icon: { svg: 'pencil-plus', inline: true },
+          }"
+        />
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

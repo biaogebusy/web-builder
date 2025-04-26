@@ -7,6 +7,7 @@ import {
   inject,
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { IPageList } from '@core/interface/IBuilder';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
@@ -36,6 +37,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
   private util = inject(UtilitiesService);
   private tagsService = inject(TagsService);
+  private router = inject(Router);
 
   constructor() {
     super();
@@ -95,5 +97,9 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
 
   reload(): void {
     this.getNodeJson('page=0&nocache=true');
+  }
+
+  addJSON(): void {
+    this.router.navigate(['/builder/node-add/json']);
   }
 }

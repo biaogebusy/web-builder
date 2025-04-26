@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { MAT_INPUT_VALUE_ACCESSOR, MatInput } from '@angular/material/input';
 import { NodeService } from '@core/service/node.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 import { FormlyFieldTextArea } from '@ngx-formly/material/textarea';
 import { createPopper } from '@popperjs/core';
@@ -16,10 +17,10 @@ import { QuillModule } from 'ngx-quill';
 export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnInit, AfterViewInit {
   @ViewChild(MatInput, { static: true }) formFieldControl!: MatInput;
   @ViewChild('popup', { static: false }) popup: ElementRef;
-  value: any;
-  contentChunks: string[] = []; // 分段内容
-  popper: any;
-  modules: QuillModule = {
+  private value: any;
+  private contentChunks: string[] = []; // 分段内容
+  private popper: any;
+  public modules: QuillModule = {
     toolbar: [
       [
         {
@@ -50,12 +51,15 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnI
       ['clean'],
     ],
   };
-  nodeService = inject(NodeService);
-  ele = inject(ElementRef);
+  private ele = inject(ElementRef);
+  private util = inject(UtilitiesService);
+  private nodeService = inject(NodeService);
 
   ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
+    await this.util.loadStyle('/assets/injects/quill/quill.core.css');
+    await this.util.loadStyle('/assets/injects/quill/quill.snow.css');
     this.contentChunks = this.chunkHTMLByBlocks(this.formControl.value);
   }
 

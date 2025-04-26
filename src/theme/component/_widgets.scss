@@ -42,30 +42,6 @@
     }
   }
 
-  .testimonial {
-    &.style-v2 {
-      .bx-wrapper {
-        img {
-          border-color: $divider-color !important;
-        }
-      }
-
-      .testimonial-detail {
-        .info {
-          color: mat.m2-get-color-from-palette($foreground, secondary-text);
-        }
-
-        .sub-title {
-          color: mat.m2-get-color-from-palette($primary);
-        }
-
-        .desc {
-          color: mat.m2-get-color-from-palette($foreground, secondary-text);
-        }
-      }
-    }
-  }
-
   .feature-cover {
     &:before {
       background: $bg-color;

@@ -3,8 +3,8 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
+  ElementRef,
   Input,
-  OnInit,
   ViewChild,
   inject,
 } from '@angular/core';
@@ -15,7 +15,6 @@ import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { Subject, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import brandingSchema from './schema/branding.schema.json';
@@ -24,18 +23,17 @@ import coreSchema from './schema/core.schema.json';
 import pageSchema from './schema/page.schema.json';
 import componentSchema from './schema/component.schema.json';
 import layoutBuilder from './schema/layoutBuilder.schema.json';
-
+declare let window: any;
 @Component({
   selector: 'app-jsoneditor',
   templateUrl: './jsoneditor.component.html',
   styleUrls: ['./jsoneditor.component.scss'],
   standalone: false,
 })
-export class JsoneditorComponent implements OnInit, AfterViewInit {
+export class JsoneditorComponent implements AfterViewInit {
   @Input() content: IJsoneditor;
-  public editorOptions: JsonEditorOptions;
+  @ViewChild('jsoneditor', { read: ElementRef }) editor: ElementRef;
   public data: any;
-  @ViewChild(JsonEditorComponent, { static: false })
   public value: any;
   public loading: boolean;
   private valueChange$: Subject<any> = new Subject<any>();
@@ -46,40 +44,52 @@ export class JsoneditorComponent implements OnInit, AfterViewInit {
   private util = inject(UtilitiesService);
   private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
-  constructor() {}
-  ngOnInit(): void {
-    const { schemaType = '' } = this.content;
+
+  async ngAfterViewInit(): Promise<void> {
+    this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
+    await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
+    const { schemaType = '', data } = this.content;
+    this.data = data;
     if (this.screenService.isPlatformBrowser()) {
-      this.editorOptions = new JsonEditorOptions();
-      this.editorOptions.mode = 'code'; // set only one mode
-      this.editorOptions.enableTransform = false;
-      this.editorOptions.enableSort = false;
+      let schema = {};
       switch (schemaType) {
         case '/core/builder':
-          this.editorOptions.schema = builderSchema;
+          schema = builderSchema;
           break;
         case '/core/base':
-          this.editorOptions.schema = coreSchema;
+          schema = coreSchema;
           break;
         case '/core/branding':
-          this.editorOptions.schema = brandingSchema;
+          schema = brandingSchema;
           break;
         case 'page':
-          this.editorOptions.schema = pageSchema;
+          schema = pageSchema;
           break;
         case 'layout-builder':
-          this.editorOptions.schema = layoutBuilder;
+          schema = layoutBuilder;
           break;
         case 'none':
           break;
         default:
-          this.editorOptions.schema = componentSchema;
+          schema = componentSchema;
       }
+      const editor = new window.JSONEditor(
+        this.editor.nativeElement,
+        {
+          mode: 'code',
+          enableSort: false,
+          enableTransform: false,
+          schema,
+          onChange: () => {
+            try {
+              const json = editor.get();
+              this.onChange(json);
+            } catch (e) {}
+          },
+        },
+        this.data
+      );
     }
-    this.data = this.content.data;
-  }
-
-  ngAfterViewInit(): void {
     this.valueChange$
       .pipe(debounceTime(1500), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
