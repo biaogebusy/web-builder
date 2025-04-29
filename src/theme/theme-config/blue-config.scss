@@ -53,8 +53,8 @@ $blue-theme: mat.m2-define-light-theme(
   )
 );
 
-.blue-theme {
-  @include mat.all-component-themes($blue-theme);
-  @include base-colors($blue-theme);
-  @include component-theme($blue-theme);
-}
+// .blue-theme {
+//   @include mat.all-component-themes($blue-theme);
+//   @include base-colors($blue-theme);
+//   @include component-theme($blue-theme);
+// }

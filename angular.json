@@ -55,10 +55,6 @@
               "src/styles.scss",
               "node_modules/material-design-icons/iconfont/material-icons.css",
               {
-                "input": "src/theme/theme-config/blue-config.scss",
-                "bundleName": "blue-theme"
-              },
-              {
                 "input": "src/theme/theme-config/dark-config.scss",
                 "bundleName": "dark-theme"
               },
