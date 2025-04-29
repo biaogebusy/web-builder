@@ -19,11 +19,11 @@ $dark-theme: mat.m2-define-dark-theme(
   )
 );
 
-.dark-theme {
-  @include mat.all-component-colors($dark-theme);
-  @include base-colors($dark-theme);
-  @include component-theme($dark-theme);
-  .mat-expansion-panel-header {
-    height: 48px;
-  }
-}
+// .dark-theme {
+//   @include mat.all-component-colors($dark-theme);
+//   @include base-colors($dark-theme);
+//   @include component-theme($dark-theme);
+//   .mat-expansion-panel-header {
+//     height: 48px;
+//   }
+// }

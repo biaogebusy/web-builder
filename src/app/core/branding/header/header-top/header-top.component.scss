@@ -1,6 +1,10 @@
 @use '../../../../../theme/mixins/amixin' as *;
+@use '@angular/material' as mat;
 .header-top {
   padding: 3px 0;
+  background-color: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  box-shadow: var(--mat-sys-level0);
 }
 .hotline {
   .item {
