@@ -9,6 +9,9 @@
     }
   }
 }
+.mdc-fab {
+  --mat-sys-corner-medium: 20px;
+}
 .mdc-button {
   ::ng-deep {
     .mdc-button__label {
