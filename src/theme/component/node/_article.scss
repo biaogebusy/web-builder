@@ -14,6 +14,7 @@
       color: $text-color;
     }
     .article-body {
+      color: mat.m2-get-color-from-palette($foreground, text, 0.85);
       pre {
         code {
           background-color: mat.m2-get-color-from-palette($background);
