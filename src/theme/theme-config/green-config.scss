@@ -52,8 +52,8 @@ $green-theme: mat.m2-define-light-theme(
   )
 );
 
-.green-theme {
-  @include mat.all-component-themes($green-theme);
-  @include base-colors($green-theme);
-  @include component-theme($green-theme);
-}
+// .green-theme {
+//   @include mat.all-component-themes($green-theme);
+//   @include base-colors($green-theme);
+//   @include component-theme($green-theme);
+// }

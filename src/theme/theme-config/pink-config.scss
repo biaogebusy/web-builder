@@ -52,8 +52,8 @@ $pink-theme: mat.m2-define-light-theme(
   )
 );
 
-.pink-theme {
-  @include mat.all-component-themes($pink-theme);
-  @include base-colors($pink-theme);
-  @include component-theme($pink-theme);
-}
+// .pink-theme {
+//   @include mat.all-component-themes($pink-theme);
+//   @include base-colors($pink-theme);
+//   @include component-theme($pink-theme);
+// }

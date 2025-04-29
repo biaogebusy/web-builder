@@ -4,12 +4,10 @@
 @use './map' as *;
 @use './widgets' as *;
 @use './showcase' as *;
-@use './box' as *;
 @use './img' as *;
 @use './list' as *;
 @use './title' as *;
 @use './carousel' as *;
-@use './banner' as *;
 @use './node/article' as *;
 @use './node/relate' as *;
 @use './node/report' as *;
@@ -46,13 +44,11 @@
   @include login-color($theme);
   @include map-color($theme);
   @include widgets-color($theme);
-  @include box-color($theme);
   @include showcase-color($theme);
   @include img-color($theme);
   @include list-color($theme);
   @include title-color($theme);
   @include carousel-color($theme);
-  @include banner-color($theme);
   @include article-color($theme);
   @include relate-color($theme);
   @include report-color($theme);

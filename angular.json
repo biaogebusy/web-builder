@@ -53,15 +53,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/material-design-icons/iconfont/material-icons.css",
-              {
-                "input": "src/theme/theme-config/green-config.scss",
-                "bundleName": "green-theme"
-              },
-              {
-                "input": "src/theme/theme-config/pink-config.scss",
-                "bundleName": "pink-theme"
-              }
+              "node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": ["highlight.js", "lodash", "crypto-js", "dompurify"],
