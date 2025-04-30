@@ -1,5 +1,9 @@
-.main {
-  border-radius: 20px;
+.full-calendar {
+  background-color: var(--mat-sys-primary-container);
+  .main {
+    border-radius: 20px;
+    background-color: var(--mat-sys-surface);
+  }
 }
 .mat-drawer {
   max-width: 75%;

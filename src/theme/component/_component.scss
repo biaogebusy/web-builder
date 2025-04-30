@@ -15,7 +15,6 @@
 @use './node/quesion' as *;
 @use './node/profile' as *;
 @use './dynamic-list' as *;
-@use './calendar' as *;
 @use './calculator' as *;
 @use './form' as *;
 @use './hero' as *;
@@ -61,7 +60,6 @@
   @include profile-color($theme);
   @include dynamic-list-color($theme);
   @include user-color($theme);
-  @include calendar-color($theme);
   @include comment-color($theme);
   @include calculator-color($theme);
   @include view-map-color($theme);
