@@ -1,3 +1,4 @@
+@use '../../../../../theme/mixins/amixin' as *;
 .builder-version {
   .mat-mdc-list-item {
     cursor: pointer;
@@ -28,6 +29,10 @@
     .time {
       font-size: 14px;
       opacity: 0.5;
+      &:focus-visible {
+        color: var(--mat-sys-primary);
+        border-bottom-color: var(--mat-sys-outline);
+      }
     }
     .delete {
       position: absolute;
@@ -40,6 +45,7 @@
     .mat-expansion-panel-body {
       max-height: 224px;
       overflow: auto;
+      @include scrollbar(var(--mat-sys-primary));
     }
   }
 }

@@ -1,7 +1,6 @@
 @use '@angular/material' as mat;
 @use 'sass:map';
 @use '../mixins/amixin' as *;
-@use './builder/main-sidebar' as *;
 @use './builder/builder-inline-edit' as *;
 
 $dark-primary: mat.m2-define-palette(mat.$m2-gray-palette, 300, 50, 500);
@@ -33,43 +32,8 @@ $darkPrimary: map.get(
 );
 
 @mixin theme($background, $foreground, $primary, $warn) {
-  background-color: mat.m2-get-color-from-palette($background, card);
   .builder {
     .builder-workspace {
-      .builder-toolbar {
-        background-color: mat.m2-get-color-from-palette($background, background);
-        color: mat.m2-get-color-from-palette($foreground, text, 0.75);
-        .left {
-          .page-title {
-            border-bottom: 1px solid transparent;
-            &:focus-visible {
-              outline: none;
-              border-bottom-color: mat.m2-get-color-from-palette($primary);
-            }
-          }
-        }
-        .middle {
-          .time {
-            color: mat.m2-get-color-from-palette($foreground, text, 0.45);
-          }
-        }
-        &.fixed {
-          @include mat.elevation(2, mat.m2-get-color-from-palette($background, tooltip), 0.25);
-        }
-        .right {
-          color: mat.m2-get-color-from-palette($foreground, text, 0.5);
-          .mat-unthemed {
-            .mdc-button__label {
-              color: mat.m2-get-color-from-palette($foreground, text, 0.5);
-            }
-          }
-        }
-      }
-      .builder-main {
-        > .sidebar {
-          @include main-sidebar($background, $foreground, $primary);
-        }
-      }
       > .mat-drawer-container {
         background-color: transparent;
       }
@@ -110,14 +74,6 @@ $darkPrimary: map.get(
         &:hover {
           background-color: mat.m2-get-color-from-palette($primary, 200);
           border-color: mat.m2-get-color-from-palette($primary);
-        }
-      }
-    }
-    .mat-drawer {
-      .actions {
-        &.expand {
-          background-color: mat.m2-get-color-from-palette($background, card);
-          @include mat.elevation(2, mat.m2-get-color-from-palette($background, hover), 0.4);
         }
       }
     }

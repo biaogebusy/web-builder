@@ -1,5 +1,5 @@
 @use '../../../../../theme/variable/breakpoint' as *;
-
+@use '../../../../../theme/mixins/amixin' as *;
 .builder-workspace {
   height: 100vh;
   display: flex;
@@ -9,6 +9,8 @@
 }
 .sidebar {
   width: 230px;
+  background-color: var(--mat-sys-surface);
+  border-radius: 0;
   ::ng-deep {
     .mat-expansion-panel-header {
       padding: 0 16px;
@@ -16,6 +18,9 @@
     .mat-expansion-panel-body {
       padding-left: 16px;
       padding-right: 16px;
+    }
+    .mat-drawer-inner-container {
+      @include scrollbar(var(--mat-sys-outline));
     }
   }
   @media #{$gt-sm} {
