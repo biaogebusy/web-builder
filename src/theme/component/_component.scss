@@ -17,7 +17,6 @@
 @use './user' as *;
 @use './node/comment' as *;
 @use './view-map' as *;
-@use './builder' as *;
 @use './tour' as *;
 @use './manage-media' as *;
 @use './layout-builder' as *;
@@ -48,7 +47,6 @@
   @include comment-color($theme);
   @include calculator-color($theme);
   @include view-map-color($theme);
-  @include builder-color($theme);
   @include tour-color($theme);
   @include manage-media-color($theme);
   @include layout-builder-color($theme);

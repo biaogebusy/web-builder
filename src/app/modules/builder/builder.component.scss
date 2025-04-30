@@ -39,6 +39,19 @@
       margin-left: 200px;
     }
   }
+  &.dark {
+    ::ng-deep {
+      .builder-toolbar,
+      .mat-drawer.sidebar {
+        --mat-sys-surface: #424242;
+        --mat-sys-on-surface: #fff;
+        --mat-sys-primary: #fff;
+        --mat-sys-on-surface-variant: #fff;
+        --mat-sys-surface-container: #303030;
+        --mat-sys-background: #303030;
+      }
+    }
+  }
 }
 
 .mat-drawer {
