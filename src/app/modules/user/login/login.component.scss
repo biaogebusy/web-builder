@@ -21,6 +21,9 @@
 
 .login-wrapper {
   max-height: 600px;
+  background-color: var(--mat-sys-surface-container-lowest);
+  border: 1px solid var(--mat-sys-surface-bright);
+  box-shadow: var(--mat-sys-level1);
   @apply max-w-full sm:w-[750px];
   mat-spinner {
     position: absolute;
@@ -29,7 +32,10 @@
     transform: translate(-50%, -50%);
     z-index: 10;
   }
-
+  .error {
+    background-color: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+  }
   .login-form {
     .mat-mdc-raised-button {
       height: 40px;
@@ -62,7 +68,7 @@
 
 .login-second {
   min-width: 300px;
-
+  background-color: var(--mat-sys-background);
   img {
     max-width: 100%;
     max-height: 100%;
@@ -79,5 +85,6 @@
   right: 0;
   bottom: 0;
   left: auto;
+  background-color: var(--may-sys-background);
   z-index: 1;
 }

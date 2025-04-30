@@ -15,6 +15,10 @@
   .toggle {
     border-bottom-left-radius: 4px;
     background-color: #272727;
-    color: var(--mat-sys-on-primary);
+    ::ng-deep {
+      .mat-icon {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
   }
 }

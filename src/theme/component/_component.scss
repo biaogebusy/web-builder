@@ -1,5 +1,4 @@
 @use './header' as *;
-@use './login' as *;
 @use './map' as *;
 @use './widgets' as *;
 @use './showcase' as *;
@@ -18,8 +17,6 @@
 @use './node/comment' as *;
 @use './view-map' as *;
 @use './tour' as *;
-@use './manage-media' as *;
-@use './layout-builder' as *;
 @use './builder/layout-setting' as *;
 
 // material custom
@@ -29,7 +26,6 @@
 
 @mixin component-theme($theme) {
   @include header-color($theme);
-  @include login-color($theme);
   @include map-color($theme);
   @include widgets-color($theme);
   @include showcase-color($theme);
@@ -48,8 +44,6 @@
   @include calculator-color($theme);
   @include view-map-color($theme);
   @include tour-color($theme);
-  @include manage-media-color($theme);
-  @include layout-builder-color($theme);
   @include layout-setting($theme);
 
   // material custom ui

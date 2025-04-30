@@ -1,4 +1,5 @@
 .cdk-overlay-container {
+  --mat-dialog-container-max-width: 80vw;
   .manage-media-dialog {
     .mat-mdc-dialog-content {
       max-height: none;
@@ -132,6 +133,17 @@
         height: 100%;
         overflow: hidden;
       }
+    }
+  }
+
+  .layout-toolbar-menu {
+    background-color: var(--mat-sys-inverse-surface);
+    .mat-mdc-menu-item,
+    .mat-mdc-menu-item:visited,
+    .mat-mdc-menu-item:link,
+    .mat-mdc-menu-item .mat-icon-no-color,
+    .mat-mdc-menu-item .mat-mdc-menu-submenu-icon {
+      color: var(--mat-sys-on-primary);
     }
   }
 }
