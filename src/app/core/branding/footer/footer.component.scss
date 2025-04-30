@@ -9,4 +9,14 @@
       text-decoration: none;
     }
   }
+
+  ::ng-deep {
+    .shape-inverse {
+      color: #282828;
+    }
+
+    .shape-inverse-light {
+      color: var(--mat-sys-surface-container-high);
+    }
+  }
 }

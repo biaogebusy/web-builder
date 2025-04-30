@@ -1,5 +1,6 @@
 .lists {
   position: relative;
+  min-height: calc(100vh - 350px);
   .mat-mdc-progress-spinner {
     position: absolute;
     left: 50%;

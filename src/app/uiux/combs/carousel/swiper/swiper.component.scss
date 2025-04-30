@@ -7,6 +7,18 @@
 }
 
 .swiper-container {
+  --swiper-navigation-color: var(--mat-sys-primary);
+  --swiper-theme-color: var(--mat-sys-primary);
+  .swiper-pagination-bullet-active {
+    background-color: var(--mat-sys-primary);
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: var(--mat-sys-on-primary);
+    background-color: var(--mat-sys-inverse-primary);
+    border-radius: 50%;
+    padding: 6px;
+  }
   &.full-screen {
     height: 100vh;
     width: 100%;
