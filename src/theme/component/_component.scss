@@ -3,7 +3,6 @@
 @use './map' as *;
 @use './widgets' as *;
 @use './showcase' as *;
-@use './img' as *;
 @use './list' as *;
 @use './title' as *;
 @use './node/article' as *;
@@ -13,8 +12,6 @@
 @use './node/quesion' as *;
 @use './node/profile' as *;
 @use './calculator' as *;
-@use './form' as *;
-@use './hero' as *;
 @use './search' as *;
 @use './media' as *;
 @use './user' as *;
@@ -37,7 +34,6 @@
   @include map-color($theme);
   @include widgets-color($theme);
   @include showcase-color($theme);
-  @include img-color($theme);
   @include list-color($theme);
   @include title-color($theme);
   @include article-color($theme);
@@ -45,8 +41,6 @@
   @include report-color($theme);
   @include map-list-color($theme);
   @include question-color($theme);
-  @include form-color($theme);
-  @include hero-color($theme);
   @include search-color($theme);
   @include media-color($theme);
   @include profile-color($theme);

@@ -438,11 +438,6 @@
           background-color: var(--mat-sys-primary);
         }
       }
-      ::ng-deep {
-        .mat-icon {
-          border: 1px solid var(--mat-sys-primary);
-        }
-      }
     }
     &:hover {
       .box-icon {
