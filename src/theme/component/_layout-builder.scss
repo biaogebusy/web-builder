@@ -12,10 +12,6 @@
     .layout-builder {
       .layout-inner {
         > .layout {
-          &:hover {
-            outline: 1px dashed mat.m2-get-color-from-palette($primary);
-            z-index: 10;
-          }
           .layout-toolbar {
             .toggle {
               background-color: #272727;

@@ -54,5 +54,32 @@
         }
       }
     }
+    > .layout {
+      .placeholder {
+        color: rgba(0, 0, 0, 0.75);
+        &:hover {
+          color: var(--mat-sys-primary);
+        }
+      }
+      // .blocks {
+      //   > .item {
+      //     > .toolbar {
+      //       background-color: #333;
+      //       box-shadow: var(--mat-sys-level0);
+      //       .mat-mdc-button-base,
+      //       .title {
+      //         color: var(--mat-sys-on-primary);
+      //       }
+      //       .title {
+      //         background: rgb(0 0 0 / 40%);
+      //       }
+      //     }
+      //   }
+      // }
+      &:hover {
+        outline: 1px dashed var(--mat-sys-primary);
+        z-index: 10;
+      }
+    }
   }
 }

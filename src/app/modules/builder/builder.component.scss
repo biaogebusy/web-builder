@@ -6,6 +6,8 @@
     visibility: visible !important;
     transform: none !important;
     display: block;
+    border-right: 0;
+    --mat-sys-corner-large: 0;
     ::ng-deep {
       > .mat-drawer-inner-container {
         overflow: hidden;
@@ -14,6 +16,14 @@
     }
     &.mat-drawer-opened {
       width: 200px;
+    }
+    &.opened {
+      box-shadow: 1px 1px 6px 0px rgb(48 48 48 / 20%);
+      transition: box-shadow 0.1s ease-in;
+    }
+    &.closed {
+      box-shadow: 1px 1px 6px 0px rgb(48 48 48 / 50%) !important;
+      transition: box-shadow 0.1s ease-out;
     }
   }
   .drawer-content {

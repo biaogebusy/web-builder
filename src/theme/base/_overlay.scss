@@ -34,11 +34,29 @@
     width: 100vw !important;
     max-width: none !important;
     --mat-dialog-content-padding: 0;
+    --mdc-dialog-container-color: transparent;
     .dialog {
       .mat-mdc-dialog-content {
         overflow: hidden;
         border-radius: 20px 20px 0 0;
         max-height: none;
+        background-color: var(--mat-sys-neutral10);
+      }
+      .monaco-editor,
+      .monaco-editor-background,
+      .monaco-editor .inputarea.ime-input {
+        background-color: #282c34;
+      }
+      .monaco-editor {
+        .margin {
+          background-color: var(--mat-sys-neutral10);
+        }
+      }
+      .toolbar {
+        background-color: var(--mat-sys-neutral10);
+      }
+      .code-editor-show-btn {
+        --mdc-icon-button-icon-color: #fff;
       }
       .dialog-colse-outside-btn {
         top: 8px;

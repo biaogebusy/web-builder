@@ -48,6 +48,15 @@ html.drawer-disable-scroll {
   }
 }
 
+[contenteditable] {
+  outline: none;
+}
+
+[contenteditable='true'] {
+  cursor: text;
+  background-color: var(--mat-sys-primary-container);
+}
+
 .line-height-1 {
   line-height: 1 !important;
 }
@@ -59,6 +68,12 @@ html.drawer-disable-scroll {
 img {
   box-sizing: border-box;
   vertical-align: middle;
+  &[contenteditable='false'] {
+    &:hover {
+      cursor: pointer;
+      opacity: 0.85;
+    }
+  }
 }
 
 .clearfix {

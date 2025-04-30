@@ -2,8 +2,6 @@
 @use 'sass:map';
 @use '../mixins/amixin' as *;
 @use './builder/main-sidebar' as *;
-@use './builder/builder-sidebar' as *;
-@use './builder/builder-list' as *;
 @use './builder/builder-inline-edit' as *;
 
 $dark-primary: mat.m2-define-palette(mat.$m2-gray-palette, 300, 50, 500);
@@ -36,7 +34,6 @@ $darkPrimary: map.get(
 
 @mixin theme($background, $foreground, $primary, $warn) {
   background-color: mat.m2-get-color-from-palette($background, card);
-  @include builder-sidebar($background, $foreground, $primary);
   .builder {
     .builder-workspace {
       .builder-toolbar {
@@ -75,9 +72,6 @@ $darkPrimary: map.get(
       }
       > .mat-drawer-container {
         background-color: transparent;
-        .builder-list {
-          @include builder-list($background, $foreground, $primary, $warn);
-        }
       }
       .mat-drawer-content {
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
@@ -130,28 +124,6 @@ $darkPrimary: map.get(
   }
 }
 
-@mixin code-editor-theme($darkBg, $darkFore, $darkPrimary, $warn) {
-  .code-editor-dialog {
-    --mdc-dialog-container-color: transparent;
-    .dialog {
-      .mat-mdc-dialog-content {
-        background-color: mat.m2-get-color-from-palette($darkBg, card);
-      }
-      .monaco-editor,
-      .monaco-editor-background,
-      .monaco-editor .inputarea.ime-input {
-        background-color: #282c34;
-      }
-      .toolbar {
-        background-color: mat.m2-get-color-from-palette($darkBg, app-bar);
-      }
-      .code-editor-show-btn {
-        --mdc-icon-button-icon-color: #fff;
-      }
-    }
-  }
-}
-
 @mixin builder-color($theme) {
   $config: mat.m2-get-color-config($theme);
   $foreground: map.get($config, foreground);
@@ -160,7 +132,6 @@ $darkPrimary: map.get(
   $accent: map.get($config, accent);
   $warn: map.get($config, warn);
 
-  @include code-editor-theme($darkBg, $darkFore, $darkPrimary, $warn);
   .builder-wrapper {
     @include theme($background, $foreground, $primary, $warn);
 
@@ -186,18 +157,6 @@ $darkPrimary: map.get(
   .drawer-right {
     .builder-list {
       min-width: 85vw;
-    }
-  }
-
-  .builder-template {
-    .card {
-      border: 1px solid mat.m2-get-color-from-palette($foreground, divider);
-      background-color: mat.m2-get-color-from-palette($background, card);
-      transition: all 0.1s ease-in;
-      @include mat.elevation(4, mat.m2-get-color-from-palette($foreground, divider), 0.4);
-      &:hover {
-        border-color: mat.m2-get-color-from-palette($primary);
-      }
     }
   }
 }
