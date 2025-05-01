@@ -74,6 +74,10 @@ pre {
   --mdc-protected-button-container-height: 36px;
   --mdc-outlined-button-container-height: 36px;
   --mat-form-field-container-height: 56px;
+  .mdc-fab {
+    --mat-sys-corner-large: 50%;
+    --mat-sys-corner-medium: 50%;
+  }
 }
 
 .blue-theme {
@@ -84,8 +88,13 @@ pre {
         primary: blue-colors.$primary-palette,
         tertiary: blue-colors.$tertiary-palette,
       ),
-      typography: Roboto,
       density: 0,
+    )
+  );
+  @include mat.theme-overrides(
+    (
+      background: #fafafa,
+      surface: #fafafa,
     )
   );
 }
@@ -97,7 +106,6 @@ pre {
         primary: blue-colors.$primary-palette,
         tertiary: blue-colors.$tertiary-palette,
       ),
-      typography: Roboto,
       density: 0,
     )
   );

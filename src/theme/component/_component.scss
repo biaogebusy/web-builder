@@ -1,5 +1,4 @@
 @use './header' as *;
-@use './map' as *;
 @use './widgets' as *;
 @use './showcase' as *;
 @use './list' as *;
@@ -11,8 +10,6 @@
 @use './node/quesion' as *;
 @use './node/profile' as *;
 @use './calculator' as *;
-@use './search' as *;
-@use './media' as *;
 @use './user' as *;
 @use './node/comment' as *;
 @use './view-map' as *;
@@ -26,7 +23,6 @@
 
 @mixin component-theme($theme) {
   @include header-color($theme);
-  @include map-color($theme);
   @include widgets-color($theme);
   @include showcase-color($theme);
   @include list-color($theme);
@@ -36,8 +32,6 @@
   @include report-color($theme);
   @include map-list-color($theme);
   @include question-color($theme);
-  @include search-color($theme);
-  @include media-color($theme);
   @include profile-color($theme);
   @include user-color($theme);
   @include comment-color($theme);

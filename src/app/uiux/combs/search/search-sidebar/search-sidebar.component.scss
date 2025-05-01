@@ -5,3 +5,10 @@
 .mat-expansion-panel:not([class*='mat-elevation-z']) {
   box-shadow: none;
 }
+.search-sidebar {
+  background-color: var(--mat-sys-surface-container-lowest);
+  box-shadow: var(--mat-sys-level1);
+  .mat-expansion-panel:not([class*='mat-elevation-z']) {
+    border-bottom: 1px solid var(--mat-sys-outline);
+  }
+}

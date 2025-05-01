@@ -1,8 +1,37 @@
 .search-list {
   margin: 0 auto;
   min-height: 100vh;
+  .results {
+    color: var(--mat-sys-surface-variant);
+  }
   .list {
+    background-color: var(--mat-sys-surface-container-lowest);
+    border-bottom: 1px solid var(--mat-sys-surface-bright);
+    color: var(--mat-sys-on-surface-variant);
     overflow: hidden;
+    .title,
+    .content {
+      ::ng-deep {
+        em,
+        strong {
+          color: var(--mat-sys-error);
+          font-weight: normal;
+          font-style: normal;
+        }
+        a {
+          color: var(--mat-sys-on-surface);
+          &:hover {
+            color: var(--mat-sys-primary);
+          }
+          em,
+          strong {
+            color: var(--mat-sys-error);
+            font-weight: normal;
+            font-style: normal;
+          }
+        }
+      }
+    }
     .bottom {
       font-size: 14px;
     }
