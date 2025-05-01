@@ -170,4 +170,30 @@
     z-index: 10;
     transform: translate(-50%, -50%);
   }
+
+  ::ng-deep {
+    .layout-builder {
+      @apply pt-[30px];
+      .layout {
+        @apply p-0;
+        &:hover {
+          outline-offset: -2px;
+          outline: 1px dashed var(--mat-sys-primary);
+          > .toolbar {
+            display: block;
+          }
+        }
+      }
+      .layout-inner {
+        > .layout {
+          .placeholder {
+            color: rgba(0, 0, 0, 0.75);
+            &:hover {
+              color: var(--mat-sys-on-primary);
+            }
+          }
+        }
+      }
+    }
+  }
 }
