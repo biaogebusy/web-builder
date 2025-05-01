@@ -1,0 +1,39 @@
+.comment-list {
+  background-color: var(--mat-sys-background);
+  box-shadow: var(--mat-sys-level1);
+  .item {
+    &:after {
+      border-bottom: 1px solid var(--mat-sys-surface-dim);
+    }
+    &:last-child:after {
+      border-bottom: 0;
+    }
+    .item-child {
+      background-color: var(--mat-sys-surface-container-highest);
+    }
+  }
+  .inline-editor {
+    background-color: var(--mat-sys-background);
+  }
+  .actions {
+    .mat-primary {
+      .mat-mdc-progress-spinner circle {
+        stroke: var(--mat-sys-on-primary);
+      }
+    }
+  }
+  .comment-count {
+    border-bottom: 1px solid var(--mat-sys-surface-dim);
+  }
+  .empty {
+    .mat-icon {
+      font-size: 60px;
+      color: var(--mat-sys-inverse-primary);
+    }
+  }
+  .comment-box {
+    .time {
+      color: var(--mat-sys-on-surface-variant);
+    }
+  }
+}

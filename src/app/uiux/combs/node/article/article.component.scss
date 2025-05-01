@@ -13,21 +13,36 @@
   p {
     margin: 1.4em 0;
   }
+  pre {
+    code {
+      background-color: var(--mat-sys-background);
+    }
+  }
 }
 
 .article-meta {
   font-size: 14px;
+  color: var(--mat-sys-on-surface-variant);
   .mat-icon {
     margin-right: 5px;
   }
 }
-
+.line {
+  border: 1px dashed var(--mat-sys-error);
+  border-radius: 4px;
+  &:hover {
+    a {
+      color: var(--mat-sys-primary);
+    }
+  }
+}
 .shadow {
   display: block;
   width: 100%;
   height: 80px;
   position: absolute;
   bottom: 0;
+  background: linear-gradient(0deg, var(--mat-sys-background), transparent);
 }
 
 .auth {

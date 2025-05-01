@@ -13,6 +13,7 @@
     .item {
       list-style: none;
       padding: 10px 0;
+      border-bottom: 1px dotted var(--mat-sys-surface-dim);
       &:last-child {
         border-bottom: none;
       }
@@ -23,11 +24,17 @@
         display: inline-block;
         margin-right: 10px;
         font-size: 15px;
+        color: var(--mat-sys-on-surface);
+        &:active,
+        &:hover {
+          color: var(--mat-sys-primary);
+        }
       }
     }
   }
   .action {
     cursor: pointer;
+    color: var(--mat-sys-primary);
     .mat-icon {
       transition: all 0.4s ease;
     }

@@ -1,23 +1,17 @@
 @use './header' as *;
-@use './node/article' as *;
 @use './node/relate' as *;
 @use './node/report' as *;
-@use './node/map-list-common' as *;
 @use './node/quesion' as *;
 @use './node/profile' as *;
 @use './calculator' as *;
-@use './node/comment' as *;
 @use './tour' as *;
 
 @mixin component-theme($theme) {
   @include header-color($theme);
-  @include article-color($theme);
   @include relate-color($theme);
   @include report-color($theme);
-  @include map-list-color($theme);
   @include question-color($theme);
   @include profile-color($theme);
-  @include comment-color($theme);
   @include calculator-color($theme);
   @include tour-color($theme);
 }
