@@ -1,5 +1,4 @@
 @use './header' as *;
-@use './widgets' as *;
 @use './list' as *;
 @use './node/article' as *;
 @use './node/relate' as *;
@@ -19,7 +18,6 @@
 
 @mixin component-theme($theme) {
   @include header-color($theme);
-  @include widgets-color($theme);
   @include list-color($theme);
   @include article-color($theme);
   @include relate-color($theme);

@@ -27,3 +27,14 @@
   bottom: 10px;
   z-index: 10;
 }
+
+::ng-deep {
+  .jsoneditor {
+    border-color: var(--mat-sys-primary);
+
+    .jsoneditor-menu {
+      background-color: var(--mat-sys-primary);
+      border-bottom-color: var(--mat-sys-primary);
+    }
+  }
+}

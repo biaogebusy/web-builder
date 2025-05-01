@@ -47,6 +47,18 @@
     color: mat.m2-get-color-from-palette($warn);
   }
 
+  .border-primary {
+    border: 1px solid var(--mat-sys-primary) !important;
+  }
+
+  .border-warn {
+    border: 1px solid var(--mat-sys-error) !important;
+  }
+
+  .border-accent {
+    border: 1px solid var(--mat-sys-primary) !important;
+  }
+
   .bg-primary {
     background-color: mat.m2-get-color-from-palette($primary);
     color: $contrast;

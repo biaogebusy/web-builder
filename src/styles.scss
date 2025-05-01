@@ -49,7 +49,9 @@ body {
     position: relative;
   }
 }
-
+.mat-mdc-outlined-button:not(.mat-button-disabled) {
+  border-color: var(--mat-sys-primary);
+}
 .mat-icon {
   display: swap;
 }
