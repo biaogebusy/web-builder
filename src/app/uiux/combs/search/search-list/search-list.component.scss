@@ -2,11 +2,11 @@
   margin: 0 auto;
   min-height: 100vh;
   .results {
-    color: var(--mat-sys-surface-variant);
+    @apply text-neutral-500;
   }
   .list {
-    background-color: var(--mat-sys-surface-container-lowest);
-    border-bottom: 1px solid var(--mat-sys-surface-bright);
+    background-color: var(--mat-sys-background);
+    border-bottom: 1px solid var(--mat-sys-surface-dim);
     color: var(--mat-sys-on-surface-variant);
     overflow: hidden;
     .title,

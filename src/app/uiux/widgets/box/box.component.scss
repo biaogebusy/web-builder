@@ -560,7 +560,6 @@
   &.style-v10 {
     display: flex;
     padding-bottom: 20px;
-    background-color: var(--mat-sys-primary-container);
     ::ng-deep {
       .mat-icon {
         color: var(--mat-sys-primary);
@@ -576,9 +575,12 @@
       border-radius: 50%;
       margin-right: 10px;
       margin-bottom: 10px;
+      background-color: var(--mat-sys-primary-container);
+
       ::ng-deep {
         ::ng-deep .mat-icon {
           font-size: 24px;
+          color: var(--mat-sys-primary);
         }
       }
     }
@@ -589,6 +591,9 @@
   }
 
   &.style-v10 {
+    .box-icon {
+      background-color: var(--mat-sys-primary-container);
+    }
     @media #{$gt-sm} {
       text-align: right;
       .box-icon {

@@ -34,7 +34,7 @@
         color: var(--mat-sys-primary);
       }
       &:hover {
-        background-color: var(--may-sys-primary-container);
+        background-color: var(--mat-sys-primary-container);
       }
     }
   }
@@ -69,7 +69,7 @@
       ::ng-deep {
         > app-dynamic-component {
           > app-spacer {
-            background-color: var(--may-sys-primary-container);
+            background-color: var(--mat-sys-primary-container);
           }
         }
       }

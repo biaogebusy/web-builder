@@ -1,6 +1,5 @@
 @use './header' as *;
 @use './widgets' as *;
-@use './showcase' as *;
 @use './list' as *;
 @use './title' as *;
 @use './node/article' as *;
@@ -24,7 +23,6 @@
 @mixin component-theme($theme) {
   @include header-color($theme);
   @include widgets-color($theme);
-  @include showcase-color($theme);
   @include list-color($theme);
   @include title-color($theme);
   @include article-color($theme);

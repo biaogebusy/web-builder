@@ -24,7 +24,7 @@
       border-bottom: 0;
     }
     &:hover {
-      background-color: var(--may-sys-primary);
+      background-color: var(--mat-sys-primary);
       ::ng-deep .fix-bar-popup {
         display: block;
         color: var(--mat-sys-on-surface);
