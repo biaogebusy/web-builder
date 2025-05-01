@@ -1,7 +1,6 @@
 @use './header' as *;
 @use './widgets' as *;
 @use './list' as *;
-@use './title' as *;
 @use './node/article' as *;
 @use './node/relate' as *;
 @use './node/report' as *;
@@ -9,9 +8,7 @@
 @use './node/quesion' as *;
 @use './node/profile' as *;
 @use './calculator' as *;
-@use './user' as *;
 @use './node/comment' as *;
-@use './view-map' as *;
 @use './tour' as *;
 @use './builder/layout-setting' as *;
 
@@ -24,17 +21,14 @@
   @include header-color($theme);
   @include widgets-color($theme);
   @include list-color($theme);
-  @include title-color($theme);
   @include article-color($theme);
   @include relate-color($theme);
   @include report-color($theme);
   @include map-list-color($theme);
   @include question-color($theme);
   @include profile-color($theme);
-  @include user-color($theme);
   @include comment-color($theme);
   @include calculator-color($theme);
-  @include view-map-color($theme);
   @include tour-color($theme);
   @include layout-setting($theme);
 
