@@ -49,6 +49,10 @@
       }
     }
     ::ng-deep {
+      [contenteditable='true'] {
+        cursor: text;
+        background-color: var(--mat-sys-primary-container);
+      }
       .active-toolbar {
         position: relative;
         display: block;

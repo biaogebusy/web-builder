@@ -17,6 +17,9 @@
 
 .current {
   border-radius: 4px;
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-sys-on-primary) !important;
+  border-radius: 4px;
 }
 
 .pagination-previous,
