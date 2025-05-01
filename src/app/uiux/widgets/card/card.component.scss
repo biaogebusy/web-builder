@@ -1,4 +1,30 @@
 @use '../../../../theme/mixins/amixin' as *;
+.mat-mdc-card {
+  color: inherit;
+  background-color: var(--mat-sys-background);
+  &:hover {
+    cursor: pointer;
+  }
+  .meta {
+    .badge {
+      background-color: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+    }
+  }
+  .mat-mdc-card-title {
+    ::ng-deep {
+      a {
+        color: var(--mat-sys-on-surface);
+        &:hover {
+          color: var(--mat-sys-primary);
+        }
+      }
+    }
+  }
+  .mat-mdc-card-subtitle {
+    color: inherit;
+  }
+}
 .card-body {
   min-height: 40px;
 }
@@ -75,6 +101,7 @@
 .card-body {
   font-size: 14px;
   word-break: break-word;
+  color: var(--mat-sys-on-surface-variant);
 }
 
 .mat-mdc-card-content {

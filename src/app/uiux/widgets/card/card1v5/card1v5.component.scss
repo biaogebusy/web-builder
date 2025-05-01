@@ -1,3 +1,13 @@
 app-icon {
   display: inherit;
 }
+.card-1v5 {
+  box-shadow: var(--mat-sys-level1);
+  background-color: var(--mat-sys-background);
+  .more {
+    color: var(--mat-sys-primary);
+    .mat-icon {
+      color: inherit;
+    }
+  }
+}

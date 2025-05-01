@@ -1,5 +1,4 @@
 @use './header' as *;
-@use './list' as *;
 @use './node/article' as *;
 @use './node/relate' as *;
 @use './node/report' as *;
@@ -9,16 +8,9 @@
 @use './calculator' as *;
 @use './node/comment' as *;
 @use './tour' as *;
-@use './builder/layout-setting' as *;
-
-// material custom
-@use './mat/card' as *;
-@use './mat/chip-list' as *;
-@use './mat/dropdown-menu' as *;
 
 @mixin component-theme($theme) {
   @include header-color($theme);
-  @include list-color($theme);
   @include article-color($theme);
   @include relate-color($theme);
   @include report-color($theme);
@@ -28,10 +20,4 @@
   @include comment-color($theme);
   @include calculator-color($theme);
   @include tour-color($theme);
-  @include layout-setting($theme);
-
-  // material custom ui
-  @include card-color($theme);
-  @include chip-list-color($theme);
-  @include dropdown-menu-color($theme);
 }
