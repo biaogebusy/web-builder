@@ -9,6 +9,8 @@
 @use 'aos/dist/aos.css';
 @use '@angular/material' as mat;
 @use './theme/theme-config/blue-colors' as blue-colors;
+@use './theme/theme-config/green-colors' as green-colors;
+@use './theme/theme-config/pink-colors' as pink-colors;
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -70,7 +72,6 @@ pre {
   }
 }
 :root {
-  // TODO: 临时修复
   --mdc-text-button-container-height: 36px;
   --mdc-filled-button-container-height: 36px;
   --mdc-protected-button-container-height: 36px;
@@ -81,7 +82,18 @@ pre {
     --mat-sys-corner-medium: 50%;
   }
 }
-
+.dark-theme {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: blue-colors.$primary-palette,
+        tertiary: blue-colors.$tertiary-palette,
+      ),
+      density: 0,
+    )
+  );
+}
 .blue-theme {
   @include mat.theme(
     (
@@ -100,15 +112,39 @@ pre {
     )
   );
 }
-.dark-theme {
+.green-theme {
   @include mat.theme(
     (
       color: (
-        theme-type: dark,
-        primary: blue-colors.$primary-palette,
-        tertiary: blue-colors.$tertiary-palette,
+        theme-type: light,
+        primary: green-colors.$primary-palette,
+        tertiary: green-colors.$tertiary-palette,
       ),
       density: 0,
+    )
+  );
+  @include mat.theme-overrides(
+    (
+      background: #fafafa,
+      surface: #fafafa,
+    )
+  );
+}
+.pink-theme {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: pink-colors.$primary-palette,
+        tertiary: pink-colors.$tertiary-palette,
+      ),
+      density: 0,
+    )
+  );
+  @include mat.theme-overrides(
+    (
+      background: #fafafa,
+      surface: #fafafa,
     )
   );
 }
