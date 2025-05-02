@@ -38,6 +38,10 @@ body {
   line-height: 1.618;
   overflow-x: hidden;
   overflow-y: auto;
+  .mat-mdc-raised-button:not(:disabled) {
+    color: var(--mat-sys-on-primary);
+    background-color: var(--mat-sys-primary);
+  }
 }
 
 // fix sidebar position sticky
