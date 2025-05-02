@@ -1,7 +1,9 @@
 .mega-menu {
-  @apply absolute left-0 w-full bg-white hidden overflow-auto;
+  @apply absolute left-0 w-full hidden overflow-auto;
   z-index: -1;
   max-height: 85vh;
+  background-color: var(--mat-sys-surface-container-lowest);
+  box-shadow: var(--mat-sys-level1);
 
   &.active {
     display: block;

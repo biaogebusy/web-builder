@@ -1,5 +1,0 @@
-@use './header' as *;
-
-@mixin component-theme($theme) {
-  @include header-color($theme);
-}

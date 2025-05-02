@@ -1,7 +1,6 @@
 @use '@angular/material' as mat;
 @use 'sass:map';
 @use '../mixins/base-color' as *;
-@use '../component/component' as *;
 $green-color: (
   //
   50: #d5f5f1,
