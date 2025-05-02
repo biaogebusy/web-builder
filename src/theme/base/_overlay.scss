@@ -1,5 +1,8 @@
 .cdk-overlay-container {
   --mat-dialog-container-max-width: 80vw;
+  .mat-mdc-dialog-surface {
+    overflow-x: hidden;
+  }
   .manage-media-dialog {
     .mat-mdc-dialog-content {
       max-height: none;

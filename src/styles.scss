@@ -42,6 +42,9 @@ body {
     color: var(--mat-sys-on-primary);
     background-color: var(--mat-sys-primary);
   }
+  .mat-warn:not(:disabled) {
+    color: var(--mat-sys-error);
+  }
 }
 
 // fix sidebar position sticky
@@ -81,6 +84,8 @@ pre {
   --mdc-protected-button-container-height: 36px;
   --mdc-outlined-button-container-height: 36px;
   --mat-form-field-container-height: 56px;
+  --mdc-text-button-label-text-size: 14px;
+  --mat-sys-label-large-size: 14px;
   .mdc-fab {
     --mat-sys-corner-large: 50%;
     --mat-sys-corner-medium: 50%;
@@ -112,7 +117,9 @@ pre {
   @include mat.theme-overrides(
     (
       background: #fafafa,
+      on-background: rgb(0 0 0 / 75%),
       surface: #fafafa,
+      on-surface: rgb(0 0 0 / 75%),
     )
   );
 }
@@ -130,7 +137,9 @@ pre {
   @include mat.theme-overrides(
     (
       background: #fafafa,
+      on-background: rgb(0 0 0 / 75%),
       surface: #fafafa,
+      on-surface: rgb(0 0 0 / 75%),
     )
   );
 }
@@ -148,7 +157,9 @@ pre {
   @include mat.theme-overrides(
     (
       background: #fafafa,
+      on-background: rgb(0 0 0 / 75%),
       surface: #fafafa,
+      on-surface: rgb(0 0 0 / 75%),
     )
   );
 }
