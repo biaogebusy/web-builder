@@ -128,7 +128,7 @@ export class ComponentService {
     },
     {
       module: 'NodeModule',
-      components: ['article', 'question', 'report', 'relate'],
+      components: ['article', 'question', 'report'],
     },
     {
       module: 'FormModule',
