@@ -1,14 +1,5 @@
 @use './header' as *;
-@use './node/relate' as *;
-@use './node/report' as *;
-@use './node/quesion' as *;
-@use './calculator' as *;
-@use './tour' as *;
 
 @mixin component-theme($theme) {
   @include header-color($theme);
-  @include relate-color($theme);
-  @include report-color($theme);
-  @include calculator-color($theme);
-  @include tour-color($theme);
 }
