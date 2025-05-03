@@ -1,7 +1,8 @@
 .builder-toolbar {
   position: relative;
-  background-color: var(--mat-sys-surface-container);
+  background-color: var(--mat-sys-background);
   color: var(--mat-sys-on-surface);
+  box-shadow: var(--mat-sys-level1);
   .wrapper {
     padding-left: 20px;
     padding-right: 20px;
