@@ -4,7 +4,7 @@
   overflow: hidden;
   @apply transition-all;
   .box {
-    border: 1px solid var(--mat-sys-surface-dim);
+    border: 1px solid transparent;
     box-shadow: var(--mat-sys-level1);
 
     .jsoneditor {
