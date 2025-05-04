@@ -8,6 +8,17 @@
     border-left: 0;
     border-right: 0;
     border-bottom-width: 1px;
+    transition: all 0.4s ease;
+    border-bottom-color: var(--mat-sys-surface-dim);
+    a {
+      color: inherit;
+    }
+    &:hover {
+      a {
+        color: var(--mat-sys-primary);
+      }
+      border-bottom-color: var(--mat-sys-primary);
+    }
     .mat-mdc-card-content {
       .mat-mdc-card-title {
         font-size: 18px;

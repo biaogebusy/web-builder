@@ -9,5 +9,10 @@
     height: 26px;
     line-height: 1;
     padding: 0px 2px;
+    background-color: var(--mat-sys-surface);
+    border: 1px solid var(--mat-sys-surface-variant);
+    &:hover {
+      border-color: var(--mat-sys-primary);
+    }
   }
 }

@@ -1,6 +1,22 @@
 .dashboard {
+  background-color: var(--mat-sys-background);
   .box {
     padding: 10px;
     display: block;
+    ::ng-deep {
+      .dashboard-box {
+        background-color: var(--mat-sys-background);
+        border: 1px solid var(--mat-sys-surface-container);
+        box-shadow: var(--mat-sys-level0);
+        .box-header {
+          border-bottom: 1px solid var(--mat-sys-outline-variant);
+          .filter {
+            .mat-icon {
+              color: var(--mat-sys-on-surface);
+            }
+          }
+        }
+      }
+    }
   }
 }

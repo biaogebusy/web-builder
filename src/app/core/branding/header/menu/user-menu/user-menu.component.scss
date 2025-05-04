@@ -1,4 +1,7 @@
+@use '@angular/material' as mat;
+
 .user {
+  --mat-sys-corner-medium: 20px;
   ::ng-deep {
     .name {
       @apply m-0 uppercase font-normal;

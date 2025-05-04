@@ -2,3 +2,10 @@
   font-size: 14px;
   opacity: 0.85;
 }
+
+.list-thin {
+  .item {
+    background-color: var(--mat-sys-surface);
+    box-shadow: var(--mat-sys-level1);
+  }
+}

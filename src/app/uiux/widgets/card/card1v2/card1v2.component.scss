@@ -1,5 +1,11 @@
 @use '../../../../../theme/mixins/amixin' as *;
 @use '../../../../../theme/variable/breakpoint' as *;
+.card-1-v2 {
+  color: var(--mat-sys-on-primary);
+  a {
+    color: var(--mat-sys-on-primary);
+  }
+}
 
 .card-content {
   .media {

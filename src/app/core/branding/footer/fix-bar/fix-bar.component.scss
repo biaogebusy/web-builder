@@ -5,6 +5,7 @@
   z-index: 999;
   border-radius: 3px;
   box-shadow: 0 6px 15px 0 rgb(6 12 19 / 14%);
+  background-color: var(--mat-sys-primary);
   .label {
     font-size: 12px;
   }
@@ -14,9 +15,22 @@
     line-height: 1.2;
     width: 60px;
     height: 60px;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    &,
+    a {
+      color: var(--mat-sys-on-primary);
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
     &:hover {
+      background-color: var(--mat-sys-primary);
       ::ng-deep .fix-bar-popup {
         display: block;
+        color: var(--mat-sys-on-surface);
+        .fix-bar-popup-content {
+          background-color: var(--mat-sys-surface);
+        }
       }
     }
   }

@@ -1,0 +1,48 @@
+.footer-light {
+  background-color: var(--mat-sys-suface);
+
+  a {
+    color: var(--mat-sys-on-surface);
+
+    &:hover,
+    &:focus {
+      color: var(--mat-sys-primary);
+    }
+  }
+
+  .footer-bottom {
+    position: relative;
+    color: var(--mat-sys-on-surface);
+    background-color: var(--mat-sys-background);
+    z-index: 10;
+  }
+
+  .mdc-list-item__content {
+    color: var(--mat-sys-on-surface);
+
+    span {
+      &:hover {
+        cursor: pointer;
+        color: var(--mat-sys-primary);
+      }
+    }
+  }
+
+  .mat-expansion-panel {
+    background-color: transparent;
+    color: var(--mat-sys-on-surface) !important;
+  }
+
+  .mat-expansion-panel-header-title {
+    color: var(--mat-sys-on-surface) !important;
+  }
+
+  .mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none !important;
+  }
+
+  .mat-expansion-panel:not(.mat-expanded):not([aria-disabled='true'])
+    .mat-expansion-panel-header:hover {
+    background-color: transparent !important;
+  }
+}

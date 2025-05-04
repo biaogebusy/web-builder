@@ -14,9 +14,11 @@
   }
   .toggle {
     border-bottom-left-radius: 4px;
-  }
-  .actions {
-    border-radius: 0 0 0 4px;
-    @apply hidden absolute z-10 whitespace-normal top-0;
+    background-color: #272727;
+    ::ng-deep {
+      .mat-icon {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
   }
 }

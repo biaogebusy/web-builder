@@ -14,11 +14,21 @@
     left: 50%;
     transform: translateX(-50%);
     border-radius: 0 0 4px 4px;
+    background-color: #272727;
+    box-shadow: var(--mat-sys-level0);
+
     .item {
       cursor: pointer;
       border-radius: 6px;
       white-space: nowrap;
       ::ng-deep {
+        .mat-icon {
+          color: rgba(255, 255, 255, 0.8);
+        }
+        .mat-mdc-button-base {
+          color: var(--mat-sys-on-primary);
+        }
+
         &.mat-mdc-button-base {
           --mdc-icon-button-state-layer-size: 30px;
           padding: 0;
@@ -30,6 +40,16 @@
             line-height: 16px !important;
           }
         }
+      }
+    }
+
+    ::ng-deep {
+      .mat-divider {
+        height: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        position: relative;
+        border-right-color: var(--mat-sys-surface-dim);
       }
     }
   }

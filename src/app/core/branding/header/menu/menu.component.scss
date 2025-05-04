@@ -2,6 +2,39 @@
 
 .header {
   @apply relative mb-[2px];
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-neutral-60);
+  box-shadow:
+    0 3px 1px -2px #6161610d,
+    0 2px 2px #61616109,
+    0 1px 5px #61616108;
+  ::ng-deep {
+    .logo {
+      color: var(--mat-sys-primary);
+    }
+  }
+  .actions {
+    ::ng-deep {
+      a {
+        color: var(--mat-sys-on-primary);
+      }
+    }
+  }
+  ::ng-deep {
+    .hover-menu {
+      background-color: var(--mat-sys-surface);
+      box-shadow: var(--mat-sys-level1);
+      .child {
+        background-color: var(--mat-sys-surface);
+        box-shadow: var(--mat-sys-level1);
+      }
+    }
+    .user {
+      .name {
+        color: var(--mat-sys-on-primary);
+      }
+    }
+  }
 }
 
 :host-context(.header-inverse) {
@@ -20,7 +53,25 @@
     margin-left: 0.4rem;
   }
 }
-
+.main-menu {
+  .item {
+    ::ng-deep {
+      a {
+        color: var(--mat-sys-on-surface);
+        &:hover,
+        &:focus,
+        &.active {
+          color: var(--mat-sys-primary);
+        }
+        &.active {
+          &:after {
+            background-color: var(--mat-sys-primary);
+          }
+        }
+      }
+    }
+  }
+}
 @media #{$lt-lg} {
   .main-menu {
     .item {

@@ -2,6 +2,12 @@
 @use '../../../../theme/variable/breakpoint' as *;
 .inv-builder-box {
   position: relative;
+  a {
+    color: var(--mat-sys-on-surface);
+    &:hover {
+      color: var(--mat-sys-primary);
+    }
+  }
   .box-icon {
     text-align: center;
     width: 88px;
@@ -9,11 +15,14 @@
     @include transform(0deg, 1, 0, 0);
     @include transition(all, 0.3s, ease-out);
     @include border-radius(4px, 4px, 4px, 4px);
-    ::ng-deep .mat-icon {
-      @include transition(all, 0.3s, ease-out);
-      font-size: 30px;
-      display: inline-block;
-      vertical-align: middle;
+    ::ng-deep {
+      .mat-icon {
+        @include transition(all, 0.3s, ease-out);
+        font-size: 30px;
+        display: inline-block;
+        vertical-align: middle;
+        color: var(--mat-sys-on-surface);
+      }
     }
   }
   .box-title {
@@ -21,11 +30,20 @@
     font-weight: 500;
     line-height: 1.2;
     margin: 0 0 10px;
+    &:hover {
+      color: var(--mat-sys-primary);
+    }
   }
   .box-content {
     display: block;
     padding-bottom: 40px;
     font-size: 14px;
+  }
+
+  &.title-color {
+    .box-title {
+      color: var(--mat-sys-primary);
+    }
   }
 
   &.small-box {
@@ -61,10 +79,16 @@
   &.box-square,
   &.box-circle {
     .box-icon {
+      border: 1px solid var(--mat-sys-primary);
       ::ng-deep .mat-icon,
       img {
         @include middle-center();
         z-index: 1;
+      }
+      ::ng-deep {
+        .mat-icon {
+          color: var(--mat-sys-primary);
+        }
       }
     }
     &.box-image {
@@ -140,18 +164,25 @@
       top: -34px;
       border: 0;
       z-index: 100;
+      background-color: var(--mat-sys-background);
       @include translateX(-50%);
       ::ng-deep .mat-icon {
         height: 60px;
         line-height: 60px;
         width: 60px;
+        background-color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
       }
     }
     .box-content-wrapper {
       @include border-radius(3px, 3px, 3px, 3px);
       padding: 55px 15px 45px;
       position: relative;
+      border: 1px solid var(--mat-sys-surface-variant);
+      background-color: var(--mat-sys-background);
+      color: var(--mat-sys-on-surface);
       &:before {
+        border: 1px solid var(--mat-sys-surface-variant);
         content: '';
         display: block;
         height: 80px;
@@ -195,6 +226,8 @@
       width: 35px;
       left: 50%;
       box-sizing: border-box;
+      background-color: var(--mat-sys-surface);
+      border: 1px solid var(--mat-sys-surface-variant);
       @include translateX(-50%);
       @include border-radius(100%, 100%, 100%, 100%);
       span {
@@ -204,7 +237,9 @@
         position: absolute;
         top: 11px;
         width: 1px;
+        background-color: var(--mat-sys-surface-variant);
         &:after {
+          background-color: var(--mat-sys-surface-variant);
           content: '';
           display: block;
           height: 1px;
@@ -216,6 +251,11 @@
       }
       &:hover {
         cursor: pointer;
+        border: 1px solid var(--mat-sys-primary);
+        span,
+        span:after {
+          background-color: var(--mat-sys-primary);
+        }
       }
     }
     .box-content-wrapper {
@@ -261,6 +301,12 @@
       }
     }
     &:hover {
+      .box-title {
+        color: var(--mat-sys-primary);
+        a {
+          color: var(--mat-sys-primary);
+        }
+      }
       .box-icon {
         @include translateXAndRotate(-50%, 45deg);
       }
@@ -311,11 +357,13 @@
   &.style-v3,
   &.style-v6 {
     .box-icon {
+      border: solid 1px var(--mat-sys-primary);
       @include border-radius(50%, 50%, 50%, 50%);
 
       ::ng-deep .mat-icon {
         width: 30px;
         height: 30px;
+        color: var(--mat-sys-primary);
       }
       &:before {
         content: '';
@@ -328,6 +376,7 @@
         width: 100%;
         z-index: 1;
         opacity: 0;
+        background-color: var(--mat-sys-primary);
         @include translateAndScale(-50%, -50%, 1.2);
         @include border-radius(100%, 100%, 100%, 100%);
         transition: all 0.4s ease;
@@ -342,6 +391,11 @@
           @include translateAndScale(-50%, -50%, 1);
           @include transition(all, 0.4, ease);
           opacity: 1;
+          background-color: var(--mat-sys-primary);
+          color: var(--mat-sys-surface);
+        }
+        .mat-icon {
+          color: var(--mat-sys-surface);
         }
       }
     }
@@ -368,6 +422,7 @@
         height: 74px;
         line-height: 70px;
         width: 74px;
+        color: var(--mat-sys-surface);
         &:after {
           content: '';
           display: block;
@@ -380,12 +435,15 @@
           @include translateAndScale(-50%, -50%, 1);
           transition: all 0.4s ease;
           @include border-radius(100%, 100%, 100%, 100%);
+          background-color: var(--mat-sys-primary);
         }
       }
     }
     &:hover {
       .box-icon {
+        background-color: transparent;
         ::ng-deep .mat-icon {
+          color: var(--mat-sys-primary);
           &:after {
             opacity: 0;
             @include translateAndScale(-50%, -50%, 0);
@@ -425,6 +483,17 @@
   &.style-v5 {
     .box-icon {
       @include border-radius(3px, 3px, 3px, 3px);
+      border: solid 1px var(--mat-sys-primary);
+      ::ng-deep {
+        .mat-icon {
+          color: var(--mat-sys-primary);
+        }
+      }
+    }
+    .box-content-wrapper {
+      .box-title {
+        color: var(--mat-sys-surface);
+      }
     }
     &.box-left {
       .box-content-wrapper {
@@ -434,6 +503,19 @@
     &.box-right {
       .box-content-wrapper {
         margin-right: 75px;
+      }
+    }
+    &:hover {
+      .box-icon {
+        background: var(--mat-sys-primary);
+        ::ng-deep {
+          .mat-icon {
+            color: var(--mat-sys-surface);
+          }
+        }
+      }
+      .box-title {
+        color: var(--mat-sys-primary);
       }
     }
   }
@@ -451,6 +533,7 @@
         margin-top: 14px;
         position: relative;
         padding-left: 14px;
+        color: var(--mat-sys-primary);
         span {
           &:before,
           &:after {
@@ -462,6 +545,7 @@
             top: 7px;
             @include transform-rotate(45deg);
             width: 2px;
+            background: var(--mat-sys-primary);
           }
           &:after {
             @include transform-rotate(-45deg);
@@ -476,6 +560,11 @@
   &.style-v10 {
     display: flex;
     padding-bottom: 20px;
+    ::ng-deep {
+      .mat-icon {
+        color: var(--mat-sys-primary);
+      }
+    }
     .box-icon {
       flex: 0 0 auto;
       display: flex;
@@ -486,18 +575,25 @@
       border-radius: 50%;
       margin-right: 10px;
       margin-bottom: 10px;
+      background-color: var(--mat-sys-primary-container);
+
       ::ng-deep {
         ::ng-deep .mat-icon {
           font-size: 24px;
+          color: var(--mat-sys-primary);
         }
       }
     }
     .box-content {
       padding-bottom: 0;
+      color: var(--mat-sys-on-surface);
     }
   }
 
   &.style-v10 {
+    .box-icon {
+      background-color: var(--mat-sys-primary-container);
+    }
     @media #{$gt-sm} {
       text-align: right;
       .box-icon {
@@ -513,6 +609,8 @@
     text-align: center;
     padding: 16px;
     transition: all 0.5s ease;
+    background-color: var(--mat-sys-surface);
+    box-shadow: var(--mat-sys-level1);
     .box-icon {
       height: 80px;
       margin: 0 auto;
@@ -520,12 +618,30 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      background: var(--mat-sys-primary-container);
+      color: var(--mat-sys-primary);
       ::ng-deep .mat-icon {
         font-size: 24px;
+        color: var(--mat-sys-primary);
       }
     }
     .box-content-wrapper {
       margin-top: 20px;
+    }
+    .read-more {
+      a {
+        color: var(--mat-sys-primary);
+      }
+    }
+    &:hover {
+      box-shadow: var(--mat-sys-level1);
+      .box-icon {
+        ::ng-deep {
+          .mat-icon {
+            color: var(--mat-sys-surface);
+          }
+        }
+      }
     }
   }
 
@@ -533,6 +649,20 @@
     padding: 20px;
     &.primary {
       border-radius: 6px;
+      background-color: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+      a,
+      .box-content {
+        color: var(--mat-sys-on-primary);
+      }
+      .box-content {
+        opacity: 0.7;
+      }
+      img {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 6px;
+      }
     }
   }
 }

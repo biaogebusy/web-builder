@@ -21,6 +21,14 @@
     overflow: hidden;
     width: 100%;
   }
+  &:not(.no-bg) {
+    color: var(--mat-sys-on-surface);
+    .page-title,
+    .sub-title,
+    .breadcrumb {
+      color: var(--mat-sys-on-primary);
+    }
+  }
   @media #{$gt-sm} {
     .page-title {
       font-size: 35px;

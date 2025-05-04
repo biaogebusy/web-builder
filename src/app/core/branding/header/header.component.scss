@@ -1,5 +1,6 @@
 .static {
   @apply relative z-[1000];
+  background-color: var(--mat-sys-surface-container-lowest);
 }
 
 .sticky {
@@ -22,4 +23,102 @@
 .transparent-mode {
   @apply fixed right-0 left-0 top-0 z-[9999] border-0;
   transition: all 0.5s ease;
+  background-color: transparent;
+  ::ng-deep {
+    .static,
+    .header-top,
+    .header {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+  &.header-sticky {
+    background-color: var(--mat-sys-surface-container-lowest);
+    box-shadow: var(--mat-sys-level1);
+  }
+  &.light {
+    ::ng-deep {
+      .header,
+      .header-top,
+      .header a,
+      .header-top .inv-icon.style-v1,
+      .header-top .inv-icon.style-v1 .mat-icon,
+      .header-top .right a {
+        color: var(--mat-sys-on-primary) !important;
+        transition: color 0.2s ease-in;
+      }
+      .github-star {
+        .right {
+          background-color: transparent;
+        }
+        a {
+          color: var(--mat-sys-on-surface);
+        }
+      }
+      .search-box .mat-icon {
+        color: var(--mat-sys-primary);
+      }
+      .has-icon {
+        .mat-icon {
+          color: var(--mat-sys-on-primary);
+        }
+      }
+      .header {
+        .main-menu {
+          .item {
+            a {
+              &.active {
+                &:after {
+                  background-color: var(--mat-sys-on-primary) !important;
+                }
+              }
+            }
+            .sub-menu {
+              color: var(--mat-sys-on-surface) !important;
+              a {
+                color: var(--mat-sys-on-surface) !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.header-inverse {
+  ::ng-deep {
+    .header {
+      background-color: var(--mat-sys-primary);
+      .site-name {
+        color: var(--mat-sys-on-primary);
+      }
+      .main-menu {
+        .item {
+          .top {
+            a {
+              color: var(--mat-sys-on-primary);
+
+              &:hover,
+              &:focus {
+                color: var(--mat-sys-on-primary);
+              }
+              &.active {
+                color: var(--mat-sys-primary);
+                background-color: var(--mat-sys-on-primary);
+                &:after {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+      .switch-theme {
+        .mat-icon {
+          color: var(--mat-sys-on-primary);
+        }
+      }
+    }
+  }
 }

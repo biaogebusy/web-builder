@@ -5,6 +5,10 @@
   }
 }
 .mat-accordion {
+  .mat-expansion-panel-header,
+  .mat-mdc-list {
+    border-color: var(--mat-sys-surface-dim) !important;
+  }
   .mat-expansion-panel-header {
     padding: 0 16px;
     height: 48px;
@@ -41,5 +45,13 @@
   }
   .mat-mdc-list {
     border-bottom: 1px solid;
+    ::ng-deep {
+      a {
+        color: var(--mat-sys-on-surface);
+        &.active {
+          color: var(--mat-sys-primary);
+        }
+      }
+    }
   }
 }

@@ -1,5 +1,8 @@
+@use '../../../../../theme/mixins/amixin' as *;
 .page-list {
   @apply relative rounded-md m-3;
+  background-color: var(--mat-sys-background);
+  box-shadow: var(--mat-sys-level1);
   .reload {
     @apply z-10 absolute top-2 right-2 cursor-pointer;
     transform: scale(0.8);
@@ -28,6 +31,7 @@
     margin: 0 10px;
   }
   .lists-wrapper {
+    position: relative;
     &::after,
     &::before {
       content: '';
@@ -39,9 +43,11 @@
     }
     &:after {
       bottom: 0;
+      background: linear-gradient(180deg, transparent 0%, var(--mat-sys-background) 80%);
     }
     &::before {
       top: 0;
+      background: linear-gradient(0deg, transparent 0%, var(--mat-sys-background) 80%);
     }
   }
   .lists {
@@ -49,6 +55,7 @@
     height: 450px;
     max-height: 45vh;
     overflow: auto;
+    @include scrollbar(var(--mat-sys-primary));
     .mat-mdc-progress-spinner {
       position: absolute;
       left: 50%;
@@ -56,8 +63,14 @@
       transform: translate(-50%, -50%);
     }
     .item {
+      border-bottom: 1px solid var(--mat-sys-surface-variant);
       .mat-line {
         font-size: 15px;
+      }
+      a {
+        &:hover {
+          color: var(--mat-sys-primary);
+        }
       }
       .meta {
         opacity: 0.5;
@@ -73,6 +86,7 @@
         }
       }
       &.active {
+        background-color: var(--mat-sys-primary-container);
         &::after {
           content: '';
           position: absolute;
@@ -82,6 +96,7 @@
           transform: translateY(50%);
           left: 0;
           border-radius: 0 3px 3px 0;
+          background-color: var(--mat-sys-primary);
         }
       }
     }

@@ -1,9 +1,11 @@
+@use '../../../../../theme/mixins/amixin' as *;
 .builder-settings {
   padding: 10px;
   .cards {
     position: relative;
     height: 450px;
     overflow: auto;
+    @include scrollbar(var(--mat-sys-primary));
     .group {
       border-radius: 6px;
       padding: 6px;

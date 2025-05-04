@@ -9,6 +9,15 @@
 }
 .map-list-common {
   position: relative;
+  background-color: var(--mat-sys-background);
+  box-shadow: var(--mat-sys-level1);
+  .sidebar {
+    background-color: var(--mat-sys-background);
+  }
+  .sidebar-right {
+    box-shadow: var(--mat-sys-level1);
+    background-color: var(--mat-sys-background);
+  }
 }
 
 .map-wrapper {

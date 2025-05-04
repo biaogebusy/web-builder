@@ -1,7 +1,23 @@
 .card-1v1 {
+  box-shadow: var(--mat-sys-level1);
+  background-color: var(--mat-sys-background);
   &:hover {
     .author {
       opacity: 1;
+      color: var(--mat-sys-on-primary);
+    }
+  }
+  ::ng-deep {
+    a {
+      color: var(--mat-sys-onsurface);
+      &:hover {
+        color: var(--mat-sys-primary);
+      }
+      &.mat-primary {
+        &:hover {
+          color: var(--mat-sys-on-primary);
+        }
+      }
     }
   }
 }

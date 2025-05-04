@@ -2915,6 +2915,53 @@ export const base = [
         },
       },
       {
+        label: '表格',
+        icon: {
+          svg: 'table',
+        },
+        content: {
+          type: 'dynamic-table',
+          header: [
+            { label: '模块', key: 'module' },
+            { label: '描述', key: 'info' },
+            { label: '安装量', key: 'tatol' },
+            { label: '备注', key: 'remarks', dialog: { shorten: 5, label: '更多' } },
+          ],
+          elements: [
+            {
+              module: 'Slick Carousel',
+              tatol: 2992,
+              info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
+              remarks: '查看',
+            },
+            {
+              module: 'Views Slideshow',
+              tatol: 5501,
+              info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
+              remarks: '查看',
+            },
+            {
+              module: 'Colorbox',
+              tatol: 4438,
+              info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
+              remarks: '查看',
+            },
+            {
+              module: 'Flex Slider',
+              tatol: 8930,
+              info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
+              remarks: '查看',
+            },
+            {
+              module: 'Owl Carousel',
+              tatol: 1000,
+              info: '提供视图样式，字段格式化和管理 UI，支持响应式、移动手势、高定制幻灯片，CSS3 动画，JSON，有可用的回调，自定义事件等\t',
+              remarks: '查看',
+            },
+          ],
+        },
+      },
+      {
         label: '间距',
         icon: {
           svg: 'border-horizontal',

@@ -3,7 +3,6 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BaseModule } from '@uiux/base/base.module';
-import { ContactUs1v1Component } from './contact-us1v1/contact-us1v1.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -37,7 +36,6 @@ const components = [
   DateRangeComponent,
   RepeatTypeComponent,
   DatepickerComponent,
-  ContactUs1v1Component,
   TermsServiceComponent,
 ];
 @NgModule({
