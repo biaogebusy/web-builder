@@ -237,9 +237,9 @@
         position: absolute;
         top: 11px;
         width: 1px;
-        background-color: var(--mat-sys-surface);
+        background-color: var(--mat-sys-surface-variant);
         &:after {
-          background-color: var(--mat-sys-surface);
+          background-color: var(--mat-sys-surface-variant);
           content: '';
           display: block;
           height: 1px;

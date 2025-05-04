@@ -28,8 +28,9 @@
   }
 
   .inner {
-    color: var(--mat-sys-on-surface-variant);
     background-color: var(--mat-sys-background);
+    box-shadow: var(--mat-sys-level1);
+    @apply text-neutral-500;
     &:before {
       content: '';
       position: absolute;

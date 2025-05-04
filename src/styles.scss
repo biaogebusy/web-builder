@@ -41,9 +41,24 @@ body {
   .mat-mdc-raised-button:not(:disabled) {
     color: var(--mat-sys-on-primary);
     background-color: var(--mat-sys-primary);
+    &.mat-warn {
+      color: var(--mat-sys-on-error);
+      background-color: var(--mat-sys-error);
+    }
+  }
+  .mat-mdc-unelevated-button:not(:disabled) {
+    &.mat-warn {
+      color: var(--mat-sys-on-error);
+      background-color: var(--mat-sys-error);
+    }
   }
   .mat-warn:not(:disabled) {
     color: var(--mat-sys-error);
+  }
+  .mat-mdc-outlined-button:not(:disabled) {
+    &.mat-warn {
+      border-color: var(--mat-sys-error);
+    }
   }
   .mat-mdc-outlined-button:not(.mat-button-disabled) {
     &.mat-primary {
