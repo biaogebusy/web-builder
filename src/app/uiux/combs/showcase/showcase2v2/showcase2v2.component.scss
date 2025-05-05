@@ -12,6 +12,7 @@
     .mat-mdc-card-title {
       padding: 0 0 10px 0;
       text-align: center;
+      border-bottom: 1px solid var(--mat-sys-surface-dim);
     }
     .card-body {
       min-height: auto;

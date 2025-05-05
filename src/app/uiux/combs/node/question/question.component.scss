@@ -1,3 +1,26 @@
 .question {
   z-index: 1;
+  background-color: var(--mat-sys-surface-container-lowest);
+  box-shadow: var(--mat-sys-level1);
+}
+.comment {
+  background-color: var(--mat-sys-background);
+  .comment-form {
+    box-shadow: var(--mat-sys-level1);
+  }
+  .comment-list {
+    background-color: var(--mat-sys-surface-container-lowest);
+    box-shadow: var(--mat-sys-level1);
+    .empty {
+      .mat-icon {
+        font-size: 60px;
+        color: var(--mat-sys-primary-fixed-dim);
+      }
+    }
+    .comment-box {
+      .time {
+        @apply opacity-40;
+      }
+    }
+  }
 }

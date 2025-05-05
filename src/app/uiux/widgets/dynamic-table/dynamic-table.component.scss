@@ -1,4 +1,5 @@
 .dynamic-table {
+  background-color: var(--mat-sys-background);
   &.nowrap {
     word-break: normal;
     white-space: nowrap;
@@ -51,8 +52,10 @@
       display: inline-block;
     }
     a {
+      color: var(--mat-sys-on-surface);
       &:hover {
         text-decoration: underline;
+        color: var(--mat-sys-primary);
       }
     }
     .text-cell {

@@ -20,6 +20,7 @@
     z-index: 1;
     content: '';
     pointer-events: none;
+    background-color: #3c4858b3;
   }
   &.overlay-20 {
     &:before {
@@ -44,9 +45,16 @@
 }
 
 ::ng-deep .wave-wrapper {
+  background: linear-gradient(
+    -74deg,
+    var(--mat-sys-primary-container) 0%,
+    var(--mat-sys-primary) 100%
+  );
+
   .wave {
     width: 100%;
     height: 200px;
+    color: var(--mat-sys-on-primary);
   }
 
   @media #{$gt-sm} {

@@ -9,6 +9,7 @@
     }
   }
 }
+
 .mdc-button {
   ::ng-deep {
     .mdc-button__label {
@@ -18,9 +19,6 @@
       gap: 10px;
       line-height: 1;
     }
-  }
-  &.mat-primary.mdc-button--raised {
-    color: #fff;
   }
 }
 .mdc-fab--mini {

@@ -1,4 +1,12 @@
 @use '../../../../../theme/variable/breakpoint' as *;
+.hero-1-v2 {
+  ::ng-deep {
+    .title,
+    .sub-title {
+      color: var(--mat-sys-on-primary);
+    }
+  }
+}
 .swiper-media {
   width: 100%;
   height: 30vh;

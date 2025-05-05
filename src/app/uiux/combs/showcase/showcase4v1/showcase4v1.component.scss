@@ -5,11 +5,12 @@
     font-size: 32px;
     margin: 0 auto;
     position: relative;
-    .mat-icon {
-      position: relative;
-      z-index: 1;
-    }
     ::ng-deep {
+      .mat-icon {
+        position: relative;
+        z-index: 1;
+        color: var(--mat-sys-primary);
+      }
       img {
         width: 65px;
         height: 65px;

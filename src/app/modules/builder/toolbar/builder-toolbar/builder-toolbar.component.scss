@@ -1,5 +1,8 @@
 .builder-toolbar {
   position: relative;
+  background-color: var(--mat-sys-background);
+  color: var(--mat-sys-on-surface);
+  box-shadow: var(--mat-sys-level1);
   .wrapper {
     padding-left: 20px;
     padding-right: 20px;
@@ -17,6 +20,11 @@
     .page-title {
       font-size: 14px;
       font-weight: bold;
+      border-bottom: 1px solid transparent;
+      &:focus-visible {
+        outline: none;
+        border-bottom-color: var(--mat-sys-primary);
+      }
       &:hover {
         div[contenteditable] {
           text-decoration: underline;
@@ -48,5 +56,6 @@
     left: 60px;
     right: 0;
     z-index: 9999;
+    box-shadow: var(--mat-sys-level1);
   }
 }

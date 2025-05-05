@@ -5,3 +5,10 @@
     min-height: 20px;
   }
 }
+.mat-mdc-chip {
+  ::ng-deep {
+    a {
+      color: var(--mat-sys-on-primary);
+    }
+  }
+}

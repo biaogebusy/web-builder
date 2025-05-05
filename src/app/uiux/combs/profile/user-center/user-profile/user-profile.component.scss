@@ -3,6 +3,8 @@
 .profile {
   position: relative;
   border-radius: 4px;
+  background-color: var(--mat-sys-background);
+  box-shadow: var(--mat-sys-level1);
 }
 .avatar {
   ::ng-deep {

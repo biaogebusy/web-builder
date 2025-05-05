@@ -1,6 +1,16 @@
 .tab {
   &.pills {
     ::ng-deep {
+      .mat-mdc-tab {
+        background-color: var(--mat-sys-primary-container);
+      }
+      .mdc-tab--active {
+        background-color: var(--mat-sys-primary);
+        opacity: 1;
+        .mdc-tab__text-label {
+          color: var(--mat-sys-on-primary);
+        }
+      }
       .mat-mdc-tab-header {
         border-bottom: 0;
         .mdc-tab--active,

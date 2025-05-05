@@ -3,6 +3,14 @@
   max-height: 50vh;
   overflow: hidden;
   @apply transition-all;
+  .box {
+    border: 1px solid transparent;
+    box-shadow: var(--mat-sys-level1);
+
+    .jsoneditor {
+      border-color: transparent;
+    }
+  }
   &.less {
     height: 80vh;
     max-height: 80vh;
@@ -33,6 +41,7 @@
   top: 8px;
   transform: translateX(-50%);
   --mdc-icon-button-disabled-icon-color: rgb(255 255 255 / 50%);
+  --mdc-icon-button-icon-color: var(--mat-sys-on-primary);
   .lock {
     pointer-events: none;
   }

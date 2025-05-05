@@ -1,11 +1,14 @@
 .builder-wrapper {
   height: 100vh;
   overflow: hidden;
+  background-color: var(--mat-sys-surface);
   .sidebar-drawer {
     width: 60px;
     visibility: visible !important;
     transform: none !important;
     display: block;
+    border-right: 0;
+    --mat-sys-corner-large: 0;
     ::ng-deep {
       > .mat-drawer-inner-container {
         overflow: hidden;
@@ -14,6 +17,14 @@
     }
     &.mat-drawer-opened {
       width: 200px;
+    }
+    &.opened {
+      box-shadow: 1px 1px 6px 0px rgb(48 48 48 / 20%);
+      transition: box-shadow 0.1s ease-in;
+    }
+    &.closed {
+      box-shadow: 1px 1px 6px 0px rgb(48 48 48 / 50%) !important;
+      transition: box-shadow 0.1s ease-out;
     }
   }
   .drawer-content {
@@ -26,6 +37,19 @@
     &.opened {
       padding-left: 0;
       margin-left: 200px;
+    }
+  }
+  &.dark {
+    ::ng-deep {
+      .builder-toolbar,
+      .mat-drawer.sidebar {
+        --mat-sys-surface: #424242;
+        --mat-sys-on-surface: #fff;
+        --mat-sys-primary: #fff;
+        --mat-sys-on-surface-variant: #fff;
+        --mat-sys-surface-container: #303030;
+        --mat-sys-background: #303030;
+      }
     }
   }
 }
@@ -45,16 +69,18 @@
     position: absolute;
     left: 0;
     top: 35px;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
+    background-color: var(--mat-sys-surface);
+    box-shadow: var(--mat-sys-level1);
   }
 }
 .mat-drawer-opened {
   .actions {
     &.expand {
-      left: -48px;
+      left: -40px;
     }
   }
 }

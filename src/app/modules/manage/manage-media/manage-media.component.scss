@@ -5,6 +5,9 @@
   .mat-drawer-container {
     height: 100%;
   }
+  .sidebar {
+    background-color: var(--mat-sys-background);
+  }
 }
 
 .inner {
@@ -13,6 +16,7 @@
   overflow: auto;
   .viewport {
     width: 100%;
+    @include scrollbar(var(--mat-sys-primary));
   }
   .page {
     .mat-mdc-paginator {
@@ -41,6 +45,7 @@
       height: 100%;
       box-sizing: border-box;
       z-index: 2;
+      border: 3px solid var(--mat-sys-primary);
     }
   }
   .actions {
@@ -48,7 +53,18 @@
     position: absolute;
     z-index: 10;
     border-radius: 0 0 0 4px;
+    background-color: var(--mat-sys-surface-container-highest);
     ::ng-deep {
+      .icon-delete {
+        &:hover {
+          .mat-icon {
+            color: var(--mat-sys-error);
+          }
+        }
+      }
+      .mat-icon {
+        color: var(--mat-sys-on-primary);
+      }
       .mdc-icon-button {
         --mdc-icon-button-state-layer-size: 30px;
         padding: 0px;

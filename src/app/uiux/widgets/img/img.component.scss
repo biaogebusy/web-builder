@@ -52,5 +52,7 @@ img {
     border-radius: 250px;
     opacity: 0.9;
     transform: rotate(130deg);
+    background-color: var(--mat-sys-primary);
+    box-shadow: var(--mat-sys-level0);
   }
 }

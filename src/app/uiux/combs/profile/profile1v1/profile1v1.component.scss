@@ -39,6 +39,8 @@
 }
 
 .left {
+  background-color: var(--mat-sys-background);
+  box-shadow: var(--mat-sys-level1);
   @media #{$gt-sm} {
     position: relative;
     top: -245px;

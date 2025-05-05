@@ -2,13 +2,19 @@
   width: 750px;
   height: 500px;
   z-index: 100;
+  background-color: var(--mat-sys-background);
   quill-editor {
     width: 100%;
     height: calc(100% - 60px);
     ::ng-deep {
+      .ql-toolbar,
+      .ql-container {
+        border-color: var(--mat-sys-surface-dim);
+      }
       .ql-container {
         height: calc(100% - 48px) !important;
         font-size: inherit;
+        background-color: var(--mat-sys-background);
       }
     }
   }

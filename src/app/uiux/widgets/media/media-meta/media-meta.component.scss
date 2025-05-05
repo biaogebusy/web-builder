@@ -1,4 +1,12 @@
-.top {
-  font-size: 60px;
-  line-height: 1;
+.media-meta {
+  border-bottom: 1px solid var(--mat-sys-surface-dim);
+  .top {
+    font-size: 60px;
+    line-height: 1;
+  }
+
+  .top,
+  .middle {
+    color: var(--mat-sys-surface-dim);
+  }
 }

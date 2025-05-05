@@ -2,6 +2,21 @@
   ::ng-deep {
     .mat-mdc-tab-header {
       margin: 10px;
+      background-color: var(--mat-sys-background);
+      .mat-mdc-tab {
+        &.mdc-tab--active {
+          .mdc-tab__text-label {
+            color: var(--mat-sys-primary);
+            opacity: 1;
+          }
+        }
+      }
+      .mdc-tab__content {
+        background-color: transparent;
+      }
+    }
+    .mat-expansion-panel {
+      background-color: var(--mat-sys-background);
     }
   }
 }

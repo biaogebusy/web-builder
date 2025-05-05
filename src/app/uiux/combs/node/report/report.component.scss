@@ -1,6 +1,8 @@
+@use '../../../../../theme/mixins/amixin' as *;
 .report {
   min-height: 100vh;
   padding-bottom: 40px;
+  background-color: var(--mat-sys-primary-container);
   ::ng-deep {
     .dynamic-table {
       padding: 20px;
@@ -10,14 +12,23 @@
 
 .box {
   border-radius: 4px;
+  background-color: var(--mat-sys-surface-container-lowest);
+  box-shadow: var(--mat-sys-level1);
   .item {
     height: 650px;
     overflow: auto;
+    @include scrollbar(var(--mat-sys-primary));
     &:nth-child(2n) {
       border-radius: 10px;
+      border: 10px solid var(--mat-sys-primary-container);
     }
   }
-  ::ng-deep .chart {
-    height: calc(650px - 60px);
+  ::ng-deep {
+    .chart {
+      height: calc(650px - 60px);
+    }
+    .dynamic-table {
+      box-shadow: var(--mat-sys-level1);
+    }
   }
 }

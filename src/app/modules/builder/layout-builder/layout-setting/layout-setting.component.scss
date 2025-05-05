@@ -14,11 +14,15 @@
 
     .none-description {
       @apply text-sm p-3 rounded-[4px] opacity-70;
+      background-color: var(--mat-sys-error-container);
+      border-left: 4px solid var(--mat-sys-error);
+      box-shadow: var(--mat-sys-level1);
     }
   }
   .mat-mdc-list-item {
     @apply opacity-80 rounded-[5px];
     margin: 4px 0;
+    background-color: var(--mat-sys-primary-container);
     &.cdk-drag {
       @apply cursor-move;
     }

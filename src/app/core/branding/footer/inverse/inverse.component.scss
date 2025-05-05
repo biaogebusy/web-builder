@@ -1,6 +1,75 @@
 @use '../common.scss';
 .footer-inverse {
   z-index: 2;
+  background-color: #282828;
+  color: #9e9e9e;
+  a {
+    color: #9e9e9e;
+    &:hover {
+      color: #fff;
+    }
+  }
+  .item-header {
+    color: #fff;
+  }
+  ::ng-deep {
+    .mat-mdc-subheader {
+      color: #fff;
+    }
+    .mat-mdc-list-item,
+    .mat-icon,
+    .mdc-list-item__primary-text {
+      color: #9e9e9e;
+    }
+    .mat-accordion {
+      .mat-mdc-list a {
+        color: #9e9e9e;
+      }
+      .mat-expansion-panel {
+        background-color: transparent;
+        color: #9e9e9e;
+      }
+      .mat-expansion-panel:not(.mat-expanded):not([aria-disabled='true'])
+        .mat-expansion-panel-header:hover {
+        background-color: transparent;
+      }
+      .mat-expansion-panel-header-description,
+      .mat-expansion-indicator::after {
+        color: inherit;
+      }
+      .mat-expansion-panel-header-title {
+        color: #9e9e9e;
+      }
+    }
+  }
+  .social {
+    .item {
+      border: 1px solid #9e9e9e;
+      color: #9e9e9e;
+      border-color: #9e9e9e;
+      &:hover {
+        border-color: #fff;
+        background-color: #eee;
+        ::ng-deep {
+          .mat-icon {
+            color: var(--mat-sys-primary);
+          }
+        }
+      }
+    }
+  }
+  .footer-bottom {
+    background-color: #212121;
+    ::ng-deep {
+      a {
+        color: #9e9e9e;
+        &:hover,
+        &:focus {
+          color: #fff;
+        }
+      }
+    }
+  }
 }
 
 .item-header {

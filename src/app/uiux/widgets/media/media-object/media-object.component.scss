@@ -39,3 +39,31 @@
     box-sizing: border-box;
   }
 }
+
+.media-object {
+  .meta,
+  .media-body > div:not(.title) {
+    @apply text-neutral-500;
+  }
+  &.box-animate {
+    box-shadow: 0 0 3px rgb(60 72 88 / 15%);
+    .icon {
+      background: linear-gradient(45deg, transparent, var(--mat-sys-primary-container));
+      .mat-icon {
+        color: var(--mat-sys-primary);
+      }
+    }
+    a {
+      color: var(--mat-sys-on-surface);
+      &:hover {
+        color: var(--mat-sys-primary);
+      }
+    }
+    &:hover {
+      box-shadow: var(--mat-sys-level1);
+    }
+  }
+  app-icon {
+    background-color: var(--mat-sys-outline);
+  }
+}

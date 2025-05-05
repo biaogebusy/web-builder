@@ -1,14 +1,23 @@
 @use '../../../../../theme/variable/breakpoint' as *;
-
+@use '../../../../../theme/mixins/amixin' as *;
 .builder-workspace {
   height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   flex: 0 1 calc(100% - 70px);
+  > .mat-drawer-container {
+    background-color: transparent;
+    .mat-drawer-content {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
+      @include scrollbar(var(--mat-sys-primary));
+    }
+  }
 }
 .sidebar {
   width: 230px;
+  background-color: var(--mat-sys-surface);
+  border-radius: 0;
   ::ng-deep {
     .mat-expansion-panel-header {
       padding: 0 16px;
@@ -16,6 +25,9 @@
     .mat-expansion-panel-body {
       padding-left: 16px;
       padding-right: 16px;
+    }
+    .mat-drawer-inner-container {
+      @include scrollbar(var(--mat-sys-outline));
     }
   }
   @media #{$gt-sm} {
@@ -38,5 +50,12 @@
   .cdk-drag-placeholder {
     height: 60px;
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    background-color: var(--mat-sys-primary-container);
+    border: 2px dotted var(--mat-sys-outline);
+    width: 100%;
+    &:hover {
+      background-color: var(--mat-sys-inverse-primary);
+      border-color: var(--mat-sys-primary);
+    }
   }
 }

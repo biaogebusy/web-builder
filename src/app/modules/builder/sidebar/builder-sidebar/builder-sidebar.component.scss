@@ -1,3 +1,4 @@
+@use '../../../../../theme/mixins/amixin' as *;
 @mixin activeStyle() {
   content: '';
   position: absolute;
@@ -13,6 +14,7 @@
   flex-direction: column;
   width: 60px;
   height: 100%;
+  background-color: var(--mat-sys-background);
   .mat-divider {
     width: 100%;
   }
@@ -42,6 +44,7 @@
     flex: 1 1 auto;
     margin: 10px 0;
     overflow: auto;
+    @include scrollbar(var(--mat-sys-outline));
   }
   .icon-menu {
     .item {
@@ -254,6 +257,13 @@
   }
 
   .bottom {
+    .icon-actions {
+      ::ng-deep {
+        .mdc-icon-button {
+          color: var(--mat-sys-on-surface);
+        }
+      }
+    }
     .toggle {
       cursor: pointer;
       display: flex;
@@ -262,6 +272,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: var(--mat-sys-on-surface);
         ::ng-deep {
           .custom-icon {
             align-items: center;
@@ -271,17 +282,198 @@
             width: 30px !important;
             height: 30px !important;
             display: inherit;
+            transition: all 0.1s ease;
+            box-shadow: var(--mat-sys-level0);
           }
           .text {
             margin-left: 10px;
             font-size: small;
           }
+          &:hover {
+            .mat-icon {
+              background-color: var(--mat-sys-on-surface);
+              color: var(--mat-sys-inverse-primary);
+            }
+          }
         }
       }
     }
   }
+  &.closed {
+    background-color: #272727;
+    color: #f5f5f5;
+    box-shadow: var(--mat-sys-level0);
+    a.logo {
+      background-color: #373737;
+      transition: background-color 0.2s ease-in-out;
+      &:hover {
+        background-color: #272727;
+      }
+    }
+    .mat-divider {
+      border-top-color: rgba(255, 255, 255, 0.2);
+    }
+    .icon-menu {
+      .item {
+        &:hover,
+        &:focus {
+          > .custom-icon {
+            color: #fff;
+            &::after {
+              background-color: rgba(#fff, 0.1);
+            }
+          }
+        }
 
+        &.active {
+          > .custom-icon {
+            color: var(--mat-sys-on-primary);
+            &::after {
+              background-color: var(--mat-sys-primary);
+            }
+          }
+        }
+      }
+      .child {
+        background-color: var(--mat-sys-surface);
+        color: var(--mat-sys-on-surface);
+        box-shadow: var(--mat-sys-level1);
+        .hover-menu {
+          background-color: var(--mat-sys-surface);
+          @include scrollbar(var(--mat-sys-outline));
+          .child-menu {
+            .mdc-list-item {
+              &.active,
+              &:hover {
+                ::ng-deep {
+                  .mdc-list-item__content {
+                    z-index: 1;
+                    .mdc-list-item__primary-text {
+                      color: var(--mat-sys-primary);
+                    }
+                  }
+                }
+                &:after {
+                  background-color: var(--mat-sys-primary-container);
+                }
+              }
+              ::ng-deep {
+                .mdc-list-item__primary-text {
+                  color: var(--mat-sys-on-surface);
+                }
+              }
+              &:hover {
+                &:after {
+                  background-color: var(--mat-sys-primary-container);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottom {
+      .icon-actions {
+        ::ng-deep {
+          .mdc-icon-button {
+            color: #fff;
+          }
+        }
+      }
+      .toggle {
+        .wrapper {
+          color: #fff;
+        }
+      }
+    }
+  }
   &.opened {
     width: 200px;
+    .accordion-menu {
+      ::ng-deep {
+        app-icon {
+          color: var(--mat-sys-on-surface);
+        }
+        > .mat-accordion {
+          > .mat-mdc-list {
+            &.no-child {
+              a {
+                color: var(--mat-sys-on-surface);
+              }
+              &.active {
+                a,
+                .mat-icon {
+                  color: var(--mat-sys-primary);
+                }
+                &::after {
+                  background-color: var(--mat-sys-primary);
+                }
+              }
+            }
+          }
+        }
+        .mat-accordion {
+          > .mat-mdc-list {
+            &.active {
+              &::before {
+                background-color: var(--mat-sys-primary);
+              }
+            }
+          }
+          .mat-expansion-panel {
+            background-color: var(--mat-sys-background);
+            .mat-expansion-panel-header {
+              a {
+                color: var(--mat-sys-on-surface);
+              }
+              .mat-expansion-panel-header-title {
+                color: var(--mat-sys-on-surface);
+              }
+              .mat-expansion-indicator {
+                &::after {
+                  color: var(--mat-sys-on-surface);
+                }
+              }
+            }
+            &.active {
+              .mat-expansion-panel-header {
+                background-color: var(--mat-sys-surface-dim);
+                &::after {
+                  background-color: var(--mat-sys-primary);
+                }
+              }
+            }
+          }
+        }
+        .mat-mdc-list {
+          .mat-mdc-list-item {
+            color: var(--mat-sys-on-surface);
+            a {
+              color: var(--mat-sys-on-surface);
+              &.active {
+                color: var(--mat-sys-primary);
+              }
+            }
+            &:hover {
+              a,
+              .mat-mdc-list-item-icon {
+                z-index: 1;
+                color: var(--mat-sys-primary);
+              }
+              &:after {
+                background-color: var(--mat-sys-primary-container);
+              }
+            }
+          }
+          &.active {
+            .mat-mdc-list-item {
+              .mat-mdc-list-item-icon {
+                color: var(--mat-sys-primary);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

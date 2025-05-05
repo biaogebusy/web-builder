@@ -31,12 +31,14 @@
           top: 0;
           left: 0;
           opacity: 0;
+          background-color: var(--mat-sys-primary);
           @include transition(all, 200ms, ease-in-out);
           @include border-radius(3px, 3px, 3px, 3px);
         }
         .mat-icon {
           font-size: 20px;
           opacity: 0;
+          color: var(--mat-sys-on-primary);
           @include middle-center();
           @include transition(all, 200ms, ease-in-out);
         }
@@ -57,6 +59,10 @@
         margin-bottom: 7px;
         margin-top: -3px;
         margin-left: 108px;
+        color: var(--mat-sys-on-surface);
+        &:hover {
+          color: var(--mat-sys-primary);
+        }
       }
       .blog-date,
       .blog-categories {

@@ -1,36 +1,48 @@
-.result {
-  border-radius: 10px;
-  ::ng-deep {
-    .chart {
-      padding: 0;
-      border-top: 0;
-      border-right: 0;
-      border-bottom: 0;
-      box-shadow: none;
+.lottery {
+  background-color: var(--mat-sys-primary-container);
+
+  .result {
+    border-radius: 10px;
+    background-color: var(--mat-sys-on-primary);
+    box-shadow: var(--mat-sys-level1);
+    ::ng-deep {
+      .chart {
+        padding: 0;
+        border-top: 0;
+        border-right: 0;
+        border-bottom: 0;
+        box-shadow: none;
+      }
+    }
+    .result-footer {
+      .item {
+        .label {
+          font-size: small;
+        }
+        .value {
+          font-size: larger;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .total {
+    line-height: 1;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--mat-sys-primary);
+    span {
+      font-size: 100px;
+      vertical-align: text-top;
     }
   }
   .result-footer {
-    .item {
-      .label {
-        font-size: small;
-      }
-      .value {
-        font-size: larger;
-        font-weight: bold;
-      }
+    .label {
+      color: var(--mat-sys-primary);
     }
   }
-}
-.total {
-  line-height: 1;
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  span {
-    font-size: 100px;
-    vertical-align: text-top;
+  .description {
+    font-size: small;
   }
-}
-.description {
-  font-size: small;
 }

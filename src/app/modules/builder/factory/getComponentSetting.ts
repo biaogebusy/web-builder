@@ -135,7 +135,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     },
                     validation: {
                       messages: {
-                        required: '修改背景色需要设置变体',
+                        required: '设置背景变体',
                       },
                     },
                     expressions: {
