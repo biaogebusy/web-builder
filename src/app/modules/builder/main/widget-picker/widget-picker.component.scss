@@ -1,4 +1,4 @@
-@use '../../../../../theme/variable/breakpoint' as *;
+@use 'variable/breakpoint' as *;
 .widget-picker {
   min-height: 360px;
   @apply w-[48px];

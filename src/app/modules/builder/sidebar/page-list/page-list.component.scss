@@ -1,4 +1,4 @@
-@use '../../../../../theme/mixins/amixin' as *;
+@use 'mixins/amixin' as *;
 .page-list {
   @apply relative rounded-md m-3;
   background-color: var(--mat-sys-background);

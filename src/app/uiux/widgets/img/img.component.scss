@@ -1,5 +1,5 @@
-@use '../../../../theme/variable/breakpoint' as *;
-@use '../../../../theme/mixins/amixin' as *;
+@use 'variable/breakpoint' as *;
+@use 'mixins/amixin' as *;
 .img-wrapper {
   position: static;
   .actions {

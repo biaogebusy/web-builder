@@ -1,5 +1,5 @@
-@use '../../../../../theme/variable/breakpoint' as *;
-@use '../../../../../theme/mixins/amixin' as *;
+@use 'variable/breakpoint' as *;
+@use 'mixins/amixin' as *;
 .builder-workspace {
   height: 100vh;
   display: flex;

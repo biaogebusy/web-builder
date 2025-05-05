@@ -58,7 +58,7 @@
             "scripts": [],
             "allowedCommonJsDependencies": ["highlight.js", "lodash", "crypto-js", "dompurify"],
             "stylePreprocessorOptions": {
-              "includePaths": ["."]
+              "includePaths": ["src/theme"]
             }
           },
           "configurations": {
