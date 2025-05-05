@@ -1,7 +1,12 @@
+@use '../../../../../theme/mixins/amixin' as *;
 .cards {
   .group {
     border-radius: 6px;
     padding: 6px;
+    &:hover {
+      background-color: var(--mat-sys-primary-container);
+      transition: all 0.2s ease;
+    }
   }
   .item {
     position: relative;
@@ -20,6 +25,7 @@
     }
     .add {
       @apply absolute -top-[12px] -right-[10px] z-10 hidden rounded-full;
+      background-color: var(--mat-sys-inverse-primary);
       ::ng-deep {
         .mdc-icon-button {
           --mdc-icon-button-state-layer-size: 26px;
@@ -29,6 +35,7 @@
           .mat-icon {
             height: 18px;
             width: 18px;
+            color: var(--mat-sys-primary);
           }
         }
       }
@@ -38,7 +45,16 @@
       padding: 16px 6px;
       border-radius: 4px;
       position: relative;
-
+      background-color: var(--mat-sys-background);
+      transition: background 0.1s ease-in-out;
+      box-shadow: var(--mat-sys-level0);
+      &:hover {
+        background: var(--mat-sys-primary-container);
+      }
+      &.active {
+        background-color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
+      }
       &.move {
         &:hover {
           cursor: move;

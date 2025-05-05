@@ -10,6 +10,10 @@
       ::ng-deep a {
         padding: 4px 6px;
         font-size: 14px;
+        color: var(--mat-sys-on-surface);
+        &:hover {
+          color: var(--mat-sys-primary);
+        }
       }
       app-icon {
         scale: 0.85;

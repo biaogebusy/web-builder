@@ -1,4 +1,6 @@
 .thin-sidebar {
   max-height: 80vh;
   overflow: auto;
+  background-color: var(--mat-sys-surface);
+  box-shadow: var(--mat-sys-level1);
 }

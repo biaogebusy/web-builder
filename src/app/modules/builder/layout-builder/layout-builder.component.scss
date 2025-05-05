@@ -37,22 +37,7 @@
       }
     }
     > .toolbar {
-      @apply -right-[2px] -top-[2px];
-    }
-  }
-}
-
-:host-context(.builder-list) {
-  .layout-builder {
-    @apply pt-[30px];
-    .layout {
-      @apply p-0;
-      &:hover {
-        outline-offset: -2px;
-        > .toolbar {
-          display: block;
-        }
-      }
+      @apply right-[2px] top-[2px];
     }
   }
 }

@@ -1,5 +1,8 @@
 @use '../../../../../theme/variable/breakpoint' as *;
 .chart-box {
+  .title {
+    color: var(--mat-sys-outline-variant);
+  }
   .count {
     font-size: 38px;
     line-height: 1;

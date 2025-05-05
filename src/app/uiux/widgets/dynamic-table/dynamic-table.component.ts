@@ -38,12 +38,12 @@ export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() form: UntypedFormGroup;
 
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: any;
+  public dataSource: any;
 
-  displayedColumns: string[];
-  columnsToDisplayWithExpand: string[];
-  expandedElement: null;
-  isExpand: boolean;
+  public displayedColumns: string[];
+  public columnsToDisplayWithExpand: string[];
+  public expandedElement: null;
+  public isExpand: boolean;
   private dialog = inject(MatDialog);
   private routService = inject(RouteService);
   private cd = inject(ChangeDetectorRef);

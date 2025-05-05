@@ -3,10 +3,13 @@
     .ngx-file-drop__drop-zone {
       border-radius: 4px;
       height: auto;
+      border: 2px dotted var(--mat-sys-primary-fixed-dim);
       .ngx-file-drop__content {
         padding: 20px;
         height: auto;
         min-height: 200px;
+        @apply text-neutral-400;
+
         .upload-icon {
           .mat-icon {
             height: 80px;

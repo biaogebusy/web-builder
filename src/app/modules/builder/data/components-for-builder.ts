@@ -5075,7 +5075,7 @@ export const components: any[] = [
                   hostClasses: '',
                 },
               },
-              classes: '',
+              classes: 'text-white',
               swiper: {
                 params: {
                   slidesPerView: 1,

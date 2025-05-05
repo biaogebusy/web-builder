@@ -1,3 +1,4 @@
+@use '../../../../../theme/mixins/amixin' as *;
 .backdrop {
   position: absolute;
   height: 100%;
@@ -5,6 +6,7 @@
   left: 0;
   top: 0;
   z-index: 200;
+  background-color: var(--mat-sys-outline);
 }
 .showcase {
   position: absolute;
@@ -15,6 +17,7 @@
   top: 0;
   padding-bottom: 60px;
   border-radius: 4px;
+  background-color: var(--mat-sys-surface);
   overflow: hidden;
   > app-card-1v1 {
     ::ng-deep {
@@ -22,6 +25,8 @@
         transform: none !important;
         max-height: 75vh;
         overflow: auto;
+        @include scrollbar(var(--mat-sys-primary));
+
         > .components {
           padding: 0;
         }
@@ -59,5 +64,17 @@
     width: 100%;
     padding: 10px 20px;
     box-sizing: border-box;
+    border-top: 1px solid var(--mat-sys-surface-container-low);
+    background: var(--mat-sys-background);
+    ::ng-deep {
+      .mat-icon {
+        color: var(--mat-sys-primary) !important;
+      }
+    }
+  }
+  .component-toolbar {
+    + app-spacer {
+      background-color: var(--mat-sys-primary-container);
+    }
   }
 }

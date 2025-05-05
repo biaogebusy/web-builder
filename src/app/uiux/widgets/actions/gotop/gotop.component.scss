@@ -1,15 +1,17 @@
 #go-to-top {
   z-index: 99999;
-  text-align: center;
   width: 43px;
   height: 43px;
   padding: 8px 4px;
-  position: fixed;
   bottom: -10rem;
   right: 2rem;
-  cursor: pointer;
-  overflow: hidden;
   border-radius: 3px;
   transition: all 0.4s ease-in;
-  box-sizing: border-box;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  @apply text-center fixed cursor-pointer overflow-hidden box-border;
+  &:hover {
+    background-color: var(--mat-sys-inverse-primary);
+    transition: all 0.2s ease-in;
+  }
 }

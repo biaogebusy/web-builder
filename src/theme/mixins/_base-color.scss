@@ -7,104 +7,72 @@
   }
 }
 
-@mixin base-colors($theme) {
-  $config: mat.m2-get-color-config($theme);
-  $primary: map.get($config, primary);
-  $accent: map.get($config, accent);
-  $warn: map.get($config, warn);
-  $foreground: map.get($config, foreground);
-  $background: map.get($config, background);
-
-  $contrast: mat.m2-get-color-from-palette($primary, default-contrast);
-
+@mixin base-colors() {
   .loading {
-    background-color: mat.m2-get-color-from-palette($primary);
+    background-color: var(--mat-sys-primary);
   }
 
   blockquote {
-    color: mat.m2-get-color-from-palette($foreground, text, 0.45);
-    border-left: 3px solid mat.m2-get-color-from-palette($foreground, divider);
+    color: var(--mat-sys-inverse-surface);
+    border-left: 3px solid var(--mat-sys-surface-dim);
   }
 
   body,
   .mat-drawer-container {
-    color: mat.m2-get-color-from-palette($foreground, text, 0.75);
-    background-color: mat.m2-get-color-from-palette($background, background);
     .mat-drawer-inner-container {
-      @include scrollbar(mat.m2-get-color-from-palette($primary));
+      @include scrollbar(var(--mat-sys-primary));
     }
   }
 
+  .text-light {
+    color: var(--mat-sys-on-primary);
+  }
+
   .text-primary {
-    color: mat.m2-get-color-from-palette($primary);
+    color: var(--mat-sys-primary);
   }
 
   .text-accent {
-    color: mat.m2-get-color-from-palette($accent);
+    color: var(--mat-sys-primary);
   }
 
   .text-warn {
-    color: mat.m2-get-color-from-palette($warn);
+    color: var(--mat-sys-error);
+  }
+
+  .border-primary {
+    border: 1px solid var(--mat-sys-primary) !important;
+  }
+
+  .border-warn {
+    border: 1px solid var(--mat-sys-error) !important;
+  }
+
+  .border-accent {
+    border: 1px solid var(--mat-sys-primary) !important;
   }
 
   .bg-primary {
-    background-color: mat.m2-get-color-from-palette($primary);
-    color: $contrast;
-  }
-
-  .bg-primary-50 {
-    background-color: mat.m2-get-color-from-palette($primary, 50);
-  }
-  .bg-primary-100 {
-    background-color: mat.m2-get-color-from-palette($primary, 100);
-  }
-  .bg-primary-200 {
-    background-color: mat.m2-get-color-from-palette($primary, 200);
-  }
-  .bg-primary-300 {
-    background-color: mat.m2-get-color-from-palette($primary, 300);
-  }
-  .bg-primary-400 {
-    background-color: mat.m2-get-color-from-palette($primary, 400);
-    color: $contrast;
-  }
-  .bg-primary-500 {
-    background-color: mat.m2-get-color-from-palette($primary, 500);
-    color: $contrast;
-  }
-  .bg-primary-600 {
-    background-color: mat.m2-get-color-from-palette($primary, 600);
-    color: $contrast;
-  }
-  .bg-primary-700 {
-    background-color: mat.m2-get-color-from-palette($primary, 700);
-    color: $contrast;
-  }
-  .bg-primary-800 {
-    background-color: mat.m2-get-color-from-palette($primary, 800);
-    color: $contrast;
-  }
-  .bg-primary-900 {
-    background-color: mat.m2-get-color-from-palette($primary, 900);
-    color: $contrast;
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-onprimary);
   }
 
   .bg-accent {
-    background-color: mat.m2-get-color-from-palette($accent);
-    color: $contrast;
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
   }
 
   .bg-warn {
-    background-color: mat.m2-get-color-from-palette($warn);
-    color: $contrast;
+    background-color: var(--mat-sys-error);
+    color: var(--mat-sys-on-error);
   }
 
   .ngx-bar {
-    background-color: mat.m2-get-color-from-palette($primary) !important;
+    background-color: var(--mat-sys-primary) !important;
   }
 
   hr {
-    background: mat.m2-get-color-from-palette($foreground, divider);
+    background: var(--mat-sys-surface-dim);
   }
 }
 

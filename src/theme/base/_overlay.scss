@@ -1,4 +1,8 @@
 .cdk-overlay-container {
+  --mat-dialog-container-max-width: 80vw;
+  .mat-mdc-dialog-surface {
+    overflow-x: hidden;
+  }
   .manage-media-dialog {
     .mat-mdc-dialog-content {
       max-height: none;
@@ -34,11 +38,32 @@
     width: 100vw !important;
     max-width: none !important;
     --mat-dialog-content-padding: 0;
+    --mdc-dialog-container-color: transparent;
+    .mat-mdc-dialog-surface {
+      border-radius: 0;
+    }
     .dialog {
       .mat-mdc-dialog-content {
         overflow: hidden;
         border-radius: 20px 20px 0 0;
         max-height: none;
+        background-color: var(--mat-sys-neutral10);
+      }
+      .monaco-editor,
+      .monaco-editor-background,
+      .monaco-editor .inputarea.ime-input {
+        background-color: #282c34;
+      }
+      .monaco-editor {
+        .margin {
+          background-color: var(--mat-sys-neutral10);
+        }
+      }
+      .toolbar {
+        background-color: var(--mat-sys-neutral10);
+      }
+      .code-editor-show-btn {
+        --mdc-icon-button-icon-color: #fff;
       }
       .dialog-colse-outside-btn {
         top: 8px;
@@ -62,15 +87,6 @@
   .search-box-list {
     .mat-mdc-option .mdc-list-item__primary-text {
       white-space: nowrap;
-    }
-  }
-  // user menu
-  .user-dropdown {
-    .mat-icon {
-      opacity: 0.75;
-    }
-    .mat-mdc-menu-item-text {
-      display: flex;
     }
   }
 
@@ -114,6 +130,17 @@
         height: 100%;
         overflow: hidden;
       }
+    }
+  }
+
+  .layout-toolbar-menu {
+    background-color: var(--mat-sys-inverse-surface);
+    .mat-mdc-menu-item,
+    .mat-mdc-menu-item:visited,
+    .mat-mdc-menu-item:link,
+    .mat-mdc-menu-item .mat-icon-no-color,
+    .mat-mdc-menu-item .mat-mdc-menu-submenu-icon {
+      color: var(--mat-sys-on-primary);
     }
   }
 }

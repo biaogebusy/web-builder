@@ -2,6 +2,12 @@
   font-size: 14px;
   border-radius: 4px;
   line-height: 1.2;
+  background-color: var(--mat-sys-background);
+  border: 1px solid var(--mat-sys-surface-dim);
+  a {
+    color: var(--mat-sys-on-surface);
+  }
+
   span {
     font-size: small;
   }
@@ -11,6 +17,7 @@
     &.right {
       min-width: 20px;
       text-align: center;
+      border-left: 1px solid var(--mat-sys-surface-dim);
     }
   }
   ::ng-deep {

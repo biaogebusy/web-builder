@@ -2,6 +2,9 @@
 @use '../../../../../theme/variable/variable' as *;
 @use '../../../../../theme/variable/breakpoint' as *;
 :host ::ng-deep {
+  .amap-container {
+    box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
+  }
   .amap-marker-content {
     line-height: 1;
   }
@@ -17,7 +20,31 @@
     border-radius: 6px;
     min-width: 200px;
     font-size: 14px;
+    background-color: var(--mat-sys-surface-container-lowest);
+    box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
+    &.reverse {
+      background-color: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+      box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
+      .media {
+        background-color: var(--mat-sys-on-primary);
+        img {
+          background-color: var(--mat-sys-surface-container-lowest);
+        }
+      }
 
+      .sub-title,
+      .meta {
+        color: var(--mat-sys-on-primary);
+      }
+      .arrow {
+        &.top {
+          &:after {
+            border-top-color: var(--mat-sys-primary) !important;
+          }
+        }
+      }
+    }
     .media {
       width: 80px;
       height: 80px;
@@ -70,6 +97,7 @@
           margin-left: -10px;
           content: ' ';
           border-bottom-width: 0;
+          border-top-color: var(--mat-sys-surface-container-lowest) !important;
         }
       }
 
@@ -121,7 +149,7 @@
     width: 50px;
     height: 50px;
     position: relative;
-
+    background-color: var(--mat-sys-primary-container);
     &:after {
       content: '';
       display: block;
@@ -132,6 +160,7 @@
       top: 50%;
       border-radius: 50%;
       transform: translate(-50%, -50%);
+      background-color: var(--mat-sys-primary);
     }
   }
 }

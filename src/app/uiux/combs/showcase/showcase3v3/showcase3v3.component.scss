@@ -25,6 +25,8 @@
   &.teaser {
     padding-bottom: 40px;
     margin-bottom: 40px;
+    border-bottom: 1px var(--mat-sys-surface-dim);
+
     img {
       width: 100%;
       height: auto;
@@ -32,10 +34,18 @@
     .title {
       text-transform: uppercase;
       margin: 0 0 15px 0;
+      ::ng-deep {
+        a {
+          &:hover {
+            color: var(--mat-sys-primary);
+          }
+        }
+      }
     }
     .post-meta-info {
       margin-bottom: 17px;
       padding-bottom: 11px;
+      border-bottom: 1px dotted var(--mat-sys-surface-dim);
     }
   }
   @media #{$lt-md} {

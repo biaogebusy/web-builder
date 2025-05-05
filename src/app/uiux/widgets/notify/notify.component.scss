@@ -1,11 +1,26 @@
+@use '../../../../theme/mixins/amixin' as *;
 ::ng-deep {
   .notify-menu.mat-mdc-menu-panel {
     min-width: 330px;
+    @include scrollbar(var(--mat-sys-surface-container-high));
     .mat-mdc-menu-content {
+      &:hover {
+        background-color: var(--mat-sys-background);
+      }
       .mat-mdc-list-item {
         .mat-line:nth-child(n + 2) {
           font-size: 12px;
           line-height: 16px;
+        }
+        .mat-line {
+          ::ng-deep {
+            a {
+              color: var(--mat-sys-on-surface);
+              &:hover {
+                color: var(--mat-sys-primary);
+              }
+            }
+          }
         }
       }
       .mat-mdc-list-item-icon {

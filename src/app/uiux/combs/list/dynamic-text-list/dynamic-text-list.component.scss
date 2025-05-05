@@ -5,3 +5,20 @@
     border-radius: 50%;
   }
 }
+.dynamic-text-list {
+  .item {
+    .title {
+      ::ng-deep {
+        a {
+          color: var(--mat-sys-on-surface);
+          &:hover {
+            color: var(--mat-sys-primary);
+          }
+        }
+      }
+    }
+    .text-lighter {
+      color: var(--mat-sys-on-surface);
+    }
+  }
+}
