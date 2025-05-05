@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @use 'mixins/amixin' as *;
 @mixin activeStyle() {
   content: '';
@@ -257,6 +258,12 @@
   }
 
   .bottom {
+    @include mat.badge-overrides(
+      (
+        background-color: var(--mat-sys-primary),
+        text-color: var(--mat-sys-on-primary),
+      )
+    );
     .icon-actions {
       ::ng-deep {
         .mdc-icon-button {
