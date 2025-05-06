@@ -8,7 +8,7 @@ import scss from 'highlight.js/lib/languages/scss';
 import xml from 'highlight.js/lib/languages/xml';
 import json from 'highlight.js/lib/languages/json';
 import { DOCUMENT } from '@angular/common';
-
+import { UtilitiesService } from '@core/service/utilities.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,6 +16,7 @@ export class TagsService {
   private titleService = inject(Title);
   private meta = inject(Meta);
   private document = inject(DOCUMENT);
+  private util = inject(UtilitiesService);
 
   public setTitle(newTitle: string): void {
     this.titleService.setTitle(newTitle);
@@ -47,7 +48,8 @@ export class TagsService {
     }
   }
 
-  highlightCode(): void {
+  async highlightCode(): Promise<void> {
+    await this.util.loadStyle('/assets/injects/highlight.js/styles/atom-one-dark.css');
     hljs.registerLanguage('javascript', javascript);
     hljs.registerLanguage('php', php);
     hljs.registerLanguage('scss', scss);

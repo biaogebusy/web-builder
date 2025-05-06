@@ -131,12 +131,12 @@ export class UtilitiesService {
     this.clipboard.copy(content);
   }
 
-  initAnimate(
+  async initAnimate(
     inputs: IDynamicInputs,
     animateEle: HTMLElement,
     triggerEle: HTMLElement,
     index?: number
-  ): void {
+  ): Promise<void> {
     if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
       let content: any = {};
       if (index !== undefined) {
@@ -195,6 +195,7 @@ export class UtilitiesService {
       if (animate?.aos) {
         const { enable, animation, behaviour } = animate.aos;
         if (enable) {
+          await this.loadStyle('/assets/injects/aos/dist/aos.css');
           animateEle.classList.add('aos-item');
           animateEle.setAttribute('data-aos', animation);
           Object.keys(behaviour).forEach(key => {

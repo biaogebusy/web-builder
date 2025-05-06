@@ -1,0 +1,65 @@
+@use '@angular/material' as mat;
+
+.dark-theme {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+      ),
+      density: 0,
+    )
+  );
+  @include mat.theme-overrides(
+    (
+      primary: rgb(182 196 255),
+      surface-tint: rgb(182 196 255),
+      on-primary: rgb(0 39 128),
+      primary-container: rgb(41 98 255),
+      on-primary-container: rgb(247 245 255),
+      secondary: rgb(182 196 255),
+      on-secondary: rgb(20 43 111),
+      secondary-container: rgb(46 66 135),
+      on-secondary-container: rgb(158 178 254),
+      tertiary: rgb(244 174 255),
+      on-tertiary: rgb(85 0 106),
+      tertiary-container: rgb(173 60 202),
+      on-tertiary-container: rgb(255 243 251),
+      error: rgb(255 180 171),
+      on-error: rgb(105 0 5),
+      error-container: rgb(147 0 10),
+      on-error-container: rgb(255 218 214),
+      background: rgb(17 19 28),
+      on-background: rgb(225 225 238),
+      surface: rgb(17 19 28),
+      on-surface: rgb(225 225 238),
+      surface-variant: rgb(67 70 86),
+      on-surface-variant: rgb(195 197 216),
+      outline: rgb(141 144 162),
+      outline-variant: rgb(67 70 86),
+      shadow: rgb(0 0 0),
+      scrim: rgb(0 0 0),
+      inverse-surface: rgb(225 225 238),
+      inverse-on-surface: rgb(46 48 58),
+      inverse-primary: rgb(0 78 232),
+      primary-fixed: rgb(220 225 255),
+      on-primary-fixed: rgb(0 21 80),
+      primary-fixed-dim: rgb(182 196 255),
+      on-primary-fixed-variant: rgb(0 58 179),
+      secondary-fixed: rgb(220 225 255),
+      on-secondary-fixed: rgb(0 21 80),
+      secondary-fixed-dim: rgb(182 196 255),
+      on-secondary-fixed-variant: rgb(46 66 135),
+      tertiary-fixed: rgb(253 214 255),
+      on-tertiary-fixed: rgb(52 0 66),
+      tertiary-fixed-dim: rgb(244 174 255),
+      on-tertiary-fixed-variant: rgb(121 0 149),
+      surface-dim: rgb(17 19 28),
+      surface-bright: rgb(55 57 67),
+      surface-container-lowest: rgb(12 14 22),
+      surface-container-low: rgb(25 27 36),
+      surface-container: rgb(29 31 40),
+      surface-container-high: rgb(40 41 51),
+      surface-container-highest: rgb(50 52 62),
+    )
+  );
+}
