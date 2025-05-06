@@ -14,10 +14,13 @@
     @apply h-full w-full text-sm;
     border: medium none;
     padding: 1px 20px 0 40px;
+    border: 1px solid var(--mat-sys-surface-container-highest);
+    border-radius: 20px;
     @include border-radius(200px, 200px, 200px, 200px);
     &:active,
     &:focus {
       @apply shadow-none outline-none;
+      border-color: var(--mat-sys-primary-fixed-dim);
     }
   }
 
