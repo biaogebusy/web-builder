@@ -1,9 +1,9 @@
 import { IEnvironment } from '../app/core/interface/IEnvironment';
 
 export const environment: IEnvironment = {
-  apiUrl: 'https://m3.builder.design',
+  apiUrl: 'https://base.builder.design',
   production: true,
-  port: 4202,
+  port: 4200,
   cache: true,
   multiLang: true,
   langs: [

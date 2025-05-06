@@ -2,7 +2,7 @@ name: Build app and deploy to ECS
 
 on:
   push:
-    branches: [m3]
+    branches: [master]
 
 jobs:
   build:
@@ -44,4 +44,4 @@ jobs:
           FOLDER: 'dist'
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: '/mnt/wwwroot/app/m3'
+          SERVER_DESTINATION: '/mnt/wwwroot/app/base'
