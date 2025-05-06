@@ -361,7 +361,7 @@
                   }
                 }
                 &:after {
-                  background-color: var(--mat-sys-primary-container);
+                  background-color: var(--mat-sys-secondary-fixed);
                 }
               }
               ::ng-deep {
@@ -371,7 +371,7 @@
               }
               &:hover {
                 &:after {
-                  background-color: var(--mat-sys-primary-container);
+                  background-color: var(--mat-sys-secondary-fixed);
                 }
               }
             }
@@ -468,7 +468,7 @@
                 color: var(--mat-sys-primary);
               }
               &:after {
-                background-color: var(--mat-sys-primary-container);
+                background-color: var(--mat-sys-secondary-fixed);
               }
             }
           }
@@ -479,6 +479,16 @@
               }
             }
           }
+        }
+      }
+    }
+  }
+
+  .icon-actions {
+    ::ng-deep {
+      .mat-badge-above {
+        .mat-badge-content {
+          bottom: 120%;
         }
       }
     }

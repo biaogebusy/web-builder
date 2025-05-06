@@ -86,7 +86,7 @@
         }
       }
       &.active {
-        background-color: var(--mat-sys-primary-container);
+        background-color: var(--mat-sys-secondary-fixed);
         &::after {
           content: '';
           position: absolute;
