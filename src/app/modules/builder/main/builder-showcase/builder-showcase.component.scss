@@ -72,9 +72,4 @@
       }
     }
   }
-  .component-toolbar {
-    + app-spacer {
-      background-color: var(--mat-sys-primary-container);
-    }
-  }
 }

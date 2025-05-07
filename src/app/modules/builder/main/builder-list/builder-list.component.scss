@@ -51,7 +51,7 @@
     ::ng-deep {
       [contenteditable='true'] {
         cursor: text;
-        background-color: var(--mat-sys-primary-container);
+        background-color: var(--mat-sys-secondary-fixed);
       }
       .active-toolbar {
         position: relative;
