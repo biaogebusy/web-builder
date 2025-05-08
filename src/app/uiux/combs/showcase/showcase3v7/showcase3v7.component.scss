@@ -1,4 +1,4 @@
-@use '../../../../../theme/variable/breakpoint' as *;
+@use 'variable/breakpoint' as *;
 :host-context(.gaoliang-theme) ::ng-deep {
   .showcase-3-v7 {
     .showcase-inner {

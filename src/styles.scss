@@ -3,14 +3,11 @@
 @use 'tailwindcss/components';
 @use 'tailwindcss/utilities';
 /* You can add global styles to this file, and also import other style files */
-@use './theme/mixins/reset';
-@use './theme/main';
-@use 'highlight.js/scss/atom-one-dark';
-@use 'aos/dist/aos.css';
-@use '@angular/material' as mat;
-@use './theme/theme-config/blue-colors' as blue-colors;
-@use './theme/theme-config/green-colors' as green-colors;
-@use './theme/theme-config/pink-colors' as pink-colors;
+@use 'theme-config/blue-colors';
+@use 'theme-config/green-colors';
+@use 'theme-config/pink-colors';
+@use 'theme-config/dark-colors';
+@use 'main';
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -108,7 +105,6 @@ pre {
   --mat-sidenav-container-width: auto;
   --mat-sys-body-small-size: 12px;
   --mat-sys-body-medium-size: 14px;
-  --mat-menu-container-color: #ffffff;
   --mat-sidenav-container-elevation-shadow:
     0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14),
     0px 6px 30px 5px rgba(0, 0, 0, 0.12);
@@ -116,79 +112,4 @@ pre {
     --mat-sys-corner-large: 50%;
     --mat-sys-corner-medium: 50%;
   }
-}
-.dark-theme {
-  @include mat.theme(
-    (
-      color: (
-        theme-type: dark,
-        primary: blue-colors.$primary-palette,
-        tertiary: blue-colors.$tertiary-palette,
-      ),
-      density: 0,
-    )
-  );
-}
-.blue-theme {
-  @include mat.theme(
-    (
-      color: (
-        theme-type: light,
-        primary: blue-colors.$primary-palette,
-        tertiary: blue-colors.$tertiary-palette,
-      ),
-      density: 0,
-    )
-  );
-  @include mat.theme-overrides(
-    (
-      background: #fafafa,
-      on-background: rgb(0 0 0 / 75%),
-      surface: #fafafa,
-      on-surface: rgb(0 0 0 / 75%),
-      outline: rgba(0, 0, 0, 0.12),
-    )
-  );
-}
-.green-theme {
-  @include mat.theme(
-    (
-      color: (
-        theme-type: light,
-        primary: green-colors.$primary-palette,
-        tertiary: green-colors.$tertiary-palette,
-      ),
-      density: 0,
-    )
-  );
-  @include mat.theme-overrides(
-    (
-      background: #fafafa,
-      on-background: rgb(0 0 0 / 75%),
-      surface: #fafafa,
-      on-surface: rgb(0 0 0 / 75%),
-      outline: rgba(0, 0, 0, 0.12),
-    )
-  );
-}
-.pink-theme {
-  @include mat.theme(
-    (
-      color: (
-        theme-type: light,
-        primary: pink-colors.$primary-palette,
-        tertiary: pink-colors.$tertiary-palette,
-      ),
-      density: 0,
-    )
-  );
-  @include mat.theme-overrides(
-    (
-      background: #fafafa,
-      on-background: rgb(0 0 0 / 75%),
-      surface: #fafafa,
-      on-surface: rgb(0 0 0 / 75%),
-      outline: rgba(0, 0, 0, 0.12),
-    )
-  );
 }

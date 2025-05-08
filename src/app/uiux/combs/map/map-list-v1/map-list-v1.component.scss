@@ -1,6 +1,6 @@
-@use '../../../../../theme/variable/variable' as *;
-@use '../../../../../theme/variable/breakpoint' as *;
-@use '../../../../../theme//mixins/amixin' as *;
+@use 'variable/variable' as *;
+@use 'variable/breakpoint' as *;
+@use 'mixins/amixin' as *;
 
 @media #{$gt-xs} {
   .sidebar {

@@ -1,4 +1,4 @@
-@use '../../../../theme/variable/breakpoint' as *;
+@use 'variable/breakpoint' as *;
 .bg-fill-width {
   position: absolute;
   left: 50%;
@@ -45,11 +45,7 @@
 }
 
 ::ng-deep .wave-wrapper {
-  background: linear-gradient(
-    -74deg,
-    var(--mat-sys-primary-container) 0%,
-    var(--mat-sys-primary) 100%
-  );
+  background: linear-gradient(-74deg, var(--mat-sys-primary-fixed) 0%, var(--mat-sys-primary) 100%);
 
   .wave {
     width: 100%;

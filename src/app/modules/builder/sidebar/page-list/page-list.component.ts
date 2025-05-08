@@ -10,7 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta, IPageList } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
@@ -55,7 +55,8 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
-  private router = inject(ActivatedRoute);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private tagService = inject(TagsService);
@@ -163,14 +164,22 @@ export class PageListComponent extends BaseComponent implements OnInit {
       }
     });
 
-    this.router.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(query => {
-      const { nid, langcode } = query;
-      if (nid) {
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(query => {
+      const { quickEdit, nid, langcode } = query;
+      if (quickEdit) {
         this.loadPage({
           nid,
           langcode,
           title: '页面',
         });
+      } else {
+        Object.keys(query).forEach(key => {
+          this.form.get(key)?.patchValue(query[key], { onlySelf: true, emitEvent: false });
+          this.form.get(key)?.markAsTouched();
+        });
+
+        const params = this.getApiParams({ ...query, noCache: 1 });
+        this.fetchPage(params);
       }
     });
   }
@@ -178,6 +187,9 @@ export class PageListComponent extends BaseComponent implements OnInit {
   onModelChange(value: any): void {
     this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
     const formValue = merge(value, this.form.getRawValue());
+    this.router.navigate([], {
+      queryParams: formValue,
+    });
     const params = this.getApiParams({ ...formValue, noCache: 1 });
     this.fetchPage(params);
   }
@@ -245,6 +257,9 @@ export class PageListComponent extends BaseComponent implements OnInit {
   onPageChange(page: PageEvent): void {
     this.form.get('page')?.patchValue(page.pageIndex, { onlySelf: true, emitEvent: false });
     const value = merge(this.model, this.form.getRawValue());
+    this.router.navigate([], {
+      queryParams: value,
+    });
     const params = this.getApiParams(value);
     this.fetchPage(params);
   }

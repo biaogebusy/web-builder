@@ -1,4 +1,5 @@
-@use '../../../../../theme/mixins/amixin' as *;
+@use '@angular/material' as mat;
+@use 'mixins/amixin' as *;
 @mixin activeStyle() {
   content: '';
   position: absolute;
@@ -257,6 +258,12 @@
   }
 
   .bottom {
+    @include mat.badge-overrides(
+      (
+        background-color: var(--mat-sys-primary),
+        text-color: var(--mat-sys-on-primary),
+      )
+    );
     .icon-actions {
       ::ng-deep {
         .mdc-icon-button {
@@ -354,7 +361,7 @@
                   }
                 }
                 &:after {
-                  background-color: var(--mat-sys-primary-container);
+                  background-color: var(--mat-sys-secondary-fixed);
                 }
               }
               ::ng-deep {
@@ -364,7 +371,7 @@
               }
               &:hover {
                 &:after {
-                  background-color: var(--mat-sys-primary-container);
+                  background-color: var(--mat-sys-secondary-fixed);
                 }
               }
             }
@@ -461,7 +468,7 @@
                 color: var(--mat-sys-primary);
               }
               &:after {
-                background-color: var(--mat-sys-primary-container);
+                background-color: var(--mat-sys-secondary-fixed);
               }
             }
           }
@@ -472,6 +479,16 @@
               }
             }
           }
+        }
+      }
+    }
+  }
+
+  .icon-actions {
+    ::ng-deep {
+      .mat-badge-above {
+        .mat-badge-content {
+          bottom: 120%;
         }
       }
     }

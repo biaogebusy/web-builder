@@ -1,6 +1,6 @@
-@use '../../../../../theme/variable/variable' as *;
-@use '../../../../../theme/variable/breakpoint' as *;
-@use '../../../../../theme//mixins/amixin' as *;
+@use 'variable/variable' as *;
+@use 'variable/breakpoint' as *;
+@use 'mixins/amixin' as *;
 .card-1-v3 {
   box-shadow: var(--mat-sys-level1);
   .item {

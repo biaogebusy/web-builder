@@ -25,6 +25,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
 import { Router } from '@angular/router';
 import { IDialog } from '@core/interface/IDialog';
+import qs from 'qs';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -203,7 +204,13 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   }
 
   gotoPageList(): void {
-    this.router.navigate(['/builder/page-list']);
+    const { search } = window.location;
+    const query = qs.parse(search, { ignoreQueryPrefix: true });
+    this.router.navigate(['/builder/page-list'], {
+      queryParams: {
+        ...query,
+      },
+    });
   }
 
   openLogin(): void {

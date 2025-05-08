@@ -1,4 +1,4 @@
-@use '../../../../../theme/mixins/amixin' as *;
+@use 'mixins/amixin' as *;
 .backdrop {
   position: absolute;
   height: 100%;
@@ -70,11 +70,6 @@
       .mat-icon {
         color: var(--mat-sys-primary) !important;
       }
-    }
-  }
-  .component-toolbar {
-    + app-spacer {
-      background-color: var(--mat-sys-primary-container);
     }
   }
 }

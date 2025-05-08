@@ -11,7 +11,7 @@
       #select
     >
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        <mat-option *cdkVirtualFor="let option of matOptions; track: option" [value]="option.value">
+        <mat-option *cdkVirtualFor="let option of matOptions" [value]="option.value">
           @if (to.icon) {
             <mat-icon [svgIcon]="option.value"></mat-icon>
           }
@@ -39,10 +39,7 @@
         />
       </mat-option>
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        <mat-option
-          *cdkVirtualFor="let option of filteredOptions | async; track: option"
-          [value]="option.value"
-        >
+        <mat-option *cdkVirtualFor="let option of filteredOptions | async" [value]="option.value">
           @if (to.type === 'icon') {
             <mat-icon [svgIcon]="option.value"></mat-icon>
           }
@@ -63,7 +60,7 @@
       #select
     >
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        <mat-option *cdkVirtualFor="let option of matOptions; track: option" [value]="option.value">
+        <mat-option *cdkVirtualFor="let option of matOptions" [value]="option.value">
           @if (to.type === 'icon') {
             <mat-icon [svgIcon]="option.value"></mat-icon>
           }
@@ -92,10 +89,7 @@
         />
       </mat-option>
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        <mat-option
-          *cdkVirtualFor="let option of filteredOptions | async; track: option"
-          [value]="option.value"
-        >
+        <mat-option *cdkVirtualFor="let option of filteredOptions | async" [value]="option.value">
           @if (to.type === 'icon') {
             <mat-icon [svgIcon]="option.value"></mat-icon>
           }

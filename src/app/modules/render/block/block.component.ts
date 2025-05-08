@@ -109,6 +109,7 @@ export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
       queryParams: {
         nid,
         langcode: lang,
+        quickEdit: true,
       },
     });
   }

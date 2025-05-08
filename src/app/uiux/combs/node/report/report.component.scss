@@ -1,8 +1,8 @@
-@use '../../../../../theme/mixins/amixin' as *;
+@use 'mixins/amixin' as *;
 .report {
   min-height: 100vh;
   padding-bottom: 40px;
-  background-color: var(--mat-sys-primary-container);
+  background-color: var(--mat-sys-primary-fixed);
   ::ng-deep {
     .dynamic-table {
       padding: 20px;
@@ -20,7 +20,7 @@
     @include scrollbar(var(--mat-sys-primary));
     &:nth-child(2n) {
       border-radius: 10px;
-      border: 10px solid var(--mat-sys-primary-container);
+      border: 10px solid var(--mat-sys-primary-fixed);
     }
   }
   ::ng-deep {

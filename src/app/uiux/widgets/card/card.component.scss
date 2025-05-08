@@ -1,4 +1,4 @@
-@use '../../../../theme/mixins/amixin' as *;
+@use 'mixins/amixin' as *;
 .mat-mdc-card {
   color: inherit;
   background-color: var(--mat-sys-background);

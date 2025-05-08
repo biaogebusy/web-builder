@@ -1,10 +1,10 @@
-@use '../../../../../theme/mixins/amixin' as *;
+@use 'mixins/amixin' as *;
 .cards {
   .group {
     border-radius: 6px;
     padding: 6px;
     &:hover {
-      background-color: var(--mat-sys-primary-container);
+      background-color: var(--mat-sys-surface-container);
       transition: all 0.2s ease;
     }
   }
@@ -48,12 +48,10 @@
       background-color: var(--mat-sys-background);
       transition: background 0.1s ease-in-out;
       box-shadow: var(--mat-sys-level0);
-      &:hover {
-        background: var(--mat-sys-primary-container);
-      }
+      &:hover,
       &.active {
-        background-color: var(--mat-sys-primary);
-        color: var(--mat-sys-on-primary);
+        background-color: var(--mat-sys-secondary-fixed);
+        color: var(--mat-sys-primary);
       }
       &.move {
         &:hover {

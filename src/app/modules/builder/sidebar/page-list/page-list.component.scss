@@ -1,10 +1,10 @@
-@use '../../../../../theme/mixins/amixin' as *;
+@use 'mixins/amixin' as *;
 .page-list {
   @apply relative rounded-md m-3;
   background-color: var(--mat-sys-background);
   box-shadow: var(--mat-sys-level1);
   .reload {
-    @apply z-10 absolute top-2 right-2 cursor-pointer;
+    @apply z-10 absolute top-1 right-2 cursor-pointer;
     transform: scale(0.8);
   }
   .form {
@@ -83,10 +83,11 @@
           font-size: 12px;
           line-height: 24px;
           height: 24px;
+          --mat-outlined-button-horizontal-padding: 18px;
         }
       }
       &.active {
-        background-color: var(--mat-sys-primary-container);
+        background-color: var(--mat-sys-secondary-fixed);
         &::after {
           content: '';
           position: absolute;

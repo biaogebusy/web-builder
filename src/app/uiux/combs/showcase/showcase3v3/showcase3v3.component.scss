@@ -1,5 +1,5 @@
-@use '../../../../../theme/mixins/amixin' as *;
-@use '../../../../../theme/variable/breakpoint' as *;
+@use 'mixins/amixin' as *;
+@use 'variable/breakpoint' as *;
 .showcase-inner {
   ul,
   li {

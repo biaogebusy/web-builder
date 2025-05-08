@@ -9,7 +9,6 @@
             #copy
             class="box flex flex-col justify-center items-center"
             (click)="onPasteData()"
-            (mouseenter)="onHoverCopy({ content: bcData() }, copy)"
             matTooltip="选择复制的组件"
             matTooltipPosition="above"
           >
@@ -19,7 +18,7 @@
               </div>
             </div>
           </div>
-          <app-divider />
+          <app-divider class="opacity-50 w-[40px]" />
         }
         @for (group of widgets; track $index) {
           <div
@@ -36,7 +35,7 @@
           </div>
         }
         @if (help) {
-          <app-divider class="opacity-50 w-[40px]"></app-divider>
+          <app-divider class="opacity-50 w-[40px]" />
           <div class="help box" [matTooltip]="help.tooltip">
             <app-btn
               [content]="{
