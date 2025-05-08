@@ -1,4 +1,4 @@
-@use '../../../../../theme/variable/breakpoint' as *;
+@use 'variable/breakpoint' as *;
 .hero-1-v2 {
   ::ng-deep {
     .title,

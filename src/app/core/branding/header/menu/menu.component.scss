@@ -1,4 +1,4 @@
-@use '../../../../../theme/variable/breakpoint' as *;
+@use 'variable/breakpoint' as *;
 
 .header {
   @apply relative mb-[2px];

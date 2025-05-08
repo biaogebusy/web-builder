@@ -1,4 +1,4 @@
-@use '../../../../../theme/mixins/amixin' as *;
+@use 'mixins/amixin' as *;
 .calendar {
   ::ng-deep {
     .fc {
@@ -8,7 +8,7 @@
         }
         .fc-toolbar-chunk {
           &:last-child {
-            background-color: var(--mat-sys-primary-container);
+            background-color: var(--mat-sys-primary-fixed);
             border-radius: 4px;
             transform: scale(1.08);
             button {
@@ -36,7 +36,7 @@
       }
       .fc-daygrid-day {
         &.fc-day-today {
-          background-color: var(--mat-sys-primary-container);
+          background-color: var(--mat-sys-primary-fixed);
         }
       }
       .fc-daygrid-day-top {
@@ -59,13 +59,13 @@
         white-space: nowrap;
       }
       .fc-button-primary {
-        background-color: var(--mat-sys-primary-container);
+        background-color: var(--mat-sys-primary-fixed);
         border: 0;
         color: var(--mat-sys-primary);
         box-shadow: none !important;
         &:disabled {
-          background-color: var(--mat-sys-primary-container);
-          border-color: var(--mat-sys-primary-container);
+          background-color: var(--mat-sys-primary-fixed);
+          border-color: var(--mat-sys-primary-fixed);
           color: var(--mat-sys-primary);
         }
         &:hover,

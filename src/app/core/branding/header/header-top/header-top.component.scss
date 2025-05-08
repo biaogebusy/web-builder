@@ -1,4 +1,4 @@
-@use '../../../../../theme/mixins/amixin' as *;
+@use 'mixins/amixin' as *;
 @use '@angular/material' as mat;
 .header-top {
   padding: 3px 0;

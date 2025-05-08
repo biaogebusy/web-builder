@@ -15,7 +15,6 @@ import { UtilitiesService } from './utilities.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Params, Router } from '@angular/router';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { DialogRef } from '@angular/cdk/dialog';
 import { IDialog } from '@core/interface/IDialog';
 @Injectable({
   providedIn: 'root',

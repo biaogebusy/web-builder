@@ -158,12 +158,4 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
       this.widgetPopper.update();
     }
   }
-
-  onHoverCopy(widget: any, ele: any): void {
-    this.group$.next(false);
-    if (this.groupPopper) {
-      this.groupPopper.destroy();
-    }
-    this.onHoverWidget(widget, ele);
-  }
 }

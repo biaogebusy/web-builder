@@ -16,7 +16,7 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
   async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
       await this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
-      await this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.js');
+      await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
 
       const editor = new window.JSONEditor(this.editor.nativeElement, {
         mode: 'code',

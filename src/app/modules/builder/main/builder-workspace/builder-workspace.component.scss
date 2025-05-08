@@ -1,5 +1,5 @@
-@use '../../../../../theme/variable/breakpoint' as *;
-@use '../../../../../theme/mixins/amixin' as *;
+@use 'variable/breakpoint' as *;
+@use 'mixins/amixin' as *;
 .builder-workspace {
   height: 100vh;
   display: flex;
@@ -50,7 +50,7 @@
   .cdk-drag-placeholder {
     height: 60px;
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-    background-color: var(--mat-sys-primary-container);
+    background-color: var(--mat-sys-primary-fixed);
     border: 2px dotted var(--mat-sys-outline);
     width: 100%;
     &:hover {

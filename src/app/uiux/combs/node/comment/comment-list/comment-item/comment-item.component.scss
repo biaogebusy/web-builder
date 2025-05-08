@@ -1,4 +1,4 @@
-@use '../../../../../../../theme/variable/breakpoint' as *;
+@use 'variable/breakpoint' as *;
 .item {
   &:after {
     content: '';

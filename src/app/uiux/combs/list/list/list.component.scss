@@ -1,4 +1,4 @@
-@use '../../../../../theme/variable/breakpoint' as *;
+@use 'variable/breakpoint' as *;
 .list {
   @media #{$lt-md} {
     ::ng-deep {

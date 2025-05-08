@@ -22,7 +22,7 @@
   .mat-mdc-list-item {
     @apply opacity-80 rounded-[5px];
     margin: 4px 0;
-    background-color: var(--mat-sys-primary-container);
+    background-color: var(--mat-sys-primary-fixed);
     &.cdk-drag {
       @apply cursor-move;
     }
