@@ -1,6 +1,19 @@
 .cdk-overlay-container {
   --mat-dialog-container-max-width: 80vw;
-
+  .mat-mdc-dialog-container {
+    overflow: visible;
+    .mat-mdc-dialog-surface {
+      overflow-y: visible;
+      .dialog-colse-outside-btn {
+        .mat-icon {
+          color: #fff;
+        }
+      }
+      .mat-mdc-dialog-content {
+        max-height: 85vh;
+      }
+    }
+  }
   .manage-media-dialog {
     .mat-mdc-dialog-content {
       max-height: none;
@@ -17,12 +30,6 @@
   }
 
   .close-outside {
-    .mat-mdc-dialog-container {
-      overflow: visible;
-      .mat-mdc-dialog-surface {
-        overflow-y: visible;
-      }
-    }
     &.close-icon-white {
       .dialog-colse-outside-btn {
         .mat-icon {

@@ -116,6 +116,7 @@ export class BuilderState {
     };
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '340px',
+      panelClass: ['close-outside', 'close-icon-white'],
       data: config,
     });
     dialogRef.afterClosed().subscribe(result => {
