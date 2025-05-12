@@ -2,7 +2,7 @@
   &.pills {
     ::ng-deep {
       .mat-mdc-tab {
-        background-color: var(--mat-sys-primary-container);
+        background-color: var(--mat-sys-primary-fixed);
       }
       .mdc-tab--active {
         background-color: var(--mat-sys-primary);
@@ -13,6 +13,9 @@
       }
       .mat-mdc-tab-header {
         border-bottom: 0;
+        .mat-mdc-tab-labels {
+          background-color: var(--mat-sys-primary-fixed);
+        }
         .mdc-tab--active,
         .mat-mdc-tab-labels {
           border-radius: 6px;
