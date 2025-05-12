@@ -1618,7 +1618,7 @@ export const components: any[] = [
                   prefix: '¥',
                   number: '99',
                   suffix: '/月',
-                  classes: 'bg-light',
+                  classes: '!bg-white',
                   body: '<ul class="list-done"><li>所有免费会员功能</li><li>享受高质量、独家的内容和教程</li><li>获得快速响应的客户支持服务</li><li>参与平台举办的活动和专属优惠</li></ul>',
                   actionsAlign: 'start center',
                   actions: [
@@ -2639,7 +2639,7 @@ export const components: any[] = [
               },
               spacer: 'md',
               bg: {
-                classes: 'bg-light ',
+                classes: 'bg-white ',
               },
               classes: '',
               img: {
@@ -2843,7 +2843,7 @@ export const components: any[] = [
                 body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
               },
               bg: {
-                classes: 'bg-light ',
+                classes: 'bg-white ',
               },
               classes: '',
               row: 4,
@@ -4365,7 +4365,7 @@ export const components: any[] = [
                       classes: 'mat-headline-3',
                     },
                     bg: {
-                      classes: 'bg-light ',
+                      classes: 'bg-white ',
                     },
                     classes: '',
                     img: {

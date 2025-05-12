@@ -859,7 +859,7 @@ export const system: any[] = [
                         event: 'drupal',
                         start: 1720510921677,
                         user: 'Johnson',
-                        className: 'bg-light-green',
+                        className: 'bg-white-green',
                       },
                       {
                         title: 'ANGULAR 有哪几种不同类型的绑定',
@@ -1554,7 +1554,7 @@ export const system: any[] = [
                         event: 'drupal',
                         start: 1720510921677,
                         user: 'Johnson',
-                        className: 'bg-light-green',
+                        className: 'bg-white-green',
                       },
                       {
                         title: 'ANGULAR 有哪几种不同类型的绑定',
@@ -2309,7 +2309,7 @@ export const system: any[] = [
               label: '相关业务',
               type: 'tab',
               spacer: 'none',
-              classes: 'bg-light',
+              classes: 'bg-white',
               elements: [
                 {
                   label: '财务数据',
@@ -4291,116 +4291,6 @@ export const system: any[] = [
                       href: '#',
                     },
                   ],
-                },
-              ],
-            },
-          ],
-        },
-      },
-      {
-        label: '图文列表',
-        content: {
-          type: 'dynamic-media-list',
-          params: {
-            include: 'category,field_tags,media,media.field_media_image',
-            sort: '-changed',
-            type: 'blog',
-          },
-          showImage: true,
-          ratios: 'media-16-9',
-          readMoreLabel: '显示更多',
-          pager: {
-            itemsPerPage: 20,
-          },
-          sidebar: [
-            {
-              type: 'media-list',
-              title: '最新博客',
-              elements: [
-                {
-                  link: {
-                    label: '信使 UI 应用初始化及页面渲染流程',
-                    href: '/node/463',
-                  },
-                  img: {
-                    src: '/sites/default/files/styles/media_3_2_medium/public/2024-03/0.jpg?itok=BwK8Gl1A',
-                    alt: '',
-                  },
-                  changed: '2024/03/08',
-                },
-                {
-                  link: {
-                    label: '信使Web builder 新增自定义组件流程',
-                    href: '/node/462',
-                  },
-                  img: {
-                    src: '/sites/default/files/styles/media_3_2_medium/public/2024-03/173.jpg?itok=Pl96POWi',
-                    alt: '',
-                  },
-                  changed: '2024/03/06',
-                },
-                {
-                  link: {
-                    label: '信使web builder 新增历史版本',
-                    href: '/node/464',
-                  },
-                  img: {
-                    src: '/sites/default/files/styles/media_3_2_medium/public/2024-03/1-5.jpg?itok=Irr343AH',
-                    alt: '',
-                  },
-                  changed: '2024/01/25',
-                },
-                {
-                  link: {
-                    label: 'github 22 端口连接超时报错的解决办法',
-                    href: '/node/461',
-                  },
-                  img: {
-                    src: '/sites/default/files/styles/media_3_2_medium/public/2024-03/374.jpg?itok=moXR5q8F',
-                    alt: '',
-                  },
-                  changed: '2024/01/22',
-                },
-              ],
-            },
-            {
-              type: 'menu-list',
-              title: '分类统计',
-              elements: [
-                {
-                  link: {
-                    href: '/frontend',
-                    label: '前端茶馆',
-                  },
-                  label: '17',
-                },
-                {
-                  link: {
-                    href: '/drupal',
-                    label: 'Drupal 自习室',
-                  },
-                  label: '8',
-                },
-                {
-                  link: {
-                    href: '/taxonomy/term/85',
-                    label: '信使',
-                  },
-                  label: '3',
-                },
-                {
-                  link: {
-                    href: '/taxonomy/term/83',
-                    label: '技术',
-                  },
-                  label: '1',
-                },
-                {
-                  link: {
-                    href: '/ui',
-                    label: 'UI 设计',
-                  },
-                  label: '1',
                 },
               ],
             },
