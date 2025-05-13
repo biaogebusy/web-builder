@@ -15,19 +15,19 @@ import { PageEvent } from '@angular/material/paginator';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-    selector: 'app-custom-template',
-    templateUrl: './custom-template.component.html',
-    styleUrls: ['./custom-template.component.scss'],
-    standalone: false
+  selector: 'app-custom-template',
+  templateUrl: './custom-template.component.html',
+  styleUrls: ['./custom-template.component.scss'],
+  standalone: false,
 })
 export class CustomTemplateComponent implements AfterViewInit {
   @Input() content: ICustomTemplate;
-  pager: IPager | null;
-  ele = inject(ElementRef);
-  cd = inject(ChangeDetectorRef);
-  screenService = inject(ScreenService);
-  nodeService = inject(NodeService);
-  template: Element;
+  public pager: IPager | null;
+  private ele = inject(ElementRef);
+  private cd = inject(ChangeDetectorRef);
+  private screenService = inject(ScreenService);
+  private nodeService = inject(NodeService);
+  private template: Element;
 
   ngAfterViewInit(): void {
     this.template = this.ele.nativeElement.querySelector('.template');
