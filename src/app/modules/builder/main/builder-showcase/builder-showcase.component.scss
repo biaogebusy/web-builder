@@ -25,6 +25,7 @@
         transform: none !important;
         max-height: 75vh;
         overflow: auto;
+        box-shadow: none !important;
         @include scrollbar(var(--mat-sys-primary));
 
         > .components {

@@ -8,15 +8,10 @@
     }
   }
   ::ng-deep {
-    a {
+    a:not(.mdc-button) {
       color: var(--mat-sys-on-surface);
       &:hover {
         color: var(--mat-sys-primary);
-      }
-      &.mat-primary {
-        &:hover {
-          color: var(--mat-sys-on-primary);
-        }
       }
     }
   }

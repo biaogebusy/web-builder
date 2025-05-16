@@ -1,13 +1,13 @@
 .card-1v6 {
   box-shadow: var(--mat-sys-level1);
-  background-color: var(--mat-sys-secondary-container);
+  background-color: var(--mat-sys-primary-fixed);
   border-bottom: 3px solid var(--mat-sys-outline);
   .title {
     color: var(--mat-sys-primary);
   }
   &:hover {
     border-color: var(--mat-sys-primary);
-    background-color: var(--mat-sys-background) !important;
+    background-color: var(--mat-sys-background);
     box-shadow: var(--mat-sys-level1);
   }
 }
