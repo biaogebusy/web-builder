@@ -60,6 +60,12 @@ html.drawer-disable-scroll {
   display: inline-flex !important;
 }
 
+button {
+  &:not(.mdc-button) {
+    border: 0;
+  }
+}
+
 img {
   box-sizing: border-box;
   vertical-align: middle;
