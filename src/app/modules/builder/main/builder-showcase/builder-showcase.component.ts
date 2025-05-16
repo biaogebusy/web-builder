@@ -44,6 +44,7 @@ export class BuilderShowcaseComponent implements OnInit {
       schemaType: component.type,
     };
     const config: IDialog = {
+      disableCloseButton: true,
       inputData: {
         content: jsonWidget,
       },

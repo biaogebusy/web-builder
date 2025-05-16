@@ -10,6 +10,11 @@
   }
 }
 
+a,
+.mdc-button {
+  white-space: nowrap;
+}
+
 .mdc-button {
   ::ng-deep {
     .mdc-button__label {

@@ -1913,7 +1913,7 @@ export const base = [
                   prefix: '¥',
                   number: '99',
                   suffix: '/月',
-                  classes: 'bg-light',
+                  classes: '!bg-white',
                   body: '<ul class="list-done"><li>所有免费会员功能</li><li>享受高质量、独家的内容和教程</li><li>获得快速响应的客户支持服务</li><li>参与平台举办的活动和专属优惠</li></ul>',
                   actionsAlign: 'start center',
                   actions: [
@@ -2978,7 +2978,7 @@ export const base = [
         },
         content: {
           type: 'tab',
-          classes: 'bg-light',
+          classes: 'bg-white',
           align: 'center',
           pills: true,
           fullWidth: false,
