@@ -84,7 +84,7 @@ module.exports = {
         /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
       variants: ['sm', 'md', 'lg'],
     },
-    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/, variants: ['sm', 'md', 'lg'] },
+    { pattern: /^border(?:-(?:t|b|r|l|x|y))?(?:-(?:0|2|4|8))?$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^border-(solid|dashed|dotted|double|none)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
