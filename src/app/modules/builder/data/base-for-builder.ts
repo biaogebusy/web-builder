@@ -199,7 +199,7 @@ export const base = [
           spacer: 'md',
 
           overlay: '',
-          classes: '',
+          classes: 'text-center',
           id: '',
           bg: {
             img: {
