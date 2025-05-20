@@ -56,7 +56,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
       data: this.page,
       isPage: true,
       schemaType: 'page',
-      classes: 'full-height',
+      classes: 'full-height my-5',
     };
     this.builder.rightContent$.next({
       mode: 'over',
