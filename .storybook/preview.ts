@@ -23,6 +23,7 @@ const preview: Preview = {
             'Nginx 配置',
             '*',
             'JSONAPI',
+            'AI创建组件',
           ],
           '部署',
           ['架构图', '部署流程', 'Drupal 部署', 'builder 前台部署', 'Nginx 配置'],

@@ -1,0 +1,333 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="开发/AI创建组件" id="ai-builder-component" />
+
+# 根据设计稿创建静态组件的最佳实践
+
+## 流程
+
+- 截图上传给gemini、chatgpt或者豆包，加上以下提示词（完全复制即可）
+- 根据AI返回的组件json描述给信使AI来创建组件
+
+## 提示词 （v2 版本）
+
+```text
+## 角色
+
+作为经验丰富的UI设计师，请根据设计图对UI组件进行描述，来指导前端开发来开发完全一致的html组件，这是正式稿，不能有任何描述的疏漏，要求：
+
+- 以嵌套json格式输出
+- 描述应清晰、精确、易于理解，能够完全描述所有设计
+- 请特别注意并描述所有装饰性元素，如图标、分隔线、背景图案、以及标题下方的彩色强调线条等
+- 不要输出多余的解释
+
+## 布局结构
+
+### 容器关系：
+
+- 使用「父子容器」嵌套表述，层级清晰
+- 标注绝对定位元素（relative父级 + absolute子级）
+
+### 布局结构
+
+- 整体布局类型（单列/多列/网格/不对称布局等）
+- 是否有 Grid/Flexbox 布局特征，优先使用12栏网格grid进行布局
+- 间距特征
+
+### 网格系统：
+
+- 使用grid 12栏网格系统
+- gap 使用明确数值单位：gap-x
+- 复合布局须注明嵌套 grid / flex 容器类型
+
+### 颜色方案：
+
+- 主要使用的颜色（背景/文字/按钮）
+- 渐变色使用位置
+- 透明度的使用场景（如有）
+
+### 排版细节
+
+- 标题层级（h1-h6）的具体字号/字重
+- 正文字号/行高
+- 特殊字体使用位置（如等宽字体）
+
+### 组件特征
+
+- 按钮样式（圆角大小/阴影/悬停效果）
+- 表单元素样式（输入框/下拉菜单）
+- 卡片/模态框的装饰属性
+
+### 响应式特征
+
+- 明显的断点变化（布局/字号在不同屏幕的变化）
+- 元素的显隐控制（移动端隐藏的元素）
+
+### 特殊效果
+
+- 使用的过渡动画类型
+- 阴影层级（如小/中/大阴影）
+- 滤镜效果（模糊/饱和度等）
+
+### 其他
+
+- 是否需要标注特定坐标尺寸
+- 是否包含多状态展示（hover/active）
+
+### 元素结构顺序：
+
+- 同一子容器内，上下元素需明确标注「顺序关系」
+- 示例：
+  ▸ 标签：text-sm text-gray-600【标题】
+  ▸ 数据：mt-1 text-xl font-bold【数值】
+
+### 样式描述
+
+1. 尺寸系统：
+
+   - 宽高使用 w-[n]/h-[n] 或百分比单位（如：w-full / h-32）
+
+2. 视觉特征：
+
+   - 背景/文字颜色格式：bg-green-400 / text-white
+   - 渐变格式：bg-gradient-to-b from-[color] to-[color]
+   - 阴影层级：shadow-sm / shadow-lg / shadow-xl
+   - 圆角：rounded-lg / rounded-2xl
+   - 边框：border border-b border-solid
+
+3. 字体系统：
+   - 字号 + 字重：text-lg font-bold
+   - 行高 & 字距：leading-relaxed / tracking-wide
+   - 对齐方式：text-center / text-right / text-left
+
+### 内容要素
+
+1. 图文规范：
+
+   - 图片比例：aspect-[4/3] / aspect-video（如有图片）
+   - 所有文字内容保留
+   - 图标标注具体名称（如 heroicons:arrow-down）
+
+2. 元素层级：
+   - 遇到上下关系元素（如标签+数值）需按显示顺序列出，并用缩进表达嵌套
+
+### 响应式策略
+
+- 优先采用移动优先策略，逐步增强：
+  - `w-full`（默认） → `md:max-w-md` / `lg:max-w-xl`
+  - `p-4`（默认） → `md:p-6` / `lg:p-10`
+  - 栅格/内边距/间距皆可通过断点覆盖调整（如：`md:gap-x-8`）
+
+### 输出示例
+
+{
+  "component": "OrderList",
+  "type": "container",
+  "layout": {
+    "display": "grid",
+    "columns": 12,
+    "gap": "16px"
+  },
+  "padding": "16px",
+  "backgroundColor": "#F6F6F6",
+  "children": [
+    {
+      "component": "OrderCard",
+      "backgroundColor": "#FFFFFF",
+      "borderRadius": "8px",
+      "border": "1px solid #E5E7EB",
+      "boxShadow": "0 1px 2px rgba(0,0,0,0.05)",
+      "layout": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "12px"
+      },
+      "children": [
+        {
+          "component": "Header",
+          "layout": {
+            "display": "flex",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+          },
+          "children": [
+            {
+              "component": "Box",
+              "layout": {
+                "display": "flex",
+                "alignItems": "center",
+                "gap": "8px"
+              },
+              "children": [
+                {
+                  "component": "Icon",
+                  "name": "heroicons:shopping-bag",
+                  "size": "24px",
+                  "color": "#10B981"
+                },
+                {
+                  "component": "Text",
+                  "content": "城盛百汇华南城店",
+                  "style": {
+                    "fontSize": "16px",
+                    "fontWeight": "500",
+                    "color": "#111827"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "Text",
+              "content": "已完成",
+              "style": {
+                "fontSize": "14px",
+                "fontWeight": "500",
+                "color": "#6B7280"
+              }
+            }
+          ]
+        },
+        {
+          "component": "Divider",
+          "style": {
+            "height": "1px",
+            "backgroundColor": "bg-gray-200",
+            "width": "w-full",
+            "marginVertical": "my-3"
+          }
+        },
+        {
+          "component": "ItemRow",
+          "layout": {
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "space-between",
+            "gap": "12px"
+          },
+          "children": [
+            {
+              "component": "Box",
+              "layout": {
+                "display": "flex",
+                "alignItems": "center",
+                "gap": "12px"
+              },
+              "children": [
+                {
+                  "component": "Image",
+                  "src": "shrimp.png",
+                  "style": {
+                    "width": "64px",
+                    "borderRadius": "4px"
+                  }
+                },
+                {
+                  "component": "Image",
+                  "src": "chicken.png",
+                  "style": {
+                    "width": "64px",
+                    "borderRadius": "4px"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "Box",
+              "layout": {
+                "display": "flex",
+                "flexDirection": "column",
+                "alignItems": "flex-end",
+                "gap": "4px"
+              },
+              "children": [
+                {
+                  "component": "Text",
+                  "content": "共2件",
+                  "style": {
+                    "fontSize": "14px",
+                    "fontWeight": "500",
+                    "color": "#6B7280"
+                  }
+                },
+                {
+                  "component": "Text",
+                  "content": "¥56.7",
+                  "style": {
+                    "fontSize": "16px",
+                    "fontWeight": "500",
+                    "color": "#111827"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "component": "Divider",
+          "style": {
+            "height": "1px",
+            "backgroundColor": "bg-gray-200",
+            "width": "w-full",
+            "marginVertical": "my-3"
+          }
+        },
+        {
+          "component": "Footer",
+          "layout": {
+            "display": "flex",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "gap": "12px"
+          },
+          "children": [
+            {
+              "component": "Text",
+              "content": "2024-06-06 15:10:01",
+              "style": {
+                "fontSize": "12px",
+                "color": "#6B7280"
+              }
+            },
+            {
+              "component": "ButtonGroup",
+              "layout": {
+                "display": "flex",
+                "gap": "8px"
+              },
+              "children": [
+                {
+                  "component": "Button",
+                  "content": "删除",
+                  "variant": "outline",
+                  "color": "green"
+                },
+                {
+                  "component": "Button",
+                  "content": "评价",
+                  "variant": "outline",
+                  "color": "green"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+```
+
+## 转换成独立的scss 提示词
+
+```
+把组件里面的tailwindCss的class提炼到外部<style lang="scss"></style>中，使用tailwindCss @apply的语法，按组件的层级进行嵌套，示例：
+<style lang="scss">
+.card{
+  @apply text-white;
+  .h1{
+  @apply text-lg;
+}
+}
+</style>
+```
