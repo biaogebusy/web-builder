@@ -225,7 +225,7 @@ export class BuilderService extends ApiService {
           ],
         };
         const config: IDialog = {
-          disableCloseButton: true,
+          disableActions: true,
           inputData: {
             content: jsonWidget,
           },

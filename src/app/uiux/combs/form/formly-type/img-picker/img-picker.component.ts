@@ -49,7 +49,7 @@ export class ImgPickerComponent extends FieldType implements OnInit {
   openMedias(): void {
     this.time = new Date();
     const config: IDialog = {
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: {
           type: 'manage-media',

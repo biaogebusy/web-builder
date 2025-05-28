@@ -49,7 +49,7 @@ export class DialogService {
 
   openDialog(config: any): void {
     const dateConfig: IDialog = {
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: config.text,
       },

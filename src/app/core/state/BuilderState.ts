@@ -422,7 +422,7 @@ export class BuilderState {
     this.showcase$.next(false);
     const config: IDialog = {
       title: '选择模板创建页面',
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: {
           type: 'builder-template',

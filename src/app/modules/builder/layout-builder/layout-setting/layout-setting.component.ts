@@ -102,7 +102,7 @@ export class LayoutSettingComponent {
         data: get(this.builder.currentPage.body, path),
       };
       const config: IDialog = {
-        disableCloseButton: true,
+        disableActions: true,
         inputData: {
           content: jsonWidget,
         },
@@ -122,7 +122,7 @@ export class LayoutSettingComponent {
     let builderList: any;
     if (path && this.content.content.type === 'custom-template') {
       const config: IDialog = {
-        disableCloseButton: true,
+        disableActions: true,
         inputData: {
           content: {
             type: 'code-editor',

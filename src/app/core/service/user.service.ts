@@ -365,7 +365,7 @@ export class UserService extends ApiService {
   openLoginDialog(queryParams: Params): MatDialogRef<DialogComponent> {
     this.router.navigate([], { queryParams });
     const config: IDialog = {
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: {
           type: 'login',

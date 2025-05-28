@@ -30,7 +30,7 @@ export class BuilderSidebarComponent implements OnInit {
 
   onSelectAssets(): void {
     const config: IDialog = {
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: {
           type: 'manage-media',
