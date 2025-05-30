@@ -347,7 +347,12 @@ export class CollectorComponent implements OnInit {
       style: {
         width: '800px',
       },
-      elements: [widget],
+      elements: [
+        {
+          ...widget,
+          fullWidth: true,
+        },
+      ],
     });
   }
 
