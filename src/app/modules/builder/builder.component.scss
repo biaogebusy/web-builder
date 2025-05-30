@@ -69,3 +69,6 @@
   border-bottom: 1px solid var(--mat-sys-surface-dim);
   --mdc-icon-button-icon-color: var(--mat-sys-primary);
 }
+.right-content {
+  @apply p-5;
+}

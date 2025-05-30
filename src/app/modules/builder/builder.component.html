@@ -46,7 +46,7 @@
             </div>
             @if (builderRightDrawer.opened) {
               @if (rightContent) {
-                <div class="p-5" [ngStyle]="rightContent.style">
+                <div class="right-content" [ngStyle]="rightContent.style">
                   @for (item of rightContent.elements; track item) {
                     <app-dynamic-component [inputs]="item" />
                   }
