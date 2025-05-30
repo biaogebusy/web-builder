@@ -18,7 +18,7 @@
       <app-dynamic-component [inputs]="data.inputData.content" />
     }
   </mat-dialog-content>
-  @if (!data.disableCloseButton) {
+  @if (!data.disableActions) {
     <div class="gap-3 px-4" mat-dialog-actions align="end">
       <button mat-button (click)="onNoClick()">{{ data.noLabel }}</button>
       <button mat-button color="primary" (click)="onYesClick()" cdkFocusInitial>

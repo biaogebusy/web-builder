@@ -44,7 +44,7 @@ module.exports = {
     { pattern: /^overflow-(auto|hidden|visible|scroll)$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^z-([0-9]|10|20|30|40|50|auto)$/ },
     {
-      pattern: /^(w|h)-((1\/[2-4])|full|screen|min|max|auto|[0-9]{1,3})$/,
+      pattern: /^(w|h)-((1\/[2-4])|px|full|screen|min|max|auto|[0-9]{1,3})$/,
       variants: ['sm', 'md', 'lg'],
     },
     { pattern: /^text-(left|center|right|justify)$/, variants: ['sm', 'md', 'lg'] },
@@ -59,7 +59,7 @@ module.exports = {
     },
     {
       pattern:
-        /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)$/,
+        /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)(?:\/(?:100|0|5|[1-9][05]))?$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
@@ -84,7 +84,7 @@ module.exports = {
         /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
       variants: ['sm', 'md', 'lg'],
     },
-    { pattern: /^border(-[tbrl])?-(0|2|4|8)$/, variants: ['sm', 'md', 'lg'] },
+    { pattern: /^border(?:-(?:t|b|r|l|x|y))?(?:-(?:0|2|4|8))?$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^border-(solid|dashed|dotted|double|none)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
@@ -145,7 +145,7 @@ module.exports = {
     { pattern: /^bg-gradient-to-(t|tr|r|br|b|bl|l|tl)$/ },
     {
       pattern:
-        /^(from|to)-(transparent|current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)(\/[0-9]{1,3})?)$/,
+        /^(from|to)-(transparent|current|(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)(\/[0-9]{1,3})?)$/,
     },
     { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {

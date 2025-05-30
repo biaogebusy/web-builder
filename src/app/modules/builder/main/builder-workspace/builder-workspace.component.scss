@@ -18,6 +18,7 @@
   width: 230px;
   background-color: var(--mat-sys-surface);
   border-radius: 0;
+  border-right-color: var(--mat-sys-surface-container-highest);
   ::ng-deep {
     .mat-expansion-panel-header {
       padding: 0 16px;

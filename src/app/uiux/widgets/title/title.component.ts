@@ -12,17 +12,17 @@ import type { ITitle } from '@core/interface/widgets/ITitle';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-    selector: 'app-title',
-    templateUrl: './title.component.html',
-    styleUrls: ['./title.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-title',
+  templateUrl: './title.component.html',
+  styleUrls: ['./title.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TitleComponent implements AfterViewInit, OnDestroy {
   @Input() content: ITitle;
   @ViewChild('title', { static: false }) title: ElementRef;
-  typed: any;
-  screenService = inject(ScreenService);
+  private typed: any;
+  private screenService = inject(ScreenService);
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {

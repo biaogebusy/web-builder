@@ -1,5 +1,5 @@
 export interface IDialog {
-  disableCloseButton?: boolean;
+  disableActions?: boolean;
   title?: string;
   titleClasses?: string;
   inputData: any;

@@ -2,6 +2,11 @@
   .mat-mdc-slider {
     min-width: auto;
     flex: 1 1 auto;
+    ::ng-deep {
+      .mdc-slider__track--inactive {
+        background-color: var(--mat-sys-primary);
+      }
+    }
   }
   .value {
     flex: 0 0 60px;

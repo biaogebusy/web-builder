@@ -1,4 +1,7 @@
 .layout-setting {
+  --mdc-filled-text-field-container-color: transparent;
+  --mat-option-label-text-size: 15px;
+  --mat-form-field-container-text-size: 15px;
   ::ng-deep {
     h2.title-header {
       @apply capitalize;
@@ -6,10 +9,6 @@
     input.mat-mdc-input-element,
     .mat-mdc-form-field {
       font-size: 15px;
-    }
-
-    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-      @apply bg-transparent;
     }
 
     .none-description {

@@ -4,15 +4,12 @@ import { FieldTypeConfig } from '@ngx-formly/core';
 import { FieldType } from '@ngx-formly/material/form-field';
 
 @Component({
-    selector: 'formly-field-mat-slider',
-    templateUrl: './slider.component.html',
-    styleUrls: ['./slider.component.scss'],
-    standalone: false
+  selector: 'formly-field-mat-slider',
+  templateUrl: './slider.component.html',
+  styleUrls: ['./slider.component.scss'],
+  standalone: false,
 })
-export class SliderComponent
-  extends FieldType<FieldTypeConfig>
-  implements OnInit
-{
+export class SliderComponent extends FieldType<FieldTypeConfig> implements OnInit {
   @ViewChild(MatSlider) slider!: MatSlider;
 
   defaultOptions = {
@@ -29,7 +26,7 @@ export class SliderComponent
 
   ngOnInit(): void {
     this.formControl.valueChanges.subscribe(value => {
-      this.formControl.patchValue(value, { emitEvent: false });
+      this.formControl.patchValue(Number(value), { emitEvent: false });
     });
   }
 }
