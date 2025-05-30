@@ -124,7 +124,7 @@ export class BuilderService extends ApiService {
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
       .subscribe((content: IPage) => {
-        const { body, status, uuid, title } = content;
+        const { status, uuid } = content;
         if (status) {
           const jsonWidget: IJsoneditor = {
             type: 'jsoneditor',
@@ -132,6 +132,7 @@ export class BuilderService extends ApiService {
             classes: 'full-height',
             isSetting: true,
             schemaType: 'page',
+            fullWidth: true,
             actions: [
               {
                 type: 'update',
@@ -146,6 +147,7 @@ export class BuilderService extends ApiService {
             ],
           };
           this.builder.rightContent$.next({
+            title: 'JSON',
             mode: 'over',
             hasBackdrop: true,
             style: {
@@ -209,6 +211,7 @@ export class BuilderService extends ApiService {
           type: 'jsoneditor',
           data: newPage,
           isSetting: true,
+          fullWidth: true,
           schemaType,
           actions: [
             {
@@ -225,7 +228,7 @@ export class BuilderService extends ApiService {
           ],
         };
         const config: IDialog = {
-          disableCloseButton: true,
+          disableActions: true,
           inputData: {
             content: jsonWidget,
           },
@@ -508,6 +511,7 @@ export class BuilderService extends ApiService {
       .subscribe(res => {
         if (res) {
           this.builder.rightContent$.next({
+            title: '页面配置',
             mode: 'over',
             hasBackdrop: true,
             style: {

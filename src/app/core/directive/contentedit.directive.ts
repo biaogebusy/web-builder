@@ -84,6 +84,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
             type: 'inline-editor',
             mode: 'img',
             path,
+            fullWidth: true,
             ele: event.target,
             fields: getInlineImg(currentTarget),
             data: {
@@ -94,6 +95,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
             },
           };
           this.builder.rightContent$.next({
+            title: '编辑图片',
             mode: 'over',
             hasBackdrop: false,
             style: {
@@ -116,6 +118,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     const meta: IMetaEdit = {
       type: 'inline-editor',
       mode: 'text',
+      fullWidth: true,
       path,
       ele,
       fields: [getInlineText(ele)],
@@ -125,6 +128,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
       },
     };
     this.builder.rightContent$.next({
+      title: '编辑文本',
       mode: 'push',
       hasBackdrop: false,
       style: {

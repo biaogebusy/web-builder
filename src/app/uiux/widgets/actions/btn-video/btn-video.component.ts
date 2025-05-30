@@ -5,10 +5,10 @@ import type { IBtnVideo } from '@core/interface/widgets/IBtn';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
-    selector: 'app-btn-video',
-    templateUrl: './btn-video.component.html',
-    styleUrls: ['./btn-video.component.scss'],
-    standalone: false
+  selector: 'app-btn-video',
+  templateUrl: './btn-video.component.html',
+  styleUrls: ['./btn-video.component.scss'],
+  standalone: false,
 })
 export class BtnVideoComponent implements OnInit {
   @Input() content: IBtnVideo;
@@ -19,7 +19,7 @@ export class BtnVideoComponent implements OnInit {
 
   openVideo(): void {
     const config: IDialog = {
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: this.content.video,
       },

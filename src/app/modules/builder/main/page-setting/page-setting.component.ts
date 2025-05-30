@@ -460,7 +460,7 @@ export class PageSettingComponent implements OnInit {
 
   onPreview(): void {
     const config: IDialog = {
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: {
           type: 'iframe',

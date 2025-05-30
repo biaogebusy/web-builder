@@ -87,7 +87,7 @@ export class UserMenuComponent implements OnInit {
   openDialog(): void {
     const config: IDialog = {
       title: '账户设置',
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: {
           type: 'user-setting',

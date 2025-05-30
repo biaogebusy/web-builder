@@ -198,7 +198,7 @@ export class ManageMediaComponent implements OnInit {
 
   onPreview(item: IManageImg): void {
     const config: IDialog = {
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: {
           type: 'img',
@@ -218,7 +218,7 @@ export class ManageMediaComponent implements OnInit {
 
   onUpload(): void {
     const config: IDialog = {
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: {
           type: 'upload-media',

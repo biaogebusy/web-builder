@@ -3,8 +3,10 @@
   display: block;
 }
 .title {
-  .typed-cursor {
-    color: var(--mat-sys-primary);
+  ::ng-deep {
+    .typed-cursor {
+      color: var(--mat-sys-primary);
+    }
   }
   .line-style {
     max-width: 200px;

@@ -10,8 +10,10 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onPageJson()">
-        <app-icon class="opacity-70" [content]="{ svg: 'code-json' }" />
-        <span matListItemTitle>页面 JSON</span>
+        <div class="flex items-center">
+          <app-icon [content]="{ svg: 'code-json' }" />
+          <span matListItemTitle>页面 JSON</span>
+        </div>
       </button>
       @if (canShow) {
         <button mat-menu-item>
@@ -21,13 +23,17 @@
         </button>
       }
       <button mat-menu-item (click)="onPreview()">
-        <app-icon class="opacity-70" [content]="{ svg: 'eye' }" />
-        <span matListItemTitle>草稿预览</span>
+        <div class="flex items-center">
+          <app-icon [content]="{ svg: 'eye' }" />
+          <span matListItemTitle>草稿预览</span>
+        </div>
       </button>
       @if (page && page.uuid) {
         <button mat-menu-item (click)="onPageSetting(page)">
-          <app-icon class="opacity-70" [content]="{ svg: 'cog' }" />
-          <span matListItemTitle>页面设置</span>
+          <div class="flex items-center">
+            <app-icon [content]="{ svg: 'cog' }" />
+            <span matListItemTitle>页面设置</span>
+          </div>
         </button>
       }
     </mat-menu>

@@ -8,4 +8,5 @@ export interface IJsoneditor {
   isSetting?: boolean; // load from setting page
   path?: string; // load from component or widget
   schemaType: string;
+  fullWidth: boolean;
 }

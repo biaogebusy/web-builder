@@ -341,12 +341,18 @@ export class CollectorComponent implements OnInit {
         };
     }
     this.builder.rightContent$.next({
+      title: '详情',
       mode: 'over',
       hasBackdrop: true,
       style: {
         width: '800px',
       },
-      elements: [widget],
+      elements: [
+        {
+          ...widget,
+          fullWidth: true,
+        },
+      ],
     });
   }
 

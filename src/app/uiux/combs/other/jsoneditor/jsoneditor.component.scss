@@ -30,7 +30,9 @@
 
 ::ng-deep {
   .jsoneditor {
-    border-color: var(--mat-sys-primary);
+    border-radius: 8px;
+    overflow: hidden;
+    border-color: var(--mat-sys-primary) !important;
 
     .jsoneditor-menu {
       background-color: var(--mat-sys-primary);

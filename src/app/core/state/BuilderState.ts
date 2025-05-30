@@ -335,6 +335,7 @@ export class BuilderState {
       fullWidth: true,
     };
     this.rightContent$.next({
+      title: '组件配置',
       mode: 'over',
       hasBackdrop: false,
       style: {
@@ -422,7 +423,7 @@ export class BuilderState {
     this.showcase$.next(false);
     const config: IDialog = {
       title: '选择模板创建页面',
-      disableCloseButton: true,
+      disableActions: true,
       inputData: {
         content: {
           type: 'builder-template',

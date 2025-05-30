@@ -73,6 +73,7 @@ export interface IBuilderDynamicContent {
   elements: any[];
   style?: any;
   classes?: string;
+  title: string;
 }
 
 export interface IBuilderSamplePage {
@@ -164,6 +165,7 @@ export interface IMetaEdit {
   ele: HTMLElement | EventTarget | any | null;
   mode: 'img' | 'text';
   fields?: FormlyFieldConfig[];
+  fullWidth: boolean;
 }
 
 export interface ICustomTemplate extends ICombsBase {
