@@ -41,6 +41,7 @@ export class BuilderShowcaseComponent implements OnInit {
     const jsonWidget: IJsoneditor = {
       type: 'jsoneditor',
       data: component,
+      fullWidth: true,
       schemaType: component.type,
     };
     const config: IDialog = {

@@ -1,6 +1,5 @@
 @if (content) {
   <div class="inline-editor">
-    <app-title [content]="{ label: content.data.tag, style: 'style-v5' }" />
     @if (content.fields) {
       <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)" />
     }

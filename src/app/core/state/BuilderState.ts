@@ -335,6 +335,7 @@ export class BuilderState {
       fullWidth: true,
     };
     this.rightContent$.next({
+      title: '组件配置',
       mode: 'over',
       hasBackdrop: false,
       style: {

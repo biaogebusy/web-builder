@@ -98,6 +98,7 @@ export class LayoutSettingComponent {
       const jsonWidget: IJsoneditor = {
         type: 'jsoneditor',
         path,
+        fullWidth: true,
         schemaType: type,
         data: get(this.builder.currentPage.body, path),
       };

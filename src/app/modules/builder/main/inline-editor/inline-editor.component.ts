@@ -23,9 +23,9 @@ import { IDialog } from '@core/interface/IDialog';
   standalone: false,
 })
 export class InlineEditComponent implements OnInit, AfterViewInit {
+  @Input() content: IMetaEdit;
   form = new UntypedFormGroup({});
   model: any = {};
-  @Input() content: IMetaEdit;
   private viewHTML: any;
   private guiHTML: any;
 

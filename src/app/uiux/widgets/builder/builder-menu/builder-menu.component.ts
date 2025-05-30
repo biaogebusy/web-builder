@@ -55,10 +55,12 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
       type: 'jsoneditor',
       data: this.page,
       isPage: true,
+      fullWidth: true,
       schemaType: 'page',
-      classes: 'full-height my-5',
+      classes: 'full-height',
     };
     this.builder.rightContent$.next({
+      title: '页面JSON',
       mode: 'over',
       hasBackdrop: true,
       style: {

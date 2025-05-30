@@ -3,11 +3,11 @@ import type { IBtn } from '@core/interface/widgets/IBtn';
 import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
-    selector: 'app-btn-generater',
-    templateUrl: './btn-generater.component.html',
-    styleUrls: ['./btn-generater.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-btn-generater',
+  templateUrl: './btn-generater.component.html',
+  styleUrls: ['./btn-generater.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BtnGeneraterComponent implements OnInit {
   private builder = inject(BuilderState);
@@ -18,6 +18,7 @@ export class BtnGeneraterComponent implements OnInit {
 
   onGenerate(): void {
     this.builder.rightContent$.next({
+      title: '页面生成',
       hasBackdrop: false,
       mode: 'over',
       elements: [

@@ -64,23 +64,8 @@
   }
 }
 
-.actions {
-  &.expand {
-    position: absolute;
-    left: 0;
-    top: 35px;
-    width: 40px;
-    height: 40px;
-    border-top-left-radius: 24px;
-    border-bottom-left-radius: 24px;
-    background-color: var(--mat-sys-surface);
-    box-shadow: var(--mat-sys-level1);
-  }
-}
-.mat-drawer-opened {
-  .actions {
-    &.expand {
-      left: -40px;
-    }
-  }
+.right-header {
+  @apply flex justify-between gap-3 items-center px-5;
+  border-bottom: 1px solid var(--mat-sys-surface-dim);
+  --mdc-icon-button-icon-color: var(--mat-sys-primary);
 }

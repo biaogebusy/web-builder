@@ -29,20 +29,24 @@
             [mode]="rightContent?.mode || 'over'"
             position="end"
           >
-            <div class="actions expand">
+            <div class="right-header">
+              @if (rightContent?.title) {
+                <h2 class="text-base">{{ rightContent?.title }}</h2>
+              }
               <app-btn
                 [matTooltip]="'收起'"
                 (click)="onClose()"
                 [content]="{
                   label: '',
                   mode: 'icon',
-                  icon: { svg: 'chevron-right' },
+                  color: 'primary',
+                  icon: { svg: 'page-last' },
                 }"
               />
             </div>
             @if (builderRightDrawer.opened) {
               @if (rightContent) {
-                <div [ngStyle]="rightContent.style">
+                <div class="p-5" [ngStyle]="rightContent.style">
                   @for (item of rightContent.elements; track item) {
                     <app-dynamic-component [inputs]="item" />
                   }
