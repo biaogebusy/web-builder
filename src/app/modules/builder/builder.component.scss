@@ -68,7 +68,6 @@
   @apply flex justify-between gap-3 items-center px-5 box-border;
   height: 50px;
   border-bottom: 1px solid var(--mat-sys-surface-dim);
-  --mdc-icon-button-icon-color: var(--mat-sys-primary);
 }
 .right-content {
   @apply p-5;
