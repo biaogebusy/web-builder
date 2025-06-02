@@ -4,7 +4,6 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
-  ChangeDetectionStrategy,
   inject,
   DestroyRef,
   signal,
