@@ -27,19 +27,19 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
-  branding$ = inject<Observable<IBranding>>(BRANDING);
-  isBuilderMode$ = inject<Observable<boolean>>(IS_BUILDER_MODE);
+  public branding$ = inject<Observable<IBranding>>(BRANDING);
+  public isBuilderMode$ = inject<Observable<boolean>>(IS_BUILDER_MODE);
 
-  sticky = signal(false);
-  showBanner = signal(false);
-  headerMode: any;
-  isBuilderMode = false;
+  public sticky = signal(false);
+  public showBanner = signal(false);
+  private headerMode: any;
+  private isBuilderMode = false;
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
   destroy$: Subject<boolean> = new Subject<boolean>();
   private destoryRef = inject(DestroyRef);
-  public screenService = inject(ScreenService);
-  public screenState = inject(ScreenState);
+  private screenService = inject(ScreenService);
+  private screenState = inject(ScreenState);
   public contentState = inject(ContentState);
 
   ngOnInit(): void {
