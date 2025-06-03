@@ -1,5 +1,3 @@
-// https://tailwindcss.com/docs/content-configuration
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{html,ts,mdx}'],
@@ -21,6 +19,7 @@ module.exports = {
     'animate-pulse',
     'text-transparent',
     'border',
+    'border-collapse',
     'bg-black',
     'bg-white',
     'bg-inherit',
@@ -29,7 +28,7 @@ module.exports = {
     { pattern: /^(flex-(\d{1,2}\/12))$/, variants: ['sm', 'md', 'lg'] },
     { pattern: /^(col-span-([1-9]|1[0-2]))$/, variants: ['sm', 'md', 'lg'] },
     {
-      pattern: /^p[xytbrl]?-(0|([1-9]\d*))$/, // 匹配所有数值
+      pattern: /^p[xytbrl]?-(0|([1-9]\d*))$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
