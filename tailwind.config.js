@@ -204,6 +204,11 @@ module.exports = {
         /^(backdrop-)?(blur|brightness|contrast|drop-shadow|grayscale|hue-rotate|invert|saturate|sepia)-[a-zA-Z0-9]+$/,
       variants: ['sm', 'md', 'lg'],
     },
+    {
+      pattern:
+        /^-?(left|right|top|bottom)-(0|full|auto|(?:[1-9]|1[0-2])|(?:[1-9]|1[0-2])\/(?:[2-6]|12))$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
   ],
   theme: {
     screens: { sm: '600px', md: '960px', lg: '1280px', xl: '1470px' },
