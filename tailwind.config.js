@@ -2,10 +2,6 @@
 module.exports = {
   content: ['./src/**/*.{html,ts,mdx}'],
   safelist: [
-    'flex-row-reverse',
-    'flex-col-reverse',
-    'flex-wrap-reverse',
-    'flex-nowrap',
     'grid-flow-col',
     'grid-flow-row',
     'order-1',
@@ -41,6 +37,10 @@ module.exports = {
     'bg-repeat-round',
     'bg-repeat-space',
     { pattern: /^(flex-(\d{1,2}\/12))$/, variants: ['sm', 'md', 'lg'] },
+    {
+      pattern: /^flex(-(row|col|wrap|nowrap|1|auto|initial|none|grow|shrink))?(-reverse)?$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
     { pattern: /^(col-span-([1-9]|1[0-2]))$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^p[xytbrl]?-(0|([1-9]\d*))$/,
