@@ -65,6 +65,13 @@ body {
   }
 }
 
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  border: 0 solid #e5e7eb;
+}
+
 // fix sidebar position sticky
 .mat-drawer-content,
 .mat-drawer-container {

@@ -1,13 +1,7 @@
-// https://tailwindcss.com/docs/content-configuration
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{html,ts,mdx}'],
   safelist: [
-    'flex-row-reverse',
-    'flex-col-reverse',
-    'flex-wrap-reverse',
-    'flex-nowrap',
     'grid-flow-col',
     'grid-flow-row',
     'order-1',
@@ -21,15 +15,35 @@ module.exports = {
     'animate-pulse',
     'text-transparent',
     'border',
+    'border-collapse',
     'bg-black',
     'bg-white',
     'bg-inherit',
     'bg-current',
     'bg-transparent',
+    'bg-bottom',
+    'bg-center',
+    'bg-left',
+    'bg-left-bottom',
+    'bg-left-top',
+    'bg-right',
+    'bg-right-bottom',
+    'bg-right-top',
+    'bg-top',
+    'bg-repeat',
+    'bg-no-repeat',
+    'bg-repeat-x',
+    'bg-repeat-y',
+    'bg-repeat-round',
+    'bg-repeat-space',
     { pattern: /^(flex-(\d{1,2}\/12))$/, variants: ['sm', 'md', 'lg'] },
+    {
+      pattern: /^flex(-(row|col|wrap|nowrap|1|auto|initial|none|grow|shrink))?(-reverse)?$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
     { pattern: /^(col-span-([1-9]|1[0-2]))$/, variants: ['sm', 'md', 'lg'] },
     {
-      pattern: /^p[xytbrl]?-(0|([1-9]\d*))$/, // 匹配所有数值
+      pattern: /^p[xytbrl]?-(0|([1-9]\d*))$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
@@ -120,6 +134,11 @@ module.exports = {
       pattern: /^gap-(?:[xy]-)?([0-9]|10|12|14|16|20|24|28|32|36|40|48|56|64|72|80|96)$/,
       variants: ['sm', 'md', 'lg'],
     },
+    {
+      pattern:
+        /^space-(x|y)-(reverse|(0|(0\.5|([1-9]|1[0-2])\.5)|([1-9]|1[0-2]|14|16|20|24|28|32|36|40|44|48|52|56|60|64|72|80|96)))$/,
+      variants: ['sm', 'md', 'lg'],
+    },
     { pattern: /^grid-cols-([1-9]|10|11|12|none)$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern:
@@ -145,12 +164,12 @@ module.exports = {
     { pattern: /^bg-gradient-to-(t|tr|r|br|b|bl|l|tl)$/ },
     {
       pattern:
-        /^(from|to)-(transparent|current|(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)(\/[0-9]{1,3})?)$/,
+        /^(from|to)-(transparent|current|(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(\/[0-9]{1,3})?)$/,
     },
     { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern:
-        /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+        /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
@@ -190,6 +209,11 @@ module.exports = {
         /^(backdrop-)?(blur|brightness|contrast|drop-shadow|grayscale|hue-rotate|invert|saturate|sepia)-[a-zA-Z0-9]+$/,
       variants: ['sm', 'md', 'lg'],
     },
+    {
+      pattern:
+        /^-?(left|right|top|bottom)-(0|full|auto|(?:[1-9]|1[0-2])|(?:[1-9]|1[0-2])\/(?:[2-6]|12))$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
+    },
   ],
   theme: {
     screens: { sm: '600px', md: '960px', lg: '1280px', xl: '1470px' },
@@ -201,7 +225,7 @@ module.exports = {
         '3/2': '3 / 2',
         '3/4': '3 / 4',
         '1/1': '1 / 1',
-        '9:16': '9 / 16',
+        '9/16': '9 / 16',
         '2/3': '2 / 3',
       },
       width: () => ({
