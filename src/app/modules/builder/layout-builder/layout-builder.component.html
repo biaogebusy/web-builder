@@ -89,7 +89,7 @@
                   <app-dynamic-component class="component" [inputs]="item" [index]="index" />
                   @if (showToolbar()) {
                     <div class="block-toolbar" #action>
-                      <button mat-raised-button (click)="addBlock('widget', content, action)">
+                      <button mat-stroked-button (click)="addBlock('widget', content, action)">
                         <div class="flex">
                           <app-icon class="mr-1" [content]="{ svg: 'arrow-right-bottom' }" />
                           <span>插入组件</span>
