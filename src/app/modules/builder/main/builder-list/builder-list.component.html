@@ -57,7 +57,13 @@
                       >
                         <div class="flex items-center">
                           <app-icon [content]="{ svg: 'widgets-outline' }" />
-                          <span>选择基组件</span>
+                          <span>选择组件</span>
+                        </div>
+                      </button>
+                      <button mat-menu-item (click)="onPasteData(actionBtn)">
+                        <div class="flex items-center">
+                          <app-icon [content]="{ svg: 'content-paste' }" />
+                          <span>粘贴组件</span>
                         </div>
                       </button>
                     </mat-menu>
