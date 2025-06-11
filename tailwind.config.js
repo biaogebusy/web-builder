@@ -13,7 +13,6 @@ module.exports = {
     'animate-spin',
     'animate-ping',
     'animate-pulse',
-    'text-transparent',
     'border',
     'border-collapse',
     'bg-black',
@@ -85,17 +84,17 @@ module.exports = {
       variants: ['sm', 'md', 'lg'],
     },
     {
-      pattern:
-        /^text-(white|black|current|inherit|transparent|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+      pattern: /^text-(white|black|current|inherit|transparent)$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern:
-        /^text-(white|black|current|inherit|transparent|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)(\/[0-9]{1,3})?$/,
+        /^text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern:
-        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900)$/,
+        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
       variants: ['sm', 'md', 'lg'],
     },
     { pattern: /^border(?:-(?:t|b|r|l|x|y))?(?:-(?:0|2|4|8))?$/, variants: ['sm', 'md', 'lg'] },
@@ -157,7 +156,7 @@ module.exports = {
     },
     {
       pattern:
-        /^(fill|stroke)-(current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|200|300|400|500|600|700|800|900))$/,
+        /^(fill|stroke)-(current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950))$/,
     },
     { pattern: /^stroke-(0|1|2|3|4|5)$/ },
     { pattern: /^(fill-none|stroke-none)$/ },
