@@ -1,3 +1,13 @@
 :host(.custom-icon) {
   display: inline-flex;
 }
+
+.mat-icon {
+  &.mat-primary {
+    color: var(--mat-sys-primary);
+  }
+
+  &.mat-warn {
+    color: var(--mat-sys-error);
+  }
+}
