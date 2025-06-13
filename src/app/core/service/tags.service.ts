@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import type { IPage } from '@core/interface/IAppConfig';
 import hljs from 'highlight.js/lib/core';
@@ -7,7 +7,7 @@ import php from 'highlight.js/lib/languages/php';
 import scss from 'highlight.js/lib/languages/scss';
 import xml from 'highlight.js/lib/languages/xml';
 import json from 'highlight.js/lib/languages/json';
-import { DOCUMENT } from '@angular/common';
+
 import { UtilitiesService } from '@core/service/utilities.service';
 @Injectable({
   providedIn: 'root',

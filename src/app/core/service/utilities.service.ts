@@ -1,5 +1,5 @@
-import { DOCUMENT, formatDate } from '@angular/common';
-import { Injectable, inject } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
