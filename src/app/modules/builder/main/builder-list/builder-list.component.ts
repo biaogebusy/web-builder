@@ -10,10 +10,10 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  afterRender,
+  afterEveryRender,
   inject,
   signal,
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
@@ -54,7 +54,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   public bcData = signal(false);
 
   constructor() {
-    afterRender({
+    afterEveryRender({
       read: throttle(() => {
         this.intersectionObserver(this.animateElement);
       }, 600),

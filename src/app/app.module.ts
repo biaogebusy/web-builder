@@ -5,7 +5,7 @@ import {
   Inject,
   inject,
   provideAppInitializer,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
@@ -66,7 +66,7 @@ import { CookieService } from 'ngx-cookie-service';
     CookieService,
     provideHttpClient(withFetch()),
     provideClientHydration(withIncrementalHydration()),
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     {
       provide: CORE_CONFIG,
       useValue: {},
