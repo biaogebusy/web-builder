@@ -19,7 +19,7 @@
       .tabs-type {
         .tab-field {
           @apply mt-0 mb-0;
-          --mdc-filled-text-field-active-indicator-color: rgba(0, 0, 0, 0.2);
+          --mat-form-field-filled-active-indicator-color: rgba(0, 0, 0, 0.2);
         }
         .item {
           margin: 10px 0 0 0;
@@ -83,7 +83,7 @@
           font-size: 12px;
           line-height: 24px;
           height: 24px;
-          --mat-outlined-button-horizontal-padding: 18px;
+          --mat-button-outlined-horizontal-padding: 18px;
         }
       }
       &.active {
@@ -110,7 +110,7 @@
         @apply line-clamp-1 opacity-70;
       }
       button {
-        --mdc-icon-button-state-layer-size: 40px;
+        --mat-icon-button-state-layer-size: 40px;
         padding: 8px;
       }
     }

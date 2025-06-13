@@ -35,7 +35,7 @@ a,
 }
 .mdc-icon-button {
   &.mat-primary {
-    --mdc-icon-button-icon-color: var(--mat-sys-primary);
+    --mat-icon-button-icon-color: var(--mat-sys-primary);
   }
 }
 ::ng-deep {
