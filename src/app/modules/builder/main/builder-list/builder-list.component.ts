@@ -12,6 +12,7 @@ import {
   ViewChild,
   afterRender,
   inject,
+  signal,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
@@ -23,6 +24,7 @@ import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
+import { LocalStorageService } from 'ngx-webstorage';
 @Component({
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
@@ -44,10 +46,11 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
-
+  private storage = inject(LocalStorageService);
   private ele = inject(ElementRef);
   private animateElement: Element[] = [];
   private scrollableContainer: Element;
+  public bcData = signal(false);
 
   constructor() {
     afterRender({
@@ -57,7 +60,11 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
+      this.bcData.set(data);
+    });
+  }
 
   intersectionObserver(animateElement: Element[]): void {
     if (animateElement.length === 0) {
@@ -145,6 +152,16 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClearHistory(): void {
     this.builder.clearAllHistory();
+  }
+
+  onPasteData(target: any): void {
+    if (!this.bcData()) {
+      this.util.openSnackbar('请先复制组件', 'ok');
+      return;
+    }
+    const path = this.util.generatePath(target);
+    this.builder.updatePageContentByPath(path, this.bcData(), 'add');
+    this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
   ngOnDestroy(): void {

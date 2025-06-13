@@ -30,6 +30,10 @@
           position: absolute;
           opacity: 0;
           white-space: nowrap;
+          button {
+            transform: scale(0.9);
+            background-color: var(--mat-sys-surface);
+          }
           &[data-popper-placement] {
             opacity: 1;
           }

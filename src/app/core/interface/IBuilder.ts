@@ -29,6 +29,9 @@ export interface IBuilderConfig {
     };
   };
   manageMedia: IBuilderManageMedia;
+  codeEditor: {
+    help: string;
+  };
 }
 
 export interface IBuilderManageMedia {

@@ -10,7 +10,13 @@
     opacity 0s 300ms;
   transform: translateY(-70px);
 }
-
+.static,
+.sticky {
+  box-shadow:
+    0 3px 1px -2px #6161610d,
+    0 2px 2px #61616109,
+    0 1px 5px #61616108;
+}
 .sticking {
   @apply fixed opacity-100;
   transform: translateY(0);

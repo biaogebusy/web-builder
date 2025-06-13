@@ -4,7 +4,7 @@
     <div class="comment-box">
       <app-media-object [content]="item.author" />
       @if (onShow(item)) {
-        <div class="comment-body m-top-xs" [innerHTML]="item.content | safeHtml"></div>
+        <div class="comment-body mt-3" [innerHTML]="item.content | safeHtml"></div>
         @if (content.comment) {
           @if (showActions && item.level === 1) {
             <app-comment-actions

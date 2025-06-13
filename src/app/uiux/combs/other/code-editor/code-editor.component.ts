@@ -8,7 +8,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import type { ICodeEditor } from '@core/interface/IBuilder';
+import type { IBuilderConfig, ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { get } from 'lodash-es';
@@ -16,12 +16,15 @@ import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NodeService } from '@core/service/node.service';
 import { catchError, debounceTime, distinctUntilChanged, skip, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog } from '@angular/material/dialog';
 import hljs from 'highlight.js/lib/core';
 import json from 'highlight.js/lib/languages/json';
+import { BUILDER_CONFIG } from '@core/token/token-providers';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { IDialog } from '@core/interface/IDialog';
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
@@ -69,7 +72,7 @@ export class CodeEditorComponent implements OnInit {
   public editing = signal<boolean>(false);
   @ViewChild('jsonblock', { read: ElementRef }) jsonblock: ElementRef;
   public highlightedCode = signal<string>('');
-  constructor() {}
+  public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   ngOnInit(): void {
     const { html, json: jsonValue = null, isAPI = false, api = '' } = this.content.content;
@@ -208,5 +211,24 @@ export class CodeEditorComponent implements OnInit {
             });
         }
       });
+  }
+
+  showHelp(help?: string): void {
+    const config: IDialog = {
+      title: '语法指南',
+      disableActions: true,
+      inputData: {
+        content: {
+          type: 'text',
+          fullWidth: true,
+          body: help,
+        },
+      },
+    };
+    this.dialog.open(DialogComponent, {
+      width: '1000px',
+      panelClass: ['close-outside', 'close-icon-white'],
+      data: config,
+    });
   }
 }

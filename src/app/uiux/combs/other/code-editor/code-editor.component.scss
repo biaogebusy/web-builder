@@ -49,3 +49,10 @@
     transform: scale(0.8);
   }
 }
+
+.toolbar {
+  .btn-help {
+    --mdc-icon-button-state-layer-size: 24px;
+    line-height: 0;
+  }
+}

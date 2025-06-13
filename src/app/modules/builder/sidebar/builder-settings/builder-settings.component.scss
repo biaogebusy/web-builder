@@ -12,6 +12,7 @@
     }
     .item {
       position: relative;
+      border-bottom: 1px solid var(--mat-sys-surface-dim);
       .title {
         font-size: 14px;
         width: 100%;
