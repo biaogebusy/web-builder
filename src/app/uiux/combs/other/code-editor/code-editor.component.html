@@ -1,3 +1,4 @@
+@let builderConfig = builderConfig$ | async;
 @if (screenService.isPlatformBrowser()) {
   <div class="code-editor-btns text-white flex justify-center">
     <app-btn
@@ -24,8 +25,21 @@
       matTooltipPosition="above"
     ></app-btn>
   </div>
-  <div class="toolbar p-5 flex gap-1 items-center">
+  <div class="toolbar p-5 flex gap-2 items-center">
     <div class="text-white">{{ isAPI() ? '数据来源 API' : 'Tailwind 自定义组件' }}</div>
+    @if (builderConfig?.codeEditor?.help) {
+      <app-btn
+        class="btn-help"
+        [content]="{
+          color: undefined,
+          mode: 'icon',
+          icon: { svg: 'tooltip-question-outline' },
+        }"
+        (click)="showHelp(builderConfig?.codeEditor?.help)"
+        matTooltip="查看语法"
+        matTooltipPosition="above"
+      ></app-btn>
+    }
   </div>
   <div
     class="code-editor grid grid-cols-12 gap-2"
