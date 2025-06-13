@@ -3,6 +3,7 @@
   z-index: 2;
   background-color: #282828;
   color: #9e9e9e;
+  --mat-expansion-header-indicator-color: var(--mat-sys-surface);
   a {
     color: #9e9e9e;
     &:hover {

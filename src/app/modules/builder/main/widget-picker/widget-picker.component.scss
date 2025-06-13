@@ -1,4 +1,5 @@
 @use 'variable/breakpoint' as *;
+@use 'mixins/amixin' as *;
 .widget-picker {
   min-height: 360px;
   @apply w-[48px];
@@ -28,13 +29,14 @@
     max-height: 60vh;
     overflow: auto;
     color: var(--mat-sys-on-surface);
+    @include scrollbar(var(--mat-sys-outline));
     .item {
       border-color: var(--mat-sys-outline-variant);
       .mat-icon {
         color: var(--mat-sys-primary);
       }
       &:hover {
-        background-color: var(---mat-sys-primary-fixed);
+        background-color: var(--mat-sys-primary-fixed);
       }
     }
   }
@@ -45,14 +47,15 @@
   }
   .group-popup,
   .widget-popup {
-    box-shadow: var(--mat-sys-level0);
     background-color: var(--mat-sys-surface);
     border: 1px solid var(--mat-sys-surface-container-low);
+    box-shadow: var(--mat-sys-level1);
   }
   .widget-popup {
     overflow: hidden;
     box-sizing: border-box;
     opacity: 0;
+    @include scrollbar(var(--mat-sys-outline));
     @apply pointer-events-none;
     &[data-popper-placement] {
       display: flex;
