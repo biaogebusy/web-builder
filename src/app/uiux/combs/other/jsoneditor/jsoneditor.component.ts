@@ -5,8 +5,9 @@ import {
   DestroyRef,
   ElementRef,
   Input,
+  OnDestroy,
   ViewChild,
-  afterNextRender,
+  afterEveryRender,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -31,7 +32,7 @@ declare let window: any;
   styleUrls: ['./jsoneditor.component.scss'],
   standalone: false,
 })
-export class JsoneditorComponent implements AfterViewInit {
+export class JsoneditorComponent implements AfterViewInit, OnDestroy {
   @Input() content: IJsoneditor;
   @ViewChild('jsoneditor', { read: ElementRef }) editor: ElementRef;
   public data: any;
@@ -45,14 +46,15 @@ export class JsoneditorComponent implements AfterViewInit {
   private util = inject(UtilitiesService);
   private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
+  private jsonEditor: any;
 
   constructor() {
-    afterNextRender(async () => {
-      this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
-      await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
-      const { schemaType = '', data } = this.content;
-      this.data = data;
-      if (this.screenService.isPlatformBrowser()) {
+    afterEveryRender(async () => {
+      try {
+        this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
+        await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
+        const { schemaType = '', data } = this.content;
+        this.data = data;
         let schema = {};
         switch (schemaType) {
           case '/core/builder':
@@ -75,7 +77,10 @@ export class JsoneditorComponent implements AfterViewInit {
           default:
             schema = componentSchema;
         }
-        const editor = new window.JSONEditor(
+        if (!window.JSONEditor || this.jsonEditor) {
+          return;
+        }
+        this.jsonEditor = new window.JSONEditor(
           this.editor.nativeElement,
           {
             mode: 'code',
@@ -84,13 +89,15 @@ export class JsoneditorComponent implements AfterViewInit {
             schema,
             onChange: () => {
               try {
-                const json = editor.get();
+                const json = this.jsonEditor.get();
                 this.onChange(json);
               } catch (e) {}
             },
           },
           this.data
         );
+      } catch (e) {
+        console.error(e);
       }
     });
   }
@@ -169,6 +176,12 @@ export class JsoneditorComponent implements AfterViewInit {
             this.cd.detectChanges();
           });
       }
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.jsonEditor) {
+      this.jsonEditor.destroy();
     }
   }
 }
