@@ -1,11 +1,10 @@
 import {
   Component,
   Input,
-  Output,
   OnInit,
-  EventEmitter,
   ChangeDetectionStrategy,
   inject,
+  output
 } from '@angular/core';
 import type { IShowcase3v3 } from '@core/interface/combs/IShowcase';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
@@ -25,7 +24,7 @@ export class ListComponent implements OnInit {
   @Input() links: IPaginationLinks;
   @Input() pager: any;
   @Input() loading: boolean;
-  @Output() pageChange: EventEmitter<string> = new EventEmitter();
+  readonly pageChange = output<string>();
   p = 1;
 
   ngOnInit(): void {}

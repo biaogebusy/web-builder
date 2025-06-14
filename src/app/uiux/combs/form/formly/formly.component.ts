@@ -1,11 +1,10 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
   signal,
+  output
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import type { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
@@ -29,7 +28,7 @@ export class FormlyComponent implements OnInit, AfterViewInit {
   @Input() model: any = {};
   @Input() classes: string | object;
 
-  @Output() modelChange: EventEmitter<any> = new EventEmitter();
+  readonly modelChange = output<any>();
 
   fieldsConfig = signal<FormlyFieldConfig[]>([]);
   ngOnInit(): void {}

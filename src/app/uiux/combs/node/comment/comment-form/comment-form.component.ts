@@ -2,12 +2,11 @@ import {
   Component,
   Input,
   OnInit,
-  EventEmitter,
-  Output,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
   DestroyRef,
+  output
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -37,7 +36,7 @@ export class CommentFormComponent implements OnInit {
   @Input() commentContent: any;
   @Input() commentId: string;
   @Input() type: string;
-  @Output() cancel = new EventEmitter();
+  readonly cancel = output();
 
   loading = false;
   placeholder = '请输入...';
