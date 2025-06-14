@@ -25,6 +25,7 @@ import json from 'highlight.js/lib/languages/json';
 import { BUILDER_CONFIG } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
+import { TagsService } from '@core/service/tags.service';
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
@@ -69,6 +70,7 @@ export class CodeEditorComponent implements OnInit {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   public screenService = inject(ScreenService);
+  private tagsService = inject(TagsService);
   public editing = signal<boolean>(false);
   @ViewChild('jsonblock', { read: ElementRef }) jsonblock: ElementRef;
   public highlightedCode = signal<string>('');
@@ -80,7 +82,6 @@ export class CodeEditorComponent implements OnInit {
     this.json.set(jsonValue);
     this.isAPI.set(isAPI);
     this.api = api;
-
     if (this.isAPI() && this.api) {
       this.fields = [
         {
@@ -107,13 +108,6 @@ export class CodeEditorComponent implements OnInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res => {
           this.json.set(JSON.stringify(res));
-        });
-
-      this.dialog
-        .getDialogById('code-editor-dialog')
-        ?.afterOpened()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
           this.highlightCode(this.jsonblock.nativeElement);
         });
     }
@@ -123,7 +117,6 @@ export class CodeEditorComponent implements OnInit {
     this.dialog
       .getDialogById('code-editor-dialog')
       ?.afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(state => {
         if (state) {
           this.builder.fullScreen$.next(false);
@@ -134,6 +127,7 @@ export class CodeEditorComponent implements OnInit {
   highlightCode(block: any): void {
     hljs.registerLanguage('json', json);
     this.highlightedCode.set(hljs.highlight(this.json(), { language: 'json' }).value);
+    this.tagsService.highlightCode();
   }
 
   onHTMLChange(): void {
@@ -173,7 +167,6 @@ export class CodeEditorComponent implements OnInit {
 
   onFormChange(): void {
     this.form.valueChanges
-
       .pipe(
         skip(1),
         debounceTime(1000),

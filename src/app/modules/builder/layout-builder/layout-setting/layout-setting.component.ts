@@ -155,13 +155,10 @@ export class LayoutSettingComponent {
           this.builder.closeRightDrawer$.next(true);
         });
 
-      dialogRef
-        .afterClosed()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          builderList.style.paddingBottom = '150px';
-          this.builder.fullScreen$.next(false);
-        });
+      dialogRef.afterClosed().subscribe(() => {
+        builderList.style.paddingBottom = '150px';
+        this.builder.fullScreen$.next(false);
+      });
     }
   }
 }
