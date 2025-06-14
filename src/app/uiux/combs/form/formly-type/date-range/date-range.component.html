@@ -6,6 +6,6 @@
     <input matStartDate [formControl]="start" [placeholder]="'开始'" />
     <input matEndDate [formControl]="end" [placeholder]="'结束'" />
   </mat-date-range-input>
-  <mat-datepicker-toggle matSuffix [for]="pickerRange"></mat-datepicker-toggle>
-  <mat-date-range-picker [dateClass]="to.classes" #pickerRange> </mat-date-range-picker>
+  <mat-datepicker-toggle matSuffix [for]="pickerRange" />
+  <mat-date-range-picker [dateClass]="to.classes" #pickerRange />
 </mat-form-field>
