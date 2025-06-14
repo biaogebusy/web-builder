@@ -1,6 +1,6 @@
 {
   "name": "xinshi",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "homepage": "https://github.com/biaogebusy/web-builder",
   "scripts": {
     "ng": "ng",
@@ -37,8 +37,8 @@
     "@fullcalendar/timegrid": "^6.1.13",
     "@mdi/angular-material": "^7.0.96",
     "@mdi/js": "^7.4.47",
-    "@ngx-formly/core": "^6.3.12",
-    "@ngx-formly/material": "^6.3.12",
+    "@ngx-formly/core": "^7.0.0",
+    "@ngx-formly/material": "^7.0.0",
     "@ngx-loading-bar/core": "^6.0.2",
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-loading-bar/router": "5.1.2",
@@ -52,7 +52,7 @@
     "express": "^4.18.2",
     "file-saver": "^2.0.5",
     "gsap": "^3.11.3",
-    "highlight.js": "11.0.0",
+    "highlight.js": "^11.11.1",
     "intro.js": "^7.2.0",
     "jsoneditor": "^10.0.3",
     "lightgallery": "^2.7.2",
