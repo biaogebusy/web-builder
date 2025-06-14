@@ -6,6 +6,7 @@ import {
   ElementRef,
   Input,
   ViewChild,
+  afterNextRender,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -45,51 +46,56 @@ export class JsoneditorComponent implements AfterViewInit {
   private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
 
-  async ngAfterViewInit(): Promise<void> {
-    this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
-    await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
-    const { schemaType = '', data } = this.content;
-    this.data = data;
-    if (this.screenService.isPlatformBrowser()) {
-      let schema = {};
-      switch (schemaType) {
-        case '/core/builder':
-          schema = builderSchema;
-          break;
-        case '/core/base':
-          schema = coreSchema;
-          break;
-        case '/core/branding':
-          schema = brandingSchema;
-          break;
-        case 'page':
-          schema = pageSchema;
-          break;
-        case 'layout-builder':
-          schema = layoutBuilder;
-          break;
-        case 'none':
-          break;
-        default:
-          schema = componentSchema;
-      }
-      const editor = new window.JSONEditor(
-        this.editor.nativeElement,
-        {
-          mode: 'code',
-          enableSort: false,
-          enableTransform: false,
-          schema,
-          onChange: () => {
-            try {
-              const json = editor.get();
-              this.onChange(json);
-            } catch (e) {}
+  constructor() {
+    afterNextRender(async () => {
+      this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
+      await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
+      const { schemaType = '', data } = this.content;
+      this.data = data;
+      if (this.screenService.isPlatformBrowser()) {
+        let schema = {};
+        switch (schemaType) {
+          case '/core/builder':
+            schema = builderSchema;
+            break;
+          case '/core/base':
+            schema = coreSchema;
+            break;
+          case '/core/branding':
+            schema = brandingSchema;
+            break;
+          case 'page':
+            schema = pageSchema;
+            break;
+          case 'layout-builder':
+            schema = layoutBuilder;
+            break;
+          case 'none':
+            break;
+          default:
+            schema = componentSchema;
+        }
+        const editor = new window.JSONEditor(
+          this.editor.nativeElement,
+          {
+            mode: 'code',
+            enableSort: false,
+            enableTransform: false,
+            schema,
+            onChange: () => {
+              try {
+                const json = editor.get();
+                this.onChange(json);
+              } catch (e) {}
+            },
           },
-        },
-        this.data
-      );
-    }
+          this.data
+        );
+      }
+    });
+  }
+
+  async ngAfterViewInit(): Promise<void> {
     this.valueChange$
       .pipe(debounceTime(1500), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
