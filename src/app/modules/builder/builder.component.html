@@ -18,7 +18,10 @@
         class="builder flex-1 overflow-auto h-full"
         [ngClass]="{ 'has-sidebar': !(builderFullScreen$ | async) }"
       >
-        <mat-drawer-container [hasBackdrop]="rightContent?.hasBackdrop">
+        <mat-drawer-container
+          [hasBackdrop]="rightContent?.hasBackdrop"
+          class="mat-drawer-transition"
+        >
           <mat-drawer
             class="!fixed"
             [class]="rightContent?.classes"

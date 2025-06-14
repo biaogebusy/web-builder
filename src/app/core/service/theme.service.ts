@@ -1,4 +1,3 @@
-
 import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { THEME } from '@core/token/token-providers';
 

@@ -12,7 +12,7 @@ import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/c
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { provideNgxWebstorage } from 'ngx-webstorage';
+import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
@@ -66,7 +66,10 @@ import { CookieService } from 'ngx-cookie-service';
     provideHttpClient(withFetch()),
     provideClientHydration(withIncrementalHydration()),
     provideZonelessChangeDetection(),
-    provideNgxWebstorage(),
+    provideNgxWebstorage(
+      withNgxWebstorageConfig({ separator: ':', caseSensitive: true }),
+      withLocalStorage()
+    ),
     {
       provide: CORE_CONFIG,
       useValue: {},
