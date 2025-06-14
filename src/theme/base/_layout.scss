@@ -264,46 +264,50 @@ a.anchor {
     }
   }
 }
-table {
-  @apply w-full min-w-full border-collapse border-0 border-solid;
 
-  thead {
-    tr {
-      background-color: var(--mat-sys-surface-container);
+.article,
+.base-text {
+  table {
+    @apply w-full min-w-full border-collapse border-0 border-solid;
 
-      th {
-        @apply py-3 px-4 text-left font-bold  border-0 border-b border-solid  text-sm;
-        color: var(--mat-sys-on-surface-container-low);
-        border-color: var(--mat-sys-surface-container-high);
-        @media (min-width: 960px) {
-          @apply text-base;
+    thead {
+      tr {
+        background-color: var(--mat-sys-surface-container);
+
+        th {
+          @apply py-3 px-4 text-left font-bold  border-0 border-b border-solid  text-sm;
+          color: var(--mat-sys-on-surface-container-low);
+          border-color: var(--mat-sys-surface-container-high);
+          @media (min-width: 960px) {
+            @apply text-base;
+          }
         }
       }
     }
-  }
 
-  tbody {
-    tr {
-      @apply border-0 border-b border-solid;
-      border-color: var(--mat-sys-surface-container-highest);
-      &:hover {
-        background-color: var(--mat-sys-surface-container-highest);
-      }
-      &:nth-child(even) {
-        background-color: var(--mat-sys-surface-container-low);
-      }
-
-      td {
-        @apply py-3 px-4  text-sm border-0;
-        color: var(--mat-sys-on-surface);
-        @media (min-width: 960px) {
-          @apply text-base;
+    tbody {
+      tr {
+        @apply border-0 border-b border-solid;
+        border-color: var(--mat-sys-surface-container-highest);
+        &:hover {
+          background-color: var(--mat-sys-surface-container-highest);
+        }
+        &:nth-child(even) {
+          background-color: var(--mat-sys-surface-container-low);
         }
 
-        &:first-child {
-          @apply truncate max-w-xs;
+        td {
+          @apply py-3 px-4  text-sm border-0;
+          color: var(--mat-sys-on-surface);
           @media (min-width: 960px) {
-            @apply max-w-none;
+            @apply text-base;
+          }
+
+          &:first-child {
+            @apply truncate max-w-xs;
+            @media (min-width: 960px) {
+              @apply max-w-none;
+            }
           }
         }
       }
