@@ -1,13 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  ElementRef,
-  Input,
-  OnInit,
-  ViewChild,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
 import type { IBuilderConfig, ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -72,7 +63,6 @@ export class CodeEditorComponent implements OnInit {
   public screenService = inject(ScreenService);
   private tagsService = inject(TagsService);
   public editing = signal<boolean>(false);
-  @ViewChild('jsonblock', { read: ElementRef }) jsonblock: ElementRef;
   public highlightedCode = signal<string>('');
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
@@ -108,7 +98,7 @@ export class CodeEditorComponent implements OnInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res => {
           this.json.set(JSON.stringify(res));
-          this.highlightCode(this.jsonblock.nativeElement);
+          this.highlightCode();
         });
     }
     this.onFormChange();
@@ -124,7 +114,7 @@ export class CodeEditorComponent implements OnInit {
       });
   }
 
-  highlightCode(block: any): void {
+  highlightCode(): void {
     hljs.registerLanguage('json', json);
     this.highlightedCode.set(hljs.highlight(this.json(), { language: 'json' }).value);
     this.tagsService.highlightCode();
