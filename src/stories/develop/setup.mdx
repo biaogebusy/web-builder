@@ -229,7 +229,7 @@ export class AppRoutingModule {}
     >
       @if (drawerLoading) {
       <div class="drawer-loading">
-        <mat-spinner diameter="50" color="accent" />
+        <app-loading />
       </div>
       } @if (!drawerLoading && opened) {
       <div
