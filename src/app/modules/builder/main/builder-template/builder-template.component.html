@@ -6,7 +6,9 @@
     ></app-icon>
   </div>
   @if (loading) {
-    <mat-spinner class="spinner" diameter="50" color="primary" />
+    <div class="spinner">
+      <app-loading />
+    </div>
   }
   @if (content$ | async; as content) {
     @for (item of content; track item) {
