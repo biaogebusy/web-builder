@@ -20,7 +20,7 @@
         <button mat-button color="primary" (click)="onDelete(item.id)">
           <div class="flex justify-center items-center">
             @if (loading) {
-              <mat-spinner diameter="20" />
+              <app-loading />
             }
             @if (!loading) {
               <mat-icon inline="true">delete</mat-icon>
@@ -60,7 +60,7 @@
               <button mat-button color="primary" (click)="onDelete(item.id)">
                 <div class="flex justify-center items-center">
                   @if (loading) {
-                    <mat-spinner diameter="20" />
+                    <app-loading />
                   }
                   @if (!loading) {
                     <mat-icon inline="true">delete</mat-icon>

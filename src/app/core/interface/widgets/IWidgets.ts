@@ -96,3 +96,7 @@ export interface IDropdowMenu {
   btn: IBtn;
   child: any[];
 }
+
+export interface ILoading {
+  size?: number;
+}

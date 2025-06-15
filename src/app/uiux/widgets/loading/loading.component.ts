@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ILoading } from '@core/interface/widgets/IWidgets';
 
 @Component({
   selector: 'app-loading',
@@ -7,5 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './loading.component.scss',
 })
 export class LoadingComponent {
-  @Input() content: any;
+  @Input() content: ILoading | undefined;
 }

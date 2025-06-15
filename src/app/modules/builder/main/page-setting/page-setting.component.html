@@ -1,7 +1,7 @@
 <div class="page-setting relative">
   @if (loading) {
     <div class="load absolute z-10 top-1/2 left-1/2">
-      <mat-spinner diameter="50" color="accent" />
+      <app-loading />
     </div>
   }
   <app-formly [form]="form" [fields]="fields" [model]="model" />

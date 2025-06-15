@@ -1,3 +1,10 @@
-<div class="loading-spin flex z-10 overflow-hidden">
+@let size = content?.size || 80;
+<div
+  class="loading-spin flex z-10 overflow-hidden"
+  [ngStyle]="{
+    '--loading-size': size + 'px',
+    '--loading-width': size / 10 + 'px',
+  }"
+>
   <div class="spin-loader">Loading...</div>
 </div>

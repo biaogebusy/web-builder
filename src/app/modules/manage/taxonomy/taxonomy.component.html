@@ -7,7 +7,7 @@
       <mat-list class="relative">
         @if (loading()) {
           <div class="load">
-            <mat-spinner diameter="50" color="accent" />
+            <app-loading />
           </div>
         }
         <div mat-subheader>{{ content.title }}</div>

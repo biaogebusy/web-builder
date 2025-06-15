@@ -27,7 +27,7 @@
     <div class="inner col-span-12 md:col-span-9 xl:col-span-10 flex flex-col">
       @if (loading()) {
         <div class="load">
-          <mat-spinner diameter="50" color="accent" />
+          <app-loading />
         </div>
       }
       @if (progress > 0 && progress < 100) {
