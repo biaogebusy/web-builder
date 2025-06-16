@@ -168,10 +168,12 @@ export class PageSettingComponent implements OnInit {
                             },
                           }
                         )
-                        .subscribe(() => {
+                        .subscribe(res => {
                           this.loading = false;
-                          this.cd.detectChanges();
-                          this.util.openSnackbar(`已更新封面`);
+                          if (res) {
+                            this.cd.detectChanges();
+                            this.util.openSnackbar(`已更新封面`);
+                          }
                         });
                     });
                 },
@@ -387,18 +389,13 @@ export class PageSettingComponent implements OnInit {
           ...this.getRelationshiopParams(value),
         }
       )
-      .subscribe(
-        res => {
-          this.loading = false;
+      .subscribe(res => {
+        this.loading = false;
+        if (res) {
           this.cd.detectChanges();
           this.util.openSnackbar(`更新${value.title}成功`, 'ok');
-        },
-        error => {
-          const { statusText } = error;
-          this.loading = false;
-          this.util.openSnackbar(statusText, 'ok');
         }
-      );
+      });
   }
 
   getAttributesParams(value: any): object {

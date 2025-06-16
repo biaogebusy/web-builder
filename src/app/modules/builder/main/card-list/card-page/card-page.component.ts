@@ -11,11 +11,11 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
-    selector: 'app-card-page',
-    templateUrl: './card-page.component.html',
-    styleUrl: './card-page.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-card-page',
+  templateUrl: './card-page.component.html',
+  styleUrl: './card-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CardPageComponent {
   @Input() lists: any[];
@@ -109,10 +109,12 @@ export class CardPageComponent {
               }
             )
             .subscribe(res => {
-              this.builder.loading$.next(false);
-              this.util.openSnackbar(`已更新标题为${textContent}`, 'ok');
-              this.builder.currentPage.title = textContent;
-              this.builder.saveLocalVersions();
+              if (res) {
+                this.builder.loading$.next(false);
+                this.util.openSnackbar(`已更新标题为${textContent}`, 'ok');
+                this.builder.currentPage.title = textContent;
+                this.builder.saveLocalVersions();
+              }
             });
         }
       }

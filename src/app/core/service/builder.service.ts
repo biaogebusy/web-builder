@@ -380,12 +380,17 @@ export class BuilderService extends ApiService {
       )
       .pipe(
         catchError((res: any) => {
-          console.log(res);
-          const {
-            error: { errors },
-          } = res;
-          this.util.openSnackbar(errors[0].detail, 'ok');
-          return throwError(errors[0]);
+          const { status } = res;
+          let message = '';
+          switch (status) {
+            case 403:
+              message = '您没有权限执行此操作！';
+              break;
+            default:
+              message = '未知错误';
+          }
+          this.util.openSnackbar(message, 'ok');
+          return of(false);
         })
       );
   }

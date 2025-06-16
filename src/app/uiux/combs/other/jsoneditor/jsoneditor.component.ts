@@ -166,14 +166,12 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
             takeUntilDestroyed(this.destroyRef)
           )
           .subscribe(res => {
-            if (!res) {
-              this.util.openSnackbar('更新失败！', 'ok');
-            } else {
+            this.loading = false;
+            if (res) {
               this.util.openSnackbar('更新成功！', 'ok');
+              this.cd.detectChanges();
               this.builder.closeRightDrawer$.next(true);
             }
-            this.loading = false;
-            this.cd.detectChanges();
           });
       }
     }
