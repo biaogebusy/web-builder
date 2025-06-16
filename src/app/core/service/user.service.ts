@@ -66,7 +66,11 @@ export class UserService extends ApiService {
   }
 
   updateUser(data: TokenUser): any {
-    this.getCurrentUserById(data.current_user.uid, data.csrf_token).subscribe(user => {
+    const {
+      current_user: { uid },
+      csrf_token,
+    } = data;
+    this.getCurrentUserById(uid, csrf_token).subscribe(user => {
       this.loginUser(data, user);
     });
   }
