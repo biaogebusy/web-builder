@@ -1,13 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
   ChangeDetectorRef,
   OnDestroy,
   inject,
+  output
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -30,7 +29,7 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit, O
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   @Input() content: IDynamicTextList;
-  @Output() pageChange = new EventEmitter<string>();
+  readonly pageChange = output<string>();
 
   lists: any[];
   links: IPaginationLinks;

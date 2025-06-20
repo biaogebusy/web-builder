@@ -13,7 +13,7 @@
       [class.is-login]="user$ | async"
     >
       @if (loading()) {
-        <mat-spinner diameter="50" color="accent" />
+        <app-loading />
       }
       <div class="w-full form-scroll">
         @if (!(user$ | async)) {

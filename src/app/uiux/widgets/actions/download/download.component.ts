@@ -21,11 +21,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
 
 @Component({
-    selector: 'app-download',
-    templateUrl: './download.component.html',
-    styleUrls: ['./download.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-download',
+  templateUrl: './download.component.html',
+  styleUrls: ['./download.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class DownloadComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -71,10 +71,6 @@ export class DownloadComponent implements OnInit {
   }
 
   openLogin(): void {
-    const returnUrl = window.location.pathname;
-    const queryParams = {
-      returnUrl: returnUrl,
-    };
-    this.userService.openLoginDialog(queryParams);
+    this.userService.openLoginDialog();
   }
 }

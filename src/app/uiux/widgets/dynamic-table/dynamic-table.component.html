@@ -1,134 +1,137 @@
-<div
-  class="dynamic-table w-full overflow-auto box-border"
-  *ngIf="content.elements"
-  [ngClass]="content.classes || 'nowrap'"
-  [ngStyle]="content.params?.style || null"
->
-  <table
-    matSort
-    mat-table
-    [dataSource]="dataSource"
-    multiTemplateDataRows
-    [ngClass]="'w-full'"
-    aria-describedby="dynamic table"
-  >
-    <ng-container
-      [matColumnDef]="item.key"
-      *ngFor="let item of content.header"
-      [sticky]="item.sticky"
+@if (content.elements) {
+  <div
+    class="dynamic-table w-full overflow-auto box-border"
+    [ngClass]="content.classes || 'nowrap'"
+    [ngStyle]="content.params?.style || null"
     >
-      <th mat-header-cell *cdkHeaderCellDef mat-sort-header [ngClass]="item.classes || ''">
-        <span class="px-3" [innerHTML]="item.label | safeHtml"></span>
-      </th>
-      <td
-        mat-cell
-        *cdkCellDef="let element"
-        [ngClass]="item.classes || ''"
-        [ngStyle]="item.style || {}"
+    <table
+      matSort
+      mat-table
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      [ngClass]="'w-full'"
+      aria-describedby="dynamic table"
       >
-        <ng-container *ngIf="element[item.key] | isArray; else object">
-          <app-dynamic-component
-            *ngFor="let item of element[item.key]"
-            class="cell"
-            [inputs]="{ content: item, form: form }"
-          />
-        </ng-container>
-        <ng-template #object>
-          <ng-container *ngIf="element[item.key] | isObject; else text">
-            <app-dynamic-component
-              class="cell"
-              [inputs]="{ content: element[item.key], form: form }"
-            />
-          </ng-container>
-        </ng-template>
-        <ng-template #text>
-          <ng-container *ngIf="item.dialog && element[item.key]; else normal">
-            <span
-              (click)="onNav($event)"
-              class="cell text-cell"
-              *ngIf="element[item.key] | isString; else number"
+      @for (item of content.header; track item) {
+        <ng-container
+          [matColumnDef]="item.key"
+          [sticky]="item.sticky"
+          >
+          <th mat-header-cell *cdkHeaderCellDef mat-sort-header [ngClass]="item.classes || ''">
+            <span class="px-3" [innerHTML]="item.label | safeHtml"></span>
+          </th>
+          <td
+            mat-cell
+            *cdkCellDef="let element"
+            [ngClass]="item.classes || ''"
+            [ngStyle]="item.style || {}"
+            >
+            @if (element[item.key] | isArray) {
+              @for (item of element[item.key]; track item) {
+                <app-dynamic-component
+                  class="cell"
+                  [inputs]="{ content: item, form: form }"
+                  />
+              }
+            } @else {
+              @if (element[item.key] | isObject) {
+                <app-dynamic-component
+                  class="cell"
+                  [inputs]="{ content: element[item.key], form: form }"
+                  />
+              } @else {
+                @if (item.dialog && element[item.key]) {
+                  @if (element[item.key] | isString) {
+                    <span
+                      (click)="onNav($event)"
+                      class="cell text-cell"
               [innerHTML]="
                 element[item.key] | stripTags | shorten: item.dialog.shorten || 10 : '...'
               "
-            ></span>
-            <ng-template #number>
-              <span class="cell text-cell">
-                {{ element[item.key] }}
-              </span>
-            </ng-template>
-            <span class="cell text-cell"></span>
-            <a
-              href="javascript:void(0)"
-              [innerHTML]="item.dialog.label | safeHtml"
-              (click)="openDialog(item.label, element[item.key])"
-            ></a>
-          </ng-container>
-          <ng-template #normal>
-            <span
-              (click)="onNav($event)"
-              *ngIf="element[item.key]"
-              class="cell text-cell"
-              [innerHTML]="element[item.key] | safeHtml"
-            ></span>
-          </ng-template>
-        </ng-template>
-      </td>
-    </ng-container>
-
-    <!-- expand row -->
-    <ng-container *ngIf="isExpand">
-      <ng-container matColumnDef="expand">
-        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-        <td mat-cell *matCellDef="let element">
-          <button
-            mat-icon-button
-            aria-label="expand row"
+                    ></span>
+                  } @else {
+                    <span class="cell text-cell">
+                      {{ element[item.key] }}
+                    </span>
+                  }
+                  <span class="cell text-cell"></span>
+                  <a
+                    href="javascript:void(0)"
+                    [innerHTML]="item.dialog.label | safeHtml"
+                    (click)="openDialog(item.label, element[item.key])"
+                  ></a>
+                } @else {
+                  @if (element[item.key]) {
+                    <span
+                      (click)="onNav($event)"
+                      class="cell text-cell"
+                      [innerHTML]="element[item.key] | safeHtml"
+                    ></span>
+                  }
+                }
+              }
+            }
+          </td>
+        </ng-container>
+      }
+      <!-- expand row -->
+      @if (isExpand) {
+        <ng-container matColumnDef="expand">
+          <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              aria-label="expand row"
             (click)="
               expandedElement = expandedElement === element ? null : element;
               $event.stopPropagation()
             "
-          >
-            <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
-            <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-      <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-          <div
-            class="element-detail"
-            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
-          >
-            <div class="p-y-sm">
-              <app-dynamic-component
-                class="block w-full"
-                *ngFor="let item of element['expand']"
-                [inputs]="{ content: element[item.key], form: form }"
-              />
+              >
+              @if (expandedElement !== element) {
+                <mat-icon>keyboard_arrow_down</mat-icon>
+              }
+              @if (expandedElement === element) {
+                <mat-icon>keyboard_arrow_up</mat-icon>
+              }
+            </button>
+          </td>
+        </ng-container>
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+            <div
+              class="element-detail"
+              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+              >
+              <div class="p-y-sm">
+                @for (item of element['expand']; track item) {
+                  <app-dynamic-component
+                    class="block w-full"
+                    [inputs]="{ content: element[item.key], form: form }"
+                    />
+                }
+              </div>
             </div>
-          </div>
-        </td>
-      </ng-container>
-    </ng-container>
-
-    <tr
-      mat-header-row
+          </td>
+        </ng-container>
+      }
+      <tr
+        mat-header-row
       *matHeaderRowDef="
         isExpand ? columnsToDisplayWithExpand : displayedColumns;
         sticky: content?.params?.sticky ? true : false
       "
-    ></tr>
-    <tr
-      mat-row
-      *matRowDef="let element; columns: isExpand ? columnsToDisplayWithExpand : displayedColumns"
-      [ngClass]="isExpand ? 'element-row' : ''"
-      [class.example-expanded-row]="expandedElement === element"
-    ></tr>
-
-    <!-- expand row -->
-    <ng-container *ngIf="isExpand">
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" [ngClass]="'detail-row'"></tr>
-    </ng-container>
-  </table>
-</div>
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: isExpand ? columnsToDisplayWithExpand : displayedColumns"
+        [ngClass]="isExpand ? 'element-row' : ''"
+        [class.example-expanded-row]="expandedElement === element"
+      ></tr>
+      <!-- expand row -->
+      @if (isExpand) {
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" [ngClass]="'detail-row'"></tr>
+      }
+    </table>
+  </div>
+}

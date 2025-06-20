@@ -232,12 +232,9 @@ export class ManageMediaComponent implements OnInit {
       data: config,
     });
 
-    dialog
-      .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.form.get('noCache')?.patchValue(true);
-        this.onSearch(this.form.value);
-      });
+    dialog.afterClosed().subscribe(() => {
+      this.form.get('noCache')?.patchValue(true);
+      this.onSearch(this.form.value);
+    });
   }
 }

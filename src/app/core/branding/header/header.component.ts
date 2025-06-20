@@ -7,10 +7,11 @@ import {
   inject,
   DestroyRef,
   signal,
+  DOCUMENT
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
-import { DOCUMENT } from '@angular/common';
+
 import { ContentState } from '@core/state/ContentState';
 import { BRANDING, IS_BUILDER_MODE } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';

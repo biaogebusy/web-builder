@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { DOCUMENT } from '@angular/common';
+
 import { MatDialog } from '@angular/material/dialog';
 import { IDialog } from '@core/interface/IDialog';
 

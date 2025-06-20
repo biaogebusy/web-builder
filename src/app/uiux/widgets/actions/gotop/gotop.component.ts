@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
   inject,
+  DOCUMENT
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';

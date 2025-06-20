@@ -6,13 +6,4 @@
     transform: translate(-50%, -50%);
     z-index: 100;
   }
-  ::ng-deep {
-    .container-fluid {
-      padding: 0;
-    }
-    .container {
-      padding: 0;
-      max-width: none;
-    }
-  }
 }

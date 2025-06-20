@@ -2,11 +2,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
   inject,
+  output
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import type { ISearchLabel } from '@core/interface/combs/ISearch';
@@ -24,7 +23,7 @@ export class SearchSidebarComponent implements OnInit {
   @Input() label: ISearchLabel;
   @Input() form: UntypedFormGroup;
   model: any = {};
-  @Output() modelChange: EventEmitter<any> = new EventEmitter();
+  readonly modelChange = output<any>();
 
   panelOpenState = true;
   private cd = inject(ChangeDetectorRef);

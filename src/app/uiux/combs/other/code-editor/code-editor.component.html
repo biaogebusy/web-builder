@@ -68,7 +68,7 @@
     </div>
     @if (editing()) {
       <div class="editing absolute bottom-5 right-6">
-        <mat-spinner diameter="20" />
+        <app-loading [content]="{ size: 30 }" />
       </div>
     }
   </div>

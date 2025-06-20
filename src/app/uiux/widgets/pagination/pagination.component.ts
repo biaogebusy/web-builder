@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
+  output
 } from '@angular/core';
 
 @Component({
@@ -17,8 +16,8 @@ import {
 export class PaginationComponent implements OnInit {
   @Input() id: string;
   @Input() maxSize: number;
-  @Output() pageChange: EventEmitter<number> = new EventEmitter();
-  @Output() pageBoundsCorrection: EventEmitter<number> = new EventEmitter();
+  readonly pageChange = output<number>();
+  readonly pageBoundsCorrection = output<number>();
   constructor() {}
 
   ngOnInit(): void {}

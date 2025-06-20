@@ -40,8 +40,8 @@
   @apply absolute left-1/2;
   top: 8px;
   transform: translateX(-50%);
-  --mdc-icon-button-disabled-icon-color: rgb(255 255 255 / 50%);
-  --mdc-icon-button-icon-color: var(--mat-sys-on-primary);
+  --mat-icon-button-disabled-icon-color: rgb(255 255 255 / 50%);
+  --mat-icon-button-icon-color: var(--mat-sys-on-primary);
   .lock {
     pointer-events: none;
   }
@@ -52,7 +52,7 @@
 
 .toolbar {
   .btn-help {
-    --mdc-icon-button-state-layer-size: 24px;
+    --mat-icon-button-state-layer-size: 24px;
     line-height: 0;
   }
 }

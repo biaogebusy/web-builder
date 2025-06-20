@@ -32,7 +32,7 @@
   <div class="lists-wrapper">
     <div class="lists py-4">
       @if (loading) {
-        <mat-spinner diameter="50" color="primary" />
+        <app-loading [content]="{ size: 50 }" />
       }
       @if (content$ | async; as content) {
         @for (page of content; track $index; let i = $index) {

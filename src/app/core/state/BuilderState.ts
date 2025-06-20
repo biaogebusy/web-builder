@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import {
   IBuilderComponent,
@@ -13,7 +13,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { cloneDeep, get, map, set } from 'lodash-es';
-import { DOCUMENT } from '@angular/common';
+
 import { ScreenService } from '@core/service/screen.service';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';

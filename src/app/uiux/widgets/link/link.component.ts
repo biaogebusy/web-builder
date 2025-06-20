@@ -23,11 +23,11 @@ import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-link',
-    templateUrl: './link.component.html',
-    styleUrls: ['./link.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-link',
+  templateUrl: './link.component.html',
+  styleUrls: ['./link.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class LinkComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
@@ -113,18 +113,15 @@ export class LinkComponent extends BaseComponent implements OnInit {
       },
     });
     if (dialog?.afterClosed) {
-      this.dialogRef
-        .afterClosed()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          const after = dialog.afterClosed;
-          if (after?.success) {
-            this.util.openSnackbar(after?.success?.label, 'Ok');
-          }
-          if (after?.emit) {
-            this.dialogService.closeDialog();
-          }
-        });
+      this.dialogRef.afterClosed().subscribe(() => {
+        const after = dialog.afterClosed;
+        if (after?.success) {
+          this.util.openSnackbar(after?.success?.label, 'Ok');
+        }
+        if (after?.emit) {
+          this.dialogService.closeDialog();
+        }
+      });
     }
     this.dialogService.handlerIframe(this.dialog);
   }

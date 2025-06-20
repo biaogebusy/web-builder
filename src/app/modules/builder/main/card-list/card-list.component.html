@@ -18,7 +18,7 @@
   </div>
   <div class="lists">
     @if (loading) {
-      <mat-spinner diameter="50" color="primary" />
+      <app-loading />
     }
     @if (content$ | async; as lists) {
       <app-dynamic-component

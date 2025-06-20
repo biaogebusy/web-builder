@@ -1,5 +1,5 @@
-import { Injectable, PLATFORM_ID, NgZone, inject } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { Injectable, PLATFORM_ID, NgZone, inject, DOCUMENT } from '@angular/core';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',

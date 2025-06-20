@@ -1,34 +1,28 @@
 <ng-container *reqRolesIf="content">
   <!-- dialog -->
-  <ng-container *ngIf="content.dialog; else link">
+  @if (content.dialog) {
     <div *ngTemplateOutlet="action; context: { link: content }"></div>
-  </ng-container>
-  <!-- link -->
-  <ng-template #link>
+  } @else {
     <!-- absolute link -->
-    <a
-      contentedit="label"
-      *ngIf="isAbsolute(content.href || ''); else relative"
-      [ngClass]="classes"
-      [matTooltip]="content.tooltip?.message || ''"
-      [matTooltipPosition]="content.tooltip?.position || 'above'"
-      [href]="content.href || 'javascript:void(0);'"
-      [target]="content.target || '_self'"
-      [innerHTML]="content.label | safeHtml"
-      title="{{ content.label }}"
-      rel="noopener"
-      (click)="nav($event)"
-    ></a>
-
-    <!-- relative link /node/1 -->
-    <ng-template #relative>
-      <ng-container *ngIf="content.href; else void">
+    @if (isAbsolute(content.href || '')) {
+      <a
+        contentedit="label"
+        [ngClass]="classes"
+        [matTooltip]="content.tooltip?.message || ''"
+        [matTooltipPosition]="content.tooltip?.position || 'above'"
+        [href]="content.href || 'javascript:void(0);'"
+        [target]="content.target || '_self'"
+        [innerHTML]="content.label | safeHtml"
+        title="{{ content.label }}"
+        rel="noopener"
+        (click)="nav($event)"
+      ></a>
+    } @else {
+      @if (content.href) {
         <!-- drawer -->
-        <ng-container *ngIf="content.rel && content.rel === 'drawer'; else default">
+        @if (content.rel && content.rel === 'drawer') {
           <div *ngTemplateOutlet="action; context: { link: content }"></div>
-        </ng-container>
-        <!-- router link -->
-        <ng-template #default>
+        } @else {
           <a
             contentedit="label"
             [matTooltip]="content.tooltip?.message || ''"
@@ -43,15 +37,17 @@
             [innerHTML]="content.label | safeHtml"
             [title]="content.label"
             (click)="nav($event)"
-          >
+            >
           </a>
-        </ng-template>
-      </ng-container>
-      <ng-template #void>
+        }
+        <!-- router link -->
+      } @else {
         <div *ngTemplateOutlet="action; context: { link: content }"></div>
-      </ng-template>
-    </ng-template>
-  </ng-template>
+      }
+    }
+    <!-- relative link /node/1 -->
+  }
+  <!-- link -->
 </ng-container>
 
 <ng-template let-link="link" #action>

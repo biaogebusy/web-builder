@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, output } from '@angular/core';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 
 @Component({
@@ -10,7 +10,7 @@ import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks'
 })
 export class PaginationLinksComponent {
   @Input() links: IPaginationLinks | undefined;
-  @Output() pageChange: EventEmitter<string> = new EventEmitter();
+  readonly pageChange = output<string>();
 
   loadPage(link: string): void {
     this.pageChange.emit(link);
