@@ -10,7 +10,6 @@ import {
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { UserService } from '@core/service/user.service';
 import { NodeComponent } from '@uiux/base/node.widget';
@@ -21,7 +20,7 @@ import { PAGE_CONTENT } from '@core/token/token-providers';
 import type { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
