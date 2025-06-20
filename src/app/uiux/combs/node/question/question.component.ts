@@ -8,7 +8,6 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import type { IComment, IQuestion } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -18,7 +17,7 @@ import { ContentState } from '@core/state/ContentState';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
 
