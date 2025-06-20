@@ -4,12 +4,11 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit,
-  Output,
-  EventEmitter,
   inject,
   OnChanges,
   SimpleChanges,
   DestroyRef,
+  output
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -30,8 +29,8 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() content: ISwiper;
   @Input() index: number;
   @Input() navigationSub: Subject<number>;
-  @Output() slideChange = new EventEmitter<Swiper>();
-  @Output() slideClick = new EventEmitter<any>();
+  readonly slideChange = output<Swiper>();
+  readonly slideClick = output<any>();
   @ViewChild('swiper', { static: false }) swiper: any;
   private destroyRef = inject(DestroyRef);
   private screenService = inject(ScreenService);

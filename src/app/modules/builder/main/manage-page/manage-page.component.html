@@ -5,7 +5,9 @@
         <app-dynamic-component [inputs]="item" />
       }
     } @else {
-      <mat-spinner class="page-loading" diameter="50" color="primary" />
+      <div class="page-loading">
+        <app-loading />
+      </div>
     }
   }
 </div>

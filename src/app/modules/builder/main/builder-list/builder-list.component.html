@@ -5,7 +5,7 @@
       <div class="wrapper" [ngClass]="previewClass$ | async">
         @if (builder.loading$ | async) {
           <div class="load">
-            <mat-spinner diameter="50" color="accent" />
+            <app-loading />
           </div>
         }
         <div

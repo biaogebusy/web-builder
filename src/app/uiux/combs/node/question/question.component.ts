@@ -8,7 +8,6 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import type { IComment, IQuestion } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -18,16 +17,16 @@ import { ContentState } from '@core/state/ContentState';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
 
 @Component({
-    selector: 'app-question',
-    templateUrl: './question.component.html',
-    styleUrls: ['./question.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-question',
+  templateUrl: './question.component.html',
+  styleUrls: ['./question.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class QuestionComponent extends NodeComponent implements OnInit, AfterViewInit {
   public user$ = inject<Observable<IUser>>(USER);
@@ -131,11 +130,7 @@ export class QuestionComponent extends NodeComponent implements OnInit, AfterVie
   }
 
   openLogin(): void {
-    const returnUrl = window.location.pathname;
-    const queryParams = {
-      returnUrl,
-    };
-    this.dialogRef = this.userService.openLoginDialog(queryParams);
+    this.dialogRef = this.userService.openLoginDialog();
     this.dialogRef
       .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))

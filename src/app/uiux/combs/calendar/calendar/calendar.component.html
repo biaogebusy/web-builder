@@ -1,8 +1,7 @@
 <div class="calendar relative">
   @if (loading) {
-    <div
-      class="loading-inner absolute top-0 left-0 flex h-full w-full justify-center items-center">
-      <mat-spinner diameter="50" color="accent" />
+    <div class="loading-inner absolute top-0 left-0 flex h-full w-full justify-center items-center">
+      <app-loading />
     </div>
   }
   @if (isBrowser) {

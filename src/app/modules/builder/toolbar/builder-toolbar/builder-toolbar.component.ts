@@ -214,9 +214,6 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   }
 
   openLogin(): void {
-    const queryParams = {
-      returnUrl: 'builder',
-    };
-    this.userService.openLoginDialog(queryParams);
+    this.userService.openLoginDialog();
   }
 }

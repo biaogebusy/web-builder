@@ -28,8 +28,8 @@
       background-color: var(--mat-sys-inverse-primary);
       ::ng-deep {
         .mdc-icon-button {
-          --mdc-icon-button-state-layer-size: 26px;
-          --mdc-icon-button-icon-size: 18px;
+          --mat-icon-button-state-layer-size: 26px;
+          --mat-icon-button-icon-size: 18px;
           line-height: 26px;
           padding: 0;
           .mat-icon {

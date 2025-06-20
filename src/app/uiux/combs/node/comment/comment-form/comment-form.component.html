@@ -22,7 +22,7 @@
       >
         <div class="flex justify-center items-center">
           @if (loading) {
-            <mat-spinner diameter="14" />
+            <app-loading />
           }
           <span class="px-3">{{ content.editor?.action?.label || '提交' }}</span>
         </div>

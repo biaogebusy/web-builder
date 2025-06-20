@@ -198,8 +198,6 @@ export class TaxonomyComponent implements OnInit {
           this.form.reset();
           this.getItems('noCache=true');
           this.util.openSnackbar('更新成功！');
-        } else {
-          this.util.openSnackbar('更新失败！');
         }
       });
   }

@@ -43,7 +43,7 @@
     width: 100vw !important;
     max-width: none !important;
     --mat-dialog-content-padding: 0;
-    --mdc-dialog-container-color: transparent;
+    --mat-dialog-container-color: transparent;
     .mat-mdc-dialog-surface {
       border-radius: 0;
     }
@@ -68,7 +68,7 @@
         background-color: var(--mat-sys-neutral10);
       }
       .code-editor-show-btn {
-        --mdc-icon-button-icon-color: #fff;
+        --mat-icon-button-icon-color: #fff;
       }
       .dialog-colse-outside-btn {
         top: 8px;
@@ -77,6 +77,10 @@
         button {
           color: #fff;
         }
+      }
+      pre {
+        white-space: break-spaces;
+        word-break: break-all;
       }
     }
   }

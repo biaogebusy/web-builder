@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnInit, Input, inject, output } from '@angular/core';
 import type { IListThin } from '@core/interface/combs/IList';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
@@ -12,7 +12,7 @@ export class ListThinComponent implements OnInit {
   @Input() loading: boolean;
   @Input() pager: any;
 
-  @Output() pageChange: EventEmitter<string> = new EventEmitter();
+  readonly pageChange = output<string>();
   p = 1;
   private screenService = inject(ScreenService);
   constructor() {}

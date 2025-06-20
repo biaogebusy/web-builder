@@ -1,7 +1,7 @@
 @if (content) {
   @if (mapLoading) {
     <div class="loading-inner flex justify-center items-center w-full h-full">
-      <mat-spinner diameter="50"></mat-spinner>
+      <app-loading />
     </div>
   }
   <div id="map" class="w-full h-full" (click)="onMarkLink($event)"></div>

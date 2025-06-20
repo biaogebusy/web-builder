@@ -19,7 +19,7 @@
     >
       @if (loading) {
         <div class="loading-inner absolute w-full h-full justify-center items-center">
-          <mat-spinner diameter="50" />
+          <app-loading />
         </div>
       }
       @if (box$ | async; as box) {

@@ -1,11 +1,11 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   DestroyRef,
   Input,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
@@ -36,11 +36,10 @@ export class PageSettingComponent implements OnInit {
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[];
-  public loading: boolean;
+  public loading = signal<boolean>(false);
   public type: 'node--landing_page' | 'node--json';
 
   private dialog = inject(MatDialog);
-  private cd = inject(ChangeDetectorRef);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
@@ -57,7 +56,7 @@ export class PageSettingComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.loading = true;
+      this.loading.set(true);
       const { content } = this.content;
       const { data, included } = content;
       const {
@@ -147,7 +146,7 @@ export class PageSettingComponent implements OnInit {
                       if (!coverImg) {
                         return;
                       }
-                      this.loading = true;
+                      this.loading.set(true);
                       this.builderService
                         .updateAttributes(
                           { uuid: id, langcode },
@@ -168,10 +167,11 @@ export class PageSettingComponent implements OnInit {
                             },
                           }
                         )
-                        .subscribe(() => {
-                          this.loading = false;
-                          this.cd.detectChanges();
-                          this.util.openSnackbar(`已更新封面`);
+                        .subscribe(res => {
+                          this.loading.set(false);
+                          if (res) {
+                            this.util.openSnackbar(`已更新封面`);
+                          }
                         });
                     });
                 },
@@ -212,8 +212,7 @@ export class PageSettingComponent implements OnInit {
         }
       }
 
-      this.loading = false;
-      this.cd.detectChanges();
+      this.loading.set(false);
     }
   }
 
@@ -305,7 +304,7 @@ export class PageSettingComponent implements OnInit {
                 field.formControl.valueChanges
                   .pipe(takeUntilDestroyed(this.destroyRef))
                   .subscribe(value => {
-                    this.loading = true;
+                    this.loading.set(true);
                     this.builderService
                       .updateUrlalias(
                         {
@@ -317,8 +316,7 @@ export class PageSettingComponent implements OnInit {
                       )
                       .pipe(takeUntilDestroyed(this.destroyRef))
                       .subscribe(status => {
-                        this.loading = false;
-                        this.cd.detectChanges();
+                        this.loading.set(false);
                         if (status) {
                           this.util.openSnackbar(`已更新别名:${value}`);
                         } else {
@@ -372,7 +370,7 @@ export class PageSettingComponent implements OnInit {
       id,
       attributes: { langcode },
     } = data;
-    this.loading = true;
+    this.loading.set(true);
     this.builderService
       .updateAttributes(
         {
@@ -387,18 +385,12 @@ export class PageSettingComponent implements OnInit {
           ...this.getRelationshiopParams(value),
         }
       )
-      .subscribe(
-        res => {
-          this.loading = false;
-          this.cd.detectChanges();
+      .subscribe(res => {
+        this.loading.set(false);
+        if (res) {
           this.util.openSnackbar(`更新${value.title}成功`, 'ok');
-        },
-        error => {
-          const { statusText } = error;
-          this.loading = false;
-          this.util.openSnackbar(statusText, 'ok');
         }
-      );
+      });
   }
 
   getAttributesParams(value: any): object {
@@ -503,7 +495,7 @@ export class PageSettingComponent implements OnInit {
     const { type } = value;
     const nodeType = type.split('--')[1];
     const api = `/api/v1/node/${nodeType}`;
-    this.loading = true;
+    this.loading.set(true);
     const { content } = this.content;
     const { data } = content;
     const {
@@ -513,23 +505,13 @@ export class PageSettingComponent implements OnInit {
     this.nodeService
       .deleteEntity(api, id, this.user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(
-        () => {
-          this.util.openSnackbar(`删除${title}成功`, 'ok');
-          this.builder.updateSuccess$.next(true);
-          this.builder.closeRightDrawer$.next(true);
-          this.loading = false;
-          this.deleteLocalPage(id);
-          this.cd.detectChanges();
-        },
-        error => {
-          const {
-            error: { message },
-          } = error;
-          this.loading = false;
-          this.util.openSnackbar(message, 'ok');
-        }
-      );
+      .subscribe(() => {
+        this.util.openSnackbar(`删除${title}成功`, 'ok');
+        this.builder.updateSuccess$.next(true);
+        this.builder.closeRightDrawer$.next(true);
+        this.loading.set(false);
+        this.deleteLocalPage(id);
+      });
   }
 
   deleteLocalPage(uuid: string): void {

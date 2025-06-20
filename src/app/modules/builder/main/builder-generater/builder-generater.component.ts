@@ -12,11 +12,11 @@ import { map, shuffle } from 'lodash-es';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-builder-generater',
-    templateUrl: './builder-generater.component.html',
-    styleUrls: ['./builder-generater.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-builder-generater',
+  templateUrl: './builder-generater.component.html',
+  styleUrls: ['./builder-generater.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BuilderGeneraterComponent implements OnInit {
   public uiux = inject(UIUX);
@@ -40,10 +40,7 @@ export class BuilderGeneraterComponent implements OnInit {
 
   onGenerate(value: any): void {
     if (!this.user) {
-      const queryParams = {
-        returnUrl: 'builder',
-      };
-      this.userService.openLoginDialog(queryParams);
+      this.userService.openLoginDialog();
       return;
     }
     const items: IBuilderComponent[] = [];

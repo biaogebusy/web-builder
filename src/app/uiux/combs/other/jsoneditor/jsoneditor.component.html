@@ -1,7 +1,7 @@
 <div class="relative" [ngClass]="content.classes">
   @if (loading) {
     <div class="loader">
-      <mat-spinner diameter="20" color="primary" />
+      <app-loading [content]="{ size: 20 }"></app-loading>
     </div>
   }
   <div #jsoneditor></div>

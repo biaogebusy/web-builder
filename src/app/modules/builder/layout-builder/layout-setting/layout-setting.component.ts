@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { DOCUMENT } from '@angular/common';
-import { Component, DestroyRef, Input, inject } from '@angular/core';
+
+import { Component, DestroyRef, Input, inject, DOCUMENT } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
@@ -155,13 +155,10 @@ export class LayoutSettingComponent {
           this.builder.closeRightDrawer$.next(true);
         });
 
-      dialogRef
-        .afterClosed()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          builderList.style.paddingBottom = '150px';
-          this.builder.fullScreen$.next(false);
-        });
+      dialogRef.afterClosed().subscribe(() => {
+        builderList.style.paddingBottom = '150px';
+        this.builder.fullScreen$.next(false);
+      });
     }
   }
 }

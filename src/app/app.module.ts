@@ -5,14 +5,14 @@ import {
   Inject,
   inject,
   provideAppInitializer,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
@@ -54,7 +54,6 @@ import { CookieService } from 'ngx-cookie-service';
     BrowserAnimationsModule,
     CommonModule,
     MatSidenavModule,
-    NgxWebstorageModule.forRoot(),
     RenderModule,
     BrandingModule,
     LoadingBarHttpClientModule,
@@ -66,7 +65,11 @@ import { CookieService } from 'ngx-cookie-service';
     CookieService,
     provideHttpClient(withFetch()),
     provideClientHydration(withIncrementalHydration()),
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
+    provideNgxWebstorage(
+      withNgxWebstorageConfig({ separator: ':', caseSensitive: true }),
+      withLocalStorage()
+    ),
     {
       provide: CORE_CONFIG,
       useValue: {},

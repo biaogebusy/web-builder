@@ -25,7 +25,7 @@
   border: 1px solid var(--mat-sys-surface-bright);
   box-shadow: var(--mat-sys-level1);
   @apply max-w-full sm:w-[750px];
-  mat-spinner {
+  app-loading {
     position: absolute;
     left: 50%;
     top: 50%;

@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy,
-  inject,
-} from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, inject, output } from '@angular/core';
 import type { ICommentConfig } from '@core/interface/node/INode';
 import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
@@ -15,11 +7,11 @@ import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-comment-actions',
-    templateUrl: './comment-actions.component.html',
-    styleUrls: ['./comment-actions.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-comment-actions',
+  templateUrl: './comment-actions.component.html',
+  styleUrls: ['./comment-actions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CommentActionsComponent implements OnInit {
   contentState = inject(ContentState);
@@ -30,9 +22,9 @@ export class CommentActionsComponent implements OnInit {
   @Input() i: number;
   @Input() currentId: string;
   @Input() loading: boolean;
-  @Output() update = new EventEmitter();
-  @Output() reply = new EventEmitter();
-  @Output() delete = new EventEmitter();
+  readonly update = output<{ item: any }>();
+  readonly reply = output<{ item: any }>();
+  readonly delete = output<string>();
   user: IUser;
 
   constructor() {
@@ -56,7 +48,6 @@ export class CommentActionsComponent implements OnInit {
   }
 
   onQuote(): void {
-    console.log(this.item);
     this.contentState.commentQuote$.next(this.item);
   }
 

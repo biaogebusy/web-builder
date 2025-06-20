@@ -80,6 +80,7 @@ import { DividerComponent } from './divider/divider.component';
 import { LightgalleryModule } from 'lightgallery/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { NgOptimizedImage } from '@angular/common';
+import { LoadingComponent } from './loading/loading.component';
 
 const components = [
   BgComponent,
@@ -143,6 +144,7 @@ const components = [
   GotopComponent,
   GithubStarComponent,
   DividerComponent,
+  LoadingComponent,
 ];
 
 @NgModule({
