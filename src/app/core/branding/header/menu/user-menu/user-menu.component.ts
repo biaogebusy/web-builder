@@ -14,7 +14,6 @@ import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -36,7 +35,6 @@ export class UserMenuComponent implements OnInit {
   private dialog = inject(MatDialog);
   private cd = inject(ChangeDetectorRef);
   private userService = inject(UserService);
-  private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private uti = inject(UtilitiesService);
 
@@ -77,11 +75,7 @@ export class UserMenuComponent implements OnInit {
   }
 
   onLogin(): void {
-    const { pathname } = window.location;
-    const queryParams = {
-      returnUrl: pathname,
-    };
-    this.userService.openLoginDialog(queryParams);
+    this.userService.openLoginDialog();
   }
 
   openDialog(): void {

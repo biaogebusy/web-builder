@@ -13,7 +13,7 @@ import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
 import { UtilitiesService } from './utilities.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
 @Injectable({
@@ -31,7 +31,7 @@ export class UserService extends ApiService {
   private cryptoJS = inject(CryptoJSService);
   private cookieService = inject(CookieService);
   private storage = inject(LocalStorageService);
-
+  private route = inject(ActivatedRoute);
   get userApiPath(): string {
     return `${this.apiUrl}${this.coreConfig.apiUrl.userGetPath}`;
   }
@@ -366,8 +366,14 @@ export class UserService extends ApiService {
     );
   }
 
-  openLoginDialog(queryParams: Params): MatDialogRef<DialogComponent> {
-    this.router.navigate([], { queryParams });
+  openLoginDialog(): MatDialogRef<DialogComponent> {
+    const { queryParams } = this.route.snapshot;
+    const { pathname } = window.location;
+    const options = {
+      returnUrl: pathname,
+      ...queryParams,
+    };
+    this.router.navigate([], { queryParams: options });
     const config: IDialog = {
       disableActions: true,
       inputData: {
