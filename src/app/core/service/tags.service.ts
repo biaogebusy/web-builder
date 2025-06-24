@@ -1,12 +1,6 @@
 import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import type { IPage } from '@core/interface/IAppConfig';
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
-import php from 'highlight.js/lib/languages/php';
-import scss from 'highlight.js/lib/languages/scss';
-import xml from 'highlight.js/lib/languages/xml';
-import json from 'highlight.js/lib/languages/json';
 
 import { UtilitiesService } from '@core/service/utilities.service';
 @Injectable({
@@ -49,17 +43,28 @@ export class TagsService {
   }
 
   async highlightCode(): Promise<void> {
-    await this.util.loadStyle('/assets/injects/highlight.js/styles/atom-one-dark.css');
-    hljs.registerLanguage('javascript', javascript);
-    hljs.registerLanguage('php', php);
-    hljs.registerLanguage('scss', scss);
-    hljs.registerLanguage('xml', xml);
-    hljs.registerLanguage('json', json);
-    this.document.querySelectorAll('pre').forEach(block => {
-      // then highlight each
-      if (block) {
-        hljs.highlightElement(block);
-      }
-    });
+    const pres = this.document.querySelectorAll('pre');
+    if (pres?.length > 0) {
+      const {
+        default: { registerLanguage, highlightElement },
+      } = await import('highlight.js/lib/core');
+      const javascript = await import('highlight.js/lib/languages/javascript');
+      const php = await import('highlight.js/lib/languages/php');
+      const scss = await import('highlight.js/lib/languages/scss');
+      const xml = await import('highlight.js/lib/languages/xml');
+      const json = await import('highlight.js/lib/languages/json');
+      await this.util.loadStyle('/assets/injects/highlight.js/styles/atom-one-dark.css');
+      registerLanguage('javascript', javascript.default);
+      registerLanguage('php', php.default);
+      registerLanguage('scss', scss.default);
+      registerLanguage('xml', xml.default);
+      registerLanguage('json', json.default);
+      pres?.forEach(block => {
+        // then highlight each
+        if (block) {
+          highlightElement(block);
+        }
+      });
+    }
   }
 }

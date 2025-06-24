@@ -26,7 +26,7 @@
             "server": "src/main.server.ts",
             "prerender": false,
             "ssr": {
-              "entry": "server.ts"
+              "entry": "src/server.ts"
             },
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -59,7 +59,8 @@
             "allowedCommonJsDependencies": ["highlight.js", "lodash", "crypto-js", "dompurify"],
             "stylePreprocessorOptions": {
               "includePaths": ["src/theme"]
-            }
+            },
+            "outputMode": "server"
           },
           "configurations": {
             "production": {
