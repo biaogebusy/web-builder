@@ -11,8 +11,6 @@ import { Observable, of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog } from '@angular/material/dialog';
-import hljs from 'highlight.js/lib/core';
-import json from 'highlight.js/lib/languages/json';
 import { BUILDER_CONFIG } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
@@ -114,9 +112,13 @@ export class CodeEditorComponent implements OnInit {
       });
   }
 
-  highlightCode(): void {
-    hljs.registerLanguage('json', json);
-    this.highlightedCode.set(hljs.highlight(this.json(), { language: 'json' }).value);
+  async highlightCode(): Promise<void> {
+    const {
+      default: { registerLanguage, highlight },
+    } = await import('highlight.js/lib/core');
+    const json = await import('highlight.js/lib/languages/json');
+    registerLanguage('json', json.default);
+    this.highlightedCode.set(highlight(this.json(), { language: 'json' }).value);
     this.tagsService.highlightCode();
   }
 

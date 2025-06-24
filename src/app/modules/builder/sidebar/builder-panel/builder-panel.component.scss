@@ -29,12 +29,15 @@
       ::ng-deep {
         .mdc-icon-button {
           --mat-icon-button-state-layer-size: 26px;
-          --mat-icon-button-icon-size: 18px;
+          --mat-icon-button-icon-size: 20px;
           line-height: 26px;
           padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           .mat-icon {
-            height: 18px;
-            width: 18px;
+            height: 20px;
+            width: 20px;
             color: var(--mat-sys-primary);
           }
         }

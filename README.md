@@ -1,9 +1,11 @@
-<h1 align="center">信使 Web builder 低代码前端框架</h1>
+<p align="center">
+<img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
+</p>
+<h1 align="center">信使 Web builder<br>AI 驱动 UI 生成和发布平台</h1>
 
 <p align="center">
-  <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
   <br>
-  <i>信使 Web builder 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>通过拖拽可视化配置快速构建现代化响应式UI、多主题、多语言的 Web 页面，包含美观的后台管理主题，拥有完整的前端解决方案，Pro 版本已接入DeepSeek AI，可优化文案、翻译、图表、思维导图、创建组件和一句话生成页面。
+  <i>AI 驱动 UI 生成和发布平台，基于TailwindCss，通过拖拽可视化快速构建现代化响应式UI、动态自定义组件、多主题、多语言的网站应用。AI-powered UI generation and publishing platform, built on TailwindCSS, enabling rapid drag-and-drop visual creation of modern responsive UIs, dynamic customizable components, multi-theme, and multi-language web applications.
     </i>
   <br>
 </p>
@@ -115,31 +117,6 @@
 | v6          | v14     | v14.15.0 | v4.6   |
 | v5          | v12     | v14      | v4     |
 | <=v4        | v11     | v14      | v4     |
-
-## 开源目的
-
-项目非常适合初学者学习或者进阶，它涵盖了绝大部分 Angular 技术知识点，但并不仅限于以下内容。
-
-- TailwindCss
-- 服务端渲染（SSR）
-- 懒加载，Inject 依赖注入
-- 路由守卫
-- 请求拦截缓存
-- 动态组件
-- 动态表单
-- 动态表格
-- 多主题
-- 自定义指令
-- 自定义管道 pipe
-- 自定义 icon
-- 数据图表
-- Rxjs
-- Storybook
-- Typescript
-- Provider
-- 地图应用
-- 分析：谷歌分析、微软 Clarity
-- 信使 UI 在 Drupal 前后端分离中的应用
 
 ## 技术选型
 
