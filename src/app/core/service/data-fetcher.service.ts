@@ -49,7 +49,6 @@ export class DataFetcherService extends ApiService {
           .pipe(
             map((res: any) => {
               const formatPage = this.builderService.formatToExtraData(res.content);
-              console.log(formatPage);
               return formatPage;
             })
           )
