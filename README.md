@@ -201,12 +201,6 @@ module.exports = PROXY_CONFIG;
 
 `npm run build`
 
-## 运行 Storybook
-
-`npm run storybook`
-
-更多开发移步[开发指南](https://ui.builder.design/?path=/docs/guide--page)
-
 ## 最后
 
 - QQ 交流群：1176468251
