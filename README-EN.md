@@ -27,7 +27,7 @@
 </p>
 
 <p align="center">
-  <img style="border-radius:10px" src="src/assets/storybook/assets/builder.png" alt="logo" width="80%"/>
+  <img style="border-radius:10px" src="src/assets/images/builder/builder-entry.png" alt="logo" width="80%"/>
   <br>
   <br>
 </p>
