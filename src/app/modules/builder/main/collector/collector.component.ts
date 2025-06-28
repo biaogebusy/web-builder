@@ -16,8 +16,6 @@ import qs from 'qs';
 import { BuilderState } from '@core/state/BuilderState';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
-import { IArticle } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-collector',

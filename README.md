@@ -20,7 +20,7 @@
   ·
   <a href="https://github.com/biaogebusy/xinshi-mini">信使小程序</a>
   ·
-  <a href="https://ui.builder.design"> UI Storybook </a>
+  <a href="https://docs.builder.design"> 文档 </a>
   ·
   <a href="https://www.zhihu.com/people/biaogebusy"> 知乎 </a>
    ·
@@ -31,7 +31,7 @@
 </p>
 
 <p align="center">
-  <img style="border-radius:10px" src="src/assets/storybook/assets/builder.png" alt="logo" width="100%"/>
+  <img style="border-radius:10px" src="src/assets/images/builder/builder-entry.png" alt="logo" width="100%"/>
   <br>
   <br>
 </p>
@@ -200,12 +200,6 @@ module.exports = PROXY_CONFIG;
 ## 为生产环境打包
 
 `npm run build`
-
-## 运行 Storybook
-
-`npm run storybook`
-
-更多开发移步[开发指南](https://ui.builder.design/?path=/docs/guide--page)
 
 ## 最后
 
