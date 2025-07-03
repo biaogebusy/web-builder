@@ -52,9 +52,12 @@
     display: none;
     position: absolute;
     z-index: 10;
-    border-radius: 0 0 0 4px;
-    background-color: var(--mat-sys-surface-container-highest);
+    gap: 10px;
     ::ng-deep {
+      app-btn {
+        background-color: var(--mat-sys-inverse-surface);
+        border-radius: 4px;
+      }
       .icon-delete {
         &:hover {
           .mat-icon {
