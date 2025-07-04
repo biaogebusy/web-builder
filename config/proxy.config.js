@@ -33,12 +33,6 @@ const PROXY_CONFIG = [
     secure: false,
     changeOrigin: true,
   },
-  {
-    context: ['/collector'],
-    target: 'http://localhost:3000',
-    secure: false,
-    changeOrigin: true,
-  },
 ];
 
 module.exports = PROXY_CONFIG;
