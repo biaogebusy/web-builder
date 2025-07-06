@@ -40,7 +40,7 @@ module.exports = {
       pattern: /^flex(-(row|col|wrap|nowrap|1|auto|initial|none|grow|shrink))?(-reverse)?$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
-    { pattern: /^(col-span-([1-9]|1[0-2]))$/, variants: ['sm', 'md', 'lg'] },
+    { pattern: /^(col-span-(full|([1-9]|1[0-2])))$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^p[xytbrl]?-(0|([1-9]\d*))$/,
       variants: ['sm', 'md', 'lg'],
