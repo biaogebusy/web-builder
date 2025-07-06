@@ -1,25 +1,20 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
-import { MAT_INPUT_VALUE_ACCESSOR, MatInput } from '@angular/material/input';
+import { Component, inject } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
-import { FormlyFieldTextArea } from '@ngx-formly/material/textarea';
-import { createPopper } from '@popperjs/core';
 import { QuillModule } from 'ngx-quill';
 
 @Component({
-  selector: 'app-rich-text',
-  templateUrl: './rich-text.component.html',
-  styleUrls: ['./rich-text.component.scss'],
-  providers: [{ provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: FormlyFieldTextArea }],
+  selector: 'app-rich-editor',
   standalone: false,
+  templateUrl: './rich-editor.component.html',
+  styleUrl: './rich-editor.component.scss',
 })
-export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnInit, AfterViewInit {
-  @ViewChild(MatInput, { static: true }) formFieldControl!: MatInput;
-  @ViewChild('popup', { static: false }) popup: ElementRef;
+export class RichEditorComponent extends FieldType<FieldTypeConfig> {
   private value: any;
+  private util = inject(UtilitiesService);
+  private nodeService = inject(NodeService);
   private contentChunks: string[] = []; // 分段内容
-  private popper: any;
   public modules: QuillModule = {
     toolbar: [
       [
@@ -51,24 +46,10 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnI
       ['clean'],
     ],
   };
-  private ele = inject(ElementRef);
-  private util = inject(UtilitiesService);
-  private nodeService = inject(NodeService);
-
-  ngOnInit(): void {}
-
   async ngAfterViewInit(): Promise<void> {
     await this.util.loadStyle('/assets/injects/quill/quill.core.css');
     await this.util.loadStyle('/assets/injects/quill/quill.snow.css');
     this.contentChunks = this.util.chunkHTMLByBlocks(this.formControl.value);
-  }
-
-  openRichText(): void {
-    this.value = this.formControl.value;
-    this.popper = createPopper(this.ele.nativeElement, this.popup.nativeElement, {
-      placement: 'left',
-      strategy: 'fixed',
-    });
   }
 
   editorCreated(quill: any): void {
@@ -80,14 +61,6 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnI
   onContentChanged(event: any): void {
     const { html } = event;
     this.value = html;
-  }
-
-  onSave(): void {
     this.formControl.setValue(this.value);
-    this.popper.destroy();
-  }
-
-  onCancel(): void {
-    this.popper.destroy();
   }
 }
