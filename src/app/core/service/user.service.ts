@@ -13,7 +13,7 @@ import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
 import { UtilitiesService } from './utilities.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
 @Injectable({

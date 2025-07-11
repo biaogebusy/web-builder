@@ -40,7 +40,7 @@ module.exports = {
       pattern: /^flex(-(row|col|wrap|nowrap|1|auto|initial|none|grow|shrink))?(-reverse)?$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
-    { pattern: /^(col-span-([1-9]|1[0-2]))$/, variants: ['sm', 'md', 'lg'] },
+    { pattern: /^(col-span-(full|([1-9]|1[0-2])))$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^p[xytbrl]?-(0|([1-9]\d*))$/,
       variants: ['sm', 'md', 'lg'],
@@ -165,7 +165,7 @@ module.exports = {
       pattern:
         /^(from|via|to)-(transparent|current|(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(\/[0-9]{1,3})?)$/,
     },
-    { pattern: /^shadow(-sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
+    { pattern: /^shadow-(sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern:
         /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,

@@ -57,8 +57,8 @@
           @if (user$ | async) {
             @if (coreConfig.article?.comment?.enable && content.params?.comment) {
               <app-comment-form [content]="content" [type]="'add'" />
+              <app-comment-list [comments]="comments" [content]="content" />
             }
-            <app-comment-list [comments]="comments" [content]="content" />
           }
         </div>
         @if (content.sidebar) {

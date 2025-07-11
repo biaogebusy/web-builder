@@ -24,6 +24,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { QuillModule } from 'ngx-quill';
 import { JsonFieldType } from './formly-type/json/json.component';
+import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.component';
 
 const components = [
   SliderComponent,
@@ -34,6 +35,7 @@ const components = [
   ContactUsComponent,
   MatSelectComponent,
   DateRangeComponent,
+  RichEditorComponent,
   RepeatTypeComponent,
   DatepickerComponent,
   TermsServiceComponent,
@@ -58,6 +60,10 @@ const components = [
         {
           name: 'rich-text',
           component: RichTextComponent,
+        },
+        {
+          name: 'rich-editor',
+          component: RichEditorComponent,
         },
         {
           name: 'mat-select',
