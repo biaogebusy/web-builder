@@ -237,4 +237,77 @@ export class UtilitiesService {
     // 如果尾部为"."则去除，builder layout的场景
     return path.replace(/[.]*$/, '');
   }
+
+  chunkHTMLByBlocks(content: string): string[] {
+    const chunks: string[] = [];
+    const stack: { tag: string; startIndex: number }[] = [];
+    if (!content) {
+      return chunks;
+    }
+
+    // 匹配所有 HTML 标签，包括起始和结束标签
+    const tagRegex = /<\/?([a-zA-Z0-9-]+)[^>]*>/g;
+
+    let match: RegExpExecArray | null;
+    let lastIndex = 0;
+
+    while ((match = tagRegex.exec(content)) !== null) {
+      const fullMatch = match[0]; // 完整的标签
+      const tagName = match[1]; // 标签名
+      const isClosingTag = fullMatch.startsWith('</'); // 是否是结束标签
+      const currentIndex = match.index;
+
+      if (!isClosingTag) {
+        // 起始标签，压入堆栈
+        stack.push({ tag: tagName, startIndex: currentIndex });
+      } else {
+        // 闭合标签，匹配堆栈中的起始标签
+        const lastTag = stack.pop();
+        if (lastTag && lastTag.tag === tagName) {
+          // 提取完整块内容
+          const chunk = content.slice(lastTag.startIndex, currentIndex + fullMatch.length);
+          if (stack.length === 0) {
+            // 只有在栈为空时，才视为一个完整块
+            chunks.push(chunk);
+            lastIndex = currentIndex + fullMatch.length;
+          }
+        }
+      }
+    }
+
+    // 如果解析后有剩余内容，直接作为一个块添加
+    if (lastIndex < content.length) {
+      const remainingContent = content.slice(lastIndex).trim();
+      if (remainingContent) {
+        chunks.push(remainingContent);
+      }
+    }
+
+    return chunks;
+  }
+
+  // 安全插入分块内容
+  insertChunkSafely(editor: any, chunk: string): void {
+    const currentLength = editor.getLength();
+    editor.clipboard.dangerouslyPasteHTML(currentLength - 1, chunk);
+  }
+
+  lazyLoadContent(quillInstance: any, contentChunks: string[]): void {
+    if (!quillInstance) {
+      return;
+    }
+
+    let chunkIndex = 0;
+    const interval = setInterval(() => {
+      if (chunkIndex >= contentChunks.length) {
+        clearInterval(interval);
+        return;
+      }
+
+      const chunk = contentChunks[chunkIndex];
+      this.insertChunkSafely(quillInstance, chunk);
+
+      chunkIndex++;
+    }, 100); // 每 100ms 加载一块内容
+  }
 }
