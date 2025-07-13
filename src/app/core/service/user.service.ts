@@ -159,16 +159,12 @@ export class UserService extends ApiService {
     const { logout_token } = data;
     const currentUser: IUser = Object.assign(data, user);
     this.userSub$.next(currentUser);
-    if (logout_token) {
-      this.storage.store(this.logoutToken, logout_token);
-    }
     this.setUserCookie(currentUser);
   }
 
   logoutUser(): void {
     this.userSub$.next(false);
     this.cookieService.delete(this.localUserKey, '/');
-    this.cookieService.delete(this.logoutToken, '/');
   }
 
   logout(): any {
