@@ -179,7 +179,9 @@ export class UserService extends ApiService {
       }),
       withCredentials: true,
     };
-    const { logout_token } = this.storage.retrieve(this.localUserKey) as IUser;
+    const { logout_token } = JSON.parse(
+      this.cryptoJS.decrypt(this.cookieService.get(this.localUserKey))
+    ) as IUser;
     if (!logout_token) {
       this.util.openSnackbar('检测到会话异常，安全起见请手动清除Cookie', 'ok');
       return;
