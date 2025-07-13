@@ -179,12 +179,12 @@ export class UserService extends ApiService {
       }),
       withCredentials: true,
     };
-    const logoutToken = this.storage.retrieve(this.localUserKey) as IUser;
-    if (!logoutToken) {
+    const { logout_token } = this.storage.retrieve(this.localUserKey) as IUser;
+    if (!logout_token) {
       this.util.openSnackbar('检测到会话异常，安全起见请手动清除Cookie', 'ok');
       return;
     }
-    const params = ['_format=json', `token=${logoutToken}`].join('&');
+    const params = ['_format=json', `token=${logout_token}`].join('&');
     return this.http
       .post(`${this.apiUrl}${this.coreConfig.apiUrl.logoutPath}?${params}`, null, httpOptions)
       .pipe(
