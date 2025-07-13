@@ -1,4 +1,6 @@
-export interface IUser extends TokenUser {
+export interface IUser extends TokenUser, IUserProfile {}
+
+export interface IUserProfile {
   id: string;
   display_name?: string;
   user_fullname?: string;

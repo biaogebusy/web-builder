@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap } from 'rxjs/operators';
-import { TokenUser, IUser } from '../interface/IUser';
+import { TokenUser, IUser, IUserProfile } from '../interface/IUser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -171,7 +171,7 @@ export class UserService extends ApiService {
     this.cookieService.delete(this.logoutToken, '/');
   }
 
-  logout(logoutToken: string): any {
+  logout(): any {
     if (environment.drupalProxy) {
       this.logoutUser();
       window.location.href = '/user/logout';
@@ -183,6 +183,7 @@ export class UserService extends ApiService {
       }),
       withCredentials: true,
     };
+    const logoutToken = this.storage.retrieve(this.localUserKey) as IUser;
     if (!logoutToken) {
       this.util.openSnackbar('检测到会话异常，安全起见请手动清除Cookie', 'ok');
       return;
@@ -259,7 +260,7 @@ export class UserService extends ApiService {
     );
   }
 
-  getCurrentUserById(uid: string, token: string): Observable<any> {
+  getCurrentUserById(uid: string, token: string): Observable<IUserProfile> {
     const params = [
       `filter[drupal_internal__uid]=${uid}`,
       `include=user_picture,roles`,
