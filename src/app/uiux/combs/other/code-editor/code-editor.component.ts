@@ -192,6 +192,7 @@ export class CodeEditorComponent implements OnInit {
                 api,
                 json: null,
               };
+              this.highlightCode();
               this.builder.updatePageContentByPath(`${path}`, content);
             });
         }
