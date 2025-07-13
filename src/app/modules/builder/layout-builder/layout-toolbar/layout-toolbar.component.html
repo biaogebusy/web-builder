@@ -37,6 +37,7 @@
         <span>右移</span>
       </div>
     </button>
+    <mat-divider />
     <button mat-menu-item (click)="addBlock('layout', lbContent)">
       <div class="flex items-center">
         <app-icon [content]="{ svg: 'plus' }"></app-icon>
@@ -49,6 +50,7 @@
         <span>移除当前栏</span>
       </div>
     </button>
+    <mat-divider />
     <button mat-menu-item (click)="onLayoutSettings(layout, toolbar)">
       <div class="flex items-center">
         <app-icon [content]="{ svg: 'responsive' }"></app-icon>

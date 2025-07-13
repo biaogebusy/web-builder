@@ -92,13 +92,14 @@
                     }
                   }
                 }
-                <button mat-menu-item (click)="updatePageSetting(page)">
-                  <app-icon [content]="{ svg: 'cog' }" />
-                  <span>页面属性</span>
-                </button>
                 <button mat-menu-item (click)="updateByJSON(page)">
                   <app-icon [content]="{ svg: 'code-json' }" />
                   <span>页面JSON</span>
+                </button>
+                <mat-divider />
+                <button mat-menu-item (click)="updatePageSetting(page)">
+                  <app-icon [content]="{ svg: 'cog' }" />
+                  <span>页面属性</span>
                 </button>
               </mat-menu>
             </div>
