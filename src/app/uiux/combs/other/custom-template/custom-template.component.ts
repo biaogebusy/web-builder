@@ -45,10 +45,10 @@ export class CustomTemplateComponent implements AfterViewInit {
       if (isAPI && api) {
         this.fetchContent('');
       } else {
-        if (json) {
+        try {
           this.renderView(json, html);
           this.pager.set(null);
-        } else {
+        } catch (e) {
           this.renderView(
             {},
             `<div class="m-5 p-5 bg-red-100 rounded-lg">意外错误，请检查配置。</div>`
