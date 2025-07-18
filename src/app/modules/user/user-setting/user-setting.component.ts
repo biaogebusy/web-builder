@@ -16,15 +16,14 @@ import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, catchError, of } from 'rxjs';
 
 @Component({
-    selector: 'app-user-setting',
-    templateUrl: './user-setting.component.html',
-    styleUrl: './user-setting.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-user-setting',
+  templateUrl: './user-setting.component.html',
+  styleUrl: './user-setting.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class UserSettingComponent implements OnInit {
   public user$ = inject<Observable<IUser>>(USER);
@@ -37,7 +36,6 @@ export class UserSettingComponent implements OnInit {
   private dialog = inject(MatDialog);
   private userService = inject(UserService);
   private util = inject(UtilitiesService);
-  private storage = inject(LocalStorageService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   private manageService = inject(ManageService);
@@ -223,8 +221,7 @@ export class UserSettingComponent implements OnInit {
 
   onLogout(): void {
     this.loading.set(true);
-    const logoutToken = this.storage.retrieve(this.userService.logoutToken);
-    this.userService.logout(logoutToken);
+    this.userService.logout();
     this.userService.userSub$.subscribe(user => {
       if (!user) {
         this.loading.set(false);

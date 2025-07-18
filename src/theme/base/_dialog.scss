@@ -143,6 +143,7 @@
   }
 
   .layout-toolbar-menu {
+    --mat-divider-color: var(--mat-sys-surface-variant);
     background-color: var(--mat-sys-inverse-surface);
     .mat-mdc-menu-item,
     .mat-mdc-menu-item:visited,
@@ -150,6 +151,9 @@
     .mat-mdc-menu-item .mat-icon-no-color,
     .mat-mdc-menu-item .mat-mdc-menu-submenu-icon {
       color: var(--mat-sys-on-primary);
+    }
+    mat-divider {
+      opacity: 0.1;
     }
   }
 }

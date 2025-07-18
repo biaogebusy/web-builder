@@ -1,16 +1,16 @@
 <div class="tailwind-component relative">
   <div class="template {{ content.fullWidth ? '' : 'container' }}"></div>
 </div>
-@if (pager && pager.totalItems !== 0) {
+@if (pager() && pager()?.totalItems !== 0) {
   <div class="pager">
     <mat-paginator
       class="demo-paginator"
       (page)="onPageChange($event)"
-      [length]="pager.totalItems"
-      [pageSize]="pager.itemsPerPage"
+      [length]="pager()?.totalItems"
+      [pageSize]="pager()?.itemsPerPage"
       [showFirstLastButtons]="true"
       [hidePageSize]="true"
-      [pageIndex]="pager.currentPage"
+      [pageIndex]="pager()?.currentPage"
       aria-label="Select page"
     />
   </div>

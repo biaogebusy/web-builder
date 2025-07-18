@@ -16,11 +16,11 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-user',
-    templateUrl: './user.component.html',
-    styleUrls: ['./user.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class UserComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -128,6 +128,6 @@ export class UserComponent implements OnInit {
   }
 
   logout(): void {
-    this.userService.logout(this.user.logout_token);
+    this.userService.logout();
   }
 }

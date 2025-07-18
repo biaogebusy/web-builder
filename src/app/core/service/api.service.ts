@@ -1,4 +1,3 @@
-
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { ILanguage } from '@core/interface/IEnvironment';
@@ -22,10 +21,6 @@ export class ApiService {
 
   get localUserKey(): string {
     return camelCase(this.apiBaseUrl.split('//')[1]);
-  }
-
-  get logoutToken(): string {
-    return 'logoutToken';
   }
 
   get httpOptionsOfCommon(): any {
