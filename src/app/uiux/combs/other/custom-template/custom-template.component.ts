@@ -1,10 +1,11 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
+  DestroyRef,
   ElementRef,
   Input,
   inject,
+  signal,
 } from '@angular/core';
 import type { ICustomTemplate } from '@core/interface/IBuilder';
 import DOMPurify from 'dompurify';
@@ -13,6 +14,9 @@ import Mustache from 'mustache';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { PageEvent } from '@angular/material/paginator';
 import { ScreenService } from '@core/service/screen.service';
+import { catchError, of } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-custom-template',
@@ -22,12 +26,13 @@ import { ScreenService } from '@core/service/screen.service';
 })
 export class CustomTemplateComponent implements AfterViewInit {
   @Input() content: ICustomTemplate;
-  public pager: IPager | null;
+  public pager = signal<IPager | null>(null);
   private ele = inject(ElementRef);
-  private cd = inject(ChangeDetectorRef);
   private screenService = inject(ScreenService);
   private nodeService = inject(NodeService);
   private template: Element;
+  private destroyRef = inject(DestroyRef);
+  private util = inject(UtilitiesService);
 
   ngAfterViewInit(): void {
     this.template = this.ele.nativeElement.querySelector('.template');
@@ -40,9 +45,16 @@ export class CustomTemplateComponent implements AfterViewInit {
       if (isAPI && api) {
         this.fetchContent('');
       } else {
-        this.renderView(json, html);
-        this.pager = null;
-        this.cd.detectChanges();
+        try {
+          this.renderView(json, html);
+          this.pager.set(null);
+        } catch (e) {
+          this.renderView(
+            {},
+            `<div class="m-5 p-5 bg-red-100 rounded-lg">意外错误，请检查配置。</div>`
+          );
+          this.pager.set(null);
+        }
       }
     }
   }
@@ -50,14 +62,30 @@ export class CustomTemplateComponent implements AfterViewInit {
   fetchContent(params: string): void {
     const { html, api } = this.content;
     if (api) {
-      this.nodeService.fetch(api, params).subscribe(res => {
-        const { rows, pager } = res;
-        this.renderView(res, html);
-        if (rows && pager) {
-          this.pager = this.nodeService.handlerPager(pager, rows.length);
-          this.cd.detectChanges();
-        }
-      });
+      this.nodeService
+        .fetch(api, params)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          catchError(error => {
+            console.log(error);
+            return of({
+              ok: false,
+              message: error.message,
+            });
+          })
+        )
+        .subscribe(res => {
+          if (res?.ok === false) {
+            this.util.openSnackbar(res.message, 'ok');
+            this.renderView({}, `<div class="m-5 p-5 bg-red-100 rounded-lg">${res.message}</div>`);
+          } else {
+            const { rows, pager } = res;
+            this.renderView(res, html);
+            if (rows && pager) {
+              this.pager.set(this.nodeService.handlerPager(pager, rows.length));
+            }
+          }
+        });
     }
   }
 

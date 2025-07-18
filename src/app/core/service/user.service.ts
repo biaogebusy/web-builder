@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap } from 'rxjs/operators';
-import { TokenUser, IUser } from '../interface/IUser';
+import { TokenUser, IUser, IUserProfile } from '../interface/IUser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -159,19 +159,15 @@ export class UserService extends ApiService {
     const { logout_token } = data;
     const currentUser: IUser = Object.assign(data, user);
     this.userSub$.next(currentUser);
-    if (logout_token) {
-      this.storage.store(this.logoutToken, logout_token);
-    }
     this.setUserCookie(currentUser);
   }
 
   logoutUser(): void {
     this.userSub$.next(false);
     this.cookieService.delete(this.localUserKey, '/');
-    this.cookieService.delete(this.logoutToken, '/');
   }
 
-  logout(logoutToken: string): any {
+  logout(): any {
     if (environment.drupalProxy) {
       this.logoutUser();
       window.location.href = '/user/logout';
@@ -183,11 +179,14 @@ export class UserService extends ApiService {
       }),
       withCredentials: true,
     };
-    if (!logoutToken) {
+    const { logout_token } = JSON.parse(
+      this.cryptoJS.decrypt(this.cookieService.get(this.localUserKey))
+    ) as IUser;
+    if (!logout_token) {
       this.util.openSnackbar('检测到会话异常，安全起见请手动清除Cookie', 'ok');
       return;
     }
-    const params = ['_format=json', `token=${logoutToken}`].join('&');
+    const params = ['_format=json', `token=${logout_token}`].join('&');
     return this.http
       .post(`${this.apiUrl}${this.coreConfig.apiUrl.logoutPath}?${params}`, null, httpOptions)
       .pipe(
@@ -259,7 +258,7 @@ export class UserService extends ApiService {
     );
   }
 
-  getCurrentUserById(uid: string, token: string): Observable<any> {
+  getCurrentUserById(uid: string, token: string): Observable<IUserProfile> {
     const params = [
       `filter[drupal_internal__uid]=${uid}`,
       `include=user_picture,roles`,

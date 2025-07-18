@@ -24,7 +24,7 @@
   ·
   <a href="https://www.zhihu.com/people/biaogebusy"> 知乎 </a>
    ·
-  <a href="./README-EN.md"> English</a>
+  <a href="https://github.com/biaogebusy/builder-docker"> Docker 部署</a>
   <br>
   <br>
   <a href="https://space.bilibili.com/457248997/lists/2430152?type=season">观看演示视频</a>
@@ -110,6 +110,7 @@
 
 | Web builder | Angular | Node     | TS     |
 | :---------- | :------ | :------- | :----- |
+| v11         | v20     | v22+     | v5.8+  |
 | v10         | v19     | v18+     | v5.5+  |
 | v9          | v18     | v18+     | v5.4   |
 | v8          | v17     | v18+     | v5.2   |
