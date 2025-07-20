@@ -8,7 +8,6 @@
     "build": "ng build --configuration production",
     "test": "ng test",
     "e2e": "ng e2e",
-    "bundle-report": "ng build --configuration production --stats-json && webpack-bundle-analyzer dist/browser/stats.json",
     "serve:ssr:xinshi": "node dist/server/server.mjs",
     "lint": "ng lint",
     "prepare": "husky",
@@ -128,8 +127,6 @@
     "typescript": "5.8.2",
     "typescript-eslint": "8.10.0",
     "utf-8-validate": "^5.0.7",
-    "webpack": "^5.91.0",
-    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-subresource-integrity": "^5.2.0-rc.1",
     "ws": "^8.4.0"
   },
