@@ -4624,7 +4624,6 @@ export const system: any[] = [
                   className: 'col-span-3',
                   props: {
                     label: '经纬度',
-                    appearance: 'outline',
                     type: 'text',
                     required: true,
                   },
@@ -4636,7 +4635,6 @@ export const system: any[] = [
                   className: 'col-span-3',
                   props: {
                     label: '圆半径/公里',
-                    appearance: 'outline',
                     type: 'number',
                     required: true,
                     min: 1,
@@ -4656,7 +4654,6 @@ export const system: any[] = [
                   defaultValue: '#00a281',
                   props: {
                     label: '圆背景色',
-                    appearance: 'outline',
                     type: 'color',
                     required: true,
                   },
@@ -4668,7 +4665,6 @@ export const system: any[] = [
                   className: 'col-span-3',
                   props: {
                     label: '不透明度',
-                    appearance: 'outline',
                     type: 'number',
                     required: true,
                     min: 0.1,

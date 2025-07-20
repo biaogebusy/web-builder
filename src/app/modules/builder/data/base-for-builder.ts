@@ -3662,7 +3662,6 @@ export const base = [
               className: 'w-full',
               props: {
                 label: '姓名',
-                appearance: 'outline',
                 required: true,
               },
             },
@@ -3672,7 +3671,6 @@ export const base = [
               className: 'w-full',
               props: {
                 label: '邮箱',
-                appearance: 'outline',
                 required: true,
               },
             },
@@ -3682,7 +3680,6 @@ export const base = [
               className: 'w-full',
               props: {
                 label: '主题',
-                appearance: 'outline',
               },
             },
             {
@@ -3692,7 +3689,6 @@ export const base = [
               props: {
                 label: '内容',
                 placeholder: 'Message',
-                appearance: 'fill',
                 rows: 5,
               },
             },

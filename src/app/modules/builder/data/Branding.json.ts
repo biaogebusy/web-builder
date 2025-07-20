@@ -394,7 +394,6 @@ const footerNewsletter = {
         required: true,
         email: true,
         placeholder: '请输入您的邮箱',
-        appearance: 'outline',
       },
     },
   ],
