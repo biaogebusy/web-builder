@@ -29,9 +29,6 @@ jobs:
       - name: NPM Install
         run: npm ci over npm
 
-      - name: NPM Install Angular
-        run: npm install -g @angular/cli > /dev/null
-
       - name: NPM build all App Production
         run: npm run build
 
