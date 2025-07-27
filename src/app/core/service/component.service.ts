@@ -296,8 +296,14 @@ export class ComponentService {
       if (!(moduleRef.instance instanceof BaseModule)) {
         throw new Error(`Module for component ${type} does not extend BaseModule`);
       }
-      const componentFactory = moduleRef.instance.getComponentFactory(type);
-      return componentFactory.componentType;
+      // 直接获取组件类（不再通过工厂）
+      const componentClass = moduleRef.instance.getComponentClass(type);
+
+      if (!componentClass) {
+        throw new Error(`Component class for ${type} not found`);
+      }
+
+      return componentClass;
     } catch (error) {
       console.error(`Error creating component ${type}:`, error);
       throw error;

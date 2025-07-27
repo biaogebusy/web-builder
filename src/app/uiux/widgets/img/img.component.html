@@ -3,6 +3,7 @@
     @if (!content.href) {
       <img
         contentedit="src"
+        loading="lazy"
         [ngStyle]="content.style"
         [ngClass]="content.classes"
         [ngSrc]="content.src || ''"
@@ -14,6 +15,7 @@
       <a href="{{ content.href }}" target="{{ content.target }}">
         <img
           contentedit="src"
+          loading="lazy"
           [ngClass]="content.classes"
           [ngSrc]="content.src || ''"
           [ngStyle]="content.style"

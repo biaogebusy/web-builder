@@ -44,7 +44,6 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   private util = inject(UtilitiesService);
-  private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
   private jsonEditor: any;
 
