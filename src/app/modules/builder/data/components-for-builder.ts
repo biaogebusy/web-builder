@@ -1392,7 +1392,6 @@ export const components: any[] = [
                       className: 'w-full',
                       props: {
                         label: '姓名',
-                        appearance: 'outline',
                         required: true,
                       },
                     },
@@ -1402,7 +1401,6 @@ export const components: any[] = [
                       className: 'w-full',
                       props: {
                         label: '邮箱',
-                        appearance: 'outline',
                         required: true,
                       },
                     },
@@ -1412,7 +1410,6 @@ export const components: any[] = [
                       className: 'w-full',
                       props: {
                         label: '主题',
-                        appearance: 'outline',
                       },
                     },
                     {
@@ -1422,7 +1419,6 @@ export const components: any[] = [
                       props: {
                         label: '内容',
                         placeholder: 'Message',
-                        appearance: 'fill',
                         rows: 5,
                       },
                     },
@@ -2565,70 +2561,6 @@ export const components: any[] = [
         label: 'V3',
         child: [
           {
-            label: '3v3',
-            content: {
-              type: 'showcase-3v3',
-              title: {
-                label: 'Storybook 是什么？',
-                href: '#',
-              },
-              spacer: 'md',
-              bg: {
-                classes: '',
-              },
-              classes: '',
-              date: '12/09/2022',
-              commentCount: '2',
-              category: 'Angular',
-              body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。此外，您还可以使用Storybook提供的插件和工具来模拟数据、测试组件的不同状态和交互，并生成自动化测试报告。Storybook是一个用于构建、展示和文档化UI组件的工具。',
-              details: {
-                label: '查看更多',
-                href: '#',
-                type: 'btn',
-                mode: 'raised',
-                color: 'primary',
-              },
-            },
-          },
-          {
-            label: '3v3 图片',
-            content: {
-              type: 'showcase-3v3',
-              title: {
-                label: 'Storybook 是什么？',
-                href: '#',
-              },
-              spacer: 'md',
-              bg: {
-                classes: '',
-              },
-              classes: '',
-              date: '12/09/2022',
-              commentCount: '2',
-              category: 'Angular',
-              body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。此外，您还可以使用Storybook提供的插件和工具来模拟数据、测试组件的不同状态和交互，并生成自动化测试报告。Storybook是一个用于构建、展示和文档化UI组件的工具。',
-              details: {
-                label: '查看更多',
-                href: '#',
-                type: 'btn',
-                mode: 'raised',
-                color: 'primary',
-              },
-              showImage: true,
-              feature: {
-                fullIcon: 'fullscreen',
-                openIcon: 'open_in_new',
-                ratios: 'media-16-9',
-                link: '#',
-                img: {
-                  classes: 'object-fit',
-                  src: '/assets/images/showcase/blog1-large.jpeg',
-                  alt: 'lazyload',
-                },
-              },
-            },
-          },
-          {
             label: '3v4',
             content: {
               type: 'showcase-3v4',
@@ -3673,145 +3605,6 @@ export const components: any[] = [
             },
           },
           {
-            label: '图文',
-            content: {
-              type: 'carousel-1v1',
-              spacer: 'none',
-              fullWidth: true,
-              bg: {
-                classes: '',
-              },
-              classes: '',
-              swiper: {
-                params: {
-                  slidesPerView: 1,
-                  spaceBetween: 0,
-                  navigation: false,
-                  pagination: false,
-                  breakpoints: {
-                    '600': {
-                      slidesPerView: 1,
-                      spaceBetween: 0,
-                    },
-                    '960': {
-                      slidesPerView: 1,
-                      spaceBetween: 0,
-                    },
-                  },
-                },
-                classes: 'p-bottom',
-                elements: [
-                  {
-                    type: 'text-hero',
-                    theme: 'text-white',
-                    params: {
-                      height: '750px',
-                    },
-                    text: {
-                      type: 'text',
-                      title: {
-                        label: '高性能',
-                        style: 'style-v4',
-                        classes: 'mat-headline-2 bold',
-                      },
-                      classes: 'y-center',
-                      style: [],
-                      bg: {
-                        classes: '',
-                        img: {
-                          src: '/assets/images/hero/1-3.jpg',
-                          hostClasses: '',
-                          alt: '地图',
-                        },
-                      },
-                      body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
-                      actionsAlign: 'start center',
-                      actions: [
-                        {
-                          type: 'btn',
-                          mode: 'raised',
-                          color: 'primary',
-                          href: '',
-                          label: '了解更多',
-                        },
-                      ],
-                    },
-                  },
-                  {
-                    type: 'text-hero',
-                    theme: 'text-white',
-                    params: {
-                      height: '750px',
-                    },
-                    text: {
-                      type: 'text',
-                      title: {
-                        label: '易用的编辑器',
-                        style: 'style-v4',
-                        classes: 'mat-headline-2 bold',
-                      },
-                      classes: 'y-center',
-                      style: [],
-                      bg: {
-                        classes: 'bg-shadow overlay overlay-',
-                        img: {
-                          src: '/assets/images/hero/1-6.jpg',
-                          hostClasses: '',
-                        },
-                      },
-                      body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
-                      actionsAlign: 'start center',
-                      actions: [
-                        {
-                          type: 'btn',
-                          mode: 'raised',
-                          color: 'primary',
-                          href: '',
-                          label: '了解更多',
-                        },
-                      ],
-                    },
-                  },
-                  {
-                    type: 'text-hero',
-                    theme: 'text-white',
-                    params: {
-                      height: '750px',
-                    },
-                    text: {
-                      type: 'text',
-                      title: {
-                        label: '多语言',
-                        style: 'style-v4',
-                        classes: 'mat-headline-2 bold',
-                      },
-                      classes: 'y-center',
-                      style: [],
-                      bg: {
-                        classes: 'bg-shadow overlay overlay-',
-                        img: {
-                          src: '/assets/images/hero/182.jpg',
-                          hostClasses: '',
-                        },
-                      },
-                      body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；',
-                      actionsAlign: 'start center',
-                      actions: [
-                        {
-                          type: 'btn',
-                          mode: 'raised',
-                          color: 'primary',
-                          href: '',
-                          label: '了解更多',
-                        },
-                      ],
-                    },
-                  },
-                ],
-              },
-            },
-          },
-          {
             label: '视频',
             content: {
               spacer: 'lg',
@@ -3951,192 +3744,6 @@ export const components: any[] = [
                         },
                       },
                     ],
-                  },
-                ],
-              },
-            },
-          },
-          {
-            label: '1v4',
-            content: {
-              type: 'carousel-1v1',
-              spacer: 'lg',
-              title: {
-                label: 'Storybook 能够做什么？',
-                icon: 'email',
-                style: 'style-v2',
-                classes: 'mat-headline-3',
-              },
-              bg: {
-                classes: '',
-              },
-              classes: '',
-              fullWidth: true,
-              swiper: {
-                params: {
-                  slidesPerView: 1,
-                  spaceBetween: 0,
-                  navigation: false,
-                  pagination: false,
-                  effect: 'slide',
-                  breakpoints: {
-                    '600': {
-                      slidesPerView: 1,
-                      spaceBetween: 0,
-                    },
-                    '960': {
-                      slidesPerView: 1,
-                      spaceBetween: 0,
-                    },
-                  },
-                },
-                classes: 'p-bottom',
-                elements: [
-                  {
-                    type: 'text-hero',
-                    theme: 'text-white',
-                    params: {
-                      height: '750px',
-                    },
-                    text: {
-                      'type': 'text',
-                      'title': {
-                        label: '组件驱动开发',
-                        style: 'style-v1',
-                        classes: 'mat-headline-4',
-                      },
-                      'spacer': 'xl',
-                      'classes': 'xy-center',
-                      'style-': {
-                        width: '50%',
-                        left: '0%',
-                        top: '5%',
-                      },
-                      'bg': {
-                        classes: 'bg-shadow overlay overlay-80',
-                        img: {
-                          src: '/assets/images/hero/1-6.jpg',
-                          mobile: '/assets/images/mobile/mobile-03.jpg',
-                        },
-                      },
-                      'body':
-                        'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
-                      'actionsAlign': 'center center',
-                      'actions': [
-                        {
-                          href: '#',
-                          label: '马上体验',
-                        },
-                      ],
-                    },
-                  },
-                  {
-                    type: 'text-hero',
-                    theme: 'text-white',
-                    params: {
-                      height: '750px',
-                    },
-                    text: {
-                      type: 'text',
-                      title: {
-                        label: '组件展示和测试',
-                        style: 'style-v4',
-                        classes: 'mat-headline-4',
-                      },
-                      spacer: 'xl',
-                      style: {
-                        width: '50%',
-                      },
-                      classes: 'y-center',
-                      bg: {
-                        classes: 'bg-shadow overlay overlay-80',
-                        img: {
-                          src: '/assets/images/hero/329.jpg',
-                          mobile: '/assets/images/mobile/mobile-04.jpg',
-                        },
-                      },
-                      body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
-                      actionsAlign: 'start center',
-                      actions: [
-                        {
-                          href: '#',
-                          label: '马上体验',
-                        },
-                      ],
-                    },
-                  },
-                  {
-                    type: 'text-hero',
-                    theme: '',
-                    params: {
-                      height: '750px',
-                    },
-                    text: {
-                      type: 'text',
-                      title: {
-                        label: '文档化',
-                        style: 'style-v4',
-                        classes: 'mat-headline-4',
-                      },
-                      spacer: 'xl',
-                      style: {
-                        width: '50%',
-                        left: '50%',
-                      },
-                      classes: 'y-center',
-                      bg: {
-                        classes: 'bg-shadow overlay overlay-20',
-                        img: {
-                          src: '/assets/images/hero/light-bg.jpeg',
-                          mobile: '/assets/images/mobile/follower-04.jpg',
-                        },
-                      },
-                      body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
-                      actionsAlign: 'start center',
-                      actions: [
-                        {
-                          href: '#',
-                          label: '马上体验',
-                        },
-                      ],
-                    },
-                  },
-                  {
-                    type: 'text-hero',
-                    theme: 'text-white',
-                    params: {
-                      height: '750px',
-                    },
-                    text: {
-                      type: 'text',
-                      title: {
-                        label: '插件和工具生态系统',
-                        style: 'style-v4',
-                        classes: 'mat-headline-4',
-                      },
-                      spacer: 'xl',
-                      style: {
-                        width: '50%',
-                        left: '40%',
-                        top: '10%',
-                      },
-                      classes: 'absolute',
-                      bg: {
-                        classes: 'bg-shadow overlay overlay-80',
-                        img: {
-                          src: '/assets/images/hero/light-bg.jpeg',
-                          mobile: '/assets/images/mobile/mobile-02.jpg',
-                        },
-                      },
-                      body: 'Storybook拥有丰富的插件和工具生态系统，可以扩展其功能。这些插件可以用于模拟数据、测试组件的不同状态和交互，并生成自动化测试报告。这样，开发人员可以根据自己的需求定制和扩展Storybook。',
-                      actionsAlign: 'start center',
-                      actions: [
-                        {
-                          href: '#',
-                          label: '马上体验',
-                        },
-                      ],
-                    },
                   },
                 ],
               },

@@ -10,12 +10,6 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import type { IBranding } from '@core/interface/branding/IBranding';
-import {
-  footerInverse,
-  defaultHeader,
-  enDefaultHeader,
-  enFooterInverse,
-} from '@modules/builder/data/Branding.json';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 @Injectable({
   providedIn: 'root',
@@ -76,32 +70,14 @@ export class ContentService extends ApiService {
 
   loadBranding(): Observable<IBranding> {
     const { lang } = this.getUrlPath(this.pageUrl);
-    const localBranding: IBranding = {
-      header: defaultHeader,
-      footer: footerInverse,
-    };
-
-    const enBranding: IBranding = {
-      header: enDefaultHeader,
-      footer: enFooterInverse,
-    };
-    if (environment.production) {
-      return this.http.get<IBranding>(
-        `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`
-      );
-    } else {
-      if (lang === '/en') {
-        return of(enBranding);
-      }
-      return of(localBranding);
-    }
+    return this.http.get<IBranding>(
+      `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`
+    );
   }
 
   loadConfig(coreConfig: object): any {
     const { lang } = this.getUrlPath(this.pageUrl);
-    const configPath = environment.production
-      ? `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/base`
-      : `${this.apiUrl}/assets/app${lang}/core/base.json`;
+    const configPath = `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/base`;
     if (!this.coreConfigCache) {
       this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(shareReplay(1));
     }
