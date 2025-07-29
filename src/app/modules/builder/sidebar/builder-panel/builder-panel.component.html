@@ -52,7 +52,7 @@
                     [ngClass]="widget.label === fixLabel() ? 'active' : ''"
                   >
                     @if (widget.icon) {
-                      <app-icon [content]="widget.icon" />
+                      <app-icon [content]="{ svg: widget.icon }" />
                     }
                     <div class="title" title="{{ widget.label }}">
                       {{ widget.label }}
@@ -94,7 +94,7 @@
                         [ngClass]="item.label === fixLabel() ? 'active' : ''"
                       >
                         @if (item.icon) {
-                          <app-icon [content]="item.icon" />
+                          <app-icon [content]="{ svg: item.icon }" />
                         }
                         <div class="title" title="{{ item.label }}">
                           {{ item.label }}
