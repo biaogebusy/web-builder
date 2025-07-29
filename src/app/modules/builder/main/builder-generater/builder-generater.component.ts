@@ -82,7 +82,7 @@ export class BuilderGeneraterComponent implements OnInit {
       const action = [];
       const text = items
         .filter(item => item.id === 'base')[0]
-        .elements.find(item => item.id === 'text');
+        .child.find(item => item.id === 'text');
       action.push(text);
 
       blocks = [...heros, ...shuffleComponents, ...masonry, ...action];

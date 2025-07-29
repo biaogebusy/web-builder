@@ -17,7 +17,6 @@ import { cloneDeep, get, map, set } from 'lodash-es';
 import { ScreenService } from '@core/service/screen.service';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
-import { WIDGETS } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
@@ -27,7 +26,6 @@ import { IDialog } from '@core/interface/IDialog';
 })
 export class BuilderState {
   private doc = inject<Document>(DOCUMENT);
-  private widgets = inject(WIDGETS);
 
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
@@ -356,9 +354,8 @@ export class BuilderState {
   getAllComponents(data: IBuilderComponent[]): any[] {
     const components: any[] = [];
     data.forEach(item => {
-      components.push(...item.elements);
+      components.push(...item.child);
     });
-    components.push(...this.widgets);
     const result = components.reduce((acc: any[], element: any) => {
       if (typeof element === 'object' && element.child) {
         map(element.child, (item: any) => {
@@ -373,7 +370,7 @@ export class BuilderState {
   }
 
   getRandomElements(data: IBuilderComponent[], id: string, count: number): any[] {
-    const elements = data.find(item => item.id === id)?.elements || [];
+    const elements = data.find(item => item.id === id)?.child || [];
     // 如果元素中包含 content.child，则将其元素也添加到结果中
     const result = elements.reduce((acc: any[], element: any) => {
       if (typeof element === 'object' && element.child) {

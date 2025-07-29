@@ -1,8 +1,8 @@
 <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs>
-  @for (widget of uiux; track widget) {
+  @for (widget of libaries(); track widget) {
     <mat-tab>
       <ng-template mat-tab-label>
-        <app-icon [content]="widget.icon" [matTooltip]="widget.label" />
+        <app-icon [content]="{ svg: widget.icon }" [matTooltip]="widget.label" />
       </ng-template>
       <div class="p-x-xs p-y-xs">
         <app-builder-panel [content]="widget.elements" />

@@ -2,7 +2,7 @@
 @let help = builderConfig?.widgetPicker?.help;
 <div class="widget-picker z-[9999]" [class.show]="show()">
   @if (show()) {
-    @if (widgets) {
+    @if (widgets()) {
       <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
         @if (bcData()) {
           <div
@@ -20,7 +20,7 @@
           </div>
           <app-divider class="opacity-50 w-[40px]" />
         }
-        @for (group of widgets; track $index) {
+        @for (group of widgets().elements; track $index) {
           <div
             class="box flex flex-col justify-center items-center"
             (mouseenter)="onHoverGroup(group, wrapper)"

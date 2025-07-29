@@ -5,7 +5,7 @@
         <mat-panel-title>
           {{ item.label }}
         </mat-panel-title>
-        @if (item.description) {
+        @if (item?.description) {
           <mat-panel-description>
             {{ item.description }}
           </mat-panel-description>
@@ -17,10 +17,10 @@
           id="widgets"
           cdkDropList
           cdkDropListSortingDisabled="true"
-          [cdkDropListData]="item.elements"
+          [cdkDropListData]="item.child"
           [cdkDropListConnectedTo]="['builder-list']"
         >
-          @for (widget of item.elements; track widget) {
+          @for (widget of item.child; track widget) {
             @if (!widget.child) {
               <div
                 class="item col-span-6 sm:col-span-4"

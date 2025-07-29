@@ -14,12 +14,10 @@ import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.
 import { BaseModule } from '@uiux/base/base.module';
 import {
   BUILDER_CURRENT_PAGE,
-  WIDGETS,
   UIUX,
   BUILDER_CONFIG,
   MEDIA_ASSETS,
 } from '@core/token/token-providers';
-import { uiux } from './data/uiux-for-builder';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
 import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.component';
@@ -28,12 +26,12 @@ import {
   builderCurrentPageFactory,
   getBuilderConfig,
   mediaAssetsFactory,
+  uiuxFactory,
 } from '@core/factory/factory';
 import { InlineEditComponent } from './main/inline-editor/inline-editor.component';
 import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
 import { WidgetPickerComponent } from './main/widget-picker/widget-picker.component';
 import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-setting.component';
-import { widgets } from './data/widgets-for-builder';
 import { BrandingModule } from '@core/branding/branding.module';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
@@ -110,11 +108,7 @@ const components = [
     },
     {
       provide: UIUX,
-      useValue: uiux,
-    },
-    {
-      provide: WIDGETS,
-      useValue: widgets,
+      useFactory: uiuxFactory,
     },
     {
       provide: BUILDER_CURRENT_PAGE,

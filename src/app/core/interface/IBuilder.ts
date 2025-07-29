@@ -47,7 +47,7 @@ export interface IBuilderComponent {
   label: string;
   description?: string;
   id?: string;
-  elements: IBuilderComponentElement[];
+  child: IBuilderComponentElement[];
 }
 
 export interface IBuilderComponentElement {
