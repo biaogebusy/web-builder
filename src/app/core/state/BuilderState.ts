@@ -369,8 +369,8 @@ export class BuilderState {
     return result;
   }
 
-  getRandomElements(data: IBuilderComponent[], id: string, count: number): any[] {
-    const elements = data.find(item => item.id === id)?.child || [];
+  getRandomElements(data: IBuilderComponent[], label: string, count: number): any[] {
+    const elements = data.find(item => item.label === label)?.child || [];
     // 如果元素中包含 content.child，则将其元素也添加到结果中
     const result = elements.reduce((acc: any[], element: any) => {
       if (typeof element === 'object' && element.child) {

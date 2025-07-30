@@ -72,12 +72,12 @@ export class BuilderGeneraterComponent implements OnInit {
           items.push(...item.elements);
         }
       });
-      const heros = this.builder.getRandomElements(items, 'hero', value.hero);
-      const showcases = this.builder.getRandomElements(items, 'showcase', value.showcase);
-      const layout = this.builder.getRandomElements(items, 'layout', 1);
-      const section = this.builder.getRandomElements(items, 'section', 2);
-      const carousel = this.builder.getRandomElements(items, 'carousel', value.carousel);
-      const masonry = this.builder.getRandomElements(items, 'masonry', value.masonry);
+      const heros = this.builder.getRandomElements(items, '首屏', value.hero);
+      const showcases = this.builder.getRandomElements(items, '图文', value.showcase);
+      const layout = this.builder.getRandomElements(items, '动态构建', 1);
+      const section = this.builder.getRandomElements(items, '常用 Section', 2);
+      const carousel = this.builder.getRandomElements(items, '幻灯片', value.carousel);
+      const masonry = this.builder.getRandomElements(items, '瀑布流', value.masonry);
       const shuffleComponents = shuffle([...layout, ...section, ...showcases, ...carousel]);
       const action = [];
       const text = items
@@ -94,7 +94,7 @@ export class BuilderGeneraterComponent implements OnInit {
       page.title = '快速生成';
     }
 
-    this.builder.version.forEach(page => (page.current = false));
+    this.builder.version.forEach((item: IPage) => (item.current = false));
 
     page.body = blocks.map(item => {
       if (item.type) {
