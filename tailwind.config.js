@@ -41,7 +41,7 @@ module.exports = {
     { pattern: /^(flex-(\d{1,2}\/12))$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^flex(-(row|col|wrap|nowrap|1|auto|initial|none|grow|shrink))?(-reverse)?$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg'],
     },
     { pattern: /^(col-span-(full|([1-9]|1[0-2])))$/, variants: ['sm', 'md', 'lg'] },
     {
@@ -53,7 +53,7 @@ module.exports = {
       variants: ['sm', 'md', 'lg'],
     },
     {
-      pattern: /^(block|inline|inline-block|flex|inline-flex|grid|hidden|table|flow-root)$/,
+      pattern: /^(block|inline|inline-block|flex|inline-flex|grid|hidden|table)$/,
       variants: ['sm', 'md', 'lg'],
     },
     { pattern: /^(absolute|relative|fixed|sticky|static)$/, variants: ['sm', 'md', 'lg'] },
@@ -70,7 +70,7 @@ module.exports = {
       variants: ['sm', 'md', 'lg'],
     },
     {
-      pattern: /^(italic|not-italic|uppercase|lowercase|capitalize|normal-case)$/,
+      pattern: /^(italic|uppercase|lowercase|capitalize|normal-case)$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
