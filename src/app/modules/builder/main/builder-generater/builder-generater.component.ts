@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -19,7 +19,8 @@ import { Observable } from 'rxjs';
   standalone: false,
 })
 export class BuilderGeneraterComponent implements OnInit {
-  public uiux = inject(UIUX);
+  public uiux = signal<any[]>([]);
+  public uiux$ = inject<Observable<any[]>>(UIUX);
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
 
@@ -33,6 +34,9 @@ export class BuilderGeneraterComponent implements OnInit {
   constructor() {
     this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
       this.user = user;
+    });
+    this.uiux$.pipe(takeUntilDestroyed()).subscribe(libaries => {
+      this.uiux.set(libaries);
     });
   }
 
@@ -52,7 +56,7 @@ export class BuilderGeneraterComponent implements OnInit {
       time: new Date(),
     };
     if (value === 'all') {
-      map(this.uiux, item => {
+      map(this.uiux(), item => {
         items.push(...item.elements);
       });
       blocks = this.builder.getAllComponents(items);
@@ -67,7 +71,7 @@ export class BuilderGeneraterComponent implements OnInit {
       );
       page.title = '组件全量测试';
     } else {
-      map(this.uiux, item => {
+      map(this.uiux(), item => {
         if (item.type === 'component') {
           items.push(...item.elements);
         }
