@@ -103,19 +103,19 @@ module.exports = {
     { pattern: /^border(?:-(?:t|b|r|l|x|y))?(?:-(?:0|2|4|8))?$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^border-(solid|dashed|dotted|double|none)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^divide-(solid|dashed|dotted|double|none)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^outline-(solid|dashed|dotted|double|none)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^rounded(-[tlbr]{1,2})?(-(none|sm|md|lg|xl|2xl|3xl|full))?$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^opacity-(0|5|10|20|30|40|50|60|70|75|80|90|95|100)$/,
@@ -214,7 +214,7 @@ module.exports = {
     {
       pattern:
         /^-?(left|right|top|bottom)-(0|full|auto|(?:[1-9]|1[0-2])|(?:[1-9]|1[0-2])\/(?:[2-6]|12))$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg'],
     },
   ],
   theme: {

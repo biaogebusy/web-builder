@@ -49,6 +49,7 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { CollectorComponent } from './main/collector/collector.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NodeAddComponent } from './node/node-add/node-add.component';
+import { OtherModule } from '@uiux/combs/other/other.module';
 
 const components = [
   JsonComponent,
@@ -95,6 +96,7 @@ const components = [
     DragDropModule,
     BuilderRoutingModule,
     FormModule,
+    OtherModule,
     MonacoEditorModule.forRoot(),
   ],
   providers: [

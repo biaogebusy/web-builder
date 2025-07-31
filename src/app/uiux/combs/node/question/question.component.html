@@ -1,9 +1,6 @@
 @if (content) {
   <article class="question relative p-y-sm">
     <div class="container">
-      <div class="top m-bottom-sm">
-        <app-chip-list [classes]="'mini'" [content]="content.topic" />
-      </div>
       <h2 class="title">{{ content.title }}</h2>
       <div class="question-details" [innerHTML]="content.body | safeHtml"></div>
       <div class="actions m-y-sm">
