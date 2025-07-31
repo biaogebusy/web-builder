@@ -81,6 +81,8 @@ import { LightgalleryModule } from 'lightgallery/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { NgOptimizedImage } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
+import { LayoutToolbarComponent } from './builder/layout-builder/layout-toolbar/layout-toolbar.component';
+import { LayoutBuilderComponent } from './builder/layout-builder/layout-builder.component';
 
 const components = [
   BgComponent,
@@ -141,6 +143,7 @@ const components = [
   DynamicComponentComponent,
   ComponentToolbarComponent,
   BuilderMenuComponent,
+  LayoutBuilderComponent,
   GotopComponent,
   GithubStarComponent,
   DividerComponent,
@@ -148,7 +151,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
+  declarations: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe, LayoutToolbarComponent],
   imports: [
     MatChipsModule,
     MatBadgeModule,

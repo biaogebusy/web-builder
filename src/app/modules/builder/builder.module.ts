@@ -29,16 +29,14 @@ import {
   uiuxFactory,
 } from '@core/factory/factory';
 import { InlineEditComponent } from './main/inline-editor/inline-editor.component';
-import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
 import { WidgetPickerComponent } from './main/widget-picker/widget-picker.component';
-import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-setting.component';
+import { LayoutSettingComponent } from './toolbar/layout-setting/layout-setting.component';
 import { BrandingModule } from '@core/branding/branding.module';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 import { PageListComponent } from './sidebar/page-list/page-list.component';
 import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
 import { BuilderTemplateComponent } from './main/builder-template/builder-template.component';
-import { LayoutToolbarComponent } from './layout-builder/layout-toolbar/layout-toolbar.component';
 import { PageSettingComponent } from './main/page-setting/page-setting.component';
 import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-workspace.component';
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
@@ -59,7 +57,6 @@ const components = [
   BuilderGeneraterComponent,
   BtnGeneraterComponent,
   InlineEditComponent,
-  LayoutBuilderComponent,
   WidgetPickerComponent,
   LayoutSettingComponent,
   BuilderTemplateComponent,
@@ -84,7 +81,6 @@ const components = [
     BuilderSettingsComponent,
     PageListComponent,
     BuilderSidebarComponent,
-    LayoutToolbarComponent,
     BuilderWorkspaceComponent,
     ManagePageComponent,
     DefaultPageComponent,
