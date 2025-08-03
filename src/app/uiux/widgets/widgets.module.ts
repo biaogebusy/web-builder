@@ -3,7 +3,6 @@ import { ShareModule } from '@share/share.module';
 import { CdkTableModule } from '@angular/cdk/table';
 
 // Material
-import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSortModule } from '@angular/material/sort';
@@ -17,7 +16,6 @@ import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
-import { TabComponent } from './tab/tab.component';
 import { LinkComponent } from './link/link.component';
 import { CardComponent } from './card/card.component';
 import { TextComponent } from './text/text.component';
@@ -27,8 +25,6 @@ import { SpacerComponent } from './spacer/spacer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { ChipListComponent } from './chip-list/chip-list.component';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
@@ -40,7 +36,6 @@ import { MediaObjectComponent } from './media/media-object/media-object.componen
 import { MediaObjectGroupComponent } from './media/media-object-group/media-object-group.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { PaginationLinksComponent } from './pagination/pagination-links/pagination-links.component';
-import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
 import { BgImgComponent } from './bg-img/bg-img.component';
 import { Card1v1Component } from './card/card1v1/card1v1.component';
@@ -49,7 +44,6 @@ import { Card1v2Component } from './card/card1v2/card1v2.component';
 import { Card1v3Component } from './card/card1v3/card1v3.component';
 import { Card1v4Component } from './card/card1v4/card1v4.component';
 import { CardMetaComponent } from './card/card-meta/card-meta.component';
-import { DownloadComponent } from './actions/download/download.component';
 import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 import { TextHeroComponent } from './text-hero/text-hero.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
@@ -57,10 +51,8 @@ import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
 import { ViewListComponent } from './view-list/view-list.component';
-import { IframeComponent } from './iframe/iframe.component';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
-import { StepperComponent } from './stepper/stepper.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
 import { BaseModule } from '@uiux/base/base.module';
 import { AccordionComponent } from './accordion/accordion.component';
@@ -81,6 +73,8 @@ import { LightgalleryModule } from 'lightgallery/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { NgOptimizedImage } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
+import { LayoutToolbarComponent } from './builder/layout-builder/layout-toolbar/layout-toolbar.component';
+import { LayoutBuilderComponent } from './builder/layout-builder/layout-builder.component';
 
 const components = [
   BgComponent,
@@ -90,7 +84,6 @@ const components = [
   TextComponent,
   LinkComponent,
   BtnComponent,
-  TabComponent,
   CardComponent,
   IconComponent,
   TitleComponent,
@@ -105,10 +98,8 @@ const components = [
   Card1v6Component,
   UserCardComponent,
   TextHeroComponent,
-  ChipListComponent,
   ContentBoxComponent,
   FeatureBoxComponent,
-  BreadcrumbComponent,
   SwitchThemeComponent,
   UserCardCountComponent,
   NumberAnimateComponent,
@@ -122,18 +113,14 @@ const components = [
   ProgressBarComponent,
   ProgressGroupComponent,
   DialogComponent,
-  FlagComponent,
   ShapeComponent,
   BgImgComponent,
-  IframeComponent,
-  DownloadComponent,
   CardMetaComponent,
   ViewListComponent,
   DynamicTableComponent,
   InlineLightboxComponent,
   MediaObjectGroupComponent,
   ContentTextCenterComponent,
-  StepperComponent,
   BtnVideoComponent,
   AccordionComponent,
   DropdownMenuComponent,
@@ -141,6 +128,7 @@ const components = [
   DynamicComponentComponent,
   ComponentToolbarComponent,
   BuilderMenuComponent,
+  LayoutBuilderComponent,
   GotopComponent,
   GithubStarComponent,
   DividerComponent,
@@ -148,9 +136,8 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
+  declarations: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe, LayoutToolbarComponent],
   imports: [
-    MatChipsModule,
     MatBadgeModule,
     ShareModule,
     LightgalleryModule,

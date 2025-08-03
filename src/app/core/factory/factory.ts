@@ -286,3 +286,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
 export function getBuilderConfig(): Observable<IBuilderConfig> {
   return inject(ContentService).loadBuilderConfig();
 }
+
+export function uiuxFactory(): Observable<any[]> {
+  return inject(ContentService).loadUIUX();
+}

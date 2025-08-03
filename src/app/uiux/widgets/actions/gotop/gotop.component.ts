@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,17 +5,17 @@ import {
   OnInit,
   ViewChild,
   inject,
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 
 @Component({
-    selector: 'app-gotop',
-    templateUrl: './gotop.component.html',
-    styleUrls: ['./gotop.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-gotop',
+  templateUrl: './gotop.component.html',
+  styleUrls: ['./gotop.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class GotopComponent implements OnInit {
   private screenService = inject(ScreenService);

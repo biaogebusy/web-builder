@@ -47,13 +47,13 @@ export interface IBuilderComponent {
   label: string;
   description?: string;
   id?: string;
-  elements: IBuilderComponentElement[];
+  child: IBuilderComponentElement[];
 }
 
 export interface IBuilderComponentElement {
   label?: string;
   id?: string;
-  icon?: IIcon;
+  icon?: string;
   type?: string;
   child?: IBuilderComponentElement[];
   content?: {
@@ -65,7 +65,7 @@ export interface IBuilderComponentElement {
 
 export interface IUiux {
   label: string;
-  icon: IIcon;
+  icon: string;
   type: 'base' | 'component' | 'sample' | 'system';
   elements: IBuilderComponent[] | IBuilderSamplePage | any;
 }
