@@ -7,7 +7,6 @@ import { ShareModule } from '@share/share.module';
 import { BuilderRoutingModule } from './builder-routing.module';
 import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
 import { BuilderPanelComponent } from './sidebar/builder-panel/builder-panel.component';
-import { BuilderGeneraterComponent } from './main/builder-generater/builder-generater.component';
 import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
 import { BuilderListComponent } from './main/builder-list/builder-list.component';
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
@@ -20,7 +19,6 @@ import {
 } from '@core/token/token-providers';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
-import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.component';
 import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
 import {
   builderCurrentPageFactory,
@@ -55,8 +53,6 @@ const components = [
   JsonComponent,
   BuilderComponent,
   BuilderListComponent,
-  BuilderGeneraterComponent,
-  BtnGeneraterComponent,
   InlineEditComponent,
   WidgetPickerComponent,
   LayoutSettingComponent,

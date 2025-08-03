@@ -184,11 +184,9 @@ export class ComponentService {
         'card-list',
         'inline-editor',
         'page-setting',
-        'btn-generater',
         'widget-picker',
         'layout-setting',
         'builder-template',
-        'builder-generater',
       ],
     },
     {
