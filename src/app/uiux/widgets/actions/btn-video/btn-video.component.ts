@@ -12,7 +12,6 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 })
 export class BtnVideoComponent implements OnInit {
   @Input() content: IBtnVideo;
-  private dialogRef: any;
   private dialog = inject(MatDialog);
 
   ngOnInit(): void {}
@@ -24,7 +23,7 @@ export class BtnVideoComponent implements OnInit {
         content: this.content.video,
       },
     };
-    this.dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       width: this.content.dialog?.width || '800px',
       height: this.content.dialog?.height || 'auto',
       panelClass: ['close-outside', 'dialog-p-0', 'close-icon-white'],

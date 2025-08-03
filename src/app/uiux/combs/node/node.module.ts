@@ -15,6 +15,8 @@ import { ReportComponent } from './report/report.component';
 import { HeaderMetaComponent } from './header-meta/header-meta.component';
 import { BaseModule } from '@uiux/base/base.module';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { BannerSimpleComponent } from './banner-simple/banner-simple.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 const components = [
   ArticleComponent,
@@ -27,6 +29,8 @@ const components = [
   CommentActionsComponent,
   ReportComponent,
   HeaderMetaComponent,
+  BannerSimpleComponent,
+  BreadcrumbComponent,
 ];
 @NgModule({
   declarations: [...components],

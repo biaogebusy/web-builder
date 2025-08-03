@@ -22,6 +22,7 @@ export class ContentService extends ApiService {
   private coreConfig = inject(CORE_CONFIG);
   private builderConfigCache: Observable<IBuilderConfig>;
   private coreConfigCache: Observable<ICoreConfig>;
+  private uiuxCache: Observable<any[]>;
 
   constructor() {
     super();
@@ -91,6 +92,15 @@ export class ContentService extends ApiService {
         console.log('base json not found!');
       }
     );
+  }
+
+  loadUIUX(): Observable<any[]> {
+    const { lang } = this.getUrlPath(this.pageUrl);
+    const api = `${this.apiUrl}${lang}/api/v3/node/component`;
+    if (!this.uiuxCache) {
+      this.uiuxCache = this.http.get<any[]>(api).pipe(shareReplay(1));
+    }
+    return this.uiuxCache;
   }
 
   loadBuilderConfig(): Observable<IBuilderConfig> {

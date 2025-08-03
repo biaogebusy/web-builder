@@ -5,6 +5,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
+import qs from 'qs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { environment } from 'src/environments/environment';
@@ -39,10 +40,25 @@ app.use(
   })
 );
 
+app.post('/collector', async (req: any, res: any) => {
+  try {
+    const { domain, api, ...params } = req.body;
+    const response = await fetch(`${domain}${api}?${qs.stringify(params)}`);
+    const content = await response.json();
+    return res.status(200).json({
+      success: true,
+      message: 'Data processed successfully',
+      content,
+    });
+  } catch (error: any) {
+    return res.status(error.status ?? 500).json({ error });
+  }
+});
+
 /**
  * Handle all other requests by rendering the Angular application.
  */
-app.use((req, res, next) => {
+app.use('/**', (req, res, next) => {
   angularApp
     .handle(req)
     .then(response => (response ? writeResponseToNodeResponse(response, res) : next()))

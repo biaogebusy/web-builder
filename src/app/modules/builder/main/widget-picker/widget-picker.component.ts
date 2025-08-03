@@ -9,9 +9,14 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import type { IBuilderConfig, IWidgetPicker } from '@core/interface/IBuilder';
+import type {
+  IBuilderComponent,
+  IBuilderConfig,
+  IUiux,
+  IWidgetPicker,
+} from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
-import { BUILDER_CONFIG, WIDGETS } from '@core/token/token-providers';
+import { BUILDER_CONFIG, UIUX } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import { createPopper } from '@popperjs/core';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -29,14 +34,15 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   @ViewChild('groupPopup', { static: false }) groupPopup: ElementRef;
   @ViewChild('popup', { static: false }) widgetPopup: ElementRef;
   public widget$ = new Subject<any>();
-  public group$ = new Subject<any>();
+  public group$ = new Subject<IBuilderComponent | false>();
   public help: any;
   private groupPopper: any;
   private widgetPopper: any;
   public show = signal(false);
 
   public bcData = signal(false);
-  public widgets = inject(WIDGETS);
+  private uiux$ = inject<Observable<any[]>>(UIUX);
+  public widgets = signal<IUiux>({ label: '', icon: '', type: 'base', elements: [] });
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
@@ -46,6 +52,10 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
       this.bcData.set(data);
+    });
+    this.uiux$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(libaries => {
+      const [first] = libaries;
+      this.widgets.set(first);
     });
   }
 

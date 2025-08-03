@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import type { IDownload } from '@core/interface/widgets/IDownload';
 import { ScreenService } from '@core/service/screen.service';
-import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { Observable } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';

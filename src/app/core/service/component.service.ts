@@ -25,38 +25,30 @@ export class ComponentService {
       components: [
         'bg',
         'img',
-        'tab',
         'box',
         'btn',
         'text',
         'card',
         'link',
         'icon',
-        'flag',
         'shape',
         'panel',
         'title',
         'divider',
         'spacer',
-        'iframe',
         'bg-img',
         'spinner',
-        'stepper',
         'card-1v1',
         'card-1v2',
         'card-1v4',
         'card-1v5',
         'card-1v6',
-        'textarea',
-        'download',
         'accordion',
         'user-card',
         'btn-video',
         'view-list',
         'text-hero',
         'menu-list',
-        'chip-list',
-        'breadcrumb',
         'media-list',
         'feature-box',
         'media-meta',
@@ -66,6 +58,7 @@ export class ComponentService {
         'media-object',
         'dynamic-table',
         'dropdown-menu',
+        'layout-builder',
         'number-animate',
         'progress-group',
         'inline-lightbox',
@@ -76,10 +69,6 @@ export class ComponentService {
     {
       module: 'ChartModule',
       components: ['chart', 'chart-box'],
-    },
-    {
-      module: 'BannerModule',
-      components: ['banner-simple'],
     },
     {
       module: 'CalendarModule',
@@ -128,7 +117,7 @@ export class ComponentService {
     },
     {
       module: 'NodeModule',
-      components: ['article', 'question', 'report'],
+      components: ['article', 'question', 'report', 'banner-simple', 'breadcrumb'],
     },
     {
       module: 'FormModule',
@@ -136,11 +125,21 @@ export class ComponentService {
     },
     {
       module: 'OtherModule',
-      components: ['autoclose', 'jsoneditor', 'code-editor', 'custom-template'],
+      components: [
+        'flag',
+        'iframe',
+        'stepper',
+        'download',
+        'chip-list',
+        'autoclose',
+        'jsoneditor',
+        'code-editor',
+        'custom-template',
+      ],
     },
     {
       module: 'ProfileModule',
-      components: ['profile-1v1', 'user-center', 'user-favorite', 'user-pay', 'user-profile'],
+      components: ['user-pay', 'profile-1v1', 'user-center', 'user-profile', 'user-favorite'],
     },
     {
       module: 'SearchModule',
@@ -167,7 +166,7 @@ export class ComponentService {
     },
     {
       module: 'TabModule',
-      components: ['tab-1v1'],
+      components: ['tab-1v1', 'tab'],
     },
     {
       module: 'VideoModule',
@@ -185,12 +184,9 @@ export class ComponentService {
         'card-list',
         'inline-editor',
         'page-setting',
-        'btn-generater',
         'widget-picker',
         'layout-setting',
-        'layout-builder',
         'builder-template',
-        'builder-generater',
       ],
     },
     {
@@ -221,9 +217,6 @@ export class ComponentService {
           break;
         case 'ChartModule':
           module = await import('@uiux/combs/chart/chart.module');
-          break;
-        case 'BannerModule':
-          module = await import('@uiux/combs/banner/banner.module');
           break;
         case 'CalendarModule':
           module = await import('@uiux/combs/calendar/calendar.module');

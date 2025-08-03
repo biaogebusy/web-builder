@@ -2,7 +2,7 @@
 @let help = builderConfig?.widgetPicker?.help;
 <div class="widget-picker z-[9999]" [class.show]="show()">
   @if (show()) {
-    @if (widgets) {
+    @if (widgets()) {
       <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
         @if (bcData()) {
           <div
@@ -20,7 +20,7 @@
           </div>
           <app-divider class="opacity-50 w-[40px]" />
         }
-        @for (group of widgets; track $index) {
+        @for (group of widgets().elements; track $index) {
           <div
             class="box flex flex-col justify-center items-center"
             (mouseenter)="onHoverGroup(group, wrapper)"
@@ -28,7 +28,7 @@
             <div class="item" #item matRipple>
               <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
                 @if (group.icon) {
-                  <app-icon [content]="group.icon" />
+                  <app-icon [content]="{ svg: group.icon }" />
                 }
               </div>
             </div>
@@ -58,13 +58,13 @@
         >
           <h2>{{ group.label }}</h2>
           <div class="grid grid-cols-12 gap-4 w-full">
-            @for (item of group.elements; track $index) {
+            @for (item of group.child; track $index) {
               <div
                 (mouseenter)="onHoverWidget(item, groupPopup)"
                 (click)="onSelect(item.content)"
                 class="item col-span-6 border border-solid rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer"
               >
-                <app-icon [content]="item.icon"></app-icon>
+                <app-icon [content]="{ svg: item.icon }"></app-icon>
                 <div class="text-sm opacity-90">{{ item.label }}</div>
               </div>
             }

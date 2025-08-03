@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  DestroyRef,
   ElementRef,
   HostBinding,
   Input,
@@ -8,6 +9,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { IPage } from '@core/interface/IAppConfig';
 import { IDialog } from '@core/interface/IDialog';
@@ -42,17 +44,21 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private storage = inject(LocalStorageService);
   private util = inject(UtilitiesService);
   private ele = inject(ElementRef);
+  private destroyRef = inject(DestroyRef);
   private dialog = inject(MatDialog);
   private currentPage: IPage;
 
   ngOnInit(): void {
-    this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
-      this.bcData.set(data);
-    });
+    this.storage
+      .observe(this.builder.COPYCOMPONENTKEY)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        this.bcData.set(data);
+      });
   }
 
   ngAfterViewInit(): void {
-    this.currentPage$.pipe(delay(500)).subscribe(page => {
+    this.currentPage$.pipe(delay(500), takeUntilDestroyed(this.destroyRef)).subscribe(page => {
       this.currentPage = page;
       this.getIndex();
     });

@@ -71,15 +71,6 @@
           (change)="onFullScreen($event)"
           [matTooltip]="isFullScreen ? '显示边栏' : '切换全宽'"
         />
-        <app-btn-generater
-          matTooltip="快速生成页面"
-          [content]="{
-            label: '',
-            color: 'primary',
-            mode: 'icon',
-            icon: { svg: 'lightning-bolt' },
-          }"
-        />
         @if (page) {
           <app-btn
             class="hidden sm:flex whitespace-nowrap"
