@@ -139,9 +139,7 @@ export class UtilitiesService {
   ): Promise<void> {
     if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
       let content: any = {};
-      if (index !== undefined) {
-        this.contentState.componentCount$.next(index);
-      }
+
       if (!inputs.type && inputs.content) {
         content = inputs.content;
       } else {
@@ -205,6 +203,9 @@ export class UtilitiesService {
         } else {
           animateEle.classList.remove('aos-item');
           animateEle.removeAttribute('data-aos');
+        }
+        if (index !== undefined) {
+          this.contentState.componentCount$.next(index);
         }
       }
     }

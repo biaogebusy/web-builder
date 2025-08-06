@@ -1,12 +1,10 @@
 import {
   Component,
-  OnInit,
   AfterContentInit,
   inject,
   DestroyRef,
   AfterViewInit,
   DOCUMENT,
-  afterNextRender,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -32,7 +30,7 @@ import { ScreenService } from '@core/service/screen.service';
   ],
   standalone: false,
 })
-export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class BlockComponent implements AfterContentInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
   public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
 
@@ -45,31 +43,11 @@ export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
   private contentService = inject(ContentService);
   private screenService = inject(ScreenService);
   private router = inject(Router);
-  private count = 0;
-  private pageBodyLength: number;
-
-  constructor() {
-    afterNextRender(() => {
-      AOS.refresh();
-    });
-  }
-
-  ngOnInit(): void {
-    this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      this.pageBodyLength = page?.body?.length;
-    });
-  }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.componentCount$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        this.count += 1;
-        if (this.count === this.pageBodyLength - 1) {
-          this.count = 0;
-          setTimeout(() => {
-            AOS.init();
-          }, 200);
-        }
+        AOS.init();
       });
     }
   }
