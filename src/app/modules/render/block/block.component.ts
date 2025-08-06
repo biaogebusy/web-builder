@@ -6,6 +6,7 @@ import {
   DestroyRef,
   AfterViewInit,
   DOCUMENT,
+  afterNextRender,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -46,6 +47,12 @@ export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
   private router = inject(Router);
   private count = 0;
   private pageBodyLength: number;
+
+  constructor() {
+    afterNextRender(() => {
+      AOS.refresh();
+    });
+  }
 
   ngOnInit(): void {
     this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {

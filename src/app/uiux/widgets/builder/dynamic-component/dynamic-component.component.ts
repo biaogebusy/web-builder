@@ -106,7 +106,6 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
 
   ngOnDestroy(): void {
     this.container.clear();
-    this.ele.nativeElement.remove();
     if (this.componentRef) {
       this.componentRef.destroy();
     }
