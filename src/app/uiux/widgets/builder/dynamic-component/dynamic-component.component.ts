@@ -67,8 +67,8 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
           return;
         }
         const content = this.inputs.type ? this.inputs : this.inputs.content;
-        this.compContent.set(content);
         this.container.clear();
+        this.compContent.set(content);
 
         const componentType = await this.componentService.getComponentType(type);
         if (!componentType) {
