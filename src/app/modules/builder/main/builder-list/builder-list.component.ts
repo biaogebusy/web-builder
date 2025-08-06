@@ -6,7 +6,6 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  NgZone,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -42,7 +41,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private markers: NodeListOf<Element>;
   public previewClass$: Observable<any>;
   private router = inject(Router);
-  private zone = inject(NgZone);
   public builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
@@ -106,14 +104,12 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(animateEle => {
         this.animateElement = [...this.animateElement, animateEle];
       });
-    this.zone.runOutsideAngular(() => {
-      setTimeout(() => {
-        this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
-        Array.from(this.markers).forEach(marker => {
-          this.builderList.nativeElement.append(marker);
-        });
-      }, 0);
-    });
+    setTimeout(() => {
+      this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
+      Array.from(this.markers).forEach(marker => {
+        this.builderList.nativeElement.append(marker);
+      });
+    }, 0);
 
     this.previewClass$ = this.builder.switchPreivew$.pipe(
       takeUntilDestroyed(this.destroyRef),

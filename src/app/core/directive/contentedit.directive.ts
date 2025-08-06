@@ -4,7 +4,6 @@ import {
   ElementRef,
   HostListener,
   Input,
-  NgZone,
   OnInit,
   inject,
 } from '@angular/core';
@@ -23,7 +22,6 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
   private el = inject(ElementRef);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
-  private zone = inject(NgZone);
 
   ngOnInit(): void {
     this.componentItem = this.el.nativeElement.closest('.component-item');
@@ -45,73 +43,69 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
    * 清除剪切板格式
    */
   @HostListener('paste', ['$event']) onPaste(event: ClipboardEvent): void {
-    this.zone.runOutsideAngular(() => {
-      event.preventDefault();
-      const clipboardData = event.clipboardData;
-      if (clipboardData) {
-        const plainText = clipboardData.getData('text/plain');
+    event.preventDefault();
+    const clipboardData = event.clipboardData;
+    if (clipboardData) {
+      const plainText = clipboardData.getData('text/plain');
 
-        // 保存当前选区（光标位置）
-        const selection = window.getSelection();
-        if (!selection) {
-          console.warn('No selection found');
-          return;
-        }
-        const range = selection.getRangeAt(0);
-
-        // 清除选区，准备插入纯文本
-        range.deleteContents();
-
-        // 创建新的文本节点并插入到Range中
-        const textNode = document.createTextNode(plainText);
-        range.insertNode(textNode);
-
-        // 恢复选区，确保光标位置正确
-        range.selectNodeContents(textNode);
-        selection.removeAllRanges();
-        selection.addRange(range);
+      // 保存当前选区（光标位置）
+      const selection = window.getSelection();
+      if (!selection) {
+        console.warn('No selection found');
+        return;
       }
-    });
+      const range = selection.getRangeAt(0);
+
+      // 清除选区，准备插入纯文本
+      range.deleteContents();
+
+      // 创建新的文本节点并插入到Range中
+      const textNode = document.createTextNode(plainText);
+      range.insertNode(textNode);
+
+      // 恢复选区，确保光标位置正确
+      range.selectNodeContents(textNode);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
   }
 
   @HostListener('click', ['$event']) onClick(event: any): void {
-    this.zone.runOutsideAngular(() => {
-      const { currentTarget } = event;
-      if (this.componentItem && currentTarget) {
-        const path = this.generatePath(currentTarget);
-        if (currentTarget.tagName === 'IMG') {
-          const meta: IMetaEdit = {
-            type: 'inline-editor',
-            mode: 'img',
-            path,
-            fullWidth: true,
-            ele: event.target,
-            fields: getInlineImg(currentTarget),
-            data: {
-              src: currentTarget.getAttribute('src'),
-              fileName: currentTarget.getAttribute('src').split('/').pop(),
-              alt: currentTarget.getAttribute('alt'),
-              tag: currentTarget.tagName,
-            },
-          };
-          this.builder.rightContent$.next({
-            title: '编辑图片',
-            mode: 'over',
-            hasBackdrop: false,
-            style: {
-              'width': '284px',
-              'max-width': 'calc(100vw - 50px)',
-            },
-            elements: [meta],
-          });
-        } else {
-          currentTarget.contentEditable = 'true';
-          this.openMetaPanel(currentTarget, path);
-        }
-        event.preventDefault();
-        event.stopPropagation();
+    const { currentTarget } = event;
+    if (this.componentItem && currentTarget) {
+      const path = this.generatePath(currentTarget);
+      if (currentTarget.tagName === 'IMG') {
+        const meta: IMetaEdit = {
+          type: 'inline-editor',
+          mode: 'img',
+          path,
+          fullWidth: true,
+          ele: event.target,
+          fields: getInlineImg(currentTarget),
+          data: {
+            src: currentTarget.getAttribute('src'),
+            fileName: currentTarget.getAttribute('src').split('/').pop(),
+            alt: currentTarget.getAttribute('alt'),
+            tag: currentTarget.tagName,
+          },
+        };
+        this.builder.rightContent$.next({
+          title: '编辑图片',
+          mode: 'over',
+          hasBackdrop: false,
+          style: {
+            'width': '284px',
+            'max-width': 'calc(100vw - 50px)',
+          },
+          elements: [meta],
+        });
+      } else {
+        currentTarget.contentEditable = 'true';
+        this.openMetaPanel(currentTarget, path);
       }
-    });
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 
   openMetaPanel(ele: any, path: string): void {

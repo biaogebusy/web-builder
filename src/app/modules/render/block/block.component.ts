@@ -1,12 +1,11 @@
 import {
   Component,
   OnInit,
-  NgZone,
   AfterContentInit,
   inject,
   DestroyRef,
   AfterViewInit,
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -39,7 +38,6 @@ export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
   public drawerLoading: boolean;
   public drawerContent: IPage;
   public opened: boolean;
-  private zone = inject(NgZone);
   public user$ = inject(USER);
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
@@ -92,15 +90,13 @@ export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
   }
 
   onDrawer(): void {
-    this.zone.runOutsideAngular(() => {
-      if (this.opened) {
-        this.doc.getElementsByTagName('html')[0].classList.add('drawer-disable-scroll');
-        this.doc.getElementById('transparent-mode')?.classList.remove('transparent-mode');
-      } else {
-        this.doc.getElementsByTagName('html')[0].classList.remove('drawer-disable-scroll');
-        this.doc.getElementById('transparent-mode')?.classList.add('transparent-mode');
-      }
-    });
+    if (this.opened) {
+      this.doc.getElementsByTagName('html')[0].classList.add('drawer-disable-scroll');
+      this.doc.getElementById('transparent-mode')?.classList.remove('transparent-mode');
+    } else {
+      this.doc.getElementsByTagName('html')[0].classList.remove('drawer-disable-scroll');
+      this.doc.getElementById('transparent-mode')?.classList.add('transparent-mode');
+    }
   }
 
   onEdit(nid: string): void {

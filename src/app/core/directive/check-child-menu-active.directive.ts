@@ -1,14 +1,13 @@
-import { AfterViewInit, Directive, ElementRef, NgZone, inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Directive({
-    selector: '[checkChildMenuActive]',
-    standalone: false
+  selector: '[checkChildMenuActive]',
+  standalone: false,
 })
 export class CheckChildMenuActiveDirective implements AfterViewInit {
   private el = inject(ElementRef);
   private router = inject(Router);
-  private zone = inject(NgZone);
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -25,15 +24,13 @@ export class CheckChildMenuActiveDirective implements AfterViewInit {
   }
 
   updateClasses(): void {
-    this.zone.runOutsideAngular(() => {
-      const el = this.el.nativeElement;
-      if (el.classList.contains('active')) {
-        el.classList.remove('active');
-      }
-      const isChildActive = el.querySelectorAll('a[class~=active]');
-      if (isChildActive.length > 0) {
-        el.classList.add('active');
-      }
-    });
+    const el = this.el.nativeElement;
+    if (el.classList.contains('active')) {
+      el.classList.remove('active');
+    }
+    const isChildActive = el.querySelectorAll('a[class~=active]');
+    if (isChildActive.length > 0) {
+      el.classList.add('active');
+    }
   }
 }
