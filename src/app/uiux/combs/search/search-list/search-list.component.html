@@ -9,7 +9,7 @@
       <div class="md:px-3 md:mt-[40px]">
         <div class="results m-bottom-sm">找到 {{ pager?.totalItems }} 个结果</div>
         <mat-divider />
-        @for (item of content | paginate: pager; track trackByFn($index, item)) {
+        @for (item of content | paginate: pager; track item) {
           <div class="list p-y-sm p-x-sm m-y-sm flex flex-col sm:flex-row">
             @if (item?.img?.src) {
               <div class="object-left relative m-right-sm flex-12/12 sm:flex-[0_0_30%]">

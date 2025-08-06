@@ -1,7 +1,7 @@
 <div class="manage-page relative">
   @if (pageContent$ | async; as page) {
     @if (page.body) {
-      @for (item of page.body; track $index) {
+      @for (item of page.body; track item) {
         <app-dynamic-component [inputs]="item" />
       }
     } @else {

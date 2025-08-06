@@ -20,7 +20,7 @@
         #auto="matAutocomplete"
         (optionSelected)="onSelected($event)"
       >
-        @for (option of options; track trackByFn($index, option)) {
+        @for (option of options; track option) {
           <mat-option [value]="option.href">
             <app-link [content]="option" />
           </mat-option>

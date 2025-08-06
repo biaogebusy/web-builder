@@ -1,7 +1,7 @@
 <app-link class="top" [content]="content" />
 <div class="mega-menu" [class.active]="active">
   <div class="container inner flex">
-    @for (item of content.child; track trackByFn($index, item)) {
+    @for (item of content.child; track item) {
       <div class="item flex-[0_1_100%]">
         <div class="label m-bottom-xs">
           <app-link [content]="item" />

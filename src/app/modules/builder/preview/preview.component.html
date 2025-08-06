@@ -1,5 +1,5 @@
 @if (currentPage$ | async; as page) {
-  @for (item of page.body; track trackByFn(i); let i = $index) {
+  @for (item of page.body; track item; let i = $index) {
     <app-dynamic-component [inputs]="item" [index]="i" />
   }
 }

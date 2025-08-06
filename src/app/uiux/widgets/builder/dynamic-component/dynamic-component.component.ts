@@ -61,37 +61,37 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
 
   async loadComponent(): Promise<void> {
     try {
+      const type = this.inputs.type ?? this.inputs.content?.type ?? null;
+      if (!type) {
+        return;
+      }
+      const content = this.inputs.type ? this.inputs : this.inputs.content;
+      this.container.clear();
+      this.compContent.set(content);
+
+      const componentType = await this.componentService.getComponentType(type);
+      if (!componentType) {
+        console.log('无法识别该组件：', this.inputs);
+        return;
+      }
+      const hostElement = this.renderer.createElement('div');
+      this.componentRef = createComponent(componentType, {
+        environmentInjector: this.environmentInjector,
+        hostElement,
+      });
+      if (this.componentRef?.instance && this.inputs) {
+        if (!this.inputs.type && this.inputs.content) {
+          Object.keys(this.inputs).forEach(key => {
+            this.componentRef.instance[key] = this.inputs[key];
+          });
+        } else {
+          this.componentRef.instance.content = this.inputs;
+        }
+      }
+
+      this.container.insert(this.componentRef.hostView);
+      this.componentRef.changeDetectorRef.detectChanges();
       if (this.screenService.isPlatformBrowser()) {
-        const type = this.inputs.type ?? this.inputs.content?.type ?? null;
-        if (!type) {
-          return;
-        }
-        const content = this.inputs.type ? this.inputs : this.inputs.content;
-        this.container.clear();
-        this.compContent.set(content);
-
-        const componentType = await this.componentService.getComponentType(type);
-        if (!componentType) {
-          console.log('无法识别该组件：', this.inputs);
-          return;
-        }
-        const hostElement = this.renderer.createElement('div');
-        this.componentRef = createComponent(componentType, {
-          environmentInjector: this.environmentInjector,
-          hostElement,
-        });
-        if (this.componentRef?.instance && this.inputs) {
-          if (!this.inputs.type && this.inputs.content) {
-            Object.keys(this.inputs).forEach(key => {
-              this.componentRef.instance[key] = this.inputs[key];
-            });
-          } else {
-            this.componentRef.instance.content = this.inputs;
-          }
-        }
-
-        this.container.insert(this.componentRef.hostView);
-        this.componentRef.changeDetectorRef.detectChanges();
         this.util.initAnimate(
           this.inputs,
           this.ele.nativeElement.lastElementChild,
@@ -106,6 +106,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
 
   ngOnDestroy(): void {
     this.container.clear();
+    this.ele.nativeElement.remove();
     if (this.componentRef) {
       this.componentRef.destroy();
     }

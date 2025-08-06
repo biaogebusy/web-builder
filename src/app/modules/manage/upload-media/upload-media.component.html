@@ -10,7 +10,7 @@
     <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
       @if (filesLists.length) {
         <div class="grid grid-cols-12 gap-2 w-full">
-          @for (item of entry; track $index) {
+          @for (item of entry; track item) {
             @if (filesLists[$index]) {
               <div class="col-span-3">
                 <img
@@ -41,7 +41,7 @@
   </ngx-file-drop>
   <div class="upload-table w-full box-border my-5 text-sm text-gray-500">
     <div class="flex flex-col gap-3">
-      @for (item of entry; track $index) {
+      @for (item of entry; track item) {
         <mat-divider class="my-3" />
         <div class="flex justify-between items-center gap-2 truncate">
           <div class="flex items-center gap-2">

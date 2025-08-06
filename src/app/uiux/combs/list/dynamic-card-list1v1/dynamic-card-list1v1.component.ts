@@ -14,11 +14,11 @@ import type { IDynamicCardList1v1 } from '@core/interface/combs/IList';
 import { IPager } from '@core/interface/widgets/IWidgets';
 
 @Component({
-    selector: 'app-dynamic-card-list-1v1',
-    templateUrl: './dynamic-card-list1v1.component.html',
-    styleUrls: ['./dynamic-card-list1v1.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-dynamic-card-list-1v1',
+  templateUrl: './dynamic-card-list1v1.component.html',
+  styleUrls: ['./dynamic-card-list1v1.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class DynamicCardList1v1Component extends BaseComponent implements OnInit {
   nodeService = inject(NodeService);
@@ -87,9 +87,5 @@ export class DynamicCardList1v1Component extends BaseComponent implements OnInit
   onPageChange(page: number): void {
     this.page = page - 1;
     this.nodeSearch({ page: this.page });
-  }
-
-  trackByFn(index: number, item: any): number {
-    return item.link.href;
   }
 }

@@ -20,7 +20,7 @@
           </div>
           <app-divider class="opacity-50 w-[40px]" />
         }
-        @for (group of widgets().elements; track $index) {
+        @for (group of widgets().elements; track group) {
           <div
             class="box flex flex-col justify-center items-center"
             (mouseenter)="onHoverGroup(group, wrapper)"
@@ -58,7 +58,7 @@
         >
           <h2>{{ group.label }}</h2>
           <div class="grid grid-cols-12 gap-4 w-full">
-            @for (item of group.child; track $index) {
+            @for (item of group.child; track item) {
               <div
                 (mouseenter)="onHoverWidget(item, groupPopup)"
                 (click)="onSelect(item.content)"

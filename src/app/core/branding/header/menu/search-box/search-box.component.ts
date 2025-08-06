@@ -16,11 +16,11 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import type { IHeaderSearch } from '@core/interface/branding/IBranding';
 
 @Component({
-    selector: 'app-search-box',
-    templateUrl: './search-box.component.html',
-    styleUrls: ['./search-box.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-search-box',
+  templateUrl: './search-box.component.html',
+  styleUrls: ['./search-box.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SearchBoxComponent extends BaseComponent implements OnInit {
   @Input() content: IHeaderSearch;
@@ -42,42 +42,34 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
   }
 
   onFormChange(): void {
-    this.form.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged())
-      .subscribe(value => {
-        const params = omitBy(
-          Object.assign(
-            {
-              page: '0',
-              loading: 0,
-            },
-            value
-          ),
-          isEmpty
-        );
+    this.form.valueChanges.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(value => {
+      const params = omitBy(
+        Object.assign(
+          {
+            page: '0',
+            loading: 0,
+          },
+          value
+        ),
+        isEmpty
+      );
 
-        this.nodeService
-          .fetch('content', this.getApiParams(params))
-          .subscribe(data => {
-            this.options = data.rows.map((item: any) => {
-              return {
-                label: item.title,
-                href: item.url,
-              };
-            });
-            this.cd.detectChanges();
-          });
+      this.nodeService.fetch('content', this.getApiParams(params)).subscribe(data => {
+        this.options = data.rows.map((item: any) => {
+          return {
+            label: item.title,
+            href: item.url,
+          };
+        });
+        this.cd.detectChanges();
       });
+    });
   }
 
   onSelected(data: any): void {
     this.form.reset();
     this.router.navigate([`${data.option.value}`]);
     this.cd.detectChanges();
-  }
-
-  trackByFn(index: number, item: any): number {
-    return item.label;
   }
 
   search(value: any): void {

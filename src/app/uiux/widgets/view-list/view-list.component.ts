@@ -185,8 +185,4 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
       window.open(href, '_blank');
     }
   }
-
-  trackByFn(index: number, item: any): number {
-    return index;
-  }
 }

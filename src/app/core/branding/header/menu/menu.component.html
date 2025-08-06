@@ -19,7 +19,7 @@
             @if (header.mainMenu) {
               <div class="menu-inner">
                 <div class="main-menu flex flex-row">
-                  @for (menu of header.mainMenu; track trackByFn($index, menu)) {
+                  @for (menu of header.mainMenu; track menu) {
                     <div class="item">
                       @if (header.params) {
                         <app-item-menu [params]="header.params" [content]="menu" />
