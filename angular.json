@@ -41,11 +41,6 @@
                 "output": "/"
               },
               {
-                "glob": "robots.txt",
-                "input": "src/",
-                "output": "/"
-              },
-              {
                 "glob": "mdi.svg",
                 "input": "node_modules/@mdi/angular-material",
                 "output": "/assets"
