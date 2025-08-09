@@ -9,61 +9,27 @@
       <div class="md:px-3 md:mt-[40px]">
         <div class="results m-bottom-sm">找到 {{ pager?.totalItems }} 个结果</div>
         <mat-divider />
-        @for (item of content | paginate: pager; track item) {
-          <div class="list p-y-sm p-x-sm m-y-sm flex flex-col sm:flex-row">
-            @if (item?.img?.src) {
-              <div class="object-left relative m-right-sm flex-12/12 sm:flex-[0_0_30%]">
-                <app-img [content]="item.img" />
-              </div>
-            }
-            <div class="content w-full">
-              <h2 class="title">
-                <app-link [content]="item.link" />
-              </h2>
-              @if (item.body) {
-                <div
-                  class="content"
-                  [innerHTML]="
-                    item.body | stripTags: 'strong' : 'a' : 'em' | shorten: 150 : '...' | safeHtml
-                  "
-                ></div>
-              }
-              <div class="flex justify-between items-center my-3 bottom">
-                <div class="flex justify-start items-center gap-3">
-                  <div>{{ item.user | ucfirst }}</div>
-                  <div>{{ item?.type }}</div>
-                  @if (item.category) {
-                    <div [innerHTML]="item?.category | safeHtml"></div>
-                  }
-                  @if (item.tags) {
-                    <div [innerHTML]="item?.tags | safeHtml"></div>
-                  }
-                  <div class="actions flex">
-                    @for (action of item.actions; track action) {
-                      <app-dynamic-component [inputs]="action" />
-                    }
-                  </div>
-                </div>
-                <div>{{ item.created }}</div>
-              </div>
-            </div>
-          </div>
-        }
-        @if (content?.length > 0) {
-          @if (pager) {
-            <div class="pager my-5">
-              <mat-paginator
-                class="demo-paginator"
-                (page)="onPageChange($event)"
-                [length]="pager.totalItems"
-                [pageSize]="pager.itemsPerPage"
-                [showFirstLastButtons]="true"
-                [hidePageSize]="true"
-                [pageIndex]="pager.currentPage"
-                aria-label="Select page"
-              />
-            </div>
+        <div [class]="wrapperClasses">
+          @for (item of content | paginate: pager; track item) {
+            <app-custom-template
+              [class]="colClasses"
+              [content]="{ json: item, html: template, isAPI: false, type: 'custom-template' }"
+            />
           }
+        </div>
+        @if (pager) {
+          <div class="pager my-5">
+            <mat-paginator
+              class="demo-paginator"
+              (page)="onPageChange($event)"
+              [length]="pager.totalItems"
+              [pageSize]="pager.itemsPerPage"
+              [showFirstLastButtons]="true"
+              [hidePageSize]="true"
+              [pageIndex]="pager.currentPage"
+              aria-label="Select page"
+            />
+          </div>
         } @else {
           <div class="text-center py-10">
             <p>没有数据。</p>

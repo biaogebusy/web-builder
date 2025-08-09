@@ -4,7 +4,9 @@ export interface ISearch {
   api: string;
   label: ISearchLabel;
   sidebar: any[];
-  data: any;
+  template: string;
+  wrapperClasses: string;
+  colClasses: string;
 }
 
 export interface ISearchLabel {
