@@ -14,11 +14,11 @@ import { ScreenService } from '@core/service/screen.service';
 import type { IMainMenu } from '@core/interface/branding/IBranding';
 
 @Component({
-    selector: 'app-mega-menu',
-    templateUrl: './mega-menu.component.html',
-    styleUrls: ['./mega-menu.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-mega-menu',
+  templateUrl: './mega-menu.component.html',
+  styleUrls: ['./mega-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MegaMenuComponent implements OnInit {
   @Input() content: IMainMenu;
@@ -68,8 +68,5 @@ export class MegaMenuComponent implements OnInit {
       this.active = false;
       this.cd.detectChanges();
     });
-  }
-  trackByFn(index: number, item: any): number {
-    return index;
   }
 }

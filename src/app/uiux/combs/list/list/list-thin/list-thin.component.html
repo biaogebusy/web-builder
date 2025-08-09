@@ -8,7 +8,7 @@
     @if (content.length) {
       @for (
         item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p };
-        track trackByFn($index, item)
+        track item
       ) {
         <div class="flex flex-col item mb-3 py-3 px-3">
           <app-link [content]="item.link" />

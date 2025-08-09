@@ -20,10 +20,10 @@ import { TagsService } from '@core/service/tags.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-comment-item',
-    templateUrl: './comment-item.component.html',
-    styleUrls: ['./comment-item.component.scss'],
-    standalone: false
+  selector: 'app-comment-item',
+  templateUrl: './comment-item.component.html',
+  styleUrls: ['./comment-item.component.scss'],
+  standalone: false,
 })
 export class CommentItemComponent implements OnInit, AfterViewInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -132,9 +132,5 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
         );
       this.cd.detectChanges();
     }
-  }
-
-  trackByFn(index: number, item: any): number {
-    return item.id;
   }
 }

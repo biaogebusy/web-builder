@@ -649,12 +649,6 @@ export class BuilderService extends ApiService {
           actionsAlign: 'center',
           actions: [
             {
-              type: 'btn-generater',
-              label: '生成页面',
-              color: 'primary',
-              mode: 'raised',
-            },
-            {
               type: 'btn',
               color: 'primary',
               mode: 'stroked',

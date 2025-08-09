@@ -27,7 +27,7 @@
               <span>载入编辑</span>
             </button>
             @if (langs) {
-              @for (item of langs; track $index) {
+              @for (item of langs; track item) {
                 @if (!item.default && item.langCode !== page.langcode) {
                   <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
                     <app-icon [content]="{ svg: 'translate' }" />

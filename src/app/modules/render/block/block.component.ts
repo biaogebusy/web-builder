@@ -1,12 +1,10 @@
 import {
   Component,
-  OnInit,
-  NgZone,
   AfterContentInit,
   inject,
   DestroyRef,
   AfterViewInit,
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -32,39 +30,24 @@ import { ScreenService } from '@core/service/screen.service';
   ],
   standalone: false,
 })
-export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class BlockComponent implements AfterContentInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
   public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
 
   public drawerLoading: boolean;
   public drawerContent: IPage;
   public opened: boolean;
-  private zone = inject(NgZone);
   public user$ = inject(USER);
   private contentState = inject(ContentState);
   private destroyRef = inject(DestroyRef);
   private contentService = inject(ContentService);
   private screenService = inject(ScreenService);
   private router = inject(Router);
-  private count = 0;
-  private pageBodyLength: number;
-
-  ngOnInit(): void {
-    this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
-      this.pageBodyLength = page?.body?.length;
-    });
-  }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.componentCount$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        this.count += 1;
-        if (this.count === this.pageBodyLength - 1) {
-          this.count = 0;
-          setTimeout(() => {
-            AOS.init();
-          }, 200);
-        }
+        AOS.init();
       });
     }
   }
@@ -92,15 +75,13 @@ export class BlockComponent implements OnInit, AfterContentInit, AfterViewInit {
   }
 
   onDrawer(): void {
-    this.zone.runOutsideAngular(() => {
-      if (this.opened) {
-        this.doc.getElementsByTagName('html')[0].classList.add('drawer-disable-scroll');
-        this.doc.getElementById('transparent-mode')?.classList.remove('transparent-mode');
-      } else {
-        this.doc.getElementsByTagName('html')[0].classList.remove('drawer-disable-scroll');
-        this.doc.getElementById('transparent-mode')?.classList.add('transparent-mode');
-      }
-    });
+    if (this.opened) {
+      this.doc.getElementsByTagName('html')[0].classList.add('drawer-disable-scroll');
+      this.doc.getElementById('transparent-mode')?.classList.remove('transparent-mode');
+    } else {
+      this.doc.getElementsByTagName('html')[0].classList.remove('drawer-disable-scroll');
+      this.doc.getElementById('transparent-mode')?.classList.add('transparent-mode');
+    }
   }
 
   onEdit(nid: string): void {

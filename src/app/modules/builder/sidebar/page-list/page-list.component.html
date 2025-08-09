@@ -35,7 +35,7 @@
         <app-loading [content]="{ size: 50 }" />
       }
       @if (content$ | async; as content) {
-        @for (page of content; track $index; let i = $index) {
+        @for (page of content; track page; let i = $index) {
           <div
             [ngClass]="{
               active: page.nid === currentPage?.nid && page.langcode === currentPage?.langcode,
@@ -83,7 +83,7 @@
                   <span>载入编辑</span>
                 </button>
                 @if (langs) {
-                  @for (item of langs; track $index) {
+                  @for (item of langs; track item) {
                     @if (!item.default && item.langCode !== page.langcode) {
                       <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
                         <app-icon [content]="{ svg: 'translate' }" />

@@ -33,7 +33,7 @@
           </button>
           <mat-menu #menu="matMenu">
             @if (version()) {
-              @for (version of version(); track $index; let i = $index) {
+              @for (version of version(); track version; let i = $index) {
                 <button mat-menu-item (click)="onVersion(version, i)">
                   <div class="flex items-center">
                     <app-icon class="opacity-70" [content]="{ svg: 'file-outline' }" />

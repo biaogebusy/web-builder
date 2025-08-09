@@ -4,7 +4,7 @@
       @if (loading) {
         <ngx-skeleton-loader count="20" appearance="line" />
       }
-      @for (item of lists; track trackByFn($index, item); let isLast = $last) {
+      @for (item of lists; track item; let isLast = $last) {
         <div class="item">
           <div class="meta mb-3 flex justify-start items-center gap-3">
             <app-img [content]="item.picture" />
@@ -19,18 +19,14 @@
               <mat-icon>{{ content.action.icon }}</mat-icon>
               {{ content.action.label }}
             </a>
-            <button class="ml-3 text-lighter" mat-button>
-              {{ item.count }} 个人回答
-            </button>
+            <button class="ml-3 text-lighter" mat-button>{{ item.count }} 个人回答</button>
           </div>
           @if (!isLast) {
             <mat-divider class="!my-5" />
           }
         </div>
       }
-      <app-pagination-links
-        (pageChange)="onPageChange($event)"
-        [links]="links" />
+      <app-pagination-links (pageChange)="onPageChange($event)" [links]="links" />
     </div>
   </div>
 }

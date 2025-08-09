@@ -42,6 +42,7 @@
     "@ngx-loading-bar/router": "^7.0.0",
     "@popperjs/core": "^2.11.8",
     "aos": "^3.0.0-beta.6",
+    "compression": "^1.8.1",
     "crypto-js": "^4.1.1",
     "dompurify": "^3.2.1",
     "drupal-jsonapi-params": "^2.3.1",
