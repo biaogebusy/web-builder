@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   inject,
-  output
+  output,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -19,11 +19,11 @@ import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks'
 import type { IDynamicTextList } from '@core/interface/combs/IList';
 
 @Component({
-    selector: 'app-dynamic-text-list',
-    templateUrl: './dynamic-text-list.component.html',
-    styleUrls: ['./dynamic-text-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-dynamic-text-list',
+  templateUrl: './dynamic-text-list.component.html',
+  styleUrls: ['./dynamic-text-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class DynamicTextListComponent extends BaseComponent implements OnInit, OnDestroy {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -94,10 +94,6 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit, O
     this.links = res.links;
     this.loading = false;
     this.cd.detectChanges();
-  }
-
-  trackByFn(index: number, item: any): number {
-    return item.link.href;
   }
 
   ngOnDestroy(): void {

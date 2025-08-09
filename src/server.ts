@@ -9,12 +9,13 @@ import qs from 'qs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { environment } from 'src/environments/environment';
-
+import compression from 'compression';
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
 app.use(express.json());
+app.use(compression());
 const angularApp = new AngularNodeAppEngine();
 
 /**

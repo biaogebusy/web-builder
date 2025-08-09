@@ -25,7 +25,7 @@
   <div
     class="result-list rounded-lg bg-white shadow-lg border-b border-solid border-gray-100 overflow-hidden"
   >
-    @for (result of results; track $index) {
+    @for (result of results; track result) {
       <div
         class="result-item p-5 border-b border-solid border-gray-50"
         [class.success]="result.success"

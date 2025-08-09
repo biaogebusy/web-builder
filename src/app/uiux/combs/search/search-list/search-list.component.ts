@@ -21,8 +21,4 @@ export class SearchListComponent implements OnInit {
     const { pageIndex } = event;
     this.pageChange.emit(pageIndex);
   }
-
-  trackByFn(index: number, item: any): number {
-    return item.link;
-  }
 }

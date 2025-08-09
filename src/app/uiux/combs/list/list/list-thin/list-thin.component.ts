@@ -2,10 +2,10 @@ import { Component, OnInit, Input, inject, output } from '@angular/core';
 import type { IListThin } from '@core/interface/combs/IList';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
-    selector: 'app-list-thin',
-    templateUrl: './list-thin.component.html',
-    styleUrls: ['./list-thin.component.scss'],
-    standalone: false
+  selector: 'app-list-thin',
+  templateUrl: './list-thin.component.html',
+  styleUrls: ['./list-thin.component.scss'],
+  standalone: false,
 })
 export class ListThinComponent implements OnInit {
   @Input() content: IListThin[];
@@ -22,9 +22,5 @@ export class ListThinComponent implements OnInit {
   onPageChange(link: string): void {
     this.pageChange.emit(link);
     this.screenService.gotoTop();
-  }
-
-  trackByFn(index: number, item: any): number {
-    return item.link.href;
   }
 }

@@ -60,8 +60,4 @@ export class PreviewComponent implements OnInit, AfterViewInit {
       });
     }
   }
-
-  trackByFn(index: number): number {
-    return index;
-  }
 }

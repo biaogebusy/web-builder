@@ -4,4 +4,3 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /manage/
 Disallow: /*?
-Disallow: /*#

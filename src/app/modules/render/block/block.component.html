@@ -44,7 +44,7 @@
 }
 
 <ng-template let-content="content" #block>
-  @for (item of content; track i; let i = $index) {
+  @for (item of content; track item; let i = $index) {
     <app-dynamic-component [inputs]="item" [index]="i" />
   }
 </ng-template>

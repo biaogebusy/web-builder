@@ -48,7 +48,7 @@
 
   <div class="icon-menu" [ngClass]="sidebarDrawer.opened ? '!hidden' : ''">
     @if (config) {
-      @for (item of config.menu; track $index) {
+      @for (item of config.menu; track item) {
         <div
           class="item"
           [routerLinkActive]="['active']"
@@ -66,7 +66,7 @@
                 <div class="title">{{ item.label }}</div>
                 <div class="child-menu">
                   <mat-list>
-                    @for (item of item.child; track $index) {
+                    @for (item of item.child; track item) {
                       <a
                         mat-list-item
                         [routerLink]="item.href"

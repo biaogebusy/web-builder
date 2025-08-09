@@ -1,4 +1,4 @@
-@for (item of comments; track trackByFn(i, item); let i = $index; let isLast = $last) {
+@for (item of comments; track item; let i = $index; let isLast = $last) {
   <div class="item p-y-sm p-x-sm">
     <a class="anchor" [id]="'q-' + item.id"></a>
     <div class="comment-box">
