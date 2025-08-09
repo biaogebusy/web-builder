@@ -14,7 +14,7 @@ import { pageContentFactory } from '@core/factory/factory';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContentService } from '@core/service/content.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import AOS from 'aos';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -43,11 +43,17 @@ export class BlockComponent implements AfterContentInit, AfterViewInit {
   private contentService = inject(ContentService);
   private screenService = inject(ScreenService);
   private router = inject(Router);
+  private activateRouter = inject(ActivatedRoute);
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.componentCount$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         AOS.init();
+      });
+      this.activateRouter.fragment.subscribe(fragment => {
+        if (fragment) {
+          this.screenService.scrollToAnchor(fragment);
+        }
       });
     }
   }
