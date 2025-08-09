@@ -40,21 +40,20 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
     page: new UntypedFormControl(0),
   });
   @Input() model: any = {};
-  searchEntry: any;
-  table: any;
-  loading = true;
-  pager: IPager;
-  noAuth: boolean;
-  canShow = false;
-  first = true;
-  user: IUser;
+  public table: any;
+  public loading = true;
+  public pager: IPager;
+  public noAuth: boolean;
+  public canShow = false;
+  private first = true;
+  private user: IUser;
 
-  cd = inject(ChangeDetectorRef);
-  nodeService = inject(NodeService);
-  formService = inject(FormService);
-  dialogService = inject(DialogService);
-  screenService = inject(ScreenService);
-  userSerivice = inject(UserService);
+  private cd = inject(ChangeDetectorRef);
+  private nodeService = inject(NodeService);
+  private formService = inject(FormService);
+  private dialogService = inject(DialogService);
+  private screenService = inject(ScreenService);
+  private userSerivice = inject(UserService);
   private destroyRef = inject(DestroyRef);
 
   constructor() {
@@ -77,12 +76,6 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   ngAfterViewInit(): void {
-    const api = this.getParams(this.content, 'apiType');
-    if (!api) {
-      this.transferStoryData(this);
-      this.cd.detectChanges();
-      return;
-    }
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
     if (this.userSerivice.checkShow(this.content, this.user) && !emptyHidden) {
       this.canShow = true;

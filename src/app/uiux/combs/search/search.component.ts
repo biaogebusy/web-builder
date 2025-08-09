@@ -21,34 +21,33 @@ import type { ISearch } from '@core/interface/combs/ISearch';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SearchComponent extends BaseComponent implements OnInit {
   @Input() content: ISearch;
-  page: number;
-  pager: any;
-  form: UntypedFormGroup = new UntypedFormGroup({});
-  filterForm: any[];
-  nodes: any[];
-  loading = false;
-  vauleChange$: Subject<any> = new Subject<any>();
+  private page: number;
+  public pager: any;
+  public form: UntypedFormGroup = new UntypedFormGroup({});
+  public filterForm: any[];
+  public nodes: any[];
+  public loading = false;
+  private vauleChange$: Subject<any> = new Subject<any>();
 
-  nodeService = inject(NodeService);
-  router = inject(ActivatedRoute);
-  routerService = inject(RouteService);
-  formService = inject(FormService);
-  screenService = inject(ScreenService);
-  cd = inject(ChangeDetectorRef);
+  private nodeService = inject(NodeService);
+  private router = inject(ActivatedRoute);
+  private routerService = inject(RouteService);
+  private formService = inject(FormService);
+  private screenService = inject(ScreenService);
+  private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       if (this.content.data) {
-        this.transferStoryData(this);
         this.initFilterForm({}, this.content.sidebar);
         this.cd.detectChanges();
         return;
@@ -118,17 +117,11 @@ export class SearchComponent extends BaseComponent implements OnInit {
     this.nodeService
       .fetch(api, params)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(
-        data => {
-          this.updateList(data, formValue, options);
-          this.loading = false;
-          this.cd.detectChanges();
-        },
-        error => {
-          this.loading = false;
-          this.cd.detectChanges();
-        }
-      );
+      .subscribe(data => {
+        this.updateList(data, formValue, options);
+        this.loading = false;
+        this.cd.detectChanges();
+      });
   }
 
   updateList(data: any, formValues: any, options: any): void {
