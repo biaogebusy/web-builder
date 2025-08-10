@@ -75,7 +75,7 @@ module.exports = {
     },
     {
       pattern:
-        /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)(?:\/(?:100|0|5|[1-9][05]))?$/,
+        /^bg-(gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900)(?:\/(?:100|0|5|[1-9][05]))?$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
@@ -92,12 +92,12 @@ module.exports = {
     },
     {
       pattern:
-        /^text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
+        /^text-(gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900|950)$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
       pattern:
-        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
+        /^border-(gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900|950)$/,
       variants: ['sm', 'md', 'lg'],
     },
     { pattern: /^border(?:-(?:t|b|r|l|x|y))?(?:-(?:0|2|4|8))?$/, variants: ['sm', 'md', 'lg'] },
@@ -159,19 +159,19 @@ module.exports = {
     },
     {
       pattern:
-        /^(fill|stroke)-(current|(white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950))$/,
+        /^(fill|stroke)-(current|(white|black|gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900|950))$/,
     },
     { pattern: /^stroke-(0|1|2|3|4|5)$/ },
     { pattern: /^(fill-none|stroke-none)$/ },
     { pattern: /^bg-gradient-to-(t|tr|r|br|b|bl|l|tl)$/ },
     {
       pattern:
-        /^(from|via|to)-(transparent|current|(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(\/[0-9]{1,3})?)$/,
+        /^(from|via|to)-(transparent|current|(gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900|950)(\/[0-9]{1,3})?)$/,
     },
     { pattern: /^shadow-(sm|md|lg|xl|2xl|none|inner)$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern:
-        /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
+        /^shadow-(slate|gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900|950)$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
