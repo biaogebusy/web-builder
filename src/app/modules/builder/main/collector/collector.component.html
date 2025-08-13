@@ -142,6 +142,12 @@
       </div>
       <mat-divider />
       <div class="grid grid-cols-12 gap-5 items-center py-3">
+        <div class="col-span-12">
+          @if (selectedForm) {
+            <app-title [content]="{ label: '选择导入字段', style: 'style-v4' }"></app-title>
+            <app-formly [form]="selectedForm" [fields]="nodeFields" [model]="selectedModel" />
+          }
+        </div>
         <div class="col-span-12 sm:col-span-8 flex flex-col gap-2">
           <div class="font-bold">
             已选择
