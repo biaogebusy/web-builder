@@ -3,6 +3,7 @@ import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import {
   IBuilderComponent,
+  IBuilderComponentElement,
   IBuilderDynamicContent,
   IBuilderShowcase,
   ILayoutSetting,
@@ -70,17 +71,17 @@ export class BuilderState {
     }
   }
 
-  showcase(content: any): void {
+  showcase(widget: any): void {
     if (this.fixedShowcase) {
-      this.fixedContent = content;
+      this.fixedContent = widget.content;
     } else {
       this.fixedContent = null;
     }
     this.showcase$.next({
-      title: content.type,
+      title: widget.content.type,
       card: {
         type: 'card-1v1',
-        components: [{ ...content, animate: false }],
+        components: [{ ...widget, animate: false }],
       },
     });
     this.fixedChange$.next(true);
