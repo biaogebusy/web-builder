@@ -8,7 +8,7 @@
 .mobile-menu {
   @media #{$xs} {
     position: fixed !important;
-    width: 100vw;
+    width: 85vw;
     ::ng-deep {
       .mat-accordion .mat-expansion-panel-header-title {
         font-size: 16px;
