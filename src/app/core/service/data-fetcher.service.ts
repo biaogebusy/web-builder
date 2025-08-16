@@ -133,6 +133,10 @@ export class DataFetcherService extends ApiService {
         if (!validKeys.includes(key)) {
           delete newAttributes[key];
         }
+
+        if (validKeys.includes('body')) {
+          newAttributes.body = item.attributes.body.value;
+        }
       });
 
       return {
