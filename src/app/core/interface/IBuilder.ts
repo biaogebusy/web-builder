@@ -53,6 +53,8 @@ export interface IBuilderComponent {
 export interface IBuilderComponentElement {
   label?: string;
   id?: string;
+  uuid?: string;
+  mark?: string;
   icon?: string;
   type?: string;
   child?: IBuilderComponentElement[];

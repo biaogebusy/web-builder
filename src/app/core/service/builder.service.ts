@@ -141,7 +141,6 @@ export class BuilderService extends ApiService {
                   uuid,
                   langcode,
                   api: '/api/v1/node/landing_page',
-                  type: 'node--landing_page',
                 },
               },
             ],

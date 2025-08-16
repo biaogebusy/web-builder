@@ -46,5 +46,11 @@ const components = [
   ],
 })
 export class NodeModule extends BaseModule {
-  dynamicComponents = [ArticleComponent, QuestionComponent, ReportComponent];
+  dynamicComponents = [
+    ArticleComponent,
+    QuestionComponent,
+    ReportComponent,
+    BannerSimpleComponent,
+    BreadcrumbComponent,
+  ];
 }

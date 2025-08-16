@@ -1,12 +1,9 @@
-import { Component, OnInit, AfterViewInit, inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, inject, signal } from '@angular/core';
 import { ScreenState } from './core/state/screen/ScreenState';
-import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
-import { CORE_CONFIG, BRANDING } from '@core/token/token-providers';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { IBranding } from './core/interface/branding/IBranding';
-import { Observable } from 'rxjs';
 import { ThemeService } from '@core/service/theme.service';
 @Component({
   selector: 'app-root',
@@ -16,12 +13,10 @@ import { ThemeService } from '@core/service/theme.service';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  public branding$ = inject<Observable<IBranding>>(BRANDING);
 
   public mobileMenuOpened: boolean;
-  public loading = true;
+  public loading = signal<boolean>(true);
   private screen = inject(ScreenState);
-  private activateRouter = inject(ActivatedRoute);
   private configService = inject(ConfigService);
   private screenService = inject(ScreenService);
   private themeService = inject(ThemeService);
@@ -32,16 +27,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.loading = false;
+      this.loading.set(false);
       this.themeService.initTheme();
       this.screen.drawer$.subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
-      });
-
-      this.activateRouter.fragment.subscribe(fragment => {
-        if (fragment) {
-          this.screenService.scrollToAnchor(fragment);
-        }
       });
     }
   }

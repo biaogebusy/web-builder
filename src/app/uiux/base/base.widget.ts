@@ -76,12 +76,6 @@ export abstract class BaseComponent {
     return this.apiService.handlerPager(pager, length);
   }
 
-  transferStoryData(instance: any): void {
-    Object.keys(instance.content.data).forEach((key: string) => {
-      instance[key] = instance.content.data[key];
-    });
-  }
-
   getScroller(): HTMLElement | Window {
     const scroller = document.getElementById('builder-list');
     if (scroller) {

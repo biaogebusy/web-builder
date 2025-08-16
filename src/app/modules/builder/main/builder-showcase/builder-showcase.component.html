@@ -7,7 +7,7 @@
     <div class="title">{{ content.title }}</div>
     <div class="actions flex">
       <app-btn
-        (click)="onCopy(component)"
+        (click)="onCopy(component.content)"
         [matTooltip]="'复制 JSON'"
         matTooltipPosition="above"
         [content]="{
@@ -29,7 +29,7 @@
         }"
       />
       <app-btn
-        (click)="insert(component)"
+        (click)="insert(component.content)"
         [matTooltip]="'插入组件到编辑区'"
         matTooltipPosition="above"
         [content]="{

@@ -1,4 +1,4 @@
-@if (loading) {
+@if (loading()) {
   <div class="app-loading bg-white flex fixed top-0 left-0 w-screen h-full z-10 overflow-hidden">
     <div class="app-loader">Loading...</div>
   </div>
@@ -6,17 +6,15 @@
 @if (coreConfig.loadingBar) {
   <ngx-loading-bar [includeSpinner]="false" height="4px" color="#2962ff" />
 }
-@if (coreConfig && branding$ | async) {
-  <mat-drawer-container>
-    <mat-drawer class="mobile-menu" #drawer [(opened)]="mobileMenuOpened">
-      <app-menu [isDrawer]="mobileMenuOpened" />
-    </mat-drawer>
-    <mat-drawer-content id="main-container">
-      <app-header />
-      <div class="main">
-        <router-outlet />
-      </div>
-      <app-footer />
-    </mat-drawer-content>
-  </mat-drawer-container>
-}
+<mat-drawer-container>
+  <mat-drawer class="mobile-menu" #drawer [(opened)]="mobileMenuOpened">
+    <app-menu [isDrawer]="mobileMenuOpened" />
+  </mat-drawer>
+  <mat-drawer-content id="main-container">
+    <app-header />
+    <div class="main">
+      <router-outlet />
+    </div>
+    <app-footer />
+  </mat-drawer-content>
+</mat-drawer-container>

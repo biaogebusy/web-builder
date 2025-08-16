@@ -9,7 +9,7 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import type { IBuilderComponent } from '@core/interface/IBuilder';
+import type { IBuilderComponent, IBuilderComponentElement } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { cloneDeep } from 'lodash-es';
@@ -35,11 +35,11 @@ export class BuilderPanelComponent implements OnInit {
     });
   }
 
-  onShowcase(content: any): void {
+  onShowcase(widget: IBuilderComponentElement): void {
     if (this.builder.fixedShowcase) {
       return;
     }
-    this.builder.showcase(cloneDeep(content));
+    this.builder.showcase(cloneDeep(widget));
   }
 
   onFixed(item: any): void {
@@ -57,7 +57,7 @@ export class BuilderPanelComponent implements OnInit {
       if (content !== this.builder.fixedContent) {
         this.builder.fixedShowcase = true;
         this.fixLabel.set(label);
-        this.builder.showcase(content);
+        this.builder.showcase(item);
         return;
       }
     }
@@ -66,7 +66,7 @@ export class BuilderPanelComponent implements OnInit {
     if (!this.builder.fixedShowcase) {
       this.builder.fixedShowcase = true;
       this.fixLabel.set(label);
-      this.builder.showcase(content);
+      this.builder.showcase(item);
     }
   }
 

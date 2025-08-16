@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DataFetcherService } from '@core/service/data-fetcher.service';
 import { Observable, lastValueFrom } from 'rxjs';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
@@ -33,6 +33,9 @@ export class CollectorComponent implements OnInit {
   public form = new UntypedFormGroup({});
   public model: any = {};
   public selection = new SelectionModel<SubmissionItem>(true, []);
+  public selectedFields = signal<string[]>([]);
+  public nodeFields: FormlyFieldConfig[] = [];
+  public selectedModel: any = {};
   public links = signal<IPaginationLinks | undefined>(undefined);
   public fields: FormlyFieldConfig[] = [
     {
@@ -154,6 +157,7 @@ export class CollectorComponent implements OnInit {
   ];
   private dataFetcher = inject(DataFetcherService);
   private tagService = inject(TagsService);
+  public selectedForm: any = null;
 
   // 表格配置
   public displayedColumns: string[] = [
@@ -217,11 +221,45 @@ export class CollectorComponent implements OnInit {
         content: { data, links },
       } = response;
       this.handleData(data, links);
+      this.getNodeFields(data);
     } catch (error) {
       this.handleError(error);
     } finally {
       this.isCollecting.set(false);
     }
+  }
+
+  getNodeFields(data: any): void {
+    const [first] = data;
+    const arr = Object.keys(first.attributes);
+    this.nodeFields = [
+      {
+        fieldGroup: [],
+        fieldGroupClassName: 'flex flex-wrap gap-3',
+      },
+    ];
+    arr.forEach(key => {
+      if (this.nodeFields.length > 0) {
+        if (
+          key.startsWith('drupal_') ||
+          key.startsWith('revision_') ||
+          key.includes('_translation') ||
+          key === 'status' ||
+          key === 'path'
+        ) {
+          return;
+        }
+        this.nodeFields[0].fieldGroup?.push({
+          key,
+          type: 'checkbox',
+          defaultValue: false,
+          props: {
+            label: key,
+          },
+        });
+      }
+    });
+    this.selectedForm = new UntypedFormGroup({});
   }
 
   handleData(data: any, links: IPaginationLinks): void {
@@ -249,6 +287,7 @@ export class CollectorComponent implements OnInit {
 
   // 确认导入
   async confirmImport(selected: SubmissionItem[]): Promise<void> {
+    const nodes = this.dataFetcher.processList(this.selectedModel, selected);
     try {
       if (!this.user) {
         this.util.openSnackbar('请登录');
@@ -256,7 +295,7 @@ export class CollectorComponent implements OnInit {
       }
       this.isCollecting.set(true);
       this.dataFetcher
-        .sequentialSubmit(selected, this.model.targetApi)
+        .sequentialSubmit(nodes, this.model.targetApi)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: result => this.handleSubmissionResult(result),

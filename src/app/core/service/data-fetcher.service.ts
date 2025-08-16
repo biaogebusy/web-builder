@@ -74,13 +74,7 @@ export class DataFetcherService extends ApiService {
         nid: drupal_internal__nid,
         created,
         langcode,
-        attributes: {
-          title,
-          body: {
-            value: body.value,
-            format: 'full_html',
-          },
-        },
+        attributes,
       };
     }
   }
@@ -127,5 +121,28 @@ export class DataFetcherService extends ApiService {
         })
       );
     }
+  }
+
+  processList(form: any, list: any[]): any[] {
+    const validKeys = Object.keys(form).filter(key => form[key] === true);
+
+    return list.map((item: any) => {
+      const newAttributes = { ...item.attributes };
+
+      Object.keys(newAttributes).forEach(key => {
+        if (!validKeys.includes(key)) {
+          delete newAttributes[key];
+        }
+
+        if (validKeys.includes('body')) {
+          newAttributes.body = item.attributes.body.value;
+        }
+      });
+
+      return {
+        ...item,
+        attributes: newAttributes,
+      };
+    });
   }
 }
