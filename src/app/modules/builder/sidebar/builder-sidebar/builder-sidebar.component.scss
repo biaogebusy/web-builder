@@ -92,13 +92,11 @@
         left: 0;
         top: 0;
         z-index: 999;
-        padding: 4px 0;
         flex-direction: column;
         line-height: 1.5;
         cursor: default;
         .hover-menu {
           position: relative;
-          box-shadow: none;
           display: block;
           height: 100%;
           overflow: auto;
@@ -344,9 +342,12 @@
       .child {
         background-color: var(--mat-sys-surface);
         color: var(--mat-sys-on-surface);
-        box-shadow: var(--mat-sys-level1);
         .hover-menu {
           background-color: var(--mat-sys-surface);
+          box-shadow:
+            0 0 72px rgba(0, 0, 0, 0.2),
+            0 0 8px rgba(0, 0, 0, 0.04),
+            0 0 40px rgba(0, 0, 0, 0.06);
           @include scrollbar(var(--mat-sys-outline));
           .child-menu {
             .mdc-list-item {

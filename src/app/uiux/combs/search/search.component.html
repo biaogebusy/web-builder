@@ -13,9 +13,12 @@
     <app-search-list
       class="block col-span-12 sm:col-span-{{ content.sidebar ? '9' : '12' }}"
       [content]="nodes"
+      [wrapperClasses]="content.wrapperClasses"
+      [colClasses]="content.colClasses"
       [loading]="loading"
       [pager]="pager"
       (pageChange)="onPageChange($event)"
+      [template]="content.template"
     />
   </div>
 </div>

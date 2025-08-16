@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import type { IBuilderShowcase } from '@core/interface/IBuilder';
+import type { IBuilderComponentElement, IBuilderShowcase } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { ScreenService } from '@core/service/screen.service';
@@ -37,12 +37,24 @@ export class BuilderShowcaseComponent implements OnInit {
     this.storage.store(this.builder.COPYCOMPONENTKEY, component);
   }
 
-  showCode(component: any): void {
+  showCode(component: IBuilderComponentElement): void {
+    const { uuid } = component;
     const jsonWidget: IJsoneditor = {
       type: 'jsoneditor',
-      data: component,
+      data: component.content,
       fullWidth: true,
-      schemaType: component.type,
+      schemaType: component.type || '',
+      isShowcase: true,
+      actions: [
+        {
+          type: 'update',
+          label: '更新组件',
+          params: {
+            uuid,
+            api: '/api/v1/node/component',
+          },
+        },
+      ],
     };
     const config: IDialog = {
       disableActions: true,

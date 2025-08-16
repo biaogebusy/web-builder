@@ -14,7 +14,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IPage } from '@core/interface/IAppConfig';
 import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderService } from '@core/service/builder.service';
-import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { Subject, of } from 'rxjs';
@@ -141,38 +140,42 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
 
   onUpdateAttr(action: any): void {
     if (this.value) {
-      const { isSetting } = this.content;
+      const { isSetting, isShowcase } = this.content;
       this.loading = true;
       this.cd.detectChanges();
-      const { uuid, langcode, api, type } = action.params;
-      if (isSetting) {
-        this.builderService
-          .updateAttributes(
-            {
-              uuid,
-              langcode,
-            },
-            api,
-            {
-              body: JSON.stringify(this.value),
-            },
-            {}
-          )
-          .pipe(
-            catchError(err => {
-              return of(false);
-            }),
-            takeUntilDestroyed(this.destroyRef)
-          )
-          .subscribe(res => {
-            this.loading = false;
-            if (res) {
-              this.util.openSnackbar('更新成功！', 'ok');
-              this.cd.detectChanges();
-              this.builder.closeRightDrawer$.next(true);
-            }
-          });
+      const { uuid, langcode, api } = action.params;
+      let attr = {};
+      if (isSetting || isShowcase) {
+        attr = {
+          body: JSON.stringify(this.value),
+        };
       }
+      this.builderService
+        .updateAttributes(
+          {
+            uuid,
+            langcode,
+          },
+          api,
+          {
+            ...attr,
+          },
+          {}
+        )
+        .pipe(
+          catchError(err => {
+            return of(false);
+          }),
+          takeUntilDestroyed(this.destroyRef)
+        )
+        .subscribe(res => {
+          this.loading = false;
+          if (res) {
+            this.util.openSnackbar('更新成功！', 'ok');
+            this.cd.detectChanges();
+            this.builder.closeRightDrawer$.next(true);
+          }
+        });
     }
   }
 

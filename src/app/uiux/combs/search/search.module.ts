@@ -9,6 +9,7 @@ import { BaseModule } from '@uiux/base/base.module';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
 import { FormModule } from '../form/form.module';
 import { MatChipsModule } from '@angular/material/chips';
+import { OtherModule } from '../other/other.module';
 
 const components = [
   SearchComponent,
@@ -18,7 +19,7 @@ const components = [
 ];
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule, HeroModule, FormModule, MatChipsModule],
+  imports: [ShareModule, WidgetsModule, HeroModule, FormModule, MatChipsModule, OtherModule],
   exports: [...components],
 })
 export class SearchModule extends BaseModule {
