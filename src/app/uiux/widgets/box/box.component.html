@@ -1,7 +1,7 @@
 @if (content) {
-  <div [ngClass]="content.style" class="inv-builder-box m-bottom-sm">
+  <div [ngClass]="content.style" class="inv-builder-box m-bottom-sm relative">
     @if (content.icon) {
-      <div class="box-icon">
+      <div class="box-icon text-center">
         <app-icon [content]="content.icon" />
       </div>
     }
@@ -19,7 +19,7 @@
       @if (content.content) {
         <div
           contentedit="content"
-          class="box-content"
+          class="box-content block pb-10 text-sm"
           [innerHTML]="content.content | safeHtml"
         ></div>
       }

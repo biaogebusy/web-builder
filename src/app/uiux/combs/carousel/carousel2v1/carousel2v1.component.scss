@@ -1,7 +1,5 @@
 @use 'variable/breakpoint' as *;
-.carousel-2-v1 {
-  overflow: hidden;
-}
+
 :host ::ng-deep {
   .swiper-container {
     .swiper-button-prev {

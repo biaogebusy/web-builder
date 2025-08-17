@@ -1,12 +1,13 @@
 @if (content) {
-  <div class="fix-bar">
+  <div class="fix-bar fixed">
     <div class="bar-inner">
       @for (item of content; track item) {
         @switch (item.type) {
           @case ('link') {
             <div
-              class="item flex flex-col justify-center items-center"
-              [attr.id]="item.id">
+              class="item flex flex-col justify-center items-center relative"
+              [attr.id]="item.id"
+            >
               <a href="{{ item.href }}" target="{{ item.target }}">
                 <app-icon [content]="item.icon" />
               </a>
@@ -15,8 +16,9 @@
           }
           @case ('popup') {
             <div
-              class="item item-popup flex flex-col justify-center items-center"
-              [attr.id]="item.id">
+              class="item item-popup flex flex-col justify-center items-center cursor-pointer"
+              [attr.id]="item.id"
+            >
               <app-icon [content]="item.icon" />
               <span class="label">{{ item.label }}</span>
               <app-fix-bar-popup [content]="item.content" />

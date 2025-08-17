@@ -1,5 +1,4 @@
 .fix-bar {
-  position: fixed;
   bottom: 120px;
   right: 20px;
   z-index: 999;
@@ -10,7 +9,6 @@
     font-size: 12px;
   }
   .item {
-    position: relative;
     padding: 8px;
     line-height: 1.2;
     width: 60px;
@@ -33,8 +31,5 @@
         }
       }
     }
-  }
-  .item-popup {
-    cursor: pointer;
   }
 }

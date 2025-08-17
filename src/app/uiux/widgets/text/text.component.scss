@@ -3,13 +3,7 @@
   width: 100%;
 }
 
-.base-text {
-  overflow: hidden;
-  word-wrap: break-word;
-}
-
 .inner {
-  position: relative;
   z-index: 2;
   &.text-center {
     .text-body {

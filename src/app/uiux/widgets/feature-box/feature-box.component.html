@@ -28,14 +28,14 @@
           <a href="{{ box.link }}" class="btns flex absolute z-10 w-full h-full"></a>
         }
       }
-      <div class="feature-inner-ling">
+      <div class="feature-inner-ling relative block overflow-hidden">
         <div class="media" [ngClass]="box.ratios || 'media-4-3'">
           @if (box.img) {
             <app-img [attr.data-path]="'img'" [content]="box.img" />
           }
         </div>
         @if (content.mode === 'float' || type !== 'picture') {
-          <div class="title one-line px-3">
+          <div class="title one-line px-3 absolute bottom-0 text-center block w-full opacity-0">
             {{ title }}
           </div>
         }
