@@ -75,7 +75,6 @@ import { NgOptimizedImage } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
 import { LayoutToolbarComponent } from './builder/layout-builder/layout-toolbar/layout-toolbar.component';
 import { LayoutBuilderComponent } from './builder/layout-builder/layout-builder.component';
-import { LazyloadDirective } from '@core/directive/lazyload.directive';
 
 const components = [
   BgComponent,
@@ -137,14 +136,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [
-    ...components,
-    SafeUrlPipe,
-    DataSourcePipe,
-    SafeHtmlPipe,
-    LayoutToolbarComponent,
-    LazyloadDirective,
-  ],
+  declarations: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe, LayoutToolbarComponent],
   imports: [
     MatBadgeModule,
     ShareModule,
