@@ -5,24 +5,14 @@
     font-weight: 500;
     letter-spacing: 1px;
     margin-bottom: 20px;
-    text-transform: uppercase;
     word-spacing: 1px;
   }
   .list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     .item {
-      list-style-type: none;
-      clear: both;
       min-height: 60px;
       margin-bottom: 29px;
       .post-img {
-        float: left;
         margin-right: 18px;
-        display: block;
-        overflow: hidden;
-        position: relative;
         &:before {
           content: '';
           width: 100%;

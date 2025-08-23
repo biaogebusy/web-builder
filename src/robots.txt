@@ -1,6 +1,4 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /manage/
-Disallow: /*?
+user-agent: *
+disallow: /api/
+disallow: /admin/
+disallow: /manage/

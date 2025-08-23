@@ -1,8 +1,8 @@
 @if (content) {
-  <div class="fix-bar-popup" [ngStyle]="content.style">
-    <div class="fix-bar-popup-content">
+  <div class="fix-bar-popup absolute" [ngStyle]="content.style">
+    <div class="fix-bar-popup-content overflow-hidden">
       <app-text [content]="content"></app-text>
-      <div class="arrow"></div>
+      <div class="arrow absolute"></div>
     </div>
   </div>
 }

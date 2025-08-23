@@ -5,7 +5,7 @@
         <div class="flex-12/12 md:flex-{{ box.row }}/12 overflow-hidden">
           <app-dynamic-component
             [attr.data-path]="'elements.' + index"
-            class="box"
+            class="box block overflow-auto"
             [inputs]="box"
           ></app-dynamic-component>
         </div>

@@ -1,7 +1,6 @@
 @use 'mixins/amixin' as *;
 @use 'variable/breakpoint' as *;
 .inv-builder-box {
-  position: relative;
   a {
     color: var(--mat-sys-on-surface);
     &:hover {
@@ -9,7 +8,6 @@
     }
   }
   .box-icon {
-    text-align: center;
     width: 88px;
     height: 88px;
     @include transform(0deg, 1, 0, 0);
@@ -33,11 +31,6 @@
     &:hover {
       color: var(--mat-sys-primary);
     }
-  }
-  .box-content {
-    display: block;
-    padding-bottom: 40px;
-    font-size: 14px;
   }
 
   &.title-color {

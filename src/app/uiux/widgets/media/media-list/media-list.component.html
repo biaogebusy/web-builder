@@ -1,11 +1,11 @@
 @if (content) {
   <div class="recent-posts">
-    <h2 class="block-title">{{ content.title }}</h2>
-    <div class="list">
+    <h2 class="block-title uppercase">{{ content.title }}</h2>
+    <div class="list list-none m-0 p-0">
       @for (item of content.elements; track item; let i = $index) {
-        <div class="item {{ item.img.src ? '' : 'no-img' }}">
+        <div class="item clear-both list-none {{ item.img.src ? '' : 'no-img' }}">
           @if (item.img.src) {
-            <a [href]="item.link.href" class="post-img">
+            <a [href]="item.link.href" class="post-img float-left block overflow-hidden relative">
               <app-img [attr.data-path]="'elements.' + i + '.img'" [content]="item.img" />
               <mat-icon>open_in_new</mat-icon>
             </a>

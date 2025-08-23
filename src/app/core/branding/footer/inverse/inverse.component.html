@@ -45,7 +45,7 @@
             @if (content.footerNewsletter) {
               <div class="flex-12/12 md:flex-3/12">
                 <form class="flex flex-col" (ngSubmit)="onSubmit()" [formGroup]="form">
-                  <div class="item-header">
+                  <div class="item-header text-white">
                     {{ content.footerNewsletter.label }}
                   </div>
                   <p class="m-y-xs" [innerHTML]="content.footerNewsletter.summary | safeHtml"></p>

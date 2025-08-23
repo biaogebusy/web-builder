@@ -1,5 +1,5 @@
 @if (content) {
-  <div class="sidebar">
+  <div class="sidebar sticky top-20">
     @for (item of content; track item) {
       <app-dynamic-component [inputs]="item" />
     }

@@ -1,6 +1,5 @@
 .card-1-v4 {
   .left {
-    position: relative;
     width: 65px;
     height: 65px;
     flex: 0 0 65px;
@@ -30,7 +29,6 @@
   .inner {
     background-color: var(--mat-sys-background);
     box-shadow: var(--mat-sys-level1);
-    @apply text-neutral-500;
     &:before {
       content: '';
       position: absolute;

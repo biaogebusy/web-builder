@@ -30,7 +30,6 @@
 }
 
 .card-header {
-  position: relative;
   margin-top: -16px !important;
 
   ::ng-deep {
@@ -63,36 +62,6 @@
     }
     .feature-box {
       overflow: visible;
-    }
-  }
-  .overlay-details {
-    position: absolute;
-    z-index: 99;
-    width: 100%;
-    text-align: center;
-    @include middle-center();
-    ::ng-deep a {
-      opacity: 0;
-      background: rgba(0, 0, 0, 0.7);
-      color: var(--mat-sys-on-primary);
-      @include transform(20deg, 0, 0, 0);
-      display: inline-block;
-      position: relative;
-      z-index: 1;
-      font-size: 13px;
-      padding: 9px 13px;
-      margin-right: 10px;
-      @include transition(all, 0.4s, ease);
-    }
-  }
-  &:hover {
-    .overlay-details {
-      ::ng-deep a {
-        @include transform(0deg, 1, 0, 0);
-        opacity: 1;
-        color: var(--mat-sys-on-primary);
-        @include transition(all, 0.4s, ease);
-      }
     }
   }
 }

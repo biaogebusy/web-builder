@@ -2,7 +2,7 @@
   @if (content) {
     <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport overflow-auto h-[500px]">
       <div
-        class="list item m-5 p-3 rounded-xl flex flex-col"
+        class="list item m-5 p-3 rounded-xl flex flex-col cursor-pointer"
         [class.selected]="i == selectedId"
         matRipple
         [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
