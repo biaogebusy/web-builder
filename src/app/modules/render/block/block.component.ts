@@ -5,6 +5,7 @@ import {
   DestroyRef,
   AfterViewInit,
   DOCUMENT,
+  afterNextRender,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { IPage } from '@core/interface/IAppConfig';
@@ -44,6 +45,12 @@ export class BlockComponent implements AfterContentInit, AfterViewInit {
   private screenService = inject(ScreenService);
   private router = inject(Router);
   private activateRouter = inject(ActivatedRoute);
+
+  constructor() {
+    afterNextRender(() => {
+      AOS.refresh();
+    });
+  }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
