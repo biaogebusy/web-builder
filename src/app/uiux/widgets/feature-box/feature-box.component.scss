@@ -72,9 +72,6 @@
     }
   }
   .feature-inner-ling {
-    position: relative;
-    display: block;
-    overflow: hidden;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     &:before {
@@ -102,13 +99,6 @@
       background-color: var(--mat-sys-background);
     }
     .title {
-      position: absolute;
-      bottom: 0;
-      text-align: center;
-      display: block;
-      box-sizing: border-box;
-      width: 100%;
-      opacity: 0;
       color: var(--mat-sys-on-primary);
       @include transition(all, 0.4s, ease);
     }

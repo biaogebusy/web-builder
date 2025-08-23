@@ -1,5 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
-
 export interface ApiEndpoint {
   name: string; // API名称
   endpoint: string; // API地址
@@ -95,6 +93,13 @@ export const API_CHECK_LIST: ApiEndpoint[] = [
     method: 'GET',
     expectedStatus: 200,
     description: '过滤页面分类和设置着陆页分类使用',
+  },
+  {
+    name: '组件库',
+    endpoint: '/api/v3/node/component',
+    method: 'GET',
+    expectedStatus: 200,
+    description: 'UIUX 组件库',
   },
   {
     name: '媒体库',

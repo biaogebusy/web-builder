@@ -1,5 +1,5 @@
 @if (content) {
-  <div class="carousel-1-v3" [ngClass]="content.classes">
+  <div class="carousel-1-v3 overflow-hidden" [ngClass]="content.classes">
     @if (content.text) {
       <app-text [attr.data-path]="'text'" [content]="content.text" />
     }

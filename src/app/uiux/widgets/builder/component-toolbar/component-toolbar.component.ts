@@ -97,6 +97,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     const content = this.content.type ? this.content : this.content.content;
     if (content) {
       delete content.extra;
+      delete content.relationships;
       this.util.copy(JSON.stringify(content));
       this.util.openSnackbar(`已复制${content.type}JSON`, 'ok', {
         verticalPosition: 'bottom',

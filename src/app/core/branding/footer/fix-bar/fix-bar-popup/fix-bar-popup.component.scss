@@ -1,7 +1,6 @@
 @use 'variable/breakpoint' as *;
 
 .fix-bar-popup {
-  position: absolute;
   right: 68px;
   bottom: 0;
   display: none;
@@ -13,10 +12,8 @@
     padding: 15px;
     border-radius: 2px;
     box-shadow: 0 6px 20px 2px rgb(0 0 0 / 18%);
-    overflow: hidden;
   }
   .arrow {
-    position: absolute;
     right: 5px;
     top: 50%;
     width: 0;

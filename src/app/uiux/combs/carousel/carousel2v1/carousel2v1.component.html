@@ -1,5 +1,5 @@
 @if (content) {
-  <div class="carousel-2-v1" [class.text-white]="content.bg">
+  <div class="carousel-2-v1 overflow-hidden" [class.text-white]="content.bg">
     @if (content.title) {
       <app-title [attr.data-path]="'title'" [content]="content.title" />
     }

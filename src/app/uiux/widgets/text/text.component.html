@@ -1,6 +1,6 @@
 @if (content) {
-  <div [id]="content.id || ''" class="base-text relative">
-    <div #inner class="inner" [class]="content.classes" [style]="content.style">
+  <div [id]="content.id || ''" class="base-text relative overflow-hidden break-words">
+    <div #inner class="inner relative" [class]="content.classes" [style]="content.style">
       @if (content.title) {
         <app-title [attr.data-path]="'title'" #title [content]="content.title" />
       }

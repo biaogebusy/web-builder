@@ -1,10 +1,8 @@
 @use 'variable/variable' as *;
 @use 'variable/breakpoint' as *;
-@use 'mixins/amixin' as *;
 .card-1-v3 {
   box-shadow: var(--mat-sys-level1);
   .item {
-    cursor: pointer;
     box-shadow: var(--mat-sys-level1);
     background-color: var(--mat-sys-background);
     .label {

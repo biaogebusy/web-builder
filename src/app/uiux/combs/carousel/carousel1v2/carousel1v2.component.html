@@ -4,7 +4,7 @@
       @if (content.title) {
         <app-title [attr.data-path]="'title'" [content]="content.title" />
       }
-      <div class="actions flex">
+      <div class="actions flex absolute right-0 top-0 left-auto">
         <app-btn
           [content]="{ mode: 'icon', icon: { svg: 'chevron-left' }, classes: 'prev' }"
         ></app-btn>

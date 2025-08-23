@@ -1,7 +1,6 @@
 @use 'variable/breakpoint' as *;
 @use 'mixins/amixin' as *;
 .img-wrapper {
-  position: static;
   .actions {
     @include middle-center();
   }

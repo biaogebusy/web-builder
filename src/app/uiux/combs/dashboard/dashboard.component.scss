@@ -2,8 +2,6 @@
   background-color: var(--mat-sys-background);
   .box {
     padding: 10px;
-    display: block;
-    overflow: auto;
     ::ng-deep {
       .dashboard-box {
         background-color: var(--mat-sys-background);
