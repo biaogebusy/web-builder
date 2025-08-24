@@ -393,12 +393,8 @@ export class PageSettingComponent implements OnInit {
         this.loading.set(false);
         if (res) {
           this.util.openSnackbar(`更新${value.title}成功`, 'ok');
-          this.router.navigate(['builder/page-list'], {
-            queryParams: {
-              nid: drupal_internal__nid,
-              langcode,
-            },
-          });
+          this.builder.loading$.next(true);
+          this.builderService.loadPage({ langcode, nid: drupal_internal__nid });
           this.builder.updateSuccess$.next(true);
         }
       });
