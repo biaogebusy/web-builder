@@ -170,7 +170,6 @@ export class PageListComponent extends BaseComponent implements OnInit {
         this.loadPage({
           nid,
           langcode,
-          title: '页面',
         });
       } else {
         Object.keys(query).forEach(key => {

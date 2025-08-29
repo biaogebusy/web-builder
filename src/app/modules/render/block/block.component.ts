@@ -48,7 +48,9 @@ export class BlockComponent implements AfterContentInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.componentCount$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        AOS.init();
+        setTimeout(() => {
+          AOS.init();
+        }, 200);
       });
       this.activateRouter.fragment.subscribe(fragment => {
         if (fragment) {

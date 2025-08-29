@@ -10,6 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
@@ -46,6 +47,7 @@ export class PageSettingComponent implements OnInit {
   private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
   private user: IUser;
 
   constructor() {
@@ -363,13 +365,15 @@ export class PageSettingComponent implements OnInit {
     const api = `/api/v1/node/${nodeType}`;
     if (!this.user) {
       this.util.openSnackbar('请先登录！', 'ok');
+      return;
     }
     const { content } = this.content;
     const { data } = content;
     const {
       id,
-      attributes: { langcode },
+      attributes: { langcode, drupal_internal__nid },
     } = data;
+
     this.loading.set(true);
     this.builderService
       .updateAttributes(
@@ -389,6 +393,9 @@ export class PageSettingComponent implements OnInit {
         this.loading.set(false);
         if (res) {
           this.util.openSnackbar(`更新${value.title}成功`, 'ok');
+          this.builder.loading$.next(true);
+          this.builderService.loadPage({ langcode, nid: drupal_internal__nid });
+          this.builder.updateSuccess$.next(true);
         }
       });
   }
