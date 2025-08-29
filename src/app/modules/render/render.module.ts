@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BlockComponent } from './block/block.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { pageContentFactory } from '@core/factory/factory';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -10,7 +9,7 @@ import { BuilderModule } from '../builder/builder.module';
 
 @NgModule({
   declarations: [BlockComponent],
-  imports: [ShareModule, WidgetsModule, MatSidenavModule, MatProgressSpinnerModule, BuilderModule],
+  imports: [ShareModule, WidgetsModule, MatSidenavModule, BuilderModule],
   providers: [
     {
       provide: PAGE_CONTENT,
