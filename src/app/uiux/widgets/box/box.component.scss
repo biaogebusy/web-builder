@@ -480,12 +480,13 @@
       ::ng-deep {
         .mat-icon {
           color: var(--mat-sys-primary);
+          font-size: 24px;
         }
       }
     }
     .box-content-wrapper {
       .box-title {
-        color: var(--mat-sys-surface);
+        color: var(--mat-sys-on-surface);
       }
     }
     &.box-left {
@@ -508,7 +509,7 @@
         }
       }
       .box-title {
-        color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-surface);
       }
     }
   }
