@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
@@ -34,7 +34,7 @@ export class PageSettingComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: any;
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[];
   public loading = signal<boolean>(false);
