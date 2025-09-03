@@ -62,7 +62,9 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
       const swiperEle = this.swiper.nativeElement;
       Object.assign(swiperEle, this.config);
       swiperEle.initialize();
-      swiperEle.classList.add(this.content?.classes);
+      if (this.content?.classes) {
+        swiperEle.classList.add(this.content?.classes);
+      }
       swiperEle.addEventListener('swiperslidechange', (event: any) => {
         const [swiper] = event.detail;
         this.slideChange.emit(swiper);
