@@ -1,45 +1,47 @@
-<div class="page-setting relative">
-  @if (loading()) {
-    <div class="load absolute z-10 top-1/2 left-1/2">
-      <app-loading />
+<div class="flex gap-5">
+  <div class="page-setting relative">
+    @if (loading()) {
+      <div class="load absolute z-10 top-1/2 left-1/2">
+        <app-loading />
+      </div>
+    }
+    <app-formly [form]="form" [fields]="fields" [model]="model" />
+    <div class="actions flex justify-center items-center gap-3 my-5">
+      <app-btn
+        (click)="onUpdate(model)"
+        [content]="{
+          label: '更新',
+          color: 'primary',
+          mode: 'raised',
+        }"
+      />
+      @if (type === 'node--json') {
+        <app-btn
+          (click)="onJson()"
+          [content]="{
+            label: '编辑JSON',
+            color: 'primary',
+            mode: 'stroked',
+          }"
+        />
+      }
+      @if (type === 'node--landing_page') {
+        <app-btn
+          (click)="onPreview()"
+          [content]="{
+            label: '预览',
+            color: 'primary',
+            mode: 'stroked',
+          }"
+        />
+      }
+      <app-btn
+        (click)="deletePage(model)"
+        [content]="{
+          label: '删除',
+          color: 'warn',
+        }"
+      />
     </div>
-  }
-  <app-formly [form]="form" [fields]="fields" [model]="model" />
-  <div class="actions flex justify-center items-center gap-3 my-5">
-    <app-btn
-      (click)="onUpdate(model)"
-      [content]="{
-        label: '更新',
-        color: 'primary',
-        mode: 'raised',
-      }"
-    />
-    @if (type === 'node--json') {
-      <app-btn
-        (click)="onJson()"
-        [content]="{
-          label: '编辑JSON',
-          color: 'primary',
-          mode: 'stroked',
-        }"
-      />
-    }
-    @if (type === 'node--landing_page') {
-      <app-btn
-        (click)="onPreview()"
-        [content]="{
-          label: '预览',
-          color: 'primary',
-          mode: 'stroked',
-        }"
-      />
-    }
-    <app-btn
-      (click)="deletePage(model)"
-      [content]="{
-        label: '删除',
-        color: 'warn',
-      }"
-    />
   </div>
 </div>

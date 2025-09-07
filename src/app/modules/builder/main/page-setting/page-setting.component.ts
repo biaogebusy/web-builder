@@ -8,14 +8,14 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
@@ -34,7 +34,7 @@ export class PageSettingComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: any;
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[];
   public loading = signal<boolean>(false);
@@ -47,7 +47,7 @@ export class PageSettingComponent implements OnInit {
   private screenService = inject(ScreenService);
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
-  private router = inject(Router);
+  private userService = inject(UserService);
   private user: IUser;
 
   constructor() {
@@ -364,7 +364,7 @@ export class PageSettingComponent implements OnInit {
     const nodeType = type.split('--')[1];
     const api = `/api/v1/node/${nodeType}`;
     if (!this.user) {
-      this.util.openSnackbar('请先登录！', 'ok');
+      this.userService.openLoginDialog();
       return;
     }
     const { content } = this.content;
@@ -499,6 +499,10 @@ export class PageSettingComponent implements OnInit {
     });
   }
   deletePage(value: any): void {
+    if (!this.user) {
+      this.userService.openLoginDialog();
+      return;
+    }
     const { type } = value;
     const nodeType = type.split('--')[1];
     const api = `/api/v1/node/${nodeType}`;
