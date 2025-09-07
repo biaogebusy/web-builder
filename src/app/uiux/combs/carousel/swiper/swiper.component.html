@@ -1,10 +1,4 @@
-<swiper-container
-  class="swiper-container"
-  init="false"
-  #swiper
-  [attr.data-path]="'elements'"
-  [ngClass]="content.classes"
->
+<swiper-container class="swiper-container" init="false" #swiper [attr.data-path]="'elements'">
   @if (content && content.elements) {
     @for (slide of content.elements; track slide; let i = $index) {
       <swiper-slide class="swiper-slide" (click)="onClick(slide)">
