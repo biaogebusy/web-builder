@@ -60,7 +60,7 @@
     "ngx-cookie-service": "^20.0.1",
     "ngx-file-drop": "^16.0.0",
     "ngx-mat-select-search": "^8.0.2",
-    "ngx-monaco-editor-v2": "^18.1.0",
+    "ngx-monaco-editor-v2": "^20.0.0",
     "ngx-pagination": "^6.0.3",
     "ngx-pipes": "^3.2.2",
     "ngx-quill": "^28.0.1",
