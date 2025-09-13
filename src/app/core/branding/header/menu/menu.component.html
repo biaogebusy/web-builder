@@ -59,6 +59,14 @@
   <div class="drawer">
     @if (!show) {
       <mat-toolbar>
+        @if (!isDrawer) {
+          @if (header.logo) {
+            <app-logo [content]="header.logo" />
+          }
+          <span class="spacer"></span>
+          <app-switch-theme />
+          <app-user-menu class="mx-2" />
+        }
         <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
           @if (!isDrawer) {
             <mat-icon>menu</mat-icon>
@@ -67,13 +75,6 @@
             <mat-icon>close</mat-icon>
           }
         </button>
-        @if (!isDrawer) {
-          <span class="spacer"></span>
-          <span class="app-name">{{ header.logo?.label }}</span>
-          <span class="spacer"></span>
-          <app-switch-theme />
-          <app-user-menu class="m-left-xs" />
-        }
       </mat-toolbar>
     }
     <div [hidden]="!(!show && isDrawer)">

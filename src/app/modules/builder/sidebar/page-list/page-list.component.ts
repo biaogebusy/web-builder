@@ -166,7 +166,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
 
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(query => {
       const { quickEdit, nid, langcode } = query;
-      if (quickEdit) {
+      if (quickEdit || (nid && langcode)) {
         this.loadPage({
           nid,
           langcode,
