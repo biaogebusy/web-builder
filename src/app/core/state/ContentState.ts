@@ -12,6 +12,4 @@ export class ContentState {
   public drawerLoading$ = new BehaviorSubject<boolean>(false);
   public drawerContent$ = new Subject<IPage>();
   public mediaAssetsFormChange$ = new Subject<object>();
-
-  public componentCount$ = new Subject<number>();
 }

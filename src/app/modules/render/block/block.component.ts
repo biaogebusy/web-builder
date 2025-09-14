@@ -17,6 +17,7 @@ import { ContentService } from '@core/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import AOS from 'aos';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-block',
@@ -44,13 +45,14 @@ export class BlockComponent implements AfterContentInit, AfterViewInit {
   private screenService = inject(ScreenService);
   private router = inject(Router);
   private activateRouter = inject(ActivatedRoute);
+  private util = inject(UtilitiesService);
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.componentCount$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.util.animateElement$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         setTimeout(() => {
           AOS.init();
-        }, 200);
+        }, 500);
       });
       this.activateRouter.fragment.subscribe(fragment => {
         if (fragment) {
