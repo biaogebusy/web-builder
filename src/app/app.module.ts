@@ -1,5 +1,10 @@
-import { Title, provideClientHydration, withIncrementalHydration } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserModule,
+  Title,
+  provideClientHydration,
+  withIncrementalHydration,
+} from '@angular/platform-browser';
+
 import {
   NgModule,
   Inject,
@@ -9,7 +14,7 @@ import {
 } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
@@ -51,8 +56,7 @@ import { CookieService } from 'ngx-cookie-service';
   bootstrap: [AppComponent],
   imports: [
     AppRoutingModule,
-    BrowserAnimationsModule,
-    CommonModule,
+    BrowserModule,
     MatSidenavModule,
     RenderModule,
     BrandingModule,
