@@ -22,8 +22,8 @@ import { ScreenState } from '@core/state/screen/ScreenState';
 
 @Component({
   selector: 'app-block',
-  templateUrl: './block.component.html',
-  styleUrls: ['./block.component.scss'],
+  templateUrl: './page.component.html',
+  styleUrls: ['./page.component.scss'],
   providers: [
     {
       provide: PAGE_CONTENT,
@@ -32,7 +32,7 @@ import { ScreenState } from '@core/state/screen/ScreenState';
   ],
   standalone: false,
 })
-export class BlockComponent implements AfterContentInit, AfterViewInit {
+export class PageComponent implements AfterContentInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);

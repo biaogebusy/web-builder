@@ -29,7 +29,7 @@ import {
   CORE_CONFIG,
   NOTIFY_CONTENT,
 } from '@core/token/token-providers';
-import { RenderModule } from '@modules/render/render.module';
+import { RenderModule } from '@modules/page/page.module';
 import {
   apiUrlFactory,
   brandingFactory,

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BlockComponent } from './block/block.component';
+import { PageComponent } from './page/page.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { pageContentFactory } from '@core/factory/factory';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -11,7 +11,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 @NgModule({
-  declarations: [BlockComponent],
+  declarations: [PageComponent],
   imports: [
     ShareModule,
     WidgetsModule,
@@ -27,6 +27,6 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
       useFactory: pageContentFactory,
     },
   ],
-  exports: [BlockComponent],
+  exports: [PageComponent],
 })
 export class RenderModule {}

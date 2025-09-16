@@ -1,9 +1,5 @@
 @use 'variable/breakpoint' as *;
 
-.block {
-  position: relative;
-}
-
 .drawer-right.mat-drawer-opened {
   position: absolute;
   bottom: 0;
@@ -21,7 +17,8 @@
   align-items: center;
 }
 
-.main {
+.page {
+  position: relative;
   min-height: calc(100vh - 110px);
 }
 
