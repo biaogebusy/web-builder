@@ -1,3 +1,5 @@
+@use 'variable/breakpoint' as *;
+
 .block {
   position: relative;
 }
@@ -17,4 +19,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.main {
+  min-height: calc(100vh - 110px);
+}
+
+.mobile-menu {
+  @media #{$xs} {
+    position: fixed !important;
+    width: 85vw;
+    ::ng-deep {
+      .mat-accordion .mat-expansion-panel-header-title {
+        font-size: 16px;
+      }
+    }
+  }
 }
