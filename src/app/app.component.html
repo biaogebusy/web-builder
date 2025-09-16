@@ -3,18 +3,4 @@
     <div class="app-loader absolute">Loading...</div>
   </div>
 }
-@if (coreConfig.loadingBar) {
-  <ngx-loading-bar [includeSpinner]="false" height="4px" color="#2962ff" />
-}
-<mat-drawer-container>
-  <mat-drawer class="mobile-menu" #drawer [(opened)]="mobileMenuOpened">
-    <app-menu [isDrawer]="mobileMenuOpened" />
-  </mat-drawer>
-  <mat-drawer-content id="main-container">
-    <app-header />
-    <div class="main">
-      <router-outlet />
-    </div>
-    <app-footer />
-  </mat-drawer-content>
-</mat-drawer-container>
+<router-outlet />

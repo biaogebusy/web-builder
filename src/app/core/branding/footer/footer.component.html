@@ -1,16 +1,14 @@
-@if (!(isBuilderMode$ | async)) {
-  @if (branding$ | async; as branding) {
-    <div class="footer">
-      @if (branding.footer?.params?.mode === 'light') {
-        <app-light [content]="branding.footer" />
-      }
-      @if (branding.footer?.params?.mode === 'inverse') {
-        <app-inverse [content]="branding.footer" />
-      }
-      @if (branding.footer?.fixBar) {
-        <app-fix-bar [content]="branding.footer?.fixBar" />
-      }
-      <app-gotop />
-    </div>
-  }
+@if (branding$ | async; as branding) {
+  <div class="footer">
+    @if (branding.footer?.params?.mode === 'light') {
+      <app-light [content]="branding.footer" />
+    }
+    @if (branding.footer?.params?.mode === 'inverse') {
+      <app-inverse [content]="branding.footer" />
+    }
+    @if (branding.footer?.fixBar) {
+      <app-fix-bar [content]="branding.footer?.fixBar" />
+    }
+    <app-gotop />
+  </div>
 }

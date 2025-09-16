@@ -1,47 +1,61 @@
-@if (pageContent$ | async; as page) {
-  <div class="block">
-    @if ((user$ | async) && page.nid) {
-      <div class="page-toolbar fixed right-5 top-20 md:right-10 md:top-40 z-[1000]">
-        <app-btn
-          (click)="onEdit(page.nid)"
-          [content]="{
-            mode: 'mini-fab',
-            color: 'primary',
-            icon: { svg: 'pencil' },
-          }"
-        />
-      </div>
-    }
-    <mat-drawer-container (backdropClick)="onBackdrop()">
-      <mat-drawer-content>
-        <div *ngTemplateOutlet="block; context: { content: page.body }"></div>
-      </mat-drawer-content>
-      <mat-drawer
-        (openedChange)="onDrawer()"
-        class="drawer-right"
-        [mode]="'over'"
-        [opened]="opened"
-        position="end"
-      >
-        @if (drawerLoading) {
-          <div class="drawer-loading">
-            <app-loading />
-          </div>
-        }
-        @if (!drawerLoading && opened) {
-          <div
-            *ngTemplateOutlet="
-              block;
-              context: {
-                content: drawerContent?.body,
-              }
-            "
-          ></div>
-        }
-      </mat-drawer>
-    </mat-drawer-container>
-  </div>
+@if (coreConfig.loadingBar) {
+  <ngx-loading-bar [includeSpinner]="false" height="4px" color="#2962ff" />
 }
+<mat-drawer-container>
+  <mat-drawer class="mobile-menu" #drawer [(opened)]="mobileMenuOpened">
+    <app-menu [isDrawer]="mobileMenuOpened" />
+  </mat-drawer>
+  <mat-drawer-content id="main-container">
+    <app-header />
+    <div class="main">
+      @if (pageContent$ | async; as page) {
+        <div class="block">
+          @if ((user$ | async) && page.nid) {
+            <div class="page-toolbar fixed right-5 top-20 md:right-10 md:top-40 z-[1000]">
+              <app-btn
+                (click)="onEdit(page.nid)"
+                [content]="{
+                  mode: 'mini-fab',
+                  color: 'primary',
+                  icon: { svg: 'pencil' },
+                }"
+              />
+            </div>
+          }
+          <mat-drawer-container (backdropClick)="onBackdrop()">
+            <mat-drawer-content>
+              <div *ngTemplateOutlet="block; context: { content: page.body }"></div>
+            </mat-drawer-content>
+            <mat-drawer
+              (openedChange)="onDrawer()"
+              class="drawer-right"
+              [mode]="'over'"
+              [opened]="opened"
+              position="end"
+            >
+              @if (drawerLoading) {
+                <div class="drawer-loading">
+                  <app-loading />
+                </div>
+              }
+              @if (!drawerLoading && opened) {
+                <div
+                  *ngTemplateOutlet="
+                    block;
+                    context: {
+                      content: drawerContent?.body,
+                    }
+                  "
+                ></div>
+              }
+            </mat-drawer>
+          </mat-drawer-container>
+        </div>
+      }
+    </div>
+    <app-footer />
+  </mat-drawer-content>
+</mat-drawer-container>
 
 <ng-template let-content="content" #block>
   @for (item of content; track item; let i = $index) {

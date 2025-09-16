@@ -75,6 +75,8 @@ import { NgOptimizedImage } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
 import { LayoutToolbarComponent } from './builder/layout-builder/layout-toolbar/layout-toolbar.component';
 import { LayoutBuilderComponent } from './builder/layout-builder/layout-builder.component';
+import { UserMenuComponent } from './user-menu/user-menu.component';
+import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 
 const components = [
   BgComponent,
@@ -133,6 +135,8 @@ const components = [
   GithubStarComponent,
   DividerComponent,
   LoadingComponent,
+  UserMenuComponent,
+  LangSwitchComponent,
 ];
 
 @NgModule({

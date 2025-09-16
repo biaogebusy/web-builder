@@ -7,13 +7,13 @@ import {
   inject,
   DestroyRef,
   signal,
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
 
 import { ContentState } from '@core/state/ContentState';
-import { BRANDING, IS_BUILDER_MODE } from '@core/token/token-providers';
+import { BRANDING } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -29,7 +29,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class HeaderComponent implements OnInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
   public branding$ = inject<Observable<IBranding>>(BRANDING);
-  public isBuilderMode$ = inject<Observable<boolean>>(IS_BUILDER_MODE);
 
   public sticky = signal(false);
   public showBanner = signal(false);
@@ -54,9 +53,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.isBuilderMode$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(state => {
-        this.isBuilderMode = state;
-      });
       this.screenState.scroll$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(() => {
         if (this.isBuilderMode) {
           return;

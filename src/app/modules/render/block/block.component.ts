@@ -7,8 +7,8 @@ import {
   DOCUMENT,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import type { IPage } from '@core/interface/IAppConfig';
-import { PAGE_CONTENT, USER } from '@core/token/token-providers';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 
@@ -18,6 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import AOS from 'aos';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { ScreenState } from '@core/state/screen/ScreenState';
 
 @Component({
   selector: 'app-block',
@@ -33,8 +34,9 @@ import { UtilitiesService } from '@core/service/utilities.service';
 })
 export class BlockComponent implements AfterContentInit, AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
+  public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-
+  public mobileMenuOpened: boolean;
   public drawerLoading: boolean;
   public drawerContent: IPage;
   public opened: boolean;
@@ -46,6 +48,7 @@ export class BlockComponent implements AfterContentInit, AfterViewInit {
   private router = inject(Router);
   private activateRouter = inject(ActivatedRoute);
   private util = inject(UtilitiesService);
+  private screen = inject(ScreenState);
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -58,6 +61,9 @@ export class BlockComponent implements AfterContentInit, AfterViewInit {
         if (fragment) {
           this.screenService.scrollToAnchor(fragment);
         }
+      });
+      this.screen.drawer$.subscribe(() => {
+        this.mobileMenuOpened = !this.mobileMenuOpened;
       });
     }
   }

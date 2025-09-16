@@ -16,12 +16,16 @@ import {
   UIUX,
   BUILDER_CONFIG,
   MEDIA_ASSETS,
+  BUILDER_FULL_SCREEN,
+  DEBUG_ANIMATE,
 } from '@core/token/token-providers';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
 import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
 import {
   builderCurrentPageFactory,
+  builderFullScreenFactory,
+  debugAnimateFactory,
   getBuilderConfig,
   mediaAssetsFactory,
   uiuxFactory,
@@ -29,7 +33,6 @@ import {
 import { InlineEditComponent } from './main/inline-editor/inline-editor.component';
 import { WidgetPickerComponent } from './main/widget-picker/widget-picker.component';
 import { LayoutSettingComponent } from './toolbar/layout-setting/layout-setting.component';
-import { BrandingModule } from '@core/branding/branding.module';
 import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
 import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 import { PageListComponent } from './sidebar/page-list/page-list.component';
@@ -88,7 +91,6 @@ const components = [
     MatSidenavModule,
     MatCheckboxModule,
     WidgetsModule,
-    BrandingModule,
     DragDropModule,
     BuilderRoutingModule,
     FormModule,
@@ -111,6 +113,14 @@ const components = [
     {
       provide: MEDIA_ASSETS,
       useFactory: mediaAssetsFactory,
+    },
+    {
+      provide: BUILDER_FULL_SCREEN,
+      useFactory: builderFullScreenFactory,
+    },
+    {
+      provide: DEBUG_ANIMATE,
+      useFactory: debugAnimateFactory,
     },
   ],
   exports: [...components],
