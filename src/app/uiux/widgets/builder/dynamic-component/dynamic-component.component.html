@@ -1,25 +1,21 @@
-<div [class.active-toolbar]="showToolbar()">
-  @if (showToolbar()) {
-    <app-component-toolbar [content]="inputs" />
-  }
-  @let content = compContent();
-  <div class="relative" [ngClass]="content?.containerClasses">
-    @if (content?.id) {
-      <span class="anchor" [id]="content.id"></span>
-    }
-    @if (content?.spacer) {
-      <app-spacer [size]="content.spacer" />
-    }
-    @if (content?.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
-    }
+@if (showToolbar()) {
+  <app-component-toolbar [content]="inputs" />
+}
+@let content = compContent();
+@if (content?.id) {
+  <span class="anchor" [id]="content.id"></span>
+}
+@if (content?.spacer) {
+  <app-spacer [size]="content.spacer" />
+}
+@if (content?.bg) {
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
+}
 
-    <div class="relative z-10 {{ content?.fullWidth ? '' : 'container' }}">
-      <ng-container #componentContainer />
-    </div>
-
-    @if (content?.spacer) {
-      <app-spacer [size]="content.spacer" />
-    }
-  </div>
+<div class="relative z-10 {{ content?.fullWidth ? '' : 'container' }}">
+  <ng-container #componentContainer />
 </div>
+
+@if (content?.spacer) {
+  <app-spacer [size]="content.spacer" />
+}

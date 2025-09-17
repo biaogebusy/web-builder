@@ -4,6 +4,7 @@ import {
   ComponentRef,
   ElementRef,
   EnvironmentInjector,
+  HostBinding,
   Input,
   OnChanges,
   OnDestroy,
@@ -42,6 +43,9 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
   private readonly environmentInjector = inject(EnvironmentInjector);
   public componentRef: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   public compContent = signal<any>({});
+  @HostBinding('class.active-toolbar') activeClass = false;
+  @HostBinding('class.relative') relative = true;
+  @HostBinding('class') containerClasses: any;
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -56,6 +60,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
     this.loadComponent();
     if (this.ele.nativeElement.closest('.component-item')) {
       this.showToolbar.set(true);
+      this.activeClass = true;
     }
   }
 
@@ -68,6 +73,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
       const content = this.inputs.type ? this.inputs : this.inputs.content;
       this.container.clear();
       this.compContent.set(content);
+      this.containerClasses = content.containerClasses;
 
       const componentType = await this.componentService.getComponentType(type);
       if (!componentType) {
