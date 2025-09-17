@@ -29,4 +29,4 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
   ],
   exports: [PageComponent],
 })
-export class RenderModule {}
+export class PageModule {}

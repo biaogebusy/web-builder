@@ -29,7 +29,7 @@ import {
   CORE_CONFIG,
   NOTIFY_CONTENT,
 } from '@core/token/token-providers';
-import { RenderModule } from '@modules/page/page.module';
+import { PageModule } from '@modules/page/page.module';
 import {
   apiUrlFactory,
   brandingFactory,
@@ -45,7 +45,7 @@ import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  imports: [AppRoutingModule, BrowserModule, MatSidenavModule, RenderModule],
+  imports: [AppRoutingModule, BrowserModule, MatSidenavModule, PageModule],
   providers: [
     Title,
     httpInterceptorProviders,

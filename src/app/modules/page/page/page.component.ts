@@ -21,7 +21,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 
 @Component({
-  selector: 'app-block',
+  selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss'],
   providers: [
