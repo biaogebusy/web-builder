@@ -1,3 +1,4 @@
+@use 'variable/breakpoint' as *;
 :host ::ng-deep .top {
   a {
     position: relative;
@@ -18,5 +19,24 @@
         z-index: 2;
       }
     }
+  }
+}
+@media #{$gt-md} {
+  .item-menu {
+    &:hover {
+      .dynamic-menu {
+        opacity: 1;
+        visibility: inherit;
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
+  .dynamic-menu {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    padding: 20px;
   }
 }

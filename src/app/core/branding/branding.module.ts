@@ -17,6 +17,7 @@ import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { AccordionComponent } from './accordion/accordion.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { FormModule } from '@uiux/combs/form/form.module';
     FixBarComponent,
     FixBarPopupComponent,
     HoverMenuComponent,
+    AccordionComponent,
   ],
   imports: [ShareModule, WidgetsModule, FormModule],
   exports: [
@@ -46,6 +48,7 @@ import { FormModule } from '@uiux/combs/form/form.module';
     LightComponent,
     InverseComponent,
     FixBarComponent,
+    AccordionComponent,
   ],
 })
 export class BrandingModule {}
