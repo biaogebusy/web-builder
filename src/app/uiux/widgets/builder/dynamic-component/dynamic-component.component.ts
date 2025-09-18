@@ -45,7 +45,6 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
   public compContent = signal<any>({});
   @HostBinding('class.active-toolbar') activeClass = false;
   @HostBinding('class.relative') relative = true;
-  // @HostBinding('class') containerClasses = '';
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -73,7 +72,6 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
       const content = this.inputs.type ? this.inputs : this.inputs.content;
       this.container.clear();
       this.compContent.set(content);
-      // this.containerClasses = content.containerClasses;
       if (content.containerClasses) {
         const classes = content.containerClasses.split(' ');
         this.ele.nativeElement.classList.add(...classes);
