@@ -20,7 +20,7 @@
   <!-- dynamic menu -->
   @if (content.dynamicMenu && content.uuid) {
     <div class="dynamic-menu">
-      <app-dynamic-component [inputs]="dynamicContent()" />
+      <app-dynamic-menu [uuid]="content.uuid" />
     </div>
   }
 </div>

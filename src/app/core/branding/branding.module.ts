@@ -18,6 +18,7 @@ import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-pop
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
 import { FormModule } from '@uiux/combs/form/form.module';
 import { AccordionComponent } from './accordion/accordion.component';
+import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AccordionComponent } from './accordion/accordion.component';
     FixBarPopupComponent,
     HoverMenuComponent,
     AccordionComponent,
+    DynamicMenuComponent,
   ],
   imports: [ShareModule, WidgetsModule, FormModule],
   exports: [

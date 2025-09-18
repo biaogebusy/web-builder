@@ -1,11 +1,4 @@
-import {
-  Component,
-  AfterContentInit,
-  inject,
-  DestroyRef,
-  AfterViewInit,
-  DOCUMENT,
-} from '@angular/core';
+import { Component, inject, DestroyRef, AfterViewInit, DOCUMENT } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
@@ -32,7 +25,7 @@ import { ScreenState } from '@core/state/screen/ScreenState';
   ],
   standalone: false,
 })
-export class PageComponent implements AfterContentInit, AfterViewInit {
+export class PageComponent implements AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
@@ -62,32 +55,30 @@ export class PageComponent implements AfterContentInit, AfterViewInit {
           this.screenService.scrollToAnchor(fragment);
         }
       });
-      this.screen.drawer$.subscribe(() => {
+      this.screen.drawer$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });
+
+      this.contentState.drawerOpened$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+        this.opened = state;
+      });
+
+      this.contentState.drawerLoading$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(loading => {
+          this.drawerLoading = loading;
+        });
+
+      this.contentState.drawerContent$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((content: IPage) => {
+          this.drawerContent = content;
+        });
     }
   }
 
   onBackdrop(): void {
     this.contentState.drawerOpened$.next(false);
-  }
-
-  ngAfterContentInit(): void {
-    this.contentState.drawerOpened$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
-      this.opened = state;
-    });
-
-    this.contentState.drawerLoading$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(loading => {
-        this.drawerLoading = loading;
-      });
-
-    this.contentState.drawerContent$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((content: IPage) => {
-        this.drawerContent = content;
-      });
   }
 
   onDrawer(): void {
