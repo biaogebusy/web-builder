@@ -9,6 +9,7 @@ import type { IImg } from '@core/interface/widgets/IImg';
 })
 export class ImgComponent implements OnInit {
   @Input() content: IImg | undefined;
+  @Input() isBg = false;
   @HostBinding('class') hostClasses: any;
 
   ngOnInit(): void {

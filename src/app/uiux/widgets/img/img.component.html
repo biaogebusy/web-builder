@@ -1,41 +1,49 @@
 @if (content) {
-  <div class="img-wrapper static">
-    @if (!content.href) {
-      <img
-        contentedit="src"
-        loading="lazy"
-        [ngStyle]="content.style"
-        [ngClass]="content.classes"
-        [ngSrc]="content.src || ''"
-        [alt]="content.alt || ''"
-        [width]="content.width || 400"
-        [height]="content.height || 300"
-      />
-    } @else {
-      <a href="{{ content.href }}" target="{{ content.target }}">
+  @if (isBg) {
+    <div
+      [ngClass]="content.classes"
+      class="absolute inset-0"
+      [style.background-image]="'url(' + content.src + ')'"
+    ></div>
+  } @else {
+    <div class="img-wrapper static">
+      @if (!content.href) {
         <img
           contentedit="src"
           loading="lazy"
+          [ngStyle]="content.style"
           [ngClass]="content.classes"
           [ngSrc]="content.src || ''"
-          [ngStyle]="content.style"
           [alt]="content.alt || ''"
           [width]="content.width || 400"
           [height]="content.height || 300"
         />
-      </a>
-    }
-    @if (content.actions) {
-      <div class="actions flex justify-center items-center gap-3">
-        @for (action of content.actions; track action) {
-          <app-dynamic-component
-            [inputs]="{
-              content: action,
-              disableToolbar: true,
-            }"
+      } @else {
+        <a href="{{ content.href }}" target="{{ content.target }}">
+          <img
+            contentedit="src"
+            loading="lazy"
+            [ngClass]="content.classes"
+            [ngSrc]="content.src || ''"
+            [ngStyle]="content.style"
+            [alt]="content.alt || ''"
+            [width]="content.width || 400"
+            [height]="content.height || 300"
           />
-        }
-      </div>
-    }
-  </div>
+        </a>
+      }
+      @if (content.actions) {
+        <div class="actions flex justify-center items-center gap-3">
+          @for (action of content.actions; track action) {
+            <app-dynamic-component
+              [inputs]="{
+                content: action,
+                disableToolbar: true,
+              }"
+            />
+          }
+        </div>
+      }
+    </div>
+  }
 }
