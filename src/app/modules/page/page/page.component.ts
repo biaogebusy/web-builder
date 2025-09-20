@@ -1,14 +1,7 @@
-import {
-  Component,
-  AfterContentInit,
-  inject,
-  DestroyRef,
-  AfterViewInit,
-  DOCUMENT,
-} from '@angular/core';
+import { Component, inject, DestroyRef, AfterViewInit, DOCUMENT } from '@angular/core';
 import { Observable } from 'rxjs';
-import type { IPage } from '@core/interface/IAppConfig';
-import { PAGE_CONTENT, USER } from '@core/token/token-providers';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 
@@ -17,11 +10,13 @@ import { ContentService } from '@core/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import AOS from 'aos';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { ScreenState } from '@core/state/screen/ScreenState';
 
 @Component({
-  selector: 'app-block',
-  templateUrl: './block.component.html',
-  styleUrls: ['./block.component.scss'],
+  selector: 'app-page',
+  templateUrl: './page.component.html',
+  styleUrls: ['./page.component.scss'],
   providers: [
     {
       provide: PAGE_CONTENT,
@@ -30,10 +25,11 @@ import { ScreenService } from '@core/service/screen.service';
   ],
   standalone: false,
 })
-export class BlockComponent implements AfterContentInit, AfterViewInit {
+export class PageComponent implements AfterViewInit {
   private doc = inject<Document>(DOCUMENT);
+  public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
-
+  public mobileMenuOpened: boolean;
   public drawerLoading: boolean;
   public drawerContent: IPage;
   public opened: boolean;
@@ -44,42 +40,45 @@ export class BlockComponent implements AfterContentInit, AfterViewInit {
   private screenService = inject(ScreenService);
   private router = inject(Router);
   private activateRouter = inject(ActivatedRoute);
+  private util = inject(UtilitiesService);
+  private screen = inject(ScreenState);
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.componentCount$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.util.animateElement$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         setTimeout(() => {
           AOS.init();
-        }, 200);
+        }, 500);
       });
       this.activateRouter.fragment.subscribe(fragment => {
         if (fragment) {
           this.screenService.scrollToAnchor(fragment);
         }
       });
+      this.screen.drawer$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+        this.mobileMenuOpened = !this.mobileMenuOpened;
+      });
+
+      this.contentState.drawerOpened$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
+        this.opened = state;
+      });
+
+      this.contentState.drawerLoading$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(loading => {
+          this.drawerLoading = loading;
+        });
+
+      this.contentState.drawerContent$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((content: IPage) => {
+          this.drawerContent = content;
+        });
     }
   }
 
   onBackdrop(): void {
     this.contentState.drawerOpened$.next(false);
-  }
-
-  ngAfterContentInit(): void {
-    this.contentState.drawerOpened$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
-      this.opened = state;
-    });
-
-    this.contentState.drawerLoading$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(loading => {
-        this.drawerLoading = loading;
-      });
-
-    this.contentState.drawerContent$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((content: IPage) => {
-        this.drawerContent = content;
-      });
   }
 
   onDrawer(): void {

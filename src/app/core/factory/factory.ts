@@ -88,26 +88,6 @@ export function builderCurrentPageFactory(): Observable<IPage | object | boolean
   return currentPage$;
 }
 
-export function isBuilderModeFactory(): Observable<boolean> {
-  const router = inject(Router);
-  const isBuilderMode$ = new BehaviorSubject<boolean>(false);
-  if (router.url.includes(BUILDERPATH)) {
-    isBuilderMode$.next(true);
-  } else {
-    isBuilderMode$.next(false);
-  }
-  router.events.subscribe(event => {
-    if (event instanceof NavigationEnd) {
-      if (router.url.includes(BUILDERPATH)) {
-        isBuilderMode$.next(true);
-      } else {
-        isBuilderMode$.next(false);
-      }
-    }
-  });
-  return isBuilderMode$;
-}
-
 export function debugAnimateFactory(): Observable<boolean> {
   const builder = inject(BuilderState);
   const storage = inject(LocalStorageService);

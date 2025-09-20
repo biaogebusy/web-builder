@@ -1,5 +1,10 @@
-import { Title, provideClientHydration, withIncrementalHydration } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserModule,
+  Title,
+  provideClientHydration,
+  withIncrementalHydration,
+} from '@angular/platform-browser';
+
 import {
   NgModule,
   Inject,
@@ -9,11 +14,10 @@ import {
 } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
-import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
 import {
@@ -23,21 +27,13 @@ import {
   API_URL,
   BRANDING,
   CORE_CONFIG,
-  DEBUG_ANIMATE,
   NOTIFY_CONTENT,
-  IS_BUILDER_MODE,
-  BUILDER_FULL_SCREEN,
 } from '@core/token/token-providers';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { LoadingBarModule } from '@ngx-loading-bar/core';
-import { RenderModule } from '@modules/render/render.module';
+import { PageModule } from '@modules/page/page.module';
 import {
   apiUrlFactory,
   brandingFactory,
-  builderFullScreenFactory,
   initApp,
-  debugAnimateFactory,
-  isBuilderModeFactory,
   langFactory,
   notifyFactory,
   themeFactory,
@@ -49,16 +45,7 @@ import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    MatSidenavModule,
-    RenderModule,
-    BrandingModule,
-    LoadingBarHttpClientModule,
-    LoadingBarModule,
-  ],
+  imports: [AppRoutingModule, BrowserModule, MatSidenavModule, PageModule],
   providers: [
     Title,
     httpInterceptorProviders,
@@ -104,18 +91,7 @@ import { CookieService } from 'ngx-cookie-service';
       useFactory: notifyFactory,
       deps: [[new Inject(CORE_CONFIG)]],
     },
-    {
-      provide: BUILDER_FULL_SCREEN,
-      useFactory: builderFullScreenFactory,
-    },
-    {
-      provide: DEBUG_ANIMATE,
-      useFactory: debugAnimateFactory,
-    },
-    {
-      provide: IS_BUILDER_MODE,
-      useFactory: isBuilderModeFactory,
-    },
+
     provideHttpClient(withInterceptorsFromDi()),
   ],
 })

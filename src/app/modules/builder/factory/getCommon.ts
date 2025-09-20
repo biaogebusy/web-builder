@@ -50,36 +50,12 @@ export const getBgClasses = [
     value: 'bg-purple',
   },
   {
-    label: '板岩灰',
-    value: 'bg-slate',
-  },
-  {
-    label: '锌灰',
-    value: 'bg-zinc',
-  },
-  {
-    label: '岩石灰',
-    value: 'bg-stone',
-  },
-  {
     label: '琥珀黄',
     value: 'bg-amber',
   },
   {
     label: '酸橙绿',
     value: 'bg-lime',
-  },
-  {
-    label: '翡翠绿',
-    value: 'bg-emerald',
-  },
-  {
-    label: '水鸭色',
-    value: 'bg-teal',
-  },
-  {
-    label: '青色',
-    value: 'bg-cyan',
   },
   {
     label: '天蓝色',
@@ -94,16 +70,8 @@ export const getBgClasses = [
     value: 'bg-violet',
   },
   {
-    label: '洋红色',
-    value: 'bg-fuchsia',
-  },
-  {
     label: '粉色',
     value: 'bg-pink',
-  },
-  {
-    label: '玫瑰粉',
-    value: 'bg-rose',
   },
 ];
 

@@ -192,19 +192,64 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     type: 'select',
                     defaultValue: content?.bg?.img?.classes ?? 'bg-cover',
                     props: {
-                      label: '背景填充方式',
+                      multiple: true,
+                      label: '背景设置',
                       options: [
                         {
-                          label: '按比例铺满 cover',
+                          label: 'Cover',
                           value: 'bg-cover',
                         },
                         {
-                          label: '按比例完整显示 contain',
+                          label: 'Contain',
                           value: 'bg-contain',
                         },
                         {
-                          label: '拉伸铺满 fill',
-                          value: 'bg-fill',
+                          label: 'Auto',
+                          value: 'bg-auto',
+                        },
+                        {
+                          label: 'No Repeat',
+                          value: 'bg-no-repeat',
+                        },
+                        {
+                          label: 'Center',
+                          value: 'bg-center',
+                        },
+                        {
+                          label: 'Bottom',
+                          value: 'bg-bottom',
+                        },
+                        {
+                          label: 'Left',
+                          value: 'bg-left',
+                        },
+                        {
+                          label: 'Left Bottom',
+                          value: 'bg-left-bottom',
+                        },
+                        {
+                          label: 'Left Top',
+                          value: 'bg-left-top',
+                        },
+                        {
+                          label: 'Right',
+                          value: 'bg-right',
+                        },
+                        {
+                          label: 'Right Bottom',
+                          value: 'bg-right-bottom',
+                        },
+                        {
+                          label: 'Right Top',
+                          value: 'bg-right-top',
+                        },
+                        {
+                          label: 'Top',
+                          value: 'bg-top',
+                        },
+                        {
+                          label: 'fixed',
+                          value: 'bg-fixed',
                         },
                       ],
                     },

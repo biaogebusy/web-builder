@@ -55,7 +55,6 @@ import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
 import { BaseModule } from '@uiux/base/base.module';
-import { AccordionComponent } from './accordion/accordion.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { Card1v5Component } from './card/card1v5/card1v5.component';
 import { Card1v6Component } from './card/card1v6/card1v6.component';
@@ -75,6 +74,8 @@ import { NgOptimizedImage } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
 import { LayoutToolbarComponent } from './builder/layout-builder/layout-toolbar/layout-toolbar.component';
 import { LayoutBuilderComponent } from './builder/layout-builder/layout-builder.component';
+import { UserMenuComponent } from './user-menu/user-menu.component';
+import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 
 const components = [
   BgComponent,
@@ -122,7 +123,6 @@ const components = [
   MediaObjectGroupComponent,
   ContentTextCenterComponent,
   BtnVideoComponent,
-  AccordionComponent,
   DropdownMenuComponent,
   NotifyComponent,
   DynamicComponentComponent,
@@ -133,6 +133,8 @@ const components = [
   GithubStarComponent,
   DividerComponent,
   LoadingComponent,
+  UserMenuComponent,
+  LangSwitchComponent,
 ];
 
 @NgModule({

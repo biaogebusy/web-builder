@@ -2,12 +2,15 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IBuilderComponentElement, IBuilderShowcase } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
+import { IUser } from '@core/interface/IUser';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { USER } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-builder-showcase',
@@ -22,6 +25,7 @@ export class BuilderShowcaseComponent implements OnInit {
   private dialog = inject(MatDialog);
   private screenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
+  public user$ = inject<Observable<IUser>>(USER);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

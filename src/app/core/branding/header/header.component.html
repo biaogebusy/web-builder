@@ -1,27 +1,25 @@
-@if (!(isBuilderMode$ | async)) {
-  @if (branding$ | async; as branding) {
-    @let pageHeader = branding.header;
-    @let params = pageHeader?.params;
-    @let banner = pageHeader?.banner;
-    @let top = pageHeader?.top;
-    @let headerMode = (contentState.pageConfig$ | async)?.headerMode;
-    <header
-      #header
-      [class.transparent-mode]="headerMode?.transparent"
-      [class.header-inverse]="params?.inverse"
-    >
-      <div class="static" [class.header-inverse]="params?.inverse">
-        @if (showBanner()) {
-          <app-header-banner [content]="banner" />
-        }
-        @if (top) {
-          <app-header-top [content]="top" />
-        }
-        @if (branding?.header) {
-          <app-menu #menu />
-        }
-      </div>
-      <app-menu class="sticky" [class.sticking]="sticky()" />
-    </header>
-  }
+@if (branding$ | async; as branding) {
+  @let pageHeader = branding.header;
+  @let params = pageHeader?.params;
+  @let banner = pageHeader?.banner;
+  @let top = pageHeader?.top;
+  @let headerMode = (contentState.pageConfig$ | async)?.headerMode;
+  <header
+    #header
+    [class.transparent-mode]="headerMode?.transparent"
+    [class.header-inverse]="params?.inverse"
+  >
+    <div class="static" [class.header-inverse]="params?.inverse">
+      @if (showBanner()) {
+        <app-header-banner [content]="banner" />
+      }
+      @if (top) {
+        <app-header-top [content]="top" />
+      }
+      @if (branding?.header) {
+        <app-menu #menu />
+      }
+    </div>
+    <app-menu class="sticky" [class.sticking]="sticky()" />
+  </header>
 }

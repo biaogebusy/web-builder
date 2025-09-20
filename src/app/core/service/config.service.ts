@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { ClarityService } from './clarity.service';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { UtilitiesService } from './utilities.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,6 +20,7 @@ export class ConfigService {
   private analyticsService = inject(AnalyticsService);
   private dialogService = inject(DialogService);
   private clarityService = inject(ClarityService);
+  private util = inject(UtilitiesService);
 
   init(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -32,6 +34,9 @@ export class ConfigService {
         }
         if (this.coreConfig?.clarity?.id) {
           this.clarityService.init(this.coreConfig.clarity.id);
+        }
+        if (this.coreConfig?.animate) {
+          this.util.loadStyle('/assets/injects/aos/dist/aos.css');
         }
         window.gsap = gsap;
         window.gsap.registerPlugin(ScrollTrigger);

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { PreviewComponent } from '@modules/builder/preview/preview.component';
-import { BlockComponent } from '@modules/render/block/block.component';
+import { PageComponent } from '@modules/page/page/page.component';
 
 const routes: Routes = [
   {
@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: BlockComponent,
+    component: PageComponent,
     canActivate: [AuthGuard],
   },
 ];
