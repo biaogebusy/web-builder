@@ -1,7 +1,7 @@
 @if (content) {
   <app-bg [content]="content">
     @if (content.img && content.img.src) {
-      <app-img [attr.data-path]="'img'" [content]="img()" />
+      <app-img [attr.data-path]="'img'" [content]="img()" [isBg]="true" />
     }
   </app-bg>
 }

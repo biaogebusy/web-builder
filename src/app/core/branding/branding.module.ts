@@ -3,7 +3,6 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShareModule } from '@share/share.module';
 import { MenuComponent } from './header/menu/menu.component';
-import { UserMenuComponent } from './header/menu/user-menu/user-menu.component';
 import { ItemMenuComponent } from './header/menu/item-menu/item-menu.component';
 import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.component';
 import { HeaderTopComponent } from './header/header-top/header-top.component';
@@ -17,15 +16,15 @@ import { MegaMenuComponent } from './header/menu/item-menu/mega-menu/mega-menu.c
 import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
-import { LangSwitchComponent } from './header/lang-switch/lang-switch.component';
 import { FormModule } from '@uiux/combs/form/form.module';
+import { AccordionComponent } from './accordion/accordion.component';
+import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     MenuComponent,
-    UserMenuComponent,
     ItemMenuComponent,
     SubMenuComponent,
     MenuItemComponent,
@@ -38,20 +37,20 @@ import { FormModule } from '@uiux/combs/form/form.module';
     FixBarComponent,
     FixBarPopupComponent,
     HoverMenuComponent,
-    LangSwitchComponent,
+    AccordionComponent,
+    DynamicMenuComponent,
   ],
   imports: [ShareModule, WidgetsModule, FormModule],
   exports: [
     HeaderComponent,
     FooterComponent,
     MenuComponent,
-    UserMenuComponent,
     HeaderBannerComponent,
     HeaderTopComponent,
     LightComponent,
     InverseComponent,
     FixBarComponent,
-    LangSwitchComponent,
+    AccordionComponent,
   ],
 })
 export class BrandingModule {}

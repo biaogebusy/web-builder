@@ -5,9 +5,10 @@ import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ContentState } from '@core/state/ContentState';
-import { isNil, omitBy } from 'lodash-es';
+import { debounce, isNil, omitBy } from 'lodash-es';
 import { Subject } from 'rxjs';
+import AOS from 'aos';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,8 +18,15 @@ export class UtilitiesService {
   private screenService = inject(ScreenService);
   private document = inject(DOCUMENT);
   private coreConfig = inject(CORE_CONFIG);
-  private contentState = inject(ContentState);
   public animateElement$ = new Subject<Element>();
+  private observer: MutationObserver;
+  private debouncedRefresh: () => void;
+
+  constructor() {
+    this.debouncedRefresh = debounce(() => {
+      AOS.refresh();
+    }, 600);
+  }
 
   getIndexTitle(title: string): string {
     return title.substring(0, 1);
@@ -193,22 +201,30 @@ export class UtilitiesService {
       if (animate?.aos) {
         const { enable, animation, behaviour } = animate.aos;
         if (enable) {
-          await this.loadStyle('/assets/injects/aos/dist/aos.css');
           animateEle.classList.add('aos-item');
           animateEle.setAttribute('data-aos', animation);
           Object.keys(behaviour).forEach(key => {
             animateEle.setAttribute(`data-aos-${key}`, behaviour[key]);
           });
           this.animateElement$.next(animateEle);
+          this.refresh(animateEle);
         } else {
           animateEle.classList.remove('aos-item');
           animateEle.removeAttribute('data-aos');
         }
-        if (index !== undefined) {
-          this.contentState.componentCount$.next(index);
-        }
       }
     }
+  }
+
+  refresh(animateEle: Element): void {
+    this.observer = new MutationObserver((mutations: MutationRecord[]) => {
+      this.debouncedRefresh();
+    });
+    this.observer.observe(animateEle, {
+      childList: true, // 监视子节点的添加或删除
+      subtree: true, // 监视所有后代节点
+      attributes: true, // 监视属性变化 (比如 style.height)
+    });
   }
 
   getScroller(): HTMLElement | Window {

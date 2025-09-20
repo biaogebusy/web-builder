@@ -43,7 +43,6 @@ export class ComponentService {
         'card-1v4',
         'card-1v5',
         'card-1v6',
-        'accordion',
         'user-card',
         'btn-video',
         'view-list',

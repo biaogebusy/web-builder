@@ -1,0 +1,35 @@
+@use 'variable/breakpoint' as *;
+
+.drawer-right.mat-drawer-opened {
+  position: absolute;
+  bottom: 0;
+  max-width: 85vw;
+  min-width: 800px;
+  height: 100vh;
+  top: 0;
+}
+
+.drawer-loading {
+  height: 50vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page {
+  position: relative;
+  min-height: calc(100vh - 110px);
+}
+
+.mobile-menu {
+  @media #{$xs} {
+    position: fixed !important;
+    width: 85vw;
+    ::ng-deep {
+      .mat-accordion .mat-expansion-panel-header-title {
+        font-size: 16px;
+      }
+    }
+  }
+}

@@ -127,6 +127,8 @@ export interface IMainMenu extends ILink {
   expanded?: boolean;
   icon?: IIcon;
   child?: IMainMenu[];
+  dynamicMenu?: boolean;
+  uuid?: string;
 }
 
 interface QueryParams {

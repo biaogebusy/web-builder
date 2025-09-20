@@ -2,7 +2,7 @@
   <mat-accordion multi>
     @for (item of content; track item) {
       <ng-container *reqRolesIf="item">
-        @if (!item.child) {
+        @if (!item.child && !item.dynamicMenu) {
           <mat-list class="no-child" checkChildMenuActive>
             <mat-list-item>
               @if (item.icon) {
@@ -36,6 +36,33 @@
               }
             </mat-expansion-panel-header>
             <app-accordion [content]="item.child" />
+          </mat-expansion-panel>
+        }
+
+        @if (item.dynamicMenu && item.uuid) {
+          <mat-expansion-panel
+            checkChildMenuActive
+            [expanded]="item.expanded"
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              @if (!item.href) {
+                <mat-panel-title [ngClass]="item.classes || ''">
+                  @if (item.icon) {
+                    <app-icon class="!mr-3" [content]="item.icon" />
+                  }
+                  {{ item.label }}
+                </mat-panel-title>
+              }
+              @if (item.href) {
+                @if (item.icon) {
+                  <app-icon class="!mr-3" [content]="item.icon" />
+                }
+                <app-link [ngClass]="item.classes || ''" [content]="item" />
+              }
+            </mat-expansion-panel-header>
+            <app-dynamic-menu [uuid]="item.uuid" />
           </mat-expansion-panel>
         }
       </ng-container>
