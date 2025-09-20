@@ -71,16 +71,15 @@ module.exports = {
     },
     {
       pattern: /^(italic|uppercase|lowercase|capitalize|normal-case)$/,
-      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern:
         /^bg-(gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900)(?:\/(?:100|0|5|[1-9][05]))?$/,
-      variants: ['sm', 'md', 'lg'],
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern: /^bg-opacity-(0|5|10|20|25|30|40|50|60|70|75|80|90|95|100)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^bg-clip-(border|padding|content|text)$/,
@@ -93,25 +92,21 @@ module.exports = {
     {
       pattern:
         /^text-(gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900|950)$/,
-      variants: ['sm', 'md', 'lg'],
+      variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern:
         /^border-(gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900|950)$/,
-      variants: ['sm', 'md', 'lg'],
     },
     { pattern: /^border(?:-(?:t|b|r|l|x|y))?(?:-(?:0|2|4|8))?$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern: /^border-(solid|dashed|dotted|double|none)$/,
-      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^divide-(solid|dashed|dotted|double|none)$/,
-      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^outline-(solid|dashed|dotted|double|none)$/,
-      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern: /^rounded(-[tlbr]{1,2})?(-(none|sm|md|lg|xl|2xl|3xl|full))?$/,
@@ -119,11 +114,10 @@ module.exports = {
     },
     {
       pattern: /^opacity-(0|5|10|20|30|40|50|60|70|75|80|90|95|100)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['hover'],
     },
     {
       pattern: /^transition-(none|all|colors|opacity|shadow|transform)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
     },
     { pattern: /^duration-(75|100|150|200|300|500|700|1000)$/ },
     { pattern: /^ease-(linear|in|out|in-out)$/ },
@@ -138,7 +132,7 @@ module.exports = {
     },
     {
       pattern:
-        /^space-(x|y)-(reverse|(0|(0\.5|([1-9]|1[0-2])\.5)|([1-9]|1[0-2]|14|16|20|24|28|32|36|40|44|48|52|56|60|64|72|80|96)))$/,
+        /^space-(x|y)-(reverse|(0|(0\.5|([1-9]|1[0-2])\.5)|([1-9]|1[0-2]|16|20|24|28|32|36|40|44|48|52|56|60|64|72|80|96)))$/,
       variants: ['sm', 'md', 'lg'],
     },
     { pattern: /^grid-cols-([1-9]|10|11|12|none)$/, variants: ['sm', 'md', 'lg'] },
@@ -253,9 +247,7 @@ module.exports = {
       '1': '1 1 0%',
       'auto': '1 1 auto',
       'initial': '0 1 auto',
-      'inherit': 'inherit',
       'none': 'none',
-      '2': '2 2 0%',
     },
   },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
