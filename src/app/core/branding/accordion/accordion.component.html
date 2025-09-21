@@ -12,7 +12,7 @@
             </mat-list-item>
           </mat-list>
         }
-        @if (item.child) {
+        @if (item.child && !item.dynamicMenu) {
           <mat-expansion-panel
             checkChildMenuActive
             [expanded]="item.expanded"
