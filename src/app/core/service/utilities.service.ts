@@ -73,7 +73,7 @@ export class UtilitiesService {
           style: '/assets/injects/swiper/swiper-bundle.min.css',
         },
         cdn: {
-          style: 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js',
+          style: 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css',
         },
       },
       highlight: {

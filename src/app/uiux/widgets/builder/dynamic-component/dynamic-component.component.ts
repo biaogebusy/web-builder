@@ -45,6 +45,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
   public compContent = signal<any>({});
   @HostBinding('class.active-toolbar') activeClass = false;
   @HostBinding('class.relative') relative = true;
+  @HostBinding('class.block') block = true;
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -102,7 +103,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
       if (this.screenService.isPlatformBrowser()) {
         this.util.initAnimate(
           this.inputs,
-          this.ele.nativeElement.lastElementChild,
+          this.ele.nativeElement,
           this.ele.nativeElement,
           this.index
         );
