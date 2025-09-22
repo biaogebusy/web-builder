@@ -28,6 +28,81 @@ export class UtilitiesService {
     }, 600);
   }
 
+  getLibraries(library: string, from: string, type: string): any {
+    const libraries: any = {
+      video: {
+        local: {
+          style: '/assets/injects/video-js/video-js.min.css',
+        },
+        cdn: {
+          style: 'https://cdnjs.cloudflare.com/ajax/libs/video.js/8.16.1/video-js.min.css',
+        },
+      },
+      lightgallery: {
+        local: {
+          style: '/assets/injects/lightgallery/css/lightgallery-bundle.min.css',
+        },
+        cdn: {
+          style:
+            'https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/css/lightgallery-bundle.min.css',
+        },
+      },
+      jsoneditor: {
+        local: {
+          style: '/assets/injects/jsoneditor/jsoneditor.min.css',
+          script: '/assets/injects/jsoneditor/jsoneditor.min.js',
+        },
+        cdn: {
+          style: 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.3/jsoneditor.min.css',
+          script: 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.3/jsoneditor.min.js',
+        },
+      },
+      quill: {
+        local: {
+          style: ['/assets/injects/quill/quill.core.css', '/assets/injects/quill/quill.snow.css'],
+        },
+        cdn: {
+          style: [
+            'https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.core.css',
+            'https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.min.css',
+          ],
+        },
+      },
+      swiper: {
+        local: {
+          style: '/assets/injects/swiper/swiper-bundle.min.css',
+        },
+        cdn: {
+          style: 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js',
+        },
+      },
+      highlight: {
+        local: {
+          style: '/assets/injects/highlight.js/styles/atom-one-dark.css',
+        },
+        cdn: {
+          style:
+            'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-dark.min.css',
+        },
+      },
+      aos: {
+        local: {
+          style: '/assets/injects/aos/dist/aos.css',
+        },
+        cdn: {
+          style: 'https://cdnjs.cloudflare.com/ajax/libs/aos/3.0.0-beta.6/aos.css',
+        },
+      },
+      fontAwesome: {
+        cdn: {
+          style: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+        },
+      },
+    };
+
+    return libraries[library][from][type];
+  }
+
   getIndexTitle(title: string): string {
     return title.substring(0, 1);
   }
