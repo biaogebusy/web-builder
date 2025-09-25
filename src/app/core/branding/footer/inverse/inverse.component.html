@@ -13,8 +13,8 @@
   >
     <div class="container">
       <div class="py-10">
-        @if (content?.footerBrand) {
-          <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col md:flex-row">
+          @if (content?.footerBrand) {
             <div class="brand flex-col flex-12/12 md:flex-3/12">
               @if (content.footerBrand.logo) {
                 <app-img [content]="content.footerBrand.logo.img" />
@@ -37,45 +37,52 @@
                 </div>
               }
             </div>
-            @if (content.mainMenu) {
-              <div class="flex-12/12 md:flex-auto whitespace-nowrap">
-                <app-menu-item [content]="content?.mainMenu" [mobileMenu]="content.mobileMenu" />
-              </div>
-            }
-            @if (content.footerNewsletter) {
-              <div class="flex-12/12 md:flex-3/12">
-                <form class="flex flex-col" (ngSubmit)="onSubmit()" [formGroup]="form">
-                  <div class="item-header text-white">
-                    {{ content.footerNewsletter.label }}
-                  </div>
-                  <p class="m-y-xs" [innerHTML]="content.footerNewsletter.summary | safeHtml"></p>
-                  <app-formly [form]="form" [fields]="content.footerNewsletter.form" />
-                  <div class="w-full md:w-2/4 flex flex-col">
-                    @if (content.footerNewsletter.action) {
-                      <button type="submit" mat-raised-button color="primary">
-                        <div class="flex justify-center items-center">
-                          <div class="p-x-xs">
-                            {{ content.footerNewsletter.action.label }}
-                          </div>
+          }
+
+          @if (content.mainMenu) {
+            <div class="flex-12/12 md:flex-auto whitespace-nowrap">
+              <app-menu-item [content]="content?.mainMenu" [mobileMenu]="content.mobileMenu" />
+            </div>
+          }
+          @if (content.footerNewsletter) {
+            <div class="flex-12/12 md:flex-3/12">
+              <form class="flex flex-col" (ngSubmit)="onSubmit()" [formGroup]="form">
+                <div class="item-header text-white">
+                  {{ content.footerNewsletter.label }}
+                </div>
+                <p class="m-y-xs" [innerHTML]="content.footerNewsletter.summary | safeHtml"></p>
+                <app-formly [form]="form" [fields]="content.footerNewsletter.form" />
+                <div class="w-full md:w-2/4 flex flex-col">
+                  @if (content.footerNewsletter.action) {
+                    <button type="submit" mat-raised-button color="primary">
+                      <div class="flex justify-center items-center">
+                        <div class="p-x-xs">
+                          {{ content.footerNewsletter.action.label }}
                         </div>
-                      </button>
+                      </div>
+                    </button>
+                  }
+                  <div class="flex justify-center items-center">
+                    @if (submited) {
+                      <app-spinner
+                        [content]="{
+                          color: 'primary',
+                          size: 36,
+                        }"
+                      />
                     }
-                    <div class="flex justify-center items-center">
-                      @if (submited) {
-                        <app-spinner
-                          [content]="{
-                            color: 'primary',
-                            size: 36,
-                          }"
-                        />
-                      }
-                    </div>
                   </div>
-                </form>
-              </div>
-            }
-          </div>
-        }
+                </div>
+              </form>
+            </div>
+          }
+
+          @if (content.dynamic) {
+            <div [class]="content.dynamic.classes">
+              <app-dynamic-component [inputs]="content.dynamic.content" />
+            </div>
+          }
+        </div>
       </div>
     </div>
     <div class="footer-bottom py-5">
