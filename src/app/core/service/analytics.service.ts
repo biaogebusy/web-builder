@@ -13,7 +13,9 @@ export class AnalyticsService {
   private router = inject(Router);
 
   async initialize(id: string): Promise<void> {
-    if (this.isInitialized || !id) return;
+    if (this.isInitialized || !id) {
+      return;
+    }
     this.id = id;
     await this.loadGtagScript();
     this.initializeGtag();

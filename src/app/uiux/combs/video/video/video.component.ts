@@ -13,8 +13,7 @@ import type { IVideo } from '@core/interface/widgets/IVideo';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import videojs from 'video.js';
-
+declare let window: any;
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
@@ -38,11 +37,14 @@ export class VideoComponent implements OnInit, OnDestroy {
     if (this.screenSerivce.isPlatformBrowser()) {
       if (this.coreConfig.librariesUseLocal) {
         await this.util.loadStyle('/assets/injects/video-js/video-js.min.css');
+        await this.util.loadScript('/assets/injects/video-js/video-js.min.js');
       } else {
         const videoStyle = this.util.getLibraries('video', 'cdn', 'style');
+        const videoScript = this.util.getLibraries('video', 'cdn', 'script');
         await this.util.loadStyle(videoStyle);
+        await this.util.loadScript(videoScript);
       }
-      this.player = videojs(this.target.nativeElement, this.content.options);
+      this.player = window.videojs(this.target.nativeElement, this.content.options);
     }
   }
 

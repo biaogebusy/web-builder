@@ -33,9 +33,11 @@ export class UtilitiesService {
       video: {
         local: {
           style: '/assets/injects/video-js/video-js.min.css',
+          script: '/assets/injects/video-js/video.min.js',
         },
         cdn: {
           style: 'https://cdnjs.cloudflare.com/ajax/libs/video.js/8.16.1/video-js.min.css',
+          script: 'https://cdnjs.cloudflare.com/ajax/libs/video.js/8.16.1/video.min.js',
         },
       },
       lightgallery: {
