@@ -5,28 +5,18 @@ import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { debounce, isNil, omitBy } from 'lodash-es';
-import { Subject } from 'rxjs';
-import AOS from 'aos';
+import { isNil, omitBy } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilitiesService {
+  private doc = inject(DOCUMENT);
   private clipboard = inject(Clipboard);
   private snackbar = inject(MatSnackBar);
   private screenService = inject(ScreenService);
   private document = inject(DOCUMENT);
   private coreConfig = inject(CORE_CONFIG);
-  public animateElement$ = new Subject<Element>();
-  private observer: MutationObserver;
-  private debouncedRefresh: () => void;
-
-  constructor() {
-    this.debouncedRefresh = debounce(() => {
-      AOS.refresh();
-    }, 600);
-  }
 
   getLibraries(library: string, from: string, type: string): any {
     const libraries: any = {
@@ -132,8 +122,12 @@ export class UtilitiesService {
       script.src = src;
       script.async = true;
 
-      if (defer) script.defer = true;
-      if (id) script.id = id;
+      if (defer) {
+        script.defer = true;
+      }
+      if (id) {
+        script.id = id;
+      }
 
       // 设置加载完成回调
       script.onload = () => {
@@ -270,7 +264,6 @@ export class UtilitiesService {
                 ...vars,
               });
             }
-            this.animateElement$.next(animateEle);
           }, 600);
         }
       }
@@ -283,25 +276,12 @@ export class UtilitiesService {
           Object.keys(behaviour).forEach(key => {
             animateEle.setAttribute(`data-aos-${key}`, behaviour[key]);
           });
-          this.animateElement$.next(animateEle);
-          this.refresh(animateEle);
         } else {
           animateEle.classList.remove('aos-item');
           animateEle.removeAttribute('data-aos');
         }
       }
     }
-  }
-
-  refresh(animateEle: Element): void {
-    this.observer = new MutationObserver((mutations: MutationRecord[]) => {
-      this.debouncedRefresh();
-    });
-    this.observer.observe(animateEle, {
-      childList: true, // 监视子节点的添加或删除
-      subtree: true, // 监视所有后代节点
-      attributes: true, // 监视属性变化 (比如 style.height)
-    });
   }
 
   getScroller(): HTMLElement | Window {
@@ -403,5 +383,34 @@ export class UtilitiesService {
 
       chunkIndex++;
     }, 100); // 每 100ms 加载一块内容
+  }
+
+  intersectionObserver(selecter: string, root: Element | Document): void {
+    const animateElement = this.doc.querySelectorAll(selecter);
+    if (animateElement.length === 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach((entry: any) => {
+          if (entry.isIntersecting) {
+            // 元素进入视口
+            entry.target.classList.add('aos-animate');
+          } else {
+            // 元素离开视口
+            entry.target.classList.remove('aos-animate');
+          }
+        });
+      },
+      {
+        root,
+        threshold: 0.1,
+        // 添加rootMargin来控制触发边界
+        rootMargin: '0px 0px -150px 0px', // 底部150px范围内不触发
+      }
+    );
+
+    animateElement.forEach((el: any) => observer.observe(el));
   }
 }
