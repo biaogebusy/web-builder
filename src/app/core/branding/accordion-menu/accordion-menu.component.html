@@ -12,7 +12,7 @@
             </mat-list-item>
           </mat-list>
         }
-        @if (item.child) {
+        @if (item.child && !item.dynamicMenu) {
           <mat-expansion-panel
             checkChildMenuActive
             [expanded]="item.expanded"
@@ -35,7 +35,7 @@
                 <app-link [ngClass]="item.classes || ''" [content]="item" />
               }
             </mat-expansion-panel-header>
-            <app-accordion [content]="item.child" />
+            <app-accordion-menu [content]="item.child" />
           </mat-expansion-panel>
         }
 
@@ -62,7 +62,7 @@
                 <app-link [ngClass]="item.classes || ''" [content]="item" />
               }
             </mat-expansion-panel-header>
-            <app-dynamic-menu [uuid]="item.uuid" />
+            <app-dynamic-menu class="block my-5" [uuid]="item.uuid" />
           </mat-expansion-panel>
         }
       </ng-container>

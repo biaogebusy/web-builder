@@ -27,7 +27,7 @@
 
   @if (config) {
     @if (config.menu) {
-      <app-accordion
+      <app-accordion-menu
         class="accordion-menu"
         [ngClass]="sidebarDrawer.opened ? '' : '!hidden'"
         [hidden]="!sidebarDrawer.opened"

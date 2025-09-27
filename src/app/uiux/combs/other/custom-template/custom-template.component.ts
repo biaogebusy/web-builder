@@ -36,6 +36,8 @@ export class CustomTemplateComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.template = this.ele.nativeElement.querySelector('.template');
+    const fontawesome = this.util.getLibraries('fontAwesome', 'cdn', 'style');
+    this.util.loadStyle(fontawesome);
     this.render(this.content);
   }
 

@@ -17,7 +17,7 @@ import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
 import { FormModule } from '@uiux/combs/form/form.module';
-import { AccordionComponent } from './accordion/accordion.component';
+import { AccordionMenuComponent } from './accordion-menu/accordion-menu.component';
 import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
 
 @NgModule({
@@ -37,7 +37,7 @@ import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
     FixBarComponent,
     FixBarPopupComponent,
     HoverMenuComponent,
-    AccordionComponent,
+    AccordionMenuComponent,
     DynamicMenuComponent,
   ],
   imports: [ShareModule, WidgetsModule, FormModule],
@@ -50,7 +50,7 @@ import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
     LightComponent,
     InverseComponent,
     FixBarComponent,
-    AccordionComponent,
+    AccordionMenuComponent,
   ],
 })
 export class BrandingModule {}

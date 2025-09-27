@@ -52,16 +52,18 @@
 .main-menu {
   .item {
     ::ng-deep {
-      a {
-        color: var(--mat-sys-on-surface);
-        &:hover,
-        &:focus,
-        &.active {
-          color: var(--mat-sys-primary);
-        }
-        &.active {
-          &:after {
-            background-color: var(--mat-sys-primary);
+      app-link {
+        a {
+          color: var(--mat-sys-on-surface);
+          &:hover,
+          &:focus,
+          &.active {
+            color: var(--mat-sys-primary);
+          }
+          &.active {
+            &:after {
+              background-color: var(--mat-sys-primary);
+            }
           }
         }
       }

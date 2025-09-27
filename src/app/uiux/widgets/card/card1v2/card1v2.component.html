@@ -1,6 +1,8 @@
 @if (content) {
   <div class="card-1-v2 relative pb-5 px-5 md:pb-16 md:px-16">
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
+    @if (content.bg) {
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
+    }
     <div class="card-content relative z-10">
       @if (content.img) {
         <app-img

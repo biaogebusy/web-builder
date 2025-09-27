@@ -19,6 +19,8 @@ import { register } from 'swiper/element/bundle';
 import { Swiper } from 'swiper/types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { ICoreConfig } from '@core/interface/IAppConfig';
+import { CORE_CONFIG } from '@core/token/token-providers';
 register();
 @Component({
   selector: 'app-swiper',
@@ -36,6 +38,7 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
   private destroyRef = inject(DestroyRef);
   private screenService = inject(ScreenService);
   private util = inject(UtilitiesService);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   private defaultConfig = {
     slidesPerView: 'auto',
@@ -95,7 +98,12 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
   }
   async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
-      await this.util.loadStyle('/assets/injects/swiper/swiper-bundle.min.css');
+      if (this.coreConfig.librariesUseLocal) {
+        await this.util.loadStyle('/assets/injects/swiper/swiper-bundle.min.css');
+      } else {
+        const swiperStyle = this.util.getLibraries('swiper', 'cdn', 'style');
+        await this.util.loadStyle(swiperStyle);
+      }
     }
   }
 

@@ -1,17 +1,23 @@
-import { Component, inject, DestroyRef, AfterViewInit, DOCUMENT } from '@angular/core';
+import {
+  Component,
+  inject,
+  DestroyRef,
+  AfterViewInit,
+  DOCUMENT,
+  afterEveryRender,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
-
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContentService } from '@core/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import AOS from 'aos';
 import { ScreenService } from '@core/service/screen.service';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
+import { throttle } from 'lodash-es';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-page',
@@ -40,16 +46,19 @@ export class PageComponent implements AfterViewInit {
   private screenService = inject(ScreenService);
   private router = inject(Router);
   private activateRouter = inject(ActivatedRoute);
-  private util = inject(UtilitiesService);
   private screen = inject(ScreenState);
+  private util = inject(UtilitiesService);
+
+  constructor() {
+    afterEveryRender({
+      read: throttle(() => {
+        this.util.intersectionObserver('[data-aos]', this.doc);
+      }, 200),
+    });
+  }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.util.animateElement$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        setTimeout(() => {
-          AOS.init();
-        }, 500);
-      });
       this.activateRouter.fragment.subscribe(fragment => {
         if (fragment) {
           this.screenService.scrollToAnchor(fragment);
