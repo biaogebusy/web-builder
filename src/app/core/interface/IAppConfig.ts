@@ -16,6 +16,7 @@ export interface ICoreConfig {
   defaultThumb: string;
   cookieLifetime?: number;
   amap: IAmap;
+  librariesUseLocal?: boolean;
   apiUrl: IApiUrl;
   loading: boolean;
   loadingBar: boolean;

@@ -4,7 +4,9 @@
       <a class="anchor" [id]="content.id"></a>
     }
     <app-spacer [size]="content.spacer || 'md'" />
-    <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
+    @if (content?.bg) {
+      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
+    }
     <div class="container">
       @if (content?.params?.enableActions) {
         <div class="actions flex justify-end items-center my-3">

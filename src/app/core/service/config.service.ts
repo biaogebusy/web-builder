@@ -36,7 +36,12 @@ export class ConfigService {
           this.clarityService.init(this.coreConfig.clarity.id);
         }
         if (this.coreConfig?.animate) {
-          this.util.loadStyle('/assets/injects/aos/dist/aos.css');
+          if (this.coreConfig.librariesUseLocal) {
+            this.util.loadStyle('/assets/injects/aos/dist/aos.css');
+          } else {
+            const aosStyle = this.util.getLibraries('aos', 'cdn', 'style');
+            this.util.loadStyle(aosStyle);
+          }
         }
         window.gsap = gsap;
         window.gsap.registerPlugin(ScrollTrigger);

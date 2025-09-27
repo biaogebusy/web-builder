@@ -11,7 +11,7 @@ import {
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { IPage } from '@core/interface/IAppConfig';
+import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -24,6 +24,7 @@ import coreSchema from './schema/core.schema.json';
 import pageSchema from './schema/page.schema.json';
 import componentSchema from './schema/component.schema.json';
 import layoutBuilder from './schema/layoutBuilder.schema.json';
+import { CORE_CONFIG } from '@core/token/token-providers';
 declare let window: any;
 @Component({
   selector: 'app-jsoneditor',
@@ -44,13 +45,21 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
   private destroyRef = inject(DestroyRef);
   private util = inject(UtilitiesService);
   private builderService = inject(BuilderService);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private jsonEditor: any;
 
   constructor() {
     afterEveryRender(async () => {
       try {
-        this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
-        await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
+        if (this.coreConfig.librariesUseLocal) {
+          await this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
+          await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
+        } else {
+          const jsoneditorStyle = this.util.getLibraries('jsoneditor', 'cdn', 'style');
+          const jsoneditorJS = this.util.getLibraries('jsoneditor', 'cdn', 'script');
+          await this.util.loadStyle(jsoneditorStyle);
+          await this.util.loadScript(jsoneditorJS);
+        }
         const { schemaType = '', data } = this.content;
         this.data = data;
         let schema = {};

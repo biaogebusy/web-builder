@@ -1,5 +1,7 @@
 @if (currentPage$ | async; as page) {
+  <app-header />
   @for (item of page.body; track item; let i = $index) {
     <app-dynamic-component [inputs]="item" [index]="i" />
   }
+  <app-footer />
 }

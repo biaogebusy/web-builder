@@ -1,8 +1,9 @@
 import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import type { IPage } from '@core/interface/IAppConfig';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 
 import { UtilitiesService } from '@core/service/utilities.service';
+import { CORE_CONFIG } from '@core/token/token-providers';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,6 +12,7 @@ export class TagsService {
   private meta = inject(Meta);
   private document = inject(DOCUMENT);
   private util = inject(UtilitiesService);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   public setTitle(newTitle: string): void {
     this.titleService.setTitle(newTitle);
@@ -53,7 +55,11 @@ export class TagsService {
       const scss = await import('highlight.js/lib/languages/scss');
       const xml = await import('highlight.js/lib/languages/xml');
       const json = await import('highlight.js/lib/languages/json');
-      await this.util.loadStyle('/assets/injects/highlight.js/styles/atom-one-dark.css');
+      if (this.coreConfig.librariesUseLocal) {
+        await this.util.loadStyle('/assets/injects/highlight.js/styles/atom-one-dark.css');
+      } else {
+        const highlightStyle = this.util.getLibraries('highlight', 'cdn', 'style');
+      }
       registerLanguage('javascript', javascript.default);
       registerLanguage('php', php.default);
       registerLanguage('scss', scss.default);
