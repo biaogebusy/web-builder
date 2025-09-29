@@ -407,7 +407,7 @@ export class UtilitiesService {
         root,
         threshold: 0.1,
         // 添加rootMargin来控制触发边界
-        rootMargin: '0px 0px -150px 0px', // 底部150px范围内不触发
+        rootMargin: '70px 0px -100px 0px', // 底部100px范围内不触发
       }
     );
 
