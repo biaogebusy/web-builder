@@ -18,7 +18,7 @@ export class BgImgComponent implements OnInit {
     this.img.set(
       Object.assign(
         {
-          classes: 'object-fit',
+          classes: 'bg-cover',
         },
         this.content.img
       )
