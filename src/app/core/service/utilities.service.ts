@@ -213,8 +213,7 @@ export class UtilitiesService {
   async initAnimate(
     inputs: IDynamicInputs,
     animateEle: HTMLElement,
-    triggerEle: HTMLElement,
-    index?: number
+    triggerEle: HTMLElement
   ): Promise<void> {
     if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
       let content: any = {};
