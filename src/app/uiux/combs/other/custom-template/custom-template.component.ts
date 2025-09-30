@@ -65,7 +65,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     const { html, api } = this.content;
     if (api) {
       this.nodeService
-        .fetch(api, params)
+        .fetch(api.trim(), params)
         .pipe(
           takeUntilDestroyed(this.destroyRef),
           catchError(error => {
