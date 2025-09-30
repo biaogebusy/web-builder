@@ -30,17 +30,15 @@
   @media #{$lt-md} {
     height: 60vh;
     ::ng-deep {
-      .swiper-slide {
-        > * {
-          top: 50%;
-          position: absolute;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 100%;
-          height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+      .swiper-container {
+        .swiper-slide {
+          > app-dynamic-component {
+            top: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            @apply flex justify-center items-center w-full h-full;
+          }
         }
       }
     }
