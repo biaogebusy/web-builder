@@ -94,15 +94,14 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   }
 
   onCopy(): void {
-    const content = this.content.type ? this.content : this.content.content;
-    if (content) {
-      delete content.extra;
-      delete content.relationships;
-      this.util.copy(JSON.stringify(content));
-      this.util.openSnackbar(`已复制${content.type}JSON`, 'ok', {
+    if (this.component()) {
+      delete this.component().extra;
+      delete this.component().relationships;
+      this.util.copy(JSON.stringify(this.component()));
+      this.util.openSnackbar(`已复制${this.component().type}JSON`, 'ok', {
         verticalPosition: 'bottom',
       });
-      this.storage.store(this.builder.COPYCOMPONENTKEY, content);
+      this.storage.store(this.builder.COPYCOMPONENTKEY, this.component());
     }
   }
 
@@ -119,8 +118,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     this.builder.showComponentSetting(this.component(), fields, this.path());
   }
 
-  onDelete(event: any): void {
-    const path = this.util.generatePath(event.target);
+  onDelete(): void {
     const config: IDialog = {
       title: '删除组件',
       titleClasses: 'text-red-500',
@@ -142,7 +140,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.hiddenPicker();
-        this.builder.deleteComponent(path);
+        this.builder.deleteComponent(this.path());
       }
     });
   }
