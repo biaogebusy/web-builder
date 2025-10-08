@@ -47,7 +47,7 @@
         class="item"
         matTooltip="粘贴复制的组件到下面"
         matTooltipPosition="above"
-        (click)="onPaste($event, bcData())"
+        (click)="onPaste(bcData())"
       >
         <app-btn
           [content]="{
@@ -59,9 +59,26 @@
         />
       </div>
     }
+    @if (type() === 'custom-template') {
+      <div
+        class="item"
+        (click)="onEditorCode()"
+        [matTooltip]="'编辑自定义模板'"
+        matTooltipPosition="above"
+      >
+        <app-btn
+          [content]="{
+            label: '',
+            color: 'primary',
+            mode: 'icon',
+            icon: { svg: 'xml', inline: true },
+          }"
+        />
+      </div>
+    }
     <div
       class="item"
-      (click)="onSetting(content, $event)"
+      (click)="onSetting($event)"
       [matTooltip]="'编辑组件通用配置'"
       matTooltipPosition="above"
     >
@@ -74,6 +91,7 @@
         }"
       />
     </div>
+
     <app-divider [content]="{ vertical: true }" />
     <div class="item" (click)="onDelete($event)" [matTooltip]="'移除'" matTooltipPosition="above">
       <app-btn

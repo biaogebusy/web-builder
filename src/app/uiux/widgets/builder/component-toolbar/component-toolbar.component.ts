@@ -47,6 +47,9 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
   private dialog = inject(MatDialog);
   private currentPage: IPage;
+  public type = signal('');
+  private component = signal<any>(null);
+  private path = signal('');
 
   ngOnInit(): void {
     this.storage
@@ -58,6 +61,9 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.type.set(this.content.type || this.content.content?.type || '');
+    this.component.set(this.type() ? this.content : this.content.content);
+    this.path.set(this.util.generatePath(this.ele.nativeElement));
     this.currentPage$.pipe(delay(500), takeUntilDestroyed(this.destroyRef)).subscribe(page => {
       this.currentPage = page;
       this.getIndex();
@@ -65,14 +71,13 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   }
 
   getIndex(): void {
-    const path = this.util.generatePath(this.ele.nativeElement);
-    const index = this.builder.targetIndex(path);
+    const index = this.builder.targetIndex(this.path());
     this.index.set(index);
-    const lastDotIndex = path.lastIndexOf('.');
+    const lastDotIndex = this.path().lastIndexOf('.');
     const body = this.currentPage.body;
     if (lastDotIndex !== -1) {
       // child component
-      const before = path.slice(0, lastDotIndex);
+      const before = this.path().slice(0, lastDotIndex);
       const targetArray = get(body, before);
       if (Array.isArray(targetArray)) {
         this.length.set(targetArray.length);
@@ -83,13 +88,8 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  get type(): string {
-    return this.content.type || this.content.content?.type || '';
-  }
-
   onUpdown(direction: string, event: any): void {
-    const path = this.util.generatePath(event.target);
-    this.builder.upDownComponent(direction, path);
+    this.builder.upDownComponent(direction, this.path());
     this.hiddenPicker();
   }
 
@@ -106,21 +106,18 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onPaste(event: any, content: any): void {
-    const path = this.util.generatePath(event.target);
-    this.builder.updatePageContentByPath(path, content, 'add');
+  onPaste(content: any): void {
+    debugger;
+    this.builder.updatePageContentByPath(this.path(), content, 'add');
     this.hiddenPicker();
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
-  onSetting(content: any, event: any): void {
-    const { type } = content;
-    const path = this.util.generatePath(event.target);
-    const component = type ? content : content.content;
-    const fields: FormlyFieldConfig[] = getComponentSetting(component, path);
+  onSetting(event: any): void {
+    const fields: FormlyFieldConfig[] = getComponentSetting(this.component(), this.path());
     this.hiddenPicker();
     this.dialog.getDialogById('code-editor-dialog')?.close();
-    this.builder.showComponentSetting(component, fields, path);
+    this.builder.showComponentSetting(this.component(), fields, this.path());
   }
 
   onDelete(event: any): void {
@@ -153,5 +150,15 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
 
   hiddenPicker(): void {
     this.builder.widgetsPicker$.next(false);
+  }
+
+  onEditorCode(): void {
+    this.builder.editorCode({
+      path: this.path(),
+      content: {
+        type: this.type(),
+        content: this.component(),
+      },
+    });
   }
 }

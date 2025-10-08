@@ -118,47 +118,6 @@ export class LayoutSettingComponent {
   }
 
   editorCode(): void {
-    const { path } = this.content;
-    let dialogRef: any;
-    let builderList: any;
-    if (path && this.content.content.type === 'custom-template') {
-      const config: IDialog = {
-        disableActions: true,
-        inputData: {
-          content: {
-            type: 'code-editor',
-            path,
-            content: get(this.builder.currentPage.body, path),
-            fullWidth: true,
-          },
-        },
-      };
-
-      dialogRef = this.dialog.open(DialogComponent, {
-        width: '85vw',
-        hasBackdrop: false,
-        panelClass: ['close-outside', 'code-editor-dialog'],
-        position: {
-          bottom: '0px',
-        },
-        id: 'code-editor-dialog',
-        data: config,
-      });
-
-      dialogRef
-        .afterOpened()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          builderList = this.doc.querySelector('#builder-list');
-          builderList.style.paddingBottom = '500px';
-          this.builder.fullScreen$.next(true);
-          this.builder.closeRightDrawer$.next(true);
-        });
-
-      dialogRef.afterClosed().subscribe(() => {
-        builderList.style.paddingBottom = '150px';
-        this.builder.fullScreen$.next(false);
-      });
-    }
+    this.builder.editorCode(this.content);
   }
 }
