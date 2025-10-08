@@ -88,7 +88,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onUpdown(direction: string, event: any): void {
+  onUpdown(direction: string): void {
     this.builder.upDownComponent(direction, this.path());
     this.hiddenPicker();
   }
@@ -107,13 +107,12 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   }
 
   onPaste(content: any): void {
-    debugger;
     this.builder.updatePageContentByPath(this.path(), content, 'add');
     this.hiddenPicker();
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
 
-  onSetting(event: any): void {
+  onSetting(): void {
     const fields: FormlyFieldConfig[] = getComponentSetting(this.component(), this.path());
     this.hiddenPicker();
     this.dialog.getDialogById('code-editor-dialog')?.close();

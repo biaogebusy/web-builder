@@ -3,7 +3,7 @@
     <div
       class="item hidden"
       [class.!block]="index() > 0"
-      (click)="onUpdown('up', $event)"
+      (click)="onUpdown('up')"
       [matTooltip]="'上移'"
       matTooltipPosition="above"
     >
@@ -19,7 +19,7 @@
     <div
       class="item hidden"
       [class.!block]="index() < length() && index() !== length() - 1"
-      (click)="onUpdown('down', $event)"
+      (click)="onUpdown('down')"
       [matTooltip]="'下移'"
       matTooltipPosition="above"
     >
@@ -78,7 +78,7 @@
     }
     <div
       class="item"
-      (click)="onSetting($event)"
+      (click)="onSetting()"
       [matTooltip]="'编辑组件通用配置'"
       matTooltipPosition="above"
     >
