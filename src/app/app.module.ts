@@ -2,6 +2,7 @@ import {
   BrowserModule,
   Title,
   provideClientHydration,
+  withHttpTransferCacheOptions,
   withIncrementalHydration,
 } from '@angular/platform-browser';
 
@@ -16,10 +17,8 @@ import zhHans from '@angular/common/locales/zh-Hans';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { AppComponent } from './app.component';
-import { httpInterceptorProviders } from '@core/interceptors';
 import {
   USER,
   LANG,
@@ -45,13 +44,21 @@ import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  imports: [AppRoutingModule, BrowserModule, MatSidenavModule, PageModule],
+  imports: [AppRoutingModule, BrowserModule, PageModule],
   providers: [
     Title,
-    httpInterceptorProviders,
     CookieService,
+    provideClientHydration(
+      withIncrementalHydration(),
+      withHttpTransferCacheOptions({
+        includePostRequests: false,
+        filter: req => {
+          const { url, method } = req;
+          return method === 'GET' && !url.includes('nocache');
+        },
+      })
+    ),
     provideHttpClient(withFetch()),
-    provideClientHydration(withIncrementalHydration()),
     provideZonelessChangeDetection(),
     provideNgxWebstorage(
       withNgxWebstorageConfig({ separator: ':', caseSensitive: true }),
