@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, inject } from '@angular/core';
+import { Component, OnInit, Input, inject, ChangeDetectionStrategy, signal } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -10,12 +10,13 @@ import { Observable } from 'rxjs';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent implements OnInit {
   @Input() isDrawer: boolean;
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public branding$ = inject<Observable<IBranding>>(BRANDING);
-  public show = true;
+  public show = signal<boolean>(true);
   private screen = inject(ScreenState);
   private router = inject(Router);
   constructor() {
@@ -28,7 +29,15 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.screen.mqAlias$().subscribe((mq: string[]) => {
-      this.show = mq.includes('md') || mq.includes('lg') || mq.includes('xl');
+      switch (mq[0]) {
+        case 'xs':
+        case 'sm':
+          this.show.set(false);
+          break;
+        default:
+          this.show.set(true);
+          break;
+      }
     });
   }
 

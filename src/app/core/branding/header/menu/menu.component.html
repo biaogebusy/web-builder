@@ -1,7 +1,7 @@
 @if (branding$ | async; as branding) {
   @let header = branding.header;
-  @if (show) {
-    <header class="header">
+  @if (show()) {
+    <header class="header" [ngClass]="{ 'is-pc-header': show() }">
       <div class="container">
         <div
           class="header-container flex flex-row gap-5 {{
@@ -57,7 +57,7 @@
     </header>
   }
   <div class="drawer">
-    @if (!show) {
+    @if (!show()) {
       <mat-toolbar>
         @if (!isDrawer) {
           @if (header.logo) {
@@ -77,7 +77,7 @@
         </button>
       </mat-toolbar>
     }
-    <div [hidden]="!(!show && isDrawer)">
+    <div [hidden]="!(!show() && isDrawer)">
       @if (header.mainMenu) {
         <app-accordion-menu [content]="header.mainMenu" />
       }
