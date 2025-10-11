@@ -1,9 +1,8 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Injectable, inject, DOCUMENT } from '@angular/core';
+import { Injectable, inject, DOCUMENT, DestroyRef } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import {
   IBuilderComponent,
-  IBuilderComponentElement,
   IBuilderDynamicContent,
   IBuilderShowcase,
   ILayoutSetting,
@@ -21,6 +20,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IComponentToolbar } from '@core/interface/combs/IBuilder';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,7 @@ export class BuilderState {
   public updateSuccess$ = new Subject<boolean>();
   public COPYCOMPONENTKEY = 'cck';
   public COPYWIDGETKEY = 'cwk';
+  private destroyRef = inject(DestroyRef);
 
   private page: IPage = {
     title: '着陆页',
@@ -439,5 +441,50 @@ export class BuilderState {
     this.closeRightDrawer$.next(true);
     this.fixedShowcase = false;
     this.showcase$.next(false);
+  }
+
+  editorCode(component: IComponentToolbar): void {
+    const { path, content } = component;
+    let dialogRef: any;
+    let builderList: any;
+    if (path && content?.type === 'custom-template') {
+      const config: IDialog = {
+        disableActions: true,
+        inputData: {
+          content: {
+            type: 'code-editor',
+            path,
+            content: get(this.currentPage.body, path),
+            fullWidth: true,
+          },
+        },
+      };
+
+      dialogRef = this.dialog.open(DialogComponent, {
+        width: '85vw',
+        hasBackdrop: false,
+        panelClass: ['close-outside', 'code-editor-dialog'],
+        position: {
+          bottom: '0px',
+        },
+        id: 'code-editor-dialog',
+        data: config,
+      });
+
+      dialogRef
+        .afterOpened()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          builderList = this.doc.querySelector('#builder-list');
+          builderList.style.paddingBottom = '500px';
+          this.fullScreen$.next(true);
+          this.closeRightDrawer$.next(true);
+        });
+
+      dialogRef.afterClosed().subscribe(() => {
+        builderList.style.paddingBottom = '150px';
+        this.fullScreen$.next(false);
+      });
+    }
   }
 }

@@ -69,7 +69,7 @@ export class CodeEditorComponent implements OnInit {
     this.html.set(html);
     this.json.set(jsonValue);
     this.isAPI.set(isAPI);
-    this.api = api;
+    this.api = api.trim();
     if (this.isAPI() && this.api) {
       this.fields = [
         {

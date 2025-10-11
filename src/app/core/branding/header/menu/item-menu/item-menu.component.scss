@@ -1,4 +1,3 @@
-@use 'variable/breakpoint' as *;
 :host ::ng-deep .top {
   a {
     position: relative;
@@ -21,7 +20,7 @@
     }
   }
 }
-@media #{$gt-md} {
+:host-context(.is-pc-header) {
   .item-menu {
     &:hover {
       .dynamic-menu {

@@ -86,7 +86,7 @@
                   class="item relative box-border item-{{ item.type }} col-span-12"
                   [attr.data-path]="'elements.' + index"
                 >
-                  <app-dynamic-component class="component" [inputs]="item" [index]="index" />
+                  <app-dynamic-component class="component" [inputs]="item" />
                   @if (showToolbar()) {
                     <div class="block-toolbar" #action>
                       <button mat-stroked-button (click)="addBlock('widget', content, action)">
