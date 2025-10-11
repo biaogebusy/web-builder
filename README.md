@@ -31,6 +31,8 @@
 </p>
 
 <p align="center">
+  <img style="border-radius:10px" src="src/assets/images/builder/home-page.png" alt="logo" width="100%"/>
+  <br>
   <img style="border-radius:10px" src="src/assets/images/builder/builder-entry.png" alt="logo" width="100%"/>
   <br>
   <br>

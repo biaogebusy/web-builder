@@ -26,7 +26,7 @@
               [cdkDragData]="item"
             >
               @if (item) {
-                <app-dynamic-component [attr.data-path]="i" [inputs]="item" [index]="i" />
+                <app-dynamic-component [attr.data-path]="i" [inputs]="item" />
                 @if (builderConfig) {
                   <div
                     #actionBtn

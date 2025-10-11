@@ -53,7 +53,7 @@
         cursor: text;
         background-color: var(--mat-sys-secondary-fixed);
       }
-      .active-toolbar {
+      app-dynamic-component {
         position: relative;
         display: block;
         box-sizing: content-box;

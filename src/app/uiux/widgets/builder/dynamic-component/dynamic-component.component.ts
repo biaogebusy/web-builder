@@ -30,7 +30,6 @@ import type { IDynamicInputs } from '@core/interface/IAppConfig';
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() inputs: IDynamicInputs;
-  @Input() index: number; // just for animate count
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   private container: ViewContainerRef;
 
@@ -43,9 +42,9 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
   private readonly environmentInjector = inject(EnvironmentInjector);
   public componentRef: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   public compContent = signal<any>({});
-  @HostBinding('class.active-toolbar') activeClass = false;
   @HostBinding('class.relative') relative = true;
   @HostBinding('class.block') block = true;
+
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -60,7 +59,6 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
     this.loadComponent();
     if (this.ele.nativeElement.closest('.component-item')) {
       this.showToolbar.set(true);
-      this.activeClass = true;
     }
   }
 
@@ -101,12 +99,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
       this.container.insert(this.componentRef.hostView);
       this.componentRef.changeDetectorRef.detectChanges();
       if (this.screenService.isPlatformBrowser()) {
-        this.util.initAnimate(
-          this.inputs,
-          this.ele.nativeElement,
-          this.ele.nativeElement,
-          this.index
-        );
+        this.util.initAnimate(this.inputs, this.ele.nativeElement, this.ele.nativeElement);
       }
     } catch (error) {
       console.log(error);

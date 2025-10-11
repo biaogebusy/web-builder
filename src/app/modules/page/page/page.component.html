@@ -57,6 +57,6 @@
 
 <ng-template let-content="content" #block>
   @for (item of content; track item; let i = $index) {
-    <app-dynamic-component [inputs]="item" [index]="i" />
+    <app-dynamic-component [inputs]="item" />
   }
 </ng-template>
