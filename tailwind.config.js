@@ -149,7 +149,7 @@ module.exports = {
     },
     {
       pattern:
-        /^(min-w|max-w|min-h|max-h)-(0|full|screen|min|max|fit|px|([1-9]\d?)|1(00|02|04|05|6|8|9)|2[0-9]|3[0-6]|((1[0-2]|[1-9])\/(2|3|4|5|6))|(xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl))$/,
+        /^(min-w|max-w|min-h|max-h)-(0|full|screen|min|max|fit|px|screen-(sm|md|lg|xl|2xl)|([1-9]\d?)|1(00|02|04|05|6|8|9)|2[0-9]|3[0-6]|((1[0-2]|[1-9])\/(2|3|4|5|6))|(sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl))$/,
     },
     {
       pattern:
