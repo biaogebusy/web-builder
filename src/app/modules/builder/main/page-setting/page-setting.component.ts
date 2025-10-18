@@ -169,6 +169,7 @@ export class PageSettingComponent implements OnInit {
                             },
                           }
                         )
+                        .pipe(takeUntilDestroyed(this.destroyRef))
                         .subscribe(res => {
                           this.loading.set(false);
                           if (res) {
@@ -389,6 +390,7 @@ export class PageSettingComponent implements OnInit {
           ...this.getRelationshiopParams(value),
         }
       )
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         this.loading.set(false);
         if (res) {
