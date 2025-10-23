@@ -1,7 +1,12 @@
 <div class="relative" [ngClass]="content.classes">
-  @if (loading) {
+  @if (loading()) {
     <div class="loader">
       <app-loading [content]="{ size: 20 }"></app-loading>
+    </div>
+  }
+  @if (loadLibrary()) {
+    <div class="flex w-full h-full justify-center items-center">
+      <app-loading [content]="{ size: 50 }"></app-loading>
     </div>
   }
   <div #jsoneditor></div>
