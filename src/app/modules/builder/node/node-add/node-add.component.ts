@@ -1,4 +1,5 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '@core/interface/IUser';
@@ -21,12 +22,13 @@ export class NodeAddComponent implements OnInit {
   public user$ = inject(USER);
   private util = inject(UtilitiesService);
   private router = inject(Router);
-
+  private destroyRef = inject(DestroyRef);
   public type = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
   public fields = signal<FormlyFieldConfig[]>([]);
-  ngOnInit() {
-    this.activateRoute.params.subscribe(params => {
+
+  ngOnInit(): void {
+    this.activateRoute.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const type = params['type'];
       this.tagsService.setTitle('创建 ' + type + ' 页面');
       this.type.set(type);

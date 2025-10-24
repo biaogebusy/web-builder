@@ -24,11 +24,11 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-card-list',
-    templateUrl: './card-list.component.html',
-    styleUrl: './card-list.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-card-list',
+  templateUrl: './card-list.component.html',
+  styleUrl: './card-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CardListComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
@@ -53,7 +53,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
 
   constructor() {
     super();
-    this.user$.subscribe(user => {
+    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.user = user;
     });
   }
