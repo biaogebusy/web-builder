@@ -50,13 +50,19 @@ export class WidgetPickerComponent implements OnInit, AfterViewInit {
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   ngOnInit(): void {
-    this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
-      this.bcData.set(data);
-    });
-    this.uiux$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(libaries => {
-      const [first] = libaries;
-      this.widgets.set(first);
-    });
+    this.storage
+      .observe(this.builder.COPYCOMPONENTKEY)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        this.bcData.set(data);
+      });
+    this.uiux$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(libaries => {
+        const [first] = libaries;
+        this.widgets.set(first);
+      });
   }
 
   ngAfterViewInit(): void {

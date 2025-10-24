@@ -143,21 +143,24 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     if (page.translation && page.target) {
       // 新增翻译
       this.builder.loading$.next(true);
-      this.builderService.addTranslation(page).subscribe(res => {
-        if (res.status) {
-          this.util.openSnackbar(`翻译${page.target}成功`, '关闭', {
-            duration: 2000,
-          });
-          this.builder.loading$.next(false);
-          this.builder.updateSuccess$.next(true);
-          if (page.nid) {
-            this.builderService.loadPage({
-              langcode: page.target,
-              nid: page.nid,
+      this.builderService
+        .addTranslation(page)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(res => {
+          if (res.status) {
+            this.util.openSnackbar(`翻译${page.target}成功`, '关闭', {
+              duration: 2000,
             });
+            this.builder.loading$.next(false);
+            this.builder.updateSuccess$.next(true);
+            if (page.nid) {
+              this.builderService.loadPage({
+                langcode: page.target,
+                nid: page.nid,
+              });
+            }
           }
-        }
-      });
+        });
     } else {
       if (page.uuid && page.nid) {
         // update page

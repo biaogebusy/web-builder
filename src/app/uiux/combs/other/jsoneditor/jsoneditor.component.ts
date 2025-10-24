@@ -1,14 +1,14 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   ElementRef,
   Input,
   OnDestroy,
   ViewChild,
-  afterEveryRender,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
@@ -30,6 +30,7 @@ declare let window: any;
   selector: 'app-jsoneditor',
   templateUrl: './jsoneditor.component.html',
   styleUrls: ['./jsoneditor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
 export class JsoneditorComponent implements AfterViewInit, OnDestroy {
@@ -37,77 +38,16 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('jsoneditor', { read: ElementRef }) editor: ElementRef;
   public data: any;
   public value: any;
-  public loading: boolean;
+  public loading = signal<boolean>(false);
+  public loadLibrary = signal<boolean>(false);
   private valueChange$: Subject<any> = new Subject<any>();
 
   private builder = inject(BuilderState);
-  private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   private util = inject(UtilitiesService);
   private builderService = inject(BuilderService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private jsonEditor: any;
-
-  constructor() {
-    afterEveryRender(async () => {
-      try {
-        if (this.coreConfig.librariesUseLocal) {
-          await this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
-          await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
-        } else {
-          const jsoneditorStyle = this.util.getLibraries('jsoneditor', 'cdn', 'style');
-          const jsoneditorJS = this.util.getLibraries('jsoneditor', 'cdn', 'script');
-          await this.util.loadStyle(jsoneditorStyle);
-          await this.util.loadScript(jsoneditorJS);
-        }
-        const { schemaType = '', data } = this.content;
-        this.data = data;
-        let schema = {};
-        switch (schemaType) {
-          case '/core/builder':
-            schema = builderSchema;
-            break;
-          case '/core/base':
-            schema = coreSchema;
-            break;
-          case '/core/branding':
-            schema = brandingSchema;
-            break;
-          case 'page':
-            schema = pageSchema;
-            break;
-          case 'layout-builder':
-            schema = layoutBuilder;
-            break;
-          case 'none':
-            break;
-          default:
-            schema = componentSchema;
-        }
-        if (!window.JSONEditor || this.jsonEditor) {
-          return;
-        }
-        this.jsonEditor = new window.JSONEditor(
-          this.editor.nativeElement,
-          {
-            mode: 'code',
-            enableSort: false,
-            enableTransform: false,
-            schema,
-            onChange: () => {
-              try {
-                const json = this.jsonEditor.get();
-                this.onChange(json);
-              } catch (e) {}
-            },
-          },
-          this.data
-        );
-      } catch (e) {
-        console.error(e);
-      }
-    });
-  }
 
   async ngAfterViewInit(): Promise<void> {
     this.valueChange$
@@ -116,6 +56,65 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
         this.value = value;
         this.updateContent();
       });
+    try {
+      this.loadLibrary.set(true);
+      if (this.coreConfig.librariesUseLocal) {
+        await this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
+        await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
+      } else {
+        const jsoneditorStyle = this.util.getLibraries('jsoneditor', 'cdn', 'style');
+        const jsoneditorJS = this.util.getLibraries('jsoneditor', 'cdn', 'script');
+        await this.util.loadStyle(jsoneditorStyle);
+        await this.util.loadScript(jsoneditorJS);
+      }
+      this.loadLibrary.set(false);
+
+      const { schemaType = '', data } = this.content;
+      this.data = data;
+      let schema = {};
+      switch (schemaType) {
+        case '/core/builder':
+          schema = builderSchema;
+          break;
+        case '/core/base':
+          schema = coreSchema;
+          break;
+        case '/core/branding':
+          schema = brandingSchema;
+          break;
+        case 'page':
+          schema = pageSchema;
+          break;
+        case 'layout-builder':
+          schema = layoutBuilder;
+          break;
+        case 'none':
+          break;
+        default:
+          schema = componentSchema;
+      }
+      if (!window.JSONEditor || this.jsonEditor) {
+        return;
+      }
+      this.jsonEditor = new window.JSONEditor(
+        this.editor.nativeElement,
+        {
+          mode: 'code',
+          enableSort: false,
+          enableTransform: false,
+          schema,
+          onChange: () => {
+            try {
+              const json = this.jsonEditor.get();
+              this.onChange(json);
+            } catch (e) {}
+          },
+        },
+        this.data
+      );
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   onChange(event: any): void {
@@ -123,9 +122,8 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
       return;
     }
 
-    this.loading = true;
+    this.loading.set(true);
     this.valueChange$.next(event);
-    this.cd.detectChanges();
   }
 
   updateContent(): void {
@@ -142,16 +140,14 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
         this.builder.updatePageContentByPath(path, this.value);
       }
 
-      this.loading = false;
-      this.cd.detectChanges();
+      this.loading.set(false);
     }
   }
 
   onUpdateAttr(action: any): void {
     if (this.value) {
       const { isSetting, isShowcase } = this.content;
-      this.loading = true;
-      this.cd.detectChanges();
+      this.loading.set(true);
       const { uuid, langcode, api } = action.params;
       let attr = {};
       if (isSetting || isShowcase) {
@@ -178,10 +174,9 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
           takeUntilDestroyed(this.destroyRef)
         )
         .subscribe(res => {
-          this.loading = false;
+          this.loading.set(false);
           if (res) {
             this.util.openSnackbar('更新成功！', 'ok');
-            this.cd.detectChanges();
             this.builder.closeRightDrawer$.next(true);
           }
         });

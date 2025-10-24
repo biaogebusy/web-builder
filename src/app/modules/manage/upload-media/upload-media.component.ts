@@ -44,7 +44,7 @@ export class UploadMediaComponent {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         try {
           const file = await new Promise<File>((resolve, reject) => {
-            fileEntry.file((file: File) => resolve(file));
+            fileEntry.file((entry: File) => resolve(entry));
           });
 
           if (file) {

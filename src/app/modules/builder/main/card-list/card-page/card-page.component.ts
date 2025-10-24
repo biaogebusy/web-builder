@@ -108,6 +108,7 @@ export class CardPageComponent {
                 },
               }
             )
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(res => {
               if (res) {
                 this.builder.loading$.next(false);

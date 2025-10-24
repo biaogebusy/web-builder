@@ -53,15 +53,29 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor() {
     afterEveryRender({
       read: throttle(() => {
+        if (!this.scrollableContainer) {
+          return;
+        }
         this.util.intersectionObserver('#builder-list [data-aos]', this.scrollableContainer);
+        const links = this.scrollableContainer.querySelectorAll('a');
+        if (links.length) {
+          links.forEach((link: Element) => {
+            link.addEventListener('click', event => {
+              event.preventDefault();
+            });
+          });
+        }
       }, 200),
     });
   }
 
   ngOnInit(): void {
-    this.storage.observe(this.builder.COPYCOMPONENTKEY).subscribe(data => {
-      this.bcData.set(data);
-    });
+    this.storage
+      .observe(this.builder.COPYCOMPONENTKEY)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        this.bcData.set(data);
+      });
   }
 
   drop(event: CdkDragDrop<string[]>): void {
