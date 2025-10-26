@@ -3,7 +3,7 @@
     .swiper-button-prev,
     .swiper-button-next {
       &::after {
-        @apply hidde;
+        @apply hidden;
       }
     }
   }
