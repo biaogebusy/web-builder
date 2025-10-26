@@ -1,0 +1,10 @@
+:host {
+  ::ng-deep {
+    .swiper-button-prev,
+    .swiper-button-next {
+      &::after {
+        @apply hidde;
+      }
+    }
+  }
+}
