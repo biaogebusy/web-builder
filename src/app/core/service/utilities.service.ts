@@ -63,9 +63,11 @@ export class UtilitiesService {
       swiper: {
         local: {
           style: '/assets/injects/swiper/swiper-bundle.min.css',
+          script: '/assets/injects/swiper/swiper-bundle.min.js',
         },
         cdn: {
           style: 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css',
+          script: 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js',
         },
       },
       highlight: {
@@ -88,6 +90,11 @@ export class UtilitiesService {
       fontAwesome: {
         cdn: {
           style: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+        },
+      },
+      echarts: {
+        cdn: {
+          script: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/6.0.0/echarts.min.js',
         },
       },
     };

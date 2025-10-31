@@ -17,7 +17,10 @@ import { ScreenService } from '@core/service/screen.service';
 import { catchError, of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
-
+import { ICoreConfig } from '@core/interface/IAppConfig';
+import { CORE_CONFIG } from '@core/token/token-providers';
+declare let Swiper: any;
+declare let echarts: any;
 @Component({
   selector: 'app-custom-template',
   templateUrl: './custom-template.component.html',
@@ -33,6 +36,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   private template: Element;
   private destroyRef = inject(DestroyRef);
   private util = inject(UtilitiesService);
+  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
   ngAfterViewInit(): void {
     this.template = this.ele.nativeElement.querySelector('.template');
@@ -41,7 +45,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.render(this.content);
   }
 
-  render(content: any): void {
+  async render(content: any): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
       const { html, json, isAPI, api } = content;
       if (isAPI && api) {
@@ -58,7 +62,45 @@ export class CustomTemplateComponent implements AfterViewInit {
           this.pager.set(null);
         }
       }
+      if (html.includes('data-swiper')) {
+        this.loadSwiper();
+      }
+
+      if (html.includes('data-echarts')) {
+        this.loadEchars();
+      }
     }
+  }
+
+  async loadSwiper(): Promise<void> {
+    if (this.coreConfig.librariesUseLocal) {
+      await this.util.loadStyle('/assets/injects/swiper/swiper-bundle.min.css');
+      await this.util.loadScript('/assets/injects/swiper/swiper-bundle.min.js');
+    } else {
+      const swiperStyle = this.util.getLibraries('swiper', 'cdn', 'style');
+      const swiperScript = this.util.getLibraries('swiper', 'cdn', 'script');
+      await this.util.loadStyle(swiperStyle);
+      await this.util.loadScript(swiperScript);
+      this.ele.nativeElement.querySelectorAll('.swiper').forEach((el: any) => {
+        if (el) {
+          const options = JSON.parse(el.getAttribute('data-swiper'));
+          // tslint:disable-next-line:no-unused-expression
+          new Swiper(el, options);
+        }
+      });
+    }
+  }
+
+  async loadEchars(): Promise<void> {
+    const echartsScript = this.util.getLibraries('echarts', 'cdn', 'script');
+    await this.util.loadScript(echartsScript);
+    this.ele.nativeElement.querySelectorAll('.chart').forEach((el: any) => {
+      if (el) {
+        const options = JSON.parse(el.getAttribute('data-echarts'));
+        const chart = echarts.init(el);
+        chart.setOption(options);
+      }
+    });
   }
 
   fetchContent(params: string): void {
