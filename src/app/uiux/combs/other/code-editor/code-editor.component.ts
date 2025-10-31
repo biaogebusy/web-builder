@@ -145,6 +145,8 @@ export class CodeEditorComponent implements OnInit {
       if (this.isAPI()) {
         content.json = null;
       }
+      // remove ai generator relationships
+      delete content.relationships;
       this.builder.updatePageContentByPath(`${path}`, content);
     }
   }
