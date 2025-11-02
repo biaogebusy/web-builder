@@ -1,14 +1,14 @@
-@if (loading) {
+@if (loading()) {
   <div class="loading-inner">
     <app-loading />
   </div>
 }
 <iframe
-  [style]="{ visibility: loading ? 'hidden' : 'visible' }"
+  [style]="{ visibility: loading() ? 'hidden' : 'visible' }"
   [width]="content.width || '100%'"
   [class]="content.classes"
   height="{{ content.height || '100%' }}"
-  [src]="url | safeUrl"
+  [src]="url() | safeUrl"
   [title]="content.title"
   [id]="content.id"
   frameborder="0"
