@@ -18,6 +18,7 @@ import {
   TooltipComponent,
   DatasetComponent,
   TransformComponent,
+  GraphicComponent,
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -57,6 +58,7 @@ echarts.use([
   MapChart,
   CandlestickChart,
   GraphChart,
+  GraphicComponent,
   TreeChart,
   SunburstChart,
   SankeyChart,
