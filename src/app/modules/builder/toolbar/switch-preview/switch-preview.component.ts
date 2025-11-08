@@ -71,7 +71,7 @@ export class SwitchPreviewComponent implements OnInit {
       this.util.openSnackbar('当前页面没有内容，请先拖动组件到编辑区创作');
       return;
     }
-    this.currentPreview = preview.value;
+    this.currentPreview.set(preview.value);
     if (preview.value === 'none') {
       this.currentIcon.set('cellphone-link');
     } else {
