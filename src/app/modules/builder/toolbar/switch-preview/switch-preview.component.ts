@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   DestroyRef,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IPage } from '@core/interface/IAppConfig';
@@ -14,20 +14,21 @@ import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-switch-preview',
-    templateUrl: './switch-preview.component.html',
-    styleUrls: ['./switch-preview.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-switch-preview',
+  templateUrl: './switch-preview.component.html',
+  styleUrls: ['./switch-preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SwitchPreviewComponent implements OnInit {
-  currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
-
-  currentPage: IPage;
+  private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
+  private builder = inject(BuilderState);
+  private util = inject(UtilitiesService);
+  private currentPage: IPage;
   private destroyRef = inject(DestroyRef);
-  currentPreview = 'none';
-  currentIcon = 'cellphone-link';
-  previews = [
+  public currentPreview = signal<string>('none');
+  public currentIcon = signal<string>('cellphone-link');
+  public previews = [
     {
       icon: {
         svg: 'undo-variant',
@@ -58,10 +59,6 @@ export class SwitchPreviewComponent implements OnInit {
     },
   ];
 
-  builder = inject(BuilderState);
-  cd = inject(ChangeDetectorRef);
-  util = inject(UtilitiesService);
-
   ngOnInit(): void {
     this.currentPage$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
       this.currentPage = page;
@@ -69,17 +66,17 @@ export class SwitchPreviewComponent implements OnInit {
   }
 
   onSwitch(preview: any): void {
-    if (!this.currentPage.body.length) {
+    const { pathname } = window.location;
+    if (!this.currentPage.body.length && !pathname.includes('/builder/chat/render')) {
       this.util.openSnackbar('当前页面没有内容，请先拖动组件到编辑区创作');
       return;
     }
     this.currentPreview = preview.value;
     if (preview.value === 'none') {
-      this.currentIcon = 'cellphone-link';
+      this.currentIcon.set('cellphone-link');
     } else {
-      this.currentIcon = preview.icon.svg;
+      this.currentIcon.set(preview.icon.svg);
     }
-    this.cd.detectChanges();
     this.builder.closeRightDrawer$.next(true);
     this.builder.switchPreivew$.next(preview.value);
   }
