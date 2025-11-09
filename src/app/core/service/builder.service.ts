@@ -409,82 +409,89 @@ export class BuilderService extends ApiService {
   updateUrlalias(
     page: { langcode?: string; id: string; path: any },
     alias: string
-  ): Observable<any> {
-    const { multiLang } = environment;
-    const { csrf_token } = this.user;
-    const {
-      langcode,
-      id,
-      path: { pid },
-    } = page;
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const { multiLang } = environment;
+      const { csrf_token } = this.user;
+      const {
+        langcode,
+        id,
+        path: { pid },
+      } = page;
 
-    let prefix = '';
-    const lang = this.getApiLang(langcode);
-    if (lang) {
-      prefix = `/${lang}`;
-    }
-    let langObj = {};
-    if (multiLang) {
-      langObj = {
-        langcode: langcode ?? 'und',
+      let prefix = '';
+      const lang = this.getApiLang(langcode);
+      if (lang) {
+        prefix = `/${lang}`;
+      }
+      let langObj = {};
+      if (multiLang) {
+        langObj = {
+          langcode: langcode ?? 'und',
+        };
+      }
+      const paramsData = {
+        type: 'path_alias--path_alias',
+        attributes: {
+          alias: alias.replace(prefix, ''),
+          path: `/node/${id}`,
+          ...langObj,
+        },
       };
-    }
-    const paramsData = {
-      type: 'path_alias--path_alias',
-      attributes: {
-        alias: alias.replace(prefix, ''),
-        path: `/node/${id}`,
-        ...langObj,
-      },
-    };
 
-    const status$ = new Subject<any>();
-    if (pid) {
-      this.http
-        .get(`${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`)
-        .subscribe((res: any) => {
-          const { data } = res;
-          const uuid = data[0].id;
-          this.http
-            .patch(
-              `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
-              {
-                data: {
-                  ...paramsData,
-                  id: uuid,
+      if (pid) {
+        this.http
+          .get(`${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`)
+          .subscribe((res: any) => {
+            const { data } = res;
+            const uuid = data[0].id;
+            this.http
+              .patch(
+                `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
+                {
+                  data: {
+                    ...paramsData,
+                    id: uuid,
+                  },
                 },
-              },
-              this.optionsWithCookieAndToken(csrf_token)
-            )
-            .pipe(
-              catchError(() => {
-                return of(false);
-              })
-            )
-            .subscribe(status => {
-              status$.next(status);
-            });
-        });
-    } else {
-      this.http
-        .post(
-          `${prefix}/api/v1/path_alias/path_alias`,
-          {
-            data: paramsData,
-          },
-          this.optionsWithCookieAndToken(csrf_token)
-        )
-        .pipe(
-          catchError(() => {
-            return of(false);
-          })
-        )
-        .subscribe(res => {
-          status$.next(res);
-        });
-    }
-
-    return status$;
+                this.optionsWithCookieAndToken(csrf_token)
+              )
+              .pipe(
+                catchError(() => {
+                  return of(false);
+                })
+              )
+              .subscribe(status => {
+                if (status) {
+                  resolve(true);
+                } else {
+                  reject(false);
+                }
+              });
+          });
+      } else {
+        this.http
+          .post(
+            `${prefix}/api/v1/path_alias/path_alias`,
+            {
+              data: paramsData,
+            },
+            this.optionsWithCookieAndToken(csrf_token)
+          )
+          .pipe(
+            catchError(() => {
+              return of(false);
+            })
+          )
+          .subscribe(res => {
+            if (res) {
+              resolve(true);
+            } else {
+              reject(false);
+            }
+          });
+      }
+    });
   }
 
   formatPage(page: IPage): IPageForJSONAPI {
