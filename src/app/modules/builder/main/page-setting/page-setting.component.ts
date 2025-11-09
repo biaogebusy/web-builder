@@ -34,9 +34,9 @@ export class PageSettingComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: any;
-  form = new UntypedFormGroup({});
-  model: any = {};
-  fields: FormlyFieldConfig[];
+  public form = new UntypedFormGroup({});
+  public model: any = {};
+  public fields: FormlyFieldConfig[];
   public loading = signal<boolean>(false);
   public type: 'node--landing_page' | 'node--json';
 
