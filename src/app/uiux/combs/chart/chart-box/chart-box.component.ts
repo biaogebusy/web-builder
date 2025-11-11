@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject, signal } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { defaultsDeep, random } from 'lodash-es';
@@ -10,6 +10,7 @@ import { catchError, map } from 'rxjs/operators';
   templateUrl: './chart-box.component.html',
   styleUrls: ['./chart-box.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartBoxComponent implements OnInit {
   @Input() content: any;
@@ -17,8 +18,8 @@ export class ChartBoxComponent implements OnInit {
     minHeight: '50px',
     width: '100%',
   };
-  showChart = false;
-  data$: Observable<any>;
+  public showChart = signal(false);
+  public data$: Observable<any>;
   private nodeService = inject(NodeService);
   private screenService = inject(ScreenService);
 
@@ -31,7 +32,7 @@ export class ChartBoxComponent implements OnInit {
     }
 
     if (this.screenService.isPlatformBrowser()) {
-      this.showChart = true;
+      this.showChart.set(true);
     }
   }
 
@@ -40,6 +41,7 @@ export class ChartBoxComponent implements OnInit {
     this.data$ = this.nodeService.fetch(api, '').pipe(
       catchError(() => {
         return of({
+          total: random(1, 100),
           count: random(1, 100),
           chart: [
             ['name', '用户'],
@@ -59,9 +61,11 @@ export class ChartBoxComponent implements OnInit {
         });
       }),
       map(res => {
+        const { count, total } = res;
         const data = defaultsDeep(
           {
-            count: res.count,
+            count,
+            total,
             chart: {
               dataset: [
                 {
