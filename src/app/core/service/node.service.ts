@@ -72,6 +72,26 @@ export class NodeService extends ApiService {
     );
   }
 
+  /**
+   * 批量删除节点
+   * @param entity type 内容类型 (如: 'node--article')
+   * @param uuids 要删除的节点 UUID 数组
+   */
+  batchDeleteNodes(entityType: string, uuids: string[]): Observable<any[]> {
+    if (uuids.length === 0) {
+      return new Observable(observer => {
+        observer.next([]);
+        observer.complete();
+      });
+    }
+    const path = entityType.replace('--', '/');
+    // 为每个 UUID 创建删除请求
+    const deleteRequests = uuids.map(uuid => this.deleteEntity(path, uuid, this.user.csrf_token));
+
+    // 使用 forkJoin 并行执行所有删除请求
+    return forkJoin(deleteRequests);
+  }
+
   deleteEntity(path: string, id: string, token: string): Observable<any> {
     return this.http.delete<any>(
       `${this.apiUrl}${path}/${id}`,
