@@ -34,9 +34,9 @@ export class PageSettingComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: any;
-  form = new UntypedFormGroup({});
-  model: any = {};
-  fields: FormlyFieldConfig[];
+  public form = new UntypedFormGroup({});
+  public model: any = {};
+  public fields: FormlyFieldConfig[];
   public loading = signal<boolean>(false);
   public type: 'node--landing_page' | 'node--json';
 
@@ -85,10 +85,7 @@ export class PageSettingComponent implements OnInit {
             drupal_internal__nid,
             path,
             langcode,
-          }),
-          drupal_internal__nid,
-          langcode,
-          path
+          })
         ),
         {
           key: 'author',
@@ -219,13 +216,7 @@ export class PageSettingComponent implements OnInit {
     }
   }
 
-  getCommonField(
-    key: string,
-    defaultValue: string,
-    nid?: string,
-    langcode?: string,
-    path?: any
-  ): FormlyFieldConfig {
+  getCommonField(key: string, defaultValue: string): FormlyFieldConfig {
     switch (key) {
       case 'title':
         return {
@@ -295,40 +286,8 @@ export class PageSettingComponent implements OnInit {
             label: 'url别名',
             disabled: false,
           },
-          modelOptions: {
-            updateOn: 'blur',
-          },
           expressions: {
             'props.disabled': 'formState.disabled',
-          },
-          hooks: {
-            onInit: (field: FormlyFieldConfig) => {
-              if (field.formControl) {
-                field.formControl.valueChanges
-                  .pipe(takeUntilDestroyed(this.destroyRef))
-                  .subscribe(value => {
-                    this.loading.set(true);
-                    this.builderService
-                      .updateUrlalias(
-                        {
-                          langcode,
-                          id: nid ?? '',
-                          path,
-                        },
-                        value
-                      )
-                      .pipe(takeUntilDestroyed(this.destroyRef))
-                      .subscribe(status => {
-                        this.loading.set(false);
-                        if (status) {
-                          this.util.openSnackbar(`已更新别名:${value}`);
-                        } else {
-                          this.util.openSnackbar(`更新失败，请联系管理员！`);
-                        }
-                      });
-                  });
-              }
-            },
           },
         };
       case 'description':
@@ -360,7 +319,7 @@ export class PageSettingComponent implements OnInit {
     }
   }
 
-  onUpdate(value: any): void {
+  async onUpdate(value: any): Promise<void> {
     const { type } = value;
     const nodeType = type.split('--')[1];
     const api = `/api/v1/node/${nodeType}`;
@@ -372,10 +331,21 @@ export class PageSettingComponent implements OnInit {
     const { data } = content;
     const {
       id,
-      attributes: { langcode, drupal_internal__nid },
+      attributes: { langcode, drupal_internal__nid, path },
     } = data;
 
     this.loading.set(true);
+    const alias = await this.builderService.updateUrlalias(
+      {
+        langcode,
+        id: drupal_internal__nid ?? '',
+        path,
+      },
+      value.alias
+    );
+    if (!alias) {
+      this.util.openSnackbar(`更新别名失败，请联系管理员！`);
+    }
     this.builderService
       .updateAttributes(
         {

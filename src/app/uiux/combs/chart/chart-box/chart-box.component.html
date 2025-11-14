@@ -5,10 +5,10 @@
         {{ data.label }}
       </div>
       <div class="count one-line">
-        {{ data.count }}
+        {{ data.total }}
       </div>
     </div>
-    @if (showChart) {
+    @if (showChart()) {
       <app-chart class="col-span-12 sm:col-span-6" [content]="data.chart" [style]="style" />
     }
   </div>

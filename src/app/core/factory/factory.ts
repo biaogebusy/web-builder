@@ -19,7 +19,7 @@ import { IManageAssets } from '@core/interface/manage/IManage';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { CookieService } from 'ngx-cookie-service';
 import { ComponentService } from '@core/service/component.service';
-import { inject } from '@angular/core';
+import { DOCUMENT, inject } from '@angular/core';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -171,8 +171,9 @@ export function initApp(coreConfig: object): any {
 export function langFactory(): ILanguage | undefined {
   const contentService = inject(ContentService);
   const screenService = inject(ScreenService);
+  const doc = inject(DOCUMENT);
   if (screenService.isPlatformBrowser()) {
-    return contentService.getLang(window.location.pathname);
+    return contentService.getLang(doc.location.pathname);
   } else {
     return undefined;
   }
@@ -205,6 +206,7 @@ export function userFactory(): Observable<IUser | boolean> {
   const cookieService = inject(CookieService);
   const screenService = inject(ScreenService);
   const key = userService.localUserKey;
+  const doc = inject(DOCUMENT);
   const user$ = new BehaviorSubject<IUser | boolean>(false);
   if (screenService.isPlatformBrowser()) {
     if (cookieService.check(key)) {
@@ -219,7 +221,7 @@ export function userFactory(): Observable<IUser | boolean> {
     // if user info change will reload window
     if (environment?.drupalProxy) {
       if (!cookieService.check(key)) {
-        window.location.reload();
+        doc.location.reload();
       }
     }
   }

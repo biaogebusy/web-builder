@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
@@ -341,20 +341,22 @@ export class NodeService extends ApiService {
         withCredentials: true,
       })
       .pipe(
-        catchError(errror => {
-          return of(errror);
-        }),
-        map((res: any) => {
+        // 使用 switchMap 来执行后续操作
+        switchMap((res: any) => {
           const {
             data: { attributes },
           } = res;
-          this.createMediaImage(res.data);
-          return attributes as IMediaAttr;
+
+          return this.createMediaImage(res.data).pipe(map(() => attributes as IMediaAttr));
+        }),
+        catchError(error => {
+          console.error('Upload image failed:', error);
+          return throwError(() => error);
         })
       );
   }
 
-  createMediaImage(data: any): void {
+  createMediaImage(data: any): Observable<void> {
     const {
       id,
       attributes: { filename },
@@ -362,24 +364,24 @@ export class NodeService extends ApiService {
     const mediaData = {
       data: {
         type: 'media--image',
-        attributes: {
-          name: filename,
-        },
+        attributes: { name: filename },
         relationships: {
           field_media_image: {
-            data: {
-              type: 'file--file',
-              id,
-            },
+            data: { type: 'file--file', id },
           },
         },
       },
     };
-    this.http
+
+    return this.http
       .post(`/api/v1/media/image`, mediaData, this.optionsWithCookieAndToken(this.user.csrf_token))
-      .subscribe(res => {
-        console.log('image upload done.');
-      });
+      .pipe(
+        map(() => void 0),
+        catchError(error => {
+          console.error('Create media image failed:', error);
+          return throwError(() => error);
+        })
+      );
   }
 
   imageHandler(editor: any): void {
