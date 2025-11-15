@@ -488,12 +488,26 @@ export class PageSettingComponent implements OnInit {
     this.nodeService
       .deleteEntity(api, id, this.user.csrf_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.util.openSnackbar(`删除${title}成功`, 'ok');
-        this.builder.updateSuccess$.next(true);
-        this.builder.closeRightDrawer$.next(true);
-        this.loading.set(false);
-        this.deleteLocalPage(id);
+      .subscribe({
+        next: () => {
+          this.util.openSnackbar(`删除${title}成功`, 'ok');
+          this.builder.updateSuccess$.next(true);
+          this.builder.closeRightDrawer$.next(true);
+          this.loading.set(false);
+          this.deleteLocalPage(id);
+        },
+        error: err => {
+          const { status } = err;
+          switch (status) {
+            case 403:
+              this.util.openSnackbar(`权限不足！`);
+              break;
+            default:
+              this.util.openSnackbar(`删除${title}失败，请联系管理员！`);
+              break;
+          }
+          this.loading.set(false);
+        },
       });
   }
 
