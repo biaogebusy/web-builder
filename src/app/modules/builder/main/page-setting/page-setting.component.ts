@@ -361,14 +361,28 @@ export class PageSettingComponent implements OnInit {
         }
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(res => {
-        this.loading.set(false);
-        if (res) {
-          this.util.openSnackbar(`更新${value.title}成功`, 'ok');
+      .subscribe({
+        next: res => {
+          this.loading.set(false);
+          if (res) {
+            this.util.openSnackbar(`更新${value.title}成功`, 'ok');
+            this.builder.loading$.next(true);
+            this.builderService.loadPage({ langcode, nid: drupal_internal__nid });
+            this.builder.updateSuccess$.next(true);
+          }
+        },
+        error: err => {
+          const { status } = err;
+          switch (status) {
+            case 403:
+              this.util.openSnackbar(`权限不足！`);
+              break;
+            default:
+              this.util.openSnackbar(`删除${value.title}失败，请联系管理员！`);
+              break;
+          }
           this.builder.loading$.next(true);
-          this.builderService.loadPage({ langcode, nid: drupal_internal__nid });
-          this.builder.updateSuccess$.next(true);
-        }
+        },
       });
   }
 
