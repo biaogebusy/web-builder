@@ -39,59 +39,6 @@ export class ManageService extends ApiService {
     );
   }
 
-  getFeatureBox(item: any, included: any[]): any {
-    const iconPath = '/assets/icons';
-    const widget = {
-      id: item.id,
-      type: 'feature-box',
-      width: '20',
-      fullIcon: 'fullscreen',
-      copyIcon: 'content-copy',
-      ratios: 'media-4-3',
-      mode: 'float',
-      hoverIcon: true,
-    };
-    let url = '';
-    let fileName = '';
-
-    if (!included) {
-      url = item.attributes.uri.url;
-      fileName = item.attributes.filename;
-    }
-    // media image
-    if (included) {
-      fileName = item.attributes.name;
-      url = this.getUrlIncluded(item, included);
-    }
-    const type = this.util.getFileType(url);
-    if (type === 'picture') {
-      return {
-        ...widget,
-        img: {
-          classes: 'object-fit',
-          src: url,
-          alt: fileName,
-        },
-      };
-    } else {
-      return {
-        ...widget,
-        openIcon: 'file_download',
-        link: url,
-        img: {
-          classes: 'object-fill p-x-lg p-y-lg',
-          src:
-            type === 'pdf'
-              ? `${iconPath}/file-pdf.svg`
-              : type === 'excel'
-                ? `${iconPath}/file-excel.svg`
-                : `${iconPath}/file-word.svg`,
-          alt: fileName,
-        },
-      };
-    }
-  }
-
   getUrlIncluded(item: any, included: any[]): string {
     const id = item.relationships.field_media_image.data.id;
     const obj = included.find(media => media.id === id);
