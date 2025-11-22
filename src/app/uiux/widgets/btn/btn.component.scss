@@ -69,3 +69,7 @@ a,
   padding-left: 20px;
   padding-right: 20px;
 }
+
+:host(.disabled) {
+  @apply pointer-events-none;
+}
