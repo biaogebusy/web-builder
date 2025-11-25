@@ -18,6 +18,21 @@ html {
   overflow-x: hidden;
 }
 
+@layer components {
+  [class*='translate-'],
+  [class*='rotate-'],
+  [class*='scale-'],
+  [class*='skew-'] {
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+  }
+}
+
 @layer utilities {
   *[class*='from-'],
   *[class*='to-'] {
