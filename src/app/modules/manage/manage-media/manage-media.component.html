@@ -45,31 +45,33 @@
                 }}"
               >
                 <div class="actions opacity-90 right-1 top-1" [matTooltip]="item.title">
-                  <app-btn
-                    *reqRolesIf="{
-                      params: { reqRoles: ['administrator'] },
-                    }"
-                    class="hidden sm:block icon-delete"
-                    [matTooltip]="'删除'"
-                    matTooltipPosition="above"
-                    (click)="onDelete(item.uuid)"
-                    [content]="{
-                      label: '',
-                      mode: 'icon',
-                      icon: { svg: 'delete' },
-                    }"
-                  />
-                  <app-btn
-                    class="hidden sm:block"
-                    [matTooltip]="'复制路径'"
-                    matTooltipPosition="above"
-                    (click)="onCopy(item)"
-                    [content]="{
-                      label: '',
-                      mode: 'icon',
-                      icon: { svg: 'content-copy' },
-                    }"
-                  />
+                  @if (content.mode === 'manage') {
+                    <app-btn
+                      *reqRolesIf="{
+                        params: { reqRoles: ['administrator'] },
+                      }"
+                      class="hidden sm:block icon-delete"
+                      [matTooltip]="'删除'"
+                      matTooltipPosition="above"
+                      (click)="onDelete(item.uuid)"
+                      [content]="{
+                        label: '',
+                        mode: 'icon',
+                        icon: { svg: 'delete' },
+                      }"
+                    />
+                    <app-btn
+                      class="hidden sm:block"
+                      [matTooltip]="'复制路径'"
+                      matTooltipPosition="above"
+                      (click)="onCopy(item)"
+                      [content]="{
+                        label: '',
+                        mode: 'icon',
+                        icon: { svg: 'content-copy' },
+                      }"
+                    />
+                  }
                   <app-btn
                     class="hidden sm:block"
                     [matTooltip]="'选择'"
@@ -82,10 +84,11 @@
                     }"
                   />
                 </div>
-
-                <div class="delete absolute left-2 bottom-1 z-10">
-                  <mat-checkbox (change)="onChange($event.checked, item.uuid)" />
-                </div>
+                @if (content.mode === 'manage') {
+                  <div class="delete absolute left-2 bottom-1 z-10">
+                    <mat-checkbox (change)="onChange($event.checked, item.uuid)" />
+                  </div>
+                }
                 <div
                   (click)="onPreview(item)"
                   class="box w-full h-full bg-gray-200 p-1 box-border"

@@ -39,6 +39,7 @@ module.exports = {
     'bg-right-bottom',
     'bg-right-top',
     'bg-top',
+    'transform',
     'bg-repeat',
     'bg-no-repeat',
     'bg-repeat-x',
@@ -144,9 +145,7 @@ module.exports = {
     },
     { pattern: /^grid-cols-([1-9]|10|11|12|none)$/, variants: ['sm', 'md', 'lg'] },
     {
-      pattern:
-        /^-?translate-[xy]-(0|([1-9]|1[0-9]|20)|(1|2|3|4|5|6|7|8|9|10|11|12)\/(2|3|4|5|6)|full)$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      pattern: /^-?translate-[xy]-(px|full|\d+(\.5)?|\d+\/\d+)$/,
     },
     { pattern: /^line-clamp-(1[0]|[1-9])$/, variants: ['sm', 'md', 'lg'] },
     {
@@ -259,10 +258,10 @@ module.exports = {
       '10/12': '0 0 83.33%',
       '11/12': '0 0 91.66%',
       '12/12': '0 0 100%',
-      '1': '1 1 0%',
-      'auto': '1 1 auto',
-      'initial': '0 1 auto',
-      'none': 'none',
+      1: '1 1 0%',
+      auto: '1 1 auto',
+      initial: '0 1 auto',
+      none: 'none',
     },
   },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],

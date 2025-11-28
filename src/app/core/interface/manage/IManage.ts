@@ -12,11 +12,13 @@ export interface IManageImg {
   id: string;
   uuid: string;
   src: string;
+  vl?: string;
 }
 
 export interface IManageMedia {
   type: 'manage-media';
   time: Date;
+  mode?: 'manage';
 }
 
 export interface IMediaSelect {
@@ -25,6 +27,7 @@ export interface IMediaSelect {
   fileName: string;
   tag: 'img';
   uuid: string;
+  vl?: string;
 }
 
 export interface ISelectedMedia {

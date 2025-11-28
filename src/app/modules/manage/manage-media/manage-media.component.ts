@@ -87,9 +87,11 @@ export class ManageMediaComponent implements OnInit {
           this.onSearch(value);
         });
 
-      this.mediaAssets$.subscribe(() => {
-        this.loading.set(false);
-      });
+      this.mediaAssets$
+        .pipe(takeUntilDestroyed(this.destroyRef), distinctUntilChanged())
+        .subscribe(() => {
+          this.loading.set(false);
+        });
     }
   }
 
