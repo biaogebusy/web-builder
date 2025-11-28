@@ -35,6 +35,7 @@ export class BuilderSidebarComponent implements OnInit {
         content: {
           type: 'manage-media',
           fullWidth: true,
+          mode: 'manage',
         },
       },
     };

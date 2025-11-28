@@ -18,11 +18,7 @@ a,
 .mdc-button {
   ::ng-deep {
     .mdc-button__label {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      line-height: 1;
+      @apply flex items-center justify-center gap-1 leading-none;
     }
   }
 }
@@ -68,4 +64,8 @@ a,
   border-radius: 30px;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+:host(.disabled) {
+  @apply pointer-events-none;
 }

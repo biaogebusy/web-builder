@@ -5,7 +5,7 @@ import { IIframe } from './IWidgets';
 import { MatDialogConfig } from '@angular/material/dialog';
 export interface IBtn {
   type?: string;
-  mode?: 'raised' | 'stroked' | 'flat' | 'icon' | 'fab' | 'mini-fab';
+  mode?: 'raised' | 'stroked' | 'flat' | 'icon' | 'fab' | 'mini-fab' | 'text';
   classes?: object | string;
   href?: string;
   color?: ThemePalette;
