@@ -9,7 +9,6 @@ import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { BuilderGuard } from '@core/guards/builder.guard';
 import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
 import { ConfigCheckComponent } from './main/config-check/config-check.component';
-import { CollectorComponent } from './main/collector/collector.component';
 import { NodeAddComponent } from './node/node-add/node-add.component';
 
 const routes: Routes = [
@@ -43,10 +42,6 @@ const routes: Routes = [
       {
         path: 'config-check',
         component: ConfigCheckComponent,
-      },
-      {
-        path: 'collector',
-        component: CollectorComponent,
       },
       {
         path: 'node-add/:type',

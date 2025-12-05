@@ -47,7 +47,6 @@ import { CardPageComponent } from './main/card-list/card-page/card-page.componen
 import { DefaultPageComponent } from './main/default-page/default-page.component';
 import { FormModule } from '@uiux/combs/form/form.module';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
-import { CollectorComponent } from './main/collector/collector.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NodeAddComponent } from './node/node-add/node-add.component';
 import { OtherModule } from '@uiux/combs/other/other.module';
@@ -85,7 +84,6 @@ const components = [
     BuilderWorkspaceComponent,
     ManagePageComponent,
     DefaultPageComponent,
-    CollectorComponent,
   ],
   imports: [
     ShareModule,

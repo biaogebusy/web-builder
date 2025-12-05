@@ -10,9 +10,9 @@
   .spin-loader {
     font-size: 7px;
     text-indent: -9999em;
-    border-top: var(--loading-width) solid var(--mat-sys-primary);
-    border-right: var(--loading-width) solid var(--mat-sys-primary);
-    border-bottom: var(--loading-width) solid var(--mat-sys-primary);
+    border-top: var(--loading-width) solid var(--mat-sys-primary-container);
+    border-right: var(--loading-width) solid var(--mat-sys-primary-container);
+    border-bottom: var(--loading-width) solid var(--mat-sys-primary-container);
     border-left: var(--loading-width) solid var(--mat-sys-primary-fixed);
     transform: translateZ(0);
     animation: load8 1.1s infinite linear;
