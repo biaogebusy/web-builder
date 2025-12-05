@@ -103,8 +103,7 @@
       background-color: var(--mat-sys-surface);
     }
     .iframe-wrapper {
-      display: block;
-      position: relative;
+      @apply flex relative mx-auto flex-1 items-center justify-center;
     }
     .preview-iframe {
       &:after {
@@ -142,12 +141,6 @@
       height: 1024px;
     }
   }
-  .preview-md {
-    .preview-iframe {
-      width: 1280px;
-      height: 800px;
-    }
-  }
 
   .preview-xs-md {
     #builder-list {
@@ -161,14 +154,12 @@
   }
 
   .preview-iframe {
-    display: block;
-    position: absolute;
+    max-height: 94%;
+    z-index: 10;
+    @apply relative;
     width: 100%;
     height: 100%;
-    left: 50%;
-    top: 50%;
     z-index: 10;
-    transform: translate(-50%, -50%);
   }
 
   ::ng-deep {

@@ -8,3 +8,11 @@
     }
   }
 }
+.tailwind-component {
+  @apply relative;
+  ::ng-deep {
+    .fixed {
+      @apply absolute;
+    }
+  }
+}
