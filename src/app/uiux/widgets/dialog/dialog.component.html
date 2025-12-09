@@ -3,6 +3,8 @@
     class="absolute right-0 top-[-66px] dialog-colse-outside-btn"
     [content]="{ icon: { svg: 'close' }, mode: 'icon', color: 'primary' }"
     mat-dialog-close="true"
+    matTooltip="关闭"
+    matTooltipPosition="above"
   />
   @if (data.title) {
     <h2 mat-dialog-title>
