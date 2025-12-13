@@ -158,4 +158,8 @@
       opacity: 0.1;
     }
   }
+  .upload-dialog-backdrop {
+    background: var(--mat-sys-inverse-surface);
+    opacity: 0.8;
+  }
 }
