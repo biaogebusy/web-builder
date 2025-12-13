@@ -231,6 +231,7 @@ export class ManageMediaComponent implements OnInit {
       width: '800px',
       id: 'upload-dialog',
       panelClass: ['close-outside', 'close-icon-white'],
+      backdropClass: 'upload-dialog-backdrop',
       data: config,
     });
 
