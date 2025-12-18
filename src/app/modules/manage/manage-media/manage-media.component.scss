@@ -1,29 +1,43 @@
 @use 'mixins/amixin' as *;
 .manage-media {
-  height: 70vh;
-  overflow: hidden;
+  @apply relative overflow-hidden h-[70vh];
   .mat-drawer-container {
     height: 100%;
   }
   .sidebar {
     background-color: var(--mat-sys-background);
+    @apply flex flex-col p-3 col-span-12 md:col-span-3 xl:col-span-2;
+    .action {
+      @apply flex justify-center items-center my-2 sm:my-5;
+    }
   }
-}
-
-.inner {
-  box-sizing: border-box;
-  height: 100%;
-  overflow: auto;
-  .viewport {
-    width: 100%;
-    @include scrollbar(var(--mat-sys-primary));
-  }
-  .page {
-    .mat-mdc-paginator {
-      background-color: transparent;
-      ::ng-deep {
-        .mat-mdc-paginator-range-label {
-          @apply hidden sm:block;
+  .inner {
+    box-sizing: border-box;
+    @apply overflow-auto h-full flex flex-col col-span-12 md:col-span-9 xl:col-span-10;
+    .viewport {
+      @include scrollbar(var(--mat-sys-primary));
+      @apply grid grid-cols-12 gap-1 overflow-auto w-full flex-1;
+      .empty {
+        @apply text-center flex flex-col items-center gap-3 opacity-75;
+      }
+    }
+    .progress-bar {
+      @apply absolute top-0 left-0 right-0 w-full z-50;
+    }
+    .bottom {
+      @apply flex justify-between items-center;
+      .action {
+        @apply flex left-5 bottom-10;
+      }
+      .page {
+        @apply flex-auto;
+        .mat-mdc-paginator {
+          background-color: transparent;
+          ::ng-deep {
+            .mat-mdc-paginator-range-label {
+              @apply hidden sm:block;
+            }
+          }
         }
       }
     }
@@ -31,9 +45,8 @@
 }
 
 .masonry-item {
-  position: relative;
   border: 1px solid transparent;
-  cursor: pointer;
+  @apply aspect-[4/3] box-border  cursor-pointer relative;
   .selected {
     position: relative;
     &:after {
@@ -48,16 +61,21 @@
       border: 3px solid var(--mat-sys-primary);
     }
   }
+  .delete {
+    @apply absolute left-2 bottom-1 z-10;
+  }
   .actions {
-    display: none;
-    position: absolute;
-    z-index: 10;
-    gap: 10px;
-    ::ng-deep {
-      app-btn {
-        background-color: var(--mat-sys-inverse-surface);
-        border-radius: 4px;
+    @apply hidden items-center absolute z-10 opacity-90 right-1 top-1 h-7 px-1;
+    background-color: var(--mat-sys-inverse-surface);
+    border-radius: 4px;
+    .btn {
+      @apply hidden sm:block h-6 w-6 rounded-[4px];
+      &:hover {
+        background-color: #8080807a;
       }
+    }
+
+    ::ng-deep {
       .icon-delete {
         &:hover {
           .mat-icon {
@@ -69,15 +87,14 @@
         color: var(--mat-sys-on-primary);
       }
       .mdc-icon-button {
-        --mat-icon-button-state-layer-size: 30px;
+        --mat-icon-button-state-layer-size: 24px;
+        --mat-icon-button-icon-size: 22px;
         padding: 0px;
         .mat-icon {
-          height: 20px;
-          width: 20px;
           line-height: 1;
           svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
           }
         }
         .mat-mdc-button-touch-target {
@@ -86,6 +103,9 @@
         }
       }
     }
+  }
+  .box {
+    @apply w-full h-full bg-gray-200 p-1 box-border;
   }
   &:hover {
     .actions {
