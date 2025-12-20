@@ -13,7 +13,7 @@
 .builder-sidebar {
   display: flex;
   flex-direction: column;
-  width: 60px;
+  width: var(--sidebar-width);
   height: 100%;
   background-color: var(--mat-sys-background);
   .mat-divider {
@@ -86,7 +86,7 @@
         display: none;
         text-align: left;
         position: fixed;
-        margin-left: 60px;
+        margin-left: var(--sidebar-width);
         width: 246px;
         height: 100%;
         left: 0;

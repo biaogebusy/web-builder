@@ -3,7 +3,7 @@
   overflow: hidden;
   background-color: var(--mat-sys-surface);
   .sidebar-drawer {
-    width: 60px;
+    width: var(--sidebar-width);
     visibility: visible !important;
     transform: none !important;
     display: block;
@@ -32,7 +32,7 @@
     transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
     transition-property: transform, padding-left;
     &:not(.opened) {
-      padding-left: 60px;
+      padding-left: var(--sidebar-width);
     }
     &.opened {
       padding-left: 0;
