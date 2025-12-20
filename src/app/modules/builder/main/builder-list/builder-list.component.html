@@ -83,21 +83,22 @@
         }
       </div>
     </div>
+    <app-btn
+      class="absolute right-10 bottom-10 z-50"
+      [matMenuTriggerFor]="menu"
+      [content]="{
+        mode: 'mini-fab',
+        color: 'primary',
+        icon: {
+          svg: 'dots-vertical',
+        },
+      }"
+    />
   } @else {
     <app-default-page />
   }
 }
-<app-btn
-  class="absolute right-10 bottom-10 z-50"
-  [matMenuTriggerFor]="menu"
-  [content]="{
-    mode: 'mini-fab',
-    color: 'primary',
-    icon: {
-      svg: 'dots-vertical',
-    },
-  }"
-/>
+
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="onNewPage()">
     <div class="flex items-center">

@@ -1,6 +1,6 @@
-<div class="manage-media relative">
+<div class="manage-media">
   <div class="grid grid-cols-12 gap-5 h-full">
-    <div class="sidebar col-span-12 md:col-span-3 xl:col-span-2 flex flex-col p-3">
+    <div class="sidebar">
       <mat-slider max="12" min="1" step="1">
         <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
       </mat-slider>
@@ -12,7 +12,7 @@
           [model]="model"
         />
       </form>
-      <div class="flex justify-center items-center my-2 sm:my-5">
+      <div class="action">
         <app-btn
           (click)="onUpload()"
           [content]="{
@@ -24,33 +24,33 @@
         />
       </div>
     </div>
-    <div class="inner col-span-12 md:col-span-9 xl:col-span-10 flex flex-col">
+    <div class="inner">
       @if (loading()) {
         <div class="load">
           <app-loading />
         </div>
       }
       @if (progress > 0 && progress < 100) {
-        <div class="absolute top-0 left-0 right-0 w-full z-100">
+        <div class="progress-bar">
           <mat-progress-bar mode="determinate" color="primary" [value]="progress" />
         </div>
       }
       @if (mediaAssets$ | async; as assets) {
         @if (assets.rows.length) {
-          <div class="viewport grid grid-cols-12 gap-1 overflow-auto">
+          <div class="viewport">
             @for (item of assets.rows; track item) {
               <div
-                class="masonry-item aspect-[4/3] box-border col-span-6 sm:col-span-4 md:col-span-{{
+                class="masonry-item col-span-6 sm:col-span-4 md:col-span-{{
                   manageMediaConfig().row
                 }}"
               >
-                <div class="actions opacity-90 right-1 top-1" [matTooltip]="item.title">
+                <div class="actions" [matTooltip]="item.title">
                   @if (content.mode === 'manage') {
                     <app-btn
                       *reqRolesIf="{
                         params: { reqRoles: ['administrator'] },
                       }"
-                      class="hidden sm:block icon-delete"
+                      class="btn icon-delete"
                       [matTooltip]="'删除'"
                       matTooltipPosition="above"
                       (click)="onDelete(item.uuid)"
@@ -61,7 +61,7 @@
                       }"
                     />
                     <app-btn
-                      class="hidden sm:block"
+                      class="btn"
                       [matTooltip]="'复制路径'"
                       matTooltipPosition="above"
                       (click)="onCopy(item)"
@@ -73,7 +73,7 @@
                     />
                   }
                   <app-btn
-                    class="hidden sm:block"
+                    class="btn"
                     [matTooltip]="'选择'"
                     matTooltipPosition="above"
                     (click)="onSelect(item)"
@@ -85,13 +85,13 @@
                   />
                 </div>
                 @if (content.mode === 'manage') {
-                  <div class="delete absolute left-2 bottom-1 z-10">
+                  <div class="delete">
                     <mat-checkbox (change)="onChange($event.checked, item.uuid)" />
                   </div>
                 }
                 <div
                   (click)="onPreview(item)"
-                  class="box w-full h-full bg-gray-200 p-1 box-border"
+                  class="box"
                   [ngClass]="{ selected: isSelected(item) }"
                 >
                   <img
@@ -106,7 +106,7 @@
             }
           </div>
         } @else {
-          <div class="text-center flex flex-col items-center gap-3 opacity-75">
+          <div class="empty">
             <app-icon class="w-20 h-20" [content]="{ svg: 'magnify', inline: true }" />
             @if (model.name) {
               关键词{{ model.name }}
@@ -115,9 +115,9 @@
           </div>
         }
       }
-      <div class="flex justify-between items-center">
+      <div class="bottom">
         @if (deletedLists.length) {
-          <div class="flex left-[20px] bottom-[40px]">
+          <div class="action">
             <app-btn
               (click)="bulkDelete(deletedLists)"
               [content]="{
@@ -130,7 +130,7 @@
           </div>
         }
         @if (mediaAssets$ | async; as assets) {
-          <div class="page flex-auto">
+          <div class="page">
             @if (assets.pager && assets.rows.length) {
               <mat-paginator
                 (page)="onPageChange($event)"
