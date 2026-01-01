@@ -63,6 +63,15 @@
   }
   .delete {
     @apply absolute left-2 bottom-1 z-10;
+    ::ng-deep {
+      .mat-mdc-checkbox {
+        &:not(.mat-mdc-checkbox-checked) {
+          .mdc-checkbox__background {
+            @apply bg-white/75 border;
+          }
+        }
+      }
+    }
   }
   .actions {
     @apply hidden items-center absolute z-10 opacity-90 right-1 top-1 h-7 px-1;
