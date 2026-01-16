@@ -1,4 +1,12 @@
-import { Injectable, Injector, NgModuleRef, Type, createNgModule, inject } from '@angular/core';
+import {
+  DOCUMENT,
+  Injectable,
+  Injector,
+  NgModuleRef,
+  Type,
+  createNgModule,
+  inject,
+} from '@angular/core';
 import { BaseModule } from '@uiux/base/base.module';
 
 // 定义类型
@@ -18,6 +26,7 @@ export class ComponentService {
   private readonly moduleLoaders = new Map<string, ModuleLoader>();
   private readonly moduleCache = new Map<string, Promise<NgModuleRef<any>>>();
   private readonly injector = inject(Injector);
+  private doc = inject(DOCUMENT);
 
   private readonly MODULE_CONFIG: ModuleConfig[] = [
     {
@@ -306,7 +315,8 @@ export class ComponentService {
     const loader = this.moduleLoaders.get(type);
 
     if (!loader) {
-      throw new Error(`No module loader found for component ${type}`);
+      const pageUrl = this.doc.location.href;
+      throw new Error(`No module loader found for component ${type} from ${pageUrl}`);
     }
 
     // 使用缓存避免重复加载
