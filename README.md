@@ -1,11 +1,11 @@
 <p align="center">
 <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
 </p>
-<h1 align="center">信使 Web builder<br>AI 驱动 UI 生成和发布的低代码平台</h1>
+<h1 align="center">信使 Web builder<br>AI 生成UI和工具应用的低代码平台</h1>
 
 <p align="center">
   <br>
-  <i>AI 驱动 UI 生成和发布的低代码平台，基于TailwindCss，通过拖拽可视化快速构建现代化响应式UI、动态自定义组件、多主题、多语言的网站应用。AI-powered UI generation and publishing low code platform, built on TailwindCSS, enabling rapid drag-and-drop visual creation of modern responsive UIs, dynamic customizable components, multi-theme, and multi-language web applications.
+  <i>AI 生成UI和工具应用的低代码平台，国内首款开源的基于 Drupal 作为 Headless 的低代码，基于 TailwindCss，通过拖拽可视化快速构建现代化响应式UI、动态自定义组件、多主题、多语言的网站应用。AI-powered UI generation and publishing low code platform, built on TailwindCSS, enabling rapid drag-and-drop visual creation of modern responsive UIs, dynamic customizable components, multi-theme, and multi-language web applications.
     </i>
   <br>
 </p>
@@ -71,7 +71,7 @@
 
 ## Builder Pro 预览
 
-> 基于 DeepSeeek 可优化文案、翻译、图表、思维导图、创建组件和一句话生成页面，未来还有更多智能体，欢迎体验。
+> 基于AI大模型生成UI、页面和工具应用，欢迎体验。
 
 |                                                         |                                                               |
 | ------------------------------------------------------- | ------------------------------------------------------------- |
