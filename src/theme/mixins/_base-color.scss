@@ -24,12 +24,28 @@
     }
   }
 
-  .text-light {
+  .text-on-primary {
     color: var(--mat-sys-on-primary);
   }
 
   .text-primary {
     color: var(--mat-sys-primary);
+  }
+
+  .text-on-secondary {
+    color: var(--mat-sys-on-secondary);
+  }
+
+  .text-secondary {
+    color: var(--mat-sys-secondary);
+  }
+
+  .text-on-tertiary {
+    color: var(--mat-sys-on-tertiary);
+  }
+
+  .text-tertiary {
+    color: var(--mat-sys-tertiary);
   }
 
   .text-accent {
@@ -55,6 +71,16 @@
   .bg-primary {
     background-color: var(--mat-sys-primary);
     color: var(--mat-sys-onprimary);
+  }
+
+  .bg-secondary {
+    background-color: var(--mat-sys-secondary);
+    color: var(--mat-sys-on-secondary);
+  }
+
+  .bg-tertiary {
+    background-color: var(--mat-sys-tertiary);
+    color: var(--mat-sys-on-tertiary);
   }
 
   .bg-accent {
