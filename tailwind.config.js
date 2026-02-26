@@ -79,7 +79,7 @@ module.exports = {
       pattern: /^(italic|uppercase|lowercase|capitalize|normal-case)$/,
     },
     {
-      pattern: /^(order-1|order-0)$/,
+      pattern: /^(order-1|order-2|order-3|order-4|order-none)$/,
       variants: ['sm', 'md', 'lg'],
     },
     {
