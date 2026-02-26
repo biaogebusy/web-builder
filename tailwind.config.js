@@ -81,6 +81,10 @@ module.exports = {
       pattern: /^(italic|uppercase|lowercase|capitalize|normal-case)$/,
     },
     {
+      pattern: /^(order-1|order-0)$/,
+      variants: ['sm', 'md', 'lg'],
+    },
+    {
       pattern:
         /^bg-(gray|neutral|red|orange|amber|yellow|green|sky|blue|indigo|violet|purple|pink)-(50|100|200|300|400|500|600|700|800|900)(?:\/(?:100|0|5|[1-9][05]))?$/,
       variants: ['sm', 'md', 'lg', 'hover'],
