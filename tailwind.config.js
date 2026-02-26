@@ -4,8 +4,6 @@ module.exports = {
   safelist: [
     'grid-flow-col',
     'grid-flow-row',
-    'order-1',
-    'order-0',
     '!overflow-visible',
     '!absolute',
     'animate-none',
