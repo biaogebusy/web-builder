@@ -60,6 +60,10 @@
     border: 1px solid var(--mat-sys-primary) !important;
   }
 
+  .border-tertiary {
+    border: 1px solid var(--mat-sys-tertiary) !important;
+  }
+
   .border-warn {
     border: 1px solid var(--mat-sys-error) !important;
   }
