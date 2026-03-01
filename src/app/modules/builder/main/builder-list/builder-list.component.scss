@@ -188,3 +188,14 @@
     }
   }
 }
+
+:host-context(.mat-drawer-container-has-open) {
+  .builder-list {
+    ::ng-deep {
+      [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  }
+}

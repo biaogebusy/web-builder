@@ -4,8 +4,6 @@ module.exports = {
   safelist: [
     'grid-flow-col',
     'grid-flow-row',
-    'order-1',
-    'order-0',
     '!overflow-visible',
     '!absolute',
     'animate-none',
@@ -79,6 +77,10 @@ module.exports = {
     },
     {
       pattern: /^(italic|uppercase|lowercase|capitalize|normal-case)$/,
+    },
+    {
+      pattern: /^(order-1|order-2|order-3|order-4|order-none)$/,
+      variants: ['sm', 'md', 'lg'],
     },
     {
       pattern:

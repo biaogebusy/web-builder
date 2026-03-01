@@ -44,6 +44,7 @@ export interface IHeaderParams {
 
 export interface IFooter {
   params: FooterParams;
+  dynamicFooter?: any;
   footerBrand?: FooterBrand;
   mainMenu?: FooterMenu[];
   mobileMenu?: FooterMenu[];
