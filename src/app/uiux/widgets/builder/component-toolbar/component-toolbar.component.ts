@@ -66,6 +66,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
     this.path.set(this.util.generatePath(this.ele.nativeElement));
     this.currentPage$.pipe(delay(500), takeUntilDestroyed(this.destroyRef)).subscribe(page => {
       this.currentPage = page;
+      this.path.set(this.util.generatePath(this.ele.nativeElement));
       this.getIndex();
     });
   }
