@@ -11,22 +11,22 @@ import { UntypedFormGroup } from '@angular/forms';
 import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
-    selector: 'app-contact-us',
-    templateUrl: './contact-us.component.html',
-    styleUrls: ['./contact-us.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-contact-us',
+  templateUrl: './contact-us.component.html',
+  styleUrls: ['./contact-us.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ContactUsComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
-  formService = inject(FormService);
+  private formService = inject(FormService);
   private utilitiesService = inject(UtilitiesService);
 
   @Input() content: any;
-  form = new UntypedFormGroup({});
-  model: any = {};
-  success = false;
-  submited = false;
+  public form = new UntypedFormGroup({});
+  public model: any = {};
+  private success = false;
+  public submited = false;
 
   ngOnInit(): void {}
 

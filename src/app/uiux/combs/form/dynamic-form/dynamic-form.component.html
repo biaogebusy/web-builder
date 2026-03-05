@@ -1,0 +1,13 @@
+<div class="dynamic-form">
+  <div class="wrapper" [ngClass]="content.classes">
+    <div class="dynamic-content" [ngClass]="content.dynamicClasses">
+      <app-dynamic-component [inputs]="content.dynamicComponent" />
+    </div>
+    <div class="form-wrapper" [ngClass]="content.formClasses">
+      <app-formly class="w-full" [form]="form" [fields]="content.form.fields" [model]="model" />
+    </div>
+  </div>
+  <div class="action" [ngClass]="content.action.classes">
+    <app-btn [class.disabled]="disabled()" (click)="onSubmit()" [content]="content.action.submit" />
+  </div>
+</div>

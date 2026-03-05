@@ -129,7 +129,7 @@ export class ComponentService {
     },
     {
       module: 'FormModule',
-      components: ['formly', 'datepicker', 'contact-us'],
+      components: ['formly', 'datepicker', 'contact-us', 'dynamic-form'],
     },
     {
       module: 'OtherModule',

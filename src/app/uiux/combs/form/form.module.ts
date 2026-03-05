@@ -25,6 +25,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { QuillModule } from 'ngx-quill';
 import { JsonFieldType } from './formly-type/json/json.component';
 import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 
 const components = [
   SliderComponent,
@@ -38,6 +39,7 @@ const components = [
   RichEditorComponent,
   RepeatTypeComponent,
   DatepickerComponent,
+  DynamicFormComponent,
   TermsServiceComponent,
 ];
 @NgModule({
