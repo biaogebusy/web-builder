@@ -14,7 +14,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() content: IDynamicForm;
   public form = new UntypedFormGroup({});
   public model: any = {};
-  public disabled = signal<boolean>(true);
+  public disabled = signal<boolean>(false);
   public loading = signal<boolean>(false);
   private formService = inject(FormService);
   private util = inject(UtilitiesService);
