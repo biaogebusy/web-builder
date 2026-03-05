@@ -34,9 +34,10 @@ export class DynamicFormComponent implements OnInit {
         this.util.openSnackbar('成功提交！');
         this.form.reset();
       },
-      error: () => {
+      error: error => {
         this.disabled.set(false);
-        this.util.openSnackbar(`提交失败，请联系管理员！`);
+        this.util.openSnackbar(error?.error?.message || `提交失败，请联系管理员！`);
+        console.log(error.error);
       },
     });
   }
