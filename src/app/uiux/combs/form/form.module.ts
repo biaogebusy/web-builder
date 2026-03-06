@@ -1,5 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { ContactUsComponent } from './contact-us/contact-us.component';
+import { NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BaseModule } from '@uiux/base/base.module';
@@ -33,7 +32,6 @@ const components = [
   RichTextComponent,
   TabsTypeComponent,
   ImgPickerComponent,
-  ContactUsComponent,
   MatSelectComponent,
   DateRangeComponent,
   RichEditorComponent,
