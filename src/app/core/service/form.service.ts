@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, switchMap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '@core/service/api.service';
 import { formatDate } from '@angular/common';
 
@@ -62,17 +62,18 @@ export class FormService {
   }
 
   submitWebForm(data: any): Observable<any> {
-    return this.apiService
-      .getToken()
-      .pipe(
-        switchMap(token =>
-          this.http.post(
-            `${this.apiService.apiUrl}/webform_rest/submit`,
-            data,
-            this.apiService.optionsWithCookieAndToken(token)
-          )
-        )
-      );
+    return this.apiService.getToken().pipe(
+      switchMap((token: string) => {
+        const headers = new HttpHeaders({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': token,
+        });
+        return this.http.post(`${this.apiService.apiUrl}/webform_rest/submit`, data, {
+          headers,
+        });
+      })
+    );
   }
 
   handleRangeDate(value: any): any {
