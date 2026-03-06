@@ -14,7 +14,7 @@ export class ApiService {
   public configLoadDone$ = new Subject();
   public document = inject(DOCUMENT);
   private apiBaseUrl = inject(API_URL);
-  private httpClient = inject(HttpClient);
+  public http = inject(HttpClient);
 
   get apiUrl(): string {
     return this.apiBaseUrl;
@@ -45,7 +45,7 @@ export class ApiService {
   }
 
   getToken(): Observable<string> {
-    return this.httpClient.get('/session/token', {
+    return this.http.get('/session/token', {
       responseType: 'text',
     });
   }
