@@ -138,17 +138,20 @@ export class ApiService {
     return params.join('&');
   }
   handlerPager(pager: any, length?: number): IPager {
-    if (pager.current_page === null && pager.total_pages === 0) {
+    const { current_page, total_pages, total_items, items_per_page } = pager;
+    if (current_page === null && total_pages === 0) {
       return {
-        itemsPerPage: length || pager.total_items,
+        itemsPerPage: length || total_items,
         currentPage: 0,
-        totalItems: pager.total_items,
+        totalItems: total_items,
+        totalPages: total_pages,
       };
     } else {
       return {
-        itemsPerPage: pager.items_per_page,
-        currentPage: pager.current_page,
-        totalItems: pager.total_items,
+        itemsPerPage: items_per_page,
+        currentPage: current_page,
+        totalItems: total_items,
+        totalPages: total_pages,
       };
     }
   }
