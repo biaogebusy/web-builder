@@ -3,12 +3,11 @@ import {
   Component,
   OnInit,
   ViewChild,
-  ChangeDetectorRef,
   inject,
+  signal,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
-import { IconService } from '@core/service/icon.service';
 import { NodeService } from '@core/service/node.service';
 import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
 import { of, ReplaySubject } from 'rxjs';
@@ -28,11 +27,9 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   public searchCtrl: UntypedFormControl = new UntypedFormControl();
   /** list of banks filtered by search keyword */
   public filteredOptions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
-  matOptions: any;
+  public matOptions = signal<any>([]);
   fieldConfig: any;
   private nodeService = inject(NodeService);
-  private cd = inject(ChangeDetectorRef);
-  private iconService = inject(IconService);
   constructor() {
     super();
   }
@@ -42,19 +39,14 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
     if (this.fieldConfig.props.api || this.fieldConfig.props?.type === 'icon') {
       this.getOptionsFromApi();
     } else {
-      this.matOptions = this.props.options || [];
-      const { defaultValue } = this.fieldConfig;
-      if (defaultValue) {
-        this.formControl.setValue(defaultValue);
-      }
-      this.filteredOptions.next(this.matOptions.slice());
+      this.matOptions.set(this.props.options || []);
+      this.filteredOptions.next(this.matOptions().slice());
     }
-
+    this.setOptions();
     // listen for search field value changes
     this.searchCtrl.valueChanges.subscribe(() => {
       this.filterMulti();
     });
-    this.cd.detectChanges();
   }
 
   getOptionsFromApi(): void {
@@ -70,10 +62,7 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
             value: `${hyphenated}`,
           };
         });
-      this.matOptions = [...options, ...icons];
-      // load the initial options
-      this.filteredOptions.next(this.matOptions.slice());
-      this.cd.detectChanges();
+      this.setOptions(icons);
     } else {
       this.nodeService
         .fetch(api || '', nocache ? 'noCache=true' : '')
@@ -85,11 +74,23 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
           })
         )
         .subscribe(res => {
-          this.matOptions = [...options, ...res.rows];
-          // load the initial options
-          this.filteredOptions.next(this.matOptions.slice());
-          this.cd.detectChanges();
+          this.setOptions(res.rows);
         });
+    }
+  }
+
+  setOptions(options?: any[]): void {
+    const { defaultValue } = this.fieldConfig;
+    if (options) {
+      this.matOptions.set([...options, ...options]);
+      // load the initial options
+      this.filteredOptions.next([
+        { label: defaultValue, value: defaultValue },
+        ...this.matOptions().slice(),
+      ]);
+    }
+    if (defaultValue) {
+      this.formControl.setValue(defaultValue);
     }
   }
 
@@ -114,14 +115,14 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
     // get the search keyword
     let search = this.searchCtrl.value;
     if (!search) {
-      this.filteredOptions.next(this.matOptions.slice());
+      this.filteredOptions.next(this.matOptions().slice());
       return;
     } else {
       search = search.toLowerCase();
     }
     // filter the options
     this.filteredOptions.next(
-      this.matOptions.filter((bank: any) => bank.label.toLowerCase().indexOf(search) > -1)
+      this.matOptions().filter((bank: any) => bank.label.toLowerCase().indexOf(search) > -1)
     );
   }
 }
