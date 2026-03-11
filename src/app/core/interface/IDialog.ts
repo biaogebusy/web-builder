@@ -5,4 +5,5 @@ export interface IDialog {
   inputData: any;
   yesLabel?: string;
   noLabel?: string;
+  actionsAlign?: 'center' | 'start' | 'end';
 }
