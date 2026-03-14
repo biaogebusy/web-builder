@@ -81,7 +81,6 @@ export interface ITheme {
   icon?: string;
   svgIcon?: string;
 }
-
 export interface PhoneLogin {
   enable: boolean;
   tabLabel: string;
@@ -89,12 +88,19 @@ export interface PhoneLogin {
   submitLabel: string;
   error: string;
   delayMessage: string;
+  placeholder: string;
+  code?: {
+    label: string;
+    sendLabel: string;
+  };
 }
 
 export interface PswLogin {
   enable: boolean;
   tabLabel: string;
   submitLabel: string;
+  userLabel: string;
+  pswLabel: string;
 }
 
 export interface ILogin {

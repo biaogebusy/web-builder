@@ -1,17 +1,12 @@
 @let loginConfig = coreConfig.login;
 <div class="login-container">
   <div class="login-wrapper">
-    <div
-      class="login-second"
-    >
+    <div class="login-second">
       @if (loginConfig.left) {
         <app-dynamic-component [inputs]="loginConfig.left" />
       }
     </div>
-    <div
-      class="login-form"
-      [class.is-login]="user$ | async"
-    >
+    <div class="login-form" [class.is-login]="user$ | async">
       @if (loading()) {
         <app-loading />
       }
@@ -27,16 +22,12 @@
             @let pswLogin = loginConfig.pswLogin;
             @if (phoneLogin.enable) {
               <mat-tab label="{{ phoneLogin.tabLabel || '手机登录' }}">
-                <form
-                  class="phone-form"
-                  [formGroup]="phoneForm"
-                  (ngSubmit)="loginByPhone()"
-                >
+                <form class="phone-form" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
                   <mat-form-field appearance="fill">
-                    <mat-label>请输入手机号码</mat-label>
+                    <mat-label>{{ phoneLogin.placeholder || '请输入手机号码' }}</mat-label>
                     <mat-icon matSuffix>phone_iphone</mat-icon>
                     <input
-                      placeholder="请输入手机号码"
+                      [placeholder]="phoneLogin.placeholder || '请输入手机号码'"
                       type="text"
                       matInput
                       formControlName="phone"
@@ -46,7 +37,7 @@
                     }
                   </mat-form-field>
                   <mat-form-field appearance="fill">
-                    <mat-label>验证码</mat-label>
+                    <mat-label>{{ phoneLogin?.code?.label || '验证码' }}</mat-label>
                     <input matInput type="text" formControlName="code" />
                     <button
                       disabled="{{ countdown() > 0 }}"
@@ -59,7 +50,7 @@
                       aria-label="code"
                     >
                       <small class="code-label">
-                        发送验证码
+                        {{ phoneLogin?.code?.sendLabel || '发送验证码' }}
                         @if (countdown()) {
                           ({{ countdown() }})
                         }
@@ -82,12 +73,12 @@
               <mat-tab label="{{ pswLogin.tabLabel || '密码登录' }}">
                 <form class="psw-form" [formGroup]="userForm" (ngSubmit)="login()">
                   <mat-form-field appearance="fill">
-                    <mat-label>用户名</mat-label>
+                    <mat-label>{{ pswLogin.userLabel || '用户名' }}</mat-label>
                     <mat-icon matSuffix>person</mat-icon>
                     <input matInput formControlName="name" autocomplete="username" />
                   </mat-form-field>
                   <mat-form-field appearance="fill">
-                    <mat-label>密码</mat-label>
+                    <mat-label>{{ pswLogin.pswLabel || '密码' }}</mat-label>
                     <input
                       matInput
                       [type]="hide ? 'password' : 'text'"
