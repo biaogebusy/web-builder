@@ -1,12 +1,14 @@
 @use 'mixins/amixin' as *;
 
 .profile {
+  @apply p-5 flex flex-wrap justify-between items-center;
   position: relative;
   border-radius: 4px;
   background-color: var(--mat-sys-background);
   box-shadow: var(--mat-sys-level1);
 }
 .avatar {
+  @apply justify-center items-center;
   ::ng-deep {
     img {
       width: 100px;
@@ -14,4 +16,24 @@
       @include border-radius(50%, 50%, 50%, 50%);
     }
   }
+}
+
+.details {
+  @apply flex flex-wrap justify-center items-center md:justify-between md:items-end;
+}
+
+.left {
+  @apply flex flex-col md:flex-row flex-auto;
+}
+
+.list {
+  @apply flex flex-wrap justify-center items-center;
+}
+
+.user-menu {
+  @apply flex flex-row;
+}
+
+.list-item {
+  @apply justify-start items-start;
 }

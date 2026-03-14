@@ -58,6 +58,7 @@
     }
   }
   .showcase-footer {
+    @apply flex flex-row justify-between items-center;
     position: absolute;
     z-index: 10;
     left: 0;
@@ -67,6 +68,15 @@
     box-sizing: border-box;
     border-top: 1px solid var(--mat-sys-surface-container-low);
     background: var(--mat-sys-background);
+    .title {
+      @apply flex items-center gap-2;
+    }
+    .uuid {
+      @apply text-gray-400 text-sm;
+    }
+    .actions {
+      @apply flex;
+    }
     ::ng-deep {
       .mat-icon {
         color: var(--mat-sys-primary) !important;

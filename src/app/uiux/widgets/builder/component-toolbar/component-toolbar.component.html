@@ -1,7 +1,7 @@
-<div class="wrapper flex justify-between items-center">
-  <div class="actions flex gap-1">
+<div class="wrapper">
+  <div class="actions">
     <div
-      class="item hidden"
+      class="item item-up"
       [class.!block]="index() > 0"
       (click)="onUpdown('up')"
       [matTooltip]="'上移'"
@@ -17,7 +17,7 @@
       />
     </div>
     <div
-      class="item hidden"
+      class="item item-down"
       [class.!block]="index() < length() && index() !== length() - 1"
       (click)="onUpdown('down')"
       [matTooltip]="'下移'"

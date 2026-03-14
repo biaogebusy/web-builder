@@ -9,7 +9,7 @@
     }
     <div class="container">
       @if (content?.params?.enableActions) {
-        <div class="actions flex justify-end items-center my-3">
+        <div class="actions">
           @if (!isAll) {
             <button mat-button (click)="accordion.openAll(); isAll = !isAll">
               {{ content.params?.actions?.openAll || '全部展开' }}

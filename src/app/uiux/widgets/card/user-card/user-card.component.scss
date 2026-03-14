@@ -1,4 +1,15 @@
+.user-card {
+  @apply relative py-5;
+  .inner {
+    @apply flex flex-col justify-center items-start;
+  }
+  .time {
+    @apply text-xs mt-3;
+  }
+}
+
 .menus {
+  @apply absolute;
   top: -10px;
   right: -10px;
 }

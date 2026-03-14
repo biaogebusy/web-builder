@@ -1,0 +1,11 @@
+.dynamic-media-list {
+  .inner-row {
+    @apply flex flex-col md:flex-row;
+  }
+  .list-block {
+    @apply block;
+    @screen md {
+      margin-right: 1.25rem;
+    }
+  }
+}

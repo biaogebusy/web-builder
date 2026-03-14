@@ -1,0 +1,11 @@
+.dynamic-card-list {
+  .inner {
+    @apply grid grid-cols-12;
+  }
+  .list-bottom {
+    @apply w-full;
+  }
+  .empty-text {
+    @apply text-center;
+  }
+}

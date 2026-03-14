@@ -2,8 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
 import type { IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
-import { Observable, Subject, of, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -27,7 +26,6 @@ export class BuilderService extends ApiService {
   private user$ = inject<Observable<IUser>>(USER);
   private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
-  private http = inject(HttpClient);
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
@@ -526,7 +524,7 @@ export class BuilderService extends ApiService {
             mode: 'over',
             hasBackdrop: true,
             style: {
-              'padding': '14px',
+              padding: '14px',
               'max-width': 'calc(100vw - 80px)',
             },
             elements: [

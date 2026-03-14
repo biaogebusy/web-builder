@@ -7,7 +7,7 @@
     @if (list) {
       <div class="list">
         @for (item of list; track item) {
-          <div class="item flex justify-between items-center">
+          <div class="item">
             <app-link [content]="item.link" />
             @if (item.label) {
               <div class="num-posts">
@@ -17,7 +17,7 @@
           </div>
         }
         @if (initList && initList.length > row) {
-          <div class="action py-5 flex justify-center items-center" (click)="onExpand()">
+          <div class="action" (click)="onExpand()">
             @if (expand) {
               <button mat-icon-button>
                 <mat-icon>expand_less</mat-icon>

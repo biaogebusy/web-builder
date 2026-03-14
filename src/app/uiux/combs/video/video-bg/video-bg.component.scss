@@ -1,5 +1,6 @@
 @use 'variable/breakpoint' as *;
 .video-bg {
+  @apply relative;
   overflow: hidden;
   min-height: 280px;
   @media #{$gt-md} {
@@ -31,6 +32,7 @@
 }
 
 .inner {
+  @apply relative;
   z-index: 10;
   width: 100%;
   height: 100%;

@@ -1,6 +1,18 @@
 @use 'mixins/amixin' as *;
 @use 'variable/breakpoint' as *;
 
+.profile-1v1 {
+  @apply relative;
+}
+
+.profile {
+  @apply grid grid-cols-12 justify-between items-start gap-8;
+}
+
+.name-title {
+  @apply mt-3;
+}
+
 .actions {
   position: absolute;
   right: 0;
@@ -21,6 +33,7 @@
 }
 
 .box {
+  @apply text-center;
   ::ng-deep {
     img {
       width: 80px;
@@ -31,6 +44,7 @@
 }
 
 .profile-banner {
+  @apply relative;
   overflow: hidden;
   padding: 80px 0;
   @media #{$gt-sm} {
@@ -54,4 +68,16 @@
 
 .label {
   white-space: nowrap;
+}
+
+.list {
+  @apply overflow-hidden;
+}
+
+.list-item {
+  @apply flex;
+}
+
+.comment-wrapper {
+  @apply my-3 p-3 md:my-5 md:p-5;
 }

@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { forkJoin, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
@@ -19,7 +19,6 @@ export class NodeService extends ApiService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
 
-  private http = inject(HttpClient);
   private util = inject(UtilitiesService);
   private user: IUser;
 
@@ -353,7 +352,7 @@ export class NodeService extends ApiService {
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
-          'Accept': 'application/vnd.api+json',
+          Accept: 'application/vnd.api+json',
           'Content-Type': 'application/octet-stream',
           'Content-Disposition': `file; filename="${encodeURIComponent(fileName)}"`,
           'X-CSRF-Token': csrfToken,

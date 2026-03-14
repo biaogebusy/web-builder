@@ -1,0 +1,17 @@
+.dynamic-card-list-1-v1 {
+  .inner {
+    @apply flex flex-wrap;
+  }
+  .header-text {
+    @apply block flex-12/12;
+  }
+  .card-list {
+    @apply grid grid-cols-12 gap-5;
+  }
+  .list-bottom {
+    @apply w-full;
+  }
+  .empty-text {
+    @apply text-center;
+  }
+}

@@ -10,7 +10,7 @@
     <div class="page">
       @if (pageContent$ | async; as page) {
         @if ((user$ | async) && page.nid) {
-          <div class="page-toolbar fixed right-5 top-20 md:right-10 md:top-40 z-[1000]">
+          <div class="page-toolbar">
             <app-btn
               (click)="onEdit(page.nid)"
               [content]="{

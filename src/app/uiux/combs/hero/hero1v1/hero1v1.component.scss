@@ -1,5 +1,6 @@
 @use 'variable/breakpoint' as *;
 .hero-1-v1 {
+  @apply overflow-hidden;
   height: calc(100vh - 50px);
   ::ng-deep {
     .swiper-container {

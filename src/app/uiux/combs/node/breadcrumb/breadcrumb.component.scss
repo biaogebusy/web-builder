@@ -6,7 +6,9 @@
     list-style: none;
   }
   ul {
+    @apply flex;
     li {
+      @apply flex justify-center items-center;
       ::ng-deep a {
         padding: 4px 6px;
         font-size: 14px;

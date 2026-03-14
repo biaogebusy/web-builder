@@ -1,3 +1,9 @@
+.flag-inner {
+  @apply flex items-center;
+  .flag-icon {
+    @apply leading-none;
+  }
+}
 button {
   ::ng-deep .mat-icon.mat-icon-inline {
     width: 24px;

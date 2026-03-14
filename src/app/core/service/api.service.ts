@@ -1,10 +1,10 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { ILanguage } from '@core/interface/IEnvironment';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { API_URL } from '@core/token/token-providers';
 import { camelCase, isArray, remove, result } from 'lodash-es';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,6 +14,7 @@ export class ApiService {
   public configLoadDone$ = new Subject();
   public document = inject(DOCUMENT);
   private apiBaseUrl = inject(API_URL);
+  public http = inject(HttpClient);
 
   get apiUrl(): string {
     return this.apiBaseUrl;
@@ -26,7 +27,7 @@ export class ApiService {
   get httpOptionsOfCommon(): any {
     return {
       headers: new HttpHeaders({
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       }),
     };
@@ -35,12 +36,18 @@ export class ApiService {
   optionsWithCookieAndToken(csrfToken: string): any {
     return {
       headers: new HttpHeaders({
-        'Accept': 'application/vnd.api+json',
+        Accept: 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
         'X-CSRF-Token': csrfToken,
       }),
       withCredentials: true,
     };
+  }
+
+  getToken(): Observable<string> {
+    return this.http.get('/session/token', {
+      responseType: 'text',
+    });
   }
 
   get pageUrl(): string {
@@ -131,17 +138,20 @@ export class ApiService {
     return params.join('&');
   }
   handlerPager(pager: any, length?: number): IPager {
-    if (pager.current_page === null && pager.total_pages === 0) {
+    const { current_page, total_pages, total_items, items_per_page } = pager;
+    if (current_page === null && total_pages === 0) {
       return {
-        itemsPerPage: length || pager.total_items,
+        itemsPerPage: length || total_items,
         currentPage: 0,
-        totalItems: pager.total_items,
+        totalItems: total_items,
+        totalPages: total_pages,
       };
     } else {
       return {
-        itemsPerPage: pager.items_per_page,
-        currentPage: pager.current_page,
-        totalItems: pager.total_items,
+        itemsPerPage: items_per_page,
+        currentPage: current_page,
+        totalItems: total_items,
+        totalPages: total_pages,
       };
     }
   }

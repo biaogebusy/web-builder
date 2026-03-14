@@ -1,9 +1,9 @@
 @if (content) {
-  <div class="showcase-1-v4 relative" [ngClass]="content.classes">
+  <div class="showcase-1-v4" [ngClass]="content.classes">
     @if (content.text) {
       <app-text [attr.data-path]="'text'" [content]="content.text" />
     }
-    <div class="grid grid-cols-12 justify-center items-center">
+    <div class="elements-grid">
       @for (item of content.elements; track item; let i = $index) {
         <app-dynamic-component
           [attr.data-path]="'elements.' + i"
@@ -13,7 +13,7 @@
       }
     </div>
     @if (content.actions) {
-      <div class="actions m-top pb-[10px] flex justify-center">
+      <div class="actions m-top">
         @for (action of content.actions; track action; let i = $index) {
           <app-dynamic-component [attr.data-path]="'actions.' + i" [inputs]="action" />
         }

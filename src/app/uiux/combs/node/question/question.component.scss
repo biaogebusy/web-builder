@@ -1,9 +1,11 @@
 .question {
+  @apply relative;
   z-index: 1;
   background-color: var(--mat-sys-surface-container-lowest);
   box-shadow: var(--mat-sys-level1);
 }
 .comment {
+  @apply relative;
   background-color: var(--mat-sys-background);
   .comment-form {
     box-shadow: var(--mat-sys-level1);

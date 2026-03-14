@@ -1,5 +1,32 @@
 @use 'variable/breakpoint' as *;
 .view-list {
+  @apply relative;
+  .view-list-inner {
+    @apply flex flex-col;
+  }
+  .filter {
+    @apply flex flex-col justify-between items-center;
+    @media #{$gt-sm} {
+      @apply flex-row;
+    }
+  }
+  .filter-item {
+    @apply flex flex-col flex-wrap gap-3;
+    @media #{$gt-sm} {
+      @apply flex-row;
+    }
+  }
+  .filter-actions {
+    @apply flex justify-center items-center gap-3;
+  }
+  .skeleton-loader {
+    @apply my-5 block;
+  }
+  .view-actions {
+    @apply flex justify-end items-center;
+  }
+  .no-auth {
+  }
   ::ng-deep {
     formly-field {
       margin-right: 10px;
@@ -23,6 +50,7 @@
 }
 
 .view {
+  @apply relative;
   box-shadow: var(--mat-sys-level1);
 }
 

@@ -1,5 +1,5 @@
 @if (content) {
-  <article class="question relative p-y-sm">
+  <article class="question p-y-sm">
     <div class="container">
       <h2 class="title">{{ content.title }}</h2>
       <div class="question-details" [innerHTML]="content.body | safeHtml"></div>
@@ -23,7 +23,7 @@
     </div>
   </article>
 }
-<article class="comment relative p-y-sm">
+<article class="comment p-y-sm">
   <div class="container">
     <!-- input params and editor config -->
     @if (showEditor) {

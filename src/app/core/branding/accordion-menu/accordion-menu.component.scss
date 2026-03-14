@@ -4,6 +4,12 @@
     border-radius: 0;
   }
 }
+.dynamic-menu-inner {
+  @apply block my-5;
+}
+.acc-icon {
+  margin-right: 0.75rem !important;
+}
 .mat-accordion {
   .mat-expansion-panel-header,
   .mat-mdc-list {

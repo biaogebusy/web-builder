@@ -1,0 +1,15 @@
+.showcase-3-v5 {
+  @apply relative;
+  .showcase-inner {
+    @apply flex flex-col md:flex-row justify-center items-center;
+  }
+  .elements-col {
+    @apply flex flex-wrap flex-12/12 md:flex-8/12;
+  }
+  .box-item {
+    @apply flex flex-12/12 md:flex-6/12;
+  }
+  .img-col {
+    @apply flex flex-col justify-center items-center flex-12/12 md:flex-4/12;
+  }
+}

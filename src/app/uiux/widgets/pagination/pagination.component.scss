@@ -1,4 +1,5 @@
 .pagination {
+  @apply my-10 flex justify-center items-center;
   .mat-mdc-button-base {
     --mat-icon-button-state-layer-size: 40px;
     padding: 6px;

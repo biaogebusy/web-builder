@@ -1,5 +1,11 @@
 .showcase-2v1 {
   position: relative;
+  .wrapper {
+    @apply flex flex-col;
+  }
+  .elements-grid {
+    @apply grid grid-cols-12 justify-center items-center gap-4;
+  }
 }
 :host ::ng-deep {
   .mat-mdc-card {

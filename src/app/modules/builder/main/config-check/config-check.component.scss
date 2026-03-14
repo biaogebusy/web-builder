@@ -1,4 +1,45 @@
+.config-check {
+  @apply max-w-3xl mx-auto;
+}
+
+.check-header {
+  @apply flex justify-between items-center my-5;
+}
+
+.check-count {
+  @apply font-bold;
+}
+
 .result-list {
+  @apply rounded-lg bg-white shadow-lg border-b border-solid border-gray-100 overflow-hidden;
   max-height: calc(100vh - 200px);
   overflow-y: auto;
+}
+
+.result-item {
+  @apply p-5 border-b border-solid border-gray-50;
+}
+
+.result-row {
+  @apply flex items-center gap-5;
+}
+
+.result-icon {
+  @apply whitespace-nowrap font-bold;
+}
+
+.result-detail {
+  @apply flex flex-col gap-1 flex-auto;
+}
+
+.result-name {
+  @apply text-base;
+}
+
+.result-desc {
+  @apply text-sm text-neutral-500;
+}
+
+.result-error {
+  @apply text-sm bg-red-100 rounded-md p-2;
 }

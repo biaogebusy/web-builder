@@ -1,9 +1,15 @@
 @use 'variable/breakpoint' as *;
 @use 'mixins/amixin' as *;
+
+.overlay {
+  @apply fixed w-full h-full z-[1000] left-0 top-0;
+}
+
 .widget-picker {
   min-height: 360px;
   @apply w-[48px];
   .widget-wrapper {
+    @apply py-4 flex flex-col items-center;
     position: relative;
     background-color: var(--mat-sys-surface);
     box-shadow:
@@ -14,22 +20,41 @@
       0px 2.5px 8.4px rgba(0, 0, 0, 0.05),
       0px 6px 20px rgba(0, 0, 0, 0.07);
     .box {
+      @apply flex flex-col justify-center items-center;
       color: var(--mat-sys-primary);
+    }
+    .picker-divider {
+      @apply opacity-50 w-[40px];
     }
     .item {
       position: relative;
       .inner {
+        @apply flex flex-col justify-center items-center m-[2px] p-[6px];
         border-radius: 4px;
         cursor: pointer;
       }
     }
   }
+  .group-popup-container {
+    @apply absolute;
+  }
   .group-popup {
+    @apply p-4 z-10 flex-col justify-start items-start whitespace-nowrap w-[280px] min-h-[360px];
     position: relative;
     max-height: 60vh;
     overflow: auto;
     color: var(--mat-sys-on-surface);
     @include scrollbar(var(--mat-sys-outline));
+    .group-grid {
+      @apply grid grid-cols-12 gap-4 w-full;
+    }
+    .widget-item {
+      @apply col-span-6 border border-solid rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer;
+    }
+    .item-label {
+      @apply text-sm;
+      opacity: 0.9;
+    }
     .item {
       border-color: var(--mat-sys-outline-variant);
       .mat-icon {
@@ -51,7 +76,11 @@
     border: 1px solid var(--mat-sys-surface-container-low);
     box-shadow: var(--mat-sys-level1);
   }
+  .popup-preview {
+    @apply z-10 w-[314px] h-[236px] box-border overflow-auto;
+  }
   .widget-popup {
+    @apply absolute;
     overflow: hidden;
     box-sizing: border-box;
     opacity: 0;
@@ -63,6 +92,7 @@
       @apply pointer-events-auto;
     }
     .hover-show {
+      @apply w-full h-full flex justify-center relative;
       transform: scale(0.8);
       img {
         max-width: 100%;

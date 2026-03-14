@@ -4,23 +4,23 @@
       <app-article-banner [content]="content.banner" />
     }
     <div class="container">
-      <div class="article-inner m-top-sm flex flex-col md:flex-row md:gap-5">
+      <div class="article-inner m-top-sm">
         <div class="article-node flex-12/12 md:flex-{{ content.sidebar ? '9' : '12' }}/12">
           <h2 class="title">
             {{ content.title }}
           </h2>
-          <div class="article-meta m-y-xs flex justify-between items-center">
+          <div class="article-meta m-y-xs">
             @if (content.meta) {
               <app-article-meta [content]="content.meta" />
             }
           </div>
           <mat-divider />
-          <div class="article-body relative">
+          <div class="article-body">
             @if (canAccess) {
               <div class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"></div>
             } @else {
               @if (content.body) {
-                <div class="article-body m-y-sm relative">
+                <div class="article-body m-y-sm">
                   <div
                     [innerHTML]="content.body | stripTags: 'p' | trim | shorten: 1000 : '...'"
                   ></div>
@@ -29,7 +29,7 @@
               }
               @if (!(user$ | async)) {
                 <div
-                  class="auth line p-y-sm p-x-sm w-full text-center flex justify-center items-center"
+                  class="auth line p-y-sm p-x-sm"
                 >
                   <a
                     href="javascript:void(0)"

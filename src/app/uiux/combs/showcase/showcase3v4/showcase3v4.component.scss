@@ -1,4 +1,12 @@
 .showcase-3-v4 {
+  @apply relative;
+  .showcase-inner {
+    @apply flex flex-col md:flex-row justify-center items-center;
+  }
+  .elements-col,
+  .img-col {
+    @apply flex flex-col basis-full;
+  }
   ::ng-deep {
     .inv-builder-box.style-v7 {
       align-items: center;

@@ -1,7 +1,7 @@
 @if (content) {
   <div class="dynamic-card-list m-y">
     <div class="container">
-      <div class="inner grid grid-cols-12">
+      <div class="inner">
         @if (content.sidebar) {
           <app-search-sidebar
             class="col-span-12 md:col-span-2"
@@ -30,11 +30,11 @@
                 [content]="card"
               />
             }
-            <div class="list-bottom w-full">
+            <div class="list-bottom">
               @if (nodes.length) {
                 <app-pagination (pageChange)="onPageChange($event)" />
               } @else {
-                <div class="text-center p-y-xl">
+                <div class="empty-text p-y-xl">
                   <p>没有数据。</p>
                 </div>
               }

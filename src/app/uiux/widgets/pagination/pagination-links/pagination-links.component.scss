@@ -1,0 +1,6 @@
+.pagination-simple {
+  @apply relative;
+  .inner {
+    @apply flex justify-center items-center;
+  }
+}

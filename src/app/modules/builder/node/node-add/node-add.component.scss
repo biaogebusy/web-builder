@@ -2,4 +2,7 @@
   .node-form {
     @apply bg-gray-100 p-5 my-5 rounded-2xl;
   }
+  .actions {
+    @apply flex my-8;
+  }
 }

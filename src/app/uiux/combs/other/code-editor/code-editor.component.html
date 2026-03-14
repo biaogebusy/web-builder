@@ -1,6 +1,6 @@
 @let builderConfig = builderConfig$ | async;
 @if (screenService.isPlatformBrowser()) {
-  <div class="code-editor-btns text-white flex justify-center">
+  <div class="code-editor-btns">
     <app-btn
       (click)="onShowMore()"
       [class.lock]="isCollapse()"
@@ -25,8 +25,8 @@
       matTooltipPosition="above"
     ></app-btn>
   </div>
-  <div class="toolbar p-5 flex gap-2 items-center">
-    <div class="text-white">{{ isAPI() ? '数据来源 API' : 'Tailwind 自定义组件' }}</div>
+  <div class="toolbar">
+    <div class="toolbar-label">{{ isAPI() ? '数据来源 API' : 'Tailwind 自定义组件' }}</div>
     @if (builderConfig?.codeEditor?.help) {
       <app-btn
         class="btn-help"
@@ -42,32 +42,32 @@
     }
   </div>
   <div
-    class="code-editor grid grid-cols-12 gap-2"
+    class="code-editor"
     [class.collapse]="isCollapse()"
     [class]="isMore() ? 'more' : 'less'"
   >
     @if (isAPI()) {
       <div
-        class="box col-span-12 {{
+        class="box api-box {{
           isAPI() ? 'md:col-span-3' : ''
-        }}  flex flex-col p-3 max-h-full overflow-auto"
+        }}"
       >
-        <app-formly class="block" [form]="form" [fields]="fields" [model]="model" />
-        <pre #jsonblock class="bg-white">
-          <code [innerHTML]="highlightedCode()" class="language-json whitespace-normal break-words"></code>
+        <app-formly class="formly-block" [form]="form" [fields]="fields" [model]="model" />
+        <pre #jsonblock class="json-pre">
+          <code [innerHTML]="highlightedCode()" class="language-json code-block"></code>
         </pre>
       </div>
     }
-    <div class="box col-span-12 {{ isAPI() ? 'md:col-span-9' : '' }}">
+    <div class="box editor-box {{ isAPI() ? 'md:col-span-9' : '' }}">
       <ngx-monaco-editor
-        class="!h-full"
+        class="monaco-editor"
         [options]="MonacoOptions"
         [ngModel]="html()"
         [formControl]="htmlForm"
       />
     </div>
     @if (editing()) {
-      <div class="editing absolute bottom-5 right-6">
+      <div class="editing">
         <app-loading [content]="{ size: 30 }" />
       </div>
     }

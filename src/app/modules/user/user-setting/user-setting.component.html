@@ -6,13 +6,13 @@
       </div>
     }
     <div class="user-info">
-      <div class="user-avatar flex gap-2 items-center">
+      <div class="user-avatar">
         @if (user.picture) {
-          <div class="relative">
+          <div class="avatar-wrapper">
             <img
               width="80"
               height="80"
-              class="object-cover rounded-full"
+              class="avatar-img"
               src="{{ user.picture }}"
               alt=""
             />
@@ -23,7 +23,7 @@
               style="display: none"
               (change)="handleFileChange($event, user)"
             />
-            <div class="upload absolute -bottom-3 -right-3">
+            <div class="upload">
               <app-btn
                 (click)="avatarInput.click()"
                 matTooltip="更新头像"
@@ -33,16 +33,16 @@
             </div>
           </div>
         }
-        <div class="flex flex-col">
-          <div class="name font-bold">{{ user.display_name }}</div>
-          <div class="mail text-gray-500">{{ user.mail }}</div>
+        <div class="user-details">
+          <div class="name">{{ user.display_name }}</div>
+          <div class="mail">{{ user.mail }}</div>
         </div>
       </div>
     </div>
-    <div class="form my-4">
+    <div class="form">
       <app-formly [form]="form" [fields]="fields" [model]="model"></app-formly>
     </div>
-    <div class="actions flex justify-center items-center gap-4">
+    <div class="actions">
       <app-btn
         (click)="form.reset()"
         [content]="{

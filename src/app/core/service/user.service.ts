@@ -1,10 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { TokenUser, IUser, IUserProfile } from '../interface/IUser';
-import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -25,12 +24,10 @@ export class UserService extends ApiService {
   public userSub$ = new Subject<IUser | boolean>();
 
   private router = inject(Router);
-  private http = inject(HttpClient);
   private dialog = inject(MatDialog);
   private util = inject(UtilitiesService);
   private cryptoJS = inject(CryptoJSService);
   private cookieService = inject(CookieService);
-  private storage = inject(LocalStorageService);
   private route = inject(ActivatedRoute);
   get userApiPath(): string {
     return `${this.apiUrl}${this.coreConfig.apiUrl.userGetPath}`;
@@ -39,7 +36,7 @@ export class UserService extends ApiService {
   login(userName: string, passWord: string): Observable<boolean> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/vnd.api+json',
+        Accept: 'application/vnd.api+json',
         'Content-type': 'application/vnd.api+json',
       }),
       withCredentials: false,
@@ -95,7 +92,7 @@ export class UserService extends ApiService {
   updateUserBySession(): void {
     const options = {
       headers: new HttpHeaders({
-        'Accept': 'application/vnd.api+json',
+        Accept: 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
       }),
       withCredentials: true,
@@ -351,7 +348,7 @@ export class UserService extends ApiService {
     const { id, csrf_token } = user;
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/vnd.api+json',
+        Accept: 'application/vnd.api+json',
         'Content-Type': 'application/octet-stream',
         'Content-Disposition': 'file; filename="' + id + '-picture.jpg"',
         'X-CSRF-Token': csrf_token,

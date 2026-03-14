@@ -8,10 +8,10 @@
   @let alignItems = content.alignItems;
   @let wrapperClass = content.wrapperClass;
 
-  <div class="layout-builder relative" [ngClass]="classes" [ngStyle]="style">
+  <div class="layout-builder" [ngClass]="classes" [ngStyle]="style">
     <div
       id="layout"
-      class="layout-inner {{ wrapperClass }} grid grid-cols-12 grid-flow-row  justify-{{
+      class="layout-inner {{ wrapperClass }} justify-{{
         horizontal
       }} justify-items-{{ vertical }} items-{{ alignItems }}  gap-{{ gap?.xs || 'none' }} sm:gap-{{
         gap?.sm || 'none'
@@ -29,14 +29,14 @@
         @let blockClasses = layout.blockClasses;
         <div
           [ngClass]="classes"
-          class="layout relative layout-{{ i }} col-span-{{ row.xs || '12' }}  sm:col-span-{{
+          class="layout layout-{{ i }} col-span-{{ row.xs || '12' }}  sm:col-span-{{
             row.sm
           }} md:col-span-{{ row.md }} lg:col-span-{{ row.lg }}"
           [attr.data-path]="'elements.' + i"
           #layoutEle
         >
           @if (showToolbar()) {
-            <div class="toolbar hidden absolute z-[1000]">
+            <div class="toolbar">
               <app-layout-toolbar
                 [target]="layoutEle"
                 [lbContent]="content"
@@ -46,7 +46,7 @@
             </div>
             @if (elements.length === 0) {
               <div
-                class="placeholder opacity-50 hover:opacity-100 p-10 flex justify-center items-center"
+                class="placeholder"
                 [attr.data-path]="'elements.' + i"
               >
                 <div #target>
@@ -67,7 +67,7 @@
           <div class="for-animate">
             <div
               [ngClass]="blockClasses"
-              class="blocks box-border relative w-full h-full grid grid-cols-12 grid-flow-row  justify-{{
+              class="blocks justify-{{
                 horizontal
               }} justify-items-{{ vertical }} items-{{ alignItems }} gap-{{
                 gap?.xs || 'none'
@@ -83,21 +83,21 @@
                   #widget
                   (mouseleave)="onLeaveWidget()"
                   (mouseenter)="onHoverWidget(widget)"
-                  class="item relative box-border item-{{ item.type }} col-span-12"
+                  class="item item-{{ item.type }} col-span-12"
                   [attr.data-path]="'elements.' + index"
                 >
                   <app-dynamic-component class="component" [inputs]="item" />
                   @if (showToolbar()) {
                     <div class="block-toolbar" #action>
                       <button mat-stroked-button (click)="addBlock('widget', content, action)">
-                        <div class="flex">
+                        <div class="block-toolbar-inner">
                           <app-icon class="mr-1" [content]="{ svg: 'arrow-right-bottom' }" />
                           <span>插入组件</span>
                         </div>
                       </button>
                     </div>
                     @if (last) {
-                      <div class="py-6"></div>
+                      <div class="last-spacer"></div>
                     }
                   }
                 </div>
@@ -106,7 +106,7 @@
           </div>
         </div>
       } @empty {
-        <div class="p-5 text-center col-span-12 opacity-50">当前无Layout，可重新删除新建</div>
+        <div class="empty-state">当前无Layout，可重新删除新建</div>
       }
     </div>
   </div>

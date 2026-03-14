@@ -1,4 +1,7 @@
 .rich-editor {
+  .editor-full {
+    @apply w-full;
+  }
   ::ng-deep {
     .ql-editor {
       min-height: 200px;

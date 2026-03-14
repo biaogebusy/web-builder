@@ -1,7 +1,11 @@
 @use 'mixins/amixin' as *;
 .builder-settings {
   padding: 10px;
+  .loading-wrapper {
+    @apply mx-auto my-10;
+  }
   .cards {
+    @apply flex flex-col gap-1;
     position: relative;
     height: 450px;
     overflow: auto;
@@ -11,13 +15,30 @@
       padding: 6px;
     }
     .item {
+      @apply cursor-pointer;
       position: relative;
       border-bottom: 1px solid var(--mat-sys-surface-dim);
+      .item-click {
+        @apply overflow-hidden;
+      }
       .title {
+        @apply flex justify-between items-center;
         font-size: 14px;
         width: 100%;
       }
+      .lang-badge {
+        @apply text-xs bg-gray-300 py-1 px-2 rounded-full whitespace-nowrap;
+        opacity: 0.95;
+      }
+      .item-meta {
+        @apply flex justify-between items-center text-xs;
+        opacity: 0.5;
+        .author {
+          @apply font-mono;
+        }
+      }
       .inner {
+        @apply flex flex-col p-4 gap-1;
         margin: 2px;
         border-radius: 4px;
         &.show {

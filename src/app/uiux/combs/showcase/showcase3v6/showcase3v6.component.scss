@@ -1,0 +1,15 @@
+.showcase-3-v6 {
+  @apply relative;
+  .showcase-inner {
+    @apply flex flex-wrap justify-center items-center;
+  }
+  .element-item {
+    @apply flex flex-wrap;
+  }
+  .media-item {
+    @apply block w-full;
+  }
+  .actions {
+    @apply flex justify-center items-center;
+  }
+}

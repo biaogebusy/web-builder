@@ -4,21 +4,21 @@
     <header class="header" [ngClass]="{ 'is-pc-header': show() }">
       <div class="container">
         <div
-          class="header-container flex flex-row gap-5 {{
+          class="header-container {{
             header.logo ? 'justify-between items-center' : 'justify-end items-center'
           }}"
         >
           @if (header.logo) {
-            <div class="header-left one-line flex-[0_0_auto]">
+            <div class="header-left one-line">
               <app-logo [content]="header.logo" />
             </div>
           }
           <div
-            class="header-right flex flex-row justify-center items-center gap-2 md:gap-3 xl:gap-5"
+            class="header-right"
           >
             @if (header.mainMenu) {
               <div class="menu-inner">
-                <div class="main-menu flex flex-row">
+                <div class="main-menu">
                   @for (menu of header.mainMenu; track menu) {
                     <div class="item">
                       @if (header.params) {
@@ -65,7 +65,7 @@
           }
           <span class="spacer"></span>
           <app-switch-theme />
-          <app-user-menu class="mx-2" />
+          <app-user-menu class="user-menu-drawer" />
         }
         <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
           @if (!isDrawer) {

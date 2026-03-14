@@ -1,17 +1,17 @@
-<div class="grid grid-cols-5 gap-1 md:gap-6">
+<div class="card-page-grid">
   @for (page of lists; track page.nid) {
     <div
-      class="col-span-5 md:col-span-1 overflow-hidden item flex flex-col gap-2 relative mb-5 group"
+      class="page-card"
     >
       <div
-        class="relative rounded-md shadow-md overflow-hidden border border-solid border-neutral-200"
+        class="card-cover"
       >
         <img
-          class="aspect-[16/9] w-full object-cover"
+          class="cover-img"
           src="{{ page.cover || params.defaultImg }}"
           alt=""
         />
-        <div class="actions absolute left-1/2 top-1/2 group-hover:block hidden">
+        <div class="actions">
           <app-btn
             class="block"
             [matMenuTriggerFor]="menu"
@@ -43,9 +43,9 @@
           </mat-menu>
         </div>
       </div>
-      <div class="text inline-flex items-start gap-1 group flex-[1_1_auto]">
+      <div class="text group">
         <span
-          class="title line-clamp-2 font-bold"
+          class="title"
           (blur)="onTitle($event, page)"
           contenteditable="false"
         >
@@ -53,20 +53,20 @@
         </span>
         <app-icon
           (click)="enableEditor($event)"
-          class="group-hover:!inline-block !hidden w-[16px] h-[16px] cursor-pointer"
+          class="edit-icon"
           [content]="{ svg: 'pencil-outline', inline: true }"
         />
       </div>
-      <div class="meta text-sm font-mono">
+      <div class="meta">
         {{ page.author | shorten: 6 : '**' }}
-        <div class="flex justify-between mt-2">
+        <div class="meta-row">
           <a
-            class="truncate !text-neutral-500"
+            class="page-url"
             href="{{ page.url }}?preview=true"
             target="_blank"
             >{{ page.url }}</a
           >
-          <span class="whitespace-nowrap text-neutral-500">{{
+          <span class="page-date">{{
             page.changed | date: 'yyyy/MM/dd HH:mm'
           }}</span>
         </div>

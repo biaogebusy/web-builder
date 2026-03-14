@@ -1,20 +1,20 @@
 @if (content && !showXs) {
-  <div class="footer-main-menu flex flex-row justify-between items-start">
+  <div class="footer-main-menu">
     @for (menu of content; track menu) {
-      <mat-list class="flex-auto" role="list">
+      <mat-list class="menu-list" role="list">
         <div mat-subheader class="bold">{{ menu.label }}</div>
         @for (subMenu of menu.child; track subMenu; let i = $index) {
           @if (!subMenu.popup) {
             <mat-list-item role="listitem">
               @if (subMenu.icon) {
-                <app-icon class="!mr-3 leading-none" matListItemIcon [content]="subMenu.icon" />
+                <app-icon class="menu-icon" matListItemIcon [content]="subMenu.icon" />
               }
               <app-link [content]="subMenu" />
             </mat-list-item>
           } @else {
             <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
               @if (subMenu.icon) {
-                <app-icon class="!mr-3 leading-none" matListItemIcon [content]="subMenu.icon" />
+                <app-icon class="menu-icon" matListItemIcon [content]="subMenu.icon" />
               }
               <span>{{ subMenu.label }}</span>
               <mat-menu #popup="matMenu" yPosition="above">
@@ -25,7 +25,7 @@
           <ng-template #popup>
             <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
               @if (subMenu.icon) {
-                <app-icon class="!mr-3 leading-none" matListItemIcon [content]="subMenu.icon" />
+                <app-icon class="menu-icon" matListItemIcon [content]="subMenu.icon" />
               }
               <span>{{ subMenu.label }}</span>
               <mat-menu #popup="matMenu" yPosition="above">

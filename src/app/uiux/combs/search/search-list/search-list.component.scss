@@ -1,6 +1,16 @@
+.loading-wrap {
+  @apply flex justify-center items-center;
+}
+
 .search-list {
   margin: 0 auto;
   min-height: 100vh;
+  .search-list-inner {
+    @screen md {
+      @apply px-3;
+      margin-top: 40px;
+    }
+  }
   .results {
     @apply text-neutral-500;
   }
@@ -35,6 +45,12 @@
     .bottom {
       font-size: 14px;
     }
+  }
+  .pager {
+    @apply my-5;
+  }
+  .empty-text {
+    @apply text-center py-10;
   }
 }
 

@@ -1,8 +1,30 @@
 .code-editor {
+  @apply grid grid-cols-12 gap-2;
   height: 35vh;
   max-height: 50vh;
   overflow: hidden;
   @apply transition-all;
+  .api-box {
+    @apply flex flex-col p-3 max-h-full overflow-auto col-span-12;
+  }
+  .editor-box {
+    @apply col-span-12;
+  }
+  .formly-block {
+    @apply block;
+  }
+  .json-pre {
+    background-color: white;
+  }
+  .code-block {
+    @apply whitespace-normal break-words;
+  }
+  .monaco-editor {
+    height: 100% !important;
+  }
+  .editing {
+    @apply absolute bottom-5 right-6;
+  }
   .box {
     border: 1px solid transparent;
     box-shadow: var(--mat-sys-level1);
@@ -37,7 +59,7 @@
 }
 
 .code-editor-btns {
-  @apply absolute left-1/2;
+  @apply absolute left-1/2 text-white flex justify-center;
   top: 8px;
   transform: translateX(-50%);
   --mat-icon-button-disabled-icon-color: rgb(255 255 255 / 50%);
@@ -51,6 +73,10 @@
 }
 
 .toolbar {
+  @apply p-5 flex gap-2 items-center;
+  .toolbar-label {
+    color: white;
+  }
   .btn-help {
     --mat-icon-button-state-layer-size: 24px;
     line-height: 0;

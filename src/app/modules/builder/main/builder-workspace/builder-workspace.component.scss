@@ -1,5 +1,10 @@
 @use 'variable/breakpoint' as *;
 @use 'mixins/amixin' as *;
+
+.toolbar-host {
+  @apply block relative z-10;
+}
+
 .builder-workspace {
   height: 100vh;
   display: flex;

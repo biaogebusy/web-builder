@@ -23,11 +23,11 @@
                 matListItemTitle
                 contenteditable="true"
               >
-                <span class="text-sm">
+                <span class="version-title">
                   {{ version.title }}
                 </span>
               </div>
-              <div class="time text-xs font-mono" matListItemLine>
+              <div class="time" matListItemLine>
                 {{ version.time | date: 'yyyy/MM/dd HH:mm:ss' }}
               </div>
               @if (i > 0) {
@@ -46,7 +46,7 @@
           }
         }
       </mat-list>
-      <mat-action-row class="whitespace-nowrap">
+      <mat-action-row class="action-row">
         <app-btn
           (click)="onClearHistory()"
           [content]="{

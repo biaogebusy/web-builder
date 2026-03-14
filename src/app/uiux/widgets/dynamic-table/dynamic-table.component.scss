@@ -1,5 +1,9 @@
 .dynamic-table {
+  @apply w-full overflow-auto box-border;
   background-color: var(--mat-sys-background);
+  table {
+    @apply w-full;
+  }
   &.nowrap {
     word-break: normal;
     white-space: nowrap;
@@ -16,6 +20,9 @@
   .mat-mdc-header-cell {
     font-size: 15px;
     word-break: keep-all;
+    .header-label {
+      @apply px-3;
+    }
   }
 
   tr.detail-row {
@@ -29,6 +36,9 @@
   .element-detail {
     overflow: hidden;
     display: flex;
+    .expand-item {
+      @apply block w-full;
+    }
   }
 
   .mat-mdc-cell {

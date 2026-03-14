@@ -1,5 +1,12 @@
 .showcase-1-v1 {
+  @apply relative;
   z-index: 1;
+  .title-block {
+    @apply block;
+  }
+  .elements-grid {
+    @apply grid grid-cols-12 gap-5 justify-center items-center;
+  }
   ::ng-deep {
     .title {
       &.style-v1,

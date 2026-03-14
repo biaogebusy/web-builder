@@ -1,5 +1,15 @@
 .media-meta {
+  @apply py-5 flex flex-row flex-wrap;
   border-bottom: 1px solid var(--mat-sys-surface-dim);
+  .meta {
+    @apply flex-col gap-3 justify-center items-center md:flex-[10] hidden md:flex;
+  }
+  .wrapper {
+    @apply md:flex-[90];
+  }
+  .time {
+    @apply md:hidden;
+  }
   .top {
     font-size: 60px;
     line-height: 1;

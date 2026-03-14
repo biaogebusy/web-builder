@@ -1,4 +1,5 @@
 .title {
+  @apply font-bold mb-3;
   font-size: 14px;
 }
 .sub-title {
@@ -7,6 +8,7 @@
 }
 
 .media-body {
+  @apply flex flex-col justify-center;
   > div:only-child {
     margin-bottom: 0 !important;
   }
@@ -29,6 +31,10 @@
 }
 
 .media-left {
+  @apply mr-3 text-center basis-auto;
+  .meta {
+    @apply mt-3 whitespace-nowrap;
+  }
   app-icon {
     padding: 10px;
     border-radius: 5px;
@@ -41,6 +47,7 @@
 }
 
 .media-object {
+  @apply flex flex-row;
   .meta,
   .media-body > div:not(.title) {
     @apply text-neutral-500;

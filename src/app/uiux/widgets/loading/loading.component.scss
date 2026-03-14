@@ -1,4 +1,5 @@
 .loading-spin {
+  @apply flex z-10 overflow-hidden;
   .spin-loader,
   .spin-loader:after {
     border-radius: 50%;

@@ -1,11 +1,11 @@
 <div
-  class="layout-toolbar inline-flex justify-end items-center"
+  class="layout-toolbar"
   #toolbar
   (click)="hiddenWidgetPicker()"
 >
   <app-btn
     [matMenuTriggerFor]="menu"
-    class="toggle block"
+    class="toggle"
     #myMenu
     matTooltip="配置当前栏"
     matTooltipPosition="above"
@@ -22,7 +22,7 @@
       mat-menu-item
       (click)="onMoveCol('left', elements, toolbar, i)"
     >
-      <div class="flex items-center">
+      <div class="menu-item-inner">
         <app-icon [content]="{ svg: 'chevron-left' }"></app-icon>
         <span>左移</span>
       </div>
@@ -32,27 +32,27 @@
       [disabled]="!(i > -1 && i < elements.length - 1)"
       (click)="onMoveCol('right', elements, toolbar, i)"
     >
-      <div class="flex items-center">
+      <div class="menu-item-inner">
         <app-icon [content]="{ svg: 'chevron-right' }"></app-icon>
         <span>右移</span>
       </div>
     </button>
     <mat-divider />
     <button mat-menu-item (click)="addBlock('layout', lbContent)">
-      <div class="flex items-center">
+      <div class="menu-item-inner">
         <app-icon [content]="{ svg: 'plus' }"></app-icon>
         <span>选择组件插入新一栏</span>
       </div>
     </button>
     <button mat-menu-item (click)="onDeleteRow(toolbar)">
-      <div class="flex items-center">
+      <div class="menu-item-inner">
         <app-icon [content]="{ svg: 'close' }"></app-icon>
         <span>移除当前栏</span>
       </div>
     </button>
     <mat-divider />
     <button mat-menu-item (click)="onLayoutSettings(layout, toolbar)">
-      <div class="flex items-center">
+      <div class="menu-item-inner">
         <app-icon [content]="{ svg: 'responsive' }"></app-icon>
         <span>当前栏配置</span>
       </div>

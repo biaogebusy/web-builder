@@ -1,4 +1,11 @@
+.field-full {
+  @apply w-full relative;
+  .rich-text-btn {
+    @apply absolute right-0 bottom-1;
+  }
+}
 .popup {
+  @apply rounded-lg hidden flex-col justify-center items-center gap-5 p-5 shadow-2xl;
   width: 750px;
   height: 500px;
   z-index: 100;
@@ -20,5 +27,8 @@
   }
   &[data-popper-placement] {
     display: flex;
+  }
+  .popup-actions {
+    @apply flex justify-center items-center gap-5 mt-5;
   }
 }

@@ -1,9 +1,19 @@
 .card-1v6 {
+  @apply rounded-md transition-all p-6 duration-300 ease-in-out hover:scale-105 hover:z-10;
   box-shadow: var(--mat-sys-level1);
   background-color: var(--mat-sys-primary-fixed);
   border-bottom: 3px solid var(--mat-sys-outline);
+  .card-inner {
+    @apply flex flex-col gap-5;
+  }
   .title {
     color: var(--mat-sys-primary);
+  }
+  .meta {
+    @apply font-bold flex;
+    .suffix {
+      @apply flex items-end;
+    }
   }
   &:hover {
     border-color: var(--mat-sys-primary);

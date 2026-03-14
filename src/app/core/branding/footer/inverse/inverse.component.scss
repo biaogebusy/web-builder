@@ -1,5 +1,6 @@
 @use '../common.scss';
 .footer-inverse {
+  @apply relative;
   z-index: 2;
   background-color: #282828;
   color: #9e9e9e;
@@ -71,6 +72,7 @@
 }
 
 .item-header {
+  @apply text-white;
   height: 40px;
   font-size: 16px;
   display: flex;
@@ -79,5 +81,6 @@
 }
 
 .left {
+  @apply text-center md:text-left;
   font-size: 14px;
 }

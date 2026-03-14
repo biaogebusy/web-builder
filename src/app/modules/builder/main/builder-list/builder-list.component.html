@@ -30,20 +30,20 @@
                 @if (builderConfig) {
                   <div
                     #actionBtn
-                    class="add-new-section flex gap-2 items-center"
+                    class="add-new-section"
                     [attr.data-path]="i"
                   >
                     <button
                       mat-raised-button
                       (click)="addNewSection(actionBtn, 'section', builderConfig.newSection)"
                     >
-                      <div class="flex">
+                      <div class="section-btn-content">
                         <app-icon class="mr-1" [content]="{ svg: 'plus' }" />
                         <span>新增布局</span>
                       </div>
                     </button>
                     <button
-                      class="new-widget !bg-white rounded-full shadow"
+                      class="new-widget"
                       matTooltip="选择组件"
                       mat-icon-button
                       [matMenuTriggerFor]="menu"
@@ -55,13 +55,13 @@
                         mat-menu-item
                         (click)="addNewSection(actionBtn, 'widget', builderConfig?.newSection)"
                       >
-                        <div class="flex items-center">
+                        <div class="menu-item-content">
                           <app-icon [content]="{ svg: 'widgets-outline' }" />
                           <span>选择组件</span>
                         </div>
                       </button>
                       <button mat-menu-item (click)="onPasteData(actionBtn)">
-                        <div class="flex items-center">
+                        <div class="menu-item-content">
                           <app-icon [content]="{ svg: 'content-paste' }" />
                           <span>粘贴组件</span>
                         </div>
@@ -84,7 +84,7 @@
       </div>
     </div>
     <app-btn
-      class="absolute right-10 bottom-10 z-50"
+      class="float-action-btn"
       [matMenuTriggerFor]="menu"
       [content]="{
         mode: 'mini-fab',
@@ -101,20 +101,20 @@
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="onNewPage()">
-    <div class="flex items-center">
+    <div class="menu-item-content">
       <app-icon [content]="{ svg: 'pencil-plus', color: 'primary' }" /> <span>创建页面</span>
     </div>
   </button>
 
   <button mat-menu-item (click)="goBackUiux()">
-    <div class="flex items-center">
+    <div class="menu-item-content">
       <app-icon [content]="{ svg: 'youtube-subscription', color: 'primary' }" />
       <span>查看组件</span>
     </div>
   </button>
 
   <button mat-menu-item (click)="onClearHistory()">
-    <div class="flex items-center">
+    <div class="menu-item-content">
       <app-icon [content]="{ svg: 'delete-empty-outline', color: 'warn' }" />
       <span>清空草稿</span>
     </div>

@@ -2,12 +2,23 @@ app-icon {
   display: inherit;
 }
 .card-1v5 {
+  @apply rounded-md transition-all duration-300 ease-in-out hover:-translate-y-3;
   box-shadow: var(--mat-sys-level1);
   background-color: var(--mat-sys-background);
+  .card-inner {
+    @apply p-5 flex flex-col;
+  }
+  .content {
+    @apply opacity-70;
+  }
   .more {
+    @apply flex justify-start items-center my-5;
     color: var(--mat-sys-primary);
     .mat-icon {
       color: inherit;
     }
+  }
+  .footer {
+    @apply flex justify-between items-center opacity-20;
   }
 }

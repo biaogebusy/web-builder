@@ -1,5 +1,5 @@
 @if (content) {
-  <div class="tab-1v1 pt-5">
+  <div class="tab-1v1">
     @if (content.tab && pager) {
       @if (content.text) {
         <app-text [content]="content.text" />
@@ -23,7 +23,7 @@
       @if (currentList.length > 0) {
         <app-pagination (pageChange)="onPageChange($event)" />
       } @else {
-        <div class="text-center p-y-xl">
+        <div class="empty-state p-y-xl">
           <p>没有数据。</p>
         </div>
       }

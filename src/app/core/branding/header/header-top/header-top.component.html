@@ -1,21 +1,21 @@
 @if (content) {
   <div class="header-top">
     <div class="container">
-      <div class="flex justify-between items-center">
+      <div class="top-inner">
         <div class="left">
-          <div class="hotline flex gap-4">
+          <div class="hotline">
             @for (item of content.banner.left; track item) {
-              <div class="item flex">
+              <div class="item">
                 @if (item.icon) {
-                  <app-icon class="h-[22px]" [content]="item.icon" />
+                  <app-icon class="top-icon" [content]="item.icon" />
                 }
                 <div>{{ item.label }}</div>
               </div>
             }
           </div>
         </div>
-        <div class="right gap-4 flex justify-center items-center">
-          <app-github-star class="github mx-4" />
+        <div class="right">
+          <app-github-star class="github" />
           @for (item of content.banner.right; track item) {
             @if (item?.svg) {
               <a class="inv-icon style-v1" href="{{ item.href }}" target="_blank">
@@ -26,10 +26,10 @@
                 }
               </a>
             } @else {
-              <app-link class="link mr-6" [content]="item" />
+              <app-link class="link" [content]="item" />
             }
             <ng-template #link>
-              <app-link class="link mr-6" [content]="item" />
+              <app-link class="link" [content]="item" />
             </ng-template>
           }
         </div>

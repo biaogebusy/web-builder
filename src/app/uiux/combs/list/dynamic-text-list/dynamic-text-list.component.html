@@ -1,12 +1,12 @@
 @if (content) {
-  <div class="dynamic-text-list my-5">
+  <div class="dynamic-text-list">
     <div class="container">
       @if (loading) {
         <ngx-skeleton-loader count="20" appearance="line" />
       }
       @for (item of lists; track item; let isLast = $last) {
         <div class="item">
-          <div class="meta mb-3 flex justify-start items-center gap-3">
+          <div class="meta">
             <app-img [content]="item.picture" />
             <div class="name text-lighter">{{ item.name }}</div>
             <div class="time text-lighter">{{ item.time | date: 'y-M-d' }}</div>
@@ -19,10 +19,10 @@
               <mat-icon>{{ content.action.icon }}</mat-icon>
               {{ content.action.label }}
             </a>
-            <button class="ml-3 text-lighter" mat-button>{{ item.count }} 个人回答</button>
+            <button class="action-btn text-lighter" mat-button>{{ item.count }} 个人回答</button>
           </div>
           @if (!isLast) {
-            <mat-divider class="!my-5" />
+            <mat-divider class="divider-spacing" />
           }
         </div>
       }

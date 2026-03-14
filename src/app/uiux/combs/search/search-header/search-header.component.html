@@ -1,12 +1,12 @@
 @if (content) {
-  <div class="search-header relative bg-shadow p-y-xl">
+  <div class="search-header p-y-xl">
     @if (content.bg) {
       <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"> </app-bg-img>
     }
-    <div class="container relative">
+    <div class="container search-container">
       <app-text [attr.data-path]="'text'" [content]="content.text" />
       <app-spacer [size]="'sm'" />
-      <div class="w-full">
+      <div class="form-wrap">
         <form [formGroup]="form">
           <div class="search-input">
             @for (item of filterForm; track item) {

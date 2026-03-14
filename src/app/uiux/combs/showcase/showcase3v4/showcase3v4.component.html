@@ -1,14 +1,14 @@
 @if (content) {
-  <div class="showcase-3-v4 relative">
+  <div class="showcase-3-v4">
     @if (content) {
       <app-title [attr.data-path]="'title'" [content]="content.title" />
-      <div class="showcase-inner flex flex-col md:flex-row justify-center items-center">
-        <div class="flex flex-col basis-full">
+      <div class="showcase-inner">
+        <div class="elements-col">
           @for (item of content.elements; track item; let i = $index) {
             <app-box [attr.data-path]="'elements.' + i" [content]="item" />
           }
         </div>
-        <div class="flex flex-col basis-full">
+        <div class="img-col">
           <app-img [attr.data-path]="'img'" class="m-left-sm" [content]="content.img" />
         </div>
       </div>

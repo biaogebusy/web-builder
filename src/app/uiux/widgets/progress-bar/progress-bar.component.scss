@@ -1,5 +1,6 @@
 :host ::ng-deep {
   .mat-mdc-progress-bar {
+    @apply mb-5;
     height: 4px;
     border-radius: 6px;
     margin-bottom: 0 !important;

@@ -1,8 +1,15 @@
 @use 'variable/breakpoint' as *;
 .search-header {
+  @apply relative;
   overflow: hidden;
   form {
     z-index: 10;
+  }
+  .search-container {
+    @apply relative;
+  }
+  .form-wrap {
+    @apply w-full;
   }
   input {
     box-sizing: border-box;

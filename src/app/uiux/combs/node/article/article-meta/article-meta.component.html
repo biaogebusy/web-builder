@@ -1,6 +1,6 @@
-<div class="flex flex-wrap justify-start items-start gap-3 opacity-80">
+<div class="article-meta-list">
   @for (item of content; track item) {
-    <div class="flex justify-center items-center">
+    <div class="meta-item">
       @if (item.icon) {
         <app-icon [content]="{ svg: item.icon }" />
         <div>{{ item.value || item.label }}</div>

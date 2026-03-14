@@ -1,4 +1,4 @@
-<mat-form-field [appearance]="to.appearance || 'fill'" class="w-full">
+<mat-form-field [appearance]="to.appearance || 'fill'" class="field-full">
   <mat-label>{{ to.label }}</mat-label>
   <!-- 单选不开启搜索 -->
   @if (!to.multiple && !to.search) {
@@ -11,7 +11,7 @@
       #select
     >
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        <mat-option *cdkVirtualFor="let option of matOptions" [value]="option.value">
+        <mat-option *cdkVirtualFor="let option of matOptions()" [value]="option.value">
           @if (to.icon) {
             <mat-icon [svgIcon]="option.value" />
           }
@@ -60,7 +60,7 @@
       #select
     >
       <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="400" maxBufferPx="800">
-        <mat-option *cdkVirtualFor="let option of matOptions" [value]="option.value">
+        <mat-option *cdkVirtualFor="let option of matOptions()" [value]="option.value">
           @if (to.type === 'icon') {
             <mat-icon [svgIcon]="option.value" />
           }

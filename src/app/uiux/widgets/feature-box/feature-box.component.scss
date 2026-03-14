@@ -1,4 +1,7 @@
 @use 'mixins/amixin' as *;
+.feature-box {
+  @apply relative overflow-hidden;
+}
 .feature-cover {
   &:before {
     content: '';
@@ -49,6 +52,10 @@
     }
   }
   .btns {
+    @apply absolute flex z-10;
+    &:is(a) {
+      @apply w-full h-full;
+    }
     .mat-icon {
       line-height: 40px;
     }
@@ -72,6 +79,7 @@
     }
   }
   .feature-inner-ling {
+    @apply relative block overflow-hidden;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     &:before {
@@ -99,6 +107,7 @@
       background-color: var(--mat-sys-background);
     }
     .title {
+      @apply px-3 absolute bottom-0 text-center block w-full opacity-0;
       color: var(--mat-sys-on-primary);
       @include transition(all, 0.4s, ease);
     }

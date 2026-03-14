@@ -1,6 +1,6 @@
 @if (content) {
-  <div class="media-object flex flex-row" [class.box-animate]="content.css3">
-    <div class="media-left mr-3 text-center basis-auto">
+  <div class="media-object" [class.box-animate]="content.css3">
+    <div class="media-left">
       @if (content.img) {
         @if (content.img.src) {
           <app-img [attr.data-path]="'img'" [content]="content.img" />
@@ -12,14 +12,14 @@
       @if (content.meta) {
         <div
           contentedit="meta"
-          class="meta mt-3 whitespace-nowrap"
+          class="meta"
           [innerHTML]="content.meta | safeHtml"
         ></div>
       }
     </div>
-    <div class="media-body flex flex-col justify-center">
+    <div class="media-body">
       @if (content.title) {
-        <div contentedit="title" class="title line-height-1 font-bold mat-h3 mb-3">
+        <div contentedit="title" class="title line-height-1 mat-h3">
           {{ content.title }}
         </div>
       }

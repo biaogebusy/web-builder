@@ -2,10 +2,21 @@
 @use 'variable/breakpoint' as *;
 .card-1-v3 {
   box-shadow: var(--mat-sys-level1);
+  .viewport {
+    @apply overflow-auto h-[500px];
+  }
   .item {
+    @apply m-5 p-3 rounded-xl flex flex-col cursor-pointer;
     box-shadow: var(--mat-sys-level1);
     background-color: var(--mat-sys-background);
+    h3 {
+      @apply mb-3;
+    }
+    .li {
+      @apply flex;
+    }
     .label {
+      @apply font-bold mr-3;
       word-break: keep-all;
     }
     .right {

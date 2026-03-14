@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -15,7 +15,6 @@ import { IBuilderConfig } from '@core/interface/IBuilder';
   providedIn: 'root',
 })
 export class ContentService extends ApiService {
-  private http = inject(HttpClient);
   private tagsService = inject(TagsService);
   private screenState = inject(ScreenState);
   private apiService = inject(ApiService);
@@ -127,7 +126,7 @@ export class ContentService extends ApiService {
 
   getRepository(owner: string, repo: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
 

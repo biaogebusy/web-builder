@@ -4,11 +4,11 @@
       [content]="content.mainMenu"
       [mobileMenu]="content.mobileMenu" />
   </div>
-  <div class="footer-bottom text-center p-y-sm">
+  <div class="footer-bottom p-y-sm">
     <div class="container">
-      <div class="brand flex justify-between items-center">
-        <h2 class="!mb-0 !font-normal">{{ content.logo.label }}</h2>
-        <p class="!mb-0">
+      <div class="brand">
+        <h2 class="brand-label">{{ content.logo.label }}</h2>
+        <p class="brand-copy">
           ©{{ utilities.fullYear }}
           <span [innerHTML]="content.copyRight | safeHtml"></span>
         </p>

@@ -1,5 +1,5 @@
 <div class="manage-media">
-  <div class="grid grid-cols-12 gap-5 h-full">
+  <div class="media-grid">
     <div class="sidebar">
       <mat-slider max="12" min="1" step="1">
         <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
@@ -95,7 +95,7 @@
                   [ngClass]="{ selected: isSelected(item) }"
                 >
                   <img
-                    class="w-full h-full object-contain"
+                    class="media-img"
                     ngSrc="{{ item.src }}"
                     priority
                     width="480"
@@ -107,7 +107,7 @@
           </div>
         } @else {
           <div class="empty">
-            <app-icon class="w-20 h-20" [content]="{ svg: 'magnify', inline: true }" />
+            <app-icon class="empty-icon" [content]="{ svg: 'magnify', inline: true }" />
             @if (model.name) {
               关键词{{ model.name }}
             }
