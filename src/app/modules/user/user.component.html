@@ -1,31 +1,31 @@
 <div class="user">
-  <div class="profile-banner relative">
+  <div class="profile-banner">
     @if (currentUser?.bannerBg) {
       <app-bg [content]="currentUser.bannerBg">
         <app-img [content]="currentUser.bannerBg.img" />
       </app-bg>
     }
   </div>
-  <div class="profile-1v1 relative p-y">
+  <div class="profile-1v1 p-y">
     <div class="container">
-      <div class="profile grid grid-cols-12 gap-5 justify-between items-start">
+      <div class="profile">
         <div class="left clo-span-12 md:col-span-4">
           @if (currentUser) {
-            <div class="box p-y p-x text-center">
+            <div class="box p-y p-x">
               <app-img [content]="currentUser.avatar" />
-              <h2 class="mat-h2 mb-0 mt-3">{{ currentUser.name }}</h2>
+              <h2 class="mat-h2 username">{{ currentUser.name }}</h2>
               <div class="subTitle">{{ currentUser.subTitle }}</div>
             </div>
           }
           <mat-divider />
           @if (currentUser?.details) {
             <div class="left-item p-y-sm p-x-sm">
-              <div class="item-header font-bold m-bottom-sm">
+              <div class="item-header m-bottom-sm">
                 {{ currentUser.details.label }}
               </div>
               <div class="list">
                 @for (item of currentUser.details.elements; track item) {
-                  <div class="flex justify-start items-start">
+                  <div class="detail-row">
                     <app-icon [content]="item.icon" />
                     <div class="label m-right-xs bold">{{ item.label }}:</div>
                     <div>{{ item.content }}</div>
@@ -34,20 +34,20 @@
               </div>
             </div>
           }
-          <div class="currentUser-menu p-x-sm m-bottom flex flex-wrap justify-between">
+          <div class="currentUser-menu p-x-sm m-bottom">
             <div class="item flex-12/12 md:flex-5/12">
               <a
-                class="p-y-sm p-x-sm flex flex-col justify-center items-center"
+                class="menu-link p-y-sm p-x-sm"
                 [routerLink]="['favorite']"
                 [routerLinkActive]="['active']"
               >
-                <mat-icon class="pb-[10px]">favorite</mat-icon>
+                <mat-icon class="menu-icon">favorite</mat-icon>
                 <span>收藏</span>
               </a>
             </div>
             <div class="item flex-12/12 md:flex-5/12">
-              <a class="p-y-sm p-x-sm flex flex-col justify-center items-center" (click)="logout()">
-                <mat-icon class="pb-[10px]">exit_to_app</mat-icon>
+              <a class="menu-link p-y-sm p-x-sm" (click)="logout()">
+                <mat-icon class="menu-icon">exit_to_app</mat-icon>
                 <span>退出</span>
               </a>
             </div>

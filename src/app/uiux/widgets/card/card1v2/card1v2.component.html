@@ -1,17 +1,17 @@
 @if (content) {
-  <div class="card-1-v2 relative pb-5 px-5 md:pb-16 md:px-16">
+  <div class="card-1-v2">
     @if (content.bg) {
       <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" />
     }
-    <div class="card-content relative z-10">
+    <div class="card-content">
       @if (content.img) {
         <app-img
           [attr.data-path]="'img'"
-          class="media -top-5 overflow-hidden"
+          class="media"
           [content]="content.img"
         />
       }
-      <div class="card-bottom mt-3">
+      <div class="card-bottom">
         @if (content.subTitle) {
           <p contentedit="subTitle" [innerHTML]="content.subTitle | safeHtml"></p>
         }

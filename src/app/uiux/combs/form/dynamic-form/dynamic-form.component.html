@@ -4,7 +4,7 @@
       <app-dynamic-component [inputs]="content.dynamicComponent" />
     </div>
     <div class="form-wrapper" [ngClass]="content.formClasses">
-      <app-formly class="w-full" [form]="form" [fields]="content.form.fields" [model]="model" />
+      <app-formly class="form-control" [form]="form" [fields]="content.form.fields" [model]="model" />
     </div>
   </div>
   <div class="action" [ngClass]="content.action.classes">

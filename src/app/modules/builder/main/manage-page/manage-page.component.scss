@@ -1,4 +1,5 @@
 .manage-page {
+  @apply relative;
   .page-loading {
     position: fixed;
     left: 50%;

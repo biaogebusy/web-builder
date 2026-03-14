@@ -8,3 +8,37 @@
     z-index: 100;
   }
 }
+
+.user-avatar {
+  @apply flex gap-2 items-center;
+}
+
+.avatar-wrapper {
+  @apply relative;
+}
+
+.avatar-img {
+  @apply object-cover rounded-full;
+}
+
+.upload {
+  @apply absolute -bottom-3 -right-3;
+}
+
+.user-details {
+  @apply flex flex-col;
+  .name {
+    @apply font-bold;
+  }
+  .mail {
+    @apply text-gray-500;
+  }
+}
+
+.form {
+  @apply my-4;
+}
+
+.actions {
+  @apply flex justify-center items-center gap-4;
+}

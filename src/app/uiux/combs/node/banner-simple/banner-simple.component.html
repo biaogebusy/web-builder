@@ -1,5 +1,5 @@
 @if (content) {
-  <div class="banner-simple relative" [ngClass]="content.style">
+  <div class="banner-simple" [ngClass]="content.style">
     @if (content.bannerBg) {
       <app-bg-img
         [attr.data-path]="'bannerBg'"
@@ -7,8 +7,8 @@
     }
     <div class="container">
       <div
-        class="banner-inner relative flex flex-col md:flex-row justify-start items-start md:justify-between md:items-center">
-        <div class="title flex flex-col">
+        class="banner-inner">
+        <div class="title-wrap">
           @if (content.title) {
             <h2
               class="page-title"

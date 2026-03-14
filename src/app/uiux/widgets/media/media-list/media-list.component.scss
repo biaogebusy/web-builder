@@ -1,6 +1,7 @@
 @use 'mixins/amixin' as *;
 .recent-posts {
   .block-title {
+    @apply uppercase;
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 1px;
@@ -8,10 +9,13 @@
     word-spacing: 1px;
   }
   .list {
+    @apply list-none m-0 p-0;
     .item {
+      @apply clear-both list-none;
       min-height: 60px;
       margin-bottom: 29px;
       .post-img {
+        @apply float-left block overflow-hidden relative;
         margin-right: 18px;
         &:before {
           content: '';

@@ -1,10 +1,10 @@
 @if (content) {
   <div class="showcase-2v1">
-    <div class="flex flex-col">
+    <div class="wrapper">
       @if (content.text) {
         <app-text [attr.data-path]="'text'" [content]="content.text" />
       }
-      <div class="m-y grid grid-cols-12 justify-center items-center gap-4">
+      <div class="elements-grid m-y">
         @for (item of elements; track item; let i = $index) {
           <app-dynamic-component
             [attr.data-path]="'elements.' + i"

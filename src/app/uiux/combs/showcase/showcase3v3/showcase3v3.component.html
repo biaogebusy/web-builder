@@ -1,6 +1,6 @@
 @if (content) {
   <div class="showcase-3-v3">
-    <div class="showcase-inner teaser grid grid-cols-12 sm:gap-5">
+    <div class="showcase-inner teaser">
       @if (content.feature) {
         @if (isShow) {
           <app-feature-box
@@ -18,21 +18,21 @@
         <h2 class="title">
           <app-link [attr.data-path]="'title'" [content]="content.title" />
         </h2>
-        <ul class="post-meta-info flex">
+        <ul class="post-meta-info">
           @if (content.date) {
-            <li class="flex justify-center items-center">
+            <li>
               <mat-icon>schedule</mat-icon>
               <div>{{ content.date | date: 'YYYY-MM-dd' }}</div>
             </li>
           }
           @if (content.commentCount) {
-            <li class="flex justify-center items-center">
+            <li>
               <mat-icon>comment</mat-icon>
               <div>{{ content.commentCount }} 评论</div>
             </li>
           }
           @if (content.category) {
-            <li class="flex justify-center items-center">
+            <li>
               <mat-icon>folder</mat-icon>
               <div>{{ content.category | slice: 0 : 20 }}</div>
             </li>

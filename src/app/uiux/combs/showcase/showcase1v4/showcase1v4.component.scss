@@ -1,0 +1,10 @@
+.showcase-1-v4 {
+  @apply relative;
+  .elements-grid {
+    @apply grid grid-cols-12 justify-center items-center;
+  }
+  .actions {
+    @apply flex justify-center;
+    padding-bottom: 10px;
+  }
+}

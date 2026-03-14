@@ -3,7 +3,7 @@
     @if (content.fields) {
       <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)" />
     }
-    <div class="actions m-top-sm flex flex-row justify-center">
+    <div class="actions m-top-sm">
       <app-btn
         (click)="onClear()"
         [content]="{

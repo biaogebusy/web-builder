@@ -10,6 +10,7 @@
   }
 
   .inner {
+    @apply flex;
     padding: 2rem 4rem;
   }
 }
@@ -19,7 +20,7 @@
 }
 
 .item {
-  @apply pr-8;
+  @apply pr-8 flex-[0_1_100%];
 
   ::ng-deep {
     a {

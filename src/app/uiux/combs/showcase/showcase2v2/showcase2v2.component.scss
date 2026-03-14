@@ -1,3 +1,12 @@
+.showcase-2v2 {
+  @apply relative;
+  .wrapper {
+    @apply flex flex-col;
+  }
+  .elements-grid {
+    @apply grid grid-cols-12 gap-8 justify-center items-start;
+  }
+}
 :host ::ng-deep .mat-mdc-card {
   border-radius: 0;
   &:not([class*='mat-elevation-z']) {

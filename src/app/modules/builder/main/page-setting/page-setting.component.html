@@ -1,12 +1,12 @@
-<div class="flex gap-5">
-  <div class="page-setting relative">
+<div class="page-setting-wrapper">
+  <div class="page-setting">
     @if (loading()) {
-      <div class="load absolute z-10 top-1/2 left-1/2">
+      <div class="load">
         <app-loading />
       </div>
     }
     <app-formly [form]="form" [fields]="fields" [model]="model" />
-    <div class="actions flex justify-center items-center gap-3 my-5">
+    <div class="actions">
       <app-btn
         (click)="onUpdate(model)"
         [content]="{

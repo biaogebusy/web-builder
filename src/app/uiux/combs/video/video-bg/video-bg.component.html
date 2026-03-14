@@ -1,12 +1,12 @@
 @if (content) {
-  <div class="video-bg relative">
+  <div class="video-bg">
     @if (content.bg) {
       <app-bg [content]="content.bg" />
     }
     @if (video) {
       <app-video [content]="video" />
     }
-    <div class="inner relative xy-center">
+    <div class="inner xy-center">
       <div class="wrapper">
         @for (item of content.elements; track item; let i = $index) {
           <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />

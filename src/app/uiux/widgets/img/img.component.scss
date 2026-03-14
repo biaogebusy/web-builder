@@ -1,7 +1,14 @@
 @use 'variable/breakpoint' as *;
 @use 'mixins/amixin' as *;
+
+.img-bg {
+  @apply absolute inset-0;
+}
+
 .img-wrapper {
+  @apply static;
   .actions {
+    @apply flex justify-center items-center gap-3;
     @include middle-center();
   }
 }

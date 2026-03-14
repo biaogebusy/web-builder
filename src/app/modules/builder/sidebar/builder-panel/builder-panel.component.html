@@ -13,7 +13,7 @@
       </mat-expansion-panel-header>
       <mat-list>
         <div
-          class="cards grid grid-cols-12 gap-1"
+          class="cards"
           id="widgets"
           cdkDropList
           cdkDropListSortingDisabled="true"
@@ -23,7 +23,7 @@
           @for (widget of item.child; track widget) {
             @if (!widget.child) {
               <div
-                class="item col-span-6 sm:col-span-4"
+                class="item"
                 [matTooltip]="
                   builder.fixedContent === widget.content ? '已锁定预览，可查看复制组件JSON' : ''
                 "
@@ -38,7 +38,7 @@
                 />
                 <div
                   matRipple
-                  class="w-full"
+                  class="drag-wrapper"
                   [cdkDragData]="widget.content"
                   cdkDrag
                   (cdkDragStarted)="onDragStarted()"
@@ -48,7 +48,7 @@
                 >
                   <div
                     (click)="onFixed(widget)"
-                    class="inner move flex flex-col justify-center items-center"
+                    class="inner move"
                     [ngClass]="widget.label === fixLabel() ? 'active' : ''"
                   >
                     @if (widget.icon) {
@@ -62,10 +62,10 @@
               </div>
             }
             @if (widget.child) {
-              <div class="group col-span-12 grid grid-cols-12 gap-1" matTooltipPosition="above">
+              <div class="group" matTooltipPosition="above">
                 @for (item of widget.child; track item) {
                   <div
-                    class="item col-span-6 sm:col-span-4"
+                    class="item"
                     [matTooltip]="
                       builder.fixedContent === item.content ? '已锁定预览，可查看复制组件JSON' : ''
                     "
@@ -80,7 +80,7 @@
                     />
                     <div
                       matRipple
-                      class="w-full"
+                      class="drag-wrapper"
                       [cdkDragData]="item.content"
                       cdkDrag
                       (cdkDragStarted)="onDragStarted()"
@@ -90,7 +90,7 @@
                     >
                       <div
                         (click)="onFixed(item)"
-                        class="inner move flex flex-col justify-center items-center"
+                        class="inner move"
                         [ngClass]="item.label === fixLabel() ? 'active' : ''"
                       >
                         @if (item.icon) {

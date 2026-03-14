@@ -1,5 +1,9 @@
 @use 'variable/breakpoint' as *;
 
+.header-container {
+  @apply flex flex-row gap-5;
+}
+
 .header {
   @apply relative mb-[2px];
   border-top: 1px solid var(--mat-sys-outline-variant);
@@ -44,12 +48,17 @@
 }
 
 .header-left {
+  @apply flex-[0_0_auto];
   .version {
     font-size: 1.2rem;
     margin-left: 0.4rem;
   }
 }
+.header-right {
+  @apply flex flex-row justify-center items-center gap-2 md:gap-3 xl:gap-5;
+}
 .main-menu {
+  @apply flex flex-row;
   .item {
     ::ng-deep {
       app-link {
@@ -83,4 +92,8 @@
 
 .app-name {
   @apply font-bold;
+}
+
+.user-menu-drawer {
+  @apply mx-2;
 }

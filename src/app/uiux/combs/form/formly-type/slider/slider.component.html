@@ -1,4 +1,4 @@
-<div class="slider gap-8 flex justify-center items-center">
+<div class="slider">
   <mat-slider
     [style.width]="'100%'"
     [tabIndex]="to.tabIndex"
@@ -10,10 +10,8 @@
   >
     <input [id]="id" [formlyAttributes]="field" [formControl]="formControl" matSliderThumb />
   </mat-slider>
-  <div
-    class="value flex justify-center items-center rounded-md box-border opacity-70 whitespace-nowrap"
-  >
-    <input matInput class="text-center" [formlyAttributes]="field" [formControl]="formControl" />
+  <div class="value">
+    <input matInput class="value-input" [formlyAttributes]="field" [formControl]="formControl" />
     <span class="suffix">{{ to.unit || '' }}</span>
   </div>
 </div>

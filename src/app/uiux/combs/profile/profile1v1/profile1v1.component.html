@@ -1,15 +1,15 @@
-<div class="profile-banner relative">
+<div class="profile-banner">
   @if (content.bannerBg) {
     <app-bg-img [content]="content.bannerBg" />
   }
 </div>
-<div class="profile-1v1 relative m-y">
+<div class="profile-1v1 m-y">
   <div class="container">
-    <div class="profile grid grid-cols-12 justify-between items-start gap-8">
+    <div class="profile">
       <div class="left m-bottom col-span-12 md:col-span-3">
-        <div class="box p-y-sm p-x text-center">
+        <div class="box p-y-sm p-x">
           <app-img [content]="avatar" />
-          <h2 class="mat-h2 m-bottom-0 mt-3 two-line">
+          <h2 class="name-title mat-h2 m-bottom-0 two-line">
             {{ content.name }}
           </h2>
           <div class="subTitle">{{ content.subTitle }}</div>
@@ -37,9 +37,9 @@
                 style: 'style-v4',
               }"
             />
-            <div class="list overflow-hidden">
+            <div class="list">
               @for (item of content.details.elements; track item) {
-                <div class="flex">
+                <div class="list-item">
                   <app-icon [content]="item.icon" />
                   <div class="label m-right-xs bold">{{ item.label }}:</div>
                   <div class="one-line">{{ item.content }}</div>
@@ -80,7 +80,7 @@
       </div>
     </div>
     @if (content.params?.comment) {
-      <div class="comment-wrapper my-3 p-3 md:my-5 md:p-5">
+      <div class="comment-wrapper">
         @if (content.params?.comment) {
           <app-comment-form [content]="content" [type]="'add'" />
         }

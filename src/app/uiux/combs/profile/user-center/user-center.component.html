@@ -1,5 +1,5 @@
 @if (content) {
-  <div class="user-center relative">
+  <div class="user-center">
     @if (content.params.showProfile) {
       <div class="inner">
         <div class="container">
@@ -18,16 +18,16 @@
           }
         </app-bg>
       }
-      <div class="main grid grid-cols-12 justify-between items-start gap-5">
+      <div class="main">
         @if (content.left.length) {
-          <div class="left col-span-12 md:col-span-3">
+          <div class="left">
             @for (item of content.left; track item) {
               <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item" />
             }
           </div>
         }
         @if (content.right.length) {
-          <div class="right col-span-12 md:col-span-9">
+          <div class="right">
             @for (item of content.right; track item) {
               <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item" />
             }

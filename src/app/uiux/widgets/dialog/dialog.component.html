@@ -1,6 +1,6 @@
-<div class="dialog relative">
+<div class="dialog">
   <app-btn
-    class="absolute right-0 top-[-66px] dialog-colse-outside-btn"
+    class="dialog-colse-outside-btn"
     [content]="{ icon: { svg: 'close' }, mode: 'icon', color: 'primary' }"
     mat-dialog-close="true"
     matTooltip="关闭"
@@ -21,7 +21,7 @@
     }
   </mat-dialog-content>
   @if (!data.disableActions) {
-    <div class="gap-3 px-4" mat-dialog-actions [align]="data.actionsAlign || 'end'">
+    <div class="dialog-actions" mat-dialog-actions [align]="data.actionsAlign || 'end'">
       <button mat-button (click)="onNoClick()">{{ data.noLabel }}</button>
       <button mat-button color="primary" (click)="onYesClick()" cdkFocusInitial>
         {{ data.yesLabel }}

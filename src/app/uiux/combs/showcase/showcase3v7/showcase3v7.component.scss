@@ -1,4 +1,25 @@
 @use 'variable/breakpoint' as *;
+.showcase-3-v7 {
+  @apply relative;
+  .showcase-inner {
+    @apply flex flex-col md:flex-row justify-center items-center;
+  }
+  .left {
+    @apply flex flex-wrap justify-end flex-12/12 md:flex-4/12;
+    .box {
+      @apply flex justify-end items-center;
+    }
+  }
+  .middle {
+    @apply flex flex-col justify-center items-center flex-12/12 md:flex-4/12;
+  }
+  .right {
+    @apply flex flex-wrap flex-12/12 md:flex-4/12;
+    .box {
+      @apply flex;
+    }
+  }
+}
 :host-context(.gaoliang-theme) ::ng-deep {
   .showcase-3-v7 {
     .showcase-inner {

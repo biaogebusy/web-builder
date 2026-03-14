@@ -1,11 +1,11 @@
-<div class="hero-1v4 overflow-hidden">
+<div class="hero-1v4">
   <div [ngStyle]="content.style">
-    <div class="inner flex flex-wrap justify-center items-center">
+    <div class="inner">
       @if (content.text) {
-        <app-text [attr.data-path]="'text'" class="basis-full" [content]="content.text" />
+        <app-text [attr.data-path]="'text'" class="text-block" [content]="content.text" />
       }
       @if (content.widget) {
-        <div class="basis-full order-{{ content.order }} flex justify-center items-center">
+        <div class="widget-row order-{{ content.order }}">
           @for (item of content.widget; track item; let i = $index) {
             <app-dynamic-component [attr.data-path]="'widget.' + i" [inputs]="item" />
           }

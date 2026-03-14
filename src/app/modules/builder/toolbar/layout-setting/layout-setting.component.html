@@ -2,7 +2,7 @@
   @let component = content.content;
   @let elements = component?.elements;
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)" />
-  <div class="flex justify-center items-center -mt-5 mb-5">
+  <div class="animate-actions">
     @if (model?.component?.animate?.aos?.enable) {
       <app-btn
         (click)="applyAosAllTopComponent(model.component.animate)"
@@ -50,8 +50,8 @@
       </mat-list>
     </div>
   }
-  <div class="actions flex flex-col justify-center items-center gap-5 my-5">
-    <div class="flex justify-center items-center gap-3">
+  <div class="actions bottom-actions">
+    <div class="btn-group">
       <app-btn
         (click)="editorJSON()"
         [content]="{

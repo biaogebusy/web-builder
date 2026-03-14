@@ -1,9 +1,9 @@
 <app-search-header [content]="content.header" [filterForm]="filterForm" [form]="form" />
 <div class="container">
-  <div class="search-body grid grid-cols-12">
+  <div class="search-body">
     @if (filterForm) {
       <app-search-sidebar
-        class="block col-span-12 sm:col-span-3"
+        class="sidebar-col"
         [label]="content.label"
         [fields]="content.sidebar"
         [form]="form"
@@ -11,7 +11,7 @@
       />
     }
     <app-search-list
-      class="block col-span-12 sm:col-span-{{ content.sidebar ? '9' : '12' }}"
+      class="list-col sm:col-span-{{ content.sidebar ? '9' : '12' }}"
       [content]="nodes"
       [wrapperClasses]="content.wrapperClasses"
       [colClasses]="content.colClasses"

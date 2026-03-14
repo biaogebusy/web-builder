@@ -1,5 +1,9 @@
 @use 'mixins/amixin' as *;
 .calendar {
+  @apply relative;
+  .loading-inner {
+    @apply absolute top-0 left-0 flex h-full w-full justify-center items-center;
+  }
   ::ng-deep {
     .fc {
       .fc-header-toolbar {

@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.base-text {
+  @apply relative overflow-hidden break-words;
+}
+
 .inner {
   z-index: 2;
   &.text-center {
@@ -19,5 +23,8 @@
         max-width: 100%;
       }
     }
+  }
+  .actions {
+    @apply mt-10 pb-3 gap-3 flex flex-wrap items-center;
   }
 }

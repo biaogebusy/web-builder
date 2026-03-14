@@ -1,5 +1,9 @@
 @use 'variable/breakpoint' as *;
 
+.page-toolbar {
+  @apply fixed right-5 top-20 md:right-10 md:top-40 z-[1000];
+}
+
 .drawer-right.mat-drawer-opened {
   position: absolute;
   bottom: 0;

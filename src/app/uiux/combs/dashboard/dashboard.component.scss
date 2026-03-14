@@ -1,6 +1,13 @@
 .dashboard {
   background-color: var(--mat-sys-background);
+  .wrapper {
+    @apply flex flex-wrap;
+  }
+  .element-col {
+    @apply overflow-hidden;
+  }
   .box {
+    @apply block overflow-auto;
     padding: 10px;
     ::ng-deep {
       .dashboard-box {

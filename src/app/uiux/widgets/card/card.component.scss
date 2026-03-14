@@ -26,10 +26,12 @@
   }
 }
 .card-body {
+  @apply pb-4;
   min-height: 40px;
 }
 
 .card-header {
+  @apply relative;
   margin-top: -16px !important;
 
   ::ng-deep {
@@ -74,6 +76,12 @@
 }
 
 .mat-mdc-card-content {
+  .card-content-row {
+    @apply flex flex-row py-3;
+  }
+  .card-title-wrap {
+    @apply flex flex-wrap basis-full;
+  }
   ::ng-deep {
     .mat-mdc-card-avatar {
       position: relative;
@@ -92,6 +100,7 @@
 
 // style
 .card {
+  @apply overflow-hidden;
   &.card-no-shadow {
     box-shadow: none !important;
     border: 0 !important;

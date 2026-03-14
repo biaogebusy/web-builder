@@ -1,6 +1,7 @@
 @use 'variable/breakpoint' as *;
 
 .login-container {
+  @apply flex justify-center items-center;
   max-height: 500px;
   min-height: calc(100vh - 76px);
 
@@ -20,6 +21,7 @@
 }
 
 .login-wrapper {
+  @apply relative flex justify-center items-center rounded-xl;
   max-height: 600px;
   background-color: var(--mat-sys-surface-container-lowest);
   border: 1px solid var(--mat-sys-surface-bright);
@@ -33,11 +35,14 @@
     z-index: 10;
   }
   .error {
+    @apply rounded-[4px] p-3 mb-3 text-sm;
     background-color: var(--mat-sys-error-container);
     color: var(--mat-sys-on-error-container);
   }
   .login-form {
+    @apply flex flex-col justify-center items-center p-6 sm:p-3 z-10 overflow-hidden relative flex-12/12 sm:flex-6/12 box-border;
     .form-scroll {
+      @apply w-full;
       position: relative;
     }
     &.is-login {
@@ -64,6 +69,7 @@
 }
 
 .login-second {
+  @apply hidden sm:flex justify-center items-center relative p-5 flex-12/12 sm:flex-6/12 box-border;
   min-width: 300px;
   background-color: var(--mat-sys-background);
   img {
@@ -75,7 +81,34 @@
   }
 }
 
+.phone-form,
+.psw-form {
+  @apply flex flex-col py-5;
+}
+
+.code-btn {
+  right: 1rem;
+}
+
+.code-label {
+  @apply whitespace-nowrap;
+}
+
+.submit-btn {
+  @apply mt-5;
+}
+
+.welcome-title {
+  @apply text-lg;
+}
+
+.welcome-text {
+  @apply text-base;
+  margin-top: 0.75rem !important;
+}
+
 .mark-bg {
+  @apply absolute;
   width: 0;
   height: 100%;
   top: 0;

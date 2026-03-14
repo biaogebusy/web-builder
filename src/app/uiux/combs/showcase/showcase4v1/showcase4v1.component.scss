@@ -1,4 +1,13 @@
 @use 'mixins/amixin' as *;
+.showcase-4v1 {
+  @apply relative;
+  .inner {
+    @apply grid grid-cols-12;
+  }
+  .stat-col {
+    @apply col-span-12 sm:col-span-6 md:col-span-3;
+  }
+}
 .inv-stats {
   text-align: center;
   .stats-icon {

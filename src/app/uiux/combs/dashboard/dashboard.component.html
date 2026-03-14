@@ -1,11 +1,11 @@
 @if (content) {
   <div class="dashboard">
-    <div class="wrapper flex flex-wrap" *reqRolesIf="content">
+    <div class="wrapper" *reqRolesIf="content">
       @for (box of content.elements; track box; let index = $index) {
-        <div class="flex-12/12 md:flex-{{ box.row }}/12 overflow-hidden">
+        <div class="element-col flex-12/12 md:flex-{{ box.row }}/12">
           <app-dynamic-component
             [attr.data-path]="'elements.' + index"
-            class="box block overflow-auto"
+            class="box"
             [inputs]="box"
           ></app-dynamic-component>
         </div>

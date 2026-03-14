@@ -3,30 +3,30 @@
 <div class="widget-picker z-[9999]" [class.show]="show()">
   @if (show()) {
     @if (widgets()) {
-      <div class="widget-wrapper py-4 flex flex-col items-center" #wrapper>
+      <div class="widget-wrapper" #wrapper>
         @if (bcData()) {
           <div
             #copy
-            class="box flex flex-col justify-center items-center"
+            class="box"
             (click)="onPasteData()"
             matTooltip="粘贴复制的组件"
             matTooltipPosition="above"
           >
             <div class="item" matRipple>
-              <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
+              <div class="inner">
                 <app-icon [content]="{ svg: 'content-paste' }" />
               </div>
             </div>
           </div>
-          <app-divider class="opacity-50 w-[40px]" />
+          <app-divider class="picker-divider" />
         }
         @for (group of widgets().elements; track group) {
           <div
-            class="box flex flex-col justify-center items-center"
+            class="box"
             (mouseenter)="onHoverGroup(group, wrapper)"
           >
             <div class="item" #item matRipple>
-              <div class="inner flex flex-col justify-center items-center m-[2px] p-[6px]">
+              <div class="inner">
                 @if (group.icon) {
                   <app-icon [content]="{ svg: group.icon }" />
                 }
@@ -35,7 +35,7 @@
           </div>
         }
         @if (help) {
-          <app-divider class="opacity-50 w-[40px]" />
+          <app-divider class="picker-divider" />
           <div class="help box" [matTooltip]="help.tooltip">
             <app-btn
               [content]="{
@@ -51,31 +51,31 @@
         }
       </div>
     }
-    <div #groupPopup class="absolute">
+    <div #groupPopup class="group-popup-container">
       @if (group$ | async; as group) {
         <div
-          class="group-popup p-4 z-10 flex-col justify-start items-start whitespace-nowrap w-[280px] min-h-[360px]"
+          class="group-popup"
         >
           <h2>{{ group.label }}</h2>
-          <div class="grid grid-cols-12 gap-4 w-full">
+          <div class="group-grid">
             @for (item of group.child; track item) {
               <div
                 (mouseenter)="onHoverWidget(item, groupPopup)"
                 (click)="onSelect(item.content)"
-                class="item col-span-6 border border-solid rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer"
+                class="item widget-item"
               >
                 <app-icon [content]="{ svg: item.icon }"></app-icon>
-                <div class="text-sm opacity-90">{{ item.label }}</div>
+                <div class="item-label">{{ item.label }}</div>
               </div>
             }
           </div>
         </div>
       }
     </div>
-    <div #popup class="widget-popup absolute">
-      <div class="z-10 w-[314px] h-[236px] box-border overflow-auto">
+    <div #popup class="widget-popup">
+      <div class="popup-preview">
         @if (widget$ | async; as widget) {
-          <div class="hover-show w-full h-full flex justify-center relative">
+          <div class="hover-show">
             @if (widget.preview) {
               <img [src]="widget.preview" alt="" />
             } @else {
@@ -88,5 +88,5 @@
   }
 </div>
 @if (show()) {
-  <div class="fixed w-full h-full z-[1000] left-0 top-0" (click)="onLeave()"></div>
+  <div class="overlay" (click)="onLeave()"></div>
 }

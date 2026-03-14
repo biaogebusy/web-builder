@@ -1,8 +1,8 @@
 @if (content) {
   <div class="breadcrumb">
-    <ul class="flex">
+    <ul>
       @for (link of content; track link) {
-        <li class="flex justify-center items-center">
+        <li>
           <app-link [content]="link" />
           <app-icon [content]="{ svg: 'chevron-right' }" />
         </li>

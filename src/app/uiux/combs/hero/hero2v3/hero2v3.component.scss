@@ -1,15 +1,27 @@
 .hero-2-v3 {
+  @apply relative overflow-hidden;
   background-color: var(--mat-sys-primary);
   color: var(--mat-sys-on-primary);
+  .hero-body {
+    @apply text-center flex flex-wrap justify-center items-center;
+  }
+  .box {
+    @apply flex flex-wrap justify-center items-center basis-full;
+  }
+  .item {
+    @apply basis-1/2 sm:basis-4/12 md:basis-2/12;
+  }
   ::ng-deep .base-text {
     max-width: 800px;
     margin: 0 auto;
   }
   .card {
+    @apply flex flex-col justify-center items-center;
     border-radius: 6px;
     background-color: var(--mat-sys-surface);
     box-shadow: var(--mat-sys-level0);
     .card-media {
+      @apply flex justify-center items-center;
       width: 80px;
       height: 80px;
       border-radius: 50%;
@@ -24,6 +36,7 @@
       }
     }
     .title {
+      @apply font-bold text-center;
       font-size: 18px;
       ::ng-deep {
         a {

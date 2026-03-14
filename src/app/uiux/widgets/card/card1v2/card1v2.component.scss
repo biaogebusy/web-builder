@@ -1,5 +1,6 @@
 @use 'variable/breakpoint' as *;
 .card-1-v2 {
+  @apply relative pb-5 px-5 md:pb-16 md:px-16;
   color: var(--mat-sys-on-primary);
   a {
     color: var(--mat-sys-on-primary);
@@ -7,7 +8,9 @@
 }
 
 .card-content {
+  @apply relative z-10;
   .media {
+    @apply -top-5 overflow-hidden;
     box-shadow: 0 3px 4px 0 rgb(0 0 0 / 50%);
 
     ::ng-deep {
@@ -28,6 +31,9 @@
         }
       }
     }
+  }
+  .card-bottom {
+    @apply mt-3;
   }
   .title {
     ::ng-deep a {

@@ -1,6 +1,6 @@
 @if (content) {
-  <div class="media-meta py-5 flex flex-row flex-wrap">
-    <div class="meta flex-col gap-3 justify-center items-center md:flex-[10] hidden md:flex">
+  <div class="media-meta">
+    <div class="meta">
       <div class="top">{{ content.date | date: 'd' }}</div>
       <div class="middle">
         {{ content.date | date: 'y-M' }}
@@ -9,12 +9,12 @@
         <a mat-button href="{{ content.more.href }}" target="_blank">{{ content.more.label }}</a>
       </div>
     </div>
-    <div class="wrapper md:flex-[90]">
+    <div class="wrapper">
       <div class="title">
         <h2>
           <app-link [content]="content.link" />
         </h2>
-        <div class="time md:hidden">{{ content.date }}</div>
+        <div class="time">{{ content.date }}</div>
         <div
           class="content"
           [innerHTML]="content.body | stripTags | trim | shorten: 150 : '...'"

@@ -6,14 +6,24 @@
   color: var(--mat-sys-on-surface-variant);
   box-shadow: var(--mat-sys-level0);
 }
+.top-inner {
+  @apply flex justify-between items-center;
+}
 .hotline {
+  @apply flex gap-4;
   .item {
-    @apply text-sm;
+    @apply flex text-sm;
     .mat-icon,
     .custom-icon {
       @apply mr-1;
     }
   }
+}
+.top-icon {
+  @apply h-[22px];
+}
+.github {
+  @apply mx-4;
 }
 .inv-icon {
   &.style-v1 {
@@ -131,7 +141,9 @@
 }
 
 .right {
+  @apply gap-4 flex justify-center items-center;
   .link {
+    @apply mr-6;
     ::ng-deep a {
       @apply text-xs;
       color: var(--mat-sys-on-surface-variant);

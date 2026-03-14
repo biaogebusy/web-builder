@@ -2,6 +2,15 @@
   --mat-form-field-filled-container-color: transparent;
   --mat-option-label-text-size: 15px;
   --mat-form-field-container-text-size: 15px;
+  .animate-actions {
+    @apply flex justify-center items-center -mt-5 mb-5;
+  }
+  .bottom-actions {
+    @apply flex flex-col justify-center items-center gap-5 my-5;
+    .btn-group {
+      @apply flex justify-center items-center gap-3;
+    }
+  }
   ::ng-deep {
     h2.title-header {
       @apply capitalize;

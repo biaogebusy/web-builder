@@ -1,18 +1,18 @@
-<div class="hero-2-v3 relative p-y-md overflow-hidden">
-  <div class="hero-body text-center flex flex-wrap justify-center items-center">
+<div class="hero-2-v3 p-y-md">
+  <div class="hero-body">
     @if (content.text) {
       <app-text [attr.data-path]="'text'" [content]="content.text" />
     }
-    <div class="box m-top-md flex flex-wrap justify-center items-center basis-full">
+    <div class="box m-top-md">
       @for (item of content.elements; track item; let i = $index) {
-        <div class="item basis-1/2 sm:basis-4/12 md:basis-2/12">
-          <div class="card m-y-xs m-x-xs flex flex-col justify-center items-center">
+        <div class="item">
+          <div class="card m-y-xs m-x-xs">
             <div class="card-inner p-y-sm p-x-sm">
-              <div class="card-media flex justify-center items-center">
+              <div class="card-media">
                 <app-img [attr.data-path]="'elements.' + i + '.img'" [content]="item.img" />
               </div>
               <div class="card-content m-top-sm">
-                <h3 class="title mat-h3 font-bold m-bottom-0 text-center">
+                <h3 class="title mat-h3 m-bottom-0">
                   <app-link
                     [attr.data-path]="'elements.' + i"
                     [content]="item.link"

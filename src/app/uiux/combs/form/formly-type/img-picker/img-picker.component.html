@@ -1,14 +1,14 @@
 <div class="img-picker">
   @if (formControl.value) {
-    <div class="meta mt-3 flex flex-row justify-start items-center">
+    <div class="meta">
       <img src="{{ src }}" alt="" />
-      <div class="content flex flex-col">
+      <div class="content">
         <div class="title">{{ field.props?.fileName }}</div>
         <div class="desc">{{ field.props?.alt }}</div>
       </div>
     </div>
   }
-  <div class="actions my-3 flex justify-center items-center gap-3">
+  <div class="actions">
     @if (formControl.value) {
       <app-btn (click)="remove()" [content]="{ label: to.deleteLabel, color: 'warn' }" />
     }

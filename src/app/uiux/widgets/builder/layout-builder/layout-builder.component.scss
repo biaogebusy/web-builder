@@ -1,5 +1,13 @@
 .layout-builder {
+  @apply relative;
+
+  .layout-inner {
+    @apply grid grid-cols-12 grid-flow-row;
+  }
+
   .layout {
+    @apply relative;
+
     ::ng-deep {
       .container,
       .container-fluid {
@@ -7,8 +15,19 @@
       }
     }
 
+    .toolbar {
+      @apply hidden absolute z-[1000];
+    }
+
+    .placeholder {
+      @apply opacity-50 hover:opacity-100 p-10 flex justify-center items-center;
+    }
+
     .blocks {
+      @apply box-border relative w-full h-full grid grid-cols-12 grid-flow-row;
+
       > .item {
+        @apply relative box-border;
         max-width: 100%;
         &:hover {
           z-index: 100;
@@ -38,10 +57,20 @@
             opacity: 1;
           }
         }
+        .block-toolbar-inner {
+          @apply flex;
+        }
+        .last-spacer {
+          @apply py-6;
+        }
       }
     }
     > .toolbar {
       @apply right-[2px] top-[2px];
     }
+  }
+
+  .empty-state {
+    @apply p-5 text-center col-span-12 opacity-50;
   }
 }

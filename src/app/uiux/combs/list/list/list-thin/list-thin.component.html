@@ -1,7 +1,7 @@
 @if (content) {
   <div class="list-thin">
     @if (loading) {
-      <div class="my-5 flex justify-center items-center">
+      <div class="loading-wrap">
         <app-spinner [content]="{ color: 'primary', size: 40 }" />
       </div>
     }
@@ -10,10 +10,10 @@
         item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p };
         track item
       ) {
-        <div class="flex flex-col item mb-3 py-3 px-3">
+        <div class="item">
           <app-link [content]="item.link" />
-          <div class="item-bottom flex flex-wrap justify-start items-center">
-            <div class="meta mr-3 flex gap-3">
+          <div class="item-bottom">
+            <div class="meta">
               @for (item of item.meta; track item) {
                 <div>
                   {{ item.label | ucfirst }}
@@ -21,7 +21,7 @@
               }
             </div>
             @if (item?.actions?.length) {
-              <div class="actions flex flex-row">
+              <div class="actions">
                 @for (action of item.actions; track action) {
                   <app-dynamic-component [inputs]="{ content: action, data: action?.params }" />
                 }
@@ -32,7 +32,7 @@
       }
       <app-pagination (pageChange)="p = $event" />
     } @else {
-      <div class="flex justify-center items-center py-5 my-5">没有数据</div>
+      <div class="empty-state">没有数据</div>
     }
   </div>
 }

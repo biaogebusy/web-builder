@@ -1,0 +1,12 @@
+.hero-1v4 {
+  @apply overflow-hidden;
+  .inner {
+    @apply flex flex-wrap justify-center items-center;
+  }
+  .text-block {
+    @apply basis-full;
+  }
+  .widget-row {
+    @apply basis-full flex justify-center items-center;
+  }
+}

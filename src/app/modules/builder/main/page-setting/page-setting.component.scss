@@ -1,3 +1,16 @@
+.page-setting-wrapper {
+  @apply flex gap-5;
+}
+
+.page-setting {
+  @apply relative;
+}
+
 .load {
+  @apply absolute z-10 top-1/2 left-1/2;
   transform: translate(-50%, -50%);
+}
+
+.actions {
+  @apply flex justify-center items-center gap-3 my-5;
 }

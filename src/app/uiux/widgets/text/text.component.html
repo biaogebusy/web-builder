@@ -1,5 +1,5 @@
 @if (content) {
-  <div [id]="content.id || ''" class="base-text relative overflow-hidden break-words">
+  <div [id]="content.id || ''" class="base-text">
     <div #inner class="inner relative" [class]="content.classes" [style]="content.style">
       @if (content.title) {
         <app-title [attr.data-path]="'title'" #title [content]="content.title" />
@@ -11,9 +11,9 @@
         <div
           [attr.data-path]="'actions'"
           #actions
-          class="actions mt-10 pb-3 gap-3 flex flex-wrap justify-{{
+          class="actions justify-{{
             content.actionsAlign ?? 'center'
-          }} items-center"
+          }}"
         >
           @for (action of content.actions; track action; let i = $index) {
             @switch (action.type) {

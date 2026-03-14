@@ -5,7 +5,13 @@
     }
   }
 }
+.toggle-group {
+  @apply mb-5;
+}
 .chart {
+  @apply rounded-md p-5 box-border;
+  min-width: 400px;
+  min-height: 400px;
   border: 1px solid var(--mat-sys-surface-dim);
   box-shadow: var(--mat-sys-level1);
 }

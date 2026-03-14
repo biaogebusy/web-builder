@@ -1,9 +1,9 @@
 @let rightContent = builder.rightContent$ | async;
 <div
-  class="builder-wrapper relative flex"
+  class="builder-wrapper"
   [ngClass]="{ dark: (builder.themeMode | async) === 'dark' }"
 >
-  <mat-drawer-container class="w-full">
+  <mat-drawer-container class="builder-drawer-container">
     <mat-drawer
       #drawer
       class="sidebar-drawer"
@@ -15,7 +15,7 @@
     </mat-drawer>
     <mat-drawer-content #drawerContent class="drawer-content">
       <div
-        class="builder flex-1 overflow-auto h-full"
+        class="builder"
         [ngClass]="{ 'has-sidebar': !(builderFullScreen$ | async) }"
       >
         <mat-drawer-container
@@ -23,7 +23,7 @@
           class="mat-drawer-transition"
         >
           <mat-drawer
-            class="!fixed"
+            class="right-drawer"
             [class]="rightContent?.classes"
             #builderRightDrawer
             [ngStyle]="{
@@ -34,7 +34,7 @@
           >
             <div class="right-header">
               @if (rightContent?.title) {
-                <h2 class="text-base">{{ rightContent?.title }}</h2>
+                <h2 class="right-title">{{ rightContent?.title }}</h2>
               }
               <app-btn
                 [matTooltip]="'收起'"

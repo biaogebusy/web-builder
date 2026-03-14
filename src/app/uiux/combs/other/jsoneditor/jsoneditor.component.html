@@ -1,17 +1,17 @@
-<div class="relative" [ngClass]="content.classes">
+<div class="jsoneditor-wrapper" [ngClass]="content.classes">
   @if (loading()) {
     <div class="loader">
       <app-loading [content]="{ size: 20 }"></app-loading>
     </div>
   }
   @if (loadLibrary()) {
-    <div class="flex w-full h-full justify-center items-center">
+    <div class="library-loading">
       <app-loading [content]="{ size: 50 }"></app-loading>
     </div>
   }
   <div #jsoneditor></div>
   @if (content.actions) {
-    <div #actions class="actions m-top pb-[10px] flex justify-center items-center">
+    <div #actions class="actions m-top">
       @for (action of content.actions; track action) {
         @switch (action.type) {
           @case ('closeDialog') {

@@ -1,24 +1,24 @@
 @let loginConfig = coreConfig.login;
-<div class="login-container flex justify-center items-center">
-  <div class="login-wrapper relative flex justify-center items-center rounded-xl">
+<div class="login-container">
+  <div class="login-wrapper">
     <div
-      class="hidden sm:flex justify-center items-center login-second relative p-5 flex-12/12 sm:flex-6/12 box-border"
+      class="login-second"
     >
       @if (loginConfig.left) {
         <app-dynamic-component [inputs]="loginConfig.left" />
       }
     </div>
     <div
-      class="flex flex-col justify-center items-center login-form p-6 sm:p-3 z-10 overflow-hidden relative flex-12/12 sm:flex-6/12 box-border"
+      class="login-form"
       [class.is-login]="user$ | async"
     >
       @if (loading()) {
         <app-loading />
       }
-      <div class="w-full form-scroll">
+      <div class="form-scroll">
         @if (!(user$ | async)) {
           @if (error()) {
-            <div class="error rounded-[4px] p-3 mb-3 text-sm">
+            <div class="error">
               {{ error() }}
             </div>
           }
@@ -28,7 +28,7 @@
             @if (phoneLogin.enable) {
               <mat-tab label="{{ phoneLogin.tabLabel || '手机登录' }}">
                 <form
-                  class="flex flex-col py-5"
+                  class="phone-form"
                   [formGroup]="phoneForm"
                   (ngSubmit)="loginByPhone()"
                 >
@@ -51,14 +51,14 @@
                     <button
                       disabled="{{ countdown() > 0 }}"
                       (click)="getCode($event)"
-                      class="right-4"
+                      class="code-btn"
                       [class]="countdown() ? 'pointer-events-none' : ''"
                       matSuffix
                       color="primary"
                       mat-button
                       aria-label="code"
                     >
-                      <small class="whitespace-nowrap">
+                      <small class="code-label">
                         发送验证码
                         @if (countdown()) {
                           ({{ countdown() }})
@@ -68,7 +68,7 @@
                   </mat-form-field>
                   <button
                     [disabled]="loading()"
-                    class="mt-5"
+                    class="submit-btn"
                     type="submit"
                     mat-raised-button
                     color="primary"
@@ -80,7 +80,7 @@
             }
             @if (pswLogin.enable) {
               <mat-tab label="{{ pswLogin.tabLabel || '密码登录' }}">
-                <form class="flex flex-col py-5" [formGroup]="userForm" (ngSubmit)="login()">
+                <form class="psw-form" [formGroup]="userForm" (ngSubmit)="login()">
                   <mat-form-field appearance="fill">
                     <mat-label>用户名</mat-label>
                     <mat-icon matSuffix>person</mat-icon>
@@ -106,7 +106,7 @@
                   </mat-form-field>
                   <button
                     [disabled]="loading()"
-                    class="mt-5"
+                    class="submit-btn"
                     type="submit"
                     mat-raised-button
                     color="primary"
@@ -119,12 +119,12 @@
           </mat-tab-group>
         }
         @if (user$ | async; as currentUser) {
-          <h1 class="text-lg">Hi, {{ currentUser.display_name }}</h1>
+          <h1 class="welcome-title">Hi, {{ currentUser.display_name }}</h1>
           <mat-divider />
-          <p class="text-base !mt-3">欢迎。</p>
+          <p class="welcome-text">欢迎。</p>
         }
       </div>
     </div>
-    <div class="mark-bg absolute"></div>
+    <div class="mark-bg"></div>
   </div>
 </div>

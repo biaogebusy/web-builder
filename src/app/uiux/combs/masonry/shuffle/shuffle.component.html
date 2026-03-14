@@ -20,13 +20,13 @@
         </mat-button-toggle-group>
       </div>
     }
-    <div class="shuffle-inner flex w-full h-full flex-wrap">
+    <div class="shuffle-inner">
       @for (item of content.elements; track item) {
-        <div class="item w-[100%] sm:w-[50%] md:w-[25%]" [attr.data-groups]="item.category">
+        <div class="item" [attr.data-groups]="item.category">
           <app-dynamic-component [inputs]="item" />
         </div>
       }
-      <div class="sizer w-[100%] sm:w-[50%] md:w-[25%]"></div>
+      <div class="sizer"></div>
     </div>
   </div>
 }

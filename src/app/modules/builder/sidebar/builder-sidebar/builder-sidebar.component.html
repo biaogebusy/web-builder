@@ -42,7 +42,7 @@
       count="6"
       animation="progress-dark"
       appearance="circle"
-      class="flex flex-col justify-center items-center gap-4 my-5"
+      class="skeleton-loader"
     />
   }
 
@@ -76,7 +76,7 @@
                         *reqRolesIf="item"
                       >
                         @if (item.icon) {
-                          <app-icon class="h-[24px] w-[24px] leading-none" [content]="item.icon" />
+                          <app-icon class="child-icon" [content]="item.icon" />
                         }
                         {{ item.label }}
                       </a>
@@ -93,7 +93,7 @@
 
   <div class="bottom">
     @if (branding) {
-      <div class="flex flex-row flex-wrap gap-3 justify-center py-3 icon-actions">
+      <div class="icon-actions-row">
         <app-btn
           [matTooltip]="'媒体库'"
           [matTooltipPosition]="sidebarDrawer.opened ? 'above' : 'right'"
@@ -121,7 +121,7 @@
       </div>
       <mat-divider />
       <div
-        class="flex items-center my-3 gap-3 justify-center"
+        class="bottom-row"
         [ngClass]="sidebarDrawer.opened ? 'flex-row' : 'flex-col'"
       >
         @if (branding.header.params.userInfo) {

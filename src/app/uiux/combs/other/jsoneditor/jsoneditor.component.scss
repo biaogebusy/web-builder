@@ -1,3 +1,13 @@
+.jsoneditor-wrapper {
+  @apply relative;
+  .library-loading {
+    @apply flex w-full h-full justify-center items-center;
+  }
+  .actions {
+    @apply flex justify-center items-center;
+    padding-bottom: 10px;
+  }
+}
 ::ng-deep .jsoneditor,
 ::ng-deep .jsoneditor-outer {
   min-height: 400px;

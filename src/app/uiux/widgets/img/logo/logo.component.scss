@@ -1,4 +1,5 @@
 .logo {
+  @apply flex justify-start items-end;
   ::ng-deep {
     img {
       max-height: 40px;
@@ -6,4 +7,8 @@
       object-fit: contain;
     }
   }
+}
+
+.version {
+  @apply pl-3;
 }

@@ -1,6 +1,19 @@
 .card-1v1 {
+  @apply relative rounded-md overflow-hidden top-0 hover:-top-3 transition-all ease-in duration-300;
   box-shadow: var(--mat-sys-level1);
   background-color: var(--mat-sys-background);
+  .post-meta {
+    @apply flex justify-between items-center;
+  }
+  .readmore {
+    @apply flex items-center;
+  }
+  .author {
+    @apply flex flex-col absolute z-10 opacity-0 top-[5%] left-[5%] transition-all duration-300 ease-in;
+  }
+  .date {
+    @apply flex justify-center items-center;
+  }
   &:hover {
     .author {
       opacity: 1;

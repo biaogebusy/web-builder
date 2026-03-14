@@ -1,8 +1,13 @@
 @use 'mixins/amixin' as *;
 .dashboard-box {
+  @apply relative;
   border-radius: 4px;
   .box-header {
+    @apply flex flex-wrap justify-between items-center;
     padding: 20px;
+    .filter {
+      @apply flex justify-center items-center gap-4;
+    }
     ::ng-deep {
       .mat-icon {
         cursor: pointer;

@@ -1,6 +1,6 @@
 @if (content) {
-  <div class="hero-1-v2 pt-20 md:mb-20">
-    <div class="!z-10 relative">
+  <div class="hero-1-v2">
+    <div class="hero-inner">
       <div class="swiper-media">
         <app-swiper
           [index]="index"
@@ -9,7 +9,7 @@
           [content]="content.right"
         />
       </div>
-      <div class="swiper-text p-5">
+      <div class="swiper-text">
         <app-swiper
           [index]="index"
           (slideChange)="onSlideChange($event)"

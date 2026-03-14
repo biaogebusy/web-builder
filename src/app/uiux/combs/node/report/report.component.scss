@@ -3,6 +3,18 @@
   min-height: 100vh;
   padding-bottom: 40px;
   background-color: var(--mat-sys-primary-fixed);
+  .filter {
+    @apply flex flex-wrap justify-between items-center;
+  }
+  .details {
+    @apply relative grid grid-cols-12 justify-between items-start gap-5;
+  }
+  .loading-inner {
+    @apply absolute w-full h-full justify-center items-center;
+  }
+  .item {
+    @apply block;
+  }
   ::ng-deep {
     .dynamic-table {
       padding: 20px;

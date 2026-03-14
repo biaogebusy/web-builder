@@ -1,9 +1,9 @@
 <div class="dynamic-media-list m-y" [ngClass]="content.params.type">
   <div class="container">
-    <div class="m-top-sm flex flex-col md:flex-row">
+    <div class="inner-row m-top-sm">
       <div class="list flex-12/12 md:flex-9/12">
         <app-list
-          class="block md:mr-5"
+          class="list-block"
           [attr.data-path]="'list'"
           [content]="list"
           [links]="links"

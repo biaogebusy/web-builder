@@ -2,10 +2,31 @@
   padding: 20px 10px;
 }
 
+.shuffle-inner {
+  @apply flex w-full h-full flex-wrap;
+}
+
 .item {
+  width: 100%;
   position: relative;
   float: left;
   box-sizing: border-box;
   padding: 0 10px;
   margin-bottom: 20px;
+  @media (min-width: 640px) {
+    width: 50%;
+  }
+  @media (min-width: 768px) {
+    width: 25%;
+  }
+}
+
+.sizer {
+  width: 100%;
+  @media (min-width: 640px) {
+    width: 50%;
+  }
+  @media (min-width: 768px) {
+    width: 25%;
+  }
 }

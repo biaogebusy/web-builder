@@ -7,12 +7,12 @@
 
 <ng-template #toolbar let-isFull="isFull">
   <div class="builder-toolbar" [ngClass]="{ fixed: isFull }">
-    <div class="wrapper flex justify-between items-center">
+    <div class="wrapper">
       @if (currentPage$ | async; as page) {
-        <div class="left flex-[0_1_33.33%] flex gap-5">
-          <div class="flex flex-[0_1_33.33%] flex-col justify-center items-start">
+        <div class="left">
+          <div class="left-info">
             @if (page.body.length) {
-              <div class="page-title flex items-center">
+              <div class="page-title">
                 <div contenteditable="true" (blur)="onTitle($event)">
                   {{ page.title }}
                 </div>
@@ -35,7 +35,7 @@
             @if (version()) {
               @for (version of version(); track version; let i = $index) {
                 <button mat-menu-item (click)="onVersion(version, i)">
-                  <div class="flex items-center">
+                  <div class="menu-item-content">
                     <app-icon class="opacity-70" [content]="{ svg: 'file-outline' }" />
                     <span matListItemTitle>{{ version.title }}</span>
                   </div>
@@ -44,13 +44,13 @@
             }
             <mat-divider />
             <button mat-menu-item (click)="onClearHistory()">
-              <div class="flex items-center">
+              <div class="menu-item-content">
                 <app-icon [content]="{ svg: 'delete-empty-outline', color: 'warn' }" />
                 <span matListItemTitle>清空草稿</span>
               </div>
             </button>
             <button mat-menu-item (click)="onNewPage()">
-              <div class="flex items-center">
+              <div class="menu-item-content">
                 <app-icon [content]="{ svg: 'pencil-plus', color: 'primary' }" />
                 <span matListItemTitle>新建草稿</span>
               </div>
@@ -58,13 +58,13 @@
           </mat-menu>
         </div>
       }
-      <div class="middle text-primary justify-center items-center hidden md:flex flex-[0_1_33.33%]">
+      <div class="middle">
         <app-switch-preview />
         <app-switch-theme />
       </div>
       <div
         id="toolbar-right"
-        class="right sm:gap-1 flex justify-end items-center flex-[0_1_33.33%]"
+        class="right"
       >
         <mat-slide-toggle
           [checked]="isFullScreen"
@@ -73,7 +73,7 @@
         />
         @if (page) {
           <app-btn
-            class="hidden sm:flex whitespace-nowrap"
+            class="submit-btn"
             (click)="onSubmit(page)"
             [content]="{
               label: page.translation ? '提交翻译' : page.uuid ? '提交更新' : '提交草稿',

@@ -1,4 +1,7 @@
 .tabs-type {
+  .tab-field {
+    @apply my-5;
+  }
   ::ng-deep {
     .mat-mdc-tab.mdc-tab {
       min-width: auto;
