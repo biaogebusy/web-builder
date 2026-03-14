@@ -7,6 +7,7 @@ export interface ISearch {
   template: string;
   wrapperClasses: string;
   colClasses: string;
+  showSidebar: boolean;
 }
 
 export interface ISearchLabel {
