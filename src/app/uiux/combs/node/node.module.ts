@@ -17,7 +17,6 @@ import { BaseModule } from '@uiux/base/base.module';
 import { FormModule } from '@uiux/combs/form/form.module';
 import { BannerSimpleComponent } from './banner-simple/banner-simple.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { DocumentCenterComponent } from './document-center/document-center.component';
 
 const components = [
   ArticleComponent,
@@ -32,7 +31,6 @@ const components = [
   HeaderMetaComponent,
   BannerSimpleComponent,
   BreadcrumbComponent,
-  DocumentCenterComponent,
 ];
 @NgModule({
   declarations: [...components],
@@ -54,6 +52,5 @@ export class NodeModule extends BaseModule {
     ReportComponent,
     BannerSimpleComponent,
     BreadcrumbComponent,
-    DocumentCenterComponent,
   ];
 }
