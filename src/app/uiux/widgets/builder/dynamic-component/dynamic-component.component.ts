@@ -13,6 +13,7 @@ import {
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
+  afterNextRender,
   createComponent,
   inject,
   signal,
@@ -27,6 +28,9 @@ import type { IDynamicInputs } from '@core/interface/IAppConfig';
   templateUrl: './dynamic-component.component.html',
   styleUrls: ['./dynamic-component.component.scss'],
   standalone: false,
+  host: {
+    ngSkipHydration: 'true',
+  },
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() inputs: IDynamicInputs;
@@ -45,20 +49,45 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
   @HostBinding('class.relative') relative = true;
   @HostBinding('class.block') block = true;
 
-  ngOnInit(): void {}
+  private initialized = false;
+
+  constructor() {
+    // 浏览器端：在首次渲染完成后再加载动态组件，
+    // 避免与 SSR hydration 冲突导致组件渲染两次
+    afterNextRender(() => {
+      this.initialized = true;
+      this.loadComponent();
+      if (this.ele.nativeElement.closest('.component-item')) {
+        this.showToolbar.set(true);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    // 提前设置 compContent，让模板中 @if 块在客户端首帧就能正确渲染
+    if (this.inputs) {
+      const content = this.inputs.type ? this.inputs : this.inputs.content;
+      if (content) {
+        this.compContent.set(content);
+      }
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     Object.keys(changes).forEach(key => {
-      if (!changes[key].firstChange) {
+      if (!changes[key].firstChange && this.initialized) {
         this.loadComponent();
       }
     });
   }
 
   ngAfterViewInit(): void {
-    this.loadComponent();
-    if (this.ele.nativeElement.closest('.component-item')) {
-      this.showToolbar.set(true);
+    // 仅服务端执行：生成 SSR HTML
+    if (!this.screenService.isPlatformBrowser()) {
+      this.loadComponent();
+      if (this.ele.nativeElement.closest('.component-item')) {
+        this.showToolbar.set(true);
+      }
     }
   }
 
