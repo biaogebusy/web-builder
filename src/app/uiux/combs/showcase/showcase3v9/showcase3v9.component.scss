@@ -1,5 +1,21 @@
 .showcase-3-v9 {
+  @apply relative;
   width: 100%;
+  .inner {
+    @apply flex flex-wrap justify-center items-center;
+  }
+  .left {
+    @apply flex justify-center items-center flex-wrap flex-12/12 md:flex-7/12;
+  }
+  .left-item {
+    @apply w-full flex justify-center items-center;
+  }
+  .right {
+    @apply flex justify-center items-center flex-wrap overflow-hidden flex-12/12 md:flex-5/12;
+  }
+  .right-item {
+    @apply block w-full;
+  }
   .left,
   .right {
     position: relative;

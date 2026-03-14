@@ -20,6 +20,7 @@
 }
 
 .main {
+  @apply grid grid-cols-12 justify-between items-start gap-5;
   .box {
     position: relative;
     display: block;
@@ -28,6 +29,12 @@
     border-radius: 4px;
     background-color: var(--mat-sys-background);
     box-shadow: var(--mat-sys-level1);
+  }
+  .left {
+    @apply col-span-12 md:col-span-3;
+  }
+  .right {
+    @apply col-span-12 md:col-span-9;
   }
   .left,
   .right {

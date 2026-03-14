@@ -6,20 +6,20 @@
       </mat-expansion-panel-header>
       <mat-list>
         @if (loading) {
-          <div class="mx-auto my-10">
+          <div class="loading-wrapper">
             <app-loading />
           </div>
         }
         @if (pages$ | async; as pages) {
-          <div class="cards grid grid-cols-12 gap-1">
+          <div class="cards">
             @for (item of pages; track item; let i = $index) {
               <div
-                class="item col-span-6 sm:col-span-4"
+                class="item"
                 [matTooltip]="item.title"
                 (click)="loadPage(item)"
               >
-                <div class="inner flex flex-col justify-center items-center overflow-hidden">
-                  <div class="font-mono">{{ i + 1 }}</div>
+                <div class="inner">
+                  <div class="index">{{ i + 1 }}</div>
                   <div class="title">{{ item.title }}</div>
                 </div>
               </div>

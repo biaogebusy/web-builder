@@ -1,10 +1,10 @@
 <app-bg [content]="{ classes: 'bg-fill-width bg-shadow' }" />
 @if (content) {
-  <div class="taxonomy-thin-list relative">
+  <div class="taxonomy-thin-list">
     <div class="container">
-      <div class="p-y-md grid grid-cols-12 gap-5 justify-center items-start">
+      <div class="inner-grid p-y-md">
         @if (content.sidebar) {
-          <div class="thin-sidebar p-3 col-sapn-12 md:col-span-3">
+          <div class="thin-sidebar col-sapn-12 md:col-span-3">
             @for (item of content.sidebar; track item) {
               <app-dynamic-component [inputs]="item" />
             }

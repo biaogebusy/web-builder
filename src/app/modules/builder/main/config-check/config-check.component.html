@@ -1,4 +1,4 @@
-<div class="config-check max-w-3xl mx-auto">
+<div class="config-check">
   <app-title
     [content]="{
       label: '配置检测清单',
@@ -7,8 +7,8 @@
     }"
   ></app-title>
 
-  <div class="flex justify-between items-center my-5">
-    <div class="font-bold">检查清单 {{ completedCount() }}/{{ totalCount }}</div>
+  <div class="check-header">
+    <div class="check-count">检查清单 {{ completedCount() }}/{{ totalCount }}</div>
     <app-btn
       (click)="runTests()"
       [content]="{
@@ -23,27 +23,27 @@
   </div>
 
   <div
-    class="result-list rounded-lg bg-white shadow-lg border-b border-solid border-gray-100 overflow-hidden"
+    class="result-list"
   >
     @for (result of results(); track result) {
       <div
-        class="result-item p-5 border-b border-solid border-gray-50"
+        class="result-item"
         [class.success]="result.success"
       >
-        <div class="flex items-center gap-5">
-          <div class="whitespace-nowrap font-bold">
+        <div class="result-row">
+          <div class="result-icon">
             @if (result.success) {
               <app-icon [content]="{ svg: 'check-circle', color: 'primary' }"></app-icon>
             } @else {
               <app-icon [content]="{ svg: 'alert-circle', color: 'warn' }"></app-icon>
             }
           </div>
-          <div class="flex flex-col gap-1 flex-auto">
-            <div class="text-md">{{ result.name }}</div>
-            <p class="text-sm text-neutral-500">{{ result.description }}</p>
-            <p class="text-sm text-neutral-500">响应时间: {{ result.responseTime }}ms</p>
+          <div class="result-detail">
+            <div class="result-name">{{ result.name }}</div>
+            <p class="result-desc">{{ result.description }}</p>
+            <p class="result-desc">响应时间: {{ result.responseTime }}ms</p>
             @if (!result.success) {
-              <p class="text-sm bg-red-100 rounded-md p-2">
+              <p class="result-error">
                 错误: {{ result.error || '未知错误' }}
               </p>
             }

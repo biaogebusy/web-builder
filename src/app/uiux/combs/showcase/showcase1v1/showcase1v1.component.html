@@ -1,13 +1,13 @@
 @if (content) {
-  <div class="showcase-1-v1 relative">
+  <div class="showcase-1-v1">
     <div [ngClass]="content.classes">
       @if (content.title) {
-        <app-title [attr.data-path]="'title'" class="block" #title [content]="content.title" />
+        <app-title [attr.data-path]="'title'" class="title-block" #title [content]="content.title" />
       }
       @if (content.subTitle) {
         <app-text [attr.data-path]="'subTitle'" [content]="content.subTitle" />
       }
-      <div class="mt-md grid grid-cols-12 gap-5 justify-center items-center">
+      <div class="elements-grid mt-md">
         @for (item of content.elements; track item; let i = $index) {
           <app-dynamic-component
             [attr.data-path]="'elements.' + i"

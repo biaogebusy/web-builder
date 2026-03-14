@@ -1,7 +1,12 @@
 .builder-page {
   padding: 10px;
+  .loading-wrapper {
+    @apply mx-auto my-10;
+  }
   .cards {
+    @apply grid grid-cols-12 gap-1;
     .item {
+      @apply col-span-6 sm:col-span-4;
       .title {
         font-size: small;
         white-space: nowrap;
@@ -9,10 +14,14 @@
         text-overflow: ellipsis;
       }
       .inner {
+        @apply flex flex-col justify-center items-center overflow-hidden;
         margin: 2px;
         padding: 16px 6px;
         border-radius: 4px;
         cursor: pointer;
+      }
+      .index {
+        @apply font-mono;
       }
     }
   }

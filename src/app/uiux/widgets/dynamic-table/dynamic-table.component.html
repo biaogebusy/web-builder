@@ -1,6 +1,6 @@
 @if (content.elements) {
   <div
-    class="dynamic-table w-full overflow-auto box-border"
+    class="dynamic-table"
     [ngClass]="content.classes || 'nowrap'"
     [ngStyle]="content.params?.style || null"
     >
@@ -9,7 +9,6 @@
       mat-table
       [dataSource]="dataSource"
       multiTemplateDataRows
-      [ngClass]="'w-full'"
       aria-describedby="dynamic table"
       >
       @for (item of content.header; track item) {
@@ -18,7 +17,7 @@
           [sticky]="item.sticky"
           >
           <th mat-header-cell *cdkHeaderCellDef mat-sort-header [ngClass]="item.classes || ''">
-            <span class="px-3" [innerHTML]="item.label | safeHtml"></span>
+            <span class="header-label" [innerHTML]="item.label | safeHtml"></span>
           </th>
           <td
             mat-cell
@@ -106,7 +105,7 @@
               <div class="p-y-sm">
                 @for (item of element['expand']; track item) {
                   <app-dynamic-component
-                    class="block w-full"
+                    class="expand-item"
                     [inputs]="{ content: element[item.key], form: form }"
                     />
                 }

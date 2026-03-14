@@ -10,6 +10,14 @@
   border-radius: 0 4px 4px 0;
 }
 
+.skeleton-loader {
+  @apply flex flex-col justify-center items-center gap-4 my-5;
+}
+
+.child-icon {
+  @apply h-[24px] w-[24px] leading-none;
+}
+
 .builder-sidebar {
   display: flex;
   flex-direction: column;
@@ -262,12 +270,16 @@
         text-color: var(--mat-sys-on-primary),
       )
     );
-    .icon-actions {
+    .icon-actions-row {
+      @apply flex flex-row flex-wrap gap-3 justify-center py-3;
       ::ng-deep {
         .mdc-icon-button {
           color: var(--mat-sys-on-surface);
         }
       }
+    }
+    .bottom-row {
+      @apply flex items-center my-3 gap-3 justify-center;
     }
     .toggle {
       cursor: pointer;
@@ -381,7 +393,7 @@
       }
     }
     .bottom {
-      .icon-actions {
+      .icon-actions-row {
         ::ng-deep {
           .mdc-icon-button {
             color: #fff;
@@ -485,7 +497,7 @@
     }
   }
 
-  .icon-actions {
+  .icon-actions-row {
     ::ng-deep {
       .mat-badge-above {
         .mat-badge-content {

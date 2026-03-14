@@ -1,3 +1,16 @@
+.footer-main-menu {
+  @apply flex flex-row justify-between items-start;
+}
+
+.menu-list {
+  @apply flex-auto;
+}
+
+.menu-icon {
+  @apply leading-none;
+  margin-right: 0.75rem !important;
+}
+
 .mat-mdc-list-item {
   height: 40px !important;
   .mat-icon {

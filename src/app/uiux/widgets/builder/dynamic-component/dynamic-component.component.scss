@@ -2,6 +2,10 @@
   opacity: 0;
 }
 
+.content-wrapper {
+  @apply relative z-10;
+}
+
 :host(.cdk-drag) {
   position: relative;
   cursor: move;

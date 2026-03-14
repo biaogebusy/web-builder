@@ -1,4 +1,7 @@
 @use 'variable/breakpoint' as *;
 .showcase-1-v3 {
-  overflow: hidden;
+  @apply relative overflow-hidden;
+  .actions-row {
+    @apply mt-5 flex justify-center items-center gap-3;
+  }
 }

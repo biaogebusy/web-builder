@@ -4,7 +4,7 @@
     <app-title [content]="{ label: type(), style: 'none' }"></app-title>
     <div class="node-form">
       <app-formly [form]="form" [fields]="fields()" />
-      <div class="actions flex my-8">
+      <div class="actions">
         <app-btn
           (click)="onSubmit(form.value, user)"
           [content]="{

@@ -1,8 +1,8 @@
 @if (content) {
-  <div class="user-card-count relative">
-    <div class="innner flex flex-wrap">
+  <div class="user-card-count">
+    <div class="innner">
       @for (item of content; track item) {
-        <div class="item flex flex-4/12">
+        <div class="item">
           <span>{{ item.title }}</span>
           <span class="m-left-xs">
             <app-number-animate [content]="item.digit"></app-number-animate>

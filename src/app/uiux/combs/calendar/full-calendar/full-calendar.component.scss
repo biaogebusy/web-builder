@@ -1,5 +1,11 @@
 .full-calendar {
   background-color: var(--mat-sys-surface-variant);
+  .inner {
+    @apply flex flex-wrap;
+  }
+  .calendar {
+    @apply w-full;
+  }
   .main {
     border-radius: 20px;
     background-color: var(--mat-sys-surface);

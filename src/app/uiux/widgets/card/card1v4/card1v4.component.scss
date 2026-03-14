@@ -1,5 +1,7 @@
 .card-1-v4 {
+  @apply py-3 flex justify-start items-start;
   .left {
+    @apply mr-3 relative;
     width: 65px;
     height: 65px;
     flex: 0 0 65px;
@@ -27,8 +29,18 @@
   }
 
   .inner {
+    @apply relative p-5 flex flex-col rounded-md text-neutral-500;
     background-color: var(--mat-sys-background);
     box-shadow: var(--mat-sys-level1);
+    .content {
+      @apply my-3;
+    }
+    .author-info {
+      @apply flex;
+      .title {
+        @apply mr-3;
+      }
+    }
     &:before {
       content: '';
       position: absolute;

@@ -1,5 +1,10 @@
 .content-box {
+  @apply relative overflow-hidden h-full;
   .inner {
+    @apply absolute left-0 bottom-0 z-10 p-5;
+    .title {
+      @apply leading-normal mb-0;
+    }
     ::ng-deep {
       a {
         color: #fff;

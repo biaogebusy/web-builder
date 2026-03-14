@@ -1,0 +1,10 @@
+.terms-section {
+  @apply flex justify-start items-center;
+  .terms-checkbox {
+    @apply mr-3;
+  }
+  .terms-link {
+    @apply flex justify-between items-center;
+    line-height: 1;
+  }
+}

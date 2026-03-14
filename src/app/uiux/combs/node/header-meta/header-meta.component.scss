@@ -1,6 +1,9 @@
 .header-meta {
+  @apply relative flex flex-wrap justify-between items-center;
   .meta {
+    @apply flex justify-center items-center md:justify-end;
     .item {
+      @apply flex flex-col justify-center items-center;
       margin-left: 40px;
       .label {
         font-size: 18px;

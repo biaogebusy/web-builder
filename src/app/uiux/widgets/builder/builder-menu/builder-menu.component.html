@@ -10,7 +10,7 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onPageJson()">
-        <div class="flex items-center">
+        <div class="menu-item-inner">
           <app-icon [content]="{ svg: 'code-json' }" />
           <span matListItemTitle>页面 JSON</span>
         </div>
@@ -18,19 +18,19 @@
       @if (canShow) {
         <button mat-menu-item>
           <mat-slide-toggle [checked]="debugAnimate$ | async" (change)="onDebugAnimate($event)"
-            ><span class="text-base">动画调式</span></mat-slide-toggle
+            ><span class="toggle-label">动画调式</span></mat-slide-toggle
           >
         </button>
       }
       <button mat-menu-item (click)="onPreview()">
-        <div class="flex items-center">
+        <div class="menu-item-inner">
           <app-icon [content]="{ svg: 'eye' }" />
           <span matListItemTitle>草稿预览</span>
         </div>
       </button>
       @if (page && page.uuid) {
         <button mat-menu-item (click)="onPageSetting(page)">
-          <div class="flex items-center">
+          <div class="menu-item-inner">
             <app-icon [content]="{ svg: 'cog' }" />
             <span matListItemTitle>页面设置</span>
           </div>

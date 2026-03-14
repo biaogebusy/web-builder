@@ -1,4 +1,5 @@
 .builder-template {
+  @apply grid grid-cols-12 gap-5 pb-10;
   min-height: 50vh;
   position: relative;
   .spinner {
@@ -8,7 +9,18 @@
     transform: translate(-50%, -50%);
     z-index: 10;
   }
+  .item {
+    @apply col-span-12 sm:col-span-6 md:col-span-3;
+  }
+  .guide {
+    @apply absolute right-0 bottom-0;
+  }
 }
+
+.template-img {
+  @apply block rounded-xl overflow-hidden;
+}
+
 .card {
   position: relative;
   border-radius: 10px;
@@ -28,6 +40,7 @@
     }
 
     .sub-title {
+      @apply line-clamp-1;
       opacity: 0.75;
       font-size: 15px;
     }

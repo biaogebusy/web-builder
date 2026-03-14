@@ -20,14 +20,14 @@
         color="primary"
         [disabled]="!commentContent"
       >
-        <div class="flex justify-center items-center">
+        <div class="submit-inner">
           @if (loading) {
             <app-loading />
           }
-          <span class="px-3">{{ content.editor?.action?.label || '提交' }}</span>
+          <span class="submit-label">{{ content.editor?.action?.label || '提交' }}</span>
         </div>
       </button>
-      <button class="ml-3" (click)="onCancel()" mat-button>取消</button>
+      <button class="cancel-btn" (click)="onCancel()" mat-button>取消</button>
     </div>
   </div>
 }

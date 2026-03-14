@@ -1,10 +1,39 @@
 .lottery {
+  @apply relative;
   background-color: var(--mat-sys-primary-fixed);
 
+  .inner {
+    @apply grid grid-cols-12 justify-center items-center;
+  }
+  .formly-col {
+    @apply col-span-12;
+    @media (min-width: 768px) {
+      @apply col-span-5;
+    }
+  }
+  .result-col {
+    @apply flex flex-col col-span-12;
+    @media (min-width: 768px) {
+      @apply col-span-7;
+    }
+  }
   .result {
+    @apply grid grid-cols-12 justify-between items-center;
     border-radius: 10px;
     background-color: var(--mat-sys-on-primary);
     box-shadow: var(--mat-sys-level1);
+    .left {
+      @apply flex flex-col col-span-12 justify-center items-center;
+      @media (min-width: 768px) {
+        @apply col-span-6;
+      }
+    }
+    .right {
+      @apply col-span-12;
+      @media (min-width: 768px) {
+        @apply col-span-6;
+      }
+    }
     ::ng-deep {
       .chart {
         padding: 0;
@@ -15,7 +44,9 @@
       }
     }
     .result-footer {
+      @apply text-center flex flex-wrap gap-5;
       .item {
+        @apply flex flex-col;
         .label {
           font-size: small;
         }

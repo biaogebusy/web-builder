@@ -1,3 +1,14 @@
+.actions-row {
+  @apply flex items-start mt-5 pl-3;
+  @screen md {
+    @apply ml-5;
+  }
+}
+
+.delete-inner {
+  @apply flex justify-center items-center;
+}
+
 .mat-icon.mat-icon-inline {
   width: 24px;
   height: 28px;

@@ -1,10 +1,10 @@
 @if (content) {
-  <div class="relative">
+  <div class="location">
     @if (content.title) {
       <app-title [content]="content.title" />
     }
     @if (content) {
-      <app-map class="block m-top-md" [ngStyle]="content.style" [content]="content" />
+      <app-map class="map-block m-top-md" [ngStyle]="content.style" [content]="content" />
     }
   </div>
 }

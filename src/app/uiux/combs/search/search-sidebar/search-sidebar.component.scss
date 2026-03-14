@@ -6,6 +6,11 @@
   box-shadow: none;
 }
 .search-sidebar {
+  @apply my-10 sticky;
+  top: 40px;
   background-color: var(--mat-sys-surface-container-lowest);
   box-shadow: var(--mat-sys-level1);
+  .sidebar-header {
+    @apply flex justify-between items-center;
+  }
 }

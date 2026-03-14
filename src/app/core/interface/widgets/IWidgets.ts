@@ -80,6 +80,7 @@ export interface IPager {
   itemsPerPage: number;
   currentPage: number;
   totalItems: number;
+  totalPages: number;
 }
 
 export interface INotify {

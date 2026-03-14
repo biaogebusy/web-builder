@@ -1,15 +1,13 @@
-<div class="content-text-center relative">
+<div class="content-text-center">
   <div class="media" [ngClass]="content.ratios || 'media-4-3'">
     @if (content.img) {
       <app-img [attr.data-path]="'img'" [content]="content.img" />
     }
   </div>
-  <div
-    class="flex justify-center items-center absolute left-0 top-0 w-full h-full box-border text-center min-h-[375px] z-10 p-5"
-  >
+  <div class="overlay-content">
     <div
       contentedit="text"
-      class="flex flex-col justify-center items-center"
+      class="text-inner"
       [innerHTML]="content.text | safeHtml"
     ></div>
   </div>

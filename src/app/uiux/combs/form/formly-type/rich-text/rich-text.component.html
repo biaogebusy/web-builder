@@ -1,4 +1,4 @@
-<mat-form-field class="w-full relative" [appearance]="to.appearance || 'fill'">
+<mat-form-field class="field-full" [appearance]="to.appearance || 'fill'">
   <textarea
     matInput
     [id]="id"
@@ -18,7 +18,7 @@
   <app-btn
     matTooltip="富文本编辑"
     (click)="openRichText()"
-    class="absolute right-0 bottom-1"
+    class="rich-text-btn"
     [content]="{
       icon: { svg: 'pencil' },
       mode: 'mini-fab',
@@ -27,7 +27,7 @@
   />
 </mat-form-field>
 <div
-  class="popup rounded-lg hidden flex-col justify-center items-center gap-5 p-5 bg-white shadow-2xl"
+  class="popup"
   #popup
 >
   <quill-editor
@@ -36,7 +36,7 @@
     (onContentChanged)="onContentChanged($event)"
     [styles]="{ height: '100%' }"
   />
-  <div class="flex justify-center items-center gap-5 mt-5">
+  <div class="popup-actions">
     <app-btn (click)="onCancel()" [content]="{ label: '取消' }" />
     <app-btn (click)="onSave()" [content]="{ label: '保存', mode: 'raised', color: 'primary' }" />
   </div>

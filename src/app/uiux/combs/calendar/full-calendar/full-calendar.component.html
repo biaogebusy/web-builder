@@ -1,6 +1,6 @@
 @if (content) {
   <div class="full-calendar">
-    <div class="inner p-y flex flex-wrap">
+    <div class="inner p-y">
       <div class="sidebar p-x-sm flex-12/12 sm:flex-3/12">
         @if (content.text) {
           <app-text [content]="content.text" />
@@ -17,7 +17,7 @@
       <div
         class="main min-h-[65vh] p-x-sm p-y-sm flex-12/12 {{ content.form ? 'sm:flex-8/12' : '' }}"
       >
-        <div class="calendar w-full">
+        <div class="calendar">
           @if (visiable) {
             <app-calendar
               [content]="content.calendar.options"

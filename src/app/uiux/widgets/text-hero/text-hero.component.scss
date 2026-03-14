@@ -1,5 +1,6 @@
 @use 'variable/breakpoint' as *;
 .text-hero {
+  @apply relative overflow-hidden;
   ::ng-deep {
     .container {
       position: inherit;

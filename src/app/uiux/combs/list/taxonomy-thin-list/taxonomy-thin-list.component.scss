@@ -1,4 +1,13 @@
+.taxonomy-thin-list {
+  @apply relative;
+}
+
+.inner-grid {
+  @apply grid grid-cols-12 gap-5 justify-center items-start;
+}
+
 .thin-sidebar {
+  @apply p-3;
   max-height: 80vh;
   overflow: auto;
   background-color: var(--mat-sys-surface);

@@ -21,6 +21,7 @@
 }
 
 .comment-body {
+  @apply mt-3;
   > ::ng-deep *:last-child {
     margin-bottom: 0;
   }

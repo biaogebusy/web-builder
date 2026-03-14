@@ -1,6 +1,6 @@
-<div class="comment-list m-y-sm relative">
+<div class="comment-list m-y-sm">
   @if (comments?.length) {
-    <div class="comment-count p-y-xs p-x-sm justify-between items-center">
+    <div class="comment-count p-y-xs p-x-sm">
       @if (content.comment?.title) {
         <span class="bold flx-[0_1_100%]">{{ content.title }}</span>
       }
@@ -12,13 +12,13 @@
       <app-comment-item [comments]="comments" [content]="content" />
     }
   } @else {
-    <div class="empty p-y flex flex-col justify-center items-center">
+    <div class="empty p-y">
       <app-icon [content]="{ name: 'create', inline: true }" />
       <p [innerHTML]="content.editor?.empty?.label || '暂时没有人回复!' | safeHtml"></p>
     </div>
   }
   <ng-template #empty>
-    <div class="empty p-y flex flex-col justify-center items-center">
+    <div class="empty p-y">
       <app-icon [content]="{ name: 'create', inline: true }" />
       <p [innerHTML]="content.editor?.empty?.label || '暂时没有人回复!' | safeHtml"></p>
     </div>

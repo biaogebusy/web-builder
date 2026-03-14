@@ -51,6 +51,7 @@
     }
   }
   .lists {
+    @apply py-4;
     position: relative;
     height: 450px;
     max-height: 45vh;
@@ -64,7 +65,11 @@
       z-index: 10;
     }
     .item {
+      @apply flex flex-col gap-2 relative p-2;
       border-bottom: 1px solid var(--mat-sys-surface-variant);
+      .item-title {
+        @apply text-sm mr-[72px] inline-flex items-center gap-1;
+      }
       .mat-line {
         font-size: 15px;
       }
@@ -74,13 +79,33 @@
         }
       }
       .meta {
+        @apply text-xs font-mono;
         opacity: 0.5;
+        .meta-header {
+          @apply flex justify-between my-2 items-center;
+        }
+        .meta-footer {
+          @apply flex justify-between mt-2;
+        }
+        .taxonomy-badge {
+          @apply bg-gray-300 rounded-2xl py-1 px-2 leading-none;
+          font-size: 10px;
+        }
+        .url-link {
+          @apply truncate;
+        }
+        .date {
+          @apply whitespace-nowrap;
+        }
         .taxonomy {
           font-size: 10px;
         }
       }
+      .actions {
+        @apply absolute right-2 top-2;
+      }
       ::ng-deep {
-        .mat-mdc-button-base {
+        .mdc-button {
           font-size: 12px;
           line-height: 24px;
           height: 24px;

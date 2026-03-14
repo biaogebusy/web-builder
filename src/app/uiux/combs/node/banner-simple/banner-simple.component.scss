@@ -1,10 +1,17 @@
 @use 'variable/breakpoint' as *;
 .banner-simple {
+  @apply relative;
   padding: 60px 0;
   overflow: hidden;
   z-index: 1;
   app-bg {
     z-index: 0;
+  }
+  .banner-inner {
+    @apply relative flex flex-col md:flex-row justify-start items-start md:justify-between md:items-center;
+  }
+  .title-wrap {
+    @apply flex flex-col;
   }
   .page-title {
     margin: 0;

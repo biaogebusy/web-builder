@@ -1,11 +1,26 @@
+.loading-wrap {
+  @apply my-5 flex justify-center items-center;
+}
+
 .item-bottom {
+  @apply flex flex-wrap justify-start items-center;
   font-size: 14px;
   opacity: 0.85;
 }
 
 .list-thin {
   .item {
+    @apply flex flex-col mb-3 py-3 px-3;
     background-color: var(--mat-sys-surface);
     box-shadow: var(--mat-sys-level1);
+  }
+  .meta {
+    @apply mr-3 flex gap-3;
+  }
+  .actions {
+    @apply flex flex-row;
+  }
+  .empty-state {
+    @apply flex justify-center items-center py-5 my-5;
   }
 }

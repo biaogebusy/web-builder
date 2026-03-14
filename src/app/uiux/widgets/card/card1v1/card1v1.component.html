@@ -1,5 +1,5 @@
 <div
-  class="card-1v1 relative rounded-md overflow-hidden top-0 hover:-top-3 transition-all ease-in duration-300"
+  class="card-1v1"
   [ngClass]="content.classes"
 >
   @if (content.feature) {
@@ -19,9 +19,9 @@
       </div>
     }
     @if (content.moreLabel) {
-      <div class="post-meta flex justify-between items-center">
+      <div class="post-meta">
         @if (content.link) {
-          <a [href]="content.link.href" class="text-muted readmore flex items-center">
+          <a [href]="content.link.href" class="text-muted readmore">
             <span contentedit="moreLabel" [innerHTML]="content.moreLabel | safeHtml"></span>
             <mat-icon>navigate_next</mat-icon>
           </a>
@@ -29,14 +29,12 @@
       </div>
     }
   </div>
-  <div
-    class="flex flex-col author absolute z-10 opacity-0 top-[5%] left-[5%] transition-all duration-300 ease-in"
-  >
+  <div class="author">
     @if (content.user) {
       <small class="user"> <mat-icon inline="true">person</mat-icon> {{ content.user }} </small>
     }
     @if (content.time) {
-      <small class="date flex justify-center items-center">
+      <small class="date">
         <mat-icon inline="true">event</mat-icon> {{ content.time }}
       </small>
     }

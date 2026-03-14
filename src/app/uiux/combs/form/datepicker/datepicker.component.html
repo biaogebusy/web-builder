@@ -1,7 +1,7 @@
 <!-- range -->
 @if (content?.range) {
   @if (content) {
-    <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" [formGroup]="form">
+    <mat-form-field class="field-full" [appearance]="content.appearance || 'fill'" [formGroup]="form">
       @if (content.label) {
         <mat-label>{{ content.label }}</mat-label>
       }
@@ -30,7 +30,7 @@
 <!-- key -->
 @if (!content?.range && content?.key && !content.inline) {
   @if (content) {
-    <mat-form-field class="w-full" [appearance]="content.appearance || 'fill'" [formGroup]="form">
+    <mat-form-field class="field-full" [appearance]="content.appearance || 'fill'" [formGroup]="form">
       @if (content.label) {
         <mat-label>{{ content.label }}</mat-label>
       }

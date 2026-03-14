@@ -1,3 +1,9 @@
+.showcase-2v4 {
+  @apply relative;
+  .inner {
+    @apply flex flex-wrap;
+  }
+}
 .item {
   max-height: 860px;
   overflow: hidden;

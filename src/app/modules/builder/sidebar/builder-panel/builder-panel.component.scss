@@ -1,6 +1,8 @@
 @use 'mixins/amixin' as *;
 .cards {
+  @apply grid grid-cols-12 gap-1;
   .group {
+    @apply col-span-12 grid grid-cols-12 gap-1;
     border-radius: 6px;
     padding: 6px;
     &:hover {
@@ -9,6 +11,7 @@
     }
   }
   .item {
+    @apply col-span-6 sm:col-span-4;
     position: relative;
     .title {
       font-size: 14px;
@@ -43,7 +46,11 @@
         }
       }
     }
+    .drag-wrapper {
+      @apply w-full;
+    }
     .inner {
+      @apply flex flex-col justify-center items-center;
       margin: 2px;
       padding: 16px 6px;
       border-radius: 4px;

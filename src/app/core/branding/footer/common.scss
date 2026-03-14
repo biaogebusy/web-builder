@@ -1,4 +1,5 @@
 .shape-inner {
+  @apply relative pt-10;
   z-index: 1;
 }
 .shape {
@@ -17,6 +18,7 @@
   transform-origin: top center;
 }
 .brand {
+  @apply flex-col flex-12/12 md:flex-3/12;
   ::ng-deep {
     .logo {
       height: 40px;
@@ -25,7 +27,9 @@
   }
 }
 .social {
+  @apply flex flex-row;
   .item {
+    @apply flex justify-center items-center;
     width: 26px;
     height: 26px;
     border-radius: 6px;
@@ -38,6 +42,50 @@
       }
     }
   }
+}
+
+.footer-body {
+  @apply py-10;
+}
+
+.footer-cols {
+  @apply flex flex-col md:flex-row;
+}
+
+.menu-col {
+  @apply flex-12/12 md:flex-auto whitespace-nowrap;
+}
+
+.newsletter-col {
+  @apply flex-12/12 md:flex-3/12;
+}
+
+.newsletter-form {
+  @apply flex flex-col;
+}
+
+.newsletter-action {
+  @apply w-full md:w-2/4 flex flex-col;
+}
+
+.btn-inner {
+  @apply flex justify-center items-center;
+}
+
+.spinner-wrap {
+  @apply flex justify-center items-center;
+}
+
+.footer-bottom {
+  @apply py-5;
+}
+
+.inner {
+  @apply flex flex-col md:flex-row justify-center items-center md:justify-between;
+}
+
+.right-links {
+  @apply flex flex-row;
 }
 
 .right {

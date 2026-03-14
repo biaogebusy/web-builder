@@ -4,6 +4,9 @@
   .mat-drawer-container {
     height: 100%;
   }
+  .media-grid {
+    @apply grid grid-cols-12 gap-5 h-full;
+  }
   .sidebar {
     background-color: var(--mat-sys-background);
     @apply flex flex-col p-3 col-span-12 md:col-span-3 xl:col-span-2;
@@ -41,6 +44,12 @@
         }
       }
     }
+  }
+  .media-img {
+    @apply w-full h-full object-contain;
+  }
+  .empty-icon {
+    @apply w-20 h-20;
   }
 }
 

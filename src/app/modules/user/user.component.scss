@@ -1,7 +1,24 @@
 @use 'mixins/amixin' as *;
 @use 'variable/breakpoint' as *;
 
+.profile-banner {
+  @apply relative overflow-hidden;
+  padding: 80px 0;
+  @media #{$gt-sm} {
+    padding: 180px 0;
+  }
+}
+
+.profile-1v1 {
+  @apply relative;
+}
+
+.profile {
+  @apply grid grid-cols-12 gap-5 justify-between items-start;
+}
+
 .box {
+  @apply text-center;
   ::ng-deep {
     img {
       width: 110px;
@@ -11,12 +28,17 @@
   }
 }
 
-.profile-banner {
-  overflow: hidden;
-  padding: 80px 0;
-  @media #{$gt-sm} {
-    padding: 180px 0;
-  }
+.username {
+  margin-bottom: 0;
+  margin-top: 0.75rem;
+}
+
+.item-header {
+  @apply font-bold;
+}
+
+.detail-row {
+  @apply flex justify-start items-start;
 }
 
 .left {
@@ -29,6 +51,18 @@
 
 .label {
   white-space: nowrap;
+}
+
+.currentUser-menu {
+  @apply flex flex-wrap justify-between;
+}
+
+.menu-link {
+  @apply flex flex-col justify-center items-center;
+}
+
+.menu-icon {
+  padding-bottom: 10px;
 }
 
 .user-menu {

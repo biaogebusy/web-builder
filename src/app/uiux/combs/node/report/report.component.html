@@ -1,7 +1,7 @@
 <div class="report" [ngStyle]="content.style">
   <div class="container">
     <app-header-meta [content]="content.header" />
-    <div class="box filter p-x-sm p-y-sm m-bottom-sm flex flex-wrap justify-between items-center">
+    <div class="box filter p-x-sm p-y-sm m-bottom-sm">
       <app-formly
         [form]="form"
         [model]="model"
@@ -15,17 +15,17 @@
       </div>
     </div>
     <div
-      class="box details p-x-sm p-y-sm relative grid grid-cols-12 justify-between items-start gap-5"
+      class="box details p-x-sm p-y-sm"
     >
       @if (loading) {
-        <div class="loading-inner absolute w-full h-full justify-center items-center">
+        <div class="loading-inner">
           <app-loading />
         </div>
       }
       @if (box$ | async; as box) {
         @for (item of box; track item) {
           <app-dynamic-component
-            class="item block m-bottom col-span-12 md:col-span-6"
+            class="item m-bottom col-span-12 md:col-span-6"
             [inputs]="item.content"
           />
         }

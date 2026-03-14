@@ -1,4 +1,12 @@
+.dialog {
+  @apply relative;
+}
+
 .dialog-colse-outside-btn {
+  @apply absolute right-0 top-[-66px] rounded-full;
   background: var(--mat-sys-inverse-surface);
-  @apply rounded-full;
+}
+
+.dialog-actions {
+  @apply gap-3 px-4;
 }

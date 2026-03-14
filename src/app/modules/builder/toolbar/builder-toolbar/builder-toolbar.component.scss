@@ -4,6 +4,7 @@
   color: var(--mat-sys-on-surface);
   box-shadow: var(--mat-sys-level1);
   .wrapper {
+    @apply flex justify-between items-center;
     padding-left: 20px;
     padding-right: 20px;
     height: 55px;
@@ -16,8 +17,13 @@
   }
 
   .left {
+    @apply flex-[0_1_33.33%] flex gap-5;
     white-space: nowrap;
+    .left-info {
+      @apply flex flex-[0_1_33.33%] flex-col justify-center items-start;
+    }
     .page-title {
+      @apply flex items-center;
       font-size: 14px;
       font-weight: bold;
       border-bottom: 1px solid transparent;
@@ -49,6 +55,19 @@
       font-size: smaller;
       opacity: 0.5;
     }
+  }
+  .middle {
+    @apply justify-center items-center hidden md:flex flex-[0_1_33.33%];
+    color: var(--mat-sys-primary);
+  }
+  .right {
+    @apply sm:gap-1 flex justify-end items-center flex-[0_1_33.33%];
+    .submit-btn {
+      @apply hidden sm:flex whitespace-nowrap;
+    }
+  }
+  .menu-item-content {
+    @apply flex items-center;
   }
   &.fixed {
     position: fixed;

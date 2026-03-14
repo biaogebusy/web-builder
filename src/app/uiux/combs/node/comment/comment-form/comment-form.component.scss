@@ -1,3 +1,15 @@
+.submit-inner {
+  @apply flex justify-center items-center;
+}
+
+.submit-label {
+  @apply px-3;
+}
+
+.cancel-btn {
+  @apply ml-3;
+}
+
 :host ::ng-deep {
   .ql-container {
     font-size: 16px;

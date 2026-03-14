@@ -26,7 +26,11 @@
         cursor: text;
       }
     }
+    .version-title {
+      @apply text-sm;
+    }
     .time {
+      @apply text-xs font-mono;
       font-size: 14px;
       opacity: 0.5;
       &:focus-visible {
@@ -40,6 +44,9 @@
       right: 0;
       top: -10px;
     }
+  }
+  .action-row {
+    @apply whitespace-nowrap;
   }
   ::ng-deep {
     .mat-expansion-panel-body {

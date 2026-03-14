@@ -1,7 +1,11 @@
 .builder-wrapper {
+  @apply relative flex;
   height: 100vh;
   overflow: hidden;
   background-color: var(--mat-sys-surface);
+  .builder-drawer-container {
+    @apply w-full;
+  }
   .sidebar-drawer {
     width: var(--sidebar-width);
     visibility: visible !important;
@@ -39,6 +43,12 @@
       margin-left: 200px;
     }
   }
+  .right-drawer {
+    position: fixed !important;
+  }
+  .builder {
+    @apply flex-1 overflow-auto h-full;
+  }
   &.dark {
     ::ng-deep {
       .builder-toolbar,
@@ -68,6 +78,9 @@
   @apply flex justify-between gap-3 items-center px-5 box-border;
   height: 50px;
   border-bottom: 1px solid var(--mat-sys-surface-dim);
+  .right-title {
+    @apply text-base;
+  }
 }
 .right-content {
   @apply p-5;

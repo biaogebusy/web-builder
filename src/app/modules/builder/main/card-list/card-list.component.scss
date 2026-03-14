@@ -1,3 +1,7 @@
+.form {
+  @apply flex flex-wrap items-center;
+}
+
 .lists {
   position: relative;
   min-height: calc(100vh - 350px);

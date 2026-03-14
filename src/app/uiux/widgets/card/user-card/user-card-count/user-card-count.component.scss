@@ -1,0 +1,9 @@
+.user-card-count {
+  @apply relative;
+  .innner {
+    @apply flex flex-wrap;
+  }
+  .item {
+    @apply flex flex-4/12;
+  }
+}

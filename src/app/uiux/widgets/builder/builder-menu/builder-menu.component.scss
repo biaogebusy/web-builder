@@ -1,3 +1,11 @@
+.menu-item-inner {
+  @apply flex items-center;
+}
+
+.toggle-label {
+  @apply text-base;
+}
+
 .mat-mdc-slide-toggle {
   margin-right: 5px;
 }

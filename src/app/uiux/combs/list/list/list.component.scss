@@ -1,5 +1,8 @@
 @use 'variable/breakpoint' as *;
 .list {
+  .loading-wrap {
+    @apply flex justify-center items-center;
+  }
   @media #{$lt-md} {
     ::ng-deep {
       .feature-inner {

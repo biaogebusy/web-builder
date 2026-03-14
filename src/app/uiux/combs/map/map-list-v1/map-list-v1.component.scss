@@ -2,11 +2,24 @@
 @use 'variable/breakpoint' as *;
 @use 'mixins/amixin' as *;
 
+.map-list-v1 {
+  @apply flex flex-col md:flex-row justify-start items-stretch relative;
+}
+
+.loading-wrap {
+  @apply flex justify-center items-center;
+}
+
 @media #{$gt-xs} {
   .sidebar {
     z-index: 112;
   }
 }
+
+.sidebar {
+  @apply relative flex flex-col;
+}
+
 .map-list-common {
   position: relative;
   background-color: var(--mat-sys-background);
@@ -21,6 +34,7 @@
 }
 
 .map-wrapper {
+  @apply relative flex flex-auto;
   height: calc(100vh - 60px);
 
   @media #{$xs} {
@@ -30,12 +44,20 @@
   }
 }
 
+.map-loading {
+  @apply flex justify-center items-center absolute;
+}
+
 .sidebar-right {
+  @apply p-5 flex-[0_1_400px];
   z-index: 10;
   right: 0;
   top: 0;
   height: 100%;
   overflow: auto;
+  @screen md {
+    @apply absolute;
+  }
   ::ng-deep .media {
     .media-content {
       @apply line-clamp-3;

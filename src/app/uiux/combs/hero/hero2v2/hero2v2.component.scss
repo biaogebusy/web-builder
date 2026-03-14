@@ -1,5 +1,13 @@
 .hero-2-v2 {
+  @apply relative overflow-hidden;
+  .hero-body {
+    @apply relative flex justify-end;
+  }
+  .inner {
+    @apply relative flex-12/12 md:flex-7/12;
+  }
   .box {
+    @apply p-8;
     border-radius: 6px;
     background-color: var(--mat-sys-surface);
     box-shadow: var(--mat-sys-level0);

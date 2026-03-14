@@ -1,44 +1,44 @@
-<div class="lottery relative">
+<div class="lottery">
   @if (content.text) {
     <app-text [content]="content.text" />
   }
-  <div class="inner grid grid-cols-12 justify-center items-center">
+  <div class="inner">
     <app-formly
-      class="m-y p-x-sm col-span-12 md:col-span-5"
+      class="m-y p-x-sm formly-col"
       [fields]="content.form"
       [form]="form"
       [model]="model"
       (modelChange)="onFormlyChange($event)"
     />
-    <div class="flex flex-col col-span-12 md:col-span-7">
-      <div class="result p-x-sm p-y grid grid-cols-12 justify-between items-center">
-        <div class="left flex flex-col col-span-12 md:col-span-6 justify-center items-center">
+    <div class="result-col">
+      <div class="result p-x-sm p-y">
+        <div class="left">
           <h2>红包大约需要总预算</h2>
           <h1 class="total p-y-sm">
             ¥<span>{{ total }}</span>
           </h1>
-          <div class="result-footer text-center flex flex-wrap gap-5">
+          <div class="result-footer">
             @if (model?.max?.total_number) {
-              <div class="item flex flex-col">
+              <div class="item">
                 <span class="label">大额红包预算</span>
                 <span class="value">{{ model.max.total_money }}元</span>
               </div>
             }
             @if (model?.min?.total_number) {
-              <div class="item flex flex-col">
+              <div class="item">
                 <span class="label">小额红包预算</span>
                 <span class="value">{{ minTotalMoney }}元</span>
               </div>
             }
             @if (model.isPromote) {
-              <div class="item flex flex-col">
+              <div class="item">
                 <span class="label">推广占用金额</span>
                 <span class="value">{{ promoteMoney }}元</span>
               </div>
             }
           </div>
         </div>
-        <div class="right col-span-12 md:col-span-6">
+        <div class="right">
           @if (chart) {
             <app-chart [content]="chart" [data]="content.data" />
           }
@@ -46,7 +46,7 @@
       </div>
       @if (content.description) {
         <div
-          class="description m-y-sm col-span-12"
+          class="description m-y-sm"
           [innerHTML]="content.description | safeHtml"
         ></div>
       }

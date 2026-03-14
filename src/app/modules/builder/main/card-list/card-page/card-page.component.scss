@@ -1,3 +1,54 @@
+.card-page-grid {
+  @apply grid grid-cols-5 gap-1 md:gap-6;
+}
+
+.page-card {
+  @apply col-span-5 md:col-span-1 overflow-hidden flex flex-col gap-2 relative mb-5;
+}
+
+.card-cover {
+  @apply relative rounded-md shadow-md overflow-hidden border border-solid border-neutral-200;
+}
+
+.cover-img {
+  @apply aspect-[16/9] w-full object-cover;
+}
+
 .actions {
+  @apply absolute left-1/2 top-1/2 hidden;
   transform: translate(-50%, -50%);
+  .page-card:hover & {
+    @apply block;
+  }
+}
+
+.text {
+  @apply inline-flex items-start gap-1 flex-[1_1_auto];
+  .title {
+    @apply line-clamp-2 font-bold;
+  }
+}
+
+.edit-icon {
+  @apply hidden w-[16px] h-[16px] cursor-pointer;
+  .text:hover & {
+    display: inline-block !important;
+  }
+}
+
+.meta {
+  @apply text-sm font-mono;
+}
+
+.meta-row {
+  @apply flex justify-between mt-2;
+}
+
+.page-url {
+  @apply truncate;
+  color: rgb(115 115 115) !important;
+}
+
+.page-date {
+  @apply whitespace-nowrap text-neutral-500;
 }

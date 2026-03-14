@@ -7,9 +7,11 @@
     padding: 0;
   }
   ul.post-meta-info {
+    @apply flex;
     font-size: 13px;
     margin-bottom: 13px;
     li {
+      @apply flex justify-center items-center;
       margin-bottom: 7px;
       margin-right: 6px;
     }
@@ -23,6 +25,7 @@
   }
 
   &.teaser {
+    @apply grid grid-cols-12 sm:gap-5;
     padding-bottom: 40px;
     margin-bottom: 40px;
     border-bottom: 1px var(--mat-sys-surface-dim);

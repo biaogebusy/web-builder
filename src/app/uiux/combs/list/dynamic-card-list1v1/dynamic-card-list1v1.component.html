@@ -1,12 +1,12 @@
 @if (content) {
   <div class="dynamic-card-list-1-v1 m-y">
     <div class="container">
-      <div class="inner flex flex-wrap">
+      <div class="inner">
         @if (content.header) {
-          <app-text class="block flex-12/12" [content]="content.header" />
+          <app-text class="header-text" [content]="content.header" />
         }
         @if (nodes) {
-          <div class="card-list m-y grid grid-cols-12 gap-5">
+          <div class="card-list m-y">
             @for (
               card of nodes
                 | paginate
@@ -24,11 +24,11 @@
             }
           </div>
         }
-        <div class="list-bottom w-full">
+        <div class="list-bottom">
           @if (nodes.length) {
             <app-pagination (pageChange)="onPageChange($event)" />
           } @else {
-            <div class="text-center p-y-xl">
+            <div class="empty-text p-y-xl">
               <p>没有数据。</p>
             </div>
           }

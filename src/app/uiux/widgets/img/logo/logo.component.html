@@ -1,6 +1,6 @@
 @if (content) {
   @if (img) {
-    <div class="logo flex justify-start items-end">
+    <div class="logo">
       <app-img [content]="img" />
     </div>
   } @else {
@@ -11,6 +11,6 @@
     ></a>
   }
   @if (content.version) {
-    <span class="pl-3 version">{{ content.version }}</span>
+    <span class="version">{{ content.version }}</span>
   }
 }

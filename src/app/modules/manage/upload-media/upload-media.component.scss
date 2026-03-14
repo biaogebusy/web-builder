@@ -1,4 +1,20 @@
 .upload-media {
+  @apply p-5;
+  .upload-grid {
+    @apply grid grid-cols-12 gap-2 w-full;
+    .thumb-col {
+      @apply col-span-3;
+    }
+  }
+  .upload-thumb {
+    @apply w-full aspect-[4/3] object-cover rounded;
+  }
+  .empty-state {
+    @apply flex flex-col gap-5 justify-center items-center;
+    .upload-label {
+      @apply text-sm;
+    }
+  }
   ::ng-deep {
     .ngx-file-drop__drop-zone {
       border-radius: 4px;
@@ -18,5 +34,27 @@
         }
       }
     }
+  }
+}
+
+.upload-table {
+  @apply w-full box-border my-5 text-sm text-gray-500;
+  .table-inner {
+    @apply flex flex-col gap-3;
+  }
+  .table-row {
+    @apply flex justify-between items-center gap-2 truncate;
+  }
+  .row-left {
+    @apply flex items-center gap-2;
+  }
+  .file-name {
+    @apply text-gray-700;
+  }
+  .copy-btn {
+    @apply cursor-pointer;
+  }
+  .table-divider {
+    @apply my-3;
   }
 }

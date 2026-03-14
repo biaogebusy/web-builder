@@ -1,4 +1,20 @@
 .meta {
+  @apply overflow-hidden;
+  .item {
+    @apply flex justify-start items-start;
+  }
+  .item-label {
+    @apply flex-initial font-bold mr-3 whitespace-nowrap;
+  }
+  .right {
+    @apply w-full flex justify-start items-center;
+  }
+  .value-text {
+    @apply pr-[10px];
+  }
+  .btn-label {
+    @apply text-xs;
+  }
   ::ng-deep {
     a {
       &:hover {
@@ -6,7 +22,9 @@
       }
     }
     .inner {
+      @apply w-full flex flex-col;
       .li {
+        @apply flex flex-row justify-between items-center;
         position: relative;
         ::ng-deep {
           a.one-line {

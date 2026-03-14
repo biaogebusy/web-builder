@@ -1,0 +1,9 @@
+.content-text-center {
+  @apply relative;
+  .overlay-content {
+    @apply flex justify-center items-center absolute left-0 top-0 w-full h-full box-border text-center min-h-[375px] z-10 p-5;
+    .text-inner {
+      @apply flex flex-col justify-center items-center;
+    }
+  }
+}

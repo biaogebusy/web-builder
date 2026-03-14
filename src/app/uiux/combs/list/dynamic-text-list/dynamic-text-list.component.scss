@@ -1,4 +1,5 @@
 .meta {
+  @apply mb-3 flex justify-start items-center gap-3;
   ::ng-deep img {
     width: 30px;
     height: 30px;
@@ -6,6 +7,7 @@
   }
 }
 .dynamic-text-list {
+  @apply my-5;
   .item {
     .title {
       ::ng-deep {
@@ -20,5 +22,12 @@
     .text-lighter {
       color: var(--mat-sys-on-surface);
     }
+  }
+  .action-btn {
+    @apply ml-3;
+  }
+  .divider-spacing {
+    margin-top: 1.25rem !important;
+    margin-bottom: 1.25rem !important;
   }
 }

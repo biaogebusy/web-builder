@@ -1,11 +1,11 @@
 @if (content) {
-  <div class="view-map relativen">
-    <div class="sidebar p-x-xs p-y-xs flex flex-col w-full md:w-[430px] box-border">
+  <div class="view-map">
+    <div class="sidebar p-x-xs p-y-xs">
       <div class="sidebar-wrapper">
         <mat-expansion-panel [expanded]="false">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <div class="view-map-header relative">
+              <div class="view-map-header">
                 <div class="result p-y-xs">
                   总计
                   <span class="result-total">{{ (lists$ | async)?.length }}</span>
@@ -17,7 +17,7 @@
           <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
             <mat-divider class="m-y-sm" />
             <div
-              class="list m-y-sm p-y-xs m-x-xs p-x-xs flex flex-row"
+              class="list m-y-sm p-y-xs m-x-xs p-x-xs"
               [class.selected]="i === selectedId"
               matRipple
               [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
@@ -27,21 +27,21 @@
               <div class="media">
                 <img [src]="item.img" [alt]="item.title" />
               </div>
-              <div class="content flex flex-col flex-[0_1_100%]">
-                <div class="head flex items-center gap-2">
-                  <div class="title font-bold m-bottom-0 flex-auto">
+              <div class="content">
+                <div class="head">
+                  <div class="title m-bottom-0 flex-auto">
                     {{ item.title }}
                   </div>
                   <div class="badge" [innerHTML]="item.badge_1"></div>
                 </div>
-                <div class="inner flex flex-row justify-between items-end">
+                <div class="inner">
                   <div class="left">
                     <div class="title sub-title one-line">
                       {{ item.subTitle }}
                     </div>
                     <div class="badge" [innerHTML]="item.badge_2"></div>
                   </div>
-                  <div class="meta text-right basis-1/2">
+                  <div class="meta">
                     <div class="item one-line" [innerHTML]="item.meta_1"></div>
                     <div class="item one-line" [innerHTML]="item.meta_2"></div>
                   </div>
@@ -52,11 +52,11 @@
         </mat-expansion-panel>
       </div>
     </div>
-    <div class="tools p-x-xs p-y-xs w-full right-0">
+    <div class="tools p-x-xs p-y-xs">
       <mat-expansion-panel [expanded]="false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <div class="view-map-header relative">展开</div>
+            <div class="view-map-header">展开</div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-divider class="m-y-sm" />
@@ -68,14 +68,14 @@
           (modelChange)="onModelChange($event)"
         />
         <mat-divider class="m-y-sm" />
-        <div class="actions flex justify-end items-center gap-3">
+        <div class="actions-row">
           <button mat-raised-button color="primary" (click)="clear()">
             <mat-icon>clear</mat-icon>清空
           </button>
         </div>
       </mat-expansion-panel>
     </div>
-    <div class="map-wrapper flex">
+    <div class="map-wrapper">
       <app-map
         class="flex-12/12"
         [content]="{

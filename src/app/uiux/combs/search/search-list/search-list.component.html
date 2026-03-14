@@ -1,12 +1,12 @@
 @if (loading) {
-  <div class="m-y flex justify-center items-center">
+  <div class="loading-wrap m-y">
     <app-spinner class="m-y" [content]="{ color: 'primary', size: 40 }" />
   </div>
 }
 @if (content && pager) {
   <div class="search-list">
     <div class="container">
-      <div class="md:px-3 md:mt-[40px]">
+      <div class="search-list-inner">
         <div class="results m-bottom-sm">找到 {{ pager?.totalItems }} 个结果</div>
         <mat-divider />
         <div [class]="wrapperClasses">
@@ -18,7 +18,7 @@
           }
         </div>
         @if (pager) {
-          <div class="pager my-5">
+          <div class="pager">
             <mat-paginator
               class="demo-paginator"
               (page)="onPageChange($event)"
@@ -31,7 +31,7 @@
             />
           </div>
         } @else {
-          <div class="text-center py-10">
+          <div class="empty-text">
             <p>没有数据。</p>
           </div>
         }

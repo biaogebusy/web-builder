@@ -1,7 +1,7 @@
 @if (content) {
   <mat-card
     appearance="outlined"
-    class="card overflow-hidden {{ content.header?.meta ? 'has-header' : '' }}"
+    class="card {{ content.header?.meta ? 'has-header' : '' }}"
     [ngClass]="content.classes"
   >
     @if (content.header?.meta) {
@@ -34,7 +34,7 @@
         }
       </mat-card-header>
     }
-    <div class="card-header relative">
+    <div class="card-header">
       @if (content.carousel) {
         @if (content.carousel?.elements.length > 1) {
           <app-dynamic-component
@@ -59,13 +59,13 @@
       }
     </div>
     <mat-card-content>
-      <div class="flex flex-row py-3">
+      <div class="card-content-row">
         @if (content.avatar) {
           <div mat-card-avatar class="m-right-xs">
             <app-img [attr.data-path]="'img'" [content]="content.avatar" />
           </div>
         }
-        <div class="flex flex-wrap basis-full">
+        <div class="card-title-wrap">
           @if (content.title) {
             <mat-card-title contentedit="title" class="basis-full">
               <div [innerHTML]="content.title | safeHtml"></div>
@@ -92,7 +92,7 @@
         </div>
       </div>
       @if (content.body) {
-        <div contentedit="body" class="card-body pb-4" [innerHTML]="content.body | safeHtml"></div>
+        <div contentedit="body" class="card-body" [innerHTML]="content.body | safeHtml"></div>
       }
     </mat-card-content>
     @if (content.actions) {

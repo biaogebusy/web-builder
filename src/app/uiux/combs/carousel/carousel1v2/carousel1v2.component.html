@@ -1,10 +1,10 @@
 @if (content) {
   <div class="carousel-1-v2">
-    <div class="head relative">
+    <div class="head">
       @if (content.title) {
         <app-title [attr.data-path]="'title'" [content]="content.title" />
       }
-      <div class="actions flex absolute right-0 top-0 left-auto">
+      <div class="actions">
         <app-btn
           [content]="{ mode: 'icon', icon: { svg: 'chevron-left' }, classes: 'prev' }"
         ></app-btn>

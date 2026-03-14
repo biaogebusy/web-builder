@@ -1,0 +1,7 @@
+.article-meta-list {
+  @apply flex flex-wrap justify-start items-start gap-3 opacity-80;
+}
+
+.meta-item {
+  @apply flex justify-center items-center;
+}

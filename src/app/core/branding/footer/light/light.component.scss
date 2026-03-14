@@ -11,10 +11,24 @@
   }
 
   .footer-bottom {
+    @apply text-center;
     position: relative;
     color: var(--mat-sys-on-surface);
     background-color: var(--mat-sys-background);
     z-index: 10;
+
+    .brand {
+      @apply flex justify-between items-center;
+    }
+
+    .brand-label {
+      margin-bottom: 0 !important;
+      font-weight: 400 !important;
+    }
+
+    .brand-copy {
+      margin-bottom: 0 !important;
+    }
   }
 
   .mdc-list-item__content {

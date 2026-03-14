@@ -1,5 +1,21 @@
 @use 'variable/breakpoint' as *;
 .chart-box {
+  @apply p-5 grid grid-cols-12 justify-center items-end;
+  @media #{$gt-sm} {
+    gap: 0.5rem;
+  }
+  .chart-info {
+    @apply col-span-12 flex flex-col justify-center items-center;
+    @media #{$gt-sm} {
+      @apply col-span-6 items-start;
+    }
+  }
+  .chart-area {
+    @apply col-span-12;
+    @media #{$gt-sm} {
+      @apply col-span-6;
+    }
+  }
   .title {
     color: var(--mat-sys-outline-variant);
   }
