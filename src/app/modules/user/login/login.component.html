@@ -108,6 +108,35 @@
               </mat-tab>
             }
           </mat-tab-group>
+          @if (loginConfig.socialLogin; as socialLoginConfig) {
+            @if (socialLoginConfig.enable) {
+              <div class="social-login">
+                <div class="social-login-divider">
+                  <mat-divider />
+                  <span>{{ socialLoginConfig.label || '第三方登录' }}</span>
+                  <mat-divider />
+                </div>
+                <div class="social-login-buttons">
+                  @for (provider of socialLoginConfig.providers; track provider.url) {
+                    @if (provider.enable) {
+                      <button
+                        mat-stroked-button
+                        class="social-btn"
+                        (click)="socialLogin(provider.url)"
+                      >
+                        @if (provider.svgIcon) {
+                          <mat-icon svgIcon="{{ provider.svgIcon }}" />
+                        } @else if (provider.icon) {
+                          <mat-icon>{{ provider.icon }}</mat-icon>
+                        }
+                        {{ provider.label }}
+                      </button>
+                    }
+                  }
+                </div>
+              </div>
+            }
+          }
         }
         @if (user$ | async; as currentUser) {
           <h1 class="welcome-title">Hi, {{ currentUser.display_name }}</h1>

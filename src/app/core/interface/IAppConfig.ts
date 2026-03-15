@@ -103,11 +103,26 @@ export interface PswLogin {
   pswLabel: string;
 }
 
+export interface ISocialLoginProvider {
+  enable: boolean;
+  label: string;
+  svgIcon?: string;
+  icon?: string;
+  url: string;
+}
+
+export interface ISocialLogin {
+  enable: boolean;
+  label?: string;
+  providers: ISocialLoginProvider[];
+}
+
 export interface ILogin {
   loginRedirect: string;
   left: any;
   phoneLogin: PhoneLogin;
   pswLogin: PswLogin;
+  socialLogin?: ISocialLogin;
 }
 
 export interface IApiUrl {

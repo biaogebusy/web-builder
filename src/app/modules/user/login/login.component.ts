@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { Observable, Subscription, interval } from 'rxjs';
@@ -18,6 +18,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class LoginComponent implements OnInit, OnDestroy {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public user$ = inject<Observable<IUser>>(USER);
+  private apiUrl = inject<string>(API_URL);
 
   public hide = true;
   public loading = signal<boolean>(false);
@@ -135,6 +136,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         });
       });
+  }
+
+  socialLogin(providerUrl: string): void {
+    window.location.href = `${this.apiUrl}${providerUrl}`;
   }
 
   ngOnDestroy(): void {
