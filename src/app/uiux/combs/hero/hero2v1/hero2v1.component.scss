@@ -8,34 +8,20 @@
     .base-text {
       overflow: visible;
       position: static;
+      ::ng-deep {
+        .inner {
+          @apply w-full;
+          .title {
+            .title-header {
+              @apply text-2xl md:text-5xl !important;
+            }
+          }
+        }
+      }
     }
   }
   @media #{$lt-md} {
     min-height: 600px;
     height: 80vh;
-    ::ng-deep {
-      .base-text {
-        .inner {
-          .title {
-            .title-header {
-              font-size: 22px !important;
-            }
-          }
-        }
-      }
-    }
-  }
-  @media #{$lt-sm} {
-    ::ng-deep {
-      .base-text {
-        .inner {
-          .title {
-            .title-header {
-              font-size: 18px !important;
-            }
-          }
-        }
-      }
-    }
   }
 }
