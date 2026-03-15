@@ -41,24 +41,16 @@
       ></app-btn>
     }
   </div>
-  <div
-    class="code-editor"
-    [class.collapse]="isCollapse()"
-    [class]="isMore() ? 'more' : 'less'"
-  >
+  <div class="code-editor" [class.collapse]="isCollapse()" [class]="isMore() ? 'more' : 'less'">
     @if (isAPI()) {
-      <div
-        class="box api-box {{
-          isAPI() ? 'md:col-span-3' : ''
-        }}"
-      >
+      <div class="box api-box col-span-12 {{ isAPI() ? 'md:col-span-3' : '' }}">
         <app-formly class="formly-block" [form]="form" [fields]="fields" [model]="model" />
         <pre #jsonblock class="json-pre">
           <code [innerHTML]="highlightedCode()" class="language-json code-block"></code>
         </pre>
       </div>
     }
-    <div class="box editor-box {{ isAPI() ? 'md:col-span-9' : '' }}">
+    <div class="box editor-box col-span-12 {{ isAPI() ? 'md:col-span-9' : '' }}">
       <ngx-monaco-editor
         class="monaco-editor"
         [options]="MonacoOptions"
