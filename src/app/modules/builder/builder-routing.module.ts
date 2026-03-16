@@ -50,7 +50,6 @@ const routes: Routes = [
       {
         path: '**',
         component: ManagePageComponent,
-        canActivate: [BuilderGuard],
       },
     ],
   },
