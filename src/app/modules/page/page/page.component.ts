@@ -13,7 +13,7 @@ import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContentService } from '@core/service/content.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { throttle } from 'lodash-es';
@@ -45,7 +45,6 @@ export class PageComponent implements AfterViewInit {
   private contentService = inject(ContentService);
   private screenService = inject(ScreenService);
   private router = inject(Router);
-  private activateRouter = inject(ActivatedRoute);
   private screen = inject(ScreenState);
   private util = inject(UtilitiesService);
 
@@ -59,11 +58,6 @@ export class PageComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.activateRouter.fragment.subscribe(fragment => {
-        if (fragment) {
-          this.screenService.scrollToAnchor(fragment);
-        }
-      });
       this.screen.drawer$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });
