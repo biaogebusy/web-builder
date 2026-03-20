@@ -118,3 +118,29 @@
   background-color: var(--mat-sys-background);
   z-index: 1;
 }
+
+.social-login {
+  @apply mt-5;
+}
+
+.social-login-divider {
+  @apply flex items-center gap-3 my-4;
+  mat-divider {
+    @apply flex-1;
+  }
+  span {
+    @apply text-sm whitespace-nowrap;
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.social-login-buttons {
+  @apply flex flex-col gap-3;
+}
+
+.social-btn {
+  @apply w-full;
+  mat-icon {
+    margin-right: 8px;
+  }
+}

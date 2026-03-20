@@ -43,17 +43,40 @@ export class ScreenService {
     return rect.top > (window.innerHeight || this.document.documentElement.clientHeight);
   }
 
-  scrollToAnchor(location: string, wait = 0): void {
-    const element = this.document.querySelector('#' + location);
+  scrollToAnchor(anchor: string, maxWait = 5000): void {
+    const selector = '#' + anchor;
+    const element = this.document.querySelector(selector);
     if (element) {
-      setTimeout(() => {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest',
-        });
-      }, wait);
+      this.revealAndScroll(element);
+      return;
     }
+    const interval = 100;
+    let elapsed = 0;
+    const timer = setInterval(() => {
+      elapsed += interval;
+      const el = this.document.querySelector(selector);
+      if (el) {
+        clearInterval(timer);
+        this.revealAndScroll(el);
+      } else if (elapsed >= maxWait) {
+        clearInterval(timer);
+      }
+    }, interval);
+  }
+
+  private revealAndScroll(el: Element): void {
+    // 移除目标元素及其祖先上的 AOS 动画属性，使其立即可见
+    let node: Element | null = el;
+    while (node) {
+      if (node.hasAttribute('data-aos')) {
+        node.removeAttribute('data-aos');
+        node.classList.add('aos-animate');
+      }
+      node = node.parentElement;
+    }
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    }, 100);
   }
 
   gotoTop(): void {

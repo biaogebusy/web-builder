@@ -29,7 +29,6 @@
     }
   }
   @media #{$lt-md} {
-    height: 60vh;
     ::ng-deep {
       .swiper-container {
         .swiper-slide {

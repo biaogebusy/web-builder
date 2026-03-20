@@ -10,6 +10,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class SearchListComponent implements OnInit {
   @Input() content: any[];
+  @Input() label: any;
   @Input() pager: any;
   @Input() loading: boolean;
   @Input() template: string;

@@ -9,6 +9,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  PendingTasks,
   Renderer2,
   SimpleChanges,
   ViewChild,
@@ -44,6 +45,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
   private componentService = inject(ComponentService);
   private readonly renderer = inject(Renderer2);
   private readonly environmentInjector = inject(EnvironmentInjector);
+  private readonly pendingTasks = inject(PendingTasks);
   public componentRef: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   public compContent = signal<any>({});
   @HostBinding('class.relative') relative = true;
@@ -83,8 +85,10 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
 
   ngAfterViewInit(): void {
     // 仅服务端执行：生成 SSR HTML
+    // 通过 PendingTasks 通知 Angular 等待异步加载完成后再输出 HTML
     if (!this.screenService.isPlatformBrowser()) {
-      this.loadComponent();
+      const taskCleanup = this.pendingTasks.add();
+      this.loadComponent().finally(() => taskCleanup());
       if (this.ele.nativeElement.closest('.component-item')) {
         this.showToolbar.set(true);
       }
