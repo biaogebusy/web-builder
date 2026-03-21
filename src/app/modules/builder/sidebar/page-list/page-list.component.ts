@@ -266,7 +266,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
     this.builder.loading$.next(true);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', '', targetlang)
+      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', targetlang)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
         this.builder.loading$.next(false);
