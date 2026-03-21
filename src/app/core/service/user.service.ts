@@ -1,6 +1,6 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { forkJoin, Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { TokenUser, IUser, IUserProfile } from '../interface/IUser';
@@ -10,7 +10,6 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { environment } from 'src/environments/environment';
 import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
-import { UtilitiesService } from './utilities.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -25,7 +24,6 @@ export class UserService extends ApiService {
 
   private router = inject(Router);
   private dialog = inject(MatDialog);
-  private util = inject(UtilitiesService);
   private cryptoJS = inject(CryptoJSService);
   private cookieService = inject(CookieService);
   private route = inject(ActivatedRoute);
@@ -34,27 +32,42 @@ export class UserService extends ApiService {
   }
 
   login(userName: string, passWord: string): Observable<boolean> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Accept: 'application/vnd.api+json',
-        'Content-type': 'application/vnd.api+json',
-      }),
-      withCredentials: false,
-    };
+    const body = new HttpParams()
+      .set('grant_type', 'password')
+      .set('client_id', environment.oauth.clientId)
+      .set('username', userName)
+      .set('password', passWord)
+      .set('scope', environment.oauth.scope);
 
     return this.http
-      .post<any>(
-        `${this.apiUrl}${this.coreConfig.apiUrl.loginPath}?_format=json`,
-        {
-          name: userName,
-          pass: passWord,
-        },
-        httpOptions
-      )
+      .post<any>(`${this.apiUrl}${environment.oauth.tokenUrl}`, body.toString(), {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      })
       .pipe(
-        map(user => {
-          this.updateUser(user);
-          return true;
+        switchMap(tokenData => {
+          return this.getCurrentUserProfile(tokenData.access_token).pipe(
+            switchMap(profile =>
+              this.getCurrentUserById(profile.uid, tokenData.access_token).pipe(
+                map(userProfile => {
+                  const tokenUser: TokenUser = {
+                    access_token: tokenData.access_token,
+                    refresh_token: tokenData.refresh_token,
+                    token_type: tokenData.token_type,
+                    expires_in: tokenData.expires_in,
+                    current_user: {
+                      uid: String(profile.uid),
+                      name: profile.name || '',
+                      roles: profile.roles || [],
+                    },
+                  };
+                  this.loginUser(tokenUser, userProfile);
+                  return true;
+                })
+              )
+            )
+          );
         }),
         catchError(() => {
           return of(false);
@@ -65,15 +78,15 @@ export class UserService extends ApiService {
   updateUser(data: TokenUser): any {
     const {
       current_user: { uid },
-      csrf_token,
+      access_token,
     } = data;
-    this.getCurrentUserById(uid, csrf_token).subscribe(user => {
+    this.getCurrentUserById(uid, access_token).subscribe(user => {
       this.loginUser(data, user);
     });
   }
 
   editingUser(user: IUser, data: any): any {
-    const { id, csrf_token } = user;
+    const { id, access_token } = user;
     return this.http.patch(
       `${this.apiUrl}/api/v1/user/user/${id}`,
       {
@@ -85,41 +98,80 @@ export class UserService extends ApiService {
           },
         },
       },
-      this.optionsWithCookieAndToken(csrf_token)
+      this.optionsWithBearerToken(access_token)
     );
   }
 
   updateUserBySession(): void {
-    const options = {
-      headers: new HttpHeaders({
-        Accept: 'application/vnd.api+json',
-        'Content-Type': 'application/vnd.api+json',
-      }),
-      withCredentials: true,
-    };
-    const sesstion = this.http.get('/session/token', {
-      responseType: 'text',
-    });
-    const profile = this.http.get('/api/v3/accountProfile', options);
-    let tokenUser = {};
-    forkJoin({
-      csrf_token: sesstion,
-      current_user: profile,
-    })
+    const storedUser = this.getStoredUser();
+    if (!storedUser || !storedUser.access_token) {
+      return;
+    }
+    const accessToken = storedUser.access_token;
+    this.http
+      .get<any>(
+        `${this.apiUrl}/api/v3/accountProfile?noCache=1`,
+        this.optionsWithBearerToken(accessToken)
+      )
       .pipe(
-        switchMap((data: any) => {
-          tokenUser = data;
-          return this.getCurrentUserById(data.current_user.uid, data.csrf_token);
+        switchMap((profile: any) => {
+          return this.getCurrentUserById(String(profile.uid), accessToken).pipe(
+            map(userProfile => {
+              const tokenUser: TokenUser = {
+                access_token: storedUser.access_token,
+                refresh_token: storedUser.refresh_token,
+                token_type: storedUser.token_type,
+                expires_in: storedUser.expires_in,
+                current_user: {
+                  uid: String(profile.uid),
+                  name: profile.name || '',
+                  roles: profile.roles || [],
+                },
+              };
+              return { tokenUser, userProfile };
+            })
+          );
         }),
         catchError((error: any) => {
           console.log(error);
           return of(null);
         })
       )
-      .subscribe(user => {
-        console.log('get session user done!');
-        this.loginUser(tokenUser, user);
+      .subscribe(result => {
+        if (result) {
+          console.log('get session user done!');
+          this.loginUser(result.tokenUser, result.userProfile);
+        }
       });
+  }
+
+  getStoredUser(): IUser | null {
+    try {
+      const key = this.localUserKey;
+      if (this.cookieService.check(key)) {
+        return JSON.parse(this.cryptoJS.decrypt(this.cookieService.get(key)));
+      }
+    } catch (e) {
+      console.log('Failed to read stored user', e);
+    }
+    return null;
+  }
+
+  refreshAccessToken(): Observable<any> {
+    const storedUser = this.getStoredUser();
+    if (!storedUser || !storedUser.refresh_token) {
+      return of(null);
+    }
+    const body = new HttpParams()
+      .set('grant_type', 'refresh_token')
+      .set('refresh_token', storedUser.refresh_token)
+      .set('client_id', environment.oauth.clientId);
+
+    return this.http.post<any>(`${this.apiUrl}${environment.oauth.tokenUrl}`, body.toString(), {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+    });
   }
 
   refreshLocalUser(user: IUser): void {
@@ -153,7 +205,6 @@ export class UserService extends ApiService {
   }
 
   loginUser(data: any, user: any): void {
-    const { logout_token } = data;
     const currentUser: IUser = Object.assign(data, user);
     this.userSub$.next(currentUser);
     this.setUserCookie(currentUser);
@@ -170,35 +221,7 @@ export class UserService extends ApiService {
       window.location.href = '/user/logout';
       return;
     }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Accept: 'application/vnd.api+json',
-      }),
-      withCredentials: true,
-    };
-    const { logout_token } = JSON.parse(
-      this.cryptoJS.decrypt(this.cookieService.get(this.localUserKey))
-    ) as IUser;
-    if (!logout_token) {
-      this.util.openSnackbar('检测到会话异常，安全起见请手动清除Cookie', 'ok');
-      return;
-    }
-    const params = ['_format=json', `token=${logout_token}`].join('&');
-    return this.http
-      .post(`${this.apiUrl}${this.coreConfig.apiUrl.logoutPath}?${params}`, null, httpOptions)
-      .pipe(
-        catchError(error => {
-          if (error.status === 403) {
-            // false: logout
-            return of(false);
-          }
-          console.log('退出异常！');
-          return of(false);
-        })
-      )
-      .subscribe(() => {
-        this.logoutUser();
-      });
+    this.logoutUser();
   }
 
   getCode(phone: string): Observable<any> {
@@ -232,7 +255,7 @@ export class UserService extends ApiService {
     }
   }
 
-  getUserById(id: string, csrfToken: string): Observable<any> {
+  getUserById(id: string, accessToken: string): Observable<any> {
     const params = [
       `filter[drupal_internal__uid]=${id}`,
       `include=user_picture,roles`,
@@ -240,7 +263,7 @@ export class UserService extends ApiService {
     ].join('&');
     return this.http.get<any>(
       `${this.userApiPath}?${params}`,
-      this.optionsWithCookieAndToken(csrfToken)
+      this.optionsWithBearerToken(accessToken)
     );
   }
 
@@ -248,10 +271,10 @@ export class UserService extends ApiService {
     return this.http.get<any>(`${this.userApiPath}?${params}`);
   }
 
-  getCurrentUserProfile(csrfToken: string): Observable<any> {
+  getCurrentUserProfile(accessToken: string): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}/api/v3/accountProfile?noCache=1`,
-      this.optionsWithCookieAndToken(csrfToken)
+      this.optionsWithBearerToken(accessToken)
     );
   }
 
@@ -263,12 +286,12 @@ export class UserService extends ApiService {
       `noCache=1`,
     ].join('&');
     return this.http
-      .get<any>(`${this.userApiPath}?${params}`, this.optionsWithCookieAndToken(token))
+      .get<any>(`${this.userApiPath}?${params}`, this.optionsWithBearerToken(token))
       .pipe(
         catchError((error: any) => {
           return this.http.get<any>(
             `${this.apiUrl}/api/v3/personalProfile?noCache=1`,
-            this.optionsWithCookieAndToken(token)
+            this.optionsWithBearerToken(token)
           );
         }),
         map((res: any) => {
@@ -345,15 +368,14 @@ export class UserService extends ApiService {
   }
 
   uploadUserPicture(user: IUser, imageData: string | ArrayBuffer): Observable<any> {
-    const { id, csrf_token } = user;
+    const { id, access_token } = user;
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
         'Content-Type': 'application/octet-stream',
         'Content-Disposition': 'file; filename="' + id + '-picture.jpg"',
-        'X-CSRF-Token': csrf_token,
+        Authorization: `Bearer ${access_token}`,
       }),
-      withCredentials: true,
     };
     return this.http.post(
       `${this.apiUrl}/api/v1/user/user/${id}/user_picture`,

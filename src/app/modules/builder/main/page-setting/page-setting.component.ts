@@ -500,7 +500,7 @@ export class PageSettingComponent implements OnInit {
       attributes: { title },
     } = data;
     this.nodeService
-      .deleteEntity(api, id, this.user.csrf_token)
+      .deleteEntity(api, id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {

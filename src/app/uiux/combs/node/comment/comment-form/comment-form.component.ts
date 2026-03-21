@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
   inject,
   DestroyRef,
-  output
+  output,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -22,11 +22,11 @@ import type { IUser } from '@core/interface/IUser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-comment-form',
-    templateUrl: './comment-form.component.html',
-    styleUrls: ['./comment-form.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-comment-form',
+  templateUrl: './comment-form.component.html',
+  styleUrls: ['./comment-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CommentFormComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -85,7 +85,7 @@ export class CommentFormComponent implements OnInit {
 
   onSubmit(value: any): void {
     this.loading = true;
-    const token = this.user.csrf_token;
+    const token = this.user.access_token;
     const params = this.content.params?.comment as ICommentParams;
     const type = params.attributes?.field_name || '';
     // reply, update 在组件内判断处理，默认新增，包括外部组件

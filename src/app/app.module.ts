@@ -14,7 +14,12 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
-import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
@@ -40,6 +45,7 @@ import {
 } from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
 import { CookieService } from 'ngx-cookie-service';
+import { AuthInterceptor } from '@core/interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -100,6 +106,11 @@ import { CookieService } from 'ngx-cookie-service';
     },
 
     provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
 })
 export class AppModule {}

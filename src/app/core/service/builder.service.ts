@@ -71,7 +71,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid, isTemplate } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
+      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
       .subscribe((content: IPage) => {
         const { body, status, uuid, title } = content;
         this.builder.loading$.next(false);
@@ -120,7 +120,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
+      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
       .subscribe((content: IPage) => {
         const { status, uuid } = content;
         if (status) {
@@ -166,7 +166,7 @@ export class BuilderService extends ApiService {
     if (nid && changed && uuid) {
       const lang = this.getApiLang(langcode);
       this.nodeService
-        .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
+        .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
         .subscribe((page: IPage) => {
           if (Number(changed) < Number(page.changed)) {
             const config: IDialog = {
@@ -202,7 +202,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid, uuid, schemaType } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
+      .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', lang)
       .subscribe((newPage: IPage) => {
         const jsonWidget: IJsoneditor = {
           type: 'jsoneditor',
@@ -243,13 +243,13 @@ export class BuilderService extends ApiService {
     const {
       api: { create },
     } = this.builderConfig;
-    const { csrf_token } = this.user;
+    const { access_token } = this.user;
     this.builder.loading$.next(true);
     return this.http
       .post(
         `${this.apiUrl}${create}`,
         this.formatPage(page),
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithBearerToken(access_token)
       )
       .pipe(
         tap((res: any) => {
@@ -274,13 +274,13 @@ export class BuilderService extends ApiService {
     const {
       api: { update },
     } = this.builderConfig;
-    const { csrf_token } = this.user;
+    const { access_token } = this.user;
     this.builder.loading$.next(true);
     return this.http
       .patch(
         `${this.apiUrl}${prefix}${update}/${nid}`,
         this.coverExtraData(page),
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithBearerToken(access_token)
       )
       .pipe(
         tap((res: any) => {
@@ -334,11 +334,11 @@ export class BuilderService extends ApiService {
     const {
       api: { translate },
     } = this.builderConfig;
-    const { csrf_token } = this.user;
+    const { access_token } = this.user;
     return this.http.post(
       `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
       this.formatPage(page),
-      this.optionsWithCookieAndToken(csrf_token)
+      this.optionsWithBearerToken(access_token)
     );
   }
 
@@ -348,7 +348,7 @@ export class BuilderService extends ApiService {
     attr: any,
     relationships: any
   ): Observable<any> {
-    const { csrf_token } = this.user;
+    const { access_token } = this.user;
     const { langcode, uuid } = page;
     let prefix = '';
     const arr = api.split('/');
@@ -373,7 +373,7 @@ export class BuilderService extends ApiService {
             },
           },
         },
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithBearerToken(access_token)
       )
       .pipe(
         catchError((res: any) => {
@@ -410,7 +410,7 @@ export class BuilderService extends ApiService {
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const { multiLang } = environment;
-      const { csrf_token } = this.user;
+      const { access_token } = this.user;
       const {
         langcode,
         id,
@@ -452,7 +452,7 @@ export class BuilderService extends ApiService {
                     id: uuid,
                   },
                 },
-                this.optionsWithCookieAndToken(csrf_token)
+                this.optionsWithBearerToken(access_token)
               )
               .pipe(
                 catchError(() => {
@@ -474,7 +474,7 @@ export class BuilderService extends ApiService {
             {
               data: paramsData,
             },
-            this.optionsWithCookieAndToken(csrf_token)
+            this.optionsWithBearerToken(access_token)
           )
           .pipe(
             catchError(() => {
@@ -509,7 +509,7 @@ export class BuilderService extends ApiService {
     const { uuid, langcode } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`${api}/${uuid}`, params, this.user.csrf_token, lang)
+      .fetch(`${api}/${uuid}`, params, lang)
       .pipe(
         catchError((error: any) => {
           const { statusText } = error;

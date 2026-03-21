@@ -44,6 +44,16 @@ export class ApiService {
     };
   }
 
+  optionsWithBearerToken(accessToken: string): any {
+    return {
+      headers: new HttpHeaders({
+        Accept: 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
+        Authorization: `Bearer ${accessToken}`,
+      }),
+    };
+  }
+
   getToken(): Observable<string> {
     return this.http.get('/session/token', {
       responseType: 'text',

@@ -70,15 +70,11 @@ export class NodeAddComponent implements OnInit {
       case 'json':
         const { title, body } = value;
         this.nodeService
-          .addEntity(
-            `/api/v1/node/${type}`,
-            {
-              title,
-              status: true,
-              body: JSON.stringify(body),
-            },
-            user.csrf_token
-          )
+          .addEntity(`/api/v1/node/${type}`, {
+            title,
+            status: true,
+            body: JSON.stringify(body),
+          })
           .subscribe(() => {
             this.router.navigate(['/builder/settings']);
           });

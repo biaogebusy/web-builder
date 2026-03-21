@@ -43,7 +43,7 @@ export class AuthGuard {
                 // console.log('userState:', status);
                 if (status) {
                   if (environment?.drupalProxy) {
-                    if (!this.user.csrf_token) {
+                    if (!this.user.access_token) {
                       this.userService.updateUserBySession();
                     }
                   }

@@ -1,3 +1,9 @@
+export interface IOAuth {
+  clientId: string;
+  tokenUrl: string;
+  scope: string;
+}
+
 export interface IEnvironment {
   apiUrl: string;
   production: boolean;
@@ -6,6 +12,7 @@ export interface IEnvironment {
   drupalProxy?: boolean;
   multiLang?: boolean;
   langs?: ILanguage[];
+  oauth: IOAuth;
 }
 
 export interface ILanguage {

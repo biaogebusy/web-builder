@@ -13,10 +13,10 @@ import type { IUser } from '@core/interface/IUser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-user-center',
-    templateUrl: './user-center.component.html',
-    styleUrls: ['./user-center.component.scss'],
-    standalone: false
+  selector: 'app-user-center',
+  templateUrl: './user-center.component.html',
+  styleUrls: ['./user-center.component.scss'],
+  standalone: false,
 })
 export class UserCenterComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -62,7 +62,7 @@ export class UserCenterComponent implements OnInit {
     }
     const people = {};
     this.userService
-      .getUserById(this.user.current_user.uid, this.user.csrf_token)
+      .getUserById(this.user.current_user.uid, this.user.access_token)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         const info = res.data[0];
