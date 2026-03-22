@@ -86,7 +86,7 @@ export class UserService extends ApiService {
   }
 
   editingUser(user: IUser, data: any): any {
-    const { id, access_token } = user;
+    const { id } = user;
     return this.http.patch(
       `${this.apiUrl}/api/v1/user/user/${id}`,
       {
@@ -98,7 +98,7 @@ export class UserService extends ApiService {
           },
         },
       },
-      this.optionsWithBearerToken(access_token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -107,15 +107,11 @@ export class UserService extends ApiService {
     if (!storedUser || !storedUser.access_token) {
       return;
     }
-    const accessToken = storedUser.access_token;
     this.http
-      .get<any>(
-        `${this.apiUrl}/api/v3/accountProfile?noCache=1`,
-        this.optionsWithBearerToken(accessToken)
-      )
+      .get<any>(`${this.apiUrl}/api/v3/accountProfile?noCache=1`, this.optionsWithBearerToken())
       .pipe(
         switchMap((profile: any) => {
-          return this.getCurrentUserById(String(profile.uid), accessToken).pipe(
+          return this.getCurrentUserById(String(profile.uid), '').pipe(
             map(userProfile => {
               const tokenUser: TokenUser = {
                 access_token: storedUser.access_token,
@@ -192,7 +188,8 @@ export class UserService extends ApiService {
         return false;
       }
       const currentUserRoles = user.current_user.roles;
-      if (this.isMatchCurrentRole(roles, currentUserRoles)) {
+      const uid = user.current_user.uid;
+      if (this.isMatchCurrentRole(roles, currentUserRoles) || uid === '1') {
         return true;
       } else {
         return false;
@@ -261,10 +258,7 @@ export class UserService extends ApiService {
       `include=user_picture,roles`,
       `jsonapi_include=1`,
     ].join('&');
-    return this.http.get<any>(
-      `${this.userApiPath}?${params}`,
-      this.optionsWithBearerToken(accessToken)
-    );
+    return this.http.get<any>(`${this.userApiPath}?${params}`, this.optionsWithBearerToken());
   }
 
   getUser(params: string): Observable<any> {
@@ -274,7 +268,7 @@ export class UserService extends ApiService {
   getCurrentUserProfile(accessToken: string): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}/api/v3/accountProfile?noCache=1`,
-      this.optionsWithBearerToken(accessToken)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -285,39 +279,37 @@ export class UserService extends ApiService {
       `jsonapi_include=1`,
       `noCache=1`,
     ].join('&');
-    return this.http
-      .get<any>(`${this.userApiPath}?${params}`, this.optionsWithBearerToken(token))
-      .pipe(
-        catchError((error: any) => {
-          return this.http.get<any>(
-            `${this.apiUrl}/api/v3/personalProfile?noCache=1`,
-            this.optionsWithBearerToken(token)
-          );
-        }),
-        map((res: any) => {
-          // jsonapi
-          if (res.data) {
-            const detail = res.data[0];
-            return {
-              id: detail.id,
-              display_name: detail?.display_name || '',
-              mail: detail?.mail || '',
-              authenticated: true,
-              picture: detail?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
-              login: detail.login,
-            };
-          } else {
-            return {
-              id: res.uid,
-              display_name: res.name,
-              mail: res.mail || '',
-              authenticated: true,
-              picture: res.avatar || this.coreConfig?.defaultAvatar || '',
-              login: new Date(),
-            };
-          }
-        })
-      );
+    return this.http.get<any>(`${this.userApiPath}?${params}`, this.optionsWithBearerToken()).pipe(
+      catchError((error: any) => {
+        return this.http.get<any>(
+          `${this.apiUrl}/api/v3/personalProfile?noCache=1`,
+          this.optionsWithBearerToken()
+        );
+      }),
+      map((res: any) => {
+        // jsonapi
+        if (res.data) {
+          const detail = res.data[0];
+          return {
+            id: detail.id,
+            display_name: detail?.display_name || '',
+            mail: detail?.mail || '',
+            authenticated: true,
+            picture: detail?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
+            login: detail.login,
+          };
+        } else {
+          return {
+            id: res.uid,
+            display_name: res.name,
+            mail: res.mail || '',
+            authenticated: true,
+            picture: res.avatar || this.coreConfig?.defaultAvatar || '',
+            login: new Date(),
+          };
+        }
+      })
+    );
   }
 
   setUserCookie(user: IUser): void {
@@ -368,13 +360,12 @@ export class UserService extends ApiService {
   }
 
   uploadUserPicture(user: IUser, imageData: string | ArrayBuffer): Observable<any> {
-    const { id, access_token } = user;
+    const { id } = user;
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
         'Content-Type': 'application/octet-stream',
         'Content-Disposition': 'file; filename="' + id + '-picture.jpg"',
-        Authorization: `Bearer ${access_token}`,
       }),
     };
     return this.http.post(

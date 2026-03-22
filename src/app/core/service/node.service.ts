@@ -34,7 +34,6 @@ export class NodeService extends ApiService {
   }
 
   fetch(api: string, params: string, langCode?: string): Observable<any> {
-    const token = this.user.access_token;
     let apiParams = '';
     let lang = '';
     if (!api) {
@@ -54,10 +53,7 @@ export class NodeService extends ApiService {
         : `${this.apiUrl}${lang}/api/v1/${api}?${params}`;
     }
 
-    return this.http.get<any>(
-      apiParams,
-      token ? this.optionsWithBearerToken(token) : this.httpOptionsOfCommon
-    );
+    return this.http.get<any>(apiParams, this.httpOptionsOfCommon);
   }
 
   getNodeByLink(link: string): Observable<any> {
@@ -66,11 +62,7 @@ export class NodeService extends ApiService {
 
   // params can use for noCache
   getNodes(path: string, type: string, params = ''): Observable<any> {
-    const token = this.user.access_token;
-    return this.http.get<any>(
-      `${this.apiUrl}${path}/${type}?${params}`,
-      token ? this.optionsWithBearerToken(token) : this.httpOptionsOfCommon
-    );
+    return this.http.get<any>(`${this.apiUrl}${path}/${type}?${params}`, this.httpOptionsOfCommon);
   }
 
   /**
@@ -94,13 +86,11 @@ export class NodeService extends ApiService {
   }
 
   deleteEntity(path: string, id: string): Observable<any> {
-    const token = this.user.access_token;
-    return this.http.delete<any>(`${this.apiUrl}${path}/${id}`, this.optionsWithBearerToken(token));
+    return this.http.delete<any>(`${this.apiUrl}${path}/${id}`, this.optionsWithBearerToken());
   }
 
   // path: /api/v1/taxonomy_term/page_group
   addEntity(path: string, attr: any): Observable<any> {
-    const token = this.user.access_token;
     const post = {
       data: {
         type: this.getEntityType(path),
@@ -112,7 +102,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${path}`,
       JSON.stringify(post),
-      this.optionsWithBearerToken(token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -132,7 +122,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       JSON.stringify(entity),
-      this.optionsWithBearerToken(token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -143,7 +133,7 @@ export class NodeService extends ApiService {
     return this.http.patch<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
       JSON.stringify(entity),
-      this.optionsWithBearerToken(token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -154,7 +144,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       JSON.stringify(entity),
-      this.optionsWithBearerToken(token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -274,36 +264,27 @@ export class NodeService extends ApiService {
 
   // custom get comment api
   getCustomApiComment(uuid: string, timeStamp = 1): Observable<any> {
-    const token = this.user.access_token;
     const params = [`timeStamp=${timeStamp}`].join('&');
 
     return this.http.get<IComment[]>(
       `${this.apiUrl}/api/v3/comment/comment/${uuid}?${params}`,
-      token ? this.optionsWithBearerToken : this.httpOptionsOfCommon
+      this.httpOptionsOfCommon
     );
   }
 
   getFlaging(path: string, params: string, token: string): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}${path}?${params}`,
-      this.optionsWithBearerToken(token)
-    );
+    return this.http.get<any>(`${this.apiUrl}${path}?${params}`, this.optionsWithBearerToken());
   }
 
   flagging(path: string, data: any): Observable<any> {
-    const token = this.user.access_token;
-    return this.http.post<any>(`${this.apiUrl}${path}`, data, this.optionsWithBearerToken(token));
+    return this.http.post<any>(`${this.apiUrl}${path}`, data, this.optionsWithBearerToken());
   }
 
   deleteFlagging(path: string, items: any[]): Observable<any> {
-    const token = this.user.access_token;
     const obj: any = {};
     items.forEach(item => {
       const id = item.uuid || item.id;
-      obj[id] = this.http.delete<any>(
-        `${this.apiUrl}${path}/${id}`,
-        this.optionsWithBearerToken(token)
-      );
+      obj[id] = this.http.delete<any>(`${this.apiUrl}${path}/${id}`, this.optionsWithBearerToken());
     });
     return forkJoin(obj);
   }
@@ -349,14 +330,12 @@ export class NodeService extends ApiService {
   }
 
   uploadImage(fileName: string, imageData: any): Observable<IMediaAttr> {
-    const token = this.user.access_token;
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/octet-stream',
           'Content-Disposition': `file; filename="${encodeURIComponent(fileName)}"`,
-          Authorization: `Bearer ${token}`,
         }),
       })
       .pipe(
@@ -392,15 +371,13 @@ export class NodeService extends ApiService {
       },
     };
 
-    return this.http
-      .post(`/api/v1/media/image`, mediaData, this.optionsWithBearerToken(this.user.access_token))
-      .pipe(
-        map(() => void 0),
-        catchError(error => {
-          console.error('Create media image failed:', error);
-          return throwError(() => error);
-        })
-      );
+    return this.http.post(`/api/v1/media/image`, mediaData, this.optionsWithBearerToken()).pipe(
+      map(() => void 0),
+      catchError(error => {
+        console.error('Create media image failed:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   imageHandler(editor: any): void {

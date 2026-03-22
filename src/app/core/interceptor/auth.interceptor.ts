@@ -25,9 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // Skip if request already has Authorization header
     if (req.headers.has('Authorization')) {
-      return next.handle(req).pipe(
-        catchError(error => this.handleError(error, req, next))
-      );
+      return next.handle(req).pipe(catchError(error => this.handleError(error, req, next)));
     }
 
     // Add Bearer token if user is logged in
@@ -36,9 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
       req = this.addToken(req, storedUser.access_token);
     }
 
-    return next.handle(req).pipe(
-      catchError(error => this.handleError(error, req, next))
-    );
+    return next.handle(req).pipe(catchError(error => this.handleError(error, req, next)));
   }
 
   private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
@@ -54,7 +50,7 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (error.status === 401) {
+    if (error.status === 401 && req.url.includes(environment.apiUrl)) {
       return this.handle401Error(req, next);
     }
     return throwError(() => error);

@@ -26,14 +26,14 @@ export class ManageService extends ApiService {
   getBlock(): Observable<any> {
     return this.http.get(
       `${this.apiUrl}/api/v1/block_content_type/block_content_type`,
-      this.optionsWithBearerToken(this.user.access_token)
+      this.optionsWithBearerToken()
     );
   }
 
   deleteMedia(uuid: string): Observable<any> {
     return this.http.delete<any>(
       `${this.apiUrl}/api/v1/media/image/${uuid}`,
-      this.optionsWithBearerToken(this.user.access_token)
+      this.optionsWithBearerToken()
     );
   }
 

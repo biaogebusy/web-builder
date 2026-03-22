@@ -14,7 +14,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
   private lang = inject<ILanguage>(LANG);
 
   getRangeLabel = (page: number, pageSize: number, length: number) => {
-    const { langCode } = this.lang;
+    const langCode = this.lang?.langCode;
     if (length === 0 || pageSize === 0) {
       return '0条 ' + length;
     }

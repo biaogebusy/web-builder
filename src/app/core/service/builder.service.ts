@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
-import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
+import { BUILDER_CONFIG } from '@core/token/token-providers';
 import type { IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
 import { Observable, of } from 'rxjs';
-import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
@@ -23,7 +22,6 @@ import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
-  private user$ = inject<Observable<IUser>>(USER);
   private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   private dialog = inject(MatDialog);
@@ -31,14 +29,10 @@ export class BuilderService extends ApiService {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private contentService = inject(ContentService);
-  private user: IUser;
   private builderConfig: IBuilderConfig;
 
   constructor() {
     super();
-    this.user$.subscribe(user => {
-      this.user = user;
-    });
     this.builderConfig$.subscribe(config => {
       this.builderConfig = config;
     });
@@ -243,14 +237,9 @@ export class BuilderService extends ApiService {
     const {
       api: { create },
     } = this.builderConfig;
-    const { access_token } = this.user;
     this.builder.loading$.next(true);
     return this.http
-      .post(
-        `${this.apiUrl}${create}`,
-        this.formatPage(page),
-        this.optionsWithBearerToken(access_token)
-      )
+      .post(`${this.apiUrl}${create}`, this.formatPage(page), this.optionsWithBearerToken())
       .pipe(
         tap((res: any) => {
           const {
@@ -274,13 +263,12 @@ export class BuilderService extends ApiService {
     const {
       api: { update },
     } = this.builderConfig;
-    const { access_token } = this.user;
     this.builder.loading$.next(true);
     return this.http
       .patch(
         `${this.apiUrl}${prefix}${update}/${nid}`,
         this.coverExtraData(page),
-        this.optionsWithBearerToken(access_token)
+        this.optionsWithBearerToken()
       )
       .pipe(
         tap((res: any) => {
@@ -334,11 +322,10 @@ export class BuilderService extends ApiService {
     const {
       api: { translate },
     } = this.builderConfig;
-    const { access_token } = this.user;
     return this.http.post(
       `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
       this.formatPage(page),
-      this.optionsWithBearerToken(access_token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -348,7 +335,6 @@ export class BuilderService extends ApiService {
     attr: any,
     relationships: any
   ): Observable<any> {
-    const { access_token } = this.user;
     const { langcode, uuid } = page;
     let prefix = '';
     const arr = api.split('/');
@@ -373,7 +359,7 @@ export class BuilderService extends ApiService {
             },
           },
         },
-        this.optionsWithBearerToken(access_token)
+        this.optionsWithBearerToken()
       )
       .pipe(
         catchError((res: any) => {
@@ -410,7 +396,6 @@ export class BuilderService extends ApiService {
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const { multiLang } = environment;
-      const { access_token } = this.user;
       const {
         langcode,
         id,
@@ -452,7 +437,7 @@ export class BuilderService extends ApiService {
                     id: uuid,
                   },
                 },
-                this.optionsWithBearerToken(access_token)
+                this.optionsWithBearerToken()
               )
               .pipe(
                 catchError(() => {
@@ -474,7 +459,7 @@ export class BuilderService extends ApiService {
             {
               data: paramsData,
             },
-            this.optionsWithBearerToken(access_token)
+            this.optionsWithBearerToken()
           )
           .pipe(
             catchError(() => {
