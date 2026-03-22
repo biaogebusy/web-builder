@@ -8,7 +8,6 @@ export const environment: IEnvironment = {
   production: true,
   port: 4200,
   cache: false,
-  drupalProxy: false,
   multiLang: true,
   langs: [
     {

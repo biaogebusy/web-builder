@@ -47,9 +47,9 @@ export class UserService extends ApiService {
       })
       .pipe(
         switchMap(tokenData => {
-          return this.getCurrentUserProfile(tokenData.access_token).pipe(
+          return this.getCurrentUserProfile().pipe(
             switchMap(profile =>
-              this.getCurrentUserById(profile.uid, tokenData.access_token).pipe(
+              this.getCurrentUserById(profile.uid).pipe(
                 map(userProfile => {
                   const tokenUser: TokenUser = {
                     access_token: tokenData.access_token,
@@ -78,9 +78,8 @@ export class UserService extends ApiService {
   updateUser(data: TokenUser): any {
     const {
       current_user: { uid },
-      access_token,
     } = data;
-    this.getCurrentUserById(uid, access_token).subscribe(user => {
+    this.getCurrentUserById(uid).subscribe(user => {
       this.loginUser(data, user);
     });
   }
@@ -100,45 +99,6 @@ export class UserService extends ApiService {
       },
       this.optionsWithBearerToken()
     );
-  }
-
-  updateUserBySession(): void {
-    const storedUser = this.getStoredUser();
-    if (!storedUser || !storedUser.access_token) {
-      return;
-    }
-    this.http
-      .get<any>(`${this.apiUrl}/api/v3/accountProfile?noCache=1`, this.optionsWithBearerToken())
-      .pipe(
-        switchMap((profile: any) => {
-          return this.getCurrentUserById(String(profile.uid), '').pipe(
-            map(userProfile => {
-              const tokenUser: TokenUser = {
-                access_token: storedUser.access_token,
-                refresh_token: storedUser.refresh_token,
-                token_type: storedUser.token_type,
-                expires_in: storedUser.expires_in,
-                current_user: {
-                  uid: String(profile.uid),
-                  name: profile.name || '',
-                  roles: profile.roles || [],
-                },
-              };
-              return { tokenUser, userProfile };
-            })
-          );
-        }),
-        catchError((error: any) => {
-          console.log(error);
-          return of(null);
-        })
-      )
-      .subscribe(result => {
-        if (result) {
-          console.log('get session user done!');
-          this.loginUser(result.tokenUser, result.userProfile);
-        }
-      });
   }
 
   getStoredUser(): IUser | null {
@@ -213,11 +173,6 @@ export class UserService extends ApiService {
   }
 
   logout(): any {
-    if (environment.drupalProxy) {
-      this.logoutUser();
-      window.location.href = '/user/logout';
-      return;
-    }
     this.logoutUser();
   }
 
@@ -252,7 +207,7 @@ export class UserService extends ApiService {
     }
   }
 
-  getUserById(id: string, accessToken: string): Observable<any> {
+  getUserById(id: string): Observable<any> {
     const params = [
       `filter[drupal_internal__uid]=${id}`,
       `include=user_picture,roles`,
@@ -265,14 +220,14 @@ export class UserService extends ApiService {
     return this.http.get<any>(`${this.userApiPath}?${params}`);
   }
 
-  getCurrentUserProfile(accessToken: string): Observable<any> {
+  getCurrentUserProfile(): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}/api/v3/accountProfile?noCache=1`,
       this.optionsWithBearerToken()
     );
   }
 
-  getCurrentUserById(uid: string, token: string): Observable<IUserProfile> {
+  getCurrentUserById(uid: string): Observable<IUserProfile> {
     const params = [
       `filter[drupal_internal__uid]=${uid}`,
       `include=user_picture,roles`,
@@ -330,33 +285,20 @@ export class UserService extends ApiService {
   }
 
   getLoginState(): Observable<boolean> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-      }),
-      withCredentials: true,
-    };
-    return this.http
-      .get<any>(`${this.apiUrl}/user/login_status?_format=json&noCache=1`, httpOptions)
-      .pipe(
-        map(state => {
-          if (state) {
-            return true;
-          }
-          return false;
-        })
-      );
+    const storedUser = this.getStoredUser();
+    if (!storedUser || !storedUser.access_token) {
+      return of(false);
+    } else {
+      return of(true);
+    }
   }
 
   get userPage(): any[] {
-    if (environment?.drupalProxy) {
-      return ['/my'];
-    }
     return [`/me`];
   }
 
   get userLink(): string[] {
-    return [environment.drupalProxy ? '/my' : '/me/login'];
+    return ['/me/login'];
   }
 
   uploadUserPicture(user: IUser, imageData: string | ArrayBuffer): Observable<any> {

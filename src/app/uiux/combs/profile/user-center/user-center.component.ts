@@ -47,7 +47,7 @@ export class UserCenterComponent implements OnInit {
         // logout
         if (!user) {
           setTimeout(() => {
-            this.route.navigate([environment.drupalProxy ? '/my' : '/me/login']);
+            this.route.navigate(['/me/login']);
           }, 2000);
         } else {
           window.location.reload();
@@ -62,7 +62,7 @@ export class UserCenterComponent implements OnInit {
     }
     const people = {};
     this.userService
-      .getUserById(this.user.current_user.uid, this.user.access_token)
+      .getUserById(this.user.current_user.uid)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         const info = res.data[0];

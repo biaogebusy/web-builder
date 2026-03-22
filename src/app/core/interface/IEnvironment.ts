@@ -9,7 +9,6 @@ export interface IEnvironment {
   production: boolean;
   port: number;
   cache: boolean;
-  drupalProxy?: boolean;
   multiLang?: boolean;
   langs?: ILanguage[];
   oauth: IOAuth;
