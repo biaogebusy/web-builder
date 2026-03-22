@@ -222,12 +222,8 @@ export class UserSettingComponent implements OnInit {
   onLogout(): void {
     this.loading.set(true);
     this.userService.logout();
-    this.userService.userSub$.subscribe(user => {
-      if (!user) {
-        this.loading.set(false);
-        this.dialog.closeAll();
-      }
-    });
+    this.loading.set(false);
+    this.dialog.closeAll();
   }
 
   async handleFileChange(event: Event, user: IUser): Promise<void> {
