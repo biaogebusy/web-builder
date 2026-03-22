@@ -47,7 +47,7 @@ export class UserService extends ApiService {
       })
       .pipe(
         switchMap(tokenData => {
-          return this.getCurrentUserProfile().pipe(
+          return this.getCurrentUserProfile(tokenData).pipe(
             switchMap(profile =>
               this.getCurrentUserById(profile.uid).pipe(
                 map(userProfile => {
@@ -220,11 +220,14 @@ export class UserService extends ApiService {
     return this.http.get<any>(`${this.userApiPath}?${params}`);
   }
 
-  getCurrentUserProfile(): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}/api/v3/accountProfile?noCache=1`,
-      this.optionsWithBearerToken()
-    );
+  getCurrentUserProfile(tokenData: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/api/v3/accountProfile?noCache=1`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${tokenData.access_token}`,
+        Accept: 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
+      }),
+    });
   }
 
   getCurrentUserById(uid: string): Observable<IUserProfile> {
