@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: '',
     component: BuilderComponent,
-    canActivate: [BuilderGuard],
+    // canActivate: [BuilderGuard],
     children: [
       {
         path: '',
@@ -42,6 +42,20 @@ const routes: Routes = [
       {
         path: 'config-check',
         component: ConfigCheckComponent,
+      },
+      {
+        path: 'edit-header',
+        loadComponent: () =>
+          import('./main/edit-header/edit-header.component').then(
+            m => m.EditHeaderComponent
+          ),
+      },
+      {
+        path: 'edit-footer',
+        loadComponent: () =>
+          import('./main/edit-footer/edit-footer.component').then(
+            m => m.EditFooterComponent
+          ),
       },
       {
         path: 'node-add/:type',

@@ -10,6 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
@@ -48,6 +49,7 @@ export class PageSettingComponent implements OnInit {
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private userService = inject(UserService);
+  private router = inject(Router);
   private user: IUser;
 
   constructor() {
@@ -477,6 +479,16 @@ export class PageSettingComponent implements OnInit {
         },
       },
     } = this.content;
+    if (alias === '/core/branding') {
+      this.router.navigate(['/builder/edit-header'], {
+        queryParams: {
+          uuid: id,
+          nid: drupal_internal__nid,
+          langcode,
+        },
+      });
+      return;
+    }
     this.builderService.loadNodeJson({
       langcode,
       nid: drupal_internal__nid,

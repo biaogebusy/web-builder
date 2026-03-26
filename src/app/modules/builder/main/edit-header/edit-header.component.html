@@ -1,0 +1,254 @@
+<div class="edit-header">
+  <div class="toolbar">
+    <app-title
+      [content]="{
+        label: 'Header 配置',
+        classes: 'mat-headline-4 bold',
+        style: 'style-v4',
+      }"
+    />
+    <a
+      [routerLink]="['/builder/edit-footer']"
+      [queryParams]="queryParams"
+      class="switch-link"
+    >
+      编辑 Footer
+    </a>
+    <span class="spacer"></span>
+    <app-btn
+      (click)="loadData()"
+      [content]="{
+        label: '刷新',
+        mode: 'stroked',
+        icon: { svg: 'refresh' },
+      }"
+    />
+    <app-btn
+      (click)="onSave()"
+      [content]="{
+        label: '保存',
+        color: 'primary',
+        mode: 'raised',
+        icon: { svg: 'content-save' },
+      }"
+    />
+  </div>
+
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate" />
+  }
+
+  @if (header()) {
+    <mat-accordion multi>
+      <!-- Params -->
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>参数设置</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="paramsForm">
+          <formly-form
+            [form]="paramsForm"
+            [fields]="paramsFields"
+            [model]="paramsModel"
+          />
+        </form>
+      </mat-expansion-panel>
+
+      <!-- Logo -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Logo 配置</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="logoForm">
+          <formly-form
+            [form]="logoForm"
+            [fields]="logoFields"
+            [model]="logoModel"
+          />
+        </form>
+      </mat-expansion-panel>
+
+      <!-- Main Menu -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>主导航菜单 ({{ menuItems().length }})</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div
+          cdkDropList
+          class="menu-list"
+          (cdkDropListDropped)="onMenuDrop($event)"
+        >
+          @for (item of menuItems(); track $index; let i = $index) {
+            <div cdkDrag class="menu-item">
+              <div class="menu-item-header">
+                <mat-icon
+                  cdkDragHandle
+                  svgIcon="dots-vertical"
+                  class="drag-handle"
+                />
+                <mat-form-field class="flex-1">
+                  <mat-label>标签</mat-label>
+                  <input
+                    matInput
+                    [value]="item.label"
+                    (blur)="updateMenuItem(i, 'label', $any($event.target).value)"
+                  />
+                </mat-form-field>
+                <mat-form-field class="flex-1">
+                  <mat-label>链接</mat-label>
+                  <input
+                    matInput
+                    [value]="item.href || ''"
+                    (blur)="updateMenuItem(i, 'href', $any($event.target).value)"
+                  />
+                </mat-form-field>
+                <button
+                  mat-icon-button
+                  (click)="toggleMenuExpand(i)"
+                  [matTooltip]="expandedMenuIndex() === i ? '收起子菜单' : '展开子菜单'"
+                >
+                  <mat-icon
+                    [svgIcon]="expandedMenuIndex() === i ? 'chevron-up' : 'chevron-down'"
+                  />
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="removeMenuItem(i)"
+                  matTooltip="删除"
+                >
+                  <mat-icon svgIcon="delete" />
+                </button>
+              </div>
+
+              @if (expandedMenuIndex() === i) {
+                <div class="menu-item-detail">
+                  <mat-form-field class="w-full">
+                    <mat-label>CSS 类</mat-label>
+                    <input
+                      matInput
+                      [value]="item.classes || ''"
+                      (blur)="updateMenuItem(i, 'classes', $any($event.target).value)"
+                    />
+                  </mat-form-field>
+
+                  <div class="child-section">
+                    <div class="child-header">
+                      <span class="child-title">子菜单</span>
+                      <button
+                        mat-mini-fab
+                        color="primary"
+                        (click)="addChildMenuItem(i)"
+                        matTooltip="添加子菜单"
+                      >
+                        <mat-icon svgIcon="plus" />
+                      </button>
+                    </div>
+
+                    @if (item.child?.length) {
+                      <div
+                        cdkDropList
+                        class="child-list"
+                        (cdkDropListDropped)="onChildMenuDrop(i, $event)"
+                      >
+                        @for (child of item.child; track $index; let j = $index) {
+                          <div cdkDrag class="child-item">
+                            <mat-icon
+                              cdkDragHandle
+                              svgIcon="dots-vertical"
+                              class="drag-handle"
+                            />
+                            <mat-form-field class="flex-1">
+                              <mat-label>标签</mat-label>
+                              <input
+                                matInput
+                                [value]="child.label"
+                                (blur)="updateChildMenuItem(i, j, 'label', $any($event.target).value)"
+                              />
+                            </mat-form-field>
+                            <mat-form-field class="flex-1">
+                              <mat-label>链接</mat-label>
+                              <input
+                                matInput
+                                [value]="child.href || ''"
+                                (blur)="updateChildMenuItem(i, j, 'href', $any($event.target).value)"
+                              />
+                            </mat-form-field>
+                            <button
+                              mat-icon-button
+                              color="warn"
+                              (click)="removeChildMenuItem(i, j)"
+                              matTooltip="删除"
+                            >
+                              <mat-icon svgIcon="delete" />
+                            </button>
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="menu-add">
+          <app-btn
+            (click)="addMenuItem()"
+            [content]="{
+              label: '添加菜单项',
+              color: 'primary',
+              mode: 'stroked',
+              icon: { svg: 'plus' },
+            }"
+          />
+        </div>
+      </mat-expansion-panel>
+
+      <!-- Search -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>搜索配置</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="searchForm">
+          <formly-form
+            [form]="searchForm"
+            [fields]="searchFields"
+            [model]="searchModel"
+          />
+        </form>
+      </mat-expansion-panel>
+
+      <!-- Actions -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>操作按钮</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="actionsForm">
+          <formly-form
+            [form]="actionsForm"
+            [fields]="actionsFields"
+            [model]="actionsModel"
+          />
+        </form>
+      </mat-expansion-panel>
+
+      <!-- JSON Editor -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>自定义 JSON 配置</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p class="json-hint">
+          编辑 JSON 可覆盖可视化配置，保存时会与表单配置深度合并
+        </p>
+        <ngx-monaco-editor
+          class="json-editor"
+          [options]="monacoOptions"
+          [(ngModel)]="customJson"
+        />
+      </mat-expansion-panel>
+    </mat-accordion>
+  }
+</div>

@@ -1,0 +1,275 @@
+<div class="edit-footer">
+  <div class="toolbar">
+    <app-title
+      [content]="{
+        label: 'Footer 配置',
+        classes: 'mat-headline-4 bold',
+        style: 'style-v4',
+      }"
+    />
+    <a
+      [routerLink]="['/builder/edit-header']"
+      [queryParams]="queryParams"
+      class="switch-link"
+    >
+      编辑 Header
+    </a>
+    <span class="spacer"></span>
+    <app-btn
+      (click)="loadData()"
+      [content]="{
+        label: '刷新',
+        mode: 'stroked',
+        icon: { svg: 'refresh' },
+      }"
+    />
+    <app-btn
+      (click)="onSave()"
+      [content]="{
+        label: '保存',
+        color: 'primary',
+        mode: 'raised',
+        icon: { svg: 'content-save' },
+      }"
+    />
+  </div>
+
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate" />
+  }
+
+  @if (footer()) {
+    <mat-accordion multi>
+      <!-- Params -->
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>参数设置</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="paramsForm">
+          <formly-form
+            [form]="paramsForm"
+            [fields]="paramsFields"
+            [model]="paramsModel"
+          />
+        </form>
+      </mat-expansion-panel>
+
+      <!-- Footer Brand -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>品牌信息</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="brandForm">
+          <formly-form
+            [form]="brandForm"
+            [fields]="brandFields"
+            [model]="brandModel"
+          />
+        </form>
+      </mat-expansion-panel>
+
+      <!-- Social Links -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>社交链接</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="socialForm">
+          <formly-form
+            [form]="socialForm"
+            [fields]="socialFields"
+            [model]="socialModel"
+          />
+        </form>
+      </mat-expansion-panel>
+
+      <!-- Main Menu -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>底部导航 ({{ menuItems().length }})</mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-container
+          *ngTemplateOutlet="menuTemplate; context: {
+            $implicit: menuItems,
+            list: 'main',
+            expanded: expandedMenuIndex,
+          }"
+        />
+      </mat-expansion-panel>
+
+      <!-- Mobile Menu -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>移动端导航 ({{ mobileMenuItems().length }})</mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-container
+          *ngTemplateOutlet="menuTemplate; context: {
+            $implicit: mobileMenuItems,
+            list: 'mobile',
+            expanded: expandedMobileMenuIndex,
+          }"
+        />
+      </mat-expansion-panel>
+
+      <!-- Newsletter -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Newsletter 配置</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="newsletterForm">
+          <formly-form
+            [form]="newsletterForm"
+            [fields]="newsletterFields"
+            [model]="newsletterModel"
+          />
+        </form>
+      </mat-expansion-panel>
+
+      <!-- Footer Bottom -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>底部栏</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="bottomForm">
+          <formly-form
+            [form]="bottomForm"
+            [fields]="bottomFields"
+            [model]="bottomModel"
+          />
+        </form>
+      </mat-expansion-panel>
+
+      <!-- JSON Editor -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>自定义 JSON 配置</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p class="json-hint">
+          编辑 JSON 可覆盖可视化配置，保存时会与表单配置深度合并
+        </p>
+        <ngx-monaco-editor
+          class="json-editor"
+          [options]="monacoOptions"
+          [(ngModel)]="customJson"
+        />
+      </mat-expansion-panel>
+    </mat-accordion>
+  }
+</div>
+
+<!-- Shared menu template for mainMenu / mobileMenu -->
+<ng-template #menuTemplate let-items let-list="list" let-expanded="expanded">
+  <div
+    cdkDropList
+    class="menu-list"
+    (cdkDropListDropped)="list === 'main' ? onMenuDrop($event) : onMobileMenuDrop($event)"
+  >
+    @for (group of items(); track $index; let i = $index) {
+      <div cdkDrag class="menu-item">
+        <div class="menu-item-header">
+          <mat-icon
+            cdkDragHandle
+            svgIcon="dots-vertical"
+            class="drag-handle"
+          />
+          <mat-form-field class="flex-1">
+            <mat-label>分组标签</mat-label>
+            <input
+              matInput
+              [value]="group.label"
+              (blur)="updateMenuGroup(list, i, $any($event.target).value)"
+            />
+          </mat-form-field>
+          <button
+            mat-icon-button
+            (click)="toggleMenuExpand(list, i)"
+            [matTooltip]="expanded() === i ? '收起' : '展开子链接'"
+          >
+            <mat-icon
+              [svgIcon]="expanded() === i ? 'chevron-up' : 'chevron-down'"
+            />
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="removeMenuGroup(list, i)"
+            matTooltip="删除"
+          >
+            <mat-icon svgIcon="delete" />
+          </button>
+        </div>
+
+        @if (expanded() === i) {
+          <div class="menu-item-detail">
+            <div class="child-section">
+              <div class="child-header">
+                <span class="child-title">链接列表</span>
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  (click)="addChildLink(list, i)"
+                  matTooltip="添加链接"
+                >
+                  <mat-icon svgIcon="plus" />
+                </button>
+              </div>
+
+              @if (group.child?.length) {
+                <div
+                  cdkDropList
+                  class="child-list"
+                  (cdkDropListDropped)="onChildDrop(list, i, $event)"
+                >
+                  @for (child of group.child; track $index; let j = $index) {
+                    <div cdkDrag class="child-item">
+                      <mat-icon
+                        cdkDragHandle
+                        svgIcon="dots-vertical"
+                        class="drag-handle"
+                      />
+                      <mat-form-field class="flex-1">
+                        <mat-label>标签</mat-label>
+                        <input
+                          matInput
+                          [value]="child.label"
+                          (blur)="updateChildLink(list, i, j, 'label', $any($event.target).value)"
+                        />
+                      </mat-form-field>
+                      <mat-form-field class="flex-1">
+                        <mat-label>链接</mat-label>
+                        <input
+                          matInput
+                          [value]="child.href || ''"
+                          (blur)="updateChildLink(list, i, j, 'href', $any($event.target).value)"
+                        />
+                      </mat-form-field>
+                      <button
+                        mat-icon-button
+                        color="warn"
+                        (click)="removeChildLink(list, i, j)"
+                        matTooltip="删除"
+                      >
+                        <mat-icon svgIcon="delete" />
+                      </button>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="menu-add">
+    <app-btn
+      (click)="addMenuGroup(list)"
+      [content]="{
+        label: '添加分组',
+        color: 'primary',
+        mode: 'stroked',
+        icon: { svg: 'plus' },
+      }"
+    />
+  </div>
+</ng-template>

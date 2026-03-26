@@ -1,0 +1,141 @@
+.edit-header {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  .spacer {
+    flex: 1;
+  }
+
+  .switch-link {
+    color: var(--mat-sys-primary);
+    text-decoration: none;
+    font-size: 14px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.menu-list {
+  .menu-item {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background: white;
+
+    &.cdk-drag-preview {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &.cdk-drag-placeholder {
+      opacity: 0.3;
+    }
+  }
+}
+
+.menu-item-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+
+  .drag-handle {
+    cursor: move;
+    color: rgba(0, 0, 0, 0.38);
+  }
+}
+
+.menu-item-detail {
+  padding: 0 12px 12px 44px;
+}
+
+.child-section {
+  margin-top: 8px;
+}
+
+.child-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+
+  .child-title {
+    font-weight: 500;
+    font-size: 14px;
+  }
+}
+
+.child-list {
+  .child-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    margin-bottom: 4px;
+    background: rgba(0, 0, 0, 0.02);
+
+    .drag-handle {
+      cursor: move;
+      color: rgba(0, 0, 0, 0.38);
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+
+    &.cdk-drag-preview {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    &.cdk-drag-placeholder {
+      opacity: 0.3;
+    }
+  }
+}
+
+.menu-add {
+  padding: 12px 0 4px;
+}
+
+.json-hint {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.json-editor {
+  height: 400px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+:host-context(.dark-theme),
+:host-context([data-theme='dark']) {
+  .menu-item {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: #424242;
+  }
+
+  .child-item {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .json-hint {
+    color: rgba(255, 255, 255, 0.54);
+  }
+}
