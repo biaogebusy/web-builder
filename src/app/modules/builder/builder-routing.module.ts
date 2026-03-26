@@ -11,12 +11,14 @@ import { BuilderPageComponent } from './sidebar/builder-page/builder-page.compon
 import { ConfigCheckComponent } from './main/config-check/config-check.component';
 import { NodeAddComponent } from './node/node-add/node-add.component';
 import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
+import { EditHeaderComponent } from './main/edit-header/edit-header.component';
+import { EditFooterComponent } from './main/edit-footer/edit-footer.component';
 
 const routes: Routes = [
   {
     path: '',
     component: BuilderComponent,
-    // canActivate: [BuilderGuard],
+    canActivate: [BuilderGuard],
     children: [
       {
         path: '',
@@ -46,19 +48,13 @@ const routes: Routes = [
       },
       {
         path: 'edit-header',
-        loadComponent: () =>
-          import('./main/edit-header/edit-header.component').then(
-            m => m.EditHeaderComponent
-          ),
         canDeactivate: [unsavedChangesGuard],
+        component: EditHeaderComponent,
       },
       {
         path: 'edit-footer',
-        loadComponent: () =>
-          import('./main/edit-footer/edit-footer.component').then(
-            m => m.EditFooterComponent
-          ),
         canDeactivate: [unsavedChangesGuard],
+        component: EditFooterComponent,
       },
       {
         path: 'node-add/:type',

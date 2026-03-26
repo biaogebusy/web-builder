@@ -8,22 +8,11 @@ import {
   computed,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { FormlyModule, FormlyFieldConfig } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
-import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
+import { UntypedFormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { merge as deepMerge } from 'lodash-es';
 import { merge } from 'rxjs';
 
@@ -31,7 +20,6 @@ import { IBranding, IFooter } from '@core/interface/branding/IBranding';
 import { ContentService } from '@core/service/content.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 
 interface FooterMenuGroup {
@@ -41,28 +29,9 @@ interface FooterMenuGroup {
 
 @Component({
   selector: 'app-edit-footer',
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    DragDropModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatProgressBarModule,
-    MatSnackBarModule,
-    MonacoEditorModule,
-    NgxSkeletonLoaderModule,
-    FormlyModule,
-    FormlyMaterialModule,
-    FormlyMatToggleModule,
-    WidgetsModule,
-  ],
   templateUrl: './edit-footer.component.html',
   styleUrl: './edit-footer.component.scss',
+  standalone: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditFooterComponent implements OnInit, HasUnsavedChanges {

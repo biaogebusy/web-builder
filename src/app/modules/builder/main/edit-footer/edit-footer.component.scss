@@ -69,23 +69,6 @@
 }
 
 // ── Buttons ──
-.save-btn {
-  @apply inline-flex items-center gap-2 text-sm font-medium h-9 px-4 rounded border-none cursor-pointer;
-  background: var(--mat-sys-primary);
-  color: var(--mat-sys-on-primary);
-  transition: opacity 0.15s;
-
-  &:hover:not(:disabled) {
-    @apply opacity-90;
-  }
-  &:disabled {
-    @apply opacity-40 cursor-not-allowed;
-  }
-  &:focus-visible {
-    outline: 2px solid var(--mat-sys-primary);
-    @apply outline-offset-2;
-  }
-}
 
 .icon-btn {
   @apply inline-flex items-center justify-center w-9 h-9 rounded border-none bg-transparent cursor-pointer;

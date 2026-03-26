@@ -8,22 +8,11 @@ import {
   computed,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { UntypedFormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormlyModule, FormlyFieldConfig } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
-import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { merge as deepMerge } from 'lodash-es';
 import { merge } from 'rxjs';
 
@@ -31,33 +20,13 @@ import { IBranding, IHeader, IMainMenu } from '@core/interface/branding/IBrandin
 import { ContentService } from '@core/service/content.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 
 @Component({
   selector: 'app-edit-header',
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    DragDropModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatProgressBarModule,
-    MatSnackBarModule,
-    MonacoEditorModule,
-    NgxSkeletonLoaderModule,
-    FormlyModule,
-    FormlyMaterialModule,
-    FormlyMatToggleModule,
-    WidgetsModule,
-  ],
   templateUrl: './edit-header.component.html',
   styleUrl: './edit-header.component.scss',
+  standalone: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
@@ -81,9 +50,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   jsonError = signal('');
 
   // Save button state
-  canSave = computed(
-    () => this.dirty() && !this.loading() && !this.saving() && !!this.header()
-  );
+  canSave = computed(() => this.dirty() && !this.loading() && !this.saving() && !!this.header());
 
   paramsForm = new UntypedFormGroup({});
   paramsModel: Record<string, unknown> = {};
@@ -144,19 +111,17 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   }
 
   ngOnInit(): void {
-    this.route.queryParams
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(params => {
-        const { uuid, langcode } = params;
-        if (!uuid) {
-          this.util.openSnackbar('缺少节点参数，请从页面设置进入');
-          return;
-        }
-        this.nodeUuid.set(uuid);
-        this.nodeLangcode.set(langcode ?? '');
-        this.queryParams = { uuid, langcode: langcode ?? '' };
-        this.loadData();
-      });
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+      const { uuid, langcode } = params;
+      if (!uuid) {
+        this.util.openSnackbar('缺少节点参数，请从页面设置进入');
+        return;
+      }
+      this.nodeUuid.set(uuid);
+      this.nodeLangcode.set(langcode ?? '');
+      this.queryParams = { uuid, langcode: langcode ?? '' };
+      this.loadData();
+    });
   }
 
   loadData(): void {
@@ -284,14 +249,62 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       {
         fieldGroupClassName: 'grid gap-0',
         fieldGroup: [
-          { key: 'label', type: 'input', className: 'w-full', defaultValue: logo.label, props: { label: '标签' } },
-          { key: 'href', type: 'input', className: 'w-full', defaultValue: logo.href, props: { label: '链接' } },
-          { key: 'src', type: 'input', className: 'w-full', defaultValue: logo.img?.src, props: { label: '图片地址' } },
-          { key: 'alt', type: 'input', className: 'w-full', defaultValue: logo.img?.alt, props: { label: '图片描述' } },
-          { key: 'width', type: 'input', className: 'w-full', defaultValue: logo.img?.width, props: { label: '宽度', type: 'number' } },
-          { key: 'height', type: 'input', className: 'w-full', defaultValue: logo.img?.height, props: { label: '高度', type: 'number' } },
-          { key: 'version', type: 'toggle', className: 'w-full', defaultValue: logo.version, props: { label: '显示版本号' } },
-          { key: 'invert', type: 'input', className: 'w-full', defaultValue: logo.invert, props: { label: '反色图片地址' } },
+          {
+            key: 'label',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: logo.label,
+            props: { label: '标签' },
+          },
+          {
+            key: 'href',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: logo.href,
+            props: { label: '链接' },
+          },
+          {
+            key: 'src',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: logo.img?.src,
+            props: { label: '图片地址' },
+          },
+          {
+            key: 'alt',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: logo.img?.alt,
+            props: { label: '图片描述' },
+          },
+          {
+            key: 'width',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: logo.img?.width,
+            props: { label: '宽度', type: 'number' },
+          },
+          {
+            key: 'height',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: logo.img?.height,
+            props: { label: '高度', type: 'number' },
+          },
+          {
+            key: 'version',
+            type: 'toggle',
+            className: 'w-full',
+            defaultValue: logo.version,
+            props: { label: '显示版本号' },
+          },
+          {
+            key: 'invert',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: logo.invert,
+            props: { label: '反色图片地址' },
+          },
         ],
       },
     ];
@@ -304,12 +317,48 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       {
         fieldGroupClassName: 'grid gap-0',
         fieldGroup: [
-          { key: 'enable', type: 'toggle', className: 'w-full', defaultValue: search.enable, props: { label: '启用搜索' } },
-          { key: 'placeholder', type: 'input', className: 'w-full', defaultValue: search.placeholder, props: { label: '占位文本' } },
-          { key: 'tooltip', type: 'input', className: 'w-full', defaultValue: search.tooltip, props: { label: '提示文本' } },
-          { key: 'link', type: 'input', className: 'w-full', defaultValue: search.link, props: { label: '搜索链接' } },
-          { key: 'type', type: 'input', className: 'w-full', defaultValue: search.type, props: { label: '类型' } },
-          { key: 'key', type: 'input', className: 'w-full', defaultValue: search.key, props: { label: '关键字参数名' } },
+          {
+            key: 'enable',
+            type: 'toggle',
+            className: 'w-full',
+            defaultValue: search.enable,
+            props: { label: '启用搜索' },
+          },
+          {
+            key: 'placeholder',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: search.placeholder,
+            props: { label: '占位文本' },
+          },
+          {
+            key: 'tooltip',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: search.tooltip,
+            props: { label: '提示文本' },
+          },
+          {
+            key: 'link',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: search.link,
+            props: { label: '搜索链接' },
+          },
+          {
+            key: 'type',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: search.type,
+            props: { label: '类型' },
+          },
+          {
+            key: 'key',
+            type: 'input',
+            className: 'w-full',
+            defaultValue: search.key,
+            props: { label: '关键字参数名' },
+          },
         ],
       },
     ];
@@ -326,8 +375,18 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
         fieldArray: {
           fieldGroupClassName: 'grid gap-0',
           fieldGroup: [
-            { key: 'label', type: 'input', className: 'w-full', props: { label: '标签', required: true } },
-            { key: 'href', type: 'input', className: 'w-full', props: { label: '链接', required: true } },
+            {
+              key: 'label',
+              type: 'input',
+              className: 'w-full',
+              props: { label: '标签', required: true },
+            },
+            {
+              key: 'href',
+              type: 'input',
+              className: 'w-full',
+              props: { label: '链接', required: true },
+            },
           ],
         },
       },
@@ -378,14 +437,17 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     }
     this.onMenuChange();
     const ref = this.snackBar.open(`已删除「${removed.label}」`, '撤销', { duration: 5000 });
-    ref.onAction().pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.menuItems.update(items => {
-        const copy = [...items];
-        copy.splice(index, 0, removed);
-        return copy;
+    ref
+      .onAction()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.menuItems.update(items => {
+          const copy = [...items];
+          copy.splice(index, 0, removed);
+          return copy;
+        });
+        this.onMenuChange();
       });
-      this.onMenuChange();
-    });
   }
 
   addChildMenuItem(menuIndex: number): void {
@@ -416,14 +478,17 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     this.onMenuChange();
     if (removed) {
       const ref = this.snackBar.open(`已删除「${removed.label}」`, '撤销', { duration: 5000 });
-      ref.onAction().pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        const current = [...this.menuItems()];
-        const ch = [...(current[menuIndex].child ?? [])];
-        ch.splice(childIndex, 0, removed);
-        current[menuIndex] = { ...current[menuIndex], child: ch };
-        this.menuItems.set(current);
-        this.onMenuChange();
-      });
+      ref
+        .onAction()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          const current = [...this.menuItems()];
+          const ch = [...(current[menuIndex].child ?? [])];
+          ch.splice(childIndex, 0, removed);
+          current[menuIndex] = { ...current[menuIndex], child: ch };
+          this.menuItems.set(current);
+          this.onMenuChange();
+        });
     }
   }
 

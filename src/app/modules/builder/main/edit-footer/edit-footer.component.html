@@ -16,12 +16,24 @@
         <span class="dirty-dot"></span>
         <span class="dirty-label">未保存</span>
       }
-      <button class="icon-btn" (click)="loadData()" [disabled]="loading()" aria-label="刷新">
-        <mat-icon svgIcon="refresh" />
-      </button>
-      <button class="save-btn" [disabled]="!canSave()" (click)="onSave()">
-        {{ saving() ? '保存中...' : '保存更改' }}
-      </button>
+      <app-btn
+        (click)="loadData()"
+        [content]="{
+          mode: 'icon',
+          icon: { svg: 'refresh' },
+          disabled: loading(),
+        }"
+      />
+      <app-btn
+        (click)="onSave()"
+        [content]="{
+          label: saving() ? '保存中...' : '保存更改',
+          color: 'primary',
+          mode: 'raised',
+          icon: { svg: 'content-save' },
+          disabled: !canSave(),
+        }"
+      />
     </div>
   </header>
 
