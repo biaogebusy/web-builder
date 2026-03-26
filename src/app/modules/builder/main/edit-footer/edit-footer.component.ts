@@ -5,6 +5,7 @@ import {
   OnInit,
   inject,
   signal,
+  computed,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
@@ -17,17 +18,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { FormlyModule, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
-import { merge } from 'lodash-es';
+import { merge as deepMerge } from 'lodash-es';
+import { merge } from 'rxjs';
 
 import { IBranding, IFooter } from '@core/interface/branding/IBranding';
 import { ContentService } from '@core/service/content.service';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
 
 interface FooterMenuGroup {
   label: string;
@@ -48,7 +53,9 @@ interface FooterMenuGroup {
     MatIconModule,
     MatTooltipModule,
     MatProgressBarModule,
+    MatSnackBarModule,
     MonacoEditorModule,
+    NgxSkeletonLoaderModule,
     FormlyModule,
     FormlyMaterialModule,
     FormlyMatToggleModule,
@@ -58,8 +65,10 @@ interface FooterMenuGroup {
   styleUrl: './edit-footer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditFooterComponent implements OnInit {
+export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   loading = signal(false);
+  saving = signal(false);
+  dirty = signal(false);
   branding = signal<IBranding | null>(null);
   footer = signal<IFooter | null>(null);
   menuItems = signal<FooterMenuGroup[]>([]);
@@ -68,6 +77,16 @@ export class EditFooterComponent implements OnInit {
   expandedMobileMenuIndex = signal<number>(-1);
   nodeUuid = signal('');
   nodeLangcode = signal('');
+  queryParams: Record<string, string> = {};
+  activeSection = signal<string>('params');
+  showJson = signal(false);
+
+  jsonEditMode = signal(false);
+  jsonPreview = signal('');
+  customJson = '';
+  jsonError = signal('');
+
+  canSave = computed(() => this.dirty() && !this.loading() && !this.saving() && !!this.footer());
 
   paramsForm = new UntypedFormGroup({});
   paramsModel: Record<string, unknown> = {};
@@ -89,39 +108,59 @@ export class EditFooterComponent implements OnInit {
   bottomModel: Record<string, unknown> = {};
   bottomFields: FormlyFieldConfig[] = [];
 
-  customJson = '';
-  monacoOptions = {
-    theme: 'vs-dark',
+  monacoReadonlyOptions = {
+    theme: 'vs',
     language: 'json',
     automaticLayout: true,
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
     wordWrap: 'on' as const,
     fontSize: 14,
+    readOnly: true,
   };
 
-  queryParams: Record<string, string> = {};
+  monacoEditableOptions = {
+    theme: 'vs',
+    language: 'json',
+    automaticLayout: true,
+    minimap: { enabled: false },
+    scrollBeyondLastLine: false,
+    wordWrap: 'on' as const,
+    fontSize: 14,
+    readOnly: false,
+  };
 
   private route = inject(ActivatedRoute);
   private contentService = inject(ContentService);
   private builderService = inject(BuilderService);
   private util = inject(UtilitiesService);
+  private snackBar = inject(MatSnackBar);
   private destroyRef = inject(DestroyRef);
 
+  hasUnsavedChanges(): boolean {
+    return this.dirty();
+  }
+
+  toggleSection(id: string): void {
+    this.activeSection.set(this.activeSection() === id ? '' : id);
+  }
+
+  isSectionOpen(id: string): boolean {
+    return this.activeSection() === id;
+  }
+
   ngOnInit(): void {
-    this.route.queryParams
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(params => {
-        const { uuid, langcode } = params;
-        if (!uuid) {
-          this.util.openSnackbar('缺少节点参数，请从页面设置进入');
-          return;
-        }
-        this.nodeUuid.set(uuid);
-        this.nodeLangcode.set(langcode ?? '');
-        this.queryParams = { uuid, langcode: langcode ?? '' };
-        this.loadData();
-      });
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+      const { uuid, langcode } = params;
+      if (!uuid) {
+        this.util.openSnackbar('缺少节点参数，请从页面设置进入');
+        return;
+      }
+      this.nodeUuid.set(uuid);
+      this.nodeLangcode.set(langcode ?? '');
+      this.queryParams = { uuid, langcode: langcode ?? '' };
+      this.loadData();
+    });
   }
 
   loadData(): void {
@@ -132,7 +171,7 @@ export class EditFooterComponent implements OnInit {
       .subscribe({
         next: branding => {
           this.branding.set(branding);
-          const footer = branding.footer ?? { params: { mode: 'light' } } as IFooter;
+          const footer = branding.footer ?? ({ params: { mode: 'light' } } as IFooter);
           this.footer.set(footer);
           this.menuItems.set([...(footer.mainMenu ?? [])]);
           this.mobileMenuItems.set([...(footer.mobileMenu ?? [])]);
@@ -142,8 +181,10 @@ export class EditFooterComponent implements OnInit {
           this.initSocialFields(footer);
           this.initNewsletterFields(footer);
           this.initBottomFields(footer);
-          this.customJson = JSON.stringify(footer, null, 2);
+          this.updateJsonPreview();
           this.loading.set(false);
+          this.dirty.set(false);
+          this.listenFormChanges();
         },
         error: () => {
           this.util.openSnackbar('加载配置失败');
@@ -152,18 +193,69 @@ export class EditFooterComponent implements OnInit {
       });
   }
 
+  private listenFormChanges(): void {
+    merge(
+      this.paramsForm.valueChanges,
+      this.brandForm.valueChanges,
+      this.socialForm.valueChanges,
+      this.newsletterForm.valueChanges,
+      this.bottomForm.valueChanges
+    )
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.markDirty();
+        this.updateJsonPreview();
+      });
+  }
+
+  markDirty(): void {
+    this.dirty.set(true);
+  }
+
+  updateJsonPreview(): void {
+    if (!this.footer()) {
+      return;
+    }
+    try {
+      this.jsonPreview.set(JSON.stringify(this.buildFooter(), null, 2));
+    } catch {
+      /* skip */
+    }
+  }
+
+  toggleJsonEditMode(): void {
+    if (!this.jsonEditMode()) {
+      this.customJson = this.jsonPreview();
+      this.jsonError.set('');
+    }
+    this.jsonEditMode.set(!this.jsonEditMode());
+  }
+
+  onJsonChange(value: string): void {
+    this.customJson = value;
+    this.markDirty();
+    try {
+      JSON.parse(value);
+      this.jsonError.set('');
+    } catch (e: unknown) {
+      this.jsonError.set((e as Error).message);
+    }
+  }
+
+  // ── Field init (unchanged) ──
+
   initParamsFields(footer: IFooter): void {
     const params = footer.params ?? { mode: 'light' };
     this.paramsModel = { ...params };
     this.paramsFields = [
       {
-        fieldGroupClassName: 'flex flex-wrap gap-4',
+        fieldGroupClassName: 'grid gap-0',
         fieldGroup: [
           {
             key: 'mode',
             type: 'mat-select',
             defaultValue: params.mode,
-            className: 'w-full md:w-1/2',
+            className: 'w-full',
             props: {
               label: '模式',
               options: [
@@ -195,7 +287,7 @@ export class EditFooterComponent implements OnInit {
     };
     this.brandFields = [
       {
-        fieldGroupClassName: 'flex flex-wrap',
+        fieldGroupClassName: 'grid gap-0',
         fieldGroup: [
           {
             key: 'src',
@@ -207,14 +299,14 @@ export class EditFooterComponent implements OnInit {
           {
             key: 'alt',
             type: 'input',
-            className: 'w-full md:w-1/2',
+            className: 'w-full',
             defaultValue: this.brandModel['alt'],
             props: { label: '图片描述' },
           },
           {
             key: 'href',
             type: 'input',
-            className: 'w-full md:w-1/2',
+            className: 'w-full',
             defaultValue: this.brandModel['href'],
             props: { label: '链接' },
           },
@@ -238,20 +330,19 @@ export class EditFooterComponent implements OnInit {
   }
 
   initSocialFields(footer: IFooter): void {
-    const social = footer.footerBrand?.social ?? [];
-    this.socialModel = { social };
+    this.socialModel = { social: footer.footerBrand?.social ?? [] };
     this.socialFields = [
       {
         key: 'social',
         type: 'repeat',
         props: { addText: '添加社交链接' },
         fieldArray: {
-          fieldGroupClassName: 'flex flex-wrap',
+          fieldGroupClassName: 'grid gap-0',
           fieldGroup: [
             {
               key: 'label',
               type: 'input',
-              className: 'w-full md:w-1/3',
+              className: 'w-full',
               props: { label: '标签', required: true },
             },
             {
@@ -260,15 +351,15 @@ export class EditFooterComponent implements OnInit {
                 {
                   key: 'svg',
                   type: 'input',
-                  className: 'w-full md:w-1/3',
-                  props: { label: '图标 SVG 名称', required: true },
+                  className: 'w-full',
+                  props: { label: '图标 SVG', required: true },
                 },
               ],
             },
             {
               key: 'href',
               type: 'input',
-              className: 'w-full md:w-1/3',
+              className: 'w-full',
               props: { label: '链接', required: true },
             },
           ],
@@ -278,28 +369,28 @@ export class EditFooterComponent implements OnInit {
   }
 
   initNewsletterFields(footer: IFooter): void {
-    const newsletter = footer.footerNewsletter;
+    const n = footer.footerNewsletter;
     this.newsletterModel = {
-      webform_id: newsletter?.params?.webform_id ?? '',
-      label: newsletter?.label ?? '',
-      summary: newsletter?.summary ?? '',
-      actionLabel: newsletter?.action?.label ?? '',
+      webform_id: n?.params?.webform_id ?? '',
+      label: n?.label ?? '',
+      summary: n?.summary ?? '',
+      actionLabel: n?.action?.label ?? '',
     };
     this.newsletterFields = [
       {
-        fieldGroupClassName: 'flex flex-wrap',
+        fieldGroupClassName: 'grid gap-0',
         fieldGroup: [
           {
             key: 'label',
             type: 'input',
-            className: 'w-full md:w-1/2',
+            className: 'w-full',
             defaultValue: this.newsletterModel['label'],
             props: { label: '标题' },
           },
           {
             key: 'webform_id',
             type: 'input',
-            className: 'w-full md:w-1/2',
+            className: 'w-full',
             defaultValue: this.newsletterModel['webform_id'],
             props: { label: 'Webform ID' },
           },
@@ -313,7 +404,7 @@ export class EditFooterComponent implements OnInit {
           {
             key: 'actionLabel',
             type: 'input',
-            className: 'w-full md:w-1/2',
+            className: 'w-full',
             defaultValue: this.newsletterModel['actionLabel'],
             props: { label: '按钮文本' },
           },
@@ -323,14 +414,11 @@ export class EditFooterComponent implements OnInit {
   }
 
   initBottomFields(footer: IFooter): void {
-    const bottom = footer.footerBottom;
-    this.bottomModel = {
-      left: bottom?.left ?? '',
-      right: bottom?.right ?? [],
-    };
+    const b = footer.footerBottom;
+    this.bottomModel = { left: b?.left ?? '', right: b?.right ?? [] };
     this.bottomFields = [
       {
-        fieldGroupClassName: 'flex flex-wrap',
+        fieldGroupClassName: 'grid gap-0',
         fieldGroup: [
           {
             key: 'left',
@@ -346,18 +434,18 @@ export class EditFooterComponent implements OnInit {
         type: 'repeat',
         props: { addText: '添加底部链接' },
         fieldArray: {
-          fieldGroupClassName: 'flex flex-wrap',
+          fieldGroupClassName: 'grid gap-0',
           fieldGroup: [
             {
               key: 'label',
               type: 'input',
-              className: 'w-full md:w-1/2',
+              className: 'w-full',
               props: { label: '标签', required: true },
             },
             {
               key: 'href',
               type: 'input',
-              className: 'w-full md:w-1/2',
+              className: 'w-full',
               props: { label: '链接', required: true },
             },
           ],
@@ -366,17 +454,20 @@ export class EditFooterComponent implements OnInit {
     ];
   }
 
-  // Menu drag-drop
+  // ── Menu management ──
+
   onMenuDrop(event: CdkDragDrop<FooterMenuGroup[]>): void {
     const items = [...this.menuItems()];
     moveItemInArray(items, event.previousIndex, event.currentIndex);
     this.menuItems.set(items);
+    this.onMenuChange();
   }
 
   onMobileMenuDrop(event: CdkDragDrop<FooterMenuGroup[]>): void {
     const items = [...this.mobileMenuItems()];
     moveItemInArray(items, event.previousIndex, event.currentIndex);
     this.mobileMenuItems.set(items);
+    this.onMenuChange();
   }
 
   onChildDrop(
@@ -390,6 +481,7 @@ export class EditFooterComponent implements OnInit {
     moveItemInArray(children, event.previousIndex, event.currentIndex);
     items[menuIndex] = { ...items[menuIndex], child: children };
     source.set(items);
+    this.onMenuChange();
   }
 
   toggleMenuExpand(list: 'main' | 'mobile', index: number): void {
@@ -400,26 +492,38 @@ export class EditFooterComponent implements OnInit {
   addMenuGroup(list: 'main' | 'mobile'): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
     source.update(items => [...items, { label: '新分组', child: [] }]);
+    this.onMenuChange();
   }
 
-  updateMenuGroup(
-    list: 'main' | 'mobile',
-    index: number,
-    value: string
-  ): void {
+  updateMenuGroup(list: 'main' | 'mobile', index: number, value: string): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
     const items = [...source()];
     items[index] = { ...items[index], label: value };
     source.set(items);
+    this.onMenuChange();
   }
 
   removeMenuGroup(list: 'main' | 'mobile', index: number): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
+    const removed = source()[index];
     source.update(items => items.filter((_, i) => i !== index));
     const sig = list === 'main' ? this.expandedMenuIndex : this.expandedMobileMenuIndex;
     if (sig() === index) {
       sig.set(-1);
     }
+    this.onMenuChange();
+    const ref = this.snackBar.open(`已删除「${removed.label}」`, '撤销', { duration: 5000 });
+    ref
+      .onAction()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        source.update(items => {
+          const c = [...items];
+          c.splice(index, 0, removed);
+          return c;
+        });
+        this.onMenuChange();
+      });
   }
 
   addChildLink(list: 'main' | 'mobile', menuIndex: number): void {
@@ -429,6 +533,7 @@ export class EditFooterComponent implements OnInit {
     children.push({ label: '新链接', href: '' });
     items[menuIndex] = { ...items[menuIndex], child: children };
     source.set(items);
+    this.onMenuChange();
   }
 
   updateChildLink(
@@ -444,32 +549,49 @@ export class EditFooterComponent implements OnInit {
     children[childIndex] = { ...children[childIndex], [field]: value };
     items[menuIndex] = { ...items[menuIndex], child: children };
     source.set(items);
+    this.onMenuChange();
   }
 
-  removeChildLink(
-    list: 'main' | 'mobile',
-    menuIndex: number,
-    childIndex: number
-  ): void {
+  removeChildLink(list: 'main' | 'mobile', menuIndex: number, childIndex: number): void {
     const source = list === 'main' ? this.menuItems : this.mobileMenuItems;
+    const removed = source()[menuIndex].child?.[childIndex];
     const items = [...source()];
-    const children = (items[menuIndex].child ?? []).filter(
-      (_, i) => i !== childIndex
-    );
+    const children = (items[menuIndex].child ?? []).filter((_, i) => i !== childIndex);
     items[menuIndex] = { ...items[menuIndex], child: children };
     source.set(items);
+    this.onMenuChange();
+    if (removed) {
+      const ref = this.snackBar.open(`已删除「${removed.label}」`, '撤销', { duration: 5000 });
+      ref
+        .onAction()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          const cur = [...source()];
+          const ch = [...(cur[menuIndex].child ?? [])];
+          ch.splice(childIndex, 0, removed);
+          cur[menuIndex] = { ...cur[menuIndex], child: ch };
+          source.set(cur);
+          this.onMenuChange();
+        });
+    }
   }
+
+  private onMenuChange(): void {
+    this.markDirty();
+    this.updateJsonPreview();
+  }
+
+  // ── Build & Save ──
 
   buildFooter(): IFooter {
     const footer = this.footer()!;
-    const paramsVal = this.paramsForm.value;
     const brandVal = this.brandForm.value;
     const socialVal = this.socialForm.value;
     const newsletterVal = this.newsletterForm.value;
     const bottomVal = this.bottomForm.value;
 
     const built: IFooter = {
-      params: { ...footer.params, ...paramsVal },
+      params: { ...footer.params, ...this.paramsForm.value },
       footerBrand: {
         ...footer.footerBrand,
         logo: {
@@ -514,7 +636,6 @@ export class EditFooterComponent implements OnInit {
     if (footer.content) {
       built.content = footer.content;
     }
-
     return built;
   }
 
@@ -524,21 +645,25 @@ export class EditFooterComponent implements OnInit {
       return;
     }
 
-    this.loading.set(true);
+    this.saving.set(true);
     const branding = this.branding()!;
     let footer = this.buildFooter();
 
-    try {
-      const customConfig = JSON.parse(this.customJson);
-      if (customConfig && typeof customConfig === 'object') {
-        footer = merge({}, footer, customConfig);
+    if (this.jsonEditMode() && this.customJson) {
+      try {
+        const customConfig = JSON.parse(this.customJson);
+        if (customConfig && typeof customConfig === 'object') {
+          footer = deepMerge({}, footer, customConfig);
+        }
+        this.jsonError.set('');
+      } catch {
+        this.saving.set(false);
+        this.util.openSnackbar('JSON 格式错误，请修正后再保存', 'ok');
+        return;
       }
-    } catch {
-      // custom JSON invalid — use visual editor values only
     }
 
     const updatedBranding: IBranding = { ...branding, footer };
-
     this.builderService
       .updateAttributes(
         { uuid: this.nodeUuid(), langcode: this.nodeLangcode() },
@@ -549,13 +674,14 @@ export class EditFooterComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: res => {
-          this.loading.set(false);
+          this.saving.set(false);
           if (res) {
+            this.dirty.set(false);
             this.util.openSnackbar('Footer 配置更新成功！', 'ok');
           }
         },
         error: () => {
-          this.loading.set(false);
+          this.saving.set(false);
           this.util.openSnackbar('更新失败，请重试');
         },
       });

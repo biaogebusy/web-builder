@@ -1,275 +1,342 @@
-<div class="edit-footer">
-  <div class="toolbar">
-    <app-title
-      [content]="{
-        label: 'Footer 配置',
-        classes: 'mat-headline-4 bold',
-        style: 'style-v4',
-      }"
-    />
-    <a
-      [routerLink]="['/builder/edit-header']"
-      [queryParams]="queryParams"
-      class="switch-link"
-    >
-      编辑 Header
-    </a>
-    <span class="spacer"></span>
-    <app-btn
-      (click)="loadData()"
-      [content]="{
-        label: '刷新',
-        mode: 'stroked',
-        icon: { svg: 'refresh' },
-      }"
-    />
-    <app-btn
-      (click)="onSave()"
-      [content]="{
-        label: '保存',
-        color: 'primary',
-        mode: 'raised',
-        icon: { svg: 'content-save' },
-      }"
-    />
-  </div>
+<div class="edit-page">
+  <header class="toolbar">
+    <nav class="nav-tabs" role="tablist">
+      <a
+        class="tab"
+        role="tab"
+        aria-selected="false"
+        [routerLink]="['/builder/edit-header']"
+        [queryParams]="queryParams"
+        >Header</a
+      >
+      <a class="tab active" role="tab" aria-selected="true">Footer</a>
+    </nav>
+    <div class="toolbar-right">
+      @if (dirty()) {
+        <span class="dirty-dot"></span>
+        <span class="dirty-label">未保存</span>
+      }
+      <button class="icon-btn" (click)="loadData()" [disabled]="loading()" aria-label="刷新">
+        <mat-icon svgIcon="refresh" />
+      </button>
+      <button class="save-btn" [disabled]="!canSave()" (click)="onSave()">
+        {{ saving() ? '保存中...' : '保存更改' }}
+      </button>
+    </div>
+  </header>
 
   @if (loading()) {
-    <mat-progress-bar mode="indeterminate" />
+    <mat-progress-bar mode="indeterminate" class="loading-bar" />
   }
 
-  @if (footer()) {
-    <mat-accordion multi>
-      <!-- Params -->
-      <mat-expansion-panel expanded>
-        <mat-expansion-panel-header>
-          <mat-panel-title>参数设置</mat-panel-title>
-        </mat-expansion-panel-header>
-        <form [formGroup]="paramsForm">
-          <formly-form
-            [form]="paramsForm"
-            [fields]="paramsFields"
-            [model]="paramsModel"
-          />
-        </form>
-      </mat-expansion-panel>
+  <div class="scroll-area">
+    <div class="container">
+      @if (loading() && !footer()) {
+        @for (_ of [1, 2, 3]; track $index) {
+          <div class="skeleton-block">
+            <ngx-skeleton-loader
+              count="1"
+              appearance="line"
+              [theme]="{ height: '44px', 'border-radius': '8px' }"
+            />
+          </div>
+        }
+      }
 
-      <!-- Footer Brand -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>品牌信息</mat-panel-title>
-        </mat-expansion-panel-header>
-        <form [formGroup]="brandForm">
-          <formly-form
-            [form]="brandForm"
-            [fields]="brandFields"
-            [model]="brandModel"
-          />
-        </form>
-      </mat-expansion-panel>
+      @if (footer()) {
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('params')">
+            <mat-icon svgIcon="cog-outline" class="card-icon" />
+            <span class="card-title">参数设置</span>
+            <mat-icon
+              [svgIcon]="isSectionOpen('params') ? 'chevron-up' : 'chevron-down'"
+              class="card-chevron"
+            />
+          </button>
+          @if (isSectionOpen('params')) {
+            <div class="card-body">
+              <form [formGroup]="paramsForm">
+                <formly-form [form]="paramsForm" [fields]="paramsFields" [model]="paramsModel" />
+              </form>
+            </div>
+          }
+        </section>
 
-      <!-- Social Links -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>社交链接</mat-panel-title>
-        </mat-expansion-panel-header>
-        <form [formGroup]="socialForm">
-          <formly-form
-            [form]="socialForm"
-            [fields]="socialFields"
-            [model]="socialModel"
-          />
-        </form>
-      </mat-expansion-panel>
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('brand')">
+            <mat-icon svgIcon="image-outline" class="card-icon" />
+            <span class="card-title">品牌信息</span>
+            <mat-icon
+              [svgIcon]="isSectionOpen('brand') ? 'chevron-up' : 'chevron-down'"
+              class="card-chevron"
+            />
+          </button>
+          @if (isSectionOpen('brand')) {
+            <div class="card-body">
+              <form [formGroup]="brandForm">
+                <formly-form [form]="brandForm" [fields]="brandFields" [model]="brandModel" />
+              </form>
+            </div>
+          }
+        </section>
 
-      <!-- Main Menu -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>底部导航 ({{ menuItems().length }})</mat-panel-title>
-        </mat-expansion-panel-header>
-        <ng-container
-          *ngTemplateOutlet="menuTemplate; context: {
-            $implicit: menuItems,
-            list: 'main',
-            expanded: expandedMenuIndex,
-          }"
-        />
-      </mat-expansion-panel>
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('social')">
+            <mat-icon svgIcon="share-variant-outline" class="card-icon" />
+            <span class="card-title">社交链接</span>
+            <mat-icon
+              [svgIcon]="isSectionOpen('social') ? 'chevron-up' : 'chevron-down'"
+              class="card-chevron"
+            />
+          </button>
+          @if (isSectionOpen('social')) {
+            <div class="card-body">
+              <form [formGroup]="socialForm">
+                <formly-form [form]="socialForm" [fields]="socialFields" [model]="socialModel" />
+              </form>
+            </div>
+          }
+        </section>
 
-      <!-- Mobile Menu -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>移动端导航 ({{ mobileMenuItems().length }})</mat-panel-title>
-        </mat-expansion-panel-header>
-        <ng-container
-          *ngTemplateOutlet="menuTemplate; context: {
-            $implicit: mobileMenuItems,
-            list: 'mobile',
-            expanded: expandedMobileMenuIndex,
-          }"
-        />
-      </mat-expansion-panel>
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('menu')">
+            <mat-icon svgIcon="menu" class="card-icon" />
+            <span class="card-title">底部导航</span>
+            @if (menuItems().length) {
+              <span class="card-badge">{{ menuItems().length }}</span>
+            }
+            <mat-icon
+              [svgIcon]="isSectionOpen('menu') ? 'chevron-up' : 'chevron-down'"
+              class="card-chevron"
+            />
+          </button>
+          @if (isSectionOpen('menu')) {
+            <div class="card-body">
+              <ng-container
+                *ngTemplateOutlet="
+                  menuTpl;
+                  context: { $implicit: menuItems, list: 'main', expanded: expandedMenuIndex }
+                "
+              />
+            </div>
+          }
+        </section>
 
-      <!-- Newsletter -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Newsletter 配置</mat-panel-title>
-        </mat-expansion-panel-header>
-        <form [formGroup]="newsletterForm">
-          <formly-form
-            [form]="newsletterForm"
-            [fields]="newsletterFields"
-            [model]="newsletterModel"
-          />
-        </form>
-      </mat-expansion-panel>
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('mobile')">
+            <mat-icon svgIcon="cellphone" class="card-icon" />
+            <span class="card-title">移动端导航</span>
+            @if (mobileMenuItems().length) {
+              <span class="card-badge">{{ mobileMenuItems().length }}</span>
+            }
+            <mat-icon
+              [svgIcon]="isSectionOpen('mobile') ? 'chevron-up' : 'chevron-down'"
+              class="card-chevron"
+            />
+          </button>
+          @if (isSectionOpen('mobile')) {
+            <div class="card-body">
+              <ng-container
+                *ngTemplateOutlet="
+                  menuTpl;
+                  context: {
+                    $implicit: mobileMenuItems,
+                    list: 'mobile',
+                    expanded: expandedMobileMenuIndex,
+                  }
+                "
+              />
+            </div>
+          }
+        </section>
 
-      <!-- Footer Bottom -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>底部栏</mat-panel-title>
-        </mat-expansion-panel-header>
-        <form [formGroup]="bottomForm">
-          <formly-form
-            [form]="bottomForm"
-            [fields]="bottomFields"
-            [model]="bottomModel"
-          />
-        </form>
-      </mat-expansion-panel>
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('newsletter')">
+            <mat-icon svgIcon="email-outline" class="card-icon" />
+            <span class="card-title">Newsletter</span>
+            <mat-icon
+              [svgIcon]="isSectionOpen('newsletter') ? 'chevron-up' : 'chevron-down'"
+              class="card-chevron"
+            />
+          </button>
+          @if (isSectionOpen('newsletter')) {
+            <div class="card-body">
+              <form [formGroup]="newsletterForm">
+                <formly-form
+                  [form]="newsletterForm"
+                  [fields]="newsletterFields"
+                  [model]="newsletterModel"
+                />
+              </form>
+            </div>
+          }
+        </section>
 
-      <!-- JSON Editor -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>自定义 JSON 配置</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="json-hint">
-          编辑 JSON 可覆盖可视化配置，保存时会与表单配置深度合并
-        </p>
-        <ngx-monaco-editor
-          class="json-editor"
-          [options]="monacoOptions"
-          [(ngModel)]="customJson"
-        />
-      </mat-expansion-panel>
-    </mat-accordion>
-  }
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('bottom')">
+            <mat-icon svgIcon="dock-bottom" class="card-icon" />
+            <span class="card-title">底部栏</span>
+            <mat-icon
+              [svgIcon]="isSectionOpen('bottom') ? 'chevron-up' : 'chevron-down'"
+              class="card-chevron"
+            />
+          </button>
+          @if (isSectionOpen('bottom')) {
+            <div class="card-body">
+              <form [formGroup]="bottomForm">
+                <formly-form [form]="bottomForm" [fields]="bottomFields" [model]="bottomModel" />
+              </form>
+            </div>
+          }
+        </section>
+
+        <section class="card json-card">
+          <button class="card-header" (click)="showJson.set(!showJson())">
+            <mat-icon svgIcon="code-json" class="card-icon" />
+            <span class="card-title">JSON</span>
+            @if (jsonEditMode()) {
+              <span class="card-badge accent">编辑中</span>
+            }
+            @if (jsonError()) {
+              <span class="card-badge warn">语法错误</span>
+            }
+            <mat-icon [svgIcon]="showJson() ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+          </button>
+          @if (showJson()) {
+            <div class="json-body">
+              <div class="json-toolbar">
+                <button class="ghost-btn" (click)="toggleJsonEditMode()">
+                  <mat-icon
+                    [svgIcon]="jsonEditMode() ? 'eye-outline' : 'pencil-outline'"
+                    class="btn-icon"
+                  />
+                  {{ jsonEditMode() ? '切换预览' : '编辑 JSON' }}
+                </button>
+                @if (jsonEditMode()) {
+                  <span class="json-hint">保存时深度合并至表单配置</span>
+                }
+              </div>
+              @if (jsonEditMode()) {
+                <ngx-monaco-editor
+                  class="json-editor"
+                  [options]="monacoEditableOptions"
+                  [ngModel]="customJson"
+                  (ngModelChange)="onJsonChange($event)"
+                />
+              } @else {
+                <ngx-monaco-editor
+                  class="json-editor"
+                  [options]="monacoReadonlyOptions"
+                  [ngModel]="jsonPreview()"
+                />
+              }
+            </div>
+          }
+        </section>
+      }
+    </div>
+  </div>
 </div>
 
-<!-- Shared menu template for mainMenu / mobileMenu -->
-<ng-template #menuTemplate let-items let-list="list" let-expanded="expanded">
+<ng-template #menuTpl let-items let-list="list" let-expanded="expanded">
+  @if (!items().length) {
+    <div class="empty"><p>暂无分组，点击下方添加</p></div>
+  }
+
   <div
     cdkDropList
-    class="menu-list"
     (cdkDropListDropped)="list === 'main' ? onMenuDrop($event) : onMobileMenuDrop($event)"
   >
     @for (group of items(); track $index; let i = $index) {
-      <div cdkDrag class="menu-item">
-        <div class="menu-item-header">
+      <div cdkDrag class="row-item">
+        <div class="row-main">
           <mat-icon
             cdkDragHandle
             svgIcon="dots-vertical"
-            class="drag-handle"
+            class="grip"
+            aria-label="拖拽排序"
+            role="button"
+            tabindex="0"
           />
-          <mat-form-field class="flex-1">
-            <mat-label>分组标签</mat-label>
+          <div class="row-fields">
             <input
-              matInput
+              class="field"
               [value]="group.label"
-              (blur)="updateMenuGroup(list, i, $any($event.target).value)"
+              placeholder="分组名称"
+              (input)="updateMenuGroup(list, i, $any($event.target).value)"
             />
-          </mat-form-field>
+          </div>
           <button
-            mat-icon-button
+            class="icon-btn sm"
             (click)="toggleMenuExpand(list, i)"
-            [matTooltip]="expanded() === i ? '收起' : '展开子链接'"
+            [attr.aria-expanded]="expanded() === i"
           >
-            <mat-icon
-              [svgIcon]="expanded() === i ? 'chevron-up' : 'chevron-down'"
-            />
+            <mat-icon [svgIcon]="expanded() === i ? 'chevron-up' : 'chevron-down'" />
           </button>
           <button
-            mat-icon-button
-            color="warn"
+            class="icon-btn sm danger"
             (click)="removeMenuGroup(list, i)"
-            matTooltip="删除"
+            [attr.aria-label]="'删除 ' + group.label"
           >
-            <mat-icon svgIcon="delete" />
+            <mat-icon svgIcon="close" />
           </button>
         </div>
-
         @if (expanded() === i) {
-          <div class="menu-item-detail">
-            <div class="child-section">
-              <div class="child-header">
-                <span class="child-title">链接列表</span>
-                <button
-                  mat-mini-fab
-                  color="primary"
-                  (click)="addChildLink(list, i)"
-                  matTooltip="添加链接"
-                >
-                  <mat-icon svgIcon="plus" />
-                </button>
-              </div>
-
-              @if (group.child?.length) {
-                <div
-                  cdkDropList
-                  class="child-list"
-                  (cdkDropListDropped)="onChildDrop(list, i, $event)"
-                >
-                  @for (child of group.child; track $index; let j = $index) {
-                    <div cdkDrag class="child-item">
-                      <mat-icon
-                        cdkDragHandle
-                        svgIcon="dots-vertical"
-                        class="drag-handle"
-                      />
-                      <mat-form-field class="flex-1">
-                        <mat-label>标签</mat-label>
-                        <input
-                          matInput
-                          [value]="child.label"
-                          (blur)="updateChildLink(list, i, j, 'label', $any($event.target).value)"
-                        />
-                      </mat-form-field>
-                      <mat-form-field class="flex-1">
-                        <mat-label>链接</mat-label>
-                        <input
-                          matInput
-                          [value]="child.href || ''"
-                          (blur)="updateChildLink(list, i, j, 'href', $any($event.target).value)"
-                        />
-                      </mat-form-field>
-                      <button
-                        mat-icon-button
-                        color="warn"
-                        (click)="removeChildLink(list, i, j)"
-                        matTooltip="删除"
-                      >
-                        <mat-icon svgIcon="delete" />
-                      </button>
-                    </div>
-                  }
-                </div>
-              }
+          <div class="row-expand">
+            <div class="child-header">
+              <span class="child-title">链接列表</span>
+              <button class="ghost-btn" (click)="addChildLink(list, i)">
+                <mat-icon svgIcon="plus" class="btn-icon" />添加
+              </button>
             </div>
+            @if (group.child?.length) {
+              <div
+                cdkDropList
+                class="child-drop"
+                (cdkDropListDropped)="onChildDrop(list, i, $event)"
+              >
+                @for (child of group.child; track $index; let j = $index) {
+                  <div cdkDrag class="child-row">
+                    <mat-icon
+                      cdkDragHandle
+                      svgIcon="dots-vertical"
+                      class="grip sm"
+                      aria-label="拖拽排序"
+                      role="button"
+                      tabindex="0"
+                    />
+                    <div class="row-fields">
+                      <input
+                        class="field"
+                        [value]="child.label"
+                        placeholder="名称"
+                        (input)="updateChildLink(list, i, j, 'label', $any($event.target).value)"
+                      />
+                      <input
+                        class="field"
+                        [value]="child.href || ''"
+                        placeholder="链接"
+                        (input)="updateChildLink(list, i, j, 'href', $any($event.target).value)"
+                      />
+                    </div>
+                    <button
+                      class="icon-btn sm danger"
+                      (click)="removeChildLink(list, i, j)"
+                      [attr.aria-label]="'删除 ' + child.label"
+                    >
+                      <mat-icon svgIcon="close" />
+                    </button>
+                  </div>
+                }
+              </div>
+            }
           </div>
         }
       </div>
     }
   </div>
 
-  <div class="menu-add">
-    <app-btn
-      (click)="addMenuGroup(list)"
-      [content]="{
-        label: '添加分组',
-        color: 'primary',
-        mode: 'stroked',
-        icon: { svg: 'plus' },
-      }"
-    />
-  </div>
+  <button class="ghost-btn add-row-btn" (click)="addMenuGroup(list)">
+    <mat-icon svgIcon="plus" class="btn-icon" />添加分组
+  </button>
 </ng-template>

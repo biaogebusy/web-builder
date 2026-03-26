@@ -10,6 +10,7 @@ import { BuilderGuard } from '@core/guards/builder.guard';
 import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
 import { ConfigCheckComponent } from './main/config-check/config-check.component';
 import { NodeAddComponent } from './node/node-add/node-add.component';
+import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
 
 const routes: Routes = [
   {
@@ -49,6 +50,7 @@ const routes: Routes = [
           import('./main/edit-header/edit-header.component').then(
             m => m.EditHeaderComponent
           ),
+        canDeactivate: [unsavedChangesGuard],
       },
       {
         path: 'edit-footer',
@@ -56,6 +58,7 @@ const routes: Routes = [
           import('./main/edit-footer/edit-footer.component').then(
             m => m.EditFooterComponent
           ),
+        canDeactivate: [unsavedChangesGuard],
       },
       {
         path: 'node-add/:type',

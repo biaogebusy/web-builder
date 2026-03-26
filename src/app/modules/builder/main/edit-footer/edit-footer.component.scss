@@ -1,141 +1,400 @@
-.edit-footer {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px 16px;
+:host {
+  @apply block h-full;
 }
 
+.edit-page {
+  @apply flex flex-col h-full text-sm;
+  color: var(--mat-sys-on-surface);
+}
+
+// ── Toolbar ──
 .toolbar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  @apply flex items-center justify-between sticky top-0 z-10 py-2 px-6;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface);
+  backdrop-filter: blur(16px) saturate(1.8);
+}
 
-  .spacer {
-    flex: 1;
+.toolbar-right {
+  @apply flex items-center gap-2;
+}
+
+.nav-tabs {
+  @apply flex rounded-lg p-0.5;
+  background: var(--mat-sys-surface-container);
+}
+
+.tab {
+  @apply inline-flex items-center text-sm font-medium cursor-pointer select-none no-underline py-2 px-4 rounded;
+  color: var(--mat-sys-on-surface-variant);
+  transition: all 0.15s;
+
+  &:hover {
+    color: var(--mat-sys-on-surface);
+    background: var(--mat-sys-surface-dim);
   }
 
-  .switch-link {
-    color: var(--mat-sys-primary);
-    text-decoration: none;
-    font-size: 14px;
+  &.active {
+    color: var(--mat-sys-on-surface);
+    background: var(--mat-sys-surface-bright, var(--mat-sys-surface));
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.06),
+      0 0 0 1px var(--mat-sys-outline-variant);
+  }
+}
 
-    &:hover {
-      text-decoration: underline;
+.dirty-dot {
+  @apply w-2 h-2 rounded-full;
+  background: var(--mat-sys-error);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+.dirty-label {
+  @apply text-sm;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.loading-bar {
+  @apply sticky z-[9] top-[49px];
+}
+
+// ── Buttons ──
+.save-btn {
+  @apply inline-flex items-center gap-2 text-sm font-medium h-9 px-4 rounded border-none cursor-pointer;
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  transition: opacity 0.15s;
+
+  &:hover:not(:disabled) {
+    @apply opacity-90;
+  }
+  &:disabled {
+    @apply opacity-40 cursor-not-allowed;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    @apply outline-offset-2;
+  }
+}
+
+.icon-btn {
+  @apply inline-flex items-center justify-center w-9 h-9 rounded border-none bg-transparent cursor-pointer;
+  color: var(--mat-sys-on-surface-variant);
+  transition: all 0.15s;
+
+  &:hover:not(:disabled) {
+    background: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
+  }
+  &:disabled {
+    @apply opacity-40 cursor-not-allowed;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    @apply outline-offset-2;
+  }
+
+  mat-icon {
+    @apply w-5 h-5 text-xl;
+  }
+
+  &.sm {
+    @apply w-7 h-7;
+    mat-icon {
+      @apply w-4 h-4 text-base;
     }
   }
-}
 
-.menu-list {
-  .menu-item {
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
-    margin-bottom: 8px;
-    background: white;
-
-    &.cdk-drag-preview {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    &.cdk-drag-placeholder {
-      opacity: 0.3;
-    }
+  &.danger:hover {
+    color: var(--mat-sys-error);
+    background: var(--mat-sys-error-container);
   }
 }
 
-.menu-item-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+.ghost-btn {
+  @apply inline-flex items-center gap-1 text-sm font-medium h-8 px-3 rounded bg-transparent cursor-pointer;
+  border: 1px dashed var(--mat-sys-outline-variant);
+  color: var(--mat-sys-on-surface-variant);
+  transition: all 0.15s;
 
-  .drag-handle {
-    cursor: move;
-    color: rgba(0, 0, 0, 0.38);
+  &:hover {
+    color: var(--mat-sys-on-surface);
+    border-color: var(--mat-sys-outline);
+    background: var(--mat-sys-surface-container);
+  }
+
+  .btn-icon {
+    @apply w-4 h-4 text-base;
   }
 }
 
-.menu-item-detail {
-  padding: 0 12px 12px 44px;
+.add-row-btn {
+  @apply mt-2;
 }
 
-.child-section {
-  margin-top: 8px;
+// ── Single column layout ──
+.scroll-area {
+  @apply flex-1 overflow-y-auto;
+}
+
+.container {
+  @apply max-w-[640px] mx-auto py-6 px-6 pb-16;
+}
+
+.skeleton-block {
+  @apply mb-3;
+}
+
+// ── Card ──
+.card {
+  @apply mb-2 overflow-hidden rounded-lg;
+  border: 1px solid var(--mat-sys-outline-variant);
+  transition: border-color 0.15s;
+
+  &:has(.card-body),
+  &:has(.json-body) {
+    border-color: var(--mat-sys-outline);
+  }
+}
+
+.card-header {
+  @apply flex items-center gap-3 w-full text-left cursor-pointer select-none py-3 px-4 border-none bg-transparent;
+  transition: background 0.1s;
+
+  &:hover {
+    background: var(--mat-sys-surface-container);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    @apply outline-offset-[-2px] rounded-lg;
+  }
+}
+
+.card-title {
+  @apply text-sm font-semibold flex-1;
+  color: var(--mat-sys-on-surface);
+}
+
+.card-icon {
+  @apply w-5 h-5 flex-shrink-0 text-xl;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.card-chevron {
+  @apply w-5 h-5 flex-shrink-0 text-xl;
+  color: var(--mat-sys-outline);
+}
+
+.card-badge {
+  @apply text-xs font-semibold px-2 leading-5;
+  border-radius: 12px;
+  background: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface-variant);
+
+  &.accent {
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+  }
+
+  &.warn {
+    background: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+  }
+}
+
+.card-body {
+  @apply px-4 pt-1 pb-5;
+}
+
+// ── Input ──
+.field {
+  @apply w-full text-sm h-9 px-3 rounded bg-transparent outline-none min-w-0;
+  border: 1px solid var(--mat-sys-outline-variant);
+  color: var(--mat-sys-on-surface);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+
+  &::placeholder {
+    color: var(--mat-sys-outline);
+  }
+
+  &:focus {
+    border-color: var(--mat-sys-primary);
+    box-shadow:
+      0 0 0 2px var(--mat-sys-surface),
+      0 0 0 4px color-mix(in srgb, var(--mat-sys-primary) 25%, transparent);
+  }
+}
+
+.field-block {
+  @apply w-full mb-3;
+}
+
+.field-label {
+  @apply block text-sm font-medium mb-1;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+// ── Menu rows ──
+.row-item {
+  @apply mb-1 rounded;
+  border: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.2s;
+
+  &:hover {
+    border-color: var(--mat-sys-outline);
+  }
+  &.cdk-drag-preview {
+    box-shadow:
+      0 12px 32px -4px rgba(0, 0, 0, 0.12),
+      0 0 0 1px var(--mat-sys-outline-variant);
+  }
+  &.cdk-drag-placeholder {
+    @apply opacity-0;
+  }
+}
+
+.row-main {
+  @apply flex items-start gap-2 p-2;
+}
+
+.row-fields {
+  @apply flex flex-col gap-2 flex-1 min-w-0;
+}
+
+.grip {
+  @apply w-5 h-5 flex-shrink-0 text-xl mt-2;
+  color: var(--mat-sys-outline);
+  cursor: grab;
+  transition: color 0.15s;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--mat-sys-on-surface-variant);
+  }
+  &:active {
+    cursor: grabbing;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    @apply outline-offset-[1px] rounded-sm;
+  }
+  &.sm {
+    @apply w-4 h-4 text-base;
+  }
+}
+
+.row-expand {
+  @apply py-3 px-4;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface-container-lowest, var(--mat-sys-surface));
 }
 
 .child-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  @apply flex items-center justify-between mb-2;
+}
 
-  .child-title {
-    font-weight: 500;
-    font-size: 14px;
+.child-title {
+  @apply text-sm font-medium;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.child-drop .child-row {
+  @apply flex items-start gap-2 p-1 mb-1 rounded;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: var(--mat-sys-outline-variant);
+    background: var(--mat-sys-surface);
   }
-}
-
-.child-list {
-  .child-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 8px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 4px;
-    margin-bottom: 4px;
-    background: rgba(0, 0, 0, 0.02);
-
-    .drag-handle {
-      cursor: move;
-      color: rgba(0, 0, 0, 0.38);
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
-    }
-
-    &.cdk-drag-preview {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    }
-
-    &.cdk-drag-placeholder {
-      opacity: 0.3;
-    }
+  &.cdk-drag-preview {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-color: var(--mat-sys-outline-variant);
+    background: var(--mat-sys-surface);
   }
-}
-
-.menu-add {
-  padding: 12px 0 4px;
-}
-
-.json-hint {
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 13px;
-  margin-bottom: 12px;
-}
-
-.json-editor {
-  height: 400px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 4px;
+  &.cdk-drag-placeholder {
+    @apply opacity-0;
+  }
 }
 
 .cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  @apply transition-transform duration-200 ease-out;
 }
 
-:host-context(.dark-theme),
-:host-context([data-theme='dark']) {
-  .menu-item {
-    border-color: rgba(255, 255, 255, 0.12);
-    background: #424242;
+// ── Empty ──
+.empty {
+  @apply text-center py-6;
+  p {
+    @apply text-sm m-0;
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+// ── JSON drawer ──
+.json-card {
+  @apply border-dashed;
+}
+
+.json-body {
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+.json-toolbar {
+  @apply flex items-center gap-3 py-2 px-4;
+  background: var(--mat-sys-surface-container-lowest, var(--mat-sys-surface));
+}
+
+.json-hint {
+  @apply text-sm;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.json-editor {
+  @apply h-[360px];
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+// ── Formly overrides ──
+:host ::ng-deep {
+  .mat-mdc-form-field {
+    --mdc-outlined-text-field-outline-color: var(--mat-sys-outline-variant);
+    --mdc-outlined-text-field-focus-outline-color: var(--mat-sys-primary);
+    --mdc-outlined-text-field-hover-outline-color: var(--mat-sys-outline);
+    --mdc-outlined-text-field-container-shape: 4px;
+    --mat-form-field-container-height: 40px;
+    --mat-form-field-container-vertical-padding: 8px;
+    @apply text-sm;
   }
 
-  .child-item {
-    border-color: rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.04);
+  .mat-mdc-text-field-wrapper {
+    background: transparent !important;
+  }
+  .mat-mdc-form-field-subscript-wrapper {
+    @apply hidden;
+  }
+  formly-field {
+    @apply mb-1;
   }
 
-  .json-hint {
-    color: rgba(255, 255, 255, 0.54);
+  .mat-mdc-slide-toggle {
+    --mdc-switch-selected-track-color: var(--mat-sys-primary);
+    --mdc-switch-selected-hover-track-color: var(--mat-sys-primary);
+    --mdc-switch-selected-focus-track-color: var(--mat-sys-primary);
+    --mdc-switch-selected-pressed-track-color: var(--mat-sys-primary);
   }
 }
