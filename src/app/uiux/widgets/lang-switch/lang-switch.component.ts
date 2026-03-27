@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { ILanguage } from '@core/interface/IEnvironment';
 import { CORE_CONFIG, LANG } from '@core/token/token-providers';
@@ -14,6 +16,8 @@ import { environment } from 'src/environments/environment';
 export class LangSwitchComponent implements OnInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   lang = inject<ILanguage>(LANG);
+  private router = inject(Router);
+  private translateService = inject(TranslateService);
 
   currentLang: ILanguage;
   langs = environment?.langs;
@@ -21,13 +25,16 @@ export class LangSwitchComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentLang = this.lang;
+    this.translateService.use(this.currentLang?.langCode || 'zh-hans');
   }
 
   onSwitchLanguage(lang: ILanguage): void {
     this.currentLang = lang;
-    const { origin, pathname } = window.location;
+    this.translateService.use(lang.langCode);
+    const { pathname } = window.location;
     const url = this.removeLangPrefix(pathname);
-    window.open(`${origin}${lang.prefix}${url}`, '_self');
+    const langPrefix = lang.prefix === '/' ? '' : lang.prefix;
+    this.router.navigateByUrl(`${langPrefix}${url}`);
   }
 
   removeLangPrefix(urlPath: string): string {

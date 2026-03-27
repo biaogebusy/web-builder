@@ -46,11 +46,21 @@ import {
 registerLocaleData(zhHans, 'zh-hans');
 import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from '@core/interceptor/auth.interceptor';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  imports: [AppRoutingModule, BrowserModule, PageModule],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    PageModule,
+    TranslateModule.forRoot({
+      fallbackLang: environment.langs?.find(item => item.default)?.langCode || 'zh-hans',
+    }),
+  ],
   providers: [
     Title,
     CookieService,
@@ -70,6 +80,10 @@ import { AuthInterceptor } from '@core/interceptor/auth.interceptor';
       withNgxWebstorageConfig({ separator: ':', caseSensitive: true }),
       withLocalStorage()
     ),
+    ...provideTranslateHttpLoader({
+      prefix: '/assets/i18n/',
+      suffix: '.json',
+    }),
     {
       provide: CORE_CONFIG,
       useValue: {},

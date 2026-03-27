@@ -1,0 +1,20 @@
+{
+  "APP": {
+    "LOADING": "Loading..."
+  },
+  "LOGIN": {
+    "WELCOME_TEXT": "Welcome.",
+    "PHONE_TAB": "Phone Login",
+    "PHONE_PLACEHOLDER": "Please enter phone number",
+    "PHONE_ERROR": "Please enter a valid phone number",
+    "CODE_LABEL": "Verification code",
+    "CODE_SEND": "Send code",
+    "PASSWORD_TAB": "Password Login",
+    "USERNAME_LABEL": "Username",
+    "PASSWORD_LABEL": "Password",
+    "SHOW_PASSWORD": "Show password",
+    "HIDE_PASSWORD": "Hide password",
+    "SOCIAL_LOGIN": "Social Login",
+    "HI": "Hi"
+  }
+}

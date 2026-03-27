@@ -1,7 +1,7 @@
 export interface IOAuth {
   clientId: string;
   tokenUrl: string;
-  scope: string;
+  scope?: string;
 }
 
 export interface IEnvironment {
