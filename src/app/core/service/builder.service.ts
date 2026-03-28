@@ -248,6 +248,15 @@ export class BuilderService extends ApiService {
           if (loadPage) {
             this.loadPage({ nid }, true);
           }
+        }),
+        catchError((error: any) => {
+          this.builder.loading$.next(false);
+          if (error?.status === 403) {
+            this.util.openSnackbar('无权限执行此操作', 'ok');
+          } else {
+            this.util.openSnackbar('创建页面失败，请重试', 'ok');
+          }
+          return of(false);
         })
       );
   }
