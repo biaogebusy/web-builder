@@ -71,7 +71,11 @@ export class BuilderService extends ApiService {
         this.builder.loading$.next(false);
         if (status) {
           this.builder.loadNewPage(this.formatToExtraData(content, isTemplate));
-          this.util.openSnackbar(`已加载${content.title}`, 'ok');
+          if (isTemplate) {
+            this.util.openSnackbar(`已复制${content.title}`, 'ok');
+          } else {
+            this.util.openSnackbar(`已加载${content.title}`, 'ok');
+          }
           if (openSetting) {
             const config: IDialog = {
               title: '页面属性',
@@ -641,6 +645,7 @@ export class BuilderService extends ApiService {
     if (body.length) {
       components = body.map(item => {
         if (isTemplate) {
+          delete item.attributes.body.extra;
           return {
             ...item.attributes.body,
           };

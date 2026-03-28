@@ -234,6 +234,14 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builderService.loadPage({ langcode, nid });
   }
 
+  copyPage(page: any): void {
+    this.builderService.loadPage({
+      langcode: page.langcode,
+      nid: page.nid,
+      isTemplate: true,
+    });
+  }
+
   updateByJSON(page: any): void {
     const { langcode, nid } = page;
     if (!nid) {
