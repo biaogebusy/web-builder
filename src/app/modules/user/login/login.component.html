@@ -24,20 +24,28 @@
               <mat-tab label="{{ phoneLogin.tabLabel || ('LOGIN.PHONE_TAB' | translate) }}">
                 <form class="phone-form" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
                   <mat-form-field appearance="fill">
-                    <mat-label>{{ phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate) }}</mat-label>
+                    <mat-label>{{
+                      phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
+                    }}</mat-label>
                     <mat-icon matSuffix>phone_iphone</mat-icon>
                     <input
-                      [placeholder]="phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)"
+                      [placeholder]="
+                        phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
+                      "
                       type="text"
                       matInput
                       formControlName="phone"
                     />
                     @if (formPhone.phone.errors?.pattern) {
-                      <mat-error> {{ phoneLogin.error || ('LOGIN.PHONE_ERROR' | translate) }}</mat-error>
+                      <mat-error>
+                        {{ phoneLogin.error || ('LOGIN.PHONE_ERROR' | translate) }}</mat-error
+                      >
                     }
                   </mat-form-field>
                   <mat-form-field appearance="fill">
-                    <mat-label>{{ phoneLogin?.code?.label || ('LOGIN.CODE_LABEL' | translate) }}</mat-label>
+                    <mat-label>{{
+                      phoneLogin?.code?.label || ('LOGIN.CODE_LABEL' | translate)
+                    }}</mat-label>
                     <input matInput type="text" formControlName="code" />
                     <button
                       disabled="{{ countdown() > 0 }}"
@@ -73,12 +81,16 @@
               <mat-tab label="{{ pswLogin.tabLabel || ('LOGIN.PASSWORD_TAB' | translate) }}">
                 <form class="psw-form" [formGroup]="userForm" (ngSubmit)="login()">
                   <mat-form-field appearance="fill">
-                    <mat-label>{{ pswLogin.userLabel || ('LOGIN.USERNAME_LABEL' | translate) }}</mat-label>
+                    <mat-label>{{
+                      pswLogin.userLabel || ('LOGIN.USERNAME_LABEL' | translate)
+                    }}</mat-label>
                     <mat-icon matSuffix>person</mat-icon>
                     <input matInput formControlName="name" autocomplete="username" />
                   </mat-form-field>
                   <mat-form-field appearance="fill">
-                    <mat-label>{{ pswLogin.pswLabel || ('LOGIN.PASSWORD_LABEL' | translate) }}</mat-label>
+                    <mat-label>{{
+                      pswLogin.pswLabel || ('LOGIN.PASSWORD_LABEL' | translate)
+                    }}</mat-label>
                     <input
                       matInput
                       [type]="hide ? 'password' : 'text'"
@@ -89,7 +101,11 @@
                       mat-icon-button
                       matSuffix
                       (click)="hide = !hide"
-                      [attr.aria-label]="hide ? ('LOGIN.SHOW_PASSWORD' | translate) : ('LOGIN.HIDE_PASSWORD' | translate)"
+                      [attr.aria-label]="
+                        hide
+                          ? ('LOGIN.SHOW_PASSWORD' | translate)
+                          : ('LOGIN.HIDE_PASSWORD' | translate)
+                      "
                       [attr.aria-pressed]="hide"
                     >
                       <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
@@ -139,7 +155,9 @@
           }
         }
         @if (user$ | async; as currentUser) {
-          <h1 class="welcome-title">{{ 'LOGIN.HI' | translate }}, {{ currentUser.display_name }}</h1>
+          <h1 class="welcome-title">
+            {{ 'LOGIN.HI' | translate }}, {{ currentUser.display_name }}
+          </h1>
           <mat-divider />
           <p class="welcome-text">{{ 'LOGIN.WELCOME_TEXT' | translate }}</p>
         }
