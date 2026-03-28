@@ -411,6 +411,23 @@ export class BuilderService extends ApiService {
         path: { pid },
       } = page;
 
+      const handleError = (error: any): false => {
+        const { status } = error || {};
+        let message = '更新页面 URL 失败，请重试';
+        switch (status) {
+          case 403:
+            message = '无权限执行此操作';
+            break;
+          case 409:
+            message = 'URL 已存在，请更换后重试';
+            break;
+          default:
+            message = '更新页面 URL 失败，请重试';
+        }
+        this.util.openSnackbar(message, 'ok');
+        return false;
+      };
+
       let prefix = '';
       const lang = this.getApiLang(langcode);
       if (lang) {
@@ -434,9 +451,19 @@ export class BuilderService extends ApiService {
       if (pid) {
         this.http
           .get(`${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`)
+          .pipe(
+            catchError(error => {
+              return of(handleError(error));
+            })
+          )
           .subscribe((res: any) => {
-            const { data } = res;
-            const uuid = data[0].id;
+            if (!res || !res.data || !res.data.length) {
+              this.util.openSnackbar('未找到可更新的 URL 记录', 'ok');
+              reject(false);
+              return;
+            }
+
+            const uuid = res.data[0].id;
             this.http
               .patch(
                 `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
@@ -449,8 +476,8 @@ export class BuilderService extends ApiService {
                 this.optionsWithBearerToken()
               )
               .pipe(
-                catchError(() => {
-                  return of(false);
+                catchError(error => {
+                  return of(handleError(error));
                 })
               )
               .subscribe(status => {
@@ -471,8 +498,8 @@ export class BuilderService extends ApiService {
             this.optionsWithBearerToken()
           )
           .pipe(
-            catchError(() => {
-              return of(false);
+            catchError(error => {
+              return of(handleError(error));
             })
           )
           .subscribe(res => {

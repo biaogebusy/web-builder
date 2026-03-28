@@ -337,16 +337,25 @@ export class PageSettingComponent implements OnInit {
     } = data;
 
     this.loading.set(true);
-    const alias = await this.builderService.updateUrlalias(
-      {
-        langcode,
-        id: drupal_internal__nid ?? '',
-        path,
-      },
-      value.alias
-    );
+    let alias = false;
+    try {
+      alias = await this.builderService.updateUrlalias(
+        {
+          langcode,
+          id: drupal_internal__nid ?? '',
+          path,
+        },
+        value.alias
+      );
+    } catch {
+      this.loading.set(false);
+      return;
+    }
+
     if (!alias) {
       this.util.openSnackbar(`更新别名失败，请联系管理员！`);
+      this.loading.set(false);
+      return;
     }
     this.builderService
       .updateAttributes(
@@ -479,7 +488,7 @@ export class PageSettingComponent implements OnInit {
         },
       },
     } = this.content;
-    if (alias === '/core/branding') {
+    if (alias.includes('/core/branding')) {
       this.router.navigate(['/builder/edit-header'], {
         queryParams: {
           uuid: id,
@@ -487,6 +496,8 @@ export class PageSettingComponent implements OnInit {
           langcode,
         },
       });
+      this.loading.set(false);
+      this.builder.closeRightDrawer$.next(true);
       return;
     }
     this.builderService.loadNodeJson({
@@ -517,9 +528,9 @@ export class PageSettingComponent implements OnInit {
       .subscribe({
         next: () => {
           this.util.openSnackbar(`删除${title}成功`, 'ok');
+          this.loading.set(false);
           this.builder.updateSuccess$.next(true);
           this.builder.closeRightDrawer$.next(true);
-          this.loading.set(false);
           this.deleteLocalPage(id);
         },
         error: err => {
