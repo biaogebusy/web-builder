@@ -193,13 +193,10 @@ export class UserService extends ApiService {
   }
 
   loginByPhone(phone: number, code: string): Observable<boolean> {
-    let authParams = {};
-    if (environment.oauth.clientId) {
-      authParams = {
-        grant_type: 'oauth2',
-        client_id: environment.oauth.clientId,
-      };
-    }
+    const authParams = environment.oauth.clientId
+      ? { grant_type: 'oauth2', client_id: environment.oauth.clientId }
+      : {};
+
     return this.http
       .post<any>(`${this.apiUrl}/api/v3/otp/login`, {
         mobile_number: phone,
@@ -207,13 +204,12 @@ export class UserService extends ApiService {
         ...authParams,
       })
       .pipe(
-        map(user => {
+        switchMap(tokenData => {
           if (environment.oauth.clientId) {
-            this.processTokenAndLogin(user).subscribe();
-          } else {
-            this.updateUser(user);
+            return this.processTokenAndLogin(tokenData);
           }
-          return true;
+          this.updateUser(tokenData);
+          return of(true);
         }),
         catchError(error => {
           console.log(error);
