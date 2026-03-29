@@ -49,33 +49,36 @@ export class UserService extends ApiService {
         }),
       })
       .pipe(
-        switchMap(tokenData => {
-          return this.getCurrentUserProfile(tokenData).pipe(
-            switchMap(profile =>
-              this.getCurrentUserById(profile.uid, tokenData).pipe(
-                map(userProfile => {
-                  const tokenUser: TokenUser = {
-                    access_token: tokenData.access_token,
-                    refresh_token: tokenData.refresh_token,
-                    token_type: tokenData.token_type,
-                    expires_in: tokenData.expires_in,
-                    current_user: {
-                      uid: String(profile.uid),
-                      name: profile.name || '',
-                      roles: [...profile.roles, ...userProfile.roles],
-                    },
-                  };
-                  this.loginUser(tokenUser, userProfile);
-                  return true;
-                })
-              )
-            )
-          );
-        }),
-        catchError(() => {
+        switchMap(tokenData => this.processTokenAndLogin(tokenData)),
+        catchError(error => {
+          console.error('Login failed:', error);
           return of(false);
         })
       );
+  }
+
+  processTokenAndLogin(tokenData: any): Observable<boolean> {
+    return this.getCurrentUserProfile(tokenData).pipe(
+      switchMap(profile =>
+        this.getCurrentUserById(profile.uid, tokenData).pipe(
+          map(userProfile => {
+            const tokenUser: TokenUser = {
+              access_token: tokenData.access_token,
+              refresh_token: tokenData.refresh_token,
+              token_type: tokenData.token_type,
+              expires_in: tokenData.expires_in,
+              current_user: {
+                uid: String(profile.uid),
+                name: profile.name || '',
+                roles: [...profile.roles, ...userProfile.roles],
+              },
+            };
+            this.loginUser(tokenUser, userProfile);
+            return true;
+          })
+        )
+      )
+    );
   }
 
   updateUser(data: TokenUser): any {
@@ -190,17 +193,30 @@ export class UserService extends ApiService {
   }
 
   loginByPhone(phone: number, code: string): Observable<boolean> {
+    let authParams = {};
+    if (environment.oauth.clientId) {
+      authParams = {
+        grant_type: 'oauth2',
+        client_id: environment.oauth.clientId,
+      };
+    }
     return this.http
-      .post<any>(`${this.apiUrl}/api/v3/otp/login?format=json`, {
+      .post<any>(`${this.apiUrl}/api/v3/otp/login`, {
         mobile_number: phone,
         code,
+        ...authParams,
       })
       .pipe(
         map(user => {
-          this.updateUser(user);
+          if (environment.oauth.clientId) {
+            this.processTokenAndLogin(user).subscribe();
+          } else {
+            this.updateUser(user);
+          }
           return true;
         }),
-        catchError(() => {
+        catchError(error => {
+          console.log(error);
           return of(false);
         })
       );
@@ -269,7 +285,9 @@ export class UserService extends ApiService {
               authenticated: true,
               picture: detail?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
               login: detail.login,
-              roles: detail?.roles?.map((role: any) => role.meta.drupal_internal__target_id) || [],
+              roles: (Array.isArray(detail?.roles) ? detail.roles : []).map(
+                (role: any) => role.meta.drupal_internal__target_id
+              ),
             };
           } else {
             return {
@@ -278,7 +296,7 @@ export class UserService extends ApiService {
               mail: res.mail || '',
               authenticated: true,
               picture: res.avatar || this.coreConfig?.defaultAvatar || '',
-              login: new Date(),
+              login: new Date().toISOString(),
               roles: res.roles || [],
             };
           }
