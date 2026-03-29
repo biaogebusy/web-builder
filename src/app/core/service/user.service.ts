@@ -52,7 +52,7 @@ export class UserService extends ApiService {
         switchMap(tokenData => {
           return this.getCurrentUserProfile(tokenData).pipe(
             switchMap(profile =>
-              this.getCurrentUserById(profile.uid).pipe(
+              this.getCurrentUserById(profile.uid, tokenData).pipe(
                 map(userProfile => {
                   const tokenUser: TokenUser = {
                     access_token: tokenData.access_token,
@@ -62,7 +62,7 @@ export class UserService extends ApiService {
                     current_user: {
                       uid: String(profile.uid),
                       name: profile.name || '',
-                      roles: profile.roles || [],
+                      roles: [...profile.roles, ...userProfile.roles],
                     },
                   };
                   this.loginUser(tokenUser, userProfile);
@@ -82,7 +82,7 @@ export class UserService extends ApiService {
     const {
       current_user: { uid },
     } = data;
-    this.getCurrentUserById(uid).subscribe(user => {
+    this.getCurrentUserById(uid, data).subscribe(user => {
       this.loginUser(data, user);
     });
   }
@@ -229,52 +229,61 @@ export class UserService extends ApiService {
 
   getCurrentUserProfile(tokenData: any): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/v3/accountProfile?noCache=1`, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${tokenData.access_token}`,
-        Accept: 'application/vnd.api+json',
-        'Content-Type': 'application/vnd.api+json',
-      }),
+      headers: this.getAuthHeader(tokenData.access_token),
     });
   }
 
-  getCurrentUserById(uid: string): Observable<IUserProfile> {
+  getAuthHeader(accessToken: string): any {
+    return new HttpHeaders({
+      Authorization: `Bearer ${accessToken}`,
+      Accept: 'application/vnd.api+json',
+      'Content-Type': 'application/vnd.api+json',
+    });
+  }
+
+  getCurrentUserById(uid: string, tokenData: any): Observable<IUserProfile> {
     const params = [
       `filter[drupal_internal__uid]=${uid}`,
       `include=user_picture,roles`,
       `jsonapi_include=1`,
       `noCache=1`,
     ].join('&');
-    return this.http.get<any>(`${this.userApiPath}?${params}`, this.optionsWithBearerToken()).pipe(
-      catchError((error: any) => {
-        return this.http.get<any>(
-          `${this.apiUrl}/api/v3/personalProfile?noCache=1`,
-          this.optionsWithBearerToken()
-        );
-      }),
-      map((res: any) => {
-        // jsonapi
-        if (res.data) {
-          const detail = res.data[0];
-          return {
-            id: detail.id,
-            display_name: detail?.display_name || '',
-            mail: detail?.mail || '',
-            authenticated: true,
-            picture: detail?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
-            login: detail.login,
-          };
-        } else {
-          return {
-            id: res.uid,
-            display_name: res.name,
-            mail: res.mail || '',
-            authenticated: true,
-            picture: res.avatar || this.coreConfig?.defaultAvatar || '',
-            login: new Date(),
-          };
-        }
+    return this.http
+      .get<any>(`${this.userApiPath}?${params}`, {
+        headers: this.getAuthHeader(tokenData.access_token),
       })
-    );
+      .pipe(
+        catchError((error: any) => {
+          return this.http.get<any>(`${this.apiUrl}/api/v3/personalProfile?noCache=1`, {
+            headers: this.getAuthHeader(tokenData.access_token),
+          });
+        }),
+        map((res: any) => {
+          // jsonapi
+          if (res.data) {
+            const detail = res.data[0];
+            return {
+              id: detail.id,
+              display_name: detail?.display_name || '',
+              mail: detail?.mail || '',
+              authenticated: true,
+              picture: detail?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
+              login: detail.login,
+              roles: detail?.roles?.map((role: any) => role.drupal_internal__id) || [],
+            };
+          } else {
+            return {
+              id: res.uid,
+              display_name: res.name,
+              mail: res.mail || '',
+              authenticated: true,
+              picture: res.avatar || this.coreConfig?.defaultAvatar || '',
+              login: new Date(),
+              roles: res.roles || [],
+            };
+          }
+        })
+      );
   }
 
   setUserCookie(user: IUser): void {

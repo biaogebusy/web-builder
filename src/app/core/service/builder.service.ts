@@ -213,7 +213,7 @@ export class BuilderService extends ApiService {
               type: 'update',
               label: '更新配置',
               params: {
-                reqRoles: ['administrator'],
+                reqRoles: ['administrator', 'webmaster'],
                 uuid,
                 langcode,
                 api: '/api/v1/node/json',

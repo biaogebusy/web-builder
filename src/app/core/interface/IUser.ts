@@ -10,6 +10,7 @@ export interface IUserProfile {
   authenticated: boolean;
   picture?: string;
   login: string;
+  roles: string[];
 }
 
 export interface TokenUser {
@@ -17,9 +18,7 @@ export interface TokenUser {
   refresh_token: string;
   token_type: string;
   expires_in: number;
-  csrf_token?: string;
   current_user: CurrentUser;
-  logout_token?: string;
 }
 
 export interface CurrentUser {
