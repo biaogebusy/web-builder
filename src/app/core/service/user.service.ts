@@ -269,7 +269,7 @@ export class UserService extends ApiService {
               authenticated: true,
               picture: detail?.user_picture?.uri?.url || this.coreConfig?.defaultAvatar || '',
               login: detail.login,
-              roles: detail?.roles?.map((role: any) => role.drupal_internal__id) || [],
+              roles: detail?.roles?.map((role: any) => role.meta.drupal_internal__target_id) || [],
             };
           } else {
             return {
