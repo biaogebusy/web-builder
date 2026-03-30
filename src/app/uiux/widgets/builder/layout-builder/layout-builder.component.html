@@ -11,9 +11,9 @@
   <div class="layout-builder" [ngClass]="classes" [ngStyle]="style">
     <div
       id="layout"
-      class="layout-inner {{ wrapperClass }} justify-{{
-        horizontal
-      }} justify-items-{{ vertical }} items-{{ alignItems }}  gap-{{ gap?.xs || 'none' }} sm:gap-{{
+      class="layout-inner {{ wrapperClass }} justify-{{ horizontal }} justify-items-{{
+        vertical
+      }} items-{{ alignItems }}  gap-{{ gap?.xs || 'none' }} sm:gap-{{
         gap?.sm || 'none'
       }} md:gap-{{ gap?.md || 'none' }} lg:gap-{{ gap?.lg || 'none' }}"
     >
@@ -45,10 +45,7 @@
               />
             </div>
             @if (elements.length === 0) {
-              <div
-                class="placeholder"
-                [attr.data-path]="'elements.' + i"
-              >
+              <div class="placeholder" [attr.data-path]="'elements.' + i">
                 <div #target>
                   <app-btn
                     matTooltip="插入组件"
@@ -67,13 +64,11 @@
           <div class="for-animate">
             <div
               [ngClass]="blockClasses"
-              class="blocks justify-{{
-                horizontal
-              }} justify-items-{{ vertical }} items-{{ alignItems }} gap-{{
-                gap?.xs || 'none'
-              }} sm:gap-{{ gap?.sm || 'none' }} md:gap-{{ gap?.md || 'none' }} lg:gap-{{
-                gap?.lg || 'none'
-              }}"
+              class="blocks justify-{{ horizontal }} justify-items-{{ vertical }} items-{{
+                alignItems
+              }} gap-{{ gap?.xs || 'none' }} sm:gap-{{ gap?.sm || 'none' }} md:gap-{{
+                gap?.md || 'none'
+              }} lg:gap-{{ gap?.lg || 'none' }}"
             >
               @if (bg) {
                 <app-bg-img [attr.data-path]="'bg'" [content]="bg" />
