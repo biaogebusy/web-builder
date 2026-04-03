@@ -43,6 +43,7 @@ import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ReqRolesDirective, CheckChildMenuActiveDirective, ContenteditDirective],
@@ -75,6 +76,7 @@ import { ContenteditDirective } from '@core/directive/contentedit.directive';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    TranslateModule,
   ],
   exports: [
     CommonModule,
@@ -91,6 +93,7 @@ import { ContenteditDirective } from '@core/directive/contentedit.directive';
     MatDividerModule,
     MatFormFieldModule,
     MatSelectModule,
+    TranslateModule,
     MatRippleModule,
     FormsModule,
     ReactiveFormsModule,

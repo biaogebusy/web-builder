@@ -10,12 +10,10 @@ import {
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { Observable } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import type { IUser } from '@core/interface/IUser';
 import { TagsService } from '@core/service/tags.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -27,7 +25,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class CommentItemComponent implements OnInit, AfterViewInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-  private user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: IBaseNode;
   @Input() comments: IComment[];
@@ -46,13 +43,6 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
   contentState = inject(ContentState);
   tagsService = inject(TagsService);
   private destroyRef = inject(DestroyRef);
-  user: IUser;
-
-  constructor() {
-    this.user$.pipe(takeUntilDestroyed()).subscribe(user => {
-      this.user = user;
-    });
-  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -116,8 +106,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
       this.nodeService
         .deleteEntity(
           `${this.coreConfig.apiUrl.commentGetPath}/${this.content.params.comment.attributes.field_name}`,
-          id,
-          this.user.csrf_token
+          id
         )
         .pipe(takeUntilDestroyed())
         .subscribe(

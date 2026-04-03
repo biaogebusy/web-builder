@@ -4,7 +4,7 @@
 @if (pager() && pager()?.totalPages !== 0) {
   <div class="pager">
     <mat-paginator
-      class="demo-paginator"
+      class="paginator"
       (page)="onPageChange($event)"
       [length]="pager()?.totalItems"
       [pageSize]="pager()?.itemsPerPage"

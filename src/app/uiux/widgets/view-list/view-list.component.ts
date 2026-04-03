@@ -98,7 +98,7 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
     this.loading = true;
     this.nodeService
-      .fetch(this.content.params.apiType, params, this.user.csrf_token)
+      .fetch(this.content.params.apiType, params)
       .pipe(
         catchError((error: any) => {
           if (error.status === 403) {

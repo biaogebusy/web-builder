@@ -7,7 +7,7 @@
   <div class="search-list">
     <div class="container">
       <div class="search-list-inner">
-        <div class="results m-bottom-sm">找到 {{ pager?.totalItems }} 个结果</div>
+        <div class="results m-bottom-sm">{{ pager?.totalItems }} {{ label.total || '个结果' }}</div>
         <mat-divider />
         <div [class]="wrapperClasses">
           @for (item of content | paginate: pager; track item) {
@@ -32,7 +32,7 @@
           </div>
         } @else {
           <div class="empty-text">
-            <p>没有数据。</p>
+            <p>{{ label.empty || '没有数据。' }}</p>
           </div>
         }
       </div>

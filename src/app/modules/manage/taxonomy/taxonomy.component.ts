@@ -116,7 +116,7 @@ export class TaxonomyComponent implements OnInit {
     }
     if (!this.selectedItem) {
       this.nodeService
-        .addEntity(api, value, user.csrf_token)
+        .addEntity(api, value)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .pipe(
           catchError(() => {
@@ -145,7 +145,7 @@ export class TaxonomyComponent implements OnInit {
       params: { api },
     } = this.content;
     this.nodeService
-      .deleteEntity(api, item.id, user.csrf_token)
+      .deleteEntity(api, item.id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         this.form.reset();

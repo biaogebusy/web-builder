@@ -104,7 +104,7 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
       return;
     }
     this.nodeService
-      .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
+      .getCommentsWitchChild(this.content, timeStamp)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         this.comments = res;

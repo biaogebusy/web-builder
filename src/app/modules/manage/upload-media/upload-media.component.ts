@@ -51,7 +51,7 @@ export class UploadMediaComponent {
             const data = await this.manageService.readFileAsArrayBuffer(file);
 
             const imgAttr = await lastValueFrom(
-              this.nodeService.uploadImage(file.name, data, this.user.csrf_token).pipe(
+              this.nodeService.uploadImage(file.name, data).pipe(
                 catchError(error => {
                   this.util.openSnackbar(`上传异常：${error.statusText}`, 'ok');
                   return of(false);

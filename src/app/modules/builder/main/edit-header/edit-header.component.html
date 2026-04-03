@@ -1,0 +1,217 @@
+<div class="edit-page">
+  <header class="toolbar">
+    <nav class="nav-tabs" role="tablist">
+      <a class="tab active" role="tab" aria-selected="true">Header</a>
+      <a class="tab" role="tab" aria-selected="false" [routerLink]="['/builder/edit-footer']" [queryParams]="queryParams">Footer</a>
+    </nav>
+    <div class="toolbar-right">
+      @if (dirty()) {
+        <span class="dirty-dot"></span>
+        <span class="dirty-label">未保存</span>
+      }
+      <app-btn
+        (click)="loadData()"
+        [content]="{
+          mode: 'icon',
+          icon: { svg: 'refresh' },
+          disabled: loading(),
+        }"
+      />
+      <app-btn
+        (click)="onSave()"
+        [content]="{
+          label: saving() ? '保存中...' : '保存更改',
+          color: 'primary',
+          mode: 'raised',
+          icon: { svg: 'content-save' },
+          disabled: !canSave(),
+        }"
+      />
+    </div>
+  </header>
+
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate" class="loading-bar" />
+  }
+
+  <div class="scroll-area">
+    <div class="container">
+      @if (loading() && !header()) {
+        @for (_ of [1, 2, 3]; track $index) {
+          <div class="skeleton-block">
+            <ngx-skeleton-loader count="1" appearance="line" [theme]="{ height: '44px', 'border-radius': '8px' }" />
+          </div>
+        }
+      }
+
+      @if (header()) {
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('params')">
+            <mat-icon svgIcon="cog-outline" class="card-icon" />
+            <span class="card-title">参数设置</span>
+            <mat-icon [svgIcon]="isSectionOpen('params') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+          </button>
+          @if (isSectionOpen('params')) {
+            <div class="card-body">
+              <form [formGroup]="paramsForm">
+                <formly-form [form]="paramsForm" [fields]="paramsFields" [model]="paramsModel" />
+              </form>
+            </div>
+          }
+        </section>
+
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('logo')">
+            <mat-icon svgIcon="image-outline" class="card-icon" />
+            <span class="card-title">Logo</span>
+            <mat-icon [svgIcon]="isSectionOpen('logo') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+          </button>
+          @if (isSectionOpen('logo')) {
+            <div class="card-body">
+              <form [formGroup]="logoForm">
+                <formly-form [form]="logoForm" [fields]="logoFields" [model]="logoModel" />
+              </form>
+            </div>
+          }
+        </section>
+
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('menu')">
+            <mat-icon svgIcon="menu" class="card-icon" />
+            <span class="card-title">导航菜单</span>
+            @if (menuItems().length) {
+              <span class="card-badge">{{ menuItems().length }}</span>
+            }
+            <mat-icon [svgIcon]="isSectionOpen('menu') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+          </button>
+          @if (isSectionOpen('menu')) {
+            <div class="card-body">
+              @if (!menuItems().length) {
+                <div class="empty">
+                  <p>暂无菜单项，点击下方添加</p>
+                </div>
+              }
+
+              <div cdkDropList (cdkDropListDropped)="onMenuDrop($event)">
+                @for (item of menuItems(); track $index; let i = $index) {
+                  <div cdkDrag class="row-item">
+                    <div class="row-main">
+                      <mat-icon cdkDragHandle svgIcon="dots-vertical" class="grip" aria-label="拖拽排序" role="button" tabindex="0" />
+                      <div class="row-fields">
+                        <input class="field" [value]="item.label" placeholder="菜单名称" (input)="updateMenuItem(i, 'label', $any($event.target).value)" />
+                        <input class="field" [value]="item.href || ''" placeholder="链接地址" (input)="updateMenuItem(i, 'href', $any($event.target).value)" />
+                      </div>
+                      <button class="icon-btn sm" (click)="toggleMenuExpand(i)" [attr.aria-expanded]="expandedMenuIndex() === i" aria-label="子菜单">
+                        <mat-icon [svgIcon]="expandedMenuIndex() === i ? 'chevron-up' : 'chevron-down'" />
+                      </button>
+                      <button class="icon-btn sm danger" (click)="removeMenuItem(i)" [attr.aria-label]="'删除 ' + item.label">
+                        <mat-icon svgIcon="close" />
+                      </button>
+                    </div>
+
+                    @if (expandedMenuIndex() === i) {
+                      <div class="row-expand">
+                        <label class="field-label">CSS 类</label>
+                        <input class="field field-block" [value]="item.classes || ''" (input)="updateMenuItem(i, 'classes', $any($event.target).value)" />
+
+                        <div class="child-header">
+                          <span class="child-title">子菜单</span>
+                          <button class="ghost-btn" (click)="addChildMenuItem(i)">
+                            <mat-icon svgIcon="plus" class="btn-icon" />添加
+                          </button>
+                        </div>
+
+                        @if (item.child?.length) {
+                          <div cdkDropList class="child-drop" (cdkDropListDropped)="onChildMenuDrop(i, $event)">
+                            @for (child of item.child; track $index; let j = $index) {
+                              <div cdkDrag class="child-row">
+                                <mat-icon cdkDragHandle svgIcon="dots-vertical" class="grip sm" aria-label="拖拽排序" role="button" tabindex="0" />
+                                <div class="row-fields">
+                                  <input class="field" [value]="child.label" placeholder="名称" (input)="updateChildMenuItem(i, j, 'label', $any($event.target).value)" />
+                                  <input class="field" [value]="child.href || ''" placeholder="链接" (input)="updateChildMenuItem(i, j, 'href', $any($event.target).value)" />
+                                </div>
+                                <button class="icon-btn sm danger" (click)="removeChildMenuItem(i, j)" [attr.aria-label]="'删除 ' + child.label">
+                                  <mat-icon svgIcon="close" />
+                                </button>
+                              </div>
+                            }
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <button class="ghost-btn add-row-btn" (click)="addMenuItem()">
+                <mat-icon svgIcon="plus" class="btn-icon" />添加菜单项
+              </button>
+            </div>
+          }
+        </section>
+
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('search')">
+            <mat-icon svgIcon="magnify" class="card-icon" />
+            <span class="card-title">搜索</span>
+            <mat-icon [svgIcon]="isSectionOpen('search') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+          </button>
+          @if (isSectionOpen('search')) {
+            <div class="card-body">
+              <form [formGroup]="searchForm">
+                <formly-form [form]="searchForm" [fields]="searchFields" [model]="searchModel" />
+              </form>
+            </div>
+          }
+        </section>
+
+        <section class="card">
+          <button class="card-header" (click)="toggleSection('actions')">
+            <mat-icon svgIcon="gesture-tap-button" class="card-icon" />
+            <span class="card-title">操作按钮</span>
+            <mat-icon [svgIcon]="isSectionOpen('actions') ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+          </button>
+          @if (isSectionOpen('actions')) {
+            <div class="card-body">
+              <form [formGroup]="actionsForm">
+                <formly-form [form]="actionsForm" [fields]="actionsFields" [model]="actionsModel" />
+              </form>
+            </div>
+          }
+        </section>
+
+        <section class="card json-card">
+          <button class="card-header" (click)="showJson.set(!showJson())">
+            <mat-icon svgIcon="code-json" class="card-icon" />
+            <span class="card-title">JSON</span>
+            @if (jsonEditMode()) {
+              <span class="card-badge accent">编辑中</span>
+            }
+            @if (jsonError()) {
+              <span class="card-badge warn">语法错误</span>
+            }
+            <mat-icon [svgIcon]="showJson() ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
+          </button>
+          @if (showJson()) {
+            <div class="json-body">
+              <div class="json-toolbar">
+                <button class="ghost-btn" (click)="toggleJsonEditMode()">
+                  <mat-icon [svgIcon]="jsonEditMode() ? 'eye-outline' : 'pencil-outline'" class="btn-icon" />
+                  {{ jsonEditMode() ? '切换预览' : '编辑 JSON' }}
+                </button>
+                @if (jsonEditMode()) {
+                  <span class="json-hint">保存时会与表单配置深度合并</span>
+                }
+              </div>
+              @if (jsonEditMode()) {
+                <ngx-monaco-editor class="json-editor" [options]="monacoEditableOptions" [ngModel]="customJson" (ngModelChange)="onJsonChange($event)" />
+              } @else {
+                <ngx-monaco-editor class="json-editor" [options]="monacoReadonlyOptions" [ngModel]="jsonPreview()" />
+              }
+            </div>
+          }
+        </section>
+      }
+    </div>
+  </div>
+</div>

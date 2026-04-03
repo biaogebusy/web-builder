@@ -9,10 +9,12 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  PendingTasks,
   Renderer2,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
+  afterNextRender,
   createComponent,
   inject,
   signal,
@@ -27,6 +29,9 @@ import type { IDynamicInputs } from '@core/interface/IAppConfig';
   templateUrl: './dynamic-component.component.html',
   styleUrls: ['./dynamic-component.component.scss'],
   standalone: false,
+  host: {
+    ngSkipHydration: 'true',
+  },
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   @Input() inputs: IDynamicInputs;
@@ -40,25 +45,53 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
   private componentService = inject(ComponentService);
   private readonly renderer = inject(Renderer2);
   private readonly environmentInjector = inject(EnvironmentInjector);
+  private readonly pendingTasks = inject(PendingTasks);
   public componentRef: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   public compContent = signal<any>({});
   @HostBinding('class.relative') relative = true;
   @HostBinding('class.block') block = true;
 
-  ngOnInit(): void {}
+  private initialized = false;
+
+  constructor() {
+    // 浏览器端：在首次渲染完成后再加载动态组件，
+    // 避免与 SSR hydration 冲突导致组件渲染两次
+    afterNextRender(() => {
+      this.initialized = true;
+      this.loadComponent();
+      if (this.ele.nativeElement.closest('.component-item')) {
+        this.showToolbar.set(true);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    // 提前设置 compContent，让模板中 @if 块在客户端首帧就能正确渲染
+    if (this.inputs) {
+      const content = this.inputs.type ? this.inputs : this.inputs.content;
+      if (content) {
+        this.compContent.set(content);
+      }
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     Object.keys(changes).forEach(key => {
-      if (!changes[key].firstChange) {
+      if (!changes[key].firstChange && this.initialized) {
         this.loadComponent();
       }
     });
   }
 
   ngAfterViewInit(): void {
-    this.loadComponent();
-    if (this.ele.nativeElement.closest('.component-item')) {
-      this.showToolbar.set(true);
+    // 仅服务端执行：生成 SSR HTML
+    // 通过 PendingTasks 通知 Angular 等待异步加载完成后再输出 HTML
+    if (!this.screenService.isPlatformBrowser()) {
+      const taskCleanup = this.pendingTasks.add();
+      this.loadComponent().finally(() => taskCleanup());
+      if (this.ele.nativeElement.closest('.component-item')) {
+        this.showToolbar.set(true);
+      }
     }
   }
 

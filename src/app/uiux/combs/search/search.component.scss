@@ -2,10 +2,10 @@
   @apply grid grid-cols-12;
 }
 
-.sidebar-col {
+.sidebar {
   @apply block col-span-12 sm:col-span-3;
 }
 
 .list-col {
-  @apply block col-span-12;
+  @apply block;
 }

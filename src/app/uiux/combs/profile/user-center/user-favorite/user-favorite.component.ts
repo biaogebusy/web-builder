@@ -16,11 +16,11 @@ import { USER } from '@core/token/token-providers';
 import { IListThin } from '@core/interface/combs/IList';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
-    selector: 'app-user-favorite',
-    templateUrl: './user-favorite.component.html',
-    styleUrls: ['./user-favorite.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-user-favorite',
+  templateUrl: './user-favorite.component.html',
+  styleUrls: ['./user-favorite.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class UserFavoriteComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
@@ -59,7 +59,7 @@ export class UserFavoriteComponent implements OnInit {
       `sort=-created`,
       `jsonapi_include=1`,
     ].join('&');
-    this.lists$ = this.nodeService.getNodes(path, 'favorite', params, this.user.csrf_token).pipe(
+    this.lists$ = this.nodeService.getNodes(path, 'favorite', params).pipe(
       takeUntilDestroyed(this.destroyRef),
       map(res => {
         const lists = res.data.filter((item: any) => {

@@ -139,7 +139,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   renderView(content: any, html: string): void {
-    const sanitized = DOMPurify.sanitize(html);
+    const sanitized = DOMPurify.sanitize(html, { ADD_TAGS: ['style'], FORCE_BODY: true });
     this.template.innerHTML = Mustache.render(sanitized, content);
   }
 }

@@ -5,10 +5,7 @@
   overflow: hidden;
   @apply transition-all;
   .api-box {
-    @apply flex flex-col p-3 max-h-full overflow-auto col-span-12;
-  }
-  .editor-box {
-    @apply col-span-12;
+    @apply flex flex-col p-3 max-h-full overflow-auto;
   }
   .formly-block {
     @apply block;

@@ -66,9 +66,7 @@
       @apply hidden sm:flex whitespace-nowrap;
     }
   }
-  .menu-item-content {
-    @apply flex items-center;
-  }
+
   &.fixed {
     position: fixed;
     top: 0;

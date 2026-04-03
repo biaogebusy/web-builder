@@ -21,11 +21,11 @@ import { environment } from 'src/environments/environment';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-flag',
-    templateUrl: './flag.component.html',
-    styleUrls: ['./flag.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-flag',
+  templateUrl: './flag.component.html',
+  styleUrls: ['./flag.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlagComponent extends BaseComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -71,12 +71,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
       return;
     }
     this.nodeService
-      .getNodes(
-        this.coreConfig.apiUrl.flaggingGetPath,
-        this.type,
-        this.flaggingParams,
-        this.user.csrf_token
-      )
+      .getNodes(this.coreConfig.apiUrl.flaggingGetPath, this.type, this.flaggingParams)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         if (res.data.length) {
@@ -117,7 +112,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
         },
       };
       this.nodeService
-        .flagging(this.path, JSON.stringify(data), this.user.csrf_token)
+        .flagging(this.path, JSON.stringify(data))
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
           this.flagging = true;
@@ -129,7 +124,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
         .getNodes(this.coreConfig.apiUrl.flaggingGetPath, this.type, this.flaggingParams)
         .pipe(
           switchMap(res => {
-            return this.nodeService.deleteFlagging(this.path, res.data, this.user.csrf_token);
+            return this.nodeService.deleteFlagging(this.path, res.data);
           }),
           takeUntilDestroyed(this.destroyRef)
         )

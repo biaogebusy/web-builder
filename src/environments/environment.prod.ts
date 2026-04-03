@@ -19,4 +19,9 @@ export const environment: IEnvironment = {
       prefix: '/en',
     },
   ],
+  oauth: {
+    clientId: 'xxx',
+    tokenUrl: '/oauth/token',
+    scope: '',
+  },
 };

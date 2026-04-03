@@ -36,7 +36,7 @@ module.exports = {
       variants: ['sm', 'md', 'lg'],
     },
     { pattern: /^flex-(\d{1,2}\/12)$/, variants: ['sm', 'md', 'lg'] },
-    { pattern: /^(grow|shrink)(-0)?$/, variants: ['sm', 'md', 'lg'] },
+    { pattern: /^(flex-)?(grow|shrink)(-0)?$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern:
         /^basis-(0|0\.5|1|1\.5|2|2\.5|3|3\.5|4|5|6|7|8|9|10|11|12|14|16|20|24|28|32|36|40|44|48|52|56|60|64|72|80|96|auto|px|full|1\/2|1\/3|2\/3|1\/4|2\/4|3\/4|1\/5|2\/5|3\/5|4\/5|1\/6|5\/6|1\/12|2\/12|3\/12|4\/12|5\/12|6\/12|7\/12|8\/12|9\/12|10\/12|11\/12)$/,
@@ -162,6 +162,7 @@ module.exports = {
     { pattern: /^(break-normal|break-words|break-all|break-keep)$/ },
     { pattern: /^leading-(none|tight|snug|normal|relaxed|loose|[3-9]|10)$/ },
     { pattern: /^tracking-(tighter|tight|normal|wide|wider|widest)$/ },
+    'tracking-[0.2em]',
     { pattern: /^align-(baseline|top|middle|bottom|text-top|text-bottom|sub|super)$/ },
     { pattern: /^list-(none|disc|decimal|inside|outside)$/ },
     { pattern: /^line-clamp-([1-9]|10|none)$/, variants: ['sm', 'md', 'lg'] },
@@ -181,7 +182,7 @@ module.exports = {
     },
 
     // ==================== Background ====================
-    { pattern: /^bg-(black|white|inherit|current|transparent)$/, variants: ['hover'] },
+    { pattern: /^bg-(black|white|inherit|current|transparent)(\/(?:0|5|10|[1-9][05]|100))?$/, variants: ['hover'] },
     {
       pattern:
         /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(?:\/(?:0|5|10|[1-9][05]|100))?$/,
@@ -207,7 +208,7 @@ module.exports = {
         /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
       variants: ['hover'],
     },
-    { pattern: /^border-(black|white|current|transparent|inherit)$/ },
+    { pattern: /^border-(black|white|current|transparent|inherit)(\/(?:0|5|10|[1-9][05]|100))?$/ },
     { pattern: /^border-(solid|dashed|dotted|double|hidden|none)$/ },
     'border-collapse',
     'border-separate',
@@ -246,7 +247,7 @@ module.exports = {
     // ==================== Opacity ====================
     {
       pattern: /^opacity-(0|5|10|15|20|25|30|35|40|45|50|55|60|65|70|75|80|85|90|95|100)$/,
-      variants: ['hover'],
+      variants: ['hover', 'group-hover'],
     },
 
     // ==================== Transition & Animation ====================

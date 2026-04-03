@@ -14,7 +14,12 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
-import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
@@ -40,11 +45,22 @@ import {
 } from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
 import { CookieService } from 'ngx-cookie-service';
+import { AuthInterceptor } from '@core/interceptor/auth.interceptor';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  imports: [AppRoutingModule, BrowserModule, PageModule],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    PageModule,
+    TranslateModule.forRoot({
+      fallbackLang: environment.langs?.find(item => item.default)?.langCode || 'zh-hans',
+    }),
+  ],
   providers: [
     Title,
     CookieService,
@@ -64,6 +80,10 @@ import { CookieService } from 'ngx-cookie-service';
       withNgxWebstorageConfig({ separator: ':', caseSensitive: true }),
       withLocalStorage()
     ),
+    ...provideTranslateHttpLoader({
+      prefix: '/assets/i18n/',
+      suffix: '.json',
+    }),
     {
       provide: CORE_CONFIG,
       useValue: {},
@@ -100,6 +120,11 @@ import { CookieService } from 'ngx-cookie-service';
     },
 
     provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
 })
 export class AppModule {}
