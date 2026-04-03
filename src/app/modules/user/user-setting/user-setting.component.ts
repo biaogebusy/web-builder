@@ -27,7 +27,7 @@ import { Observable, catchError, of } from 'rxjs';
 })
 export class UserSettingComponent implements OnInit {
   public user$ = inject<Observable<IUser>>(USER);
-
+  private user: IUser;
   public form = new FormGroup({});
   public model: any = {};
   public fields: FormlyFieldConfig[];
@@ -43,6 +43,7 @@ export class UserSettingComponent implements OnInit {
   ngOnInit(): void {
     this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user: IUser) => {
       this.loading.set(false);
+      this.user = user;
       if (user) {
         this.fields = [
           {
@@ -209,7 +210,7 @@ export class UserSettingComponent implements OnInit {
       )
       .subscribe((res: any) => {
         if (res) {
-          this.userService.updateUserBySession();
+          this.userService.updateUser(this.user);
           this.util.openSnackbar('更新成功！', 'ok');
         } else {
           this.util.openSnackbar('更新失败！', 'ok');
@@ -222,12 +223,8 @@ export class UserSettingComponent implements OnInit {
   onLogout(): void {
     this.loading.set(true);
     this.userService.logout();
-    this.userService.userSub$.subscribe(user => {
-      if (!user) {
-        this.loading.set(false);
-        this.dialog.closeAll();
-      }
-    });
+    this.loading.set(false);
+    this.dialog.closeAll();
   }
 
   async handleFileChange(event: Event, user: IUser): Promise<void> {
@@ -255,8 +252,8 @@ export class UserSettingComponent implements OnInit {
         )
         .subscribe(res => {
           if (res) {
+            this.userService.updateUser(this.user);
             this.util.openSnackbar('头像上传成功', 'ok');
-            this.userService.updateUserBySession();
           } else {
             this.util.openSnackbar('头像上传失败', 'ok');
           }

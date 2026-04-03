@@ -217,13 +217,6 @@ export function userFactory(): Observable<IUser | boolean> {
         user$.next(false);
       }
     }
-
-    // if user info change will reload window
-    if (environment?.drupalProxy) {
-      if (!cookieService.check(key)) {
-        doc.location.reload();
-      }
-    }
   }
   userService.userSub$.subscribe(user => {
     user$.next(user);

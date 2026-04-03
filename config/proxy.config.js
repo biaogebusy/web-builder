@@ -3,6 +3,7 @@ const PROXY_CONFIG = [
     context: [
       '/en/api',
       '/api',
+      '/oauth',
       '/session',
       '/user',
       '/sites',

@@ -33,14 +33,12 @@ export class ApiService {
     };
   }
 
-  optionsWithCookieAndToken(csrfToken: string): any {
+  optionsWithBearerToken(): any {
     return {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
-        'X-CSRF-Token': csrfToken,
       }),
-      withCredentials: true,
     };
   }
 

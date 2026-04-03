@@ -10,6 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
@@ -48,6 +49,7 @@ export class PageSettingComponent implements OnInit {
   private builderService = inject(BuilderService);
   private destroyRef = inject(DestroyRef);
   private userService = inject(UserService);
+  private router = inject(Router);
   private user: IUser;
 
   constructor() {
@@ -335,16 +337,25 @@ export class PageSettingComponent implements OnInit {
     } = data;
 
     this.loading.set(true);
-    const alias = await this.builderService.updateUrlalias(
-      {
-        langcode,
-        id: drupal_internal__nid ?? '',
-        path,
-      },
-      value.alias
-    );
+    let alias = false;
+    try {
+      alias = await this.builderService.updateUrlalias(
+        {
+          langcode,
+          id: drupal_internal__nid ?? '',
+          path,
+        },
+        value.alias
+      );
+    } catch {
+      this.loading.set(false);
+      return;
+    }
+
     if (!alias) {
       this.util.openSnackbar(`更新别名失败，请联系管理员！`);
+      this.loading.set(false);
+      return;
     }
     this.builderService
       .updateAttributes(
@@ -477,6 +488,18 @@ export class PageSettingComponent implements OnInit {
         },
       },
     } = this.content;
+    if (alias.includes('/core/branding')) {
+      this.router.navigate(['/builder/edit-header'], {
+        queryParams: {
+          uuid: id,
+          nid: drupal_internal__nid,
+          langcode,
+        },
+      });
+      this.loading.set(false);
+      this.builder.closeRightDrawer$.next(true);
+      return;
+    }
     this.builderService.loadNodeJson({
       langcode,
       nid: drupal_internal__nid,
@@ -500,14 +523,14 @@ export class PageSettingComponent implements OnInit {
       attributes: { title },
     } = data;
     this.nodeService
-      .deleteEntity(api, id, this.user.csrf_token)
+      .deleteEntity(api, id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
           this.util.openSnackbar(`删除${title}成功`, 'ok');
+          this.loading.set(false);
           this.builder.updateSuccess$.next(true);
           this.builder.closeRightDrawer$.next(true);
-          this.loading.set(false);
           this.deleteLocalPage(id);
         },
         error: err => {

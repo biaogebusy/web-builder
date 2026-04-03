@@ -21,23 +21,31 @@
             @let phoneLogin = loginConfig.phoneLogin;
             @let pswLogin = loginConfig.pswLogin;
             @if (phoneLogin.enable) {
-              <mat-tab label="{{ phoneLogin.tabLabel || '手机登录' }}">
+              <mat-tab label="{{ phoneLogin.tabLabel || ('LOGIN.PHONE_TAB' | translate) }}">
                 <form class="phone-form" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
                   <mat-form-field appearance="fill">
-                    <mat-label>{{ phoneLogin.placeholder || '请输入手机号码' }}</mat-label>
+                    <mat-label>{{
+                      phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
+                    }}</mat-label>
                     <mat-icon matSuffix>phone_iphone</mat-icon>
                     <input
-                      [placeholder]="phoneLogin.placeholder || '请输入手机号码'"
+                      [placeholder]="
+                        phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
+                      "
                       type="text"
                       matInput
                       formControlName="phone"
                     />
                     @if (formPhone.phone.errors?.pattern) {
-                      <mat-error> {{ phoneLogin.error || '请输入正确的手机号码' }}</mat-error>
+                      <mat-error>
+                        {{ phoneLogin.error || ('LOGIN.PHONE_ERROR' | translate) }}</mat-error
+                      >
                     }
                   </mat-form-field>
                   <mat-form-field appearance="fill">
-                    <mat-label>{{ phoneLogin?.code?.label || '验证码' }}</mat-label>
+                    <mat-label>{{
+                      phoneLogin?.code?.label || ('LOGIN.CODE_LABEL' | translate)
+                    }}</mat-label>
                     <input matInput type="text" formControlName="code" />
                     <button
                       disabled="{{ countdown() > 0 }}"
@@ -50,7 +58,7 @@
                       aria-label="code"
                     >
                       <small class="code-label">
-                        {{ phoneLogin?.code?.sendLabel || '发送验证码' }}
+                        {{ phoneLogin?.code?.sendLabel || ('LOGIN.CODE_SEND' | translate) }}
                         @if (countdown()) {
                           ({{ countdown() }})
                         }
@@ -70,15 +78,19 @@
               </mat-tab>
             }
             @if (pswLogin.enable) {
-              <mat-tab label="{{ pswLogin.tabLabel || '密码登录' }}">
+              <mat-tab label="{{ pswLogin.tabLabel || ('LOGIN.PASSWORD_TAB' | translate) }}">
                 <form class="psw-form" [formGroup]="userForm" (ngSubmit)="login()">
                   <mat-form-field appearance="fill">
-                    <mat-label>{{ pswLogin.userLabel || '用户名' }}</mat-label>
+                    <mat-label>{{
+                      pswLogin.userLabel || ('LOGIN.USERNAME_LABEL' | translate)
+                    }}</mat-label>
                     <mat-icon matSuffix>person</mat-icon>
                     <input matInput formControlName="name" autocomplete="username" />
                   </mat-form-field>
                   <mat-form-field appearance="fill">
-                    <mat-label>{{ pswLogin.pswLabel || '密码' }}</mat-label>
+                    <mat-label>{{
+                      pswLogin.pswLabel || ('LOGIN.PASSWORD_LABEL' | translate)
+                    }}</mat-label>
                     <input
                       matInput
                       [type]="hide ? 'password' : 'text'"
@@ -89,7 +101,11 @@
                       mat-icon-button
                       matSuffix
                       (click)="hide = !hide"
-                      [attr.aria-label]="'Hide password'"
+                      [attr.aria-label]="
+                        hide
+                          ? ('LOGIN.SHOW_PASSWORD' | translate)
+                          : ('LOGIN.HIDE_PASSWORD' | translate)
+                      "
                       [attr.aria-pressed]="hide"
                     >
                       <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
@@ -113,7 +129,7 @@
               <div class="social-login">
                 <div class="social-login-divider">
                   <mat-divider />
-                  <span>{{ socialLoginConfig.label || '第三方登录' }}</span>
+                  <span>{{ socialLoginConfig.label || ('LOGIN.SOCIAL_LOGIN' | translate) }}</span>
                   <mat-divider />
                 </div>
                 <div class="social-login-buttons">
@@ -139,9 +155,11 @@
           }
         }
         @if (user$ | async; as currentUser) {
-          <h1 class="welcome-title">Hi, {{ currentUser.display_name }}</h1>
+          <h1 class="welcome-title">
+            {{ 'LOGIN.HI' | translate }}, {{ currentUser.display_name }}
+          </h1>
           <mat-divider />
-          <p class="welcome-text">欢迎。</p>
+          <p class="welcome-text">{{ 'LOGIN.WELCOME_TEXT' | translate }}</p>
         }
       </div>
     </div>

@@ -33,7 +33,7 @@ export class NodeService extends ApiService {
     return this.coreConfig.apiUrl;
   }
 
-  fetch(api: string, params: string, token?: string, langCode?: string): Observable<any> {
+  fetch(api: string, params: string, langCode?: string): Observable<any> {
     let apiParams = '';
     let lang = '';
     if (!api) {
@@ -53,10 +53,7 @@ export class NodeService extends ApiService {
         : `${this.apiUrl}${lang}/api/v1/${api}?${params}`;
     }
 
-    return this.http.get<any>(
-      apiParams,
-      token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
-    );
+    return this.http.get<any>(apiParams, this.httpOptionsOfCommon);
   }
 
   getNodeByLink(link: string): Observable<any> {
@@ -64,11 +61,8 @@ export class NodeService extends ApiService {
   }
 
   // params can use for noCache
-  getNodes(path: string, type: string, params = '', token = ''): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}${path}/${type}?${params}`,
-      token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
-    );
+  getNodes(path: string, type: string, params = ''): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}${path}/${type}?${params}`, this.httpOptionsOfCommon);
   }
 
   /**
@@ -85,21 +79,18 @@ export class NodeService extends ApiService {
     }
     const path = entityType.replace('--', '/');
     // 为每个 UUID 创建删除请求
-    const deleteRequests = uuids.map(uuid => this.deleteEntity(path, uuid, this.user.csrf_token));
+    const deleteRequests = uuids.map(uuid => this.deleteEntity(path, uuid));
 
     // 使用 forkJoin 并行执行所有删除请求
     return forkJoin(deleteRequests);
   }
 
-  deleteEntity(path: string, id: string, token: string): Observable<any> {
-    return this.http.delete<any>(
-      `${this.apiUrl}${path}/${id}`,
-      this.optionsWithCookieAndToken(token)
-    );
+  deleteEntity(path: string, id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}${path}/${id}`, this.optionsWithBearerToken());
   }
 
   // path: /api/v1/taxonomy_term/page_group
-  addEntity(path: string, attr: any, token: string): Observable<any> {
+  addEntity(path: string, attr: any): Observable<any> {
     const post = {
       data: {
         type: this.getEntityType(path),
@@ -111,7 +102,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${path}`,
       JSON.stringify(post),
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -131,7 +122,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       JSON.stringify(entity),
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -142,7 +133,7 @@ export class NodeService extends ApiService {
     return this.http.patch<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
       JSON.stringify(entity),
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -153,7 +144,7 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       JSON.stringify(entity),
-      this.optionsWithCookieAndToken(token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -222,11 +213,12 @@ export class NodeService extends ApiService {
   }
 
   // api 在有权限的时候会有很大的性能开销，可使用自定义api
-  getCommentsWitchChild(content: any, token = '', timeStamp = 1): Observable<any> {
+  getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
+    const token = this.user.access_token;
     const path = this.apiUrlConfig.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);
-    return this.getNodes(path, type, params, token).pipe(
+    return this.getNodes(path, type, params).pipe(
       switchMap((data: any) => {
         const lists = data.data
           .filter((list: any) => {
@@ -246,8 +238,7 @@ export class NodeService extends ApiService {
           obj[item.id] = this.getNodes(
             path,
             type,
-            this.getCommentsPidParams(item.id, timeStamp),
-            token
+            this.getCommentsPidParams(item.id, timeStamp)
           ).pipe(
             map((childs: any) => {
               if (!childs.data) {
@@ -272,38 +263,28 @@ export class NodeService extends ApiService {
   }
 
   // custom get comment api
-  getCustomApiComment(uuid: string, timeStamp = 1, token?: string): Observable<any> {
+  getCustomApiComment(uuid: string, timeStamp = 1): Observable<any> {
     const params = [`timeStamp=${timeStamp}`].join('&');
 
     return this.http.get<IComment[]>(
       `${this.apiUrl}/api/v3/comment/comment/${uuid}?${params}`,
-      token ? this.optionsWithCookieAndToken : this.httpOptionsOfCommon
+      this.httpOptionsOfCommon
     );
   }
 
   getFlaging(path: string, params: string, token: string): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}${path}?${params}`,
-      this.optionsWithCookieAndToken(token)
-    );
+    return this.http.get<any>(`${this.apiUrl}${path}?${params}`, this.optionsWithBearerToken());
   }
 
-  flagging(path: string, data: any, token: string): Observable<any> {
-    return this.http.post<any>(
-      `${this.apiUrl}${path}`,
-      data,
-      this.optionsWithCookieAndToken(token)
-    );
+  flagging(path: string, data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}${path}`, data, this.optionsWithBearerToken());
   }
 
-  deleteFlagging(path: string, items: any[], token: string): Observable<any> {
+  deleteFlagging(path: string, items: any[]): Observable<any> {
     const obj: any = {};
     items.forEach(item => {
       const id = item.uuid || item.id;
-      obj[id] = this.http.delete<any>(
-        `${this.apiUrl}${path}/${id}`,
-        this.optionsWithCookieAndToken(token)
-      );
+      obj[id] = this.http.delete<any>(`${this.apiUrl}${path}/${id}`, this.optionsWithBearerToken());
     });
     return forkJoin(obj);
   }
@@ -348,16 +329,14 @@ export class NodeService extends ApiService {
     }
   }
 
-  uploadImage(fileName: string, imageData: any, csrfToken: string): Observable<IMediaAttr> {
+  uploadImage(fileName: string, imageData: any): Observable<IMediaAttr> {
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/octet-stream',
           'Content-Disposition': `file; filename="${encodeURIComponent(fileName)}"`,
-          'X-CSRF-Token': csrfToken,
         }),
-        withCredentials: true,
       })
       .pipe(
         // 使用 switchMap 来执行后续操作
@@ -392,15 +371,13 @@ export class NodeService extends ApiService {
       },
     };
 
-    return this.http
-      .post(`/api/v1/media/image`, mediaData, this.optionsWithCookieAndToken(this.user.csrf_token))
-      .pipe(
-        map(() => void 0),
-        catchError(error => {
-          console.error('Create media image failed:', error);
-          return throwError(() => error);
-        })
-      );
+    return this.http.post(`/api/v1/media/image`, mediaData, this.optionsWithBearerToken()).pipe(
+      map(() => void 0),
+      catchError(error => {
+        console.error('Create media image failed:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   imageHandler(editor: any): void {
@@ -419,7 +396,7 @@ export class NodeService extends ApiService {
           const reader = new FileReader();
           reader.onload = (e: any) => {
             const data = e.target.result;
-            this.uploadImage(file.name, data, this.user.csrf_token).subscribe((img: IMediaAttr) => {
+            this.uploadImage(file.name, data).subscribe((img: IMediaAttr) => {
               const range = editor.getSelection(true);
               editor.insertEmbed(range.index, 'image', img.uri.url);
             });

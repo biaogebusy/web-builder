@@ -40,6 +40,8 @@
     "@ngx-loading-bar/core": "^7.0.0",
     "@ngx-loading-bar/http-client": "^7.0.0",
     "@ngx-loading-bar/router": "^7.0.0",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^17.0.0",
     "@popperjs/core": "^2.11.8",
     "aos": "^3.0.0-beta.6",
     "compression": "^1.8.1",

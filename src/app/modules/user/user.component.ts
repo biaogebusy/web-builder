@@ -12,7 +12,6 @@ import { isEmpty } from 'lodash-es';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -47,7 +46,7 @@ export class UserComponent implements OnInit {
       this.userService.userSub$.subscribe(user => {
         if (!user) {
           setTimeout(() => {
-            this.route.navigate([environment.drupalProxy ? '/my' : '/me/login']);
+            this.route.navigate(['/me/login']);
           }, 2000);
         } else {
           window.location.reload();
@@ -58,54 +57,52 @@ export class UserComponent implements OnInit {
 
   getUser(): any {
     const people = {};
-    this.userService
-      .getUserById(this.user.current_user.uid, this.user.csrf_token)
-      .subscribe(res => {
-        const info = res.data[0];
-        if (!info) {
-          return;
-        }
-        const profile = {
-          bannerBg: this.getBanner(),
-          avatar: {
-            src: info?.user_picture?.uri?.url || this.coreConfig.defaultAvatar,
-            alt: info.name,
-          },
-          name: info.name,
-          subTitle: info.display_name,
-          details: {
-            label: '个人资料',
-            elements: [
-              {
-                icon: {
-                  color: 'warn',
-                  svg: 'arrow_right',
-                },
-                label: '邮箱',
-                content: info.mail || '没有填写',
+    this.userService.getUserById(this.user.current_user.uid).subscribe(res => {
+      const info = res.data[0];
+      if (!info) {
+        return;
+      }
+      const profile = {
+        bannerBg: this.getBanner(),
+        avatar: {
+          src: info?.user_picture?.uri?.url || this.coreConfig.defaultAvatar,
+          alt: info.name,
+        },
+        name: info.name,
+        subTitle: info.display_name,
+        details: {
+          label: '个人资料',
+          elements: [
+            {
+              icon: {
+                color: 'warn',
+                svg: 'arrow_right',
               },
-              {
-                icon: {
-                  color: 'warn',
-                  svg: 'arrow_right',
-                },
-                label: '手机',
-                content: info.phone_number || '没有填写',
+              label: '邮箱',
+              content: info.mail || '没有填写',
+            },
+            {
+              icon: {
+                color: 'warn',
+                svg: 'arrow_right',
               },
-              {
-                icon: {
-                  color: 'warn',
-                  svg: 'arrow_right',
-                },
-                label: '角色',
-                content: this.getRoles(info.roles),
+              label: '手机',
+              content: info.phone_number || '没有填写',
+            },
+            {
+              icon: {
+                color: 'warn',
+                svg: 'arrow_right',
               },
-            ],
-          },
-        };
-        this.currentUser = Object.assign(people, profile);
-        this.cd.detectChanges();
-      });
+              label: '角色',
+              content: this.getRoles(info.roles),
+            },
+          ],
+        },
+      };
+      this.currentUser = Object.assign(people, profile);
+      this.cd.detectChanges();
+    });
   }
 
   getBanner(): any {

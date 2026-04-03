@@ -234,6 +234,14 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builderService.loadPage({ langcode, nid });
   }
 
+  copyPage(page: any): void {
+    this.builderService.loadPage({
+      langcode: page.langcode,
+      nid: page.nid,
+      isTemplate: true,
+    });
+  }
+
   updateByJSON(page: any): void {
     const { langcode, nid } = page;
     if (!nid) {
@@ -266,7 +274,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   createLangVersion(currentPage: IPageMeta, targetlang: string): void {
     this.builder.loading$.next(true);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', '', targetlang)
+      .fetch(`/api/v3/landingPage/json/${currentPage.nid}`, 'noCache=1', targetlang)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((page: IPage) => {
         this.builder.loading$.next(false);

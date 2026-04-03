@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
-import { BUILDER_CONFIG, USER } from '@core/token/token-providers';
+import { BUILDER_CONFIG } from '@core/token/token-providers';
 import type { IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
 import { Observable, of } from 'rxjs';
-import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
@@ -23,7 +22,6 @@ import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
   providedIn: 'root',
 })
 export class BuilderService extends ApiService {
-  private user$ = inject<Observable<IUser>>(USER);
   private builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   private dialog = inject(MatDialog);
@@ -31,14 +29,10 @@ export class BuilderService extends ApiService {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private contentService = inject(ContentService);
-  private user: IUser;
   private builderConfig: IBuilderConfig;
 
   constructor() {
     super();
-    this.user$.subscribe(user => {
-      this.user = user;
-    });
     this.builderConfig$.subscribe(config => {
       this.builderConfig = config;
     });
@@ -71,13 +65,17 @@ export class BuilderService extends ApiService {
     const { langcode, nid, isTemplate } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
+      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
       .subscribe((content: IPage) => {
         const { body, status, uuid, title } = content;
         this.builder.loading$.next(false);
         if (status) {
           this.builder.loadNewPage(this.formatToExtraData(content, isTemplate));
-          this.util.openSnackbar(`已加载${content.title}`, 'ok');
+          if (isTemplate) {
+            this.util.openSnackbar(`已复制${content.title}`, 'ok');
+          } else {
+            this.util.openSnackbar(`已加载${content.title}`, 'ok');
+          }
           if (openSetting) {
             const config: IDialog = {
               title: '页面属性',
@@ -120,7 +118,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
+      .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
       .subscribe((content: IPage) => {
         const { status, uuid } = content;
         if (status) {
@@ -166,7 +164,7 @@ export class BuilderService extends ApiService {
     if (nid && changed && uuid) {
       const lang = this.getApiLang(langcode);
       this.nodeService
-        .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', '', lang)
+        .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
         .subscribe((page: IPage) => {
           if (Number(changed) < Number(page.changed)) {
             const config: IDialog = {
@@ -202,7 +200,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid, uuid, schemaType } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', '', lang)
+      .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', lang)
       .subscribe((newPage: IPage) => {
         const jsonWidget: IJsoneditor = {
           type: 'jsoneditor',
@@ -215,7 +213,7 @@ export class BuilderService extends ApiService {
               type: 'update',
               label: '更新配置',
               params: {
-                reqRoles: ['administrator'],
+                reqRoles: ['administrator', 'webmaster'],
                 uuid,
                 langcode,
                 api: '/api/v1/node/json',
@@ -243,14 +241,9 @@ export class BuilderService extends ApiService {
     const {
       api: { create },
     } = this.builderConfig;
-    const { csrf_token } = this.user;
     this.builder.loading$.next(true);
     return this.http
-      .post(
-        `${this.apiUrl}${create}`,
-        this.formatPage(page),
-        this.optionsWithCookieAndToken(csrf_token)
-      )
+      .post(`${this.apiUrl}${create}`, this.formatPage(page), this.optionsWithBearerToken())
       .pipe(
         tap((res: any) => {
           const {
@@ -259,6 +252,15 @@ export class BuilderService extends ApiService {
           if (loadPage) {
             this.loadPage({ nid }, true);
           }
+        }),
+        catchError((error: any) => {
+          this.builder.loading$.next(false);
+          if (error?.status === 403) {
+            this.util.openSnackbar('无权限执行此操作', 'ok');
+          } else {
+            this.util.openSnackbar('创建页面失败，请重试', 'ok');
+          }
+          return of(false);
         })
       );
   }
@@ -274,13 +276,12 @@ export class BuilderService extends ApiService {
     const {
       api: { update },
     } = this.builderConfig;
-    const { csrf_token } = this.user;
     this.builder.loading$.next(true);
     return this.http
       .patch(
         `${this.apiUrl}${prefix}${update}/${nid}`,
         this.coverExtraData(page),
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithBearerToken()
       )
       .pipe(
         tap((res: any) => {
@@ -334,11 +335,10 @@ export class BuilderService extends ApiService {
     const {
       api: { translate },
     } = this.builderConfig;
-    const { csrf_token } = this.user;
     return this.http.post(
       `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
       this.formatPage(page),
-      this.optionsWithCookieAndToken(csrf_token)
+      this.optionsWithBearerToken()
     );
   }
 
@@ -348,7 +348,6 @@ export class BuilderService extends ApiService {
     attr: any,
     relationships: any
   ): Observable<any> {
-    const { csrf_token } = this.user;
     const { langcode, uuid } = page;
     let prefix = '';
     const arr = api.split('/');
@@ -373,7 +372,7 @@ export class BuilderService extends ApiService {
             },
           },
         },
-        this.optionsWithCookieAndToken(csrf_token)
+        this.optionsWithBearerToken()
       )
       .pipe(
         catchError((res: any) => {
@@ -410,12 +409,28 @@ export class BuilderService extends ApiService {
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const { multiLang } = environment;
-      const { csrf_token } = this.user;
       const {
         langcode,
         id,
         path: { pid },
       } = page;
+
+      const handleError = (error: any): false => {
+        const { status } = error || {};
+        let message = '更新页面 URL 失败，请重试';
+        switch (status) {
+          case 403:
+            message = '无权限执行此操作';
+            break;
+          case 409:
+            message = 'URL 已存在，请更换后重试';
+            break;
+          default:
+            message = '更新页面 URL 失败，请重试';
+        }
+        this.util.openSnackbar(message, 'ok');
+        return false;
+      };
 
       let prefix = '';
       const lang = this.getApiLang(langcode);
@@ -440,9 +455,19 @@ export class BuilderService extends ApiService {
       if (pid) {
         this.http
           .get(`${prefix}/api/v1/path_alias/path_alias?filter[drupal_internal__id]=${pid}`)
+          .pipe(
+            catchError(error => {
+              return of(handleError(error));
+            })
+          )
           .subscribe((res: any) => {
-            const { data } = res;
-            const uuid = data[0].id;
+            if (!res || !res.data || !res.data.length) {
+              this.util.openSnackbar('未找到可更新的 URL 记录', 'ok');
+              reject(false);
+              return;
+            }
+
+            const uuid = res.data[0].id;
             this.http
               .patch(
                 `${prefix}/api/v1/path_alias/path_alias/${uuid}`,
@@ -452,11 +477,11 @@ export class BuilderService extends ApiService {
                     id: uuid,
                   },
                 },
-                this.optionsWithCookieAndToken(csrf_token)
+                this.optionsWithBearerToken()
               )
               .pipe(
-                catchError(() => {
-                  return of(false);
+                catchError(error => {
+                  return of(handleError(error));
                 })
               )
               .subscribe(status => {
@@ -474,11 +499,11 @@ export class BuilderService extends ApiService {
             {
               data: paramsData,
             },
-            this.optionsWithCookieAndToken(csrf_token)
+            this.optionsWithBearerToken()
           )
           .pipe(
-            catchError(() => {
-              return of(false);
+            catchError(error => {
+              return of(handleError(error));
             })
           )
           .subscribe(res => {
@@ -509,7 +534,7 @@ export class BuilderService extends ApiService {
     const { uuid, langcode } = page;
     const lang = this.getApiLang(langcode);
     this.nodeService
-      .fetch(`${api}/${uuid}`, params, this.user.csrf_token, lang)
+      .fetch(`${api}/${uuid}`, params, lang)
       .pipe(
         catchError((error: any) => {
           const { statusText } = error;
@@ -620,6 +645,7 @@ export class BuilderService extends ApiService {
     if (body.length) {
       components = body.map(item => {
         if (isTemplate) {
+          delete item.attributes.body.extra;
           return {
             ...item.attributes.body,
           };

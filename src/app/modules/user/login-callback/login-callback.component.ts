@@ -50,21 +50,17 @@ export class LoginCallbackComponent implements OnInit {
       return;
     }
 
-    this.userService.updateUserBySession();
-
     const timeoutId = setTimeout(() => {
       this.error.set('登录超时，请重试');
     }, 10000);
 
-    this.userService.userSub$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(user => {
-        if (user) {
-          clearTimeout(timeoutId);
-          const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
-            this.route.snapshot.queryParams;
-          this.router.navigate([returnUrl], { queryParams });
-        }
-      });
+    this.userService.userSub$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
+      if (user) {
+        clearTimeout(timeoutId);
+        const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
+          this.route.snapshot.queryParams;
+        this.router.navigate([returnUrl], { queryParams });
+      }
+    });
   }
 }

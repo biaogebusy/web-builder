@@ -10,12 +10,15 @@ export interface IUserProfile {
   authenticated: boolean;
   picture?: string;
   login: string;
+  roles: string[];
 }
 
 export interface TokenUser {
-  csrf_token: string;
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
+  expires_in: number;
   current_user: CurrentUser;
-  logout_token: string;
 }
 
 export interface CurrentUser {

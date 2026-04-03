@@ -5,8 +5,6 @@ import { UserService } from '@core/service/user.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { NodeService } from '@core/service/node.service';
-import { IUser } from '@core/interface/IUser';
-import { USER } from '@core/token/token-providers';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -14,19 +12,11 @@ import { ScreenService } from '@core/service/screen.service';
   providedIn: 'root',
 })
 export class BuilderGuard {
-  private currentUser$ = inject<Observable<IUser>>(USER);
-
-  private user: IUser;
   private router = inject(Router);
   private userService = inject(UserService);
   private nodeService = inject(NodeService);
   private screenService = inject(ScreenService);
 
-  constructor() {
-    this.currentUser$.subscribe(user => {
-      this.user = user;
-    });
-  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -36,43 +26,25 @@ export class BuilderGuard {
       return this.nodeService.fetch(`/api/v3/landingPage`, 'content=/core/base').pipe(
         switchMap((config: ICoreConfig) => {
           const {
-            guard: { defaultFrontLoginPage, defaultDrupalLoginPage, checkUserState },
+            guard: { defaultFrontLoginPage },
             builder: { guard },
           } = config;
           if (guard) {
             return this.userService.getLoginState().pipe(
               map(status => {
                 if (status) {
-                  if (environment?.drupalProxy) {
-                    if (!this.user.csrf_token) {
-                      this.userService.updateUserBySession();
-                    }
-                  }
-                  if (checkUserState && !this.user) {
-                    this.userService.updateUserBySession();
-                  }
                   return true;
                 } else {
                   this.userService.logoutUser();
-                  if (environment?.drupalProxy) {
-                    window.location.href = defaultDrupalLoginPage ?? '/user/login';
-                    return false;
-                  } else {
-                    this.router.navigate([defaultFrontLoginPage ?? '/me/login'], {
-                      queryParams: { returnUrl: state.url },
-                    });
-                    return false;
-                  }
+                  this.router.navigate([defaultFrontLoginPage ?? '/me/login'], {
+                    queryParams: { returnUrl: state.url },
+                  });
+                  return false;
                 }
               }),
               catchError(() => {
-                if (environment?.drupalProxy) {
-                  window.location.href = defaultDrupalLoginPage ?? '/user/login';
-                  return of(false);
-                } else {
-                  this.router.navigate([defaultFrontLoginPage ?? '/me/login']);
-                  return of(false);
-                }
+                this.router.navigate([defaultFrontLoginPage ?? '/me/login']);
+                return of(false);
               })
             );
           } else {

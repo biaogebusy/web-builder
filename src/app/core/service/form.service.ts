@@ -67,7 +67,6 @@ export class FormService {
         const headers = new HttpHeaders({
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'X-CSRF-Token': token,
         });
         return this.http.post(`${this.apiService.apiUrl}/webform_rest/submit`, data, {
           headers,

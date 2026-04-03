@@ -1,0 +1,20 @@
+{
+  "APP": {
+    "LOADING": "加载中..."
+  },
+  "LOGIN": {
+    "WELCOME_TEXT": "欢迎。",
+    "PHONE_TAB": "手机登录",
+    "PHONE_PLACEHOLDER": "请输入手机号码",
+    "PHONE_ERROR": "请输入正确的手机号码",
+    "CODE_LABEL": "验证码",
+    "CODE_SEND": "发送验证码",
+    "PASSWORD_TAB": "密码登录",
+    "USERNAME_LABEL": "用户名",
+    "PASSWORD_LABEL": "密码",
+    "SHOW_PASSWORD": "显示密码",
+    "HIDE_PASSWORD": "隐藏密码",
+    "SOCIAL_LOGIN": "第三方登录",
+    "HI": "你好"
+  }
+}
