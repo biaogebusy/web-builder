@@ -51,7 +51,10 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     if (error.status === 401 && req.url.includes(environment.apiUrl)) {
-      return this.handle401Error(req, next);
+      const storedUser = this.userService.getStoredUser();
+      if (storedUser?.refresh_token) {
+        return this.handle401Error(req, next);
+      }
     }
     return throwError(() => error);
   }
