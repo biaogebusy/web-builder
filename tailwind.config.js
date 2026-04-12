@@ -172,17 +172,20 @@ module.exports = {
 
     // ==================== Text Color ====================
     {
-      pattern: /^text-(white|black|current|inherit|transparent)$/,
+      pattern: /^text-(white|black|current|inherit|transparent)(\/(?:0|5|10|[1-9][05]|100))?$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
     {
       pattern:
-        /^text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
+        /^text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(?:\/(?:0|5|10|[1-9][05]|100))?$/,
       variants: ['sm', 'md', 'lg', 'hover'],
     },
 
     // ==================== Background ====================
-    { pattern: /^bg-(black|white|inherit|current|transparent)(\/(?:0|5|10|[1-9][05]|100))?$/, variants: ['hover'] },
+    {
+      pattern: /^bg-(black|white|inherit|current|transparent)(\/(?:0|5|10|[1-9][05]|100))?$/,
+      variants: ['hover', 'sm', 'md', 'lg'],
+    },
     {
       pattern:
         /^bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(?:\/(?:0|5|10|[1-9][05]|100))?$/,
@@ -205,7 +208,7 @@ module.exports = {
     { pattern: /^border(?:-[xytblr])?(?:-(0|2|4|8))?$/, variants: ['sm', 'md', 'lg'] },
     {
       pattern:
-        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
+        /^border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(\/(?:0|5|10|[1-9][05]|100))?$/,
       variants: ['hover'],
     },
     { pattern: /^border-(black|white|current|transparent|inherit)(\/(?:0|5|10|[1-9][05]|100))?$/ },
@@ -240,7 +243,7 @@ module.exports = {
     { pattern: /^shadow(-(sm|md|lg|xl|2xl|none|inner))?$/, variants: ['sm', 'md', 'lg', 'hover'] },
     {
       pattern:
-        /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)$/,
+        /^shadow-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(?:\/(?:0|5|10|[1-9][05]|100))?$/,
       variants: ['sm', 'md', 'lg'],
     },
 
@@ -262,6 +265,7 @@ module.exports = {
     {
       pattern:
         /^-?translate-[xy]-(0|0\.5|1|1\.5|2|2\.5|3|3\.5|4|5|6|7|8|9|10|11|12|14|16|20|24|28|32|36|40|44|48|52|56|60|64|72|80|96|px|full|1\/2|1\/3|2\/3|1\/4|3\/4)$/,
+      variants: ['hover'],
     },
     { pattern: /^(scale|scale-[xy])-(0|50|75|90|95|100|105|110|125|150)$/ },
     { pattern: /^-?rotate-(0|1|2|3|6|12|45|90|180)$/ },
