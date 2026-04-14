@@ -2,6 +2,10 @@
 module.exports = {
   content: ['./src/**/*.{html,ts,mdx}'],
   safelist: [
+    // ==================== Standalone ====================
+    'group',
+    'filter',
+
     // ==================== Layout ====================
     {
       pattern:
@@ -173,12 +177,12 @@ module.exports = {
     // ==================== Text Color ====================
     {
       pattern: /^text-(white|black|current|inherit|transparent)(\/(?:0|5|10|[1-9][05]|100))?$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg', 'hover', 'group-hover'],
     },
     {
       pattern:
         /^text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)(?:\/(?:0|5|10|[1-9][05]|100))?$/,
-      variants: ['sm', 'md', 'lg', 'hover'],
+      variants: ['sm', 'md', 'lg', 'hover', 'group-hover'],
     },
 
     // ==================== Background ====================
@@ -265,10 +269,10 @@ module.exports = {
     {
       pattern:
         /^-?translate-[xy]-(0|0\.5|1|1\.5|2|2\.5|3|3\.5|4|5|6|7|8|9|10|11|12|14|16|20|24|28|32|36|40|44|48|52|56|60|64|72|80|96|px|full|1\/2|1\/3|2\/3|1\/4|3\/4)$/,
-      variants: ['hover'],
+      variants: ['hover', 'sm', 'md', 'lg'],
     },
     { pattern: /^(scale|scale-[xy])-(0|50|75|90|95|100|105|110|125|150)$/ },
-    { pattern: /^-?rotate-(0|1|2|3|6|12|45|90|180)$/ },
+    { pattern: /^-?rotate-(0|1|2|3|6|12|45|90|180)$/, variants: ['group-hover'] },
     { pattern: /^-?skew-[xy]-(0|1|2|3|6|12)$/ },
     {
       pattern:
