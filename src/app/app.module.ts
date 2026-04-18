@@ -81,7 +81,7 @@ import { environment } from 'src/environments/environment';
       withLocalStorage()
     ),
     ...provideTranslateHttpLoader({
-      prefix: '/assets/i18n/',
+      prefix: `${environment.apiUrl}/assets/i18n/`,
       suffix: '.json',
     }),
     {

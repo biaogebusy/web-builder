@@ -70,34 +70,38 @@ export class ContentService extends ApiService {
 
   loadBranding(): Observable<IBranding> {
     const { lang } = this.getUrlPath(this.pageUrl);
-    return this.http.get<IBranding>(
-      `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`
-    );
+    return this.http
+      .get<IBranding>(`${this.apiUrl}${lang}/api/v3/landingPage?content=/core/branding`)
+      .pipe(catchError(() => of({} as IBranding)));
   }
 
   loadConfig(coreConfig: object): any {
     const { lang } = this.getUrlPath(this.pageUrl);
     const configPath = `${this.apiUrl}${lang}/api/v3/landingPage?content=/core/base`;
     if (!this.coreConfigCache) {
-      this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(shareReplay(1));
+      this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(
+        catchError(error => {
+          console.log(error);
+          console.log('base json not found!');
+          return of({} as ICoreConfig);
+        }),
+        shareReplay(1)
+      );
     }
-    return lastValueFrom(this.coreConfigCache).then(
-      (config: ICoreConfig) => {
-        Object.assign(coreConfig, config);
-        this.apiService.configLoadDone$.next(true);
-      },
-      error => {
-        console.log(error);
-        console.log('base json not found!');
-      }
-    );
+    return lastValueFrom(this.coreConfigCache).then((config: ICoreConfig) => {
+      Object.assign(coreConfig, config);
+      this.apiService.configLoadDone$.next(true);
+    });
   }
 
   loadUIUX(): Observable<any[]> {
     const { lang } = this.getUrlPath(this.pageUrl);
     const api = `${this.apiUrl}${lang}/api/v3/node/component`;
     if (!this.uiuxCache) {
-      this.uiuxCache = this.http.get<any[]>(api).pipe(shareReplay(1));
+      this.uiuxCache = this.http.get<any[]>(api).pipe(
+        catchError(() => of([])),
+        shareReplay(1)
+      );
     }
     return this.uiuxCache;
   }
