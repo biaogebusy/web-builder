@@ -1,6 +1,7 @@
 import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NodeService } from '@core/service/node.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-dynamic-menu',
@@ -20,8 +21,14 @@ export class DynamicMenuComponent implements OnInit {
   getDynamicContent(uuid: string): void {
     this.nodeService
       .fetch(`/api/v1/node/component/${uuid}`, '')
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        catchError(() => of(null))
+      )
       .subscribe(node => {
+        if (!node) {
+          return;
+        }
         const {
           data: {
             attributes: {
