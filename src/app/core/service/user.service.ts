@@ -1,5 +1,5 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { DOCUMENT, Injectable, inject } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap } from 'rxjs/operators';
@@ -27,6 +27,7 @@ export class UserService extends ApiService {
   private cryptoJS = inject(CryptoJSService);
   private cookieService = inject(CookieService);
   private route = inject(ActivatedRoute);
+  private doc = inject(DOCUMENT);
   get userApiPath(): string {
     return `${this.apiUrl}${this.coreConfig.apiUrl.userGetPath}`;
   }
@@ -352,7 +353,7 @@ export class UserService extends ApiService {
 
   openLoginDialog(): MatDialogRef<DialogComponent> {
     const { queryParams } = this.route.snapshot;
-    const { pathname } = window.location;
+    const { pathname } = this.doc.location;
     const options = {
       returnUrl: pathname,
       ...queryParams,
