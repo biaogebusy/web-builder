@@ -74,6 +74,7 @@ export class AuthInterceptor implements HttpInterceptor {
               storedUser.access_token = tokenData.access_token;
               storedUser.refresh_token = tokenData.refresh_token;
               storedUser.expires_in = tokenData.expires_in;
+              storedUser.expires_at = this.userService.getTokenExpirationTime(tokenData);
               this.userService.refreshLocalUser(storedUser);
             }
             this.refreshTokenSubject.next(tokenData.access_token);

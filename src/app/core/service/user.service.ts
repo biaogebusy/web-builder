@@ -68,6 +68,7 @@ export class UserService extends ApiService {
               refresh_token: tokenData.refresh_token,
               token_type: tokenData.token_type,
               expires_in: tokenData.expires_in,
+              expires_at: this.getTokenExpirationTime(tokenData),
               current_user: {
                 uid: String(profile.uid),
                 name: profile.name || '',
@@ -139,6 +140,36 @@ export class UserService extends ApiService {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
     });
+  }
+
+  getTokenExpirationTime(tokenData: any): number {
+    const expiresAt = this.getJwtExpirationTime(tokenData?.access_token);
+
+    return expiresAt ?? Date.now() + Number(tokenData?.expires_in || 0) * 1000;
+  }
+
+  private getJwtExpirationTime(accessToken?: string): number | null {
+    if (!accessToken) {
+      return null;
+    }
+
+    try {
+      const payload = accessToken.split('.')[1];
+      if (!payload) {
+        return null;
+      }
+      const normalizedPayload = payload.replace(/-/g, '+').replace(/_/g, '/');
+      const decodedPayload = JSON.parse(atob(normalizedPayload));
+      const exp = Number(decodedPayload?.exp);
+
+      return Number.isFinite(exp) ? exp * 1000 : null;
+    } catch {
+      return null;
+    }
+  }
+
+  isTokenExpired(user: IUser): boolean {
+    return !user.expires_at || Date.now() >= user.expires_at;
   }
 
   refreshLocalUser(user: IUser): void {
@@ -320,7 +351,7 @@ export class UserService extends ApiService {
 
   getLoginState(): Observable<boolean> {
     const storedUser = this.getStoredUser();
-    if (!storedUser || !storedUser.access_token) {
+    if (!storedUser || !storedUser.access_token || this.isTokenExpired(storedUser)) {
       return of(false);
     } else {
       return of(true);
