@@ -118,14 +118,16 @@ export class UtilitiesService {
       ...config,
     });
   }
-
   loadScript(src: string, id?: string, defer?: boolean): Promise<void> {
+    if (!this.screenService.isPlatformBrowser()) {
+      return Promise.resolve();
+    }
     return new Promise((resolve, reject) => {
       const existing = this.document.querySelector(
         `script[src="${src}"]`
       ) as HTMLScriptElement | null;
       if (existing) {
-        if (existing.dataset.loaded === 'true') {
+        if (existing.dataset?.loaded === 'true') {
           resolve();
           return;
         }
@@ -167,12 +169,15 @@ export class UtilitiesService {
   }
 
   loadStyle(href: string): Promise<void> {
+    if (!this.screenService.isPlatformBrowser()) {
+      return Promise.resolve();
+    }
     return new Promise((resolve, reject) => {
       const existing = this.document.querySelector(
         `link[href="${href}"]`
       ) as HTMLLinkElement | null;
       if (existing) {
-        if (existing.dataset.loaded === 'true') {
+        if (existing.dataset?.loaded === 'true') {
           resolve();
           return;
         }
