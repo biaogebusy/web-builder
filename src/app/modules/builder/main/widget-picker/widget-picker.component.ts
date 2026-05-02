@@ -179,7 +179,9 @@ export class WidgetPickerComponent implements OnInit {
     const maxH = window.innerHeight * this.VIEWPORT_RATIO - this.PREVIEW_PADDING;
 
     if (canvas) {
-      const naturalWidth = Math.max(canvas.scrollWidth, canvas.offsetWidth, 1);
+      // 先按桌面端设计宽度渲染，再根据视口统一缩放，避免预览随组件原生宽度抖动
+      canvas.style.width = `${this.DESIGN_WIDTH}px`;
+      const naturalWidth = this.DESIGN_WIDTH;
       const naturalHeight = Math.max(canvas.scrollHeight, canvas.offsetHeight, 1);
       const scale = Math.min(maxW / naturalWidth, maxH / naturalHeight, 1);
       const contentW = scale < 1 ? naturalWidth * scale : naturalWidth;
