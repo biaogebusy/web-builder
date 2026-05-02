@@ -43,8 +43,6 @@ export class WidgetPickerComponent implements OnInit {
 
   @ViewChild('previewPopup', { static: false }) previewPopup: ElementRef;
 
-  /** 组件 preview 渲染时按桌面端宽度生成，再统一缩放到不超过 85vw/85vh */
-  private readonly DESIGN_WIDTH = 960;
   private readonly VIEWPORT_RATIO = 0.85;
   /** popup 内边距（左右/上下各 12px），用于尺寸计算 */
   private readonly PREVIEW_PADDING = 24;
@@ -180,8 +178,7 @@ export class WidgetPickerComponent implements OnInit {
 
     if (canvas) {
       // 先按桌面端设计宽度渲染，再根据视口统一缩放，避免预览随组件原生宽度抖动
-      canvas.style.width = `${this.DESIGN_WIDTH}px`;
-      const naturalWidth = this.DESIGN_WIDTH;
+      const naturalWidth = Math.max(canvas.scrollWidth, canvas.offsetWidth, 1);
       const naturalHeight = Math.max(canvas.scrollHeight, canvas.offsetHeight, 1);
       const scale = Math.min(maxW / naturalWidth, maxH / naturalHeight, 1);
       const contentW = scale < 1 ? naturalWidth * scale : naturalWidth;
