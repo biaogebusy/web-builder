@@ -147,7 +147,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   }
 
   hiddenPicker(): void {
-    this.builder.widgetsPicker$.next(false);
+    this.builder.closeRightDrawer$.next(true);
   }
 
   onEditorCode(): void {

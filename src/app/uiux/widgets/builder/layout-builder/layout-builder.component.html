@@ -45,19 +45,17 @@
               />
             </div>
             @if (elements.length === 0) {
-              <div class="placeholder" [attr.data-path]="'elements.' + i">
-                <div #target>
-                  <app-btn
-                    matTooltip="插入组件"
-                    matTooltipPosition="above"
-                    (click)="addBlock('widget', content, target)"
-                    [content]="{
-                      label: '',
-                      mode: 'icon',
-                      icon: { svg: 'plus' },
-                    }"
-                  />
-                </div>
+              <div #placeholder class="placeholder" [attr.data-path]="'elements.' + i">
+                <app-btn
+                  matTooltip="插入组件"
+                  matTooltipPosition="above"
+                  (click)="addBlock('widget', content, placeholder)"
+                  [content]="{
+                    label: '',
+                    mode: 'icon',
+                    icon: { svg: 'plus' },
+                  }"
+                />
               </div>
             }
           }
@@ -83,8 +81,8 @@
                 >
                   <app-dynamic-component class="component" [inputs]="item" />
                   @if (showToolbar()) {
-                    <div class="block-toolbar" #action>
-                      <button mat-stroked-button (click)="addBlock('widget', content, action)">
+                    <div class="block-toolbar">
+                      <button mat-stroked-button (click)="addBlock('widget', content, widget)">
                         <div class="block-toolbar-inner">
                           <app-icon class="mr-1" [content]="{ svg: 'arrow-right-bottom' }" />
                           <span>插入组件</span>

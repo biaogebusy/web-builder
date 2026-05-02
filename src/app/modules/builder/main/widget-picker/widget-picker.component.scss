@@ -1,116 +1,292 @@
 @use 'variable/breakpoint' as *;
 @use 'mixins/amixin' as *;
 
-.overlay {
-  @apply fixed w-full h-full z-[1000] left-0 top-0;
-}
-
 .widget-picker {
-  min-height: 360px;
-  @apply w-[48px];
-  .widget-wrapper {
-    @apply py-4 flex flex-col items-center;
-    position: relative;
+  @apply flex flex-col w-full;
+  color: var(--mat-sys-on-surface);
+  animation: picker-fade 0.18s ease-out;
+
+  // ---------- 顶部栏 ----------
+  .picker-header {
+    @apply flex items-center gap-2 px-3 py-2 sticky top-0 z-10 border-b min-h-[52px];
     background-color: var(--mat-sys-surface);
-    box-shadow:
-      0px 0.2px 0.6px rgba(0, 0, 0, 0.02),
-      0px 0.4px 1.3px rgba(0, 0, 0, 0.028),
-      0px 0.8px 2.5px rgba(0, 0, 0, 0.035),
-      0px 1.3px 4.5px rgba(0, 0, 0, 0.042),
-      0px 2.5px 8.4px rgba(0, 0, 0, 0.05),
-      0px 6px 20px rgba(0, 0, 0, 0.07);
-    .box {
-      @apply flex flex-col justify-center items-center;
-      color: var(--mat-sys-primary);
+    border-bottom-color: var(--mat-sys-outline-variant);
+
+    .back-btn {
+      @apply shrink-0;
     }
-    .picker-divider {
-      @apply opacity-50 w-[40px];
+
+    .picker-title {
+      @apply m-0 text-base font-semibold truncate flex-1;
     }
-    .item {
-      position: relative;
-      .inner {
-        @apply flex flex-col justify-center items-center m-[2px] p-[6px];
-        border-radius: 4px;
-        cursor: pointer;
+
+    .picker-count {
+      @apply text-xs px-2 py-0.5 rounded-full shrink-0 min-w-6 text-center;
+      background-color: var(--mat-sys-surface-container);
+      color: var(--mat-sys-on-surface-variant);
+    }
+  }
+
+  // ---------- 搜索框 ----------
+  .search-box {
+    @apply flex items-center gap-2 mx-3 mt-3 mb-2 px-3 rounded-lg border h-10;
+    background-color: var(--mat-sys-surface-container-low);
+    border-color: var(--mat-sys-outline-variant);
+    transition:
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+
+    &:focus-within {
+      border-color: var(--mat-sys-primary);
+      background-color: var(--mat-sys-surface);
+    }
+
+    .search-icon {
+      @apply shrink-0 opacity-60;
+    }
+
+    .search-input {
+      @apply flex-1 bg-transparent border-0 outline-none text-sm h-full;
+      color: var(--mat-sys-on-surface);
+
+      &::placeholder {
+        color: var(--mat-sys-on-surface-variant);
+        opacity: 0.7;
+      }
+    }
+
+    .search-clear {
+      @apply shrink-0 flex items-center justify-center bg-transparent border-0 cursor-pointer p-1 rounded;
+      color: var(--mat-sys-on-surface-variant);
+
+      &:hover {
+        color: var(--mat-sys-on-surface);
       }
     }
   }
-  .group-popup-container {
-    @apply absolute;
+
+  .search-result-meta {
+    @apply text-xs px-4 pt-2 pb-1;
+    color: var(--mat-sys-on-surface-variant);
   }
-  .group-popup {
-    @apply p-4 z-10 flex-col justify-start items-start whitespace-nowrap w-[280px] min-h-[360px];
-    position: relative;
-    max-height: 60vh;
-    overflow: auto;
-    color: var(--mat-sys-on-surface);
-    @include scrollbar(var(--mat-sys-outline));
-    .group-grid {
-      @apply grid grid-cols-12 gap-4 w-full;
+
+  // ---------- 分类列表 ----------
+  .category-list {
+    @apply flex flex-col py-1;
+  }
+
+  .category-item {
+    @apply flex items-center gap-3 w-full px-4 py-3 text-left bg-transparent border-0 cursor-pointer relative border-b border-solid no-underline;
+    color: inherit;
+    transition: background-color 0.15s ease;
+    border-bottom-color: var(--mat-sys-outline-variant);
+
+    &:hover {
+      background-color: var(--mat-sys-surface-container-low);
     }
-    .widget-item {
-      @apply col-span-6 border border-solid rounded-md p-4 flex gap-3 flex-col justify-center items-center cursor-pointer;
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: -2px;
+      background-color: var(--mat-sys-surface-container-low);
     }
-    .item-label {
-      @apply text-sm;
-      opacity: 0.9;
+
+    .category-icon {
+      @apply flex items-center justify-center shrink-0 rounded-md w-8 h-8;
+      color: var(--mat-sys-primary);
+      background-color: color-mix(in oklch, var(--mat-sys-primary) 8%, transparent);
     }
-    .item {
-      border-color: var(--mat-sys-outline-variant);
+
+    .category-content {
+      @apply flex-1 flex items-center justify-between gap-2 min-w-0;
+    }
+
+    .category-label {
+      @apply flex-1 text-sm font-medium truncate;
+    }
+
+    .category-count {
+      @apply text-xs shrink-0;
+      color: var(--mat-sys-on-surface-variant);
+    }
+
+    .chevron {
+      @apply opacity-50 shrink-0;
+      transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+    }
+
+    &:hover .chevron {
+      @apply opacity-100;
+      transform: translateX(2px);
+    }
+
+    &.paste-item .category-icon {
+      color: var(--mat-sys-tertiary, var(--mat-sys-primary));
+      background-color: color-mix(
+        in oklch,
+        var(--mat-sys-tertiary, var(--mat-sys-primary)) 8%,
+        transparent
+      );
+    }
+
+    &.help-item {
+      @apply border-t border-b-0 mt-6;
+      border-top-color: var(--mat-sys-outline-variant);
+      .category-icon {
+        @apply bg-transparent;
+        color: var(--mat-sys-on-surface-variant);
+      }
+      .category-label {
+        color: var(--mat-sys-on-surface-variant);
+      }
+    }
+  }
+
+  // ---------- 组件列表 ----------
+  .widget-list {
+    @apply flex flex-col gap-2 p-3;
+  }
+
+  .widget-card {
+    @apply flex items-center gap-3 w-full p-3 text-left cursor-pointer relative border rounded-[10px];
+    background-color: var(--mat-sys-surface);
+    border-color: var(--mat-sys-outline-variant);
+    transition:
+      border-color 0.15s ease,
+      background-color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.15s ease;
+
+    &:hover {
+      border-color: var(--mat-sys-primary);
+      background-color: color-mix(in oklch, var(--mat-sys-primary) 4%, var(--mat-sys-surface));
+      box-shadow: var(--mat-sys-level1);
+
+      .widget-title {
+        color: var(--mat-sys-primary);
+      }
+
+      .widget-preview {
+        background-color: color-mix(in oklch, var(--mat-sys-primary) 14%, var(--mat-sys-surface));
+      }
+    }
+
+    &:active {
+      @apply scale-[0.99];
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+
+    .widget-info {
+      @apply flex-1 flex flex-col justify-center gap-0.5 min-w-0;
+    }
+
+    .widget-title {
+      @apply text-sm font-semibold truncate;
+      color: var(--mat-sys-on-surface);
+      transition: color 0.15s ease;
+    }
+
+    .widget-description {
+      @apply text-xs flex items-center gap-2 flex-wrap;
+      color: var(--mat-sys-on-surface-variant);
+    }
+
+    .widget-group-tag {
+      @apply text-[11px] px-1.5 py-0.5 rounded shrink-0;
+      background-color: color-mix(in oklch, var(--mat-sys-primary) 10%, transparent);
+      color: var(--mat-sys-primary);
+    }
+
+    .widget-mark {
+      @apply truncate opacity-70;
+    }
+
+    .widget-preview {
+      @apply flex justify-center items-center shrink-0 overflow-hidden w-16 h-12 rounded-lg;
+      background-color: var(--mat-sys-surface-container-low);
+      transition: background-color 0.15s ease;
+
+      img {
+        @apply max-w-full max-h-full object-contain;
+      }
+
       .mat-icon {
         color: var(--mat-sys-primary);
       }
+    }
+  }
+
+  // ---------- 空态 ----------
+  .empty-state {
+    @apply flex flex-col items-center justify-center text-center px-4 py-10 gap-2;
+    color: var(--mat-sys-on-surface-variant);
+
+    .empty-icon {
+      @apply opacity-50 scale-[2] mb-2;
+    }
+
+    p {
+      @apply m-0 text-sm;
+    }
+
+    .empty-action {
+      @apply mt-2 text-sm bg-transparent border-0 cursor-pointer px-3 py-1.5 rounded-md;
+      color: var(--mat-sys-primary);
+      transition: background-color 0.15s ease;
+
       &:hover {
-        background-color: var(--mat-sys-primary-fixed);
+        background-color: color-mix(in oklch, var(--mat-sys-primary) 10%, transparent);
       }
     }
   }
-  .widget-wrapper,
-  .group-popup,
-  .widget-popup {
-    @apply rounded-[8px];
-  }
-  .group-popup,
-  .widget-popup {
-    background-color: var(--mat-sys-surface);
-    border: 1px solid var(--mat-sys-surface-container-low);
-    box-shadow: var(--mat-sys-level1);
-  }
-  .popup-preview {
-    @apply z-10 w-[314px] h-[236px] box-border overflow-auto;
-  }
-  .widget-popup {
-    @apply absolute;
-    overflow: hidden;
-    box-sizing: border-box;
+}
+
+@keyframes picker-fade {
+  from {
     opacity: 0;
-    @include scrollbar(var(--mat-sys-outline));
-    @apply pointer-events-none;
-    &[data-popper-placement] {
-      display: flex;
-      opacity: 1;
-      @apply pointer-events-auto;
-    }
-    .hover-show {
-      @apply w-full h-full flex justify-center relative;
-      transform: scale(0.8);
-      img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-      }
-      ::ng-deep {
-        > app-dynamic-component {
-          > app-spacer {
-            background-color: var(--mat-sys-primary-fixed);
-          }
-        }
-      }
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ---------- 左侧悬浮预览 ----------
+.widget-preview-popup {
+  @apply fixed z-[10000] pointer-events-none opacity-0 rounded-xl p-3 min-w-[120px] min-h-14 overflow-hidden box-border border;
+  background-color: var(--mat-sys-surface);
+  border-color: var(--mat-sys-outline-variant);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: opacity 0.18s ease;
+
+  &[data-popper-placement] {
+    @apply opacity-100;
+  }
+
+  .preview-image {
+    @apply flex justify-center items-center;
+    max-width: calc(85vw - 24px);
+    max-height: calc(85vh - 24px);
+
+    img {
+      @apply max-w-full max-h-full object-contain;
     }
   }
-  &:not(.show) {
-    opacity: 0;
-    position: fixed;
-    @apply pointer-events-none;
+
+  .preview-canvas {
+    @apply w-max max-w-[1280px] origin-top-left overflow-hidden;
+
+    > app-dynamic-component {
+      @apply block;
+    }
   }
 }

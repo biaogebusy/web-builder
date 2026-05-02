@@ -37,7 +37,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
-  @ViewChild('widgetPicker') widgetPicker: ElementRef;
   private markers: NodeListOf<Element>;
   public previewClass$: Observable<any>;
   private router = inject(Router);
@@ -106,17 +105,17 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addNewSection(target: any, type: 'widget' | 'section', newSection: any): void {
-    this.builder.widgetsPicker$.next(false);
     this.router.navigate(['/builder']);
     const path = this.util.generatePath(target);
     if (type === 'section') {
       this.builder.updatePageContentByPath(path, newSection, 'add');
+      this.builder.closeRightDrawer$.next(true);
+      return;
     }
 
     if (type === 'widget') {
-      this.builderService.addBlock(type, {}, this.util.generatePath(target), target);
+      this.builderService.addBlock(type, {}, path);
     }
-    this.builder.closeRightDrawer$.next(true);
   }
 
   onNewPage(): void {

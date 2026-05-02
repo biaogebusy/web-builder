@@ -42,12 +42,7 @@ export class LayoutToolbarComponent implements OnInit {
   }
 
   addBlock(addType: string, content: any): void {
-    this.builderService.addBlock(
-      addType,
-      content,
-      this.util.generatePath(this.target),
-      this.target
-    );
+    this.builderService.addBlock(addType, content, this.util.generatePath(this.target));
   }
 
   onDeleteRow(target: Element): void {
@@ -62,6 +57,6 @@ export class LayoutToolbarComponent implements OnInit {
   }
 
   hiddenWidgetPicker(): void {
-    this.builder.widgetsPicker$.next(false);
+    this.builder.closeRightDrawer$.next(true);
   }
 }
