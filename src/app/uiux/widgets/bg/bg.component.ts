@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import type { IBg } from '@core/interface/widgets/IBg';
 
 @Component({
@@ -8,12 +8,10 @@ import type { IBg } from '@core/interface/widgets/IBg';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class BgComponent implements OnInit {
-  @Input() content: IBg;
-  public classes = signal<string>('');
-
-  ngOnInit(): void {
-    const { classes, variant, overlay } = this.content;
-    this.classes.set(`${classes}${variant ? `-${variant}` : ''} ${overlay} bg-fill-width`);
-  }
+export class BgComponent {
+  readonly content = input.required<IBg>();
+  readonly classes = computed(() => {
+    const { classes, variant, overlay } = this.content();
+    return `${classes}${variant ? `-${variant}` : ''} ${overlay} bg-fill-width`;
+  });
 }

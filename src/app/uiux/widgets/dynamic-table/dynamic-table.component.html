@@ -1,8 +1,9 @@
-@if (content.elements) {
+@let c = content();
+@if (c.elements) {
   <div
     class="dynamic-table"
-    [class]="content.classes || 'nowrap'"
-    [style]="content.params?.style || null"
+    [class]="c.classes || 'nowrap'"
+    [style]="c.params?.style || null"
     >
     <table
       matSort
@@ -11,7 +12,7 @@
       multiTemplateDataRows
       aria-describedby="dynamic table"
       >
-      @for (item of content.header; track item) {
+      @for (item of c.header; track item) {
         <ng-container
           [matColumnDef]="item.key"
           [sticky]="item.sticky"
@@ -118,7 +119,7 @@
         mat-header-row
       *matHeaderRowDef="
         isExpand ? columnsToDisplayWithExpand : displayedColumns;
-        sticky: content?.params?.sticky ? true : false
+        sticky: c?.params?.sticky ? true : false
       "
       ></tr>
       <tr
