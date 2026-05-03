@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 
 @Component({
@@ -12,9 +11,8 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class HeaderMetaComponent implements OnInit {
+export class HeaderMetaComponent {
   @Input() content: any;
   constructor() {}
 
-  ngOnInit(): void {}
 }

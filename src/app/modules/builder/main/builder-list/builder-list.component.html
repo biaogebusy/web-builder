@@ -2,7 +2,7 @@
 @if (currentPage$ | async; as page) {
   @if (page.body.length > 0) {
     <div class="builder-list" id="gsap-scroller">
-      <div class="wrapper" [ngClass]="previewClass$ | async">
+      <div class="wrapper" [class]="previewClass$ | async">
         @if (builder.loading$ | async) {
           <div class="load">
             <app-loading />

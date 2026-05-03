@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import type { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 
 @Component({
@@ -9,10 +9,9 @@ import type { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class NumberAnimateComponent implements OnInit {
+export class NumberAnimateComponent {
   @Input() content: INumberAnimate;
 
   constructor() {}
 
-  ngOnInit(): void {}
 }

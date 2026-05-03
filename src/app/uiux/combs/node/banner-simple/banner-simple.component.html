@@ -1,5 +1,5 @@
 @if (content) {
-  <div class="banner-simple" [ngClass]="content.style">
+  <div class="banner-simple" [class]="content.style">
     @if (content.bannerBg) {
       <app-bg-img
         [attr.data-path]="'bannerBg'"

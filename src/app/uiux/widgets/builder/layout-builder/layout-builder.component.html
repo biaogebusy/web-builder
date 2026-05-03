@@ -8,7 +8,7 @@
   @let alignItems = content.alignItems;
   @let wrapperClass = content.wrapperClass;
 
-  <div class="layout-builder" [ngClass]="classes" [ngStyle]="style">
+  <div class="layout-builder" [class]="classes" [style]="style">
     <div
       id="layout"
       class="layout-inner {{ wrapperClass }} justify-{{ horizontal }} justify-items-{{
@@ -28,7 +28,7 @@
         @let alignItems = layout.alignItems;
         @let blockClasses = layout.blockClasses;
         <div
-          [ngClass]="classes"
+          [class]="classes"
           class="layout layout-{{ i }} col-span-{{ row.xs || '12' }}  sm:col-span-{{
             row.sm
           }} md:col-span-{{ row.md }} lg:col-span-{{ row.lg }}"
@@ -61,7 +61,7 @@
           }
           <div class="for-animate">
             <div
-              [ngClass]="blockClasses"
+              [class]="blockClasses"
               class="blocks justify-{{ horizontal }} justify-items-{{ vertical }} items-{{
                 alignItems
               }} gap-{{ gap?.xs || 'none' }} sm:gap-{{ gap?.sm || 'none' }} md:gap-{{

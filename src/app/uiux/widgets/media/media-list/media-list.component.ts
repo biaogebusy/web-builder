@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IMediaList } from '@core/interface/widgets/IMediaList';
 
@@ -13,9 +12,8 @@ import type { IMediaList } from '@core/interface/widgets/IMediaList';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class MediaListComponent implements OnInit {
+export class MediaListComponent {
   @Input() content: IMediaList;
   constructor() {}
 
-  ngOnInit(): void {}
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, inject, output } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, inject, output } from '@angular/core';
 import type { ICommentConfig } from '@core/interface/node/INode';
 import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
@@ -13,7 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class CommentActionsComponent implements OnInit {
+export class CommentActionsComponent {
   contentState = inject(ContentState);
   private user$ = inject<Observable<IUser>>(USER);
 
@@ -33,7 +33,6 @@ export class CommentActionsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
 
   onUpdate(): void {
     this.update.emit({ item: this.item });

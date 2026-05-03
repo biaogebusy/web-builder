@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 @Component({
@@ -12,7 +11,7 @@ import { UntypedFormGroup } from '@angular/forms';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class SearchHeaderComponent implements OnInit {
+export class SearchHeaderComponent {
   @Input() content: any;
   @Input() filterForm: any;
   @Input() form: UntypedFormGroup;
@@ -21,5 +20,4 @@ export class SearchHeaderComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
 }

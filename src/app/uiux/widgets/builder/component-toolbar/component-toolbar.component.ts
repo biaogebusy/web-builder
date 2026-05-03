@@ -3,7 +3,6 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  HostBinding,
   Input,
   OnInit,
   inject,
@@ -29,6 +28,9 @@ import { Observable, delay } from 'rxjs';
   templateUrl: './component-toolbar.component.html',
   styleUrls: ['./component-toolbar.component.scss'],
   standalone: false,
+  host: {
+    class: 'component-toolbar',
+  },
 })
 export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
@@ -36,7 +38,6 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   @Input() content: IComponentToolbar;
   public index = signal(0);
   public length = signal(0);
-  @HostBinding('class.component-toolbar') hostClass = true;
 
   public bcData = signal(false);
 

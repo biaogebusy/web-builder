@@ -4,7 +4,6 @@ import {
   ComponentRef,
   ElementRef,
   EnvironmentInjector,
-  HostBinding,
   Input,
   OnChanges,
   OnDestroy,
@@ -31,6 +30,7 @@ import type { IDynamicInputs } from '@core/interface/IAppConfig';
   standalone: false,
   host: {
     ngSkipHydration: 'true',
+    class: 'relative block',
   },
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
@@ -48,8 +48,6 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnChang
   private readonly pendingTasks = inject(PendingTasks);
   public componentRef: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   public compContent = signal<any>({});
-  @HostBinding('class.relative') relative = true;
-  @HostBinding('class.block') block = true;
 
   private initialized = false;
 

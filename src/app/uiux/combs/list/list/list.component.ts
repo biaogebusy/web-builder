@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, inject, output } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, inject, output } from '@angular/core';
 import type { IShowcase3v3 } from '@core/interface/combs/IShowcase';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { ScreenService } from '@core/service/screen.service';
@@ -10,7 +10,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   private screenService = inject(ScreenService);
 
   @Input() content: IShowcase3v3[];
@@ -20,7 +20,6 @@ export class ListComponent implements OnInit {
   readonly pageChange = output<string>();
   p = 1;
 
-  ngOnInit(): void {}
 
   onPageChange(link: string): void {
     this.pageChange.emit(link);

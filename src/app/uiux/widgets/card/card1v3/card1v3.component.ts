@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
@@ -19,7 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class Card1v3Component implements OnInit {
+export class Card1v3Component {
   private dialog = inject(MatDialog);
   private cd = inject(ChangeDetectorRef);
 
@@ -27,7 +26,6 @@ export class Card1v3Component implements OnInit {
   readonly selected = output<IMark>();
   selectedId: number;
 
-  ngOnInit(): void {}
 
   onCard(item: Card1v3Item, i: number): void {
     this.selectedId = i;

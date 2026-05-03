@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject, signal } from '@angular/core';
+import { Component, Input, inject, signal } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { IDynamicForm } from '@core/interface/combs/IDynamicForm';
 import { FormService } from '@core/service/form.service';
@@ -10,7 +10,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   styleUrls: ['./dynamic-form.component.scss'],
   standalone: false,
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent {
   @Input() content: IDynamicForm;
   public form = new UntypedFormGroup({});
   public model: any = {};
@@ -19,7 +19,6 @@ export class DynamicFormComponent implements OnInit {
   private formService = inject(FormService);
   private util = inject(UtilitiesService);
 
-  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.form.invalid) {

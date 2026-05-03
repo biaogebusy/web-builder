@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import type { IHero1v4 } from '@core/interface/combs/IHero';
 
 @Component({
@@ -7,9 +7,8 @@ import type { IHero1v4 } from '@core/interface/combs/IHero';
     styleUrls: ['./hero1v4.component.scss'],
     standalone: false
 })
-export class Hero1v4Component implements OnInit {
+export class Hero1v4Component {
   @Input() content: IHero1v4;
   constructor() {}
 
-  ngOnInit(): void {}
 }

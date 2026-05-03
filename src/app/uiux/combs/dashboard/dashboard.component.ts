@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import type { IDashboard } from '@core/interface/combs/IDashboard';
 
 @Component({
@@ -8,9 +8,8 @@ import type { IDashboard } from '@core/interface/combs/IDashboard';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   content: IDashboard;
   constructor() {}
 
-  ngOnInit(): void {}
 }

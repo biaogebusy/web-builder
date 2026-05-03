@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import type { ICard1v4 } from '@core/interface/widgets/ICard';
 import { RangePipe } from 'ngx-pipes';
 
@@ -9,12 +9,11 @@ import { RangePipe } from 'ngx-pipes';
     providers: [RangePipe],
     standalone: false
 })
-export class Card1v4Component implements OnInit {
+export class Card1v4Component {
   private rangePipe = inject(RangePipe);
 
   @Input() content: ICard1v4;
 
-  ngOnInit(): void {}
 
   get star(): number[] {
     return this.rangePipe.transform(1, this.content.star);

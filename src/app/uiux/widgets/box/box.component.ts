@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IBox } from '@core/interface/widgets/IBox';
 
@@ -13,9 +12,8 @@ import type { IBox } from '@core/interface/widgets/IBox';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class BoxComponent implements OnInit {
+export class BoxComponent {
   @Input() content: IBox;
   constructor() {}
 
-  ngOnInit(): void {}
 }

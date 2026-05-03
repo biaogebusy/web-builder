@@ -1,6 +1,6 @@
 @if (content) {
   <div class="view-list">
-    <div class="view-list-inner" [ngClass]="content.fullWidth ? 'container-fluid' : 'container'">
+    <div class="view-list-inner" [class]="content.fullWidth ? 'container-fluid' : 'container'">
       @if (content.text) {
         <app-text [attr.data-path]="'text'" [content]="content.text" />
       }

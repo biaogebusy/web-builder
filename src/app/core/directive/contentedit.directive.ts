@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Directive,
-  ElementRef,
-  HostListener,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnInit, inject } from '@angular/core';
 import { IMetaEdit } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -16,6 +8,11 @@ import { getInlineText } from '@modules/builder/factory/getInlineText';
   // tslint:disable-next-line:directive-selector
   selector: '[contentedit]',
   standalone: false,
+  host: {
+    '(blur)': 'onBlur($event)',
+    '(paste)': 'onPaste($event)',
+    '(click)': 'onClick($event)',
+  },
 })
 export class ContenteditDirective implements AfterViewInit, OnInit {
   private componentItem: Element | null = null;
@@ -27,7 +24,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     this.componentItem = this.el.nativeElement.closest('.component-item');
   }
 
-  @HostListener('blur', ['$event']) onBlur(event: any): void {
+  onBlur(event: any): void {
     const { currentTarget } = event;
     if (this.componentItem && currentTarget && currentTarget.contentEditable === 'true') {
       currentTarget.contentEditable = 'false';
@@ -42,7 +39,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
    * @param event
    * 清除剪切板格式
    */
-  @HostListener('paste', ['$event']) onPaste(event: ClipboardEvent): void {
+  onPaste(event: ClipboardEvent): void {
     event.preventDefault();
     const clipboardData = event.clipboardData;
     if (clipboardData) {
@@ -70,7 +67,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     }
   }
 
-  @HostListener('click', ['$event']) onClick(event: any): void {
+  onClick(event: any): void {
     const { currentTarget } = event;
     if (this.componentItem && currentTarget) {
       const path = this.generatePath(currentTarget);

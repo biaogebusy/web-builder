@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 @Component({
     selector: 'app-panel',
@@ -6,10 +6,9 @@ import { MatAccordion } from '@angular/material/expansion';
     styleUrls: ['./panel.component.scss'],
     standalone: false
 })
-export class PanelComponent implements OnInit {
+export class PanelComponent {
   @Input() content: any;
   @ViewChild(MatAccordion) accordion: MatAccordion;
   isAll = false;
 
-  ngOnInit(): void {}
 }

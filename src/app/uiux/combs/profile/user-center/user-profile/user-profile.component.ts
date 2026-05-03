@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { IUserConfig } from '@core/interface/IUserConfig';
 import { UserService } from '@core/service/user.service';
@@ -10,12 +10,11 @@ import { UserService } from '@core/service/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent {
   @Input() content: any;
   @Input() userConfig$: Observable<IUserConfig>;
   private userService = inject(UserService);
 
-  ngOnInit(): void {}
 
   logout(): void {
     this.userService.logout();

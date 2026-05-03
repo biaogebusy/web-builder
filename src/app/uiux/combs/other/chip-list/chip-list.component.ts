@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IChipList } from '@core/interface/widgets/IChipList';
 
@@ -13,11 +12,10 @@ import type { IChipList } from '@core/interface/widgets/IChipList';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class ChipListComponent implements OnInit {
+export class ChipListComponent {
   @Input() content: IChipList;
   @Input() classes: object | string;
 
   constructor() {}
 
-  ngOnInit(): void {}
 }

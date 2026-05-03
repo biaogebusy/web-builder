@@ -1,5 +1,5 @@
 <div class="content-text-center">
-  <div class="media" [ngClass]="content.ratios || 'media-4-3'">
+  <div class="media" [class]="content.ratios || 'media-4-3'">
     @if (content.img) {
       <app-img [attr.data-path]="'img'" [content]="content.img" />
     }

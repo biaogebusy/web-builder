@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  OnInit,
   inject,
   output
 } from '@angular/core';
@@ -18,7 +17,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class SearchSidebarComponent implements OnInit {
+export class SearchSidebarComponent {
   @Input() fields: FormlyFieldConfig[];
   @Input() label: ISearchLabel;
   @Input() form: UntypedFormGroup;
@@ -28,7 +27,6 @@ export class SearchSidebarComponent implements OnInit {
   panelOpenState = true;
   private cd = inject(ChangeDetectorRef);
 
-  ngOnInit(): void {}
 
   onModelChange(event: any): any {
     this.modelChange.emit(event);

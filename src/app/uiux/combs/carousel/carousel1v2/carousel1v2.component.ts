@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild,
   inject,
   signal,
@@ -19,13 +18,12 @@ import { Subject } from 'rxjs';
     styleUrls: ['./carousel1v2.component.scss'],
     standalone: false
 })
-export class Carousel1v2Component implements OnInit, AfterViewInit {
+export class Carousel1v2Component implements AfterViewInit {
   @Input() content: ICarouselBase;
   swiper = signal<ISwiper>({ params: {}, elements: [], classes: '' });
   navigation$ = new Subject<number>();
   ele = inject(ElementRef);
 
-  ngOnInit(): void {}
   ngAfterViewInit(): void {
     const prevEl = this.ele.nativeElement.querySelector('.prev');
     const nextEl = this.ele.nativeElement.querySelector('.next');

@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  OnInit,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -28,7 +27,7 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class BuilderMenuComponent implements OnInit, AfterViewInit {
+export class BuilderMenuComponent implements AfterViewInit {
   public debugAnimate$ = inject<Observable<boolean>>(DEBUG_ANIMATE);
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
@@ -41,7 +40,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   private builderService = inject(BuilderService);
   private dialog = inject(MatDialog);
 
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.debugAnimate$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {

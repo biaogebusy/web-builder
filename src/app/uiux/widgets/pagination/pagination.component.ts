@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
   output
 } from '@angular/core';
 
@@ -13,14 +12,13 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
   @Input() id: string;
   @Input() maxSize: number;
   readonly pageChange = output<number>();
   readonly pageBoundsCorrection = output<number>();
   constructor() {}
 
-  ngOnInit(): void {}
 
   onPageChange(event: any): any {
     this.pageChange.emit(event);

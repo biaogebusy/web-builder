@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IProgressGroup } from '@core/interface/widgets/IWidgets';
 
@@ -13,9 +12,8 @@ import type { IProgressGroup } from '@core/interface/widgets/IWidgets';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class ProgressGroupComponent implements OnInit {
+export class ProgressGroupComponent {
   @Input() content: IProgressGroup;
   constructor() {}
 
-  ngOnInit(): void {}
 }

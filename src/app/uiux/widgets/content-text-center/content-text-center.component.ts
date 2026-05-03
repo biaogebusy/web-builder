@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IContentTextCenter } from '@core/interface/widgets/IContentWidget';
 
@@ -13,9 +12,8 @@ import type { IContentTextCenter } from '@core/interface/widgets/IContentWidget'
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class ContentTextCenterComponent implements OnInit {
+export class ContentTextCenterComponent {
   @Input() content: IContentTextCenter;
   constructor() {}
 
-  ngOnInit(): void {}
 }

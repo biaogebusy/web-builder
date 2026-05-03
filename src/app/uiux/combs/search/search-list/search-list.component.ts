@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, output } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -8,7 +8,7 @@ import { PageEvent } from '@angular/material/paginator';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class SearchListComponent implements OnInit {
+export class SearchListComponent {
   @Input() content: any[];
   @Input() label: any;
   @Input() pager: any;
@@ -19,7 +19,6 @@ export class SearchListComponent implements OnInit {
 
   readonly pageChange = output<number>();
 
-  ngOnInit(): void {}
 
   onPageChange(event: PageEvent): void {
     const { pageIndex } = event;

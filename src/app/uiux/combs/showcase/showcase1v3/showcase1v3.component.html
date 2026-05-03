@@ -1,5 +1,5 @@
 @if (content) {
-  <div class="showcase-1-v3" [ngClass]="content.classes">
+  <div class="showcase-1-v3" [class]="content.classes">
     @if (content.text) {
       <app-text [attr.data-path]="'text'" [content]="content.text" />
     }
