@@ -3,8 +3,8 @@
     <h2
       #title
       contentedit="label"
-      class="title-header {{ content.style === 'none' ? '!mb-0' : '' }}"
-      [class]="content.classes || 'mat-h2'"
+      class="title-header"
+      [class]="[content.classes || 'mat-h2', content.style === 'none' ? '!mb-0' : '']"
       [innerHTML]="content.label | safeHtml"
     ></h2>
     <div class="line-style" [class.m-top-sm]="content.icon">

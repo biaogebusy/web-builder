@@ -28,10 +28,15 @@
         @let alignItems = layout.alignItems;
         @let blockClasses = layout.blockClasses;
         <div
-          [class]="classes"
-          class="layout layout-{{ i }} col-span-{{ row.xs || '12' }}  sm:col-span-{{
-            row.sm
-          }} md:col-span-{{ row.md }} lg:col-span-{{ row.lg }}"
+          class="layout"
+          [class]="[
+            classes || '',
+            'layout-' + i,
+            'col-span-' + (row.xs || '12'),
+            'sm:col-span-' + row.sm,
+            'md:col-span-' + row.md,
+            'lg:col-span-' + row.lg
+          ]"
           [attr.data-path]="'elements.' + i"
           #layoutEle
         >
@@ -61,12 +66,17 @@
           }
           <div class="for-animate">
             <div
-              [class]="blockClasses"
-              class="blocks justify-{{ horizontal }} justify-items-{{ vertical }} items-{{
-                alignItems
-              }} gap-{{ gap?.xs || 'none' }} sm:gap-{{ gap?.sm || 'none' }} md:gap-{{
-                gap?.md || 'none'
-              }} lg:gap-{{ gap?.lg || 'none' }}"
+              class="blocks"
+              [class]="[
+                blockClasses || '',
+                'justify-' + horizontal,
+                'justify-items-' + vertical,
+                'items-' + alignItems,
+                'gap-' + (gap?.xs || 'none'),
+                'sm:gap-' + (gap?.sm || 'none'),
+                'md:gap-' + (gap?.md || 'none'),
+                'lg:gap-' + (gap?.lg || 'none')
+              ]"
             >
               @if (bg) {
                 <app-bg-img [attr.data-path]="'bg'" [content]="bg" />

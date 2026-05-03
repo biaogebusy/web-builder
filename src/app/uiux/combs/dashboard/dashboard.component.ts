@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import type { IDashboard } from '@core/interface/combs/IDashboard';
 
 @Component({
@@ -9,7 +9,7 @@ import type { IDashboard } from '@core/interface/combs/IDashboard';
     standalone: false
 })
 export class DashboardComponent {
-  content: IDashboard;
+  @Input() content: IDashboard;
   constructor() {}
 
 }

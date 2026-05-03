@@ -1,7 +1,8 @@
 @if (content) {
   <mat-card
     appearance="outlined"
-    class="card {{ content.header?.meta ? 'has-header' : '' }}"
+    class="card"
+    [class.has-header]="content.header?.meta"
     [class]="content.classes"
   >
     @if (content.header?.meta) {

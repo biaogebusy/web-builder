@@ -117,12 +117,20 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         hostElement,
       });
       if (this.componentRef?.instance) {
+        const trySet = (key: string, value: any) => {
+          try {
+            this.componentRef.setInput(key, value);
+          } catch {
+            // 不是声明的 input,回退到直接赋值（用于普通属性或外部 Subject 之类）
+            this.componentRef.instance[key] = value;
+          }
+        };
         if (!inputs.type && inputs.content) {
           Object.keys(inputs).forEach(key => {
-            this.componentRef.instance[key] = (inputs as any)[key];
+            trySet(key, (inputs as any)[key]);
           });
         } else {
-          this.componentRef.instance.content = inputs;
+          trySet('content', inputs);
         }
       }
 
