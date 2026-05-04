@@ -117,11 +117,14 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         hostElement,
       });
       if (this.componentRef?.instance) {
+        // 读取组件声明的 inputs（Angular 内部元信息）以避免触发 NG0303
+        const declaredInputs: Record<string, unknown> =
+          (componentType as any)?.ɵcmp?.inputs ?? {};
         const trySet = (key: string, value: any) => {
-          try {
+          if (Object.prototype.hasOwnProperty.call(declaredInputs, key)) {
             this.componentRef.setInput(key, value);
-          } catch {
-            // 不是声明的 input,回退到直接赋值（用于普通属性或外部 Subject 之类）
+          } else {
+            // 不是声明的 input，回退到直接赋值（用于普通属性或外部 Subject 之类）
             this.componentRef.instance[key] = value;
           }
         };

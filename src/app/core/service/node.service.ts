@@ -8,7 +8,8 @@ import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { IApiUrl, ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { API_PATH, ApiPath } from '@core/constant/api-path';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { IMediaAttr } from '@core/interface/manage/IManage';
@@ -29,8 +30,8 @@ export class NodeService extends ApiService {
     });
   }
 
-  get apiUrlConfig(): IApiUrl {
-    return this.coreConfig.apiUrl;
+  get apiUrlConfig(): ApiPath {
+    return API_PATH;
   }
 
   fetch(api: string, params: string, langCode?: string): Observable<any> {
