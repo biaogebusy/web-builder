@@ -49,7 +49,7 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit, O
 
   getLists(): void {
     this.loading = true;
-    const path = this.nodeService.apiUrlConfig.nodeGetPath;
+    const path = '/api/v1/node';
     this.nodeService
       .getNodes(
         path,

@@ -16,10 +16,11 @@ import type { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, ICoreFlag } from '@core/interface/IAppConfig';
-import { API_PATH } from '@core/constant/api-path';
 import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+const FLAGGING_GET_PATH = '/api/v1/flagging';
 
 @Component({
   selector: 'app-flag',
@@ -72,7 +73,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
       return;
     }
     this.nodeService
-      .getNodes(API_PATH.flaggingGetPath, this.type, this.flaggingParams)
+      .getNodes(FLAGGING_GET_PATH, this.type, this.flaggingParams)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         if (res.data.length) {
@@ -122,7 +123,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
         });
     } else {
       this.nodeService
-        .getNodes(API_PATH.flaggingGetPath, this.type, this.flaggingParams)
+        .getNodes(FLAGGING_GET_PATH, this.type, this.flaggingParams)
         .pipe(
           switchMap(res => {
             return this.nodeService.deleteFlagging(this.path, res.data);

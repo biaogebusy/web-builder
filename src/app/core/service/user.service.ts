@@ -7,7 +7,6 @@ import { TokenUser, IUser, IUserProfile } from '../interface/IUser';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { API_PATH } from '@core/constant/api-path';
 import { environment } from 'src/environments/environment';
 import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
@@ -29,8 +28,11 @@ export class UserService extends ApiService {
   private cookieService = inject(CookieService);
   private route = inject(ActivatedRoute);
   private doc = inject(DOCUMENT);
+
+  private readonly userGetPath = '/api/v1/user/user';
+
   get userApiPath(): string {
-    return `${this.apiUrl}${API_PATH.userGetPath}`;
+    return `${this.apiUrl}${this.userGetPath}`;
   }
 
   login(userName: string, passWord: string): Observable<boolean> {
