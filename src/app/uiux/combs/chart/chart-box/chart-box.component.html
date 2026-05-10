@@ -9,7 +9,11 @@
       </div>
     </div>
     @if (showChart()) {
-      <app-chart class="chart-area" [content]="data.chart" [style]="style" />
+      @defer (hydrate on viewport) {
+        <app-chart class="chart-area" [content]="data.chart" [style]="style" />
+      } @placeholder {
+        <div class="chart-area chart-skeleton" [style]="style"></div>
+      }
     }
   </div>
 }

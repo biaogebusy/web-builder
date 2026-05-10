@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
@@ -13,9 +12,8 @@ import type { ICarouselBase } from '@core/interface/combs/ICarousel';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class Carousel1v1Component implements OnInit {
+export class Carousel1v1Component {
   @Input() content: ICarouselBase;
   constructor() {}
 
-  ngOnInit(): void {}
 }

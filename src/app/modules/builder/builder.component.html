@@ -1,7 +1,7 @@
 @let rightContent = builder.rightContent$ | async;
 <div
   class="builder-wrapper"
-  [ngClass]="{ dark: (builder.themeMode | async) === 'dark' }"
+  [class]="{ dark: (builder.themeMode | async) === 'dark' }"
 >
   <mat-drawer-container class="builder-drawer-container">
     <mat-drawer
@@ -9,14 +9,14 @@
       class="sidebar-drawer"
       [(opened)]="sidebarDrawerOpened"
       mode="side"
-      [ngClass]="sidebarDrawerOpened ? 'opened' : 'closed'"
+      [class]="sidebarDrawerOpened ? 'opened' : 'closed'"
     >
       <app-builder-sidebar [sidebarDrawer]="drawer" [drawerContentRef]="drawerContent" />
     </mat-drawer>
     <mat-drawer-content #drawerContent class="drawer-content">
       <div
         class="builder"
-        [ngClass]="{ 'has-sidebar': !(builderFullScreen$ | async) }"
+        [class]="{ 'has-sidebar': !(builderFullScreen$ | async) }"
       >
         <mat-drawer-container
           [hasBackdrop]="rightContent?.hasBackdrop"
@@ -26,7 +26,7 @@
             class="right-drawer"
             [class]="rightContent?.classes"
             #builderRightDrawer
-            [ngStyle]="{
+            [style]="{
               overflow: builderRightDrawer.opened ? 'visible' : 'auto',
             }"
             [mode]="rightContent?.mode || 'over'"
@@ -48,7 +48,7 @@
             </div>
             @if (builderRightDrawer.opened) {
               @if (rightContent) {
-                <div class="right-content" [ngStyle]="rightContent.style">
+                <div class="right-content" [style]="rightContent.style">
                   @for (item of rightContent.elements; track item) {
                     <app-dynamic-component [inputs]="item" />
                   }

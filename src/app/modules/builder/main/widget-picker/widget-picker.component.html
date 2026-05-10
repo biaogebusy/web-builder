@@ -1,92 +1,192 @@
 @let builderConfig = builderConfig$ | async;
 @let help = builderConfig?.widgetPicker?.help;
-<div class="widget-picker z-[9999]" [class.show]="show()">
-  @if (show()) {
-    @if (widgets()) {
-      <div class="widget-wrapper" #wrapper>
-        @if (bcData()) {
-          <div
-            #copy
-            class="box"
-            (click)="onPasteData()"
-            matTooltip="粘贴复制的组件"
-            matTooltipPosition="above"
+@let group = selectedGroup();
+@let query = searchQuery();
+@let hits = searchResults();
+<div class="widget-picker">
+  @if (group) {
+    <div class="picker-header">
+      <button
+        mat-icon-button
+        class="back-btn"
+        matTooltip="返回上级"
+        aria-label="返回上级"
+        (click)="goBack()"
+      >
+        <app-icon [content]="{ svg: 'chevron-left' }" />
+      </button>
+      <h3 class="picker-title">{{ group.label }}</h3>
+      <span class="picker-count" aria-hidden="true">{{ group.child.length }}</span>
+    </div>
+    @if (group.child.length > 0) {
+      <div class="widget-list" role="list">
+        @for (item of group.child; track item) {
+          <button
+            #card
+            type="button"
+            class="widget-card"
+            role="listitem"
+            [attr.aria-label]="item.label"
+            (click)="onSelect(item.content)"
+            (mouseenter)="onHoverWidget(item, card)"
+            (mouseleave)="onLeaveWidget()"
+            (focus)="onHoverWidget(item, card)"
+            (blur)="onLeaveWidget()"
           >
-            <div class="item" matRipple>
-              <div class="inner">
-                <app-icon [content]="{ svg: 'content-paste' }" />
-              </div>
+            <div class="widget-info">
+              <div class="widget-title">{{ item.label }}</div>
+              @if (item.mark) {
+                <div class="widget-description">{{ item.mark }}</div>
+              }
             </div>
-          </div>
-          <app-divider class="picker-divider" />
+            <div class="widget-preview" aria-hidden="true">
+              @if (item.preview) {
+                <img [src]="item.preview" alt="" />
+              } @else if (item.icon) {
+                <app-icon [content]="{ svg: item.icon }" />
+              }
+            </div>
+          </button>
         }
-        @for (group of widgets().elements; track group) {
-          <div
-            class="box"
-            (mouseenter)="onHoverGroup(group, wrapper)"
-          >
-            <div class="item" #item matRipple>
-              <div class="inner">
-                @if (group.icon) {
-                  <app-icon [content]="{ svg: group.icon }" />
+      </div>
+    } @else {
+      <div class="empty-state" role="status">
+        <app-icon class="empty-icon" [content]="{ svg: 'package-variant' }" />
+        <p>该分类暂无组件</p>
+      </div>
+    }
+  } @else {
+    <div class="search-box">
+      <app-icon class="search-icon" [content]="{ svg: 'magnify' }" />
+      <input
+        type="text"
+        class="search-input"
+        placeholder="搜索组件"
+        aria-label="搜索组件"
+        [value]="query"
+        (input)="onSearchInput($event)"
+      />
+      @if (query) {
+        <button
+          type="button"
+          class="search-clear"
+          aria-label="清除搜索"
+          matTooltip="清除"
+          (click)="clearSearch()"
+        >
+          <app-icon [content]="{ svg: 'close-circle' }" />
+        </button>
+      }
+    </div>
+
+    @if (query) {
+      @if (hits.length > 0) {
+        <div class="search-result-meta">{{ hits.length }} 个匹配组件</div>
+        <div class="widget-list" role="list">
+          @for (hit of hits; track hit.item) {
+            <button
+              #card
+              type="button"
+              class="widget-card"
+              role="listitem"
+              [attr.aria-label]="hit.item.label"
+              (click)="onSelect(hit.item.content)"
+              (mouseenter)="onHoverWidget(hit.item, card)"
+              (mouseleave)="onLeaveWidget()"
+              (focus)="onHoverWidget(hit.item, card)"
+              (blur)="onLeaveWidget()"
+            >
+              <div class="widget-info">
+                <div class="widget-title">{{ hit.item.label }}</div>
+                <div class="widget-description">
+                  <span class="widget-group-tag">{{ hit.group.label }}</span>
+                  @if (hit.item.mark) {
+                    <span class="widget-mark">{{ hit.item.mark }}</span>
+                  }
+                </div>
+              </div>
+              <div class="widget-preview" aria-hidden="true">
+                @if (hit.item.preview) {
+                  <img [src]="hit.item.preview" alt="" />
+                } @else if (hit.item.icon) {
+                  <app-icon [content]="{ svg: hit.item.icon }" />
                 }
               </div>
-            </div>
-          </div>
+            </button>
+          }
+        </div>
+      } @else {
+        <div class="empty-state" role="status">
+          <app-icon class="empty-icon" [content]="{ svg: 'magnify-close' }" />
+          <p>未找到匹配组件</p>
+          <button type="button" class="empty-action" (click)="clearSearch()">清除搜索</button>
+        </div>
+      }
+    } @else {
+      <div class="category-list" role="list">
+        @if (bcData()) {
+          <button
+            type="button"
+            class="category-item paste-item"
+            role="listitem"
+            (click)="onPasteData()"
+          >
+            <span class="category-icon">
+              <app-icon [content]="{ svg: 'content-paste' }" />
+            </span>
+            <span class="category-label">粘贴复制的组件</span>
+            <app-icon class="chevron" [content]="{ svg: 'chevron-right' }" />
+          </button>
+        }
+        @for (cate of widgets().elements; track cate) {
+          <button
+            type="button"
+            class="category-item"
+            role="listitem"
+            [attr.aria-label]="cate.label"
+            (click)="selectGroup(cate)"
+          >
+            <span class="category-icon">
+              @if (cate.icon) {
+                <app-icon [content]="{ svg: cate.icon }" />
+              }
+            </span>
+            <span class="category-content">
+              <span class="category-label">{{ cate.label }}</span>
+              <span class="category-count">{{ cate.child.length }}</span>
+            </span>
+            <app-icon class="chevron" [content]="{ svg: 'chevron-right' }" />
+          </button>
         }
         @if (help) {
-          <app-divider class="picker-divider" />
-          <div class="help box" [matTooltip]="help.tooltip">
-            <app-btn
-              [content]="{
-                label: '',
-                mode: 'icon',
-                color: undefined,
-                href: help.link,
-                target: '_blank',
-                icon: { svg: 'help-circle', inline: true },
-              }"
-            />
-          </div>
+          <a
+            class="category-item help-item"
+            [href]="help.link"
+            target="_blank"
+            rel="noopener"
+            [matTooltip]="help.tooltip"
+          >
+            <span class="category-icon">
+              <app-icon [content]="{ svg: 'help-circle' }" />
+            </span>
+            <span class="category-label">帮助文档</span>
+            <app-icon class="chevron" [content]="{ svg: 'open-in-new' }" />
+          </a>
         }
       </div>
     }
-    <div #groupPopup class="group-popup-container">
-      @if (group$ | async; as group) {
-        <div
-          class="group-popup"
-        >
-          <h2>{{ group.label }}</h2>
-          <div class="group-grid">
-            @for (item of group.child; track item) {
-              <div
-                (mouseenter)="onHoverWidget(item, groupPopup)"
-                (click)="onSelect(item.content)"
-                class="item widget-item"
-              >
-                <app-icon [content]="{ svg: item.icon }"></app-icon>
-                <div class="item-label">{{ item.label }}</div>
-              </div>
-            }
-          </div>
-        </div>
-      }
-    </div>
-    <div #popup class="widget-popup">
-      <div class="popup-preview">
-        @if (widget$ | async; as widget) {
-          <div class="hover-show">
-            @if (widget.preview) {
-              <img [src]="widget.preview" alt="" />
-            } @else {
-              <app-dynamic-component [inputs]="widget.content" />
-            }
-          </div>
-        }
-      </div>
-    </div>
   }
 </div>
-@if (show()) {
-  <div class="overlay" (click)="onLeave()"></div>
-}
+<div #previewPopup class="widget-preview-popup" aria-hidden="true">
+  @if (hoveredWidget(); as widget) {
+    @if (widget.preview) {
+      <div class="preview-image">
+        <img [src]="widget.preview" alt="" />
+      </div>
+    } @else if (widget.content) {
+      <div class="preview-canvas" #previewCanvas>
+        <app-dynamic-component [inputs]="widget.content" />
+      </div>
+    }
+  }
+</div>

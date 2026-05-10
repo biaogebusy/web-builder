@@ -4,7 +4,11 @@
       <app-bg [content]="content.bg" />
     }
     @if (video) {
-      <app-video [content]="video" />
+      @defer (hydrate on viewport) {
+        <app-video [content]="video" />
+      } @placeholder {
+        <div class="video-skeleton"></div>
+      }
     }
     <div class="inner xy-center">
       <div class="wrapper">

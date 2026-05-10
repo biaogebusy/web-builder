@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  OnInit,
   inject,
 } from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
@@ -22,7 +21,7 @@ import { IDialog } from '@core/interface/IDialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class InlineEditComponent implements OnInit, AfterViewInit {
+export class InlineEditComponent implements AfterViewInit {
   @Input() content: IMetaEdit;
   form = new UntypedFormGroup({});
   model: any = {};
@@ -35,7 +34,6 @@ export class InlineEditComponent implements OnInit, AfterViewInit {
   private manageService = inject(ManageService);
   constructor() {}
 
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initTextView();

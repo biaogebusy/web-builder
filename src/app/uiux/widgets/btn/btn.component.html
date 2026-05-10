@@ -1,10 +1,10 @@
 @if (content) {
-  <div [ngClass]="content.iconPosition" *reqRolesIf="content">
+  <div [class]="content.iconPosition" *reqRolesIf="content">
     @switch (content.mode) {
       @case ('raised') {
         @if (!content.href) {
           <button
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [class.pill]="content.pill"
             [disabled]="content.disabled"
             mat-raised-button
@@ -20,7 +20,7 @@
           </button>
         } @else {
           <a
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [class.pill]="content.pill"
             [disabled]="content.disabled"
             mat-raised-button
@@ -42,7 +42,7 @@
       @case ('stroked') {
         @if (!content.href) {
           <button
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [class.pill]="content.pill"
             [disabled]="content.disabled"
             mat-stroked-button
@@ -58,7 +58,7 @@
           </button>
         } @else {
           <a
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [class.pill]="content.pill"
             [disabled]="content.disabled"
             mat-stroked-button
@@ -80,7 +80,7 @@
       @case ('flat') {
         @if (!content.href) {
           <button
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [class.pill]="content.pill"
             [disabled]="content.disabled"
             mat-flat-button
@@ -96,7 +96,7 @@
           </button>
         } @else {
           <a
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [class.pill]="content.pill"
             [disabled]="content.disabled"
             mat-flat-button
@@ -118,7 +118,7 @@
       @case ('icon') {
         @if (!content.href) {
           <button
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [disabled]="content.disabled"
             mat-icon-button
             [color]="content.color"
@@ -132,7 +132,7 @@
           </button>
         } @else {
           <a
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [disabled]="content.disabled"
             mat-icon-button
             (click)="onNav($event, content)"
@@ -149,7 +149,7 @@
       @case ('fab') {
         @if (content.icon && content.icon.svg) {
           <button
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [disabled]="content.disabled"
             mat-fab
             [color]="content.color"
@@ -161,7 +161,7 @@
       @case ('mini-fab') {
         @if (content.icon && content.icon.svg) {
           <button
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [disabled]="content.disabled"
             mat-mini-fab
             [color]="content.color"
@@ -173,7 +173,7 @@
       @default {
         @if (!content.href) {
           <button
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [disabled]="content.disabled"
             mat-button
             [color]="content.color"
@@ -188,7 +188,7 @@
           </button>
         } @else {
           <a
-            [ngClass]="content.classes || ''"
+            [class]="content.classes || ''"
             [disabled]="content.disabled"
             mat-button
             (click)="onNav($event, content)"

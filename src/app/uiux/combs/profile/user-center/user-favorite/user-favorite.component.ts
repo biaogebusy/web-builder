@@ -52,7 +52,7 @@ export class UserFavoriteComponent implements OnInit {
 
   getContent(): void {
     this.loading = true;
-    const path = this.nodeService.apiUrlConfig.flaggingGetPath;
+    const path = '/api/v1/flagging';
     const params = [
       `filter[uid.id]=${this.user.id}`,
       `include=flagged_entity`,

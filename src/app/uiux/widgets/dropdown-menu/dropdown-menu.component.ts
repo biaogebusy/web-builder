@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import type { IDropdowMenu } from '@core/interface/widgets/IWidgets';
 
 @Component({
@@ -7,9 +7,8 @@ import type { IDropdowMenu } from '@core/interface/widgets/IWidgets';
     styleUrls: ['./dropdown-menu.component.scss'],
     standalone: false
 })
-export class DropdownMenuComponent implements OnInit {
+export class DropdownMenuComponent {
   @Input() content: IDropdowMenu;
   constructor() {}
 
-  ngOnInit(): void {}
 }

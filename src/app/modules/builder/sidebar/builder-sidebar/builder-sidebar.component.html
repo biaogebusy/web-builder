@@ -1,10 +1,11 @@
 @let branding = branding$ | async;
 @let config = builderConfig$ | async;
-<div class="builder-sidebar" [ngClass]="sidebarDrawer.opened ? 'opened' : 'closed'">
+<div class="builder-sidebar" [class]="sidebarDrawer.opened ? 'opened' : 'closed'">
   @if (branding) {
-    <a [routerLink]="[branding.header.logo?.href ?? '/home']" class="logo">
-      @if (branding.header.logo?.img) {
-        @let logo = branding.header.logo;
+    @let header = $any(branding).header;
+    <a [routerLink]="[header?.logo?.href ?? '/home']" class="logo">
+      @if (header?.logo?.img) {
+        @let logo = header.logo;
         @if (!sidebarDrawer.opened) {
           <img
             [src]="logo?.invert"
@@ -29,7 +30,7 @@
     @if (config.menu) {
       <app-accordion-menu
         class="accordion-menu"
-        [ngClass]="sidebarDrawer.opened ? '' : '!hidden'"
+        [class]="sidebarDrawer.opened ? '' : '!hidden'"
         [hidden]="!sidebarDrawer.opened"
         [content]="config.menu"
       />
@@ -46,7 +47,7 @@
     />
   }
 
-  <div class="icon-menu" [ngClass]="sidebarDrawer.opened ? '!hidden' : ''">
+  <div class="icon-menu" [class]="sidebarDrawer.opened ? '!hidden' : ''">
     @if (config) {
       @for (item of config.menu; track item) {
         <div
@@ -120,11 +121,8 @@
         }
       </div>
       <mat-divider />
-      <div
-        class="bottom-row"
-        [ngClass]="sidebarDrawer.opened ? 'flex-row' : 'flex-col'"
-      >
-        @if (branding.header.params.userInfo) {
+      <div class="bottom-row" [class]="sidebarDrawer.opened ? 'flex-row' : 'flex-col'">
+        @if ($any(branding).header?.params?.userInfo) {
           <app-user-menu />
         }
         <div class="toggle">

@@ -5,7 +5,6 @@ import {
   Component,
   DestroyRef,
   Input,
-  OnInit,
   inject,
 } from '@angular/core';
 import type { IComment, IQuestion } from '@core/interface/node/INode';
@@ -28,7 +27,7 @@ import { UserService } from '@core/service/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class QuestionComponent extends NodeComponent implements OnInit, AfterViewInit {
+export class QuestionComponent extends NodeComponent implements AfterViewInit {
   public user$ = inject<Observable<IUser>>(USER);
 
   @Input() content: IQuestion;
@@ -52,7 +51,6 @@ export class QuestionComponent extends NodeComponent implements OnInit, AfterVie
     });
   }
 
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -94,7 +92,7 @@ export class QuestionComponent extends NodeComponent implements OnInit, AfterVie
       'filter[status]=1',
       `page[limit]=1`,
     ].join('&');
-    const path = this.nodeService.apiUrlConfig.commentGetPath;
+    const path = '/api/v1/comment';
     this.nodeService
       .getNodes(path, entityType, params)
       .pipe(takeUntilDestroyed(this.destroyRef))

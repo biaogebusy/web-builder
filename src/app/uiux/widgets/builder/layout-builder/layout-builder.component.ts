@@ -4,7 +4,6 @@ import {
   DestroyRef,
   ElementRef,
   Input,
-  OnInit,
   inject,
   signal,
 } from '@angular/core';
@@ -25,7 +24,7 @@ import { createPopper } from '@popperjs/core';
     styleUrls: ['./layout-builder.component.scss'],
     standalone: false
 })
-export class LayoutBuilderComponent implements OnInit, AfterViewInit {
+export class LayoutBuilderComponent implements AfterViewInit {
   currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
   @Input() content: ILayoutBuilder;
@@ -39,7 +38,6 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   private builderSerivce = inject(BuilderService);
   private popup: any;
 
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -55,8 +53,7 @@ export class LayoutBuilderComponent implements OnInit, AfterViewInit {
   }
 
   addBlock(addType: string, content: any, target: any): void {
-    this.builder.closeRightDrawer$.next(true);
-    this.builderSerivce.addBlock(addType, content, this.util.generatePath(target), target);
+    this.builderSerivce.addBlock(addType, content, this.util.generatePath(target));
   }
 
   layoutAnimate(): void {

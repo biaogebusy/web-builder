@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IMediaObjectGroup } from '@core/interface/widgets/IMediaObject';
 
@@ -13,9 +12,8 @@ import type { IMediaObjectGroup } from '@core/interface/widgets/IMediaObject';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class MediaObjectGroupComponent implements OnInit {
+export class MediaObjectGroupComponent {
   @Input() content: IMediaObjectGroup;
   constructor() {}
 
-  ngOnInit(): void {}
 }

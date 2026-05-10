@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IShowcase1v1 } from '@core/interface/combs/IShowcase';
 
@@ -8,7 +8,6 @@ import type { IShowcase1v1 } from '@core/interface/combs/IShowcase';
     styleUrls: ['./showcase1v1.component.scss'],
     standalone: false
 })
-export class Showcase1v1Component extends BaseComponent implements OnInit {
+export class Showcase1v1Component extends BaseComponent {
   @Input() content: IShowcase1v1;
-  ngOnInit(): void {}
 }

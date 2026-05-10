@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   Input,
-  OnInit,
   signal,
   output
 } from '@angular/core';
@@ -20,7 +19,7 @@ interface IFormly {
   styleUrls: ['./formly.component.scss'],
   standalone: false,
 })
-export class FormlyComponent implements OnInit, AfterViewInit {
+export class FormlyComponent implements AfterViewInit {
   @Input() content: IFormly;
   @Input() fields: FormlyFieldConfig[];
   @Input() options: FormlyFormOptions = {};
@@ -31,7 +30,6 @@ export class FormlyComponent implements OnInit, AfterViewInit {
   readonly modelChange = output<any>();
 
   fieldsConfig = signal<FormlyFieldConfig[]>([]);
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     let config: FormlyFieldConfig[] = [];

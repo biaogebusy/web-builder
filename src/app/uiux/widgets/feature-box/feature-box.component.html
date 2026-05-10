@@ -29,7 +29,7 @@
         }
       }
       <div class="feature-inner-ling">
-        <div class="media" [ngClass]="box.ratios || 'media-4-3'">
+        <div class="media" [class]="box.ratios || 'media-4-3'">
           @if (box.img) {
             <app-img [attr.data-path]="'img'" [content]="box.img" />
           }

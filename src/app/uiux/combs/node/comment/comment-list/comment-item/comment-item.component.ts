@@ -12,10 +12,10 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { TagsService } from '@core/service/tags.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+const COMMENT_GET_PATH = '/api/v1/comment';
 
 @Component({
   selector: 'app-comment-item',
@@ -24,8 +24,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   standalone: false,
 })
 export class CommentItemComponent implements OnInit, AfterViewInit {
-  private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
-
   @Input() content: IBaseNode;
   @Input() comments: IComment[];
 
@@ -105,7 +103,7 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
       this.loading = true;
       this.nodeService
         .deleteEntity(
-          `${this.coreConfig.apiUrl.commentGetPath}/${this.content.params.comment.attributes.field_name}`,
+          `${COMMENT_GET_PATH}/${this.content.params.comment.attributes.field_name}`,
           id
         )
         .pipe(takeUntilDestroyed())

@@ -4,9 +4,9 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit,
+  effect,
   inject,
-  OnChanges,
-  SimpleChanges,
+  input,
   DestroyRef,
   output,
   afterNextRender,
@@ -28,9 +28,9 @@ register();
   styleUrls: ['./swiper.component.scss'],
   standalone: false,
 })
-export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
+export class SwiperComponent implements OnInit, AfterViewInit {
   @Input() content: ISwiper;
-  @Input() index: number;
+  readonly index = input<number>();
   @Input() navigationSub: Subject<number>;
   readonly slideChange = output<Swiper>();
   readonly slideClick = output<any>();
@@ -82,6 +82,13 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
         });
       }
     });
+
+    effect(() => {
+      const idx = this.index();
+      if (idx !== undefined && this.swiper?.nativeElement?.swiper) {
+        this.swiper.nativeElement.swiper.slideTo(idx);
+      }
+    });
   }
   ngOnInit(): void {
     let customPagination = {};
@@ -107,13 +114,6 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!changes?.index?.firstChange) {
-      if (typeof this.index !== 'undefined') {
-        this.swiper.nativeElement.swiper.slideTo(changes.index.currentValue);
-      }
-    }
-  }
   onClick(slide: any): void {
     this.slideClick.emit(slide);
   }

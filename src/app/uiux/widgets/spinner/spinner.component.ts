@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 
 @Component({
@@ -12,9 +11,8 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class SpinnerComponent implements OnInit {
+export class SpinnerComponent {
   @Input() content: any;
   constructor() {}
 
-  ngOnInit(): void {}
 }

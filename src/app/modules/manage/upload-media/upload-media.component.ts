@@ -2,7 +2,6 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IUser } from '@core/interface/IUser';
 import { IMediaAttr } from '@core/interface/manage/IManage';
-import { ManageService } from '@core/service/manage.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
@@ -24,7 +23,6 @@ export class UploadMediaComponent {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
-  private manageService = inject(ManageService);
   user: IUser;
 
   constructor() {
@@ -48,7 +46,7 @@ export class UploadMediaComponent {
           });
 
           if (file) {
-            const data = await this.manageService.readFileAsArrayBuffer(file);
+            const data = await this.util.readFileAsArrayBuffer(file);
 
             const imgAttr = await lastValueFrom(
               this.nodeService.uploadImage(file.name, data).pipe(

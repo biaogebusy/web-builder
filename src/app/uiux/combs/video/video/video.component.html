@@ -1,5 +1,5 @@
 <div class="video" [class]="content.options?.mode || ''">
-  <div class="{{ content.fullWidth ? '' : 'container' }}" [class]="content.classes">
+  <div [class.container]="!content.fullWidth" [class]="content.classes">
     <video
       #target
       class="video-js vjs-big-play-centered"

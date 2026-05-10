@@ -1,13 +1,13 @@
 @if (content) {
   <div
     class="card-1v6"
-    [ngClass]="content.classes"
+    [class]="content.classes"
   >
     <div class="card-inner">
       <h2
         class="title bold"
         [contentedit]="'title.label'"
-        [ngClass]="content.title.classes"
+        [class]="content.title.classes"
         [innerHTML]="content.title.label | safeHtml"
       ></h2>
       <div class="meta">

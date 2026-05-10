@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-divider',
@@ -7,8 +7,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class DividerComponent implements OnInit {
+export class DividerComponent {
   @Input() content: any;
 
-  ngOnInit(): void {}
 }

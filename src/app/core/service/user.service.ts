@@ -1,5 +1,6 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { DOCUMENT, Injectable, PLATFORM_ID, REQUEST, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Observable, of, Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap } from 'rxjs/operators';
@@ -14,6 +15,9 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
+
+type AuthBroadcastMessage = { type: 'login' | 'logout' };
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,8 +31,50 @@ export class UserService extends ApiService {
   private cryptoJS = inject(CryptoJSService);
   private cookieService = inject(CookieService);
   private route = inject(ActivatedRoute);
+  private doc = inject(DOCUMENT);
+  private platformId = inject(PLATFORM_ID);
+  private serverRequest = inject(REQUEST, { optional: true });
+
+  private readonly userGetPath = '/api/v1/user/user';
+  private readonly authChannelName = 'xinshi-auth';
+  private authChannel: BroadcastChannel | null = null;
+
+  constructor() {
+    super();
+    this.setupAuthChannel();
+  }
+
+  private setupAuthChannel(): void {
+    if (!this.isBrowser || typeof BroadcastChannel === 'undefined') {
+      return;
+    }
+    this.authChannel = new BroadcastChannel(this.authChannelName);
+    this.authChannel.addEventListener('message', event => {
+      const data = event.data as AuthBroadcastMessage | undefined;
+      if (!data?.type) {
+        return;
+      }
+      if (data.type === 'login') {
+        const stored = this.getStoredUser();
+        if (stored) {
+          this.userSub$.next(stored);
+        }
+      } else if (data.type === 'logout') {
+        this.userSub$.next(false);
+      }
+    });
+  }
+
+  get isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
+
+  private broadcastAuth(message: AuthBroadcastMessage): void {
+    this.authChannel?.postMessage(message);
+  }
+
   get userApiPath(): string {
-    return `${this.apiUrl}${this.coreConfig.apiUrl.userGetPath}`;
+    return `${this.apiUrl}${this.userGetPath}`;
   }
 
   login(userName: string, passWord: string): Observable<boolean> {
@@ -67,6 +113,7 @@ export class UserService extends ApiService {
               refresh_token: tokenData.refresh_token,
               token_type: tokenData.token_type,
               expires_in: tokenData.expires_in,
+              expires_at: this.getTokenExpirationTime(tokenData),
               current_user: {
                 uid: String(profile.uid),
                 name: profile.name || '',
@@ -110,13 +157,57 @@ export class UserService extends ApiService {
   getStoredUser(): IUser | null {
     try {
       const key = this.localUserKey;
-      if (this.cookieService.check(key)) {
-        return JSON.parse(this.cryptoJS.decrypt(this.cookieService.get(key)));
+      const raw = this.readCookieValue(key);
+      if (!raw) {
+        return null;
       }
+      return JSON.parse(this.cryptoJS.decrypt(raw));
     } catch (e) {
       console.log('Failed to read stored user', e);
     }
     return null;
+  }
+
+  private readCookieValue(name: string): string | null {
+    if (this.isBrowser) {
+      return this.cookieService.check(name) ? this.cookieService.get(name) : null;
+    }
+    const header = this.serverRequest?.headers.get('cookie');
+    if (!header) {
+      return null;
+    }
+    return this.parseServerCookie(header, name);
+  }
+
+  private parseServerCookie(header: string, name: string): string | null {
+    const pairs = header.split(/;\s*/);
+    for (const pair of pairs) {
+      const idx = pair.indexOf('=');
+      if (idx < 0) {
+        continue;
+      }
+      if (pair.slice(0, idx) === name) {
+        try {
+          return decodeURIComponent(pair.slice(idx + 1));
+        } catch {
+          return pair.slice(idx + 1);
+        }
+      }
+    }
+    return null;
+  }
+
+  applyRefreshedToken(tokenData: any): IUser | null {
+    const stored = this.getStoredUser();
+    if (!stored) {
+      return null;
+    }
+    stored.access_token = tokenData.access_token;
+    stored.refresh_token = tokenData.refresh_token ?? stored.refresh_token;
+    stored.expires_in = tokenData.expires_in;
+    stored.expires_at = this.getTokenExpirationTime(tokenData);
+    this.refreshLocalUser(stored);
+    return stored;
   }
 
   refreshAccessToken(): Observable<any> {
@@ -138,6 +229,36 @@ export class UserService extends ApiService {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
     });
+  }
+
+  getTokenExpirationTime(tokenData: any): number {
+    const expiresAt = this.getJwtExpirationTime(tokenData?.access_token);
+
+    return expiresAt ?? Date.now() + Number(tokenData?.expires_in || 0) * 1000;
+  }
+
+  private getJwtExpirationTime(accessToken?: string): number | null {
+    if (!accessToken) {
+      return null;
+    }
+
+    try {
+      const payload = accessToken.split('.')[1];
+      if (!payload) {
+        return null;
+      }
+      const normalizedPayload = payload.replace(/-/g, '+').replace(/_/g, '/');
+      const decodedPayload = JSON.parse(atob(normalizedPayload));
+      const exp = Number(decodedPayload?.exp);
+
+      return Number.isFinite(exp) ? exp * 1000 : null;
+    } catch {
+      return null;
+    }
+  }
+
+  isTokenExpired(user: IUser): boolean {
+    return !user.expires_at || Date.now() >= user.expires_at;
   }
 
   refreshLocalUser(user: IUser): void {
@@ -175,11 +296,13 @@ export class UserService extends ApiService {
     const currentUser: IUser = Object.assign(data, user);
     this.userSub$.next(currentUser);
     this.setUserCookie(currentUser);
+    this.broadcastAuth({ type: 'login' });
   }
 
   logoutUser(): void {
     this.userSub$.next(false);
     this.cookieService.delete(this.localUserKey, '/');
+    this.broadcastAuth({ type: 'logout' });
   }
 
   logout(): any {
@@ -319,7 +442,7 @@ export class UserService extends ApiService {
 
   getLoginState(): Observable<boolean> {
     const storedUser = this.getStoredUser();
-    if (!storedUser || !storedUser.access_token) {
+    if (!storedUser || !storedUser.access_token || this.isTokenExpired(storedUser)) {
       return of(false);
     } else {
       return of(true);
@@ -352,7 +475,7 @@ export class UserService extends ApiService {
 
   openLoginDialog(): MatDialogRef<DialogComponent> {
     const { queryParams } = this.route.snapshot;
-    const { pathname } = window.location;
+    const { pathname } = this.doc.location;
     const options = {
       returnUrl: pathname,
       ...queryParams,

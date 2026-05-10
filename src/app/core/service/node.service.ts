@@ -8,7 +8,7 @@ import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { IApiUrl, ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { IMediaAttr } from '@core/interface/manage/IManage';
@@ -22,15 +22,13 @@ export class NodeService extends ApiService {
   private util = inject(UtilitiesService);
   private user: IUser;
 
+  private readonly commentGetPath = '/api/v1/comment';
+
   constructor() {
     super();
     this.user$.subscribe(user => {
       this.user = user;
     });
-  }
-
-  get apiUrlConfig(): IApiUrl {
-    return this.coreConfig.apiUrl;
   }
 
   fetch(api: string, params: string, langCode?: string): Observable<any> {
@@ -120,7 +118,7 @@ export class NodeService extends ApiService {
       data: entityData,
     };
     return this.http.post<any>(
-      `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
+      `${this.apiUrl}${this.commentGetPath}/${type}`,
       JSON.stringify(entity),
       this.optionsWithBearerToken()
     );
@@ -131,7 +129,7 @@ export class NodeService extends ApiService {
       data: entityData,
     };
     return this.http.patch<any>(
-      `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
+      `${this.apiUrl}${this.commentGetPath}/${type}/${uuid}`,
       JSON.stringify(entity),
       this.optionsWithBearerToken()
     );
@@ -142,7 +140,7 @@ export class NodeService extends ApiService {
       data: entityData,
     };
     return this.http.post<any>(
-      `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
+      `${this.apiUrl}${this.commentGetPath}/${type}`,
       JSON.stringify(entity),
       this.optionsWithBearerToken()
     );
@@ -159,7 +157,7 @@ export class NodeService extends ApiService {
   getCommentsParams(content: any, timeStamp: number): any {
     const type = this.getCommentType(content);
     return {
-      path: this.apiUrlConfig.commentGetPath,
+      path: this.commentGetPath,
       type,
       params: [
         `filter[entity_id.id]=${this.getCommentRelEntityId(content)}`,
@@ -215,7 +213,7 @@ export class NodeService extends ApiService {
   // api 在有权限的时候会有很大的性能开销，可使用自定义api
   getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
     const token = this.user.access_token;
-    const path = this.apiUrlConfig.commentGetPath;
+    const path = this.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);
     return this.getNodes(path, type, params).pipe(

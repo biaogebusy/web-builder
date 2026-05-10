@@ -17,7 +17,6 @@ export interface ICoreConfig {
   cookieLifetime?: number;
   amap: IAmap;
   librariesUseLocal?: boolean;
-  apiUrl: IApiUrl;
   loading: boolean;
   loadingBar: boolean;
   article?: IArticle;
@@ -123,20 +122,6 @@ export interface ILogin {
   phoneLogin: PhoneLogin;
   pswLogin: PswLogin;
   socialLogin?: ISocialLogin;
-}
-
-export interface IApiUrl {
-  loginPath: string;
-  logoutPath: string;
-  userIdGetPath: string;
-  nodeGetPath: string;
-  commentGetPath: string;
-  paymentPath: string;
-  taxonomyGetPath: string;
-  flaggingGetPath: string;
-  userGetPath: string;
-  yushan: string;
-  search: any;
 }
 
 export interface Form {

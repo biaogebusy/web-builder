@@ -1,5 +1,5 @@
 @if (content) {
-  <div class="tab" [ngClass]="{ pills: content.pills }">
+  <div class="tab" [class]="{ pills: content.pills }">
     @if (content.id) {
       <a class="anchor" [id]="content.id"></a>
     }
@@ -14,7 +14,7 @@
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="center"
-            [ngClass]="content.classes"
+            [class]="content.classes"
           >
             @for (item of content.elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
@@ -35,7 +35,7 @@
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="end"
-            [ngClass]="content.classes"
+            [class]="content.classes"
           >
             @for (item of content.elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
@@ -56,7 +56,7 @@
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="start"
-            [ngClass]="content.classes"
+            [class]="content.classes"
           >
             @for (item of content.elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import type { ITaxonomyThinList } from '@core/interface/combs/IList';
 import { BaseComponent } from '@uiux/base/base.widget';
 
@@ -8,8 +8,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
     styleUrls: ['./taxonomy-thin-list.component.scss'],
     standalone: false
 })
-export class TaxonomyThinListComponent extends BaseComponent implements OnInit {
+export class TaxonomyThinListComponent extends BaseComponent {
   @Input() content: ITaxonomyThinList;
 
-  ngOnInit(): void {}
 }

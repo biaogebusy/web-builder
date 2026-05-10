@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import type { IMediaMeta } from '@core/interface/widgets/IMediaMeta';
@@ -13,9 +12,8 @@ import type { IMediaMeta } from '@core/interface/widgets/IMediaMeta';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class MediaMetaComponent implements OnInit {
+export class MediaMetaComponent {
   @Input() content: IMediaMeta;
   constructor() {}
 
-  ngOnInit(): void {}
 }

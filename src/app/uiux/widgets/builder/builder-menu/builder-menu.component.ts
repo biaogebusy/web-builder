@@ -4,10 +4,10 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  OnInit,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import type { IPage } from '@core/interface/IAppConfig';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
@@ -17,6 +17,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { BUILDER_CURRENT_PAGE, DEBUG_ANIMATE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -26,7 +27,7 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class BuilderMenuComponent implements OnInit, AfterViewInit {
+export class BuilderMenuComponent implements AfterViewInit {
   public debugAnimate$ = inject<Observable<boolean>>(DEBUG_ANIMATE);
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
@@ -37,8 +38,8 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
+  private dialog = inject(MatDialog);
 
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.debugAnimate$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
@@ -51,6 +52,19 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   }
 
   onPageJson(): void {
+    const codeEditorDialog = this.dialog.getDialogById('code-editor-dialog');
+    if (codeEditorDialog) {
+      codeEditorDialog
+        .afterClosed()
+        .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => this.openPageJson());
+      codeEditorDialog.close();
+      return;
+    }
+    this.openPageJson();
+  }
+
+  private openPageJson(): void {
     const jsonWidget: IJsoneditor = {
       type: 'jsoneditor',
       data: this.page,

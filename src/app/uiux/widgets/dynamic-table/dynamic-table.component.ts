@@ -1,13 +1,12 @@
 import {
   Component,
   Input,
-  OnInit,
   ChangeDetectorRef,
   AfterViewInit,
   ViewChild,
-  OnChanges,
-  SimpleChanges,
+  effect,
   inject,
+  input,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -33,12 +32,12 @@ import { IDialog } from '@core/interface/IDialog';
   ],
   standalone: false,
 })
-export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input() content: IDynamicTable;
+export class DynamicTableComponent implements AfterViewInit {
+  readonly content = input.required<IDynamicTable>();
   @Input() form: UntypedFormGroup;
 
   @ViewChild(MatSort) sort: MatSort;
-  public dataSource: any;
+  public dataSource: MatTableDataSource<any>;
 
   public displayedColumns: string[];
   public columnsToDisplayWithExpand: string[];
@@ -48,24 +47,26 @@ export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
   private routService = inject(RouteService);
   private cd = inject(ChangeDetectorRef);
 
-  ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.content.elements);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.content?.currentValue) {
-      this.dataSource = new MatTableDataSource(changes.content.currentValue.elements);
-    }
+  constructor() {
+    effect(() => {
+      const content = this.content();
+      this.dataSource = new MatTableDataSource(content.elements);
+      if (this.sort) {
+        this.dataSource.sort = this.sort;
+      }
+      if (content.elements) {
+        this.isExpand = content.elements.some((item: any) => isArray(item.expand));
+        this.displayedColumns = content.header.map((item: any) => item.key);
+        this.columnsToDisplayWithExpand = this.isExpand
+          ? [...this.displayedColumns, 'expand']
+          : this.displayedColumns;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    if (this.content.elements) {
-      this.isExpand = this.content.elements.some(item => isArray(item.expand));
-      this.displayedColumns = this.content.header.map((item: any) => item.key);
-      if (this.isExpand) {
-        this.columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
-      }
+    if (this.sort && this.dataSource) {
+      this.dataSource.sort = this.sort;
       this.cd.detectChanges();
     }
   }

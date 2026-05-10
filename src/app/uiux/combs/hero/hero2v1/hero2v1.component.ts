@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { ITextHero } from '@core/interface/widgets/IText';
 
@@ -13,9 +12,8 @@ import type { ITextHero } from '@core/interface/widgets/IText';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class Hero2v1Component implements OnInit {
+export class Hero2v1Component {
   @Input() content: ITextHero;
   constructor() {}
 
-  ngOnInit(): void {}
 }

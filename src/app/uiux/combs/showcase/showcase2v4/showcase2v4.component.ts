@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import type { IShowcase2v4 } from '@core/interface/combs/IShowcase';
 
 @Component({
@@ -7,8 +7,7 @@ import type { IShowcase2v4 } from '@core/interface/combs/IShowcase';
     styleUrls: ['./showcase2v4.component.scss'],
     standalone: false
 })
-export class Showcase2v4Component implements OnInit {
+export class Showcase2v4Component {
   @Input() content: IShowcase2v4;
 
-  ngOnInit(): void {}
 }

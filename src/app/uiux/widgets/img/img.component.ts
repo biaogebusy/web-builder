@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import type { IImg } from '@core/interface/widgets/IImg';
 
 @Component({
@@ -6,15 +6,11 @@ import type { IImg } from '@core/interface/widgets/IImg';
   templateUrl: './img.component.html',
   styleUrls: ['./img.component.scss'],
   standalone: false,
+  host: {
+    '[class]': 'content?.hostClasses',
+  },
 })
-export class ImgComponent implements OnInit {
+export class ImgComponent {
   @Input() content: IImg | undefined;
   @Input() isBg = false;
-  @HostBinding('class') hostClasses: any;
-
-  ngOnInit(): void {
-    if (this.content?.hostClasses) {
-      this.hostClasses = this.content.hostClasses;
-    }
-  }
 }

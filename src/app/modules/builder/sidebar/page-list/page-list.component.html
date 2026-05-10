@@ -37,7 +37,7 @@
       @if (content$ | async; as content) {
         @for (page of content; track page; let i = $index) {
           <div
-            [ngClass]="{
+            [class]="{
               active: page.nid === currentPage?.nid && page.langcode === currentPage?.langcode,
             }"
             class="item"

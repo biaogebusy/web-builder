@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IProgressBar } from '@core/interface/widgets/IWidgets';
 
@@ -13,9 +12,8 @@ import type { IProgressBar } from '@core/interface/widgets/IWidgets';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class ProgressBarComponent implements OnInit {
+export class ProgressBarComponent {
   @Input() content: IProgressBar;
   constructor() {}
 
-  ngOnInit(): void {}
 }

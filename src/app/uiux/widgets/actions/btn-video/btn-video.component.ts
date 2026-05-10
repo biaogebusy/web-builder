@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialog } from '@core/interface/IDialog';
 import type { IBtnVideo } from '@core/interface/widgets/IBtn';
@@ -10,11 +10,10 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
   styleUrls: ['./btn-video.component.scss'],
   standalone: false,
 })
-export class BtnVideoComponent implements OnInit {
+export class BtnVideoComponent {
   @Input() content: IBtnVideo;
   private dialog = inject(MatDialog);
 
-  ngOnInit(): void {}
 
   openVideo(): void {
     const config: IDialog = {

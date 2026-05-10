@@ -2,7 +2,7 @@
 @if (currentPage$ | async; as page) {
   @if (page.body.length > 0) {
     <div class="builder-list" id="gsap-scroller">
-      <div class="wrapper" [ngClass]="previewClass$ | async">
+      <div class="wrapper" [class]="previewClass$ | async">
         @if (builder.loading$ | async) {
           <div class="load">
             <app-loading />
@@ -77,9 +77,6 @@
           <div class="iframe-wrapper">
             <app-iframe class="preview-iframe" [content]="{ url: '/preview' }" />
           </div>
-        }
-        @if (page.body.length > 0) {
-          <app-widget-picker></app-widget-picker>
         }
       </div>
     </div>

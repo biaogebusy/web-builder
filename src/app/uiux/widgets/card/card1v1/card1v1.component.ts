@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import type { ICard1v1 } from '@core/interface/widgets/ICard';
 
 @Component({
@@ -7,8 +7,7 @@ import type { ICard1v1 } from '@core/interface/widgets/ICard';
     styleUrls: ['./card1v1.component.scss'],
     standalone: false
 })
-export class Card1v1Component implements OnInit {
+export class Card1v1Component {
   @Input() content: ICard1v1;
 
-  ngOnInit(): void {}
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { DialogComponent } from '../../dialog/dialog.component';
 import type { IMeta } from '@core/interface/widgets/ICard';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,12 +11,11 @@ import { IDialog } from '@core/interface/IDialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class CardMetaComponent implements OnInit {
+export class CardMetaComponent {
   private dialog = inject(MatDialog);
 
   @Input() content: IMeta[] | undefined;
 
-  ngOnInit(): void {}
 
   onDialog(content: any): void {
     const config: IDialog = {

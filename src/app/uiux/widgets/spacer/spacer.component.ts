@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 
 interface ISpacer {
@@ -16,11 +15,10 @@ interface ISpacer {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class SpacerComponent implements OnInit {
+export class SpacerComponent {
   // content and size 是兼容写法
   @Input() content?: ISpacer;
   @Input() size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
   constructor() {}
 
-  ngOnInit(): void {}
 }

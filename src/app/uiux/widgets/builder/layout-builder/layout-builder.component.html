@@ -8,7 +8,7 @@
   @let alignItems = content.alignItems;
   @let wrapperClass = content.wrapperClass;
 
-  <div class="layout-builder" [ngClass]="classes" [ngStyle]="style">
+  <div class="layout-builder" [class]="classes" [style]="style">
     <div
       id="layout"
       class="layout-inner {{ wrapperClass }} justify-{{ horizontal }} justify-items-{{
@@ -28,10 +28,15 @@
         @let alignItems = layout.alignItems;
         @let blockClasses = layout.blockClasses;
         <div
-          [ngClass]="classes"
-          class="layout layout-{{ i }} col-span-{{ row.xs || '12' }}  sm:col-span-{{
-            row.sm
-          }} md:col-span-{{ row.md }} lg:col-span-{{ row.lg }}"
+          class="layout"
+          [class]="[
+            classes || '',
+            'layout-' + i,
+            'col-span-' + (row.xs || '12'),
+            'sm:col-span-' + row.sm,
+            'md:col-span-' + row.md,
+            'lg:col-span-' + row.lg
+          ]"
           [attr.data-path]="'elements.' + i"
           #layoutEle
         >
@@ -45,30 +50,33 @@
               />
             </div>
             @if (elements.length === 0) {
-              <div class="placeholder" [attr.data-path]="'elements.' + i">
-                <div #target>
-                  <app-btn
-                    matTooltip="插入组件"
-                    matTooltipPosition="above"
-                    (click)="addBlock('widget', content, target)"
-                    [content]="{
-                      label: '',
-                      mode: 'icon',
-                      icon: { svg: 'plus' },
-                    }"
-                  />
-                </div>
+              <div #placeholder class="placeholder" [attr.data-path]="'elements.' + i">
+                <app-btn
+                  matTooltip="插入组件"
+                  matTooltipPosition="above"
+                  (click)="addBlock('widget', content, placeholder)"
+                  [content]="{
+                    label: '',
+                    mode: 'icon',
+                    icon: { svg: 'plus' },
+                  }"
+                />
               </div>
             }
           }
           <div class="for-animate">
             <div
-              [ngClass]="blockClasses"
-              class="blocks justify-{{ horizontal }} justify-items-{{ vertical }} items-{{
-                alignItems
-              }} gap-{{ gap?.xs || 'none' }} sm:gap-{{ gap?.sm || 'none' }} md:gap-{{
-                gap?.md || 'none'
-              }} lg:gap-{{ gap?.lg || 'none' }}"
+              class="blocks"
+              [class]="[
+                blockClasses || '',
+                'justify-' + horizontal,
+                'justify-items-' + vertical,
+                'items-' + alignItems,
+                'gap-' + (gap?.xs || 'none'),
+                'sm:gap-' + (gap?.sm || 'none'),
+                'md:gap-' + (gap?.md || 'none'),
+                'lg:gap-' + (gap?.lg || 'none')
+              ]"
             >
               @if (bg) {
                 <app-bg-img [attr.data-path]="'bg'" [content]="bg" />
@@ -83,8 +91,8 @@
                 >
                   <app-dynamic-component class="component" [inputs]="item" />
                   @if (showToolbar()) {
-                    <div class="block-toolbar" #action>
-                      <button mat-stroked-button (click)="addBlock('widget', content, action)">
+                    <div class="block-toolbar">
+                      <button mat-stroked-button (click)="addBlock('widget', content, widget)">
                         <div class="block-toolbar-inner">
                           <app-icon class="mr-1" [content]="{ svg: 'arrow-right-bottom' }" />
                           <span>插入组件</span>
