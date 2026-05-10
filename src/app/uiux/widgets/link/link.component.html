@@ -7,7 +7,7 @@
     @if (isAbsolute(content.href || '')) {
       <a
         contentedit="label"
-        [ngClass]="classes"
+        [class]="classes"
         [matTooltip]="content.tooltip?.message || ''"
         [matTooltipPosition]="content.tooltip?.position || 'above'"
         [href]="content.href || 'javascript:void(0);'"
@@ -33,7 +33,7 @@
             [routerLinkActiveOptions]="{ exact: true }"
             [queryParams]="content.queryParams"
             [fragment]="content.fragment"
-            [ngClass]="classes"
+            [class]="classes"
             [innerHTML]="content.label | safeHtml"
             [title]="content.label"
             (click)="nav($event)"
@@ -55,7 +55,7 @@
     contentedit="label"
     [matTooltip]="content.tooltip?.message || ''"
     [matTooltipPosition]="content.tooltip?.position || 'above'"
-    [ngClass]="classes"
+    [class]="classes"
     href="javascript:void(0);"
     [target]="link.target || '_self'"
     [innerHTML]="link.label | safeHtml"

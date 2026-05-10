@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { ILink } from '@core/interface/widgets/ILink';
 
@@ -13,9 +12,8 @@ import type { ILink } from '@core/interface/widgets/ILink';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class BreadcrumbComponent implements OnInit {
+export class BreadcrumbComponent {
   @Input() content: ILink[];
   constructor() {}
 
-  ngOnInit(): void {}
 }

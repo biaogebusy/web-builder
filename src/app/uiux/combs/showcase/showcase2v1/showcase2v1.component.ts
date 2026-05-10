@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, inject } from '@angular/core';
 import type { IShowcase2v1 } from '@core/interface/combs/IShowcase';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
@@ -11,13 +11,12 @@ import { of } from 'rxjs';
     styleUrls: ['./showcase2v1.component.scss'],
     standalone: false
 })
-export class Showcase2v1Component extends BaseComponent implements OnInit, AfterViewInit {
+export class Showcase2v1Component extends BaseComponent implements AfterViewInit {
   @Input() content: IShowcase2v1;
   elements: ICard1v1[];
   private nodeService = inject(NodeService);
   private cd = inject(ChangeDetectorRef);
 
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     const api = this.getParams(this.content, 'api');

@@ -11,7 +11,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IUser } from '@core/interface/IUser';
-import { ManageService } from '@core/service/manage.service';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
@@ -38,7 +37,6 @@ export class UserSettingComponent implements OnInit {
   private util = inject(UtilitiesService);
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  private manageService = inject(ManageService);
 
   ngOnInit(): void {
     this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user: IUser) => {
@@ -241,7 +239,7 @@ export class UserSettingComponent implements OnInit {
     }
 
     try {
-      const data = await this.manageService.readFileAsArrayBuffer(file);
+      const data = await this.util.readFileAsArrayBuffer(file);
       this.userService
         .uploadUserPicture(user, data)
         .pipe(

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IDialog } from '@core/interface/IDialog';
@@ -11,14 +11,13 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class TermsServiceComponent implements OnInit {
+export class TermsServiceComponent {
   private dialog = inject(MatDialog);
 
   @Input() content: any;
   @Input() form: UntypedFormGroup;
   private dialogRef: any;
 
-  ngOnInit(): void {}
 
   openTermService(params: any): void {
     if (params) {

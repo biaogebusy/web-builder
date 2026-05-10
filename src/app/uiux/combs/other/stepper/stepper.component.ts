@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
@@ -7,8 +7,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
     styleUrls: ['./stepper.component.scss'],
     standalone: false
 })
-export class StepperComponent extends BaseComponent implements OnInit {
+export class StepperComponent extends BaseComponent {
   @Input() content: any;
 
-  ngOnInit(): void {}
 }

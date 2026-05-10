@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
@@ -13,11 +12,10 @@ import type { IBaseNode, IComment } from '@core/interface/node/INode';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class CommentListComponent implements OnInit {
+export class CommentListComponent {
   @Input() content: IBaseNode;
   @Input() comments: IComment[] | null;
 
   constructor() {}
 
-  ngOnInit(): void {}
 }

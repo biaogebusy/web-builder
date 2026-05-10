@@ -57,6 +57,14 @@
 
 <ng-template let-content="content" #block>
   @for (item of content; track item; let i = $index) {
-    <app-dynamic-component [inputs]="item" />
+    @if (i < 2) {
+      <app-dynamic-component [inputs]="item" />
+    } @else {
+      @defer (hydrate on viewport) {
+        <app-dynamic-component [inputs]="item" />
+      } @placeholder {
+        <div class="defer-placeholder" style="min-height: 120px"></div>
+      }
+    }
   }
 </ng-template>

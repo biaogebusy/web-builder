@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { IMainMenu } from '@core/interface/branding/IBranding';
 
 @Component({
@@ -8,10 +8,9 @@ import { IMainMenu } from '@core/interface/branding/IBranding';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class AccordionMenuComponent implements OnInit {
+export class AccordionMenuComponent {
   @Input() content: IMainMenu[] | undefined;
   panelOpenState = false;
   constructor() {}
 
-  ngOnInit(): void {}
 }

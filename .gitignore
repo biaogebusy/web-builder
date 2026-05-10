@@ -50,3 +50,4 @@ Thumbs.db
 documentation.json
 
 /.angular
+/.claude/*.local.json

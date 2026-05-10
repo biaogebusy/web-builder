@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { ICard1v2 } from '@core/interface/widgets/ICard';
 
@@ -13,9 +12,8 @@ import type { ICard1v2 } from '@core/interface/widgets/ICard';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class Card1v2Component implements OnInit {
+export class Card1v2Component {
   @Input() content: ICard1v2;
   constructor() {}
 
-  ngOnInit(): void {}
 }

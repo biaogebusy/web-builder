@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import type { IDialog } from '@core/interface/IDialog';
 
@@ -8,11 +8,10 @@ import type { IDialog } from '@core/interface/IDialog';
     styleUrls: ['./dialog.component.scss'],
     standalone: false
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent {
   public data = inject<IDialog>(MAT_DIALOG_DATA);
   private dialogRef = inject(MatDialogRef);
 
-  ngOnInit(): void {}
 
   onNoClick(): void {
     this.dialogRef.close(false);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     selector: 'app-shape',
@@ -7,8 +7,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class ShapeComponent implements OnInit {
+export class ShapeComponent {
   constructor() {}
 
-  ngOnInit(): void {}
 }

@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IBannerSimple } from '@core/interface/combs/IBanner';
 
@@ -13,9 +12,8 @@ import type { IBannerSimple } from '@core/interface/combs/IBanner';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class BannerSimpleComponent implements OnInit {
+export class BannerSimpleComponent {
   @Input() content: IBannerSimple;
   constructor() {}
 
-  ngOnInit(): void {}
 }

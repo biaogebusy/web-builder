@@ -1,5 +1,6 @@
-@if (showToolbar()) {
-  <app-component-toolbar [content]="inputs" />
+@let i = inputs();
+@if (showToolbar() && i) {
+  <app-component-toolbar [content]="i" />
 }
 @let content = compContent();
 @if (content?.id) {

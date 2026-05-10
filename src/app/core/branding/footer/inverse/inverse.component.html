@@ -51,7 +51,11 @@
                   {{ content.footerNewsletter.label }}
                 </div>
                 <p class="m-y-xs" [innerHTML]="content.footerNewsletter.summary | safeHtml"></p>
-                <app-formly [form]="form" [fields]="content.footerNewsletter.form" />
+                @defer (hydrate on viewport) {
+                  <app-formly [form]="form" [fields]="content.footerNewsletter.form" />
+                } @placeholder {
+                  <div class="newsletter-form-placeholder" style="min-height: 60px"></div>
+                }
                 <div class="newsletter-action">
                   @if (content.footerNewsletter.action) {
                     <button type="submit" mat-raised-button color="primary">

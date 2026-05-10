@@ -49,7 +49,7 @@
                   <div
                     (click)="onFixed(widget)"
                     class="inner move"
-                    [ngClass]="widget.label === fixLabel() ? 'active' : ''"
+                    [class]="widget.label === fixLabel() ? 'active' : ''"
                   >
                     @if (widget.icon) {
                       <app-icon [content]="{ svg: widget.icon }" />
@@ -91,7 +91,7 @@
                       <div
                         (click)="onFixed(item)"
                         class="inner move"
-                        [ngClass]="item.label === fixLabel() ? 'active' : ''"
+                        [class]="item.label === fixLabel() ? 'active' : ''"
                       >
                         @if (item.icon) {
                           <app-icon [content]="{ svg: item.icon }" />

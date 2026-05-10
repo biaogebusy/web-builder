@@ -20,12 +20,12 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
     if (this.screenService.isPlatformBrowser()) {
       if (this.coreConfig.librariesUseLocal) {
         await this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
-        await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
+        await this.util.loadScriptWithoutAmd('/assets/injects/jsoneditor/jsoneditor.min.js');
       } else {
         const jsoneditorStyle = this.util.getLibraries('jsoneditor', 'cdn', 'style');
         const jsoneditorJS = this.util.getLibraries('jsoneditor', 'cdn', 'script');
         await this.util.loadStyle(jsoneditorStyle);
-        await this.util.loadScript(jsoneditorJS);
+        await this.util.loadScriptWithoutAmd(jsoneditorJS);
       }
 
       const editor = new window.JSONEditor(this.editor.nativeElement, {

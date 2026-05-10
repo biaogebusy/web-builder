@@ -118,11 +118,25 @@ export class UtilitiesService {
       ...config,
     });
   }
-
   loadScript(src: string, id?: string, defer?: boolean): Promise<void> {
+    if (!this.screenService.isPlatformBrowser()) {
+      return Promise.resolve();
+    }
     return new Promise((resolve, reject) => {
-      if (this.document.querySelector(`script[src="${src}"]`)) {
-        resolve();
+      const existing = this.document.querySelector(
+        `script[src="${src}"]`
+      ) as HTMLScriptElement | null;
+      if (existing) {
+        if (existing.dataset?.loaded === 'true') {
+          resolve();
+          return;
+        }
+        existing.addEventListener('load', () => resolve(), { once: true });
+        existing.addEventListener(
+          'error',
+          () => reject(new Error(`Failed to load script: ${src}`)),
+          { once: true }
+        );
         return;
       }
       const script = this.document.createElement('script');
@@ -138,6 +152,7 @@ export class UtilitiesService {
 
       // 设置加载完成回调
       script.onload = () => {
+        script.dataset.loaded = 'true';
         script.onload = null; // 清理事件处理器
         script.onerror = null;
         resolve();
@@ -154,18 +169,52 @@ export class UtilitiesService {
   }
 
   loadStyle(href: string): Promise<void> {
+    if (!this.screenService.isPlatformBrowser()) {
+      return Promise.resolve();
+    }
     return new Promise((resolve, reject) => {
-      if (this.document.querySelector(`link[href="${href}"]`)) {
-        resolve();
+      const existing = this.document.querySelector(
+        `link[href="${href}"]`
+      ) as HTMLLinkElement | null;
+      if (existing) {
+        if (existing.dataset?.loaded === 'true') {
+          resolve();
+          return;
+        }
+        existing.addEventListener('load', () => resolve(), { once: true });
+        existing.addEventListener('error', () => reject(new Error(`Failed to load ${href}`)), {
+          once: true,
+        });
         return;
       }
       const link = this.document.createElement('link');
       link.rel = 'stylesheet';
       link.href = href;
-      link.onload = () => resolve();
-      link.onerror = () => reject(`Failed to load ${href}`);
+      link.onload = () => {
+        link.dataset.loaded = 'true';
+        resolve();
+      };
+      link.onerror = () => reject(new Error(`Failed to load ${href}`));
       this.document.head.appendChild(link);
     });
+  }
+
+  // Load a UMD script while suppressing AMD's `define` so the bundle falls
+  // through to the global-export branch. Needed when Monaco's loader.js has
+  // already installed an AMD `define` on the page.
+  async loadScriptWithoutAmd(src: string, id?: string, defer?: boolean): Promise<void> {
+    const win = window as any;
+    const prevDefine = win.define;
+    if (prevDefine?.amd) {
+      win.define = undefined;
+    }
+    try {
+      await this.loadScript(src, id, defer);
+    } finally {
+      if (prevDefine?.amd) {
+        win.define = prevDefine;
+      }
+    }
   }
 
   getFileType(href: string): string {
@@ -431,6 +480,22 @@ export class UtilitiesService {
       };
       img.onerror = reject;
       img.src = url;
+    });
+  }
+
+  readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const result = e.target?.result;
+        if (result) {
+          resolve(result as ArrayBuffer);
+        } else {
+          reject(false);
+        }
+      };
+      reader.onerror = e => reject(e);
+      reader.readAsArrayBuffer(file);
     });
   }
 }

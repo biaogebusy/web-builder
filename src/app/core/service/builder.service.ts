@@ -14,7 +14,6 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { ContentService } from './content.service';
 import { isArray } from 'lodash-es';
 import { IBuilderConfig } from '@core/interface/IBuilder';
-import { createPopper } from '@popperjs/core';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 
@@ -624,20 +623,24 @@ export class BuilderService extends ApiService {
     return pageTitle;
   }
 
-  addBlock(addType: string, content: any, path: string, target: any): void {
-    const popper = document.querySelector('.widget-picker') as HTMLElement;
-    this.builder.widgetsPicker$.next({
-      type: 'widget-picker',
-      addType,
-      path,
-      content,
+  addBlock(addType: string, content: any, path: string): void {
+    this.builder.rightContent$.next({
+      title: '选择组件',
+      mode: 'over',
+      hasBackdrop: false,
+      style: {
+        width: '400px',
+      },
+      elements: [
+        {
+          type: 'widget-picker',
+          addType,
+          path,
+          content,
+          fullWidth: true,
+        },
+      ],
     });
-    if (popper) {
-      createPopper(target, popper, {
-        strategy: 'fixed',
-        placement: 'right',
-      });
-    }
   }
 
   initExtraBody(body: any[], isTemplate?: boolean): any[] {

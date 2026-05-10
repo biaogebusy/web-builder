@@ -69,8 +69,24 @@ import { environment } from 'src/environments/environment';
       withHttpTransferCacheOptions({
         includePostRequests: false,
         filter: req => {
-          const { url, method } = req;
-          return method === 'GET' && !url.includes('nocache');
+          if (req.method !== 'GET') {
+            return false;
+          }
+          if (req.headers.has('Authorization')) {
+            return false;
+          }
+          const url = req.url.toLowerCase();
+          if (url.includes('nocache')) {
+            return false;
+          }
+          const userStatePatterns = [
+            '/oauth/',
+            '/api/v1/user/',
+            '/api/v3/accountprofile',
+            '/api/v3/personalprofile',
+            '/jsonapi/user/',
+          ];
+          return !userStatePatterns.some(pattern => url.includes(pattern));
         },
       })
     ),

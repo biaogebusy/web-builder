@@ -1,8 +1,9 @@
 @if (content) {
   <mat-card
     appearance="outlined"
-    class="card {{ content.header?.meta ? 'has-header' : '' }}"
-    [ngClass]="content.classes"
+    class="card"
+    [class.has-header]="content.header?.meta"
+    [class]="content.classes"
   >
     @if (content.header?.meta) {
       <mat-card-content>

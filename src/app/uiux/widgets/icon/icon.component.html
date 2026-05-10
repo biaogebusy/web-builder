@@ -2,14 +2,14 @@
   @if (!content.svg) {
     @if (!content.badge) {
       <mat-icon
-        [ngStyle]="content.style"
+        [style]="content.style"
         [color]="content.color"
         [inline]="content.inline ?? false"
         [fontIcon]="content.name || ''"
       />
     } @else {
       <mat-icon
-        [ngStyle]="content.style"
+        [style]="content.style"
         [color]="content.color"
         [inline]="content.inline ?? false"
         [fontIcon]="content.name || ''"
@@ -22,7 +22,7 @@
   @if (content.svg) {
     @if (!content.badge) {
       <mat-icon
-        [ngStyle]="content.style"
+        [style]="content.style"
         class="custom"
         [color]="content.color"
         [inline]="content.inline ?? false"
@@ -30,7 +30,7 @@
       />
     } @else {
       <mat-icon
-        [ngStyle]="content.style"
+        [style]="content.style"
         class="custom"
         [color]="content.color"
         [inline]="content.inline ?? false"

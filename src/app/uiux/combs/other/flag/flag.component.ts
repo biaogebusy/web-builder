@@ -20,6 +20,8 @@ import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
+const FLAGGING_GET_PATH = '/api/v1/flagging';
+
 @Component({
   selector: 'app-flag',
   templateUrl: './flag.component.html',
@@ -71,7 +73,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
       return;
     }
     this.nodeService
-      .getNodes(this.coreConfig.apiUrl.flaggingGetPath, this.type, this.flaggingParams)
+      .getNodes(FLAGGING_GET_PATH, this.type, this.flaggingParams)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         if (res.data.length) {
@@ -121,7 +123,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
         });
     } else {
       this.nodeService
-        .getNodes(this.coreConfig.apiUrl.flaggingGetPath, this.type, this.flaggingParams)
+        .getNodes(FLAGGING_GET_PATH, this.type, this.flaggingParams)
         .pipe(
           switchMap(res => {
             return this.nodeService.deleteFlagging(this.path, res.data);

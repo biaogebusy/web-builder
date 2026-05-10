@@ -1,6 +1,6 @@
 @if (content) {
   <div class="showcase-1-v1">
-    <div [ngClass]="content.classes">
+    <div [class]="content.classes">
       @if (content.title) {
         <app-title [attr.data-path]="'title'" class="title-block" #title [content]="content.title" />
       }

@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  OnInit,
   ViewChild,
   inject,
   DOCUMENT,
@@ -17,14 +16,13 @@ import { ScreenState } from '@core/state/screen/ScreenState';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class GotopComponent implements OnInit {
+export class GotopComponent {
   private screenService = inject(ScreenService);
   private screen = inject(ScreenState);
   private document = inject<Document>(DOCUMENT);
 
   @ViewChild('goTop') goTop: ElementRef;
 
-  ngOnInit(): void {}
 
   gotoTop(): void {
     this.screenService.gotoTop();

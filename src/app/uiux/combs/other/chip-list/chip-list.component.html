@@ -1,5 +1,5 @@
 @if (content) {
-  <mat-chip-listbox [ngClass]="classes">
+  <mat-chip-listbox [class]="classes">
     @for (item of content.elements; track item) {
       <mat-chip-option
         color="{{ item?.color || 'primary' }}"

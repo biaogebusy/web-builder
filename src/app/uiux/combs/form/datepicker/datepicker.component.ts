@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
@@ -14,13 +13,12 @@ import { formatDate } from '@angular/common';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class DatepickerComponent implements OnInit {
+export class DatepickerComponent {
   @Input() content: any;
   @Input() form: UntypedFormGroup;
   selected: Date | null;
   constructor() {}
 
-  ngOnInit(): void {}
 
   get isValid(): boolean {
     if (!this.content.range && this.content?.key) {

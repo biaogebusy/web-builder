@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IHero1v1 } from '@core/interface/combs/IHero';
 
@@ -13,9 +12,8 @@ import type { IHero1v1 } from '@core/interface/combs/IHero';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class Hero1v1Component implements OnInit {
+export class Hero1v1Component {
   @Input() content: IHero1v1;
   constructor() {}
 
-  ngOnInit(): void {}
 }

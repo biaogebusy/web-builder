@@ -1,7 +1,7 @@
 @if (branding$ | async; as branding) {
   @let header = branding.header;
   @if (show()) {
-    <header class="header" [ngClass]="{ 'is-pc-header': show() }">
+    <header class="header" [class]="{ 'is-pc-header': show() }">
       <div class="container">
         <div
           class="header-container {{

@@ -40,7 +40,11 @@
         </div>
         <div class="right">
           @if (chart) {
-            <app-chart [content]="chart" [data]="content.data" />
+            @defer (hydrate on viewport) {
+              <app-chart [content]="chart" [data]="content.data" />
+            } @placeholder {
+              <div class="chart-skeleton" style="min-height: 240px"></div>
+            }
           }
         </div>
       </div>

@@ -4,7 +4,7 @@
       <swiper-slide class="swiper-slide" (click)="onClick(slide)">
         <app-dynamic-component
           [attr.data-path]="i"
-          [ngClass]="content.sliderClasses"
+          [class]="content.sliderClasses"
           [inputs]="slide"
         />
       </swiper-slide>

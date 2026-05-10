@@ -1,8 +1,9 @@
-@if (content.elements) {
+@let c = content();
+@if (c.elements) {
   <div
     class="dynamic-table"
-    [ngClass]="content.classes || 'nowrap'"
-    [ngStyle]="content.params?.style || null"
+    [class]="c.classes || 'nowrap'"
+    [style]="c.params?.style || null"
     >
     <table
       matSort
@@ -11,19 +12,19 @@
       multiTemplateDataRows
       aria-describedby="dynamic table"
       >
-      @for (item of content.header; track item) {
+      @for (item of c.header; track item) {
         <ng-container
           [matColumnDef]="item.key"
           [sticky]="item.sticky"
           >
-          <th mat-header-cell *cdkHeaderCellDef mat-sort-header [ngClass]="item.classes || ''">
+          <th mat-header-cell *cdkHeaderCellDef mat-sort-header [class]="item.classes || ''">
             <span class="header-label" [innerHTML]="item.label | safeHtml"></span>
           </th>
           <td
             mat-cell
             *cdkCellDef="let element"
-            [ngClass]="item.classes || ''"
-            [ngStyle]="item.style || {}"
+            [class]="item.classes || ''"
+            [style]="item.style || {}"
             >
             @if (element[item.key] | isArray) {
               @for (item of element[item.key]; track item) {
@@ -118,18 +119,18 @@
         mat-header-row
       *matHeaderRowDef="
         isExpand ? columnsToDisplayWithExpand : displayedColumns;
-        sticky: content?.params?.sticky ? true : false
+        sticky: c?.params?.sticky ? true : false
       "
       ></tr>
       <tr
         mat-row
         *matRowDef="let element; columns: isExpand ? columnsToDisplayWithExpand : displayedColumns"
-        [ngClass]="isExpand ? 'element-row' : ''"
+        [class]="isExpand ? 'element-row' : ''"
         [class.example-expanded-row]="expandedElement === element"
       ></tr>
       <!-- expand row -->
       @if (isExpand) {
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" [ngClass]="'detail-row'"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" [class]="'detail-row'"></tr>
       }
     </table>
   </div>

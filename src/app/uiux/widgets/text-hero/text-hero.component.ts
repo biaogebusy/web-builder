@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import type { ITextHero } from '@core/interface/widgets/IText';
 
 @Component({
@@ -7,8 +7,7 @@ import type { ITextHero } from '@core/interface/widgets/IText';
     styleUrls: ['./text-hero.component.scss'],
     standalone: false
 })
-export class TextHeroComponent implements OnInit {
+export class TextHeroComponent {
   @Input() content: ITextHero;
 
-  ngOnInit(): void {}
 }

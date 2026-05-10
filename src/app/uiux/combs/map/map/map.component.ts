@@ -1,12 +1,11 @@
 import {
   Component,
   OnInit,
-  Input,
   ChangeDetectionStrategy,
-  OnChanges,
-  SimpleChanges,
   ChangeDetectorRef,
+  effect,
   inject,
+  input,
   DestroyRef,
 } from '@angular/core';
 import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
@@ -28,11 +27,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class MapComponent implements OnInit, OnChanges {
+export class MapComponent implements OnInit {
   private theme = inject(THEME);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  @Input() content: IMap;
+  readonly content = input<IMap>();
   AMap: any;
   circle: any;
   markers: any[];
@@ -51,30 +50,33 @@ export class MapComponent implements OnInit, OnChanges {
   cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
+  constructor() {
+    effect(() => {
+      const c = this.content();
+      if (!c || !this.map) {
+        return;
+      }
+      const { elements, model } = c;
+      if (!this.mapLoading && elements && elements.length > 0) {
+        this.getPositionAndMarkers(elements);
+      }
+      if (model?.enableCircle) {
+        if (model.circle.lnglat) {
+          this.setFitView();
+        } else {
+          this.utilService.openSnackbar('点击地图复制经纬度', 'ok');
+        }
+      }
+
+      if (!model?.enableCire && this.circle) {
+        this.map.remove(this.circle);
+      }
+    });
+  }
+
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.initMap();
-    }
-  }
-
-  ngOnChanges(change: SimpleChanges): void {
-    const {
-      firstChange,
-      currentValue: { elements, model },
-    } = change.content;
-    if (!this.mapLoading && !firstChange && elements && elements.length > 0) {
-      this.getPositionAndMarkers(elements);
-    }
-    if (model?.enableCircle) {
-      if (model.circle.lnglat) {
-        this.setFitView();
-      } else {
-        this.utilService.openSnackbar('点击地图复制经纬度', 'ok');
-      }
-    }
-
-    if (!model?.enableCire && this.circle) {
-      this.map.remove(this.circle);
     }
   }
 
@@ -96,7 +98,7 @@ export class MapComponent implements OnInit, OnChanges {
         if (AMap) {
           this.AMap = AMap;
           this.geocoder = new AMap.Geocoder({
-            city: this.content?.city || this.coreConfig?.amap?.city || '全国',
+            city: this.content()?.city || this.coreConfig?.amap?.city || '全国',
           });
           this.mapLoading = false;
           this.cd.detectChanges();
@@ -135,7 +137,8 @@ export class MapComponent implements OnInit, OnChanges {
   renderMap(): void {
     const amapConfig = this.coreConfig?.amap;
     const mapStyle: any = amapConfig.mapStyle;
-    const options = this.content?.params;
+    const content = this.content();
+    const options = content?.params;
     const defaultOptions = {
       resizeEnable: true,
       zoom: amapConfig.zoom,
@@ -153,18 +156,21 @@ export class MapComponent implements OnInit, OnChanges {
         });
     }
     this.map.on('click', (event: any) => {
-      if (this.content?.model.enableCircle) {
+      const c = this.content();
+      if (c?.model.enableCircle) {
         const {
           lnglat: { lng, lat },
         } = event;
-        const form = this.content?.form;
+        const form = c?.form;
         if (form) {
           form.controls['circle'].patchValue({ lnglat: `${lng},${lat}` });
         }
         this.utilService.openSnackbar('已设置中心点', 'ok');
       }
     });
-    this.getPositionAndMarkers(this.content.elements);
+    if (content?.elements) {
+      this.getPositionAndMarkers(content.elements);
+    }
   }
 
   getMarkers(lists: any[]): void {
@@ -244,8 +250,9 @@ export class MapComponent implements OnInit, OnChanges {
 
   setFitView(): void {
     this.map.setFitView();
-    if (this.content?.model?.enableCircle) {
-      const { lnglat, radius, bg, opacity } = this.content.model.circle;
+    const c = this.content();
+    if (c?.model?.enableCircle) {
+      const { lnglat, radius, bg, opacity } = c.model.circle;
       if (!lnglat) {
         this.utilService.openSnackbar('点击地图复制经纬度', 'ok');
         return;

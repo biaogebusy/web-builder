@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING, BUILDER_CONFIG } from '@core/token/token-providers';
@@ -16,7 +16,7 @@ import { IDialog } from '@core/interface/IDialog';
   styleUrls: ['./builder-sidebar.component.scss'],
   standalone: false,
 })
-export class BuilderSidebarComponent implements OnInit {
+export class BuilderSidebarComponent {
   public branding$ = inject<Observable<IBranding>>(BRANDING);
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
@@ -26,7 +26,6 @@ export class BuilderSidebarComponent implements OnInit {
   private dialog = inject(MatDialog);
   private manageService = inject(ManageService);
 
-  ngOnInit(): void {}
 
   onSelectAssets(): void {
     const config: IDialog = {

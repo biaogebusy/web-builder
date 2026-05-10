@@ -60,12 +60,12 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
       this.loadLibrary.set(true);
       if (this.coreConfig.librariesUseLocal) {
         await this.util.loadStyle('/assets/injects/jsoneditor/jsoneditor.min.css');
-        await this.util.loadScript('/assets/injects/jsoneditor/jsoneditor.min.js');
+        await this.util.loadScriptWithoutAmd('/assets/injects/jsoneditor/jsoneditor.min.js');
       } else {
         const jsoneditorStyle = this.util.getLibraries('jsoneditor', 'cdn', 'style');
         const jsoneditorJS = this.util.getLibraries('jsoneditor', 'cdn', 'script');
         await this.util.loadStyle(jsoneditorStyle);
-        await this.util.loadScript(jsoneditorJS);
+        await this.util.loadScriptWithoutAmd(jsoneditorJS);
       }
       this.loadLibrary.set(false);
 
@@ -93,7 +93,14 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
         default:
           schema = componentSchema;
       }
-      if (!window.JSONEditor || this.jsonEditor) {
+      if (this.jsonEditor) {
+        return;
+      }
+      if (!window.JSONEditor) {
+        console.warn(
+          'JSONEditor not available on window after script load. ' +
+            'An AMD/UMD conflict likely captured the export.'
+        );
         return;
       }
       this.jsonEditor = new window.JSONEditor(

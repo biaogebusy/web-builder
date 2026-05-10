@@ -47,7 +47,7 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
       'jsonapi_include=1',
       `page[limit]=${this.getParams(this.content, 'limit') || 20}`,
     ].join('&');
-    const path = this.nodeService.apiUrlConfig.nodeGetPath;
+    const path = '/api/v1/node';
     this.nodeService
       .getNodes(path, `${this.getParams(this.content, 'type')}`, params)
       .pipe(takeUntilDestroyed(this.destroyRef))

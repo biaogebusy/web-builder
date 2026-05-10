@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IBranding } from '../interface/branding/IBranding';
-import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
@@ -201,22 +200,11 @@ export function brandingFactory(): Observable<IBranding | object> {
 }
 
 export function userFactory(): Observable<IUser | boolean> {
-  const cryptoJS = inject(CryptoJSService);
   const userService = inject(UserService);
-  const cookieService = inject(CookieService);
-  const screenService = inject(ScreenService);
-  const key = userService.localUserKey;
-  const doc = inject(DOCUMENT);
   const user$ = new BehaviorSubject<IUser | boolean>(false);
-  if (screenService.isPlatformBrowser()) {
-    if (cookieService.check(key)) {
-      const user: IUser = JSON.parse(cryptoJS.decrypt(cookieService.get(key)));
-      if (user) {
-        user$.next(user);
-      } else {
-        user$.next(false);
-      }
-    }
+  const stored = userService.getStoredUser();
+  if (stored) {
+    user$.next(stored);
   }
   userService.userSub$.subscribe(user => {
     user$.next(user);

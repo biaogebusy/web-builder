@@ -27,9 +27,6 @@
         "amap": {
           "$ref": "#/definitions/Amap"
         },
-        "apiUrl": {
-          "$ref": "#/definitions/APIURL"
-        },
         "loading": {
           "type": "boolean"
         },
@@ -54,7 +51,6 @@
       },
       "required": [
         "animate",
-        "apiUrl",
         "builder",
         "defaultAvatar",
         "defaultTheme",
@@ -121,59 +117,6 @@
       },
       "required": ["dark", "light"],
       "title": "MapStyle"
-    },
-    "APIURL": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "apiBase": {
-          "type": "string"
-        },
-        "localConfigUrl": {
-          "type": "string"
-        },
-        "brandingConfigUrl": {
-          "type": "string"
-        },
-        "coreConfigUrl": {
-          "type": "string"
-        },
-        "loginPath": {
-          "type": "string"
-        },
-        "logoutPath": {
-          "type": "string"
-        },
-        "userIdGetPath": {
-          "type": "string"
-        },
-        "nodeGetPath": {
-          "type": "string"
-        },
-        "taxonomyGetPath": {
-          "type": "string"
-        },
-        "userGetPath": {
-          "type": "string"
-        },
-        "commentGetPath": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "apiBase",
-        "brandingConfigUrl",
-        "commentGetPath",
-        "coreConfigUrl",
-        "localConfigUrl",
-        "loginPath",
-        "logoutPath",
-        "nodeGetPath",
-        "taxonomyGetPath",
-        "userGetPath",
-        "userIdGetPath"
-      ],
-      "title": "APIURL"
     },
     "Builder": {
       "type": "object",

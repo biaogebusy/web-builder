@@ -57,6 +57,7 @@ export interface IBuilderComponentElement {
   mark?: string;
   icon?: string;
   type?: string;
+  preview?: string;
   child?: IBuilderComponentElement[];
   content?: {
     type?: string;

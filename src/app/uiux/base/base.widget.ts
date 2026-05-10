@@ -6,7 +6,6 @@ import { isArray, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
   apiService = inject(ApiService);
-  abstract content: any;
 
   getParams(obj: any, key: string): any {
     return obj?.params && obj.params[key];

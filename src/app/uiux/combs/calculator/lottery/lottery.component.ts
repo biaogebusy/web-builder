@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  OnInit,
   inject,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
@@ -18,7 +17,7 @@ import type { EChartsOption } from 'echarts/types/dist/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class LotteryComponent implements OnInit, AfterViewInit {
+export class LotteryComponent implements AfterViewInit {
   private cd = inject(ChangeDetectorRef);
 
   @Input() content: ILottery;
@@ -29,7 +28,6 @@ export class LotteryComponent implements OnInit, AfterViewInit {
   minTotalMoney = 0;
   chart: EChartsOption;
 
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.form.controls?.isPromote) {

@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
 import type { IShowcase3v4 } from '@core/interface/combs/IShowcase';
 
@@ -13,9 +12,8 @@ import type { IShowcase3v4 } from '@core/interface/combs/IShowcase';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
-export class Showcase3v4Component implements OnInit {
+export class Showcase3v4Component {
   @Input() content: IShowcase3v4;
   constructor() {}
 
-  ngOnInit(): void {}
 }

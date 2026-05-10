@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { MAT_INPUT_VALUE_ACCESSOR, MatInput } from '@angular/material/input';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -14,7 +14,7 @@ import { QuillModule } from 'ngx-quill';
   providers: [{ provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: FormlyFieldTextArea }],
   standalone: false,
 })
-export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnInit, AfterViewInit {
+export class RichTextComponent extends FieldType<FieldTypeConfig> implements AfterViewInit {
   @ViewChild(MatInput, { static: true }) formFieldControl!: MatInput;
   @ViewChild('popup', { static: false }) popup: ElementRef;
   private value: any;
@@ -55,7 +55,6 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements OnI
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
 
-  ngOnInit(): void {}
 
   async ngAfterViewInit(): Promise<void> {
     await this.util.loadStyle('/assets/injects/quill/quill.core.css');

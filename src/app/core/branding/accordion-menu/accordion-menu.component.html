@@ -21,7 +21,7 @@
           >
             <mat-expansion-panel-header>
               @if (!item.href) {
-                <mat-panel-title [ngClass]="item.classes || ''">
+                <mat-panel-title [class]="item.classes || ''">
                   @if (item.icon) {
                     <app-icon class="acc-icon" [content]="item.icon" />
                   }
@@ -32,7 +32,7 @@
                 @if (item.icon) {
                   <app-icon class="acc-icon" [content]="item.icon" />
                 }
-                <app-link [ngClass]="item.classes || ''" [content]="item" />
+                <app-link [class]="item.classes || ''" [content]="item" />
               }
             </mat-expansion-panel-header>
             <app-accordion-menu [content]="item.child" />
@@ -48,7 +48,7 @@
           >
             <mat-expansion-panel-header>
               @if (!item.href) {
-                <mat-panel-title [ngClass]="item.classes || ''">
+                <mat-panel-title [class]="item.classes || ''">
                   @if (item.icon) {
                     <app-icon class="acc-icon" [content]="item.icon" />
                   }
@@ -59,7 +59,7 @@
                 @if (item.icon) {
                   <app-icon class="acc-icon" [content]="item.icon" />
                 }
-                <app-link [ngClass]="item.classes || ''" [content]="item" />
+                <app-link [class]="item.classes || ''" [content]="item" />
               }
             </mat-expansion-panel-header>
             <app-dynamic-menu class="dynamic-menu-inner" [uuid]="item.uuid" />
