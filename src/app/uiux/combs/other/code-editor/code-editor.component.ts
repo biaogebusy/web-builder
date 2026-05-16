@@ -69,7 +69,7 @@ export class CodeEditorComponent implements OnInit {
     this.html.set(html);
     this.json.set(jsonValue);
     this.isAPI.set(isAPI);
-    this.api = api.trim();
+    this.api = (api ?? '').trim();
     if (this.isAPI() && this.api) {
       this.fields = [
         {
@@ -174,7 +174,7 @@ export class CodeEditorComponent implements OnInit {
           return;
         }
         const { path } = this.content;
-        this.api = api.trim();
+        this.api = (api ?? '').trim();
         if (this.isAPI && api) {
           this.nodeService
             .fetch(api, 'noCache=1')
