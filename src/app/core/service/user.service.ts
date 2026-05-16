@@ -78,14 +78,14 @@ export class UserService extends ApiService {
   }
 
   login(userName: string, passWord: string): Observable<boolean> {
-    const body = new HttpParams()
+    let body = new HttpParams()
       .set('grant_type', 'password')
       .set('client_id', environment.oauth.clientId)
       .set('username', userName)
       .set('password', passWord);
 
     if (environment.oauth.scope) {
-      body.set('scope', environment.oauth.scope);
+      body = body.set('scope', environment.oauth.scope);
     }
 
     return this.http
@@ -215,13 +215,13 @@ export class UserService extends ApiService {
     if (!storedUser || !storedUser.refresh_token) {
       return of(null);
     }
-    const body = new HttpParams()
+    let body = new HttpParams()
       .set('grant_type', 'refresh_token')
       .set('refresh_token', storedUser.refresh_token)
       .set('client_id', environment.oauth.clientId);
 
     if (environment.oauth.scope) {
-      body.set('scope', environment.oauth.scope);
+      body = body.set('scope', environment.oauth.scope);
     }
 
     return this.http.post<any>(`${this.apiUrl}${environment.oauth.tokenUrl}`, body.toString(), {
