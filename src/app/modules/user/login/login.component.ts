@@ -113,11 +113,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   getCode(event: any): any {
     event.preventDefault();
-    const { phone } = this.phoneForm.value;
-    if (!phone) {
-      this.error.set('请输入手机号码');
+    const phoneControl = this.phoneForm.controls['phone'];
+    if (phoneControl.invalid) {
+      phoneControl.markAsTouched();
+      this.error.set(
+        phoneControl.hasError('required') ? '请输入手机号码' : '请输入正确的手机号码',
+      );
       return false;
     }
+    const { phone } = this.phoneForm.value;
     this.userService
       .getCode(phone)
       .pipe(takeUntilDestroyed(this.destroyRef))

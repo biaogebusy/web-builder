@@ -1,0 +1,542 @@
+:host {
+  --cb-accent: var(--mat-sys-primary);
+  --cb-accent-2: var(--mat-sys-tertiary);
+  --cb-glow: color-mix(in srgb, var(--mat-sys-primary) 35%, transparent);
+  --cb-glow-soft: color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
+  --cb-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, 'Cascadia Code',
+    Menlo, Consolas, monospace;
+}
+
+.callback-page {
+  @apply relative flex justify-center items-center px-4 py-10 overflow-hidden;
+  min-height: calc(100vh - 76px);
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      color-mix(in srgb, var(--mat-sys-primary) 14%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 50% 100%,
+      color-mix(in srgb, var(--mat-sys-tertiary) 12%, transparent) 0%,
+      transparent 55%
+    ),
+    var(--mat-sys-background);
+}
+
+/* ─── animated background grid ─── */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--mat-sys-on-surface) 6%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--mat-sys-on-surface) 6%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  animation: grid-pan 24s linear infinite;
+  pointer-events: none;
+}
+
+/* ─── floating glow orbs ─── */
+.bg-orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+.orb-1 {
+  width: 380px;
+  height: 380px;
+  top: -120px;
+  left: -100px;
+  background: var(--cb-accent);
+  animation: orb-drift-1 18s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 320px;
+  height: 320px;
+  bottom: -100px;
+  right: -80px;
+  background: var(--cb-accent-2);
+  animation: orb-drift-2 22s ease-in-out infinite;
+}
+
+.orb-3 {
+  width: 260px;
+  height: 260px;
+  top: 40%;
+  left: 60%;
+  background: color-mix(in srgb, var(--mat-sys-secondary) 90%, transparent);
+  animation: orb-drift-3 26s ease-in-out infinite;
+}
+
+/* ─── scan line ─── */
+.bg-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--cb-accent) 8%, transparent) 50%,
+    transparent 100%
+  );
+  height: 200px;
+  animation: scan 8s linear infinite;
+}
+
+/* ─── card ─── */
+.callback-card {
+  @apply relative w-full px-6 sm:px-10 py-12 text-center;
+  max-width: 460px;
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--mat-sys-surface-container-lowest) 92%, transparent) 0%,
+      color-mix(in srgb, var(--mat-sys-surface-container-low) 88%, transparent) 100%
+    );
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow:
+    0 24px 64px -16px color-mix(in srgb, var(--cb-accent) 20%, transparent),
+    0 8px 32px -8px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
+  isolation: isolate;
+}
+
+/* gradient border */
+.callback-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--cb-accent) 60%, transparent) 0%,
+    color-mix(in srgb, var(--mat-sys-outline-variant) 50%, transparent) 30%,
+    transparent 50%,
+    color-mix(in srgb, var(--mat-sys-outline-variant) 50%, transparent) 70%,
+    color-mix(in srgb, var(--cb-accent-2) 60%, transparent) 100%
+  );
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* corner brackets */
+.corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--cb-accent);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.85;
+}
+
+.corner-tl {
+  top: 10px;
+  left: 10px;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+  border-top-left-radius: 4px;
+}
+
+.corner-tr {
+  top: 10px;
+  right: 10px;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+  border-top-right-radius: 4px;
+}
+
+.corner-bl {
+  bottom: 10px;
+  left: 10px;
+  border-bottom-width: 1.5px;
+  border-left-width: 1.5px;
+  border-bottom-left-radius: 4px;
+}
+
+.corner-br {
+  bottom: 10px;
+  right: 10px;
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+  border-bottom-right-radius: 4px;
+}
+
+/* ─── state ─── */
+.state {
+  @apply flex flex-col items-center gap-4;
+  position: relative;
+  z-index: 2;
+  animation: fade-in 0.5s ease-out;
+}
+
+/* status pill */
+.status-pill {
+  @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full;
+  font-family: var(--cb-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  background: color-mix(in srgb, var(--cb-accent) 14%, transparent);
+  color: var(--cb-accent);
+  border: 1px solid color-mix(in srgb, var(--cb-accent) 30%, transparent);
+}
+
+.status-pill-error {
+  background: color-mix(in srgb, var(--mat-sys-error) 14%, transparent);
+  color: var(--mat-sys-error);
+  border-color: color-mix(in srgb, var(--mat-sys-error) 30%, transparent);
+}
+
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  animation: pill-blink 1.2s ease-in-out infinite;
+}
+
+.status-pill-error .pill-dot {
+  animation: pill-blink 0.6s ease-in-out infinite;
+}
+
+/* orbital loader */
+.orbit {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  margin: 12px 0 4px;
+}
+
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+}
+
+.ring-1 {
+  border-top-color: var(--cb-accent);
+  border-right-color: color-mix(in srgb, var(--cb-accent) 50%, transparent);
+  animation: spin 2.4s linear infinite;
+  box-shadow:
+    0 0 24px var(--cb-glow-soft),
+    inset 0 0 24px var(--cb-glow-soft);
+}
+
+.ring-2 {
+  inset: 12px;
+  border-bottom-color: var(--cb-accent-2);
+  border-left-color: color-mix(in srgb, var(--cb-accent-2) 50%, transparent);
+  animation: spin 1.8s linear infinite reverse;
+}
+
+.ring-3 {
+  inset: 24px;
+  border-top-color: color-mix(in srgb, var(--mat-sys-secondary) 80%, transparent);
+  border-right-color: color-mix(in srgb, var(--mat-sys-secondary) 30%, transparent);
+  animation: spin 1.2s linear infinite;
+}
+
+.ring-static {
+  border: 1.5px solid color-mix(in srgb, var(--mat-sys-error) 50%, transparent);
+  box-shadow:
+    0 0 32px color-mix(in srgb, var(--mat-sys-error) 30%, transparent),
+    inset 0 0 24px color-mix(in srgb, var(--mat-sys-error) 15%, transparent);
+}
+
+.orbit-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--cb-accent) 18%, var(--mat-sys-surface-container)) 0%,
+    var(--mat-sys-surface-container) 100%
+  );
+  box-shadow:
+    0 0 24px var(--cb-glow),
+    inset 0 0 12px color-mix(in srgb, var(--cb-accent) 20%, transparent);
+  color: var(--cb-accent);
+
+  mat-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 0 6px var(--cb-glow));
+  }
+}
+
+.core-error {
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--mat-sys-error) 20%, var(--mat-sys-surface-container)) 0%,
+    var(--mat-sys-surface-container) 100%
+  );
+  color: var(--mat-sys-error);
+  box-shadow:
+    0 0 24px color-mix(in srgb, var(--mat-sys-error) 35%, transparent),
+    inset 0 0 12px color-mix(in srgb, var(--mat-sys-error) 20%, transparent);
+  animation: shake 0.6s ease-out;
+}
+
+/* typography */
+.title {
+  @apply text-2xl font-semibold m-0 mt-2;
+  color: var(--mat-sys-on-surface);
+  letter-spacing: -0.01em;
+}
+
+.message {
+  @apply text-sm m-0 leading-relaxed max-w-sm;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* data stream bar */
+.data-stream {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  height: 2px;
+  margin-top: 8px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--mat-sys-outline-variant) 60%, transparent);
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--cb-accent) 50%,
+      transparent 100%
+    );
+    box-shadow: 0 0 12px var(--cb-glow);
+    animation: data-flow 1.6s linear infinite;
+  }
+
+  &.is-error::after {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--mat-sys-error) 50%,
+      transparent 100%
+    );
+    animation-duration: 2.4s;
+  }
+}
+
+/* telemetry */
+.telemetry {
+  @apply flex items-center justify-center flex-wrap gap-2 sm:gap-3 mt-3;
+  font-family: var(--cb-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.telemetry-item {
+  @apply inline-flex items-center gap-1.5;
+}
+
+.t-label {
+  color: var(--mat-sys-on-surface-variant);
+  opacity: 0.7;
+}
+
+.t-value {
+  color: var(--mat-sys-on-surface);
+  font-weight: 500;
+}
+
+.t-value-active {
+  color: var(--cb-accent);
+  position: relative;
+  padding-left: 10px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cb-accent);
+    box-shadow: 0 0 6px var(--cb-accent);
+    animation: pill-blink 1.2s ease-in-out infinite;
+  }
+}
+
+.telemetry-divider {
+  width: 1px;
+  height: 10px;
+  background: var(--mat-sys-outline-variant);
+}
+
+/* actions */
+.actions {
+  @apply flex flex-wrap justify-center gap-3 mt-4;
+
+  button {
+    min-width: 130px;
+
+    mat-icon {
+      margin-right: 4px;
+    }
+  }
+}
+
+/* ─── animations ─── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pill-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes data-flow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes grid-pan {
+  to {
+    background-position: 48px 48px;
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes orb-drift-1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(60px, 40px) scale(1.1);
+  }
+}
+
+@keyframes orb-drift-2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-50px, -30px) scale(1.05);
+  }
+}
+
+@keyframes orb-drift-3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(0.95);
+  }
+  50% {
+    transform: translate(-40px, 50px) scale(1.1);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  20%,
+  60% {
+    transform: translate(calc(-50% - 4px), -50%);
+  }
+  40%,
+  80% {
+    transform: translate(calc(-50% + 4px), -50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb,
+  .bg-grid,
+  .bg-scan,
+  .orbit-ring,
+  .pill-dot,
+  .data-stream::after,
+  .core-error,
+  .t-value-active::before,
+  .state {
+    animation: none;
+  }
+}

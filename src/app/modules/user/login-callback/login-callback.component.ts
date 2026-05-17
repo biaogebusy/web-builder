@@ -7,31 +7,8 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-login-callback',
-  template: `
-    <div class="callback-container">
-      @if (error()) {
-        <p class="error">{{ error() }}</p>
-      } @else {
-        <app-loading />
-        <p>正在登录，请稍候...</p>
-      }
-    </div>
-  `,
-  styles: [
-    `
-      .callback-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 300px;
-        gap: 16px;
-      }
-      .error {
-        color: var(--mat-sys-error);
-      }
-    `,
-  ],
+  templateUrl: './login-callback.component.html',
+  styleUrls: ['./login-callback.component.scss'],
   standalone: false,
 })
 export class LoginCallbackComponent implements OnInit {
@@ -58,5 +35,13 @@ export class LoginCallbackComponent implements OnInit {
       console.error('OAuth callback failed:', err);
       this.error.set(err?.message || '登录失败，请重试');
     }
+  }
+
+  retry(): void {
+    window.location.reload();
+  }
+
+  goLogin(): void {
+    this.router.navigateByUrl('/user/login');
   }
 }

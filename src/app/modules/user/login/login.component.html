@@ -48,7 +48,7 @@
                     }}</mat-label>
                     <input matInput type="text" formControlName="code" />
                     <button
-                      disabled="{{ countdown() > 0 }}"
+                      [disabled]="countdown() > 0 || formPhone.phone.invalid"
                       (click)="getCode($event)"
                       class="code-btn"
                       [class]="countdown() ? 'pointer-events-none' : ''"
