@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, DestroyRef, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, DestroyRef, signal, computed } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -6,7 +6,8 @@ import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig, ISocialLoginProvider } from '@core/interface/IAppConfig';
+import type { IBtn } from '@core/interface/widgets/IBtn';
 import type { IUser } from '@core/interface/IUser';
 import { Observable, Subscription, interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -25,6 +26,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   public error = signal<string>('');
   public phoneForm: UntypedFormGroup;
   public countdown = signal<number>(0);
+  public oauthBtn = computed<IBtn>(() => ({
+    mode: 'icon',
+    classes: 'auth-icon-btn',
+    disabled: this.loading(),
+    icon: { name: 'account_circle' },
+  }));
   private subscription: Subscription;
 
   private fb = inject(UntypedFormBuilder);
@@ -99,8 +106,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.userService
       .loginByPhone(phone, code)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        this.showMessage(state, '请检查手机号或者验证码！');
+      .subscribe(({ ok, message }) => {
+        this.showMessage(ok, message || '请检查手机号或者验证码！');
       });
   }
 
@@ -116,9 +123,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const phoneControl = this.phoneForm.controls['phone'];
     if (phoneControl.invalid) {
       phoneControl.markAsTouched();
-      this.error.set(
-        phoneControl.hasError('required') ? '请输入手机号码' : '请输入正确的手机号码',
-      );
+      this.error.set(phoneControl.hasError('required') ? '请输入手机号码' : '请输入正确的手机号码');
       return false;
     }
     const { phone } = this.phoneForm.value;
@@ -144,6 +149,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   socialLogin(providerUrl: string): void {
     window.location.href = `${this.apiUrl}${providerUrl}`;
+  }
+
+  providerBtn(provider: ISocialLoginProvider): IBtn {
+    return {
+      mode: 'icon',
+      classes: 'auth-icon-btn',
+      disabled: this.loading(),
+      icon: provider.svgIcon ? { svg: provider.svgIcon } : { name: provider.icon },
+    };
   }
 
   ngOnDestroy(): void {

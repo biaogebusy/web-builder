@@ -16,7 +16,8 @@
     "HIDE_PASSWORD": "Hide password",
     "OAUTH_HINT": "We will redirect you to a secure sign-in page.",
     "OAUTH_SUBMIT": "Sign in with account",
-    "SOCIAL_LOGIN": "Social Login",
+    "SOCIAL_LOGIN": "Quick Auth",
+    "QUICK_AUTH": "Quick Auth",
     "HI": "Hi"
   }
 }

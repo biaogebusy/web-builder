@@ -440,7 +440,7 @@ export class UserService extends ApiService {
     });
   }
 
-  loginByPhone(phone: number, code: string): Observable<boolean> {
+  loginByPhone(phone: number, code: string): Observable<{ ok: boolean; message?: string }> {
     const authParams = environment.oauth.clientId
       ? { grant_type: 'oauth2', client_id: environment.oauth.clientId }
       : {};
@@ -452,16 +452,24 @@ export class UserService extends ApiService {
         ...authParams,
       })
       .pipe(
-        switchMap(tokenData => {
-          if (environment.oauth.clientId) {
-            return this.processTokenAndLogin(tokenData);
+        switchMap(response => {
+          // Backend returns HTTP 200 with { status: false, message } on failure.
+          if (response?.status === false) {
+            return of({ ok: false, message: response.message || '登录失败' });
           }
-          this.updateUser(tokenData);
-          return of(true);
+          if (environment.oauth.clientId) {
+            if (!response?.access_token) {
+              return of({ ok: false, message: '后端未返回有效的令牌' });
+            }
+            return this.processTokenAndLogin(response).pipe(map(ok => ({ ok })));
+          }
+          this.updateUser(response);
+          return of({ ok: true });
         }),
         catchError(error => {
-          console.log(error);
-          return of(false);
+          console.error('Phone login failed:', error);
+          const message = error?.error?.message || error?.message || '登录请求失败';
+          return of({ ok: false, message });
         })
       );
   }

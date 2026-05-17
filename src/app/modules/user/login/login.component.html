@@ -1,4 +1,7 @@
 @let loginConfig = coreConfig.login;
+@let phoneLogin = loginConfig.phoneLogin;
+@let oauthLogin = loginConfig.oauthLogin;
+@let socialLoginConfig = loginConfig.socialLogin;
 <div class="login-container">
   <div class="login-wrapper">
     <div class="login-second">
@@ -13,118 +16,99 @@
       <div class="form-scroll">
         @if (!(user$ | async)) {
           @if (error()) {
-            <div class="error">
+            <div class="error" role="alert">
               {{ error() }}
             </div>
           }
-          <mat-tab-group>
-            @let phoneLogin = loginConfig.phoneLogin;
-            @let pswLogin = loginConfig.pswLogin;
-            @if (phoneLogin.enable) {
-              <mat-tab label="{{ phoneLogin.tabLabel || ('LOGIN.PHONE_TAB' | translate) }}">
-                <form class="phone-form" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
-                  <mat-form-field appearance="fill">
-                    <mat-label>{{
-                      phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
-                    }}</mat-label>
-                    <mat-icon matSuffix>phone_iphone</mat-icon>
-                    <input
-                      [placeholder]="
-                        phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
-                      "
-                      type="text"
-                      matInput
-                      formControlName="phone"
-                    />
-                    @if (formPhone.phone.errors?.pattern) {
-                      <mat-error>
-                        {{ phoneLogin.error || ('LOGIN.PHONE_ERROR' | translate) }}</mat-error
-                      >
+          @if (phoneLogin.enable) {
+            <form class="phone-form" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
+              <mat-form-field appearance="fill">
+                <mat-label>{{
+                  phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
+                }}</mat-label>
+                <input
+                  [placeholder]="phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)"
+                  type="text"
+                  matInput
+                  formControlName="phone"
+                />
+                @if (formPhone.phone.errors?.pattern) {
+                  <mat-error>
+                    {{ phoneLogin.error || ('LOGIN.PHONE_ERROR' | translate) }}
+                  </mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{
+                  phoneLogin?.code?.label || ('LOGIN.CODE_LABEL' | translate)
+                }}</mat-label>
+                <input matInput type="text" formControlName="code" />
+                <button
+                  [disabled]="countdown() > 0 || formPhone.phone.invalid"
+                  (click)="getCode($event)"
+                  class="code-btn"
+                  [class]="countdown() ? 'pointer-events-none' : ''"
+                  matSuffix
+                  color="primary"
+                  mat-button
+                  aria-label="code"
+                >
+                  <small class="code-label">
+                    {{ phoneLogin?.code?.sendLabel || ('LOGIN.CODE_SEND' | translate) }}
+                    @if (countdown()) {
+                      ({{ countdown() }})
                     }
-                  </mat-form-field>
-                  <mat-form-field appearance="fill">
-                    <mat-label>{{
-                      phoneLogin?.code?.label || ('LOGIN.CODE_LABEL' | translate)
-                    }}</mat-label>
-                    <input matInput type="text" formControlName="code" />
-                    <button
-                      [disabled]="countdown() > 0 || formPhone.phone.invalid"
-                      (click)="getCode($event)"
-                      class="code-btn"
-                      [class]="countdown() ? 'pointer-events-none' : ''"
-                      matSuffix
-                      color="primary"
-                      mat-button
-                      aria-label="code"
-                    >
-                      <small class="code-label">
-                        {{ phoneLogin?.code?.sendLabel || ('LOGIN.CODE_SEND' | translate) }}
-                        @if (countdown()) {
-                          ({{ countdown() }})
-                        }
-                      </small>
-                    </button>
-                  </mat-form-field>
-                  <button
-                    [disabled]="loading()"
-                    class="submit-btn"
-                    type="submit"
-                    mat-raised-button
-                    color="primary"
-                  >
-                    {{ loginConfig.phoneLogin.submitLabel }}
-                  </button>
-                </form>
-              </mat-tab>
-            }
-            @if (pswLogin.enable) {
-              <mat-tab label="{{ pswLogin.tabLabel || ('LOGIN.PASSWORD_TAB' | translate) }}">
-                <div class="oauth-login">
-                  <p class="oauth-hint">
-                    {{ pswLogin.hint || ('LOGIN.OAUTH_HINT' | translate) }}
-                  </p>
-                  <button
-                    [disabled]="loading()"
-                    class="submit-btn"
-                    type="button"
-                    mat-raised-button
-                    color="primary"
+                  </small>
+                </button>
+              </mat-form-field>
+              <button
+                [disabled]="loading()"
+                class="submit-btn"
+                type="submit"
+                mat-raised-button
+                color="primary"
+              >
+                {{ phoneLogin.submitLabel }}
+              </button>
+            </form>
+          }
+          @if (oauthLogin.enable || socialLoginConfig?.enable) {
+            <section class="auth-login" aria-label="auth login methods">
+              @if (phoneLogin.enable) {
+                <div class="auth-login-divider">
+                  <mat-divider />
+                  <span>{{ socialLoginConfig?.label || ('LOGIN.QUICK_AUTH' | translate) }}</span>
+                  <mat-divider />
+                </div>
+              }
+              <div class="auth-login-icons">
+                @if (oauthLogin.enable) {
+                  <app-btn
+                    [content]="oauthBtn()"
+                    [matTooltip]="oauthLogin.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)"
+                    [attr.aria-label]="oauthLogin.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)"
                     (click)="login()"
-                  >
-                    {{ pswLogin.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate) }}
-                  </button>
-                </div>
-              </mat-tab>
-            }
-          </mat-tab-group>
-          @if (loginConfig.socialLogin; as socialLoginConfig) {
-            @if (socialLoginConfig.enable) {
-              <div class="social-login">
-                <div class="social-login-divider">
-                  <mat-divider />
-                  <span>{{ socialLoginConfig.label || ('LOGIN.SOCIAL_LOGIN' | translate) }}</span>
-                  <mat-divider />
-                </div>
-                <div class="social-login-buttons">
+                  />
+                }
+                @if (socialLoginConfig && socialLoginConfig.enable) {
                   @for (provider of socialLoginConfig.providers; track provider.url) {
                     @if (provider.enable) {
-                      <button
-                        mat-stroked-button
-                        class="social-btn"
+                      <app-btn
+                        [content]="providerBtn(provider)"
+                        [matTooltip]="provider.label"
+                        [attr.aria-label]="provider.label"
                         (click)="socialLogin(provider.url)"
-                      >
-                        @if (provider.svgIcon) {
-                          <mat-icon svgIcon="{{ provider.svgIcon }}" />
-                        } @else if (provider.icon) {
-                          <mat-icon>{{ provider.icon }}</mat-icon>
-                        }
-                        {{ provider.label }}
-                      </button>
+                      />
                     }
                   }
-                </div>
+                }
               </div>
-            }
+              @if (oauthLogin.enable && oauthLogin.hint) {
+                <p class="auth-hint">{{ oauthLogin.hint }}</p>
+              } @else if (oauthLogin.enable) {
+                <p class="auth-hint">{{ 'LOGIN.OAUTH_HINT' | translate }}</p>
+              }
+            </section>
           }
         }
         @if (user$ | async; as currentUser) {

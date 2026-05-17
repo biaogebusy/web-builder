@@ -94,12 +94,9 @@ export interface PhoneLogin {
   };
 }
 
-export interface PswLogin {
+export interface OauthLogin {
   enable: boolean;
-  tabLabel: string;
   submitLabel: string;
-  userLabel: string;
-  pswLabel: string;
   hint?: string;
 }
 
@@ -121,7 +118,7 @@ export interface ILogin {
   loginRedirect: string;
   left: any;
   phoneLogin: PhoneLogin;
-  pswLogin: PswLogin;
+  oauthLogin: OauthLogin;
   socialLogin?: ISocialLogin;
 }
 

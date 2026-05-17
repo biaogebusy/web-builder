@@ -207,11 +207,11 @@
         "phoneLogin": {
           "$ref": "#/definitions/PhoneLogin"
         },
-        "pswLogin": {
-          "$ref": "#/definitions/PswLogin"
+        "oauthLogin": {
+          "$ref": "#/definitions/OauthLogin"
         }
       },
-      "required": ["left", "loginRedirect", "phoneLogin", "pswLogin"],
+      "required": ["left", "loginRedirect", "phoneLogin", "oauthLogin"],
       "title": "Login"
     },
     "Left": {
@@ -282,22 +282,22 @@
       "required": ["enable", "error", "leftTime", "submitLabel", "tabLabel"],
       "title": "PhoneLogin"
     },
-    "PswLogin": {
+    "OauthLogin": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "enable": {
           "type": "boolean"
         },
-        "tabLabel": {
+        "submitLabel": {
           "type": "string"
         },
-        "submitLabel": {
+        "hint": {
           "type": "string"
         }
       },
-      "required": ["enable", "submitLabel", "tabLabel"],
-      "title": "PswLogin"
+      "required": ["enable", "submitLabel"],
+      "title": "OauthLogin"
     },
     "Theme": {
       "type": "object",
