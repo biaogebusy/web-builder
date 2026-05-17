@@ -79,48 +79,21 @@
             }
             @if (pswLogin.enable) {
               <mat-tab label="{{ pswLogin.tabLabel || ('LOGIN.PASSWORD_TAB' | translate) }}">
-                <form class="psw-form" [formGroup]="userForm" (ngSubmit)="login()">
-                  <mat-form-field appearance="fill">
-                    <mat-label>{{
-                      pswLogin.userLabel || ('LOGIN.USERNAME_LABEL' | translate)
-                    }}</mat-label>
-                    <mat-icon matSuffix>person</mat-icon>
-                    <input matInput formControlName="name" autocomplete="username" />
-                  </mat-form-field>
-                  <mat-form-field appearance="fill">
-                    <mat-label>{{
-                      pswLogin.pswLabel || ('LOGIN.PASSWORD_LABEL' | translate)
-                    }}</mat-label>
-                    <input
-                      matInput
-                      [type]="hide ? 'password' : 'text'"
-                      formControlName="pass"
-                      autocomplete="current-password"
-                    />
-                    <button
-                      mat-icon-button
-                      matSuffix
-                      (click)="hide = !hide"
-                      [attr.aria-label]="
-                        hide
-                          ? ('LOGIN.SHOW_PASSWORD' | translate)
-                          : ('LOGIN.HIDE_PASSWORD' | translate)
-                      "
-                      [attr.aria-pressed]="hide"
-                    >
-                      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-                    </button>
-                  </mat-form-field>
+                <div class="oauth-login">
+                  <p class="oauth-hint">
+                    {{ pswLogin.hint || ('LOGIN.OAUTH_HINT' | translate) }}
+                  </p>
                   <button
                     [disabled]="loading()"
                     class="submit-btn"
-                    type="submit"
+                    type="button"
                     mat-raised-button
                     color="primary"
+                    (click)="login()"
                   >
-                    {{ pswLogin.submitLabel }}
+                    {{ pswLogin.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate) }}
                   </button>
-                </form>
+                </div>
               </mat-tab>
             }
           </mat-tab-group>

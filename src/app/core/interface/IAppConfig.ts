@@ -100,6 +100,7 @@ export interface PswLogin {
   submitLabel: string;
   userLabel: string;
   pswLabel: string;
+  hint?: string;
 }
 
 export interface ISocialLoginProvider {

@@ -1,6 +1,9 @@
 export interface IOAuth {
   clientId: string;
   tokenUrl: string;
+  authorizeUrl: string;
+  redirectPath: string;
+  logoutPath: string;
   scope?: string;
 }
 

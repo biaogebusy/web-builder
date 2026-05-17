@@ -25,6 +25,9 @@ export const environment: IEnvironment = {
   oauth: {
     clientId: 'VXd0QdXoSq1wRWjUpH0ub4p1RSMMiKMm2OMR_rN66rA',
     tokenUrl: '/oauth/token',
+    authorizeUrl: '/oauth/authorize',
+    redirectPath: '/me/login/callback',
+    logoutPath: '/user/logout',
     scope: 'webmaster',
   },
 };

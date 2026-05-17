@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, inject, DestroyRef, signal } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -20,10 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   public user$ = inject<Observable<IUser>>(USER);
   private apiUrl = inject<string>(API_URL);
 
-  public hide = true;
   public loading = signal<boolean>(false);
   public error = signal<string>('');
-  public userForm: UntypedFormGroup;
   public phoneForm: UntypedFormGroup;
   public countdown = signal<number>(0);
   private subscription: Subscription;
@@ -35,29 +34,33 @@ export class LoginComponent implements OnInit, OnDestroy {
   private userService = inject(UserService);
   private screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
+  private dialogRef = inject(MatDialogRef, { optional: true });
+
+  private get inDialog(): boolean {
+    return !!this.dialogRef;
+  }
 
   constructor() {
     if (this.screenService.isPlatformBrowser()) {
       this.userService.userSub$.pipe(takeUntilDestroyed()).subscribe((currentUser: any) => {
-        // login
-        if (currentUser) {
-          setTimeout(() => {
-            const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
-              this.route.snapshot.queryParams;
-            this.router.navigate([returnUrl], { queryParams });
-          }, 2000);
+        if (!currentUser) {
+          return;
         }
+        if (this.inDialog) {
+          this.dialogRef?.close(true);
+          return;
+        }
+        setTimeout(() => {
+          const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
+            this.route.snapshot.queryParams;
+          this.router.navigate([returnUrl], { queryParams });
+        }, 2000);
       });
     }
   }
 
   ngOnInit(): void {
     this.tagsService.setTitle('欢迎登录！');
-    this.userForm = this.fb.group({
-      name: ['', Validators.required],
-      pass: ['', Validators.required],
-    });
-
     this.phoneForm = this.fb.group({
       phone: [
         '',
@@ -72,24 +75,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  get f(): any {
-    return this.userForm.controls;
-  }
-
   get formPhone(): any {
     return this.phoneForm.controls;
   }
 
   login(): void {
-    if (this.userForm.invalid) {
-      return;
-    }
     this.loading.set(true);
+    const { returnUrl } = this.route.snapshot.queryParams;
     this.userService
-      .login(this.userForm.value.name, this.userForm.value.pass)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        this.showMessage(state, '登录出现问题，请联系管理员！');
+      .startAuthorize({
+        mode: this.inDialog ? 'popup' : 'redirect',
+        returnUrl,
+      })
+      .catch(error => {
+        console.error('Authorize failed:', error);
+        this.showMessage(false, '登录跳转失败，请稍后再试。');
       });
   }
 

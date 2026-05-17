@@ -86,6 +86,15 @@
   @apply flex flex-col py-5;
 }
 
+.oauth-login {
+  @apply flex flex-col items-stretch py-8 gap-4 text-center;
+}
+
+.oauth-hint {
+  @apply text-sm leading-relaxed;
+  color: var(--mat-sys-on-surface-variant);
+}
+
 .code-btn {
   right: 1rem;
 }
