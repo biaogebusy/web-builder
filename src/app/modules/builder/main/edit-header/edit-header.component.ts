@@ -501,7 +501,6 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
 
   buildHeader(): IHeader {
     const header = this.header()!;
-    const params = { ...header.params, ...this.paramsForm.value };
     const logoVal = this.logoForm.value;
     const logo = {
       ...header.logo,
@@ -517,18 +516,15 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
         height: Number(logoVal.height),
       },
     };
-    const search = { ...header.search, ...this.searchForm.value };
-    const actions = this.actionsForm.value?.actions ?? header.actions ?? [];
-    const mainMenu = this.menuItems();
 
-    const built: IHeader = { params, logo, mainMenu, search, actions };
-    if (header.top) {
-      built.top = header.top;
-    }
-    if (header.banner) {
-      (built as unknown as Record<string, unknown>)['banner'] = header.banner;
-    }
-    return built;
+    return {
+      ...header,
+      params: { ...header.params, ...this.paramsForm.value },
+      logo,
+      mainMenu: this.menuItems(),
+      search: { ...header.search, ...this.searchForm.value },
+      actions: this.actionsForm.value?.actions ?? header.actions ?? [],
+    };
   }
 
   onSave(): void {
