@@ -7,7 +7,6 @@ export const environment: IEnvironment = {
   apiUrl: 'http://localhost:4200',
   production: true,
   port: 4200,
-  cache: false,
   multiLang: true,
   langs: [
     {

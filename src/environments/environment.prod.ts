@@ -4,7 +4,6 @@ export const environment: IEnvironment = {
   apiUrl: 'https://base.builder.design',
   production: true,
   port: 4201,
-  cache: true,
   multiLang: true,
   langs: [
     {

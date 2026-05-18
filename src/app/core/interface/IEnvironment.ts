@@ -11,7 +11,6 @@ export interface IEnvironment {
   apiUrl: string;
   production: boolean;
   port: number;
-  cache: boolean;
   multiLang?: boolean;
   langs?: ILanguage[];
   oauth: IOAuth;
