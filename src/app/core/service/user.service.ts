@@ -180,10 +180,7 @@ export class UserService extends ApiService {
   }
 
   private getRedirectUri(): string {
-    if (!this.isBrowser) {
-      return environment.oauth.redirectPath;
-    }
-    return `${window.location.origin}${environment.oauth.redirectPath}`;
+    return `${environment.apiUrl}${environment.oauth.redirectPath}`;
   }
 
   private readPkceStash(): PkceStash | null {
