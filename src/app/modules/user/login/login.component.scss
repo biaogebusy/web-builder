@@ -156,19 +156,6 @@
 
 .auth-login-icons {
   @apply flex flex-row flex-wrap justify-center items-center gap-4 my-3;
-
-  ::ng-deep .auth-icon-btn {
-    --mdc-icon-button-state-layer-size: 48px;
-    width: 48px;
-    height: 48px;
-
-    mat-icon {
-      @apply text-3xl;
-      width: 1em;
-      height: 1em;
-      line-height: 1;
-    }
-  }
 }
 
 .auth-hint {
