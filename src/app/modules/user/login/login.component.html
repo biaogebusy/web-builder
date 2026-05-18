@@ -20,21 +20,21 @@
               {{ error() }}
             </div>
           }
-          @if (phoneLogin.enable) {
+          @if (phoneLogin?.enable) {
             <form class="phone-form" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
               <mat-form-field appearance="fill">
                 <mat-label>{{
-                  phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
+                  phoneLogin?.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
                 }}</mat-label>
                 <input
-                  [placeholder]="phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)"
+                  [placeholder]="phoneLogin?.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)"
                   type="text"
                   matInput
                   formControlName="phone"
                 />
                 @if (formPhone.phone.errors?.pattern) {
                   <mat-error>
-                    {{ phoneLogin.error || ('LOGIN.PHONE_ERROR' | translate) }}
+                    {{ phoneLogin?.error || ('LOGIN.PHONE_ERROR' | translate) }}
                   </mat-error>
                 }
               </mat-form-field>
@@ -68,13 +68,13 @@
                 mat-raised-button
                 color="primary"
               >
-                {{ phoneLogin.submitLabel }}
+                {{ phoneLogin?.submitLabel }}
               </button>
             </form>
           }
-          @if (oauthLogin.enable || socialLoginConfig?.enable) {
+          @if (oauthLogin?.enable || socialLoginConfig?.enable) {
             <section class="auth-login" aria-label="auth login methods">
-              @if (phoneLogin.enable) {
+              @if (phoneLogin?.enable) {
                 <div class="auth-login-divider">
                   <mat-divider />
                   <span>{{ socialLoginConfig?.label || ('LOGIN.QUICK_AUTH' | translate) }}</span>
@@ -82,16 +82,16 @@
                 </div>
               }
               <div class="auth-login-icons">
-                @if (oauthLogin.enable) {
+                @if (oauthLogin?.enable) {
                   <app-btn
                     [content]="oauthBtn()"
-                    [matTooltip]="oauthLogin.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)"
-                    [attr.aria-label]="oauthLogin.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)"
+                    [matTooltip]="oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)"
+                    [attr.aria-label]="oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)"
                     (click)="login()"
                   />
                 }
-                @if (socialLoginConfig && socialLoginConfig.enable) {
-                  @for (provider of socialLoginConfig.providers; track provider.label) {
+                @if (socialLoginConfig?.enable) {
+                  @for (provider of socialLoginConfig?.providers || []; track provider.label) {
                     @if (provider.enable) {
                       <app-btn
                         [content]="providerBtn(provider)"
@@ -103,9 +103,9 @@
                   }
                 }
               </div>
-              @if (oauthLogin.enable && oauthLogin.hint) {
-                <p class="auth-hint">{{ oauthLogin.hint }}</p>
-              } @else if (oauthLogin.enable) {
+              @if (oauthLogin?.enable && oauthLogin?.hint) {
+                <p class="auth-hint">{{ oauthLogin?.hint }}</p>
+              } @else if (oauthLogin?.enable) {
                 <p class="auth-hint">{{ 'LOGIN.OAUTH_HINT' | translate }}</p>
               }
             </section>
