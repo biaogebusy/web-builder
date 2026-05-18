@@ -24,6 +24,7 @@ export type OAuthMode = 'redirect' | 'popup';
 export interface StartAuthorizeOptions {
   mode?: OAuthMode;
   returnUrl?: string;
+  idp?: string;
 }
 
 export interface CallbackResult {
@@ -126,6 +127,9 @@ export class UserService extends ApiService {
     });
     if (environment.oauth.scope) {
       params.set('scope', environment.oauth.scope);
+    }
+    if (options.idp) {
+      params.set('idp', options.idp);
     }
     const authorizeUrl = `${this.apiUrl}${environment.oauth.authorizeUrl}?${params.toString()}`;
 

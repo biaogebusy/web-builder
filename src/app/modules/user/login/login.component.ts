@@ -147,8 +147,25 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
-  socialLogin(providerUrl: string): void {
-    window.location.href = `${this.apiUrl}${providerUrl}`;
+  socialLogin(provider: ISocialLoginProvider): void {
+    if (provider.idp) {
+      const { returnUrl } = this.route.snapshot.queryParams;
+      this.loading.set(true);
+      this.userService
+        .startAuthorize({
+          mode: this.inDialog ? 'popup' : 'redirect',
+          returnUrl,
+          idp: provider.idp,
+        })
+        .catch(error => {
+          console.error('Authorize failed:', error);
+          this.showMessage(false, '登录跳转失败，请稍后再试。');
+        });
+      return;
+    }
+    if (provider.url) {
+      window.location.href = `${this.apiUrl}${provider.url}`;
+    }
   }
 
   providerBtn(provider: ISocialLoginProvider): IBtn {

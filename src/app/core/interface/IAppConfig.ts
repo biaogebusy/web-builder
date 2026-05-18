@@ -105,7 +105,8 @@ export interface ISocialLoginProvider {
   label: string;
   svgIcon?: string;
   icon?: string;
-  url: string;
+  idp?: string;
+  url?: string;
 }
 
 export interface ISocialLogin {

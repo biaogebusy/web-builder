@@ -91,13 +91,13 @@
                   />
                 }
                 @if (socialLoginConfig && socialLoginConfig.enable) {
-                  @for (provider of socialLoginConfig.providers; track provider.url) {
+                  @for (provider of socialLoginConfig.providers; track provider.label) {
                     @if (provider.enable) {
                       <app-btn
                         [content]="providerBtn(provider)"
                         [matTooltip]="provider.label"
                         [attr.aria-label]="provider.label"
-                        (click)="socialLogin(provider.url)"
+                        (click)="socialLogin(provider)"
                       />
                     }
                   }
