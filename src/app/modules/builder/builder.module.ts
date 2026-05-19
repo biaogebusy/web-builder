@@ -48,7 +48,6 @@ import { DefaultPageComponent } from './main/default-page/default-page.component
 import { FormModule } from '@uiux/combs/form/form.module';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { NodeAddComponent } from './node/node-add/node-add.component';
 import { OtherModule } from '@uiux/combs/other/other.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { EditHeaderComponent } from './main/edit-header/edit-header.component';
@@ -68,7 +67,6 @@ const components = [
   PageSettingComponent,
   CardListComponent,
   CardPageComponent,
-  NodeAddComponent,
 ];
 
 @NgModule({
