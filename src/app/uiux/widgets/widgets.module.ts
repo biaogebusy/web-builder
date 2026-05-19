@@ -77,8 +77,17 @@ import { LayoutBuilderComponent } from './builder/layout-builder/layout-builder.
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 
-const components = [
+const standaloneComponents = [
   BgComponent,
+  SpacerComponent,
+  SpinnerComponent,
+  ProgressBarComponent,
+  DividerComponent,
+  LoadingComponent,
+  GotopComponent,
+];
+
+const declaredComponents = [
   ImgComponent,
   LogoComponent,
   BoxComponent,
@@ -89,8 +98,6 @@ const components = [
   IconComponent,
   TitleComponent,
   PanelComponent,
-  SpacerComponent,
-  SpinnerComponent,
   Card1v1Component,
   Card1v2Component,
   Card1v3Component,
@@ -111,7 +118,6 @@ const components = [
   MenuListComponent,
   PaginationComponent,
   PaginationLinksComponent,
-  ProgressBarComponent,
   ProgressGroupComponent,
   DialogComponent,
   ShapeComponent,
@@ -129,16 +135,21 @@ const components = [
   ComponentToolbarComponent,
   BuilderMenuComponent,
   LayoutBuilderComponent,
-  GotopComponent,
   GithubStarComponent,
-  DividerComponent,
-  LoadingComponent,
   UserMenuComponent,
   LangSwitchComponent,
 ];
 
+const components = [...declaredComponents, ...standaloneComponents];
+
 @NgModule({
-  declarations: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe, LayoutToolbarComponent],
+  declarations: [
+    ...declaredComponents,
+    SafeUrlPipe,
+    DataSourcePipe,
+    SafeHtmlPipe,
+    LayoutToolbarComponent,
+  ],
   imports: [
     MatBadgeModule,
     ShareModule,
@@ -149,6 +160,7 @@ const components = [
     MatSortModule,
     ClipboardModule,
     NgOptimizedImage,
+    ...standaloneComponents,
   ],
   exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
 })

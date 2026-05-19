@@ -9,11 +9,10 @@ interface ISpacer {
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
 }
 @Component({
-    selector: 'app-spacer',
-    templateUrl: './spacer.component.html',
-    styleUrls: ['./spacer.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-spacer',
+  templateUrl: './spacer.component.html',
+  styleUrls: ['./spacer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpacerComponent {
   // content and size 是兼容写法
