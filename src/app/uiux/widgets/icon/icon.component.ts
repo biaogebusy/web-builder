@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
 import type { IIcon } from '@core/interface/widgets/IIcon';
 
 @Component({
@@ -6,7 +8,7 @@ import type { IIcon } from '@core/interface/widgets/IIcon';
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatIconModule, MatBadgeModule],
   host: {
     '[class.custom-icon]': '!!content?.svg',
   },

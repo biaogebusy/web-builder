@@ -5,7 +5,6 @@ import DOMPurify from 'dompurify';
 import { isString } from 'lodash-es';
 @Pipe({
   name: 'safeHtml',
-  standalone: false,
 })
 export class SafeHtmlPipe implements PipeTransform {
   private screenService = inject(ScreenService);

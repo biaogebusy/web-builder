@@ -85,6 +85,10 @@ const standaloneComponents = [
   DividerComponent,
   LoadingComponent,
   GotopComponent,
+  IconComponent,
+  ShapeComponent,
+  NumberAnimateComponent,
+  TitleComponent,
 ];
 
 const declaredComponents = [
@@ -95,8 +99,6 @@ const declaredComponents = [
   LinkComponent,
   BtnComponent,
   CardComponent,
-  IconComponent,
-  TitleComponent,
   PanelComponent,
   Card1v1Component,
   Card1v2Component,
@@ -110,7 +112,6 @@ const declaredComponents = [
   FeatureBoxComponent,
   SwitchThemeComponent,
   UserCardCountComponent,
-  NumberAnimateComponent,
   SidebarComponent,
   MediaListComponent,
   MediaMetaComponent,
@@ -120,7 +121,6 @@ const declaredComponents = [
   PaginationLinksComponent,
   ProgressGroupComponent,
   DialogComponent,
-  ShapeComponent,
   BgImgComponent,
   CardMetaComponent,
   ViewListComponent,
@@ -143,13 +143,7 @@ const declaredComponents = [
 const components = [...declaredComponents, ...standaloneComponents];
 
 @NgModule({
-  declarations: [
-    ...declaredComponents,
-    SafeUrlPipe,
-    DataSourcePipe,
-    SafeHtmlPipe,
-    LayoutToolbarComponent,
-  ],
+  declarations: [...declaredComponents, LayoutToolbarComponent],
   imports: [
     MatBadgeModule,
     ShareModule,
@@ -160,6 +154,9 @@ const components = [...declaredComponents, ...standaloneComponents];
     MatSortModule,
     ClipboardModule,
     NgOptimizedImage,
+    SafeUrlPipe,
+    DataSourcePipe,
+    SafeHtmlPipe,
     ...standaloneComponents,
   ],
   exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
