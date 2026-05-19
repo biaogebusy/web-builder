@@ -46,7 +46,7 @@ import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [ReqRolesDirective, CheckChildMenuActiveDirective],
+  declarations: [],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -78,6 +78,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     TranslateModule,
     ContenteditDirective,
+    ReqRolesDirective,
+    CheckChildMenuActiveDirective,
   ],
   exports: [
     CommonModule,
