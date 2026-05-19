@@ -14,7 +14,7 @@ import { ScreenState } from '../../state/screen/ScreenState';
 
 import { ContentState } from '@core/state/ContentState';
 import { BRANDING } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
@@ -32,20 +32,18 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   public sticky = signal(false);
   public showBanner = signal(false);
-  private headerMode: any;
-  private isBuilderMode = false;
-  @ViewChild('header', { read: ElementRef }) header: ElementRef;
-  @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  public menuHeight = signal(0);
+  @ViewChild('menuAnchor', { read: ElementRef }) menuAnchor: ElementRef;
+  @ViewChild('sentinel', { read: ElementRef }) sentinel: ElementRef;
   private destoryRef = inject(DestroyRef);
   private screenService = inject(ScreenService);
   private screenState = inject(ScreenState);
   public contentState = inject(ContentState);
+  private stickyObserver?: IntersectionObserver;
 
   ngOnInit(): void {
     this.contentState.pageConfig$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(config => {
-      this.headerMode = config?.headerMode;
-      if (this.headerMode?.transparent) {
+      if (config?.headerMode?.transparent) {
         this.doc.getElementsByTagName('body')[0].classList.add('transparent-header');
       }
     });
@@ -53,39 +51,34 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screenState.scroll$.pipe(takeUntilDestroyed(this.destoryRef)).subscribe(() => {
-        if (this.isBuilderMode) {
-          return;
-        }
-        if (this.menu) {
-          this.sticky.set(this.screenService.isElementOutTopViewport(this.menu.nativeElement));
-        }
-        this.listenSticky(this.sticky());
-        if (this.headerMode?.transparent) {
-          this.windowScroll();
-        }
+      setTimeout(() => {
+        this.measureMenu();
+        this.observeStickyState();
       });
       this.initBanner();
     }
   }
 
-  listenSticky(state: boolean): void {
-    if (state) {
-      this.screenState.stickyMenu$.next(true);
-    } else {
-      this.screenState.stickyMenu$.next(false);
+  private measureMenu(): void {
+    if (this.menuAnchor) {
+      this.menuHeight.set(this.menuAnchor.nativeElement.offsetHeight);
     }
   }
 
-  windowScroll(): void {
-    const style = this.headerMode?.style;
-    if (this.doc.body.scrollTop > 50 || this.doc.documentElement.scrollTop > 50) {
-      this.header.nativeElement.classList.add('header-sticky');
-      this.header.nativeElement.classList.remove(style);
-    } else {
-      this.header.nativeElement.classList.remove('header-sticky');
-      this.header.nativeElement.classList.add(style);
+  private observeStickyState(): void {
+    if (!this.sentinel) {
+      return;
     }
+    this.stickyObserver = new IntersectionObserver(
+      ([entry]) => {
+        const isSticky = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        this.sticky.set(isSticky);
+        this.screenState.stickyMenu$.next(isSticky);
+      },
+      { threshold: 0 }
+    );
+    this.stickyObserver.observe(this.sentinel.nativeElement);
+    this.destoryRef.onDestroy(() => this.stickyObserver?.disconnect());
   }
 
   initBanner(): void {
