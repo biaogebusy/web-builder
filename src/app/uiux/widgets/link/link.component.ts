@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,28 +7,39 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import type { ILink } from '@core/interface/widgets/ILink';
 import type { IPage } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { RouteService } from '@core/service/route.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { DialogComponent } from '../dialog/dialog.component';
 import { DialogService } from '@core/service/dialog.service';
-import { BaseComponent } from '@uiux/base/base.widget';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
-import { Router } from '@angular/router';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { BaseComponent } from '@uiux/base/base.widget';
 import { Observable } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-link',
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    RouterModule,
+    MatTooltipModule,
+    NgTemplateOutlet,
+    ReqRolesDirective,
+    ContenteditDirective,
+    SafeHtmlPipe,
+  ],
 })
 export class LinkComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

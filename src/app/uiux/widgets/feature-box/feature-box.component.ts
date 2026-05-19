@@ -6,19 +6,21 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import type { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import type { IImg } from '@core/interface/widgets/IImg';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { RouteService } from '@core/service/route.service';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
+import { IconComponent } from '../icon/icon.component';
+import { ImgComponent } from '../img/img.component';
 @Component({
   selector: 'app-feature-box',
   templateUrl: './feature-box.component.html',
   styleUrls: ['./feature-box.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [IconComponent, ImgComponent],
 })
 export class FeatureBoxComponent implements OnInit {
   @Input() content: IFeatureBox;
