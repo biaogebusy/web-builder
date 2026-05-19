@@ -50,8 +50,6 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { OtherModule } from '@uiux/combs/other/other.module';
 import { BrandingModule } from '@core/branding/branding.module';
-import { EditHeaderComponent } from './main/edit-header/edit-header.component';
-import { EditFooterComponent } from './main/edit-footer/edit-footer.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
@@ -86,8 +84,6 @@ const components = [
     BuilderWorkspaceComponent,
     ManagePageComponent,
     DefaultPageComponent,
-    EditHeaderComponent,
-    EditFooterComponent,
   ],
   imports: [
     ShareModule,
