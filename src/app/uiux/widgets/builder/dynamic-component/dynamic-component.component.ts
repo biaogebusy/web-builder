@@ -13,6 +13,7 @@ import {
   afterNextRender,
   createComponent,
   effect,
+  forwardRef,
   inject,
   input,
   signal,
@@ -22,12 +23,19 @@ import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ComponentService } from '@core/service/component.service';
 import type { IDynamicInputs } from '@core/interface/IAppConfig';
+import { SpacerComponent } from '../../spacer/spacer.component';
+import { ComponentToolbarComponent } from '../component-toolbar/component-toolbar.component';
+import { BgImgComponent } from '../../bg-img/bg-img.component';
 
 @Component({
   selector: 'app-dynamic-component',
   templateUrl: './dynamic-component.component.html',
   styleUrls: ['./dynamic-component.component.scss'],
-  standalone: false,
+  imports: [
+    SpacerComponent,
+    ComponentToolbarComponent,
+    forwardRef(() => BgImgComponent),
+  ],
   host: {
     ngSkipHydration: 'true',
     class: 'relative block',

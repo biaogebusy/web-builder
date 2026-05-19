@@ -95,10 +95,13 @@ const standaloneComponents = [
   SwitchThemeComponent,
   BtnComponent,
   InlineLightboxComponent,
+  ComponentToolbarComponent,
+  ImgComponent,
+  BgImgComponent,
+  DynamicComponentComponent,
 ];
 
 const declaredComponents = [
-  ImgComponent,
   LogoComponent,
   BoxComponent,
   TextComponent,
@@ -123,7 +126,6 @@ const declaredComponents = [
   MenuListComponent,
   PaginationComponent,
   DialogComponent,
-  BgImgComponent,
   CardMetaComponent,
   ViewListComponent,
   DynamicTableComponent,
@@ -132,8 +134,6 @@ const declaredComponents = [
   BtnVideoComponent,
   DropdownMenuComponent,
   NotifyComponent,
-  DynamicComponentComponent,
-  ComponentToolbarComponent,
   BuilderMenuComponent,
   LayoutBuilderComponent,
   UserMenuComponent,
