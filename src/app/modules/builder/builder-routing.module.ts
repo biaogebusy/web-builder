@@ -8,9 +8,6 @@ import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-work
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { BuilderGuard } from '@core/guards/builder.guard';
 import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
-import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
-import { EditHeaderComponent } from './main/edit-header/edit-header.component';
-import { EditFooterComponent } from './main/edit-footer/edit-footer.component';
 
 const routes: Routes = [
   {
@@ -47,13 +44,13 @@ const routes: Routes = [
       },
       {
         path: 'edit-header',
-        canDeactivate: [unsavedChangesGuard],
-        component: EditHeaderComponent,
+        loadChildren: () =>
+          import('./main/edit-header/edit-header.module').then(m => m.EditHeaderModule),
       },
       {
         path: 'edit-footer',
-        canDeactivate: [unsavedChangesGuard],
-        component: EditFooterComponent,
+        loadChildren: () =>
+          import('./main/edit-footer/edit-footer.module').then(m => m.EditFooterModule),
       },
       {
         path: 'node-add',
