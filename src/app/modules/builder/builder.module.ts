@@ -77,7 +77,6 @@ const components = [
     BuilderToolbarComponent,
     BuilderShowcaseComponent,
     BuilderPanelComponent,
-    SwitchPreviewComponent,
     BuilderPageComponent,
     PreviewComponent,
     BuilderVersionComponent,
@@ -106,6 +105,7 @@ const components = [
     FormlyMaterialModule,
     FormlyMatToggleModule,
     MonacoEditorModule.forRoot(),
+    SwitchPreviewComponent,
   ],
   providers: [
     {
