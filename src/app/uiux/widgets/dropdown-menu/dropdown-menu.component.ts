@@ -1,11 +1,24 @@
 import { Component, Input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import type { IDropdowMenu } from '@core/interface/widgets/IWidgets';
+import { BtnComponent } from '../btn/btn.component';
+import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-component.component';
+import { IconComponent } from '../icon/icon.component';
+import { LinkComponent } from '../link/link.component';
 
 @Component({
-    selector: 'app-dropdown-menu',
-    templateUrl: './dropdown-menu.component.html',
-    styleUrls: ['./dropdown-menu.component.scss'],
-    standalone: false
+  selector: 'app-dropdown-menu',
+  templateUrl: './dropdown-menu.component.html',
+  styleUrls: ['./dropdown-menu.component.scss'],
+  imports: [
+    MatButtonModule,
+    MatMenuModule,
+    BtnComponent,
+    IconComponent,
+    LinkComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class DropdownMenuComponent {
   @Input() content: IDropdowMenu;
