@@ -1,16 +1,11 @@
+import { NgOptimizedImage } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { CdkTableModule } from '@angular/cdk/table';
-
-// Material
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSortModule } from '@angular/material/sort';
-import { ClipboardModule } from '@angular/cdk/clipboard';
 
 // Core
 import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
+import { BaseModule } from '@uiux/base/base.module';
 
 // Components
 import { BgComponent } from './bg/bg.component';
@@ -54,25 +49,19 @@ import { ViewListComponent } from './view-list/view-list.component';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
-import { BaseModule } from '@uiux/base/base.module';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { Card1v5Component } from './card/card1v5/card1v5.component';
 import { Card1v6Component } from './card/card1v6/card1v6.component';
 import { DynamicComponentComponent } from './builder/dynamic-component/dynamic-component.component';
 import { ComponentToolbarComponent } from './builder/component-toolbar/component-toolbar.component';
 import { BuilderMenuComponent } from './builder/builder-menu/builder-menu.component';
-import { MatBadgeModule } from '@angular/material/badge';
 import { NotifyComponent } from './notify/notify.component';
 import { LogoComponent } from './img/logo/logo.component';
 import { GotopComponent } from './actions/gotop/gotop.component';
 import { SwitchThemeComponent } from './switch-theme/switch-theme.component';
 import { GithubStarComponent } from './github-star/github-star.component';
 import { DividerComponent } from './divider/divider.component';
-import { LightgalleryModule } from 'lightgallery/angular';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { NgOptimizedImage } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
-import { LayoutToolbarComponent } from './builder/layout-builder/layout-toolbar/layout-toolbar.component';
 import { LayoutBuilderComponent } from './builder/layout-builder/layout-builder.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
@@ -125,9 +114,6 @@ const standaloneComponents = [
   MediaMetaComponent,
   PanelComponent,
   DropdownMenuComponent,
-];
-
-const declaredComponents = [
   SidebarComponent,
   MenuListComponent,
   PaginationComponent,
@@ -140,27 +126,16 @@ const declaredComponents = [
   LangSwitchComponent,
 ];
 
-const components = [...declaredComponents, ...standaloneComponents];
-
 @NgModule({
-  declarations: [...declaredComponents, LayoutToolbarComponent],
   imports: [
-    MatBadgeModule,
-    ShareModule,
-    LightgalleryModule,
-    CdkTableModule,
-    MatNativeDateModule,
-    MatCheckboxModule,
-    MatSortModule,
-    ClipboardModule,
     NgOptimizedImage,
     SafeUrlPipe,
     DataSourcePipe,
     SafeHtmlPipe,
     ...standaloneComponents,
   ],
-  exports: [...components, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
+  exports: [...standaloneComponents, SafeUrlPipe, DataSourcePipe, SafeHtmlPipe],
 })
 export class WidgetsModule extends BaseModule {
-  dynamicComponents = [...components];
+  dynamicComponents = [...standaloneComponents];
 }

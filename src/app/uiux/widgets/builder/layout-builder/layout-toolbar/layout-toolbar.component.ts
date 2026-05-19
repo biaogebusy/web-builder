@@ -1,17 +1,30 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BuilderService } from '@core/service/builder.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { getLayoutSetting } from '@modules/builder/factory/getLayoutSetting';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { cloneDeep } from 'lodash-es';
+import { BtnComponent } from '../../../btn/btn.component';
+import { IconComponent } from '../../../icon/icon.component';
 
 @Component({
   selector: 'app-layout-toolbar',
   templateUrl: './layout-toolbar.component.html',
   styleUrls: ['./layout-toolbar.component.scss'],
-  standalone: false,
+  imports: [
+    MatButtonModule,
+    MatDividerModule,
+    MatMenuModule,
+    MatTooltipModule,
+    BtnComponent,
+    IconComponent,
+  ],
 })
 export class LayoutToolbarComponent {
   @Input() lbContent: any;

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, forwardRef, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -17,7 +17,7 @@ import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-
     MatTooltipModule,
     NgPipesModule,
     BtnComponent,
-    DynamicComponentComponent,
+    forwardRef(() => DynamicComponentComponent),
   ],
 })
 export class DialogComponent {

@@ -13,7 +13,10 @@ import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import type { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+
+const loadDialogComponent = (): Promise<typeof DialogComponent> =>
+  import('@uiux/widgets/dialog/dialog.component').then(m => m.DialogComponent);
 import { IDialog } from '@core/interface/IDialog';
 import { generateCodeChallenge, generateCodeVerifier, generateState } from '@core/util/pkce.util';
 
@@ -607,7 +610,7 @@ export class UserService extends ApiService {
     );
   }
 
-  openLoginDialog(): MatDialogRef<DialogComponent> {
+  async openLoginDialog(): Promise<MatDialogRef<DialogComponent>> {
     const { queryParams } = this.route.snapshot;
     const { pathname } = this.doc.location;
     const options = {
@@ -624,6 +627,7 @@ export class UserService extends ApiService {
         },
       },
     };
+    const DialogComponent = await loadDialogComponent();
     return this.dialog.open(DialogComponent, {
       panelClass: ['close-outside', 'close-icon-white', 'login-dialog'],
       data: config,

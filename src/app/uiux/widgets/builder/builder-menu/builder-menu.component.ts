@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -7,8 +8,12 @@ import {
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import type { IPage } from '@core/interface/IAppConfig';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderService } from '@core/service/builder.service';
@@ -19,13 +24,22 @@ import { BUILDER_CURRENT_PAGE, DEBUG_ANIMATE } from '@core/token/token-providers
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { IconComponent } from '../../icon/icon.component';
 
 @Component({
   selector: 'app-builder-menu',
   templateUrl: './builder-menu.component.html',
   styleUrls: ['./builder-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    AsyncPipe,
+    MatButtonModule,
+    MatListModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
+    IconComponent,
+  ],
 })
 export class BuilderMenuComponent implements AfterViewInit {
   public debugAnimate$ = inject<Observable<boolean>>(DEBUG_ANIMATE);

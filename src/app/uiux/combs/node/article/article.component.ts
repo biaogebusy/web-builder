@@ -113,9 +113,11 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   }
 
   openLogin(): void {
-    this.dialogRef = this.userService.openLoginDialog();
-    this.dialogRef.afterClosed().subscribe(() => {
-      this.checkAccess();
+    this.userService.openLoginDialog().then(dialogRef => {
+      this.dialogRef = dialogRef;
+      this.dialogRef.afterClosed().subscribe(() => {
+        this.checkAccess();
+      });
     });
   }
 

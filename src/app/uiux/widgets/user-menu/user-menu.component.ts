@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -6,22 +7,24 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { Observable } from 'rxjs';
-import { USER } from '@core/token/token-providers';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { IDialog } from '@core/interface/IDialog';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
-import { MatDialog } from '@angular/material/dialog';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { IDialog } from '@core/interface/IDialog';
+import { USER } from '@core/token/token-providers';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AsyncPipe, MatButtonModule, MatIconModule],
 })
 export class UserMenuComponent {
   public user$ = inject<Observable<IUser>>(USER);

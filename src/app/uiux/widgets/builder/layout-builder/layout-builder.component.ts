@@ -7,22 +7,37 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
-import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
-import { Observable } from 'rxjs';
-import { UtilitiesService } from '@core/service/utilities.service';
-import { BuilderService } from '@core/service/builder.service';
-import { IPage } from '@core/interface/IAppConfig';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import type { ILayoutBlock, ILayoutBuilder } from '@core/interface/IBuilder';
+import { IPage } from '@core/interface/IAppConfig';
+import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { createPopper } from '@popperjs/core';
+import { Observable } from 'rxjs';
+import { BgImgComponent } from '../../bg-img/bg-img.component';
+import { BtnComponent } from '../../btn/btn.component';
+import { IconComponent } from '../../icon/icon.component';
+import { DynamicComponentComponent } from '../dynamic-component/dynamic-component.component';
+import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.component';
 
 @Component({
-    selector: 'app-layout-builder',
-    templateUrl: './layout-builder.component.html',
-    styleUrls: ['./layout-builder.component.scss'],
-    standalone: false
+  selector: 'app-layout-builder',
+  templateUrl: './layout-builder.component.html',
+  styleUrls: ['./layout-builder.component.scss'],
+  imports: [
+    MatButtonModule,
+    MatTooltipModule,
+    BgImgComponent,
+    BtnComponent,
+    IconComponent,
+    DynamicComponentComponent,
+    LayoutToolbarComponent,
+  ],
 })
 export class LayoutBuilderComponent implements AfterViewInit {
   currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);

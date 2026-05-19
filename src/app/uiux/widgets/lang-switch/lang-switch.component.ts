@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -7,11 +10,11 @@ import { CORE_CONFIG, LANG } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-lang-switch',
-    templateUrl: './lang-switch.component.html',
-    styleUrls: ['./lang-switch.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-lang-switch',
+  templateUrl: './lang-switch.component.html',
+  styleUrls: ['./lang-switch.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatButtonModule, MatIconModule, MatMenuModule],
 })
 export class LangSwitchComponent implements OnInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);

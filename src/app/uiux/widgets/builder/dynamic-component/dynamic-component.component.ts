@@ -33,7 +33,7 @@ import { BgImgComponent } from '../../bg-img/bg-img.component';
   styleUrls: ['./dynamic-component.component.scss'],
   imports: [
     SpacerComponent,
-    ComponentToolbarComponent,
+    forwardRef(() => ComponentToolbarComponent),
     forwardRef(() => BgImgComponent),
   ],
   host: {

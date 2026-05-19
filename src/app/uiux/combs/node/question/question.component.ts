@@ -128,12 +128,14 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
   }
 
   openLogin(): void {
-    this.dialogRef = this.userService.openLoginDialog();
-    this.dialogRef
-      .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.cd.detectChanges();
-      });
+    this.userService.openLoginDialog().then(dialogRef => {
+      this.dialogRef = dialogRef;
+      this.dialogRef
+        .afterClosed()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.cd.detectChanges();
+        });
+    });
   }
 }
