@@ -8,18 +8,25 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
-import { EditHeaderComponent } from './edit-header.component';
+import { EditHeaderComponent } from './edit-header/edit-header.component';
+import { EditFooterComponent } from './edit-footer/edit-footer.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'header',
     component: EditHeaderComponent,
     canDeactivate: [unsavedChangesGuard],
   },
+  {
+    path: 'footer',
+    component: EditFooterComponent,
+    canDeactivate: [unsavedChangesGuard],
+  },
+  { path: '', redirectTo: 'header', pathMatch: 'full' },
 ];
 
 @NgModule({
-  declarations: [EditHeaderComponent],
+  declarations: [EditHeaderComponent, EditFooterComponent],
   imports: [
     ShareModule,
     WidgetsModule,
@@ -31,4 +38,4 @@ const routes: Routes = [
     RouterModule.forChild(routes),
   ],
 })
-export class EditHeaderModule {}
+export class EditBrandingModule {}

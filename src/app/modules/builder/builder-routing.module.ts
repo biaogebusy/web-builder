@@ -43,14 +43,9 @@ const routes: Routes = [
           import('./main/config-check/config-check.component').then(m => m.ConfigCheckComponent),
       },
       {
-        path: 'edit-header',
+        path: 'edit-branding',
         loadChildren: () =>
-          import('./main/edit-header/edit-header.module').then(m => m.EditHeaderModule),
-      },
-      {
-        path: 'edit-footer',
-        loadChildren: () =>
-          import('./main/edit-footer/edit-footer.module').then(m => m.EditFooterModule),
+          import('./main/edit-branding/edit-branding.module').then(m => m.EditBrandingModule),
       },
       {
         path: 'node-add',

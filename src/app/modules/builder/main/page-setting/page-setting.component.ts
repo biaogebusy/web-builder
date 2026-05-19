@@ -489,7 +489,7 @@ export class PageSettingComponent implements OnInit {
       },
     } = this.content;
     if (alias.includes('/core/branding')) {
-      this.router.navigate(['/builder/edit-header'], {
+      this.router.navigate(['/builder/edit-branding/header'], {
         queryParams: {
           uuid: id,
           nid: drupal_internal__nid,
