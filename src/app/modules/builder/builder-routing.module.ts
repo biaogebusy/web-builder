@@ -8,8 +8,6 @@ import { BuilderWorkspaceComponent } from './main/builder-workspace/builder-work
 import { ManagePageComponent } from './main/manage-page/manage-page.component';
 import { BuilderGuard } from '@core/guards/builder.guard';
 import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
-import { ConfigCheckComponent } from './main/config-check/config-check.component';
-import { NodeAddComponent } from './node/node-add/node-add.component';
 import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
 import { EditHeaderComponent } from './main/edit-header/edit-header.component';
 import { EditFooterComponent } from './main/edit-footer/edit-footer.component';
@@ -44,7 +42,8 @@ const routes: Routes = [
       },
       {
         path: 'config-check',
-        component: ConfigCheckComponent,
+        loadComponent: () =>
+          import('./main/config-check/config-check.component').then(m => m.ConfigCheckComponent),
       },
       {
         path: 'edit-header',
@@ -57,8 +56,8 @@ const routes: Routes = [
         component: EditFooterComponent,
       },
       {
-        path: 'node-add/:type',
-        component: NodeAddComponent,
+        path: 'node-add',
+        loadChildren: () => import('./node/node-add/node-add.module').then(m => m.NodeAddModule),
       },
       {
         path: '**',
