@@ -22,7 +22,7 @@ export const environment: IEnvironment = {
     },
   ],
   oauth: {
-    clientId: 'VXd0QdXoSq1wRWjUpH0ub4p1RSMMiKMm2OMR_rN66rA',
+    clientId: 'pd1DDpR9atXvciFn3Wt7jLsCweLXv0JCC8k1-9XNJTw',
     tokenUrl: '/oauth/token',
     authorizeUrl: '/oauth/authorize',
     redirectPath: '/me/login/callback',

@@ -6,10 +6,16 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-import { MatSelect } from '@angular/material/select';
+import { AsyncPipe } from '@angular/common';
+import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NodeService } from '@core/service/node.service';
-import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
+import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 import { of, ReplaySubject } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import * as mdi from '@mdi/js';
@@ -19,7 +25,17 @@ import * as mdi from '@mdi/js';
   templateUrl: './mat-select.component.html',
   styleUrls: ['./mat-select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    ScrollingModule,
+    NgxMatSelectSearchModule,
+    FormlyModule,
+  ],
 })
 export class MatSelectComponent extends FieldType<FieldTypeConfig> implements OnInit {
   @ViewChild('select') select: MatSelect;

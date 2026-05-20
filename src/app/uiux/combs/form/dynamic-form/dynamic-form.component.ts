@@ -1,14 +1,17 @@
 import { Component, Input, inject, signal } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { IDynamicForm } from '@core/interface/combs/IDynamicForm';
 import { FormService } from '@core/service/form.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { FormlyComponent } from '../formly/formly.component';
 
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
-  standalone: false,
+  imports: [ReactiveFormsModule, FormlyComponent, BtnComponent, DynamicComponentComponent],
 })
 export class DynamicFormComponent {
   @Input() content: IDynamicForm;

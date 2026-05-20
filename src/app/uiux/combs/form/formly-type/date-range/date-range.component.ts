@@ -5,15 +5,24 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-import { FieldType } from '@ngx-formly/core';
+import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FieldType, FormlyModule } from '@ngx-formly/core';
 
 @Component({
-    selector: 'app-date-range',
-    templateUrl: './date-range.component.html',
-    styleUrls: ['./date-range.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-date-range',
+  templateUrl: './date-range.component.html',
+  styleUrls: ['./date-range.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormlyModule,
+  ],
 })
 export class DateRangeComponent extends FieldType implements OnInit {
   private cd = inject(ChangeDetectorRef);

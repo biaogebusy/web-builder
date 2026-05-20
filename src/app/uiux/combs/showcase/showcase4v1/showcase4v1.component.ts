@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import type { IShowcase4v1 } from '@core/interface/combs/IShowcase';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { DialogService } from '@core/service/dialog.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -23,7 +24,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   templateUrl: './showcase4v1.component.html',
   styleUrls: ['./showcase4v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TextComponent, IconComponent, ImgComponent, NumberAnimateComponent, ContenteditDirective],
+  imports: [ReqRolesDirective, TextComponent, IconComponent, ImgComponent, NumberAnimateComponent, ContenteditDirective],
 })
 export class Showcase4v1Component extends BaseComponent implements OnInit {
   private nodeService = inject(NodeService);

@@ -26,7 +26,7 @@ import { JsonFieldType } from './formly-type/json/json.component';
 import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 
-const components = [
+const standaloneComponents = [
   SliderComponent,
   FormlyComponent,
   RichTextComponent,
@@ -40,8 +40,10 @@ const components = [
   DynamicFormComponent,
   TermsServiceComponent,
 ];
+
+const components = [...standaloneComponents];
+
 @NgModule({
-  declarations: [...components],
   imports: [
     ShareModule,
     FormlyMatSliderModule,
@@ -53,6 +55,7 @@ const components = [
     MatDatepickerModule,
     MatSliderModule,
     JsonFieldType,
+    ...standaloneComponents,
 
     QuillModule.forRoot(),
     FormlyModule.forRoot({

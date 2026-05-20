@@ -5,8 +5,9 @@ import {
   signal,
   output
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import type { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { FormlyModule } from '@ngx-formly/core';
 import { cloneDeep } from 'lodash-es';
 
 interface IFormly {
@@ -17,7 +18,7 @@ interface IFormly {
   selector: 'app-formly',
   templateUrl: './formly.component.html',
   styleUrls: ['./formly.component.scss'],
-  standalone: false,
+  imports: [ReactiveFormsModule, FormlyModule],
 })
 export class FormlyComponent implements AfterViewInit {
   @Input() content: IFormly;

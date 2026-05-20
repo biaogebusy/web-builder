@@ -3,12 +3,13 @@ import { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
+import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 declare let window: any;
 @Component({
   selector: 'app-json',
   templateUrl: './json.component.html',
   styleUrl: './json.component.scss',
+  imports: [FormlyModule],
 })
 export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterViewInit {
   private screenService = inject(ScreenService);
