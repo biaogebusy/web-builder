@@ -9,8 +9,7 @@ import { FormModule } from '@uiux/combs/form/form.module';
 const components = [DashboardComponent, DashboardBoxComponent];
 
 @NgModule({
-  declarations: [...components],
-  imports: [ShareModule, WidgetsModule, FormModule],
+  imports: [ShareModule, WidgetsModule, FormModule, ...components],
   exports: [...components],
 })
 export class DashboardModule extends BaseModule {

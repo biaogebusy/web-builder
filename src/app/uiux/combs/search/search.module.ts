@@ -18,8 +18,7 @@ const components = [
   SearchSidebarComponent,
 ];
 @NgModule({
-  declarations: [...components],
-  imports: [ShareModule, WidgetsModule, HeroModule, FormModule, MatChipsModule, OtherModule],
+  imports: [ShareModule, WidgetsModule, HeroModule, FormModule, MatChipsModule, OtherModule, ...components],
   exports: [...components],
 })
 export class SearchModule extends BaseModule {

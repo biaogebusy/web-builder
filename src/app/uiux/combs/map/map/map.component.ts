@@ -8,6 +8,8 @@ import {
   input,
   DestroyRef,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -19,13 +21,14 @@ import { isArray } from 'lodash-es';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
-    selector: 'app-map',
-    templateUrl: './map.component.html',
-    styleUrls: ['./map.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-map',
+  templateUrl: './map.component.html',
+  styleUrls: ['./map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatButtonModule, MatIconModule, LoadingComponent],
 })
 export class MapComponent implements OnInit {
   private theme = inject(THEME);

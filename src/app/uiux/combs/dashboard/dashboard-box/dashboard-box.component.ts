@@ -1,19 +1,33 @@
 import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import type { IDashboardBox } from '@core/interface/combs/IDashboard';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { defaultsDeep, random } from 'lodash-es';
 import { Observable, of } from 'rxjs';
 import { catchError, delay, map } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-dashboard-box',
-    templateUrl: './dashboard-box.component.html',
-    styleUrls: ['./dashboard-box.component.scss'],
-    standalone: false
+  selector: 'app-dashboard-box',
+  templateUrl: './dashboard-box.component.html',
+  styleUrls: ['./dashboard-box.component.scss'],
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    ContenteditDirective,
+    IconComponent,
+    LoadingComponent,
+    DynamicComponentComponent,
+    FormlyComponent,
+  ],
 })
 export class DashboardBoxComponent extends BaseComponent implements OnInit {
   @Input() content: IDashboardBox;

@@ -7,7 +7,7 @@ import {
   inject,
   DestroyRef,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -20,13 +20,16 @@ import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import type { IPage } from '@core/interface/IAppConfig';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TextComponent } from '@uiux/widgets/text/text.component';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 @Component({
   selector: 'app-full-calendar',
   templateUrl: './full-calendar.component.html',
   styleUrls: ['./full-calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ReactiveFormsModule, TextComponent, FormlyComponent, CalendarComponent],
 })
 export class FullCalendarComponent extends BaseComponent implements OnInit {
   @Input() readonly content: IFullCalendar;

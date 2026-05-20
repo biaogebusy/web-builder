@@ -6,16 +6,20 @@ import {
   Input,
   inject,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import type { ILottery, ILotteryForm } from '@core/interface/combs/ICalculator';
 import type { EChartsOption } from 'echarts/types/dist/shared';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { TextComponent } from '@uiux/widgets/text/text.component';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
+import { ChartComponent } from '@uiux/combs/chart/chart/chart.component';
 
 @Component({
   selector: 'app-lottery',
   templateUrl: './lottery.component.html',
   styleUrls: ['./lottery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ReactiveFormsModule, SafeHtmlPipe, TextComponent, FormlyComponent, ChartComponent],
 })
 export class LotteryComponent implements AfterViewInit {
   private cd = inject(ChangeDetectorRef);

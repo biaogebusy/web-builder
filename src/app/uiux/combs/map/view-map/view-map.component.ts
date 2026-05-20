@@ -6,7 +6,14 @@ import {
   ChangeDetectorRef,
   inject,
 } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { ReactiveFormsModule, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRippleModule } from '@angular/material/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FormService } from '@core/service/form.service';
 import { isString, merge } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
@@ -14,15 +21,28 @@ import type { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IViewMap, IViewMapItem } from '@core/interface/combs/IViewMap';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
+import { MapComponent } from '../map/map.component';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-view-map',
-    templateUrl: './view-map.component.html',
-    styleUrls: ['./view-map.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-view-map',
+  templateUrl: './view-map.component.html',
+  styleUrls: ['./view-map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatRippleModule,
+    ScrollingModule,
+    FormlyComponent,
+    MapComponent,
+  ],
 })
 export class ViewMapComponent extends BaseComponent implements OnInit {
   @Input() content: IViewMap;

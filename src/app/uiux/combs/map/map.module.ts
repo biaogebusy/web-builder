@@ -11,8 +11,7 @@ import { MapComponent } from './map/map.component';
 const components = [LocationComponent, MapListV1Component, ViewMapComponent, MapComponent];
 
 @NgModule({
-  declarations: [...components],
-  imports: [ShareModule, WidgetsModule, FormModule],
+  imports: [ShareModule, WidgetsModule, FormModule, ...components],
 
   exports: [...components],
 })

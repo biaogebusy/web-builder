@@ -1,13 +1,28 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import type { IMapListv1 } from '@core/interface/combs/IMap';
 import type { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
+import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
+import { TitleComponent } from '@uiux/widgets/title/title.component';
+import { Card1v3Component } from '@uiux/widgets/card/card1v3/card1v3.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
+import { MapComponent } from '../map/map.component';
 
 @Component({
-    selector: 'app-map-list-v1',
-    templateUrl: './map-list-v1.component.html',
-    styleUrls: ['./map-list-v1.component.scss'],
-    standalone: false
+  selector: 'app-map-list-v1',
+  templateUrl: './map-list-v1.component.html',
+  styleUrls: ['./map-list-v1.component.scss'],
+  imports: [
+    MatIconModule,
+    SpinnerComponent,
+    TitleComponent,
+    Card1v3Component,
+    MapComponent,
+    DynamicComponentComponent,
+    SpacerComponent,
+  ],
 })
 export class MapListV1Component implements OnInit {
   @Input() content: IMapListv1;
