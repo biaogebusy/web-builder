@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, inject, ViewChild, DestroyRef, signal } from '@angular/core';
-import { FormControl, UntypedFormGroup } from '@angular/forms';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, from, of } from 'rxjs';
 import { BUILDER_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
@@ -15,7 +20,7 @@ import {
 } from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,12 +29,32 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 
 @Component({
   selector: 'app-manage-media',
   templateUrl: './manage-media.component.html',
   styleUrls: ['./manage-media.component.scss'],
-  standalone: false,
+  imports: [
+    AsyncPipe,
+    NgOptimizedImage,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSliderModule,
+    MatCheckboxModule,
+    MatProgressBarModule,
+    MatPaginatorModule,
+    MatTooltipModule,
+    ReqRolesDirective,
+    FormlyComponent,
+    BtnComponent,
+    IconComponent,
+    LoadingComponent,
+  ],
 })
 export class ManageMediaComponent implements OnInit {
   private builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);

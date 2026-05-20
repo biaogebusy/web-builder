@@ -1,7 +1,19 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, OnDestroy, inject, DestroyRef, signal, computed } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -9,13 +21,28 @@ import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, ISocialLoginProvider } from '@core/interface/IAppConfig';
 import type { IBtn } from '@core/interface/widgets/IBtn';
 import type { IUser } from '@core/interface/IUser';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 import { Observable, Subscription, interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  standalone: false,
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule,
+    TranslateModule,
+    BtnComponent,
+    LoadingComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);

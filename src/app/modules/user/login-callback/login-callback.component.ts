@@ -1,5 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -9,7 +11,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
   selector: 'app-login-callback',
   templateUrl: './login-callback.component.html',
   styleUrls: ['./login-callback.component.scss'],
-  standalone: false,
+  imports: [MatButtonModule, MatIconModule],
 })
 export class LoginCallbackComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

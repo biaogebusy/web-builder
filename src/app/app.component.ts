@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, inject, signal, DestroyRef } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import type { ILanguage } from '@core/interface/IEnvironment';
 import { LANG } from '@core/token/token-providers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: false,
+  imports: [RouterOutlet, TranslateModule],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   public loading = signal<boolean>(true);

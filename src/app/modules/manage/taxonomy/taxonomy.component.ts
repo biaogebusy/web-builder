@@ -7,15 +7,23 @@ import {
   DestroyRef,
   signal,
 } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { ITaxonomy } from '@core/interface/manage/ITaxonomy';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-links/pagination-links.component';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { StripTagsPipe } from 'ngx-pipes';
+import { NgPipesModule, StripTagsPipe } from 'ngx-pipes';
 import { Observable, catchError, of, tap } from 'rxjs';
 
 @Component({
@@ -23,7 +31,17 @@ import { Observable, catchError, of, tap } from 'rxjs';
   templateUrl: './taxonomy.component.html',
   styleUrl: './taxonomy.component.scss',
   providers: [StripTagsPipe],
-  standalone: false,
+  imports: [
+    AsyncPipe,
+    MatListModule,
+    MatIconModule,
+    MatDividerModule,
+    NgPipesModule,
+    LoadingComponent,
+    BtnComponent,
+    FormlyComponent,
+    PaginationLinksComponent,
+  ],
 })
 export class TaxonomyComponent implements OnInit {
   @Input() content: ITaxonomy;

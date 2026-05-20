@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -17,11 +18,14 @@ import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HeaderBannerComponent } from './header-banner/header-banner.component';
+import { HeaderTopComponent } from './header-top/header-top.component';
+import { MenuComponent } from './menu/menu.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  standalone: false,
+  imports: [AsyncPipe, HeaderBannerComponent, HeaderTopComponent, MenuComponent],
   host: {
     ngSkipHydration: 'true',
   },

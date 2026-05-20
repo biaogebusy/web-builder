@@ -1,11 +1,16 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDividerModule } from '@angular/material/divider';
 import { IUser } from '@core/interface/IUser';
 import { IMediaAttr } from '@core/interface/manage/IManage';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
-import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
+import { NgPipesModule } from 'ngx-pipes';
+import { NgxFileDropModule, NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { Observable, lastValueFrom, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
@@ -13,7 +18,14 @@ import { catchError, retry } from 'rxjs/operators';
   selector: 'app-upload-media',
   templateUrl: './upload-media.component.html',
   styleUrl: './upload-media.component.scss',
-  standalone: false,
+  imports: [
+    NgxFileDropModule,
+    MatDividerModule,
+    NgPipesModule,
+    IconComponent,
+    BtnComponent,
+    SpinnerComponent,
+  ],
 })
 export class UploadMediaComponent {
   private user$ = inject<Observable<IUser>>(USER);

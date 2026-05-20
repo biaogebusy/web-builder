@@ -98,12 +98,12 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 
 ## Conventions
 
-- **Standalone Components (Completed 2026-05-20)**: All 91 components in `uiux/` have been migrated from NgModule to standalone.
-  - **Completed modules**: widgets (10), other (9), showcase (14), form (12), calculator (1), calendar (2), dashboard (2), map (4), search (4), list (8), node (12), plus video/tab/masonry/chart/hero/carousel modules (~19)
+- **Standalone Components (Fully migrated 2026-05-20)**: Every `@Component` in the codebase is standalone (no `standalone: false` remains anywhere in `src/app/`). This covers `uiux/widgets`, `uiux/combs/*` (including `profile`), `core/branding` (header tree, footer tree, menus, dynamic-menu, accordion-menu), `modules/manage`, `modules/user`, `modules/page`, and the root `AppComponent`.
+  - **NgModules retained as thin shells**: `AppModule`, `AppServerModule`, `BrandingModule`, `ShareModule`, `WidgetsModule`, feature module shells (`UserModule`, `PageModule`, `ManageModule`, `BuilderModule`), and `uiux/combs/*` module shells still exist. Their `declarations: []` are empty; standalone components are listed in `imports: []` so the modules can re-export them for legacy consumers (e.g. `BrandingModule.exports` is consumed by `PageComponent`). Routing modules continue to work unchanged with `component: XxxComponent` referring to standalone classes.
   - **Key patterns used**:
-    - `forwardRef(() => Component)` in `@Component.imports` to resolve circular dependencies (e.g., `CommentItemComponent` recursively references itself, `DialogComponent ↔ DynamicComponentComponent`)
-    - Explicit imports of all dependencies: Material modules (MatButtonModule, MatIconModule, etc.), Angular pipes (AsyncPipe, DatePipe, etc.), NgPipesModule, custom pipes (SafeHtmlPipe), and child components
-    - Common path corrections: `MediaObjectComponent` at `@uiux/widgets/media/media-object/`, `PaginationLinksComponent` at `@uiux/widgets/pagination/pagination-links/`
+    - `forwardRef(() => Component)` in `@Component.imports` to resolve circular dependencies — required for recursive components (`SubMenuComponent`, `AccordionMenuComponent`, `CommentItemComponent`, `DialogComponent ↔ DynamicComponentComponent`)
+    - Explicit imports of all dependencies: Material modules (MatButtonModule, MatIconModule, etc.), Angular pipes (AsyncPipe, DatePipe, etc.), NgPipesModule, custom pipes (SafeHtmlPipe), directives (ReqRolesDirective, CheckChildMenuActiveDirective), Router primitives (RouterOutlet, RouterLink, RouterLinkActive), and child standalone components
+    - Common path corrections: `MediaObjectComponent` at `@uiux/widgets/media/media-object/`, `PaginationLinksComponent` at `@uiux/widgets/pagination/pagination-links/`, `ListThinComponent` at `@uiux/combs/list/list/list-thin/`
 - Use `inject()` function for DI (not constructor injection)
 - Use `npm install` only (not yarn or pnpm) — respects `package-lock.json`
 - ESLint rules: single quotes, semicolons required, max line length 100 (warnings), `any` type is allowed

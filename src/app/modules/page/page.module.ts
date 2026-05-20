@@ -11,7 +11,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 @NgModule({
-  declarations: [PageComponent],
+  declarations: [],
   imports: [
     ShareModule,
     WidgetsModule,
@@ -20,6 +20,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
     BrandingModule,
     LoadingBarHttpClientModule,
     LoadingBarModule,
+    PageComponent,
   ],
   providers: [
     {

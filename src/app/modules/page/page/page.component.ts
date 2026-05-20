@@ -6,6 +6,7 @@ import {
   DOCUMENT,
   afterEveryRender,
 } from '@angular/core';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { Observable } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
@@ -18,6 +19,12 @@ import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { throttle } from 'lodash-es';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { BrandingModule } from '@core/branding/branding.module';
 
 @Component({
   selector: 'app-page',
@@ -29,7 +36,16 @@ import { UtilitiesService } from '@core/service/utilities.service';
       useFactory: pageContentFactory,
     },
   ],
-  standalone: false,
+  imports: [
+    AsyncPipe,
+    NgTemplateOutlet,
+    MatSidenavModule,
+    LoadingBarModule,
+    BrandingModule,
+    BtnComponent,
+    LoadingComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class PageComponent implements AfterViewInit {
   private doc = inject<Document>(DOCUMENT);

@@ -5,13 +5,18 @@ import {
   ChangeDetectorRef,
   inject,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { isEmpty } from 'lodash-es';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
+import { BgComponent } from '@uiux/widgets/bg/bg.component';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -19,7 +24,16 @@ import { Observable } from 'rxjs';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
+    MatDividerModule,
+    MatIconModule,
+    BgComponent,
+    IconComponent,
+    ImgComponent,
+  ],
 })
 export class UserComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

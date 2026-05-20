@@ -6,7 +6,11 @@ import {
   ChangeDetectorRef,
   inject,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NodeService } from '@core/service/node.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -14,13 +18,21 @@ import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash-es';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IHeaderSearch } from '@core/interface/branding/IBranding';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
 
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatIconModule,
+    MatInputModule,
+    MatTooltipModule,
+    LinkComponent,
+  ],
 })
 export class SearchBoxComponent extends BaseComponent implements OnInit {
   @Input() content: IHeaderSearch;
