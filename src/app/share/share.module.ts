@@ -135,16 +135,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ShareModule {
   private iconService = inject(IconService);
 
-  /**
-   * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
-   * @Optional 可选，如果CoreModule不存在正常执行
-   */
   constructor() {
-    const parentModule = inject(ShareModule, { optional: true, skipSelf: true })!;
-
     this.iconService.loadSvgResources();
-    if (parentModule) {
-      throw new Error('ShareModule already loaded!');
-    }
   }
 }
