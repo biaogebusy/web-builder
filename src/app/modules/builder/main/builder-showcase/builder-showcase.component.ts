@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import type { IBuilderComponentElement, IBuilderShowcase } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
@@ -16,7 +18,7 @@ import { Observable } from 'rxjs';
   selector: 'app-builder-showcase',
   templateUrl: './builder-showcase.component.html',
   styleUrls: ['./builder-showcase.component.scss'],
-  standalone: false,
+  imports: [ShareModule, WidgetsModule],
 })
 export class BuilderShowcaseComponent implements OnInit {
   @Input() content: IBuilderShowcase;

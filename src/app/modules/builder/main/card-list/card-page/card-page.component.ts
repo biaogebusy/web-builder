@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, Input, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { IPage } from '@core/interface/IAppConfig';
 import { IPageMeta } from '@core/interface/IBuilder';
 import { ILanguage } from '@core/interface/IEnvironment';
@@ -15,7 +17,7 @@ import { BuilderState } from '@core/state/BuilderState';
   templateUrl: './card-page.component.html',
   styleUrl: './card-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ShareModule, WidgetsModule],
 })
 export class CardPageComponent {
   @Input() lists: any[];

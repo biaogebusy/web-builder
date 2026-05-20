@@ -9,6 +9,8 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import type {
   IBuilderComponent,
   IBuilderComponentElement,
@@ -34,7 +36,7 @@ interface ISearchHit {
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
   styleUrls: ['./widget-picker.component.scss'],
-  standalone: false,
+  imports: [ShareModule, WidgetsModule],
 })
 export class WidgetPickerComponent implements OnInit {
   @Input() content: IWidgetPicker;

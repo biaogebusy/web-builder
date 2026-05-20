@@ -45,11 +45,11 @@ const routes: Routes = [
       {
         path: 'edit-branding',
         loadChildren: () =>
-          import('./main/edit-branding/edit-branding.module').then(m => m.EditBrandingModule),
+          import('./main/edit-branding/edit-branding.routes').then(m => m.routes),
       },
       {
         path: 'node-add',
-        loadChildren: () => import('./node/node-add/node-add.module').then(m => m.NodeAddModule),
+        loadChildren: () => import('./node/node-add/node-add.routes').then(m => m.routes),
       },
       {
         path: '**',

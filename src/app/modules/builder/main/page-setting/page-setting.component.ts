@@ -11,6 +11,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { FormModule } from '@uiux/combs/form/form.module';
 import { IDialog } from '@core/interface/IDialog';
 import { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
@@ -29,7 +32,7 @@ import { Observable } from 'rxjs';
   templateUrl: './page-setting.component.html',
   styleUrl: './page-setting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ShareModule, WidgetsModule, FormModule],
 })
 export class PageSettingComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

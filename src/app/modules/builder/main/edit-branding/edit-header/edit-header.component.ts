@@ -8,11 +8,20 @@ import {
   computed,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormlyModule, FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { FormModule } from '@uiux/combs/form/form.module';
 import { merge as deepMerge } from 'lodash-es';
 import { merge } from 'rxjs';
 
@@ -26,8 +35,22 @@ import { HasUnsavedChanges } from '@core/guards/unsaved-changes.guard';
   selector: 'app-edit-header',
   templateUrl: './edit-header.component.html',
   styleUrl: './edit-header.component.scss',
-  standalone: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    ShareModule,
+    WidgetsModule,
+    FormModule,
+    FormsModule,
+    RouterLink,
+    DragDropModule,
+    MatIconModule,
+    MatProgressBarModule,
+    FormlyModule,
+    FormlyMaterialModule,
+    FormlyMatToggleModule,
+    MonacoEditorModule,
+    NgxSkeletonLoaderModule,
+  ],
 })
 export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   loading = signal(false);
