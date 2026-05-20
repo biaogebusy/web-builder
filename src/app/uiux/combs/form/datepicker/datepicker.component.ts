@@ -9,12 +9,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-datepicker',
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [provideNativeDateAdapter()],
   imports: [
     ReactiveFormsModule,
     MatDatepickerModule,

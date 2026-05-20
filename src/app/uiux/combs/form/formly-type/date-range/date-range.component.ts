@@ -9,6 +9,7 @@ import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { FieldType, FormlyModule } from '@ngx-formly/core';
 
 @Component({
@@ -16,6 +17,7 @@ import { FieldType, FormlyModule } from '@ngx-formly/core';
   templateUrl: './date-range.component.html',
   styleUrls: ['./date-range.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [provideNativeDateAdapter()],
   imports: [
     ReactiveFormsModule,
     MatDatepickerModule,

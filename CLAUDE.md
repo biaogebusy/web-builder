@@ -23,8 +23,8 @@ Pre-commit hook runs `lint-staged` which auto-fixes `*.ts` and `*.html` with ESL
 
 - **`core/`** — singleton services, state management, guards, pipes, directives, interfaces, DI tokens, and factory functions
 - **`uiux/`** — all visual components, split into:
-  - `widgets/` — atomic UI elements (card, btn, text, img, icon, title, etc.) — **fully converted to standalone**
-  - `combs/` — composite page sections (hero, showcase, carousel, list, chart, form, map, etc.) — **partially converted (showcase, other modules complete; form, list, search in progress)**
+  - `widgets/` — atomic UI elements (card, btn, text, img, icon, title, etc.) — **fully standalone**
+  - `combs/` — composite page sections (hero, showcase, carousel, list, chart, form, map, etc.) — **fully standalone**
   - `base/` — abstract `BaseComponent` class that all combs extend, providing shared API/param helpers
 - **`modules/`** — feature modules loaded by the router:
   - `page/` — renders CMS-driven pages
@@ -98,12 +98,12 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 
 ## Conventions
 
-- **Standalone Migration (In Progress)**: The codebase is migrating from NgModule to standalone components. As of 2026-05-20, ~45% (41/91) of `uiux/` components have been converted.
-  - **Completed**: widgets (10 components), other module (8 components), showcase module (14 components)
-  - **In Progress**: form module (12 components) — batch 3
-  - **Pending**: list, search, code-editor, and remaining combs modules
-  - When converting components, use `forwardRef(() => Component)` in `@Component.imports` arrays to resolve circular dependencies (e.g., `DialogComponent ↔ DynamicComponentComponent`)
-  - Standalone components must explicitly import all dependencies (Material modules, pipes, directives, child components)
+- **Standalone Components (Completed 2026-05-20)**: All 91 components in `uiux/` have been migrated from NgModule to standalone.
+  - **Completed modules**: widgets (10), other (9), showcase (14), form (12), calculator (1), calendar (2), dashboard (2), map (4), search (4), list (8), node (12), plus video/tab/masonry/chart/hero/carousel modules (~19)
+  - **Key patterns used**:
+    - `forwardRef(() => Component)` in `@Component.imports` to resolve circular dependencies (e.g., `CommentItemComponent` recursively references itself, `DialogComponent ↔ DynamicComponentComponent`)
+    - Explicit imports of all dependencies: Material modules (MatButtonModule, MatIconModule, etc.), Angular pipes (AsyncPipe, DatePipe, etc.), NgPipesModule, custom pipes (SafeHtmlPipe), and child components
+    - Common path corrections: `MediaObjectComponent` at `@uiux/widgets/media/media-object/`, `PaginationLinksComponent` at `@uiux/widgets/pagination/pagination-links/`
 - Use `inject()` function for DI (not constructor injection)
 - Use `npm install` only (not yarn or pnpm) — respects `package-lock.json`
 - ESLint rules: single quotes, semicolons required, max line length 100 (warnings), `any` type is allowed
@@ -119,12 +119,12 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 ## Angular Best Practices
 
-- **For new components**: Always use standalone components (default in Angular v20+, no need to set `standalone: true`)
-- **For existing components**: Follow the ongoing migration pattern — convert NgModule components to standalone by:
-  1. Removing component from NgModule `declarations`
-  2. Adding all dependencies to `@Component.imports` array
-  3. Using `forwardRef(() => Component)` for circular dependencies
-  4. Importing the standalone component directly in parent modules/components
+- **All components are now standalone** (migration completed 2026-05-20)
+- For new components: Always use standalone components (default in Angular v20+, no need to set `standalone: true`)
+- When working with existing standalone components:
+  - All dependencies must be explicitly imported in `@Component.imports` array
+  - Use `forwardRef(() => Component)` for circular dependencies
+  - Common dependencies: Material modules, Angular pipes (AsyncPipe, DatePipe, SlicePipe), NgPipesModule, SafeHtmlPipe, ReactiveFormsModule
 - Use signals for state management
 - Implement lazy loading for feature routes
 - Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead

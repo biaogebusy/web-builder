@@ -19,7 +19,7 @@ import { TabsTypeComponent } from './formly-type/tabs/tabs.component';
 import { FormlyComponent } from './formly/formly.component';
 import { TermsServiceComponent } from './terms-service/terms-service.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { QuillModule } from 'ngx-quill';
 import { JsonFieldType } from './formly-type/json/json.component';
@@ -102,7 +102,7 @@ const components = [...standaloneComponents];
       ],
     }),
   ],
-  providers: [MatDatepickerModule, { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' }],
+  providers: [MatDatepickerModule, provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' }],
   exports: [...components],
 })
 export class FormModule extends BaseModule {
