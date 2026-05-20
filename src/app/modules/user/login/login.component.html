@@ -81,24 +81,38 @@
                   <mat-divider />
                 </div>
               }
-              <div class="auth-login-icons">
+              <div class="auth-login-list">
                 @if (oauthLogin?.enable) {
-                  <app-btn
-                    [content]="oauthBtn()"
-                    [matTooltip]="oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)"
-                    [attr.aria-label]="oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)"
+                  <button
+                    type="button"
+                    mat-stroked-button
+                    class="auth-pill-btn"
+                    [disabled]="loading()"
+                    [attr.aria-label]="
+                      oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)
+                    "
                     (click)="login()"
-                  />
+                  >
+                    <app-icon [content]="{ name: 'account_circle' }" />
+                    <span class="auth-pill-label">
+                      {{ oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate) }}
+                    </span>
+                  </button>
                 }
                 @if (socialLoginConfig?.enable) {
                   @for (provider of socialLoginConfig?.providers || []; track provider.label) {
                     @if (provider.enable) {
-                      <app-btn
-                        [content]="providerBtn(provider)"
-                        [matTooltip]="provider.label"
+                      <button
+                        type="button"
+                        mat-stroked-button
+                        class="auth-pill-btn"
+                        [disabled]="loading()"
                         [attr.aria-label]="provider.label"
                         (click)="socialLogin(provider)"
-                      />
+                      >
+                        <app-icon [content]="providerIcon(provider)" />
+                        <span class="auth-pill-label">{{ provider.label }}</span>
+                      </button>
                     }
                   }
                 }

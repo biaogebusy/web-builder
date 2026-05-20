@@ -154,8 +154,32 @@
   }
 }
 
-.auth-login-icons {
-  @apply flex flex-row flex-wrap justify-center items-center gap-4 my-3;
+.auth-login-list {
+  @apply flex flex-col gap-3 my-3;
+}
+
+.auth-pill-btn {
+  @apply w-full h-[44px];
+  border-radius: 9999px !important;
+  --mdc-outlined-button-label-text-color: var(--mat-sys-on-surface);
+  --mdc-outlined-button-outline-color: var(--mat-sys-outline-variant);
+  --mat-outlined-button-icon-color: var(--mat-sys-on-surface);
+
+  ::ng-deep {
+    .mdc-button__label {
+      @apply flex items-center justify-center gap-2 w-full;
+    }
+    .mat-icon,
+    app-icon {
+      @apply shrink-0 flex;
+      color: var(--mat-sys-on-surface-variant);
+    }
+  }
+}
+
+.auth-pill-label {
+  @apply text-sm font-medium;
+  color: var(--mat-sys-on-surface-variant);
 }
 
 .auth-hint {

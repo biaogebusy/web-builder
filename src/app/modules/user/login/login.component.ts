@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, OnDestroy, inject, DestroyRef, signal, computed } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, DestroyRef, signal } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormGroup,
@@ -12,16 +12,15 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, ISocialLoginProvider } from '@core/interface/IAppConfig';
-import type { IBtn } from '@core/interface/widgets/IBtn';
+import type { IIcon } from '@core/interface/widgets/IIcon';
 import type { IUser } from '@core/interface/IUser';
-import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 import { Observable, Subscription, interval } from 'rxjs';
@@ -37,9 +36,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTooltipModule,
     TranslateModule,
-    BtnComponent,
+    IconComponent,
     LoadingComponent,
     DynamicComponentComponent,
   ],
@@ -53,12 +51,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   public error = signal<string>('');
   public phoneForm: UntypedFormGroup;
   public countdown = signal<number>(0);
-  public oauthBtn = computed<IBtn>(() => ({
-    mode: 'icon',
-    classes: 'auth-icon-btn',
-    disabled: this.loading(),
-    icon: { name: 'account_circle' },
-  }));
   private subscription: Subscription;
 
   private fb = inject(UntypedFormBuilder);
@@ -195,13 +187,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  providerBtn(provider: ISocialLoginProvider): IBtn {
-    return {
-      mode: 'icon',
-      classes: 'auth-icon-btn',
-      disabled: this.loading(),
-      icon: provider.svgIcon ? { svg: provider.svgIcon } : { name: provider.icon },
-    };
+  providerIcon(provider: ISocialLoginProvider): IIcon {
+    return provider.svgIcon ? { svg: provider.svgIcon } : { name: provider.icon };
   }
 
   ngOnDestroy(): void {
