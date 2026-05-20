@@ -9,18 +9,20 @@ import {
 } from '@angular/core';
 import type { IUser } from '@core/interface/IUser';
 import type { IIframe } from '@core/interface/widgets/IWidgets';
+import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
 import { PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import { IPage } from '@core/interface/IAppConfig';
 import { Observable, single } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 
 @Component({
   selector: 'app-iframe',
   templateUrl: './iframe.component.html',
   styleUrls: ['./iframe.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [SafeUrlPipe, LoadingComponent],
 })
 export class IframeComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

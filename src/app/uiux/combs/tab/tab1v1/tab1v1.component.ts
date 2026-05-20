@@ -7,6 +7,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
@@ -14,13 +15,23 @@ import { RouteService } from '@core/service/route.service';
 import { isEmpty, omitBy } from 'lodash-es';
 import { ScreenService } from '@core/service/screen.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MediaMetaComponent } from '@uiux/widgets/media/media-meta/media-meta.component';
+import { PaginationComponent } from '@uiux/widgets/pagination/pagination.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 
 @Component({
-    selector: 'app-tab-1v1',
-    templateUrl: './tab1v1.component.html',
-    styleUrls: ['./tab1v1.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-tab-1v1',
+  templateUrl: './tab1v1.component.html',
+  styleUrls: ['./tab1v1.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    MatTabsModule,
+    NgxPaginationModule,
+    TextComponent,
+    MediaMetaComponent,
+    PaginationComponent,
+  ],
 })
 export class Tab1v1Component extends BaseComponent implements OnInit {
   @Input() content: any;

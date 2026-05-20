@@ -10,7 +10,10 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderService } from '@core/service/builder.service';
@@ -25,13 +28,21 @@ import pageSchema from './schema/page.schema.json';
 import componentSchema from './schema/component.schema.json';
 import layoutBuilder from './schema/layoutBuilder.schema.json';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 declare let window: any;
 @Component({
   selector: 'app-jsoneditor',
   templateUrl: './jsoneditor.component.html',
   styleUrls: ['./jsoneditor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    MatButtonModule,
+    MatDialogModule,
+    ReqRolesDirective,
+    LoadingComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class JsoneditorComponent implements AfterViewInit, OnDestroy {
   @Input() content: IJsoneditor;

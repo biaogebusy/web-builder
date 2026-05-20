@@ -69,12 +69,14 @@ echarts.use([
 
 // Import the theme
 import { ScreenService } from '@core/service/screen.service';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
-  standalone: false,
+  imports: [MatButtonToggleModule, IconComponent],
 })
 export class ChartComponent implements OnInit, AfterViewInit {
   @Input() content: EChartsOption;

@@ -12,7 +12,7 @@ import DOMPurify from 'dompurify';
 import { NodeService } from '@core/service/node.service';
 import Mustache from 'mustache';
 import { IPager } from '@core/interface/widgets/IWidgets';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ScreenService } from '@core/service/screen.service';
 import { catchError, of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -25,7 +25,7 @@ declare let echarts: any;
   selector: 'app-custom-template',
   templateUrl: './custom-template.component.html',
   styleUrls: ['./custom-template.component.scss'],
-  standalone: false,
+  imports: [MatPaginatorModule],
 })
 export class CustomTemplateComponent implements AfterViewInit {
   @Input() content: ICustomTemplate;

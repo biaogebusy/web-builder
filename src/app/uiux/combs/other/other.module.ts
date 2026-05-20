@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
-import { MatChipsModule } from '@angular/material/chips';
 
 import { AutocloseComponent } from './autoclose/autoclose.component';
 import { BaseModule } from '@uiux/base/base.module';
@@ -16,10 +15,9 @@ import { StepperComponent } from './stepper/stepper.component';
 import { ChipListComponent } from './chip-list/chip-list.component';
 import { IframeComponent } from './iframe/iframe.component';
 
-const components = [
+const standaloneComponents = [
   AutocloseComponent,
   JsoneditorComponent,
-  CodeEditorComponent,
   CustomTemplateComponent,
   FlagComponent,
   DownloadComponent,
@@ -28,9 +26,17 @@ const components = [
   IframeComponent,
 ];
 
+const components = [...standaloneComponents, CodeEditorComponent];
+
 @NgModule({
-  declarations: [...components],
-  imports: [ShareModule, WidgetsModule, FormModule, MatChipsModule, MonacoEditorModule.forRoot()],
+  declarations: [CodeEditorComponent],
+  imports: [
+    ShareModule,
+    WidgetsModule,
+    FormModule,
+    MonacoEditorModule.forRoot(),
+    ...standaloneComponents,
+  ],
   exports: [...components],
 })
 export class OtherModule extends BaseModule {

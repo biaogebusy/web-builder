@@ -1,4 +1,5 @@
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   Input,
   OnInit,
@@ -21,12 +22,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 register();
 @Component({
   selector: 'app-swiper',
   templateUrl: './swiper.component.html',
   styleUrls: ['./swiper.component.scss'],
-  standalone: false,
+  imports: [DynamicComponentComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SwiperComponent implements OnInit, AfterViewInit {
   @Input() content: ISwiper;
