@@ -38,7 +38,6 @@ import { IconService } from '@core/service/icon.service';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { throwError } from 'rxjs';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -73,9 +72,14 @@ import { TranslateModule } from '@ngx-translate/core';
     NgxSkeletonLoaderModule,
     MatStepperModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatBadgeModule,
+    MatListModule,
+    MatTooltipModule,
+    MatPaginatorModule,
     TranslateModule,
     ContenteditDirective,
     ReqRolesDirective,
@@ -140,7 +144,7 @@ export class ShareModule {
 
     this.iconService.loadSvgResources();
     if (parentModule) {
-      throwError('ShareModule already loaded!');
+      throw new Error('ShareModule already loaded!');
     }
   }
 }
