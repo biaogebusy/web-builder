@@ -24,12 +24,12 @@ const standaloneComponents = [
   StepperComponent,
   ChipListComponent,
   IframeComponent,
+  CodeEditorComponent,
 ];
 
-const components = [...standaloneComponents, CodeEditorComponent];
+const components = [...standaloneComponents];
 
 @NgModule({
-  declarations: [CodeEditorComponent],
   imports: [
     ShareModule,
     WidgetsModule,

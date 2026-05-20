@@ -7,6 +7,9 @@ import {
   Input,
   inject,
 } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import type { IComment, IQuestion } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -19,13 +22,16 @@ import { environment } from 'src/environments/environment';
 import { MatDialogRef } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { CommentFormComponent } from '../comment/comment-form/comment-form.component';
+import { CommentListComponent } from '../comment/comment-list/comment-list.component';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AsyncPipe, MatButtonModule, MatIconModule, SafeHtmlPipe, CommentFormComponent, CommentListComponent],
 })
 export class QuestionComponent extends NodeComponent implements AfterViewInit {
   public user$ = inject<Observable<IUser>>(USER);

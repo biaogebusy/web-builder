@@ -1,9 +1,11 @@
 import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import type { IBuilderConfig, ICodeEditor } from '@core/interface/IBuilder';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { get } from 'lodash-es';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NodeService } from '@core/service/node.service';
 import { catchError, debounceTime, distinctUntilChanged, skip, tap } from 'rxjs/operators';
@@ -15,11 +17,23 @@ import { BUILDER_CONFIG } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
 import { TagsService } from '@core/service/tags.service';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.scss'],
-  standalone: false,
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    MatTooltipModule,
+    MonacoEditorModule,
+    BtnComponent,
+    LoadingComponent,
+    FormlyComponent,
+  ],
 })
 export class CodeEditorComponent implements OnInit {
   @Input() content: ICodeEditor;

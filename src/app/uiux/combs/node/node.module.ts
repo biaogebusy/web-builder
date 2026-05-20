@@ -18,34 +18,22 @@ import { FormModule } from '@uiux/combs/form/form.module';
 import { BannerSimpleComponent } from './banner-simple/banner-simple.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
-const standaloneComponents = [
-  ArticleBannerComponent,
-  ArticleMetaComponent,
-  CommentActionsComponent,
-  HeaderMetaComponent,
-  BannerSimpleComponent,
-  BreadcrumbComponent,
-];
-
 const components = [
   ArticleComponent,
+  ArticleBannerComponent,
+  ArticleMetaComponent,
   QuestionComponent,
   CommentFormComponent,
   CommentListComponent,
   CommentItemComponent,
+  CommentActionsComponent,
   ReportComponent,
-  ...standaloneComponents,
+  HeaderMetaComponent,
+  BannerSimpleComponent,
+  BreadcrumbComponent,
 ];
 @NgModule({
-  declarations: [
-    ArticleComponent,
-    QuestionComponent,
-    CommentFormComponent,
-    CommentListComponent,
-    CommentItemComponent,
-    ReportComponent,
-  ],
-  imports: [ShareModule, WidgetsModule, FormModule, ShowcaseModule, QuillModule.forRoot(), ...standaloneComponents],
+  imports: [ShareModule, WidgetsModule, FormModule, ShowcaseModule, QuillModule.forRoot(), ...components],
   exports: [
     ArticleComponent,
     QuestionComponent,
