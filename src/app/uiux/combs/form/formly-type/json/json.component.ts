@@ -40,6 +40,13 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
           } catch (e) {}
         },
       });
+
+      const initial = this.formControl.value;
+      if (initial !== undefined && initial !== null && initial !== '') {
+        try {
+          editor.set(initial);
+        } catch (e) {}
+      }
     }
   }
 }
