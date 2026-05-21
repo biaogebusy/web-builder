@@ -25,6 +25,7 @@ import { QuillModule } from 'ngx-quill';
 import { JsonFieldType } from './formly-type/json/json.component';
 import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { DialogRepeatComponent } from './formly-type/dialog-repeat/dialog-repeat.component';
 
 const standaloneComponents = [
   SliderComponent,
@@ -39,6 +40,7 @@ const standaloneComponents = [
   DatepickerComponent,
   DynamicFormComponent,
   TermsServiceComponent,
+  DialogRepeatComponent,
 ];
 
 const components = [...standaloneComponents];
@@ -77,6 +79,7 @@ const components = [...standaloneComponents];
           component: DateRangeComponent,
         },
         { name: 'repeat', component: RepeatTypeComponent },
+        { name: 'dialog-repeat', component: DialogRepeatComponent },
         { name: 'tabs', component: TabsTypeComponent },
         { name: 'img-picker', component: ImgPickerComponent },
         {

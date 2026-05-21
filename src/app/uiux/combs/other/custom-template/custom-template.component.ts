@@ -214,7 +214,7 @@ export class CustomTemplateComponent implements AfterViewInit {
         ? rawPanelClass.trim().split(/\s+/)
         : ['close-outside', 'dialog-p-0'];
     this.dialog.open(DialogComponent, {
-      width: config.params?.width || '800px',
+      width: config.params?.width || 'auto',
       height: config.params?.height || 'auto',
       ...config.params,
       panelClass,

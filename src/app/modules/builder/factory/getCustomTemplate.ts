@@ -1,5 +1,22 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
+const KEY_PATTERN = '^[a-zA-Z0-9_-]+$';
+
+const WIDTH_OPTIONS = [
+  { label: '小 (480px)', value: '480px' },
+  { label: '中 (800px)', value: '800px' },
+  { label: '大 (1000px)', value: '1000px' },
+  { label: '全屏 (95vw)', value: '95vw' },
+  { label: '自适应 (auto)', value: 'auto' },
+];
+
+const HEIGHT_OPTIONS = [
+  { label: '自适应 (auto)', value: 'auto' },
+  { label: '中 (400px)', value: '400px' },
+  { label: '大 (600px)', value: '600px' },
+  { label: '满屏 (90vh)', value: '90vh' },
+];
+
 export function getCustomTemplate(widget: any): FormlyFieldConfig {
   const fields = {
     key: 'customTemplate',
@@ -39,19 +56,12 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
         },
         fieldGroup: [
           {
-            template: `
-              <div class="text-sm text-gray-500 mb-3">
-                在 HTML 中给任意元素加 <code>data-dialog="key"</code>，点击即可打开下方对应 key 的弹窗。
-              </div>
-            `,
-          },
-          {
             key: 'dialogs',
-            type: 'repeat',
+            type: 'dialog-repeat',
             defaultValue: widget.dialogs ?? [],
             className: 'w-full',
             props: {
-              addText: '新增弹窗',
+              html: widget.html ?? '',
             },
             fieldArray: {
               fieldGroup: [
@@ -62,41 +72,36 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
                   props: {
                     label: '触发 key（对应 data-dialog="..." 的值）',
                     required: true,
+                    pattern: KEY_PATTERN,
+                    description: '支持字母、数字、_、-',
+                  },
+                  validation: {
+                    messages: {
+                      pattern: '只允许字母、数字、_、-',
+                    },
                   },
                 },
                 {
                   key: 'params',
                   fieldGroup: [
                     {
-                      fieldGroupClassName: 'flex gap-2',
-                      fieldGroup: [
-                        {
-                          key: 'width',
-                          type: 'input',
-                          className: 'flex-1',
-                          props: {
-                            label: '宽度',
-                            placeholder: '例如：800px / 80vw',
-                          },
-                        },
-                        {
-                          key: 'height',
-                          type: 'input',
-                          className: 'flex-1',
-                          props: {
-                            label: '高度',
-                            placeholder: '例如：auto / 600px',
-                          },
-                        },
-                      ],
+                      key: 'width',
+                      type: 'select',
+                      className: 'w-full',
+                      defaultValue: 'auto',
+                      props: {
+                        label: '宽度',
+                        options: WIDTH_OPTIONS,
+                      },
                     },
                     {
-                      key: 'panelClass',
-                      type: 'input',
+                      key: 'height',
+                      type: 'select',
                       className: 'w-full',
+                      defaultValue: 'auto',
                       props: {
-                        label: 'panelClass（多个用空格分隔）',
-                        placeholder: 'close-outside dialog-p-0 close-icon-white',
+                        label: '高度',
+                        options: HEIGHT_OPTIONS,
                       },
                     },
                   ],
