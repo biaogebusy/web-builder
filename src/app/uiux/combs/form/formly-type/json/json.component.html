@@ -1,1 +1,15 @@
-<div #jsoneditor></div>
+<div class="json-field-wrapper">
+  <div class="flex justify-end mb-2">
+    <app-btn
+      (click)="openInDialog()"
+      [content]="{
+        label: '放大编辑',
+        color: 'primary',
+        mode: 'stroked',
+        classes: 'text-xs',
+        icon: { svg: 'arrow-expand', inline: true },
+      }"
+    />
+  </div>
+  <div #jsoneditor></div>
+</div>

@@ -71,6 +71,11 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 - SCSS with TailwindCSS. Theme SCSS files are in `src/theme/` (included via `stylePreprocessorOptions`).
 - Angular Material theming with multiple switchable themes (stored in localStorage).
 - Components use SCSS files co-located with their `.ts` files.
+- **Use Material system variables (`var(--mat-sys-*)`) for color/border in component styles by default** — avoid hardcoded hex/rgb values unless there is a special reason (e.g., third-party widget needs a fixed contrast). System tokens auto-adapt across themes.
+  - Default theme: `src/theme/theme-config/_blue-colors.scss` (light, primary `#0049db`)
+  - Dark theme: `src/theme/theme-config/_dark-colors.scss` (dark)
+  - Common tokens: `--mat-sys-primary` / `--mat-sys-on-primary`, `--mat-sys-surface` / `--mat-sys-on-surface`, `--mat-sys-surface-container[-low|-high|-highest]`, `--mat-sys-outline` / `--mat-sys-outline-variant`, `--mat-sys-inverse-surface` / `--mat-sys-inverse-on-surface`, `--mat-sys-error` / `--mat-sys-on-error`
+  - Note: `inverse-surface` flips between themes (dark in light theme, light in dark theme). Pick tokens that yield the correct contrast in both themes for the content rendered on top.
 
 ### Path Aliases (tsconfig.json)
 
@@ -147,6 +152,10 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Do NOT use `ngClass`, use `class` bindings instead
 - Do NOT use `ngStyle`, use `style` bindings instead
 - When using external templates/styles, use paths relative to the component TS file.
+
+### Unified Widget Components
+
+- **Buttons**: Always use the unified `BtnComponent` from `@uiux/widgets/btn/btn.component` (selector: `app-btn`) instead of raw `<button mat-button>` / `<button>` elements. It accepts an `IBtn` content input and integrates with `RouteService`, `ReqRolesDirective`, `ContenteditDirective`, and `IconComponent` for consistent navigation, role gating, inline editing, and iconography across the app.
 
 ## State Management
 

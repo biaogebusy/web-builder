@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-const KEY_PATTERN = '^[a-zA-Z0-9_-]+$';
+const KEY_PATTERN = '^[-a-zA-Z0-9_]+$';
 
 const WIDTH_OPTIONS = [
   { label: '小 (480px)', value: '480px' },
@@ -111,7 +111,6 @@ export function getCustomTemplate(widget: any): FormlyFieldConfig {
                   type: 'json',
                   className: 'w-full',
                   props: {
-                    label: '弹窗内容（widget JSON，单个对象或数组）',
                     required: true,
                     rows: 12,
                   },
