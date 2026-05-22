@@ -20,8 +20,8 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "22"
+          cache: "npm"
 
       - name: Cache verify
         run: npm cache verify
@@ -36,9 +36,9 @@ jobs:
         uses: AEnterprise/rsync-deploy@v1.0.2
         env:
           DEPLOY_KEY: ${{ secrets.KEY }}
-          ARGS: -avz --delete
-          SERVER_PORT: '22'
-          FOLDER: 'dist'
+          ARGS: -avz --delete --exclude=node_modules
+          SERVER_PORT: "22"
+          FOLDER: "dist"
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: '/mnt/wwwroot/app/base'
+          SERVER_DESTINATION: "/mnt/wwwroot/app/base"
