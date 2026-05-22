@@ -14,10 +14,10 @@
     "PASSWORD_LABEL": "Password",
     "SHOW_PASSWORD": "Show password",
     "HIDE_PASSWORD": "Hide password",
-    "OAUTH_HINT": "We will redirect you to a secure sign-in page.",
     "OAUTH_SUBMIT": "Sign in with account",
     "SOCIAL_LOGIN": "Quick Auth",
     "QUICK_AUTH": "Quick Auth",
+    "OR_USE_PHONE": "Or sign in with phone",
     "HI": "Hi"
   }
 }

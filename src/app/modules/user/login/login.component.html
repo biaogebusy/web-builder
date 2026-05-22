@@ -20,7 +20,54 @@
               {{ error() }}
             </div>
           }
+          @if (oauthLogin?.enable || socialLoginConfig?.enable) {
+            <section class="auth-login" aria-label="auth login methods">
+              <div class="auth-login-list">
+                @if (oauthLogin?.enable) {
+                  <button
+                    type="button"
+                    mat-stroked-button
+                    class="auth-pill-btn"
+                    [disabled]="loading()"
+                    [attr.aria-label]="
+                      oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)
+                    "
+                    (click)="login()"
+                  >
+                    <app-icon [content]="{ name: 'account_circle' }" />
+                    <span class="auth-pill-label">
+                      {{ oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate) }}
+                    </span>
+                  </button>
+                }
+                @if (socialLoginConfig?.enable) {
+                  @for (provider of socialLoginConfig?.providers || []; track provider.label) {
+                    @if (provider.enable) {
+                      <button
+                        type="button"
+                        mat-stroked-button
+                        class="auth-pill-btn"
+                        [disabled]="loading()"
+                        [attr.aria-label]="provider.label"
+                        (click)="socialLogin(provider)"
+                      >
+                        <app-icon [content]="providerIcon(provider)" />
+                        <span class="auth-pill-label">{{ provider.label }}</span>
+                      </button>
+                    }
+                  }
+                }
+              </div>
+            </section>
+          }
           @if (phoneLogin?.enable) {
+            @if (oauthLogin?.enable || socialLoginConfig?.enable) {
+              <div class="auth-login-divider">
+                <mat-divider />
+                <span>{{ 'LOGIN.OR_USE_PHONE' | translate }}</span>
+                <mat-divider />
+              </div>
+            }
             <form class="phone-form" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
               <mat-form-field appearance="fill">
                 <mat-label>{{
@@ -71,58 +118,6 @@
                 {{ phoneLogin?.submitLabel }}
               </button>
             </form>
-          }
-          @if (oauthLogin?.enable || socialLoginConfig?.enable) {
-            <section class="auth-login" aria-label="auth login methods">
-              @if (phoneLogin?.enable) {
-                <div class="auth-login-divider">
-                  <mat-divider />
-                  <span>{{ socialLoginConfig?.label || ('LOGIN.QUICK_AUTH' | translate) }}</span>
-                  <mat-divider />
-                </div>
-              }
-              <div class="auth-login-list">
-                @if (oauthLogin?.enable) {
-                  <button
-                    type="button"
-                    mat-stroked-button
-                    class="auth-pill-btn"
-                    [disabled]="loading()"
-                    [attr.aria-label]="
-                      oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)
-                    "
-                    (click)="login()"
-                  >
-                    <app-icon [content]="{ name: 'account_circle' }" />
-                    <span class="auth-pill-label">
-                      {{ oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate) }}
-                    </span>
-                  </button>
-                }
-                @if (socialLoginConfig?.enable) {
-                  @for (provider of socialLoginConfig?.providers || []; track provider.label) {
-                    @if (provider.enable) {
-                      <button
-                        type="button"
-                        mat-stroked-button
-                        class="auth-pill-btn"
-                        [disabled]="loading()"
-                        [attr.aria-label]="provider.label"
-                        (click)="socialLogin(provider)"
-                      >
-                        <app-icon [content]="providerIcon(provider)" />
-                        <span class="auth-pill-label">{{ provider.label }}</span>
-                      </button>
-                    }
-                  }
-                }
-              </div>
-              @if (oauthLogin?.enable && oauthLogin?.hint) {
-                <p class="auth-hint">{{ oauthLogin?.hint }}</p>
-              } @else if (oauthLogin?.enable) {
-                <p class="auth-hint">{{ 'LOGIN.OAUTH_HINT' | translate }}</p>
-              }
-            </section>
           }
         }
         @if (user$ | async; as currentUser) {

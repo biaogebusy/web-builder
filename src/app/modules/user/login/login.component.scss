@@ -181,8 +181,3 @@
   @apply text-sm font-medium;
   color: var(--mat-sys-on-surface-variant);
 }
-
-.auth-hint {
-  @apply text-xs leading-relaxed text-center mt-2;
-  color: var(--mat-sys-on-surface-variant);
-}

@@ -14,10 +14,10 @@
     "PASSWORD_LABEL": "密码",
     "SHOW_PASSWORD": "显示密码",
     "HIDE_PASSWORD": "隐藏密码",
-    "OAUTH_HINT": "未注册手机验证后自动登录",
     "OAUTH_SUBMIT": "前往登录",
     "SOCIAL_LOGIN": "快速认证",
     "QUICK_AUTH": "快速认证",
+    "OR_USE_PHONE": "或使用手机登录",
     "HI": "你好"
   }
 }
