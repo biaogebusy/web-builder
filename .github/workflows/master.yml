@@ -42,3 +42,13 @@ jobs:
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
           SERVER_DESTINATION: "/mnt/wwwroot/app/base"
+
+      - name: Restart builder container
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.KEY }}
+          port: 22
+          script_stop: true
+          script: docker restart base
