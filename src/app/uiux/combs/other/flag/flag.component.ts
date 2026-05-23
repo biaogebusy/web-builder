@@ -7,6 +7,7 @@ import {
   inject,
   DestroyRef,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { switchMap } from 'rxjs/operators';
@@ -19,6 +20,7 @@ import type { ICoreConfig, ICoreFlag } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 const FLAGGING_GET_PATH = '/api/v1/flagging';
 
@@ -27,7 +29,7 @@ const FLAGGING_GET_PATH = '/api/v1/flagging';
   templateUrl: './flag.component.html',
   styleUrls: ['./flag.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatButtonModule, IconComponent],
 })
 export class FlagComponent extends BaseComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

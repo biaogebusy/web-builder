@@ -7,6 +7,8 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import type { IDownload } from '@core/interface/widgets/IDownload';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable } from 'rxjs';
@@ -18,13 +20,14 @@ import type { IUser } from '@core/interface/IUser';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 @Component({
   selector: 'app-download',
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatButtonModule, MatMenuModule, IconComponent],
 })
 export class DownloadComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

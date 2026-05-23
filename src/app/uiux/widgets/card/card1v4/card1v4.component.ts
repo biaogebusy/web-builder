@@ -1,13 +1,23 @@
 import { Component, Input, inject } from '@angular/core';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { ICard1v4 } from '@core/interface/widgets/ICard';
-import { RangePipe } from 'ngx-pipes';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { NgPipesModule, RangePipe } from 'ngx-pipes';
+import { IconComponent } from '../../icon/icon.component';
+import { ImgComponent } from '../../img/img.component';
 
 @Component({
-    selector: 'app-card-1v4',
-    templateUrl: './card1v4.component.html',
-    styleUrls: ['./card1v4.component.scss'],
-    providers: [RangePipe],
-    standalone: false
+  selector: 'app-card-1v4',
+  templateUrl: './card1v4.component.html',
+  styleUrls: ['./card1v4.component.scss'],
+  imports: [
+    NgPipesModule,
+    ImgComponent,
+    IconComponent,
+    ContenteditDirective,
+    SafeHtmlPipe,
+  ],
+  providers: [RangePipe],
 })
 export class Card1v4Component {
   private rangePipe = inject(RangePipe);

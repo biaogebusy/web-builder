@@ -19,7 +19,6 @@ declare let window: any;
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  standalone: false,
 })
 export class VideoComponent implements OnInit, OnDestroy {
   @ViewChild('target', { static: true }) target: ElementRef;

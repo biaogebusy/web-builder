@@ -9,14 +9,17 @@ import {
 } from '@angular/core';
 import type { ICarouselBase } from '@core/interface/combs/ICarousel';
 import { ISwiper } from '@core/interface/widgets/ISwiper';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { defaultsDeep } from 'lodash-es';
 import { Subject } from 'rxjs';
+import { SwiperComponent } from '../swiper/swiper.component';
 
 @Component({
-    selector: 'app-carousel-1v2',
-    templateUrl: './carousel1v2.component.html',
-    styleUrls: ['./carousel1v2.component.scss'],
-    standalone: false
+  selector: 'app-carousel-1v2',
+  templateUrl: './carousel1v2.component.html',
+  styleUrls: ['./carousel1v2.component.scss'],
+  imports: [TitleComponent, BtnComponent, SwiperComponent],
 })
 export class Carousel1v2Component implements AfterViewInit {
   @Input() content: ICarouselBase;

@@ -6,6 +6,7 @@ import {
   inject,
   DestroyRef,
 } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { NodeService } from '@core/service/node.service';
 import { map } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
@@ -15,12 +16,14 @@ import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { IListThin } from '@core/interface/combs/IList';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TextComponent } from '@uiux/widgets/text/text.component';
+import { ListThinComponent } from '@uiux/combs/list/list/list-thin/list-thin.component';
 @Component({
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
   styleUrls: ['./user-favorite.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AsyncPipe, TextComponent, ListThinComponent],
 })
 export class UserFavoriteComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

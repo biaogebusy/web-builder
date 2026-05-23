@@ -9,7 +9,10 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControl } from '@angular/forms';
-import { PageEvent } from '@angular/material/paginator';
+import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { FormModule } from '@uiux/combs/form/form.module';
 import { ICardList, IPageList, IPageMeta } from '@core/interface/IBuilder';
 import { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
@@ -28,7 +31,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './card-list.component.html',
   styleUrl: './card-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ShareModule, WidgetsModule, FormModule, MatPaginatorModule],
 })
 export class CardListComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);

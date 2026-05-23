@@ -13,6 +13,7 @@ import { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
 
 const PROACTIVE_REFRESH_LEEWAY_MS = 30 * 1000;
+const ANONYMOUS_PATHS = ['/api/v3/otp/generate', '/api/v3/otp/login'];
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -22,6 +23,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.url.includes(environment.oauth.tokenUrl)) {
+      return next.handle(req);
+    }
+
+    if (ANONYMOUS_PATHS.some(path => req.url.includes(path))) {
       return next.handle(req);
     }
 

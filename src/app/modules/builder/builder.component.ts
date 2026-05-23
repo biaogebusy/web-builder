@@ -1,15 +1,25 @@
 import { Component, DestroyRef, OnInit, ViewChild, inject, AfterViewInit } from '@angular/core';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { RouterOutlet } from '@angular/router';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_FULL_SCREEN } from '@core/token/token-providers';
-import { MatDrawer } from '@angular/material/sidenav';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
 
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.scss'],
-  standalone: false,
+  imports: [
+    ShareModule,
+    WidgetsModule,
+    MatSidenavModule,
+    RouterOutlet,
+    BuilderSidebarComponent,
+  ],
 })
 export class BuilderComponent implements OnInit, AfterViewInit {
   @ViewChild('builderRightDrawer', { static: false })

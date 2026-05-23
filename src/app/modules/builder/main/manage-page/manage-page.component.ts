@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { pageContentFactory } from '@core/factory/factory';
 import { IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -14,7 +16,7 @@ import { Observable } from 'rxjs';
       useFactory: pageContentFactory,
     },
   ],
-  standalone: false,
+  imports: [ShareModule, WidgetsModule],
 })
 export class ManagePageComponent {
   pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);

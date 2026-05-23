@@ -8,6 +8,8 @@ import {
   DestroyRef,
   output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -20,13 +22,15 @@ import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TitleComponent } from '@uiux/widgets/title/title.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [FormsModule, MatButtonModule, QuillModule, TitleComponent, LoadingComponent],
 })
 export class CommentFormComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

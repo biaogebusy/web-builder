@@ -7,17 +7,20 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { TagsService } from '@core/service/tags.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { UIUX } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
+import { BuilderPanelComponent } from '../builder-panel/builder-panel.component';
 
 @Component({
   selector: 'app-builder-uiux',
   templateUrl: './builder-uiux.component.html',
   styleUrls: ['./builder-uiux.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ShareModule, WidgetsModule, BuilderPanelComponent],
 })
 export class BuilderUiuxComponent implements OnInit {
   private builder = inject(BuilderState);

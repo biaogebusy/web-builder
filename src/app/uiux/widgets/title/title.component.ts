@@ -8,7 +8,10 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { ITitle } from '@core/interface/widgets/ITitle';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
@@ -16,7 +19,7 @@ import { ScreenService } from '@core/service/screen.service';
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatIconModule, ContenteditDirective, SafeHtmlPipe],
 })
 export class TitleComponent implements AfterViewInit, OnDestroy {
   @Input() content: ITitle;

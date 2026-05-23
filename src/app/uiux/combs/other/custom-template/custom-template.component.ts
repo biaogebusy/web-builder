@@ -7,25 +7,28 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import type { ICustomTemplate } from '@core/interface/IBuilder';
+import type { ICustomTemplate, ICustomTemplateDialog } from '@core/interface/IBuilder';
 import DOMPurify from 'dompurify';
 import { NodeService } from '@core/service/node.service';
 import Mustache from 'mustache';
 import { IPager } from '@core/interface/widgets/IWidgets';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import { ScreenService } from '@core/service/screen.service';
 import { catchError, of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { IDialog } from '@core/interface/IDialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 declare let Swiper: any;
 declare let echarts: any;
 @Component({
   selector: 'app-custom-template',
   templateUrl: './custom-template.component.html',
   styleUrls: ['./custom-template.component.scss'],
-  standalone: false,
+  imports: [MatPaginatorModule],
 })
 export class CustomTemplateComponent implements AfterViewInit {
   @Input() content: ICustomTemplate;
@@ -37,6 +40,8 @@ export class CustomTemplateComponent implements AfterViewInit {
   private destroyRef = inject(DestroyRef);
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
+  private dialog = inject(MatDialog);
+  private dialogClickHandler?: (event: Event) => void;
 
   ngAfterViewInit(): void {
     this.template = this.ele.nativeElement.querySelector('.template');
@@ -139,7 +144,81 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   renderView(content: any, html: string): void {
-    const sanitized = DOMPurify.sanitize(html, { ADD_TAGS: ['style'], FORCE_BODY: true });
+    const sanitized = DOMPurify.sanitize(html, {
+      ADD_TAGS: ['style'],
+      ADD_ATTR: ['data-dialog'],
+      FORCE_BODY: true,
+    });
     this.template.innerHTML = Mustache.render(sanitized, content);
+    this.bindDialogTriggers();
+  }
+
+  private bindDialogTriggers(): void {
+    if (this.dialogClickHandler) {
+      this.template.removeEventListener('click', this.dialogClickHandler);
+      this.dialogClickHandler = undefined;
+    }
+    const dialogs = this.content.dialogs;
+    if (!dialogs?.length) {
+      return;
+    }
+    const dialogMap = new Map<string, ICustomTemplateDialog>();
+    dialogs.forEach(d => {
+      if (d?.key) {
+        dialogMap.set(d.key, d);
+      }
+    });
+    if (dialogMap.size === 0) {
+      return;
+    }
+    this.template.querySelectorAll<HTMLElement>('[data-dialog]').forEach(el => {
+      el.style.cursor = 'pointer';
+    });
+    this.dialogClickHandler = (event: Event) => {
+      const target = event.target as HTMLElement | null;
+      const trigger = target?.closest('[data-dialog]') as HTMLElement | null;
+      if (!trigger || !this.template.contains(trigger)) {
+        return;
+      }
+      const key = trigger.getAttribute('data-dialog');
+      if (!key) {
+        return;
+      }
+      const config = dialogMap.get(key);
+      if (!config) {
+        console.warn(`[custom-template] dialog key "${key}" not found in content.dialogs`);
+        return;
+      }
+      event.preventDefault();
+      this.openDialog(config);
+    };
+    this.template.addEventListener('click', this.dialogClickHandler);
+    this.destroyRef.onDestroy(() => {
+      if (this.dialogClickHandler) {
+        this.template.removeEventListener('click', this.dialogClickHandler);
+        this.dialogClickHandler = undefined;
+      }
+    });
+  }
+
+  private openDialog(config: ICustomTemplateDialog): void {
+    const inputData = Array.isArray(config.content) ? config.content : { content: config.content };
+    const dialogData: IDialog = {
+      disableActions: true,
+      inputData,
+    };
+    const rawPanelClass = config.params?.panelClass;
+    const panelClass = Array.isArray(rawPanelClass)
+      ? rawPanelClass
+      : typeof rawPanelClass === 'string' && rawPanelClass.trim()
+        ? rawPanelClass.trim().split(/\s+/)
+        : ['close-outside', 'dialog-p-0'];
+    this.dialog.open(DialogComponent, {
+      width: config.params?.width || 'auto',
+      height: config.params?.height || 'auto',
+      ...config.params,
+      panelClass,
+      data: dialogData,
+    });
   }
 }

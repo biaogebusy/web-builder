@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { WidgetsModule } from '../../widgets/widgets.module';
-import { ShareModule } from '@share/share.module';
 import { Showcase1v1Component } from './showcase1v1/showcase1v1.component';
 import { Showcase1v3Component } from './showcase1v3/showcase1v3.component';
 import { Showcase2v1Component } from './showcase2v1/showcase2v1.component';
@@ -35,8 +33,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components],
-  imports: [WidgetsModule, ShareModule],
+  imports: [...components],
   exports: [...components],
 })
 export class ShowcaseModule extends BaseModule {

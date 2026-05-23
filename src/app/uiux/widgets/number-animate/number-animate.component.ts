@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 
 @Component({
-    selector: 'app-number-animate',
-    templateUrl: './number-animate.component.html',
-    styleUrls: ['./number-animate.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-number-animate',
+  templateUrl: './number-animate.component.html',
+  styleUrls: ['./number-animate.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ContenteditDirective],
 })
 export class NumberAnimateComponent {
   @Input() content: INumberAnimate;

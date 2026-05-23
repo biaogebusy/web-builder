@@ -1,18 +1,21 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, inject } from '@angular/core';
-import { MAT_INPUT_VALUE_ACCESSOR, MatInput } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule } from '@angular/material/input';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { FieldType, FieldTypeConfig } from '@ngx-formly/core';
+import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 import { FormlyFieldTextArea } from '@ngx-formly/material/textarea';
 import { createPopper } from '@popperjs/core';
 import { QuillModule } from 'ngx-quill';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 
 @Component({
   selector: 'app-rich-text',
   templateUrl: './rich-text.component.html',
   styleUrls: ['./rich-text.component.scss'],
   providers: [{ provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: FormlyFieldTextArea }],
-  standalone: false,
+  imports: [ReactiveFormsModule, MatButtonModule, MatInputModule, QuillModule, FormlyModule, BtnComponent],
 })
 export class RichTextComponent extends FieldType<FieldTypeConfig> implements AfterViewInit {
   @ViewChild(MatInput, { static: true }) formFieldControl!: MatInput;

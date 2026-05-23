@@ -1,4 +1,9 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
 import { NodeService } from '@core/service/node.service';
 import { DialogService } from '@core/service/dialog.service';
@@ -9,13 +14,23 @@ import type { IUser } from '@core/interface/IUser';
 import { USER, CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUserCard, IUserCount } from '@core/interface/widgets/ICard';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DynamicComponentComponent } from '../../builder/dynamic-component/dynamic-component.component';
+import { MediaObjectComponent } from '../../media/media-object/media-object.component';
+import { UserCardCountComponent } from './user-card-count/user-card-count.component';
 
 @Component({
-    selector: 'app-user-card',
-    templateUrl: './user-card.component.html',
-    styleUrls: ['./user-card.component.scss'],
-    standalone: false
+  selector: 'app-user-card',
+  templateUrl: './user-card.component.html',
+  styleUrls: ['./user-card.component.scss'],
+  imports: [
+    DatePipe,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MediaObjectComponent,
+    UserCardCountComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class UserCardComponent extends BaseComponent implements OnInit {
   user$ = inject<Observable<IUser>>(USER);

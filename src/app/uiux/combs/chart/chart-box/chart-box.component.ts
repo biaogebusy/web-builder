@@ -1,16 +1,19 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit, inject, signal } from '@angular/core';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { defaultsDeep, random } from 'lodash-es';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'app-chart-box',
   templateUrl: './chart-box.component.html',
   styleUrls: ['./chart-box.component.scss'],
-  standalone: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [AsyncPipe, ContenteditDirective, ChartComponent],
 })
 export class ChartBoxComponent implements OnInit {
   @Input() content: any;

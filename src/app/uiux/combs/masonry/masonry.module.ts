@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '../../widgets/widgets.module';
 import { ShuffleComponent } from './shuffle/shuffle.component';
 import { BaseModule } from '@uiux/base/base.module';
 
 const components = [ShuffleComponent];
 
 @NgModule({
-  declarations: [...components],
-  imports: [ShareModule, WidgetsModule],
-
+  imports: [...components],
   exports: [...components],
 })
 export class MasonryModule extends BaseModule {

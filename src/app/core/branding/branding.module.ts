@@ -21,7 +21,11 @@ import { AccordionMenuComponent } from './accordion-menu/accordion-menu.componen
 import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
 
 @NgModule({
-  declarations: [
+  declarations: [],
+  imports: [
+    ShareModule,
+    WidgetsModule,
+    FormModule,
     HeaderComponent,
     FooterComponent,
     MenuComponent,
@@ -40,7 +44,6 @@ import { DynamicMenuComponent } from './dynamic-menu/dynamic-menu.component';
     AccordionMenuComponent,
     DynamicMenuComponent,
   ],
-  imports: [ShareModule, WidgetsModule, FormModule],
   exports: [
     HeaderComponent,
     FooterComponent,

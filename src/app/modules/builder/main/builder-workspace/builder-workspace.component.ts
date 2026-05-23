@@ -1,6 +1,10 @@
 
 import { AfterViewInit, Component, DestroyRef, inject, OnInit, DOCUMENT } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { RouterOutlet } from '@angular/router';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -11,12 +15,25 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { TourService } from '@core/service/tour.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
+import { BuilderToolbarComponent } from '../../toolbar/builder-toolbar/builder-toolbar.component';
+import { BuilderVersionComponent } from '../../sidebar/builder-version/builder-version.component';
+import { BuilderShowcaseComponent } from '../builder-showcase/builder-showcase.component';
+import { BuilderListComponent } from '../builder-list/builder-list.component';
 
 @Component({
-    selector: 'app-builder-workspace',
-    templateUrl: './builder-workspace.component.html',
-    styleUrl: './builder-workspace.component.scss',
-    standalone: false
+  selector: 'app-builder-workspace',
+  templateUrl: './builder-workspace.component.html',
+  styleUrl: './builder-workspace.component.scss',
+  imports: [
+    ShareModule,
+    WidgetsModule,
+    MatSidenavModule,
+    RouterOutlet,
+    BuilderToolbarComponent,
+    BuilderVersionComponent,
+    BuilderShowcaseComponent,
+    BuilderListComponent,
+  ],
 })
 export class BuilderWorkspaceComponent implements AfterViewInit, OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

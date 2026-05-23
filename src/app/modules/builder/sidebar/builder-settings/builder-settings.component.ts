@@ -6,8 +6,10 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { IPageList } from '@core/interface/IBuilder';
 import { IPager } from '@core/interface/widgets/IWidgets';
 import { BuilderService } from '@core/service/builder.service';
@@ -24,7 +26,7 @@ import { catchError, map } from 'rxjs/operators';
   templateUrl: './builder-settings.component.html',
   styleUrls: ['./builder-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ShareModule, WidgetsModule, MatPaginatorModule],
 })
 export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   @Input() content: any;

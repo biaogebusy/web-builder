@@ -6,6 +6,7 @@ import {
   Input,
   OnInit,
   inject,
+  forwardRef,
 } from '@angular/core';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
@@ -14,6 +15,10 @@ import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
 import { TagsService } from '@core/service/tags.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { MediaObjectComponent } from '@uiux/widgets/media/media-object/media-object.component';
+import { CommentActionsComponent } from '../../comment-actions/comment-actions.component';
+import { CommentFormComponent } from '../../comment-form/comment-form.component';
 
 const COMMENT_GET_PATH = '/api/v1/comment';
 
@@ -21,7 +26,13 @@ const COMMENT_GET_PATH = '/api/v1/comment';
   selector: 'app-comment-item',
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.scss'],
-  standalone: false,
+  imports: [
+    SafeHtmlPipe,
+    MediaObjectComponent,
+    CommentActionsComponent,
+    CommentFormComponent,
+    forwardRef(() => CommentItemComponent),
+  ],
 })
 export class CommentItemComponent implements OnInit, AfterViewInit {
   @Input() content: IBaseNode;

@@ -5,11 +5,13 @@ import { NodeService } from '@core/service/node.service';
 import { catchError } from 'rxjs/operators';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { of } from 'rxjs';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 @Component({
-    selector: 'app-showcase-2v1',
-    templateUrl: './showcase2v1.component.html',
-    styleUrls: ['./showcase2v1.component.scss'],
-    standalone: false
+  selector: 'app-showcase-2v1',
+  templateUrl: './showcase2v1.component.html',
+  styleUrls: ['./showcase2v1.component.scss'],
+  imports: [TextComponent, DynamicComponentComponent],
 })
 export class Showcase2v1Component extends BaseComponent implements AfterViewInit {
   @Input() content: IShowcase2v1;

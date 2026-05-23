@@ -7,6 +7,8 @@ import {
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderService } from '@core/service/builder.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -17,7 +19,7 @@ import { LocalStorageService } from 'ngx-webstorage';
   templateUrl: './builder-version.component.html',
   styleUrls: ['./builder-version.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ShareModule, WidgetsModule],
 })
 export class BuilderVersionComponent implements OnInit {
   public version: IPage[] | undefined;

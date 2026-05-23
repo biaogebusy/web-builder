@@ -7,8 +7,9 @@ import {
   inject,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { isEmpty, omitBy, result } from 'lodash-es';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -17,13 +18,22 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import type { IDynamicCardList } from '@core/interface/combs/IList';
 import { IPager } from '@core/interface/widgets/IWidgets';
+import { SearchSidebarComponent } from '@uiux/combs/search/search-sidebar/search-sidebar.component';
+import { CardComponent } from '@uiux/widgets/card/card.component';
+import { PaginationComponent } from '@uiux/widgets/pagination/pagination.component';
 
 @Component({
   selector: 'app-dynamic-card-list',
   templateUrl: './dynamic-card-list.component.html',
   styleUrls: ['./dynamic-card-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    SearchSidebarComponent,
+    CardComponent,
+    PaginationComponent,
+  ],
 })
 export class DynamicCardListComponent extends BaseComponent implements OnInit {
   nodeService = inject(NodeService);

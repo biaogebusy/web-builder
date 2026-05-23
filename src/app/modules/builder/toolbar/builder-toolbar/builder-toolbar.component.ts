@@ -7,6 +7,8 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -20,19 +22,20 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderService } from '@core/service/builder.service';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
 import { Router } from '@angular/router';
 import { IDialog } from '@core/interface/IDialog';
 import qs from 'qs';
+import { SwitchPreviewComponent } from '../switch-preview/switch-preview.component';
 
 @Component({
   selector: 'app-builder-toolbar',
   templateUrl: './builder-toolbar.component.html',
   styleUrls: ['./builder-toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ShareModule, WidgetsModule, MatSlideToggleModule, SwitchPreviewComponent],
 })
 export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   public version = signal<IPage[] | undefined>(undefined);

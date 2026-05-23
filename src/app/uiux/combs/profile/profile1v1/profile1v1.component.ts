@@ -7,6 +7,10 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import type { IImg } from '@core/interface/widgets/IImg';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -16,12 +20,31 @@ import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
+import { ImgComponent } from '@uiux/widgets/img/img.component';
+import { TitleComponent } from '@uiux/widgets/title/title.component';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { CommentFormComponent } from '@uiux/combs/node/comment/comment-form/comment-form.component';
+import { CommentListComponent } from '@uiux/combs/node/comment/comment-list/comment-list.component';
 
 @Component({
   selector: 'app-profile-1v1',
   templateUrl: './profile1v1.component.html',
   styleUrls: ['./profile1v1.component.scss'],
-  standalone: false,
+  imports: [
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatMenuModule,
+    BgImgComponent,
+    ImgComponent,
+    TitleComponent,
+    IconComponent,
+    DynamicComponentComponent,
+    CommentFormComponent,
+    CommentListComponent,
+  ],
 })
 export class Profile1v1Component implements OnInit, AfterViewInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);

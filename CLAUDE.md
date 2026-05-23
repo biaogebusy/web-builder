@@ -23,8 +23,8 @@ Pre-commit hook runs `lint-staged` which auto-fixes `*.ts` and `*.html` with ESL
 
 - **`core/`** — singleton services, state management, guards, pipes, directives, interfaces, DI tokens, and factory functions
 - **`uiux/`** — all visual components, split into:
-  - `widgets/` — atomic UI elements (card, btn, text, img, icon, title, etc.)
-  - `combs/` — composite page sections (hero, showcase, carousel, list, chart, form, map, etc.)
+  - `widgets/` — atomic UI elements (card, btn, text, img, icon, title, etc.) — **fully standalone**
+  - `combs/` — composite page sections (hero, showcase, carousel, list, chart, form, map, etc.) — **fully standalone**
   - `base/` — abstract `BaseComponent` class that all combs extend, providing shared API/param helpers
 - **`modules/`** — feature modules loaded by the router:
   - `page/` — renders CMS-driven pages
@@ -71,6 +71,11 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 - SCSS with TailwindCSS. Theme SCSS files are in `src/theme/` (included via `stylePreprocessorOptions`).
 - Angular Material theming with multiple switchable themes (stored in localStorage).
 - Components use SCSS files co-located with their `.ts` files.
+- **Use Material system variables (`var(--mat-sys-*)`) for color/border in component styles by default** — avoid hardcoded hex/rgb values unless there is a special reason (e.g., third-party widget needs a fixed contrast). System tokens auto-adapt across themes.
+  - Default theme: `src/theme/theme-config/_blue-colors.scss` (light, primary `#0049db`)
+  - Dark theme: `src/theme/theme-config/_dark-colors.scss` (dark)
+  - Common tokens: `--mat-sys-primary` / `--mat-sys-on-primary`, `--mat-sys-surface` / `--mat-sys-on-surface`, `--mat-sys-surface-container[-low|-high|-highest]`, `--mat-sys-outline` / `--mat-sys-outline-variant`, `--mat-sys-inverse-surface` / `--mat-sys-inverse-on-surface`, `--mat-sys-error` / `--mat-sys-on-error`
+  - Note: `inverse-surface` flips between themes (dark in light theme, light in dark theme). Pick tokens that yield the correct contrast in both themes for the content rendered on top.
 
 ### Path Aliases (tsconfig.json)
 
@@ -98,7 +103,12 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 
 ## Conventions
 
-- Components use `standalone: false` with NgModules (not standalone components)
+- **Standalone Components (Fully migrated 2026-05-20)**: Every `@Component` in the codebase is standalone (no `standalone: false` remains anywhere in `src/app/`). This covers `uiux/widgets`, `uiux/combs/*` (including `profile`), `core/branding` (header tree, footer tree, menus, dynamic-menu, accordion-menu), `modules/manage`, `modules/user`, `modules/page`, and the root `AppComponent`.
+  - **NgModules retained as thin shells**: `AppModule`, `AppServerModule`, `BrandingModule`, `ShareModule`, `WidgetsModule`, feature module shells (`UserModule`, `PageModule`, `ManageModule`, `BuilderModule`), and `uiux/combs/*` module shells still exist. Their `declarations: []` are empty; standalone components are listed in `imports: []` so the modules can re-export them for legacy consumers (e.g. `BrandingModule.exports` is consumed by `PageComponent`). Routing modules continue to work unchanged with `component: XxxComponent` referring to standalone classes.
+  - **Key patterns used**:
+    - `forwardRef(() => Component)` in `@Component.imports` to resolve circular dependencies — required for recursive components (`SubMenuComponent`, `AccordionMenuComponent`, `CommentItemComponent`, `DialogComponent ↔ DynamicComponentComponent`)
+    - Explicit imports of all dependencies: Material modules (MatButtonModule, MatIconModule, etc.), Angular pipes (AsyncPipe, DatePipe, etc.), NgPipesModule, custom pipes (SafeHtmlPipe), directives (ReqRolesDirective, CheckChildMenuActiveDirective), Router primitives (RouterOutlet, RouterLink, RouterLinkActive), and child standalone components
+    - Common path corrections: `MediaObjectComponent` at `@uiux/widgets/media/media-object/`, `PaginationLinksComponent` at `@uiux/widgets/pagination/pagination-links/`, `ListThinComponent` at `@uiux/combs/list/list/list-thin/`
 - Use `inject()` function for DI (not constructor injection)
 - Use `npm install` only (not yarn or pnpm) — respects `package-lock.json`
 - ESLint rules: single quotes, semicolons required, max line length 100 (warnings), `any` type is allowed
@@ -114,8 +124,12 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 ## Angular Best Practices
 
-- Always use standalone components over NgModules
-- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v20+.
+- **All components are now standalone** (migration completed 2026-05-20)
+- For new components: Always use standalone components (default in Angular v20+, no need to set `standalone: true`)
+- When working with existing standalone components:
+  - All dependencies must be explicitly imported in `@Component.imports` array
+  - Use `forwardRef(() => Component)` for circular dependencies
+  - Common dependencies: Material modules, Angular pipes (AsyncPipe, DatePipe, SlicePipe), NgPipesModule, SafeHtmlPipe, ReactiveFormsModule
 - Use signals for state management
 - Implement lazy loading for feature routes
 - Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
@@ -138,6 +152,10 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Do NOT use `ngClass`, use `class` bindings instead
 - Do NOT use `ngStyle`, use `style` bindings instead
 - When using external templates/styles, use paths relative to the component TS file.
+
+### Unified Widget Components
+
+- **Buttons**: Always use the unified `BtnComponent` from `@uiux/widgets/btn/btn.component` (selector: `app-btn`) instead of raw `<button mat-button>` / `<button>` elements. It accepts an `IBtn` content input and integrates with `RouteService`, `ReqRolesDirective`, `ContenteditDirective`, and `IconComponent` for consistent navigation, role gating, inline editing, and iconography across the app.
 
 ## State Management
 

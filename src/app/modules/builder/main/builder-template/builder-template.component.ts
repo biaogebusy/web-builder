@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -11,11 +13,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-builder-template',
-    templateUrl: './builder-template.component.html',
-    styleUrls: ['./builder-template.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-builder-template',
+  templateUrl: './builder-template.component.html',
+  styleUrls: ['./builder-template.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ShareModule, WidgetsModule],
 })
 export class BuilderTemplateComponent implements OnInit {
   content$: Observable<any[]>;

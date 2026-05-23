@@ -7,6 +7,8 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -18,7 +20,7 @@ import { Observable } from 'rxjs';
   templateUrl: './switch-preview.component.html',
   styleUrls: ['./switch-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ShareModule, WidgetsModule],
 })
 export class SwitchPreviewComponent implements OnInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);

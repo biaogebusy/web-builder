@@ -38,7 +38,6 @@ import { IconService } from '@core/service/icon.service';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { throwError } from 'rxjs';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -46,7 +45,7 @@ import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [ReqRolesDirective, CheckChildMenuActiveDirective, ContenteditDirective],
+  declarations: [],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -73,10 +72,18 @@ import { TranslateModule } from '@ngx-translate/core';
     NgxSkeletonLoaderModule,
     MatStepperModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatBadgeModule,
+    MatListModule,
+    MatTooltipModule,
+    MatPaginatorModule,
     TranslateModule,
+    ContenteditDirective,
+    ReqRolesDirective,
+    CheckChildMenuActiveDirective,
   ],
   exports: [
     CommonModule,
@@ -128,16 +135,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ShareModule {
   private iconService = inject(IconService);
 
-  /**
-   * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
-   * @Optional 可选，如果CoreModule不存在正常执行
-   */
   constructor() {
-    const parentModule = inject(ShareModule, { optional: true, skipSelf: true })!;
-
     this.iconService.loadSvgResources();
-    if (parentModule) {
-      throwError('ShareModule already loaded!');
-    }
   }
 }

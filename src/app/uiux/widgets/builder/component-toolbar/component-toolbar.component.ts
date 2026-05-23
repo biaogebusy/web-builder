@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { IPage } from '@core/interface/IAppConfig';
 import { IDialog } from '@core/interface/IDialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
@@ -22,12 +23,14 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { get } from 'lodash-es';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, delay } from 'rxjs';
+import { BtnComponent } from '../../btn/btn.component';
+import { DividerComponent } from '../../divider/divider.component';
 
 @Component({
   selector: 'app-component-toolbar',
   templateUrl: './component-toolbar.component.html',
   styleUrls: ['./component-toolbar.component.scss'],
-  standalone: false,
+  imports: [BtnComponent, DividerComponent, MatTooltipModule],
   host: {
     class: 'component-toolbar',
   },

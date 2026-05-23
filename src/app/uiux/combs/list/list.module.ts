@@ -25,8 +25,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components],
-  imports: [ShareModule, WidgetsModule, ShowcaseModule, SearchModule],
+  imports: [ShareModule, WidgetsModule, ShowcaseModule, SearchModule, ...components],
   exports: [...components],
 })
 export class ListModule extends BaseModule {

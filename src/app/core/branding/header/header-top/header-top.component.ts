@@ -6,16 +6,20 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import type { IHeaderTop } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
+import { GithubStarComponent } from '@uiux/widgets/github-star/github-star.component';
 
 @Component({
-    selector: 'app-header-top',
-    templateUrl: './header-top.component.html',
-    styleUrls: ['./header-top.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-header-top',
+  templateUrl: './header-top.component.html',
+  styleUrls: ['./header-top.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatIconModule, IconComponent, LinkComponent, GithubStarComponent],
 })
 export class HeaderTopComponent implements OnInit {
   @Input() content: IHeaderTop | undefined;

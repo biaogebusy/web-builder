@@ -7,7 +7,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[reqRolesIf]',
-  standalone: false,
 })
 export class ReqRolesDirective {
   private currentUser$ = inject<Observable<IUser>>(USER);

@@ -1,15 +1,9 @@
 import { NgModule } from '@angular/core';
-import { BuilderComponent } from './builder.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ShareModule } from '@share/share.module';
 import { BuilderRoutingModule } from './builder-routing.module';
-import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
-import { BuilderPanelComponent } from './sidebar/builder-panel/builder-panel.component';
-import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
-import { BuilderListComponent } from './main/builder-list/builder-list.component';
-import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
 import { BaseModule } from '@uiux/base/base.module';
 import {
   BUILDER_CURRENT_PAGE,
@@ -19,9 +13,6 @@ import {
   BUILDER_FULL_SCREEN,
   DEBUG_ANIMATE,
 } from '@core/token/token-providers';
-import { PreviewComponent } from './preview/preview.component';
-import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
-import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
 import {
   builderCurrentPageFactory,
   builderFullScreenFactory,
@@ -30,6 +21,24 @@ import {
   mediaAssetsFactory,
   uiuxFactory,
 } from '@core/factory/factory';
+import { FormModule } from '@uiux/combs/form/form.module';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { OtherModule } from '@uiux/combs/other/other.module';
+import { BrandingModule } from '@core/branding/branding.module';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
+
+import { BuilderComponent } from './builder.component';
+import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
+import { BuilderPanelComponent } from './sidebar/builder-panel/builder-panel.component';
+import { BuilderPageComponent } from './sidebar/builder-page/builder-page.component';
+import { BuilderListComponent } from './main/builder-list/builder-list.component';
+import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
+import { PreviewComponent } from './preview/preview.component';
+import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
+import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
 import { InlineEditComponent } from './main/inline-editor/inline-editor.component';
 import { WidgetPickerComponent } from './main/widget-picker/widget-picker.component';
 import { LayoutSettingComponent } from './toolbar/layout-setting/layout-setting.component';
@@ -45,19 +54,8 @@ import { JsonComponent } from './main/json/json.component';
 import { CardListComponent } from './main/card-list/card-list.component';
 import { CardPageComponent } from './main/card-list/card-page/card-page.component';
 import { DefaultPageComponent } from './main/default-page/default-page.component';
-import { FormModule } from '@uiux/combs/form/form.module';
-import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { NodeAddComponent } from './node/node-add/node-add.component';
-import { OtherModule } from '@uiux/combs/other/other.module';
-import { BrandingModule } from '@core/branding/branding.module';
-import { EditHeaderComponent } from './main/edit-header/edit-header.component';
-import { EditFooterComponent } from './main/edit-footer/edit-footer.component';
-import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
-import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 
-const components = [
+const dynamicComponents = [
   JsonComponent,
   BuilderComponent,
   BuilderListComponent,
@@ -68,30 +66,27 @@ const components = [
   PageSettingComponent,
   CardListComponent,
   CardPageComponent,
-  NodeAddComponent,
+];
+
+const standaloneComponents = [
+  ...dynamicComponents,
+  BuilderToolbarComponent,
+  BuilderShowcaseComponent,
+  BuilderPanelComponent,
+  BuilderPageComponent,
+  PreviewComponent,
+  BuilderVersionComponent,
+  BuilderUiuxComponent,
+  BuilderSettingsComponent,
+  PageListComponent,
+  BuilderSidebarComponent,
+  BuilderWorkspaceComponent,
+  ManagePageComponent,
+  DefaultPageComponent,
+  SwitchPreviewComponent,
 ];
 
 @NgModule({
-  declarations: [
-    ...components,
-    BuilderToolbarComponent,
-    BuilderShowcaseComponent,
-    BuilderPanelComponent,
-    SwitchPreviewComponent,
-    BuilderPageComponent,
-    PreviewComponent,
-    BuilderVersionComponent,
-    InlineEditComponent,
-    BuilderUiuxComponent,
-    BuilderSettingsComponent,
-    PageListComponent,
-    BuilderSidebarComponent,
-    BuilderWorkspaceComponent,
-    ManagePageComponent,
-    DefaultPageComponent,
-    EditHeaderComponent,
-    EditFooterComponent,
-  ],
   imports: [
     ShareModule,
     MatSidenavModule,
@@ -106,6 +101,7 @@ const components = [
     FormlyMaterialModule,
     FormlyMatToggleModule,
     MonacoEditorModule.forRoot(),
+    ...standaloneComponents,
   ],
   providers: [
     {
@@ -133,8 +129,8 @@ const components = [
       useFactory: debugAnimateFactory,
     },
   ],
-  exports: [...components],
+  exports: [...dynamicComponents],
 })
 export class BuilderModule extends BaseModule {
-  dynamicComponents = [...components];
+  dynamicComponents = [...dynamicComponents];
 }

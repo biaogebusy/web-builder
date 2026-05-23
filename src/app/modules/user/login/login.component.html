@@ -1,4 +1,7 @@
 @let loginConfig = coreConfig.login;
+@let phoneLogin = loginConfig.phoneLogin;
+@let oauthLogin = loginConfig.oauthLogin;
+@let socialLoginConfig = loginConfig.socialLogin;
 <div class="login-container">
   <div class="login-wrapper">
     <div class="login-second">
@@ -13,145 +16,108 @@
       <div class="form-scroll">
         @if (!(user$ | async)) {
           @if (error()) {
-            <div class="error">
+            <div class="error" role="alert">
               {{ error() }}
             </div>
           }
-          <mat-tab-group>
-            @let phoneLogin = loginConfig.phoneLogin;
-            @let pswLogin = loginConfig.pswLogin;
-            @if (phoneLogin.enable) {
-              <mat-tab label="{{ phoneLogin.tabLabel || ('LOGIN.PHONE_TAB' | translate) }}">
-                <form class="phone-form" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
-                  <mat-form-field appearance="fill">
-                    <mat-label>{{
-                      phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
-                    }}</mat-label>
-                    <mat-icon matSuffix>phone_iphone</mat-icon>
-                    <input
-                      [placeholder]="
-                        phoneLogin.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
-                      "
-                      type="text"
-                      matInput
-                      formControlName="phone"
-                    />
-                    @if (formPhone.phone.errors?.pattern) {
-                      <mat-error>
-                        {{ phoneLogin.error || ('LOGIN.PHONE_ERROR' | translate) }}</mat-error
-                      >
-                    }
-                  </mat-form-field>
-                  <mat-form-field appearance="fill">
-                    <mat-label>{{
-                      phoneLogin?.code?.label || ('LOGIN.CODE_LABEL' | translate)
-                    }}</mat-label>
-                    <input matInput type="text" formControlName="code" />
-                    <button
-                      disabled="{{ countdown() > 0 }}"
-                      (click)="getCode($event)"
-                      class="code-btn"
-                      [class]="countdown() ? 'pointer-events-none' : ''"
-                      matSuffix
-                      color="primary"
-                      mat-button
-                      aria-label="code"
-                    >
-                      <small class="code-label">
-                        {{ phoneLogin?.code?.sendLabel || ('LOGIN.CODE_SEND' | translate) }}
-                        @if (countdown()) {
-                          ({{ countdown() }})
-                        }
-                      </small>
-                    </button>
-                  </mat-form-field>
+          @if (oauthLogin?.enable || socialLoginConfig?.enable) {
+            <section class="auth-login" aria-label="auth login methods">
+              <div class="auth-login-list">
+                @if (oauthLogin?.enable) {
                   <button
+                    type="button"
+                    mat-stroked-button
+                    class="auth-pill-btn"
                     [disabled]="loading()"
-                    class="submit-btn"
-                    type="submit"
-                    mat-raised-button
-                    color="primary"
+                    [attr.aria-label]="
+                      oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate)
+                    "
+                    (click)="login()"
                   >
-                    {{ loginConfig.phoneLogin.submitLabel }}
+                    <app-icon [content]="{ name: 'account_circle' }" />
+                    <span class="auth-pill-label">
+                      {{ oauthLogin?.submitLabel || ('LOGIN.OAUTH_SUBMIT' | translate) }}
+                    </span>
                   </button>
-                </form>
-              </mat-tab>
-            }
-            @if (pswLogin.enable) {
-              <mat-tab label="{{ pswLogin.tabLabel || ('LOGIN.PASSWORD_TAB' | translate) }}">
-                <form class="psw-form" [formGroup]="userForm" (ngSubmit)="login()">
-                  <mat-form-field appearance="fill">
-                    <mat-label>{{
-                      pswLogin.userLabel || ('LOGIN.USERNAME_LABEL' | translate)
-                    }}</mat-label>
-                    <mat-icon matSuffix>person</mat-icon>
-                    <input matInput formControlName="name" autocomplete="username" />
-                  </mat-form-field>
-                  <mat-form-field appearance="fill">
-                    <mat-label>{{
-                      pswLogin.pswLabel || ('LOGIN.PASSWORD_LABEL' | translate)
-                    }}</mat-label>
-                    <input
-                      matInput
-                      [type]="hide ? 'password' : 'text'"
-                      formControlName="pass"
-                      autocomplete="current-password"
-                    />
-                    <button
-                      mat-icon-button
-                      matSuffix
-                      (click)="hide = !hide"
-                      [attr.aria-label]="
-                        hide
-                          ? ('LOGIN.SHOW_PASSWORD' | translate)
-                          : ('LOGIN.HIDE_PASSWORD' | translate)
-                      "
-                      [attr.aria-pressed]="hide"
-                    >
-                      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-                    </button>
-                  </mat-form-field>
-                  <button
-                    [disabled]="loading()"
-                    class="submit-btn"
-                    type="submit"
-                    mat-raised-button
-                    color="primary"
-                  >
-                    {{ pswLogin.submitLabel }}
-                  </button>
-                </form>
-              </mat-tab>
-            }
-          </mat-tab-group>
-          @if (loginConfig.socialLogin; as socialLoginConfig) {
-            @if (socialLoginConfig.enable) {
-              <div class="social-login">
-                <div class="social-login-divider">
-                  <mat-divider />
-                  <span>{{ socialLoginConfig.label || ('LOGIN.SOCIAL_LOGIN' | translate) }}</span>
-                  <mat-divider />
-                </div>
-                <div class="social-login-buttons">
-                  @for (provider of socialLoginConfig.providers; track provider.url) {
+                }
+                @if (socialLoginConfig?.enable) {
+                  @for (provider of socialLoginConfig?.providers || []; track provider.label) {
                     @if (provider.enable) {
                       <button
+                        type="button"
                         mat-stroked-button
-                        class="social-btn"
-                        (click)="socialLogin(provider.url)"
+                        class="auth-pill-btn"
+                        [disabled]="loading()"
+                        [attr.aria-label]="provider.label"
+                        (click)="socialLogin(provider)"
                       >
-                        @if (provider.svgIcon) {
-                          <mat-icon svgIcon="{{ provider.svgIcon }}" />
-                        } @else if (provider.icon) {
-                          <mat-icon>{{ provider.icon }}</mat-icon>
-                        }
-                        {{ provider.label }}
+                        <app-icon [content]="providerIcon(provider)" />
+                        <span class="auth-pill-label">{{ provider.label }}</span>
                       </button>
                     }
                   }
-                </div>
+                }
+              </div>
+            </section>
+          }
+          @if (phoneLogin?.enable) {
+            @if (oauthLogin?.enable || socialLoginConfig?.enable) {
+              <div class="auth-login-divider">
+                <mat-divider />
+                <span>{{ 'LOGIN.OR_USE_PHONE' | translate }}</span>
+                <mat-divider />
               </div>
             }
+            <form class="phone-form" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
+              <mat-form-field appearance="fill">
+                <mat-label>{{
+                  phoneLogin?.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)
+                }}</mat-label>
+                <input
+                  [placeholder]="phoneLogin?.placeholder || ('LOGIN.PHONE_PLACEHOLDER' | translate)"
+                  type="text"
+                  matInput
+                  formControlName="phone"
+                />
+                @if (formPhone.phone.errors?.pattern) {
+                  <mat-error>
+                    {{ phoneLogin?.error || ('LOGIN.PHONE_ERROR' | translate) }}
+                  </mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{
+                  phoneLogin?.code?.label || ('LOGIN.CODE_LABEL' | translate)
+                }}</mat-label>
+                <input matInput type="text" formControlName="code" />
+                <button
+                  [disabled]="countdown() > 0 || formPhone.phone.invalid"
+                  (click)="getCode($event)"
+                  class="code-btn"
+                  [class]="countdown() ? 'pointer-events-none' : ''"
+                  matSuffix
+                  color="primary"
+                  mat-button
+                  aria-label="code"
+                >
+                  <small class="code-label">
+                    {{ phoneLogin?.code?.sendLabel || ('LOGIN.CODE_SEND' | translate) }}
+                    @if (countdown()) {
+                      ({{ countdown() }})
+                    }
+                  </small>
+                </button>
+              </mat-form-field>
+              <button
+                [disabled]="loading()"
+                class="submit-btn"
+                type="submit"
+                mat-raised-button
+                color="primary"
+              >
+                {{ phoneLogin?.submitLabel }}
+              </button>
+            </form>
           }
         }
         @if (user$ | async; as currentUser) {

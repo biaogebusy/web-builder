@@ -10,8 +10,7 @@ import { FormModule } from '@uiux/combs/form/form.module';
 const components = [FullCalendarComponent, CalendarComponent];
 
 @NgModule({
-  declarations: [...components],
-  imports: [ShareModule, WidgetsModule, FullCalendarModule, FormModule],
+  imports: [ShareModule, WidgetsModule, FullCalendarModule, FormModule, ...components],
   exports: [...components],
   providers: [],
 })

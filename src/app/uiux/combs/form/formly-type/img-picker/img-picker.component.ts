@@ -1,17 +1,20 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { IDialog } from '@core/interface/IDialog';
 import { ManageService } from '@core/service/manage.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { FieldType } from '@ngx-formly/core';
+import { FieldType, FormlyModule } from '@ngx-formly/core';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
   selector: 'app-img-picker',
   templateUrl: './img-picker.component.html',
   styleUrls: ['./img-picker.component.scss'],
-  standalone: false,
+  imports: [MatButtonModule, MatIconModule, FormlyModule, BtnComponent],
 })
 export class ImgPickerComponent extends FieldType implements OnInit {
   time: Date;

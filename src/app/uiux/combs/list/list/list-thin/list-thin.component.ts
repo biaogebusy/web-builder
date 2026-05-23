@@ -1,11 +1,24 @@
 import { Component, Input, inject, output } from '@angular/core';
 import type { IListThin } from '@core/interface/combs/IList';
 import { ScreenService } from '@core/service/screen.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgPipesModule } from 'ngx-pipes';
+import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
+import { PaginationComponent } from '@uiux/widgets/pagination/pagination.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 @Component({
   selector: 'app-list-thin',
   templateUrl: './list-thin.component.html',
   styleUrls: ['./list-thin.component.scss'],
-  standalone: false,
+  imports: [
+    NgxPaginationModule,
+    NgPipesModule,
+    SpinnerComponent,
+    LinkComponent,
+    PaginationComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class ListThinComponent {
   @Input() content: IListThin[];

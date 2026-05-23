@@ -1,5 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { IDialog } from '@core/interface/IDialog';
 import type { IBtnVideo } from '@core/interface/widgets/IBtn';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -8,7 +10,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
   selector: 'app-btn-video',
   templateUrl: './btn-video.component.html',
   styleUrls: ['./btn-video.component.scss'],
-  standalone: false,
+  imports: [MatButtonModule, MatIconModule],
 })
 export class BtnVideoComponent {
   @Input() content: IBtnVideo;

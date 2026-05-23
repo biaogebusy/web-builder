@@ -33,8 +33,7 @@ const components = [
   BreadcrumbComponent,
 ];
 @NgModule({
-  declarations: [...components],
-  imports: [ShareModule, WidgetsModule, FormModule, ShowcaseModule, QuillModule.forRoot()],
+  imports: [ShareModule, WidgetsModule, FormModule, ShowcaseModule, QuillModule.forRoot(), ...components],
   exports: [
     ArticleComponent,
     QuestionComponent,

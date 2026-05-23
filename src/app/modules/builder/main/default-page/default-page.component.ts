@@ -1,15 +1,17 @@
 import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { IPage } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
 import { BuilderService } from '@core/service/builder.service';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
-    selector: 'app-default-page',
-    templateUrl: './default-page.component.html',
-    styleUrl: './default-page.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-default-page',
+  templateUrl: './default-page.component.html',
+  styleUrl: './default-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ShareModule, WidgetsModule],
 })
 export class DefaultPageComponent implements OnInit {
   public content$: Observable<IPage>;

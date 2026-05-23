@@ -19,14 +19,15 @@ import { TabsTypeComponent } from './formly-type/tabs/tabs.component';
 import { FormlyComponent } from './formly/formly.component';
 import { TermsServiceComponent } from './terms-service/terms-service.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { QuillModule } from 'ngx-quill';
 import { JsonFieldType } from './formly-type/json/json.component';
 import { RichEditorComponent } from './formly-type/rich-editor/rich-editor.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { DialogRepeatComponent } from './formly-type/dialog-repeat/dialog-repeat.component';
 
-const components = [
+const standaloneComponents = [
   SliderComponent,
   FormlyComponent,
   RichTextComponent,
@@ -39,9 +40,12 @@ const components = [
   DatepickerComponent,
   DynamicFormComponent,
   TermsServiceComponent,
+  DialogRepeatComponent,
 ];
+
+const components = [...standaloneComponents];
+
 @NgModule({
-  declarations: [...components],
   imports: [
     ShareModule,
     FormlyMatSliderModule,
@@ -53,6 +57,7 @@ const components = [
     MatDatepickerModule,
     MatSliderModule,
     JsonFieldType,
+    ...standaloneComponents,
 
     QuillModule.forRoot(),
     FormlyModule.forRoot({
@@ -74,6 +79,7 @@ const components = [
           component: DateRangeComponent,
         },
         { name: 'repeat', component: RepeatTypeComponent },
+        { name: 'dialog-repeat', component: DialogRepeatComponent },
         { name: 'tabs', component: TabsTypeComponent },
         { name: 'img-picker', component: ImgPickerComponent },
         {
@@ -99,7 +105,7 @@ const components = [
       ],
     }),
   ],
-  providers: [MatDatepickerModule, { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' }],
+  providers: [MatDatepickerModule, provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' }],
   exports: [...components],
 })
 export class FormModule extends BaseModule {

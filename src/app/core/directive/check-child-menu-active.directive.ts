@@ -3,7 +3,6 @@ import { NavigationEnd, Router } from '@angular/router';
 
 @Directive({
   selector: '[checkChildMenuActive]',
-  standalone: false,
 })
 export class CheckChildMenuActiveDirective implements AfterViewInit {
   private el = inject(ElementRef);

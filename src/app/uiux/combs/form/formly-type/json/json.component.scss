@@ -4,11 +4,31 @@
     min-height: 400px;
     .ace_editor.ace-jsoneditor {
       min-height: 400px;
+      font-size: 12px;
+      line-height: 1.55;
     }
-    ::ng-deep {
-      .jsoneditor-poweredBy {
-        display: none;
-      }
-    }
+  }
+
+  .jsoneditor {
+    border: 1px solid var(--mat-sys-outline-variant) !important;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: none;
+  }
+
+  div.jsoneditor-menu {
+    background-color: var(--mat-sys-inverse-surface);
+    border-bottom: 1px solid var(--mat-sys-inverse-surface);
+  }
+
+  .jsoneditor-statusbar {
+    background-color: transparent !important;
+    border-top: 1px solid var(--mat-sys-outline-variant) !important;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 11px;
+  }
+
+  .jsoneditor-poweredBy {
+    display: none;
   }
 }

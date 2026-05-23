@@ -5,13 +5,17 @@ import { PAGE_CONTENT } from '@core/token/token-providers';
 import type { IPage } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
 import type { IHero2v3 } from '@core/interface/combs/IHero';
+import { ImgComponent } from '@uiux/widgets/img/img.component';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
+import { ShapeComponent } from '@uiux/widgets/shape/shape.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 
 @Component({
-    selector: 'app-hero-2v3',
-    templateUrl: './hero2v3.component.html',
-    styleUrls: ['./hero2v3.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-hero-2v3',
+  templateUrl: './hero2v3.component.html',
+  styleUrls: ['./hero2v3.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [TextComponent, ImgComponent, LinkComponent, ShapeComponent],
 })
 export class Hero2v3Component extends BaseComponent {
   screen = inject(ScreenState);

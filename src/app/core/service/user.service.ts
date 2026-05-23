@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { DOCUMENT, Injectable, PLATFORM_ID, REQUEST, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, firstValueFrom } from 'rxjs';
 import { ApiService } from './api.service';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { TokenUser, IUser, IUserProfile } from '../interface/IUser';
@@ -13,10 +13,34 @@ import { intersection } from 'lodash-es';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import type { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+
+const loadDialogComponent = (): Promise<typeof DialogComponent> =>
+  import('@uiux/widgets/dialog/dialog.component').then(m => m.DialogComponent);
 import { IDialog } from '@core/interface/IDialog';
+import { generateCodeChallenge, generateCodeVerifier, generateState } from '@core/util/pkce.util';
 
 type AuthBroadcastMessage = { type: 'login' | 'logout' };
+
+export type OAuthMode = 'redirect' | 'popup';
+
+export interface StartAuthorizeOptions {
+  mode?: OAuthMode;
+  returnUrl?: string;
+  idp?: string;
+}
+
+export interface CallbackResult {
+  mode: OAuthMode;
+  returnUrl: string;
+}
+
+interface PkceStash {
+  verifier: string;
+  state: string;
+  mode: OAuthMode;
+  returnUrl: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +61,7 @@ export class UserService extends ApiService {
 
   private readonly userGetPath = '/api/v1/user/user';
   private readonly authChannelName = 'xinshi-auth';
+  private readonly pkceStorageKey = 'xinshi-oauth-pkce';
   private authChannel: BroadcastChannel | null = null;
 
   constructor() {
@@ -77,30 +102,111 @@ export class UserService extends ApiService {
     return `${this.apiUrl}${this.userGetPath}`;
   }
 
-  login(userName: string, passWord: string): Observable<boolean> {
-    const body = new HttpParams()
-      .set('grant_type', 'password')
-      .set('client_id', environment.oauth.clientId)
-      .set('username', userName)
-      .set('password', passWord);
+  login(): void {
+    this.startAuthorize({ mode: 'redirect' });
+  }
 
-    if (environment.oauth.scope) {
-      body.set('scope', environment.oauth.scope);
+  async startAuthorize(options: StartAuthorizeOptions = {}): Promise<void> {
+    if (!this.isBrowser) {
+      return;
     }
+    const mode: OAuthMode = options.mode ?? 'redirect';
+    const verifier = generateCodeVerifier();
+    const state = generateState();
+    const challenge = await generateCodeChallenge(verifier);
+    const returnUrl =
+      options.returnUrl ?? `${this.doc.location.pathname}${this.doc.location.search}`;
 
-    return this.http
-      .post<any>(`${this.apiUrl}${environment.oauth.tokenUrl}`, body.toString(), {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded',
-        }),
-      })
-      .pipe(
-        switchMap(tokenData => this.processTokenAndLogin(tokenData)),
-        catchError(error => {
-          console.error('Login failed:', error);
-          return of(false);
-        })
-      );
+    const stash: PkceStash = { verifier, state, mode, returnUrl };
+    window.sessionStorage.setItem(this.pkceStorageKey, JSON.stringify(stash));
+
+    const params = new URLSearchParams({
+      response_type: 'code',
+      client_id: environment.oauth.clientId,
+      redirect_uri: this.getRedirectUri(),
+      state,
+      code_challenge: challenge,
+      code_challenge_method: 'S256',
+    });
+    if (environment.oauth.scope) {
+      params.set('scope', environment.oauth.scope);
+    }
+    if (options.idp) {
+      params.set('idp', options.idp);
+    }
+    const authorizeUrl = `${this.apiUrl}${environment.oauth.authorizeUrl}?${params.toString()}`;
+
+    if (mode === 'popup') {
+      this.openLoginPopup(authorizeUrl);
+      return;
+    }
+    window.location.assign(authorizeUrl);
+  }
+
+  async handleOAuthCallback(): Promise<CallbackResult> {
+    if (!this.isBrowser) {
+      throw new Error('OAuth callback requires browser context');
+    }
+    const search = new URLSearchParams(window.location.search);
+    const error = search.get('error');
+    if (error) {
+      throw new Error(search.get('error_description') || error);
+    }
+    const code = search.get('code');
+    const state = search.get('state');
+    if (!code || !state) {
+      throw new Error('Missing code or state in callback URL');
+    }
+    const stash = this.readPkceStash();
+    if (!stash) {
+      throw new Error('Missing PKCE session, please retry login');
+    }
+    if (stash.state !== state) {
+      throw new Error('OAuth state mismatch');
+    }
+    window.sessionStorage.removeItem(this.pkceStorageKey);
+
+    const tokenData = await firstValueFrom(this.exchangeCodeForToken(code, stash.verifier));
+    await firstValueFrom(this.processTokenAndLogin(tokenData));
+    return { mode: stash.mode, returnUrl: stash.returnUrl };
+  }
+
+  private exchangeCodeForToken(code: string, verifier: string): Observable<any> {
+    const body = new HttpParams()
+      .set('grant_type', 'authorization_code')
+      .set('client_id', environment.oauth.clientId)
+      .set('code', code)
+      .set('code_verifier', verifier)
+      .set('redirect_uri', this.getRedirectUri());
+
+    return this.http.post<any>(`${this.apiUrl}${environment.oauth.tokenUrl}`, body.toString(), {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+    });
+  }
+
+  private getRedirectUri(): string {
+    return `${environment.apiUrl}${environment.oauth.redirectPath}`;
+  }
+
+  private readPkceStash(): PkceStash | null {
+    try {
+      const raw = window.sessionStorage.getItem(this.pkceStorageKey);
+      return raw ? (JSON.parse(raw) as PkceStash) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  private openLoginPopup(authorizeUrl: string): void {
+    const width = 480;
+    const height = 640;
+    const left = window.screenX + Math.max(0, (window.outerWidth - width) / 2);
+    const top = window.screenY + Math.max(0, (window.outerHeight - height) / 2);
+    const features = `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`;
+    const popup = window.open(authorizeUrl, 'xinshi-login', features);
+    popup?.focus();
   }
 
   processTokenAndLogin(tokenData: any): Observable<boolean> {
@@ -215,13 +321,13 @@ export class UserService extends ApiService {
     if (!storedUser || !storedUser.refresh_token) {
       return of(null);
     }
-    const body = new HttpParams()
+    let body = new HttpParams()
       .set('grant_type', 'refresh_token')
       .set('refresh_token', storedUser.refresh_token)
       .set('client_id', environment.oauth.clientId);
 
     if (environment.oauth.scope) {
-      body.set('scope', environment.oauth.scope);
+      body = body.set('scope', environment.oauth.scope);
     }
 
     return this.http.post<any>(`${this.apiUrl}${environment.oauth.tokenUrl}`, body.toString(), {
@@ -307,6 +413,29 @@ export class UserService extends ApiService {
 
   logout(): any {
     this.logoutUser();
+    if (!this.isBrowser) {
+      return;
+    }
+    this.clearDrupalSessionThenGoHome();
+  }
+
+  private clearDrupalSessionThenGoHome(): void {
+    const iframe = this.doc.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.setAttribute('aria-hidden', 'true');
+    let done = false;
+    const finish = (): void => {
+      if (done) {
+        return;
+      }
+      done = true;
+      iframe.remove();
+      this.router.navigateByUrl('/home');
+    };
+    iframe.addEventListener('load', finish);
+    iframe.src = `${this.apiUrl}${environment.oauth.logoutPath}`;
+    this.doc.body.appendChild(iframe);
+    setTimeout(finish, 3000);
   }
 
   getCode(phone: string): Observable<any> {
@@ -315,7 +444,7 @@ export class UserService extends ApiService {
     });
   }
 
-  loginByPhone(phone: number, code: string): Observable<boolean> {
+  loginByPhone(phone: number, code: string): Observable<{ ok: boolean; message?: string }> {
     const authParams = environment.oauth.clientId
       ? { grant_type: 'oauth2', client_id: environment.oauth.clientId }
       : {};
@@ -327,16 +456,24 @@ export class UserService extends ApiService {
         ...authParams,
       })
       .pipe(
-        switchMap(tokenData => {
-          if (environment.oauth.clientId) {
-            return this.processTokenAndLogin(tokenData);
+        switchMap(response => {
+          // Backend returns HTTP 200 with { status: false, message } on failure.
+          if (response?.status === false) {
+            return of({ ok: false, message: response.message || '登录失败' });
           }
-          this.updateUser(tokenData);
-          return of(true);
+          if (environment.oauth.clientId) {
+            if (!response?.access_token) {
+              return of({ ok: false, message: '后端未返回有效的令牌' });
+            }
+            return this.processTokenAndLogin(response).pipe(map(ok => ({ ok })));
+          }
+          this.updateUser(response);
+          return of({ ok: true });
         }),
         catchError(error => {
-          console.log(error);
-          return of(false);
+          console.error('Phone login failed:', error);
+          const message = error?.error?.message || error?.message || '登录请求失败';
+          return of({ ok: false, message });
         })
       );
   }
@@ -473,7 +610,7 @@ export class UserService extends ApiService {
     );
   }
 
-  openLoginDialog(): MatDialogRef<DialogComponent> {
+  async openLoginDialog(): Promise<MatDialogRef<DialogComponent>> {
     const { queryParams } = this.route.snapshot;
     const { pathname } = this.doc.location;
     const options = {
@@ -490,6 +627,7 @@ export class UserService extends ApiService {
         },
       },
     };
+    const DialogComponent = await loadDialogComponent();
     return this.dialog.open(DialogComponent, {
       panelClass: ['close-outside', 'close-icon-white', 'login-dialog'],
       data: config,

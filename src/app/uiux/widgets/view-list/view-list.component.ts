@@ -10,7 +10,10 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { PageEvent } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import type { IUser } from '@core/interface/IUser';
 import type { IViewList } from '@core/interface/widgets/IViewList';
 import { IPager } from '@core/interface/widgets/IWidgets';
@@ -22,15 +25,30 @@ import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty, merge } from 'lodash-es';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { BtnComponent } from '../btn/btn.component';
+import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-component.component';
+import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
+import { TextComponent } from '../text/text.component';
 
 @Component({
   selector: 'app-view-list',
   templateUrl: './view-list.component.html',
   styleUrls: ['./view-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatPaginatorModule,
+    NgxSkeletonLoaderModule,
+    TextComponent,
+    BtnComponent,
+    DynamicComponentComponent,
+    DynamicTableComponent,
+  ],
 })
 export class ViewListComponent extends BaseComponent implements OnInit, AfterViewInit {
   private user$ = inject<Observable<IUser>>(USER);

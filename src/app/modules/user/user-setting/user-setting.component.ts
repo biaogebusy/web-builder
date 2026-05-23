@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,10 +11,14 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable, catchError, of } from 'rxjs';
 
@@ -22,7 +27,7 @@ import { Observable, catchError, of } from 'rxjs';
   templateUrl: './user-setting.component.html',
   styleUrl: './user-setting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AsyncPipe, MatTooltipModule, FormlyComponent, BtnComponent, LoadingComponent],
 })
 export class UserSettingComponent implements OnInit {
   public user$ = inject<Observable<IUser>>(USER);

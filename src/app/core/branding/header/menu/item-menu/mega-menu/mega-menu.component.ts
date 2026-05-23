@@ -7,18 +7,20 @@ import {
   ChangeDetectorRef,
   inject,
 } from '@angular/core';
+import { MatDividerModule } from '@angular/material/divider';
 import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import type { IMainMenu } from '@core/interface/branding/IBranding';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
 
 @Component({
   selector: 'app-mega-menu',
   templateUrl: './mega-menu.component.html',
   styleUrls: ['./mega-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatDividerModule, LinkComponent],
 })
 export class MegaMenuComponent implements OnInit {
   @Input() content: IMainMenu;

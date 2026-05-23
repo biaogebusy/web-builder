@@ -26,12 +26,12 @@
 }
 
 .user-details {
-  @apply flex flex-col;
+  @apply flex flex-col flex-1 min-w-0;
   .name {
-    @apply font-bold;
+    @apply font-bold truncate;
   }
   .mail {
-    @apply text-gray-500;
+    @apply text-gray-500 truncate;
   }
 }
 

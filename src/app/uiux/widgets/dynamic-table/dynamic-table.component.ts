@@ -1,3 +1,4 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import {
   Component,
   Input,
@@ -8,16 +9,21 @@ import {
   inject,
   input,
 } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { UntypedFormGroup } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { IDialog } from '@core/interface/IDialog';
+import { RouteService } from '@core/service/route.service';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { isArray } from 'lodash-es';
+import { NgPipesModule } from 'ngx-pipes';
+import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-component.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import type { IDynamicTable } from '../../../core/interface/widgets/IWidgets';
-import { RouteService } from '@core/service/route.service';
-import { isArray } from 'lodash-es';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { IDialog } from '@core/interface/IDialog';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -30,7 +36,16 @@ import { IDialog } from '@core/interface/IDialog';
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
-  standalone: false,
+  imports: [
+    CdkTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSortModule,
+    MatTableModule,
+    NgPipesModule,
+    DynamicComponentComponent,
+    SafeHtmlPipe,
+  ],
 })
 export class DynamicTableComponent implements AfterViewInit {
   readonly content = input.required<IDynamicTable>();

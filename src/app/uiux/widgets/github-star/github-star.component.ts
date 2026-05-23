@@ -1,15 +1,17 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
-    selector: 'app-github-star',
-    templateUrl: './github-star.component.html',
-    styleUrls: ['./github-star.component.scss'],
-    standalone: false
+  selector: 'app-github-star',
+  templateUrl: './github-star.component.html',
+  styleUrls: ['./github-star.component.scss'],
+  imports: [AsyncPipe, IconComponent],
 })
 export class GithubStarComponent implements OnInit {
   private contentService = inject(ContentService);
