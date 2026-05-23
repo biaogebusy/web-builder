@@ -7,7 +7,6 @@ import { getInlineText } from '@modules/builder/factory/getInlineText';
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[contentedit]',
-  standalone: false,
   host: {
     '(blur)': 'onBlur($event)',
     '(paste)': 'onPaste($event)',

@@ -1,8 +1,11 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Component, DestroyRef, Input, inject, DOCUMENT } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { FormModule } from '@uiux/combs/form/form.module';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
@@ -14,7 +17,7 @@ import { cloneDeep, defaultsDeep, get } from 'lodash-es';
   selector: 'app-layout-setting',
   templateUrl: './layout-setting.component.html',
   styleUrls: ['./layout-setting.component.scss'],
-  standalone: false,
+  imports: [ShareModule, WidgetsModule, FormModule, DragDropModule],
 })
 export class LayoutSettingComponent {
   @Input() content: ILayoutSetting;

@@ -12,13 +12,15 @@ import type { IDynamicMediaList } from '@core/interface/combs/IList';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { SidebarComponent } from '@uiux/widgets/sidebar/sidebar.component';
+import { ListComponent } from '../list/list.component';
 
 @Component({
-    selector: 'app-dynamic-media-list',
-    templateUrl: './dynamic-media-list.component.html',
-    styleUrls: ['./dynamic-media-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-dynamic-media-list',
+  templateUrl: './dynamic-media-list.component.html',
+  styleUrls: ['./dynamic-media-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [SidebarComponent, ListComponent],
 })
 export class DynamicMediaListComponent extends BaseComponent implements OnInit {
   @Input() content: IDynamicMediaList;

@@ -17,7 +17,10 @@ import { ScreenService } from '@core/service/screen.service';
 import { ISelectedMedia } from '@core/interface/manage/IManage';
 import { MatDialog } from '@angular/material/dialog';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import type { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+
+const loadDialogComponent = (): Promise<typeof DialogComponent> =>
+  import('@uiux/widgets/dialog/dialog.component').then(m => m.DialogComponent);
 import { IDialog } from '@core/interface/IDialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IComponentToolbar } from '@core/interface/combs/IBuilder';
@@ -113,24 +116,26 @@ export class BuilderState {
         },
       },
     };
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '340px',
-      panelClass: ['close-outside', 'close-icon-white'],
-      data: config,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.version = [
-          {
-            title: '未命名',
-            body: [],
-            current: true,
-            time: new Date().toLocaleString(),
-          },
-        ];
-        this.closeRightDrawer$.next(true);
-        this.saveLocalVersions();
-      }
+    loadDialogComponent().then(DialogComponent => {
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: '340px',
+        panelClass: ['close-outside', 'close-icon-white'],
+        data: config,
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.version = [
+            {
+              title: '未命名',
+              body: [],
+              current: true,
+              time: new Date().toLocaleString(),
+            },
+          ];
+          this.closeRightDrawer$.next(true);
+          this.saveLocalVersions();
+        }
+      });
     });
   }
 
@@ -428,9 +433,11 @@ export class BuilderState {
         },
       },
     };
-    this.dialog.open(DialogComponent, {
-      width: '1200px',
-      data: config,
+    loadDialogComponent().then(DialogComponent => {
+      this.dialog.open(DialogComponent, {
+        width: '1200px',
+        data: config,
+      });
     });
   }
 
@@ -443,7 +450,6 @@ export class BuilderState {
 
   editorCode(component: IComponentToolbar): void {
     const { path, content } = component;
-    let dialogRef: any;
     let builderList: any;
     if (path && content?.type === 'custom-template') {
       const config: IDialog = {
@@ -458,30 +464,32 @@ export class BuilderState {
         },
       };
 
-      dialogRef = this.dialog.open(DialogComponent, {
-        width: '85vw',
-        hasBackdrop: false,
-        panelClass: ['close-outside', 'code-editor-dialog'],
-        position: {
-          bottom: '0px',
-        },
-        id: 'code-editor-dialog',
-        data: config,
-      });
-
-      dialogRef
-        .afterOpened()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          builderList = this.doc.querySelector('#builder-list');
-          builderList.style.paddingBottom = '500px';
-          this.fullScreen$.next(true);
-          this.closeRightDrawer$.next(true);
+      loadDialogComponent().then(DialogComponent => {
+        const dialogRef = this.dialog.open(DialogComponent, {
+          width: '85vw',
+          hasBackdrop: false,
+          panelClass: ['close-outside', 'code-editor-dialog'],
+          position: {
+            bottom: '0px',
+          },
+          id: 'code-editor-dialog',
+          data: config,
         });
 
-      dialogRef.afterClosed().subscribe(() => {
-        builderList.style.paddingBottom = '150px';
-        this.fullScreen$.next(false);
+        dialogRef
+          .afterOpened()
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(() => {
+            builderList = this.doc.querySelector('#builder-list');
+            builderList.style.paddingBottom = '500px';
+            this.fullScreen$.next(true);
+            this.closeRightDrawer$.next(true);
+          });
+
+        dialogRef.afterClosed().subscribe(() => {
+          builderList.style.paddingBottom = '150px';
+          this.fullScreen$.next(false);
+        });
       });
     }
   }

@@ -6,15 +6,28 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
+import { AccordionMenuComponent } from '../../accordion-menu/accordion-menu.component';
 
 @Component({
-    selector: 'app-menu-item',
-    templateUrl: './menu-item.component.html',
-    styleUrls: ['./menu-item.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-menu-item',
+  templateUrl: './menu-item.component.html',
+  styleUrls: ['./menu-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    MatListModule,
+    MatMenuModule,
+    SafeHtmlPipe,
+    IconComponent,
+    LinkComponent,
+    AccordionMenuComponent,
+  ],
 })
 export class MenuItemComponent implements OnInit {
   @Input() content: any;

@@ -6,6 +6,9 @@ import {
   afterEveryRender,
   inject,
 } from '@angular/core';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { BrandingModule } from '@core/branding/branding.module';
 import { IPage } from '@core/interface/IAppConfig';
 import { TagsService } from '@core/service/tags.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -20,7 +23,7 @@ import { throttle } from 'lodash-es';
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ShareModule, WidgetsModule, BrandingModule],
 })
 export class PreviewComponent implements OnInit {
   public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);

@@ -6,7 +6,6 @@ import type { IBg } from '@core/interface/widgets/IBg';
   templateUrl: './bg.component.html',
   styleUrls: ['./bg.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
 export class BgComponent {
   readonly content = input.required<IBg>();

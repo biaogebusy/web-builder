@@ -7,18 +7,24 @@ import {
   inject,
 } from '@angular/core';
 import type { IShowcase4v1 } from '@core/interface/combs/IShowcase';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { DialogService } from '@core/service/dialog.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { ImgComponent } from '@uiux/widgets/img/img.component';
+import { NumberAnimateComponent } from '@uiux/widgets/number-animate/number-animate.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 
 @Component({
-    selector: 'app-showcase-4v1',
-    templateUrl: './showcase4v1.component.html',
-    styleUrls: ['./showcase4v1.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-showcase-4v1',
+  templateUrl: './showcase4v1.component.html',
+  styleUrls: ['./showcase4v1.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ReqRolesDirective, TextComponent, IconComponent, ImgComponent, NumberAnimateComponent, ContenteditDirective],
 })
 export class Showcase4v1Component extends BaseComponent implements OnInit {
   private nodeService = inject(NodeService);

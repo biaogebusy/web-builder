@@ -6,6 +6,7 @@ import {
   inject,
   DOCUMENT,
 } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 
@@ -14,7 +15,7 @@ import { ScreenState } from '@core/state/screen/ScreenState';
   templateUrl: './gotop.component.html',
   styleUrls: ['./gotop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatIconModule],
 })
 export class GotopComponent {
   private screenService = inject(ScreenService);

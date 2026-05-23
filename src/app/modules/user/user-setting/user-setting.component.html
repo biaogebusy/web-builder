@@ -28,8 +28,12 @@
           </div>
         }
         <div class="user-details">
-          <div class="name">{{ user.display_name }}</div>
-          <div class="mail">{{ user.mail }}</div>
+          <div class="name" [matTooltip]="user.display_name" matTooltipPosition="above">
+            {{ user.display_name }}
+          </div>
+          <div class="mail" [matTooltip]="user.mail" matTooltipPosition="above">
+            {{ user.mail }}
+          </div>
         </div>
       </div>
     </div>

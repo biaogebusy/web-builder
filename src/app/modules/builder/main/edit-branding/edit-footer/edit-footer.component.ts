@@ -8,11 +8,20 @@ import {
   computed,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FormlyModule, FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { FormModule } from '@uiux/combs/form/form.module';
 import { merge as deepMerge } from 'lodash-es';
 import { merge } from 'rxjs';
 
@@ -31,8 +40,22 @@ interface FooterMenuGroup {
   selector: 'app-edit-footer',
   templateUrl: './edit-footer.component.html',
   styleUrl: './edit-footer.component.scss',
-  standalone: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    ShareModule,
+    WidgetsModule,
+    FormModule,
+    FormsModule,
+    RouterLink,
+    DragDropModule,
+    MatIconModule,
+    MatProgressBarModule,
+    FormlyModule,
+    FormlyMaterialModule,
+    FormlyMatToggleModule,
+    MonacoEditorModule,
+    NgxSkeletonLoaderModule,
+  ],
 })
 export class EditFooterComponent implements OnInit, HasUnsavedChanges {
   loading = signal(false);
@@ -559,12 +582,15 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
     const newsletterVal = this.newsletterForm.value;
     const bottomVal = this.bottomForm.value;
 
-    const built: IFooter = {
+    return {
+      ...footer,
       params: { ...footer.params, ...this.paramsForm.value },
       footerBrand: {
         ...footer.footerBrand,
         logo: {
+          ...footer.footerBrand?.logo,
           img: {
+            ...(footer.footerBrand?.logo?.img ?? {}),
             src: brandVal.src,
             alt: brandVal.alt,
             href: brandVal.href,
@@ -579,33 +605,23 @@ export class EditFooterComponent implements OnInit, HasUnsavedChanges {
       footerNewsletter: {
         ...footer.footerNewsletter,
         form: footer.footerNewsletter?.form ?? [],
-        params: { webform_id: newsletterVal.webform_id },
+        params: {
+          ...footer.footerNewsletter?.params,
+          webform_id: newsletterVal.webform_id,
+        },
         label: newsletterVal.label,
         summary: newsletterVal.summary,
-        action: { label: newsletterVal.actionLabel },
+        action: {
+          ...footer.footerNewsletter?.action,
+          label: newsletterVal.actionLabel,
+        },
       },
       footerBottom: {
+        ...footer.footerBottom,
         left: bottomVal.left,
         right: bottomVal.right ?? footer.footerBottom?.right ?? [],
       },
     };
-
-    if (footer.dynamicFooter) {
-      built.dynamicFooter = footer.dynamicFooter;
-    }
-    if (footer.fixBar) {
-      built.fixBar = footer.fixBar;
-    }
-    if (footer.logo) {
-      built.logo = footer.logo;
-    }
-    if (footer.copyRight) {
-      built.copyRight = footer.copyRight;
-    }
-    if (footer.content) {
-      built.content = footer.content;
-    }
-    return built;
   }
 
   onSave(): void {

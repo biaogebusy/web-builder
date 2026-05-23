@@ -2,6 +2,11 @@ import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { FormModule } from '@uiux/combs/form/form.module';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 import { IUser } from '@core/interface/IUser';
 import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
@@ -11,9 +16,9 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-node-add',
-  standalone: false,
   templateUrl: './node-add.component.html',
   styleUrl: './node-add.component.scss',
+  imports: [ShareModule, WidgetsModule, FormModule, FormlyModule, FormlyMaterialModule],
 })
 export class NodeAddComponent implements OnInit {
   private nodeService = inject(NodeService);

@@ -1,15 +1,17 @@
 import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { IDialog } from '@core/interface/IDialog';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
-    selector: 'app-terms-service',
-    templateUrl: './terms-service.component.html',
-    styleUrls: ['./terms-service.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-terms-service',
+  templateUrl: './terms-service.component.html',
+  styleUrls: ['./terms-service.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ReactiveFormsModule, FormsModule, MatCheckboxModule, SafeHtmlPipe],
 })
 export class TermsServiceComponent {
   private dialog = inject(MatDialog);

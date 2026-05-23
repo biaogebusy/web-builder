@@ -12,8 +12,15 @@ import { NodeModule } from '@uiux/combs/node/node.module';
 const components = [Profile1v1Component, UserCenterComponent, UserFavoriteComponent];
 
 @NgModule({
-  declarations: [...components, UserProfileComponent],
-  imports: [ShareModule, WidgetsModule, ListModule, NodeModule],
+  declarations: [],
+  imports: [
+    ShareModule,
+    WidgetsModule,
+    ListModule,
+    NodeModule,
+    ...components,
+    UserProfileComponent,
+  ],
   exports: [...components],
 })
 export class ProfileModule extends BaseModule {

@@ -1,4 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { BrandingModule } from '@core/branding/branding.module';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
 import { BRANDING, BUILDER_CONFIG } from '@core/token/token-providers';
@@ -14,7 +17,7 @@ import { IDialog } from '@core/interface/IDialog';
   selector: 'app-builder-sidebar',
   templateUrl: './builder-sidebar.component.html',
   styleUrls: ['./builder-sidebar.component.scss'],
-  standalone: false,
+  imports: [ShareModule, WidgetsModule, BrandingModule],
 })
 export class BuilderSidebarComponent {
   public branding$ = inject<Observable<IBranding>>(BRANDING);

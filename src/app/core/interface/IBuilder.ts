@@ -180,6 +180,18 @@ export interface ICustomTemplate extends ICombsBase {
   json: any;
   isAPI?: boolean;
   api?: string;
+  dialogs?: ICustomTemplateDialog[];
+}
+
+export interface ICustomTemplateDialog {
+  key: string;
+  params?: {
+    width?: string;
+    height?: string;
+    panelClass?: string | string[];
+    [key: string]: any;
+  };
+  content: any | any[];
 }
 
 export interface ICodeEditor {

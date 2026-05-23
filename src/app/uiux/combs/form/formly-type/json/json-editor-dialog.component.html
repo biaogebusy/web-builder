@@ -1,0 +1,10 @@
+<mat-dialog-content class="json-editor-dialog-content">
+  <div #editorHost class="json-editor-host"></div>
+  @if (errorMessage) {
+    <div class="text-xs text-red-600 mt-2">{{ errorMessage }}</div>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="onCancel()">取消</button>
+  <button mat-flat-button color="primary" type="button" (click)="onSave()">保存</button>
+</mat-dialog-actions>

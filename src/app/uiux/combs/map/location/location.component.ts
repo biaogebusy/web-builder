@@ -5,13 +5,15 @@ import {
   OnInit,
 } from '@angular/core';
 import type { ILocation } from '@core/interface/combs/IMap';
+import { TitleComponent } from '@uiux/widgets/title/title.component';
+import { MapComponent } from '../map/map.component';
 
 @Component({
-    selector: 'app-location',
-    templateUrl: './location.component.html',
-    styleUrls: ['./location.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-location',
+  templateUrl: './location.component.html',
+  styleUrls: ['./location.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [TitleComponent, MapComponent],
 })
 export class LocationComponent implements OnInit {
   @Input() content: ILocation;

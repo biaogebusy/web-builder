@@ -4,7 +4,6 @@ export const environment: IEnvironment = {
   apiUrl: 'https://yourdomain.com',
   production: true,
   port: 4200,
-  cache: true,
   multiLang: true,
   langs: [
     {
@@ -22,6 +21,9 @@ export const environment: IEnvironment = {
   oauth: {
     clientId: 'xxx',
     tokenUrl: '/oauth/token',
-    scope: '',
+    authorizeUrl: '/oauth/authorize',
+    redirectPath: '/me/login/callback',
+    logoutPath: '/user/logout',
+    scope: 'webmaster',
   },
 };

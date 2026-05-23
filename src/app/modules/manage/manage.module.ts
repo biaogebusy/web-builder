@@ -14,7 +14,7 @@ import { FormModule } from '@uiux/combs/form/form.module';
 const components = [ManageMediaComponent, UploadMediaComponent, TaxonomyComponent];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [],
   imports: [
     MatSidenavModule,
     MatSliderModule,
@@ -24,6 +24,7 @@ const components = [ManageMediaComponent, UploadMediaComponent, TaxonomyComponen
     NgxFileDropModule,
     NgOptimizedImage,
     FormModule,
+    ...components,
   ],
 
   exports: [...components],

@@ -1,0 +1,46 @@
+.json-editor-dialog-content {
+  height: calc(85vh - 140px);
+  padding: 0 24px;
+}
+
+.json-editor-host {
+  height: 100%;
+  min-height: 500px;
+}
+
+::ng-deep {
+  .json-editor-host .jsoneditor,
+  .json-editor-host .jsoneditor-outer {
+    height: 100% !important;
+    min-height: 100% !important;
+  }
+  .json-editor-host .ace_editor.ace-jsoneditor {
+    height: 100% !important;
+    min-height: 100% !important;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .json-editor-host .jsoneditor {
+    border: 1px solid var(--mat-sys-outline-variant) !important;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: none;
+  }
+
+  .json-editor-host div.jsoneditor-menu {
+    background-color: var(--mat-sys-inverse-surface);
+    border-bottom: 1px solid var(--mat-sys-inverse-surface);
+  }
+
+  .json-editor-host .jsoneditor-statusbar {
+    background-color: transparent !important;
+    border-top: 1px solid var(--mat-sys-outline-variant) !important;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 11px;
+  }
+
+  .json-editor-host .jsoneditor-poweredBy {
+    display: none;
+  }
+}

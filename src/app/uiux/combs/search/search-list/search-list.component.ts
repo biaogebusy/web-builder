@@ -1,12 +1,16 @@
 import { Component, Input, ChangeDetectionStrategy, output } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatDividerModule } from '@angular/material/divider';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
+import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custom-template.component';
 
 @Component({
   selector: 'app-search-list',
   templateUrl: './search-list.component.html',
   styleUrls: ['./search-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatPaginatorModule, MatDividerModule, NgxPaginationModule, SpinnerComponent, CustomTemplateComponent],
 })
 export class SearchListComponent {
   @Input() content: any[];

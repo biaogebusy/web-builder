@@ -51,9 +51,10 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [],
   bootstrap: [AppComponent],
   imports: [
+    AppComponent,
     AppRoutingModule,
     BrowserModule,
     PageModule,

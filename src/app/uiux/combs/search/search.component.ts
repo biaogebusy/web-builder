@@ -7,25 +7,28 @@ import {
   inject,
   DestroyRef,
 } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { omitBy, isEmpty } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '../../base/base.widget';
-import { UntypedFormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import type { ISearch } from '@core/interface/combs/ISearch';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SearchHeaderComponent } from './search-header/search-header.component';
+import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
+import { SearchListComponent } from './search-list/search-list.component';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [ReactiveFormsModule, SearchHeaderComponent, SearchSidebarComponent, SearchListComponent],
 })
 export class SearchComponent extends BaseComponent implements OnInit {
   @Input() content: ISearch;

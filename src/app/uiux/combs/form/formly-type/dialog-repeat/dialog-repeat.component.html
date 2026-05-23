@@ -1,0 +1,88 @@
+<div class="dialog-repeat">
+  @let s = scanStatus();
+  <div class="header mb-3">
+    <div class="text-base font-semibold leading-tight">弹窗配置</div>
+    <div class="text-xs text-gray-500 mt-0.5">
+      管理 HTML 中 <code>data-dialog="key"</code> 触发的弹窗内容
+    </div>
+  </div>
+
+  <div class="status mb-3">
+    @if (s.total === 0) {
+      <div class="text-xs p-2 rounded bg-amber-50 text-amber-700">
+        HTML 中未检测到 <code>data-dialog="..."</code> 触发元素
+      </div>
+    } @else {
+      <div
+        class="text-xs p-2 rounded"
+        [class.bg-emerald-50]="s.unmapped === 0 && s.orphanedKeys.length === 0"
+        [class.text-emerald-700]="s.unmapped === 0 && s.orphanedKeys.length === 0"
+        [class.bg-amber-50]="s.unmapped > 0 || s.orphanedKeys.length > 0"
+        [class.text-amber-700]="s.unmapped > 0 || s.orphanedKeys.length > 0"
+      >
+        <div>
+          HTML 检测到 <strong>{{ s.total }}</strong> 个触发器，<strong>{{ s.mapped }}</strong> 已配置，<strong>{{ s.unmapped }}</strong> 未配置
+        </div>
+        @if (s.unmappedKeys.length) {
+          <div class="mt-1">
+            缺少配置的 key：
+            @for (k of s.unmappedKeys; track k) {
+              <code class="mr-1">{{ k }}</code>
+            }
+          </div>
+        }
+        @if (s.orphanedKeys.length) {
+          <div class="mt-1 text-gray-500">
+            HTML 中未引用的 key：
+            @for (k of s.orphanedKeys; track k) {
+              <code class="mr-1">{{ k }}</code>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <mat-accordion>
+    @for (innerField of field.fieldGroup; track $index; let i = $index) {
+      <mat-expansion-panel
+        [expanded]="i === expandedIndex()"
+        (opened)="expandedIndex.set(i)"
+        (closed)="expandedIndex() === i && expandedIndex.set(-1)"
+        class="mb-2"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="text-sm flex items-center gap-2">
+              <span class="text-gray-400">#{{ i + 1 }}</span>
+              <code>{{ getItemKey(i) || '(未命名)' }}</code>
+              @if (isDuplicate(i)) {
+                <span class="text-red-500 text-xs">key 重复</span>
+              }
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <formly-field [field]="innerField" />
+
+        <div class="flex gap-2 mt-3 justify-end">
+          <button mat-stroked-button color="primary" type="button" (click)="onTest(i)">
+            <mat-icon>play_arrow</mat-icon>
+            试运行
+          </button>
+          <button mat-stroked-button color="warn" type="button" (click)="onRemove(i)">
+            <mat-icon>delete</mat-icon>
+            删除
+          </button>
+        </div>
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+
+  <div class="mt-3">
+    <button mat-raised-button color="primary" type="button" (click)="onAdd()">
+      <mat-icon>add</mat-icon>
+      新增弹窗
+    </button>
+  </div>
+</div>

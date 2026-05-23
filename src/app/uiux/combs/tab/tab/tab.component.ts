@@ -1,12 +1,17 @@
 import { ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import type { ITab } from '@core/interface/widgets/ITab';
+import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 
 @Component({
   selector: 'app-tab',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
-  standalone: false,
+  imports: [MatTabsModule, SpacerComponent, TextComponent, BgImgComponent, DynamicComponentComponent],
 })
 export class TabComponent implements OnInit {
   @Input() content: ITab;

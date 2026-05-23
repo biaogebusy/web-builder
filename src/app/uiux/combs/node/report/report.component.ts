@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, ChangeDetectorRef, inject } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
 import { FormService } from '@core/service/form.service';
@@ -7,11 +10,24 @@ import { isArray } from 'lodash-es';
 import type { IReport } from '@core/interface/node/IReport';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HeaderMetaComponent } from '../header-meta/header-meta.component';
+import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 @Component({
-    selector: 'app-report',
-    templateUrl: './report.component.html',
-    styleUrls: ['./report.component.scss'],
-    standalone: false
+  selector: 'app-report',
+  templateUrl: './report.component.html',
+  styleUrls: ['./report.component.scss'],
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    HeaderMetaComponent,
+    FormlyComponent,
+    LoadingComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class ReportComponent extends BaseComponent implements OnInit {
   @Input() content: IReport;

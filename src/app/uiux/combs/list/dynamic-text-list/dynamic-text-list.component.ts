@@ -8,6 +8,12 @@ import {
   inject,
   output,
 } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -17,13 +23,26 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import type { IDynamicTextList } from '@core/interface/combs/IList';
+import { ImgComponent } from '@uiux/widgets/img/img.component';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
+import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-links/pagination-links.component';
 
 @Component({
   selector: 'app-dynamic-text-list',
   templateUrl: './dynamic-text-list.component.html',
   styleUrls: ['./dynamic-text-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    DatePipe,
+    RouterModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
+    NgxSkeletonLoaderModule,
+    ImgComponent,
+    LinkComponent,
+    PaginationLinksComponent,
+  ],
 })
 export class DynamicTextListComponent extends BaseComponent implements OnInit, OnDestroy {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

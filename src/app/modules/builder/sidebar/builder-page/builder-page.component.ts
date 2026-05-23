@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
@@ -11,10 +13,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-builder-page',
-    templateUrl: './builder-page.component.html',
-    styleUrls: ['./builder-page.component.scss'],
-    standalone: false
+  selector: 'app-builder-page',
+  templateUrl: './builder-page.component.html',
+  styleUrls: ['./builder-page.component.scss'],
+  imports: [ShareModule, WidgetsModule],
 })
 export class BuilderPageComponent implements OnInit {
   pages$: Observable<any[]>;

@@ -123,7 +123,7 @@
             mat-icon-button
             [color]="content.color"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (content.icon) {
               <app-icon
                 [class.order-1]="content.iconPosition === 'right'"
                 [content]="content.icon"
@@ -140,7 +140,7 @@
             [target]="content.target || ''"
             [color]="content.color"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (content.icon) {
               <app-icon [content]="content.icon" />
             }
           </a>

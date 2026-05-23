@@ -1,17 +1,20 @@
 import { Component, Input, ChangeDetectionStrategy, inject, output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import type { ICommentConfig } from '@core/interface/node/INode';
 import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 
 @Component({
   selector: 'app-comment-actions',
   templateUrl: './comment-actions.component.html',
   styleUrls: ['./comment-actions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatButtonModule, MatIconModule, LoadingComponent],
 })
 export class CommentActionsComponent {
   contentState = inject(ContentState);

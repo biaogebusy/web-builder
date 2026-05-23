@@ -4,14 +4,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 import { interval } from 'rxjs';
 
 @Component({
-    selector: 'app-autoclose',
-    templateUrl: './autoclose.component.html',
-    styleUrls: ['./autoclose.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-autoclose',
+  templateUrl: './autoclose.component.html',
+  styleUrls: ['./autoclose.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DynamicComponentComponent],
 })
 export class AutocloseComponent implements OnInit {
   @Input() content: any;

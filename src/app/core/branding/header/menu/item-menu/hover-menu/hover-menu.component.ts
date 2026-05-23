@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -7,19 +8,22 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import type { IMainMenu } from '@core/interface/branding/IBranding';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
 
 @Component({
-    selector: 'app-hover-menu',
-    templateUrl: './hover-menu.component.html',
-    styleUrls: ['./hover-menu.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-hover-menu',
+  templateUrl: './hover-menu.component.html',
+  styleUrls: ['./hover-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgTemplateOutlet, MatButtonModule, ReqRolesDirective, LinkComponent],
 })
 export class HoverMenuComponent extends BaseComponent implements OnInit {
   private eleRef = inject(ElementRef);

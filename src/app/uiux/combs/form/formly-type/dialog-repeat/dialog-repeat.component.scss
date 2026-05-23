@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.dialog-repeat {
+  mat-accordion {
+    display: block;
+    padding: 4px;
+  }
+
+  code {
+    @apply px-1 py-0.5 rounded bg-gray-100 text-xs font-mono;
+  }
+}

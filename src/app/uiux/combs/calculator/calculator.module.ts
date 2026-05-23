@@ -9,8 +9,7 @@ import { FormModule } from '@uiux/combs/form/form.module';
 const components = [LotteryComponent];
 
 @NgModule({
-  declarations: [...components],
-  imports: [ShareModule, WidgetsModule, ChartModule, FormModule],
+  imports: [ShareModule, WidgetsModule, ChartModule, FormModule, ...components],
   exports: [...components],
 })
 export class CalculatorModule extends BaseModule {

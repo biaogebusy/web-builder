@@ -2,13 +2,24 @@ import { Component, Input, ChangeDetectionStrategy, inject, output } from '@angu
 import type { IShowcase3v3 } from '@core/interface/combs/IShowcase';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { ScreenService } from '@core/service/screen.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
+import { PaginationComponent } from '@uiux/widgets/pagination/pagination.component';
+import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-links/pagination-links.component';
+import { Showcase3v3Component } from '@uiux/combs/showcase/showcase3v3/showcase3v3.component';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    NgxPaginationModule,
+    SpinnerComponent,
+    PaginationComponent,
+    PaginationLinksComponent,
+    Showcase3v3Component,
+  ],
 })
 export class ListComponent {
   private screenService = inject(ScreenService);

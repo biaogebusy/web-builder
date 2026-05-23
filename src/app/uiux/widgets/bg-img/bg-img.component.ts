@@ -1,12 +1,14 @@
-import { Component, OnInit, Input, signal } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, signal } from '@angular/core';
 import type { IBgImg } from '@core/interface/widgets/IBgImg';
 import { IImg } from '@core/interface/widgets/IImg';
+import { BgComponent } from '../bg/bg.component';
+import { ImgComponent } from '../img/img.component';
 
 @Component({
   selector: 'app-bg-img',
   templateUrl: './bg-img.component.html',
   styleUrls: ['./bg-img.component.scss'],
-  standalone: false,
+  imports: [BgComponent, forwardRef(() => ImgComponent)],
 })
 export class BgImgComponent implements OnInit {
   @Input() content: IBgImg;

@@ -7,6 +7,9 @@ import {
   inject,
   DestroyRef,
 } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { MatDividerModule } from '@angular/material/divider';
+import { NgPipesModule } from 'ngx-pipes';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable } from 'rxjs';
@@ -22,12 +25,30 @@ import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
 import { MatDialogRef } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { ArticleBannerComponent } from './article-banner/article-banner.component';
+import { ArticleMetaComponent } from './article-meta/article-meta.component';
+import { CommentFormComponent } from '../comment/comment-form/comment-form.component';
+import { CommentListComponent } from '../comment/comment-list/comment-list.component';
+import { SidebarComponent } from '@uiux/widgets/sidebar/sidebar.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
-  standalone: false,
+  imports: [
+    AsyncPipe,
+    MatDividerModule,
+    NgPipesModule,
+    SafeHtmlPipe,
+    ArticleBannerComponent,
+    ArticleMetaComponent,
+    CommentFormComponent,
+    CommentListComponent,
+    SidebarComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class ArticleComponent extends NodeComponent implements OnInit, AfterViewInit {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
@@ -113,9 +134,11 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   }
 
   openLogin(): void {
-    this.dialogRef = this.userService.openLoginDialog();
-    this.dialogRef.afterClosed().subscribe(() => {
-      this.checkAccess();
+    this.userService.openLoginDialog().then(dialogRef => {
+      this.dialogRef = dialogRef;
+      this.dialogRef.afterClosed().subscribe(() => {
+        this.checkAccess();
+      });
     });
   }
 

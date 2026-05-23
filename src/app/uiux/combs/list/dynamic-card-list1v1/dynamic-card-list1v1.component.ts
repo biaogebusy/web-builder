@@ -6,19 +6,23 @@ import {
   ChangeDetectorRef,
   inject,
 } from '@angular/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
 import type { IDynamicCardList1v1 } from '@core/interface/combs/IList';
 import { IPager } from '@core/interface/widgets/IWidgets';
+import { TextComponent } from '@uiux/widgets/text/text.component';
+import { Card1v1Component } from '@uiux/widgets/card/card1v1/card1v1.component';
+import { PaginationComponent } from '@uiux/widgets/pagination/pagination.component';
 
 @Component({
   selector: 'app-dynamic-card-list-1v1',
   templateUrl: './dynamic-card-list1v1.component.html',
   styleUrls: ['./dynamic-card-list1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [NgxPaginationModule, TextComponent, Card1v1Component, PaginationComponent],
 })
 export class DynamicCardList1v1Component extends BaseComponent implements OnInit {
   nodeService = inject(NodeService);

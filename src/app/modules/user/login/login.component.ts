@@ -1,29 +1,54 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, OnDestroy, inject, DestroyRef, signal } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { TranslateModule } from '@ngx-translate/core';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig, ISocialLoginProvider } from '@core/interface/IAppConfig';
+import type { IIcon } from '@core/interface/widgets/IIcon';
 import type { IUser } from '@core/interface/IUser';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 import { Observable, Subscription, interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  standalone: false,
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    TranslateModule,
+    IconComponent,
+    LoadingComponent,
+    DynamicComponentComponent,
+  ],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public user$ = inject<Observable<IUser>>(USER);
   private apiUrl = inject<string>(API_URL);
 
-  public hide = true;
   public loading = signal<boolean>(false);
   public error = signal<string>('');
-  public userForm: UntypedFormGroup;
   public phoneForm: UntypedFormGroup;
   public countdown = signal<number>(0);
   private subscription: Subscription;
@@ -35,29 +60,33 @@ export class LoginComponent implements OnInit, OnDestroy {
   private userService = inject(UserService);
   private screenService = inject(ScreenService);
   private destroyRef = inject(DestroyRef);
+  private dialogRef = inject(MatDialogRef, { optional: true });
+
+  private get inDialog(): boolean {
+    return !!this.dialogRef;
+  }
 
   constructor() {
     if (this.screenService.isPlatformBrowser()) {
       this.userService.userSub$.pipe(takeUntilDestroyed()).subscribe((currentUser: any) => {
-        // login
-        if (currentUser) {
-          setTimeout(() => {
-            const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
-              this.route.snapshot.queryParams;
-            this.router.navigate([returnUrl], { queryParams });
-          }, 2000);
+        if (!currentUser) {
+          return;
         }
+        if (this.inDialog) {
+          this.dialogRef?.close(true);
+          return;
+        }
+        setTimeout(() => {
+          const { returnUrl = this.coreConfig.login.loginRedirect, ...queryParams } =
+            this.route.snapshot.queryParams;
+          this.router.navigate([returnUrl], { queryParams });
+        }, 2000);
       });
     }
   }
 
   ngOnInit(): void {
     this.tagsService.setTitle('欢迎登录！');
-    this.userForm = this.fb.group({
-      name: ['', Validators.required],
-      pass: ['', Validators.required],
-    });
-
     this.phoneForm = this.fb.group({
       phone: [
         '',
@@ -72,24 +101,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  get f(): any {
-    return this.userForm.controls;
-  }
-
   get formPhone(): any {
     return this.phoneForm.controls;
   }
 
   login(): void {
-    if (this.userForm.invalid) {
-      return;
-    }
     this.loading.set(true);
+    const { returnUrl } = this.route.snapshot.queryParams;
     this.userService
-      .login(this.userForm.value.name, this.userForm.value.pass)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        this.showMessage(state, '登录出现问题，请联系管理员！');
+      .startAuthorize({
+        mode: this.inDialog ? 'popup' : 'redirect',
+        returnUrl,
+      })
+      .catch(error => {
+        console.error('Authorize failed:', error);
+        this.showMessage(false, '登录跳转失败，请稍后再试。');
       });
   }
 
@@ -99,8 +125,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.userService
       .loginByPhone(phone, code)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
-        this.showMessage(state, '请检查手机号或者验证码！');
+      .subscribe(({ ok, message }) => {
+        this.showMessage(ok, message || '请检查手机号或者验证码！');
       });
   }
 
@@ -113,11 +139,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   getCode(event: any): any {
     event.preventDefault();
-    const { phone } = this.phoneForm.value;
-    if (!phone) {
-      this.error.set('请输入手机号码');
+    const phoneControl = this.phoneForm.controls['phone'];
+    if (phoneControl.invalid) {
+      phoneControl.markAsTouched();
+      this.error.set(phoneControl.hasError('required') ? '请输入手机号码' : '请输入正确的手机号码');
       return false;
     }
+    const { phone } = this.phoneForm.value;
     this.userService
       .getCode(phone)
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -138,8 +166,29 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
-  socialLogin(providerUrl: string): void {
-    window.location.href = `${this.apiUrl}${providerUrl}`;
+  socialLogin(provider: ISocialLoginProvider): void {
+    if (provider.idp) {
+      const { returnUrl } = this.route.snapshot.queryParams;
+      this.loading.set(true);
+      this.userService
+        .startAuthorize({
+          mode: this.inDialog ? 'popup' : 'redirect',
+          returnUrl,
+          idp: provider.idp,
+        })
+        .catch(error => {
+          console.error('Authorize failed:', error);
+          this.showMessage(false, '登录跳转失败，请稍后再试。');
+        });
+      return;
+    }
+    if (provider.url) {
+      window.location.href = `${this.apiUrl}${provider.url}`;
+    }
+  }
+
+  providerIcon(provider: ISocialLoginProvider): IIcon {
+    return provider.svgIcon ? { svg: provider.svgIcon } : { name: provider.icon };
   }
 
   ngOnDestroy(): void {

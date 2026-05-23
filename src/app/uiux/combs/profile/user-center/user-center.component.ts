@@ -11,12 +11,25 @@ import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
+import { BgComponent } from '@uiux/widgets/bg/bg.component';
+import { ImgComponent } from '@uiux/widgets/img/img.component';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @Component({
   selector: 'app-user-center',
   templateUrl: './user-center.component.html',
   styleUrls: ['./user-center.component.scss'],
-  standalone: false,
+  imports: [
+    ReqRolesDirective,
+    SpacerComponent,
+    BgComponent,
+    ImgComponent,
+    DynamicComponentComponent,
+    UserProfileComponent,
+  ],
 })
 export class UserCenterComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);

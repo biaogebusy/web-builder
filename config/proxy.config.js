@@ -33,6 +33,14 @@ const PROXY_CONFIG = [
     target: 'https://base.builder.design',
     secure: false,
     changeOrigin: true,
+    // configure: proxy => {
+    //   proxy.on('proxyReq', proxyReq => {
+    //     proxyReq.removeHeader('cookie');
+    //   });
+    //   proxy.on('proxyRes', proxyRes => {
+    //     delete proxyRes.headers['set-cookie'];
+    //   });
+    // },
   },
 ];
 
