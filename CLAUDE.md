@@ -156,7 +156,28 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 ### Unified Widget Components
 
-- **Buttons**: Always use the unified `BtnComponent` from `@uiux/widgets/btn/btn.component` (selector: `app-btn`) instead of raw `<button mat-button>` / `<button>` elements. It accepts an `IBtn` content input and integrates with `RouteService`, `ReqRolesDirective`, `ContenteditDirective`, and `IconComponent` for consistent navigation, role gating, inline editing, and iconography across the app.
+**General rule**: When building combs or new components, prefer the atomic widgets in `@uiux/widgets/*` over raw HTML / Material elements whenever an equivalent widget exists. Widgets centralize inline editing (`ContenteditDirective`), role gating (`ReqRolesDirective`), routing (`RouteService`), theming via `--mat-sys-*` tokens, and accessibility behavior. Reaching for the underlying HTML/Material element should be a deliberate exception, not the default.
+
+Key widgets and what they replace:
+
+- **`app-btn`** (`widgets/btn/`) — replaces raw `<button mat-button>` / `<button>` / `<a>`-as-button. Accepts an `IBtn` content input.
+- **`app-icon`** (`widgets/icon/`) — replaces raw `<mat-icon>` / `<i class="fa-*">`. Unifies Material, SVG, and font-icon sources.
+- **`app-img`** (`widgets/img/`) — replaces raw `<img>`. Integrates `NgOptimizedImage`, lightbox, and responsive sources.
+- **`app-title`** (`widgets/title/`) — replaces ad-hoc `<h1>`–`<h6>` headings with style/level/alignment config.
+- **`app-text`** (`widgets/text/`) — replaces raw `<p>` / `innerHTML` blocks for rich text bodies (supports `SafeHtmlPipe`).
+- **`app-link`** (`widgets/link/`) — replaces raw `<a [routerLink]>` for CMS-driven links (handles internal/external, lang prefix, role gating).
+- **`app-card`** (`widgets/card/`) — replaces hand-rolled card markup.
+- **`app-media`** (`widgets/media/`) — replaces media-object compositions (img + body).
+- **`app-dialog`** (`widgets/dialog/`) — replaces direct `MatDialog.open()` usage for CMS-driven dialogs.
+- **`app-notify`** (`widgets/notify/`) — replaces ad-hoc `MatSnackBar` / alert markup.
+- **`app-pagination`** (`widgets/pagination/`) — replaces hand-rolled pagers / `MatPaginator` wiring.
+- **`app-loading`** / **`app-spinner`** (`widgets/loading/`, `widgets/spinner/`) — replaces ad-hoc loading states.
+- **`app-progress-bar`** / **`app-progress-group`** (`widgets/progress-bar/`, `widgets/progress-group/`) — replaces raw `<mat-progress-bar>`.
+- **`app-divider`** (`widgets/divider/`) — replaces raw `<mat-divider>` / `<hr>`.
+- **`app-dropdown-menu`** (`widgets/dropdown-menu/`) — replaces hand-built `MatMenu` triggers for CMS-driven menus.
+- **`app-feature-box`**, **`app-content-box`**, **`app-content-text-center`**, **`app-box`**, **`app-panel`**, **`app-sidebar`**, **`app-bg`**, **`app-bg-img`**, **`app-shape`**, **`app-spacer`** — layout/decoration primitives; prefer them over bespoke wrappers.
+
+Full inventory lives in `src/app/uiux/widgets/`. Before adding new markup, check if a widget already covers the need.
 
 ## State Management
 
