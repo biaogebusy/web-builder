@@ -7,7 +7,7 @@ export function getBox(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: 'Box',
+          label: 'BUILDER.FACTORY.CONTAINER_BOX',
         },
         fieldGroup: [
           {
@@ -18,8 +18,8 @@ export function getBox(widget: any): FormlyFieldConfig {
                 type: 'input',
                 defaultValue: widget?.title?.label,
                 props: {
-                  label: '标题',
-                  placeholder: '请输入标题',
+                  label: 'BUILDER.FACTORY.TITLE',
+                  placeholder: 'BUILDER.FACTORY.TITLE_PLACEHOLDER',
                 },
               },
               {
@@ -27,7 +27,7 @@ export function getBox(widget: any): FormlyFieldConfig {
                 type: 'input',
                 defaultValue: widget?.title?.href,
                 props: {
-                  label: '标题链接',
+                  label: 'BUILDER.FACTORY.TITLE_LINK',
                 },
               },
             ],
@@ -37,8 +37,8 @@ export function getBox(widget: any): FormlyFieldConfig {
             type: 'textarea',
             defaultValue: widget?.content,
             props: {
-              label: '内容',
-              placeholder: '请输入内容',
+              label: 'BUILDER.FACTORY.CONTENT',
+              placeholder: 'BUILDER.FACTORY.CONTENT_PLACEHOLDER',
               rows: 3,
             },
           },
@@ -50,12 +50,12 @@ export function getBox(widget: any): FormlyFieldConfig {
                 key: 'svg',
                 defaultValue: widget?.icon?.svg,
                 props: {
-                  label: '图标',
+                  label: 'BUILDER.FACTORY.ICON',
                   type: 'icon',
                   search: true,
                   options: [
                     {
-                      label: '无',
+                      label: 'BUILDER.FACTORY.NONE',
                       value: '',
                     },
                   ],
@@ -71,9 +71,9 @@ export function getBox(widget: any): FormlyFieldConfig {
                 key: 'src',
                 defaultValue: widget?.img?.src,
                 props: {
-                  updateLabel: '更新图片',
-                  addLabel: '设置图片',
-                  deleteLabel: '删除',
+                  updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
+                  addLabel: 'BUILDER.FACTORY.IMG_ADD',
+                  deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
                   fileName: widget?.img?.src.split('/').pop(),
                   alt: widget?.img?.alt ?? '',
                 },
@@ -88,7 +88,7 @@ export function getBox(widget: any): FormlyFieldConfig {
                 key: 'label',
                 defaultValue: widget?.more?.label,
                 props: {
-                  label: '更多',
+                  label: 'BUILDER.FACTORY.MORE',
                 },
               },
               {
@@ -96,7 +96,7 @@ export function getBox(widget: any): FormlyFieldConfig {
                 key: 'href',
                 defaultValue: widget?.more?.href,
                 props: {
-                  label: '更多链接',
+                  label: 'BUILDER.FACTORY.MORE_LINK',
                 },
               },
             ],
@@ -106,46 +106,46 @@ export function getBox(widget: any): FormlyFieldConfig {
             type: 'select',
             defaultValue: widget?.style,
             props: {
-              label: '风格',
+              label: 'BUILDER.FACTORY.STYLE_VARIANT',
               options: [
                 {
-                  label: 'V1',
+                  label: 'BUILDER.FACTORY.VARIANT_V1',
                   value: 'style-v1',
                 },
                 {
-                  label: 'V2',
+                  label: 'BUILDER.FACTORY.VARIANT_V2',
                   value: 'style-v2',
                 },
                 {
-                  label: 'V3',
+                  label: 'BUILDER.FACTORY.VARIANT_V3',
                   value: 'style-v3',
                 },
                 {
-                  label: 'V4',
+                  label: 'BUILDER.FACTORY.VARIANT_V4',
                   value: 'style-v4',
                 },
                 {
-                  label: 'V5',
+                  label: 'BUILDER.FACTORY.VARIANT_V5',
                   value: 'style-v5',
                 },
                 {
-                  label: 'V6',
+                  label: 'BUILDER.FACTORY.VARIANT_V6',
                   value: 'style-v6',
                 },
                 {
-                  label: 'V7',
+                  label: 'BUILDER.FACTORY.VARIANT_V7',
                   value: 'style-v7',
                 },
                 {
-                  label: 'V8',
+                  label: 'BUILDER.FACTORY.VARIANT_V8',
                   value: 'style-v8',
                 },
                 {
-                  label: 'V9',
+                  label: 'BUILDER.FACTORY.VARIANT_V9',
                   value: 'style-v9',
                 },
                 {
-                  label: 'V10',
+                  label: 'BUILDER.FACTORY.VARIANT_V10',
                   value: 'style-v10',
                 },
               ],
@@ -157,7 +157,7 @@ export function getBox(widget: any): FormlyFieldConfig {
             className: '!hidden',
             defaultValue: '!overflow-visible',
             props: {
-              label: '容器Class',
+              label: 'BUILDER.FACTORY.CONTAINER_CLASS',
             },
           },
         ],

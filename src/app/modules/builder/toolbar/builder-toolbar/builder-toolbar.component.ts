@@ -27,6 +27,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@core/service/user.service';
 import { Router } from '@angular/router';
 import { IDialog } from '@core/interface/IDialog';
+import { TranslateService } from '@ngx-translate/core';
 import qs from 'qs';
 import { SwitchPreviewComponent } from '../switch-preview/switch-preview.component';
 
@@ -54,6 +55,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
   private userService = inject(UserService);
   private router = inject(Router);
+  private translate = inject(TranslateService);
 
   private user: IUser;
   public date = signal<Date>(new Date());
@@ -113,7 +115,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
 
   onNewPage(): void {
     const config: IDialog = {
-      title: '选择模板创建页面',
+      title: this.translate.instant('BUILDER.TOOLBAR.SELECT_TEMPLATE'),
       disableActions: true,
       inputData: {
         content: {
@@ -139,7 +141,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     }
 
     if (this.page?.body.length === 0) {
-      this.util.openSnackbar('请先添加组件', 'ok');
+      this.util.openSnackbar(this.translate.instant('BUILDER.TOOLBAR.ADD_COMPONENT_FIRST'), 'ok');
       return;
     }
 
@@ -151,9 +153,13 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res => {
           if (res.status) {
-            this.util.openSnackbar(`翻译${page.target}成功`, '关闭', {
-              duration: 2000,
-            });
+            this.util.openSnackbar(
+              this.translate.instant('BUILDER.TOOLBAR.TRANSLATE_SUCCESS', { target: page.target }),
+              this.translate.instant('BUILDER.COMMON.CLOSE'),
+              {
+                duration: 2000,
+              }
+            );
             this.builder.loading$.next(false);
             this.builder.updateSuccess$.next(true);
             if (page.nid) {
@@ -167,7 +173,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
     } else {
       if (page.uuid && page.nid) {
         // update page
-        this.util.openSnackbar('正在更新！', 'ok');
+        this.util.openSnackbar(this.translate.instant('BUILDER.TOOLBAR.UPDATING'), 'ok');
         this.builderService
           .updateLandingPage(this.builder.currentPage)
           .pipe(takeUntilDestroyed(this.destroyRef))
@@ -201,7 +207,7 @@ export class BuilderToolbarComponent implements OnInit, AfterViewInit {
                 this.util.openSnackbar(message, 'ok');
                 this.builder.updateSuccess$.next(true);
               } else {
-                this.util.openSnackbar('新建失败！', 'ok');
+                this.util.openSnackbar(this.translate.instant('BUILDER.TOOLBAR.CREATE_FAILED'), 'ok');
               }
             });
         }

@@ -12,6 +12,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LocalStorageService } from 'ngx-webstorage';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -27,6 +28,7 @@ export class BuilderShowcaseComponent implements OnInit {
   private dialog = inject(MatDialog);
   private screenService = inject(ScreenService);
   private storage = inject(LocalStorageService);
+  private translate = inject(TranslateService);
   public user$ = inject<Observable<IUser>>(USER);
 
   ngOnInit(): void {
@@ -39,7 +41,10 @@ export class BuilderShowcaseComponent implements OnInit {
   }
   onCopy(component: any): void {
     this.util.copy(JSON.stringify(component));
-    this.util.openSnackbar(`已复制${component.type}的JSON！`, 'ok');
+    this.util.openSnackbar(
+      this.translate.instant('BUILDER.SHOWCASE.COPIED', { type: component.type }),
+      'ok'
+    );
     this.storage.store(this.builder.COPYCOMPONENTKEY, component);
   }
 
@@ -54,7 +59,7 @@ export class BuilderShowcaseComponent implements OnInit {
       actions: [
         {
           type: 'update',
-          label: '更新组件',
+          label: this.translate.instant('BUILDER.SHOWCASE.UPDATE_WIDGET'),
           params: {
             uuid,
             api: '/api/v1/node/component',

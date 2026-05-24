@@ -8,7 +8,7 @@ export function getText(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '文本',
+          label: 'BUILDER.FACTORY.TAB_LABEL_TEXT',
         },
         fieldGroup: [
           {
@@ -17,7 +17,7 @@ export function getText(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.body,
             props: {
-              label: '文本',
+              label: 'BUILDER.FACTORY.TEXT_LABEL',
               rows: 10,
             },
           },
@@ -34,7 +34,7 @@ export function getText(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.classes,
             props: {
-              label: '自定义Class',
+              label: 'BUILDER.FACTORY.CSS_CLASS',
             },
           },
         ],

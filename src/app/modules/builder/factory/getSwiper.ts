@@ -7,7 +7,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
       {
         key: 'params',
         props: {
-          label: '参数',
+          label: 'BUILDER.FACTORY.TAB_LABEL_PARAMS',
         },
         fieldGroup: [
           {
@@ -16,14 +16,14 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget?.params?.direction ?? 'horizontal',
             props: {
-              label: '方向',
+              label: 'BUILDER.FACTORY.DIRECTION',
               options: [
                 {
-                  label: '水平方向',
+                  label: 'BUILDER.FACTORY.HORIZONTAL_DIR',
                   value: 'horizontal',
                 },
                 {
-                  label: '垂直方向',
+                  label: 'BUILDER.FACTORY.VERTICAL_DIR',
                   value: 'vertical',
                 },
               ],
@@ -47,8 +47,8 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                       min: 1,
                       max: 10,
                       step: 0.2,
-                      label: '移动端',
-                      unit: '个',
+                      label: 'BUILDER.FACTORY.MOBILE',
+                      unit: 'BUILDER.FACTORY.EACH_UNIT',
                     },
                   },
                   {
@@ -60,7 +60,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                       min: 1,
                       max: 100,
                       step: 1,
-                      label: '间隔',
+                      label: 'BUILDER.FACTORY.GAP_UNIT',
                       unit: 'px',
                     },
                   },
@@ -80,8 +80,8 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                       min: 1,
                       max: 10,
                       step: 0.2,
-                      label: '电脑端显示',
-                      unit: '个',
+                      label: 'BUILDER.FACTORY.DESKTOP',
+                      unit: 'BUILDER.FACTORY.EACH_UNIT',
                     },
                   },
                   {
@@ -93,7 +93,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                       min: 1,
                       max: 100,
                       step: 1,
-                      label: '间隔',
+                      label: 'BUILDER.FACTORY.GAP_UNIT',
                       unit: 'px',
                     },
                     hideExpression: 'model.slidesPerView <= 1',
@@ -108,26 +108,26 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget?.params?.effect || 'slide',
             props: {
-              label: `特效`,
+              label: 'BUILDER.FACTORY.EFFECTS',
               options: [
                 {
-                  label: '默认',
+                  label: 'BUILDER.FACTORY.EFFECT_DEFAULT',
                   value: 'slide',
                 },
                 {
-                  label: 'Fade',
+                  label: 'BUILDER.FACTORY.FADE',
                   value: 'fade',
                 },
                 {
-                  label: 'Cube',
+                  label: 'BUILDER.FACTORY.CUBE',
                   value: 'cube',
                 },
                 {
-                  label: 'Coverflow',
+                  label: 'BUILDER.FACTORY.COVERFLOW',
                   value: 'coverflow',
                 },
                 {
-                  label: 'Fip',
+                  label: 'BUILDER.FACTORY.FLIP',
                   value: 'flip',
                 },
               ],
@@ -142,7 +142,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
               min: 0,
               max: 10000,
               step: 100,
-              label: '转场',
+              label: 'BUILDER.FACTORY.TRANSITION',
               unit: 'ms',
             },
           },
@@ -159,7 +159,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
       {
         key: 'params',
         props: {
-          label: '功能',
+          label: 'BUILDER.FACTORY.FEATURES_TAB',
         },
         fieldGroup: [
           {
@@ -173,7 +173,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                 className: 'w-full',
                 defaultValue: widget?.params.pagination ?? false,
                 props: {
-                  label: '页码',
+                  label: 'BUILDER.FACTORY.PAGE_INDICATOR',
                 },
               },
               {
@@ -181,7 +181,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                 type: 'select',
                 className: 'w-2/5',
                 props: {
-                  label: '类型',
+                  label: 'BUILDER.FACTORY.PAGE_TYPE',
                   options: [
                     {
                       label: 'bullets',
@@ -204,7 +204,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
                 type: 'toggle',
                 props: {
                   className: 'w-2/5',
-                  label: '可点击',
+                  label: 'BUILDER.FACTORY.PAGE_CLICKABLE',
                 },
                 expressionProperties: {
                   'props.disabled': 'model.type !== "bullets"',
@@ -219,7 +219,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget?.params.navigation ?? false,
             props: {
-              label: '左右箭头',
+              label: 'BUILDER.FACTORY.ARROWS',
             },
           },
           {
@@ -228,7 +228,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget?.params.centeredSlides ?? false,
             props: {
-              label: '居中',
+              label: 'BUILDER.FACTORY.CENTERED',
             },
           },
           {
@@ -237,7 +237,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget?.params.loop ?? false,
             props: {
-              label: '循环',
+              label: 'BUILDER.FACTORY.LOOP',
             },
           },
           {
@@ -246,7 +246,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget?.params.autoplay ?? false,
             props: {
-              label: '自动播放',
+              label: 'BUILDER.FACTORY.AUTOPLAY',
             },
           },
           {
@@ -255,7 +255,7 @@ export function getSwiper(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget?.params.mousewheel ?? false,
             props: {
-              label: '鼠标控制',
+              label: 'BUILDER.FACTORY.MOUSE_CTRL',
             },
           },
         ],

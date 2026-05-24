@@ -9,6 +9,7 @@ import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -30,6 +31,7 @@ export class BuilderPageComponent implements OnInit {
   private noderService = inject(NodeService);
   private activateRoute = inject(ActivatedRoute);
   private builderService = inject(BuilderService);
+  private translate = inject(TranslateService);
 
   ngOnInit(): void {
     this.activateRoute.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(paramsMap => {
@@ -59,7 +61,9 @@ export class BuilderPageComponent implements OnInit {
           });
           this.loading = false;
           this.cd.detectChanges();
-          this.tagService.setTitle(`${this.name}管理`);
+          this.tagService.setTitle(
+            this.translate.instant('BUILDER.PAGE.MANAGE_SUFFIX', { name: this.name })
+          );
           return [...pages];
         }),
         takeUntilDestroyed(this.destroyRef)
@@ -68,7 +72,10 @@ export class BuilderPageComponent implements OnInit {
   }
 
   loadPage(item: any): void {
-    this.util.openSnackbar(`正在加载${item.title}`, 'ok');
+    this.util.openSnackbar(
+      this.translate.instant('BUILDER.PAGE.LOADING', { title: item.title }),
+      'ok'
+    );
     this.builder.loading$.next(true);
     this.builderService.loadPage({ nid: item.nid });
   }

@@ -21,6 +21,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { TranslateService } from '@ngx-translate/core';
 import { merge } from 'lodash-es';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -52,6 +53,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
   public user: IUser;
 
   constructor() {
@@ -85,7 +87,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
     this.content$ = this.nodeService.fetch(api, params).pipe(
       catchError(error => {
         if (error.status === 404) {
-          this.util.openSnackbar('请检查API是否已配置！', 'ok');
+          this.util.openSnackbar(this.translate.instant('BUILDER.SETTINGS.CHECK_API'), 'ok');
         }
         return of({
           rows: [],

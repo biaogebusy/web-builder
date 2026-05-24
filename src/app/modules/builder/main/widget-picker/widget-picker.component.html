@@ -9,8 +9,8 @@
       <button
         mat-icon-button
         class="back-btn"
-        matTooltip="返回上级"
-        aria-label="返回上级"
+        [matTooltip]="'BUILDER.WIDGET_PICKER.BACK' | translate"
+        [attr.aria-label]="'BUILDER.WIDGET_PICKER.BACK' | translate"
         (click)="goBack()"
       >
         <app-icon [content]="{ svg: 'chevron-left' }" />
@@ -52,7 +52,7 @@
     } @else {
       <div class="empty-state" role="status">
         <app-icon class="empty-icon" [content]="{ svg: 'package-variant' }" />
-        <p>该分类暂无组件</p>
+        <p>{{ 'BUILDER.WIDGET_PICKER.EMPTY_CATEGORY' | translate }}</p>
       </div>
     }
   } @else {
@@ -61,8 +61,8 @@
       <input
         type="text"
         class="search-input"
-        placeholder="搜索组件"
-        aria-label="搜索组件"
+        [placeholder]="'BUILDER.WIDGET_PICKER.SEARCH_PLACEHOLDER' | translate"
+        [attr.aria-label]="'BUILDER.WIDGET_PICKER.SEARCH_PLACEHOLDER' | translate"
         [value]="query"
         (input)="onSearchInput($event)"
       />
@@ -70,8 +70,8 @@
         <button
           type="button"
           class="search-clear"
-          aria-label="清除搜索"
-          matTooltip="清除"
+          [attr.aria-label]="'BUILDER.WIDGET_PICKER.CLEAR_SEARCH' | translate"
+          [matTooltip]="'BUILDER.WIDGET_PICKER.CLEAR' | translate"
           (click)="clearSearch()"
         >
           <app-icon [content]="{ svg: 'close-circle' }" />
@@ -81,7 +81,7 @@
 
     @if (query) {
       @if (hits.length > 0) {
-        <div class="search-result-meta">{{ hits.length }} 个匹配组件</div>
+        <div class="search-result-meta">{{ 'BUILDER.WIDGET_PICKER.SEARCH_HITS' | translate: { count: hits.length } }}</div>
         <div class="widget-list" role="list">
           @for (hit of hits; track hit.item) {
             <button
@@ -118,8 +118,8 @@
       } @else {
         <div class="empty-state" role="status">
           <app-icon class="empty-icon" [content]="{ svg: 'magnify-close' }" />
-          <p>未找到匹配组件</p>
-          <button type="button" class="empty-action" (click)="clearSearch()">清除搜索</button>
+          <p>{{ 'BUILDER.WIDGET_PICKER.NO_MATCHES' | translate }}</p>
+          <button type="button" class="empty-action" (click)="clearSearch()">{{ 'BUILDER.WIDGET_PICKER.CLEAR_SEARCH' | translate }}</button>
         </div>
       }
     } @else {
@@ -134,7 +134,7 @@
             <span class="category-icon">
               <app-icon [content]="{ svg: 'content-paste' }" />
             </span>
-            <span class="category-label">粘贴复制的组件</span>
+            <span class="category-label">{{ 'BUILDER.WIDGET_PICKER.PASTE_LABEL' | translate }}</span>
             <app-icon class="chevron" [content]="{ svg: 'chevron-right' }" />
           </button>
         }
@@ -169,7 +169,7 @@
             <span class="category-icon">
               <app-icon [content]="{ svg: 'help-circle' }" />
             </span>
-            <span class="category-label">帮助文档</span>
+            <span class="category-label">{{ 'BUILDER.WIDGET_PICKER.HELP_DOCS' | translate }}</span>
             <app-icon class="chevron" [content]="{ svg: 'open-in-new' }" />
           </a>
         }

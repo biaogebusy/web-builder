@@ -7,7 +7,7 @@
       <app-btn
         (click)="applyAosAllTopComponent(model.component.animate)"
         [content]="{
-          label: '一键应用该AOS动画',
+          label: 'BUILDER.LAYOUT_SETTING.APPLY_AOS_ALL' | translate,
           color: 'primary',
           mode: 'stroked',
         }"
@@ -17,7 +17,7 @@
   @if (elements?.length) {
     <div class="loop-elements">
       <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
-        <div mat-subheader>子项</div>
+        <div mat-subheader>{{ 'BUILDER.LAYOUT_SETTING.CHILDREN' | translate }}</div>
         @for (widget of elements; track widget; let i = $index) {
           <mat-list-item cdkDrag>
             <app-icon matListItemIcon [content]="{ svg: 'dots-vertical' }" />
@@ -55,7 +55,7 @@
       <app-btn
         (click)="editorJSON()"
         [content]="{
-          label: '编辑 JSON',
+          label: 'BUILDER.COMMON.EDIT_JSON' | translate,
           color: 'primary',
           mode: 'stroked',
         }"
@@ -64,7 +64,7 @@
         <app-btn
           (click)="editorCode()"
           [content]="{
-            label: '编辑自定义模板',
+            label: 'BUILDER.LAYOUT_SETTING.EDIT_TEMPLATE' | translate,
             color: 'primary',
             mode: 'raised',
           }"

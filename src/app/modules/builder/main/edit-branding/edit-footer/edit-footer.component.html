@@ -14,7 +14,7 @@
     <div class="toolbar-right">
       @if (dirty()) {
         <span class="dirty-dot"></span>
-        <span class="dirty-label">未保存</span>
+        <span class="dirty-label">{{ 'BUILDER.EDIT_BRANDING.UNSAVED' | translate }}</span>
       }
       <app-btn
         (click)="loadData()"
@@ -27,7 +27,7 @@
       <app-btn
         (click)="onSave()"
         [content]="{
-          label: saving() ? '保存中...' : '保存更改',
+          label: (saving() ? 'BUILDER.EDIT_BRANDING.SAVING' : 'BUILDER.EDIT_BRANDING.SAVE_CHANGES') | translate,
           color: 'primary',
           mode: 'raised',
           icon: { svg: 'content-save' },
@@ -59,7 +59,7 @@
         <section class="card">
           <button class="card-header" (click)="toggleSection('params')">
             <mat-icon svgIcon="cog-outline" class="card-icon" />
-            <span class="card-title">参数设置</span>
+            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.PARAMS_SECTION' | translate }}</span>
             <mat-icon
               [svgIcon]="isSectionOpen('params') ? 'chevron-up' : 'chevron-down'"
               class="card-chevron"
@@ -77,7 +77,7 @@
         <section class="card">
           <button class="card-header" (click)="toggleSection('brand')">
             <mat-icon svgIcon="image-outline" class="card-icon" />
-            <span class="card-title">品牌信息</span>
+            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BRAND_SECTION' | translate }}</span>
             <mat-icon
               [svgIcon]="isSectionOpen('brand') ? 'chevron-up' : 'chevron-down'"
               class="card-chevron"
@@ -95,7 +95,7 @@
         <section class="card">
           <button class="card-header" (click)="toggleSection('social')">
             <mat-icon svgIcon="share-variant-outline" class="card-icon" />
-            <span class="card-title">社交链接</span>
+            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.SOCIAL_SECTION' | translate }}</span>
             <mat-icon
               [svgIcon]="isSectionOpen('social') ? 'chevron-up' : 'chevron-down'"
               class="card-chevron"
@@ -113,7 +113,7 @@
         <section class="card">
           <button class="card-header" (click)="toggleSection('menu')">
             <mat-icon svgIcon="menu" class="card-icon" />
-            <span class="card-title">底部导航</span>
+            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BOTTOM_NAV_SECTION' | translate }}</span>
             @if (menuItems().length) {
               <span class="card-badge">{{ menuItems().length }}</span>
             }
@@ -137,7 +137,7 @@
         <section class="card">
           <button class="card-header" (click)="toggleSection('mobile')">
             <mat-icon svgIcon="cellphone" class="card-icon" />
-            <span class="card-title">移动端导航</span>
+            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.MOBILE_NAV_SECTION' | translate }}</span>
             @if (mobileMenuItems().length) {
               <span class="card-badge">{{ mobileMenuItems().length }}</span>
             }
@@ -187,7 +187,7 @@
         <section class="card">
           <button class="card-header" (click)="toggleSection('bottom')">
             <mat-icon svgIcon="dock-bottom" class="card-icon" />
-            <span class="card-title">底部栏</span>
+            <span class="card-title">{{ 'BUILDER.EDIT_BRANDING.BOTTOM_BAR_SECTION' | translate }}</span>
             <mat-icon
               [svgIcon]="isSectionOpen('bottom') ? 'chevron-up' : 'chevron-down'"
               class="card-chevron"
@@ -207,10 +207,10 @@
             <mat-icon svgIcon="code-json" class="card-icon" />
             <span class="card-title">JSON</span>
             @if (jsonEditMode()) {
-              <span class="card-badge accent">编辑中</span>
+              <span class="card-badge accent">{{ 'BUILDER.EDIT_BRANDING.EDITING_BADGE' | translate }}</span>
             }
             @if (jsonError()) {
-              <span class="card-badge warn">语法错误</span>
+              <span class="card-badge warn">{{ 'BUILDER.EDIT_BRANDING.SYNTAX_ERROR_BADGE' | translate }}</span>
             }
             <mat-icon [svgIcon]="showJson() ? 'chevron-up' : 'chevron-down'" class="card-chevron" />
           </button>
@@ -222,10 +222,10 @@
                     [svgIcon]="jsonEditMode() ? 'eye-outline' : 'pencil-outline'"
                     class="btn-icon"
                   />
-                  {{ jsonEditMode() ? '切换预览' : '编辑 JSON' }}
+                  {{ (jsonEditMode() ? 'BUILDER.EDIT_BRANDING.TOGGLE_PREVIEW' : 'BUILDER.COMMON.EDIT_JSON') | translate }}
                 </button>
                 @if (jsonEditMode()) {
-                  <span class="json-hint">保存时深度合并至表单配置</span>
+                  <span class="json-hint">{{ 'BUILDER.EDIT_BRANDING.JSON_HINT_FOOTER' | translate }}</span>
                 }
               </div>
               @if (jsonEditMode()) {
@@ -252,7 +252,7 @@
 
 <ng-template #menuTpl let-items let-list="list" let-expanded="expanded">
   @if (!items().length) {
-    <div class="empty"><p>暂无分组，点击下方添加</p></div>
+    <div class="empty"><p>{{ 'BUILDER.EDIT_BRANDING.EMPTY_GROUPS' | translate }}</p></div>
   }
 
   <div
@@ -266,7 +266,7 @@
             cdkDragHandle
             svgIcon="dots-vertical"
             class="grip"
-            aria-label="拖拽排序"
+            [attr.aria-label]="'BUILDER.EDIT_BRANDING.DRAG_SORT' | translate"
             role="button"
             tabindex="0"
           />
@@ -274,7 +274,7 @@
             <input
               class="field"
               [value]="group.label"
-              placeholder="分组名称"
+              [placeholder]="'BUILDER.EDIT_BRANDING.GROUP_NAME' | translate"
               (input)="updateMenuGroup(list, i, $any($event.target).value)"
             />
           </div>
@@ -288,7 +288,7 @@
           <button
             class="icon-btn sm danger"
             (click)="removeMenuGroup(list, i)"
-            [attr.aria-label]="'删除 ' + group.label"
+            [attr.aria-label]="('BUILDER.EDIT_BRANDING.DELETE_PREFIX' | translate) + ' ' + group.label"
           >
             <mat-icon svgIcon="close" />
           </button>
@@ -296,9 +296,9 @@
         @if (expanded() === i) {
           <div class="row-expand">
             <div class="child-header">
-              <span class="child-title">链接列表</span>
+              <span class="child-title">{{ 'BUILDER.EDIT_BRANDING.LINK_LIST' | translate }}</span>
               <button class="ghost-btn" (click)="addChildLink(list, i)">
-                <mat-icon svgIcon="plus" class="btn-icon" />添加
+                <mat-icon svgIcon="plus" class="btn-icon" />{{ 'BUILDER.EDIT_BRANDING.ADD' | translate }}
               </button>
             </div>
             @if (group.child?.length) {
@@ -313,7 +313,7 @@
                       cdkDragHandle
                       svgIcon="dots-vertical"
                       class="grip sm"
-                      aria-label="拖拽排序"
+                      [attr.aria-label]="'BUILDER.EDIT_BRANDING.DRAG_SORT' | translate"
                       role="button"
                       tabindex="0"
                     />
@@ -321,20 +321,20 @@
                       <input
                         class="field"
                         [value]="child.label"
-                        placeholder="名称"
+                        [placeholder]="'BUILDER.EDIT_BRANDING.NAME' | translate"
                         (input)="updateChildLink(list, i, j, 'label', $any($event.target).value)"
                       />
                       <input
                         class="field"
                         [value]="child.href || ''"
-                        placeholder="链接"
+                        [placeholder]="'BUILDER.EDIT_BRANDING.LINK' | translate"
                         (input)="updateChildLink(list, i, j, 'href', $any($event.target).value)"
                       />
                     </div>
                     <button
                       class="icon-btn sm danger"
                       (click)="removeChildLink(list, i, j)"
-                      [attr.aria-label]="'删除 ' + child.label"
+                      [attr.aria-label]="('BUILDER.EDIT_BRANDING.DELETE_PREFIX' | translate) + ' ' + child.label"
                     >
                       <mat-icon svgIcon="close" />
                     </button>
@@ -349,6 +349,6 @@
   </div>
 
   <button class="ghost-btn add-row-btn" (click)="addMenuGroup(list)">
-    <mat-icon svgIcon="plus" class="btn-icon" />添加分组
+    <mat-icon svgIcon="plus" class="btn-icon" />{{ 'BUILDER.EDIT_BRANDING.ADD_GROUP' | translate }}
   </button>
 </ng-template>

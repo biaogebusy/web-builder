@@ -8,7 +8,7 @@ export function getBtn(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '按钮',
+          label: 'BUILDER.FACTORY.TAB_LABEL_BTN',
         },
         fieldGroup: [
           {
@@ -17,22 +17,22 @@ export function getBtn(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.color ?? null,
             props: {
-              label: '颜色',
+              label: 'BUILDER.FACTORY.COLOR',
               options: [
                 {
-                  label: 'Basic',
+                  label: 'BUILDER.FACTORY.MAT_BASIC',
                   value: null,
                 },
                 {
-                  label: 'Primary',
+                  label: 'BUILDER.FACTORY.PRIMARY',
                   value: 'primary',
                 },
                 {
-                  label: 'Accent',
+                  label: 'BUILDER.FACTORY.ACCENT',
                   value: 'accent',
                 },
                 {
-                  label: 'Warn',
+                  label: 'BUILDER.FACTORY.WARN',
                   value: 'warn',
                 },
               ],
@@ -45,7 +45,7 @@ export function getBtn(widget: any): FormlyFieldConfig {
             defaultValue: widget.label ?? '',
             props: {
               type: 'text',
-              label: '文本',
+              label: 'BUILDER.FACTORY.TEXT_LABEL',
             },
             hideExpression: 'model.mode === "icon"',
           },
@@ -55,34 +55,34 @@ export function getBtn(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.mode ?? 'basic',
             props: {
-              label: '类型',
+              label: 'BUILDER.FACTORY.BTN_TYPE',
               options: [
                 {
-                  label: 'Basic',
+                  label: 'BUILDER.FACTORY.MAT_BASIC',
                   value: 'basic',
                 },
                 {
-                  label: 'raised',
+                  label: 'BUILDER.FACTORY.MAT_RAISED',
                   value: 'raised',
                 },
                 {
-                  label: 'stroked',
+                  label: 'BUILDER.FACTORY.MAT_STROKED',
                   value: 'stroked',
                 },
                 {
-                  label: 'icon',
+                  label: 'BUILDER.FACTORY.MAT_ICON',
                   value: 'icon',
                 },
                 {
-                  label: 'flat',
+                  label: 'BUILDER.FACTORY.MAT_FLAT',
                   value: 'flat',
                 },
                 {
-                  label: 'fab',
+                  label: 'BUILDER.FACTORY.FAB',
                   value: 'fab',
                 },
                 {
-                  label: 'mini-fab',
+                  label: 'BUILDER.FACTORY.MINI_FAB',
                   value: 'mini-fab',
                 },
               ],
@@ -95,7 +95,7 @@ export function getBtn(widget: any): FormlyFieldConfig {
             defaultValue: widget.href ?? '/',
             props: {
               type: 'text',
-              label: '链接地址',
+              label: 'BUILDER.FACTORY.HREF',
             },
           },
           {
@@ -104,14 +104,14 @@ export function getBtn(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.target ?? '_blank',
             props: {
-              label: '打开方式',
+              label: 'BUILDER.FACTORY.OPEN_HOW',
               options: [
                 {
-                  label: '当前窗口',
+                  label: 'BUILDER.FACTORY.CURRENT_WINDOW',
                   value: '',
                 },
                 {
-                  label: '新窗口',
+                  label: 'BUILDER.FACTORY.NEW_WINDOW',
                   value: '_blank',
                 },
               ],
@@ -128,12 +128,12 @@ export function getBtn(widget: any): FormlyFieldConfig {
                 className: 'w-full',
                 defaultValue: widget?.icon?.svg ?? '',
                 props: {
-                  label: '图标',
+                  label: 'BUILDER.FACTORY.ICON',
                   type: 'icon',
                   search: true,
                   options: [
                     {
-                      label: '无',
+                      label: 'BUILDER.FACTORY.NONE',
                       value: '',
                     },
                   ],
@@ -152,14 +152,14 @@ export function getBtn(widget: any): FormlyFieldConfig {
             defaultValue: widget?.iconPosition ?? 'left',
             type: 'select',
             props: {
-              label: '图标位置',
+              label: 'BUILDER.FACTORY.ICON_POSITION',
               options: [
                 {
-                  label: '左侧',
+                  label: 'BUILDER.FACTORY.LEFT_SIDE',
                   value: 'left',
                 },
                 {
-                  label: '右侧',
+                  label: 'BUILDER.FACTORY.RIGHT_SIDE',
                   value: 'right',
                 },
               ],
@@ -181,7 +181,7 @@ export function getBtn(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.pill ?? false,
             props: {
-              label: '胶囊样式',
+              label: 'BUILDER.FACTORY.PILL_STYLE',
             },
           },
           {
@@ -190,7 +190,7 @@ export function getBtn(widget: any): FormlyFieldConfig {
             className: '!hidden',
             defaultValue: '!overflow-visible',
             props: {
-              label: '容器Class',
+              label: 'BUILDER.FACTORY.CONTAINER_CLASS',
             },
           },
         ],

@@ -1,18 +1,18 @@
 <div class="config-check">
   <app-title
     [content]="{
-      label: '配置检测清单',
+      label: 'BUILDER.CONFIG_CHECK.TITLE' | translate,
       classes: 'mat-headline-4 bold',
       style: 'style-v4',
     }"
   ></app-title>
 
   <div class="check-header">
-    <div class="check-count">检查清单 {{ completedCount() }}/{{ totalCount }}</div>
+    <div class="check-count">{{ 'BUILDER.CONFIG_CHECK.CHECKLIST' | translate }} {{ completedCount() }}/{{ totalCount }}</div>
     <app-btn
       (click)="runTests()"
       [content]="{
-        label: '开始检测',
+        label: 'BUILDER.CONFIG_CHECK.START_CHECK' | translate,
         color: 'primary',
         mode: 'raised',
         icon: {
@@ -39,12 +39,12 @@
             }
           </div>
           <div class="result-detail">
-            <div class="result-name">{{ result.name }}</div>
-            <p class="result-desc">{{ result.description }}</p>
-            <p class="result-desc">响应时间: {{ result.responseTime }}ms</p>
+            <div class="result-name">{{ result.name | translate }}</div>
+            <p class="result-desc">{{ result.description | translate }}</p>
+            <p class="result-desc">{{ 'BUILDER.CONFIG_CHECK.RESPONSE_TIME' | translate }} {{ result.responseTime }}ms</p>
             @if (!result.success) {
               <p class="result-error">
-                错误: {{ result.error || '未知错误' }}
+                {{ 'BUILDER.CONFIG_CHECK.ERROR_PREFIX' | translate }} {{ result.error || ('BUILDER.CONFIG_CHECK.UNKNOWN_ERROR' | translate) }}
               </p>
             }
           </div>

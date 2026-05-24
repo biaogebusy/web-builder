@@ -2,109 +2,109 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export const getBgClasses = [
   {
-    label: '无',
+    label: 'BUILDER.FACTORY.NONE',
     value: '',
   },
   {
-    label: '品牌色',
+    label: 'BUILDER.FACTORY.COLOR_PRIMARY',
     value: 'bg-primary',
   },
   {
-    label: '白色',
+    label: 'BUILDER.FACTORY.COLOR_WHITE',
     value: 'bg-white',
   },
   {
-    label: '黑色',
+    label: 'BUILDER.FACTORY.COLOR_BLACK',
     value: 'bg-black',
   },
   {
-    label: '灰色',
+    label: 'BUILDER.FACTORY.COLOR_GRAY',
     value: 'bg-gray',
   },
   {
-    label: '中性灰',
+    label: 'BUILDER.FACTORY.COLOR_NEUTRAL',
     value: 'bg-neutral',
   },
   {
-    label: '红色',
+    label: 'BUILDER.FACTORY.COLOR_RED',
     value: 'bg-red',
   },
   {
-    label: '橙色',
+    label: 'BUILDER.FACTORY.COLOR_ORANGE',
     value: 'bg-orange',
   },
   {
-    label: '黄色',
+    label: 'BUILDER.FACTORY.COLOR_YELLOW',
     value: 'bg-yellow',
   },
   {
-    label: '绿色',
+    label: 'BUILDER.FACTORY.COLOR_GREEN',
     value: 'bg-green',
   },
   {
-    label: '蓝色',
+    label: 'BUILDER.FACTORY.COLOR_BLUE',
     value: 'bg-blue',
   },
   {
-    label: '紫色',
+    label: 'BUILDER.FACTORY.COLOR_PURPLE',
     value: 'bg-purple',
   },
   {
-    label: '琥珀黄',
+    label: 'BUILDER.FACTORY.COLOR_AMBER',
     value: 'bg-amber',
   },
   {
-    label: '酸橙绿',
+    label: 'BUILDER.FACTORY.COLOR_LIME',
     value: 'bg-lime',
   },
   {
-    label: '天蓝色',
+    label: 'BUILDER.FACTORY.COLOR_SKY',
     value: 'bg-sky',
   },
   {
-    label: '靛蓝',
+    label: 'BUILDER.FACTORY.COLOR_INDIGO',
     value: 'bg-indigo',
   },
   {
-    label: '紫罗兰',
+    label: 'BUILDER.FACTORY.COLOR_VIOLET',
     value: 'bg-violet',
   },
   {
-    label: '粉色',
+    label: 'BUILDER.FACTORY.COLOR_PINK',
     value: 'bg-pink',
   },
 ];
 
 export const getSpacerOptions = [
   {
-    label: '无',
+    label: 'BUILDER.FACTORY.NONE',
     value: 'none',
   },
   {
-    label: '超小',
+    label: 'BUILDER.FACTORY.SIZE_XS',
     value: 'xs',
   },
   {
-    label: '小',
+    label: 'BUILDER.FACTORY.SIZE_SM',
     value: 'sm',
   },
   {
-    label: '正常',
+    label: 'BUILDER.FACTORY.SIZE_MD',
     value: 'md',
   },
   {
-    label: '大',
+    label: 'BUILDER.FACTORY.SIZE_LG',
     value: 'lg',
   },
   {
-    label: '超大',
+    label: 'BUILDER.FACTORY.SIZE_XL',
     value: 'xl',
   },
 ];
 
 export const getOverlay = [
   {
-    label: '无',
+    label: 'BUILDER.FACTORY.NONE',
     value: ' ',
   },
   {
@@ -271,7 +271,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
         min: 0,
         max: 20,
         step: 1,
-        label: '移动端间距',
+        label: 'BUILDER.FACTORY.GAP_XS',
       },
     },
     {
@@ -282,7 +282,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
         min: 0,
         max: 20,
         step: 1,
-        label: '平板端间距',
+        label: 'BUILDER.FACTORY.GAP_SM',
       },
     },
     {
@@ -293,7 +293,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
         min: 0,
         max: 20,
         step: 1,
-        label: '桌面端间距',
+        label: 'BUILDER.FACTORY.GAP_MD',
       },
     },
     {
@@ -304,7 +304,7 @@ export function getGapsGroup(content: any): FormlyFieldConfig[] {
         min: 0,
         max: 20,
         step: 1,
-        label: '超大桌面间距',
+        label: 'BUILDER.FACTORY.GAP_LG',
       },
     },
   ];
@@ -318,7 +318,7 @@ export function getGridLayoutConfig(content: any): FormlyFieldConfig[] {
       className: 'w-full',
       defaultValue: content.horizontal,
       props: {
-        label: '整个内容区域对齐',
+        label: 'BUILDER.FACTORY.ALIGN_CONTENT',
         options: getHorizontalOption,
       },
     },
@@ -328,7 +328,7 @@ export function getGridLayoutConfig(content: any): FormlyFieldConfig[] {
       className: 'w-full',
       defaultValue: content.vertical,
       props: {
-        label: '单元格水平对齐',
+        label: 'BUILDER.FACTORY.ALIGN_CELL_H',
         options: getVerticalOption,
       },
     },
@@ -338,7 +338,7 @@ export function getGridLayoutConfig(content: any): FormlyFieldConfig[] {
       className: 'w-full',
       defaultValue: content.alignItems,
       props: {
-        label: '单元格垂直对齐',
+        label: 'BUILDER.FACTORY.ALIGN_CELL_V',
         options: getVerticalOption,
       },
     },

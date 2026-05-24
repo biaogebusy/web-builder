@@ -28,6 +28,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
 import { LocalStorageService } from 'ngx-webstorage';
+import { TranslateService } from '@ngx-translate/core';
 import { DefaultPageComponent } from '../default-page/default-page.component';
 @Component({
   selector: 'app-builder-list',
@@ -49,6 +50,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   private destroyRef = inject(DestroyRef);
   private builderService = inject(BuilderService);
   private storage = inject(LocalStorageService);
+  private translate = inject(TranslateService);
   private ele = inject(ElementRef);
   private scrollableContainer: Element;
   public bcData = signal(false);
@@ -136,7 +138,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onPasteData(target: any): void {
     if (!this.bcData()) {
-      this.util.openSnackbar('请先复制组件', 'ok');
+      this.util.openSnackbar(this.translate.instant('BUILDER.LIST.COPY_FIRST'), 'ok');
       return;
     }
     const path = this.util.generatePath(target);

@@ -96,7 +96,7 @@
     @if (branding) {
       <div class="icon-actions-row">
         <app-btn
-          [matTooltip]="'媒体库'"
+          [matTooltip]="'BUILDER.SIDEBAR.MEDIA_LIBRARY' | translate"
           [matTooltipPosition]="sidebarDrawer.opened ? 'above' : 'right'"
           (click)="onSelectAssets()"
           [content]="{
@@ -107,7 +107,7 @@
         />
         @if (builder.themeMode | async; as mode) {
           <app-btn
-            [matTooltip]="mode === 'light' ? '切换暗黑风格' : '切换浅色风格'"
+            [matTooltip]="(mode === 'light' ? 'BUILDER.SIDEBAR.TOGGLE_DARK' : 'BUILDER.SIDEBAR.TOGGLE_LIGHT') | translate"
             [matTooltipPosition]="sidebarDrawer.opened ? 'above' : 'right'"
             (click)="onToggleBuilderTheme(mode)"
             [content]="{
@@ -129,11 +129,11 @@
           <div class="wrapper" (click)="onToggle()">
             @if (sidebarDrawer.opened) {
               <app-icon [content]="{ svg: 'chevron-left' }">
-                <div class="text">收起</div>
+                <div class="text">{{ 'BUILDER.SIDEBAR.COLLAPSE' | translate }}</div>
               </app-icon>
             }
             @if (!sidebarDrawer.opened) {
-              <app-icon matTooltip="展开" [content]="{ svg: 'chevron-right' }" />
+              <app-icon [matTooltip]="'BUILDER.SIDEBAR.EXPAND' | translate" [content]="{ svg: 'chevron-right' }" />
             }
           </div>
         </div>

@@ -11,6 +11,7 @@ import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 import { cloneDeep, defaultsDeep, get } from 'lodash-es';
 
 @Component({
@@ -27,6 +28,7 @@ export class LayoutSettingComponent {
   private dialog = inject(MatDialog);
   private builder = inject(BuilderState);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
 
   onModelChange(value: any): void {
     const { path } = this.content;
@@ -65,14 +67,14 @@ export class LayoutSettingComponent {
 
   applyAosAllTopComponent(animate: any): void {
     const config: IDialog = {
-      title: '一键应用动画',
-      noLabel: '取消',
-      yesLabel: '确定应用',
+      title: this.translate.instant('BUILDER.LAYOUT_SETTING.APPLY_ALL_TITLE'),
+      noLabel: this.translate.instant('BUILDER.COMMON.CANCEL'),
+      yesLabel: this.translate.instant('BUILDER.COMMON.CONFIRM_APPLY'),
       inputData: {
         content: {
           type: 'text',
           fullWidth: true,
-          body: '将会把当前AOS的动画配置应用到页面最外层的所有一级组件，已有动画会被覆盖。',
+          body: this.translate.instant('BUILDER.LAYOUT_SETTING.APPLY_ALL_BODY'),
         },
       },
     };

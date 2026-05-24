@@ -13,7 +13,7 @@
     <div class="actions">
       <app-btn
         (click)="onCopy(component.content)"
-        [matTooltip]="'复制 JSON'"
+        [matTooltip]="'BUILDER.SHOWCASE.COPY_JSON' | translate"
         matTooltipPosition="above"
         [content]="{
           label: '',
@@ -24,7 +24,7 @@
       />
       <app-btn
         (click)="showCode(component)"
-        [matTooltip]="'查看 JSON'"
+        [matTooltip]="'BUILDER.SHOWCASE.VIEW_JSON' | translate"
         matTooltipPosition="above"
         [content]="{
           label: '',
@@ -35,7 +35,7 @@
       />
       <app-btn
         (click)="insert(component.content)"
-        [matTooltip]="'插入组件到编辑区'"
+        [matTooltip]="'BUILDER.SHOWCASE.INSERT' | translate"
         matTooltipPosition="above"
         [content]="{
           label: '',

@@ -7,7 +7,7 @@ export function getBuilder(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '布局',
+          label: 'BUILDER.FACTORY.BUILDER_LAYOUT_TAB',
         },
         fieldGroup: [
           ...getGridLayoutConfig(widget),
@@ -17,7 +17,7 @@ export function getBuilder(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.wrapperClass ?? '',
             props: {
-              label: 'Wrapper Classes',
+              label: 'BUILDER.FACTORY.WRAPPER_CLASSES',
             },
           },
           {
@@ -26,7 +26,7 @@ export function getBuilder(widget: any): FormlyFieldConfig {
             defaultValue: widget.spacer ?? 'md',
             className: 'w-2/5',
             props: {
-              label: '上下间距',
+              label: 'BUILDER.FACTORY.VERTICAL_GAP',
               options: getSpacerOptions,
             },
           },

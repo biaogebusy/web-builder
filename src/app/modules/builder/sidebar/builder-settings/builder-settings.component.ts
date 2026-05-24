@@ -18,6 +18,7 @@ import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -40,10 +41,11 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
   private util = inject(UtilitiesService);
   private tagsService = inject(TagsService);
   private router = inject(Router);
+  private translate = inject(TranslateService);
 
   constructor() {
     super();
-    this.tagsService.setTitle('应用全局配置管理');
+    this.tagsService.setTitle(this.translate.instant('BUILDER.SETTINGS.PAGE_TITLE'));
   }
 
   ngOnInit(): void {
@@ -59,7 +61,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
     this.content$ = this.nodeService.fetch('/api/v2/node/core', params).pipe(
       catchError(error => {
         if (error.status === 404) {
-          this.util.openSnackbar('请检查API是否已配置！', 'ok');
+          this.util.openSnackbar(this.translate.instant('BUILDER.SETTINGS.CHECK_API'), 'ok');
         }
         return of({
           rows: [],

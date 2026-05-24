@@ -14,6 +14,7 @@ import { TagsService } from '@core/service/tags.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { throttle } from 'lodash-es';
@@ -31,10 +32,15 @@ export class PreviewComponent implements OnInit {
   private builder = inject(BuilderState);
   private tagsService = inject(TagsService);
   private util = inject(UtilitiesService);
+  private translate = inject(TranslateService);
   private doc = inject<Document>(DOCUMENT);
 
   constructor() {
-    this.tagsService.setTitle(`${this.builder.currentPage.title}草稿预览`);
+    this.tagsService.setTitle(
+      this.translate.instant('BUILDER.PREVIEW.DRAFT_TITLE_SUFFIX', {
+        title: this.builder.currentPage.title,
+      })
+    );
     afterEveryRender({
       read: throttle(() => {
         this.util.intersectionObserver('[data-aos]', this.doc);

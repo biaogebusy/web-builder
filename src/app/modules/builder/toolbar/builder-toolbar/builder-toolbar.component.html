@@ -17,7 +17,7 @@
                   {{ page.title }}
                 </div>
                 @if (!page.uuid) {
-                  - 未发布
+                  - {{ 'BUILDER.COMMON.UNPUBLISHED' | translate }}
                 }
                 <app-icon [content]="{ svg: 'pencil-outline' }" />
               </div>
@@ -25,7 +25,7 @@
                 <div class="time">{{ date() | date: 'YYYY-MM-dd HH:mm' }}</div>
               }
             } @else {
-              <div class="page-title">欢迎页</div>
+              <div class="page-title">{{ 'BUILDER.TOOLBAR.WELCOME_PAGE' | translate }}</div>
             }
           </div>
           <button aria-label="dropdown menu" mat-icon-button [mat-menu-trigger-for]="menu">
@@ -46,13 +46,13 @@
             <button mat-menu-item (click)="onClearHistory()">
               <div class="flex items-center">
                 <app-icon [content]="{ svg: 'delete-empty-outline', color: 'warn' }" />
-                <span matListItemTitle>清空草稿</span>
+                <span matListItemTitle>{{ 'BUILDER.COMMON.CLEAR_DRAFT' | translate }}</span>
               </div>
             </button>
             <button mat-menu-item (click)="onNewPage()">
               <div class="flex items-center">
                 <app-icon [content]="{ svg: 'pencil-plus', color: 'primary' }" />
-                <span matListItemTitle>新建草稿</span>
+                <span matListItemTitle>{{ 'BUILDER.COMMON.NEW_DRAFT' | translate }}</span>
               </div>
             </button>
           </mat-menu>
@@ -66,14 +66,14 @@
         <mat-slide-toggle
           [checked]="isFullScreen"
           (change)="onFullScreen($event)"
-          [matTooltip]="isFullScreen ? '显示边栏' : '切换全宽'"
+          [matTooltip]="(isFullScreen ? 'BUILDER.TOOLBAR.SHOW_SIDEBAR' : 'BUILDER.TOOLBAR.TOGGLE_FULL_WIDTH') | translate"
         />
         @if (page) {
           <app-btn
             class="submit-btn"
             (click)="onSubmit(page)"
             [content]="{
-              label: page.translation ? '提交翻译' : page.uuid ? '提交更新' : '提交草稿',
+              label: (page.translation ? 'BUILDER.TOOLBAR.SUBMIT_TRANSLATION' : page.uuid ? 'BUILDER.TOOLBAR.SUBMIT_UPDATE' : 'BUILDER.TOOLBAR.SUBMIT_DRAFT') | translate,
               color: 'primary',
               mode: 'raised',
               icon: {

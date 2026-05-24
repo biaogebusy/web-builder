@@ -25,6 +25,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { cloneDeep } from 'lodash-es';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { TranslateService } from '@ngx-translate/core';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
 
 interface ISearchHit {
@@ -78,6 +79,7 @@ export class WidgetPickerComponent implements OnInit {
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private storage = inject(LocalStorageService);
+  private translate = inject(TranslateService);
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   private widgetPopper?: PopperInstance;
@@ -205,7 +207,10 @@ export class WidgetPickerComponent implements OnInit {
 
   onSelect(widget: any): void {
     if (!this.content) {
-      this.util.openSnackbar('请先选择插入组件的位置', 'ok');
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.WIDGET_PICKER.SELECT_POSITION_FIRST'),
+        'ok'
+      );
       return;
     }
     const { addType, path, content } = this.content;
