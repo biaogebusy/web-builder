@@ -80,23 +80,33 @@ export function registerTranslateExtension(translate: TranslateService): ConfigO
         extension: {
           prePopulate(field: FormlyFieldConfig) {
             const props = field.props as any;
-            if (!props || props._translated) {
-              return;
-            }
-            props._translated = true;
-            for (const key of TRANSLATABLE_PROPS) {
-              const value = props[key];
-              if (typeof value === 'string' && TRANSLATION_KEY_RE.test(value)) {
-                props[key] = translate.instant(value);
+            if (props && !props._translated) {
+              props._translated = true;
+              for (const key of TRANSLATABLE_PROPS) {
+                const value = props[key];
+                if (typeof value === 'string' && TRANSLATION_KEY_RE.test(value)) {
+                  props[key] = translate.instant(value);
+                }
+              }
+              if (Array.isArray(props.options)) {
+                props.options = props.options.map((opt: any) => {
+                  if (opt && typeof opt.label === 'string' && TRANSLATION_KEY_RE.test(opt.label)) {
+                    return { ...opt, label: translate.instant(opt.label) };
+                  }
+                  return opt;
+                });
               }
             }
-            if (Array.isArray(props.options)) {
-              props.options = props.options.map((opt: any) => {
-                if (opt && typeof opt.label === 'string' && TRANSLATION_KEY_RE.test(opt.label)) {
-                  return { ...opt, label: translate.instant(opt.label) };
+            const messages = (field as any).validation?.messages;
+            if (messages && !messages._translated) {
+              messages._translated = true;
+              for (const key of Object.keys(messages)) {
+                if (key === '_translated') continue;
+                const value = messages[key];
+                if (typeof value === 'string' && TRANSLATION_KEY_RE.test(value)) {
+                  messages[key] = () => translate.instant(value);
                 }
-                return opt;
-              });
+              }
             }
           },
         },
