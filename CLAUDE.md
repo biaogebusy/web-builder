@@ -71,6 +71,7 @@ Angular SSR is configured with `@angular/ssr`. Entry point: `src/server.ts`. The
 - SCSS with TailwindCSS. Theme SCSS files are in `src/theme/` (included via `stylePreprocessorOptions`).
 - Angular Material theming with multiple switchable themes (stored in localStorage).
 - Components use SCSS files co-located with their `.ts` files.
+- **Prefer TailwindCSS `@apply` in component SCSS for layout, spacing, sizing, flex/grid, and typography utilities** — instead of hand-writing equivalent CSS properties. Example: `@apply flex justify-center items-center gap-3 p-3;` rather than `display: flex; justify-content: center; ...`. This keeps styles consistent with Tailwind's design tokens and matches the established pattern across the codebase (235+ usages). Reserve raw CSS for things Tailwind can't express cleanly (complex selectors, `::ng-deep` overrides, keyframes, Material system variables for colors/borders).
 - **Use Material system variables (`var(--mat-sys-*)`) for color/border in component styles by default** — avoid hardcoded hex/rgb values unless there is a special reason (e.g., third-party widget needs a fixed contrast). System tokens auto-adapt across themes.
   - Default theme: `src/theme/theme-config/_blue-colors.scss` (light, primary `#0049db`)
   - Dark theme: `src/theme/theme-config/_dark-colors.scss` (dark)
