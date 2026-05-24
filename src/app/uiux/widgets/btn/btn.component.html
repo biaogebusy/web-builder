@@ -9,6 +9,7 @@
             [disabled]="content.disabled"
             mat-raised-button
             [color]="content.color"
+            (click)="onClick($event)"
           >
             @if (content.icon && content.icon.svg) {
               <app-icon
@@ -47,6 +48,7 @@
             [disabled]="content.disabled"
             mat-stroked-button
             [color]="content.color"
+            (click)="onClick($event)"
           >
             @if (content.icon && content.icon.svg) {
               <app-icon
@@ -85,6 +87,7 @@
             [disabled]="content.disabled"
             mat-flat-button
             [color]="content.color"
+            (click)="onClick($event)"
           >
             @if (content.icon && content.icon.svg) {
               <app-icon
@@ -122,6 +125,7 @@
             [disabled]="content.disabled"
             mat-icon-button
             [color]="content.color"
+            (click)="onClick($event)"
           >
             @if (content.icon) {
               <app-icon
@@ -153,6 +157,7 @@
             [disabled]="content.disabled"
             mat-fab
             [color]="content.color"
+            (click)="onClick($event)"
           >
             <app-icon [content]="content.icon" />
           </button>
@@ -165,6 +170,7 @@
             [disabled]="content.disabled"
             mat-mini-fab
             [color]="content.color"
+            (click)="onClick($event)"
           >
             <app-icon [content]="content.icon" />
           </button>
@@ -177,6 +183,7 @@
             [disabled]="content.disabled"
             mat-button
             [color]="content.color"
+            (click)="onClick($event)"
           >
             @if (content.icon && content.icon.svg) {
               <app-icon
