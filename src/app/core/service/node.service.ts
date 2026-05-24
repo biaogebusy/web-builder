@@ -340,10 +340,12 @@ export class NodeService extends ApiService {
         // 使用 switchMap 来执行后续操作
         switchMap((res: any) => {
           const {
-            data: { attributes },
+            data: { id, attributes },
           } = res;
 
-          return this.createMediaImage(res.data).pipe(map(() => attributes as IMediaAttr));
+          return this.createMediaImage(res.data).pipe(
+            map(() => ({ ...attributes, uuid: id }) as IMediaAttr)
+          );
         }),
         catchError(error => {
           console.error('Upload image failed:', error);
