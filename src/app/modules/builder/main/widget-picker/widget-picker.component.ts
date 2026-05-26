@@ -45,6 +45,7 @@ export class WidgetPickerComponent implements OnInit {
   @Input() path: string;
 
   @ViewChild('previewPopup', { static: false }) previewPopup: ElementRef;
+  @ViewChild('picker', { static: false }) pickerRoot: ElementRef;
 
   private readonly VIEWPORT_RATIO = 0.85;
   /** popup 内边距（左右/上下各 12px），用于尺寸计算 */
@@ -122,12 +123,28 @@ export class WidgetPickerComponent implements OnInit {
     this.destroyPreviewPopper();
     if (this.previewPopup?.nativeElement) {
       const popupEl: HTMLElement = this.previewPopup.nativeElement;
+      const pickerEl: HTMLElement | null = this.pickerRoot?.nativeElement ?? null;
+      // 用 card 作为 reference（与原实现一致，保证 popup 一定显示 + Popper 内部 reference rect 正确）。
+      // 通过自定义 modifier 把 popup 的 x 坐标钉到 picker 左外侧，
+      // 让左右两列卡片悬浮时 popup 横向位置一致，纵向仍跟随当前 hover 卡片。
       this.widgetPopper = createPopper(anchor, popupEl, {
         strategy: 'fixed',
         placement: 'left',
         modifiers: [
           { name: 'offset', options: { offset: [0, 12] } },
           { name: 'preventOverflow', options: { padding: 8 } },
+          {
+            name: 'pinXToPickerLeft',
+            enabled: !!pickerEl,
+            phase: 'main',
+            requires: ['popperOffsets'],
+            fn: ({ state }) => {
+              if (!pickerEl || !state.modifiersData.popperOffsets) return;
+              const pickerLeft = pickerEl.getBoundingClientRect().left;
+              const popperWidth = state.rects.popper.width;
+              state.modifiersData.popperOffsets.x = pickerLeft - popperWidth - 12;
+            },
+          },
         ],
       });
       this.widgetPopper.update();

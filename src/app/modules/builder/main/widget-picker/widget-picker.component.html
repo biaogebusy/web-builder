@@ -3,7 +3,7 @@
 @let group = selectedGroup();
 @let query = searchQuery();
 @let hits = searchResults();
-<div class="widget-picker">
+<div class="widget-picker" #picker>
   @if (group) {
     <div class="picker-header">
       <button
@@ -33,17 +33,17 @@
             (focus)="onHoverWidget(item, card)"
             (blur)="onLeaveWidget()"
           >
-            <div class="widget-info">
-              <div class="widget-title">{{ item.label }}</div>
-              @if (item.mark) {
-                <div class="widget-description">{{ item.mark }}</div>
-              }
-            </div>
             <div class="widget-preview" aria-hidden="true">
               @if (item.preview) {
                 <img [src]="item.preview" alt="" />
               } @else if (item.icon) {
                 <app-icon [content]="{ svg: item.icon }" />
+              }
+            </div>
+            <div class="widget-info">
+              <div class="widget-title">{{ item.label }}</div>
+              @if (item.mark) {
+                <div class="widget-description" [title]="item.mark">{{ item.mark }}</div>
               }
             </div>
           </button>
@@ -96,20 +96,18 @@
               (focus)="onHoverWidget(hit.item, card)"
               (blur)="onLeaveWidget()"
             >
-              <div class="widget-info">
-                <div class="widget-title">{{ hit.item.label }}</div>
-                <div class="widget-description">
-                  <span class="widget-group-tag">{{ hit.group.label }}</span>
-                  @if (hit.item.mark) {
-                    <span class="widget-mark">{{ hit.item.mark }}</span>
-                  }
-                </div>
-              </div>
               <div class="widget-preview" aria-hidden="true">
                 @if (hit.item.preview) {
                   <img [src]="hit.item.preview" alt="" />
                 } @else if (hit.item.icon) {
                   <app-icon [content]="{ svg: hit.item.icon }" />
+                }
+                <span class="widget-group-badge">{{ hit.group.label }}</span>
+              </div>
+              <div class="widget-info">
+                <div class="widget-title">{{ hit.item.label }}</div>
+                @if (hit.item.mark) {
+                  <div class="widget-description" [title]="hit.item.mark">{{ hit.item.mark }}</div>
                 }
               </div>
             </button>
