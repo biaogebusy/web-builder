@@ -17,8 +17,7 @@ import zhHans from '@angular/common/locales/zh-Hans';
 import {
   provideHttpClient,
   withFetch,
-  withInterceptorsFromDi,
-  HTTP_INTERCEPTORS,
+  withInterceptors,
 } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
@@ -45,7 +44,8 @@ import {
 } from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
 import { CookieService } from 'ngx-cookie-service';
-import { AuthInterceptor } from '@core/interceptor/auth.interceptor';
+import { authInterceptor } from '@core/interceptor/auth.interceptor';
+import { ssrTimeoutInterceptor } from '@core/interceptor/ssr-timeout.interceptor';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from 'src/environments/environment';
@@ -91,7 +91,7 @@ import { environment } from 'src/environments/environment';
         },
       })
     ),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor, ssrTimeoutInterceptor])),
     provideZonelessChangeDetection(),
     provideNgxWebstorage(
       withNgxWebstorageConfig({ separator: ':', caseSensitive: true }),
@@ -134,13 +134,6 @@ import { environment } from 'src/environments/environment';
       provide: NOTIFY_CONTENT,
       useFactory: notifyFactory,
       deps: [[new Inject(CORE_CONFIG)]],
-    },
-
-    provideHttpClient(withInterceptorsFromDi()),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
     },
   ],
 })
