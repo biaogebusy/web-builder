@@ -17,6 +17,7 @@ import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { getPageParams } from '@core/util/builder-page.util';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
@@ -91,7 +92,7 @@ export class BuilderSettingsComponent extends BaseComponent implements OnInit {
     this.builderService.openPageSetting(
       { uuid: page.uuid, langcode: page.langcode },
       '/api/v1/node/json',
-      this.builderService.getPageParams(['uid'])
+      getPageParams(['uid'])
     );
   }
 

@@ -24,6 +24,7 @@ import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE, USER } from '@core/token/token-providers';
+import { formatToExtraData, getPageParams } from '@core/util/builder-page.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { TranslateService } from '@ngx-translate/core';
@@ -262,7 +263,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
     this.builderService.openPageSetting(
       page,
       '/api/v1/node/landing_page',
-      this.builderService.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+      getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
     );
   }
 
@@ -289,7 +290,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
             this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', { label: page.label }),
             'ok'
           );
-          this.builder.loadNewPage(this.builderService.formatToExtraData(page));
+          this.builder.loadNewPage(formatToExtraData(page));
         } else {
           // 复制一份，新建翻译
           this.util.openSnackbar(
@@ -300,7 +301,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
             'ok'
           );
           this.builder.loadNewPage(
-            this.builderService.formatToExtraData({
+            formatToExtraData({
               langcode: currentPage.langcode,
               ...page,
               translation: true,

@@ -2,14 +2,13 @@ import { DestroyRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import { BUILDER_CONFIG } from '@core/token/token-providers';
-import type { IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
+import type { IPage } from '@core/interface/IAppConfig';
 import { Observable, of } from 'rxjs';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
 import { catchError, take, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { ContentService } from './content.service';
@@ -17,6 +16,13 @@ import { isArray } from 'lodash-es';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { IDialog } from '@core/interface/IDialog';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import {
+  coverExtraData,
+  formatPage,
+  formatToExtraData,
+  getApiLang,
+  getPageParams,
+} from '@core/util/builder-page.util';
 
 @Injectable({
   providedIn: 'root',
@@ -39,40 +45,20 @@ export class BuilderService extends ApiService {
     });
   }
 
-  getApiLang(langcode?: string): string {
-    const { langs } = environment;
-    let lang = '';
-    if (langs && langcode && langs.length > 0) {
-      const defaultLang = langs.find(item => item.default === true);
-      lang = defaultLang?.langCode === langcode ? '' : langcode;
-    }
-
-    return lang;
-  }
-
-  getPageParams(include: string[]): string {
-    const apiParams = new DrupalJsonApiParams();
-    apiParams.addCustomParam({ noCache: true });
-    apiParams.addInclude(include);
-    const params = apiParams.getQueryString();
-
-    return params;
-  }
-
   loadPage(
     page: { langcode?: string; nid: string; isTemplate?: boolean },
     openSetting = false
   ): void {
     const { langcode, nid, isTemplate } = page;
-    const lang = this.getApiLang(langcode);
+    const lang = getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
       .pipe(take(1))
       .subscribe((content: IPage) => {
-        const { body, status, uuid, title } = content;
+        const { body, status, uuid } = content;
         this.builder.loading$.next(false);
         if (status) {
-          this.builder.loadNewPage(this.formatToExtraData(content, isTemplate));
+          this.builder.loadNewPage(formatToExtraData(content, isTemplate));
           if (isTemplate) {
             this.util.openSnackbar(`已复制${content.title}`, 'ok');
           } else {
@@ -104,7 +90,7 @@ export class BuilderService extends ApiService {
                   this.openPageSetting(
                     { uuid, langcode },
                     '/api/v1/node/landing_page',
-                    this.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+                    getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
                   );
                 }
               });
@@ -121,7 +107,7 @@ export class BuilderService extends ApiService {
 
   loadPageJSON(page: { langcode?: string; nid: string }): void {
     const { langcode, nid } = page;
-    const lang = this.getApiLang(langcode);
+    const lang = getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
       .pipe(take(1))
@@ -130,7 +116,7 @@ export class BuilderService extends ApiService {
         if (status) {
           const jsonWidget: IJsoneditor = {
             type: 'jsoneditor',
-            data: this.formatToExtraData(content),
+            data: formatToExtraData(content),
             classes: 'full-height',
             isSetting: true,
             schemaType: 'page',
@@ -168,7 +154,7 @@ export class BuilderService extends ApiService {
     }
     const { langcode, nid, changed, uuid, title } = checkPage;
     if (nid && changed && uuid) {
-      const lang = this.getApiLang(langcode);
+      const lang = getApiLang(langcode);
       this.nodeService
         .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
         .pipe(take(1))
@@ -197,7 +183,7 @@ export class BuilderService extends ApiService {
               .pipe(take(1))
               .subscribe(result => {
                 if (result) {
-                  this.builder.loadNewPage(this.formatToExtraData(page));
+                  this.builder.loadNewPage(formatToExtraData(page));
                 }
               });
           }
@@ -208,7 +194,7 @@ export class BuilderService extends ApiService {
   loadNodeJson(page: { langcode?: string; nid: string; uuid: string; schemaType: string }): void {
     this.builder.loading$.next(true);
     const { langcode, nid, uuid, schemaType } = page;
-    const lang = this.getApiLang(langcode);
+    const lang = getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', lang)
       .pipe(take(1))
@@ -254,7 +240,7 @@ export class BuilderService extends ApiService {
     } = this.builderConfig;
     this.builder.loading$.next(true);
     return this.http
-      .post(`${this.apiUrl}${create}`, this.formatPage(page), this.optionsWithBearerToken())
+      .post(`${this.apiUrl}${create}`, formatPage(page), this.optionsWithBearerToken())
       .pipe(
         tap((res: any) => {
           const {
@@ -280,7 +266,7 @@ export class BuilderService extends ApiService {
     const { langcode, nid } = page;
 
     let prefix = '';
-    const lang = this.getApiLang(langcode);
+    const lang = getApiLang(langcode);
     if (lang) {
       prefix = `/${lang}`;
     }
@@ -291,7 +277,7 @@ export class BuilderService extends ApiService {
     return this.http
       .patch(
         `${this.apiUrl}${prefix}${update}/${nid}`,
-        this.coverExtraData(page),
+        coverExtraData(page),
         this.optionsWithBearerToken()
       )
       .pipe(
@@ -348,7 +334,7 @@ export class BuilderService extends ApiService {
     } = this.builderConfig;
     return this.http.post(
       `${this.apiUrl}${translate}/add/${nid}/${langcode}/${target}`,
-      this.formatPage(page),
+      formatPage(page),
       this.optionsWithBearerToken()
     );
   }
@@ -363,7 +349,7 @@ export class BuilderService extends ApiService {
     let prefix = '';
     const arr = api.split('/');
     const type = `${arr[arr.length - 2]}--${arr[arr.length - 1]}`;
-    const lang = this.getApiLang(langcode);
+    const lang = getApiLang(langcode);
     if (lang) {
       prefix = `/${lang}`;
     }
@@ -402,18 +388,6 @@ export class BuilderService extends ApiService {
       );
   }
 
-  getAttrAlias(attr: any): string {
-    const {
-      drupal_internal__nid,
-      langcode,
-      path: { alias },
-    } = attr;
-
-    const lang = this.getApiLang(langcode);
-    const url = alias ? `${lang}${alias}` : `${lang}/node/${drupal_internal__nid}`;
-    return lang ? `/${url}` : url;
-  }
-
   updateUrlalias(
     page: { langcode?: string; id: string; path: any },
     alias: string
@@ -444,7 +418,7 @@ export class BuilderService extends ApiService {
       };
 
       let prefix = '';
-      const lang = this.getApiLang(langcode);
+      const lang = getApiLang(langcode);
       if (lang) {
         prefix = `/${lang}`;
       }
@@ -531,22 +505,9 @@ export class BuilderService extends ApiService {
     });
   }
 
-  formatPage(page: IPage): IPageForJSONAPI {
-    const currentPage: IPage = { ...page };
-    currentPage.body = page.body.map(item => {
-      return {
-        type: 'json',
-        attributes: {
-          body: item,
-        },
-      };
-    });
-    return currentPage;
-  }
-
   openPageSetting(page: { uuid: string; langcode?: string }, api: string, params: string): void {
     const { uuid, langcode } = page;
-    const lang = this.getApiLang(langcode);
+    const lang = getApiLang(langcode);
     this.nodeService
       .fetch(`${api}/${uuid}`, params, lang)
       .pipe(
@@ -580,65 +541,6 @@ export class BuilderService extends ApiService {
       });
   }
 
-  coverExtraData(page: IPage): any {
-    const currentPage: IPage = { ...page };
-    currentPage.label = page.title;
-    currentPage.body = page.body.map(item => {
-      if (item.extra) {
-        // 修改已有组件
-        const { uuid, id, type } = item.extra;
-        return {
-          uuid,
-          id,
-          type,
-          attributes: {
-            body: item,
-          },
-        };
-      } else {
-        // 新增组件
-        return {
-          type: 'json',
-          attributes: {
-            body: item,
-          },
-        };
-      }
-    });
-
-    return currentPage;
-  }
-
-  formatToExtraData(page: IPage, isTemplate?: boolean): IPage {
-    if (isTemplate) {
-      return {
-        title: this.getTitle(page.title),
-        current: true,
-        time: new Date(),
-        body: this.initExtraBody(page.body, true),
-      };
-    } else {
-      return {
-        ...page,
-        title: this.getTitle(page.title),
-        body: this.initExtraBody(page.body),
-      };
-    }
-  }
-
-  getTitle(title: string): string {
-    // api respone title with site name, need remove;
-    const index = title.indexOf('|');
-    let pageTitle = '';
-    if (index !== -1) {
-      pageTitle = title.substring(0, index).trim();
-    } else {
-      pageTitle = title;
-    }
-
-    return pageTitle;
-  }
-
   addBlock(addType: string, content: any, path: string): void {
     this.builder.rightContent$.next({
       title: '选择组件',
@@ -657,62 +559,5 @@ export class BuilderService extends ApiService {
         },
       ],
     });
-  }
-
-  initExtraBody(body: any[], isTemplate?: boolean): any[] {
-    let components = [];
-    if (body.length) {
-      components = body.map(item => {
-        if (isTemplate) {
-          delete item.attributes.body.extra;
-          return {
-            ...item.attributes.body,
-          };
-        } else {
-          return {
-            extra: {
-              uuid: item.uuid,
-              id: item.id,
-              type: item.type,
-            },
-            ...item.attributes.body,
-          };
-        }
-      });
-    } else {
-      components = [
-        {
-          type: 'text',
-          title: {
-            label:
-              '<p style="display: inline-block; margin-bottom: 0px;">使用开源 <strong class="text-primary">Web Builder</strong> 快速构建页面</p>',
-            style: 'style-v1',
-            classes: 'mat-headline-3 bold',
-          },
-          bg: {
-            classes: '',
-          },
-          body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
-          classes: 'text-center',
-          actionsAlign: 'center',
-          actions: [
-            {
-              type: 'btn',
-              color: 'primary',
-              mode: 'stroked',
-              label: '演示视频',
-              href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
-              target: '_blank',
-              icon: {
-                inline: true,
-                svg: 'play-circle-outline',
-              },
-            },
-          ],
-        },
-      ];
-    }
-
-    return components;
   }
 }

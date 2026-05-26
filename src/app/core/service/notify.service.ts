@@ -5,7 +5,7 @@ import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { forkJoin, Observable, of } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import type { IUser } from '@core/interface/IUser';
-import { UserService } from '@core/service/user.service';
+import { isMatchCurrentRole } from '@core/util/auth-token.util';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,6 @@ export class NotifyService {
   private destroyRef = inject(DestroyRef);
 
   private nodeService = inject(NodeService);
-  private userService = inject(UserService);
   private user: IUser;
 
   constructor() {
@@ -36,7 +35,7 @@ export class NotifyService {
       if (!api.reqRoles || api.reqRoles.length === 0) {
         return true;
       }
-      return this.userService.isMatchCurrentRole(api.reqRoles || [], this.user.current_user.roles);
+      return isMatchCurrentRole(api.reqRoles || [], this.user.current_user.roles);
     });
     if (finalList && finalList?.length > 0) {
       finalList.forEach((list: any, index: number) => {

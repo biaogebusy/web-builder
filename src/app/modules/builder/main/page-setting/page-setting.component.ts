@@ -23,6 +23,7 @@ import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
+import { getAttrAlias } from '@core/util/builder-page.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -88,7 +89,7 @@ export class PageSettingComponent implements OnInit {
         this.getCommonField('title', title.trim()),
         this.getCommonField(
           'alias',
-          this.builderService.getAttrAlias({
+          getAttrAlias({
             drupal_internal__nid,
             path,
             langcode,
