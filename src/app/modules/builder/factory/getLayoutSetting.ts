@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { tap } from 'rxjs/operators';
 import { getAnimate } from './getAnimate';
 import { getBgClasses, getGridLayoutConfig, getOverlay } from './getCommon';
 
@@ -93,13 +94,15 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             hooks: {
               onInit: (formGroup: any) => {
                 const { form } = formGroup;
-                form.valueChanges.subscribe((value: any) => {
-                  const srcArr = value.src.split(/\/|(?=\.\w+$)/);
-                  form.get('alt').patchValue(srcArr[srcArr.length - 2], {
-                    onlySelf: true,
-                    emitEvent: true,
-                  });
-                });
+                return form.valueChanges.pipe(
+                  tap((value: any) => {
+                    const srcArr = value.src.split(/\/|(?=\.\w+$)/);
+                    form.get('alt').patchValue(srcArr[srcArr.length - 2], {
+                      onlySelf: true,
+                      emitEvent: true,
+                    });
+                  })
+                );
               },
             },
           },

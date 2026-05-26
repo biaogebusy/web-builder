@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { DestroyRef, Injectable, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from './api.service';
 import { BUILDER_CONFIG } from '@core/token/token-providers';
 import type { IPage, IPageForJSONAPI } from '@core/interface/IAppConfig';
@@ -6,7 +7,7 @@ import { Observable, of } from 'rxjs';
 import { UtilitiesService } from './utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { NodeService } from './node.service';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, take, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { MatDialog } from '@angular/material/dialog';
@@ -28,11 +29,12 @@ export class BuilderService extends ApiService {
   private util = inject(UtilitiesService);
   private nodeService = inject(NodeService);
   private contentService = inject(ContentService);
+  private destroyRef = inject(DestroyRef);
   private builderConfig: IBuilderConfig;
 
   constructor() {
     super();
-    this.builderConfig$.subscribe(config => {
+    this.builderConfig$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => {
       this.builderConfig = config;
     });
   }
@@ -65,6 +67,7 @@ export class BuilderService extends ApiService {
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
+      .pipe(take(1))
       .subscribe((content: IPage) => {
         const { body, status, uuid, title } = content;
         this.builder.loading$.next(false);
@@ -93,15 +96,18 @@ export class BuilderService extends ApiService {
               data: config,
             });
 
-            dialogRef.afterClosed().subscribe(result => {
-              if (result && uuid) {
-                this.openPageSetting(
-                  { uuid, langcode },
-                  '/api/v1/node/landing_page',
-                  this.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
-                );
-              }
-            });
+            dialogRef
+              .afterClosed()
+              .pipe(take(1))
+              .subscribe(result => {
+                if (result && uuid) {
+                  this.openPageSetting(
+                    { uuid, langcode },
+                    '/api/v1/node/landing_page',
+                    this.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+                  );
+                }
+              });
           }
 
           if (body.length === 0) {
@@ -118,6 +124,7 @@ export class BuilderService extends ApiService {
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
+      .pipe(take(1))
       .subscribe((content: IPage) => {
         const { status, uuid } = content;
         if (status) {
@@ -164,6 +171,7 @@ export class BuilderService extends ApiService {
       const lang = this.getApiLang(langcode);
       this.nodeService
         .fetch(`/api/v3/landingPage/json/${nid}`, 'noCache=1', lang)
+        .pipe(take(1))
         .subscribe((page: IPage) => {
           if (Number(changed) < Number(page.changed)) {
             const config: IDialog = {
@@ -184,11 +192,14 @@ export class BuilderService extends ApiService {
               data: config,
             });
 
-            dialogRef.afterClosed().subscribe(result => {
-              if (result) {
-                this.builder.loadNewPage(this.formatToExtraData(page));
-              }
-            });
+            dialogRef
+              .afterClosed()
+              .pipe(take(1))
+              .subscribe(result => {
+                if (result) {
+                  this.builder.loadNewPage(this.formatToExtraData(page));
+                }
+              });
           }
         });
     }
@@ -200,6 +211,7 @@ export class BuilderService extends ApiService {
     const lang = this.getApiLang(langcode);
     this.nodeService
       .fetch(`/api/v3/landingPage?content=/node/${nid}`, 'noCache=1', lang)
+      .pipe(take(1))
       .subscribe((newPage: IPage) => {
         const jsonWidget: IJsoneditor = {
           type: 'jsoneditor',
@@ -457,7 +469,8 @@ export class BuilderService extends ApiService {
           .pipe(
             catchError(error => {
               return of(handleError(error));
-            })
+            }),
+            take(1)
           )
           .subscribe((res: any) => {
             if (!res || !res.data || !res.data.length) {
@@ -481,7 +494,8 @@ export class BuilderService extends ApiService {
               .pipe(
                 catchError(error => {
                   return of(handleError(error));
-                })
+                }),
+                take(1)
               )
               .subscribe(status => {
                 if (status) {
@@ -503,7 +517,8 @@ export class BuilderService extends ApiService {
           .pipe(
             catchError(error => {
               return of(handleError(error));
-            })
+            }),
+            take(1)
           )
           .subscribe(res => {
             if (res) {
@@ -539,7 +554,8 @@ export class BuilderService extends ApiService {
           const { statusText } = error;
           this.util.openSnackbar(statusText, 'ok');
           return of(false);
-        })
+        }),
+        take(1)
       )
       .subscribe(res => {
         if (res) {

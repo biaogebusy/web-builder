@@ -122,20 +122,23 @@ export class BuilderState {
         panelClass: ['close-outside', 'close-icon-white'],
         data: config,
       });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.version = [
-            {
-              title: '未命名',
-              body: [],
-              current: true,
-              time: new Date().toLocaleString(),
-            },
-          ];
-          this.closeRightDrawer$.next(true);
-          this.saveLocalVersions();
-        }
-      });
+      dialogRef
+        .afterClosed()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(result => {
+          if (result) {
+            this.version = [
+              {
+                title: '未命名',
+                body: [],
+                current: true,
+                time: new Date().toLocaleString(),
+              },
+            ];
+            this.closeRightDrawer$.next(true);
+            this.saveLocalVersions();
+          }
+        });
     });
   }
 

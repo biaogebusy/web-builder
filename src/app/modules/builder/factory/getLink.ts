@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { tap } from 'rxjs/operators';
 
 export function getLink(widget: any): FormlyFieldConfig {
   const fields = {
@@ -62,15 +63,17 @@ export function getLink(widget: any): FormlyFieldConfig {
             hooks: {
               onInit: (formGroup: any) => {
                 const { form, model } = formGroup;
-                form.valueChanges.subscribe((value: any) => {
-                  console.log(value);
-                  const { isRel } = value;
-                  if (isRel) {
-                    model.rel = 'drawer';
-                  } else {
-                    model.rel = '';
-                  }
-                });
+                return form.valueChanges.pipe(
+                  tap((value: any) => {
+                    console.log(value);
+                    const { isRel } = value;
+                    if (isRel) {
+                      model.rel = 'drawer';
+                    } else {
+                      model.rel = '';
+                    }
+                  })
+                );
               },
             },
           },

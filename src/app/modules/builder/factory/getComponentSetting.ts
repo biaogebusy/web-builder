@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { tap } from 'rxjs/operators';
 import { getSwiper } from './getSwiper';
 import { getTitle } from './getTitle';
 import { getText } from './getText';
@@ -177,13 +178,15 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     hooks: {
                       onInit: (formGroup: any) => {
                         const { form } = formGroup;
-                        form.valueChanges.subscribe((value: any) => {
-                          const srcArr = value.src.split(/\/|(?=\.\w+$)/);
-                          form.get('alt').patchValue(srcArr[srcArr.length - 2], {
-                            onlySelf: true,
-                            emitEvent: true,
-                          });
-                        });
+                        return form.valueChanges.pipe(
+                          tap((value: any) => {
+                            const srcArr = value.src.split(/\/|(?=\.\w+$)/);
+                            form.get('alt').patchValue(srcArr[srcArr.length - 2], {
+                              onlySelf: true,
+                              emitEvent: true,
+                            });
+                          })
+                        );
                       },
                     },
                   },

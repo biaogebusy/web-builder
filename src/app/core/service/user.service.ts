@@ -3,7 +3,7 @@ import { DOCUMENT, Injectable, PLATFORM_ID, REQUEST, inject } from '@angular/cor
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, of, Subject, firstValueFrom } from 'rxjs';
 import { ApiService } from './api.service';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { map, catchError, switchMap, take } from 'rxjs/operators';
 import { TokenUser, IUser, IUserProfile } from '../interface/IUser';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -238,9 +238,11 @@ export class UserService extends ApiService {
     const {
       current_user: { uid },
     } = data;
-    this.getCurrentUserById(uid, data).subscribe(user => {
-      this.loginUser(data, user);
-    });
+    this.getCurrentUserById(uid, data)
+      .pipe(take(1))
+      .subscribe(user => {
+        this.loginUser(data, user);
+      });
   }
 
   editingUser(user: IUser, data: any): any {

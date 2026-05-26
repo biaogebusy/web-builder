@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ContentState } from '@core/state/ContentState';
 import { ContentService } from './content.service';
@@ -88,10 +89,13 @@ export class RouteService {
         if (target.rel === 'drawer') {
           this.contentState.drawerOpened$.next(true);
           this.contentState.drawerLoading$.next(true);
-          this.contentService.loadPageContent(link).subscribe((content: IPage) => {
-            this.contentState.drawerContent$.next(content);
-            this.contentState.drawerLoading$.next(false);
-          });
+          this.contentService
+            .loadPageContent(link)
+            .pipe(take(1))
+            .subscribe((content: IPage) => {
+              this.contentState.drawerContent$.next(content);
+              this.contentState.drawerLoading$.next(false);
+            });
           event.preventDefault();
           return;
         }

@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { DestroyRef, Injectable, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
@@ -11,6 +12,7 @@ export class AnalyticsService {
   private isInitialized = false;
   private id = '';
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
 
   async initialize(id: string): Promise<void> {
     if (this.isInitialized || !id) {
@@ -45,9 +47,14 @@ export class AnalyticsService {
   }
 
   private trackPageViews(): void {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      this.sendPageView();
-    });
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
+        this.sendPageView();
+      });
   }
 
   sendPageView(): void {

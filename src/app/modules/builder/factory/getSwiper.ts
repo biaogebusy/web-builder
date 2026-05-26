@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { tap } from 'rxjs/operators';
 export function getSwiper(widget: any): FormlyFieldConfig {
   const fields = {
     key: 'swiper',
@@ -150,9 +151,11 @@ export function getSwiper(widget: any): FormlyFieldConfig {
         hooks: {
           onInit: (formGroup: any) => {
             const { form, model } = formGroup;
-            form.valueChanges.subscribe((value: any) => {
-              model.breakpoints = value.params.breakpoints;
-            });
+            return form.valueChanges.pipe(
+              tap((value: any) => {
+                model.breakpoints = value.params.breakpoints;
+              })
+            );
           },
         },
       },

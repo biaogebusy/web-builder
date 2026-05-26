@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { DestroyRef, Injectable, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { forkJoin, Observable, of } from 'rxjs';
@@ -12,13 +13,14 @@ import { UserService } from '@core/service/user.service';
 export class NotifyService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
+  private destroyRef = inject(DestroyRef);
 
   private nodeService = inject(NodeService);
   private userService = inject(UserService);
   private user: IUser;
 
   constructor() {
-    this.user$.subscribe(user => {
+    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.user = user;
     });
   }

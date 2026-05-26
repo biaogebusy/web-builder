@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { tap } from 'rxjs/operators';
 
 export function getAnimate(content: any): FormlyFieldConfig {
   const actionsOptions = [
@@ -496,21 +497,23 @@ export function getAnimate(content: any): FormlyFieldConfig {
         hooks: {
           onInit: (formGroup: FormlyFieldConfig) => {
             const { form } = formGroup;
-            form?.valueChanges.subscribe((value: any) => {
-              const {
-                animate: { aos, gsap },
-              } = value;
-              if (aos?.enable) {
-                form
-                  .get(['animate', 'gsap', 'enable'])
-                  ?.patchValue(false, { onlySelf: true, emitEvent: true });
-              }
-              if (gsap?.enable) {
-                form
-                  .get(['animate', 'aos', 'enable'])
-                  ?.patchValue(false, { onlySelf: true, emitEvent: true });
-              }
-            });
+            return form!.valueChanges.pipe(
+              tap((value: any) => {
+                const {
+                  animate: { aos, gsap },
+                } = value;
+                if (aos?.enable) {
+                  form
+                    ?.get(['animate', 'gsap', 'enable'])
+                    ?.patchValue(false, { onlySelf: true, emitEvent: true });
+                }
+                if (gsap?.enable) {
+                  form
+                    ?.get(['animate', 'aos', 'enable'])
+                    ?.patchValue(false, { onlySelf: true, emitEvent: true });
+                }
+              })
+            );
           },
         },
       },
