@@ -3,10 +3,10 @@ import {
   Component,
   DestroyRef,
   OnInit,
-  Input,
   inject,
   ChangeDetectionStrategy,
   signal,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -50,7 +50,7 @@ import { AccordionMenuComponent } from '../../accordion-menu/accordion-menu.comp
   ],
 })
 export class MenuComponent implements OnInit {
-  @Input() isDrawer: boolean;
+  readonly isDrawer = input<boolean>();
   public coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public branding$ = inject<Observable<IBranding>>(BRANDING);
   public show = signal<boolean>(true);
@@ -59,7 +59,7 @@ export class MenuComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   constructor() {
     this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event: Event) => {
-      if (this.isDrawer && event instanceof NavigationStart) {
+      if (this.isDrawer() && event instanceof NavigationStart) {
         this.screen.toggleDrawer();
       }
     });

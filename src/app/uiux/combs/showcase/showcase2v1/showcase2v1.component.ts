@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, DestroyRef, Input, inject, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, DestroyRef, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IShowcase2v1 } from '@core/interface/combs/IShowcase';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -16,7 +16,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent, DynamicComponentComponent],
 })
 export class Showcase2v1Component extends BaseComponent implements AfterViewInit {
-  @Input() content: IShowcase2v1;
+  readonly content = input<IShowcase2v1>();
   elements: ICard1v1[];
   private nodeService = inject(NodeService);
   private cd = inject(ChangeDetectorRef);
@@ -24,8 +24,8 @@ export class Showcase2v1Component extends BaseComponent implements AfterViewInit
 
 
   ngAfterViewInit(): void {
-    const api = this.getParams(this.content, 'api');
-    const type = this.getParams(this.content, 'widget');
+    const api = this.getParams(this.content(), 'api');
+    const type = this.getParams(this.content(), 'widget');
     if (api) {
       this.nodeService
         .fetch(api, '')
@@ -114,7 +114,7 @@ export class Showcase2v1Component extends BaseComponent implements AfterViewInit
           }
         });
     } else {
-      this.elements = this.content.elements;
+      this.elements = this.content().elements;
       this.cd.detectChanges();
     }
   }

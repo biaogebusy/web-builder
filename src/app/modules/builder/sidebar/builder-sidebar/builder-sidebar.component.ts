@@ -1,4 +1,4 @@
-import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -24,8 +24,8 @@ export class BuilderSidebarComponent {
   public branding$ = inject<Observable<IBranding>>(BRANDING);
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
-  @Input() sidebarDrawer: MatDrawer;
-  @Input() drawerContentRef: any;
+  readonly sidebarDrawer = input<MatDrawer>();
+  readonly drawerContentRef = input<any>();
   public builder = inject(BuilderState);
   private dialog = inject(MatDialog);
   private manageService = inject(ManageService);
@@ -62,13 +62,14 @@ export class BuilderSidebarComponent {
   onToggle(): void {
     const {
       elementRef: { nativeElement },
-    } = this.drawerContentRef;
-    if (this.sidebarDrawer.opened) {
+    } = this.drawerContentRef();
+    const sidebarDrawer = this.sidebarDrawer();
+    if (sidebarDrawer.opened) {
       nativeElement.classList.remove('opened');
     } else {
       nativeElement.classList.add('opened');
     }
-    this.sidebarDrawer.toggle();
+    sidebarDrawer.toggle();
   }
 
   onHiddeRightDrawer(): void {

@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
@@ -14,7 +14,7 @@ import { IconComponent } from '@uiux/widgets/icon/icon.component';
   imports: [SafeHtmlPipe, IconComponent],
 })
 export class ArticleMetaComponent {
-  @Input() content: any;
+  readonly content = input<any>();
   constructor() {}
 
 }

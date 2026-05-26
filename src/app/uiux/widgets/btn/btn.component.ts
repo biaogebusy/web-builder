@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, inject, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
@@ -14,11 +14,11 @@ import { IconComponent } from '../icon/icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatButtonModule, IconComponent, ReqRolesDirective, ContenteditDirective, SafeHtmlPipe],
   host: {
-    '[class.disabled]': 'content?.disabled ?? false',
+    '[class.disabled]': 'content()?.disabled ?? false',
   },
 })
 export class BtnComponent {
-  @Input() content: IBtn;
+  readonly content = input<IBtn>();
   /**
    * 按钮点击输出。无论按钮是"无 href 纯按钮"还是"带 href 的导航按钮",
    * 都会先 emit 再走原有的 RouteService 导航逻辑,让消费者既能做 tracking

@@ -1,12 +1,12 @@
 @let branding = branding$ | async;
 @let config = builderConfig$ | async;
-<div class="builder-sidebar" [class]="sidebarDrawer.opened ? 'opened' : 'closed'">
+<div class="builder-sidebar" [class]="sidebarDrawer().opened ? 'opened' : 'closed'">
   @if (branding) {
     @let header = $any(branding).header;
     <a [routerLink]="[header?.logo?.href ?? '/home']" class="logo">
       @if (header?.logo?.img) {
         @let logo = header.logo;
-        @if (!sidebarDrawer.opened) {
+        @if (!sidebarDrawer().opened) {
           <img
             [src]="logo?.invert"
             [alt]="logo?.label"
@@ -30,8 +30,8 @@
     @if (config.menu) {
       <app-accordion-menu
         class="accordion-menu"
-        [class]="sidebarDrawer.opened ? '' : '!hidden'"
-        [hidden]="!sidebarDrawer.opened"
+        [class]="sidebarDrawer().opened ? '' : '!hidden'"
+        [hidden]="!sidebarDrawer().opened"
         [content]="config.menu"
       />
     }
@@ -47,7 +47,7 @@
     />
   }
 
-  <div class="icon-menu" [class]="sidebarDrawer.opened ? '!hidden' : ''">
+  <div class="icon-menu" [class]="sidebarDrawer().opened ? '!hidden' : ''">
     @if (config) {
       @for (item of config.menu; track item) {
         <div
@@ -97,7 +97,7 @@
       <div class="icon-actions-row">
         <app-btn
           [matTooltip]="'BUILDER.SIDEBAR.MEDIA_LIBRARY' | translate"
-          [matTooltipPosition]="sidebarDrawer.opened ? 'above' : 'right'"
+          [matTooltipPosition]="sidebarDrawer().opened ? 'above' : 'right'"
           (click)="onSelectAssets()"
           [content]="{
             label: '',
@@ -108,7 +108,7 @@
         @if (builder.themeMode | async; as mode) {
           <app-btn
             [matTooltip]="(mode === 'light' ? 'BUILDER.SIDEBAR.TOGGLE_DARK' : 'BUILDER.SIDEBAR.TOGGLE_LIGHT') | translate"
-            [matTooltipPosition]="sidebarDrawer.opened ? 'above' : 'right'"
+            [matTooltipPosition]="sidebarDrawer().opened ? 'above' : 'right'"
             (click)="onToggleBuilderTheme(mode)"
             [content]="{
               label: '',
@@ -121,18 +121,18 @@
         }
       </div>
       <mat-divider />
-      <div class="bottom-row" [class]="sidebarDrawer.opened ? 'flex-row' : 'flex-col'">
+      <div class="bottom-row" [class]="sidebarDrawer().opened ? 'flex-row' : 'flex-col'">
         @if ($any(branding).header?.params?.userInfo) {
           <app-user-menu />
         }
         <div class="toggle">
           <div class="wrapper" (click)="onToggle()">
-            @if (sidebarDrawer.opened) {
+            @if (sidebarDrawer().opened) {
               <app-icon [content]="{ svg: 'chevron-left' }">
                 <div class="text">{{ 'BUILDER.SIDEBAR.COLLAPSE' | translate }}</div>
               </app-icon>
             }
-            @if (!sidebarDrawer.opened) {
+            @if (!sidebarDrawer().opened) {
               <app-icon [matTooltip]="'BUILDER.SIDEBAR.EXPAND' | translate" [content]="{ svg: 'chevron-right' }" />
             }
           </div>

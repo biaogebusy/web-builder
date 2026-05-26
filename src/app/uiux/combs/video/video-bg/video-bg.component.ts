@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, ChangeDetectorRef, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import type { IVideoBg } from '@core/interface/combs/IVideoBg';
 import type { IVideo } from '@core/interface/widgets/IVideo';
 import { ScreenService } from '@core/service/screen.service';
@@ -13,8 +13,8 @@ import { VideoComponent } from '../video/video.component';
   imports: [BgComponent, VideoComponent, DynamicComponentComponent],
 })
 export class VideoBgComponent implements AfterViewInit {
-  @Input() content: IVideoBg;
-  @Input() options: any;
+  readonly content = input<IVideoBg>();
+  readonly options = input<any>();
   video: IVideo;
   private screenService = inject(ScreenService);
   private cd = inject(ChangeDetectorRef);
@@ -33,7 +33,7 @@ export class VideoBgComponent implements AfterViewInit {
           fill: true,
           sources: [
             {
-              ...this.content.source,
+              ...this.content().source,
             },
           ],
         },

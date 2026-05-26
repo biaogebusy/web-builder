@@ -1,8 +1,8 @@
-@if (content) {
+@if (content()) {
   <div class="tab-1v1">
-    @if (content.tab && pager) {
-      @if (content.text) {
-        <app-text [content]="content.text" />
+    @if (content().tab && pager) {
+      @if (content().text) {
+        <app-text [content]="content().text" />
       }
       <mat-tab-group
         [selectedIndex]="selectedIndex"

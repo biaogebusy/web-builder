@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, Input, inject, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,7 +35,7 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
   },
 })
 export class InverseComponent {
-  @Input() content: any;
+  readonly content = input<any>();
   public form: UntypedFormGroup = new UntypedFormGroup({});
   public submited = false;
 
@@ -50,7 +50,7 @@ export class InverseComponent {
     }
     this.submited = true;
     const data = this.formService.getwebFormData(
-      this.content.footerNewsletter.params,
+      this.content().footerNewsletter.params,
       this.form.value
     );
     this.formService

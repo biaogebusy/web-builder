@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ import { catchError, map } from 'rxjs/operators';
   imports: [ShareModule, WidgetsModule, MatPaginatorModule],
 })
 export class BuilderSettingsComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
+  readonly content = input<any>();
   public content$: Observable<any[]>;
   public loading: boolean;
   public pager: IPager;

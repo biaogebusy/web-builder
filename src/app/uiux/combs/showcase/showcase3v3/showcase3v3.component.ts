@@ -4,8 +4,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   inject,
+  input
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import type { IShowcase3v3 } from '@core/interface/combs/IShowcase';
@@ -32,7 +32,7 @@ import { NgPipesModule } from 'ngx-pipes';
 export class Showcase3v3Component implements AfterViewInit {
   private cd = inject(ChangeDetectorRef);
 
-  @Input() content: IShowcase3v3;
+  readonly content = input<IShowcase3v3>();
   isShow: boolean;
 
 
@@ -41,12 +41,13 @@ export class Showcase3v3Component implements AfterViewInit {
   }
 
   showImage(): void {
-    if (this.content?.showImage) {
+    const content = this.content();
+    if (content?.showImage) {
       this.isShow = true;
       this.cd.detectChanges();
       return;
     }
-    if (this.content?.showImage === undefined && this.content.feature) {
+    if (content?.showImage === undefined && content.feature) {
       this.isShow = true;
       this.cd.detectChanges();
       return;

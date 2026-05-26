@@ -1,6 +1,6 @@
-<div class="showcase-4v1" *reqRolesIf="content">
-  @if (content.text) {
-    <app-text [attr.data-path]="'text'" [content]="content.text" />
+<div class="showcase-4v1" *reqRolesIf="content()">
+  @if (content().text) {
+    <app-text [attr.data-path]="'text'" [content]="content().text" />
   }
   <div class="inner">
     @for (item of elements; track item; let i = $index) {

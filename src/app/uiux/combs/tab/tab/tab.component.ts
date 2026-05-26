@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [MatTabsModule, SpacerComponent, TextComponent, BgImgComponent, DynamicComponentComponent],
 })
 export class TabComponent implements OnInit {
-  @Input() content: ITab;
+  readonly content = input<ITab>();
   selectedIndex: number | null;
   private route = inject(ActivatedRoute);
   private cd = inject(ChangeDetectorRef);
@@ -29,7 +29,7 @@ export class TabComponent implements OnInit {
       if (!activeTabId) {
         return;
       }
-      this.content.elements.forEach((tab, index) => {
+      this.content().elements.forEach((tab, index) => {
         if (tab.id === activeTabId) {
           this.selectedIndex = index;
           this.cd.detectChanges();

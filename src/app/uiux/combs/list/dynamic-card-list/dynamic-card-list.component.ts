@@ -3,9 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
@@ -46,7 +46,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
-  @Input() content: IDynamicCardList;
+  readonly content = input<IDynamicCardList>();
   keys: string;
   page: number;
   pager: IPager;
@@ -69,8 +69,9 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
           ),
           isEmpty
         );
-        if (this.content.sidebar) {
-          this.filterForm = this.initFormValueWithUrlQuery(queryOpt, this.content.sidebar);
+        const content = this.content();
+        if (content.sidebar) {
+          this.filterForm = this.initFormValueWithUrlQuery(queryOpt, content.sidebar);
           this.initForm(this.filterForm);
         }
         this.nodeSearch(queryOpt);
@@ -93,7 +94,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     const state = this.getParamsState(this.form?.value, options);
     const params = this.getApiParams(state);
     this.nodeService
-      .fetch(this.getParams(this.content, 'type'), params)
+      .fetch(this.getParams(this.content(), 'type'), params)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         data => {
@@ -123,21 +124,21 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     this.cd.detectChanges();
     this.nodes = data.rows.map((item: any) => {
       const link = item.url;
-      const title = result(item, this.getValue(this.content, 'fields', 'title'));
-      const subTitle = result(item, this.getValue(this.content, 'fields', 'subTitle'));
-      const body = result(item, this.getValue(this.content, 'fields', 'body'));
+      const title = result(item, this.getValue(this.content(), 'fields', 'title'));
+      const subTitle = result(item, this.getValue(this.content(), 'fields', 'subTitle'));
+      const body = result(item, this.getValue(this.content(), 'fields', 'body'));
       return {
         link: {
           label: title,
           href: link,
         },
         subTitle,
-        classes: this.content.shadow ? '' : 'card-no-shadow',
+        classes: this.content().shadow ? '' : 'card-no-shadow',
         feature: {
           fullIcon: 'fullscreen',
           openIcon: 'open_in_new',
           link,
-          ratios: this.content.ratios || 'media-4-3',
+          ratios: this.content().ratios || 'media-4-3',
           img: {
             classes: 'object-fit',
             src: item.image,

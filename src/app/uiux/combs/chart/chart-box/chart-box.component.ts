@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal, input } from '@angular/core';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -16,22 +16,23 @@ import { ChartComponent } from '../chart/chart.component';
   imports: [AsyncPipe, ContenteditDirective, ChartComponent],
 })
 export class ChartBoxComponent implements OnInit {
-  @Input() content: any;
-  @Input() style = {
+  readonly content = input<any>();
+  readonly style = input({
     minHeight: '50px',
     width: '100%',
-  };
+});
   public showChart = signal(false);
   public data$: Observable<any>;
   private nodeService = inject(NodeService);
   private screenService = inject(ScreenService);
 
   ngOnInit(): void {
-    if (this.content?.params?.api) {
+    const content = this.content();
+    if (content?.params?.api) {
       // get chart data
       this.getContent();
     } else {
-      this.data$ = of(this.content);
+      this.data$ = of(content);
     }
 
     if (this.screenService.isPlatformBrowser()) {
@@ -40,7 +41,7 @@ export class ChartBoxComponent implements OnInit {
   }
 
   getContent(): void {
-    const api = this.content.params.api;
+    const api = this.content().params.api;
     this.data$ = this.nodeService.fetch(api, '').pipe(
       catchError(() => {
         return of({
@@ -77,7 +78,7 @@ export class ChartBoxComponent implements OnInit {
               ],
             },
           },
-          this.content
+          this.content()
         );
         return data;
       })

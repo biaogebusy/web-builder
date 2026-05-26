@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -23,7 +23,7 @@ import { Observable } from 'rxjs';
   imports: [ShareModule, WidgetsModule],
 })
 export class BuilderShowcaseComponent implements OnInit {
-  @Input() content: IBuilderShowcase;
+  readonly content = input<IBuilderShowcase>();
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private dialog = inject(MatDialog);

@@ -1,13 +1,13 @@
 <div class="lottery">
-  @if (content.text) {
-    <app-text [content]="content.text" />
+  @if (content().text) {
+    <app-text [content]="content().text" />
   }
   <div class="inner">
     <app-formly
       class="m-y p-x-sm formly-col"
-      [fields]="content.form"
-      [form]="form"
-      [model]="model"
+      [fields]="content().form"
+      [form]="form()"
+      [model]="model()"
       (modelChange)="onFormlyChange($event)"
     />
     <div class="result-col">
@@ -18,19 +18,19 @@
             ¥<span>{{ total }}</span>
           </h1>
           <div class="result-footer">
-            @if (model?.max?.total_number) {
+            @if (model()?.max?.total_number) {
               <div class="item">
                 <span class="label">大额红包预算</span>
-                <span class="value">{{ model.max.total_money }}元</span>
+                <span class="value">{{ model().max.total_money }}元</span>
               </div>
             }
-            @if (model?.min?.total_number) {
+            @if (model()?.min?.total_number) {
               <div class="item">
                 <span class="label">小额红包预算</span>
                 <span class="value">{{ minTotalMoney }}元</span>
               </div>
             }
-            @if (model.isPromote) {
+            @if (model().isPromote) {
               <div class="item">
                 <span class="label">推广占用金额</span>
                 <span class="value">{{ promoteMoney }}元</span>
@@ -41,17 +41,17 @@
         <div class="right">
           @if (chart) {
             @defer (hydrate on viewport) {
-              <app-chart [content]="chart" [data]="content.data" />
+              <app-chart [content]="chart" [data]="content().data" />
             } @placeholder {
               <div class="chart-skeleton" style="min-height: 240px"></div>
             }
           }
         </div>
       </div>
-      @if (content.description) {
+      @if (content().description) {
         <div
           class="description m-y-sm"
-          [innerHTML]="content.description | safeHtml"
+          [innerHTML]="content().description | safeHtml"
         ></div>
       }
     </div>

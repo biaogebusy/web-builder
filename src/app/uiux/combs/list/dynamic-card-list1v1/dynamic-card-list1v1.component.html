@@ -1,9 +1,9 @@
-@if (content) {
+@if (content()) {
   <div class="dynamic-card-list-1-v1 m-y">
     <div class="container">
       <div class="inner">
-        @if (content.header) {
-          <app-text class="header-text" [content]="content.header" />
+        @if (content().header) {
+          <app-text class="header-text" [content]="content().header" />
         }
         @if (nodes) {
           <div class="card-list m-y">
@@ -18,7 +18,7 @@
               track card
             ) {
               <app-card-1v1
-                class="m-bottom-sm m-x-xs col-span-12 md:col-span-{{ content.row }}"
+                class="m-bottom-sm m-x-xs col-span-12 md:col-span-{{ content().row }}"
                 [content]="card"
               />
             }

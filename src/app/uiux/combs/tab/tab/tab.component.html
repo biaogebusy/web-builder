@@ -1,26 +1,26 @@
-@if (content) {
-  <div class="tab" [class]="{ pills: content.pills }">
-    @if (content.id) {
-      <a class="anchor" [id]="content.id"></a>
+@if (content()) {
+  <div class="tab" [class]="{ pills: content().pills }">
+    @if (content().id) {
+      <a class="anchor" [id]="content().id"></a>
     }
-    <app-spacer [size]="content.spacer || 'md'" />
-    <div class="{{ content.fullWidth ? '' : 'container' }}">
-      @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text" />
+    <app-spacer [size]="content().spacer || 'md'" />
+    <div class="{{ content().fullWidth ? '' : 'container' }}">
+      @if (content().text) {
+        <app-text [attr.data-path]="'text'" [content]="content().text" />
       }
-      @switch (content.align) {
+      @switch (content().align) {
         @case ('center') {
           <mat-tab-group
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="center"
-            [class]="content.classes"
+            [class]="content().classes"
           >
-            @for (item of content.elements; track item; let i = $index) {
+            @for (item of content().elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
-                <div [attr.data-path]="i" class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
-                  @if (content.bg) {
-                    <app-bg-img [content]="content.bg" />
+                <div [attr.data-path]="i" class="{{ content().fullWidth ? 'py-5' : 'p-5' }}">
+                  @if (content().bg) {
+                    <app-bg-img [content]="content().bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
                     <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
@@ -35,13 +35,13 @@
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="end"
-            [class]="content.classes"
+            [class]="content().classes"
           >
-            @for (item of content.elements; track item; let i = $index) {
+            @for (item of content().elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
-                <div [attr.data-path]="i" class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
-                  @if (content.bg) {
-                    <app-bg-img [content]="content.bg" />
+                <div [attr.data-path]="i" class="{{ content().fullWidth ? 'py-5' : 'p-5' }}">
+                  @if (content().bg) {
+                    <app-bg-img [content]="content().bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
                     <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
@@ -56,13 +56,13 @@
             [attr.data-path]="'elements'"
             [selectedIndex]="selectedIndex"
             mat-align-tabs="start"
-            [class]="content.classes"
+            [class]="content().classes"
           >
-            @for (item of content.elements; track item; let i = $index) {
+            @for (item of content().elements; track item; let i = $index) {
               <mat-tab label="{{ item.label }}">
-                <div [attr.data-path]="i" class="{{ content.fullWidth ? 'py-5' : 'p-5' }}">
-                  @if (content.bg) {
-                    <app-bg-img [content]="content.bg" />
+                <div [attr.data-path]="i" class="{{ content().fullWidth ? 'py-5' : 'p-5' }}">
+                  @if (content().bg) {
+                    <app-bg-img [content]="content().bg" />
                   }
                   @for (item of item.elements; track item; let i = $index) {
                     <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
@@ -74,6 +74,6 @@
         }
       }
     </div>
-    <app-spacer [size]="content.spacer || 'md'" />
+    <app-spacer [size]="content().spacer || 'md'" />
   </div>
 }

@@ -1,11 +1,11 @@
-@if (content && config && config.enable) {
+@if (content() && config && config.enable) {
   <button mat-button extended [mat-menu-trigger-for]="menu">
     <app-icon [content]="config.icon"></app-icon>
     <span>{{ config.label }}</span>
   </button>
   <mat-menu #menu="matMenu">
     @if (canAccess) {
-      @for (item of content.elements; track item) {
+      @for (item of content().elements; track item) {
         <button mat-menu-item>
           <app-icon [content]="item.icon"></app-icon>
           <a target="_blank" href="{{ item.href }}">{{ item.label }}</a>

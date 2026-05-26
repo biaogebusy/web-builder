@@ -1,12 +1,12 @@
 import {
   Component,
-  Input,
   OnInit,
   AfterViewInit,
   ChangeDetectorRef,
   inject,
   DestroyRef,
   ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
@@ -57,7 +57,7 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
   public user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: IBaseNode;
+  readonly content = input<IBaseNode>();
   public comments: IComment[];
   private dialogRef: MatDialogRef<any>;
   public canAccess: boolean;
@@ -79,8 +79,9 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   }
 
   ngOnInit(): void {
-    if (this.content.title) {
-      this.tagsService.setTitle(this.content.title);
+    const content = this.content();
+    if (content.title) {
+      this.tagsService.setTitle(content.title);
     }
 
     this.checkAccess();
@@ -97,7 +98,7 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
     this.pageContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(page => {
       const entityId = page.config?.node?.entityId || '';
       this.nodeService
-        .checkNodeAccess(this.content.params, entityId, this.user)
+        .checkNodeAccess(this.content().params, entityId, this.user)
         .subscribe(access => {
           this.canAccess = access.canAccess;
           this.cd.detectChanges();
@@ -127,7 +128,7 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
       return;
     }
     this.nodeService
-      .getCommentsWitchChild(this.content, timeStamp)
+      .getCommentsWitchChild(this.content(), timeStamp)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         this.comments = res;

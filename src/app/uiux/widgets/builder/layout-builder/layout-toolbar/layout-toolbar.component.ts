@@ -1,5 +1,5 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
@@ -28,10 +28,10 @@ import { IconComponent } from '../../../icon/icon.component';
   ],
 })
 export class LayoutToolbarComponent {
-  @Input() lbContent: any;
-  @Input() i: number;
-  @Input() layout: any;
-  @Input() target: Element;
+  readonly lbContent = input<any>();
+  readonly i = input<number>();
+  readonly layout = input<any>();
+  readonly target = input<Element>();
 
   private builder = inject(BuilderState);
   private builderService = inject(BuilderService);
@@ -54,12 +54,12 @@ export class LayoutToolbarComponent {
   }
 
   addBlock(addType: string, content: any): void {
-    this.builderService.addBlock(addType, content, generatePath(this.target));
+    this.builderService.addBlock(addType, content, generatePath(this.target()));
   }
 
   onDeleteRow(target: Element): void {
     const path = generatePath(target);
-    this.builder.updatePageContentByPath(path, this.lbContent, 'remove');
+    this.builder.updatePageContentByPath(path, this.lbContent(), 'remove');
   }
 
   onLayoutSettings(layout: any, target: Element): void {

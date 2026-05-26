@@ -5,9 +5,9 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,7 +34,7 @@ export class HoverMenuComponent extends BaseComponent implements OnInit {
   private screenState = inject(ScreenState);
   private destroyRef = inject(DestroyRef);
 
-  @Input() content: IMainMenu;
+  readonly content = input<IMainMenu>();
   active: boolean;
 
   ngOnInit(): void {

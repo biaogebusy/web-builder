@@ -1,14 +1,13 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import {
   Component,
-  Input,
   ChangeDetectorRef,
   AfterViewInit,
-  ViewChild,
   effect,
   inject,
   input,
   ChangeDetectionStrategy,
+  viewChild
 } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { UntypedFormGroup } from '@angular/forms';
@@ -51,9 +50,9 @@ import type { IDynamicTable } from '../../../core/interface/widgets/IWidgets';
 })
 export class DynamicTableComponent implements AfterViewInit {
   readonly content = input.required<IDynamicTable>();
-  @Input() form: UntypedFormGroup;
+  readonly form = input<UntypedFormGroup>();
 
-  @ViewChild(MatSort) sort: MatSort;
+  readonly sort = viewChild(MatSort);
   public dataSource: MatTableDataSource<any>;
 
   public displayedColumns: string[];
@@ -68,8 +67,9 @@ export class DynamicTableComponent implements AfterViewInit {
     effect(() => {
       const content = this.content();
       this.dataSource = new MatTableDataSource(content.elements);
-      if (this.sort) {
-        this.dataSource.sort = this.sort;
+      const sort = this.sort();
+      if (sort) {
+        this.dataSource.sort = sort;
       }
       if (content.elements) {
         this.isExpand = content.elements.some((item: any) => isArray(item.expand));
@@ -82,8 +82,9 @@ export class DynamicTableComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.sort && this.dataSource) {
-      this.dataSource.sort = this.sort;
+    const sort = this.sort();
+    if (sort && this.dataSource) {
+      this.dataSource.sort = sort;
       this.cd.detectChanges();
     }
   }

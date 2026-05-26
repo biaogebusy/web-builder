@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, inject, ViewChild, DestroyRef, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, signal, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -61,7 +61,7 @@ export class ManageMediaComponent implements OnInit {
   private builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
   public mediaAssets$ = inject<Observable<IManageAssets>>(MEDIA_ASSETS);
 
-  @Input() content: IManageMedia;
+  readonly content = input<IManageMedia>();
   public form = new UntypedFormGroup({
     page: new FormControl(0),
   });
@@ -80,8 +80,7 @@ export class ManageMediaComponent implements OnInit {
   private manageService = inject(ManageService);
   private destroyRef = inject(DestroyRef);
 
-  @ViewChild('uploadDrawer', { static: false })
-  uploadDrawer: MatDrawer;
+  readonly uploadDrawer = viewChild<MatDrawer>('uploadDrawer');
 
   defaultField: FormlyFieldConfig[] = [
     {
@@ -216,8 +215,8 @@ export class ManageMediaComponent implements OnInit {
         tag: 'img',
         uuid: item.uuid ?? '',
       },
-      value: this.content,
-      time: this.content.time,
+      value: this.content(),
+      time: this.content().time,
     });
   }
 

@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
@@ -24,7 +24,7 @@ import { ImgComponent } from '../img/img.component';
   imports: [IconComponent, ImgComponent],
 })
 export class FeatureBoxComponent implements OnInit {
-  @Input() content: IFeatureBox;
+  readonly content = input<IFeatureBox>();
   box: IFeatureBox;
   type: string;
   isHoverIcon = true;
@@ -36,20 +36,21 @@ export class FeatureBoxComponent implements OnInit {
   private routerService = inject(RouteService);
 
   ngOnInit(): void {
-    this.type = getFileType(this.content.img.src);
+    this.type = getFileType(this.content().img.src);
     const iconPath = '/assets/icons';
-    this.title = this.content.img.alt || this.getFileName(this.content.img.src);
+    const content = this.content();
+    this.title = content.img.alt || this.getFileName(content.img.src);
     this.cd.detectChanges();
     if (this.type === 'picture') {
-      this.box = this.content;
+      this.box = this.content();
       this.cd.detectChanges();
     } else {
       this.box = {
-        fullIcon: this.content.fullIcon || 'fullscreen',
-        ratios: this.content.ratios || 'media-4-3',
+        fullIcon: this.content().fullIcon || 'fullscreen',
+        ratios: this.content().ratios || 'media-4-3',
         hoverIcon: true,
-        openIcon: this.content.openIcon || 'file_download',
-        link: this.content.img.src,
+        openIcon: this.content().openIcon || 'file_download',
+        link: this.content().img.src,
         img: {
           classes: 'object-fill p-x-lg p-y-lg',
           src:
@@ -58,7 +59,7 @@ export class FeatureBoxComponent implements OnInit {
               : this.type === 'excel'
                 ? `${iconPath}/file-excel.svg`
                 : `${iconPath}/file-word.svg`,
-          preview: this.content.img?.preview,
+          preview: this.content().img?.preview,
         },
       };
     }
@@ -71,11 +72,12 @@ export class FeatureBoxComponent implements OnInit {
   }
 
   getHoverIcon(): void {
-    if (this.content.hoverIcon === undefined) {
+    const content = this.content();
+    if (content.hoverIcon === undefined) {
       this.isHoverIcon = true;
       return;
     }
-    if (this.content.hoverIcon) {
+    if (content.hoverIcon) {
       this.isHoverIcon = true;
     } else {
       this.isHoverIcon = false;
@@ -85,7 +87,7 @@ export class FeatureBoxComponent implements OnInit {
   }
 
   open(img: IImg): void {
-    if (this.content.openIframe) {
+    if (this.content().openIframe) {
       this.routerService.toNavigate(null, {
         label: img.alt || '预览',
         href: img.preview || img.src,

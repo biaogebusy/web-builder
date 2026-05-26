@@ -1,40 +1,40 @@
-@if (content) {
-  @if (isBg) {
+@if (content()) {
+  @if (isBg()) {
     <div
-      [class]="content.classes"
+      [class]="content().classes"
       class="img-bg"
-      [style.background-image]="'url(' + content.src + ')'"
+      [style.background-image]="'url(' + content().src + ')'"
     ></div>
   } @else {
     <div class="img-wrapper">
-      @if (!content.href) {
+      @if (!content().href) {
         <img
           contentedit="src"
           loading="lazy"
-          [style]="content.style"
-          [class]="content.classes"
-          [ngSrc]="content.src || ''"
-          [alt]="content.alt || ''"
-          [width]="content.width || 400"
-          [height]="content.height || 300"
+          [style]="content().style"
+          [class]="content().classes"
+          [ngSrc]="content().src || ''"
+          [alt]="content().alt || ''"
+          [width]="content().width || 400"
+          [height]="content().height || 300"
         />
       } @else {
-        <a href="{{ content.href }}" target="{{ content.target }}">
+        <a href="{{ content().href }}" target="{{ content().target }}">
           <img
             contentedit="src"
             loading="lazy"
-            [class]="content.classes"
-            [ngSrc]="content.src || ''"
-            [style]="content.style"
-            [alt]="content.alt || ''"
-            [width]="content.width || 400"
-            [height]="content.height || 300"
+            [class]="content().classes"
+            [ngSrc]="content().src || ''"
+            [style]="content().style"
+            [alt]="content().alt || ''"
+            [width]="content().width || 400"
+            [height]="content().height || 300"
           />
         </a>
       }
-      @if (content.actions) {
+      @if (content().actions) {
         <div class="actions">
-          @for (action of content.actions; track action) {
+          @for (action of content().actions; track action) {
             <app-dynamic-component
               [inputs]="{
                 content: action,

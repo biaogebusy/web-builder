@@ -3,9 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -34,8 +34,8 @@ export class DownloadComponent implements OnInit {
   private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
   user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: IDownload;
-  @Input() data: any;
+  readonly content = input<IDownload>();
+  readonly data = input<any>();
   public config: ICoreDownload;
   public canAccess: boolean;
   public user: IUser;
@@ -55,7 +55,7 @@ export class DownloadComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.config = this.coreConfig?.actions?.download;
-      this.checkAccess(this.data);
+      this.checkAccess(this.data());
     }
   }
 

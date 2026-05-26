@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 
@@ -11,7 +11,7 @@ import type { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
   imports: [ContenteditDirective],
 })
 export class NumberAnimateComponent {
-  @Input() content: INumberAnimate;
+  readonly content = input<INumberAnimate>();
 
   constructor() {}
 

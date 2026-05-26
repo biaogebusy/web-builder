@@ -2,7 +2,7 @@
   <button (click)="onFlag()" mat-button color="{{ flagging ? 'primary' : 'default' }}">
     <div class="flag-inner">
       <app-icon class="flag-icon" [content]="config.icon" />
-      <span>{{ flagging ? '取消' : '' }}{{ content.label }}</span>
+      <span>{{ flagging ? '取消' : '' }}{{ content().label }}</span>
     </div>
   </button>
 }

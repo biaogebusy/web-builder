@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,8 +25,8 @@ import { SpacerComponent } from '../spacer/spacer.component';
   ],
 })
 export class PanelComponent {
-  @Input() content: any;
-  @ViewChild(MatAccordion) accordion: MatAccordion;
+  readonly content = input<any>();
+  readonly accordion = viewChild(MatAccordion);
   isAll = false;
 
 }

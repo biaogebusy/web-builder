@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { FixBarPopupComponent } from './fix-bar-popup/fix-bar-popup.component';
@@ -11,5 +11,5 @@ import { FixBarPopupComponent } from './fix-bar-popup/fix-bar-popup.component';
   imports: [IconComponent, LinkComponent, FixBarPopupComponent],
 })
 export class FixBarComponent {
-  @Input() content: any[] | undefined;
+  readonly content = input<any[]>();
 }

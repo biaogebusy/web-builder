@@ -1,7 +1,7 @@
-@if (box && content) {
+@if (box && content()) {
   <div
     class="feature-box {{
-      content.mode === 'float' ? 'feature-float' : 'feature-cover'
+      content().mode === 'float' ? 'feature-float' : 'feature-cover'
     }}"
   >
     <div class="feature-inner">
@@ -34,7 +34,7 @@
             <app-img [attr.data-path]="'img'" [content]="box.img" />
           }
         </div>
-        @if (content.mode === 'float' || type !== 'picture') {
+        @if (content().mode === 'float' || type !== 'picture') {
           <div class="title one-line">
             {{ title }}
           </div>

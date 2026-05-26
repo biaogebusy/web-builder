@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import type { IDropdowMenu } from '@core/interface/widgets/IWidgets';
@@ -22,7 +22,7 @@ import { LinkComponent } from '../link/link.component';
   ],
 })
 export class DropdownMenuComponent {
-  @Input() content: IDropdowMenu;
+  readonly content = input<IDropdowMenu>();
   constructor() {}
 
 }

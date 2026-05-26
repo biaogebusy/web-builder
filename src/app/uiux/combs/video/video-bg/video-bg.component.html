@@ -1,7 +1,7 @@
-@if (content) {
+@if (content()) {
   <div class="video-bg">
-    @if (content.bg) {
-      <app-bg [content]="content.bg" />
+    @if (content().bg) {
+      <app-bg [content]="content().bg" />
     }
     @if (video) {
       @defer (hydrate on viewport) {
@@ -12,7 +12,7 @@
     }
     <div class="inner xy-center">
       <div class="wrapper">
-        @for (item of content.elements; track item; let i = $index) {
+        @for (item of content().elements; track item; let i = $index) {
           <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
         }
       </div>

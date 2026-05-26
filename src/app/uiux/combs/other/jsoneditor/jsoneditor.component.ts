@@ -4,11 +4,11 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   OnDestroy,
-  ViewChild,
   inject,
   signal,
+  input,
+  viewChild
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -45,8 +45,8 @@ declare let window: any;
   ],
 })
 export class JsoneditorComponent implements AfterViewInit, OnDestroy {
-  @Input() content: IJsoneditor;
-  @ViewChild('jsoneditor', { read: ElementRef }) editor: ElementRef;
+  readonly content = input<IJsoneditor>();
+  readonly editor = viewChild('jsoneditor', { read: ElementRef });
   public data: any;
   public value: any;
   public loading = signal<boolean>(false);
@@ -80,7 +80,7 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
       }
       this.loadLibrary.set(false);
 
-      const { schemaType = '', data } = this.content;
+      const { schemaType = '', data } = this.content();
       this.data = data;
       let schema = {};
       switch (schemaType) {
@@ -115,7 +115,7 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
         return;
       }
       this.jsonEditor = new window.JSONEditor(
-        this.editor.nativeElement,
+        this.editor().nativeElement,
         {
           mode: 'code',
           enableSort: false,
@@ -146,7 +146,7 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
 
   updateContent(): void {
     if (this.value) {
-      const { isPage, path } = this.content;
+      const { isPage, path } = this.content();
       // for page json
       if (isPage) {
         const page: IPage = this.value;
@@ -164,7 +164,7 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
 
   onUpdateAttr(action: any): void {
     if (this.value) {
-      const { isSetting, isShowcase } = this.content;
+      const { isSetting, isShowcase } = this.content();
       this.loading.set(true);
       const { uuid, langcode, api } = action.params;
       let attr = {};

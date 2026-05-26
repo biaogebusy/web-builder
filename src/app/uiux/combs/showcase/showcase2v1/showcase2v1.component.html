@@ -1,14 +1,14 @@
-@if (content) {
+@if (content()) {
   <div class="showcase-2v1">
     <div class="wrapper">
-      @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text" />
+      @if (content().text) {
+        <app-text [attr.data-path]="'text'" [content]="content().text" />
       }
       <div class="elements-grid m-y">
         @for (item of elements; track item; let i = $index) {
           <app-dynamic-component
             [attr.data-path]="'elements.' + i"
-            class="m-bottom-sm col-span-12 sm:col-span-6 md:col-span-{{ content.row }}"
+            class="m-bottom-sm col-span-12 sm:col-span-6 md:col-span-{{ content().row }}"
             [inputs]="item"
           />
         }

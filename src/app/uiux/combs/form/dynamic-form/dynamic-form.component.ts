@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { IDynamicForm } from '@core/interface/combs/IDynamicForm';
@@ -16,7 +16,7 @@ import { FormlyComponent } from '../formly/formly.component';
   imports: [ReactiveFormsModule, FormlyComponent, BtnComponent, DynamicComponentComponent],
 })
 export class DynamicFormComponent {
-  @Input() content: IDynamicForm;
+  readonly content = input<IDynamicForm>();
   public form = new UntypedFormGroup({});
   public model: any = {};
   public disabled = signal<boolean>(false);
@@ -32,7 +32,7 @@ export class DynamicFormComponent {
       return;
     }
     this.disabled.set(true);
-    const data = Object.assign({ webform_id: this.content.form.id }, this.form.value);
+    const data = Object.assign({ webform_id: this.content().form.id }, this.form.value);
     this.formService
       .submitWebForm(data)
       .pipe(takeUntilDestroyed(this.destroyRef))

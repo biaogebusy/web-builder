@@ -1,28 +1,28 @@
-@if (content) {
-  <div class="banner-simple" [class]="content.style">
-    @if (content.bannerBg) {
+@if (content()) {
+  <div class="banner-simple" [class]="content().style">
+    @if (content().bannerBg) {
       <app-bg-img
         [attr.data-path]="'bannerBg'"
-        [content]="content.bannerBg" />
+        [content]="content().bannerBg" />
     }
     <div class="container">
       <div
         class="banner-inner">
         <div class="title-wrap">
-          @if (content.title) {
+          @if (content().title) {
             <h2
               class="page-title"
               contentedit="title"
-              [innerHTML]="content.title | safeHtml"></h2>
+              [innerHTML]="content().title | safeHtml"></h2>
           }
-          @if (content.subTitle) {
+          @if (content().subTitle) {
             <div
               class="sub-title"
-              [innerHTML]="content.subTitle | safeHtml"></div>
+              [innerHTML]="content().subTitle | safeHtml"></div>
           }
         </div>
-        @if (content.breadcrumb) {
-          <app-breadcrumb [content]="content.breadcrumb" />
+        @if (content().breadcrumb) {
+          <app-breadcrumb [content]="content().breadcrumb" />
         }
       </div>
     </div>

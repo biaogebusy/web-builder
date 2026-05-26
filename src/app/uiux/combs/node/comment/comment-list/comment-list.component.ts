@@ -1,7 +1,7 @@
 import {
   Component,
-  Input,
   ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
@@ -16,8 +16,8 @@ import { CommentItemComponent } from './comment-item/comment-item.component';
   imports: [SafeHtmlPipe, IconComponent, CommentItemComponent],
 })
 export class CommentListComponent {
-  @Input() content: IBaseNode;
-  @Input() comments: IComment[] | null;
+  readonly content = input<IBaseNode>();
+  readonly comments = input<IComment[] | null>();
 
   constructor() {}
 

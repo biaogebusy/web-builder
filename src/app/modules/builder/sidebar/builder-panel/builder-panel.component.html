@@ -1,5 +1,5 @@
 <mat-accordion multi>
-  @for (item of content; track item; let i = $index) {
+  @for (item of content(); track item; let i = $index) {
     <mat-expansion-panel [expanded]="i === 0" (afterExpand)="onAfterExpand()">
       <mat-expansion-panel-header>
         <mat-panel-title>

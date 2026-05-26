@@ -1,6 +1,6 @@
-@if (content) {
-  <mat-chip-listbox [class]="classes">
-    @for (item of content.elements; track item) {
+@if (content()) {
+  <mat-chip-listbox [class]="classes()">
+    @for (item of content().elements; track item) {
       <mat-chip-option
         color="{{ item?.color || 'primary' }}"
         selected="{{ item?.selected ? true : false }}"

@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
@@ -18,7 +18,7 @@ import { interval } from 'rxjs';
   imports: [DynamicComponentComponent],
 })
 export class AutocloseComponent implements OnInit {
-  @Input() content: any;
+  readonly content = input<any>();
   private destroyRef = inject(DestroyRef);
   constructor() {}
 

@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, inject, afterNextRender, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, inject, afterNextRender, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import type { IShuffle } from '@core/interface/combs/IMasonry';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
@@ -12,7 +12,7 @@ import Shuffle from 'shufflejs';
   imports: [MatButtonToggleModule, TitleComponent, DynamicComponentComponent],
 })
 export class ShuffleComponent {
-  @Input() content: IShuffle;
+  readonly content = input<IShuffle>();
   shuffle: any;
   private el = inject(ElementRef);
   constructor() {

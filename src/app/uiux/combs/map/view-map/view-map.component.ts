@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
   ChangeDetectorRef,
   inject,
+  input
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
@@ -45,7 +45,7 @@ import { map } from 'rxjs/operators';
   ],
 })
 export class ViewMapComponent extends BaseComponent implements OnInit {
-  @Input() content: IViewMap;
+  readonly content = input<IViewMap>();
   lists$: Observable<IViewMapItem[] | any>;
   form = new UntypedFormGroup({
     page: new UntypedFormControl(),
@@ -63,11 +63,12 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.content?.params?.api) {
+    const content = this.content();
+    if (content?.params?.api) {
       this.getContent();
     } else {
-      if (this.content.elements) {
-        this.lists$ = of(this.content.elements);
+      if (content.elements) {
+        this.lists$ = of(content.elements);
         this.cd.detectChanges();
       }
     }
@@ -75,7 +76,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
 
   getContent(options = {}): void {
     const params = this.getApiParams(options);
-    const urlApi = this.content.params.api || '';
+    const urlApi = this.content().params.api || '';
     this.loading = true;
     this.lists$ = this.nodeService.fetch(urlApi, params).pipe(
       map(({ rows, pager }) => {

@@ -3,9 +3,9 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,7 +24,7 @@ import { GithubStarComponent } from '@uiux/widgets/github-star/github-star.compo
   imports: [MatIconModule, IconComponent, LinkComponent, GithubStarComponent],
 })
 export class HeaderTopComponent implements OnInit {
-  @Input() content: IHeaderTop | undefined;
+  readonly content = input<IHeaderTop>();
   showNoXs: boolean;
   screen = inject(ScreenState);
   screenService = inject(ScreenService);

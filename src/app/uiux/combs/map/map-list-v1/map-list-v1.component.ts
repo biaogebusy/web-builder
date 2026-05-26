@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import type { IMapListv1 } from '@core/interface/combs/IMap';
 import type { IMark } from '@core/interface/IAmap';
@@ -26,7 +26,7 @@ import { MapComponent } from '../map/map.component';
   ],
 })
 export class MapListV1Component implements OnInit {
-  @Input() content: IMapListv1;
+  readonly content = input<IMapListv1>();
   elements: any[];
   loading: boolean;
   selectedId: number;
@@ -34,7 +34,7 @@ export class MapListV1Component implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.elements = this.content.map.elements.map(item => {
+    this.elements = this.content().map.elements.map(item => {
       return {
         ...item,
         subTitle: item.address,

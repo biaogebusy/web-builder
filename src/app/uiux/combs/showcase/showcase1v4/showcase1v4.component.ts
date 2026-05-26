@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import type { IShowcase1v4 } from '@core/interface/combs/IShowcase';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
@@ -12,7 +12,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent, DynamicComponentComponent],
 })
 export class Showcase1v4Component extends BaseComponent {
-  @Input() content: IShowcase1v4;
+  readonly content = input<IShowcase1v4>();
   constructor() {
     super();
   }

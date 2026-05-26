@@ -3,9 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -44,7 +44,7 @@ export class PageListComponent extends BaseComponent implements OnInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: any;
+  readonly content = input<any>();
   public content$: Observable<IPageMeta[]>;
   public form = new FormGroup({
     page: new FormControl(0),

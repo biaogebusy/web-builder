@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { IShowcase3v5 } from '@core/interface/combs/IShowcase';
 import { BoxComponent } from '@uiux/widgets/box/box.component';
@@ -16,7 +16,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent, BoxComponent, ImgComponent],
 })
 export class Showcase3v5Component {
-  @Input() content: IShowcase3v5;
+  readonly content = input<IShowcase3v5>();
   constructor() {}
 
 }

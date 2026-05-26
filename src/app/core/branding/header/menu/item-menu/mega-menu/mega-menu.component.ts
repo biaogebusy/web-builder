@@ -1,11 +1,11 @@
 import {
   Component,
-  Input,
   OnInit,
   ElementRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
+  input
 } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { fromEvent, of } from 'rxjs';
@@ -23,7 +23,7 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
   imports: [MatDividerModule, LinkComponent],
 })
 export class MegaMenuComponent implements OnInit {
-  @Input() content: IMainMenu;
+  readonly content = input<IMainMenu>();
   active: boolean;
   private eleRef = inject(ElementRef);
   private screenState = inject(ScreenState);

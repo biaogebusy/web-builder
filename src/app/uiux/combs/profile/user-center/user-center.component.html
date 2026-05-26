@@ -1,6 +1,6 @@
-@if (content) {
+@if (content()) {
   <div class="user-center">
-    @if (content.params.showProfile) {
+    @if (content().params.showProfile) {
       <div class="inner">
         <div class="container">
           @if (userConfig$) {
@@ -9,32 +9,32 @@
         </div>
       </div>
     }
-    <div class="{{ content.main?.fullWidth ? 'container-fluid' : 'container' }}">
-      <app-spacer [size]="content.main?.spacer || 'md'" />
-      @if (content.main?.bg) {
-        <app-bg [content]="content.main.bg">
-          @if (content.main?.bg?.img) {
-            <app-img [content]="content.main.bg.img" />
+    <div class="{{ content().main?.fullWidth ? 'container-fluid' : 'container' }}">
+      <app-spacer [size]="content().main?.spacer || 'md'" />
+      @if (content().main?.bg) {
+        <app-bg [content]="content().main.bg">
+          @if (content().main?.bg?.img) {
+            <app-img [content]="content().main.bg.img" />
           }
         </app-bg>
       }
       <div class="main">
-        @if (content.left.length) {
+        @if (content().left.length) {
           <div class="left">
-            @for (item of content.left; track item) {
+            @for (item of content().left; track item) {
               <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item" />
             }
           </div>
         }
-        @if (content.right.length) {
+        @if (content().right.length) {
           <div class="right">
-            @for (item of content.right; track item) {
+            @for (item of content().right; track item) {
               <app-dynamic-component *reqRolesIf="item" class="box" [inputs]="item" />
             }
           </div>
         }
       </div>
-      <app-spacer [size]="content.main?.spacer || 'md'" />
+      <app-spacer [size]="content().main?.spacer || 'md'" />
     </div>
   </div>
 }

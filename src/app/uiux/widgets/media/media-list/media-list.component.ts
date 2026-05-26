@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import type { IMediaList } from '@core/interface/widgets/IMediaList';
@@ -17,7 +17,7 @@ import { LinkComponent } from '../../link/link.component';
   imports: [MatIconModule, ImgComponent, LinkComponent, SafeHtmlPipe],
 })
 export class MediaListComponent {
-  @Input() content: IMediaList;
+  readonly content = input<IMediaList>();
   constructor() {}
 
 }

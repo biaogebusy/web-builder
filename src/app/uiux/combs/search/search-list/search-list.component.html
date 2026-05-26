@@ -1,38 +1,38 @@
-@if (loading) {
+@if (loading()) {
   <div class="loading-wrap m-y">
     <app-spinner class="m-y" [content]="{ color: 'primary', size: 40 }" />
   </div>
 }
-@if (content && pager) {
+@if (content() && pager()) {
   <div class="search-list">
     <div class="container">
       <div class="search-list-inner">
-        <div class="results m-bottom-sm">{{ pager?.totalItems }} {{ label.total || '个结果' }}</div>
+        <div class="results m-bottom-sm">{{ pager()?.totalItems }} {{ label().total || '个结果' }}</div>
         <mat-divider />
-        <div [class]="wrapperClasses">
-          @for (item of content | paginate: pager; track item) {
+        <div [class]="wrapperClasses()">
+          @for (item of content() | paginate: pager(); track item) {
             <app-custom-template
-              [class]="colClasses"
-              [content]="{ json: item, html: template, isAPI: false, type: 'custom-template' }"
+              [class]="colClasses()"
+              [content]="{ json: item, html: template(), isAPI: false, type: 'custom-template' }"
             />
           }
         </div>
-        @if (pager) {
+        @if (pager()) {
           <div class="pager">
             <mat-paginator
               class="demo-paginator"
               (page)="onPageChange($event)"
-              [length]="pager.totalItems"
-              [pageSize]="pager.itemsPerPage"
+              [length]="pager().totalItems"
+              [pageSize]="pager().itemsPerPage"
               [showFirstLastButtons]="true"
               [hidePageSize]="true"
-              [pageIndex]="pager.currentPage"
+              [pageIndex]="pager().currentPage"
               aria-label="Select page"
             />
           </div>
         } @else {
           <div class="empty-text">
-            <p>{{ label.empty || '没有数据。' }}</p>
+            <p>{{ label().empty || '没有数据。' }}</p>
           </div>
         }
       </div>

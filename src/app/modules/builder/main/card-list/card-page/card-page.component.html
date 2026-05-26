@@ -1,5 +1,5 @@
 <div class="card-page-grid">
-  @for (page of lists; track page.nid) {
+  @for (page of lists(); track page.nid) {
     <div
       class="page-card"
     >
@@ -8,7 +8,7 @@
       >
         <img
           class="cover-img"
-          src="{{ page.cover || params.defaultImg }}"
+          src="{{ page.cover || params().defaultImg }}"
           alt=""
         />
         <div class="actions">
@@ -26,8 +26,8 @@
               <app-icon [content]="{ svg: 'pencil' }" />
               <span>{{ 'BUILDER.PAGE_LIST.LOAD_EDIT' | translate }}</span>
             </button>
-            @if (langs) {
-              @for (item of langs; track item) {
+            @if (langs()) {
+              @for (item of langs(); track item) {
                 @if (!item.default && item.langCode !== page.langcode) {
                   <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
                     <app-icon [content]="{ svg: 'translate' }" />

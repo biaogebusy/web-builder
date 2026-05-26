@@ -2,12 +2,12 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
   OnInit,
-  ViewChild,
   inject,
   signal,
   ChangeDetectionStrategy,
+  input,
+  viewChild
 } from '@angular/core';
 import type { EChartsOption } from 'echarts/types/dist/shared';
 import { isArray } from 'lodash-es';
@@ -81,10 +81,10 @@ import { IconComponent } from '@uiux/widgets/icon/icon.component';
   imports: [MatButtonToggleModule, IconComponent],
 })
 export class ChartComponent implements OnInit, AfterViewInit {
-  @Input() content: EChartsOption;
-  @Input() data: any;
-  @Input() style: any;
-  @ViewChild('echarts', { read: ElementRef }) echarts: ElementRef;
+  readonly content = input<EChartsOption>();
+  readonly data = input<any>();
+  readonly style = input<any>();
+  readonly echarts = viewChild('echarts', { read: ElementRef });
 
   private theme = signal<object>({});
   private screenService = inject(ScreenService);
@@ -95,24 +95,25 @@ export class ChartComponent implements OnInit, AfterViewInit {
         {
           color: ['#2E9BFF', '#987BE9', '#FAA16F', '#9DD094', '#FF6461'],
         },
-        this.data?.theme
+        this.data()?.theme
       )
     );
   }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      const chart = echarts.init(this.echarts.nativeElement, this.theme());
-      chart.setOption(this.content);
+      const chart = echarts.init(this.echarts().nativeElement, this.theme());
+      chart.setOption(this.content());
     }
   }
 
   onChange(chart: any): void {
-    if (isArray(this.content.series)) {
-      this.content.series.forEach((item: any) => {
+    const content = this.content();
+    if (isArray(content.series)) {
+      content.series.forEach((item: any) => {
         item.type = chart.value;
       });
-      this.content = { ...this.content };
+      this.content = { ...content };
     }
   }
 }

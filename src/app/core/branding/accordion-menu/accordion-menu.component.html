@@ -1,6 +1,6 @@
-@if (content) {
+@if (content()) {
   <mat-accordion multi>
-    @for (item of content; track item) {
+    @for (item of content(); track item) {
       <ng-container *reqRolesIf="item">
         @if (!item.child && !item.dynamicMenu) {
           <mat-list class="no-child" checkChildMenuActive>

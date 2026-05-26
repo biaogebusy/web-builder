@@ -1,6 +1,6 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { Component, DestroyRef, Input, inject, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, DOCUMENT, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ShareModule } from '@share/share.module';
@@ -22,7 +22,7 @@ import { cloneDeep, defaultsDeep, get } from 'lodash-es';
   imports: [ShareModule, WidgetsModule, FormModule, DragDropModule],
 })
 export class LayoutSettingComponent {
-  @Input() content: ILayoutSetting;
+  readonly content = input<ILayoutSetting>();
   public model: any = {};
 
   private doc = inject(DOCUMENT);
@@ -32,11 +32,11 @@ export class LayoutSettingComponent {
   private translate = inject(TranslateService);
 
   onModelChange(value: any): void {
-    const { path } = this.content;
+    const { path } = this.content();
     let content: any = {};
     Object.keys(value).forEach(config => {
       if (config) {
-        content = defaultsDeep(value[config], this.content.content);
+        content = defaultsDeep(value[config], this.content().content);
       }
     });
     if (path) {
@@ -45,8 +45,8 @@ export class LayoutSettingComponent {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    const { path, content } = this.content;
-    moveItemInArray(this.content.content.elements, event.previousIndex, event.currentIndex);
+    const { path, content } = this.content();
+    moveItemInArray(this.content().content.elements, event.previousIndex, event.currentIndex);
     if (path) {
       this.builder.updatePageContentByPath(path, content);
     }
@@ -54,14 +54,14 @@ export class LayoutSettingComponent {
 
   onCopy(elements: any[], index: number): void {
     const lists = [...elements];
-    const path = this.content.path;
+    const path = this.content().path;
     lists.splice(index, 0, cloneDeep(lists[index]));
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
 
   onDelete(elements: any[], index: number): void {
     const lists = [...elements];
-    const path = this.content.path;
+    const path = this.content().path;
     lists.splice(index, 1);
     this.builder.updatePageContentByPath(`${path}.elements`, lists);
   }
@@ -98,7 +98,7 @@ export class LayoutSettingComponent {
     const {
       path,
       content: { type },
-    } = this.content;
+    } = this.content();
     // layout builder level
     if (path) {
       const jsonWidget: IJsoneditor = {
@@ -124,6 +124,6 @@ export class LayoutSettingComponent {
   }
 
   editorCode(): void {
-    this.builder.editorCode(this.content);
+    this.builder.editorCode(this.content());
   }
 }

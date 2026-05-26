@@ -1,26 +1,26 @@
-@if (content) {
+@if (content()) {
   <div class="full-calendar">
     <div class="inner p-y">
       <div class="sidebar p-x-sm flex-12/12 sm:flex-3/12">
-        @if (content.text) {
-          <app-text [content]="content.text" />
+        @if (content().text) {
+          <app-text [content]="content().text" />
         }
-        @if (content.form) {
+        @if (content().form) {
           <app-formly
             [form]="form"
-            [fields]="content.form"
+            [fields]="content().form"
             [model]="model"
             (modelChange)="onChange($event)"
           />
         }
       </div>
       <div
-        class="main min-h-[65vh] p-x-sm p-y-sm flex-12/12 {{ content.form ? 'sm:flex-8/12' : '' }}"
+        class="main min-h-[65vh] p-x-sm p-y-sm flex-12/12 {{ content().form ? 'sm:flex-8/12' : '' }}"
       >
         <div class="calendar">
           @if (visiable) {
             <app-calendar
-              [content]="content.calendar.options"
+              [content]="content().calendar.options"
               [loading]="loading"
               [options]="options"
             />

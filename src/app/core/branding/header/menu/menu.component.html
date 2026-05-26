@@ -57,7 +57,7 @@
     <div class="drawer">
       @if (!show()) {
         <mat-toolbar>
-          @if (!isDrawer) {
+          @if (!isDrawer()) {
             @if (header.logo) {
               <app-logo [content]="header.logo" />
             }
@@ -66,16 +66,16 @@
             <app-user-menu class="user-menu-drawer" />
           }
           <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
-            @if (!isDrawer) {
+            @if (!isDrawer()) {
               <mat-icon>menu</mat-icon>
             }
-            @if (isDrawer) {
+            @if (isDrawer()) {
               <mat-icon>close</mat-icon>
             }
           </button>
         </mat-toolbar>
       }
-      <div [hidden]="!(!show() && isDrawer)">
+      <div [hidden]="!(!show() && isDrawer())">
         @if (header.mainMenu) {
           <app-accordion-menu [content]="header.mainMenu" />
         }

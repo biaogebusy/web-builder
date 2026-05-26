@@ -1,13 +1,13 @@
 <div class="dynamic-form">
-  <div class="wrapper" [class]="content.classes">
-    <div class="dynamic-content" [class]="content.dynamicClasses">
-      <app-dynamic-component [inputs]="content.dynamicComponent" />
+  <div class="wrapper" [class]="content().classes">
+    <div class="dynamic-content" [class]="content().dynamicClasses">
+      <app-dynamic-component [inputs]="content().dynamicComponent" />
     </div>
-    <div class="form-wrapper" [class]="content.formClasses">
-      <app-formly class="form-control" [form]="form" [fields]="content.form.fields" [model]="model" />
+    <div class="form-wrapper" [class]="content().formClasses">
+      <app-formly class="form-control" [form]="form" [fields]="content().form.fields" [model]="model" />
     </div>
   </div>
-  <div class="action" [class]="content.action.classes">
-    <app-btn [class.disabled]="disabled()" (click)="onSubmit()" [content]="content.action.submit" />
+  <div class="action" [class]="content().action.classes">
+    <app-btn [class.disabled]="disabled()" (click)="onSubmit()" [content]="content().action.submit" />
   </div>
 </div>

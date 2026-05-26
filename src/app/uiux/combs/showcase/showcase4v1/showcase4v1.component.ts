@@ -3,9 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IShowcase4v1 } from '@core/interface/combs/IShowcase';
@@ -34,13 +34,13 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
   private dialogService = inject(DialogService);
   private destroyRef = inject(DestroyRef);
 
-  @Input() content: IShowcase4v1;
+  readonly content = input<IShowcase4v1>();
   elements: any[];
 
   ngOnInit(): void {
-    const api = this.getParams(this.content, 'api');
+    const api = this.getParams(this.content(), 'api');
     if (!api) {
-      this.elements = this.content.elements;
+      this.elements = this.content().elements;
       this.cd.detectChanges();
     } else {
       this.getContentFormApi(api);

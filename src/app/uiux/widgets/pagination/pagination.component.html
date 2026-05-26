@@ -2,7 +2,7 @@
   class="pagination"
   #p="paginationApi"
   (pageChange)="onPageChange($event)"
-  [id]="id"
+  [id]="id()"
   (pageBoundsCorrection)="onPageBoundsCorrection($event)"
 >
   <button

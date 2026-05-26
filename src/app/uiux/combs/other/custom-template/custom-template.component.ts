@@ -3,10 +3,10 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   inject,
   signal,
   ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import type { ICustomTemplate, ICustomTemplateDialog } from '@core/interface/IBuilder';
 import DOMPurify from 'dompurify';
@@ -33,7 +33,7 @@ declare let echarts: any;
   imports: [MatPaginatorModule],
 })
 export class CustomTemplateComponent implements AfterViewInit {
-  @Input() content: ICustomTemplate;
+  readonly content = input<ICustomTemplate>();
   public pager = signal<IPager | null>(null);
   private ele = inject(ElementRef);
   private screenService = inject(ScreenService);
@@ -49,7 +49,7 @@ export class CustomTemplateComponent implements AfterViewInit {
     this.template = this.ele.nativeElement.querySelector('.template');
     const fontawesome = this.util.getLibraries('fontAwesome', 'cdn', 'style');
     this.util.loadStyle(fontawesome);
-    this.render(this.content);
+    this.render(this.content());
   }
 
   async render(content: any): Promise<void> {
@@ -111,7 +111,7 @@ export class CustomTemplateComponent implements AfterViewInit {
   }
 
   fetchContent(params: string): void {
-    const { html, api } = this.content;
+    const { html, api } = this.content();
     if (api) {
       this.nodeService
         .fetch(api.trim(), params)
@@ -160,7 +160,7 @@ export class CustomTemplateComponent implements AfterViewInit {
       this.template.removeEventListener('click', this.dialogClickHandler);
       this.dialogClickHandler = undefined;
     }
-    const dialogs = this.content.dialogs;
+    const dialogs = this.content().dialogs;
     if (!dialogs?.length) {
       return;
     }

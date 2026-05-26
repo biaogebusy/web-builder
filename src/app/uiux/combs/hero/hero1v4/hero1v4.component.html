@@ -1,12 +1,12 @@
 <div class="hero-1v4">
-  <div [style]="content.style">
+  <div [style]="content().style">
     <div class="inner">
-      @if (content.text) {
-        <app-text [attr.data-path]="'text'" class="text-block" [content]="content.text" />
+      @if (content().text) {
+        <app-text [attr.data-path]="'text'" class="text-block" [content]="content().text" />
       }
-      @if (content.widget) {
-        <div class="widget-row order-{{ content.order }}">
-          @for (item of content.widget; track item; let i = $index) {
+      @if (content().widget) {
+        <div class="widget-row order-{{ content().order }}">
+          @for (item of content().widget; track item; let i = $index) {
             <app-dynamic-component [attr.data-path]="'widget.' + i" [inputs]="item" />
           }
         </div>

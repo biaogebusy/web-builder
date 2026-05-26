@@ -1,43 +1,43 @@
-@if (content) {
-  @if (!content.svg) {
-    @if (!content.badge) {
+@if (content()) {
+  @if (!content().svg) {
+    @if (!content().badge) {
       <mat-icon
-        [style]="content.style"
-        [color]="content.color"
-        [inline]="content.inline ?? false"
-        [fontIcon]="content.name || ''"
+        [style]="content().style"
+        [color]="content().color"
+        [inline]="content().inline ?? false"
+        [fontIcon]="content().name || ''"
       />
     } @else {
       <mat-icon
-        [style]="content.style"
-        [color]="content.color"
-        [inline]="content.inline ?? false"
-        [fontIcon]="content.name || ''"
-        [matBadge]="content.badge.value"
-        [matBadgePosition]="content.badge.position ?? 'above'"
-        [matBadgeSize]="content.badge.size ?? 'medium'"
+        [style]="content().style"
+        [color]="content().color"
+        [inline]="content().inline ?? false"
+        [fontIcon]="content().name || ''"
+        [matBadge]="content().badge.value"
+        [matBadgePosition]="content().badge.position ?? 'above'"
+        [matBadgeSize]="content().badge.size ?? 'medium'"
       />
     }
   }
-  @if (content.svg) {
-    @if (!content.badge) {
+  @if (content().svg) {
+    @if (!content().badge) {
       <mat-icon
-        [style]="content.style"
+        [style]="content().style"
         class="custom"
-        [color]="content.color"
-        [inline]="content.inline ?? false"
-        [svgIcon]="content.svg"
+        [color]="content().color"
+        [inline]="content().inline ?? false"
+        [svgIcon]="content().svg"
       />
     } @else {
       <mat-icon
-        [style]="content.style"
+        [style]="content().style"
         class="custom"
-        [color]="content.color"
-        [inline]="content.inline ?? false"
-        [svgIcon]="content.svg"
-        [matBadge]="content.badge.value"
-        [matBadgePosition]="content.badge.position ?? 'above'"
-        [matBadgeSize]="content.badge.size ?? 'medium'"
+        [color]="content().color"
+        [inline]="content().inline ?? false"
+        [svgIcon]="content().svg"
+        [matBadge]="content().badge.value"
+        [matBadgePosition]="content().badge.position ?? 'above'"
+        [matBadgeSize]="content().badge.size ?? 'medium'"
       />
     }
   }

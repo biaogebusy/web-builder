@@ -1,28 +1,28 @@
-@if (content) {
+@if (content()) {
   <div class="article m-bottom">
-    @if (content.banner) {
-      <app-article-banner [content]="content.banner" />
+    @if (content().banner) {
+      <app-article-banner [content]="content().banner" />
     }
     <div class="container">
       <div class="article-inner m-top-sm">
-        <div class="article-node flex-12/12 md:flex-{{ content.sidebar ? '9' : '12' }}/12">
+        <div class="article-node flex-12/12 md:flex-{{ content().sidebar ? '9' : '12' }}/12">
           <h2 class="title">
-            {{ content.title }}
+            {{ content().title }}
           </h2>
           <div class="article-meta m-y-xs">
-            @if (content.meta) {
-              <app-article-meta [content]="content.meta" />
+            @if (content().meta) {
+              <app-article-meta [content]="content().meta" />
             }
           </div>
           <mat-divider />
           <div class="article-body">
             @if (canAccess) {
-              <div class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"></div>
+              <div class="article-body m-y-sm" [innerHTML]="content().body | safeHtml"></div>
             } @else {
-              @if (content.body) {
+              @if (content().body) {
                 <div class="article-body m-y-sm">
                   <div
-                    [innerHTML]="content.body | stripTags: 'p' | trim | shorten: 1000 : '...'"
+                    [innerHTML]="content().body | stripTags: 'p' | trim | shorten: 1000 : '...'"
                   ></div>
                   <div class="shadow"></div>
                 </div>
@@ -40,29 +40,29 @@
               }
             }
           </div>
-          @if (content.bottom) {
+          @if (content().bottom) {
             <div class="article-bottom m-y">
-              @for (action of content.bottom; track action) {
+              @for (action of content().bottom; track action) {
                 <app-dynamic-component [inputs]="action" />
               }
             </div>
           }
-          @if (content.actions) {
+          @if (content().actions) {
             <div class="ations m-y">
-              @for (action of content.actions; track action) {
-                <app-dynamic-component [inputs]="{ content: action, data: content.params }" />
+              @for (action of content().actions; track action) {
+                <app-dynamic-component [inputs]="{ content: action, data: content().params }" />
               }
             </div>
           }
           @if (user$ | async) {
-            @if (coreConfig.article?.comment?.enable && content.params?.comment) {
-              <app-comment-form [content]="content" [type]="'add'" />
-              <app-comment-list [comments]="comments" [content]="content" />
+            @if (coreConfig.article?.comment?.enable && content().params?.comment) {
+              <app-comment-form [content]="content()" [type]="'add'" />
+              <app-comment-list [comments]="comments" [content]="content()" />
             }
           }
         </div>
-        @if (content.sidebar) {
-          <app-sidebar class="flex-12/12 md:flex-3/12" [content]="content.sidebar" />
+        @if (content().sidebar) {
+          <app-sidebar class="flex-12/12 md:flex-3/12" [content]="content().sidebar" />
         }
       </div>
     </div>

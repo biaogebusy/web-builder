@@ -1,8 +1,8 @@
-@if (content) {
+@if (content()) {
   <article class="question p-y-sm">
     <div class="container">
-      <h2 class="title">{{ content.title }}</h2>
-      <div class="question-details" [innerHTML]="content.body | safeHtml"></div>
+      <h2 class="title">{{ content().title }}</h2>
+      <div class="question-details" [innerHTML]="content().body | safeHtml"></div>
       <div class="actions m-y-sm">
         @if (!(user$ | async)) {
           <button mat-raised-button color="primary" (click)="openLogin()">
@@ -27,8 +27,8 @@
   <div class="container">
     <!-- input params and editor config -->
     @if (showEditor) {
-      <app-comment-form [type]="'add'" [content]="content" />
+      <app-comment-form [type]="'add'" [content]="content()" />
     }
-    <app-comment-list [comments]="comments" [content]="content" />
+    <app-comment-list [comments]="comments" [content]="content()" />
   </div>
 </article>

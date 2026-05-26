@@ -3,9 +3,9 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  ViewChild,
   inject,
   DOCUMENT,
+  viewChild
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,7 +25,7 @@ export class GotopComponent {
   private document = inject<Document>(DOCUMENT);
   private destroyRef = inject(DestroyRef);
 
-  @ViewChild('goTop') goTop: ElementRef;
+  readonly goTop = viewChild<ElementRef>('goTop');
 
 
   gotoTop(): void {
@@ -35,11 +35,12 @@ export class GotopComponent {
   onScroll(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.scroll$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        if (this.goTop) {
+        const goTop = this.goTop();
+        if (goTop) {
           if (this.document.body.getBoundingClientRect().top < -100) {
-            this.goTop.nativeElement.style.bottom = '3rem';
+            goTop.nativeElement.style.bottom = '3rem';
           } else {
-            this.goTop.nativeElement.style.bottom = '-10rem';
+            goTop.nativeElement.style.bottom = '-10rem';
           }
         }
       });

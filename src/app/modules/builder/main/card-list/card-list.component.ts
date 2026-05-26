@@ -3,9 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -37,7 +37,7 @@ import { environment } from 'src/environments/environment';
 export class CardListComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: ICardList;
+  readonly content = input<ICardList>();
   content$: Observable<IPageMeta[]>;
   form = new FormGroup({
     page: new FormControl(0),
@@ -82,7 +82,7 @@ export class CardListComponent extends BaseComponent implements OnInit {
   fetchPage(params: string): void {
     const {
       params: { api },
-    } = this.content;
+    } = this.content();
     this.loading = true;
     this.content$ = this.nodeService.fetch(api, params).pipe(
       catchError(error => {

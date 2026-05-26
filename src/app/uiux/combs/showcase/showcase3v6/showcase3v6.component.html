@@ -1,9 +1,9 @@
-<div class="showcase-3-v6" *reqRolesIf="content">
-  @if (content) {
-    <app-text [attr.data-path]="'title'" [content]="content.title" />
+<div class="showcase-3-v6" *reqRolesIf="content()">
+  @if (content()) {
+    <app-text [attr.data-path]="'title'" [content]="content().title" />
     <div class="showcase-inner">
-      @for (item of content.elements; track item; let i = $index) {
-        <div class="element-item flex-12/12 md:flex-{{ content.row }}/12">
+      @for (item of content().elements; track item; let i = $index) {
+        <div class="element-item flex-12/12 md:flex-{{ content().row }}/12">
           <app-media-object
             [attr.data-path]="'elements.' + i"
             class="p-x-xs p-y-xs media-item"
@@ -11,10 +11,10 @@
           />
         </div>
       }
-      @if (content.action) {
+      @if (content().action) {
         <div class="actions">
           <div class="m-y">
-            <app-dynamic-component [attr.data-path]="'action'" [inputs]="content.action" />
+            <app-dynamic-component [attr.data-path]="'action'" [inputs]="content().action" />
           </div>
         </div>
       }

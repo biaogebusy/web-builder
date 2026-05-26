@@ -3,11 +3,11 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   OnInit,
   inject,
   signal,
   ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
@@ -41,7 +41,7 @@ import { DividerComponent } from '../../divider/divider.component';
 export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
-  @Input() content: IComponentToolbar;
+  readonly content = input<IComponentToolbar>();
   public index = signal(0);
   public length = signal(0);
 
@@ -68,8 +68,9 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.type.set(this.content.type || this.content.content?.type || '');
-    this.component.set(this.type() ? this.content : this.content.content);
+    const content = this.content();
+    this.type.set(content.type || content.content?.type || '');
+    this.component.set(this.type() ? content : content.content);
     this.path.set(generatePath(this.ele.nativeElement));
     this.currentPage$.pipe(delay(500), takeUntilDestroyed(this.destroyRef)).subscribe(page => {
       this.currentPage = page;
@@ -136,7 +137,7 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
         content: {
           type: 'text',
           fullWidth: true,
-          body: `是否要删除<strong class="text-black-500 text-primary">${this.content.type}</strong>组件？`,
+          body: `是否要删除<strong class="text-black-500 text-primary">${this.content().type}</strong>组件？`,
         },
       },
     };

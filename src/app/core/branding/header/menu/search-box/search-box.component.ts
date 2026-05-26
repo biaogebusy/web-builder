@@ -1,11 +1,11 @@
 import {
   Component,
   DestroyRef,
-  Input,
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
@@ -37,7 +37,7 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
   ],
 })
 export class SearchBoxComponent extends BaseComponent implements OnInit {
-  @Input() content: IHeaderSearch;
+  readonly content = input<IHeaderSearch>();
 
   form: UntypedFormGroup;
   options: any[] = [];
@@ -48,7 +48,7 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.initForm(this.content);
+    this.initForm(this.content());
   }
 
   initForm(form: any): void {

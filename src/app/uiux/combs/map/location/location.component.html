@@ -1,10 +1,10 @@
-@if (content) {
+@if (content()) {
   <div class="location">
-    @if (content.title) {
-      <app-title [content]="content.title" />
+    @if (content().title) {
+      <app-title [content]="content().title" />
     }
-    @if (content) {
-      <app-map class="map-block m-top-md" [style]="content.style" [content]="content" />
+    @if (content()) {
+      <app-map class="map-block m-top-md" [style]="content().style" [content]="content()" />
     }
   </div>
 }

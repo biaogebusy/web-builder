@@ -3,9 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatListModule } from '@angular/material/list';
@@ -32,8 +32,8 @@ import { AccordionMenuComponent } from '../../accordion-menu/accordion-menu.comp
   ],
 })
 export class MenuItemComponent implements OnInit {
-  @Input() content: any;
-  @Input() mobileMenu: any;
+  readonly content = input<any>();
+  readonly mobileMenu = input<any>();
   showXs: boolean;
   private screen = inject(ScreenState);
   private cd = inject(ChangeDetectorRef);

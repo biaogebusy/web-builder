@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import type { IShowcase3v6 } from '@core/interface/combs/IShowcase';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -14,6 +14,6 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [ReqRolesDirective, TextComponent, MediaObjectComponent, DynamicComponentComponent],
 })
 export class Showcase3v6Component extends BaseComponent {
-  @Input() content: IShowcase3v6;
+  readonly content = input<IShowcase3v6>();
 
 }

@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
-  ViewChild,
   forwardRef,
+  input,
+  viewChild
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -24,6 +24,6 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
   ],
 })
 export class SubMenuComponent {
-  @Input() content: any;
-  @ViewChild('childMenu', { static: true }) public childMenu: any;
+  readonly content = input<any>();
+  public readonly childMenu = viewChild<any>('childMenu');
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import type { ILogo } from '@core/interface/branding/IBranding';
 import { IImg } from '@core/interface/widgets/IImg';
@@ -13,15 +13,16 @@ import { ImgComponent } from '../img.component';
   imports: [ImgComponent, RouterModule, SafeHtmlPipe],
 })
 export class LogoComponent implements OnInit {
-  @Input() content: ILogo | undefined;
-  @Input() isInvert: boolean;
+  readonly content = input<ILogo>();
+  readonly isInvert = input<boolean>();
   public img: IImg;
 
   ngOnInit(): void {
-    if (!this.isInvert && this.content?.img) {
-      this.img = this.content.img;
+    const content = this.content();
+    if (!this.isInvert() && content?.img) {
+      this.img = content.img;
     } else {
-      this.img = { ...this.content?.img, src: this.content?.invert || '' };
+      this.img = { ...content?.img, src: content?.invert || '' };
     }
   }
 }

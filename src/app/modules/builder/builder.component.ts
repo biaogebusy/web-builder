@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, ViewChild, inject, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, AfterViewInit, ChangeDetectionStrategy, viewChild } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { RouterOutlet } from '@angular/router';
@@ -23,8 +23,7 @@ import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sideb
   ],
 })
 export class BuilderComponent implements OnInit, AfterViewInit {
-  @ViewChild('builderRightDrawer', { static: false })
-  private builderRightDrawer: MatDrawer;
+  private readonly builderRightDrawer = viewChild<MatDrawer>('builderRightDrawer');
   public sidebarDrawerOpened = false;
 
   public builder = inject(BuilderState);
@@ -35,7 +34,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     this.builder.rightContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {
       if (content) {
         setTimeout(() => {
-          this.builderRightDrawer.open();
+          this.builderRightDrawer().open();
         }, 100);
       }
     });
@@ -50,6 +49,6 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   }
 
   onClose(): void {
-    this.builderRightDrawer.close();
+    this.builderRightDrawer().close();
   }
 }

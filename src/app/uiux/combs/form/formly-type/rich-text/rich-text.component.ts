@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, ChangeDetectionStrategy, viewChild } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule } from '@angular/material/input';
@@ -20,8 +20,8 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
   imports: [ReactiveFormsModule, MatButtonModule, MatInputModule, QuillModule, FormlyModule, BtnComponent],
 })
 export class RichTextComponent extends FieldType<FieldTypeConfig> implements AfterViewInit {
-  @ViewChild(MatInput, { static: true }) formFieldControl!: MatInput;
-  @ViewChild('popup', { static: false }) popup: ElementRef;
+  readonly formFieldControl = viewChild.required(MatInput);
+  readonly popup = viewChild<ElementRef>('popup');
   private value: any;
   private contentChunks: string[] = []; // 分段内容
   private popper: any;
@@ -69,7 +69,7 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements Aft
 
   openRichText(): void {
     this.value = this.formControl.value;
-    this.popper = createPopper(this.ele.nativeElement, this.popup.nativeElement, {
+    this.popper = createPopper(this.ele.nativeElement, this.popup().nativeElement, {
       placement: 'left',
       strategy: 'fixed',
     });

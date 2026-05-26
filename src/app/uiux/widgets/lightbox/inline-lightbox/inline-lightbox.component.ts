@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IInlineLightbox } from '@core/interface/widgets/IWidgets';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
@@ -14,7 +14,7 @@ import { LightgalleryModule } from 'lightgallery/angular';
   imports: [LightgalleryModule, SafeHtmlPipe],
 })
 export class InlineLightboxComponent implements AfterViewInit {
-  @Input() content: IInlineLightbox;
+  readonly content = input<IInlineLightbox>();
   private util = inject(UtilitiesService);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   public settings = {

@@ -1,7 +1,7 @@
-@if (content) {
+@if (content()) {
   <div class="dashboard">
-    <div class="wrapper" *reqRolesIf="content">
-      @for (box of content.elements; track box; let index = $index) {
+    <div class="wrapper" *reqRolesIf="content()">
+      @for (box of content().elements; track box; let index = $index) {
         <div class="element-col flex-12/12 md:flex-{{ box.row }}/12">
           <app-dynamic-component
             [attr.data-path]="'elements.' + index"

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal, ChangeDetectionStrategy, input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -37,7 +37,7 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
   ],
 })
 export class CodeEditorComponent implements OnInit {
-  @Input() content: ICodeEditor;
+  readonly content = input<ICodeEditor>();
   public html = signal<string>('');
   public json = signal<any>(null);
   public isMore = signal<boolean>(true);
@@ -80,7 +80,7 @@ export class CodeEditorComponent implements OnInit {
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   ngOnInit(): void {
-    const { html, json: jsonValue = null, isAPI = false, api = '' } = this.content.content;
+    const { html, json: jsonValue = null, isAPI = false, api = '' } = this.content().content;
     this.html.set(html);
     this.json.set(jsonValue);
     this.isAPI.set(isAPI);
@@ -154,7 +154,7 @@ export class CodeEditorComponent implements OnInit {
   }
 
   updateHtml(html: any): void {
-    const { path } = this.content;
+    const { path } = this.content();
     if (path) {
       const content = { ...get(this.builder.currentPage.body, path), html };
       if (this.isAPI()) {
@@ -188,7 +188,7 @@ export class CodeEditorComponent implements OnInit {
           this.util.openSnackbar('数据来源API，请填写API地址', 'ok');
           return;
         }
-        const { path } = this.content;
+        const { path } = this.content();
         this.api = (api ?? '').trim();
         if (this.isAPI && api) {
           this.nodeService

@@ -1,21 +1,21 @@
-@if (content) {
+@if (content()) {
   <div class="search-header p-y-xl">
-    @if (content.bg) {
-      <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"> </app-bg-img>
+    @if (content().bg) {
+      <app-bg-img [attr.data-path]="'bg'" [content]="content().bg"> </app-bg-img>
     }
     <div class="container search-container">
-      <app-text [attr.data-path]="'text'" [content]="content.text" />
+      <app-text [attr.data-path]="'text'" [content]="content().text" />
       <app-spacer [size]="'sm'" />
       <div class="form-wrap">
-        <form [formGroup]="form">
+        <form [formGroup]="form()">
           <div class="search-input">
-            @for (item of filterForm; track item) {
+            @for (item of filterForm(); track item) {
               @switch (item.key) {
                 @case ('keys') {
                   <input
                     formControlName="{{ item.key }}"
                     matInput
-                    placeholder="{{ content.input.placeholder }}"
+                    placeholder="{{ content().input.placeholder }}"
                     type="search"
                     size="15"
                     maxlength="128"

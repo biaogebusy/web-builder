@@ -8,7 +8,6 @@ import {
   OnInit,
   PendingTasks,
   Renderer2,
-  ViewChild,
   ViewContainerRef,
   afterNextRender,
   createComponent,
@@ -19,6 +18,7 @@ import {
   signal,
   untracked,
   ChangeDetectionStrategy,
+  viewChild
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -45,8 +45,7 @@ import { BgImgComponent } from '../../bg-img/bg-img.component';
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly inputs = input<IDynamicInputs>();
-  @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
-  private container: ViewContainerRef;
+  private readonly container = viewChild('componentContainer', { read: ViewContainerRef });
 
   private ele = inject(ElementRef);
   public showToolbar = signal(false);
@@ -109,7 +108,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         return;
       }
       const content = inputs.type ? inputs : inputs.content;
-      this.container.clear();
+      this.container().clear();
       this.compContent.set(content);
       if (content.containerClasses) {
         const classes = content.containerClasses.split(' ');
@@ -147,7 +146,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         }
       }
 
-      this.container.insert(this.componentRef.hostView);
+      this.container().insert(this.componentRef.hostView);
       this.componentRef.changeDetectorRef.detectChanges();
       if (this.screenService.isPlatformBrowser()) {
         this.util.initAnimate(inputs, this.ele.nativeElement, this.ele.nativeElement);
@@ -158,7 +157,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnDestroy(): void {
-    this.container.clear();
+    this.container().clear();
     if (this.componentRef) {
       this.componentRef.destroy();
     }

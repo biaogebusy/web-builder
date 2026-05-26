@@ -1,10 +1,10 @@
-@if (content) {
+@if (content()) {
   <div class="showcase-3-v7">
-    @if (content) {
-      <app-text [attr.data-path]="'title'" [content]="content.title" />
+    @if (content()) {
+      <app-text [attr.data-path]="'title'" [content]="content().title" />
       <div class="showcase-inner">
         <div class="left">
-          @for (item of content.left; track item; let i = $index) {
+          @for (item of content().left; track item; let i = $index) {
             <app-box
               [attr.data-path]="'left.' + i"
               class="box p-x-xs"
@@ -13,10 +13,10 @@
           }
         </div>
         <div class="middle">
-          <app-img [attr.data-path]="'img'" class="p-x-sm max-w-1/2" [content]="content.img" />
+          <app-img [attr.data-path]="'img'" class="p-x-sm max-w-1/2" [content]="content().img" />
         </div>
         <div class="right">
-          @for (item of content.right; track item; let i = $index) {
+          @for (item of content().right; track item; let i = $index) {
             <app-box [attr.data-path]="'right.' + i" class="box p-x-xs" [content]="item" />
           }
         </div>

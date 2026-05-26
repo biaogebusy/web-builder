@@ -45,7 +45,7 @@
                 }}"
               >
                 <div class="actions" [matTooltip]="item.title">
-                  @if (content.mode === 'manage') {
+                  @if (content().mode === 'manage') {
                     <app-btn
                       *reqRolesIf="{
                         params: { reqRoles: ['administrator'] },
@@ -84,7 +84,7 @@
                     }"
                   />
                 </div>
-                @if (content.mode === 'manage') {
+                @if (content().mode === 'manage') {
                   <div class="delete">
                     <mat-checkbox (change)="onChange($event.checked, item.uuid)" />
                   </div>

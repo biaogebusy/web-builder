@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import type { ITaxonomyThinList } from '@core/interface/combs/IList';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { BgComponent } from '@uiux/widgets/bg/bg.component';
@@ -13,6 +13,6 @@ import { ListThinComponent } from '../list/list-thin/list-thin.component';
   imports: [BgComponent, DynamicComponentComponent, ListThinComponent],
 })
 export class TaxonomyThinListComponent extends BaseComponent {
-  @Input() content: ITaxonomyThinList;
+  readonly content = input<ITaxonomyThinList>();
 
 }

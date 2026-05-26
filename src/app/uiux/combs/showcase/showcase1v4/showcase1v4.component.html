@@ -1,20 +1,20 @@
-@if (content) {
-  <div class="showcase-1-v4" [class]="content.classes">
-    @if (content.text) {
-      <app-text [attr.data-path]="'text'" [content]="content.text" />
+@if (content()) {
+  <div class="showcase-1-v4" [class]="content().classes">
+    @if (content().text) {
+      <app-text [attr.data-path]="'text'" [content]="content().text" />
     }
     <div class="elements-grid">
-      @for (item of content.elements; track item; let i = $index) {
+      @for (item of content().elements; track item; let i = $index) {
         <app-dynamic-component
           [attr.data-path]="'elements.' + i"
-          class="box p-3 col-span-12 sm:col-span-6 md:col-span-{{ content.row }}"
+          class="box p-3 col-span-12 sm:col-span-6 md:col-span-{{ content().row }}"
           [inputs]="item"
         />
       }
     </div>
-    @if (content.actions) {
+    @if (content().actions) {
       <div class="actions m-top">
-        @for (action of content.actions; track action; let i = $index) {
+        @for (action of content().actions; track action; let i = $index) {
           <app-dynamic-component [attr.data-path]="'actions.' + i" [inputs]="action" />
         }
       </div>

@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { SidebarComponent } from '@uiux/widgets/sidebar/sidebar.component';
 import { ListComponent } from '../list/list.component';
@@ -14,7 +14,7 @@ import { ListComponent } from '../list/list.component';
   imports: [ListComponent, SidebarComponent],
 })
 export class TaxonomyListComponent {
-  @Input() content: any;
+  readonly content = input<any>();
   constructor() {}
 
 }

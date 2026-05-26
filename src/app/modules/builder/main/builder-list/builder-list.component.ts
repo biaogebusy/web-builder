@@ -8,12 +8,12 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
-  ViewChild,
   afterEveryRender,
   inject,
   signal,
   DOCUMENT,
   ChangeDetectionStrategy,
+  viewChild
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -44,7 +44,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   public currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
-  @ViewChild('builderList', { static: false }) builderList: ElementRef;
+  readonly builderList = viewChild<ElementRef>('builderList');
   private markers: NodeListOf<Element>;
   public previewClass$: Observable<any>;
   private router = inject(Router);
@@ -95,7 +95,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
       Array.from(this.markers).forEach(marker => {
-        this.builderList.nativeElement.append(marker);
+        this.builderList().nativeElement.append(marker);
       });
     }, 0);
 

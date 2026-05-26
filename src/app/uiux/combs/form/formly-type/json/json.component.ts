@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DestroyRef, ElementRef, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, inject, ChangeDetectionStrategy, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ICoreConfig } from '@core/interface/IAppConfig';
@@ -22,7 +22,7 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private dialog = inject(MatDialog);
   private destroyRef = inject(DestroyRef);
-  @ViewChild('jsoneditor', { read: ElementRef }) editor: ElementRef;
+  readonly editor = viewChild('jsoneditor', { read: ElementRef });
 
   private editorInstance: any;
 
@@ -38,7 +38,7 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
         await this.util.loadScriptWithoutAmd(jsoneditorJS);
       }
 
-      this.editorInstance = new window.JSONEditor(this.editor.nativeElement, {
+      this.editorInstance = new window.JSONEditor(this.editor().nativeElement, {
         mode: 'code',
         enableSort: false,
         enableTransform: false,

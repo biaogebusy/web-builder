@@ -1,5 +1,5 @@
-@if (content) {
-  @for (bar of content.elements; track bar) {
+@if (content()) {
+  @for (bar of content().elements; track bar) {
     <app-progress-bar [content]="bar" />
   }
 }

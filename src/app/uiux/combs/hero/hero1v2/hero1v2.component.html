@@ -1,4 +1,4 @@
-@if (content) {
+@if (content()) {
   <div class="hero-1-v2">
     <div class="hero-inner">
       <div class="swiper-media">
@@ -6,14 +6,14 @@
           [index]="index"
           [attr.data-path]="'right'"
           (slideChange)="onSlideChange($event)"
-          [content]="content.right"
+          [content]="content().right"
         />
       </div>
       <div class="swiper-text">
         <app-swiper
           [index]="index"
           (slideChange)="onSlideChange($event)"
-          [content]="content.left"
+          [content]="content().left"
           [attr.data-path]="'left'"
         />
       </div>

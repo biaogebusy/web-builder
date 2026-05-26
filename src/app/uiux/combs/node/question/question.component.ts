@@ -4,8 +4,8 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   inject,
+  input
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,7 +36,7 @@ import { CommentListComponent } from '../comment/comment-list/comment-list.compo
 export class QuestionComponent extends NodeComponent implements AfterViewInit {
   public user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: IQuestion;
+  readonly content = input<IQuestion>();
   public comments: IComment[];
   public showEditor = false;
   public isAsked = false;
@@ -89,8 +89,8 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
     if (!environment.production) {
       return;
     }
-    const entityId = this.nodeService.getCommentRelEntityId(this.content);
-    const entityType = this.nodeService.getCommentType(this.content);
+    const entityId = this.nodeService.getCommentRelEntityId(this.content());
+    const entityType = this.nodeService.getCommentType(this.content());
     const params = [
       `filter[uid.id]=${this.user.id}`,
       `filter[entity_id.id]=${entityId}`,
@@ -125,7 +125,7 @@ export class QuestionComponent extends NodeComponent implements AfterViewInit {
       return;
     }
     this.nodeService
-      .getCommentsWitchChild(this.content, timeStamp)
+      .getCommentsWitchChild(this.content(), timeStamp)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         this.comments = res;

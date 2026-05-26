@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { IHero1v1 } from '@core/interface/combs/IHero';
 import { SwiperComponent } from '@uiux/combs/carousel/swiper/swiper.component';
@@ -14,6 +14,6 @@ import { SwiperComponent } from '@uiux/combs/carousel/swiper/swiper.component';
   imports: [SwiperComponent],
 })
 export class Hero1v1Component {
-  @Input() content: IHero1v1;
+  readonly content = input<IHero1v1>();
   constructor() {}
 }

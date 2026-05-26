@@ -3,8 +3,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   inject,
+  input
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -25,7 +25,7 @@ import { IDialog } from '@core/interface/IDialog';
   imports: [ShareModule, WidgetsModule, FormModule],
 })
 export class InlineEditComponent implements AfterViewInit {
-  @Input() content: IMetaEdit;
+  readonly content = input<IMetaEdit>();
   form = new UntypedFormGroup({});
   model: any = {};
   private viewHTML: any;
@@ -43,8 +43,9 @@ export class InlineEditComponent implements AfterViewInit {
   }
 
   initTextView(): void {
-    if (this.content.mode === 'text') {
-      const currentValue = this.content.data.innerHTML;
+    const content = this.content();
+    if (content.mode === 'text') {
+      const currentValue = content.data.innerHTML;
       const isHtmlWrapper = this.isHTMLWrapper(currentValue);
       const div = document.createElement('div');
       const p = document.createElement('p');
@@ -57,16 +58,16 @@ export class InlineEditComponent implements AfterViewInit {
       }
 
       this.guiHTML = div.querySelector('p');
-      if (this.content.ele.querySelector('p')) {
-        this.viewHTML = this.content.ele.querySelector('p');
+      if (content.ele.querySelector('p')) {
+        this.viewHTML = content.ele.querySelector('p');
       } else {
-        const text = this.content.ele.innerHTML;
+        const text = content.ele.innerHTML;
         const pEle = document.createElement('p');
         pEle.innerHTML = text;
         pEle.style.display = 'inline-block';
         pEle.style.marginBottom = '0px';
-        this.content.ele.innerHTML = pEle.outerHTML;
-        this.viewHTML = this.content.ele.querySelector('p');
+        content.ele.innerHTML = pEle.outerHTML;
+        this.viewHTML = content.ele.querySelector('p');
       }
       if (!this.guiHTML) {
         return;
@@ -77,15 +78,16 @@ export class InlineEditComponent implements AfterViewInit {
   }
 
   onClear(): void {
-    if (this.content.mode === 'text') {
+    const content = this.content();
+    if (content.mode === 'text') {
       this.viewHTML.removeAttribute('style');
-      this.builder.updatePageContentByPath(this.content.path, this.viewHTML.outerHTML);
+      this.builder.updatePageContentByPath(content.path, this.viewHTML.outerHTML);
     }
 
-    if (this.content.mode === 'img') {
-      const src = this.content.path;
+    if (content.mode === 'img') {
+      const src = content.path;
       const imgPath = src.substring(0, src.lastIndexOf('.'));
-      this.content.ele.removeAttribute('style');
+      content.ele.removeAttribute('style');
       this.builder.updatePageContentByPath(`${imgPath}.style`, {});
     }
   }
@@ -112,7 +114,7 @@ export class InlineEditComponent implements AfterViewInit {
     });
   }
   onModelChange(value: any): void {
-    const path = this.content.path;
+    const path = this.content().path;
     const { style, src } = value;
     for (const key of Object.keys(style)) {
       switch (key) {
@@ -127,17 +129,18 @@ export class InlineEditComponent implements AfterViewInit {
           this.setStyle('maxHeight', maxHeight, value);
           break;
         case 'width':
-          this.content.ele.setAttribute('width', parseInt(style[key]));
+          this.content().ele.setAttribute('width', parseInt(style[key]));
           break;
         case 'height':
-          this.content.ele.setAttribute('height', parseInt(style[key]));
+          this.content().ele.setAttribute('height', parseInt(style[key]));
           break;
         default:
           this.setStyle(key, style[key], value);
           break;
       }
     }
-    if (this.content.mode === 'img') {
+    const content = this.content();
+    if (content.mode === 'img') {
       const imgPath = path.substring(0, path.lastIndexOf('.'));
       this.builder.updatePageContentByPath(`${imgPath}.style`, style);
       this.builder.updatePageContentByPath(`${imgPath}.src`, src);
@@ -147,7 +150,7 @@ export class InlineEditComponent implements AfterViewInit {
       delete style.height;
     }
 
-    if (this.content.mode === 'text') {
+    if (content.mode === 'text') {
       this.builder.updatePageContentByPath(path, this.guiHTML.outerHTML);
     }
 
@@ -159,10 +162,11 @@ export class InlineEditComponent implements AfterViewInit {
 
   setStyle(key: string, value: any, formValue: any): void {
     const { style, src } = formValue;
-    if (this.content.mode === 'img') {
+    const content = this.content();
+    if (content.mode === 'img') {
       style[key] = value;
-      this.content.ele.style[key] = value;
-      this.content.ele.src = src;
+      content.ele.style[key] = value;
+      content.ele.src = src;
     } else {
       this.viewHTML.style[key] = value;
       this.guiHTML.style[key] = value;

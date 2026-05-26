@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { ICard1v1 } from '@core/interface/widgets/ICard';
@@ -22,6 +22,6 @@ import { LinkComponent } from '../../link/link.component';
   ],
 })
 export class Card1v1Component {
-  @Input() content: ICard1v1;
+  readonly content = input<ICard1v1>();
 
 }

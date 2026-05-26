@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,9 +31,9 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
   ],
 })
 export class ReportComponent extends BaseComponent implements OnInit {
-  @Input() content: IReport;
-  @Input() form = new UntypedFormGroup({});
-  @Input() model: any = {};
+  readonly content = input<IReport>();
+  readonly form = input(new UntypedFormGroup({}));
+  readonly model = input<any>({});
   box$: Observable<any[]>;
   loading: boolean;
   private nodeService = inject(NodeService);
@@ -41,10 +41,11 @@ export class ReportComponent extends BaseComponent implements OnInit {
   private formService = inject(FormService);
 
   ngOnInit(): void {
-    if (this.content?.params?.api) {
+    const content = this.content();
+    if (content?.params?.api) {
       this.getContent();
     } else {
-      this.box$ = of(this.content.box);
+      this.box$ = of(content.box);
       this.loading = false;
       this.cd.detectChanges();
     }
@@ -58,29 +59,29 @@ export class ReportComponent extends BaseComponent implements OnInit {
   getContent(options = {}): void {
     this.loading = true;
     const params = this.getApiParams(options);
-    const api = this.content.params.api;
+    const api = this.content().params.api;
     this.box$ = this.nodeService.fetch(api, params).pipe(
       map(({ chart, table }) => {
         let box = [];
         if (isArray(chart)) {
           box[0] = {
             data: {
-              ...this.content.box[0].data,
+              ...this.content().box[0].data,
             },
             content: {
               type: 'chart',
               tooltip: {
                 trigger: 'item',
-                ...this.content.box[0].content.tooltip,
+                ...this.content().box[0].content.tooltip,
               },
               legend: {
-                ...this.content.box[0].content.legend,
+                ...this.content().box[0].content.legend,
               },
               dataset: [
                 {
                   source: chart,
                 },
-                { ...(this.content.customDataset || {}) },
+                { ...(this.content().customDataset || {}) },
               ],
               xAxis: {
                 type: 'category',
@@ -88,14 +89,14 @@ export class ReportComponent extends BaseComponent implements OnInit {
                   interval: 0,
                   rotate: 30,
                 },
-                ...this.content.box[0].content.xAxis,
+                ...this.content().box[0].content.xAxis,
               },
               yAxis: {
                 type: 'value',
-                ...this.content.box[0].content.yAxis,
+                ...this.content().box[0].content.yAxis,
               },
-              series: [...this.content.box[0].content.series],
-              ...this.content.box[0].options,
+              series: [...this.content().box[0].content.series],
+              ...this.content().box[0].options,
             },
           };
         }
@@ -103,8 +104,8 @@ export class ReportComponent extends BaseComponent implements OnInit {
           box[1] = {
             content: {
               type: 'dynamic-table',
-              header: [...(this.content.box[1].content.header || [])],
-              classes: this.content.box[1].content.classes,
+              header: [...(this.content().box[1].content.header || [])],
+              classes: this.content().box[1].content.classes,
               elements: table,
             },
           };
@@ -127,6 +128,6 @@ export class ReportComponent extends BaseComponent implements OnInit {
   }
 
   clear(): void {
-    this.form.reset();
+    this.form().reset();
   }
 }

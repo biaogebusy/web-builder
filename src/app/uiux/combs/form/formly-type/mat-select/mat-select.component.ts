@@ -3,9 +3,9 @@ import {
   Component,
   DestroyRef,
   OnInit,
-  ViewChild,
   inject,
   signal,
+  viewChild
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
@@ -40,7 +40,7 @@ import * as mdi from '@mdi/js';
   ],
 })
 export class MatSelectComponent extends FieldType<FieldTypeConfig> implements OnInit {
-  @ViewChild('select') select: MatSelect;
+  readonly select = viewChild<MatSelect>('select');
   /** control for the MatSelect filter keyword multi-selection */
   public searchCtrl: UntypedFormControl = new UntypedFormControl();
   /** list of banks filtered by search keyword */
@@ -126,7 +126,7 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
       // the form control (i.e. _initializeSelection())
       // this needs to be done after the filteredBanks are loaded initially
       // and after the mat-option elements are available
-      this.select.compareWith = (a: any, b: any) => a && b && a.label === b.label;
+      this.select().compareWith = (a: any, b: any) => a && b && a.label === b.label;
     });
   }
 

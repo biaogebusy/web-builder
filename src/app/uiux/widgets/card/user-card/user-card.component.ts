@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -37,7 +37,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   user$ = inject<Observable<IUser>>(USER);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  @Input() content: IUserCard;
+  readonly content = input<IUserCard>();
   profile: IMediaObject;
   count: IUserCount[];
   user: IUser;
@@ -80,9 +80,10 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   }
 
   getCount(): void {
-    const api = this.getParams(this.content, 'api');
-    if (this.content.count) {
-      this.count = this.content.count;
+    const api = this.getParams(this.content(), 'api');
+    const content = this.content();
+    if (content.count) {
+      this.count = content.count;
       this.cd.detectChanges();
     } else if (api) {
       this.getContentFormApi(api);

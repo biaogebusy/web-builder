@@ -1,11 +1,11 @@
-<form [formGroup]="form">
+<form [formGroup]="form()">
   @if (fieldsConfig()) {
     <formly-form
-      [class]="classes"
-      [options]="options"
-      [form]="form"
+      [class]="classes()"
+      [options]="options()"
+      [form]="form()"
       [fields]="fieldsConfig()"
-      [model]="model"
+      [model]="model()"
       (modelChange)="onModelChange($event)"
     />
   }

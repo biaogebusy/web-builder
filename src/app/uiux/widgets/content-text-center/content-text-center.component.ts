@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { IContentTextCenter } from '@core/interface/widgets/IContentWidget';
@@ -16,7 +16,7 @@ import { ImgComponent } from '../img/img.component';
   imports: [ImgComponent, ContenteditDirective, SafeHtmlPipe],
 })
 export class ContentTextCenterComponent {
-  @Input() content: IContentTextCenter;
+  readonly content = input<IContentTextCenter>();
   constructor() {}
 
 }

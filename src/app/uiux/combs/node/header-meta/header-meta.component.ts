@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 
@@ -13,7 +13,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent],
 })
 export class HeaderMetaComponent {
-  @Input() content: any;
+  readonly content = input<any>();
   constructor() {}
 
 }

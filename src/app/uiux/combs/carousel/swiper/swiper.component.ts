@@ -1,9 +1,7 @@
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
-  Input,
   OnInit,
-  ViewChild,
   AfterViewInit,
   effect,
   inject,
@@ -12,6 +10,7 @@ import {
   output,
   afterNextRender,
   ChangeDetectionStrategy,
+  viewChild
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -34,12 +33,12 @@ register();
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SwiperComponent implements OnInit, AfterViewInit {
-  @Input() content: ISwiper;
+  readonly content = input<ISwiper>();
   readonly index = input<number>();
-  @Input() navigationSub: Subject<number>;
+  readonly navigationSub = input<Subject<number>>();
   readonly slideChange = output<Swiper>();
   readonly slideClick = output<any>();
-  @ViewChild('swiper', { static: false }) swiper: any;
+  readonly swiper = viewChild<any>('swiper');
   private destroyRef = inject(DestroyRef);
   private screenService = inject(ScreenService);
   private util = inject(UtilitiesService);
@@ -67,18 +66,20 @@ export class SwiperComponent implements OnInit, AfterViewInit {
 
   constructor() {
     afterNextRender(() => {
-      const swiperEle = this.swiper.nativeElement;
+      const swiperEle = this.swiper().nativeElement;
       Object.assign(swiperEle, this.config);
       swiperEle.initialize();
-      if (this.content?.classes) {
-        swiperEle.classList.add(this.content?.classes);
+      const content = this.content();
+      if (content?.classes) {
+        swiperEle.classList.add(content?.classes);
       }
       swiperEle.addEventListener('swiperslidechange', (event: any) => {
         const [swiper] = event.detail;
         this.slideChange.emit(swiper);
       });
-      if (this.navigationSub) {
-        this.navigationSub.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(action => {
+      const navigationSub = this.navigationSub();
+      if (navigationSub) {
+        navigationSub.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(action => {
           if (action > 0) {
             swiperEle.swiper.slideNext();
           } else {
@@ -90,14 +91,16 @@ export class SwiperComponent implements OnInit, AfterViewInit {
 
     effect(() => {
       const idx = this.index();
-      if (idx !== undefined && this.swiper?.nativeElement?.swiper) {
-        this.swiper.nativeElement.swiper.slideTo(idx);
+      const swiper = this.swiper();
+      if (idx !== undefined && swiper?.nativeElement?.swiper) {
+        swiper.nativeElement.swiper.slideTo(idx);
       }
     });
   }
   ngOnInit(): void {
     let customPagination = {};
-    if (this.content?.custom?.pagination?.bulletsStyle) {
+    const content = this.content();
+    if (content?.custom?.pagination?.bulletsStyle) {
       customPagination = {
         pagination: {
           type: 'bullets',
@@ -106,7 +109,7 @@ export class SwiperComponent implements OnInit, AfterViewInit {
         },
       };
     }
-    this.config = Object.assign(this.defaultConfig, this.content?.params, customPagination);
+    this.config = Object.assign(this.defaultConfig, content?.params, customPagination);
   }
   async ngAfterViewInit(): Promise<void> {
     if (this.screenService.isPlatformBrowser()) {
@@ -123,11 +126,12 @@ export class SwiperComponent implements OnInit, AfterViewInit {
     this.slideClick.emit(slide);
   }
   onpaginationRender(swiper: any): void {
-    if (this.content?.custom?.pagination?.bulletsStyle) {
+    const content = this.content();
+    if (content?.custom?.pagination?.bulletsStyle) {
       const {
         pagination: { bullets },
       } = swiper;
-      this.content.custom.pagination.bulletsStyle.forEach((item, index) => {
+      content.custom.pagination.bulletsStyle.forEach((item, index) => {
         Object.keys(item).forEach(key => {
           if (bullets[index]) {
             bullets[index].style[key] =

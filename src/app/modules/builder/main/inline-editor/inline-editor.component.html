@@ -1,7 +1,7 @@
-@if (content) {
+@if (content()) {
   <div class="inline-editor">
-    @if (content.fields) {
-      <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)" />
+    @if (content().fields) {
+      <app-formly [fields]="content().fields" [model]="model" (modelChange)="onModelChange($event)" />
     }
     <div class="actions m-top-sm">
       <app-btn

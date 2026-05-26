@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, ChangeDetectionStrategy, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,7 +28,7 @@ export class JsonEditorDialogComponent implements AfterViewInit {
   private dialogRef = inject(MatDialogRef<JsonEditorDialogComponent>);
   data = inject<IJsonEditorDialogData>(MAT_DIALOG_DATA);
 
-  @ViewChild('editorHost', { read: ElementRef }) editorHost!: ElementRef;
+  readonly editorHost = viewChild.required('editorHost', { read: ElementRef });
 
   private editor: any;
   errorMessage = '';
@@ -45,7 +45,7 @@ export class JsonEditorDialogComponent implements AfterViewInit {
       await this.util.loadScriptWithoutAmd(jsoneditorJS);
     }
 
-    this.editor = new window.JSONEditor(this.editorHost.nativeElement, {
+    this.editor = new window.JSONEditor(this.editorHost().nativeElement, {
       mode: 'code',
       enableSort: false,
       enableTransform: false,

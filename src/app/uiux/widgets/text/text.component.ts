@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
@@ -22,6 +22,6 @@ import { TitleComponent } from '../title/title.component';
   ],
 })
 export class TextComponent {
-  @Input() content: IText;
+  readonly content = input<IText>();
 
 }

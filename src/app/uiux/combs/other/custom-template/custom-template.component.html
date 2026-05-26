@@ -1,5 +1,5 @@
 <div class="tailwind-component">
-  <div class="template {{ content.fullWidth ? '' : 'container' }}"></div>
+  <div class="template {{ content().fullWidth ? '' : 'container' }}"></div>
 </div>
 @if (pager() && pager()?.totalPages !== 0) {
   <div class="pager">

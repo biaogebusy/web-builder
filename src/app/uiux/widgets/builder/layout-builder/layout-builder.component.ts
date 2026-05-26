@@ -3,10 +3,10 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   inject,
   signal,
   ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,7 +45,7 @@ import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.componen
 export class LayoutBuilderComponent implements AfterViewInit {
   currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
-  @Input() content: ILayoutBuilder;
+  readonly content = input<ILayoutBuilder>();
   public showToolbar = signal(false);
 
   private util = inject(UtilitiesService);
@@ -75,7 +75,7 @@ export class LayoutBuilderComponent implements AfterViewInit {
   }
 
   layoutAnimate(): void {
-    this.content.elements.map((item: ILayoutBlock, index) => {
+    this.content().elements.map((item: ILayoutBlock, index) => {
       const animateEle = this.ele.nativeElement.querySelectorAll(
         `.layout-${index} .for-animate`
       )[0];

@@ -1,4 +1,4 @@
-<div class="jsoneditor-wrapper" [class]="content.classes">
+<div class="jsoneditor-wrapper" [class]="content().classes">
   @if (loading()) {
     <div class="loader">
       <app-loading [content]="{ size: 20 }"></app-loading>
@@ -10,9 +10,9 @@
     </div>
   }
   <div #jsoneditor></div>
-  @if (content.actions) {
+  @if (content().actions) {
     <div #actions class="actions m-top">
-      @for (action of content.actions; track action) {
+      @for (action of content().actions; track action) {
         @switch (action.type) {
           @case ('closeDialog') {
             <button

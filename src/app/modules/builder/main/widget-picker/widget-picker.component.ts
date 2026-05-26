@@ -2,13 +2,13 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   OnInit,
-  ViewChild,
   computed,
   inject,
   signal,
   ChangeDetectionStrategy,
+  input,
+  viewChild
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -42,12 +42,12 @@ interface ISearchHit {
   imports: [ShareModule, WidgetsModule],
 })
 export class WidgetPickerComponent implements OnInit {
-  @Input() content: IWidgetPicker;
-  @Input() addType: string;
-  @Input() path: string;
+  readonly content = input<IWidgetPicker>();
+  readonly addType = input<string>();
+  readonly path = input<string>();
 
-  @ViewChild('previewPopup', { static: false }) previewPopup: ElementRef;
-  @ViewChild('picker', { static: false }) pickerRoot: ElementRef;
+  readonly previewPopup = viewChild<ElementRef>('previewPopup');
+  readonly pickerRoot = viewChild<ElementRef>('picker');
 
   private readonly VIEWPORT_RATIO = 0.85;
   /** popup 内边距（左右/上下各 12px），用于尺寸计算 */
@@ -123,9 +123,10 @@ export class WidgetPickerComponent implements OnInit {
   onHoverWidget(item: IBuilderComponentElement, anchor: HTMLElement): void {
     this.hoveredWidget.set(item);
     this.destroyPreviewPopper();
-    if (this.previewPopup?.nativeElement) {
-      const popupEl: HTMLElement = this.previewPopup.nativeElement;
-      const pickerEl: HTMLElement | null = this.pickerRoot?.nativeElement ?? null;
+    const previewPopup = this.previewPopup();
+    if (previewPopup?.nativeElement) {
+      const popupEl: HTMLElement = previewPopup.nativeElement;
+      const pickerEl: HTMLElement | null = this.pickerRoot()?.nativeElement ?? null;
       // 用 card 作为 reference（与原实现一致，保证 popup 一定显示 + Popper 内部 reference rect 正确）。
       // 通过自定义 modifier 把 popup 的 x 坐标钉到 picker 左外侧，
       // 让左右两列卡片悬浮时 popup 横向位置一致，纵向仍跟随当前 hover 卡片。
@@ -174,8 +175,9 @@ export class WidgetPickerComponent implements OnInit {
     this.previewResizeObserver = undefined;
     this.widgetPopper?.destroy();
     this.widgetPopper = undefined;
-    if (this.previewPopup?.nativeElement) {
-      const popupEl: HTMLElement = this.previewPopup.nativeElement;
+    const previewPopup = this.previewPopup();
+    if (previewPopup?.nativeElement) {
+      const popupEl: HTMLElement = previewPopup.nativeElement;
       popupEl.style.width = '';
       popupEl.style.height = '';
       popupEl.style.maxWidth = '';
@@ -190,10 +192,11 @@ export class WidgetPickerComponent implements OnInit {
   }
 
   private applyPreviewScale(): void {
-    if (!this.previewPopup?.nativeElement) {
+    const previewPopup = this.previewPopup();
+    if (!previewPopup?.nativeElement) {
       return;
     }
-    const popupEl: HTMLElement = this.previewPopup.nativeElement;
+    const popupEl: HTMLElement = previewPopup.nativeElement;
     const canvas = popupEl.querySelector('.preview-canvas') as HTMLElement | null;
     // popup box-sizing: border-box，padding 占用尺寸，所以先扣除得到内容可用空间
     const maxW = window.innerWidth * this.VIEWPORT_RATIO - this.PREVIEW_PADDING;
@@ -225,14 +228,15 @@ export class WidgetPickerComponent implements OnInit {
   }
 
   onSelect(widget: any): void {
-    if (!this.content) {
+    const contentValue = this.content();
+    if (!contentValue) {
       this.util.openSnackbar(
         this.translate.instant('BUILDER.WIDGET_PICKER.SELECT_POSITION_FIRST'),
         'ok'
       );
       return;
     }
-    const { addType, path, content } = this.content;
+    const { addType, path, content } = contentValue;
     const data = cloneDeep(content);
     const widgetContent = cloneDeep(widget);
 

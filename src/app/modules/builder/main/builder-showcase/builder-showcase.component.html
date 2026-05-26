@@ -5,7 +5,7 @@
   <app-card-1v1 [content]="card" />
   <div class="showcase-footer">
     <div class="title">
-      {{ content.title }}
+      {{ content().title }}
       @if (user$ | async) {
         <span class="uuid"> {{ component.uuid }} </span>
       }

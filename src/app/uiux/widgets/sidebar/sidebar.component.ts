@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-component.component';
 
 @Component({
@@ -9,6 +9,6 @@ import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-
   imports: [DynamicComponentComponent],
 })
 export class SidebarComponent {
-  @Input() content: any[];
+  readonly content = input<any[]>();
 
 }

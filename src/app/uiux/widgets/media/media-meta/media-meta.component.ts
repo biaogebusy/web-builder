@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import {
   Component,
-  Input,
   ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import type { IMediaMeta } from '@core/interface/widgets/IMediaMeta';
@@ -17,7 +17,7 @@ import { LinkComponent } from '../../link/link.component';
   imports: [DatePipe, MatButtonModule, NgPipesModule, LinkComponent],
 })
 export class MediaMetaComponent {
-  @Input() content: IMediaMeta;
+  readonly content = input<IMediaMeta>();
   constructor() {}
 
 }

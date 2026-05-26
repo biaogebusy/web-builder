@@ -1,14 +1,14 @@
-@if (content) {
-  <div class="showcase-1-v3" [class]="content.classes">
-    @if (content.text) {
-      <app-text [attr.data-path]="'text'" [content]="content.text" />
+@if (content()) {
+  <div class="showcase-1-v3" [class]="content().classes">
+    @if (content().text) {
+      <app-text [attr.data-path]="'text'" [content]="content().text" />
     }
-    @for (item of content.elements; track item; let i = $index) {
+    @for (item of content().elements; track item; let i = $index) {
       <app-dynamic-component [attr.data-path]="'elements.' + i" [inputs]="item" />
     }
-    @if (content.actions) {
+    @if (content().actions) {
       <div class="actions-row">
-        @for (item of content.actions; track item; let i = $index) {
+        @for (item of content().actions; track item; let i = $index) {
           <app-dynamic-component [attr.data-path]="'actions.' + i" [inputs]="item" />
         }
       </div>

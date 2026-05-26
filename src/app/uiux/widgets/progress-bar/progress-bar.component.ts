@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import type { IProgressBar } from '@core/interface/widgets/IWidgets';
@@ -14,7 +14,7 @@ import type { IProgressBar } from '@core/interface/widgets/IWidgets';
   imports: [MatProgressBarModule],
 })
 export class ProgressBarComponent {
-  @Input() content: IProgressBar;
+  readonly content = input<IProgressBar>();
   constructor() {}
 
 }

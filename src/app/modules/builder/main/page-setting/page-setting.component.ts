@@ -2,10 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
   signal,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
@@ -39,7 +39,7 @@ import { Observable } from 'rxjs';
 export class PageSettingComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: any;
+  readonly content = input<any>();
   public form = new UntypedFormGroup({});
   public model: any = {};
   public fields: FormlyFieldConfig[];
@@ -67,7 +67,7 @@ export class PageSettingComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.loading.set(true);
-      const { content } = this.content;
+      const { content } = this.content();
       const { data, included } = content;
       const {
         id,
@@ -335,7 +335,7 @@ export class PageSettingComponent implements OnInit {
       this.userService.openLoginDialog();
       return;
     }
-    const { content } = this.content;
+    const { content } = this.content();
     const { data } = content;
     const {
       id,
@@ -498,7 +498,7 @@ export class PageSettingComponent implements OnInit {
           },
         },
       },
-    } = this.content;
+    } = this.content();
     if (alias.includes('/core/branding')) {
       this.router.navigate(['/builder/edit-branding/header'], {
         queryParams: {
@@ -527,7 +527,7 @@ export class PageSettingComponent implements OnInit {
     const nodeType = type.split('--')[1];
     const api = `/api/v1/node/${nodeType}`;
     this.loading.set(true);
-    const { content } = this.content;
+    const { content } = this.content();
     const { data } = content;
     const {
       id,

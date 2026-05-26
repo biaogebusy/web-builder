@@ -1,17 +1,17 @@
-@if (content) {
+@if (content()) {
   <div class="card-1v5">
     <div class="card-inner">
-      <div [contentedit]="'title'" class="title mat-h2" [innerHTML]="content.title"></div>
-      <div [contentedit]="'body'" class="content" [innerHTML]="content.body"></div>
-      @if (content.more) {
+      <div [contentedit]="'title'" class="title mat-h2" [innerHTML]="content().title"></div>
+      <div [contentedit]="'body'" class="content" [innerHTML]="content().body"></div>
+      @if (content().more) {
         <div class="more">
-          <app-link [attr.data-path]="'more'" [content]="content.more" />
+          <app-link [attr.data-path]="'more'" [content]="content().more" />
           <app-icon [content]="{ svg: 'chevron-right' }" />
         </div>
       }
       <div class="footer mat-headline-3 m-bottom-0">
-        <div class="left" [contentedit]="'footer.label'" [innerHTML]="content.footer.label"></div>
-        <app-icon [content]="content.footer.icon" />
+        <div class="left" [contentedit]="'footer.label'" [innerHTML]="content().footer.label"></div>
+        <app-icon [content]="content().footer.icon" />
       </div>
     </div>
   </div>

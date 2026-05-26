@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { Router } from '@angular/router';
 import type { IUserCenter } from '@core/interface/IUserCenter';
 import { ScreenService } from '@core/service/screen.service';
@@ -36,7 +36,7 @@ export class UserCenterComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: IUserCenter;
+  readonly content = input<IUserCenter>();
   currentUser: any;
   id: any;
   user: IUser;

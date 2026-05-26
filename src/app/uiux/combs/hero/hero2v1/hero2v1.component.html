@@ -1,9 +1,9 @@
-@if (content) {
+@if (content()) {
   <div
     class="text-hero"
-    [style]="content.params"
-    [class]="content.theme"
+    [style]="content().params"
+    [class]="content().theme"
   >
-    <app-text [attr.data-path]="'text'" [content]="content.text" />
+    <app-text [attr.data-path]="'text'" [content]="content().text" />
   </div>
 }

@@ -1,11 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
-  Input,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   inject,
   signal,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,7 +28,7 @@ import { Observable } from 'rxjs';
 export class UserMenuComponent {
   public user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: any[];
+  readonly content = input<any[]>();
 
   private dialog = inject(MatDialog);
   private cd = inject(ChangeDetectorRef);

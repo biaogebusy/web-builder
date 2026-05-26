@@ -1,17 +1,17 @@
 <div class="content-box">
-  <div class="media" [class]="content.ratios || 'media-4-3'">
-    @if (content.img) {
-      <app-img [attr.data-path]="'img'" [content]="content.img" />
+  <div class="media" [class]="content().ratios || 'media-4-3'">
+    @if (content().img) {
+      <app-img [attr.data-path]="'img'" [content]="content().img" />
     }
   </div>
   <div class="inner">
-    @if (content.subTitle) {
+    @if (content().subTitle) {
       <div class="sub-title">
-        <app-link [attr.data-path]="'subTitle'" [content]="content.subTitle" />
+        <app-link [attr.data-path]="'subTitle'" [content]="content().subTitle" />
       </div>
     }
     <h2 class="title two-line">
-      <app-link [attr.data-path]="'title'" [content]="content.title" />
+      <app-link [attr.data-path]="'title'" [content]="content().title" />
     </h2>
   </div>
 </div>

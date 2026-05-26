@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ShareModule } from '@share/share.module';
@@ -22,10 +22,10 @@ import { TranslateService } from '@ngx-translate/core';
   imports: [ShareModule, WidgetsModule],
 })
 export class CardPageComponent {
-  @Input() lists: any[];
-  @Input() params: any;
-  @Input() langs: ILanguage[];
-  @Input() user: IUser;
+  readonly lists = input<any[]>();
+  readonly params = input<any>();
+  readonly langs = input<ILanguage[]>();
+  readonly user = input<IUser>();
 
   private currentEditeTitle: string;
 
@@ -94,7 +94,7 @@ export class CardPageComponent {
     const { target } = event;
     const {
       update: { api, type },
-    } = this.params;
+    } = this.params();
     if (target) {
       target.contentEditable = 'false';
       if (this.currentEditeTitle !== target.textContent.trim()) {
@@ -114,7 +114,7 @@ export class CardPageComponent {
                 uid: {
                   data: {
                     type: 'user--user',
-                    id: this.user.id,
+                    id: this.user().id,
                   },
                 },
               }
