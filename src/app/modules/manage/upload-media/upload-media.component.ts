@@ -5,6 +5,7 @@ import { IUser } from '@core/interface/IUser';
 import { IMediaAttr } from '@core/interface/manage/IManage';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { readFileAsArrayBuffer } from '@core/util/file.util';
 import { USER } from '@core/token/token-providers';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
@@ -59,7 +60,7 @@ export class UploadMediaComponent {
           });
 
           if (file) {
-            const data = await this.util.readFileAsArrayBuffer(file);
+            const data = await readFileAsArrayBuffer(file);
 
             const imgAttr = await lastValueFrom(
               this.nodeService.uploadImage(file.name, data).pipe(

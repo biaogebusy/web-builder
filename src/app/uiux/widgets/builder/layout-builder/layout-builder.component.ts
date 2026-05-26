@@ -18,6 +18,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { generatePath } from '@core/util/dom-path.util';
 import { createPopper } from '@popperjs/core';
 import { Observable } from 'rxjs';
 import { BgImgComponent } from '../../bg-img/bg-img.component';
@@ -70,7 +71,7 @@ export class LayoutBuilderComponent implements AfterViewInit {
   }
 
   addBlock(addType: string, content: any, target: any): void {
-    this.builderSerivce.addBlock(addType, content, this.util.generatePath(target));
+    this.builderSerivce.addBlock(addType, content, generatePath(target));
   }
 
   layoutAnimate(): void {

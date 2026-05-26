@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule } from '@angular/material/input';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { chunkHTMLByBlocks, lazyLoadContent } from '@core/util/html-chunk.util';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 import { FormlyFieldTextArea } from '@ngx-formly/material/textarea';
 import { createPopper } from '@popperjs/core';
@@ -63,7 +64,7 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements Aft
   async ngAfterViewInit(): Promise<void> {
     await this.util.loadStyle('/assets/injects/quill/quill.core.css');
     await this.util.loadStyle('/assets/injects/quill/quill.snow.css');
-    this.contentChunks = this.util.chunkHTMLByBlocks(this.formControl.value);
+    this.contentChunks = chunkHTMLByBlocks(this.formControl.value);
   }
 
   openRichText(): void {
@@ -77,7 +78,7 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements Aft
   editorCreated(quill: any): void {
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler('image', this.nodeService.imageHandler.bind(this.nodeService, quill));
-    this.util.lazyLoadContent(quill, this.contentChunks);
+    lazyLoadContent(quill, this.contentChunks);
   }
 
   onContentChanged(event: any): void {

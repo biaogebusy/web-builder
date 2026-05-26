@@ -22,7 +22,7 @@ import { DestroyRef, DOCUMENT, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
-import { UtilitiesService } from '@core/service/utilities.service';
+import { getFileType } from '@core/util/file-type.util';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -230,7 +230,6 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
   const userService = inject(UserService);
   const cookieService = inject(CookieService);
   const key = userService.localUserKey;
-  const util = inject(UtilitiesService);
   const destroyRef = inject(DestroyRef);
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
   let noCache = false;
@@ -248,7 +247,7 @@ export function mediaAssetsFactory(): Observable<IManageAssets | boolean> {
         .subscribe(res => {
           assets$.next({
             rows: res.rows.map((item: any) => {
-              const type = util.getFileType(item.source);
+              const type = getFileType(item.source);
               return {
                 ...item,
                 src: type === 'svg' ? item.source : item.thumb,

@@ -18,6 +18,7 @@ import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { generatePath } from '@core/util/dom-path.util';
 import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -69,10 +70,10 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.type.set(this.content.type || this.content.content?.type || '');
     this.component.set(this.type() ? this.content : this.content.content);
-    this.path.set(this.util.generatePath(this.ele.nativeElement));
+    this.path.set(generatePath(this.ele.nativeElement));
     this.currentPage$.pipe(delay(500), takeUntilDestroyed(this.destroyRef)).subscribe(page => {
       this.currentPage = page;
-      this.path.set(this.util.generatePath(this.ele.nativeElement));
+      this.path.set(generatePath(this.ele.nativeElement));
       this.getIndex();
     });
   }

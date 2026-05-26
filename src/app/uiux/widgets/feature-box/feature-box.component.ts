@@ -11,6 +11,7 @@ import type { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import type { IImg } from '@core/interface/widgets/IImg';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { RouteService } from '@core/service/route.service';
+import { getFileType } from '@core/util/file-type.util';
 import { DialogComponent } from '../dialog/dialog.component';
 import { IDialog } from '@core/interface/IDialog';
 import { IconComponent } from '../icon/icon.component';
@@ -31,12 +32,11 @@ export class FeatureBoxComponent implements OnInit {
 
   private dialog = inject(MatDialog);
   private cd = inject(ChangeDetectorRef);
-  private utli = inject(UtilitiesService);
   private util = inject(UtilitiesService);
   private routerService = inject(RouteService);
 
   ngOnInit(): void {
-    this.type = this.utli.getFileType(this.content.img.src);
+    this.type = getFileType(this.content.img.src);
     const iconPath = '/assets/icons';
     this.title = this.content.img.alt || this.getFileName(this.content.img.src);
     this.cd.detectChanges();

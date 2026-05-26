@@ -23,6 +23,7 @@ import { DialogService } from '@core/service/dialog.service';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
+import { getFileType } from '@core/util/file-type.util';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { Observable } from 'rxjs';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -147,7 +148,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
       obj[this.content.classes] = true;
     }
     if (this.content.href) {
-      const type = this.util.getFileType(this.content.href);
+      const type = getFileType(this.content.href);
       obj[type] = type || false;
     }
     this.classes = obj;

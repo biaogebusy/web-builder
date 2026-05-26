@@ -28,6 +28,7 @@ import { Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { IBuilderConfig } from '@core/interface/IBuilder';
 import { BuilderService } from '@core/service/builder.service';
+import { generatePath } from '@core/util/dom-path.util';
 import { LocalStorageService } from 'ngx-webstorage';
 import { TranslateService } from '@ngx-translate/core';
 import { DefaultPageComponent } from '../default-page/default-page.component';
@@ -114,7 +115,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addNewSection(target: any, type: 'widget' | 'section', newSection: any): void {
     this.router.navigate(['/builder']);
-    const path = this.util.generatePath(target);
+    const path = generatePath(target);
     if (type === 'section') {
       this.builder.updatePageContentByPath(path, newSection, 'add');
       this.builder.closeRightDrawer$.next(true);
@@ -143,7 +144,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
       this.util.openSnackbar(this.translate.instant('BUILDER.LIST.COPY_FIRST'), 'ok');
       return;
     }
-    const path = this.util.generatePath(target);
+    const path = generatePath(target);
     this.builder.updatePageContentByPath(path, this.bcData(), 'add');
     this.storage.clear(this.builder.COPYCOMPONENTKEY);
   }
