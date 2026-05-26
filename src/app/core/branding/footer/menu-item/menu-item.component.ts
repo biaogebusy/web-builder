@@ -2,10 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Input,
   OnInit,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -36,13 +38,17 @@ export class MenuItemComponent implements OnInit {
   private screen = inject(ScreenState);
   private cd = inject(ChangeDetectorRef);
   private screenService = inject(ScreenService);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screen.mqAlias$().subscribe(alia => {
-        this.showXs = alia.includes('xs');
-        this.cd.detectChanges();
-      });
+      this.screen
+        .mqAlias$()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(alia => {
+          this.showXs = alia.includes('xs');
+          this.cd.detectChanges();
+        });
     }
   }
 }

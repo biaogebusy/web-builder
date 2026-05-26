@@ -1,11 +1,13 @@
 import {
   Component,
+  DestroyRef,
   Input,
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
@@ -43,6 +45,7 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
   formService = inject(FormService);
   router = inject(Router);
   private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.initForm(this.content);
@@ -54,28 +57,33 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
   }
 
   onFormChange(): void {
-    this.form.valueChanges.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(value => {
-      const params = omitBy(
-        Object.assign(
-          {
-            page: '0',
-            loading: 0,
-          },
-          value
-        ),
-        isEmpty
-      );
+    this.form.valueChanges
+      .pipe(debounceTime(1000), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
+      .subscribe(value => {
+        const params = omitBy(
+          Object.assign(
+            {
+              page: '0',
+              loading: 0,
+            },
+            value
+          ),
+          isEmpty
+        );
 
-      this.nodeService.fetch('content', this.getApiParams(params)).subscribe(data => {
-        this.options = data.rows.map((item: any) => {
-          return {
-            label: item.title,
-            href: item.url,
-          };
-        });
-        this.cd.detectChanges();
+        this.nodeService
+          .fetch('content', this.getApiParams(params))
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(data => {
+            this.options = data.rows.map((item: any) => {
+              return {
+                label: item.title,
+                href: item.url,
+              };
+            });
+            this.cd.detectChanges();
+          });
       });
-    });
   }
 
   onSelected(data: any): void {

@@ -108,9 +108,12 @@ export class DialogRepeatComponent extends FieldArrayType {
       width: '340px',
       data: config,
     });
-    ref.afterClosed().subscribe(result => {
-      if (result) this.remove(i);
-    });
+    ref
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (result) this.remove(i);
+      });
   }
 
   onTest(i: number): void {

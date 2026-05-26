@@ -1,4 +1,5 @@
-import { Component, Input, inject, signal } from '@angular/core';
+import { Component, DestroyRef, Input, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { IDynamicForm } from '@core/interface/combs/IDynamicForm';
 import { FormService } from '@core/service/form.service';
@@ -21,6 +22,7 @@ export class DynamicFormComponent {
   public loading = signal<boolean>(false);
   private formService = inject(FormService);
   private util = inject(UtilitiesService);
+  private destroyRef = inject(DestroyRef);
 
 
   onSubmit(): void {
@@ -30,17 +32,20 @@ export class DynamicFormComponent {
     }
     this.disabled.set(true);
     const data = Object.assign({ webform_id: this.content.form.id }, this.form.value);
-    this.formService.submitWebForm(data).subscribe({
-      next: () => {
-        this.disabled.set(false);
-        this.util.openSnackbar('成功提交！');
-        this.form.reset();
-      },
-      error: error => {
-        this.disabled.set(false);
-        this.util.openSnackbar(error?.error?.message || `提交失败，请联系管理员！`);
-        console.log(error.error);
-      },
-    });
+    this.formService
+      .submitWebForm(data)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.disabled.set(false);
+          this.util.openSnackbar('成功提交！');
+          this.form.reset();
+        },
+        error: error => {
+          this.disabled.set(false);
+          this.util.openSnackbar(error?.error?.message || `提交失败，请联系管理员！`);
+          console.log(error.error);
+        },
+      });
   }
 }

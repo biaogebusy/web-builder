@@ -1,4 +1,5 @@
-import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core';
+import { AfterViewInit, DestroyRef, Directive, ElementRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Directive({
@@ -7,13 +8,14 @@ import { NavigationEnd, Router } from '@angular/router';
 export class CheckChildMenuActiveDirective implements AfterViewInit {
   private el = inject(ElementRef);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.updateClasses();
     }, 0);
 
-    this.router.events.subscribe(event => {
+    this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
       if (event instanceof NavigationEnd) {
         setTimeout(() => {
           this.updateClasses();

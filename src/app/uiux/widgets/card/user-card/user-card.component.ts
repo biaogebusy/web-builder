@@ -120,11 +120,13 @@ export class UserCardComponent extends BaseComponent implements OnInit {
 
   handleDialogClosed(api: string): void {
     if (this.dialogService.dialogState$) {
-      this.dialogService.dialogState$.subscribe(state => {
-        if (!state) {
-          this.getContentFormApi(api);
-        }
-      });
+      this.dialogService.dialogState$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(state => {
+          if (!state) {
+            this.getContentFormApi(api);
+          }
+        });
     }
   }
 }

@@ -125,15 +125,18 @@ export class LinkComponent extends BaseComponent implements OnInit {
       },
     });
     if (dialog?.afterClosed) {
-      this.dialogRef.afterClosed().subscribe(() => {
-        const after = dialog.afterClosed;
-        if (after?.success) {
-          this.util.openSnackbar(after?.success?.label, 'Ok');
-        }
-        if (after?.emit) {
-          this.dialogService.closeDialog();
-        }
-      });
+      this.dialogRef
+        .afterClosed()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          const after = dialog.afterClosed;
+          if (after?.success) {
+            this.util.openSnackbar(after?.success?.label, 'Ok');
+          }
+          if (after?.emit) {
+            this.dialogService.closeDialog();
+          }
+        });
     }
     this.dialogService.handlerIframe(this.dialog);
   }

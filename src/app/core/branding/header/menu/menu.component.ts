@@ -1,12 +1,14 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   OnInit,
   Input,
   inject,
   ChangeDetectionStrategy,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -54,8 +56,9 @@ export class MenuComponent implements OnInit {
   public show = signal<boolean>(true);
   private screen = inject(ScreenState);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
   constructor() {
-    this.router.events.subscribe((event: Event) => {
+    this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event: Event) => {
       if (this.isDrawer && event instanceof NavigationStart) {
         this.screen.toggleDrawer();
       }
@@ -63,17 +66,20 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.screen.mqAlias$().subscribe((mq: string[]) => {
-      switch (mq[0]) {
-        case 'xs':
-        case 'sm':
-          this.show.set(false);
-          break;
-        default:
-          this.show.set(true);
-          break;
-      }
-    });
+    this.screen
+      .mqAlias$()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((mq: string[]) => {
+        switch (mq[0]) {
+          case 'xs':
+          case 'sm':
+            this.show.set(false);
+            break;
+          default:
+            this.show.set(true);
+            break;
+        }
+      });
   }
 
   onToggle(): void {

@@ -1,11 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   OnInit,
   ViewChild,
   inject,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
@@ -46,6 +48,7 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
   public matOptions = signal<any>([]);
   fieldConfig: any;
   private nodeService = inject(NodeService);
+  private destroyRef = inject(DestroyRef);
   constructor() {
     super();
   }
@@ -60,9 +63,11 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
     }
     this.setOptions();
     // listen for search field value changes
-    this.searchCtrl.valueChanges.subscribe(() => {
-      this.filterMulti();
-    });
+    this.searchCtrl.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.filterMulti();
+      });
   }
 
   getOptionsFromApi(): void {
@@ -87,7 +92,8 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
             return of({
               rows: [],
             });
-          })
+          }),
+          takeUntilDestroyed(this.destroyRef)
         )
         .subscribe(res => {
           this.setOptions(res.rows);

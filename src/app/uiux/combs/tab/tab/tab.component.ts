@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import type { ITab } from '@core/interface/widgets/ITab';
@@ -18,10 +19,11 @@ export class TabComponent implements OnInit {
   selectedIndex: number | null;
   private route = inject(ActivatedRoute);
   private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
   constructor() {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(qp => {
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(qp => {
       const { activeTabId } = qp;
       if (!activeTabId) {
         return;

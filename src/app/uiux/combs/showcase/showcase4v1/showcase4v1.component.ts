@@ -2,10 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   Input,
   OnInit,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IShowcase4v1 } from '@core/interface/combs/IShowcase';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
@@ -30,6 +32,7 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
   private nodeService = inject(NodeService);
   private cd = inject(ChangeDetectorRef);
   private dialogService = inject(DialogService);
+  private destroyRef = inject(DestroyRef);
 
   @Input() content: IShowcase4v1;
   elements: any[];
@@ -53,7 +56,8 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
           return of({
             rows: [],
           });
-        })
+        }),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(res => {
         this.elements = res.rows.map((item: any) => {
@@ -73,11 +77,13 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
 
   handleDialogClosed(api: string): void {
     if (this.dialogService.dialogState$) {
-      this.dialogService.dialogState$.subscribe(state => {
-        if (!state) {
-          this.getContentFormApi(api);
-        }
-      });
+      this.dialogService.dialogState$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(state => {
+          if (!state) {
+            this.getContentFormApi(api);
+          }
+        });
     }
   }
 }

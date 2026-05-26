@@ -50,23 +50,25 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.router.queryParams.subscribe((query: any) => {
-        this.page = query.page || 0;
-        const querys = omitBy(
-          Object.assign(
-            {
-              page: this.page,
-            },
-            query
-          ),
-          isEmpty
-        );
-        if (this.content.sidebar) {
-          this.initFilterForm(querys, this.content.sidebar);
-        }
-        this.form.patchValue({ ...querys });
-        this.nodeSearch(querys);
-      });
+      this.router.queryParams
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((query: any) => {
+          this.page = query.page || 0;
+          const querys = omitBy(
+            Object.assign(
+              {
+                page: this.page,
+              },
+              query
+            ),
+            isEmpty
+          );
+          if (this.content.sidebar) {
+            this.initFilterForm(querys, this.content.sidebar);
+          }
+          this.form.patchValue({ ...querys });
+          this.nodeSearch(querys);
+        });
     } else {
       this.form = new UntypedFormGroup({});
     }

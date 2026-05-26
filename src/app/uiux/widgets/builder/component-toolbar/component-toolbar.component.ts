@@ -142,12 +142,15 @@ export class ComponentToolbarComponent implements OnInit, AfterViewInit {
       width: '340px',
       data: config,
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.hiddenPicker();
-        this.builder.deleteComponent(this.path());
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (result) {
+          this.hiddenPicker();
+          this.builder.deleteComponent(this.path());
+        }
+      });
   }
 
   hiddenPicker(): void {

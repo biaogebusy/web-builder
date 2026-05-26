@@ -82,6 +82,7 @@ export class NodeAddComponent implements OnInit {
             status: true,
             body: JSON.stringify(body),
           })
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(() => {
             this.router.navigate(['/builder/settings']);
           });

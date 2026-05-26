@@ -54,21 +54,23 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.router.queryParamMap.subscribe((query: Params) => {
-        this.page = query.get('page') || 0;
-        const querys = omitBy(
-          Object.assign(
-            {
-              page: this.page,
-            },
-            {
-              tab: query.get('tab') || 0,
-            }
-          ),
-          isEmpty
-        );
-        this.initTab(querys);
-      });
+      this.router.queryParamMap
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((query: Params) => {
+          this.page = query.get('page') || 0;
+          const querys = omitBy(
+            Object.assign(
+              {
+                page: this.page,
+              },
+              {
+                tab: query.get('tab') || 0,
+              }
+            ),
+            isEmpty
+          );
+          this.initTab(querys);
+        });
     }
   }
 

@@ -1,4 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, DestroyRef, Input, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { IShowcase2v1 } from '@core/interface/combs/IShowcase';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
@@ -18,6 +19,7 @@ export class Showcase2v1Component extends BaseComponent implements AfterViewInit
   elements: ICard1v1[];
   private nodeService = inject(NodeService);
   private cd = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
 
   ngAfterViewInit(): void {
@@ -37,7 +39,8 @@ export class Showcase2v1Component extends BaseComponent implements AfterViewInit
                 user: 'Johnson',
               },
             ]);
-          })
+          }),
+          takeUntilDestroyed(this.destroyRef)
         )
         .subscribe(res => {
           if (type === 'card-1v1') {

@@ -101,10 +101,12 @@ export class ManageMediaComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.loading.set(true);
-      this.builderConfig.subscribe(config => {
-        this.manageMediaConfig.set(config.manageMedia);
-        this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
-      });
+      this.builderConfig
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(config => {
+          this.manageMediaConfig.set(config.manageMedia);
+          this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
+        });
       this.onSearch({});
       this.form.valueChanges
         .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(1000), distinctUntilChanged())
@@ -260,9 +262,12 @@ export class ManageMediaComponent implements OnInit {
       data: config,
     });
 
-    dialog.afterClosed().subscribe(() => {
-      this.form.get('noCache')?.patchValue(true);
-      this.onSearch(this.form.value);
-    });
+    dialog
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.form.get('noCache')?.patchValue(true);
+        this.onSearch(this.form.value);
+      });
   }
 }

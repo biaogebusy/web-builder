@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, DestroyRef, OnInit, ViewChild, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlider, MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
@@ -13,6 +14,7 @@ import { FieldType } from '@ngx-formly/material/form-field';
 })
 export class SliderComponent extends FieldType<FieldTypeConfig> implements OnInit {
   @ViewChild(MatSlider) slider!: MatSlider;
+  private destroyRef = inject(DestroyRef);
 
   defaultOptions = {
     props: {
@@ -27,8 +29,10 @@ export class SliderComponent extends FieldType<FieldTypeConfig> implements OnIni
   }
 
   ngOnInit(): void {
-    this.formControl.valueChanges.subscribe(value => {
-      this.formControl.patchValue(Number(value), { emitEvent: false });
-    });
+    this.formControl.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(value => {
+        this.formControl.patchValue(Number(value), { emitEvent: false });
+      });
   }
 }

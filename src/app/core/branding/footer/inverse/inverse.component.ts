@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, Input, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FormService } from '@core/service/form.service';
@@ -40,6 +41,7 @@ export class InverseComponent {
   private cd = inject(ChangeDetectorRef);
   public formService = inject(FormService);
   private util = inject(UtilitiesService);
+  private destroyRef = inject(DestroyRef);
 
   onSubmit(): void {
     if (this.form.invalid) {
@@ -50,16 +52,19 @@ export class InverseComponent {
       this.content.footerNewsletter.params,
       this.form.value
     );
-    this.formService.submitWebForm(data).subscribe(
-      () => {
-        this.submited = false;
-        this.util.openSnackbar('成功订阅！');
-        this.cd.detectChanges();
-      },
-      error => {
-        this.submited = false;
-        this.util.openSnackbar(`Error: ${error.message}`);
-      }
-    );
+    this.formService
+      .submitWebForm(data)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
+        () => {
+          this.submited = false;
+          this.util.openSnackbar('成功订阅！');
+          this.cd.detectChanges();
+        },
+        error => {
+          this.submited = false;
+          this.util.openSnackbar(`Error: ${error.message}`);
+        }
+      );
   }
 }

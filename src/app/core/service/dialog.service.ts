@@ -1,4 +1,5 @@
-import { Injectable, inject, DOCUMENT } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject, DOCUMENT } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Subject } from 'rxjs';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
@@ -11,6 +12,7 @@ import { IDialog } from '@core/interface/IDialog';
 export class DialogService {
   private dialog = inject(MatDialog);
   private doc = inject<Document>(DOCUMENT);
+  private platformId = inject(PLATFORM_ID);
 
   public dialogState$ = new Subject();
 
@@ -74,6 +76,9 @@ export class DialogService {
   }
 
   handlerIframe(dialog: MatDialog): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     window.addEventListener(
       'message',
       event => {
