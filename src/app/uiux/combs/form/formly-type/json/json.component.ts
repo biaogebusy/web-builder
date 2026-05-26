@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DestroyRef, ElementRef, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ICoreConfig } from '@core/interface/IAppConfig';
@@ -10,6 +10,7 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { JsonEditorDialogComponent } from './json-editor-dialog.component';
 declare let window: any;
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-json',
   templateUrl: './json.component.html',
   styleUrl: './json.component.scss',

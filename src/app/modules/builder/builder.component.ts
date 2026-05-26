@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, ViewChild, inject, AfterViewInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, ViewChild, inject, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { RouterOutlet } from '@angular/router';
@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BuilderSidebarComponent } from './sidebar/builder-sidebar/builder-sidebar.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder',
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.scss'],

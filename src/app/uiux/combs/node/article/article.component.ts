@@ -6,6 +6,7 @@ import {
   ChangeDetectorRef,
   inject,
   DestroyRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
@@ -34,6 +35,7 @@ import { SidebarComponent } from '@uiux/widgets/sidebar/sidebar.component';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],

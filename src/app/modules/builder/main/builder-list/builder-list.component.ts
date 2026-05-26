@@ -13,6 +13,7 @@ import {
   inject,
   signal,
   DOCUMENT,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -31,6 +32,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { TranslateService } from '@ngx-translate/core';
 import { DefaultPageComponent } from '../default-page/default-page.component';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
   styleUrls: ['./builder-list.component.scss'],

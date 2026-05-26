@@ -4,6 +4,7 @@ import {
   computed,
   inject,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +25,7 @@ interface IScanStatus {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'formly-dialog-repeat',
   templateUrl: './dialog-repeat.component.html',
   styleUrls: ['./dialog-repeat.component.scss'],

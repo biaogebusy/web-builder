@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +11,7 @@ import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-img-picker',
   templateUrl: './img-picker.component.html',
   styleUrls: ['./img-picker.component.scss'],

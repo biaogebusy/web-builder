@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, inject, signal } from '@angular/core';
+import { Component, DestroyRef, Input, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { IDynamicForm } from '@core/interface/combs/IDynamicForm';
@@ -9,6 +9,7 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
 import { FormlyComponent } from '../formly/formly.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],

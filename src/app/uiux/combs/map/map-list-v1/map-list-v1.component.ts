@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import type { IMapListv1 } from '@core/interface/combs/IMap';
 import type { IMark } from '@core/interface/IAmap';
@@ -11,6 +11,7 @@ import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
 import { MapComponent } from '../map/map.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-map-list-v1',
   templateUrl: './map-list-v1.component.html',
   styleUrls: ['./map-list-v1.component.scss'],

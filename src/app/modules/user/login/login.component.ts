@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, OnDestroy, inject, DestroyRef, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, DestroyRef, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormGroup,
@@ -26,6 +26,7 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
 import { Observable, Subscription, interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

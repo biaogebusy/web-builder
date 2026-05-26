@@ -7,6 +7,7 @@ import {
   ViewEncapsulation,
   OnDestroy,
   inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IVideo } from '@core/interface/widgets/IVideo';
@@ -15,6 +16,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 declare let window: any;
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-video',
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss'],

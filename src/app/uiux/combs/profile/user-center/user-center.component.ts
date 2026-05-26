@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import type { IUserCenter } from '@core/interface/IUserCenter';
 import { ScreenService } from '@core/service/screen.service';
@@ -19,6 +19,7 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-user-center',
   templateUrl: './user-center.component.html',
   styleUrls: ['./user-center.component.scss'],

@@ -11,6 +11,7 @@ import {
   DestroyRef,
   output,
   afterNextRender,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -25,6 +26,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 register();
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-swiper',
   templateUrl: './swiper.component.html',
   styleUrls: ['./swiper.component.scss'],

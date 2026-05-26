@@ -7,6 +7,7 @@ import {
   ViewChild,
   inject,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import type { EChartsOption } from 'echarts/types/dist/shared';
 import { isArray } from 'lodash-es';
@@ -73,6 +74,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],

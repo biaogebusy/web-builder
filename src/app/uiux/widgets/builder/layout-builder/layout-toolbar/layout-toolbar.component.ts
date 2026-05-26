@@ -1,5 +1,5 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
@@ -14,6 +14,7 @@ import { BtnComponent } from '../../../btn/btn.component';
 import { IconComponent } from '../../../icon/icon.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-layout-toolbar',
   templateUrl: './layout-toolbar.component.html',
   styleUrls: ['./layout-toolbar.component.scss'],

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
@@ -8,6 +8,7 @@ import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-
 import { TitleComponent } from '../title/title.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-text',
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.scss'],

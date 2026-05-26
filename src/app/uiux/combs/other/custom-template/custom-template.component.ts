@@ -6,6 +6,7 @@ import {
   Input,
   inject,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import type { ICustomTemplate, ICustomTemplateDialog } from '@core/interface/IBuilder';
 import DOMPurify from 'dompurify';
@@ -25,6 +26,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 declare let Swiper: any;
 declare let echarts: any;
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-custom-template',
   templateUrl: './custom-template.component.html',
   styleUrls: ['./custom-template.component.scss'],

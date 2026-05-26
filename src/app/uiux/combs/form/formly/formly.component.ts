@@ -3,7 +3,8 @@ import {
   Component,
   Input,
   signal,
-  output
+  output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import type { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
@@ -15,6 +16,7 @@ interface IFormly {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-formly',
   templateUrl: './formly.component.html',
   styleUrls: ['./formly.component.scss'],

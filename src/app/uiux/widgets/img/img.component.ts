@@ -1,10 +1,11 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, ChangeDetectionStrategy } from '@angular/core';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { IImg } from '@core/interface/widgets/IImg';
 import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-component.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-img',
   templateUrl: './img.component.html',
   styleUrls: ['./img.component.scss'],

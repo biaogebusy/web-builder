@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 import { QuillModule } from 'ngx-quill';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-rich-editor',
   templateUrl: './rich-editor.component.html',
   styleUrl: './rich-editor.component.scss',

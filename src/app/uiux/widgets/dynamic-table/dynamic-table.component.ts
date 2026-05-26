@@ -8,6 +8,7 @@ import {
   effect,
   inject,
   input,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { UntypedFormGroup } from '@angular/forms';
@@ -26,6 +27,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import type { IDynamicTable } from '../../../core/interface/widgets/IWidgets';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
   styleUrls: ['./dynamic-table.component.scss'],

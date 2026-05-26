@@ -7,6 +7,7 @@ import {
   OnInit,
   inject,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,6 +28,7 @@ import { BtnComponent } from '../../btn/btn.component';
 import { DividerComponent } from '../../divider/divider.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-component-toolbar',
   templateUrl: './component-toolbar.component.html',
   styleUrls: ['./component-toolbar.component.scss'],

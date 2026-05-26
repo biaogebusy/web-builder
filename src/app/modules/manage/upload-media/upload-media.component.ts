@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDividerModule } from '@angular/material/divider';
 import { IUser } from '@core/interface/IUser';
@@ -15,6 +15,7 @@ import { Observable, lastValueFrom, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-upload-media',
   templateUrl: './upload-media.component.html',
   styleUrl: './upload-media.component.scss',

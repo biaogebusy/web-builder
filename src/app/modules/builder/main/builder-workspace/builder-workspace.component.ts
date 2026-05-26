@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, DestroyRef, inject, OnInit, DOCUMENT } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, inject, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
@@ -22,6 +22,7 @@ import { BuilderShowcaseComponent } from '../builder-showcase/builder-showcase.c
 import { BuilderListComponent } from '../builder-list/builder-list.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder-workspace',
   templateUrl: './builder-workspace.component.html',
   styleUrl: './builder-workspace.component.scss',

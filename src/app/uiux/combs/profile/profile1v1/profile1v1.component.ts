@@ -6,6 +6,7 @@ import {
   Input,
   OnInit,
   inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -29,6 +30,7 @@ import { CommentFormComponent } from '@uiux/combs/node/comment/comment-form/comm
 import { CommentListComponent } from '@uiux/combs/node/comment/comment-list/comment-list.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-profile-1v1',
   templateUrl: './profile1v1.component.html',
   styleUrls: ['./profile1v1.component.scss'],

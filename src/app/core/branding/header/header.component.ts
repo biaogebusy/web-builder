@@ -9,6 +9,7 @@ import {
   DestroyRef,
   signal,
   DOCUMENT,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
@@ -22,6 +23,7 @@ import { HeaderBannerComponent } from './header-banner/header-banner.component';
 import { HeaderTopComponent } from './header-top/header-top.component';
 import { MenuComponent } from './menu/menu.component';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],

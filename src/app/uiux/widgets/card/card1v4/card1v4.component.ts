@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { ICard1v4 } from '@core/interface/widgets/ICard';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
@@ -7,6 +7,7 @@ import { IconComponent } from '../../icon/icon.component';
 import { ImgComponent } from '../../img/img.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-card-1v4',
   templateUrl: './card1v4.component.html',
   styleUrls: ['./card1v4.component.scss'],

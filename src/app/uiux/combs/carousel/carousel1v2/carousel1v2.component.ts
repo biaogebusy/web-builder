@@ -6,6 +6,7 @@ import {
   ViewChild,
   inject,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import type { ICarouselBase } from '@core/interface/combs/ICarousel';
 import { ISwiper } from '@core/interface/widgets/ISwiper';
@@ -16,6 +17,7 @@ import { Subject } from 'rxjs';
 import { SwiperComponent } from '../swiper/swiper.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-carousel-1v2',
   templateUrl: './carousel1v2.component.html',
   styleUrls: ['./carousel1v2.component.scss'],

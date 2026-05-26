@@ -7,6 +7,7 @@ import {
   OnInit,
   inject,
   forwardRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
@@ -23,6 +24,7 @@ import { CommentFormComponent } from '../../comment-form/comment-form.component'
 const COMMENT_GET_PATH = '/api/v1/comment';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-comment-item',
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.scss'],

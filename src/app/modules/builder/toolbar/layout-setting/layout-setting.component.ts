@@ -1,6 +1,6 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { Component, DestroyRef, Input, inject, DOCUMENT } from '@angular/core';
+import { Component, DestroyRef, Input, inject, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ShareModule } from '@share/share.module';
@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { cloneDeep, defaultsDeep, get } from 'lodash-es';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-layout-setting',
   templateUrl: './layout-setting.component.html',
   styleUrls: ['./layout-setting.component.scss'],

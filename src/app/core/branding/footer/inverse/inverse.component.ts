@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, Input, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,7 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-inverse',
   templateUrl: './inverse.component.html',
   styleUrls: ['./inverse.component.scss'],

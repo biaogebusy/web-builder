@@ -6,6 +6,7 @@ import {
   Input,
   inject,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +27,7 @@ import { DynamicComponentComponent } from '../dynamic-component/dynamic-componen
 import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-layout-builder',
   templateUrl: './layout-builder.component.html',
   styleUrls: ['./layout-builder.component.scss'],

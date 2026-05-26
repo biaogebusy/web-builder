@@ -1,10 +1,11 @@
-import { Component, Input, ElementRef, inject, afterNextRender } from '@angular/core';
+import { Component, Input, ElementRef, inject, afterNextRender, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import type { IShuffle } from '@core/interface/combs/IMasonry';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import Shuffle from 'shufflejs';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-shuffle',
   templateUrl: './shuffle.component.html',
   styleUrls: ['./shuffle.component.scss'],

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, inject, ViewChild, DestroyRef, signal } from '@angular/core';
+import { Component, OnInit, Input, inject, ViewChild, DestroyRef, signal, ChangeDetectionStrategy } from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -36,6 +36,7 @@ import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-manage-media',
   templateUrl: './manage-media.component.html',
   styleUrls: ['./manage-media.component.scss'],

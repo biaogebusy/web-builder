@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -14,6 +14,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { IDialog } from '@core/interface/IDialog';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-builder-sidebar',
   templateUrl: './builder-sidebar.component.html',
   styleUrls: ['./builder-sidebar.component.scss'],

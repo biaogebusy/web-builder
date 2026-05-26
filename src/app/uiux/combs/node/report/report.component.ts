@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +15,7 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss'],

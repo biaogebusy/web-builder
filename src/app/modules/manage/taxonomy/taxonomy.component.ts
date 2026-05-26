@@ -6,6 +6,7 @@ import {
   ChangeDetectorRef,
   DestroyRef,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -27,6 +28,7 @@ import { NgPipesModule, StripTagsPipe } from 'ngx-pipes';
 import { Observable, catchError, of, tap } from 'rxjs';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-taxonomy',
   templateUrl: './taxonomy.component.html',
   styleUrl: './taxonomy.component.scss',

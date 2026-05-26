@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-github-star',
   templateUrl: './github-star.component.html',
   styleUrls: ['./github-star.component.scss'],
