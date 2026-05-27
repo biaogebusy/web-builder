@@ -31,7 +31,7 @@ import { catchError, delay, map } from 'rxjs/operators';
   ],
 })
 export class DashboardBoxComponent extends BaseComponent implements OnInit {
-  readonly content = input<IDashboardBox>();
+  readonly content = input.required<IDashboardBox>();
   readonly form = input(new UntypedFormGroup({}));
   readonly model = input<any>({});
   widget$: Observable<any>;

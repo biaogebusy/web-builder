@@ -23,7 +23,7 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
   imports: [MatDividerModule, LinkComponent],
 })
 export class MegaMenuComponent implements OnInit {
-  readonly content = input<IMainMenu>();
+  readonly content = input.required<IMainMenu>();
   active: boolean;
   private eleRef = inject(ElementRef);
   private screenState = inject(ScreenState);

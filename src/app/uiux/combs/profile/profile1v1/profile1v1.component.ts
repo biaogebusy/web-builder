@@ -51,7 +51,7 @@ import { CommentListComponent } from '@uiux/combs/node/comment/comment-list/comm
 export class Profile1v1Component implements OnInit, AfterViewInit {
   coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  readonly content = input<IProfile1v1>();
+  readonly content = input.required<IProfile1v1>();
   comments: IComment[];
   avatar: IImg;
 

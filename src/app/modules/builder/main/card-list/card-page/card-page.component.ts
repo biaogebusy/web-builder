@@ -23,9 +23,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CardPageComponent {
   readonly lists = input<any[]>();
-  readonly params = input<any>();
+  readonly params = input.required<any>();
   readonly langs = input<ILanguage[]>();
-  readonly user = input<IUser>();
+  readonly user = input.required<IUser>();
 
   private currentEditeTitle: string;
 

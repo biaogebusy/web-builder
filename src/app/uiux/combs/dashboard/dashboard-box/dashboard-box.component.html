@@ -1,21 +1,22 @@
+@if (content(); as c) {
 <div class="dashboard-box">
-  @if (content().title || content().form) {
+  @if (c.title || c.form) {
     <div class="box-header">
-      @if (content().title) {
+      @if (c.title) {
         <div class="mat-h3 m-bottom-0" [attr.data-path]="'title.label'" contentedit="label">
-          {{ content().title.label }}
+          {{ c.title.label }}
         </div>
       }
       <div class="filter">
-        @if (content().form) {
+        @if (c.form) {
           <app-formly
             [form]="form()"
             [model]="model()"
-            [fields]="content().form"
+            [fields]="c.form"
             (modelChange)="onModelChange($event)"
           />
         }
-        @if (content().params?.api) {
+        @if (c.params?.api) {
           <app-icon (click)="reload()" [content]="{ svg: 'reload' }" />
         }
       </div>
@@ -30,3 +31,4 @@
     </div>
   }
 </div>
+}

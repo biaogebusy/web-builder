@@ -33,7 +33,7 @@ register();
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SwiperComponent implements OnInit, AfterViewInit {
-  readonly content = input<ISwiper>();
+  readonly content = input.required<ISwiper>();
   readonly index = input<number>();
   readonly navigationSub = input<Subject<number>>();
   readonly slideChange = output<Swiper>();

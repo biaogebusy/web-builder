@@ -37,7 +37,7 @@ import { environment } from 'src/environments/environment';
 export class CardListComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
-  readonly content = input<ICardList>();
+  readonly content = input.required<ICardList>();
   content$: Observable<IPageMeta[]>;
   form = new FormGroup({
     page: new FormControl(0),

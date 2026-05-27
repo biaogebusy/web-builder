@@ -8,8 +8,8 @@
         >{{ comments()?.length }}个回复</span
       >
     </div>
-    @if (comments()) {
-      <app-comment-item [comments]="comments()" [content]="content()" />
+    @if (comments(); as commentsValue) {
+      <app-comment-item [comments]="commentsValue" [content]="content()" />
     }
   } @else {
     <div class="empty p-y">

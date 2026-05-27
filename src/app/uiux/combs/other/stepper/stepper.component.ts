@@ -11,6 +11,6 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
   imports: [MatStepperModule, DynamicComponentComponent],
 })
 export class StepperComponent extends BaseComponent {
-  readonly content = input<any>();
+  readonly content = input.required<any>();
 
 }

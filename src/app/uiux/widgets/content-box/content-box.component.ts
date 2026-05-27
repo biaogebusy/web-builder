@@ -15,7 +15,7 @@ import { LinkComponent } from '../link/link.component';
   imports: [ImgComponent, LinkComponent],
 })
 export class ContentBoxComponent {
-  readonly content = input<IContentBox>();
+  readonly content = input.required<IContentBox>();
   constructor() {}
 
 }

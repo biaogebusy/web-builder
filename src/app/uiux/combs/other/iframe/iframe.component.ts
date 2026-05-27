@@ -28,7 +28,7 @@ export class IframeComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
   private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
 
-  readonly content = input<IIframe>();
+  readonly content = input.required<IIframe>();
   public url = signal('');
   public loading = signal(false);
   private user: IUser;

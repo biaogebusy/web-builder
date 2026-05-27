@@ -24,7 +24,7 @@ import { ChartComponent } from '@uiux/combs/chart/chart/chart.component';
 export class LotteryComponent implements AfterViewInit {
   private cd = inject(ChangeDetectorRef);
 
-  readonly content = input<ILottery>();
+  readonly content = input.required<ILottery>();
   readonly form = input(new UntypedFormGroup({}));
   readonly model = input<any>({});
   total = 0;

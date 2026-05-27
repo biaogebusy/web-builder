@@ -10,5 +10,5 @@ import { IJSON } from '@core/interface/IBuilder';
   imports: [ShareModule],
 })
 export class JsonComponent {
-  readonly content = input<IJSON>();
+  readonly content = input.required<IJSON>();
 }

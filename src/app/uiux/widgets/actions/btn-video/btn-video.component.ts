@@ -14,7 +14,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
   imports: [MatButtonModule, MatIconModule],
 })
 export class BtnVideoComponent {
-  readonly content = input<IBtnVideo>();
+  readonly content = input.required<IBtnVideo>();
   private dialog = inject(MatDialog);
 
 

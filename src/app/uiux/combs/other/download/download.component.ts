@@ -34,7 +34,7 @@ export class DownloadComponent implements OnInit {
   private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
   user$ = inject<Observable<IUser>>(USER);
 
-  readonly content = input<IDownload>();
+  readonly content = input.required<IDownload>();
   readonly data = input<any>();
   public config: ICoreDownload;
   public canAccess: boolean;

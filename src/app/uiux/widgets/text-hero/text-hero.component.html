@@ -1,12 +1,12 @@
-@if (content()) {
+@if (content(); as heroContent) {
   <div
     class="text-hero"
-    [style]="content().params"
-    [class]="content().theme"
+    [style]="heroContent.params"
+    [class]="heroContent.theme"
   >
     <app-dynamic-component
       [attr.data-path]="'text'"
-      [inputs]="content().text"
+      [inputs]="heroContent.text"
     ></app-dynamic-component>
   </div>
 }

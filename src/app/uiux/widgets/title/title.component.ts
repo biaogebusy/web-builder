@@ -29,11 +29,12 @@ export class TitleComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      if (this.content()?.typed?.enable) {
+      const content = this.content();
+      const titleEl = this.title();
+      if (content?.typed?.enable && titleEl) {
         import('typed.js').then(loader => {
           const { default: Typed } = loader;
-          const typedEle = this.title().nativeElement.querySelectorAll('strong')[0];
-          const content = this.content();
+          const typedEle = titleEl.nativeElement.querySelectorAll('strong')[0];
           this.typed = new Typed(typedEle, {
             strings: content?.typed?.strings.map(item => item.label),
             ...content?.typed?.config,

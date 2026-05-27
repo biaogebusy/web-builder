@@ -126,7 +126,7 @@ export class MatSelectComponent extends FieldType<FieldTypeConfig> implements On
       // the form control (i.e. _initializeSelection())
       // this needs to be done after the filteredBanks are loaded initially
       // and after the mat-option elements are available
-      this.select().compareWith = (a: any, b: any) => a && b && a.label === b.label;
+      this.select()!.compareWith = (a: any, b: any) => a && b && a.label === b.label;
     });
   }
 

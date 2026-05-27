@@ -36,7 +36,7 @@ import { CommentListComponent } from '../comment/comment-list/comment-list.compo
 export class QuestionComponent extends NodeComponent implements AfterViewInit {
   public user$ = inject<Observable<IUser>>(USER);
 
-  readonly content = input<IQuestion>();
+  readonly content = input.required<IQuestion>();
   public comments: IComment[];
   public showEditor = false;
   public isAsked = false;

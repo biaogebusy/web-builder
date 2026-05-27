@@ -1,7 +1,7 @@
 @if (branding$ | async; as branding) {
   @if (branding.header; as header) {
-    @if (show()) {
-      <header class="header" [class]="{ 'is-pc-header': show() }">
+    @if (show(); as showValue) {
+      <header class="header" [class]="{ 'is-pc-header': showValue }">
         <div class="container">
           <div
             class="header-container {{

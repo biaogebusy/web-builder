@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
   private theme = inject(THEME);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  readonly content = input<IMap>();
+  readonly content = input.required<IMap>();
   AMap: any;
   circle: any;
   markers: any[];
@@ -112,7 +112,7 @@ export class MapComponent implements OnInit {
           }
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
   }

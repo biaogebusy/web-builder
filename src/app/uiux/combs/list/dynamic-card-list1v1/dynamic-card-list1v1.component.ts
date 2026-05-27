@@ -33,7 +33,7 @@ export class DynamicCardList1v1Component extends BaseComponent implements OnInit
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
-  readonly content = input<IDynamicCardList1v1>();
+  readonly content = input.required<IDynamicCardList1v1>();
 
   page: number;
   pager: IPager;
@@ -60,7 +60,7 @@ export class DynamicCardList1v1Component extends BaseComponent implements OnInit
           this.cd.detectChanges();
         },
         error => {
-          console.log(error);
+          console.error(error);
           this.loading = false;
           this.cd.detectChanges();
         }

@@ -32,7 +32,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
   imports: [ReactiveFormsModule, TextComponent, FormlyComponent, CalendarComponent],
 })
 export class FullCalendarComponent extends BaseComponent implements OnInit {
-  readonly content = input<IFullCalendar>();
+  readonly content = input.required<IFullCalendar>();
   public options: CalendarOptions;
   private theme: any;
   public form = new UntypedFormGroup({});
@@ -155,7 +155,6 @@ export class FullCalendarComponent extends BaseComponent implements OnInit {
 
       case 'timeGridWeek':
         const endDate = this.calendarState.getPreviousDay(dates.end);
-        console.log(endDate);
         this.form.patchValue({
           'date-type': 'week',
           'date': `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}`,

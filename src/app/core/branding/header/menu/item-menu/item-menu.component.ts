@@ -27,8 +27,8 @@ import { DynamicMenuComponent } from '../../../dynamic-menu/dynamic-menu.compone
 export class ItemMenuComponent implements OnInit {
   private screenService = inject(ScreenService);
 
-  readonly content = input<IMainMenu>();
-  readonly params = input<IHeaderParams>();
+  readonly content = input.required<IMainMenu>();
+  readonly params = input.required<IHeaderParams>();
   public isMegaMenu = signal<boolean>(false);
 
   ngOnInit(): void {

@@ -37,7 +37,7 @@ export class FormlyComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     let config: FormlyFieldConfig[] = [];
     const fields = this.content()?.fields;
-    config = fields ?? this.fields();
+    config = fields ?? this.fields() ?? [];
     this.fieldsConfig.set(cloneDeep(config));
   }
 

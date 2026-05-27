@@ -57,7 +57,7 @@ export class ArticleComponent extends NodeComponent implements OnInit, AfterView
   private pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
   public user$ = inject<Observable<IUser>>(USER);
 
-  readonly content = input<IBaseNode>();
+  readonly content = input.required<IBaseNode>();
   public comments: IComment[];
   private dialogRef: MatDialogRef<any>;
   public canAccess: boolean;

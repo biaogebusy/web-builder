@@ -44,7 +44,7 @@ import { BgImgComponent } from '../../bg-img/bg-img.component';
   },
 })
 export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestroy {
-  readonly inputs = input<IDynamicInputs>();
+  readonly inputs = input.required<IDynamicInputs>();
   private readonly container = viewChild('componentContainer', { read: ViewContainerRef });
 
   private ele = inject(ElementRef);
@@ -108,7 +108,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         return;
       }
       const content = inputs.type ? inputs : inputs.content;
-      this.container().clear();
+      this.container()!.clear();
       this.compContent.set(content);
       if (content.containerClasses) {
         const classes = content.containerClasses.split(' ');
@@ -117,7 +117,7 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
 
       const componentType = await this.componentService.getComponentType(type);
       if (!componentType) {
-        console.log('无法识别该组件：', inputs);
+        console.error('无法识别该组件：', inputs);
         return;
       }
       const hostElement = this.renderer.createElement('div');
@@ -146,18 +146,18 @@ export class DynamicComponentComponent implements OnInit, AfterViewInit, OnDestr
         }
       }
 
-      this.container().insert(this.componentRef.hostView);
+      this.container()!.insert(this.componentRef.hostView);
       this.componentRef.changeDetectorRef.detectChanges();
       if (this.screenService.isPlatformBrowser()) {
         this.util.initAnimate(inputs, this.ele.nativeElement, this.ele.nativeElement);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
   ngOnDestroy(): void {
-    this.container().clear();
+    this.container()?.clear();
     if (this.componentRef) {
       this.componentRef.destroy();
     }

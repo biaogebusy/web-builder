@@ -34,7 +34,7 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
   private dialogService = inject(DialogService);
   private destroyRef = inject(DestroyRef);
 
-  readonly content = input<IShowcase4v1>();
+  readonly content = input.required<IShowcase4v1>();
   elements: any[];
 
   ngOnInit(): void {

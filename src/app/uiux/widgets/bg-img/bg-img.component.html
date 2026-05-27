@@ -1,6 +1,6 @@
-@if (content()) {
-  <app-bg [content]="content()">
-    @if (content().img && content().img.src) {
+@if (content(); as contentValue) {
+  <app-bg [content]="contentValue">
+    @if (contentValue.img && contentValue.img.src) {
       <app-img [attr.data-path]="'img'" [content]="img()" [isBg]="true" />
     }
   </app-bg>

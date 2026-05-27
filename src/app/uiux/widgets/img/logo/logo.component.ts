@@ -13,7 +13,7 @@ import { ImgComponent } from '../img.component';
   imports: [ImgComponent, RouterModule, SafeHtmlPipe],
 })
 export class LogoComponent implements OnInit {
-  readonly content = input<ILogo>();
+  readonly content = input.required<ILogo>();
   readonly isInvert = input<boolean>();
   public img: IImg;
 

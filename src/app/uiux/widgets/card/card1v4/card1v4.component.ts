@@ -23,7 +23,7 @@ import { ImgComponent } from '../../img/img.component';
 export class Card1v4Component {
   private rangePipe = inject(RangePipe);
 
-  readonly content = input<ICard1v4>();
+  readonly content = input.required<ICard1v4>();
 
 
   get star(): number[] {

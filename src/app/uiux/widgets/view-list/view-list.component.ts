@@ -85,8 +85,8 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
     if (this.screenService.isPlatformBrowser()) {
       this.afterClosedDialog();
       this.form().valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
-        form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
-        const mergeValue = merge(value, form.getRawValue());
+        this.form().get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
+        const mergeValue = merge(value, this.form().getRawValue());
         const options = this.formService.handleRangeDate(mergeValue);
         this.getViews(options);
       });
@@ -115,8 +115,13 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
     const params = this.getApiParams({ ...options, noCache: true });
     const emptyHidden = this.getParams(this.content(), 'emptyHidden');
     this.loading = true;
+    const apiType = this.content()?.params?.apiType;
+    if (!apiType) {
+      this.loading = false;
+      return;
+    }
     this.nodeService
-      .fetch(this.content().params.apiType, params)
+      .fetch(apiType, params)
       .pipe(
         catchError((error: any) => {
           if (error.status === 403) {
@@ -144,7 +149,7 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
           this.cd.detectChanges();
         }
         this.table = {
-          header: this.content().header,
+          header: this.content()?.header || [],
           elements: res.rows,
           classes: this.content()?.tableClasses || '',
           params: this.content()?.tableParams || {},
@@ -171,8 +176,8 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
 
   onPageChange(pageEvent: PageEvent): void {
     const { pageIndex } = pageEvent;
-    form.get('page')?.patchValue(pageIndex, { onlySelf: true, emitEvent: false });
-    const value = merge(this.model(), form.getRawValue());
+    this.form().get('page')?.patchValue(pageIndex, { onlySelf: true, emitEvent: false });
+    const value = merge(this.model(), this.form().getRawValue());
     const options = this.formService.handleRangeDate(value);
     this.getViews(options);
   }
@@ -183,6 +188,9 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
     const apiParams = this.getApiParams(options);
     const content = this.content();
     const params = content?.params;
+    if (!params) {
+      return;
+    }
     const btnContent = content?.params?.export?.btn;
     let exportUrl = '';
     if (btnContent) {

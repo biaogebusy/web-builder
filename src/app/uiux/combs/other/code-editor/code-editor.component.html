@@ -42,8 +42,8 @@
     }
   </div>
   <div class="code-editor" [class.collapse]="isCollapse()" [class]="isMore() ? 'more' : 'less'">
-    @if (isAPI()) {
-      <div class="box api-box col-span-12 {{ isAPI() ? 'md:col-span-3' : '' }}">
+    @if (isAPI(); as isAPIValue) {
+      <div class="box api-box col-span-12 {{ isAPIValue ? 'md:col-span-3' : '' }}">
         <app-formly class="formly-block" [form]="form" [fields]="fields" [model]="model" />
         <pre #jsonblock class="json-pre">
           <code [innerHTML]="highlightedCode()" class="language-json code-block"></code>

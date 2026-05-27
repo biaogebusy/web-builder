@@ -12,7 +12,7 @@ import { ImgComponent } from '../img/img.component';
   imports: [BgComponent, forwardRef(() => ImgComponent)],
 })
 export class BgImgComponent implements OnInit {
-  readonly content = input<IBgImg>();
+  readonly content = input.required<IBgImg>();
   public img = signal<IImg>({
     classes: '',
     src: '',

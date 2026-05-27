@@ -11,6 +11,6 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent, DynamicComponentComponent],
 })
 export class Hero1v4Component {
-  readonly content = input<IHero1v4>();
+  readonly content = input.required<IHero1v4>();
   constructor() {}
 }

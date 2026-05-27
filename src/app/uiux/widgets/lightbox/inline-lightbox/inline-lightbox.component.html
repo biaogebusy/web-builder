@@ -1,8 +1,8 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="inline-lightbox">
     <lightgallery [settings]="settings">
-      @for (item of content().label; track item; let isFirst = $first; let i = $index) {
-        <a class="inline" [class]="isFirst ? '' : 'px-3'" [href]="content().elements[i].src">
+      @for (item of contentValue.label; track item; let isFirst = $first; let i = $index) {
+        <a class="inline" [class]="isFirst ? '' : 'px-3'" [href]="contentValue.elements[i].src">
           <span [innerHTML]="item | safeHtml"></span>
         </a>
       }

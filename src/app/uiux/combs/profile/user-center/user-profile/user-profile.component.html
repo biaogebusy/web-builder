@@ -1,18 +1,18 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="profile">
     <div class="avatar flex-12/12 md:flex-2/12">
-      <app-img [content]="content().avatar" />
+      <app-img [content]="contentValue.avatar" />
     </div>
     <div
       class="details flex-12/12 md:flex-10/12"
     >
       <div class="left md:flex-12/12">
-        <h1 class="mat-h1 m-bottom-0">{{ content().name }}</h1>
-        <div class="subTitle">{{ content().subTitle }}</div>
-        @if (content()?.details) {
+        <h1 class="mat-h1 m-bottom-0">{{ contentValue.name }}</h1>
+        <div class="subTitle">{{ contentValue.subTitle }}</div>
+        @if (contentValue?.details) {
           <div class="meta m-top-sm">
             <div class="list">
-              @for (item of content().details.elements; track item) {
+              @for (item of contentValue.details.elements; track item) {
                 <div class="list-item m-right-xs flex-12/12 md:flex-auto">
                   <div class="label m-right-xs bold">{{ item.label }}:</div>
                   <div>{{ item.content }}</div>

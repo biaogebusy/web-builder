@@ -13,7 +13,7 @@ import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
   imports: [BgImgComponent],
 })
 export class ArticleBannerComponent {
-  readonly content = input<any>();
+  readonly content = input.required<any>();
   constructor() {}
 
 }

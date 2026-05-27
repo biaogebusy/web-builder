@@ -1,40 +1,40 @@
-@if (content()) {
+@if (content(); as contentValue) {
   @if (isBg()) {
     <div
-      [class]="content().classes"
+      [class]="contentValue.classes"
       class="img-bg"
-      [style.background-image]="'url(' + content().src + ')'"
+      [style.background-image]="'url(' + contentValue.src + ')'"
     ></div>
   } @else {
     <div class="img-wrapper">
-      @if (!content().href) {
+      @if (!contentValue.href) {
         <img
           contentedit="src"
           loading="lazy"
-          [style]="content().style"
-          [class]="content().classes"
-          [ngSrc]="content().src || ''"
-          [alt]="content().alt || ''"
-          [width]="content().width || 400"
-          [height]="content().height || 300"
+          [style]="contentValue.style"
+          [class]="contentValue.classes"
+          [ngSrc]="contentValue.src || ''"
+          [alt]="contentValue.alt || ''"
+          [width]="contentValue.width || 400"
+          [height]="contentValue.height || 300"
         />
       } @else {
-        <a href="{{ content().href }}" target="{{ content().target }}">
+        <a href="{{ contentValue.href }}" target="{{ contentValue.target }}">
           <img
             contentedit="src"
             loading="lazy"
-            [class]="content().classes"
-            [ngSrc]="content().src || ''"
-            [style]="content().style"
-            [alt]="content().alt || ''"
-            [width]="content().width || 400"
-            [height]="content().height || 300"
+            [class]="contentValue.classes"
+            [ngSrc]="contentValue.src || ''"
+            [style]="contentValue.style"
+            [alt]="contentValue.alt || ''"
+            [width]="contentValue.width || 400"
+            [height]="contentValue.height || 300"
           />
         </a>
       }
-      @if (content().actions) {
+      @if (contentValue.actions) {
         <div class="actions">
-          @for (action of content().actions; track action) {
+          @for (action of contentValue.actions; track action) {
             <app-dynamic-component
               [inputs]="{
                 content: action,

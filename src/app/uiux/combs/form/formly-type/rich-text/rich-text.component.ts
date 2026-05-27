@@ -69,7 +69,7 @@ export class RichTextComponent extends FieldType<FieldTypeConfig> implements Aft
 
   openRichText(): void {
     this.value = this.formControl.value;
-    this.popper = createPopper(this.ele.nativeElement, this.popup().nativeElement, {
+    this.popper = createPopper(this.ele.nativeElement, this.popup()!.nativeElement, {
       placement: 'left',
       strategy: 'fixed',
     });

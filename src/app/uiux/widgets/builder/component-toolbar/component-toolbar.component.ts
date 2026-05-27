@@ -41,7 +41,7 @@ import { DividerComponent } from '../../divider/divider.component';
 export class ComponentToolbarComponent implements OnInit, AfterViewInit {
   private currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
-  readonly content = input<IComponentToolbar>();
+  readonly content = input.required<IComponentToolbar>();
   public index = signal(0);
   public length = signal(0);
 

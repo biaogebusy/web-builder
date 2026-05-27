@@ -1,5 +1,5 @@
-@if (content()) {
-  <div class="hero-1-v1" [class]="content().classes">
-    <app-swiper [attr.data-path]="'swiper'" [content]="content().swiper" />
+@if (content(); as contentValue) {
+  <div class="hero-1-v1" [class]="contentValue.classes">
+    <app-swiper [attr.data-path]="'swiper'" [content]="contentValue.swiper" />
   </div>
 }

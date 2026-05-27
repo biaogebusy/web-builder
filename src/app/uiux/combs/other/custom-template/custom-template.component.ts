@@ -33,7 +33,7 @@ declare let echarts: any;
   imports: [MatPaginatorModule],
 })
 export class CustomTemplateComponent implements AfterViewInit {
-  readonly content = input<ICustomTemplate>();
+  readonly content = input.required<ICustomTemplate>();
   public pager = signal<IPager | null>(null);
   private ele = inject(ElementRef);
   private screenService = inject(ScreenService);
@@ -118,7 +118,7 @@ export class CustomTemplateComponent implements AfterViewInit {
         .pipe(
           takeUntilDestroyed(this.destroyRef),
           catchError(error => {
-            console.log(error);
+            console.error(error);
             return of({
               ok: false,
               message: error.message,

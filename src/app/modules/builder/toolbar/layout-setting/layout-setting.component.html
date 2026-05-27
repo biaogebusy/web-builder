@@ -1,5 +1,5 @@
 <div class="layout-setting">
-  @let component = content.content;
+  @let component = content().content;
   @let elements = component?.elements;
   <app-formly [fields]="content().fields" [model]="model" (modelChange)="onModelChange($event)" />
   <div class="animate-actions">

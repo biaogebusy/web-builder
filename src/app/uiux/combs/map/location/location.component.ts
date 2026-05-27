@@ -16,7 +16,7 @@ import { MapComponent } from '../map/map.component';
   imports: [TitleComponent, MapComponent],
 })
 export class LocationComponent implements OnInit {
-  readonly content = input<ILocation>();
+  readonly content = input.required<ILocation>();
 
   constructor() {}
 

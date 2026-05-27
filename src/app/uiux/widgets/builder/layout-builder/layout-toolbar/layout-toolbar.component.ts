@@ -29,7 +29,7 @@ import { IconComponent } from '../../../icon/icon.component';
 })
 export class LayoutToolbarComponent {
   readonly lbContent = input<any>();
-  readonly i = input<number>();
+  readonly i = input.required<number>();
   readonly layout = input<any>();
   readonly target = input<Element>();
 

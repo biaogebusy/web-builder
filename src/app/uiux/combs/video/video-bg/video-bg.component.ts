@@ -13,7 +13,7 @@ import { VideoComponent } from '../video/video.component';
   imports: [BgComponent, VideoComponent, DynamicComponentComponent],
 })
 export class VideoBgComponent implements AfterViewInit {
-  readonly content = input<IVideoBg>();
+  readonly content = input.required<IVideoBg>();
   readonly options = input<any>();
   video: IVideo;
   private screenService = inject(ScreenService);

@@ -20,8 +20,8 @@ export class CommentActionsComponent {
   contentState = inject(ContentState);
   private user$ = inject<Observable<IUser>>(USER);
 
-  readonly config = input<ICommentConfig>();
-  readonly item = input<any>();
+  readonly config = input.required<ICommentConfig>();
+  readonly item = input.required<any>();
   readonly i = input<number>();
   readonly currentId = input<string>();
   readonly loading = input<boolean>();

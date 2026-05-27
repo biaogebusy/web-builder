@@ -25,7 +25,7 @@ import { IDialog } from '@core/interface/IDialog';
   imports: [ShareModule, WidgetsModule, FormModule],
 })
 export class InlineEditComponent implements AfterViewInit {
-  readonly content = input<IMetaEdit>();
+  readonly content = input.required<IMetaEdit>();
   form = new UntypedFormGroup({});
   model: any = {};
   private viewHTML: any;

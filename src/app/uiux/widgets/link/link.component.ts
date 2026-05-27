@@ -45,7 +45,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class LinkComponent extends BaseComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
-  readonly content = input<ILink>();
+  readonly content = input.required<ILink>();
   public classes: any;
   private dialogRef: MatDialogRef<any>;
   private user: IUser;

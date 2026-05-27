@@ -17,7 +17,7 @@ import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
 export class SearchHeaderComponent {
   readonly content = input<any>();
   readonly filterForm = input<any>();
-  readonly form = input<UntypedFormGroup>();
+  readonly form = input.required<UntypedFormGroup>();
 
   formControl: any;
 

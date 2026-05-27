@@ -83,7 +83,7 @@ export class UploadMediaComponent {
         }
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log('不支持上传目录:', droppedFile.relativePath, fileEntry);
+        console.warn('不支持上传目录:', droppedFile.relativePath, fileEntry);
         this.util.openSnackbar('不支持上传目录', 'ok');
       }
     }

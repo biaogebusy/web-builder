@@ -1,7 +1,7 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="card-1-v4">
     <div class="left">
-      <app-img [attr.data-path]="'img'" [content]="content().img" />
+      <app-img [attr.data-path]="'img'" [content]="contentValue.img" />
     </div>
     <div class="inner">
       <div class="star">
@@ -9,14 +9,14 @@
           <app-icon [content]="{ svg: 'star' }" />
         }
       </div>
-      <div contentedit="body" class="content" [innerHTML]="content().body | safeHtml"></div>
+      <div contentedit="body" class="content" [innerHTML]="contentValue.body | safeHtml"></div>
       <div class="author-info">
-        <div contentedit="title" class="title" [innerHTML]="content().title | safeHtml"></div>
-        @if (content().subTitle) {
+        <div contentedit="title" class="title" [innerHTML]="contentValue.title | safeHtml"></div>
+        @if (contentValue.subTitle) {
           <div
             contentedit="subTitle"
             class="sub-title"
-            [innerHTML]="content().subTitle | safeHtml"
+            [innerHTML]="contentValue.subTitle | safeHtml"
           ></div>
         }
       </div>

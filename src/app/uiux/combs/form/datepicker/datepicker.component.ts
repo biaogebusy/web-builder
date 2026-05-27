@@ -26,8 +26,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
   ],
 })
 export class DatepickerComponent {
-  readonly content = input<any>();
-  readonly form = input<UntypedFormGroup>();
+  readonly content = input.required<any>();
+  readonly form = input.required<UntypedFormGroup>();
   selected: Date | null;
   constructor() {}
 
@@ -42,7 +42,6 @@ export class DatepickerComponent {
   }
 
   onSelectedChange(value: Date): void {
-    console.log(value);
     this.form().controls[this.content().key].setValue(
       formatDate(value, 'y-MM-dd', 'en-US')
     );

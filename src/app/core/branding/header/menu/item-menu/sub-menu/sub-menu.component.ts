@@ -24,6 +24,6 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
   ],
 })
 export class SubMenuComponent {
-  readonly content = input<any>();
+  readonly content = input.required<any>();
   public readonly childMenu = viewChild<any>('childMenu');
 }

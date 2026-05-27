@@ -15,5 +15,5 @@ export class LightComponent {
   screen = inject(ScreenState);
   utilities = inject(UtilitiesService);
 
-  readonly content = input<any>();
+  readonly content = input.required<any>();
 }

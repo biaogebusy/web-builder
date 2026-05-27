@@ -16,7 +16,7 @@ import { ImgComponent } from '../img/img.component';
   imports: [ImgComponent, ContenteditDirective, SafeHtmlPipe],
 })
 export class ContentTextCenterComponent {
-  readonly content = input<IContentTextCenter>();
+  readonly content = input.required<IContentTextCenter>();
   constructor() {}
 
 }

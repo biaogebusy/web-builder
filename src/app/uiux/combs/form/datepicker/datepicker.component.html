@@ -1,26 +1,26 @@
 <!-- range -->
 @if (content()?.range) {
-  @if (content()) {
-    <mat-form-field class="field-full" [appearance]="content().appearance || 'fill'" [formGroup]="form()">
-      @if (content().label) {
-        <mat-label>{{ content().label }}</mat-label>
+  @if (content(); as contentValue) {
+    <mat-form-field class="field-full" [appearance]="contentValue.appearance || 'fill'" [formGroup]="form()">
+      @if (contentValue.label) {
+        <mat-label>{{ contentValue.label }}</mat-label>
       }
       <mat-date-range-input [rangePicker]="pickerRange">
         <input
           matStartDate
           formControlName="start"
-          [placeholder]="content().props?.placeholder?.start || '开始'"
+          [placeholder]="contentValue.props?.placeholder?.start || '开始'"
         />
         <input
           matEndDate
           formControlName="end"
-          [placeholder]="content()?.props?.placeholder?.end || '结束'"
+          [placeholder]="contentValue?.props?.placeholder?.end || '结束'"
         />
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="pickerRange" />
       <mat-date-range-picker
-        [dateClass]="content()?.classes"
-        [opened]="content()?.opened"
+        [dateClass]="contentValue?.classes"
+        [opened]="contentValue?.opened"
         #pickerRange
       />
     </mat-form-field>
@@ -29,24 +29,24 @@
 
 <!-- key -->
 @if (!content()?.range && content()?.key && !content().inline) {
-  @if (content()) {
-    <mat-form-field class="field-full" [appearance]="content().appearance || 'fill'" [formGroup]="form()">
-      @if (content().label) {
-        <mat-label>{{ content().label }}</mat-label>
+  @if (content(); as contentValue) {
+    <mat-form-field class="field-full" [appearance]="contentValue.appearance || 'fill'" [formGroup]="form()">
+      @if (contentValue.label) {
+        <mat-label>{{ contentValue.label }}</mat-label>
       }
       <input
         matInput
-        formControlName="{{ content().key }}"
+        formControlName="{{ contentValue.key }}"
         [matDatepicker]="datepicker"
-        [placeholder]="content()?.placeholder || ''"
+        [placeholder]="contentValue?.placeholder || ''"
       />
       <mat-datepicker-toggle matSuffix [for]="datepicker" />
-      <mat-datepicker [dateClass]="content()?.classes" #datepicker />
-      @if (content().hint) {
-        <mat-hint>{{ content().hint }}</mat-hint>
+      <mat-datepicker [dateClass]="contentValue?.classes" #datepicker />
+      @if (contentValue.hint) {
+        <mat-hint>{{ contentValue.hint }}</mat-hint>
       }
       @if (!isValid) {
-        <mat-error>{{ content().errorMes }}</mat-error>
+        <mat-error>{{ contentValue.errorMes }}</mat-error>
       }
     </mat-form-field>
   }

@@ -61,7 +61,7 @@ export class ManageMediaComponent implements OnInit {
   private builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
   public mediaAssets$ = inject<Observable<IManageAssets>>(MEDIA_ASSETS);
 
-  readonly content = input<IManageMedia>();
+  readonly content = input.required<IManageMedia>();
   public form = new UntypedFormGroup({
     page: new FormControl(0),
   });

@@ -34,7 +34,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     this.builder.rightContent$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(content => {
       if (content) {
         setTimeout(() => {
-          this.builderRightDrawer().open();
+          this.builderRightDrawer()!.open();
         }, 100);
       }
     });
@@ -49,6 +49,6 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   }
 
   onClose(): void {
-    this.builderRightDrawer().close();
+    this.builderRightDrawer()!.close();
   }
 }

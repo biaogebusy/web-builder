@@ -28,7 +28,6 @@ export class ConfigCheckComponent {
         this.results.set([...this.results(), result]);
         this.completedCount.update(count => count + 1);
       },
-      complete: () => console.log('done'),
     });
 
     this.configCheckService.startCheck();

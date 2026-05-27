@@ -18,7 +18,7 @@ import { interval } from 'rxjs';
   imports: [DynamicComponentComponent],
 })
 export class AutocloseComponent implements OnInit {
-  readonly content = input<any>();
+  readonly content = input.required<any>();
   private destroyRef = inject(DestroyRef);
   constructor() {}
 

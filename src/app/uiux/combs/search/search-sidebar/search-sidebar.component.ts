@@ -33,8 +33,8 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 })
 export class SearchSidebarComponent {
   readonly fields = input<FormlyFieldConfig[]>();
-  readonly label = input<ISearchLabel>();
-  readonly form = input<UntypedFormGroup>();
+  readonly label = input<ISearchLabel>({} as ISearchLabel);
+  readonly form = input.required<UntypedFormGroup>();
   model: any = {};
   readonly modelChange = output<any>();
 

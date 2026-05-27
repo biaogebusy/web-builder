@@ -1,12 +1,12 @@
 <div class="card-1-v3">
-  @if (content()) {
+  @if (content(); as contentValue) {
     <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
       <div
         class="list item"
         [class.selected]="i == selectedId"
         matRipple
         [matRippleColor]="'rgba(0, 0, 0, 0.04)'"
-        *cdkVirtualFor="let item of content().elements; index as i"
+        *cdkVirtualFor="let item of contentValue.elements; index as i"
         (click)="onCard(item, i)"
       >
         <h3 class="bold">{{ item.title }}</h3>

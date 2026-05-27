@@ -1,23 +1,23 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="media-meta">
     <div class="meta">
-      <div class="top">{{ content().date | date: 'd' }}</div>
+      <div class="top">{{ contentValue.date | date: 'd' }}</div>
       <div class="middle">
-        {{ content().date | date: 'y-M' }}
+        {{ contentValue.date | date: 'y-M' }}
       </div>
       <div class="more">
-        <a mat-button href="{{ content().more.href }}" target="_blank">{{ content().more.label }}</a>
+        <a mat-button href="{{ contentValue.more.href }}" target="_blank">{{ contentValue.more.label }}</a>
       </div>
     </div>
     <div class="wrapper">
       <div class="title">
         <h2>
-          <app-link [content]="content().link" />
+          <app-link [content]="contentValue.link" />
         </h2>
-        <div class="time">{{ content().date }}</div>
+        <div class="time">{{ contentValue.date }}</div>
         <div
           class="content"
-          [innerHTML]="content().body | stripTags | trim | shorten: 150 : '...'"
+          [innerHTML]="contentValue.body | stripTags | trim | shorten: 150 : '...'"
         ></div>
       </div>
     </div>

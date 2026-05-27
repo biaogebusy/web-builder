@@ -27,7 +27,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   // See options: https://videojs.com/guides/options
   // https://videojs.com/guides/angular/
-  readonly content = input<IVideo>();
+  readonly content = input.required<IVideo>();
 
   private player: any;
 
@@ -45,7 +45,7 @@ export class VideoComponent implements OnInit, OnDestroy {
         await this.util.loadStyle(videoStyle);
         await this.util.loadScript(videoScript);
       }
-      this.player = window.videojs(this.target().nativeElement, this.content().options);
+      this.player = window.videojs(this.target()!.nativeElement, this.content().options);
     }
   }
 

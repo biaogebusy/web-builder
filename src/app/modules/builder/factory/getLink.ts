@@ -65,7 +65,6 @@ export function getLink(widget: any): FormlyFieldConfig {
                 const { form, model } = formGroup;
                 return form.valueChanges.pipe(
                   tap((value: any) => {
-                    console.log(value);
                     const { isRel } = value;
                     if (isRel) {
                       model.rel = 'drawer';

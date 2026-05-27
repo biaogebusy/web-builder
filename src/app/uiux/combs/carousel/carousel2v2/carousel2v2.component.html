@@ -1,8 +1,8 @@
-@if (content()) {
-  <div class="carousel-2-v2" [class]="content().classes">
-    @if (content().title) {
-      <app-title [attr.data-path]="'title'" [content]="content().title" />
+@if (content(); as contentValue) {
+  <div class="carousel-2-v2" [class]="contentValue.classes">
+    @if (contentValue.title) {
+      <app-title [attr.data-path]="'title'" [content]="contentValue.title" />
     }
-    <app-swiper [attr.data-path]="'swiper'" [content]="content().swiper" />
+    <app-swiper [attr.data-path]="'swiper'" [content]="contentValue.swiper" />
   </div>
 }

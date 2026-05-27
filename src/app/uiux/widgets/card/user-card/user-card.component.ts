@@ -37,7 +37,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   user$ = inject<Observable<IUser>>(USER);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  readonly content = input<IUserCard>();
+  readonly content = input.required<IUserCard>();
   profile: IMediaObject;
   count: IUserCount[];
   user: IUser;

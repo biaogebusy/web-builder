@@ -23,7 +23,7 @@ import { ListComponent } from '../list/list.component';
   imports: [SidebarComponent, ListComponent],
 })
 export class DynamicMediaListComponent extends BaseComponent implements OnInit {
-  readonly content = input<IDynamicMediaList>();
+  readonly content = input.required<IDynamicMediaList>();
   list: any;
   links: any;
   loading = true;

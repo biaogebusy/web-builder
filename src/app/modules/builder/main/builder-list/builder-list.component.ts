@@ -95,7 +95,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
       Array.from(this.markers).forEach(marker => {
-        this.builderList().nativeElement.append(marker);
+        this.builderList()!.nativeElement.append(marker);
       });
     }, 0);
 

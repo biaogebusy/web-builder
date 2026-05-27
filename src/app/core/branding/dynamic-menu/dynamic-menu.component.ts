@@ -17,7 +17,7 @@ export class DynamicMenuComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   public dynamicContent = signal<any>({});
   ngOnInit(): void {
-    this.getDynamicContent(this.uuid());
+    this.getDynamicContent(this.uuid()!);
   }
 
   getDynamicContent(uuid: string): void {

@@ -34,7 +34,7 @@ export class HoverMenuComponent extends BaseComponent implements OnInit {
   private screenState = inject(ScreenState);
   private destroyRef = inject(DestroyRef);
 
-  readonly content = input<IMainMenu>();
+  readonly content = input.required<IMainMenu>();
   active: boolean;
 
   ngOnInit(): void {

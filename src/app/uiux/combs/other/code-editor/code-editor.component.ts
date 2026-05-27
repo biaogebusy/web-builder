@@ -37,7 +37,7 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
   ],
 })
 export class CodeEditorComponent implements OnInit {
-  readonly content = input<ICodeEditor>();
+  readonly content = input.required<ICodeEditor>();
   public html = signal<string>('');
   public json = signal<any>(null);
   public isMore = signal<boolean>(true);

@@ -1,15 +1,15 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="comment-form m-bottom">
     <a class="anchor" id="comment"></a>
-    <app-title [content]="content().editor?.title" />
+    <app-title [content]="contentValue.editor?.title" />
     <div class="editor">
       @if (screenService.isPlatformBrowser()) {
         <quill-editor
           (onEditorCreated)="editorCreated($event)"
           [modules]="modules"
-          [placeholder]="content().editor?.placeholder || placeholder"
-          [(ngModel)]="commentContent()"
-          [styles]="{ height: content().editor?.height || '250px' }"
+          [placeholder]="contentValue.editor?.placeholder || placeholder"
+          [(ngModel)]="commentContent"
+          [styles]="{ height: contentValue.editor?.height || '250px' }"
         />
       }
     </div>
@@ -24,7 +24,7 @@
           @if (loading) {
             <app-loading />
           }
-          <span class="submit-label">{{ content().editor?.action?.label || '提交' }}</span>
+          <span class="submit-label">{{ contentValue.editor?.action?.label || '提交' }}</span>
         </div>
       </button>
       <button class="cancel-btn" (click)="onCancel()" mat-button>取消</button>

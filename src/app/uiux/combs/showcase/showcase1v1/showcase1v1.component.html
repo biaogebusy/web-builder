@@ -1,17 +1,17 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="showcase-1-v1">
-    <div [class]="content().classes">
-      @if (content().title) {
-        <app-title [attr.data-path]="'title'" class="title-block" #title [content]="content().title" />
+    <div [class]="contentValue.classes">
+      @if (contentValue.title) {
+        <app-title [attr.data-path]="'title'" class="title-block" #title [content]="contentValue.title" />
       }
-      @if (content().subTitle) {
-        <app-text [attr.data-path]="'subTitle'" [content]="content().subTitle" />
+      @if (contentValue.subTitle) {
+        <app-text [attr.data-path]="'subTitle'" [content]="contentValue.subTitle" />
       }
       <div class="elements-grid mt-md">
-        @for (item of content().elements; track item; let i = $index) {
+        @for (item of contentValue.elements; track item; let i = $index) {
           <app-dynamic-component
             [attr.data-path]="'elements.' + i"
-            class="col-span-12 sm:col-span-6 md:col-span-{{ content().row }} box"
+            class="col-span-12 sm:col-span-6 md:col-span-{{ contentValue.row }} box"
             [inputs]="item"
           />
         }

@@ -1,4 +1,4 @@
-@if (fields()) {
+@if (fields(); as fieldsValue) {
   <div class="search-sidebar">
     <div class="sidebar-header">
       <div class="key m-3">
@@ -32,7 +32,7 @@
           </mat-expansion-panel-header>
           <app-formly
             [form]="form()"
-            [fields]="fields()"
+            [fields]="fieldsValue"
             [model]="model"
             (modelChange)="onModelChange($event)"
           />

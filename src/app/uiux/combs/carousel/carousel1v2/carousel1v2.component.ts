@@ -24,7 +24,7 @@ import { SwiperComponent } from '../swiper/swiper.component';
   imports: [TitleComponent, BtnComponent, SwiperComponent],
 })
 export class Carousel1v2Component implements AfterViewInit {
-  readonly content = input<ICarouselBase>();
+  readonly content = input.required<ICarouselBase>();
   swiper = signal<ISwiper>({ params: {}, elements: [], classes: '' });
   navigation$ = new Subject<number>();
   ele = inject(ElementRef);

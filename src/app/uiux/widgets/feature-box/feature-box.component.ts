@@ -24,7 +24,7 @@ import { ImgComponent } from '../img/img.component';
   imports: [IconComponent, ImgComponent],
 })
 export class FeatureBoxComponent implements OnInit {
-  readonly content = input<IFeatureBox>();
+  readonly content = input.required<IFeatureBox>();
   box: IFeatureBox;
   type: string;
   isHoverIcon = true;

@@ -26,8 +26,8 @@
               <app-icon [content]="{ svg: 'pencil' }" />
               <span>{{ 'BUILDER.PAGE_LIST.LOAD_EDIT' | translate }}</span>
             </button>
-            @if (langs()) {
-              @for (item of langs(); track item) {
+            @if (langs(); as langsValue) {
+              @for (item of langsValue; track item) {
                 @if (!item.default && item.langCode !== page.langcode) {
                   <button mat-menu-item (click)="createLangVersion(page, item.langCode)">
                     <app-icon [content]="{ svg: 'translate' }" />

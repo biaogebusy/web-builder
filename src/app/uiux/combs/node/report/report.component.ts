@@ -31,7 +31,7 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
   ],
 })
 export class ReportComponent extends BaseComponent implements OnInit {
-  readonly content = input<IReport>();
+  readonly content = input.required<IReport>();
   readonly form = input(new UntypedFormGroup({}));
   readonly model = input<any>({});
   box$: Observable<any[]>;

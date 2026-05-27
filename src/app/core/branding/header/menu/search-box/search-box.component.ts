@@ -37,7 +37,7 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
   ],
 })
 export class SearchBoxComponent extends BaseComponent implements OnInit {
-  readonly content = input<IHeaderSearch>();
+  readonly content = input.required<IHeaderSearch>();
 
   form: UntypedFormGroup;
   options: any[] = [];

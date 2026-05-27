@@ -22,7 +22,7 @@ import { LinkComponent } from '../link/link.component';
   ],
 })
 export class DropdownMenuComponent {
-  readonly content = input<IDropdowMenu>();
+  readonly content = input.required<IDropdowMenu>();
   constructor() {}
 
 }

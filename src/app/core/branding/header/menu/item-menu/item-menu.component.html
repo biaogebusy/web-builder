@@ -1,5 +1,5 @@
 <div class="item-menu" #itemMenu *reqRolesIf="content()">
-  @if (!isMegaMenu() && content().child && content().child.length > 0 && !content().dynamicMenu) {
+  @if (!isMegaMenu() && content().child && (content().child?.length ?? 0) > 0 && !content().dynamicMenu) {
     <!-- hover open -->
     @if (params().menuHoverOpen) {
       <app-hover-menu [content]="content()" />
@@ -11,10 +11,10 @@
   }
 
   <!-- mega menu -->
-  @if (isMegaMenu() && content().child && content().child.length > 0) {
+  @if (isMegaMenu() && content().child && (content().child?.length ?? 0) > 0) {
     <app-mega-menu [content]="content()" />
   }
-  @if (!content().child || content().child.length === 0 || content().dynamicMenu) {
+  @if (!content().child || (content().child?.length ?? 1) === 0 || content().dynamicMenu) {
     <app-link class="top" [content]="content()" />
   }
   <!-- dynamic menu -->

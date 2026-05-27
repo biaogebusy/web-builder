@@ -81,10 +81,11 @@ import { IconComponent } from '@uiux/widgets/icon/icon.component';
   imports: [MatButtonToggleModule, IconComponent],
 })
 export class ChartComponent implements OnInit, AfterViewInit {
-  readonly content = input<EChartsOption>();
+  readonly content = input.required<EChartsOption>();
   readonly data = input<any>();
   readonly style = input<any>();
   readonly echarts = viewChild('echarts', { read: ElementRef });
+  private chart: any;
 
   private theme = signal<object>({});
   private screenService = inject(ScreenService);
@@ -102,8 +103,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      const chart = echarts.init(this.echarts().nativeElement, this.theme());
-      chart.setOption(this.content());
+      this.chart = echarts.init(this.echarts()!.nativeElement, this.theme());
+      this.chart.setOption(this.content());
     }
   }
 
@@ -113,7 +114,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       content.series.forEach((item: any) => {
         item.type = chart.value;
       });
-      this.content = { ...content };
+      this.chart?.setOption(this.content());
     }
   }
 }

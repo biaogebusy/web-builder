@@ -23,7 +23,7 @@ import { Observable } from 'rxjs';
   imports: [ShareModule, WidgetsModule],
 })
 export class BuilderShowcaseComponent implements OnInit {
-  readonly content = input<IBuilderShowcase>();
+  readonly content = input.required<IBuilderShowcase>();
   private builder = inject(BuilderState);
   private util = inject(UtilitiesService);
   private dialog = inject(MatDialog);

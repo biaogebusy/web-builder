@@ -14,7 +14,7 @@ import { ListComponent } from '../list/list.component';
   imports: [ListComponent, SidebarComponent],
 })
 export class TaxonomyListComponent {
-  readonly content = input<any>();
+  readonly content = input.required<any>();
   constructor() {}
 
 }

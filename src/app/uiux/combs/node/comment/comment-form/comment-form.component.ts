@@ -6,7 +6,8 @@ import {
   inject,
   DestroyRef,
   output,
-  input
+  input,
+  model
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,8 +37,8 @@ export class CommentFormComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
 
-  readonly content = input<IBaseNode>();
-  readonly commentContent = input<any>();
+  readonly content = input.required<IBaseNode>();
+  readonly commentContent = model<any>('');
   readonly commentId = input<string>();
   readonly type = input<string>();
   readonly cancel = output();
@@ -70,13 +71,13 @@ export class CommentFormComponent implements OnInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((quote: any) => {
           this.screenService.scrollToAnchor('comment');
-          this.commentContent = `
+          this.commentContent.set(`
           <br>
           <em style="color: rgb(136, 136, 136);font-style: italic;">
           ====================<br>${quote.author.title}<br>${quote.author.subTitle}<br>
           ${quote.content}
           </em>
-          `;
+          `);
           this.cd.detectChanges();
         });
       this.cd.detectChanges();
@@ -117,7 +118,7 @@ export class CommentFormComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         () => {
-          this.commentContent = '';
+          this.commentContent.set('');
           this.done('提交成功！');
           this.cd.detectChanges();
         },
@@ -157,7 +158,7 @@ export class CommentFormComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => {
-        this.commentContent = '';
+        this.commentContent.set('');
         this.done('回复成功！');
         this.cd.detectChanges();
       });
@@ -183,7 +184,7 @@ export class CommentFormComponent implements OnInit {
       },
     };
     this.nodeService
-      .updateComment(type, entity, this.commentId(), token)
+      .updateComment(type, entity, this.commentId() ?? '', token)
       .pipe(
         // catchError(() => {
         //   return of({});
@@ -195,7 +196,7 @@ export class CommentFormComponent implements OnInit {
           this.done('更新成功！');
         },
         error => {
-          console.log(error);
+          console.error(error);
           this.done('更新失败！');
         }
       );

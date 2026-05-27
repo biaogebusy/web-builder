@@ -68,7 +68,6 @@ export class NodeAddComponent implements OnInit {
   }
 
   onSubmit(value: any, user: IUser | any): void {
-    console.log(value);
     if (!user) {
       this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.LOGIN_FIRST'), 'ok');
       return;

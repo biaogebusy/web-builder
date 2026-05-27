@@ -1,7 +1,7 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <mat-progress-spinner
-    [color]="content()?.color"
-    [diameter]="content()?.size"
+    [color]="contentValue?.color"
+    [diameter]="contentValue?.size"
     [mode]="'indeterminate'"
   />
 }

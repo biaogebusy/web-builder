@@ -45,7 +45,7 @@ declare let window: any;
   ],
 })
 export class JsoneditorComponent implements AfterViewInit, OnDestroy {
-  readonly content = input<IJsoneditor>();
+  readonly content = input.required<IJsoneditor>();
   readonly editor = viewChild('jsoneditor', { read: ElementRef });
   public data: any;
   public value: any;
@@ -115,7 +115,7 @@ export class JsoneditorComponent implements AfterViewInit, OnDestroy {
         return;
       }
       this.jsonEditor = new window.JSONEditor(
-        this.editor().nativeElement,
+        this.editor()!.nativeElement,
         {
           mode: 'code',
           enableSort: false,

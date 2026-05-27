@@ -37,7 +37,7 @@ const COMMENT_GET_PATH = '/api/v1/comment';
   ],
 })
 export class CommentItemComponent implements OnInit, AfterViewInit {
-  readonly content = input<IBaseNode>();
+  readonly content = input.required<IBaseNode>();
   readonly comments = input<IComment[]>();
 
   currentId: string;

@@ -21,6 +21,6 @@ export class Hero2v3Component extends BaseComponent {
   screen = inject(ScreenState);
   pageContent$ = inject<Observable<IPage>>(PAGE_CONTENT);
 
-  readonly content = input<IHero2v3>();
+  readonly content = input.required<IHero2v3>();
 
 }

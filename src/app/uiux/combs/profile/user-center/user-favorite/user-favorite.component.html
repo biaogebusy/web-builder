@@ -1,8 +1,8 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="user-favorite">
     <div class="container">
-      @if (content().text) {
-        <app-text [content]="content().text" />
+      @if (contentValue.text) {
+        <app-text [content]="contentValue.text" />
       }
       @if (lists$ | async; as lists) {
         <app-list-thin [pager]="pager" [content]="lists" [loading]="loading" />

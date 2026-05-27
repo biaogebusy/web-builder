@@ -11,6 +11,6 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent, DynamicComponentComponent],
 })
 export class Showcase2v6Component {
-  readonly content = input<IShowcase2v6>();
+  readonly content = input.required<IShowcase2v6>();
 
 }

@@ -16,7 +16,7 @@ import { ChartComponent } from '../chart/chart.component';
   imports: [AsyncPipe, ContenteditDirective, ChartComponent],
 })
 export class ChartBoxComponent implements OnInit {
-  readonly content = input<any>();
+  readonly content = input.required<any>();
   readonly style = input({
     minHeight: '50px',
     width: '100%',

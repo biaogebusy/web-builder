@@ -1,104 +1,104 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <mat-card
     appearance="outlined"
     class="card"
-    [class.has-header]="content().header?.meta"
-    [class]="content().classes"
+    [class.has-header]="contentValue.header?.meta"
+    [class]="contentValue.classes"
   >
-    @if (content().header?.meta) {
+    @if (contentValue.header?.meta) {
       <mat-card-content>
-        <app-card-meta [attr.data-path]="'header.meta'" [content]="content().header?.meta" />
+        <app-card-meta [attr.data-path]="'header.meta'" [content]="contentValue.header?.meta" />
       </mat-card-content>
     }
-    @if (content().header) {
+    @if (contentValue.header) {
       <mat-card-header class="m-bottom-xs">
-        @if (content().header.avatar) {
+        @if (contentValue.header.avatar) {
           <div mat-card-avatar>
             <app-img
               [attr.data-path]="'header.avatar'"
-              [content]="content().header.avatar || { src: '' }"
+              [content]="contentValue.header.avatar || { src: '' }"
             />
           </div>
         }
-        @if (content().header.title) {
+        @if (contentValue.header.title) {
           <mat-card-title
             contentedit="header.title"
             contentedit="title"
-            [innerHTML]="content().header.title || '' | safeHtml"
+            [innerHTML]="contentValue.header.title || '' | safeHtml"
           />
         }
-        @if (content().header.subTitle) {
+        @if (contentValue.header.subTitle) {
           <mat-card-subtitle
             contentedit="header.subTitle"
-            [innerHTML]="content().header.subTitle || '' | safeHtml"
+            [innerHTML]="contentValue.header.subTitle || '' | safeHtml"
           />
         }
       </mat-card-header>
     }
     <div class="card-header">
-      @if (content().carousel) {
-        @if (content().carousel?.elements.length > 1) {
+      @if (contentValue.carousel) {
+        @if (contentValue.carousel?.elements.length > 1) {
           <app-dynamic-component
             [attr.data-path]="'carousel'"
-            [inputs]="content().carousel"
+            [inputs]="contentValue.carousel"
           ></app-dynamic-component>
         } @else {
           <app-feature-box
             [attr.data-path]="'carousel.elements.0'"
-            [content]="content().carousel.elements[0]"
+            [content]="contentValue.carousel.elements[0]"
           />
         }
         <ng-template #feature>
           <app-feature-box
             [attr.data-path]="'carousel.elements.0'"
-            [content]="content().carousel.elements[0]"
+            [content]="contentValue.carousel.elements[0]"
           />
         </ng-template>
       }
-      @if (!content().carousel && content().feature) {
-        <app-feature-box [attr.data-path]="'feature'" [content]="content().feature" />
+      @if (!contentValue.carousel && contentValue.feature) {
+        <app-feature-box [attr.data-path]="'feature'" [content]="contentValue.feature" />
       }
     </div>
     <mat-card-content>
       <div class="card-content-row">
-        @if (content().avatar) {
+        @if (contentValue.avatar) {
           <div mat-card-avatar class="m-right-xs">
-            <app-img [attr.data-path]="'img'" [content]="content().avatar" />
+            <app-img [attr.data-path]="'img'" [content]="contentValue.avatar" />
           </div>
         }
         <div class="card-title-wrap">
-          @if (content().title) {
+          @if (contentValue.title) {
             <mat-card-title contentedit="title" class="basis-full">
-              <div [innerHTML]="content().title | safeHtml"></div>
+              <div [innerHTML]="contentValue.title | safeHtml"></div>
             </mat-card-title>
           } @else {
-            @if (content().link) {
+            @if (contentValue.link) {
               <mat-card-title class="basis-full">
-                <app-link [attr.data-path]="'link'" [content]="content().link" />
+                <app-link [attr.data-path]="'link'" [content]="contentValue.link" />
               </mat-card-title>
             }
           }
           <ng-template #link>
-            @if (content().link) {
+            @if (contentValue.link) {
               <mat-card-title class="basis-full">
-                <app-link [attr.data-path]="'link'" [content]="content().link" />
+                <app-link [attr.data-path]="'link'" [content]="contentValue.link" />
               </mat-card-title>
             }
           </ng-template>
-          @if (content().subTitle) {
+          @if (contentValue.subTitle) {
             <mat-card-subtitle contentedit="subTitle" class="basis-full">
-              <div [innerHTML]="content().subTitle | safeHtml"></div>
+              <div [innerHTML]="contentValue.subTitle | safeHtml"></div>
             </mat-card-subtitle>
           }
         </div>
       </div>
-      @if (content().body) {
-        <div contentedit="body" class="card-body" [innerHTML]="content().body | safeHtml"></div>
+      @if (contentValue.body) {
+        <div contentedit="body" class="card-body" [innerHTML]="contentValue.body | safeHtml"></div>
       }
     </mat-card-content>
-    @if (content().actions) {
+    @if (contentValue.actions) {
       <mat-card-actions [attr.data-path]="'actions'">
-        @for (action of content().actions; track action) {
+        @for (action of contentValue.actions; track action) {
           <button mat-button>
             {{ action.label }}
           </button>
@@ -106,13 +106,13 @@
       </mat-card-actions>
     }
     <mat-card-footer>
-      @if (content().footer) {
+      @if (contentValue.footer) {
         <div class="footer">
-          <app-card-meta [attr.data-path]="'footer.meta'" [content]="content().footer.meta" />
+          <app-card-meta [attr.data-path]="'footer.meta'" [content]="contentValue.footer.meta" />
         </div>
       }
-      @if (content().progressBar) {
-        <app-progress-bar [content]="content().progressBar" />
+      @if (contentValue.progressBar) {
+        <app-progress-bar [content]="contentValue.progressBar" />
       }
     </mat-card-footer>
   </mat-card>

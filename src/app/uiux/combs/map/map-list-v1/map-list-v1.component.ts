@@ -26,7 +26,7 @@ import { MapComponent } from '../map/map.component';
   ],
 })
 export class MapListV1Component implements OnInit {
-  readonly content = input<IMapListv1>();
+  readonly content = input.required<IMapListv1>();
   elements: any[];
   loading: boolean;
   selectedId: number;

@@ -24,7 +24,7 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
 export class ListThinComponent {
   readonly content = input<IListThin[]>();
   readonly loading = input<boolean>();
-  readonly pager = input<any>();
+  readonly pager = input.required<any>();
 
   readonly pageChange = output<string>();
   p = 1;

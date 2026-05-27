@@ -16,7 +16,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent, DynamicComponentComponent],
 })
 export class Showcase2v1Component extends BaseComponent implements AfterViewInit {
-  readonly content = input<IShowcase2v1>();
+  readonly content = input.required<IShowcase2v1>();
   elements: ICard1v1[];
   private nodeService = inject(NodeService);
   private cd = inject(ChangeDetectorRef);

@@ -31,7 +31,7 @@ import { SearchListComponent } from './search-list/search-list.component';
   imports: [ReactiveFormsModule, SearchHeaderComponent, SearchSidebarComponent, SearchListComponent],
 })
 export class SearchComponent extends BaseComponent implements OnInit {
-  readonly content = input<ISearch>();
+  readonly content = input.required<ISearch>();
   private page: number;
   public pager: any;
   public form: UntypedFormGroup = new UntypedFormGroup({});

@@ -38,7 +38,7 @@ export class JsonFieldType extends FieldType<FieldTypeConfig> implements AfterVi
         await this.util.loadScriptWithoutAmd(jsoneditorJS);
       }
 
-      this.editorInstance = new window.JSONEditor(this.editor().nativeElement, {
+      this.editorInstance = new window.JSONEditor(this.editor()!.nativeElement, {
         mode: 'code',
         enableSort: false,
         enableTransform: false,

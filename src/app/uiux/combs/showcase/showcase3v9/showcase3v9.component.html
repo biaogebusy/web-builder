@@ -1,13 +1,13 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="showcase-3-v9">
-    @if (content()) {
+    @if (contentValue) {
       <div class="inner">
         <div
           class="left order-{{
-            content().order.left
+            contentValue.order.left
           }}"
         >
-          @for (item of content().left; track item; let i = $index) {
+          @for (item of contentValue.left; track item; let i = $index) {
             <app-dynamic-component
               [attr.data-path]="'left.' + i"
               class="p-x-sm left-item"
@@ -17,10 +17,10 @@
         </div>
         <div
           class="right order-{{
-            content().order.right
+            contentValue.order.right
           }}"
         >
-          @for (item of content().right; track item; let i = $index) {
+          @for (item of contentValue.right; track item; let i = $index) {
             <app-dynamic-component
               [attr.data-path]="'right.' + i"
               class="right-item"

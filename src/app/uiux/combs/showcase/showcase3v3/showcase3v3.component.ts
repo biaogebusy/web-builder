@@ -32,7 +32,7 @@ import { NgPipesModule } from 'ngx-pipes';
 export class Showcase3v3Component implements AfterViewInit {
   private cd = inject(ChangeDetectorRef);
 
-  readonly content = input<IShowcase3v3>();
+  readonly content = input.required<IShowcase3v3>();
   isShow: boolean;
 
 

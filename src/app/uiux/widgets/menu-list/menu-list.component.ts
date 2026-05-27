@@ -23,7 +23,7 @@ import { LinkComponent } from '../link/link.component';
 export class MenuListComponent implements OnInit {
   private screenService = inject(ScreenService);
 
-  readonly content = input<IMenuList>();
+  readonly content = input.required<IMenuList>();
   list: IMenuListItem[];
   initList: IMenuListItem[];
   expand = false;

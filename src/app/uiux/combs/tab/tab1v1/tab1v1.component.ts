@@ -34,7 +34,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   ],
 })
 export class Tab1v1Component extends BaseComponent implements OnInit {
-  readonly content = input<any>();
+  readonly content = input.required<any>();
 
   selectedIndex = 0;
   tabs: any[];

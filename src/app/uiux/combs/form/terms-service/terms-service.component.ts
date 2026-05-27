@@ -16,8 +16,8 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 export class TermsServiceComponent {
   private dialog = inject(MatDialog);
 
-  readonly content = input<any>();
-  readonly form = input<UntypedFormGroup>();
+  readonly content = input.required<any>();
+  readonly form = input.required<UntypedFormGroup>();
   private dialogRef: any;
 
 

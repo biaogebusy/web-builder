@@ -46,7 +46,7 @@ import { Observable, catchError, of, tap } from 'rxjs';
   ],
 })
 export class TaxonomyComponent implements OnInit {
-  readonly content = input<ITaxonomy>();
+  readonly content = input.required<ITaxonomy>();
   public items$: Observable<any>;
   public loading = signal<boolean>(false);
   private nodeService = inject(NodeService);

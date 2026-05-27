@@ -1,8 +1,8 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <article class="question p-y-sm">
     <div class="container">
-      <h2 class="title">{{ content().title }}</h2>
-      <div class="question-details" [innerHTML]="content().body | safeHtml"></div>
+      <h2 class="title">{{ contentValue.title }}</h2>
+      <div class="question-details" [innerHTML]="contentValue.body | safeHtml"></div>
       <div class="actions m-y-sm">
         @if (!(user$ | async)) {
           <button mat-raised-button color="primary" (click)="openLogin()">

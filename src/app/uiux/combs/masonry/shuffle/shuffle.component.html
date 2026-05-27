@@ -1,16 +1,16 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="shuffle-container">
-    @if (content().title) {
-      <app-title [attr.data-path]="'title'" [content]="content().title" />
+    @if (contentValue.title) {
+      <app-title [attr.data-path]="'title'" [content]="contentValue.title" />
     }
-    @if (content().filter) {
+    @if (contentValue.filter) {
       <div class="filter">
         <mat-button-toggle-group
           name="toggle group"
           aria-label="toggle group"
           (change)="onChange($event)"
         >
-          @for (item of content().filter; track item) {
+          @for (item of contentValue.filter; track item) {
             @if (item.value) {
               <mat-button-toggle value="{{ item.value }}">
                 {{ item.label }}
@@ -21,7 +21,7 @@
       </div>
     }
     <div class="shuffle-inner">
-      @for (item of content().elements; track item) {
+      @for (item of contentValue.elements; track item) {
         <div class="item" [attr.data-groups]="item.category">
           <app-dynamic-component [inputs]="item" />
         </div>

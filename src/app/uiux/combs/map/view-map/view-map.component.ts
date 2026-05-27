@@ -45,7 +45,7 @@ import { map } from 'rxjs/operators';
   ],
 })
 export class ViewMapComponent extends BaseComponent implements OnInit {
-  readonly content = input<IViewMap>();
+  readonly content = input.required<IViewMap>();
   lists$: Observable<IViewMapItem[] | any>;
   form = new UntypedFormGroup({
     page: new UntypedFormControl(),

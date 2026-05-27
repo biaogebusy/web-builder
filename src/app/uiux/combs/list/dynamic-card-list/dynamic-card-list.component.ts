@@ -46,7 +46,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
-  readonly content = input<IDynamicCardList>();
+  readonly content = input.required<IDynamicCardList>();
   keys: string;
   page: number;
   pager: IPager;

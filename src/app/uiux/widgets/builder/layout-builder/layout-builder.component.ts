@@ -45,7 +45,7 @@ import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.componen
 export class LayoutBuilderComponent implements AfterViewInit {
   currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
-  readonly content = input<ILayoutBuilder>();
+  readonly content = input.required<ILayoutBuilder>();
   public showToolbar = signal(false);
 
   private util = inject(UtilitiesService);

@@ -16,7 +16,7 @@ import { CommentItemComponent } from './comment-item/comment-item.component';
   imports: [SafeHtmlPipe, IconComponent, CommentItemComponent],
 })
 export class CommentListComponent {
-  readonly content = input<IBaseNode>();
+  readonly content = input.required<IBaseNode>();
   readonly comments = input<IComment[] | null>();
 
   constructor() {}

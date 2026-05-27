@@ -35,7 +35,7 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
   },
 })
 export class InverseComponent {
-  readonly content = input<any>();
+  readonly content = input.required<any>();
   public form: UntypedFormGroup = new UntypedFormGroup({});
   public submited = false;
 

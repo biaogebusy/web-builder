@@ -16,7 +16,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [MatTabsModule, SpacerComponent, TextComponent, BgImgComponent, DynamicComponentComponent],
 })
 export class TabComponent implements OnInit {
-  readonly content = input<ITab>();
+  readonly content = input.required<ITab>();
   selectedIndex: number | null;
   private route = inject(ActivatedRoute);
   private cd = inject(ChangeDetectorRef);

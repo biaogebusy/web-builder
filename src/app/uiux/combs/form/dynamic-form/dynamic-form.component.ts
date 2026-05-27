@@ -16,7 +16,7 @@ import { FormlyComponent } from '../formly/formly.component';
   imports: [ReactiveFormsModule, FormlyComponent, BtnComponent, DynamicComponentComponent],
 })
 export class DynamicFormComponent {
-  readonly content = input<IDynamicForm>();
+  readonly content = input.required<IDynamicForm>();
   public form = new UntypedFormGroup({});
   public model: any = {};
   public disabled = signal<boolean>(false);
@@ -45,7 +45,7 @@ export class DynamicFormComponent {
         error: error => {
           this.disabled.set(false);
           this.util.openSnackbar(error?.error?.message || `提交失败，请联系管理员！`);
-          console.log(error.error);
+          console.error(error.error);
         },
       });
   }

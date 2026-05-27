@@ -14,7 +14,7 @@ import { CustomTemplateComponent } from '@uiux/combs/other/custom-template/custo
 })
 export class SearchListComponent {
   readonly content = input<any[]>();
-  readonly label = input<any>();
+  readonly label = input.required<any>();
   readonly pager = input<any>();
   readonly loading = input<boolean>();
   readonly template = input<string>();

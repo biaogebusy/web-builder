@@ -24,7 +24,7 @@ export class BuilderSidebarComponent {
   public branding$ = inject<Observable<IBranding>>(BRANDING);
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
-  readonly sidebarDrawer = input<MatDrawer>();
+  readonly sidebarDrawer = input.required<MatDrawer>();
   readonly drawerContentRef = input<any>();
   public builder = inject(BuilderState);
   private dialog = inject(MatDialog);

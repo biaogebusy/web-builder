@@ -35,7 +35,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
 
-  readonly content = input<IFlag>();
+  readonly content = input.required<IFlag>();
   config: ICoreFlag;
   flagging = false;
   user: IUser;

@@ -22,6 +22,6 @@ import { LinkComponent } from '../../link/link.component';
   ],
 })
 export class Card1v1Component {
-  readonly content = input<ICard1v1>();
+  readonly content = input.required<ICard1v1>();
 
 }

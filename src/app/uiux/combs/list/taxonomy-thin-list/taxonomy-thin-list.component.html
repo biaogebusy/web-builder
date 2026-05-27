@@ -1,17 +1,17 @@
 <app-bg [content]="{ classes: 'bg-fill-width bg-shadow' }" />
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="taxonomy-thin-list">
     <div class="container">
       <div class="inner-grid p-y-md">
-        @if (content().sidebar) {
+        @if (contentValue.sidebar) {
           <div class="thin-sidebar col-sapn-12 md:col-span-3">
-            @for (item of content().sidebar; track item) {
+            @for (item of contentValue.sidebar; track item) {
               <app-dynamic-component [inputs]="item" />
             }
           </div>
         }
         <div class="list col-span-12 md:col-span-9">
-          <app-list-thin [content]="content().elements" [pager]="content().pager" />
+          <app-list-thin [content]="contentValue.elements" [pager]="contentValue.pager" />
         </div>
       </div>
     </div>

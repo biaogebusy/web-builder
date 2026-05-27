@@ -1,15 +1,15 @@
-@if (content()) {
-  <div class="title" [class]="content().style">
+@if (content(); as titleContent) {
+  <div class="title" [class]="titleContent.style">
     <h2
       #title
       contentedit="label"
       class="title-header"
-      [class]="[content().classes || 'mat-h2', content().style === 'none' ? '!mb-0' : '']"
-      [innerHTML]="content().label | safeHtml"
+      [class]="[titleContent.classes || 'mat-h2', titleContent.style === 'none' ? '!mb-0' : '']"
+      [innerHTML]="titleContent.label | safeHtml"
     ></h2>
-    <div class="line-style" [class.m-top-sm]="content().icon">
-      @if (content().icon && content().style) {
-        <mat-icon>{{ content().icon }}</mat-icon>
+    <div class="line-style" [class.m-top-sm]="titleContent.icon">
+      @if (titleContent.icon && titleContent.style) {
+        <mat-icon>{{ titleContent.icon }}</mat-icon>
       }
       <span></span>
     </div>

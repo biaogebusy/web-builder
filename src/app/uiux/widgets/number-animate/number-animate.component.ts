@@ -11,7 +11,7 @@ import type { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
   imports: [ContenteditDirective],
 })
 export class NumberAnimateComponent {
-  readonly content = input<INumberAnimate>();
+  readonly content = input.required<INumberAnimate>();
 
   constructor() {}
 

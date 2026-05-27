@@ -1,7 +1,7 @@
-@if (content()) {
+@if (content(); as contentValue) {
   <div class="breadcrumb">
     <ul>
-      @for (link of content(); track link) {
+      @for (link of contentValue; track link) {
         <li>
           <app-link [content]="link" />
           <app-icon [content]="{ svg: 'chevron-right' }" />

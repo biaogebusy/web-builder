@@ -22,7 +22,7 @@ import { cloneDeep, defaultsDeep, get } from 'lodash-es';
   imports: [ShareModule, WidgetsModule, FormModule, DragDropModule],
 })
 export class LayoutSettingComponent {
-  readonly content = input<ILayoutSetting>();
+  readonly content = input.required<ILayoutSetting>();
   public model: any = {};
 
   private doc = inject(DOCUMENT);
