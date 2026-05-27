@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, OnInit, effect, inject, input } from '@angular/core';
 import { IMetaEdit } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { generatePath } from '@core/util/dom-path.util';
@@ -14,9 +14,19 @@ import { getInlineText } from '@modules/builder/factory/getInlineText';
   },
 })
 export class ContenteditDirective implements AfterViewInit, OnInit {
+  readonly contentedit = input.required<string>();
+
   private componentItem: Element | null = null;
   private el = inject(ElementRef);
   private builder = inject(BuilderState);
+
+  constructor() {
+    effect(() => {
+      const key = this.contentedit();
+      const ele = this.el.nativeElement;
+      ele.setAttribute('data-path', key);
+    });
+  }
 
   ngOnInit(): void {
     this.componentItem = this.el.nativeElement.closest('.component-item');
@@ -126,11 +136,6 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
       },
       elements: [meta],
     });
-  }
-
-  @Input() set contentedit(key: string) {
-    const ele = this.el.nativeElement;
-    ele.setAttribute('data-path', key);
   }
 
   ngAfterViewInit(): void {

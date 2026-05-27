@@ -19,7 +19,6 @@ export const authGuard: CanActivateFn = (_route, state) => {
   }
 
   const { authGuard: needsAuth, defaultFrontLoginPage } = coreConfig.guard;
-  console.log('authGuard', needsAuth);
   if (!needsAuth && !state.url.startsWith('/my')) {
     return of(true);
   }

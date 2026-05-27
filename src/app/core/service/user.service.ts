@@ -277,7 +277,7 @@ export class UserService extends ApiService {
       }
       return JSON.parse(this.cryptoJS.decrypt(raw));
     } catch (e) {
-      console.log('Failed to read stored user', e);
+      console.error('Failed to read stored user', e);
     }
     return null;
   }
@@ -517,7 +517,6 @@ export class UserService extends ApiService {
   }
 
   setUserCookie(user: IUser): void {
-    // console.log(user);
     // Druapl default cookie_lifetime 2000000，if change, need to keep same
     this.cookieService.set(this.localUserKey, this.cryptoJS.encrypt(JSON.stringify(user)), {
       expires: getCookieExpirationDate(this.coreConfig.cookieLifetime ?? 2000000),

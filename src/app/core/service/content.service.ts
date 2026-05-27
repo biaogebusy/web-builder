@@ -81,8 +81,7 @@ export class ContentService extends ApiService {
     if (!this.coreConfigCache) {
       this.coreConfigCache = this.http.get<ICoreConfig>(configPath).pipe(
         catchError(error => {
-          console.log(error);
-          console.log('base json not found!');
+          console.error('base json not found:', error);
           return of({} as ICoreConfig);
         }),
         shareReplay(1)

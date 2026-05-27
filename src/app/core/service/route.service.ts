@@ -61,7 +61,6 @@ export class RouteService {
       if (event) {
         event.preventDefault();
       }
-      console.log(widget);
       return;
     }
     if (!getFileType(href)) {
