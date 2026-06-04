@@ -1,9 +1,11 @@
 <div class="manage-media">
   <div class="media-grid">
     <div class="sidebar">
-      <mat-slider max="12" min="1" step="1">
-        <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
-      </mat-slider>
+      <div class="col-control hidden md:block">
+        <mat-slider max="12" min="1" step="1">
+          <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
+        </mat-slider>
+      </div>
       <form [formGroup]="form" (keydown.enter)="onEnter($event)">
         <app-formly
           [classes]="'form-field-width-auto'"
@@ -37,13 +39,9 @@
       }
       @if (mediaAssets$ | async; as assets) {
         @if (assets.rows.length) {
-          <div class="viewport">
+          <div class="viewport" [style.--cols]="manageMediaConfig().row">
             @for (item of assets.rows; track item) {
-              <div
-                class="masonry-item col-span-6 sm:col-span-4 md:col-span-{{
-                  manageMediaConfig().row
-                }}"
-              >
+              <div class="masonry-item">
                 <div class="actions" [matTooltip]="item.title">
                   @if (content().mode === 'manage') {
                     <app-btn
