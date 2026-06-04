@@ -20,6 +20,22 @@
     "OR_USE_PHONE": "或使用手机登录",
     "HI": "你好"
   },
+  "MANAGE": {
+    "MEDIA": {
+      "SEARCH_PLACEHOLDER": "请输入关键词",
+      "UPLOAD": "上传媒体",
+      "DELETE": "删除",
+      "COPY_PATH": "复制路径",
+      "SELECT": "选择",
+      "BULK_DELETE": "批量删除（{{count}}）",
+      "EMPTY_TITLE": "未找到相关媒体",
+      "EMPTY_DESC_KEYWORD": "没有与「{{name}}」匹配的内容，换个关键词试试",
+      "EMPTY_DESC": "当前没有任何媒体资源",
+      "MISSING_UUID": "是否忘记了配置UUID？",
+      "ALL_DELETED": "已全部删除",
+      "PATH_COPIED": "图片路径已复制"
+    }
+  },
   "BUILDER": {
     "COMMON": {
       "UNPUBLISHED": "未发布",

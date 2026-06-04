@@ -4,7 +4,7 @@
       <mat-slider max="12" min="1" step="1">
         <input matSliderThumb [(ngModel)]="manageMediaConfig().row" />
       </mat-slider>
-      <form [formGroup]="form">
+      <form [formGroup]="form" (keydown.enter)="onEnter($event)">
         <app-formly
           [classes]="'form-field-width-auto'"
           [form]="form"
@@ -16,7 +16,7 @@
         <app-btn
           (click)="onUpload()"
           [content]="{
-            label: '上传媒体',
+            label: 'MANAGE.MEDIA.UPLOAD' | translate,
             color: 'primary',
             mode: 'raised',
             icon: { svg: 'upload-outline' },
@@ -51,7 +51,7 @@
                         params: { reqRoles: ['administrator'] },
                       }"
                       class="btn icon-delete"
-                      [matTooltip]="'删除'"
+                      [matTooltip]="'MANAGE.MEDIA.DELETE' | translate"
                       matTooltipPosition="above"
                       (click)="onDelete(item.uuid)"
                       [content]="{
@@ -62,7 +62,7 @@
                     />
                     <app-btn
                       class="btn"
-                      [matTooltip]="'复制路径'"
+                      [matTooltip]="'MANAGE.MEDIA.COPY_PATH' | translate"
                       matTooltipPosition="above"
                       (click)="onCopy(item)"
                       [content]="{
@@ -74,7 +74,7 @@
                   }
                   <app-btn
                     class="btn"
-                    [matTooltip]="'选择'"
+                    [matTooltip]="'MANAGE.MEDIA.SELECT' | translate"
                     matTooltipPosition="above"
                     (click)="onSelect(item)"
                     [content]="{
@@ -108,10 +108,14 @@
         } @else {
           <div class="empty">
             <app-icon class="empty-icon" [content]="{ svg: 'magnify', inline: true }" />
+            <div class="empty-title">{{ 'MANAGE.MEDIA.EMPTY_TITLE' | translate }}</div>
             @if (model.name) {
-              关键词{{ model.name }}
+              <div class="empty-desc">
+                {{ 'MANAGE.MEDIA.EMPTY_DESC_KEYWORD' | translate: { name: model.name } }}
+              </div>
+            } @else {
+              <div class="empty-desc">{{ 'MANAGE.MEDIA.EMPTY_DESC' | translate }}</div>
             }
-            无数据
           </div>
         }
       }
@@ -123,7 +127,7 @@
               [content]="{
                 color: 'warn',
                 mode: 'raised',
-                label: '批量删除（' + deletedLists.length + '）',
+                label: 'MANAGE.MEDIA.BULK_DELETE' | translate: { count: deletedLists.length },
                 icon: { svg: 'trash-can-outline' },
               }"
             />

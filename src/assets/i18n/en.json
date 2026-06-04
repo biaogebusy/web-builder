@@ -20,6 +20,22 @@
     "OR_USE_PHONE": "Or sign in with phone",
     "HI": "Hi"
   },
+  "MANAGE": {
+    "MEDIA": {
+      "SEARCH_PLACEHOLDER": "Enter a keyword",
+      "UPLOAD": "Upload media",
+      "DELETE": "Delete",
+      "COPY_PATH": "Copy path",
+      "SELECT": "Select",
+      "BULK_DELETE": "Delete selected ({{count}})",
+      "EMPTY_TITLE": "No media found",
+      "EMPTY_DESC_KEYWORD": "Nothing matches \"{{name}}\", try another keyword",
+      "EMPTY_DESC": "No media resources yet",
+      "MISSING_UUID": "Did you forget to configure the UUID?",
+      "ALL_DELETED": "All deleted",
+      "PATH_COPIED": "Image path copied"
+    }
+  },
   "BUILDER": {
     "COMMON": {
       "UNPUBLISHED": "Unpublished",

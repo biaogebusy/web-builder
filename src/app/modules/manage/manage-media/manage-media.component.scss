@@ -20,8 +20,17 @@
     .viewport {
       @include scrollbar(var(--mat-sys-primary));
       @apply grid grid-cols-12 gap-1 overflow-auto w-full flex-1;
-      .empty {
-        @apply text-center flex flex-col items-center gap-3 opacity-75;
+    }
+    .empty {
+      @apply flex flex-1 flex-col items-center justify-center text-center gap-2 px-6 py-10;
+      color: var(--mat-sys-outline);
+      .empty-title {
+        @apply text-lg font-medium;
+        color: var(--mat-sys-on-surface);
+      }
+      .empty-desc {
+        @apply text-sm;
+        color: var(--mat-sys-on-surface-variant);
       }
     }
     .progress-bar {
@@ -49,7 +58,8 @@
     @apply w-full h-full object-contain;
   }
   .empty-icon {
-    @apply w-20 h-20;
+    @apply w-16 h-16;
+    color: var(--mat-sys-outline-variant);
   }
 }
 
