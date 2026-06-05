@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { ScreenState } from '../../../state/screen/ScreenState';
@@ -15,5 +15,5 @@ export class LightComponent {
   screen = inject(ScreenState);
   utilities = inject(UtilitiesService);
 
-  @Input() content: any;
+  readonly content = input.required<any>();
 }

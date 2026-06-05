@@ -1,18 +1,18 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="dynamic-card-list m-y">
     <div class="container">
       <div class="inner">
-        @if (content.sidebar) {
+        @if (contentValue.sidebar) {
           <app-search-sidebar
             class="col-span-12 md:col-span-2"
-            [fields]="content.sidebar"
+            [fields]="contentValue.sidebar"
             [form]="form"
           />
         }
         @if (nodes) {
           <div
             class="card-list m-y col-span-12 md:col-span-{{
-              content.sidebar ? '10' : '12'
+              contentValue.sidebar ? '10' : '12'
             }} grid grid-cols-12"
           >
             @for (
@@ -26,7 +26,7 @@
               track card
             ) {
               <app-card
-                class="col-span-12 md:col-span-{{ content.row }} m-bottom-sm"
+                class="col-span-12 md:col-span-{{ contentValue.row }} m-bottom-sm"
                 [content]="card"
               />
             }

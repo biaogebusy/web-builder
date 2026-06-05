@@ -1,13 +1,13 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="list-thin">
-    @if (loading) {
+    @if (loading()) {
       <div class="loading-wrap">
         <app-spinner [content]="{ color: 'primary', size: 40 }" />
       </div>
     }
-    @if (content.length) {
+    @if (contentValue.length) {
       @for (
-        item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p };
+        item of contentValue | paginate: { itemsPerPage: pager().itemsPerPage || 20, currentPage: p };
         track item
       ) {
         <div class="item">

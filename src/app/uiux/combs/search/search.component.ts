@@ -1,11 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
   ChangeDetectorRef,
   inject,
   DestroyRef,
+  input
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -31,7 +31,7 @@ import { SearchListComponent } from './search-list/search-list.component';
   imports: [ReactiveFormsModule, SearchHeaderComponent, SearchSidebarComponent, SearchListComponent],
 })
 export class SearchComponent extends BaseComponent implements OnInit {
-  @Input() content: ISearch;
+  readonly content = input.required<ISearch>();
   private page: number;
   public pager: any;
   public form: UntypedFormGroup = new UntypedFormGroup({});
@@ -50,23 +50,26 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.router.queryParams.subscribe((query: any) => {
-        this.page = query.page || 0;
-        const querys = omitBy(
-          Object.assign(
-            {
-              page: this.page,
-            },
-            query
-          ),
-          isEmpty
-        );
-        if (this.content.sidebar) {
-          this.initFilterForm(querys, this.content.sidebar);
-        }
-        this.form.patchValue({ ...querys });
-        this.nodeSearch(querys);
-      });
+      this.router.queryParams
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((query: any) => {
+          this.page = query.page || 0;
+          const querys = omitBy(
+            Object.assign(
+              {
+                page: this.page,
+              },
+              query
+            ),
+            isEmpty
+          );
+          const content = this.content();
+          if (content.sidebar) {
+            this.initFilterForm(querys, content.sidebar);
+          }
+          this.form.patchValue({ ...querys });
+          this.nodeSearch(querys);
+        });
     } else {
       this.form = new UntypedFormGroup({});
     }
@@ -108,7 +111,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   nodeSearch(options: any): void {
     this.loading = true;
-    const { api } = this.content;
+    const { api } = this.content();
     const formValue = this.form?.value || {};
     const state = this.getParamsState(formValue, options);
     const params = this.getApiParams(state);

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, output, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -12,7 +12,7 @@ import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks'
   imports: [MatButtonModule, MatIconModule, MatTooltipModule],
 })
 export class PaginationLinksComponent {
-  @Input() links: IPaginationLinks | undefined;
+  readonly links = input<IPaginationLinks>();
   readonly pageChange = output<string>();
 
   loadPage(link: string): void {

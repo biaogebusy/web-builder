@@ -1,6 +1,6 @@
 <div class="animated-digit">
-  <span [contentedit]="'value'" [style]="content.style || null"> {{ content.value }}</span>
-  @if (content.label) {
-    <span [contentedit]="'label'" class="suffix">{{ content.label }}</span>
+  <span [contentedit]="'value'" [style]="content().style || null"> {{ content().value }}</span>
+  @if (content().label) {
+    <span [contentedit]="'label'" class="suffix">{{ content().label }}</span>
   }
 </div>

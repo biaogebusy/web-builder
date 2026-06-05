@@ -3,9 +3,10 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   inject,
   signal,
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,6 +18,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { generatePath } from '@core/util/dom-path.util';
 import { createPopper } from '@popperjs/core';
 import { Observable } from 'rxjs';
 import { BgImgComponent } from '../../bg-img/bg-img.component';
@@ -26,6 +28,7 @@ import { DynamicComponentComponent } from '../dynamic-component/dynamic-componen
 import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-layout-builder',
   templateUrl: './layout-builder.component.html',
   styleUrls: ['./layout-builder.component.scss'],
@@ -42,7 +45,7 @@ import { LayoutToolbarComponent } from './layout-toolbar/layout-toolbar.componen
 export class LayoutBuilderComponent implements AfterViewInit {
   currentPage$ = inject<Observable<IPage>>(BUILDER_CURRENT_PAGE);
 
-  @Input() content: ILayoutBuilder;
+  readonly content = input.required<ILayoutBuilder>();
   public showToolbar = signal(false);
 
   private util = inject(UtilitiesService);
@@ -68,11 +71,11 @@ export class LayoutBuilderComponent implements AfterViewInit {
   }
 
   addBlock(addType: string, content: any, target: any): void {
-    this.builderSerivce.addBlock(addType, content, this.util.generatePath(target));
+    this.builderSerivce.addBlock(addType, content, generatePath(target));
   }
 
   layoutAnimate(): void {
-    this.content.elements.map((item: ILayoutBlock, index) => {
+    this.content().elements.map((item: ILayoutBlock, index) => {
       const animateEle = this.ele.nativeElement.querySelectorAll(
         `.layout-${index} .for-animate`
       )[0];

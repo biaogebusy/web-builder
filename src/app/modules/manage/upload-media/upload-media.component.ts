@@ -1,10 +1,11 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDividerModule } from '@angular/material/divider';
 import { IUser } from '@core/interface/IUser';
 import { IMediaAttr } from '@core/interface/manage/IManage';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { readFileAsArrayBuffer } from '@core/util/file.util';
 import { USER } from '@core/token/token-providers';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
@@ -15,6 +16,7 @@ import { Observable, lastValueFrom, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-upload-media',
   templateUrl: './upload-media.component.html',
   styleUrl: './upload-media.component.scss',
@@ -58,7 +60,7 @@ export class UploadMediaComponent {
           });
 
           if (file) {
-            const data = await this.util.readFileAsArrayBuffer(file);
+            const data = await readFileAsArrayBuffer(file);
 
             const imgAttr = await lastValueFrom(
               this.nodeService.uploadImage(file.name, data).pipe(
@@ -81,7 +83,7 @@ export class UploadMediaComponent {
         }
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log('不支持上传目录:', droppedFile.relativePath, fileEntry);
+        console.warn('不支持上传目录:', droppedFile.relativePath, fileEntry);
         this.util.openSnackbar('不支持上传目录', 'ok');
       }
     }

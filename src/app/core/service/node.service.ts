@@ -1,8 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { DestroyRef, Injectable, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { forkJoin, Observable, of, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
@@ -18,6 +19,7 @@ import { IMediaAttr } from '@core/interface/manage/IManage';
 export class NodeService extends ApiService {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   private user$ = inject<Observable<IUser>>(USER);
+  private destroyRef = inject(DestroyRef);
 
   private util = inject(UtilitiesService);
   private user: IUser;
@@ -26,7 +28,7 @@ export class NodeService extends ApiService {
 
   constructor() {
     super();
-    this.user$.subscribe(user => {
+    this.user$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.user = user;
     });
   }
@@ -340,10 +342,12 @@ export class NodeService extends ApiService {
         // 使用 switchMap 来执行后续操作
         switchMap((res: any) => {
           const {
-            data: { attributes },
+            data: { id, attributes },
           } = res;
 
-          return this.createMediaImage(res.data).pipe(map(() => attributes as IMediaAttr));
+          return this.createMediaImage(res.data).pipe(
+            map(() => ({ ...attributes, uuid: id }) as IMediaAttr)
+          );
         }),
         catchError(error => {
           console.error('Upload image failed:', error);
@@ -394,10 +398,12 @@ export class NodeService extends ApiService {
           const reader = new FileReader();
           reader.onload = (e: any) => {
             const data = e.target.result;
-            this.uploadImage(file.name, data).subscribe((img: IMediaAttr) => {
-              const range = editor.getSelection(true);
-              editor.insertEmbed(range.index, 'image', img.uri.url);
-            });
+            this.uploadImage(file.name, data)
+              .pipe(take(1))
+              .subscribe((img: IMediaAttr) => {
+                const range = editor.getSelection(true);
+                editor.insertEmbed(range.index, 'image', img.uri.url);
+              });
           };
           reader.readAsArrayBuffer(file);
         }

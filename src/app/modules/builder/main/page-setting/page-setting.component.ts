@@ -2,10 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
   signal,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
@@ -23,8 +23,10 @@ import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { USER } from '@core/token/token-providers';
+import { getAttrAlias } from '@core/util/builder-page.util';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -37,7 +39,7 @@ import { Observable } from 'rxjs';
 export class PageSettingComponent implements OnInit {
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: any;
+  readonly content = input<any>();
   public form = new UntypedFormGroup({});
   public model: any = {};
   public fields: FormlyFieldConfig[];
@@ -53,6 +55,7 @@ export class PageSettingComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private userService = inject(UserService);
   private router = inject(Router);
+  private translate = inject(TranslateService);
   private user: IUser;
 
   constructor() {
@@ -64,7 +67,7 @@ export class PageSettingComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.loading.set(true);
-      const { content } = this.content;
+      const { content } = this.content();
       const { data, included } = content;
       const {
         id,
@@ -86,7 +89,7 @@ export class PageSettingComponent implements OnInit {
         this.getCommonField('title', title.trim()),
         this.getCommonField(
           'alias',
-          this.builderService.getAttrAlias({
+          getAttrAlias({
             drupal_internal__nid,
             path,
             langcode,
@@ -98,7 +101,7 @@ export class PageSettingComponent implements OnInit {
           className: 'w-full',
           defaultValue: user.attributes.display_name,
           props: {
-            label: '作者',
+            label: this.translate.instant('BUILDER.PAGE_SETTING.AUTHOR'),
             disabled: true,
           },
         },
@@ -122,10 +125,10 @@ export class PageSettingComponent implements OnInit {
               props: {
                 api: '/api/v2/taxonomy_term/page_group',
                 nocache: true,
-                label: '页面分类',
+                label: this.translate.instant('BUILDER.PAGE_SETTING.PAGE_CATEGORY'),
                 options: [
                   {
-                    label: '无',
+                    label: this.translate.instant('BUILDER.PAGE_SETTING.NONE'),
                     value: null,
                   },
                 ],
@@ -137,9 +140,9 @@ export class PageSettingComponent implements OnInit {
               defaultValue: cover ? cover.attributes.uri.url : '',
               props: {
                 valueIsUUID: true,
-                updateLabel: '更新封面',
-                addLabel: '设置封面',
-                deleteLabel: '删除',
+                updateLabel: this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_COVER'),
+                addLabel: this.translate.instant('BUILDER.PAGE_SETTING.ADD_COVER'),
+                deleteLabel: this.translate.instant('BUILDER.PAGE_SETTING.DELETE'),
                 fileName: cover ? cover.attributes.uri.url.split('/').pop() : '',
               },
               hooks: {
@@ -175,7 +178,7 @@ export class PageSettingComponent implements OnInit {
                         .subscribe(res => {
                           this.loading.set(false);
                           if (res) {
-                            this.util.openSnackbar(`已更新封面`);
+                            this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.COVER_UPDATED'));
                           }
                         });
                     });
@@ -187,7 +190,7 @@ export class PageSettingComponent implements OnInit {
               type: 'toggle',
               defaultValue: is_transparent,
               props: {
-                label: '页头背景是否透明',
+                label: this.translate.instant('BUILDER.PAGE_SETTING.HEADER_TRANSPARENT'),
               },
             },
             {
@@ -195,14 +198,14 @@ export class PageSettingComponent implements OnInit {
               type: 'mat-select',
               defaultValue: transparent_style,
               props: {
-                label: '透明风格',
+                label: this.translate.instant('BUILDER.PAGE_SETTING.TRANSPARENT_STYLE'),
                 options: [
                   {
-                    label: '明亮',
+                    label: this.translate.instant('BUILDER.PAGE_SETTING.LIGHT'),
                     value: 'light',
                   },
                   {
-                    label: '暗黑',
+                    label: this.translate.instant('BUILDER.PAGE_SETTING.DARK'),
                     value: 'dark',
                   },
                 ],
@@ -230,7 +233,7 @@ export class PageSettingComponent implements OnInit {
           defaultValue,
           className: 'w-full',
           props: {
-            label: '标题',
+            label: this.translate.instant('BUILDER.PAGE_SETTING.TITLE'),
             required: true,
           },
           expressions: {
@@ -244,7 +247,7 @@ export class PageSettingComponent implements OnInit {
           className: 'w-full',
           defaultValue,
           props: {
-            label: '更新时间',
+            label: this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_TIME'),
             disabled: true,
           },
         };
@@ -255,7 +258,7 @@ export class PageSettingComponent implements OnInit {
           className: 'w-full',
           defaultValue,
           props: {
-            label: '语言',
+            label: this.translate.instant('BUILDER.PAGE_SETTING.LANGUAGE'),
             disabled: true,
           },
         };
@@ -277,7 +280,7 @@ export class PageSettingComponent implements OnInit {
           className: 'w-full',
           defaultValue,
           props: {
-            label: '内容类型',
+            label: this.translate.instant('BUILDER.PAGE_SETTING.CONTENT_TYPE'),
             disabled: true,
           },
         };
@@ -288,7 +291,7 @@ export class PageSettingComponent implements OnInit {
           className: 'w-full',
           defaultValue,
           props: {
-            label: 'url别名',
+            label: this.translate.instant('BUILDER.PAGE_SETTING.URL_ALIAS'),
             disabled: false,
           },
           expressions: {
@@ -304,7 +307,7 @@ export class PageSettingComponent implements OnInit {
               type: 'textarea',
               defaultValue,
               props: {
-                label: '页面描述',
+                label: this.translate.instant('BUILDER.PAGE_SETTING.PAGE_DESC'),
                 rows: 2,
                 disabled: true,
               },
@@ -332,7 +335,7 @@ export class PageSettingComponent implements OnInit {
       this.userService.openLoginDialog();
       return;
     }
-    const { content } = this.content;
+    const { content } = this.content();
     const { data } = content;
     const {
       id,
@@ -356,7 +359,7 @@ export class PageSettingComponent implements OnInit {
     }
 
     if (!alias) {
-      this.util.openSnackbar(`更新别名失败，请联系管理员！`);
+      this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.ALIAS_FAIL'));
       this.loading.set(false);
       return;
     }
@@ -379,7 +382,10 @@ export class PageSettingComponent implements OnInit {
         next: res => {
           this.loading.set(false);
           if (res) {
-            this.util.openSnackbar(`更新${value.title}成功`, 'ok');
+            this.util.openSnackbar(
+              this.translate.instant('BUILDER.PAGE_SETTING.UPDATE_SUCCESS', { title: value.title }),
+              'ok'
+            );
             this.builder.loading$.next(true);
             this.builderService.loadPage({ langcode, nid: drupal_internal__nid });
             this.builder.updateSuccess$.next(true);
@@ -389,10 +395,12 @@ export class PageSettingComponent implements OnInit {
           const { status } = err;
           switch (status) {
             case 403:
-              this.util.openSnackbar(`权限不足！`);
+              this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
               break;
             default:
-              this.util.openSnackbar(`删除${value.title}失败，请联系管理员！`);
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', { title: value.title })
+              );
               break;
           }
           this.builder.loading$.next(true);
@@ -490,7 +498,7 @@ export class PageSettingComponent implements OnInit {
           },
         },
       },
-    } = this.content;
+    } = this.content();
     if (alias.includes('/core/branding')) {
       this.router.navigate(['/builder/edit-branding/header'], {
         queryParams: {
@@ -519,7 +527,7 @@ export class PageSettingComponent implements OnInit {
     const nodeType = type.split('--')[1];
     const api = `/api/v1/node/${nodeType}`;
     this.loading.set(true);
-    const { content } = this.content;
+    const { content } = this.content();
     const { data } = content;
     const {
       id,
@@ -530,7 +538,10 @@ export class PageSettingComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.util.openSnackbar(`删除${title}成功`, 'ok');
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.PAGE_SETTING.DELETE_SUCCESS', { title }),
+            'ok'
+          );
           this.loading.set(false);
           this.builder.updateSuccess$.next(true);
           this.builder.closeRightDrawer$.next(true);
@@ -540,10 +551,12 @@ export class PageSettingComponent implements OnInit {
           const { status } = err;
           switch (status) {
             case 403:
-              this.util.openSnackbar(`权限不足！`);
+              this.util.openSnackbar(this.translate.instant('BUILDER.PAGE_SETTING.NO_PERMISSION'));
               break;
             default:
-              this.util.openSnackbar(`删除${title}失败，请联系管理员！`);
+              this.util.openSnackbar(
+                this.translate.instant('BUILDER.PAGE_SETTING.DELETE_FAIL', { title })
+              );
               break;
           }
           this.loading.set(false);

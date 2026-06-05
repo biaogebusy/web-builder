@@ -1,208 +1,215 @@
-@if (content) {
-  <div [class]="content.iconPosition" *reqRolesIf="content">
-    @switch (content.mode) {
+@if (content(); as contentValue) {
+  <div [class]="contentValue.iconPosition" *reqRolesIf="contentValue">
+    @switch (contentValue.mode) {
       @case ('raised') {
-        @if (!content.href) {
+        @if (!contentValue.href) {
           <button
-            [class]="content.classes || ''"
-            [class.pill]="content.pill"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [class.pill]="contentValue.pill"
+            [disabled]="contentValue.disabled"
             mat-raised-button
-            [color]="content.color"
+            [color]="contentValue.color"
+            (click)="onClick($event)"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (contentValue.icon && contentValue.icon.svg) {
               <app-icon
-                [class.order-1]="content.iconPosition === 'right'"
-                [content]="content.icon"
+                [class.order-1]="contentValue.iconPosition === 'right'"
+                [content]="contentValue.icon"
               />
             }
-            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+            <span contentedit="label" [innerHTML]="contentValue.label | safeHtml"></span>
           </button>
         } @else {
           <a
-            [class]="content.classes || ''"
-            [class.pill]="content.pill"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [class.pill]="contentValue.pill"
+            [disabled]="contentValue.disabled"
             mat-raised-button
-            (click)="onNav($event, content)"
-            [href]="content.href"
-            [target]="content.target || ''"
-            [color]="content.color"
+            (click)="onNav($event, contentValue)"
+            [href]="contentValue.href"
+            [target]="contentValue.target || ''"
+            [color]="contentValue.color"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (contentValue.icon && contentValue.icon.svg) {
               <app-icon
-                [class.order-1]="content.iconPosition === 'right'"
-                [content]="content.icon"
+                [class.order-1]="contentValue.iconPosition === 'right'"
+                [content]="contentValue.icon"
               />
             }
-            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+            <span contentedit="label" [innerHTML]="contentValue.label | safeHtml"></span>
           </a>
         }
       }
       @case ('stroked') {
-        @if (!content.href) {
+        @if (!contentValue.href) {
           <button
-            [class]="content.classes || ''"
-            [class.pill]="content.pill"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [class.pill]="contentValue.pill"
+            [disabled]="contentValue.disabled"
             mat-stroked-button
-            [color]="content.color"
+            [color]="contentValue.color"
+            (click)="onClick($event)"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (contentValue.icon && contentValue.icon.svg) {
               <app-icon
-                [class.order-1]="content.iconPosition === 'right'"
-                [content]="content.icon"
+                [class.order-1]="contentValue.iconPosition === 'right'"
+                [content]="contentValue.icon"
               />
             }
-            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+            <span contentedit="label" [innerHTML]="contentValue.label | safeHtml"></span>
           </button>
         } @else {
           <a
-            [class]="content.classes || ''"
-            [class.pill]="content.pill"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [class.pill]="contentValue.pill"
+            [disabled]="contentValue.disabled"
             mat-stroked-button
-            (click)="onNav($event, content)"
-            [href]="content.href"
-            [target]="content.target || ''"
-            [color]="content.color"
+            (click)="onNav($event, contentValue)"
+            [href]="contentValue.href"
+            [target]="contentValue.target || ''"
+            [color]="contentValue.color"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (contentValue.icon && contentValue.icon.svg) {
               <app-icon
-                [class.order-1]="content.iconPosition === 'right'"
-                [content]="content.icon"
+                [class.order-1]="contentValue.iconPosition === 'right'"
+                [content]="contentValue.icon"
               />
             }
-            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+            <span contentedit="label" [innerHTML]="contentValue.label | safeHtml"></span>
           </a>
         }
       }
       @case ('flat') {
-        @if (!content.href) {
+        @if (!contentValue.href) {
           <button
-            [class]="content.classes || ''"
-            [class.pill]="content.pill"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [class.pill]="contentValue.pill"
+            [disabled]="contentValue.disabled"
             mat-flat-button
-            [color]="content.color"
+            [color]="contentValue.color"
+            (click)="onClick($event)"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (contentValue.icon && contentValue.icon.svg) {
               <app-icon
-                [class.order-1]="content.iconPosition === 'right'"
-                [content]="content.icon"
+                [class.order-1]="contentValue.iconPosition === 'right'"
+                [content]="contentValue.icon"
               />
             }
-            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+            <span contentedit="label" [innerHTML]="contentValue.label | safeHtml"></span>
           </button>
         } @else {
           <a
-            [class]="content.classes || ''"
-            [class.pill]="content.pill"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [class.pill]="contentValue.pill"
+            [disabled]="contentValue.disabled"
             mat-flat-button
-            (click)="onNav($event, content)"
-            [href]="content.href"
-            [target]="content.target || ''"
-            [color]="content.color"
+            (click)="onNav($event, contentValue)"
+            [href]="contentValue.href"
+            [target]="contentValue.target || ''"
+            [color]="contentValue.color"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (contentValue.icon && contentValue.icon.svg) {
               <app-icon
-                [class.order-1]="content.iconPosition === 'right'"
-                [content]="content.icon"
+                [class.order-1]="contentValue.iconPosition === 'right'"
+                [content]="contentValue.icon"
               />
             }
-            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+            <span contentedit="label" [innerHTML]="contentValue.label | safeHtml"></span>
           </a>
         }
       }
       @case ('icon') {
-        @if (!content.href) {
+        @if (!contentValue.href) {
           <button
-            [class]="content.classes || ''"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [disabled]="contentValue.disabled"
             mat-icon-button
-            [color]="content.color"
+            [color]="contentValue.color"
+            (click)="onClick($event)"
           >
-            @if (content.icon) {
+            @if (contentValue.icon) {
               <app-icon
-                [class.order-1]="content.iconPosition === 'right'"
-                [content]="content.icon"
+                [class.order-1]="contentValue.iconPosition === 'right'"
+                [content]="contentValue.icon"
               />
             }
           </button>
         } @else {
           <a
-            [class]="content.classes || ''"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [disabled]="contentValue.disabled"
             mat-icon-button
-            (click)="onNav($event, content)"
-            [href]="content.href"
-            [target]="content.target || ''"
-            [color]="content.color"
+            (click)="onNav($event, contentValue)"
+            [href]="contentValue.href"
+            [target]="contentValue.target || ''"
+            [color]="contentValue.color"
           >
-            @if (content.icon) {
-              <app-icon [content]="content.icon" />
+            @if (contentValue.icon) {
+              <app-icon [content]="contentValue.icon" />
             }
           </a>
         }
       }
       @case ('fab') {
-        @if (content.icon && content.icon.svg) {
+        @if (contentValue.icon && contentValue.icon.svg) {
           <button
-            [class]="content.classes || ''"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [disabled]="contentValue.disabled"
             mat-fab
-            [color]="content.color"
+            [color]="contentValue.color"
+            (click)="onClick($event)"
           >
-            <app-icon [content]="content.icon" />
+            <app-icon [content]="contentValue.icon" />
           </button>
         }
       }
       @case ('mini-fab') {
-        @if (content.icon && content.icon.svg) {
+        @if (contentValue.icon && contentValue.icon.svg) {
           <button
-            [class]="content.classes || ''"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [disabled]="contentValue.disabled"
             mat-mini-fab
-            [color]="content.color"
+            [color]="contentValue.color"
+            (click)="onClick($event)"
           >
-            <app-icon [content]="content.icon" />
+            <app-icon [content]="contentValue.icon" />
           </button>
         }
       }
       @default {
-        @if (!content.href) {
+        @if (!contentValue.href) {
           <button
-            [class]="content.classes || ''"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [disabled]="contentValue.disabled"
             mat-button
-            [color]="content.color"
+            [color]="contentValue.color"
+            (click)="onClick($event)"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (contentValue.icon && contentValue.icon.svg) {
               <app-icon
-                [class.order-1]="content.iconPosition === 'right'"
-                [content]="content.icon"
+                [class.order-1]="contentValue.iconPosition === 'right'"
+                [content]="contentValue.icon"
               />
             }
-            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+            <span contentedit="label" [innerHTML]="contentValue.label | safeHtml"></span>
           </button>
         } @else {
           <a
-            [class]="content.classes || ''"
-            [disabled]="content.disabled"
+            [class]="contentValue.classes || ''"
+            [disabled]="contentValue.disabled"
             mat-button
-            (click)="onNav($event, content)"
-            [href]="content.href"
-            [target]="content.target || ''"
-            [color]="content.color"
+            (click)="onNav($event, contentValue)"
+            [href]="contentValue.href"
+            [target]="contentValue.target || ''"
+            [color]="contentValue.color"
           >
-            @if (content.icon && content.icon.svg) {
+            @if (contentValue.icon && contentValue.icon.svg) {
               <app-icon
-                [class.order-1]="content.iconPosition === 'right'"
-                [content]="content.icon"
+                [class.order-1]="contentValue.iconPosition === 'right'"
+                [content]="contentValue.icon"
               />
             }
-            <span contentedit="label" [innerHTML]="content.label | safeHtml"></span>
+            <span contentedit="label" [innerHTML]="contentValue.label | safeHtml"></span>
           </a>
         }
       }

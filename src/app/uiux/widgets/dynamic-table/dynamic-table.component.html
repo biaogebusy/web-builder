@@ -30,14 +30,14 @@
               @for (item of element[item.key]; track item) {
                 <app-dynamic-component
                   class="cell"
-                  [inputs]="{ content: item, form: form }"
+                  [inputs]="{ content: item, form: form() }"
                   />
               }
             } @else {
               @if (element[item.key] | isObject) {
                 <app-dynamic-component
                   class="cell"
-                  [inputs]="{ content: element[item.key], form: form }"
+                  [inputs]="{ content: element[item.key], form: form() }"
                   />
               } @else {
                 @if (item.dialog && element[item.key]) {
@@ -107,7 +107,7 @@
                 @for (item of element['expand']; track item) {
                   <app-dynamic-component
                     class="expand-item"
-                    [inputs]="{ content: element[item.key], form: form }"
+                    [inputs]="{ content: element[item.key], form: form() }"
                     />
                 }
               </div>

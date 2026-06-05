@@ -1,11 +1,11 @@
-<div class="report" [style]="content.style">
+<div class="report" [style]="content().style">
   <div class="container">
-    <app-header-meta [content]="content.header" />
+    <app-header-meta [content]="content().header" />
     <div class="box filter p-x-sm p-y-sm m-bottom-sm">
       <app-formly
-        [form]="form"
-        [model]="model"
-        [fields]="content.form"
+        [form]="form()"
+        [model]="model()"
+        [fields]="content().form"
         (modelChange)="onModelChange($event)"
       />
       <div class="actions">

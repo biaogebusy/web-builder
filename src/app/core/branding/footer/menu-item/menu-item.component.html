@@ -1,6 +1,6 @@
-@if (content && !showXs) {
+@if (content() && !showXs) {
   <div class="footer-main-menu">
-    @for (menu of content; track menu) {
+    @for (menu of content(); track menu) {
       <mat-list class="menu-list" role="list">
         <div mat-subheader class="bold">{{ menu.label }}</div>
         @for (subMenu of menu.child; track subMenu; let i = $index) {
@@ -38,8 +38,8 @@
     }
   </div>
 }
-@if (mobileMenu && showXs) {
+@if (mobileMenu() && showXs) {
   <div class="mobile p-y-sm">
-    <app-accordion-menu [content]="mobileMenu" />
+    <app-accordion-menu [content]="mobileMenu()" />
   </div>
 }

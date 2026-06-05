@@ -2,12 +2,13 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  Input,
   OnInit,
-  ViewChild,
   computed,
   inject,
   signal,
+  ChangeDetectionStrategy,
+  input,
+  viewChild
 } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -25,6 +26,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { cloneDeep } from 'lodash-es';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { TranslateService } from '@ngx-translate/core';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
 
 interface ISearchHit {
@@ -33,17 +35,19 @@ interface ISearchHit {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-widget-picker',
   templateUrl: './widget-picker.component.html',
   styleUrls: ['./widget-picker.component.scss'],
   imports: [ShareModule, WidgetsModule],
 })
 export class WidgetPickerComponent implements OnInit {
-  @Input() content: IWidgetPicker;
-  @Input() addType: string;
-  @Input() path: string;
+  readonly content = input<IWidgetPicker>();
+  readonly addType = input<string>();
+  readonly path = input<string>();
 
-  @ViewChild('previewPopup', { static: false }) previewPopup: ElementRef;
+  readonly previewPopup = viewChild<ElementRef>('previewPopup');
+  readonly pickerRoot = viewChild<ElementRef>('picker');
 
   private readonly VIEWPORT_RATIO = 0.85;
   /** popup 内边距（左右/上下各 12px），用于尺寸计算 */
@@ -78,6 +82,7 @@ export class WidgetPickerComponent implements OnInit {
   private util = inject(UtilitiesService);
   private destroyRef = inject(DestroyRef);
   private storage = inject(LocalStorageService);
+  private translate = inject(TranslateService);
   public builderConfig$ = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
 
   private widgetPopper?: PopperInstance;
@@ -118,14 +123,31 @@ export class WidgetPickerComponent implements OnInit {
   onHoverWidget(item: IBuilderComponentElement, anchor: HTMLElement): void {
     this.hoveredWidget.set(item);
     this.destroyPreviewPopper();
-    if (this.previewPopup?.nativeElement) {
-      const popupEl: HTMLElement = this.previewPopup.nativeElement;
+    const previewPopup = this.previewPopup();
+    if (previewPopup?.nativeElement) {
+      const popupEl: HTMLElement = previewPopup.nativeElement;
+      const pickerEl: HTMLElement | null = this.pickerRoot()?.nativeElement ?? null;
+      // 用 card 作为 reference（与原实现一致，保证 popup 一定显示 + Popper 内部 reference rect 正确）。
+      // 通过自定义 modifier 把 popup 的 x 坐标钉到 picker 左外侧，
+      // 让左右两列卡片悬浮时 popup 横向位置一致，纵向仍跟随当前 hover 卡片。
       this.widgetPopper = createPopper(anchor, popupEl, {
         strategy: 'fixed',
         placement: 'left',
         modifiers: [
           { name: 'offset', options: { offset: [0, 12] } },
           { name: 'preventOverflow', options: { padding: 8 } },
+          {
+            name: 'pinXToPickerLeft',
+            enabled: !!pickerEl,
+            phase: 'main',
+            requires: ['popperOffsets'],
+            fn: ({ state }) => {
+              if (!pickerEl || !state.modifiersData.popperOffsets) return;
+              const pickerLeft = pickerEl.getBoundingClientRect().left;
+              const popperWidth = state.rects.popper.width;
+              state.modifiersData.popperOffsets.x = pickerLeft - popperWidth - 12;
+            },
+          },
         ],
       });
       this.widgetPopper.update();
@@ -153,8 +175,9 @@ export class WidgetPickerComponent implements OnInit {
     this.previewResizeObserver = undefined;
     this.widgetPopper?.destroy();
     this.widgetPopper = undefined;
-    if (this.previewPopup?.nativeElement) {
-      const popupEl: HTMLElement = this.previewPopup.nativeElement;
+    const previewPopup = this.previewPopup();
+    if (previewPopup?.nativeElement) {
+      const popupEl: HTMLElement = previewPopup.nativeElement;
       popupEl.style.width = '';
       popupEl.style.height = '';
       popupEl.style.maxWidth = '';
@@ -169,10 +192,11 @@ export class WidgetPickerComponent implements OnInit {
   }
 
   private applyPreviewScale(): void {
-    if (!this.previewPopup?.nativeElement) {
+    const previewPopup = this.previewPopup();
+    if (!previewPopup?.nativeElement) {
       return;
     }
-    const popupEl: HTMLElement = this.previewPopup.nativeElement;
+    const popupEl: HTMLElement = previewPopup.nativeElement;
     const canvas = popupEl.querySelector('.preview-canvas') as HTMLElement | null;
     // popup box-sizing: border-box，padding 占用尺寸，所以先扣除得到内容可用空间
     const maxW = window.innerWidth * this.VIEWPORT_RATIO - this.PREVIEW_PADDING;
@@ -204,11 +228,15 @@ export class WidgetPickerComponent implements OnInit {
   }
 
   onSelect(widget: any): void {
-    if (!this.content) {
-      this.util.openSnackbar('请先选择插入组件的位置', 'ok');
+    const contentValue = this.content();
+    if (!contentValue) {
+      this.util.openSnackbar(
+        this.translate.instant('BUILDER.WIDGET_PICKER.SELECT_POSITION_FIRST'),
+        'ok'
+      );
       return;
     }
-    const { addType, path, content } = this.content;
+    const { addType, path, content } = contentValue;
     const data = cloneDeep(content);
     const widgetContent = cloneDeep(widget);
 

@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
@@ -26,23 +26,23 @@ import { provideNativeDateAdapter } from '@angular/material/core';
   ],
 })
 export class DatepickerComponent {
-  @Input() content: any;
-  @Input() form: UntypedFormGroup;
+  readonly content = input.required<any>();
+  readonly form = input.required<UntypedFormGroup>();
   selected: Date | null;
   constructor() {}
 
 
   get isValid(): boolean {
-    if (!this.content.range && this.content?.key) {
-      return this.form.controls[this.content.key].valid;
+    const content = this.content();
+    if (!content.range && content?.key) {
+      return this.form().controls[content.key].valid;
     } else {
       return false;
     }
   }
 
   onSelectedChange(value: Date): void {
-    console.log(value);
-    this.form.controls[this.content.key].setValue(
+    this.form().controls[this.content().key].setValue(
       formatDate(value, 'y-MM-dd', 'en-US')
     );
   }

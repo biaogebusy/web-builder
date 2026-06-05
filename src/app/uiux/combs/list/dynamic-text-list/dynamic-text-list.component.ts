@@ -1,12 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
   ChangeDetectorRef,
   OnDestroy,
   inject,
   output,
+  input
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -47,7 +47,7 @@ import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-li
 export class DynamicTextListComponent extends BaseComponent implements OnInit, OnDestroy {
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  @Input() content: IDynamicTextList;
+  readonly content = input<IDynamicTextList>();
   readonly pageChange = output<string>();
 
   lists: any[];
@@ -72,9 +72,9 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit, O
     this.nodeService
       .getNodes(
         path,
-        `${this.getParams(this.content, 'type')}`,
-        `${this.getParams(this.content, 'options')}&sort=${this.getParams(
-          this.content,
+        `${this.getParams(this.content(), 'type')}`,
+        `${this.getParams(this.content(), 'options')}&sort=${this.getParams(
+          this.content(),
           'sort'
         )}&page[limit]=20`
       )

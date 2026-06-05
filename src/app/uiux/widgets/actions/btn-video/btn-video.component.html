@@ -1,7 +1,7 @@
 <button
-  [class]="content.classes || ''"
+  [class]="content().classes || ''"
   mat-fab
-  color="{{ content.color }}"
+  color="{{ content().color }}"
   aria-label="play video"
   (click)="openVideo()"
 >

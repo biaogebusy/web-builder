@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 
 interface ISpacer {
@@ -16,8 +16,8 @@ interface ISpacer {
 })
 export class SpacerComponent {
   // content and size 是兼容写法
-  @Input() content?: ISpacer;
-  @Input() size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none';
+  readonly content = input<ISpacer>();
+  readonly size = input<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'none'>();
   constructor() {}
 
 }

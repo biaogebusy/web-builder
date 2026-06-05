@@ -21,6 +21,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { BUILDER_CURRENT_PAGE, DEBUG_ANIMATE } from '@core/token/token-providers';
+import { getPageParams } from '@core/util/builder-page.util';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -123,7 +124,7 @@ export class BuilderMenuComponent implements AfterViewInit {
       this.builderService.openPageSetting(
         { uuid, langcode },
         '/api/v1/node/landing_page',
-        this.builderService.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+        getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
       );
     }
   }

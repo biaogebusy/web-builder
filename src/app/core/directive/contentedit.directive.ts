@@ -1,7 +1,7 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, OnInit, effect, inject, input } from '@angular/core';
 import { IMetaEdit } from '@core/interface/IBuilder';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { generatePath } from '@core/util/dom-path.util';
 import { getInlineImg } from '@modules/builder/factory/getInlinImg';
 import { getInlineText } from '@modules/builder/factory/getInlineText';
 @Directive({
@@ -14,10 +14,19 @@ import { getInlineText } from '@modules/builder/factory/getInlineText';
   },
 })
 export class ContenteditDirective implements AfterViewInit, OnInit {
+  readonly contentedit = input.required<string>();
+
   private componentItem: Element | null = null;
   private el = inject(ElementRef);
   private builder = inject(BuilderState);
-  private util = inject(UtilitiesService);
+
+  constructor() {
+    effect(() => {
+      const key = this.contentedit();
+      const ele = this.el.nativeElement;
+      ele.setAttribute('data-path', key);
+    });
+  }
 
   ngOnInit(): void {
     this.componentItem = this.el.nativeElement.closest('.component-item');
@@ -27,7 +36,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     const { currentTarget } = event;
     if (this.componentItem && currentTarget && currentTarget.contentEditable === 'true') {
       currentTarget.contentEditable = 'false';
-      const path = this.generatePath(currentTarget);
+      const path = generatePath(currentTarget);
       this.builder.updatePageContentByPath(path, currentTarget.innerHTML);
       this.openMetaPanel(currentTarget, path);
     }
@@ -69,7 +78,7 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
   onClick(event: any): void {
     const { currentTarget } = event;
     if (this.componentItem && currentTarget) {
-      const path = this.generatePath(currentTarget);
+      const path = generatePath(currentTarget);
       if (currentTarget.tagName === 'IMG') {
         const meta: IMetaEdit = {
           type: 'inline-editor',
@@ -129,19 +138,10 @@ export class ContenteditDirective implements AfterViewInit, OnInit {
     });
   }
 
-  @Input() set contentedit(key: string) {
-    const ele = this.el.nativeElement;
-    ele.setAttribute('data-path', key);
-  }
-
   ngAfterViewInit(): void {
     const ele = this.el.nativeElement;
     if (this.componentItem) {
       ele.contentEditable = 'false';
     }
-  }
-
-  generatePath(contenteditableElement: any): string {
-    return this.util.generatePath(contenteditableElement);
   }
 }

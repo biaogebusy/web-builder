@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { tap } from 'rxjs/operators';
 
 export function getLink(widget: any): FormlyFieldConfig {
   const fields = {
@@ -7,7 +8,7 @@ export function getLink(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '链接',
+          label: 'BUILDER.FACTORY.TAB_LABEL_LINK',
         },
         fieldGroup: [
           {
@@ -17,7 +18,7 @@ export function getLink(widget: any): FormlyFieldConfig {
             defaultValue: widget.label ?? '',
             props: {
               rows: 1,
-              label: '链接文本',
+              label: 'BUILDER.FACTORY.LINK_TEXT',
             },
           },
           {
@@ -27,7 +28,7 @@ export function getLink(widget: any): FormlyFieldConfig {
             defaultValue: widget.href ?? '/',
             props: {
               type: 'text',
-              label: '链接地址',
+              label: 'BUILDER.FACTORY.HREF',
             },
           },
           {
@@ -56,21 +57,22 @@ export function getLink(widget: any): FormlyFieldConfig {
             defaultValue: widget.rel ?? false,
             className: 'w-full',
             props: {
-              label: '在侧边栏加载链接页面',
-              description: '请发布后测试，点击加载链接的页面到侧边栏显示',
+              label: 'BUILDER.FACTORY.LOAD_IN_DRAWER',
+              description: 'BUILDER.FACTORY.LOAD_IN_DRAWER_DESC',
             },
             hooks: {
               onInit: (formGroup: any) => {
                 const { form, model } = formGroup;
-                form.valueChanges.subscribe((value: any) => {
-                  console.log(value);
-                  const { isRel } = value;
-                  if (isRel) {
-                    model.rel = 'drawer';
-                  } else {
-                    model.rel = '';
-                  }
-                });
+                return form.valueChanges.pipe(
+                  tap((value: any) => {
+                    const { isRel } = value;
+                    if (isRel) {
+                      model.rel = 'drawer';
+                    } else {
+                      model.rel = '';
+                    }
+                  })
+                );
               },
             },
           },

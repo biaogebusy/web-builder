@@ -1,10 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { chunkHTMLByBlocks, lazyLoadContent } from '@core/util/html-chunk.util';
 import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
 import { QuillModule } from 'ngx-quill';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-rich-editor',
   templateUrl: './rich-editor.component.html',
   styleUrl: './rich-editor.component.scss',
@@ -49,13 +51,13 @@ export class RichEditorComponent extends FieldType<FieldTypeConfig> {
   async ngAfterViewInit(): Promise<void> {
     await this.util.loadStyle('/assets/injects/quill/quill.core.css');
     await this.util.loadStyle('/assets/injects/quill/quill.snow.css');
-    this.contentChunks = this.util.chunkHTMLByBlocks(this.formControl.value);
+    this.contentChunks = chunkHTMLByBlocks(this.formControl.value);
   }
 
   editorCreated(quill: any): void {
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler('image', this.nodeService.imageHandler.bind(this.nodeService, quill));
-    this.util.lazyLoadContent(quill, this.contentChunks);
+    lazyLoadContent(quill, this.contentChunks);
   }
 
   onContentChanged(event: any): void {

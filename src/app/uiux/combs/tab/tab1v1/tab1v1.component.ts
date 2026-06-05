@@ -3,9 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -34,7 +34,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   ],
 })
 export class Tab1v1Component extends BaseComponent implements OnInit {
-  @Input() content: any;
+  readonly content = input.required<any>();
 
   selectedIndex = 0;
   tabs: any[];
@@ -54,33 +54,35 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.router.queryParamMap.subscribe((query: Params) => {
-        this.page = query.get('page') || 0;
-        const querys = omitBy(
-          Object.assign(
-            {
-              page: this.page,
-            },
-            {
-              tab: query.get('tab') || 0,
-            }
-          ),
-          isEmpty
-        );
-        this.initTab(querys);
-      });
+      this.router.queryParamMap
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((query: Params) => {
+          this.page = query.get('page') || 0;
+          const querys = omitBy(
+            Object.assign(
+              {
+                page: this.page,
+              },
+              {
+                tab: query.get('tab') || 0,
+              }
+            ),
+            isEmpty
+          );
+          this.initTab(querys);
+        });
     }
   }
 
   initTab(query: Params): void {
     this.selectedIndex = Number(query.tab) || 0;
-    this.tabs = this.content.tab.elements;
+    this.tabs = this.content().tab.elements;
     if (this.selectedIndex < this.tabs.length) {
       const tabQuery = this.tabs[this.selectedIndex].query;
       const apiQuery = Object.assign({}, tabQuery, {
         page: query.page,
       });
-      const type = this.getParams(this.content, 'type');
+      const type = this.getParams(this.content(), 'type');
       const state = this.getParamsState({}, apiQuery);
       const params = this.getApiParams(state);
       this.nodeService

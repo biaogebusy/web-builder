@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { NumberAnimateComponent } from '../../../number-animate/number-animate.component';
 
@@ -13,7 +13,7 @@ import { NumberAnimateComponent } from '../../../number-animate/number-animate.c
   imports: [NumberAnimateComponent],
 })
 export class UserCardCountComponent {
-  @Input() content: any;
+  readonly content = input<any>();
   constructor() {}
 
 }

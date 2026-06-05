@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { IBannerSimple } from '@core/interface/combs/IBanner';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
@@ -16,7 +16,7 @@ import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
   imports: [SafeHtmlPipe, BgImgComponent, BreadcrumbComponent],
 })
 export class BannerSimpleComponent {
-  @Input() content: IBannerSimple;
+  readonly content = input<IBannerSimple>();
   constructor() {}
 
 }

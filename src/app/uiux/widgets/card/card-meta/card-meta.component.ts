@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import type { IMeta } from '@core/interface/widgets/ICard';
@@ -18,7 +18,7 @@ import { DynamicComponentComponent } from '../../builder/dynamic-component/dynam
 export class CardMetaComponent {
   private dialog = inject(MatDialog);
 
-  @Input() content: IMeta[] | undefined;
+  readonly content = input<IMeta[]>();
 
 
   onDialog(content: any): void {

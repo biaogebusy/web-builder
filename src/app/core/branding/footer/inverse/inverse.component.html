@@ -1,30 +1,30 @@
-@if (content?.params?.shape) {
+@if (content()?.params?.shape) {
   <div class="shape-inner">
-    <div class="shape shape-{{ content?.params?.style === 'light' ? 'inverse-light' : 'inverse' }}">
+    <div class="shape shape-{{ content()?.params?.style === 'light' ? 'inverse-light' : 'inverse' }}">
       <svg viewBox="0 0 2880 250" fill="none">
         <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor" />
       </svg>
     </div>
   </div>
 }
-@if (content) {
+@if (content(); as contentValue) {
   <div
-    class="footer-{{ content?.params?.style === 'light' ? 'inverse-light' : 'inverse' }}"
+    class="footer-{{ contentValue?.params?.style === 'light' ? 'inverse-light' : 'inverse' }}"
   >
     <div class="container">
       <div class="footer-body">
         <div class="footer-cols">
-          @if (content?.footerBrand) {
+          @if (contentValue?.footerBrand) {
             <div class="brand">
-              @if (content.footerBrand.logo) {
-                <app-img [content]="content.footerBrand.logo.img" />
+              @if (contentValue.footerBrand.logo) {
+                <app-img [content]="contentValue.footerBrand.logo.img" />
               }
-              @if (content.footerBrand?.summary) {
-                <p class="m-y-sm" [innerHTML]="content.footerBrand?.summary | safeHtml"></p>
+              @if (contentValue.footerBrand?.summary) {
+                <p class="m-y-sm" [innerHTML]="contentValue.footerBrand?.summary | safeHtml"></p>
               }
-              @if (content?.footerBrand?.social) {
+              @if (contentValue?.footerBrand?.social) {
                 <div class="social">
-                  @for (item of content.footerBrand.social; track item) {
+                  @for (item of contentValue.footerBrand.social; track item) {
                     <a
                       class="item"
                       href="{{ item.href }}"
@@ -39,29 +39,29 @@
             </div>
           }
 
-          @if (content.mainMenu) {
+          @if (contentValue.mainMenu) {
             <div class="menu-col">
-              <app-menu-item [content]="content?.mainMenu" [mobileMenu]="content.mobileMenu" />
+              <app-menu-item [content]="contentValue?.mainMenu" [mobileMenu]="contentValue.mobileMenu" />
             </div>
           }
-          @if (content.footerNewsletter) {
+          @if (contentValue.footerNewsletter) {
             <div class="newsletter-col">
               <form class="newsletter-form" (ngSubmit)="onSubmit()" [formGroup]="form">
                 <div class="item-header">
-                  {{ content.footerNewsletter.label }}
+                  {{ contentValue.footerNewsletter.label }}
                 </div>
-                <p class="m-y-xs" [innerHTML]="content.footerNewsletter.summary | safeHtml"></p>
+                <p class="m-y-xs" [innerHTML]="contentValue.footerNewsletter.summary | safeHtml"></p>
                 @defer (hydrate on viewport) {
-                  <app-formly [form]="form" [fields]="content.footerNewsletter.form" />
+                  <app-formly [form]="form" [fields]="contentValue.footerNewsletter.form" />
                 } @placeholder {
                   <div class="newsletter-form-placeholder" style="min-height: 60px"></div>
                 }
                 <div class="newsletter-action">
-                  @if (content.footerNewsletter.action) {
+                  @if (contentValue.footerNewsletter.action) {
                     <button type="submit" mat-raised-button color="primary">
                       <div class="btn-inner">
                         <div class="p-x-xs">
-                          {{ content.footerNewsletter.action.label }}
+                          {{ contentValue.footerNewsletter.action.label }}
                         </div>
                       </div>
                     </button>
@@ -81,9 +81,9 @@
             </div>
           }
 
-          @if (content.dynamic) {
-            <div [class]="content.dynamic.classes">
-              <app-dynamic-component [inputs]="content.dynamic.content" />
+          @if (contentValue.dynamic) {
+            <div [class]="contentValue.dynamic.classes">
+              <app-dynamic-component [inputs]="contentValue.dynamic.content" />
             </div>
           }
         </div>
@@ -92,16 +92,16 @@
     <div class="footer-bottom">
       <div class="container">
         <div class="inner">
-          @if (content?.footerBottom?.left) {
+          @if (contentValue?.footerBottom?.left) {
             <div
               class="left"
-              [innerHTML]="content.footerBottom.left | safeHtml"
+              [innerHTML]="contentValue.footerBottom.left | safeHtml"
             ></div>
           }
-          @if (content?.footerBottom?.right) {
+          @if (contentValue?.footerBottom?.right) {
             <div class="right">
               <div class="right-links">
-                @for (item of content.footerBottom.right; track item) {
+                @for (item of contentValue.footerBottom.right; track item) {
                   <app-link class="item" [content]="item" />
                 }
               </div>

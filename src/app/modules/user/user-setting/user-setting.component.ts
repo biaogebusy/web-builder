@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { readFileAsArrayBuffer } from '@core/util/file.util';
 import { USER } from '@core/token/token-providers';
 import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
@@ -244,7 +245,7 @@ export class UserSettingComponent implements OnInit {
     }
 
     try {
-      const data = await this.util.readFileAsArrayBuffer(file);
+      const data = await readFileAsArrayBuffer(file);
       this.userService
         .uploadUserPicture(user, data)
         .pipe(

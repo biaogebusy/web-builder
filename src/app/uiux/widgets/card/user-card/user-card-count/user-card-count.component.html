@@ -1,7 +1,7 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="user-card-count">
     <div class="innner">
-      @for (item of content; track item) {
+      @for (item of contentValue; track item) {
         <div class="item">
           <span>{{ item.title }}</span>
           <span class="m-left-xs">

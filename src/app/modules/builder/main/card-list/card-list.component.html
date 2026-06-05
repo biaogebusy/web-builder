@@ -1,7 +1,7 @@
 <div class="card-list">
   <div class="form">
     <app-formly
-      [fields]="content.form"
+      [fields]="content().form"
       [form]="form"
       [model]="model"
       (modelChange)="onModelChange($event)"
@@ -24,10 +24,10 @@
       <app-dynamic-component
         [inputs]="{
           content: {
-            type: content.params.use,
+            type: content().params.use,
           },
           lists: lists,
-          params: content.params,
+          params: content().params,
           langs: langs,
           user: user,
         }"

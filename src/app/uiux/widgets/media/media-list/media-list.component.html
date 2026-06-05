@@ -1,8 +1,8 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="recent-posts">
-    <h2 class="block-title">{{ content.title }}</h2>
+    <h2 class="block-title">{{ contentValue.title }}</h2>
     <div class="list">
-      @for (item of content.elements; track item; let i = $index) {
+      @for (item of contentValue.elements; track item; let i = $index) {
         <div class="item {{ item.img.src ? '' : 'no-img' }}">
           @if (item.img.src) {
             <a [href]="item.link.href" class="post-img">

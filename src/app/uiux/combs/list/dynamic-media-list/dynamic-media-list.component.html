@@ -1,4 +1,4 @@
-<div class="dynamic-media-list m-y" [class]="content.params.type">
+<div class="dynamic-media-list m-y" [class]="content().params.type">
   <div class="container">
     <div class="inner-row m-top-sm">
       <div class="list flex-12/12 md:flex-9/12">
@@ -10,11 +10,11 @@
           [loading]="loading"
           (pageChange)="loadContent($event)" />
       </div>
-      @if (content.sidebar) {
+      @if (content().sidebar) {
         <app-sidebar
           class="flex-12/12 md:flex-3/12"
           [attr.data-path]="'sidebar'"
-          [content]="content.sidebar" />
+          [content]="content().sidebar" />
       }
     </div>
   </div>

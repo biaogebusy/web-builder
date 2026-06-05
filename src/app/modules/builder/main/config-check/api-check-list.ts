@@ -1,132 +1,132 @@
 export interface ApiEndpoint {
-  name: string; // API名称
-  endpoint: string; // API地址
-  method: 'GET' | 'POST'; // 请求方法
-  expectedStatus?: number; // 预期状态码
-  headers?: any; // 自定义请求头
-  body?: any; // 请求体（POST用）
+  name: string;
+  endpoint: string;
+  method: 'GET' | 'POST';
+  expectedStatus?: number;
+  headers?: any;
+  body?: any;
   description: string;
 }
 
 export const API_CHECK_LIST: ApiEndpoint[] = [
   {
-    name: '通用搜索API',
+    name: 'BUILDER.API_CHECK_LIST.SEARCH',
     endpoint: '/api/v1/content',
     method: 'GET',
-    description: '用于搜索等组件',
+    description: 'BUILDER.API_CHECK_LIST.SEARCH_DESC',
     expectedStatus: 200,
   },
   {
-    name: 'Page 管理列表',
+    name: 'BUILDER.API_CHECK_LIST.PAGE_LIST',
     endpoint: '/api/v1/node/landing_page',
     method: 'GET',
     expectedStatus: 200,
-    description: '页面管理列表',
+    description: 'BUILDER.API_CHECK_LIST.PAGE_LIST_DESC',
   },
   {
-    name: '全局配置',
+    name: 'BUILDER.API_CHECK_LIST.GLOBAL_CONFIG',
     endpoint: '/api/v3/landingPage?content=/core/base',
     method: 'GET',
     expectedStatus: 200,
-    description: '应用全局配置',
+    description: 'BUILDER.API_CHECK_LIST.GLOBAL_CONFIG_DESC',
   },
   {
-    name: '页头页脚',
+    name: 'BUILDER.API_CHECK_LIST.HEADER_FOOTER',
     endpoint: '/api/v3/landingPage?content=/core/branding',
     method: 'GET',
     expectedStatus: 200,
-    description: '站点Header、Footer 配置',
+    description: 'BUILDER.API_CHECK_LIST.HEADER_FOOTER_DESC',
   },
   {
-    name: 'Builder 配置',
+    name: 'BUILDER.API_CHECK_LIST.BUILDER_CONFIG',
     endpoint: '/api/v3/landingPage?content=/core/builder',
     method: 'GET',
     expectedStatus: 200,
-    description: 'Builder 主菜单，引导等配置',
+    description: 'BUILDER.API_CHECK_LIST.BUILDER_CONFIG_DESC',
   },
   {
-    name: '小程序全局配置',
+    name: 'BUILDER.API_CHECK_LIST.MINI_CONFIG',
     endpoint: '/api/v3/landingPage?content=/core/mini',
     method: 'GET',
     expectedStatus: 200,
-    description: '小程序需要的全局配置，比如底部菜单等',
+    description: 'BUILDER.API_CHECK_LIST.MINI_CONFIG_DESC',
   },
   {
-    name: 'Builder 默认页面',
+    name: 'BUILDER.API_CHECK_LIST.DEFAULT_PAGE',
     endpoint: '/api/v3/landingPage?content=/builder/default-page',
     method: 'GET',
     expectedStatus: 200,
-    description: 'Builder 默认欢迎页面',
+    description: 'BUILDER.API_CHECK_LIST.DEFAULT_PAGE_DESC',
   },
   {
-    name: '页面模板',
+    name: 'BUILDER.API_CHECK_LIST.PAGE_TEMPLATE',
     endpoint:
       '/api/v1/node/landing_page?filter%5Bstatus%5D=1&filter%5Bgroup.name%5D=%E6%A8%A1%E6%9D%BF&include=cover%2Ccover.field_media_image&page%5Blimit%5D=20&sort=-changed&noCache=true',
     method: 'GET',
     expectedStatus: 200,
-    description: '弹窗提供给用户创建页面的模板',
+    description: 'BUILDER.API_CHECK_LIST.PAGE_TEMPLATE_DESC',
   },
   {
-    name: '内容统计',
+    name: 'BUILDER.API_CHECK_LIST.CONTENT_STATS',
     endpoint: '/api/v3/statistics/node/published?statistics=1',
     method: 'GET',
     expectedStatus: 200,
-    description: 'Dashboard 内容统计',
+    description: 'BUILDER.API_CHECK_LIST.CONTENT_STATS_DESC',
   },
   {
-    name: '用户统计',
+    name: 'BUILDER.API_CHECK_LIST.USER_STATS',
     endpoint: '/api/v3/statistics/user/register',
     method: 'GET',
     expectedStatus: 200,
-    description: 'Dashboard 用户统计',
+    description: 'BUILDER.API_CHECK_LIST.USER_STATS_DESC',
   },
   {
-    name: '用户列表',
+    name: 'BUILDER.API_CHECK_LIST.USER_LIST',
     endpoint: '/api/v1/user/user',
     method: 'GET',
     expectedStatus: 200,
-    description: '获取用户列表',
+    description: 'BUILDER.API_CHECK_LIST.USER_LIST_DESC',
   },
   {
-    name: '着陆页分类',
+    name: 'BUILDER.API_CHECK_LIST.PAGE_TAXONOMY',
     endpoint: '/api/v2/taxonomy_term/page_group',
     method: 'GET',
     expectedStatus: 200,
-    description: '过滤页面分类和设置着陆页分类使用',
+    description: 'BUILDER.API_CHECK_LIST.PAGE_TAXONOMY_DESC',
   },
   {
-    name: '组件库',
+    name: 'BUILDER.API_CHECK_LIST.UIUX',
     endpoint: '/api/v3/node/component',
     method: 'GET',
     expectedStatus: 200,
-    description: 'UIUX 组件库',
+    description: 'BUILDER.API_CHECK_LIST.UIUX_DESC',
   },
   {
-    name: '媒体库',
+    name: 'BUILDER.API_CHECK_LIST.MEDIA',
     endpoint: '/api/v2/media',
     method: 'GET',
     expectedStatus: 200,
-    description: '媒体库列表',
+    description: 'BUILDER.API_CHECK_LIST.MEDIA_DESC',
   },
   {
-    name: 'url 别名',
+    name: 'BUILDER.API_CHECK_LIST.URL_ALIAS',
     endpoint: '/api/v1/path_alias/path_alias',
     method: 'GET',
     expectedStatus: 200,
-    description: '页面 url 别名API',
+    description: 'BUILDER.API_CHECK_LIST.URL_ALIAS_DESC',
   },
   {
-    name: '上传图片',
+    name: 'BUILDER.API_CHECK_LIST.UPLOAD',
     endpoint: '/api/v1/media/image',
     method: 'GET',
     expectedStatus: 200,
-    description: '媒体库和图片组件上传图片',
+    description: 'BUILDER.API_CHECK_LIST.UPLOAD_DESC',
   },
   {
-    name: '评论列表',
+    name: 'BUILDER.API_CHECK_LIST.COMMENTS',
     endpoint: '/api/v2/comments',
     method: 'GET',
     expectedStatus: 200,
-    description: '评论列表API',
+    description: 'BUILDER.API_CHECK_LIST.COMMENTS_DESC',
   },
 ];

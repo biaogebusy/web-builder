@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, inject, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, output, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import type { ICommentConfig } from '@core/interface/node/INode';
@@ -20,11 +20,11 @@ export class CommentActionsComponent {
   contentState = inject(ContentState);
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() config: ICommentConfig;
-  @Input() item: any;
-  @Input() i: number;
-  @Input() currentId: string;
-  @Input() loading: boolean;
+  readonly config = input.required<ICommentConfig>();
+  readonly item = input.required<any>();
+  readonly i = input<number>();
+  readonly currentId = input<string>();
+  readonly loading = input<boolean>();
   readonly update = output<{ item: any }>();
   readonly reply = output<{ item: any }>();
   readonly delete = output<string>();
@@ -38,11 +38,11 @@ export class CommentActionsComponent {
 
 
   onUpdate(): void {
-    this.update.emit({ item: this.item });
+    this.update.emit({ item: this.item() });
   }
 
   onReply(): void {
-    this.reply.emit({ item: this.item });
+    this.reply.emit({ item: this.item() });
   }
 
   onDelete(id: string): void {
@@ -50,10 +50,11 @@ export class CommentActionsComponent {
   }
 
   onQuote(): void {
-    this.contentState.commentQuote$.next(this.item);
+    this.contentState.commentQuote$.next(this.item());
   }
 
   isMy(): boolean {
-    return this.item.author.id === this.user.id && this.item.id !== this.currentId;
+    const item = this.item();
+    return item.author.id === this.user.id && item.id !== this.currentId();
   }
 }

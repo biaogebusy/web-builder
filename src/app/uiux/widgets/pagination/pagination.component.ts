@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
-  output
+  output,
+  input
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,8 +17,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
   imports: [MatButtonModule, MatIconModule, MatTooltipModule, NgxPaginationModule],
 })
 export class PaginationComponent {
-  @Input() id: string;
-  @Input() maxSize: number;
+  readonly id = input<string>();
+  readonly maxSize = input<number>();
   readonly pageChange = output<number>();
   readonly pageBoundsCorrection = output<number>();
   constructor() {}

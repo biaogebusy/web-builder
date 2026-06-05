@@ -1,28 +1,28 @@
 <div class="actions">
-  @if (!config.actions) {
+  @if (!config().actions) {
     <div class="actions-row">
       @if (isMy()) {
         <button mat-button color="primary" (click)="onUpdate()">
           <mat-icon inline="true">editor</mat-icon> 修改
         </button>
       }
-      @if (!item.child) {
+      @if (!item().child) {
         <button mat-button color="primary" (click)="onReply()">
           <mat-icon inline="true">reply</mat-icon> 回复
         </button>
       }
-      @if (!item.child) {
+      @if (!item().child) {
         <button mat-button color="primary" (click)="onQuote()">
           <mat-icon inline="true">repeat</mat-icon> 引用
         </button>
       }
       @if (isMy()) {
-        <button mat-button color="primary" (click)="onDelete(item.id)">
+        <button mat-button color="primary" (click)="onDelete(item().id)">
           <div class="delete-inner">
-            @if (loading) {
+            @if (loading()) {
               <app-loading />
             }
-            @if (!loading) {
+            @if (!loading()) {
               <mat-icon inline="true">delete</mat-icon>
             }
             删除
@@ -32,7 +32,7 @@
     </div>
   } @else {
     <div class="actions-row">
-      @for (action of config.actions; track action) {
+      @for (action of config().actions; track action) {
         @switch (action) {
           @case ('update') {
             @if (isMy()) {
@@ -42,14 +42,14 @@
             }
           }
           @case ('reply') {
-            @if (item.level === 1) {
+            @if (item().level === 1) {
               <button mat-button color="primary" (click)="onReply()">
                 <mat-icon inline="true">reply</mat-icon> 回复
               </button>
             }
           }
           @case ('quote') {
-            @if (item.level === 1) {
+            @if (item().level === 1) {
               <button mat-button color="primary" (click)="onQuote()">
                 <mat-icon inline="true">repeat</mat-icon> 引用
               </button>
@@ -57,12 +57,12 @@
           }
           @case ('delete') {
             @if (isMy()) {
-              <button mat-button color="primary" (click)="onDelete(item.id)">
+              <button mat-button color="primary" (click)="onDelete(item().id)">
                 <div class="delete-inner">
-                  @if (loading) {
+                  @if (loading()) {
                     <app-loading />
                   }
-                  @if (!loading) {
+                  @if (!loading()) {
                     <mat-icon inline="true">delete</mat-icon>
                   }
                   删除

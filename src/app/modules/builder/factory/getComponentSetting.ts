@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { tap } from 'rxjs/operators';
 import { getSwiper } from './getSwiper';
 import { getTitle } from './getTitle';
 import { getText } from './getText';
@@ -14,7 +15,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
     fieldGroup: [
       {
         props: {
-          label: '通用',
+          label: 'BUILDER.FACTORY.COMMON_TAB',
         },
         fieldGroupClassName: 'grid grid-cols-12',
         fieldGroup: [
@@ -28,14 +29,14 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                 className: 'col-span-6',
                 defaultValue: content.fullWidth ?? false,
                 props: {
-                  label: '全屏宽',
+                  label: 'BUILDER.FACTORY.FULL_WIDTH',
                   options: [
                     {
-                      label: '全屏',
+                      label: 'BUILDER.FACTORY.FULL_SCREEN',
                       value: true,
                     },
                     {
-                      label: '非全屏',
+                      label: 'BUILDER.FACTORY.NOT_FULL_SCREEN',
                       value: false,
                     },
                   ],
@@ -47,7 +48,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                 defaultValue: content.spacer ?? 'none',
                 className: 'col-span-6',
                 props: {
-                  label: '上下间距',
+                  label: 'BUILDER.FACTORY.VERTICAL_GAP',
                   options: getSpacerOptions,
                 },
               },
@@ -59,7 +60,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
             className: 'col-span-12',
             defaultValue: content.containerClasses ?? '',
             props: {
-              label: '组件 class',
+              label: 'BUILDER.FACTORY.WIDGET_CLASS',
             },
           },
           {
@@ -75,7 +76,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     className: 'col-span-12',
                     defaultValue: content?.bg?.classes ?? '',
                     props: {
-                      label: '背景色',
+                      label: 'BUILDER.FACTORY.BG_COLOR',
                       options: getBgClasses,
                     },
                   },
@@ -85,10 +86,10 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     className: 'col-span-6',
                     defaultValue: content?.bg?.variant,
                     props: {
-                      label: '背景色等级',
+                      label: 'BUILDER.FACTORY.BG_LEVEL',
                       options: [
                         {
-                          label: '无',
+                          label: 'BUILDER.FACTORY.NONE',
                           value: 0,
                         },
                         {
@@ -135,7 +136,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     },
                     validation: {
                       messages: {
-                        required: '设置背景变体',
+                        required: 'BUILDER.FACTORY.BG_VARIANT_REQUIRED',
                       },
                     },
                     expressions: {
@@ -156,7 +157,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     className: 'col-span-6',
                     defaultValue: content?.bg?.overlay ?? '',
                     props: {
-                      label: '背景蒙版',
+                      label: 'BUILDER.FACTORY.BG_MASK',
                       options: getOverlay,
                     },
                   },
@@ -170,20 +171,22 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     type: 'img-picker',
                     defaultValue: content?.bg?.img?.src ?? '',
                     props: {
-                      updateLabel: '更新背景图',
-                      addLabel: '设置背景图',
-                      deleteLabel: '删除',
+                      updateLabel: 'BUILDER.FACTORY.BG_IMG_UPDATE',
+                      addLabel: 'BUILDER.FACTORY.BG_IMG_ADD',
+                      deleteLabel: 'BUILDER.FACTORY.BG_IMG_DELETE',
                     },
                     hooks: {
                       onInit: (formGroup: any) => {
                         const { form } = formGroup;
-                        form.valueChanges.subscribe((value: any) => {
-                          const srcArr = value.src.split(/\/|(?=\.\w+$)/);
-                          form.get('alt').patchValue(srcArr[srcArr.length - 2], {
-                            onlySelf: true,
-                            emitEvent: true,
-                          });
-                        });
+                        return form.valueChanges.pipe(
+                          tap((value: any) => {
+                            const srcArr = value.src.split(/\/|(?=\.\w+$)/);
+                            form.get('alt').patchValue(srcArr[srcArr.length - 2], {
+                              onlySelf: true,
+                              emitEvent: true,
+                            });
+                          })
+                        );
                       },
                     },
                   },
@@ -193,7 +196,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
                     defaultValue: content?.bg?.img?.classes ?? 'bg-cover',
                     props: {
                       multiple: true,
-                      label: '背景设置',
+                      label: 'BUILDER.FACTORY.BG_SETTING',
                       options: [
                         {
                           label: 'Cover',
@@ -288,7 +291,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       componentConfig = [
         {
           props: {
-            label: '布局',
+            label: 'BUILDER.FACTORY.LAYOUT_TAB',
           },
           fieldGroup: [
             ...getGridLayoutConfig(content),
@@ -298,7 +301,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
               className: 'w-full',
               defaultValue: content.wrapperClass ?? '',
               props: {
-                label: 'Wrapper Classes',
+                label: 'BUILDER.FACTORY.WRAPPER_CLASSES',
               },
             },
           ],
@@ -309,7 +312,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       componentConfig = [
         {
           props: {
-            label: '幻灯片',
+            label: 'BUILDER.FACTORY.SLIDESHOW_TAB',
           },
           fieldGroup: [
             {
@@ -325,7 +328,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       componentConfig = [
         {
           props: {
-            label: '视频',
+            label: 'BUILDER.FACTORY.VIDEO_TAB_LABEL',
           },
           fieldGroup: getVideo(content).fieldGroup,
         },
@@ -336,7 +339,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       componentConfig = [
         {
           props: {
-            label: '文本',
+            label: 'BUILDER.FACTORY.TEXT_TAB_LABEL',
           },
           fieldGroup: [
             content.title ? getTitle(content.title) : {},
@@ -346,7 +349,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
               className: 'w-full',
               defaultValue: content.body,
               props: {
-                label: '内容',
+                label: 'BUILDER.FACTORY.CONTENT',
                 rows: 10,
               },
             },
@@ -356,18 +359,18 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
               className: 'w-full',
               defaultValue: content.actionsAlign ?? 'center',
               props: {
-                label: '按钮对齐',
+                label: 'BUILDER.FACTORY.BTN_ALIGN',
                 options: [
                   {
-                    label: '左对齐',
+                    label: 'BUILDER.FACTORY.ALIGN_START',
                     value: 'start',
                   },
                   {
-                    label: '居中对齐',
+                    label: 'BUILDER.FACTORY.ALIGN_CENTER_TEXT',
                     value: 'center',
                   },
                   {
-                    label: '右对齐',
+                    label: 'BUILDER.FACTORY.ALIGN_END',
                     value: 'end',
                   },
                 ],
@@ -382,7 +385,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       if (content.text) {
         const textConfig: FormlyFieldConfig = {
           props: {
-            label: '标题',
+            label: 'BUILDER.FACTORY.TITLE_TAB',
           },
           fieldGroup: [getText(content.text)],
         };
@@ -390,7 +393,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       }
       const swiperConfig1v3: FormlyFieldConfig = {
         props: {
-          label: '幻灯片',
+          label: 'BUILDER.FACTORY.SLIDESHOW_TAB',
         },
         fieldGroup: [
           {
@@ -406,7 +409,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       if (content.title) {
         const titleConfig: FormlyFieldConfig = {
           props: {
-            label: '标题',
+            label: 'BUILDER.FACTORY.TITLE_TAB',
           },
           fieldGroup: [getTitle(content.title)],
         };
@@ -415,7 +418,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
 
       const swiperConfig2v1: FormlyFieldConfig = {
         props: {
-          label: '幻灯片',
+          label: 'BUILDER.FACTORY.SLIDESHOW_TAB',
         },
         fieldGroup: [
           {
@@ -435,7 +438,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       if (content.title) {
         const titleConfig: FormlyFieldConfig = {
           props: {
-            label: '标题',
+            label: 'BUILDER.FACTORY.TITLE_TAB',
           },
           fieldGroup: [getTitle(content.title)],
         };
@@ -444,7 +447,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
 
       const swiperConfig: FormlyFieldConfig = {
         props: {
-          label: '幻灯片',
+          label: 'BUILDER.FACTORY.SLIDESHOW_TAB',
         },
         fieldGroup: [
           {
@@ -461,7 +464,7 @@ export function getComponentSetting(content: any, path: string): FormlyFieldConf
       componentConfig = [
         {
           props: {
-            label: '组件',
+            label: 'BUILDER.FACTORY.WIDGET_TAB',
           },
           fieldGroup: getWidgetSetting(content).fieldGroup,
         },

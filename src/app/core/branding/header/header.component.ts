@@ -2,13 +2,14 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
-  ViewChild,
   ElementRef,
   AfterViewInit,
   inject,
   DestroyRef,
   signal,
   DOCUMENT,
+  ChangeDetectionStrategy,
+  viewChild
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
@@ -22,6 +23,7 @@ import { HeaderBannerComponent } from './header-banner/header-banner.component';
 import { HeaderTopComponent } from './header-top/header-top.component';
 import { MenuComponent } from './menu/menu.component';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
@@ -37,8 +39,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public sticky = signal(false);
   public showBanner = signal(false);
   public menuHeight = signal(0);
-  @ViewChild('menuAnchor', { read: ElementRef }) menuAnchor: ElementRef;
-  @ViewChild('sentinel', { read: ElementRef }) sentinel: ElementRef;
+  readonly menuAnchor = viewChild('menuAnchor', { read: ElementRef });
+  readonly sentinel = viewChild('sentinel', { read: ElementRef });
   private destoryRef = inject(DestroyRef);
   private screenService = inject(ScreenService);
   private screenState = inject(ScreenState);
@@ -64,13 +66,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   private measureMenu(): void {
-    if (this.menuAnchor) {
-      this.menuHeight.set(this.menuAnchor.nativeElement.offsetHeight);
+    const menuAnchor = this.menuAnchor();
+    if (menuAnchor) {
+      this.menuHeight.set(menuAnchor.nativeElement.offsetHeight);
     }
   }
 
   private observeStickyState(): void {
-    if (!this.sentinel) {
+    const sentinel = this.sentinel();
+    if (!sentinel) {
       return;
     }
     this.stickyObserver = new IntersectionObserver(
@@ -81,7 +85,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       },
       { threshold: 0 }
     );
-    this.stickyObserver.observe(this.sentinel.nativeElement);
+    this.stickyObserver.observe(sentinel.nativeElement);
     this.destoryRef.onDestroy(() => this.stickyObserver?.disconnect());
   }
 

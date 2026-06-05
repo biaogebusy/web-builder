@@ -15,9 +15,9 @@
       }
       <div class="form-scroll">
         @if (!(user$ | async)) {
-          @if (error()) {
+          @if (error(); as errorValue) {
             <div class="error" role="alert">
-              {{ error() }}
+              {{ errorValue }}
             </div>
           }
           @if (oauthLogin?.enable || socialLoginConfig?.enable) {
@@ -102,8 +102,8 @@
                 >
                   <small class="code-label">
                     {{ phoneLogin?.code?.sendLabel || ('LOGIN.CODE_SEND' | translate) }}
-                    @if (countdown()) {
-                      ({{ countdown() }})
+                    @if (countdown(); as countdownValue) {
+                      ({{ countdownValue }})
                     }
                   </small>
                 </button>

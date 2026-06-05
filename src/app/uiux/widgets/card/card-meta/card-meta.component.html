@@ -1,6 +1,6 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="meta">
-    @for (meta of content; track meta) {
+    @for (meta of contentValue; track meta) {
       <div class="item">
         @if (meta.label) {
           <span class="item-label">{{ meta.label }}: </span>

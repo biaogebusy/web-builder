@@ -13,7 +13,7 @@
     <span class="corner corner-bl" aria-hidden="true"></span>
     <span class="corner corner-br" aria-hidden="true"></span>
 
-    @if (error()) {
+    @if (error(); as errorValue) {
       <div class="state state-error">
         <div class="status-pill status-pill-error">
           <span class="pill-dot"></span>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <h1 class="title">认证失败</h1>
-        <p class="message">{{ error() }}</p>
+        <p class="message">{{ errorValue }}</p>
         <div class="data-stream is-error" aria-hidden="true"></div>
         <div class="actions">
           <button mat-flat-button color="primary" (click)="retry()">

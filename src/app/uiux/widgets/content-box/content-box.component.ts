@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { IContentBox } from '@core/interface/widgets/IContentWidget';
 import { ImgComponent } from '../img/img.component';
@@ -15,7 +15,7 @@ import { LinkComponent } from '../link/link.component';
   imports: [ImgComponent, LinkComponent],
 })
 export class ContentBoxComponent {
-  @Input() content: IContentBox;
+  readonly content = input.required<IContentBox>();
   constructor() {}
 
 }

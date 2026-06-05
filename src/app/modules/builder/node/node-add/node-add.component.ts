@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,9 +12,11 @@ import { NodeService } from '@core/service/node.service';
 import { TagsService } from '@core/service/tags.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { USER } from '@core/token/token-providers';
+import { TranslateService } from '@ngx-translate/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-node-add',
   templateUrl: './node-add.component.html',
   styleUrl: './node-add.component.scss',
@@ -28,6 +30,7 @@ export class NodeAddComponent implements OnInit {
   private util = inject(UtilitiesService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
   public type = signal<string>('');
   public form: UntypedFormGroup = new UntypedFormGroup({});
   public fields = signal<FormlyFieldConfig[]>([]);
@@ -35,7 +38,7 @@ export class NodeAddComponent implements OnInit {
   ngOnInit(): void {
     this.activateRoute.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const type = params['type'];
-      this.tagsService.setTitle('创建 ' + type + ' 页面');
+      this.tagsService.setTitle(this.translate.instant('BUILDER.NODE_ADD.CREATE_TITLE', { type }));
       this.type.set(type);
 
       switch (type) {
@@ -45,7 +48,7 @@ export class NodeAddComponent implements OnInit {
               key: 'title',
               type: 'input',
               props: {
-                label: '标题',
+                label: this.translate.instant('BUILDER.NODE_ADD.FIELD_TITLE'),
                 required: true,
               },
             },
@@ -65,9 +68,8 @@ export class NodeAddComponent implements OnInit {
   }
 
   onSubmit(value: any, user: IUser | any): void {
-    console.log(value);
     if (!user) {
-      this.util.openSnackbar('请登录后再试！', 'ok');
+      this.util.openSnackbar(this.translate.instant('BUILDER.NODE_ADD.LOGIN_FIRST'), 'ok');
       return;
     }
     const type = this.type();
@@ -80,6 +82,7 @@ export class NodeAddComponent implements OnInit {
             status: true,
             body: JSON.stringify(body),
           })
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(() => {
             this.router.navigate(['/builder/settings']);
           });

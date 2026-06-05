@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
@@ -9,6 +9,6 @@ import { MatDividerModule } from '@angular/material/divider';
   imports: [MatDividerModule],
 })
 export class DividerComponent {
-  @Input() content: any;
+  readonly content = input<any>();
 
 }

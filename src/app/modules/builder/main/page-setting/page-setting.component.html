@@ -10,7 +10,7 @@
       <app-btn
         (click)="onUpdate(model)"
         [content]="{
-          label: '更新',
+          label: 'BUILDER.PAGE_SETTING.UPDATE' | translate,
           color: 'primary',
           mode: 'raised',
         }"
@@ -19,7 +19,7 @@
         <app-btn
           (click)="onJson()"
           [content]="{
-            label: '编辑JSON',
+            label: 'BUILDER.PAGE_SETTING.EDIT_JSON' | translate,
             color: 'primary',
             mode: 'stroked',
           }"
@@ -29,7 +29,7 @@
         <app-btn
           (click)="onPreview()"
           [content]="{
-            label: '预览',
+            label: 'BUILDER.PAGE_SETTING.PREVIEW' | translate,
             color: 'primary',
             mode: 'stroked',
           }"
@@ -38,7 +38,7 @@
       <app-btn
         (click)="deletePage(model)"
         [content]="{
-          label: '删除',
+          label: 'BUILDER.PAGE_SETTING.DELETE' | translate,
           color: 'warn',
         }"
       />

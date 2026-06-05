@@ -123,18 +123,21 @@
 
 ## 技术选型
 
-- 前端：Angular + Material + TailwindCss
+- 前端：Angular 20 (standalone components、signals、zoneless change detection、incremental hydration) + Angular Material + TailwindCss
+- SSR：@angular/ssr + Express
 - 动态表单：ngx-formly
 - web 动画：aos 页面滚动动画，gsap 细粒度定制化动画
 - 图表：Echarts
 - 视频：Video.js
-- 文件生成：jspdf 生成 pdf，html2canvas 生成图像，file-saver 下载文件，jszip 压缩文件
-- 编辑器：quill, jsoneditor, vs monaco-editor
+- 日历：FullCalendar
+- 编辑器：quill, jsoneditor, monaco-editor
 - 幻灯片：swiper
+- 图片画廊：lightgallery
 - 字体图标：material design icons + 自定义 svg icon
 - 加密：crypto-js
-- 工具函数：lodash-es
-- 测试预览：storybook
+- 工具函数：lodash-es、dayjs
+- Drupal JSON:API 查询：drupal-jsonapi-params
+- 认证：OAuth2 (Drupal simple_oauth)
 - web 服务：Nginx
 - 后端：Drupal(推荐)，通过 Drupal 的 views 视图可灵活配置动态组件、动态 api；
 
@@ -145,53 +148,88 @@
 1. 代码下载或者 clone 项目到本地：`git clone git@github.com:biaogebusy/web-builder.git`
 2. 请使用 npm install 安装，严格按照 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
 
-## 本地开发
+## 常用命令
 
-`npm start`
+- `npm start` — 本地开发服务（自动通过 `config/proxy.config.js` 代理 API 到 `https://base.builder.design`）
+- `npm run build` — 生产环境打包（`ng build --configuration production`）
+- `npm test` — 单元测试（Karma + Jasmine）
+- `npm run lint` — ESLint 代码检查（flat config）
+- `npm run e2e` — 端到端测试（Protractor）
+- `npm run serve:ssr:xinshi` — 运行 SSR 构建产物（`node dist/server/server.mjs`）
+
+提交时 husky 会触发 `lint-staged`，自动用 ESLint 修复 `*.ts`/`*.html`，并用 Prettier 格式化 `*.md`。
 
 ## 开发环境设置
 
-```javascript
+```typescript
 // src/environments/environment.ts
 export const environment: IEnvironment = {
-  apiUrl: "http://localhost:4200",
-  production: false,
+  apiUrl: 'http://localhost:4200',
+  production: true,
   port: 4200,
-  cache: false,
-  drupalProxy: false,
   multiLang: true,
   langs: [
     {
-      label: "中文",
-      langCode: "zh-hans",
-      prefix: "/",
+      label: '中文',
+      langCode: 'zh-hans',
+      prefix: '/',
       default: true,
     },
     {
-      label: "EN",
-      langCode: "en",
-      prefix: "/en",
+      label: 'EN',
+      langCode: 'en',
+      prefix: '/en',
     },
   ],
+  oauth: {
+    clientId: 'pd1DDpR9atXvciFn3Wt7jLsCweLXv0JCC8k1-9XNJTw',
+    tokenUrl: '/oauth/token',
+    authorizeUrl: '/oauth/authorize',
+    redirectPath: '/me/login/callback',
+    logoutPath: '/user/logout',
+    scope: 'webmaster',
+  },
 };
 ```
 
-- apiUrl: 是整个应用的 Base api 参数；
-- production: 为 false 时，页面的内容 api 将调用本地 json 文件，true 时将会调用线上接口；
+- apiUrl: 整个应用的 Base api 参数；
+- production: 为 false 时页面内容 api 调用本地 json 文件，true 时调用线上接口；
 - port: 自定义 Node 端口；
-- cache: 是否开启 api 请求缓存；
-- drupalProxy: 对应后端为 drupal，统一使用 Drupal 来登录登出；
-- multiLang: 应用是否是多语言；
+- multiLang / langs: 多语言开关及前缀路由配置；
+- oauth: 基于 Drupal simple_oauth 的 OAuth2 认证配置（授权码模式）。
 
 ## 本地开发环境 Proxy 代理
 
-为了体验一致，本地默认配置体验站的API代理，配置文件`config/proxy.config.js`，根据实际情况进行配置；
+为了体验一致，本地默认配置体验站的 API 代理，配置文件 `config/proxy.config.js`，根据实际情况进行修改：
 
 ```javascript
 const PROXY_CONFIG = [
   {
-    context: ['/api', '/user', '/sites'],
-    target: 'https://builder.design',
+    context: [
+      '/en/api',
+      '/api',
+      '/oauth',
+      '/session',
+      '/user',
+      '/sites',
+      '/admin',
+      '/manage',
+      '/system',
+      '/core',
+      '/libraries',
+      '/modules',
+      '/themes',
+      '/webform_rest',
+      '/media-library',
+      '/views/ajax',
+      '/editor',
+      '/export',
+      '/print',
+      '/wechat',
+      '/media',
+      // ...更多 Drupal 路径
+    ],
+    target: 'https://base.builder.design',
     secure: false,
     changeOrigin: true,
   },

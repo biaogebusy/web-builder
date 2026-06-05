@@ -5,7 +5,13 @@
     height: 100%;
   }
   .media-grid {
-    @apply grid grid-cols-12 gap-5 h-full;
+    @apply grid grid-cols-12 gap-3 md:gap-5 h-full;
+    // Mobile: sidebar stacks on top (auto), grid fills the rest and scrolls.
+    grid-template-rows: auto minmax(0, 1fr);
+    @media (min-width: 960px) {
+      // Desktop: sidebar and grid sit side by side in a single row.
+      grid-template-rows: none;
+    }
   }
   .sidebar {
     background-color: var(--mat-sys-background);
@@ -19,16 +25,33 @@
     @apply overflow-auto h-full flex flex-col col-span-12 md:col-span-9 xl:col-span-10;
     .viewport {
       @include scrollbar(var(--mat-sys-primary));
-      @apply grid grid-cols-12 gap-1 overflow-auto w-full flex-1;
-      .empty {
-        @apply text-center flex flex-col items-center gap-3 opacity-75;
+      @apply grid gap-1 overflow-auto w-full flex-1 content-start;
+      // Columns follow the container width (this panel often lives in a narrow
+      // drawer, where viewport breakpoints would misreport). --cols is the
+      // per-tile column span over a 12-col grid (slider value): a larger span
+      // means wider tiles / fewer columns. Tiles never shrink below 120px.
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(max(min(100%, 120px), calc(var(--cols, 2) / 12 * 100%)), 1fr)
+      );
+    }
+    .empty {
+      @apply flex flex-1 flex-col items-center justify-center text-center gap-2 px-6 py-10;
+      color: var(--mat-sys-outline);
+      .empty-title {
+        @apply text-lg font-medium;
+        color: var(--mat-sys-on-surface);
+      }
+      .empty-desc {
+        @apply text-sm;
+        color: var(--mat-sys-on-surface-variant);
       }
     }
     .progress-bar {
       @apply absolute top-0 left-0 right-0 w-full z-50;
     }
     .bottom {
-      @apply flex justify-between items-center;
+      @apply flex flex-wrap justify-between items-center gap-2;
       .action {
         @apply flex left-5 bottom-10;
       }
@@ -49,7 +72,8 @@
     @apply w-full h-full object-contain;
   }
   .empty-icon {
-    @apply w-20 h-20;
+    @apply w-16 h-16;
+    color: var(--mat-sys-outline-variant);
   }
 }
 
@@ -83,11 +107,11 @@
     }
   }
   .actions {
-    @apply hidden items-center absolute z-10 opacity-90 right-1 top-1 h-7 px-1;
+    @apply flex items-center absolute z-10 opacity-90 right-1 top-1 h-7 px-1;
     background-color: var(--mat-sys-inverse-surface);
     border-radius: 4px;
     .btn {
-      @apply hidden sm:block h-6 w-6 rounded-[4px];
+      @apply block h-6 w-6 rounded-[4px];
       &:hover {
         background-color: #8080807a;
       }
@@ -126,11 +150,21 @@
     @apply w-full h-full bg-gray-200 p-1 box-border;
   }
   &:hover {
-    .actions {
-      display: flex;
-    }
     .box {
       opacity: 0.8;
+    }
+  }
+}
+
+// On pointer devices keep the clean hover-reveal; touch devices (hover: none)
+// have no hover, so the toolbar stays visible and stays reachable.
+@media (hover: hover) {
+  .masonry-item {
+    .actions {
+      display: none;
+    }
+    &:hover .actions {
+      display: flex;
     }
   }
 }

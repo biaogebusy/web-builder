@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { ITextHero } from '@core/interface/widgets/IText';
 import { TextComponent } from '@uiux/widgets/text/text.component';
@@ -14,6 +14,6 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent],
 })
 export class Hero2v1Component {
-  @Input() content: ITextHero;
+  readonly content = input<ITextHero>();
   constructor() {}
 }

@@ -10,7 +10,7 @@
         </div>
       }
       <mat-list class="tax-list">
-        <div mat-subheader>{{ content.title }}</div>
+        <div mat-subheader>{{ content().title }}</div>
         @if (items) {
           @for (item of items.data; track item.id; let last = $last) {
             @let attr = item.attributes;

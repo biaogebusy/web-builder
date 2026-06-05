@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import type { IShowcase3v6 } from '@core/interface/combs/IShowcase';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -7,12 +7,13 @@ import { MediaObjectComponent } from '@uiux/widgets/media/media-object/media-obj
 import { TextComponent } from '@uiux/widgets/text/text.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-showcase-3v6',
   templateUrl: './showcase3v6.component.html',
   styleUrls: ['./showcase3v6.component.scss'],
   imports: [ReqRolesDirective, TextComponent, MediaObjectComponent, DynamicComponentComponent],
 })
 export class Showcase3v6Component extends BaseComponent {
-  @Input() content: IShowcase3v6;
+  readonly content = input<IShowcase3v6>();
 
 }

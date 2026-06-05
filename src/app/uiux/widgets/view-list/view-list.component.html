@@ -1,24 +1,24 @@
-@if (content) {
+@if (content(); as viewContent) {
   <div class="view-list">
-    <div class="view-list-inner" [class]="content.fullWidth ? 'container-fluid' : 'container'">
-      @if (content.text) {
-        <app-text [attr.data-path]="'text'" [content]="content.text" />
+    <div class="view-list-inner" [class]="viewContent.fullWidth ? 'container-fluid' : 'container'">
+      @if (viewContent.text) {
+        <app-text [attr.data-path]="'text'" [content]="viewContent.text" />
       }
-      @if (content.form) {
+      @if (viewContent.form) {
         <div class="filter">
           <div class="filter-item">
             <app-dynamic-component
               [inputs]="{
-                content: content.form,
-                form: form,
-                fields: content.form.fields,
-                model: model,
+                content: viewContent.form,
+                form: form(),
+                fields: viewContent.form.fields,
+                model: model(),
               }"
             ></app-dynamic-component>
           </div>
           <div class="actions filter-actions">
-            @if (content.params.export?.enable && content.params.export?.position === 'top') {
-              <app-btn (click)="onExport()" [content]="content.params.export.btn" />
+            @if (viewContent.params.export?.enable && viewContent.params.export?.position === 'top') {
+              <app-btn (click)="onExport()" [content]="viewContent.params.export.btn" />
             }
             <button mat-button (click)="clear()"><mat-icon>clear</mat-icon>清空</button>
           </div>
@@ -33,8 +33,8 @@
           <app-dynamic-table [content]="table" />
         }
         <div class="actions view-actions m-y p-x">
-          @if (content.params.export?.enable && content.params.export?.position !== 'top') {
-            <app-btn (click)="onExport()" [content]="content.params.export.btn" />
+          @if (viewContent.params.export?.enable && viewContent.params.export?.position !== 'top') {
+            <app-btn (click)="onExport()" [content]="viewContent.params.export.btn" />
           }
         </div>
         @if (noAuth) {

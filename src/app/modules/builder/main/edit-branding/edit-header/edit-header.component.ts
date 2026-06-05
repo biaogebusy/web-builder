@@ -19,6 +19,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { TranslateService } from '@ngx-translate/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { FormModule } from '@uiux/combs/form/form.module';
@@ -119,6 +120,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   private util = inject(UtilitiesService);
   private snackBar = inject(MatSnackBar);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
 
   // #1 canDeactivate
   hasUnsavedChanges(): boolean {
@@ -137,7 +139,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const { uuid, langcode } = params;
       if (!uuid) {
-        this.util.openSnackbar('缺少节点参数，请从页面设置进入');
+        this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.MISSING_NODE'));
         return;
       }
       this.nodeUuid.set(uuid);
@@ -168,7 +170,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
           this.listenFormChanges();
         },
         error: () => {
-          this.util.openSnackbar('加载配置失败');
+          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.LOAD_FAIL'));
           this.loading.set(false);
         },
       });
@@ -237,19 +239,19 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
             key: 'themeSwitch',
             type: 'toggle',
             defaultValue: params.themeSwitch,
-            props: { label: '主题切换' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.THEME_SWITCH') },
           },
           {
             key: 'userInfo',
             type: 'toggle',
             defaultValue: params.userInfo,
-            props: { label: '用户信息' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.USER_INFO') },
           },
           {
             key: 'menuHoverOpen',
             type: 'toggle',
             defaultValue: params.menuHoverOpen,
-            props: { label: '菜单悬停展开' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.HOVER_MENU') },
           },
         ],
       },
@@ -277,56 +279,56 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
             type: 'input',
             className: 'w-full',
             defaultValue: logo.label,
-            props: { label: '标签' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LABEL') },
           },
           {
             key: 'href',
             type: 'input',
             className: 'w-full',
             defaultValue: logo.href,
-            props: { label: '链接' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LINK_FIELD') },
           },
           {
             key: 'src',
             type: 'input',
             className: 'w-full',
             defaultValue: logo.img?.src,
-            props: { label: '图片地址' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.IMG_URL') },
           },
           {
             key: 'alt',
             type: 'input',
             className: 'w-full',
             defaultValue: logo.img?.alt,
-            props: { label: '图片描述' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.IMG_ALT') },
           },
           {
             key: 'width',
             type: 'input',
             className: 'w-full',
             defaultValue: logo.img?.width,
-            props: { label: '宽度', type: 'number' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.WIDTH'), type: 'number' },
           },
           {
             key: 'height',
             type: 'input',
             className: 'w-full',
             defaultValue: logo.img?.height,
-            props: { label: '高度', type: 'number' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.HEIGHT'), type: 'number' },
           },
           {
             key: 'version',
             type: 'toggle',
             className: 'w-full',
             defaultValue: logo.version,
-            props: { label: '显示版本号' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.SHOW_VERSION') },
           },
           {
             key: 'invert',
             type: 'input',
             className: 'w-full',
             defaultValue: logo.invert,
-            props: { label: '反色图片地址' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.INVERSE_LOGO') },
           },
         ],
       },
@@ -345,42 +347,42 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
             type: 'toggle',
             className: 'w-full',
             defaultValue: search.enable,
-            props: { label: '启用搜索' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.ENABLE_SEARCH') },
           },
           {
             key: 'placeholder',
             type: 'input',
             className: 'w-full',
             defaultValue: search.placeholder,
-            props: { label: '占位文本' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.PLACEHOLDER') },
           },
           {
             key: 'tooltip',
             type: 'input',
             className: 'w-full',
             defaultValue: search.tooltip,
-            props: { label: '提示文本' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.TOOLTIP') },
           },
           {
             key: 'link',
             type: 'input',
             className: 'w-full',
             defaultValue: search.link,
-            props: { label: '搜索链接' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.SEARCH_URL') },
           },
           {
             key: 'type',
             type: 'input',
             className: 'w-full',
             defaultValue: search.type,
-            props: { label: '类型' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.TYPE') },
           },
           {
             key: 'key',
             type: 'input',
             className: 'w-full',
             defaultValue: search.key,
-            props: { label: '关键字参数名' },
+            props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.KEYWORD_PARAM') },
           },
         ],
       },
@@ -394,7 +396,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       {
         key: 'actions',
         type: 'repeat',
-        props: { addText: '添加操作按钮' },
+        props: { addText: this.translate.instant('BUILDER.EDIT_BRANDING.ADD_ACTION_BTN') },
         fieldArray: {
           fieldGroupClassName: 'grid gap-0',
           fieldGroup: [
@@ -402,13 +404,13 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
               key: 'label',
               type: 'input',
               className: 'w-full',
-              props: { label: '标签', required: true },
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LABEL'), required: true },
             },
             {
               key: 'href',
               type: 'input',
               className: 'w-full',
-              props: { label: '链接', required: true },
+              props: { label: this.translate.instant('BUILDER.EDIT_BRANDING.LINK_FIELD'), required: true },
             },
           ],
         },
@@ -439,7 +441,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   }
 
   addMenuItem(): void {
-    this.menuItems.update(items => [...items, { label: '新菜单项', classes: '' }]);
+    this.menuItems.update(items => [...items, { label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_MENU_ITEM'), classes: '' }]);
     this.onMenuChange();
   }
 
@@ -459,7 +461,11 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
       this.expandedMenuIndex.set(-1);
     }
     this.onMenuChange();
-    const ref = this.snackBar.open(`已删除「${removed.label}」`, '撤销', { duration: 5000 });
+    const ref = this.snackBar.open(
+      this.translate.instant('BUILDER.EDIT_BRANDING.DELETED_TOAST', { label: removed.label }),
+      this.translate.instant('BUILDER.EDIT_BRANDING.UNDO'),
+      { duration: 5000 }
+    );
     ref
       .onAction()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -476,7 +482,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
   addChildMenuItem(menuIndex: number): void {
     const items = [...this.menuItems()];
     const children = [...(items[menuIndex].child ?? [])];
-    children.push({ label: '新子菜单项' });
+    children.push({ label: this.translate.instant('BUILDER.EDIT_BRANDING.NEW_CHILD_MENU') });
     items[menuIndex] = { ...items[menuIndex], child: children };
     this.menuItems.set(items);
     this.onMenuChange();
@@ -500,7 +506,11 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
     this.menuItems.set(items);
     this.onMenuChange();
     if (removed) {
-      const ref = this.snackBar.open(`已删除「${removed.label}」`, '撤销', { duration: 5000 });
+      const ref = this.snackBar.open(
+      this.translate.instant('BUILDER.EDIT_BRANDING.DELETED_TOAST', { label: removed.label }),
+      this.translate.instant('BUILDER.EDIT_BRANDING.UNDO'),
+      { duration: 5000 }
+    );
       ref
         .onAction()
         .pipe(takeUntilDestroyed(this.destroyRef))
@@ -552,7 +562,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
 
   onSave(): void {
     if (!this.nodeUuid()) {
-      this.util.openSnackbar('未找到配置节点信息，无法保存');
+      this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.NOT_FOUND_NODE'));
       return;
     }
 
@@ -570,7 +580,7 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
         this.jsonError.set('');
       } catch {
         this.saving.set(false);
-        this.util.openSnackbar('JSON 格式错误，请修正后再保存', 'ok');
+        this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.JSON_FORMAT_ERROR'), 'ok');
         return;
       }
     }
@@ -590,12 +600,12 @@ export class EditHeaderComponent implements OnInit, HasUnsavedChanges {
           this.saving.set(false);
           if (res) {
             this.dirty.set(false);
-            this.util.openSnackbar('Header 配置更新成功！', 'ok');
+            this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.HEADER_UPDATE_SUCCESS'), 'ok');
           }
         },
         error: () => {
           this.saving.set(false);
-          this.util.openSnackbar('更新失败，请重试');
+          this.util.openSnackbar(this.translate.instant('BUILDER.EDIT_BRANDING.UPDATE_FAIL'));
         },
       });
   }

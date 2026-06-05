@@ -1,7 +1,7 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="menu-list">
-    @if (content.title | isString) {
-      <h2 class="block-title">{{ content.title }}</h2>
+    @if (contentValue.title | isString) {
+      <h2 class="block-title">{{ contentValue.title }}</h2>
     }
     <mat-divider />
     @if (list) {

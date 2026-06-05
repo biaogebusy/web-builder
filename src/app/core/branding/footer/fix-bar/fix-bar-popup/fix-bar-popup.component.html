@@ -1,7 +1,7 @@
-@if (content) {
-  <div class="fix-bar-popup" [style]="content.style">
+@if (content(); as contentValue) {
+  <div class="fix-bar-popup" [style]="contentValue.style">
     <div class="fix-bar-popup-content">
-      <app-text [content]="content"></app-text>
+      <app-text [content]="contentValue"></app-text>
       <div class="arrow"></div>
     </div>
   </div>

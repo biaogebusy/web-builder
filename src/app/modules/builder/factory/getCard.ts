@@ -7,7 +7,7 @@ export function getCard(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '卡片',
+          label: 'BUILDER.FACTORY.CARD_TAB',
         },
         fieldGroup: [
           {
@@ -15,8 +15,8 @@ export function getCard(widget: any): FormlyFieldConfig {
             type: 'input',
             defaultValue: widget?.title,
             props: {
-              label: '标题',
-              placeholder: '请输入标题',
+              label: 'BUILDER.FACTORY.TITLE',
+              placeholder: 'BUILDER.FACTORY.TITLE_PLACEHOLDER',
             },
           },
           {
@@ -24,8 +24,8 @@ export function getCard(widget: any): FormlyFieldConfig {
             type: 'input',
             defaultValue: widget?.subTitle,
             props: {
-              label: '副标题',
-              placeholder: '请输入副标题',
+              label: 'BUILDER.FACTORY.SUBTITLE',
+              placeholder: 'BUILDER.FACTORY.SUBTITLE_PLACEHOLDER',
             },
           },
           {
@@ -36,11 +36,11 @@ export function getCard(widget: any): FormlyFieldConfig {
               label: 'Class',
               options: [
                 {
-                  label: '默认',
+                  label: 'BUILDER.FACTORY.DEFAULT_CLASS',
                   value: '',
                 },
                 {
-                  label: '无阴影',
+                  label: 'BUILDER.FACTORY.NO_SHADOW',
                   value: 'card-no-shadow',
                 },
               ],
@@ -51,8 +51,8 @@ export function getCard(widget: any): FormlyFieldConfig {
             type: 'textarea',
             defaultValue: widget?.body,
             props: {
-              label: '内容',
-              placeholder: '请输入内容',
+              label: 'BUILDER.FACTORY.CONTENT',
+              placeholder: 'BUILDER.FACTORY.CONTENT_PLACEHOLDER',
               rows: 3,
             },
           },
@@ -64,8 +64,8 @@ export function getCard(widget: any): FormlyFieldConfig {
                 type: 'input',
                 defaultValue: widget?.feature?.link,
                 props: {
-                  label: '链接',
-                  placeholder: '请输入链接',
+                  label: 'BUILDER.FACTORY.LINK',
+                  placeholder: 'BUILDER.FACTORY.LINK_PLACEHOLDER',
                 },
               },
               {
@@ -76,9 +76,9 @@ export function getCard(widget: any): FormlyFieldConfig {
                     key: 'src',
                     defaultValue: widget?.feature?.img?.src,
                     props: {
-                      updateLabel: '更新图片',
-                      addLabel: '设置图片',
-                      deleteLabel: '删除',
+                      updateLabel: 'BUILDER.FACTORY.IMG_UPDATE',
+                      addLabel: 'BUILDER.FACTORY.IMG_ADD',
+                      deleteLabel: 'BUILDER.FACTORY.IMG_DELETE',
                       fileName: widget?.feature?.img?.src.split('/').pop(),
                       alt: widget?.feature?.img?.alt ?? '',
                     },
@@ -90,7 +90,7 @@ export function getCard(widget: any): FormlyFieldConfig {
                 type: 'select',
                 defaultValue: widget?.feature?.ratios,
                 props: {
-                  label: '图片比例',
+                  label: 'BUILDER.FACTORY.IMG_RATIO',
                   options: [
                     {
                       label: '1:1',
@@ -121,7 +121,7 @@ export function getCard(widget: any): FormlyFieldConfig {
                 className: '!hidden',
                 defaultValue: '!overflow-visible',
                 props: {
-                  label: '容器Class',
+                  label: 'BUILDER.FACTORY.CONTAINER_CLASS',
                 },
               },
             ],

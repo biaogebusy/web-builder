@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import type { IChipList } from '@core/interface/widgets/IChipList';
@@ -15,8 +15,8 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
   imports: [MatChipsModule, LinkComponent],
 })
 export class ChipListComponent {
-  @Input() content: IChipList;
-  @Input() classes: object | string;
+  readonly content = input<IChipList>();
+  readonly classes = input<object | string>();
 
   constructor() {}
 

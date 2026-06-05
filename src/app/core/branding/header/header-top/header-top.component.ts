@@ -1,11 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import type { IHeaderTop } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
@@ -22,25 +24,29 @@ import { GithubStarComponent } from '@uiux/widgets/github-star/github-star.compo
   imports: [MatIconModule, IconComponent, LinkComponent, GithubStarComponent],
 })
 export class HeaderTopComponent implements OnInit {
-  @Input() content: IHeaderTop | undefined;
+  readonly content = input<IHeaderTop>();
   showNoXs: boolean;
   screen = inject(ScreenState);
   screenService = inject(ScreenService);
   private ele = inject(ElementRef);
+  private destroyRef = inject(DestroyRef);
 
   constructor() {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screen.mqAlias$().subscribe(mq => {
-        if (mq.includes('md') || mq.includes('lg') || mq.includes('xl')) {
-          this.ele.nativeElement.classList.remove('hidden');
-          this.ele.nativeElement.classList.add('block');
-        } else {
-          this.ele.nativeElement.classList.remove('block');
-          this.ele.nativeElement.classList.add('hidden');
-        }
-      });
+      this.screen
+        .mqAlias$()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(mq => {
+          if (mq.includes('md') || mq.includes('lg') || mq.includes('xl')) {
+            this.ele.nativeElement.classList.remove('hidden');
+            this.ele.nativeElement.classList.add('block');
+          } else {
+            this.ele.nativeElement.classList.remove('block');
+            this.ele.nativeElement.classList.add('hidden');
+          }
+        });
     }
   }
 }

@@ -1,12 +1,13 @@
 import {
   Component,
-  Input,
   OnInit,
-  ViewChild,
   ElementRef,
   ViewEncapsulation,
   OnDestroy,
   inject,
+  ChangeDetectionStrategy,
+  input,
+  viewChild
 } from '@angular/core';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IVideo } from '@core/interface/widgets/IVideo';
@@ -15,17 +16,18 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 declare let window: any;
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-video',
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class VideoComponent implements OnInit, OnDestroy {
-  @ViewChild('target', { static: true }) target: ElementRef;
+  readonly target = viewChild<ElementRef>('target');
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
   // See options: https://videojs.com/guides/options
   // https://videojs.com/guides/angular/
-  @Input() content: IVideo;
+  readonly content = input.required<IVideo>();
 
   private player: any;
 
@@ -43,7 +45,7 @@ export class VideoComponent implements OnInit, OnDestroy {
         await this.util.loadStyle(videoStyle);
         await this.util.loadScript(videoScript);
       }
-      this.player = window.videojs(this.target.nativeElement, this.content.options);
+      this.player = window.videojs(this.target()!.nativeElement, this.content().options);
     }
   }
 

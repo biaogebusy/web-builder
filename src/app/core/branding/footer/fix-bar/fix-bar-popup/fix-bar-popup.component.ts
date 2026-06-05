@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { IFixBarPopup } from '@core/interface/branding/IFixBarPopup';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 
@@ -10,5 +10,5 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
   imports: [TextComponent],
 })
 export class FixBarPopupComponent {
-  @Input() content: IFixBarPopup;
+  readonly content = input<IFixBarPopup>();
 }

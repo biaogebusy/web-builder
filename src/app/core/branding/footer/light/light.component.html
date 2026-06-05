@@ -1,16 +1,16 @@
 <div class="footer-light">
   <div class="container">
     <app-menu-item
-      [content]="content.mainMenu"
-      [mobileMenu]="content.mobileMenu" />
+      [content]="content().mainMenu"
+      [mobileMenu]="content().mobileMenu" />
   </div>
   <div class="footer-bottom p-y-sm">
     <div class="container">
       <div class="brand">
-        <h2 class="brand-label">{{ content.logo.label }}</h2>
+        <h2 class="brand-label">{{ content().logo.label }}</h2>
         <p class="brand-copy">
           ©{{ utilities.fullYear }}
-          <span [innerHTML]="content.copyRight | safeHtml"></span>
+          <span [innerHTML]="content().copyRight | safeHtml"></span>
         </p>
       </div>
     </div>

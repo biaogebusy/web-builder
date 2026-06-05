@@ -1,4 +1,4 @@
-@if (content) {
+@if (content(); as contentValue) {
   @if (img) {
     <div class="logo">
       <app-img [content]="img" />
@@ -6,11 +6,11 @@
   } @else {
     <a
       class="site-name mat-h2"
-      [routerLink]="content.href"
-      [innerHTML]="content.label | safeHtml"
+      [routerLink]="contentValue.href"
+      [innerHTML]="contentValue.label | safeHtml"
     ></a>
   }
-  @if (content.version) {
-    <span class="version">{{ content.version }}</span>
+  @if (contentValue.version) {
+    <span class="version">{{ contentValue.version }}</span>
   }
 }

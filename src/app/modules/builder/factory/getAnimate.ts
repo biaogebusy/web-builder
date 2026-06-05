@@ -1,43 +1,44 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { tap } from 'rxjs/operators';
 
 export function getAnimate(content: any): FormlyFieldConfig {
   const actionsOptions = [
     {
-      label: '重新开始',
+      label: 'BUILDER.FACTORY.ACTION_RESTART',
       value: 'restart',
     },
     {
-      label: '无',
+      label: 'BUILDER.FACTORY.NONE',
       value: 'none',
     },
     {
-      label: '播放',
+      label: 'BUILDER.FACTORY.ACTION_PLAY',
       value: 'play',
     },
     {
-      label: '暂停',
+      label: 'BUILDER.FACTORY.ACTION_PAUSE',
       value: 'pause',
     },
     {
-      label: '继续播放',
+      label: 'BUILDER.FACTORY.ACTION_RESUME',
       value: 'resume',
     },
     {
-      label: '反向播放',
+      label: 'BUILDER.FACTORY.ACTION_REVERSE',
       value: 'reverse',
     },
     {
-      label: '重置',
+      label: 'BUILDER.FACTORY.ACTION_RESET',
       value: 'reset',
     },
     {
-      label: '立即完成',
+      label: 'BUILDER.FACTORY.ACTION_COMPLETE',
       value: 'complete',
     },
   ];
   return {
     props: {
-      label: '动画',
+      label: 'BUILDER.FACTORY.ANIMATION_TAB_LABEL',
     },
     fieldGroup: [
       {
@@ -54,7 +55,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 className: 'w-full',
                 defaultValue: content?.animate?.aos?.enable ?? false,
                 props: {
-                  label: 'AOS 基础动画',
+                  label: 'BUILDER.FACTORY.AOS_BASIC',
                 },
               },
               {
@@ -63,7 +64,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 className: 'w-full',
                 defaultValue: content?.animate?.aos?.animation || 'fade-up',
                 props: {
-                  label: '动画效果',
+                  label: 'BUILDER.FACTORY.ANIMATION_EFFECT',
                   options: [
                     { label: 'fade', value: 'fade' },
                     { label: 'fade-up', value: 'fade-up' },
@@ -110,7 +111,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     defaultValue: content?.animate?.aos?.behaviour?.offset ?? 120,
                     props: {
                       type: 'number',
-                      label: '偏移量',
+                      label: 'BUILDER.FACTORY.OFFSET',
                     },
                   },
                   {
@@ -120,7 +121,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     defaultValue: content?.animate?.aos?.behaviour?.duration ?? 400,
                     props: {
                       type: 'number',
-                      label: '动画时长',
+                      label: 'BUILDER.FACTORY.DURATION_ANIM',
                     },
                   },
                   {
@@ -130,7 +131,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     defaultValue: content?.animate?.aos?.behaviour?.delay ?? 0,
                     props: {
                       type: 'number',
-                      label: '延迟时间（ms）',
+                      label: 'BUILDER.FACTORY.DELAY_MS',
                     },
                   },
                   {
@@ -140,7 +141,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     defaultValue: content?.animate?.aos?.behaviour?.easing ?? 'ease',
                     props: {
                       type: 'text',
-                      label: '缓动效果',
+                      label: 'BUILDER.FACTORY.EASING_EFFECT',
                       options: [
                         { value: 'ease', label: 'ease' },
                         { value: 'linear', label: 'linear' },
@@ -183,7 +184,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                 className: 'w-full',
                 defaultValue: content?.animate?.gsap?.enable,
                 props: {
-                  label: 'GSAP 高级动画',
+                  label: 'BUILDER.FACTORY.GSAP_ADVANCED',
                 },
               },
               {
@@ -203,7 +204,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: Number(content?.animate?.gsap?.from?.x) ?? null,
                         props: {
-                          label: '水平移动',
+                          label: 'BUILDER.FACTORY.MOVE_X',
                           min: -500,
                           max: 500,
                           step: 10,
@@ -216,7 +217,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: Number(content?.animate?.gsap?.from?.y) ?? null,
                         props: {
-                          label: '垂直移动',
+                          label: 'BUILDER.FACTORY.MOVE_Y',
                           min: -500,
                           max: 500,
                           step: 10,
@@ -234,7 +235,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: Number(content?.animate?.gsap?.from?.rotationX) ?? null,
                         props: {
-                          label: '水平旋转',
+                          label: 'BUILDER.FACTORY.ROTATE_X',
                           min: -360,
                           max: 360,
                           step: 1,
@@ -247,7 +248,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: Number(content?.animate?.gsap?.from?.rotationY) ?? null,
                         props: {
-                          label: '垂直旋转',
+                          label: 'BUILDER.FACTORY.ROTATE_Y',
                           min: -360,
                           max: 360,
                           step: 1,
@@ -265,7 +266,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: Number(content?.animate?.gsap?.from?.scaleX) ?? null,
                         props: {
-                          label: '水平缩放',
+                          label: 'BUILDER.FACTORY.SCALE_X',
                           min: 0,
                           max: 2,
                           step: 0.1,
@@ -278,7 +279,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: Number(content?.animate?.gsap?.from?.scaleY) ?? null,
                         props: {
-                          label: '垂直缩放',
+                          label: 'BUILDER.FACTORY.SCALE_Y',
                           min: 0,
                           max: 2,
                           step: 0.1,
@@ -327,7 +328,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: Number(content?.animate?.gsap?.from?.opacity) ?? null,
                         props: {
-                          label: '不透明度',
+                          label: 'BUILDER.FACTORY.OPACITY_LABEL',
                           min: 0,
                           max: 1,
                           step: 0.1,
@@ -340,7 +341,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: Number(content?.animate?.gsap?.from?.delay) ?? null,
                         props: {
-                          label: '延迟',
+                          label: 'BUILDER.FACTORY.DELAY_LABEL',
                           min: 0,
                           max: 6,
                           step: 0.1,
@@ -353,7 +354,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: Number(content?.animate?.gsap?.from?.duration) ?? null,
                         props: {
-                          label: '时长(秒)',
+                          label: 'BUILDER.FACTORY.DURATION_SEC',
                           min: 0.1,
                           max: 6,
                           step: 0.1,
@@ -366,7 +367,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         type: 'select',
                         className: 'col-span-6',
                         props: {
-                          label: '缓动曲线',
+                          label: 'BUILDER.FACTORY.EASING_CURVE',
                           options: [
                             { label: 'none', value: 'none' },
                             { label: 'power1.out', value: 'power1.out' },
@@ -411,7 +412,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: content?.animate?.gsap?.trigger?.onEnter || 'restart',
                         props: {
-                          label: '元素从底部进入',
+                          label: 'BUILDER.FACTORY.GSAP_ON_ENTER',
                           options: actionsOptions,
                         },
                       },
@@ -421,7 +422,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: content?.animate?.gsap?.trigger?.onLeave || 'pause',
                         props: {
-                          label: '元素从顶部离开',
+                          label: 'BUILDER.FACTORY.GSAP_ON_LEAVE',
                           options: actionsOptions,
                         },
                       },
@@ -431,7 +432,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: content?.animate?.gsap?.trigger?.onEnterBack ?? 'none',
                         props: {
-                          label: '再次从顶部进入',
+                          label: 'BUILDER.FACTORY.GSAP_ON_ENTER_BACK',
                           options: actionsOptions,
                         },
                       },
@@ -441,7 +442,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: content?.animate?.gsap?.trigger?.onLeaveBack ?? 'reverse',
                         props: {
-                          label: '再进入后离开',
+                          label: 'BUILDER.FACTORY.GSAP_ON_LEAVE_BACK',
                           options: actionsOptions,
                         },
                       },
@@ -456,7 +457,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: content?.animate?.gsap?.trigger?.start ?? '20px 80%',
                         props: {
-                          label: '触发开始位置',
+                          label: 'BUILDER.FACTORY.GSAP_START',
                         },
                       },
                       {
@@ -465,7 +466,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                         className: 'col-span-6',
                         defaultValue: content?.animate?.gsap?.trigger?.end ?? 'bottom 100px',
                         props: {
-                          label: '触发结束位置',
+                          label: 'BUILDER.FACTORY.GSAP_END',
                         },
                       },
                     ],
@@ -476,7 +477,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     className: 'w-full',
                     defaultValue: content?.animate?.gsap?.trigger?.scrub ?? false,
                     props: {
-                      label: '跟随滚动变化',
+                      label: 'BUILDER.FACTORY.GSAP_SCRUB',
                     },
                   },
                   {
@@ -485,7 +486,7 @@ export function getAnimate(content: any): FormlyFieldConfig {
                     className: 'w-full',
                     defaultValue: content?.animate?.gsap?.trigger?.markers ?? false,
                     props: {
-                      label: '调试',
+                      label: 'BUILDER.FACTORY.GSAP_MARKERS',
                     },
                   },
                 ],
@@ -496,21 +497,23 @@ export function getAnimate(content: any): FormlyFieldConfig {
         hooks: {
           onInit: (formGroup: FormlyFieldConfig) => {
             const { form } = formGroup;
-            form?.valueChanges.subscribe((value: any) => {
-              const {
-                animate: { aos, gsap },
-              } = value;
-              if (aos?.enable) {
-                form
-                  .get(['animate', 'gsap', 'enable'])
-                  ?.patchValue(false, { onlySelf: true, emitEvent: true });
-              }
-              if (gsap?.enable) {
-                form
-                  .get(['animate', 'aos', 'enable'])
-                  ?.patchValue(false, { onlySelf: true, emitEvent: true });
-              }
-            });
+            return form!.valueChanges.pipe(
+              tap((value: any) => {
+                const {
+                  animate: { aos, gsap },
+                } = value;
+                if (aos?.enable) {
+                  form
+                    ?.get(['animate', 'gsap', 'enable'])
+                    ?.patchValue(false, { onlySelf: true, emitEvent: true });
+                }
+                if (gsap?.enable) {
+                  form
+                    ?.get(['animate', 'aos', 'enable'])
+                    ?.patchValue(false, { onlySelf: true, emitEvent: true });
+                }
+              })
+            );
           },
         },
       },

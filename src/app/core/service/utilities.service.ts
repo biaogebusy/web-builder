@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScreenService } from './screen.service';
@@ -102,10 +101,6 @@ export class UtilitiesService {
     return libraries[library][from][type];
   }
 
-  getIndexTitle(title: string): string {
-    return title.substring(0, 1);
-  }
-
   get fullYear(): number {
     return new Date().getFullYear();
   }
@@ -118,6 +113,7 @@ export class UtilitiesService {
       ...config,
     });
   }
+
   loadScript(src: string, id?: string, defer?: boolean): Promise<void> {
     if (!this.screenService.isPlatformBrowser()) {
       return Promise.resolve();
@@ -150,17 +146,15 @@ export class UtilitiesService {
         script.id = id;
       }
 
-      // 设置加载完成回调
       script.onload = () => {
         script.dataset.loaded = 'true';
-        script.onload = null; // 清理事件处理器
+        script.onload = null;
         script.onerror = null;
         resolve();
       };
 
-      // 设置错误处理
       script.onerror = error => {
-        script.remove(); // 移除失败脚本
+        script.remove();
         reject(new Error(`Failed to load script: ${src}`, { cause: error }));
       };
 
@@ -217,51 +211,6 @@ export class UtilitiesService {
     }
   }
 
-  getFileType(href: string): string {
-    if (!href) {
-      return '';
-    }
-    const url = href.toLowerCase();
-    const pdfReg = /^.+(\.pdf)/;
-    const svgReg = /^.+(\.svg)/;
-    const txtReg = /^.+(\.txt)/;
-    const wordReg = /^.+(\.doc|\.docx)/;
-    const excelReg = /^.+(\.xls|\.xlsx)/;
-    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp|\.gif|\.webp)/;
-    if (pdfReg.test(url)) {
-      return 'pdf';
-    }
-    if (svgReg.test(url)) {
-      return 'svg';
-    }
-    if (txtReg.test(url)) {
-      return 'txt';
-    }
-    if (wordReg.test(url)) {
-      return 'word';
-    }
-    if (excelReg.test(url)) {
-      return 'excel';
-    }
-    if (jpgReg.test(url)) {
-      return 'picture';
-    }
-    return '';
-  }
-
-  getDatesInRange(startDate: Date, endDate: Date, formarDate: string): string[] {
-    const date = new Date(startDate.getTime());
-
-    const dates = [];
-
-    while (date <= endDate) {
-      dates.push(formatDate(date, formarDate, 'en-US'));
-      date.setDate(date.getDate() + 1);
-    }
-
-    return dates;
-  }
-
   copy(content: any): void {
     this.clipboard.copy(content);
   }
@@ -311,7 +260,6 @@ export class UtilitiesService {
               },
             });
             if (from) {
-              // 从一个状态到当前状态
               const vars = omitBy(from, value => {
                 return isNil(value) || isNaN(value);
               });
@@ -339,105 +287,13 @@ export class UtilitiesService {
     }
   }
 
-  getScroller(): HTMLElement | Window {
-    const scroller = document.getElementById('gsap-scroller');
+  private getScroller(): HTMLElement | Window {
+    const scroller = this.document.getElementById('gsap-scroller');
     if (scroller) {
       return scroller;
     } else {
       return window;
     }
-  }
-
-  generatePath(contenteditableElement: any): string {
-    // 注意：get path只能在 component-item 区域使用
-    let path = contenteditableElement.getAttribute('data-path') || '';
-    let element = contenteditableElement;
-    while (
-      element &&
-      element.parentNode &&
-      !element.parentNode.classList.contains('component-item')
-    ) {
-      const dataPath = element.parentNode.getAttribute('data-path');
-      if (dataPath) {
-        path = `${dataPath}.${path}`;
-      }
-      element = element.parentNode;
-    }
-    // 如果尾部为"."则去除，builder layout的场景
-    return path.replace(/[.]*$/, '');
-  }
-
-  chunkHTMLByBlocks(content: string): string[] {
-    const chunks: string[] = [];
-    const stack: { tag: string; startIndex: number }[] = [];
-    if (!content) {
-      return chunks;
-    }
-
-    // 匹配所有 HTML 标签，包括起始和结束标签
-    const tagRegex = /<\/?([a-zA-Z0-9-]+)[^>]*>/g;
-
-    let match: RegExpExecArray | null;
-    let lastIndex = 0;
-
-    while ((match = tagRegex.exec(content)) !== null) {
-      const fullMatch = match[0]; // 完整的标签
-      const tagName = match[1]; // 标签名
-      const isClosingTag = fullMatch.startsWith('</'); // 是否是结束标签
-      const currentIndex = match.index;
-
-      if (!isClosingTag) {
-        // 起始标签，压入堆栈
-        stack.push({ tag: tagName, startIndex: currentIndex });
-      } else {
-        // 闭合标签，匹配堆栈中的起始标签
-        const lastTag = stack.pop();
-        if (lastTag && lastTag.tag === tagName) {
-          // 提取完整块内容
-          const chunk = content.slice(lastTag.startIndex, currentIndex + fullMatch.length);
-          if (stack.length === 0) {
-            // 只有在栈为空时，才视为一个完整块
-            chunks.push(chunk);
-            lastIndex = currentIndex + fullMatch.length;
-          }
-        }
-      }
-    }
-
-    // 如果解析后有剩余内容，直接作为一个块添加
-    if (lastIndex < content.length) {
-      const remainingContent = content.slice(lastIndex).trim();
-      if (remainingContent) {
-        chunks.push(remainingContent);
-      }
-    }
-
-    return chunks;
-  }
-
-  // 安全插入分块内容
-  insertChunkSafely(editor: any, chunk: string): void {
-    const currentLength = editor.getLength();
-    editor.clipboard.dangerouslyPasteHTML(currentLength - 1, chunk);
-  }
-
-  lazyLoadContent(quillInstance: any, contentChunks: string[]): void {
-    if (!quillInstance) {
-      return;
-    }
-
-    let chunkIndex = 0;
-    const interval = setInterval(() => {
-      if (chunkIndex >= contentChunks.length) {
-        clearInterval(interval);
-        return;
-      }
-
-      const chunk = contentChunks[chunkIndex];
-      this.insertChunkSafely(quillInstance, chunk);
-
-      chunkIndex++;
-    }, 100); // 每 100ms 加载一块内容
   }
 
   intersectionObserver(selecter: string, root: Element | Document): void {
@@ -450,10 +306,8 @@ export class UtilitiesService {
       entries => {
         entries.forEach((entry: any) => {
           if (entry.isIntersecting) {
-            // 元素进入视口
             entry.target.classList.add('aos-animate');
           } else {
-            // 元素离开视口
             entry.target.classList.remove('aos-animate');
           }
         });
@@ -461,41 +315,10 @@ export class UtilitiesService {
       {
         root,
         threshold: 0.1,
-        // 添加rootMargin来控制触发边界
-        rootMargin: '70px 0px -100px 0px', // 底部100px范围内不触发
+        rootMargin: '70px 0px -100px 0px',
       }
     );
 
     animateElement.forEach((el: any) => observer.observe(el));
-  }
-
-  getImageSize(url: string): Promise<{ width: number; height: number }> {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => {
-        resolve({
-          width: img.naturalWidth,
-          height: img.naturalHeight,
-        });
-      };
-      img.onerror = reject;
-      img.src = url;
-    });
-  }
-
-  readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const result = e.target?.result;
-        if (result) {
-          resolve(result as ArrayBuffer);
-        } else {
-          reject(false);
-        }
-      };
-      reader.onerror = e => reject(e);
-      reader.readAsArrayBuffer(file);
-    });
   }
 }

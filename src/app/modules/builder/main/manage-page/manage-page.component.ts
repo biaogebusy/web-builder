@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { pageContentFactory } from '@core/factory/factory';
@@ -7,6 +7,7 @@ import { PAGE_CONTENT } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-manage-page',
   templateUrl: './manage-page.component.html',
   styleUrl: './manage-page.component.scss',

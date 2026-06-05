@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   inject,
-  output
+  output,
+  input
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,9 +32,9 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
   ],
 })
 export class SearchSidebarComponent {
-  @Input() fields: FormlyFieldConfig[];
-  @Input() label: ISearchLabel;
-  @Input() form: UntypedFormGroup;
+  readonly fields = input<FormlyFieldConfig[]>();
+  readonly label = input<ISearchLabel>({} as ISearchLabel);
+  readonly form = input.required<UntypedFormGroup>();
   model: any = {};
   readonly modelChange = output<any>();
 
@@ -47,7 +47,7 @@ export class SearchSidebarComponent {
   }
 
   clear(): void {
-    this.form.reset();
+    this.form().reset();
     this.cd.detectChanges();
   }
 }

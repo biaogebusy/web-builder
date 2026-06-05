@@ -1,14 +1,15 @@
-@for (item of comments; track item; let i = $index; let isLast = $last) {
+@if (content(); as c) {
+@for (item of comments(); track item; let i = $index; let isLast = $last) {
   <div class="item p-y-sm p-x-sm">
     <a class="anchor" [id]="'q-' + item.id"></a>
     <div class="comment-box">
       <app-media-object [content]="item.author" />
       @if (onShow(item)) {
         <div class="comment-body" [innerHTML]="item.content | safeHtml"></div>
-        @if (content.comment) {
+        @if (c.comment) {
           @if (showActions && item.level === 1) {
             <app-comment-actions
-              [config]="content.comment"
+              [config]="c.comment"
               [item]="item"
               [i]="i"
               [currentId]="currentId"
@@ -24,7 +25,7 @@
     @if (item.id === currentId) {
       <div class="inline-editor p-y-sm p-x-sm m-bottom">
         <app-comment-form
-          [content]="content"
+          [content]="c"
           (cancel)="onCancel()"
           [commentContent]="currentData"
           [commentId]="item.id"
@@ -34,8 +35,9 @@
     }
     @if (item?.child && item?.child?.length) {
       <div class="item-child m-y-xs">
-        <app-comment-item [comments]="item.child" [content]="content" />
+        <app-comment-item [comments]="item.child" [content]="c" />
       </div>
     }
   </div>
+}
 }

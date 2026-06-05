@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { IBox } from '@core/interface/widgets/IBox';
@@ -18,7 +18,7 @@ import { LinkComponent } from '../link/link.component';
   imports: [IconComponent, ImgComponent, LinkComponent, ContenteditDirective, SafeHtmlPipe],
 })
 export class BoxComponent {
-  @Input() content: IBox;
+  readonly content = input<IBox>();
   constructor() {}
 
 }

@@ -8,7 +8,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
       {
         key: 'options',
         props: {
-          label: '视频',
+          label: 'BUILDER.FACTORY.TAB_LABEL_VIDEO',
         },
         fieldGroup: [
           {
@@ -16,18 +16,18 @@ export function getVideo(widget: any): FormlyFieldConfig {
             key: 'autoplay',
             defaultValue: widget.options.autoplay,
             props: {
-              label: '自动播放',
+              label: 'BUILDER.FACTORY.AUTOPLAY',
               options: [
                 {
-                  label: '否',
+                  label: 'BUILDER.FACTORY.NO',
                   value: false,
                 },
                 {
-                  label: '是',
+                  label: 'BUILDER.FACTORY.YES',
                   value: true,
                 },
                 {
-                  label: '播放并静音',
+                  label: 'BUILDER.FACTORY.PLAY_MUTED',
                   value: 'muted',
                 },
               ],
@@ -38,7 +38,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
             key: 'loop',
             defaultValue: widget.options.loop ?? false,
             props: {
-              label: '循环播放',
+              label: 'BUILDER.FACTORY.VIDEO_LOOP',
             },
           },
           {
@@ -46,44 +46,26 @@ export function getVideo(widget: any): FormlyFieldConfig {
             key: 'controls',
             defaultValue: widget.options.controls ?? true,
             props: {
-              label: '控制条',
+              label: 'BUILDER.FACTORY.VIDEO_CONTROLS',
             },
           },
-          // {
-          //   type: 'input',
-          //   key: 'width',
-          //   defaultValue: widget.options.width ?? 200,
-          //   props: {
-          //     label: 'W',
-          //     type: 'number',
-          //   },
-          // },
-          // {
-          //   type: 'input',
-          //   key: 'height',
-          //   defaultValue: widget.options.height ?? 100,
-          //   props: {
-          //     label: 'H',
-          //     type: 'number',
-          //   },
-          // },
           {
             type: 'select',
             key: 'mode',
             defaultValue: widget.options.mode,
             props: {
-              label: '适配模式',
+              label: 'BUILDER.FACTORY.VIDEO_FIT',
               options: [
                 {
-                  label: '无',
+                  label: 'BUILDER.FACTORY.NONE',
                   value: 'none',
                 },
                 {
-                  label: '按比例铺满',
+                  label: 'BUILDER.FACTORY.VIDEO_FIT_COVER',
                   value: 'cover',
                 },
                 {
-                  label: '完整显示',
+                  label: 'BUILDER.FACTORY.VIDEO_FIT_CONTAIN',
                   value: 'contain',
                 },
               ],
@@ -94,7 +76,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
             key: 'fluid',
             defaultValue: widget.options.fluid,
             props: {
-              label: '自适应',
+              label: 'BUILDER.FACTORY.VIDEO_FLUID',
             },
           },
           {
@@ -103,8 +85,8 @@ export function getVideo(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.options.aspectRatio,
             props: {
-              label: '播放比例',
-              placeholder: '例如：16:9 | 1068:720',
+              label: 'BUILDER.FACTORY.VIDEO_RATIO',
+              placeholder: 'BUILDER.FACTORY.VIDEO_RATIO_HINT',
             },
           },
           {
@@ -113,9 +95,9 @@ export function getVideo(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.options.poster,
             props: {
-              updateLabel: '更新封面',
-              addLabel: '设置封面',
-              deleteLabel: '删除',
+              updateLabel: 'BUILDER.FACTORY.POSTER_UPDATE',
+              addLabel: 'BUILDER.FACTORY.POSTER_ADD',
+              deleteLabel: 'BUILDER.FACTORY.POSTER_DELETE',
             },
           },
           {
@@ -124,7 +106,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
             defaultValue: widget.options.sources,
             className: 'w-full',
             props: {
-              addText: '新增',
+              addText: 'BUILDER.FACTORY.ADD_NEW',
             },
             fieldArray: {
               fieldGroup: [
@@ -134,7 +116,7 @@ export function getVideo(widget: any): FormlyFieldConfig {
                   className: 'w-full',
                   defaultValue: widget.options.sources[0].src,
                   props: {
-                    label: '视频地址',
+                    label: 'BUILDER.FACTORY.VIDEO_URL',
                   },
                 },
               ],

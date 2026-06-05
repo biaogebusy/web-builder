@@ -9,16 +9,16 @@
         您上次登录时间：{{ user.login | date: 'YYYY-MM-dd hh:mm' }}
       </div>
     }
-    @for (item of content.content; track item) {
+    @for (item of content().content; track item) {
       <app-dynamic-component class="w-full mt-5" [inputs]="item" />
     }
-    @if (content.menu) {
+    @if (content().menu) {
       <div class="menus">
         <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu" class="item">
-          @for (action of content.menu; track action) {
+          @for (action of content().menu; track action) {
             <button mat-menu-item>
               <app-dynamic-component [inputs]="action" />
             </button>

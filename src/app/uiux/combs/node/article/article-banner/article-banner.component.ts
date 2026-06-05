@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
 
@@ -13,7 +13,7 @@ import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
   imports: [BgImgComponent],
 })
 export class ArticleBannerComponent {
-  @Input() content: any;
+  readonly content = input.required<any>();
   constructor() {}
 
 }

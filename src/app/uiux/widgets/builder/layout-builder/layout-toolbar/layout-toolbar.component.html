@@ -15,12 +15,12 @@
       icon: { svg: 'tune-vertical-variant' },
     }"
   />
-  @let elements = lbContent.elements;
+  @let elements = lbContent().elements;
   <mat-menu #menu="matMenu" class="layout-toolbar-menu">
     <button
-      [disabled]="!(i > 0 && i < elements.length)"
+      [disabled]="!(i() > 0 && i() < elements.length)"
       mat-menu-item
-      (click)="onMoveCol('left', elements, toolbar, i)"
+      (click)="onMoveCol('left', elements, toolbar, i())"
     >
       <div class="menu-item-inner">
         <app-icon [content]="{ svg: 'chevron-left' }"></app-icon>
@@ -29,8 +29,8 @@
     </button>
     <button
       mat-menu-item
-      [disabled]="!(i > -1 && i < elements.length - 1)"
-      (click)="onMoveCol('right', elements, toolbar, i)"
+      [disabled]="!(i() > -1 && i() < elements.length - 1)"
+      (click)="onMoveCol('right', elements, toolbar, i())"
     >
       <div class="menu-item-inner">
         <app-icon [content]="{ svg: 'chevron-right' }"></app-icon>
@@ -38,7 +38,7 @@
       </div>
     </button>
     <mat-divider />
-    <button mat-menu-item (click)="addBlock('layout', lbContent)">
+    <button mat-menu-item (click)="addBlock('layout', lbContent())">
       <div class="menu-item-inner">
         <app-icon [content]="{ svg: 'plus' }"></app-icon>
         <span>选择组件插入新一栏</span>
@@ -51,7 +51,7 @@
       </div>
     </button>
     <mat-divider />
-    <button mat-menu-item (click)="onLayoutSettings(layout, toolbar)">
+    <button mat-menu-item (click)="onLayoutSettings(layout(), toolbar)">
       <div class="menu-item-inner">
         <app-icon [content]="{ svg: 'responsive' }"></app-icon>
         <span>当前栏配置</span>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,7 @@ import { LinkComponent } from '../link/link.component';
 export class MenuListComponent implements OnInit {
   private screenService = inject(ScreenService);
 
-  @Input() content: IMenuList;
+  readonly content = input.required<IMenuList>();
   list: IMenuListItem[];
   initList: IMenuListItem[];
   expand = false;
@@ -36,7 +36,7 @@ export class MenuListComponent implements OnInit {
   }
 
   initContent(expand: boolean): void {
-    const lists = this.content.elements;
+    const lists = this.content().elements;
     this.initList = lists;
     this.updateList(this.expand);
   }

@@ -5,6 +5,7 @@ import {
   AfterViewInit,
   DOCUMENT,
   afterEveryRender,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -27,6 +28,7 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
 import { BrandingModule } from '@core/branding/branding.module';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss'],

@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
 import type { ICard1v5 } from '@core/interface/widgets/ICard';
@@ -16,7 +16,7 @@ import { LinkComponent } from '../../link/link.component';
   imports: [IconComponent, LinkComponent, ContenteditDirective],
 })
 export class Card1v5Component {
-  @Input() content: ICard1v5;
+  readonly content = input<ICard1v5>();
   constructor() {}
 
 }

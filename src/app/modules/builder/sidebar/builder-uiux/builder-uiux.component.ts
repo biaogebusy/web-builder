@@ -12,6 +12,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { TagsService } from '@core/service/tags.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { UIUX } from '@core/token/token-providers';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { BuilderPanelComponent } from '../builder-panel/builder-panel.component';
 
@@ -27,10 +28,11 @@ export class BuilderUiuxComponent implements OnInit {
   public uiux$ = inject<Observable<any[]>>(UIUX);
   private tagService = inject(TagsService);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
   public libaries = signal<any[]>([]);
 
   ngOnInit(): void {
-    this.tagService.setTitle('页面编辑工作区');
+    this.tagService.setTitle(this.translate.instant('BUILDER.UIUX.PAGE_TITLE'));
     this.uiux$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(libaries => {
       const [first, ...uiux] = libaries;
       this.libaries.set(uiux);

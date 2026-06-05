@@ -1,23 +1,27 @@
 <div class="list">
-  @if (loading) {
+  @if (loading()) {
     <div class="loading-wrap m-y">
       <app-spinner [content]="{ color: 'primary', size: 40 }" />
     </div>
   }
-  @if (!loading) {
-    @if (links) {
-      @for (item of content; track item; let i = $index) {
+  @if (!loading()) {
+    @if (links(); as linksValue) {
+      @if (content(); as listItems) {
+      @for (item of listItems; track item; let i = $index) {
         <app-showcase-3v3 [attr.data-path]="i" [content]="item" />
       }
-      <app-pagination-links (pageChange)="onPageChange($event)" [links]="links" />
+      }
+      <app-pagination-links (pageChange)="onPageChange($event)" [links]="linksValue" />
     }
-    @if (pager) {
+    @if (pager(); as pagerValue) {
+      @if (content(); as listItems) {
       @for (
-        item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p };
+        item of listItems | paginate: { itemsPerPage: pagerValue.itemsPerPage || 20, currentPage: p };
         track item;
         let i = $index
       ) {
-        <app-showcase-3v3 [attr.data-path]="i" [content]="item" />
+        <app-showcase-3v3 [attr.data-path]="i" [content]="$any(item)" />
+      }
       }
       <app-pagination (pageChange)="p = $event" />
     }

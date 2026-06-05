@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input
 } from '@angular/core';
 import type { ILink } from '@core/interface/widgets/ILink';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
@@ -15,7 +15,7 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
   imports: [IconComponent, LinkComponent],
 })
 export class BreadcrumbComponent {
-  @Input() content: ILink[];
+  readonly content = input<ILink[]>();
   constructor() {}
 
 }

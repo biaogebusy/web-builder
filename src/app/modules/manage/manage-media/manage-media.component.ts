@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, inject, ViewChild, DestroyRef, signal } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, signal, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -34,8 +34,10 @@ import { FormlyComponent } from '@uiux/combs/form/formly/formly.component';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-manage-media',
   templateUrl: './manage-media.component.html',
   styleUrls: ['./manage-media.component.scss'],
@@ -54,13 +56,14 @@ import { LoadingComponent } from '@uiux/widgets/loading/loading.component';
     BtnComponent,
     IconComponent,
     LoadingComponent,
+    TranslateModule,
   ],
 })
 export class ManageMediaComponent implements OnInit {
   private builderConfig = inject<Observable<IBuilderConfig>>(BUILDER_CONFIG);
   public mediaAssets$ = inject<Observable<IManageAssets>>(MEDIA_ASSETS);
 
-  @Input() content: IManageMedia;
+  readonly content = input.required<IManageMedia>();
   public form = new UntypedFormGroup({
     page: new FormControl(0),
   });
@@ -78,9 +81,9 @@ export class ManageMediaComponent implements OnInit {
   private screenService = inject(ScreenService);
   private manageService = inject(ManageService);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
 
-  @ViewChild('uploadDrawer', { static: false })
-  uploadDrawer: MatDrawer;
+  readonly uploadDrawer = viewChild<MatDrawer>('uploadDrawer');
 
   defaultField: FormlyFieldConfig[] = [
     {
@@ -90,7 +93,7 @@ export class ManageMediaComponent implements OnInit {
       props: {
         type: 'string',
         appearance: 'fill',
-        label: '请输入关键词',
+        label: this.translate.instant('MANAGE.MEDIA.SEARCH_PLACEHOLDER'),
       },
       modelOptions: {
         updateOn: 'blur',
@@ -101,10 +104,12 @@ export class ManageMediaComponent implements OnInit {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.loading.set(true);
-      this.builderConfig.subscribe(config => {
-        this.manageMediaConfig.set(config.manageMedia);
-        this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
-      });
+      this.builderConfig
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(config => {
+          this.manageMediaConfig.set(config.manageMedia);
+          this.fields.set([...this.defaultField, ...config.manageMedia.sidebar.form]);
+        });
       this.onSearch({});
       this.form.valueChanges
         .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(1000), distinctUntilChanged())
@@ -131,6 +136,12 @@ export class ManageMediaComponent implements OnInit {
     this.contentState.mediaAssetsFormChange$.next(value);
   }
 
+  onEnter(event: Event): void {
+    event.preventDefault();
+    (event.target as HTMLElement)?.blur();
+    this.onSearch(this.form.value);
+  }
+
   onDelete(uuid: string): void {
     if (uuid) {
       this.loading.set(true);
@@ -142,7 +153,7 @@ export class ManageMediaComponent implements OnInit {
           this.onSearch(this.form.value);
         });
     } else {
-      this.util.openSnackbar('是否忘记了配置UUID？', 'ok');
+      this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.MISSING_UUID'), 'ok');
     }
   }
 
@@ -171,7 +182,7 @@ export class ManageMediaComponent implements OnInit {
     const progress = (deletedCount / totalFiles) * 100;
     this.progress = progress;
     if (progress === 100) {
-      this.util.openSnackbar('已全部删除', 'ok');
+      this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.ALL_DELETED'), 'ok');
     }
   }
 
@@ -213,14 +224,14 @@ export class ManageMediaComponent implements OnInit {
         tag: 'img',
         uuid: item.uuid ?? '',
       },
-      value: this.content,
-      time: this.content.time,
+      value: this.content(),
+      time: this.content().time,
     });
   }
 
   onCopy(item: IManageImg): void {
     this.util.copy(item.source || item.src || '');
-    this.util.openSnackbar('图片路径已复制', 'ok');
+    this.util.openSnackbar(this.translate.instant('MANAGE.MEDIA.PATH_COPIED'), 'ok');
   }
 
   onPreview(item: IManageImg): void {
@@ -260,9 +271,12 @@ export class ManageMediaComponent implements OnInit {
       data: config,
     });
 
-    dialog.afterClosed().subscribe(() => {
-      this.form.get('noCache')?.patchValue(true);
-      this.onSearch(this.form.value);
-    });
+    dialog
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.form.get('noCache')?.patchValue(true);
+        this.onSearch(this.form.value);
+      });
   }
 }

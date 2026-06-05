@@ -1,4 +1,4 @@
-@if (content) {
+@if (content(); as contentValue) {
   <div class="view-map">
     <div class="sidebar p-x-xs p-y-xs">
       <div class="sidebar-wrapper">
@@ -63,7 +63,7 @@
         <app-formly
           [classes]="'form-field-width-auto'"
           [form]="form"
-          [fields]="content.form"
+          [fields]="contentValue.form"
           [model]="model"
           (modelChange)="onModelChange($event)"
         />
@@ -79,7 +79,7 @@
       <app-map
         class="flex-12/12"
         [content]="{
-          city: content.params.city,
+          city: contentValue.params.city,
           elements: lists$ | async,
           model: model,
           form: form,

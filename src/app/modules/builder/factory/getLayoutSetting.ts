@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { tap } from 'rxjs/operators';
 import { getAnimate } from './getAnimate';
 import { getBgClasses, getGridLayoutConfig, getOverlay } from './getCommon';
 
@@ -86,20 +87,22 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             type: 'img-picker',
             defaultValue: layout?.bg?.img?.src ?? '',
             props: {
-              updateLabel: '更新背景图',
-              addLabel: '设置背景图',
-              deleteLabel: '删除',
+              updateLabel: 'BUILDER.FACTORY.BG_IMG_UPDATE',
+              addLabel: 'BUILDER.FACTORY.BG_IMG_ADD',
+              deleteLabel: 'BUILDER.FACTORY.BG_IMG_DELETE',
             },
             hooks: {
               onInit: (formGroup: any) => {
                 const { form } = formGroup;
-                form.valueChanges.subscribe((value: any) => {
-                  const srcArr = value.src.split(/\/|(?=\.\w+$)/);
-                  form.get('alt').patchValue(srcArr[srcArr.length - 2], {
-                    onlySelf: true,
-                    emitEvent: true,
-                  });
-                });
+                return form.valueChanges.pipe(
+                  tap((value: any) => {
+                    const srcArr = value.src.split(/\/|(?=\.\w+$)/);
+                    form.get('alt').patchValue(srcArr[srcArr.length - 2], {
+                      onlySelf: true,
+                      emitEvent: true,
+                    });
+                  })
+                );
               },
             },
           },
@@ -117,18 +120,18 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
             type: 'select',
             defaultValue: layout?.bg?.img?.classes ?? 'bg-cover',
             props: {
-              label: '背景填充方式',
+              label: 'BUILDER.FACTORY.BG_FILL_TYPE',
               options: [
                 {
-                  label: '按比例铺满 cover',
+                  label: 'BUILDER.FACTORY.BG_FIT_COVER',
                   value: 'bg-cover',
                 },
                 {
-                  label: '按比例完整显示 contain',
+                  label: 'BUILDER.FACTORY.BG_FIT_CONTAIN',
                   value: 'bg-contain',
                 },
                 {
-                  label: '拉伸铺满 fill',
+                  label: 'BUILDER.FACTORY.BG_FIT_FILL',
                   value: 'bg-fill',
                 },
               ],
@@ -143,7 +146,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         className: 'w-full',
         defaultValue: layout?.bg?.overlay ?? '',
         props: {
-          label: '蒙版不透明度',
+          label: 'BUILDER.FACTORY.OVERLAY_OPACITY',
           options: getOverlay,
         },
       },
@@ -152,7 +155,7 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
         type: 'select',
         defaultValue: layout?.bg?.classes ?? 'bg-fill-width',
         props: {
-          label: '预设背景色',
+          label: 'BUILDER.FACTORY.PRESET_BG',
           options: getBgClasses,
         },
       },
@@ -191,13 +194,13 @@ export function getLayoutSetting(layout: any): FormlyFieldConfig[] {
       fieldGroup: [
         {
           props: {
-            label: '基础',
+            label: 'BUILDER.FACTORY.BASIC_TAB',
           },
           fieldGroup: [...responsive, ...flexLayout],
         },
         {
           props: {
-            label: '样式',
+            label: 'BUILDER.FACTORY.STYLE_TAB',
           },
           fieldGroup: [...styles],
         },

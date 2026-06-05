@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { DestroyRef, Injectable, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { API_CHECK_LIST, ApiEndpoint } from '@modules/builder/main/config-check/api-check-list';
 import { Subject, concatMap, from, lastValueFrom } from 'rxjs';
 
@@ -8,6 +9,7 @@ import { Subject, concatMap, from, lastValueFrom } from 'rxjs';
 })
 export class ConfigCheckService {
   private http = inject(HttpClient);
+  private destroyRef = inject(DestroyRef);
   private resultSubject = new Subject<ApiTestResult>();
 
   // 暴露结果流
@@ -16,7 +18,10 @@ export class ConfigCheckService {
   // 启动检测（使用RxJS流处理）
   startCheck(): void {
     from(API_CHECK_LIST)
-      .pipe(concatMap(api => this.testEndpoint(api)))
+      .pipe(
+        concatMap(api => this.testEndpoint(api)),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe(result => {
         this.resultSubject.next(result);
       });

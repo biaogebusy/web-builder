@@ -7,7 +7,7 @@ export function getContact(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '联系我们',
+          label: 'BUILDER.FACTORY.CONTACT_US_TAB',
         },
         fieldGroup: [
           {
@@ -34,7 +34,7 @@ export function getContact(widget: any): FormlyFieldConfig {
                 type: 'input',
                 defaultValue: widget.action.label,
                 props: {
-                  label: '提交文字',
+                  label: 'BUILDER.FACTORY.SUBMIT_LABEL',
                 },
               },
             ],

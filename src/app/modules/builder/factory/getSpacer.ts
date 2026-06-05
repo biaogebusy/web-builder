@@ -16,7 +16,7 @@ export function getSpacer(widget: any): FormlyFieldConfig {
 }
 
 export const spacerOption = {
-  label: '间距大小',
+  label: 'BUILDER.FACTORY.SPACER_GAP',
   options: [
     {
       label: 'xs',
@@ -39,7 +39,7 @@ export const spacerOption = {
       value: 'xl',
     },
     {
-      label: '无',
+      label: 'BUILDER.FACTORY.NONE',
       value: 'none',
     },
   ],

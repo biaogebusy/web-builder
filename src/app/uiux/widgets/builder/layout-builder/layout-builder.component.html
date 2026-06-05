@@ -1,12 +1,12 @@
-@if (content) {
-  @let gap = content.gap;
-  @let style = content.style;
-  @let classes = content.classes;
-  @let vertical = content.vertical;
-  @let elements = content.elements;
-  @let horizontal = content.horizontal;
-  @let alignItems = content.alignItems;
-  @let wrapperClass = content.wrapperClass;
+@if (content(); as contentValue) {
+  @let gap = contentValue.gap;
+  @let style = contentValue.style;
+  @let classes = contentValue.classes;
+  @let vertical = contentValue.vertical;
+  @let elements = contentValue.elements;
+  @let horizontal = contentValue.horizontal;
+  @let alignItems = contentValue.alignItems;
+  @let wrapperClass = contentValue.wrapperClass;
 
   <div class="layout-builder" [class]="classes" [style]="style">
     <div
@@ -44,7 +44,7 @@
             <div class="toolbar">
               <app-layout-toolbar
                 [target]="layoutEle"
-                [lbContent]="content"
+                [lbContent]="contentValue"
                 [i]="i"
                 [layout]="layout"
               />
@@ -54,7 +54,7 @@
                 <app-btn
                   matTooltip="插入组件"
                   matTooltipPosition="above"
-                  (click)="addBlock('widget', content, placeholder)"
+                  (click)="addBlock('widget', contentValue, placeholder)"
                   [content]="{
                     label: '',
                     mode: 'icon',
@@ -92,7 +92,7 @@
                   <app-dynamic-component class="component" [inputs]="item" />
                   @if (showToolbar()) {
                     <div class="block-toolbar">
-                      <button mat-stroked-button (click)="addBlock('widget', content, widget)">
+                      <button mat-stroked-button (click)="addBlock('widget', contentValue, widget)">
                         <div class="block-toolbar-inner">
                           <app-icon class="mr-1" [content]="{ svg: 'arrow-right-bottom' }" />
                           <span>插入组件</span>

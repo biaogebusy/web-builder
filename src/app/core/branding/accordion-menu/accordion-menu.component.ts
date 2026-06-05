@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { IMainMenu } from '@core/interface/branding/IBranding';
@@ -25,7 +25,7 @@ import { DynamicMenuComponent } from '../dynamic-menu/dynamic-menu.component';
   ],
 })
 export class AccordionMenuComponent {
-  @Input() content: IMainMenu[] | undefined;
+  readonly content = input<IMainMenu[]>();
   panelOpenState = false;
   constructor() {}
 }

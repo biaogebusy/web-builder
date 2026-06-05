@@ -3,8 +3,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   inject,
+  input
 } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import type { ILottery, ILotteryForm } from '@core/interface/combs/ICalculator';
@@ -24,9 +24,9 @@ import { ChartComponent } from '@uiux/combs/chart/chart/chart.component';
 export class LotteryComponent implements AfterViewInit {
   private cd = inject(ChangeDetectorRef);
 
-  @Input() content: ILottery;
-  @Input() form = new UntypedFormGroup({});
-  @Input() model: any = {};
+  readonly content = input.required<ILottery>();
+  readonly form = input(new UntypedFormGroup({}));
+  readonly model = input<any>({});
   total = 0;
   promoteMoney = '0';
   minTotalMoney = 0;
@@ -34,13 +34,14 @@ export class LotteryComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    if (this.form.controls?.isPromote) {
-      this.form.controls.isPromote.setValue(false);
+    const form = this.form();
+    if (form.controls?.isPromote) {
+      form.controls.isPromote.setValue(false);
     }
   }
 
   onFormlyChange(value: ILotteryForm): void {
-    if (!this.form.valid) {
+    if (!this.form().valid) {
       return;
     }
     // max: 大额红包 min: 小额红包 promote: 提成
@@ -73,7 +74,7 @@ export class LotteryComponent implements AfterViewInit {
       },
     };
 
-    this.chart = { ...this.content.chart, ...data };
+    this.chart = { ...this.content().chart, ...data };
     this.cd.detectChanges();
   }
 }

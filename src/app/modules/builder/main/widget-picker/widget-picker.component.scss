@@ -146,11 +146,11 @@
 
   // ---------- 组件列表 ----------
   .widget-list {
-    @apply flex flex-col gap-2 p-3;
+    @apply grid grid-cols-2 gap-2 p-3;
   }
 
   .widget-card {
-    @apply flex items-center gap-3 w-full p-3 text-left cursor-pointer relative border rounded-[10px];
+    @apply flex flex-col w-full p-0 text-left cursor-pointer relative border rounded-[10px] overflow-hidden;
     background-color: var(--mat-sys-surface);
     border-color: var(--mat-sys-outline-variant);
     transition:
@@ -161,20 +161,20 @@
 
     &:hover {
       border-color: var(--mat-sys-primary);
-      background-color: color-mix(in oklch, var(--mat-sys-primary) 4%, var(--mat-sys-surface));
       box-shadow: var(--mat-sys-level1);
+      transform: translateY(-1px);
 
       .widget-title {
         color: var(--mat-sys-primary);
       }
 
       .widget-preview {
-        background-color: color-mix(in oklch, var(--mat-sys-primary) 14%, var(--mat-sys-surface));
+        background-color: color-mix(in oklch, var(--mat-sys-primary) 8%, var(--mat-sys-surface-container-low));
       }
     }
 
     &:active {
-      @apply scale-[0.99];
+      transform: scale(0.99);
     }
 
     &:focus-visible {
@@ -182,8 +182,24 @@
       outline-offset: 2px;
     }
 
+    .widget-preview {
+      @apply relative flex justify-center items-center w-full overflow-hidden aspect-video;
+      background-color: var(--mat-sys-surface-container-low);
+      border-bottom: 1px solid var(--mat-sys-outline-variant);
+      transition: background-color 0.15s ease;
+
+      img {
+        @apply w-full h-full object-cover;
+      }
+
+      .mat-icon {
+        @apply scale-[1.6];
+        color: var(--mat-sys-primary);
+      }
+    }
+
     .widget-info {
-      @apply flex-1 flex flex-col justify-center gap-0.5 min-w-0;
+      @apply flex flex-col gap-0.5 px-2.5 py-2 min-w-0;
     }
 
     .widget-title {
@@ -193,32 +209,17 @@
     }
 
     .widget-description {
-      @apply text-xs flex items-center gap-2 flex-wrap;
+      @apply text-xs truncate;
       color: var(--mat-sys-on-surface-variant);
     }
 
-    .widget-group-tag {
-      @apply text-[11px] px-1.5 py-0.5 rounded shrink-0;
-      background-color: color-mix(in oklch, var(--mat-sys-primary) 10%, transparent);
-      color: var(--mat-sys-primary);
-    }
-
-    .widget-mark {
-      @apply truncate opacity-70;
-    }
-
-    .widget-preview {
-      @apply flex justify-center items-center shrink-0 overflow-hidden w-16 h-12 rounded-lg;
-      background-color: var(--mat-sys-surface-container-low);
-      transition: background-color 0.15s ease;
-
-      img {
-        @apply max-w-full max-h-full object-contain;
-      }
-
-      .mat-icon {
-        color: var(--mat-sys-primary);
-      }
+    .widget-group-badge {
+      @apply absolute top-1.5 right-1.5 text-[10px] font-medium px-1.5 py-0.5 rounded max-w-[70%] truncate;
+      background-color: color-mix(in oklch, var(--mat-sys-surface) 80%, transparent);
+      color: var(--mat-sys-on-surface);
+      border: 1px solid var(--mat-sys-outline-variant);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
   }
 

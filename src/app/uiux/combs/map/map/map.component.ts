@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
   private theme = inject(THEME);
   private coreConfig = inject<ICoreConfig>(CORE_CONFIG);
 
-  readonly content = input<IMap>();
+  readonly content = input.required<IMap>();
   AMap: any;
   circle: any;
   markers: any[];
@@ -96,22 +96,25 @@ export class MapComponent implements OnInit {
       return;
     }
     this.mapLoading = true;
-    this.amapService.load(amapConfig).subscribe(
-      (AMap: any) => {
-        if (AMap) {
-          this.AMap = AMap;
-          this.geocoder = new AMap.Geocoder({
-            city: this.content()?.city || this.coreConfig?.amap?.city || '全国',
-          });
-          this.mapLoading = false;
-          this.cd.detectChanges();
-          this.renderMap();
+    this.amapService
+      .load(amapConfig)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
+        (AMap: any) => {
+          if (AMap) {
+            this.AMap = AMap;
+            this.geocoder = new AMap.Geocoder({
+              city: this.content()?.city || this.coreConfig?.amap?.city || '全国',
+            });
+            this.mapLoading = false;
+            this.cd.detectChanges();
+            this.renderMap();
+          }
+        },
+        error => {
+          console.error(error);
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      );
   }
 
   // https://lbs.amap.com/demo/javascript-api/example/geocoder/geocoding

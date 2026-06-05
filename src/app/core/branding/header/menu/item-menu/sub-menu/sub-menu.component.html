@@ -1,10 +1,10 @@
 <mat-menu class="sub-menu" #childMenu="matMenu" [overlapTrigger]="false">
-  @for (item of content.child; track item) {
+  @for (item of content().child; track item) {
     <div>
       <ng-container *reqRolesIf="item">
         @if (item.child && item.child.length > 0) {
           <div>
-            <button mat-menu-item [matMenuTriggerFor]="menu.childMenu">
+            <button mat-menu-item [matMenuTriggerFor]="menu.childMenu()">
               @if (item.icon) {
                 <mat-icon>{{ item.icon }}</mat-icon>
               }

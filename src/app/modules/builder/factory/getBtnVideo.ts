@@ -7,7 +7,7 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
     fieldGroup: [
       {
         props: {
-          label: '播放按钮',
+          label: 'BUILDER.FACTORY.PLAY_BTN',
         },
         fieldGroup: [
           {
@@ -16,22 +16,22 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
             className: 'w-full',
             defaultValue: widget.color,
             props: {
-              label: '颜色',
+              label: 'BUILDER.FACTORY.COLOR',
               options: [
                 {
-                  label: '无',
+                  label: 'BUILDER.FACTORY.NONE',
                   value: undefined,
                 },
                 {
-                  label: 'Primary',
+                  label: 'BUILDER.FACTORY.PRIMARY',
                   value: 'primary',
                 },
                 {
-                  label: 'Accent',
+                  label: 'BUILDER.FACTORY.ACCENT',
                   value: 'accent',
                 },
                 {
-                  label: 'Warn',
+                  label: 'BUILDER.FACTORY.WARN',
                   value: 'warn',
                 },
               ],
@@ -49,7 +49,7 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
                     className: 'w-full',
                     defaultValue: widget.video?.options?.aspectRatio,
                     props: {
-                      label: '播放比例',
+                      label: 'BUILDER.FACTORY.PLAY_RATIO',
                       options: [
                         {
                           label: '16:9',
@@ -79,7 +79,7 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
                     className: 'w-full',
                     defaultValue: widget.video?.options?.poster,
                     props: {
-                      label: '视频封面',
+                      label: 'BUILDER.FACTORY.VIDEO_POSTER',
                     },
                   },
                   {
@@ -88,7 +88,7 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
                     defaultValue: widget.video?.options?.sources,
                     className: 'w-full',
                     props: {
-                      addText: '新增',
+                      addText: 'BUILDER.FACTORY.ADD_NEW',
                     },
                     fieldArray: {
                       fieldGroup: [
@@ -98,7 +98,7 @@ export function getBtnVideo(widget: any): FormlyFieldConfig {
                           className: 'w-full',
                           defaultValue: widget.video?.options?.sources[0].src,
                           props: {
-                            label: '视频地址',
+                            label: 'BUILDER.FACTORY.VIDEO_URL',
                           },
                         },
                       ],

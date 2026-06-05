@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 
 @Component({
@@ -9,6 +9,6 @@ import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-compone
   imports: [DynamicComponentComponent],
 })
 export class HeaderBannerComponent {
-  @Input() content: any;
+  readonly content = input<any>();
   constructor() {}
 }

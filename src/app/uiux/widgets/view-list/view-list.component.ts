@@ -1,12 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
   ChangeDetectorRef,
   AfterViewInit,
   inject,
   DestroyRef,
+  input
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
@@ -53,11 +53,11 @@ import { TextComponent } from '../text/text.component';
 export class ViewListComponent extends BaseComponent implements OnInit, AfterViewInit {
   private user$ = inject<Observable<IUser>>(USER);
 
-  @Input() content: IViewList;
-  @Input() form = new UntypedFormGroup({
+  readonly content = input<IViewList>();
+  readonly form = input(new UntypedFormGroup({
     page: new UntypedFormControl(0),
-  });
-  @Input() model: any = {};
+}));
+  readonly model = input<any>({});
   public table: any;
   public loading = true;
   public pager: IPager;
@@ -84,9 +84,9 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.afterClosedDialog();
-      this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
-        this.form.get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
-        const mergeValue = merge(value, this.form.getRawValue());
+      this.form().valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
+        this.form().get('page')?.patchValue(0, { onlySelf: true, emitEvent: false });
+        const mergeValue = merge(value, this.form().getRawValue());
         const options = this.formService.handleRangeDate(mergeValue);
         this.getViews(options);
       });
@@ -94,29 +94,34 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   ngAfterViewInit(): void {
-    const emptyHidden = this.getParams(this.content, 'emptyHidden');
-    if (this.userSerivice.checkShow(this.content, this.user) && !emptyHidden) {
+    const emptyHidden = this.getParams(this.content(), 'emptyHidden');
+    if (this.userSerivice.checkShow(this.content(), this.user) && !emptyHidden) {
       this.canShow = true;
       this.cd.detectChanges();
     }
     if (this.first) {
-      this.getViews(this.form.value);
+      this.getViews(this.form().value);
       this.first = false;
     }
   }
 
   getViews(options = {}): void {
-    const isRole = this.userSerivice.checkShow(this.content, this.user);
+    const isRole = this.userSerivice.checkShow(this.content(), this.user);
     if (!isRole) {
       this.canShow = false;
       this.cd.detectChanges();
       return;
     }
     const params = this.getApiParams({ ...options, noCache: true });
-    const emptyHidden = this.getParams(this.content, 'emptyHidden');
+    const emptyHidden = this.getParams(this.content(), 'emptyHidden');
     this.loading = true;
+    const apiType = this.content()?.params?.apiType;
+    if (!apiType) {
+      this.loading = false;
+      return;
+    }
     this.nodeService
-      .fetch(this.content.params.apiType, params)
+      .fetch(apiType, params)
       .pipe(
         catchError((error: any) => {
           if (error.status === 403) {
@@ -144,10 +149,10 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
           this.cd.detectChanges();
         }
         this.table = {
-          header: this.content.header,
+          header: this.content()?.header || [],
           elements: res.rows,
-          classes: this.content?.tableClasses || '',
-          params: this.content?.tableParams || {},
+          classes: this.content()?.tableClasses || '',
+          params: this.content()?.tableParams || {},
         };
         this.pager = this.handlerPager(res.pager, res.rows.length);
         this.loading = false;
@@ -166,23 +171,27 @@ export class ViewListComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   clear(): void {
-    this.form.reset();
+    this.form().reset();
   }
 
   onPageChange(pageEvent: PageEvent): void {
     const { pageIndex } = pageEvent;
-    this.form.get('page')?.patchValue(pageIndex, { onlySelf: true, emitEvent: false });
-    const value = merge(this.model, this.form.getRawValue());
+    this.form().get('page')?.patchValue(pageIndex, { onlySelf: true, emitEvent: false });
+    const value = merge(this.model(), this.form().getRawValue());
     const options = this.formService.handleRangeDate(value);
     this.getViews(options);
   }
 
   onExport(): any {
-    const mergeValue = merge(this.model, this.form.getRawValue());
+    const mergeValue = merge(this.model(), this.form().getRawValue());
     const options = this.formService.handleRangeDate(mergeValue);
     const apiParams = this.getApiParams(options);
-    const params = this.content?.params;
-    const btnContent = this.content?.params?.export?.btn;
+    const content = this.content();
+    const params = content?.params;
+    if (!params) {
+      return;
+    }
+    const btnContent = content?.params?.export?.btn;
     let exportUrl = '';
     if (btnContent) {
       const api = params.apiType;

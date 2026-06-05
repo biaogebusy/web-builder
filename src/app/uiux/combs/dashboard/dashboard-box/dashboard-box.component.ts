@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal, ChangeDetectionStrategy, input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
@@ -16,6 +16,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, delay, map } from 'rxjs/operators';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-dashboard-box',
   templateUrl: './dashboard-box.component.html',
   styleUrls: ['./dashboard-box.component.scss'],
@@ -30,9 +31,9 @@ import { catchError, delay, map } from 'rxjs/operators';
   ],
 })
 export class DashboardBoxComponent extends BaseComponent implements OnInit {
-  @Input() content: IDashboardBox;
-  @Input() form = new UntypedFormGroup({});
-  @Input() model: any = {};
+  readonly content = input.required<IDashboardBox>();
+  readonly form = input(new UntypedFormGroup({}));
+  readonly model = input<any>({});
   widget$: Observable<any>;
   loading = signal(true);
 
@@ -44,10 +45,11 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.content?.params?.api) {
+    const content = this.content();
+    if (content?.params?.api) {
       this.getContent();
     } else {
-      this.widget$ = of(this.content.widget);
+      this.widget$ = of(content.widget);
       this.loading.set(false);
     }
   }
@@ -58,9 +60,9 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
   }
 
   getContent(options = {}): void {
-    const api = this.content.params?.api || '';
+    const api = this.content().params?.api || '';
     const params = this.getApiParams(options);
-    const type = this.content.widget.type;
+    const type = this.content().widget.type;
     this.loading.set(true);
     this.widget$ = this.nodeService.fetch(api, params).pipe(
       catchError(() => {
@@ -139,7 +141,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
                   },
                 ],
               },
-              this.content.widget
+              this.content().widget
             );
             break;
           case 'dynamic-table':
@@ -147,7 +149,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
               {
                 elements: rows,
               },
-              this.content.widget
+              this.content().widget
             );
             break;
         }
@@ -159,7 +161,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
   }
 
   reload(): void {
-    this.form.reset();
+    this.form().reset();
     this.getContent({ time: +new Date() });
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal, input } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { ScreenService } from '@core/service/screen.service';
@@ -27,13 +27,13 @@ import { DynamicMenuComponent } from '../../../dynamic-menu/dynamic-menu.compone
 export class ItemMenuComponent implements OnInit {
   private screenService = inject(ScreenService);
 
-  @Input() content: IMainMenu;
-  @Input() params: IHeaderParams;
+  readonly content = input.required<IMainMenu>();
+  readonly params = input.required<IHeaderParams>();
   public isMegaMenu = signal<boolean>(false);
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.isMegaMenu.set(!!this.params?.isMegaMenu);
+      this.isMegaMenu.set(!!this.params()?.isMegaMenu);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ShareModule } from '@share/share.module';
@@ -11,6 +11,8 @@ import { BuilderService } from '@core/service/builder.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { formatToExtraData, getPageParams } from '@core/util/builder-page.util';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-card-page',
@@ -20,10 +22,10 @@ import { BuilderState } from '@core/state/BuilderState';
   imports: [ShareModule, WidgetsModule],
 })
 export class CardPageComponent {
-  @Input() lists: any[];
-  @Input() params: any;
-  @Input() langs: ILanguage[];
-  @Input() user: IUser;
+  readonly lists = input<any[]>();
+  readonly params = input.required<any>();
+  readonly langs = input<ILanguage[]>();
+  readonly user = input.required<IUser>();
 
   private currentEditeTitle: string;
 
@@ -33,6 +35,7 @@ export class CardPageComponent {
   private destroyRef = inject(DestroyRef);
   private util = inject(UtilitiesService);
   private builderService = inject(BuilderService);
+  private translate = inject(TranslateService);
 
   loadPage(page: IPageMeta): void {
     this.router.navigate(['builder/page-list'], {
@@ -52,16 +55,22 @@ export class CardPageComponent {
         this.builder.loading$.next(false);
         if (targetlang === page.langcode) {
           // 已有翻译
-          this.util.openSnackbar(`已有${page.label}语言页面，正在载入`, 'ok');
-          this.builder.loadNewPage(this.builderService.formatToExtraData(page));
+          this.util.openSnackbar(
+            this.translate.instant('BUILDER.PAGE_LIST.TRANSLATION_EXISTS', { label: page.label }),
+            'ok'
+          );
+          this.builder.loadNewPage(formatToExtraData(page));
         } else {
           // 复制一份，新建翻译
           this.util.openSnackbar(
-            `正在载入${currentPage.title}，请修改页面内容为${targetlang}语言`,
+            this.translate.instant('BUILDER.PAGE_LIST.LOADING_TRANSLATION', {
+              title: currentPage.title,
+              lang: targetlang,
+            }),
             'ok'
           );
           this.builder.loadNewPage(
-            this.builderService.formatToExtraData({
+            formatToExtraData({
               langcode: currentPage.langcode,
               ...page,
               translation: true,
@@ -77,7 +86,7 @@ export class CardPageComponent {
     this.builderService.openPageSetting(
       page,
       '/api/v1/node/landing_page',
-      this.builderService.getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
+      getPageParams(['uid', 'group', 'cover', 'cover.field_media_image'])
     );
   }
 
@@ -85,7 +94,7 @@ export class CardPageComponent {
     const { target } = event;
     const {
       update: { api, type },
-    } = this.params;
+    } = this.params();
     if (target) {
       target.contentEditable = 'false';
       if (this.currentEditeTitle !== target.textContent.trim()) {
@@ -105,7 +114,7 @@ export class CardPageComponent {
                 uid: {
                   data: {
                     type: 'user--user',
-                    id: this.user.id,
+                    id: this.user().id,
                   },
                 },
               }
@@ -114,7 +123,10 @@ export class CardPageComponent {
             .subscribe(res => {
               if (res) {
                 this.builder.loading$.next(false);
-                this.util.openSnackbar(`已更新标题为${textContent}`, 'ok');
+                this.util.openSnackbar(
+                  this.translate.instant('BUILDER.CARD_PAGE.TITLE_UPDATED', { title: textContent }),
+                  'ok'
+                );
                 this.builder.currentPage.title = textContent;
                 this.builder.saveLocalVersions();
               }

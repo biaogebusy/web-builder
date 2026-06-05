@@ -2,7 +2,7 @@
   <mat-accordion>
     <mat-expansion-panel [expanded]="true" (afterExpand)="onAfterExpand()">
       <mat-expansion-panel-header>
-        <mat-panel-title> 配置 </mat-panel-title>
+        <mat-panel-title>{{ 'BUILDER.SETTINGS.TITLE' | translate }}</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
         <div class="cards">
@@ -53,7 +53,7 @@
         <app-btn
           (click)="reload()"
           [content]="{
-            label: '刷新',
+            label: 'BUILDER.SETTINGS.REFRESH' | translate,
             color: 'primary',
             icon: { svg: 'reload', inline: true },
           }"
@@ -61,7 +61,7 @@
         <app-btn
           (click)="addJSON()"
           [content]="{
-            label: '新建配置',
+            label: 'BUILDER.SETTINGS.NEW_CONFIG' | translate,
             color: 'primary',
             icon: { svg: 'pencil-plus', inline: true },
           }"

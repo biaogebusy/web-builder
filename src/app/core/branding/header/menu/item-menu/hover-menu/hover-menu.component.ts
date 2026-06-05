@@ -3,11 +3,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   ElementRef,
-  Input,
   OnInit,
   inject,
+  input
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import type { IMainMenu } from '@core/interface/branding/IBranding';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
@@ -30,8 +32,9 @@ export class HoverMenuComponent extends BaseComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
   private screenService = inject(ScreenService);
   private screenState = inject(ScreenState);
+  private destroyRef = inject(DestroyRef);
 
-  @Input() content: IMainMenu;
+  readonly content = input.required<IMainMenu>();
   active: boolean;
 
   ngOnInit(): void {
@@ -48,9 +51,10 @@ export class HoverMenuComponent extends BaseComponent implements OnInit {
       .pipe(
         mergeMap(event => {
           return of(event).pipe(delay(100), takeUntil(leave));
-        })
+        }),
+        takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe(event => {
+      .subscribe(() => {
         this.active = true;
         this.cd.detectChanges();
       });
@@ -59,19 +63,22 @@ export class HoverMenuComponent extends BaseComponent implements OnInit {
       .pipe(
         mergeMap(event => {
           return of(event).pipe(delay(100), takeUntil(enter));
-        })
+        }),
+        takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe(event => {
+      .subscribe(() => {
         this.active = false;
         this.cd.detectChanges();
       });
 
-    this.screenState.stickyMenu$.subscribe(sticky => {
-      if (!sticky) {
-        return;
-      }
-      this.active = false;
-      this.cd.detectChanges();
-    });
+    this.screenState.stickyMenu$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(sticky => {
+        if (!sticky) {
+          return;
+        }
+        this.active = false;
+        this.cd.detectChanges();
+      });
   }
 }

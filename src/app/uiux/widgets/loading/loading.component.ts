@@ -1,7 +1,8 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
 import { ILoading } from '@core/interface/widgets/IWidgets';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-loading',
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.scss',

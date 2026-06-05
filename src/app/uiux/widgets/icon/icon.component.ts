@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import type { IIcon } from '@core/interface/widgets/IIcon';
@@ -10,9 +10,9 @@ import type { IIcon } from '@core/interface/widgets/IIcon';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIconModule, MatBadgeModule],
   host: {
-    '[class.custom-icon]': '!!content?.svg',
+    '[class.custom-icon]': '!!content()?.svg',
   },
 })
 export class IconComponent {
-  @Input() content: IIcon;
+  readonly content = input<IIcon>();
 }

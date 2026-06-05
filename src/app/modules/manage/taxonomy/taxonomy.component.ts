@@ -1,11 +1,12 @@
 import {
   Component,
-  Input,
   OnInit,
   inject,
   ChangeDetectorRef,
   DestroyRef,
   signal,
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -27,6 +28,7 @@ import { NgPipesModule, StripTagsPipe } from 'ngx-pipes';
 import { Observable, catchError, of, tap } from 'rxjs';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-taxonomy',
   templateUrl: './taxonomy.component.html',
   styleUrl: './taxonomy.component.scss',
@@ -44,7 +46,7 @@ import { Observable, catchError, of, tap } from 'rxjs';
   ],
 })
 export class TaxonomyComponent implements OnInit {
-  @Input() content: ITaxonomy;
+  readonly content = input.required<ITaxonomy>();
   public items$: Observable<any>;
   public loading = signal<boolean>(false);
   private nodeService = inject(NodeService);
@@ -102,7 +104,7 @@ export class TaxonomyComponent implements OnInit {
     this.loading.set(true);
     const {
       params: { api },
-    } = this.content;
+    } = this.content();
     this.items$ = this.nodeService.fetch(api, params).pipe(
       tap(res => {
         this.loading.set(false);
@@ -127,7 +129,7 @@ export class TaxonomyComponent implements OnInit {
     }
     const {
       params: { api },
-    } = this.content;
+    } = this.content();
     if (!this.form.valid) {
       this.util.openSnackbar('请填写分类名');
       return;
@@ -161,7 +163,7 @@ export class TaxonomyComponent implements OnInit {
     }
     const {
       params: { api },
-    } = this.content;
+    } = this.content();
     this.nodeService
       .deleteEntity(api, item.id)
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -193,7 +195,7 @@ export class TaxonomyComponent implements OnInit {
     } = item;
     const {
       params: { api },
-    } = this.content;
+    } = this.content();
     this.loading.set(true);
     this.builderSerivce
       .updateAttributes(

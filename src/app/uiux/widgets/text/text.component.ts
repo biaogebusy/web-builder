@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ContenteditDirective } from '@core/directive/contentedit.directive';
@@ -8,6 +8,7 @@ import { DynamicComponentComponent } from '../builder/dynamic-component/dynamic-
 import { TitleComponent } from '../title/title.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-text',
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.scss'],
@@ -21,6 +22,6 @@ import { TitleComponent } from '../title/title.component';
   ],
 })
 export class TextComponent {
-  @Input() content: IText;
+  readonly content = input<IText>();
 
 }
